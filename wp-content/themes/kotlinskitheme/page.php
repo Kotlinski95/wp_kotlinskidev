@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<?php get_template_part('nav'); ?>
 <div id="content">
     <?php
     if ( have_posts() ) :

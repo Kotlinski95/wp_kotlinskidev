@@ -1,2 +1,45 @@
+# Ignore historical changes files
 .history
-wp-content/uploads/*
+
+# Ignore WordPress core files and directories
+/wp-admin/
+/wp-includes/
+
+# Ignore plugin and theme directories if you don’t want to include them in your repository
+/wp-content/plugins/*
+
+# But if you want to track custom themes and plugins, you can modify the above rules:
+# /wp-content/plugins/*
+# !/wp-content/plugins/custom-plugin/
+# /wp-content/themes/*
+# !/wp-content/themes/custom-theme/
+
+# Ignore uploaded files
+/wp-content/uploads/
+
+# Ignore the WordPress debug log
+wp-content/debug.log
+
+# Ignore the cache directory (if used by plugins)
+wp-content/cache/
+
+# Ignore local development files
+*.local
+*.env
+*.log
+
+# Ignore sensitive files
+*.sql
+*.sqlite
+*.bak
+
+# Ignore IDE/editor settings
+/.idea/
+/.vscode/
+/*.sublime-project
+/*.sublime-workspace
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+

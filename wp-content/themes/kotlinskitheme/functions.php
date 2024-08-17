@@ -7,4 +7,7 @@ require_once get_template_directory() . '/functions/enqueue-scripts.php';
 
 // Include customizer settings and functions
 require_once get_template_directory() . '/functions/customizer.php';
+
+// Include seo customizer settings and functions
+// require_once get_template_directory() . '/functions/seo-customizer.php';
 ?>
