@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /adriankotlinski/wp-admin/
+Allow: /adriankotlinski/wp-admin/admin-ajax.php
+
+# START YOAST BLOCK
+# ---------------------------
+User-agent: *
+Disallow: /wp-json/
+Disallow: /?rest_route=
+
+Sitemap: http://localhost:8888/adriankotlinski/sitemap_index.xml
+# ---------------------------
+# END YOAST BLOCK

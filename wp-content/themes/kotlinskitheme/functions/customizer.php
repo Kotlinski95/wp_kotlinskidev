@@ -101,3 +101,4 @@ function mytheme_customize_preview_js()
     );
 }
 add_action('customize_preview_init', 'mytheme_customize_preview_js');
+?>

@@ -16,3 +16,4 @@ function my_simple_theme_setup() {
     ) );
 }
 add_action( 'after_setup_theme', 'my_simple_theme_setup' );
+?>
