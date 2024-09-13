@@ -15,17 +15,17 @@ add_action('admin_menu', 'add_maintenance_mode_settings');
 // Display the settings page
 function maintenance_mode_settings_page()
 {
-    ?>
+?>
     <div class="wrap">
         <h1><?php _e('Maintenance Mode Settings', 'your-theme'); ?></h1>
         <form method="post" action="options.php">
             <?php
             settings_fields('maintenance_mode_options');
             do_settings_sections('maintenance-mode');
-            submit_button();?>
+            submit_button(); ?>
         </form>
     </div>
-    <?php
+<?php
 }
 
 // Register and define the settings
@@ -61,6 +61,12 @@ function maintenance_redirect()
 {
     // Check if maintenance mode is enabled
     $maintenance_mode_enabled = get_option('maintenance_mode_enabled', false);
+
+    // Check if the user is on the WordPress login page
+    if ($maintenance_mode_enabled && !is_admin() && $GLOBALS['pagenow'] === 'wp-login.php') {
+        return; // Don't redirect if on login page
+    }
+
     // If maintenance mode is enabled and user is not logged in or does not have the correct capability
     if (
         $maintenance_mode_enabled &&
