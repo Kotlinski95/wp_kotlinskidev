@@ -7,14 +7,14 @@
 >
   <head>
     <title>Kotlinskidev - Web development by Adrian Kotliński</title>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta
       name="description"
       content="Kotlinskidev by Adrian Kotliński
 Modern and efficient web development"
     />
     <link
-      href="https://kotlinskidev.com/wp-content/uploads/2023/11/kotlinskidev-favicon.webp"
+      href="https://kotlinskidev.com/wp-content/uploads/2024/09/cropped-adrian_kotlinski-filtr.webp"
       rel="shortcut icon"
       type="image/x-icon"
     />
@@ -33,7 +33,7 @@ Modern and efficient web development"
     />
     <meta
       property="og:image"
-      content="https://kotlinskidev.com/wp-content/uploads/2023/12/kotlinskidev-logo.png"
+      content="https://kotlinskidev.com/wp-content/uploads/2024/09/Kotlinskidev-transparent.webp"
     />
 
     <!-- Twitter Card -->
@@ -49,7 +49,7 @@ Modern and efficient web development"
     />
     <meta
       property="twitter:image"
-      content="https://kotlinskidev.com/wp-content/uploads/2023/12/kotlinskidev-logo.png"
+      content="https://kotlinskidev.com/wp-content/uploads/2024/09/Kotlinskidev-transparent.webp"
     />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,16 +69,17 @@ Modern and efficient web development"
       media="all"
     />
 
-    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:400&amp;display=swap"
     />
 
     <!-- Global Styles -->
     <style>
       #sp-page {
-        color: #dad1b3;
+        color: #ebebeb;
       }
 
       #sp-page .sp-header-tag-h1,
@@ -96,8 +97,8 @@ Modern and efficient web development"
       #sp-page h4,
       #sp-page h5,
       #sp-page h6 {
-        color: #dad1b3;
-        font-family: 'Times New Roman', Times, serif;
+        color: #ebebeb;
+        font-family: 'Hind', Times, serif;
         font-weight: 700;
         font-style: normal;
       }
@@ -114,14 +115,8 @@ Modern and efficient web development"
         background-color: #dad1b3;
       }
 
-      body {
-        background-color: #ffffff !important;
-        background-image: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.45),
-            rgba(0, 0, 0, 0.45)
-          ),
-          url('https://kotlinskidev.com/wp-content/uploads/2023/11/cmp-desktop.webp');
+      .sp-image-block {
+        margin-top: -70px;
       }
 
       @media only screen and (max-width: 480px) {
@@ -177,9 +172,22 @@ Modern and efficient web development"
         #sp-button-parent-f0fjky {
           text-align: center !important;
         }
+
+        .sp-image-block {
+          margin-top: 0px;
+        }
+
+        .sp-el-section,
+        .sp-el-row {
+          padding-top: 0px !important;
+          padding-bottom: 0px !important;
+        }
       }
 
       @media only screen and (min-width: 481px) and (max-width: 1024px) {
+        .sp-image-block {
+          margin-top: -60px;
+        }
       }
 
       @media only screen and (min-width: 1024px) {
@@ -190,7 +198,7 @@ Modern and efficient web development"
         overflow: hidden;
         font-size: 16px;
         min-height: 100svh;
-        background: black;
+        background: rgb(10, 10, 10);
       }
 
       @supports not (min-height: 100svh) {
@@ -229,8 +237,8 @@ Modern and efficient web development"
       }
 
       .mail-button:hover {
-        background: transparent !important;
-        color: #dad1b3 !important;
+        background: #ebebeb !important;
+        color: #0a0a0a !important;
       }
     </style>
 
@@ -265,13 +273,8 @@ Modern and efficient web development"
       class="spBgcoverscroll sp-content-4"
       style="
         background-color: rgb(255, 255, 255);
-        background-image: linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.45),
-            rgba(0, 0, 0, 0.45)
-          ),
-          url('https://kotlinskidev.com/wp-content/uploads/2023/11/cmp-desktop.webp') !important;
-        font-family: 'Times New Roman', Times, serif;
+        background-image: url('https://kotlinskidev.com/wp-content/uploads/2024/09/kotlinskidev-coming-soon-compressed.webp') !important;
+        font-family: 'Hind', Times, serif;
         font-weight: 400;
       "
     >
@@ -281,7 +284,7 @@ Modern and efficient web development"
         style="
           width: 100%;
           max-width: 100%;
-          padding: 10px 10px 10px 80px;
+          padding: 0 10px 0 80px;
           border-radius: 10px;
         "
       >
@@ -293,9 +296,8 @@ Modern and efficient web development"
           <div
             id="sp-ovbx1s"
             class="sp-el-col sp-w-full"
-            style="width: calc(100% - 0px);"
+            style="width: calc(100% - 0px); height: 100vh; display: flex; justify-content: space-between; flex-direction: column;"
           >
-            <div id="sp-niijfv" class="sp-spacer" style="height: 12px;"></div>
             <figure
               id="sp-xp7nhn"
               class="sp-image-wrapper sp-el-block"
@@ -304,74 +306,72 @@ Modern and efficient web development"
               <div>
                 <span>
                   <img
-                    src="https://kotlinskidev.com/wp-content/uploads/2023/12/kotlinskidev-logo.webp"
+                    src="https://kotlinskidev.com/wp-content/uploads/2024/09/Kotlinskidev-transparent.webp"
                     alt="KotlinskiDev Logo"
-                    width="629"
-                    height="396"
+                    width="500"
+                    height="500"
                     srcset="
-                      https://kotlinskidev.com/wp-content/uploads/2023/12/kotlinskidev-logo-150x150.webp 150w,
-                      https://kotlinskidev.com/wp-content/uploads/2023/12/kotlinskidev-logo-300x189.webp 300w,
-                      https://kotlinskidev.com/wp-content/uploads/2023/12/kotlinskidev-logo.webp         629w
+                      https://kotlinskidev.com/wp-content/uploads/2024/09/Kotlinskidev-transparent-150x150.webp 150w,
+                      https://kotlinskidev.com/wp-content/uploads/2024/09/Kotlinskidev-transparent-300x300.webp 300w,
+                      https://kotlinskidev.com/wp-content/uploads/2024/09/Kotlinskidev-transparent.webp         500w
                     "
-                    class="sp-image-block-xp7nhn"
-                    style="width: 629px;"
+                    class="sp-image-block"
+                    style="width: 500px;"
                   />
                 </span>
               </div>
             </figure>
-            <div id="sp-jknss8" class="sp-spacer" style="height: 39px;"></div>
-            <h1
-              id="sp-y0sc75"
-              class="sp-css-target sp-el-block sp-headline-block-y0sc75 sp-type-header"
-              style="font-size: 54px; text-align: center; margin: 0px;"
-            >
-              Website under development!
-            </h1>
-            <div
-              id="sp-p7ef8k"
-              class="sp-css-target sp-text-wrapper sp-el-block sp-text-wrapper-p7ef8k"
-              style="font-size: 22px; margin: 0px; text-align: center;"
-            >
-              <section class="section section-body">
-                <p>
-                  Work is underway to complete this site. Those interested in
-                  contacting me are invited to use social media.
-                </p>
-              </section>
-            </div>
-            <div id="sp-d4et4f" class="sp-spacer" style="height: 60px;"></div>
-            <div
-              id="sp-button-parent-q09cvl"
-              class="sp-button-wrapper sp-el-block"
-              style="margin: 0px; text-align: center;"
-            >
-              <a
-                href="mailto:kotlinskidev@gmail.com"
-                id="sp-q09cvl"
-                target=""
-                rel="noopener"
-                class="sp-button sp-css-target sp-text-center sp-inline-block sp-leading-none sp-button-q09cvl mail-button"
-                style="
-                  font-size: 18px;
-                  font-weight: 400;
-                  font-style: normal;
-                  background: linear-gradient(
-                    -180deg,
-                    rgb(218, 209, 179),
-                    rgb(206, 194, 155) 90%
-                  );
-                  color: rgb(0, 0, 0);
-                  width: auto;
-                  padding: 12px 16px;
-                  border-radius: 4px;
-                  border: 1px solid rgb(201, 188, 145);
-                  box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px inset;
-                "
+            <div class="sp-footer">
+              <div id="sp-jknss8" class="sp-spacer" style="height: 39px;"></div>
+              <h1
+                id="sp-y0sc75"
+                class="sp-css-target sp-el-block sp-headline-block-y0sc75 sp-type-header"
+                style="font-size: 54px; text-align: center; margin: 0px;"
               >
-                <span style="font-family: Roboto;">Contact</span>
-              </a>
+                Website under development!
+              </h1>
+              <div
+                id="sp-p7ef8k"
+                class="sp-css-target sp-text-wrapper sp-el-block sp-text-wrapper-p7ef8k"
+                style="font-size: 22px; margin: 0px; text-align: center;"
+              >
+                <section class="section section-body">
+                  <p>
+                    Work is underway to complete this site. Those interested in
+                    contacting me are invited to use social media.
+                  </p>
+                </section>
+              </div>
+              <div id="sp-d4et4f" class="sp-spacer" style="height: 10px;"></div>
+              <div
+                id="sp-button-parent-q09cvl"
+                class="sp-button-wrapper sp-el-block"
+                style="margin: 0px; text-align: center;"
+              >
+                <a
+                  href="mailto:kotlinskidev@gmail.com"
+                  id="sp-q09cvl"
+                  target=""
+                  rel="noopener"
+                  class="sp-button sp-css-target sp-text-center sp-inline-block sp-leading-none sp-button-q09cvl mail-button"
+                  style="
+                    font-size: 18px;
+                    font-weight: 400;
+                    font-style: normal;
+                    background: transparent;
+                    color: #ebebeb;
+                    width: auto;
+                    padding: 12px 16px;
+                    border-radius: 4px;
+                    border: 3px solid #ebebeb;
+                    box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px inset;
+                  "
+                >
+                  <span style="font-family: Hind;">Contact</span>
+                </a>
+              </div>
+              <div id="sp-qkrns1" class="sp-spacer" style="height: 12px;"></div>
             </div>
-            <div id="sp-qkrns1" class="sp-spacer" style="height: 12px;"></div>
           </div>
         </div>
       </section>
