@@ -12,7 +12,7 @@ require_once get_template_directory() . '/functions/customizer.php';
 // require_once get_template_directory() . '/functions/seo-customizer.php';
 
 // Include logo functions
-require_once get_template_directory() . '/functions/logo.php';
+require_once get_template_directory() . '/functions/site-identity.php';
 
 // Include maintenance settings and functions
 require_once get_template_directory() . '/functions/maintenance.php';
