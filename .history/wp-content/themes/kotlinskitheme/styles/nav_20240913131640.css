@@ -1,0 +1,18 @@
+.menu .menu-item{
+    padding-bottom: 10px;
+}
+
+nav{
+    margin-bottom: 60px;
+}
+
+.menu-header-menu-container{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    min-height: 5rem;
+}
+
+.menu-header-menu-container ul{
+    display: flexś;
+}

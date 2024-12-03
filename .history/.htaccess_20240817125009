@@ -1,0 +1,25 @@
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /adriankotlinski/
+
+# Allow maintenance mode URL and existing files/folders
+RewriteCond %{REQUEST_URI} ^/maintenance.php$ [NC]
+RewriteRule .* - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^index\.php$ - [L]
+RewriteRule . /adriankotlinski/index.php [L]
+
+# Redirect to maintenance.php when maintenance mode is enabled
+RewriteCond %{REQUEST_URI} !^/maintenance.php$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/wp-admin/ [NC]
+RewriteRule ^(.*)$ /adriankotlinski/maintenance.php [L]
+</IfModule>
+# END WordPress

@@ -1,0 +1,36 @@
+.menu .menu-item{
+    padding-bottom: 10px;
+}
+
+nav{
+    margin-bottom: 60px;
+}
+
+.menu-header-menu-container{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    min-height: 4rem;
+    display: flex;
+    justify-content: end;
+    backdrop-filter: blur(3px);
+}
+
+.menu-header-menu-container::before{
+    backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    -webkit-mask: linear-gradient(180deg, black, transparent);
+    height: 6rem;
+    top: 0;
+    position: absolute;
+    content: '';
+}
+
+.menu-header-menu-container ul{
+    display: flex;
+    gap: 1rem;
+    list-style-type: none;
+    margin-right: 20px;
+}

@@ -1,0 +1,10 @@
+.menu .menu-item{
+    padding-bottom: 10px;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    min-height: 5rem;
+}

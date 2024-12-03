@@ -1,0 +1,25 @@
+.menu .menu-item{
+    padding-bottom: 10px;
+}
+
+nav{
+    margin-bottom: 60px;
+}
+
+.menu-header-menu-container{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    width: 100vw;
+    min-height: 5rem;
+    display: flex;
+    justify-content: end;
+}
+
+.menu-header-menu-container ul{
+    display: flex;
+    gap: 1rem;
+    list-style-type: none;
+}

@@ -1,0 +1,14 @@
+.menu .menu-item{
+    padding-bottom: 10px;
+}
+
+nav{
+    margin-bottom: 60px;
+}
+
+.menu-header{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    min-height: 5rem;
+}
