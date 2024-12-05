@@ -14,8 +14,42 @@
             }
             ?>
         </div>
-        <?php wp_nav_menu(array('theme_location' => 'primary')); ?>
-        </nav>
+        <!-- <?php wp_nav_menu(array('theme_location' => 'primary')); ?> -->
+        <!-- Hamburger Button -->
+        <!-- <button class="hamburger-menu" id="hamburger-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button> -->
+
+        <div id="hamburger-button">
+            <input type="checkbox" id="toggle" name="hamburger-toggle">
+            <label for="toggle">
+            </label>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="hide-mobile">
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+                'container' => 'nav',
+                'container_class' => 'navigation',
+                'menu_class' => 'menu-items',
+            ));
+            ?>
+        </div>
+
+        <div class="mobile-only" id="hamburger-menu">
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'mobile',
+                'container' => 'nav',
+                'container_class' => 'hamburger-container',
+                'menu_class' => 'menu-items',
+            ));
+            ?>
+        </div>
     </div>
 
 </header>

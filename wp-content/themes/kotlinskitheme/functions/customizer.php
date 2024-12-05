@@ -74,31 +74,44 @@ function mytheme_customize_css()
         $link_color = '#' . $link_color;
     }
     // Output the styles
-    ?>
+?>
     <style type="text/css">
         body {
             background-color: <?php echo esc_attr($background_color); ?>;
             color: <?php echo esc_attr($text_color); ?>;
 
-            a{
+            a {
                 color: <?php echo esc_attr($link_color); ?>;
             }
         }
     </style>
-    <?php
+<?php
 }
 add_action('wp_head', 'mytheme_customize_css');
 
-// Enqueue live preview script for Customizer
-function mytheme_customize_preview_js()
-{
+// add_action( 'wp_enqueue_scripts', 'theme_slug_enqueue_scripts' );
+
+// function theme_slug_enqueue_scripts() {
+// 	wp_enqueue_script(
+// 		'custom',
+// 		get_stylesheet_directory_uri().'/js/custom-script.js'
+// 	);
+// }
+
+add_action('wp_enqueue_scripts', function (): void {
+    $script_args = include get_template_directory() . '/js/scripts.asset.php';
     wp_enqueue_script(
-        'mytheme-customizer',
-        get_template_directory_uri() . '/js/customizer.js',
-        ['customize-preview'],
-        null,
-        true
+        'wp-typescript',
+        get_template_directory_uri() . '/js/scripts.js',
+        $script_args['dependencies'],
+        $script_args['version'],
+        [
+            'strategy' => 'defer',
+            'in_footer' => false, // Note: This is the default value.
+        ]
     );
-}
-add_action('customize_preview_init', 'mytheme_customize_preview_js');
+    // When used in a WordPress plugin
+    //$script_args = include( plugin_dir_path( __FILE__ ) . 'assets/public/scripts.asset.php');
+    //wp_enqueue_script('wp-typescript', plugins_url('assets/public/scripts.js', __FILE__), $script_args['dependencies'], $script_args['version']);
+});
 ?>

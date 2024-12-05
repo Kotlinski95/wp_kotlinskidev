@@ -64,3 +64,156 @@ header::before{
 .menu-header-menu-container ul a:hover{
     text-decoration: underline;
 }
+
+/* Hide the navigation menu by default on smaller screens */
+.navigation {
+    display: flex;
+}
+
+/* Style for the hamburger menu (3 bars) */
+.hamburger-menu {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger-menu .bar {
+    height: 4px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+#hamburger-menu{
+    position: fixed;
+    top: 0;
+    right: -100%; /* Initially hidden off-screen */
+    width: 100%;
+    height: 100vh; /* Full height of the viewport */
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-out; /* Smooth slide-in effect */
+    transform: translateX(0); /* Initially off-screen on the right */
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+#hamburger-menu.open{
+    transform: translateX(-100%); /* Move menu into view */
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: flex; /* Show hamburger icon on smaller screens */
+    }
+
+    /* Hide the navigation menu on mobile by default */
+    .navigation {
+        display: none;
+        width: 100%;
+        background-color: #fff; /* Optional background color for dropdown */
+    }
+
+    /* Display the navigation when the menu is open */
+    .navigation.open {
+        display: block;
+    }
+
+    .menu-items {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .menu-items li {
+        padding: 10px;
+    }
+
+    .menu-items li a {
+        text-decoration: none;
+        color: #000; /* Adjust color as needed */
+    }
+}
+
+
+/* hamburger button */
+#hamburger-button {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    font-size: 2.5px;
+    z-index: 1001;
+}
+:root {
+    --animation-curve: cubic-bezier(1, 0, 0, 1);
+  }
+
+  label {
+    width: 12em;
+    height: 1.5em;
+    background-color: white;
+    position: absolute;
+    cursor: pointer;
+    transform: translate(10%, 500%);
+  }
+  label::before, label::after {
+    content: "";
+    width: 12em;
+    height: 1.5em;
+    background-color: white;
+    position: absolute;
+    display: block;
+    color: red;
+    transition: all 0.6s var(--animation-curve);
+  }
+  label::before {
+    top: -250%;
+    left: 0%;
+    transform: rotateZ(0deg);
+    transform-origin: left top;
+  }
+  label::after {
+    bottom: -250%;
+    left: 0%;
+    transform: rotateZ(0deg);
+    transform-origin: left bottom;
+  }
+  
+  #toggle:checked ~ label::before {
+    content: "";
+    background-color: red;
+    transform: rotateZ(41deg);
+    left: 10%;
+  }
+  
+  #toggle:checked ~ label::after {
+    content: "";
+    background-color: red;
+    transform: rotateZ(-41deg);
+    left: 10%;
+  }
+  
+  #toggle:checked ~ label {
+    background-color: black;
+  }
+  
+  #toggle ~ label {
+    transition: all 0.5s var(--animation-curve);
+  }
+  
+  input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }

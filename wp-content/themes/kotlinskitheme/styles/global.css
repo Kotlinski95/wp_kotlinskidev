@@ -1,0 +1,104 @@
+/* Base styles that apply to all screen sizes */
+
+/* Mobile-first styling */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Hide elements by default */
+.hide {
+  display: none !important;
+}
+
+/* Show elements by default (optional) */
+.show {
+  display: block !important;
+}
+
+/* Global container for responsive design */
+.container {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* Desktop (large screens) */
+@media (min-width: 1024px) {
+  /* Styles for desktop and larger screens */
+
+  .desktop-only {
+    display: block !important;
+  }
+
+  .mobile-only,
+  .tablet-only {
+    display: none !important;
+  }
+
+  .container {
+    width: 80%; /* Larger container width on desktop */
+  }
+}
+
+/* Tablet (medium screens) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for tablets and small laptops */
+
+  .tablet-only {
+    display: block !important;
+  }
+
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .container {
+    width: 90%; /* Medium container width on tablet */
+  }
+}
+
+/* Mobile (small screens) */
+@media (max-width: 767px) {
+  /* Styles for mobile devices */
+
+  .mobile-only {
+    display: block !important;
+  }
+
+  .tablet-only,
+  .desktop-only {
+    display: none !important;
+  }
+
+  .container {
+    width: 100%; /* Full width container on mobile */
+  }
+
+  /* Example: hide an element on mobile */
+  .hide-mobile {
+    display: none !important;
+  }
+
+  /* Example: show an element only on mobile */
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* Optional: Large screens (extra-large desktop screens) */
+@media (min-width: 1200px) {
+  /* Additional styles for very large screens (e.g., large desktops) */
+
+  .desktop-large {
+    display: block !important;
+  }
+
+  .container {
+    width: 70%; /* More compact container width for larger screens */
+  }
+}

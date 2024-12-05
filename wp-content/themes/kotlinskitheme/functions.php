@@ -16,4 +16,7 @@ require_once get_template_directory() . '/functions/site-identity.php';
 
 // Include maintenance settings and functions
 require_once get_template_directory() . '/functions/maintenance.php';
+
+// Include menu functions
+require_once get_template_directory() . '/functions/menus.php';
 ?>
