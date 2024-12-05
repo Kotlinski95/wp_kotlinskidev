@@ -22,8 +22,8 @@
             <span class="bar"></span>
         </button> -->
 
-        <div id="hamburger-button">
-            <input type="checkbox" id="toggle" name="hamburger-toggle">
+        <div id="hamburger-button" class="mobile-only">
+            <input type="checkbox" id="toggle" name="hamburger-toggle" aria-label="hamburger menu toggle" autocomplete="off">
             <label for="toggle">
             </label>
         </div>

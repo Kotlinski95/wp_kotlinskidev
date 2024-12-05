@@ -1,11 +1,14 @@
 {
-  "compilerOptions": {
-    "target": "ES5", // Set the target JavaScript version
-    "module": "ESNext",
-    "outDir": "./js", // Output folder for compiled JS files
-    "jsx": "react-jsx",
-    "strict": true, // Enable strict type-checking
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
-  }
+	"compilerOptions": {
+		"outDir": "./build/",
+		"sourceMap": true,
+		"strict": true,
+		"noImplicitReturns": true,
+		"noImplicitAny": true,
+		"module": "es6",
+		"moduleResolution": "node",
+		"target": "es5",
+		"allowJs": true
+	},
+	"include": [ "./src/**/*" ]
 }

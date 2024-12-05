@@ -1,5 +1,4 @@
 header{
-    /* margin-bottom: 60px; */
     position: fixed;
     top: 0;
     right: 0;
@@ -32,9 +31,13 @@ header::before{
     width: 100%;
     max-width: 1720px;
     margin: 0 auto;
+    a{
+        text-decoration: none;
+    }
 }
 .logo {
     margin-left: 20px;
+    z-index: 1001;
 }
 
 .logo a{
@@ -65,14 +68,38 @@ header::before{
     text-decoration: underline;
 }
 
-/* Hide the navigation menu by default on smaller screens */
 .navigation {
-    display: flex;
+    margin-inline-end: 2rem;
+    .menu-items{
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1rem;
+        list-style: none;
+    }
 }
 
-/* Style for the hamburger menu (3 bars) */
+.hamburger-container{
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .menu-items{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        list-style: none;
+        .menu-item:not(.menu-item-type-custom){
+            flex:1;
+            min-width: 100%;
+        }
+    }
+}
+
 .hamburger-menu {
-    display: none; /* Hidden by default */
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     width: 30px;
@@ -93,37 +120,34 @@ header::before{
 #hamburger-menu{
     position: fixed;
     top: 0;
-    right: -100%; /* Initially hidden off-screen */
+    right: -100%;
     width: 100%;
-    height: 100vh; /* Full height of the viewport */
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s ease-out; /* Smooth slide-in effect */
-    transform: translateX(0); /* Initially off-screen on the right */
-    z-index: 1000; /* Ensure it's on top of other elements */
+    transition: transform 0.5s ease-out, background 1.5s ease-in-out;
+    transform: translateX(0);
+    z-index: 1000;
 }
 
 #hamburger-menu.open{
-    transform: translateX(-100%); /* Move menu into view */
+    transform: translateX(-100%);
+    background-color: rgba(0, 0, 0);
 }
 
-/* Responsive styles for mobile */
 @media (max-width: 768px) {
     .hamburger-menu {
-        display: flex; /* Show hamburger icon on smaller screens */
+        display: flex;
     }
 
-    /* Hide the navigation menu on mobile by default */
     .navigation {
         display: none;
         width: 100%;
-        background-color: #fff; /* Optional background color for dropdown */
     }
 
-    /* Display the navigation when the menu is open */
     .navigation.open {
         display: block;
     }
@@ -141,12 +165,9 @@ header::before{
 
     .menu-items li a {
         text-decoration: none;
-        color: #000; /* Adjust color as needed */
     }
 }
 
-
-/* hamburger button */
 #hamburger-button {
     position: relative;
     width: 50px;
@@ -166,6 +187,7 @@ header::before{
     cursor: pointer;
     transform: translate(10%, 500%);
   }
+
   label::before, label::after {
     content: "";
     width: 12em;
@@ -188,29 +210,29 @@ header::before{
     transform: rotateZ(0deg);
     transform-origin: left bottom;
   }
-  
+
   #toggle:checked ~ label::before {
     content: "";
     background-color: red;
     transform: rotateZ(41deg);
     left: 10%;
   }
-  
+
   #toggle:checked ~ label::after {
     content: "";
     background-color: red;
     transform: rotateZ(-41deg);
     left: 10%;
   }
-  
+
   #toggle:checked ~ label {
     background-color: black;
   }
-  
+
   #toggle ~ label {
     transition: all 0.5s var(--animation-curve);
   }
-  
+
   input {
     opacity: 0;
     position: absolute;

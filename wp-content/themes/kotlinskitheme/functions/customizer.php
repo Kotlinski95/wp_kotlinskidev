@@ -50,6 +50,21 @@ function mytheme_customize_register($wp_customize)
             'settings' => 'link_color',
         ])
     );
+
+    // Link Color Hover Setting
+    $wp_customize->add_setting('link_color_hover', [
+        'default' => '#ff2020', // Default link color (blue)
+        'transport' => 'refresh',
+    ]);
+
+    // Link Color Hover Control
+    $wp_customize->add_control(
+        new WP_Customize_Color_Control($wp_customize, 'link_color_hover_control', [
+            'label' => __('Link Color (Hover)', 'mytheme'),
+            'section' => 'colors',
+            'settings' => 'link_color_hover',
+        ])
+    );
 }
 add_action('customize_register', 'mytheme_customize_register');
 
@@ -73,7 +88,12 @@ function mytheme_customize_css()
     if (strpos($link_color, '#') !== 0) {
         $link_color = '#' . $link_color;
     }
-    // Output the styles
+
+    // Get the link color hover setting
+    $link_color_hover = get_theme_mod('link_color_hover', '#ff2020');
+    if (strpos($link_color_hover, '#') !== 0) {
+        $link_color_hover = '#' . $link_color_hover;
+    }
 ?>
     <style type="text/css">
         body {
@@ -82,6 +102,11 @@ function mytheme_customize_css()
 
             a {
                 color: <?php echo esc_attr($link_color); ?>;
+                will-change: color;
+                transition: color 0.3s ease-in-out;
+            }
+            a:hover{
+                color: <?php echo esc_attr($link_color_hover); ?>;
             }
         }
     </style>
@@ -99,10 +124,10 @@ add_action('wp_head', 'mytheme_customize_css');
 // }
 
 add_action('wp_enqueue_scripts', function (): void {
-    $script_args = include get_template_directory() . '/js/scripts.asset.php';
+    $script_args = include get_template_directory() . '/build/main.asset.php';
     wp_enqueue_script(
         'wp-typescript',
-        get_template_directory_uri() . '/js/scripts.js',
+        get_template_directory_uri() . '/build/main.js',
         $script_args['dependencies'],
         $script_args['version'],
         [
