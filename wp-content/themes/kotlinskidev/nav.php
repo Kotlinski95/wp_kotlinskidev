@@ -15,12 +15,6 @@
             ?>
         </div>
         <!-- <?php wp_nav_menu(array('theme_location' => 'primary')); ?> -->
-        <!-- Hamburger Button -->
-        <!-- <button class="hamburger-menu" id="hamburger-button">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button> -->
 
         <div id="hamburger-button" class="mobile-only">
             <input type="checkbox" id="toggle" name="hamburger-toggle" aria-label="hamburger menu toggle" autocomplete="off">
@@ -40,7 +34,7 @@
             ?>
         </div>
 
-        <div class="mobile-only" id="hamburger-menu">
+        <div class="mobile-only hamburger-container" id="hamburger-menu">
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'mobile',

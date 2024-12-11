@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2024-12-11 08:49+0000\n"
+"PO-Revision-Date: 2024-12-11 13:11+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: pl_PL\n"
@@ -20,15 +20,70 @@ msgstr ""
 
 #: patterns/footer-default.php:58
 msgid "About Us"
-msgstr "O nas1"
+msgstr "O mnie"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Career"
+msgstr "Kariera"
+
+msgid "Contact address"
+msgstr "Polska, 40-143 Katowice, ul.Dekerta"
+
+msgid "Contact email"
+msgstr "kotlinskidev@gmail.com"
+
+msgid "Contact hours"
+msgstr "Poniedziałek - Piątek 8:00 a.m. - 5:00 p.m"
+
+msgid "Contact me"
+msgstr "Kontakt"
+
+msgid "Contact phone"
+msgstr "+48 608 418 911"
+
+msgid "Copyrights"
+msgstr " Kotlinskidev | Projektowanie aplikacji i stron internetowych"
+
+msgid "E-commerce"
+msgstr "E-commerce"
+
+msgid "Footer description"
+msgstr ""
+"Jako starszy inżynier oprogramowania z 5-letnim doświadczeniem specjalizuję "
+"się w tworzeniu skalowalnych, wysokowydajnych rozwiązań, które napędzają "
+"sukces biznesowy. Moje doświadczenie obejmuje tworzenie stron internetowych. "
+"Niezależnie od tego, czy chodzi o tworzenie innowacyjnych aplikacji "
+"internetowych, optymalizację systemów frontendowych, czy prowadzenie "
+"zespołów przez złożone wyzwania techniczne, do każdego projektu wnoszę "
+"nastawienie na wyniki."
 
 #. Theme Name of the theme
 #: style.css
 msgid "kotlinskidev"
 msgstr "kotlinskidev"
 
+msgid "Policy"
+msgstr "Polityka prywatności"
+
+msgid "Proudly powered by"
+msgstr "Strona stworzona przez Adrian Kotlinski | Wszelkie prawa zastrzeżone"
+
+msgid "Quick Links"
+msgstr "Popularne linki"
+
 msgid "Services"
 msgstr "Usługi"
 
-msgid "test"
-msgstr "Testowo!"
+msgid "Terms and Conditions"
+msgstr "Zasady i warunki"
+
+msgid "Web development"
+msgstr "Projektowanie aplikacji internetowych"
+
+msgid "Website optimization"
+msgstr "Optymalizacja stron internetowych"
+
+msgid "Website performance"
+msgstr "Poprawa wydajności stron internetowych"

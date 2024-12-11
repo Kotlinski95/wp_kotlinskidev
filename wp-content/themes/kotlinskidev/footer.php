@@ -1,4 +1,4 @@
 <footer>
     <?php get_template_part('patterns/footer-default'); ?>
-    <p>&copy; <?php echo date("Y"); ?> <?php bloginfo('name'); ?></p>
+    <p class="copyrights">&copy; <?php echo date("Y"); ?> <?php esc_html_e('Copyrights','kotlinskidev'); ?></p>
 </footer>

@@ -1,6 +1,7 @@
 import './index.scss';
 import './scripts/hamburger';
 import './scripts/scroll-to-top';
+import './scripts/language';
 
 console.log(
 	'%cWelcome to KotlinskiDev site',

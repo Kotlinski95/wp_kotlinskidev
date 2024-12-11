@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2024-12-11 08:50+0000\n"
+"PO-Revision-Date: 2024-12-11 13:11+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: en_US\n"
@@ -19,15 +19,69 @@ msgstr ""
 
 #: patterns/footer-default.php:58
 msgid "About Us"
-msgstr "About Us1"
+msgstr "About Us"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Career"
+msgstr "Career"
+
+msgid "Contact address"
+msgstr "Poland, 40-143 Katowice, ul.Dekerta"
+
+msgid "Contact email"
+msgstr "kotlinskidev@gmail.com"
+
+msgid "Contact hours"
+msgstr "Monday - Friday 8:00 a.m. - 5:00 p.m"
+
+msgid "Contact me"
+msgstr "Contact me"
+
+msgid "Contact phone"
+msgstr "+48 608 418 911"
+
+msgid "Copyrights"
+msgstr " Kotlinskidev | Web Development"
+
+msgid "E-commerce"
+msgstr "E-commerce"
+
+msgid "Footer description"
+msgstr ""
+"As a Senior Software Engineer with 5 years of experience, I specialize in "
+"crafting scalable, high-performance solutions that drive business success. "
+"My expertise spans across web development. Whether it's building innovative "
+"web applications, optimizing frontend systems, or leading teams through "
+"complex technical challenges, I bring a results-driven mindset to every "
+"project."
 
 #. Theme Name of the theme
 #: style.css
 msgid "kotlinskidev"
 msgstr "kotlinskidev"
 
+msgid "Policy"
+msgstr "Policy"
+
+msgid "Proudly powered by"
+msgstr "Proudly powered by Adrian Kotlinski | All rights reserved"
+
+msgid "Quick Links"
+msgstr "Quick Links"
+
 msgid "Services"
 msgstr "Services"
 
-msgid "test"
-msgstr "It's super to test."
+msgid "Terms and Conditions"
+msgstr "Terms and Conditions"
+
+msgid "Web development"
+msgstr "Web development"
+
+msgid "Website optimization"
+msgstr "Website optimization"
+
+msgid "Website performance"
+msgstr "Website performance"

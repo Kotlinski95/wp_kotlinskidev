@@ -2,5 +2,23 @@ footer {
     display: block;
     width: 100%;
     max-width: 1720px;
-    margin: 0 auto;
+    margin: 3rem auto 0;
+
+    .copyrights{
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .kotlinskidev-footer-list{
+        text-align: center;
+        ul{
+            list-style: none;
+        }
+    }
+
+    @media (min-width: 782px){
+        .kotlinskidev-footer-list{
+            text-align: left;
+        }
+    }
 }
