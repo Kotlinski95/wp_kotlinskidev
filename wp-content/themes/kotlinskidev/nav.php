@@ -50,6 +50,8 @@
             ));
             ?>
         </div>
+
+        <?php echo do_shortcode('[language_switcher]'); ?>
     </div>
 
 </header>

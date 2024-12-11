@@ -1,0 +1,21 @@
+.language-switcher {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.language-switcher li {
+    display: inline;
+}
+
+.language-switcher li a {
+    text-decoration: none;
+    color: #0073aa;
+    font-weight: bold;
+}
+
+.language-switcher li a.active {
+    color: red;
+}

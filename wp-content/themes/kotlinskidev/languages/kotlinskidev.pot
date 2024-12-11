@@ -1,0 +1,33 @@
+# Copyright (C) 2024 KotlinskiDev themes
+# This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kotlinskidev 1.0.14\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-11 08:49+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: kotlinskidev\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+
+#. Theme Name of the theme
+#: style.css
+msgid "kotlinskidev"
+msgstr ""
+
+#: patterns/footer-default.php:58
+msgid "About Us"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
+msgid "test"
+msgstr ""

@@ -2,7 +2,7 @@
 <body <?php body_class(); ?>>
 <?php get_template_part('nav'); ?>
 
-    <div id="content">
+    <div id="content" class="wp-block-group">
         <?php
         if ( have_posts() ) :
             while ( have_posts() ) : the_post();

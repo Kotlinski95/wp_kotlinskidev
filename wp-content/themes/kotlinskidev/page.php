@@ -1,10 +1,10 @@
 <?php get_header(); ?>
-
-<div id="content">
+<?php get_template_part('nav'); ?>
+<div id="content" class="wp-block-group">
     <?php
     if ( have_posts() ) :
         while ( have_posts() ) : the_post();
-            get_template_part( 'content', get_post_format() );
+            get_template_part( 'content', 'page' );
         endwhile;
     else :
         echo '<p>No content found</p>';

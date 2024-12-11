@@ -1,0 +1,34 @@
+# Copyright (C) 2024 CozyThemes
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: kotlinskidev 1.0.14\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
+"Last-Translator: \n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
+"PO-Revision-Date: 2024-12-11 08:49+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: kotlinskidev\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
+"&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Loco-Version: 2.6.14; wp-6.6.1"
+
+#: patterns/footer-default.php:58
+msgid "About Us"
+msgstr "O nas1"
+
+#. Theme Name of the theme
+#: style.css
+msgid "kotlinskidev"
+msgstr "kotlinskidev"
+
+msgid "Services"
+msgstr "Usługi"
+
+msgid "test"
+msgstr "Testowo!"
