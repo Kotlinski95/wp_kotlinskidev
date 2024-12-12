@@ -1,8 +1,11 @@
+@import 'variables';
+
 #content {
     display: block;
     width: 100%;
-    max-width: 1720px;
-    margin: 0 auto;
+    max-width: $page-large;
+    margin: 4rem auto 0;
     padding-top: 1rem;
     padding-inline: 1rem;
+    min-height: 100vh;
 }

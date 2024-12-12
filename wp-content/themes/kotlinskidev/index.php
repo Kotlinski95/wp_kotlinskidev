@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <body <?php body_class(); ?>>
-<?php get_template_part('nav'); ?>
 
+<?php get_template_part('nav'); ?>
     <div id="content" class="wp-block-group">
         <?php
         if ( have_posts() ) :

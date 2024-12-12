@@ -1,8 +1,21 @@
+@import 'variables';
+
 footer {
     display: block;
     width: 100%;
-    max-width: 1720px;
+    max-width: $page-large;
     margin: 3rem auto 0;
+    padding-inline: 1rem;
+    box-sizing: border-box;
+    .copyrights-container{
+        display: flex;
+        flex-wrap: wrap;
+        p{
+            margin-inline: auto;
+            font-size: 0.75rem;
+            margin-block: 0.5rem;
+        }
+    }
 
     .copyrights{
         margin-inline: auto;
@@ -16,9 +29,17 @@ footer {
         }
     }
 
-    @media (min-width: 782px){
+    @media (min-width: $breakpoint-tablet-wp){
         .kotlinskidev-footer-list{
             text-align: left;
+        }
+        .copyrights-container{
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            p{
+                margin-inline: 0;
+                font-size: 0.8125rem;
+            }
         }
     }
 }

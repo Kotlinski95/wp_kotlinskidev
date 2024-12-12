@@ -10,7 +10,7 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
 ?>
 <!-- wp:group {"className":"kotlinskidev-footer","style":{"spacing":{"padding":{"top":"0px","right":"0","left":"0","bottom":"0px"},"margin":{"top":"0","bottom":"0"}},"border":{"width":"0px","style":"none"}},"gradient":"gradient-nine","layout":{"type":"constrained","contentSize":"100%"}} -->
 <div class="wp-block-group kotlinskidev-footer has-gradient-nine-gradient-background has-background" style="border-style:none;border-width:0px;margin-top:0;margin-bottom:0;padding-top:0px;padding-right:0;padding-bottom:0px;padding-left:0"><!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"80px","bottom":"80px"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-    <div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:20px;padding-right:var(--wp--preset--spacing--30);padding-bottom:20px;padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"44px"},"margin":{"top":"0px"}}}} -->
+    <div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:20px;padding-right:0;padding-bottom:20px;padding-left:0"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"44px"},"margin":{"top":"0px"}}}} -->
         <div class="wp-block-columns" style="margin-block:0px"><!-- wp:column {"width":"40%"} -->
             <div class="wp-block-column" style="flex-basis:40%;margin-inline-end: 20px;"><!-- wp:group {"layout":{"type":"constrained","contentSize":"380px","justifyContent":"left"}} -->
                 <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
@@ -216,12 +216,7 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
     <!-- /wp:group -->
 
     <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"32px","bottom":"32px"},"margin":{"top":"0","bottom":"0"}},"border":{"top":{"color":"var:preset|color|border-color","width":"1px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-    <div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border-color);border-top-width:1px;margin-top:0;margin-bottom:0;padding-top:2px;padding-right:var(--wp--preset--spacing--40);padding-bottom:2px;padding-left:var(--wp--preset--spacing--40)"><!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}},"typography":{"lineHeight":"1.5"}},"textColor":"light-color","fontSize":"normal"} -->
-        <p class="has-text-align-center has-light-color-color has-text-color has-link-color has-normal-font-size" style="line-height:1.5"><?php esc_html_e(
-                                                                                                                                                'Proudly powered by',
-                                                                                                                                                'kotlinskidev'
-                                                                                                                                            ); ?></p>
-        <!-- /wp:paragraph -->
+    <div class="wp-block-group" style="border-top-color:var(--wp--preset--color--border-color);border-top-width:1px;margin-top:0;margin-bottom:0;padding-top:2px;padding-right:0;padding-bottom:2px;padding-left:0">
     </div>
     <!-- /wp:group -->
 </div>
@@ -230,9 +225,9 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
 <!-- wp:buttons {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 <div class="wp-block-buttons" style="margin-top:0;margin-bottom:0"><!-- wp:button {"backgroundColor":"tertiary","textColor":"foregound-alt","className":"kotlinskidev-scrollto-top is-style-button-hover-secondary-bgcolor","style":{"border":{"radius":"50%"}}} -->
     <div class="wp-block-button kotlinskidev-scrollto-top is-style-button-hover-secondary-bgcolor">
-        <a id="scroll-top-top" class="wp-block-button__link has-foregound-alt-color has-tertiary-background-color has-text-color has-background wp-element-button" style="border-radius:50%">
+        <a id="scroll-top-top" class="wp-block-button__link has-foregound-alt-color has-tertiary-background-color has-text-color has-background wp-element-button" style="border-radius:100%">
          <span class="icon-circle-up" style="font-size:2rem;"></span>   
-            <?php esc_html_e('Scroll to Top', 'kotlinskidev'); ?>
+        <span style="visibility: hidden;"><?php esc_html_e('Scroll to Top', 'kotlinskidev'); ?></span>
         </a>
     </div>
     <!-- /wp:button -->
