@@ -1,12 +1,11 @@
 <?php
 
 /**
- * Title: Footer Default
- * Slug: kotlinskidev/footer-default
+ * Title: Footer
+ * Slug: kotlinskidev/footer
  * Categories: kotlinskidev, footer
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
-$kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
 ?>
 <!-- wp:group {"className":"kotlinskidev-footer","style":{"spacing":{"padding":{"top":"0px","right":"0","left":"0","bottom":"0px"},"margin":{"top":"0","bottom":"0"}},"border":{"width":"0px","style":"none"}},"gradient":"gradient-nine","layout":{"type":"constrained","contentSize":"100%"}} -->
 <div class="wp-block-group kotlinskidev-footer has-gradient-nine-gradient-background has-background" style="border-style:none;border-width:0px;margin-top:0;margin-bottom:0;padding-top:0px;padding-right:0;padding-bottom:0px;padding-left:0"><!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"80px","bottom":"80px"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
@@ -43,15 +42,14 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
                     <!-- /wp:paragraph -->
 
                     <!-- wp:social-links {"iconColor":"light-color","iconColorValue":"#FFFFFE","className":"is-style-logos-only","style":{"spacing":{"blockGap":{"top":"0","left":"var:preset|spacing|40"},"margin":{"bottom":"0"}}}} -->
-                    <ul class="wp-block-social-links has-icon-color is-style-logos-only" style="margin-bottom:0"><!-- wp:social-link {"url":"#","service":"instagram"} /-->
+                    <ul class="wp-block-social-links has-icon-color is-style-logos-only" style="margin-bottom:0">
+                        <!-- wp:social-link {"url":"#","service":"instagram"} /-->
 
                         <!-- wp:social-link {"url":"#","service":"facebook"} /-->
 
                         <!-- wp:social-link {"url":"#","service":"linkedin"} /-->
 
-                        <!-- wp:social-link {"url":"#","service":"vk"} /-->
-
-                        <!-- wp:social-link {"url":"#","service":"x"} /-->
+                        <!-- wp:social-link {"url":"#","service":"github"} /-->
 
                         <!-- wp:social-link {"url":"#","service":"youtube"} /-->
                     </ul>
@@ -72,42 +70,40 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
                 <!-- wp:list {"className":"is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}},"typography":{"lineHeight":"2.5","textTransform":"none"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} -->
                 <ul style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;line-height:2.5;text-transform:none" class="wp-block-list is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet has-link-color has-small-font-size">
                     <!-- wp:list-item -->
-                    <li><a href="<?php echo esc_url(
-                                        add_query_arg('lang', get_locale(), home_url('/about/'))
-                                    ); ?>"><?php esc_html_e('About Us', 'kotlinskidev'); ?></a></li>
+                    <li><a href="<?php echo esc_url(home_url('/about/')); ?>"><?php esc_html_e('About Us', 'kotlinskidev'); ?></a></li>
                     <!-- /wp:list-item -->
 
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>"><?php esc_html_e(
                                         'Policy',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/terms-and-conditions/')); ?>"><?php esc_html_e(
                                         'Terms and Conditions',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/career/')); ?>"><?php esc_html_e(
                                         'Career',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/blog/')); ?>"><?php esc_html_e(
                                         'Blog',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/contact/')); ?>"><?php esc_html_e(
                                         'Contact me',
                                         'kotlinskidev'
                                     ); ?></a></li>
@@ -127,28 +123,28 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
 
                 <!-- wp:list {"className":"is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}},"typography":{"lineHeight":"2.5","textTransform":"none"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} -->
                 <ul style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;line-height:2.5;text-transform:none" class="wp-block-list is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet has-link-color has-small-font-size"><!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/web-development/')); ?>"><?php esc_html_e(
                                         'Web development',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/web-optimization/')); ?>"><?php esc_html_e(
                                         'Website optimization',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/web-performance/')); ?>"><?php esc_html_e(
                                         'Website performance',
                                         'kotlinskidev'
                                     ); ?></a></li>
                     <!-- /wp:list-item -->
 
                     <!-- wp:list-item -->
-                    <li><a href="#"><?php esc_html_e(
+                    <li><a href="<?php echo esc_url(home_url('/e-commerce/')); ?>"><?php esc_html_e(
                                         'E-commerce',
                                         'kotlinskidev'
                                     ); ?></a></li>
@@ -169,7 +165,7 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
                 <!-- wp:group {"className":"kotlinskidev-footer-list","style":{"spacing":{"blockGap":"var:preset|spacing|40","margin":{"top":"0","bottom":"0"},"padding":{"left":"0px","top":"0px"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
                 <div class="wp-block-group kotlinskidev-footer-list" style="margin-top:0;margin-bottom:0;padding-top:0px;padding-left:0px"><!-- wp:list {"className":"is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","right":"0","bottom":"0","left":"0"}},"typography":{"lineHeight":"1.5","textTransform":"none"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} -->
                     <ul style="padding-top:var(--wp--preset--spacing--50);padding-right:0;padding-bottom:0;padding-left:0;line-height:1.5;text-transform:none" class="wp-block-list is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet has-link-color has-small-font-size"><!-- wp:list-item {"fontSize":"small"} -->
-                        <li class="has-small-font-size"><a href="#"><?php esc_html_e(
+                        <li class="has-small-font-size"><a href="<?php echo esc_url('https://maps.app.goo.gl/WaB16BznSwfbX1LN8'); ?>" target="_blank"><?php esc_html_e(
                                                                         'Contact address',
                                                                         'kotlinskidev'
                                                                     ); ?></a></li>
@@ -189,7 +185,7 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
 
                     <!-- wp:list {"className":"is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}},"typography":{"lineHeight":"1.5","textTransform":"none"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} -->
                     <ul style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;line-height:1.5;text-transform:none" class="wp-block-list is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet has-link-color has-small-font-size"><!-- wp:list-item {"fontSize":"small"} -->
-                        <li class="has-small-font-size"><a href="#"><?php esc_html_e(
+                        <li class="has-small-font-size"><a href="<?php echo esc_url('mailto:kotlinskidev@gmail.com'); ?>"><?php esc_html_e(
                                                                         'Contact email',
                                                                         'kotlinskidev'
                                                                     ); ?></a></li>
@@ -199,7 +195,7 @@ $kotlinskidev_images = [$kotlinskidev_url . 'assets/images/kotlinskidev.png'];
 
                     <!-- wp:list {"className":"is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}},"typography":{"lineHeight":"1.5","textTransform":"none"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} -->
                     <ul style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;line-height:1.5;text-transform:none" class="wp-block-list is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet has-link-color has-small-font-size"><!-- wp:list-item {"fontSize":"small"} -->
-                        <li class="has-small-font-size"><a href="#"><?php esc_html_e(
+                        <li class="has-small-font-size"><a href="<?php echo esc_url('tel:608418911'); ?>"><?php esc_html_e(
                                                                         'Contact phone',
                                                                         'kotlinskidev'
                                                                     ); ?></a></li>

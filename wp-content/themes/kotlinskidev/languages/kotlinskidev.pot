@@ -22,7 +22,6 @@ msgstr ""
 msgid "kotlinskidev"
 msgstr ""
 
-#: patterns/footer-default.php:58
 msgid "About Us"
 msgstr ""
 

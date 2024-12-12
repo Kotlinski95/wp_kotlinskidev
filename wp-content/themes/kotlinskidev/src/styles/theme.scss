@@ -13,25 +13,29 @@ $time: 0s;
   transition: all $time ease;
 }
 .theme-switcher {
-    display: flex;
-    flex-direction: column;
-    // z-index: 1001;
-    .title {
-      text-align: center;
-    }
+  display: flex;
+  flex-direction: column;
+  // z-index: 1001;
+  .title {
+    text-align: center;
+  }
 
-    .content {
-      text-align: justify;
-    }
+  .content {
+    text-align: justify;
+  }
 
-    input[type='checkbox'] {
-      display: none;
-    }
+  input[type='checkbox'] {
+    display: none;
+  }
 
+  .icon {
+    font-size: 1.25rem;
+  }
 
   .btn {
     align-self: center;
     margin: 15px 0;
+    min-height: $scale/2;
   }
 
   .box {
@@ -60,13 +64,13 @@ $time: 0s;
   }
 }
 
-.light-mode{
-    .theme-switcher{
-        .box{
-            @include common(flex, column, center, null, $scale, $scale/2, black);
-        }
-        .ball{
-            transform: translatex(0%);
-        }
+.light-mode {
+  .theme-switcher {
+    .box {
+      @include common(flex, column, center, null, $scale, $scale/2, black);
     }
+    .ball {
+      transform: translatex(0%);
+    }
+  }
 }

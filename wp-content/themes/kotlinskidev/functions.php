@@ -24,15 +24,15 @@ require_once get_template_directory() . '/functions/language-switcher.php';
 
 function your_theme_register_patterns() {
     // Register Footer Default Pattern
-    register_block_pattern(
-        'kotlinskidev/footer-default',
-        array(
-            'title'       => __( 'Footer Default', 'kotlinskidev' ),
-            'description' => __( 'A predesigned footer layout with links and social icons.', 'kotlinskidev' ),
-            'categories'  => array( 'footer' ),
-            'content'     => file_get_contents( get_template_directory() . '/patterns/footer-default.php' ),
-        )
-    );
+    // register_block_pattern(
+    //     'kotlinskidev/footer',
+    //     array(
+    //         'title'       => __( 'Footer', 'kotlinskidev' ),
+    //         'description' => __( 'A predesigned footer layout with links and social icons.', 'kotlinskidev' ),
+    //         'categories'  => array( 'footer' ),
+    //         'content'     => file_get_contents( get_template_directory() . '/patterns/footer.php' ),
+    //     )
+    // );
 }
 add_action( 'init', 'your_theme_register_patterns' );
 
@@ -41,4 +41,17 @@ add_filter('nocache_headers', function($headers) {
     $headers['Cache-Control'] = 'public, max-age=31536000';
     return $headers;
 });
+
+function get_localized_url($path) {
+    $lang_param = get_query_var('lang'); // Get the current 'lang' query variable.
+    $base_url = home_url($path); // Construct the base URL with the provided path.
+
+    // Add 'lang' parameter if it exists in the current URL.
+    if (!empty($lang_param)) {
+        return esc_url(add_query_arg('lang', $lang_param, $base_url));
+    }
+
+    // Return the plain URL if 'lang' does not exist.
+    return esc_url($base_url);
+}
 ?>

@@ -27,6 +27,67 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-circle-up::before {
-  content: "\ea41";
+
+.icon-instagram-color-svgrepo-com:before {
+  content: "\e977";
+}
+.icon-youtube-color-svgrepo-com:before {
+  content: "\e978";
+  color: #ce1312;
+}
+.icon-github-square-svgrepo-com:before {
+  content: "\e979";
+}
+.icon-linkedin-svgrepo-com:before {
+  content: "\e97a";
+  color: #0a66c2;
+}
+.icon-social-facebook-svgrepo-com .path1:before {
+  content: "\e97b";
+  color: rgb(72, 90, 150);
+}
+.icon-social-facebook-svgrepo-com .path2:before {
+  content: "\e97c";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-light-bulb-svgrepo-com:before {
+  content: "\e97d";
+}
+.icon-light-bulb-svgrepo-com-1 .path1:before {
+  content: "\e97e";
+  color: rgb(249, 235, 178);
+}
+.icon-light-bulb-svgrepo-com-1 .path2:before {
+  content: "\e97f";
+  margin-left: -1em;
+  color: rgb(57, 66, 64);
+}
+.icon-light-bulb-svgrepo-com-1 .path3:before {
+  content: "\e980";
+  margin-left: -1em;
+  color: rgb(57, 66, 64);
+}
+.icon-light-bulb-svgrepo-com-1 .path4:before {
+  content: "\e981";
+  margin-left: -1em;
+  color: rgb(180, 204, 185);
+}
+.icon-light-bulb-svgrepo-com-1 .path5:before {
+  content: "\e982";
+  margin-left: -1em;
+  color: rgb(180, 204, 185);
+}
+.icon-light-bulb-svgrepo-com-1 .path6:before {
+  content: "\e983";
+  margin-left: -1em;
+  color: rgb(180, 204, 185);
+}
+.icon-light-bulb-svgrepo-com-1 .path7:before {
+  content: "\e984";
+  margin-left: -1em;
+  color: rgb(249, 235, 178);
+}
+.icon-circle-up:before {
+  content: "\ea42";
 }

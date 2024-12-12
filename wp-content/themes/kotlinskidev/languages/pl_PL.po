@@ -18,7 +18,6 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "X-Loco-Version: 2.6.14; wp-6.6.1"
 
-#: patterns/footer-default.php:58
 msgid "About Us"
 msgstr "O mnie"
 
