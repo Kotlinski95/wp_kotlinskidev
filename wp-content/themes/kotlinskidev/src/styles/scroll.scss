@@ -1,0 +1,11 @@
+@import 'variables';
+
+.kotlinskidev-scrollto-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    #scroll-top-top{
+        font-size: 0;
+        background-color: rgba($black, 0.8);
+    }
+}

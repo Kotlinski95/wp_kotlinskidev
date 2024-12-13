@@ -1,0 +1,88 @@
+# Copyright (C) 2024 CozyThemes
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: kotlinskidev 1.0.14\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
+"Last-Translator: \n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
+"PO-Revision-Date: 2024-12-11 13:11+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: kotlinskidev\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
+"&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Loco-Version: 2.6.14; wp-6.6.1"
+
+msgid "About Us"
+msgstr "O mnie"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Career"
+msgstr "Kariera"
+
+msgid "Contact address"
+msgstr "Polska, 40-143 Katowice, ul.Dekerta"
+
+msgid "Contact email"
+msgstr "kotlinskidev@gmail.com"
+
+msgid "Contact hours"
+msgstr "Poniedziałek - Piątek 8:00 a.m. - 5:00 p.m"
+
+msgid "Contact me"
+msgstr "Kontakt"
+
+msgid "Contact phone"
+msgstr "+48 608 418 911"
+
+msgid "Copyrights"
+msgstr " Kotlinskidev | Projektowanie aplikacji i stron internetowych"
+
+msgid "E-commerce"
+msgstr "E-commerce"
+
+msgid "Footer description"
+msgstr ""
+"Jako starszy inżynier oprogramowania z 5-letnim doświadczeniem specjalizuję "
+"się w tworzeniu skalowalnych, wysokowydajnych rozwiązań, które napędzają "
+"sukces biznesowy. Moje doświadczenie obejmuje tworzenie stron internetowych. "
+"Niezależnie od tego, czy chodzi o tworzenie innowacyjnych aplikacji "
+"internetowych, optymalizację systemów frontendowych, czy prowadzenie "
+"zespołów przez złożone wyzwania techniczne, do każdego projektu wnoszę "
+"nastawienie na wyniki."
+
+#. Theme Name of the theme
+#: style.css
+msgid "kotlinskidev"
+msgstr "kotlinskidev"
+
+msgid "Policy"
+msgstr "Polityka prywatności"
+
+msgid "Proudly powered by"
+msgstr "Strona stworzona przez Adrian Kotlinski | Wszelkie prawa zastrzeżone"
+
+msgid "Quick Links"
+msgstr "Popularne linki"
+
+msgid "Services"
+msgstr "Usługi"
+
+msgid "Terms and Conditions"
+msgstr "Zasady i warunki"
+
+msgid "Web development"
+msgstr "Projektowanie aplikacji internetowych"
+
+msgid "Website optimization"
+msgstr "Optymalizacja stron internetowych"
+
+msgid "Website performance"
+msgstr "Poprawa wydajności stron internetowych"

@@ -1,0 +1,89 @@
+# Copyright (C) 2024 KotlinskiDev themes
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: kotlinskidev 1.0.14\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
+"Last-Translator: \n"
+"Language-Team: English (United States)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
+"PO-Revision-Date: 2024-12-12 12:18+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: kotlinskidev\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.6.14; wp-6.6.1"
+
+#: patterns/footer-default.php:58
+msgid "About Us"
+msgstr "About Us"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Career"
+msgstr "Career"
+
+msgid "Contact address"
+msgstr "Poland, 40-143 Katowice, ul.Dekerta"
+
+msgid "Contact email"
+msgstr "kotlinskidev@gmail.com"
+
+msgid "Contact hours"
+msgstr "Monday - Friday 8:00 a.m. - 5:00 p.m"
+
+msgid "Contact me"
+msgstr "Contact me"
+
+msgid "Contact phone"
+msgstr "+48 608 418 911"
+
+msgid "Copyrights"
+msgstr " Kotlinskidev | Web Development"
+
+msgid "E-commerce"
+msgstr "E-commerce"
+
+msgid "Footer description"
+msgstr ""
+"As a Senior Software Engineer with 5 years of experience, I specialize in "
+"crafting scalable, high-performance solutions that drive business success. "
+"My expertise spans across web development. Whether it's building innovative "
+"web applications, optimizing frontend systems, or leading teams through "
+"complex technical challenges, I bring a results-driven mindset to every "
+"project."
+
+#. Theme Name of the theme
+#: style.css
+msgid "kotlinskidev"
+msgstr "kotlinskidev"
+
+msgid "Policy"
+msgstr "Privacy Policy"
+
+msgid "Proudly powered by"
+msgstr ""
+"Proudly powered by <a href=\"https://www.linkedin.com/in/adriankotlinski\" "
+"target=\"_blank\">Adrian Kotlinski</a> | All rights reserved"
+
+msgid "Quick Links"
+msgstr "Quick Links"
+
+msgid "Services"
+msgstr "Services"
+
+msgid "Terms and Conditions"
+msgstr "Terms and Conditions"
+
+msgid "Web development"
+msgstr "Web development"
+
+msgid "Website optimization"
+msgstr "Website optimization"
+
+msgid "Website performance"
+msgstr "Website performance"

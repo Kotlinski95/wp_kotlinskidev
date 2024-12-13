@@ -1,0 +1,76 @@
+// theme switcher
+$scale: 70px;
+$time: 0s;
+
+@mixin common($a, $b, $c, $d, $e, $f, $g) {
+  display: $a;
+  flex-direction: $b;
+  justify-content: $c;
+  align-items: $d;
+  width: $e;
+  height: $f;
+  background-color: $g;
+  transition: all $time ease;
+}
+.theme-switcher {
+  display: flex;
+  flex-direction: column;
+  // z-index: 1001;
+  .title {
+    text-align: center;
+  }
+
+  .content {
+    text-align: justify;
+  }
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  .icon {
+    font-size: 1.25rem;
+  }
+
+  .btn {
+    align-self: center;
+    margin: 15px 0;
+    min-height: $scale/2;
+  }
+
+  .box {
+    @include common(flex, column, center, null, $scale, $scale/2, white);
+    position: relative;
+    border-radius: $scale/4;
+    cursor: pointer;
+
+    .ball {
+      @include common(null, null, null, null, $scale/2, $scale/2, grey);
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid black;
+      transform: translatex(80%);
+    }
+
+    .scenary {
+      @include common(flex, row, space-between, null, null, null, null);
+      padding: 5px 10px 0px 10px;
+
+      svg {
+        width: $scale/3;
+        height: $scale/3;
+      }
+    }
+  }
+}
+
+.light-mode {
+  .theme-switcher {
+    .box {
+      @include common(flex, column, center, null, $scale, $scale/2, black);
+    }
+    .ball {
+      transform: translatex(0%);
+    }
+  }
+}

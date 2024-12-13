@@ -1,0 +1,80 @@
+# Copyright (C) 2024 KotlinskiDev themes
+# This file is distributed under the GNU General Public License v2 or later.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kotlinskidev 1.0.14\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-12-11 13:10+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: kotlinskidev\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+
+#. Theme Name of the theme
+#: style.css
+msgid "kotlinskidev"
+msgstr ""
+
+msgid "About Us"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
+msgid "Footer description"
+msgstr ""
+
+msgid "Policy"
+msgstr ""
+
+msgid "Terms and Conditions"
+msgstr ""
+
+msgid "Career"
+msgstr ""
+
+msgid "Blog"
+msgstr ""
+
+msgid "Contact me"
+msgstr ""
+
+msgid "Quick Links"
+msgstr ""
+
+msgid "Web development"
+msgstr ""
+
+msgid "Website optimization"
+msgstr ""
+
+msgid "Website performance"
+msgstr ""
+
+msgid "E-commerce"
+msgstr ""
+
+msgid "Contact address"
+msgstr ""
+
+msgid "Contact hours"
+msgstr ""
+
+msgid "Contact email"
+msgstr ""
+
+msgid "Contact phone"
+msgstr ""
+
+msgid "Proudly powered by"
+msgstr ""
+
+msgid "Copyrights"
+msgstr ""

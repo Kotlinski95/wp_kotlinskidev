@@ -1,0 +1,96 @@
+@import 'variables.scss';
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+
+  &.scroll-lock {
+    overflow: hidden;
+  }
+}
+
+.light-mode{
+  .custom-logo{
+    filter: invert(100%);
+  }
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .desktop-only {
+    display: block !important;
+  }
+
+  .mobile-only,
+  .tablet-only {
+    display: none !important;
+  }
+
+  .container {
+    width: 80%;
+  }
+}
+
+@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop - 1) {
+  .tablet-only {
+    display: block !important;
+  }
+
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .container {
+    width: 90%;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .mobile-only {
+    display: block !important;
+  }
+
+  .tablet-only,
+  .desktop-only {
+    display: none !important;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  .desktop-large {
+    display: block !important;
+  }
+
+  .container {
+    width: 70%;
+  }
+}
