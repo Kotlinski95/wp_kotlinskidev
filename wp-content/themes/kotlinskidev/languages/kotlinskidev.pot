@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-11 13:10+0000\n"
+"POT-Creation-Date: 2024-12-17 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
@@ -77,4 +77,40 @@ msgid "Proudly powered by"
 msgstr ""
 
 msgid "Copyrights"
+msgstr ""
+
+msgid "FAQ"
+msgstr ""
+
+msgid "FAQ description"
+msgstr ""
+
+msgid "FAQ What is Full Site Editing in WordPress?"
+msgstr ""
+
+msgid "Home Banner description"
+msgstr ""
+
+msgid "Home Banner cta"
+msgstr ""
+
+msgid "Home Banner title"
+msgstr ""
+
+msgid "FAQ Accordion"
+msgstr ""
+
+msgid "A predesigned faq layout"
+msgstr ""
+
+msgid "Home Banner"
+msgstr ""
+
+msgid "A predesigned homepage banner layout"
+msgstr ""
+
+msgid "Welcome to My Site"
+msgstr ""
+
+msgid "See My Popular Posts"
 msgstr ""

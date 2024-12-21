@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2024-12-11 13:11+0000\n"
+"PO-Revision-Date: 2024-12-13 10:34+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: pl_PL\n"
@@ -47,6 +47,18 @@ msgstr " Kotlinskidev | Projektowanie aplikacji i stron internetowych"
 
 msgid "E-commerce"
 msgstr "E-commerce"
+
+msgid "FAQ"
+msgstr "Często zadawane pytania"
+
+msgid "FAQ description"
+msgstr ""
+"Poniżej znajdziesz listę najczęściej zadawanych pytań, zapraszam do "
+"zapoznania się, jeśli nie znajdziesz tego czego szukasz, zapraszam do "
+"kontaktu."
+
+msgid "FAQ What is Full Site Editing in WordPress?"
+msgstr "W jakiej technologi napisana jest ta strona?"
 
 msgid "Footer description"
 msgstr ""

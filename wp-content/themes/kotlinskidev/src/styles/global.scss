@@ -29,6 +29,19 @@ body {
   margin: 0 auto;
 }
 
+.full-width{
+  width: 100vw;
+  max-width: 100vw;
+  position: relative; /* Maintain normal flow */
+  left: 50%; /* Shift to the middle */
+  transform: translateX(-50%); /* Center it relative to viewport */
+}
+
+.full-height{
+  min-height:100vh;
+  height:100vh;
+}
+
 @media (min-width: $breakpoint-desktop) {
   .desktop-only {
     display: block !important;

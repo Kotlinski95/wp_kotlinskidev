@@ -3,7 +3,11 @@
 .language-selector {
   display: inline-block;
   position: relative;
+  max-width: 3rem;
   // z-index: 1001;
+  @media (min-width: $breakpoint-mobile) {
+    max-width: 4rem;
+  }
 }
 
 .language-selector-button {
