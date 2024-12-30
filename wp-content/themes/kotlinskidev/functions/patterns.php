@@ -12,6 +12,10 @@ function kotlinskidev_register_block_pattern_categories() {
         'videos',
         ['label' => __('Videos', 'kotlinskidev')]
     );
+    register_block_pattern_category(
+        'sections',
+        ['label' => __('Sections', 'kotlinskidev')]
+    );
 }
 add_action('init', 'kotlinskidev_register_block_pattern_categories');
 ?>

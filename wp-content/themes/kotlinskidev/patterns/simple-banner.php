@@ -6,7 +6,7 @@
  * Categories: featured, kotlinskidev/featured, themeslug/custom
  */
 ?>
-<!-- wp:cover {"overlayColor":"white","align":"full","textColor":"light-color","align":"full","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->
+<!-- wp:cover {"overlayColor":"white","align":"full","textColor":"light-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->
 <div class="wp-block-cover alignfull has-text-color"><span aria-hidden="true" class="wp-block-cover__background has-white-background-color has-background-dim-100 has-background-dim"></span>
     <div class="wp-block-cover__inner-container"><!-- wp:group {"style":{"spacing":{"blockGap":"2.5rem"}},"layout":{"type":"constrained","wideSize":"%","contentSize":"75%"}} -->
         <div class="wp-block-group"><!-- wp:heading {"textAlign":"center","level":2} -->
