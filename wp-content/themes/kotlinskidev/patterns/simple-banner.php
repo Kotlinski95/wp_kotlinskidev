@@ -3,7 +3,7 @@
 /**
  * Title: Simple Banner
  * Slug: kotlinskidev/simple-banner
- * Categories: featured, kotlinskidev/featured, themeslug/custom
+ * Categories: banner, kotlinskidev/banners
  */
 ?>
 <!-- wp:cover {"overlayColor":"white","align":"full","textColor":"light-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->
