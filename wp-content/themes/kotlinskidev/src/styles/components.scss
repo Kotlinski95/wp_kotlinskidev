@@ -1,3 +1,18 @@
+@import 'variables';
+
 .kotlinskidev-brands{
     flex-wrap: nowrap;
+}
+
+.is-kotlinskidev-sticky{
+    position: sticky;
+    top: $header;
+    z-index: 10;
+}
+
+.is-kotlinskidev-nowrap{
+    flex-wrap: wrap;
+    @media (min-width: $tablet) {
+        flex-wrap: nowrap;
+    }
 }
