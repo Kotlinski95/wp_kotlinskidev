@@ -10,7 +10,8 @@ body {
 }
 
 .light-mode{
-  .custom-logo{
+  .custom-logo,
+  .kotlinskidev-logo{
     filter: invert(100%);
   }
 }
