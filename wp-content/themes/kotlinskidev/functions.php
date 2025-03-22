@@ -53,18 +53,11 @@ add_filter('nocache_headers', function ($headers) {
     return $headers;
 });
 
-function get_localized_url($path)
-{
-    $lang_param = get_query_var('lang'); // Get the current 'lang' query variable.
-    $base_url = home_url($path); // Construct the base URL with the provided path.
+function kotlinskidev_load_textdomain() {
 
-    // Add 'lang' parameter if it exists in the current URL.
-    if (!empty($lang_param)) {
-        return esc_url(add_query_arg('lang', $lang_param, $base_url));
-    }
+    load_theme_textdomain('kotlinskidev', get_template_directory() . '/languages');
 
-    // Return the plain URL if 'lang' does not exist.
-    return esc_url($base_url);
 }
 
+add_action('after_setup_theme', 'kotlinskidev_load_textdomain');
 ?>

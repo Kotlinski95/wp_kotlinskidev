@@ -5,25 +5,12 @@ function kotlinskidev_navigation_shortcode()
 
     ob_start();
 ?>
-    <header>
+    <nav>
         <div id="page-loader">
             <div class="spinner"></div>
         </div>
         <div class="header-wrapper">
-            <div class="logo">
-                <?php
-                if (has_custom_logo()) {
-                    the_custom_logo(); // Display the custom logo
-                } else {
-                    // If no custom logo, display site title
-                ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>">
-                        <h1><?php bloginfo('name'); ?></h1>
-                    </a>
-                <?php
-                }
-                ?>
-            </div>
+
             <section class="header-right">
                 <!-- <?php wp_nav_menu(array('theme_location' => 'primary')); ?> -->
                 <div class="theme-switcher">
@@ -77,11 +64,10 @@ function kotlinskidev_navigation_shortcode()
                     ?>
                 </div>
 
-                <?php echo do_shortcode('[language_switcher]'); ?>
             </section>
         </div>
 
-    </header>
+    </nav>
 <?php
     return ob_get_clean();
 }

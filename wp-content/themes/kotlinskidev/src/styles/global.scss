@@ -1,8 +1,14 @@
 @import 'variables.scss';
 
+html{
+  overflow-x: hidden;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
+  background: black;
+  overflow-x: hidden;
 
   &.scroll-lock {
     overflow: hidden;

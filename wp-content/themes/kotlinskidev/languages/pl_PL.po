@@ -10,13 +10,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2024-12-13 10:34+0000\n"
+"PO-Revision-Date: 2025-03-22 09:32+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "X-Loco-Version: 2.6.14; wp-6.6.1"
+
+#, fuzzy
+msgctxt "404"
+msgid "Categories"
+msgstr "Kategorie"
+
+msgctxt "404"
+msgid "Pages"
+msgstr "Strony"
+
+msgctxt "404"
+msgid "Posts"
+msgstr "Posty"
+
+msgid "A predesigned faq layout"
+msgstr ""
+
+msgid "A predesigned homepage banner layout"
+msgstr ""
 
 msgid "About Us"
 msgstr "O mnie"
@@ -51,6 +70,9 @@ msgstr "E-commerce"
 msgid "FAQ"
 msgstr "Często zadawane pytania"
 
+msgid "FAQ Accordion"
+msgstr ""
+
 msgid "FAQ description"
 msgstr ""
 "Poniżej znajdziesz listę najczęściej zadawanych pytań, zapraszam do "
@@ -58,7 +80,7 @@ msgstr ""
 "kontaktu."
 
 msgid "FAQ What is Full Site Editing in WordPress?"
-msgstr "W jakiej technologi napisana jest ta strona?"
+msgstr "W jakiej technologi napisana jest ta strona??"
 
 msgid "Footer description"
 msgstr ""
@@ -69,6 +91,18 @@ msgstr ""
 "internetowych, optymalizację systemów frontendowych, czy prowadzenie "
 "zespołów przez złożone wyzwania techniczne, do każdego projektu wnoszę "
 "nastawienie na wyniki."
+
+msgid "Home Banner"
+msgstr ""
+
+msgid "Home Banner cta"
+msgstr ""
+
+msgid "Home Banner description"
+msgstr ""
+
+msgid "Home Banner title"
+msgstr ""
 
 #. Theme Name of the theme
 #: style.css
@@ -84,6 +118,9 @@ msgstr "Strona stworzona przez Adrian Kotlinski | Wszelkie prawa zastrzeżone"
 msgid "Quick Links"
 msgstr "Popularne linki"
 
+msgid "See My Popular Posts"
+msgstr ""
+
 msgid "Services"
 msgstr "Usługi"
 
@@ -98,3 +135,6 @@ msgstr "Optymalizacja stron internetowych"
 
 msgid "Website performance"
 msgstr "Poprawa wydajności stron internetowych"
+
+msgid "Welcome to My Site"
+msgstr ""

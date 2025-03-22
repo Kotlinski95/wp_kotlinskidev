@@ -4,9 +4,18 @@
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+    height: 2rem;
+    width: 2rem;
+    padding: 0;
     z-index: 1001;
     #scroll-top-top{
+        height: 2rem;
+        width: 2rem;
+        padding: 0 !important;
         font-size: 0;
         background-color: transparent;
+        br{
+            display: none;
+        }
     }
 }

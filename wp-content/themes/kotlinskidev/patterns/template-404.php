@@ -36,7 +36,7 @@
         <!-- wp:columns {"style":{"spacing":{"margin":{"top":"60px"}}}} -->
         <div class="wp-block-columns" style="margin-top:60px"><!-- wp:column -->
             <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php esc_html_e('Pages', 'kotlinskidev') ?></h4>
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php echo esc_html_x('Pages', '404', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:page-list {"className":"is-style-kotlinskidev-page-list-bullet-hide-style is-style-kotlinskidev-page-list-bullet-hide-style","style":{"typography":{"lineHeight":"2"}}} /-->
@@ -45,7 +45,7 @@
 
             <!-- wp:column -->
             <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php esc_html_e('Categories', 'kotlinskidev') ?></h4>
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php echo esc_html_x('Categories', '404', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:categories {"className":"is-style-kotlinskidev-categories-bullet-hide-style is-style-kotlinskidev-categories-bullet-hide-style","style":{"typography":{"lineHeight":"2"}}} /-->
@@ -54,7 +54,7 @@
 
             <!-- wp:column -->
             <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php esc_html_e('Posts', 'kotlinskidev') ?></h4>
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php echo esc_html_x('Posts', '404', 'kotlinskidev'); ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:query {"queryId":22,"query":{"perPage":"20","pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false}} -->

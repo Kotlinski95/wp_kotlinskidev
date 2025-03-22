@@ -1,4 +1,4 @@
-<header>
+<nav>
     <div id="page-loader">
         <div class="spinner"></div>
     </div>
@@ -72,4 +72,4 @@
         </section>
     </div>
 
-</header>
+</nav>

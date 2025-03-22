@@ -57,7 +57,8 @@
             <!-- /wp:column -->
 
             <!-- wp:column {"verticalAlignment":"top","width":"60%"} -->
-            <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:60%"><!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+            <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:60%">
+                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
                 <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('Please insert the contact form shortcode here to display the form.', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
             </div>
