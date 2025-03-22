@@ -10,14 +10,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2024-12-12 12:18+0000\n"
+"PO-Revision-Date: 2025-03-22 08:23+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.6.14; wp-6.6.1"
 
-#: patterns/footer-default.php:58
+msgctxt "404"
+msgid "Categories"
+msgstr "Categories"
+
+msgctxt "404"
+msgid "Pages"
+msgstr "Pagess"
+
+msgctxt "404"
+msgid "Posts"
+msgstr "Posts"
+
+msgid "A predesigned faq layout"
+msgstr "FAQ LAyout"
+
+msgid "A predesigned homepage banner layout"
+msgstr "Homepage Banner layout"
+
 msgid "About Us"
 msgstr "About Us"
 
@@ -48,6 +65,18 @@ msgstr " Kotlinskidev | Web Development"
 msgid "E-commerce"
 msgstr "E-commerce"
 
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "FAQ Accordion"
+msgstr "FAQ Accordion"
+
+msgid "FAQ description"
+msgstr "Here're some common question and information"
+
+msgid "FAQ What is Full Site Editing in WordPress?"
+msgstr "What is Full Site Editing in Wordpress?"
+
 msgid "Footer description"
 msgstr ""
 "As a Senior Software Engineer with 5 years of experience, I specialize in "
@@ -56,6 +85,20 @@ msgstr ""
 "web applications, optimizing frontend systems, or leading teams through "
 "complex technical challenges, I bring a results-driven mindset to every "
 "project."
+
+msgid "Home Banner"
+msgstr "Homepage Banner"
+
+msgid "Home Banner cta"
+msgstr "Explore more"
+
+msgid "Home Banner description"
+msgstr ""
+"Developing modern websites and web applications, with focus on the user, "
+"performance and accessibility in mind."
+
+msgid "Home Banner title"
+msgstr "Kotlinskidev | Modern web development"
 
 #. Theme Name of the theme
 #: style.css
@@ -73,6 +116,9 @@ msgstr ""
 msgid "Quick Links"
 msgstr "Quick Links"
 
+msgid "See My Popular Posts"
+msgstr "See My Popular Posts"
+
 msgid "Services"
 msgstr "Services"
 
@@ -87,3 +133,6 @@ msgstr "Website optimization"
 
 msgid "Website performance"
 msgstr "Website performance"
+
+msgid "Welcome to My Site"
+msgstr "Welcome to My Site"

@@ -27,13 +27,6 @@ function remove_jquery()
 }
 add_action('wp_enqueue_scripts', 'remove_jquery');
 
-// function conditional_admin_bar_css() {
-//     if (!is_user_logged_in()) { // Remove CSS only for non-logged-in users
-//         wp_deregister_style('admin-bar');
-//     }
-// }
-// add_action('wp_enqueue_scripts', 'conditional_admin_bar_css');
-
 // Disable admin bar for all users on the front end
 add_filter('show_admin_bar', '__return_false');
 
@@ -45,15 +38,6 @@ function remove_admin_bar_css()
     }
 }
 add_action('wp_enqueue_scripts', 'remove_admin_bar_css');
-
-// Disable Gutenberg Block Library CSS
-// function remove_block_library_css()
-// {
-//     wp_dequeue_style('wp-block-library'); // Core block library
-//     wp_dequeue_style('wp-block-library-theme'); // Block library theme styles
-//     wp_dequeue_style('global-styles'); // Global styles (since WordPress 5.9+)
-// }
-// add_action('wp_enqueue_scripts', 'remove_block_library_css');
 
 // disable stylesheet (wpassetcleanup-style-css id added by wpassetcleanup plugin)
 function shapeSpace_disable_scripts_styles()

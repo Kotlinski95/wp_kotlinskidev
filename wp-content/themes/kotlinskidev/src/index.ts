@@ -5,7 +5,6 @@ import './scripts/language';
 import './scripts/restoration';
 import './scripts/theme-switcher';
 
-
 document.addEventListener('DOMContentLoaded', function () {
 	document.body.classList.add('loaded');
 	console.log(

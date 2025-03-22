@@ -9,15 +9,16 @@ header {
   min-height: 4rem;
   position: fixed;
   width: 100%;
-  background: rgba(10, 10, 10, 0.5);
+  background: rgba($black, 0.4);
+  box-shadow: 0 2px 3px rgba($black, 0.4);
   backdrop-filter: blur(16px);
   z-index: 1000;
-  padding: 5px 0;
 }
 
 .light-mode {
   header {
-    background: rgba(10, 10, 10, 0.1);
+    background: rgba($white, 0.6);
+    box-shadow: 0 2px 3px rgba($white, 0.6);
   }
 }
 
@@ -57,21 +58,27 @@ header::before {
   }
 }
 
-.logo {
+.logo,
+.custom-logo-link {
   margin-left: 20px;
   z-index: 1001;
+  position: relative;
 }
 
-.logo a {
+.logo a,
+.custom-logo-link a {
   display: block;
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-.logo img {
+.logo img,
+.custom-logo-link img {
   max-height: 4rem;
+  max-width: 6.25rem;
   width: auto;
+  height: 4rem;
 }
 
 .menu-header-menu-container ul {
@@ -91,6 +98,7 @@ header::before {
 }
 
 .navigation {
+  margin-inline-end: 2rem;
   .menu-items {
     display: flex;
     flex-wrap: nowrap;
@@ -104,6 +112,7 @@ header::before {
       gap: 1rem;
       list-style: none;
     }
+    .sub-menu{display: none;}
   }
 }
 

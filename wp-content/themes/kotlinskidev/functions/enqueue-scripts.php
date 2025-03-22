@@ -27,11 +27,16 @@ function defer_css_media_attribute($html, $handle)
 // Preload critical.css for faster rendering
 function preload_critical_css()
 {
-    wp_enqueue_style('preload-style', get_template_directory_uri() . '/build/critical.css', false, null);
+    // Critical CSS
+    wp_enqueue_style('critical-style', get_template_directory_uri() . '/build/critical.css', false, null);
+    // Icomoon fonts
+    wp_enqueue_style('icomoon-style', get_template_directory_uri() . '/assets/css/icomoon.css', false, null);
+    // Tailwind CSS
+    wp_enqueue_style('tailwind-css', get_template_directory_uri() . '/build/tailwind.css', false, null);
     add_filter('style_loader_tag',  'preload_filter', 10, 2);
     function preload_filter($html, $handle)
     {
-        if (strcmp($handle, 'preload-style') == 0) {
+        if ($handle === 'critical-style' || $handle === 'icomoon-style' || $handle === 'tailwind-css') {
             $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
         }
         return $html;

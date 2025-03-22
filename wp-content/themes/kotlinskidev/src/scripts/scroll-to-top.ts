@@ -1,6 +1,6 @@
 // /src/scripts/scroll-to-top.ts
 (function () {
-  const scrollToTopBtn = document.getElementById("scroll-top-top");
+  const scrollToTopBtn = document.getElementById("scroll-to-top");
   if (!scrollToTopBtn) return;
   // Show/hide button based on scroll position
   window.onscroll = function () {
