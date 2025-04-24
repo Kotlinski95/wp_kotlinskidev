@@ -58,5 +58,8 @@ node_modules
 # Ingore dist folders
 dist
 
+# Ingore build folders
+build
+
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
