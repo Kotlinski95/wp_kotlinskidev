@@ -4,6 +4,7 @@ import './scripts/scroll-to-top';
 import './scripts/language';
 import './scripts/restoration';
 import './scripts/theme-switcher';
+import './scripts/scroll-animations';
 
 document.addEventListener('DOMContentLoaded', function () {
 	document.body.classList.add('loaded');

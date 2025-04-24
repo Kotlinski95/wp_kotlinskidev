@@ -1,0 +1,32 @@
+.fade-in-on-scroll,
+.fade-up-on-scroll,
+.fade-left-on-scroll,
+.fade-right-on-scroll {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: none;
+}
+.fade-up-on-scroll {
+  transform: translateY(30px);
+}
+.fade-up-on-scroll.visible {
+  opacity: 1;
+  transform: none;
+}
+.fade-left-on-scroll {
+  transform: translateX(-30px);
+}
+.fade-left-on-scroll.visible {
+  opacity: 1;
+  transform: none;
+}
+.fade-right-on-scroll {
+  transform: translateX(30px);
+}
+.fade-right-on-scroll.visible {
+  opacity: 1;
+  transform: none;
+}

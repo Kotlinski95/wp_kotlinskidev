@@ -10,12 +10,18 @@
 
 # Ignore plugin and theme directories if you don’t want to include them in your repository
 /wp-content/plugins/*
+/wp-content/plugins/akismet/*
 
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
 # !/wp-content/plugins/custom-plugin/
 # /wp-content/themes/*
 # !/wp-content/themes/custom-theme/
+
+# Ignore all themes
+/wp-content/themes/*
+# Except kotlinskidev theme
+!/wp-content/themes/kotlinskidev/
 
 # Ignore uploaded files
 /wp-content/uploads/
@@ -52,3 +58,5 @@ node_modules
 # Ingore dist folders
 dist
 
+# Ignore ai1wm-backups files
+/wp-content/ai1wm-backups/*
