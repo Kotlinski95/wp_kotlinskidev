@@ -48,16 +48,32 @@ function shapeSpace_disable_scripts_styles()
 }
 add_action('wp_enqueue_scripts', 'shapeSpace_disable_scripts_styles', 100);
 
-function mytheme_inline_theme_switcher_script() {
-    ?>
+function mytheme_inline_theme_switcher_script()
+{
+?>
     <script type="text/javascript">
         (function() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
                 document.body?.classList?.add('light-mode');
+                document.documentElement.classList.add('light-mode');
+            } else {
+                document.body?.classList?.add('dark-mode');
+                document.documentElement.classList.add('dark-mode');
             }
         })();
     </script>
-    <?php
+    <style>
+        .light-mode {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .dark-mode {
+            background-color: #000000;
+            color: #ffffff;
+        }
+    </style>
+<?php
 }
 add_action('wp_head', 'mytheme_inline_theme_switcher_script', 1);

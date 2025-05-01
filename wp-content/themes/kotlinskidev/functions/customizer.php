@@ -147,17 +147,17 @@ function mytheme_customize_css()
     $dark_link_color_hover = get_theme_mod('dark_link_color_hover', '#ff6347');
 ?>
     <style type="text/css">
-        body {
+        .dark-mode {
             background-color: <?php echo esc_attr($dark_background_color); ?>;
             color: <?php echo esc_attr($dark_text_color); ?>;
         }
 
-        a {
+        .dark-mode a {
             color: <?php echo esc_attr($dark_link_color); ?>;
             transition: color 0.3s ease-in-out;
         }
 
-        a:hover {
+        .dark-mode a:hover {
             color: <?php echo esc_attr($dark_link_color_hover); ?>;
         }
 
