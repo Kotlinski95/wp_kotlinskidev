@@ -7,10 +7,10 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/rating_star.png',
-    $kotlinskidev_url . 'assets/images/testimonial.jpg',
-    $kotlinskidev_url . 'assets/images/testimonial.jpg',
-    $kotlinskidev_url . 'assets/images/testimonial.jpg',
+    $kotlinskidev_url . 'assets/images/rating_star.webp',
+    $kotlinskidev_url . 'assets/images/testimonial.webp',
+    $kotlinskidev_url . 'assets/images/testimonial.webp',
+    $kotlinskidev_url . 'assets/images/testimonial.webp',
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/testimonial-section","name":"Testimonial Section"},"style":{"spacing":{"padding":{"top":"7rem","bottom":"4rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0px","bottom":"0px"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->

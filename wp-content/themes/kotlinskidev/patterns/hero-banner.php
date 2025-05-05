@@ -6,12 +6,12 @@
  * Categories: banner, kotlinskidev/banners
  */
 
-$background_url = esc_url(get_theme_file_uri('assets/images/hero-background.jpg'));
+$background_url = esc_url(get_theme_file_uri('assets/images/hero-background.webp'));
 
 ?>
 <!-- wp:cover {"url":"<?php echo $background_url; ?>","id":3838,"dimRatio":50,"overlayColor":"contrast","textColor":"light-color","align":"full"} -->
 <div class="pattern-hero-banner wp-block-cover alignfull has-text-color"><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim"></span>
-    <img class="wp-block-cover__image-background wp-image-3838" alt="" src="<?php echo esc_url(get_theme_file_uri('assets/images/hero-background.jpg')) ?>" data-object-fit="cover" />
+    <img class="wp-block-cover__image-background wp-image-3838" alt="" src="<?php echo esc_url(get_theme_file_uri('assets/images/hero-background.webp')) ?>" data-object-fit="cover" />
     <div class="wp-block-cover__inner-container"><!-- wp:group {"style":{"spacing":{"blockGap":"2.5rem"}},"layout":{"type":"constrained","wideSize":"%","contentSize":"75%"}} -->
         <div class="wp-block-group"><!-- wp:heading {"textAlign":"center","textColor":"light-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->
             <h2 class="wp-block-heading has-text-align-center has-light-color-color has-text-color has-link-color"><?php esc_html_e('Welcome to My Site', 'kotlinskidev') ?></h2>

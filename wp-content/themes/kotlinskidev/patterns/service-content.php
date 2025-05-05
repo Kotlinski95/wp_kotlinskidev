@@ -7,10 +7,10 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/work.png',
-    $kotlinskidev_url . 'assets/images/work.png',
-    $kotlinskidev_url . 'assets/images/work.png',
-    $kotlinskidev_url . 'assets/images/icon_button.png',
+    $kotlinskidev_url . 'assets/images/work.webp',
+    $kotlinskidev_url . 'assets/images/work.webp',
+    $kotlinskidev_url . 'assets/images/work.webp',
+    $kotlinskidev_url . 'assets/images/icon_button.webp',
 );
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"gradient":"gradient-block-top-right","layout":{"type":"constrained","contentSize":"1180px"}} -->

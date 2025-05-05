@@ -7,8 +7,8 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/about.jpg',
-    $kotlinskidev_url . 'assets/images/video_icon.png',
+    $kotlinskidev_url . 'assets/images/about.webp',
+    $kotlinskidev_url . 'assets/images/video_icon.webp',
 );
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|80","bottom":"6rem"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->

@@ -7,9 +7,9 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/work.png',
-    $kotlinskidev_url . 'assets/images/work.png',
-    $kotlinskidev_url . 'assets/images/work.png',
+    $kotlinskidev_url . 'assets/images/work.webp',
+    $kotlinskidev_url . 'assets/images/work.webp',
+    $kotlinskidev_url . 'assets/images/work.webp',
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/latest-work","name":"Latest Works Section"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"gradient":"gradient-block-bottom-right","layout":{"type":"constrained","contentSize":"1180px"}} -->

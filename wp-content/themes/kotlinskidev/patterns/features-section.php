@@ -7,10 +7,10 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/service_icon.png',
-    $kotlinskidev_url . 'assets/images/service_icon.png',
-    $kotlinskidev_url . 'assets/images/service_icon.png',
-    $kotlinskidev_url . 'assets/images/service_icon.png',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/features-and-benefits","name":"Features and Benefits"},"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"gradient":"gradient-nine","layout":{"type":"constrained","contentSize":"1180px"}} -->

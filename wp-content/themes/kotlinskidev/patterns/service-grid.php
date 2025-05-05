@@ -7,10 +7,10 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/service_icon.png',
-    $kotlinskidev_url . 'assets/images/service_icon.png',
-    $kotlinskidev_url . 'assets/images/service_icon.png',
-    $kotlinskidev_url . 'assets/images/service_icon.png',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
+    $kotlinskidev_url . 'assets/images/service_icon.webp',
 );
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"7rem","bottom":"7rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"gradient":"gradient-block-bottom","layout":{"type":"constrained","contentSize":"940px"}} -->
