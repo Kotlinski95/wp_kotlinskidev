@@ -7,12 +7,12 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/logo.png',
-    $kotlinskidev_url . 'assets/images/logo.png',
-    $kotlinskidev_url . 'assets/images/logo.png',
-    $kotlinskidev_url . 'assets/images/logo.png',
-    $kotlinskidev_url . 'assets/images/logo.png',
-    $kotlinskidev_url . 'assets/images/logo.png'
+    $kotlinskidev_url . 'assets/images/logo.webp',
+    $kotlinskidev_url . 'assets/images/logo.webp',
+    $kotlinskidev_url . 'assets/images/logo.webp',
+    $kotlinskidev_url . 'assets/images/logo.webp',
+    $kotlinskidev_url . 'assets/images/logo.webp',
+    $kotlinskidev_url . 'assets/images/logo.webp'
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/logo-showcase","name":"Logos Showcase"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"0","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}},"border":{"bottom":{"color":"var:preset|color|background-alt","width":"1px"},"top":{},"right":{},"left":{}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->

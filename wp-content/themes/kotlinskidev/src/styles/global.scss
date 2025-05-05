@@ -7,12 +7,15 @@ html{
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background: black;
   overflow-x: hidden;
 
   &.scroll-lock {
     overflow: hidden;
   }
+}
+
+.w-full {
+  width: 100%;
 }
 
 .light-mode{
@@ -47,6 +50,28 @@ body {
 .full-height{
   min-height:100vh;
   height:100vh;
+}
+
+p:empty,
+h1:empty,
+h2:empty,
+h3:empty,
+h4:empty,
+h5:empty,
+h6:empty,
+ul:empty,
+ol:empty,
+dl:empty,
+blockquote:empty,
+figure:empty,
+hr:empty,
+table:empty,
+pre:empty,
+address:empty,
+a:empty,
+span:empty {
+  margin: 0;
+  padding: 0;
 }
 
 @media (min-width: $breakpoint-desktop) {

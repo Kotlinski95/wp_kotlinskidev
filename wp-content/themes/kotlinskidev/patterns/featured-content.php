@@ -7,8 +7,8 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/work.png',
-    $kotlinskidev_url . 'assets/images/work.png',
+    $kotlinskidev_url . 'assets/images/work.webp',
+    $kotlinskidev_url . 'assets/images/work.webp',
 );
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"100%"}} -->

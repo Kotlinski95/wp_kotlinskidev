@@ -7,8 +7,8 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/about.jpg',
-    $kotlinskidev_url . 'assets/images/about.jpg',
+    $kotlinskidev_url . 'assets/images/about.webp',
+    $kotlinskidev_url . 'assets/images/about.webp',
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/mission-vision","name":"Mission Vision"},"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"100%"}} -->

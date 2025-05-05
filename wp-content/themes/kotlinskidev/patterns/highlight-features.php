@@ -7,7 +7,7 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/work.png',
+    $kotlinskidev_url . 'assets/images/work.webp',
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/highlight-features","name":"Highlight Features"},"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|40","bottom":"6rem"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->

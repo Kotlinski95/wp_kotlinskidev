@@ -7,13 +7,13 @@
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
 $kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/rating_star.png',
-    $kotlinskidev_url . 'assets/images/testimonial.jpg',
-    $kotlinskidev_url . 'assets/images/testimonial.jpg',
-    $kotlinskidev_url . 'assets/images/testimonial.jpg',
-    $kotlinskidev_url . 'assets/images/team.jpg',
-    $kotlinskidev_url . 'assets/images/team.jpg',
-    $kotlinskidev_url . 'assets/images/team.jpg',
+    $kotlinskidev_url . 'assets/images/rating_star.webp',
+    $kotlinskidev_url . 'assets/images/testimonial.webp',
+    $kotlinskidev_url . 'assets/images/testimonial.webp',
+    $kotlinskidev_url . 'assets/images/testimonial.webp',
+    $kotlinskidev_url . 'assets/images/team.webp',
+    $kotlinskidev_url . 'assets/images/team.webp',
+    $kotlinskidev_url . 'assets/images/team.webp',
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/testimonial-grid","name":"Testimonials Grid"},"style":{"spacing":{"padding":{"top":"100px","bottom":"100px","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0px","bottom":"0px"}}},"gradient":"gradient-block-bottom","layout":{"type":"constrained","contentSize":"1180px"}} -->

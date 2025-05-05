@@ -13,6 +13,10 @@ header {
   box-shadow: 0 2px 3px rgba($black, 0.4);
   backdrop-filter: blur(16px);
   z-index: 1000;
+  .wp-block-group{
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .light-mode {
@@ -43,7 +47,7 @@ header::before {
   width: 100%;
   max-width: $page-large;
   margin: 0 auto;
-
+  min-block-size: 4.0625rem;
   a {
     text-decoration: none;
   }
