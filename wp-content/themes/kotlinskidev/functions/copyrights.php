@@ -13,4 +13,3 @@ function kotlinskidev_copyrights_shortcode()
     return ob_get_clean();
 }
 add_shortcode('copyrights', 'kotlinskidev_copyrights_shortcode');
-?>

@@ -89,5 +89,4 @@ function add_poster_image_to_cover_video( $output, $block ) {
 
 // Hook up
 add_filter( 'render_block', 'add_poster_image_to_cover_video', 10, 2 );
-?>
 

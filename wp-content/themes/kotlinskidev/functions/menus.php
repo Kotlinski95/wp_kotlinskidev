@@ -1,4 +1,3 @@
-
 <?php
 function theme_slug_register_menus()
 {

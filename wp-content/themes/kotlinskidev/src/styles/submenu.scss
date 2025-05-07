@@ -9,8 +9,9 @@
 .menu-item-has-children{
     &:after{
         content: '\25be';
-        width: 2px;
-        height: 2px;
+        width: 10px;
+        height: 20px;
+        min-width: 10px;
     }
     position: relative;
     .sub-menu {

@@ -1,0 +1,11 @@
+@import 'variables.scss';
+
+.text-shadow {
+    text-shadow: 1px 1px 2px $black;
+}
+.text-shadow-white {
+    text-shadow: 1px 1px 2px $white;
+}
+.text-shadow-red {
+    text-shadow: 1px 1px 2px $red;
+}
