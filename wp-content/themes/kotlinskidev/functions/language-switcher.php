@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 function render_language_switcher()
 {
     $languages = [

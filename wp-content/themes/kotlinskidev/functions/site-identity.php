@@ -1,4 +1,3 @@
-
 <?php
 // Add support for Custom Logo
 function mytheme_setup()

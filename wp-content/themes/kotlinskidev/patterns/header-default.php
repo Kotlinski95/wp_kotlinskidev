@@ -13,7 +13,7 @@
         <div class="wp-block-group">
             <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
             <div class="wp-block-group" style="margin-top:0;margin-bottom:0">
-                <!-- wp:site-logo {"width":85,"shouldSyncIcon":false} /-->
+                <!-- wp:site-logo {"width":86,"height":64,"shouldSyncIcon":false} /-->
             </div>
             <!-- /wp:group -->
 

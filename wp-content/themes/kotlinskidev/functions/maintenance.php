@@ -1,5 +1,12 @@
 <?php
-// Add Maintenance Mode option to WordPress admin
+/**
+ * Maintenance Mode Functionality
+ *
+ * This file contains the functionality for enabling and disabling maintenance mode.
+ * It includes a settings page in the WordPress admin area to manage the maintenance mode.
+ *
+ * @package KotlinskiDev
+ */
 function add_maintenance_mode_settings()
 {
     add_options_page(
@@ -78,4 +85,3 @@ function maintenance_redirect()
     }
 }
 add_action('init', 'maintenance_redirect');
-?>
