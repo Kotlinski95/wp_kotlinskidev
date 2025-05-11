@@ -67,3 +67,6 @@ build
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
+
+# VS code worksspace files
+*.code-workspace

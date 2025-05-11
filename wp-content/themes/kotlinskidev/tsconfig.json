@@ -9,7 +9,9 @@
 		"moduleResolution": "node",
 		"target": "es5",
 		"allowJs": true,
-		"lib": ["DOM", "ESNext"]
+		"lib": ["DOM", "ESNext"],
+		"jsx": "react",
+		"allowSyntheticDefaultImports": true
 	},
-	"include": [ "./src/**/*" ]
+	"include": ["./src/**/*"]
 }

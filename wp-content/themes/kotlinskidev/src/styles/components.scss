@@ -1,18 +1,50 @@
 @import 'variables';
 
-.kotlinskidev-brands{
+.kotlinskidev-brands {
     flex-wrap: nowrap;
 }
 
-.is-kotlinskidev-sticky{
+.is-kotlinskidev-sticky {
     position: sticky;
     top: $header;
     z-index: 10;
 }
 
-.is-kotlinskidev-nowrap{
+.is-kotlinskidev-nowrap {
     flex-wrap: wrap;
+
     @media (min-width: $tablet) {
         flex-wrap: nowrap;
+    }
+}
+
+.swiper-scrollbar {
+    background: #ffffffdd !important;
+
+    .swiper-scrollbar-drag {
+        background: var(--wp--preset--color--primary) !important;
+    }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--wp--preset--color--primary) !important;
+}
+
+.swiper-pagination-bullet {
+    background: #ffffffdd !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--wp--preset--color--primary) !important;
+}
+
+.light-mode {
+    .swiper-scrollbar {
+        background: #0000001a !important;
+
+        .swiper-scrollbar-drag {
+            background: var(--wp--preset--color--primary) !important;
+        }
     }
 }
