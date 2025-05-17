@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.swiper').forEach((el) => {
         // Hide the carousel initially
-        el.style.visibility = 'hidden';
 
+        if (!el.dataset.bannerCarouselSettings) return;
+        el.style.visibility = 'hidden';
+        
         const settings = el.dataset.bannerCarouselSettings ?
             JSON.parse(el.dataset.bannerCarouselSettings) : {};
 

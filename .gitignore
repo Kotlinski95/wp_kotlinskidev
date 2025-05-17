@@ -15,6 +15,9 @@
 !/wp-content/plugins/custom-google-analytics-loader/
 !/wp-content/plugins/custom-facebook-pixel-loader/
 
+# Allow the slider-block plugin directory
+!/wp-content/plugins/slider-block/
+
 
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
@@ -64,6 +67,9 @@ dist
 
 # Ingore build folders
 build
+
+# Allow only the build folder inside slider-block
+!/wp-content/plugins/slider-block/build/
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
