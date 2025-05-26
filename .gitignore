@@ -18,6 +18,8 @@
 # Allow the slider-block plugin directory
 !/wp-content/plugins/slider-block/
 
+# Allow the contact form plugin directory
+!/wp-content/plugins/contact-form-ts/
 
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*

@@ -19,6 +19,11 @@
           "name": "Primary"
         },
         {
+          "slug": "primary-hover",
+          "color": "#a90f0f",
+          "name": "Primary"
+        },
+        {
           "slug": "primary-shade-1",
           "color": "#db1c1d",
           "name": "Primary Shade 1"

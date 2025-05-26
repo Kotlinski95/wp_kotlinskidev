@@ -107,9 +107,17 @@ header::before {
   .menu-items {
     display: flex;
     flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     gap: 1rem;
     list-style: none;
     padding-inline: 0;
+
+    &>li{
+      display: flex;
+      flex-wrap: nowrap;
+    }
 
     ul {
       display: flex;
