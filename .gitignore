@@ -21,6 +21,9 @@
 # Allow the contact form plugin directory
 !/wp-content/plugins/contact-form-ts/
 
+# Allow the google maps plugin directory
+!/wp-content/plugins/google-maps-block/
+
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
 # !/wp-content/plugins/custom-plugin/
@@ -72,6 +75,9 @@ build
 
 # Allow only the build folder inside slider-block
 !/wp-content/plugins/slider-block/build/
+
+# Allow only the build folder inside google-maps-block
+!/wp-content/plugins/google-maps-block/build/
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*

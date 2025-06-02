@@ -55,3 +55,7 @@ body.loaded #page-loader {
     height: 4rem;
     width: auto;
 }
+
+header > * {
+    visibility: hidden;
+}
