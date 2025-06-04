@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, RangeControl } from '@wordpress/components';
-import React from 'react';
+import { PanelBody, TextControl, RangeControl, SelectControl, ToggleControl, ColorPalette, TextareaControl, Button } from '@wordpress/components';
+import React, { useEffect, useRef } from 'react';
 import './editor.scss';
 
 export interface GoogleMapsBlockProps {
@@ -16,12 +16,80 @@ export interface GoogleMapsBlockProps {
 
 const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
     const blockProps = useBlockProps();
-    const { apiKey = '', address = '', lat = '', lng = '', zoom = 14, width = '100%', height = '400px' } = attributes;
+    const { apiKey = '', address = '', lat = '', lng = '', zoom = 14, width = '100%', height = '400px', mapType = 'roadmap', showZoomControl = true, showStreetViewControl = true, showFullscreenControl = true, showMapTypeControl = true, markerLabel = '', markerTooltip = '', markerColor = 'red', customCSS = '' } = attributes;
 
-    // Placeholder for map preview
-    const mapUrl = apiKey
-        ? `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(address)}&zoom=${zoom}`
-        : '';
+    const mapRef = useRef<HTMLDivElement>(null);
+    const mapInstance = useRef(null);
+    const initialCenter = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+    const initialZoom = zoom;
+    const [mapLoaded, setMapLoaded] = React.useState(false);
+
+    useEffect(() => {
+        if (!apiKey || !(address || (lat && lng)) || !mapRef.current) return;
+        // Load Google Maps JS API
+        const scriptId = 'google-maps-js';
+        if (!document.getElementById(scriptId)) {
+            const script = document.createElement('script');
+            script.id = scriptId;
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
+            script.async = true;
+            script.onload = renderMap;
+            document.body.appendChild(script);
+        } else {
+            renderMap();
+        }
+        function renderMap() {
+            // @ts-ignore
+            if (!window.google || !window.google.maps) return;
+            const center = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+            const geocoder = new window.google.maps.Geocoder();
+            const map = new window.google.maps.Map(mapRef.current, {
+                center: center || { lat: 0, lng: 0 },
+                zoom,
+                mapTypeId: mapType,
+                zoomControl: showZoomControl,
+                streetViewControl: showStreetViewControl,
+                fullscreenControl: showFullscreenControl,
+                mapTypeControl: showMapTypeControl,
+            });
+            mapInstance.current = map;
+            setMapLoaded(true);
+            if (center) {
+                addMarker(center);
+            } else if (address) {
+                geocoder.geocode({ address }, (results: any, status: string) => {
+                    if (status === 'OK' && results[0]) {
+                        map.setCenter(results[0].geometry.location);
+                        addMarker(results[0].geometry.location);
+                    }
+                });
+            }
+            function addMarker(position: any) {
+                const marker = new window.google.maps.Marker({
+                    position,
+                    map,
+                    label: markerLabel || undefined,
+                    icon: markerColor !== 'red' ? {
+                        path: window.google.maps.SymbolPath.CIRCLE,
+                        scale: 8,
+                        fillColor: markerColor,
+                        fillOpacity: 1,
+                        strokeWeight: 1,
+                        strokeColor: '#fff',
+                    } : undefined,
+                });
+                if (markerTooltip) {
+                    const infowindow = new window.google.maps.InfoWindow({ content: markerTooltip });
+                    marker.addListener('click', () => {
+                        infowindow.open(map, marker);
+                    });
+                    // Optionally open by default:
+                    infowindow.open(map, marker);
+                }
+            }
+        }
+        // eslint-disable-next-line
+    }, [apiKey, address, lat, lng, zoom, mapType, showZoomControl, showStreetViewControl, showFullscreenControl, showMapTypeControl, markerLabel, markerTooltip, markerColor]);
 
     return (
         <div {...blockProps}>
@@ -68,32 +136,105 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
                         onChange={(value) => setAttributes({ height: value })}
                         help={__('Any valid CSS height value, e.g. 400px', 'google-maps-block')}
                     />
+                    <SelectControl
+                        label={__('Map Type', 'google-maps-block')}
+                        value={mapType}
+                        options={[
+                            { label: __('Roadmap', 'google-maps-block'), value: 'roadmap' },
+                            { label: __('Satellite', 'google-maps-block'), value: 'satellite' },
+                            { label: __('Hybrid', 'google-maps-block'), value: 'hybrid' },
+                            { label: __('Terrain', 'google-maps-block'), value: 'terrain' },
+                        ]}
+                        onChange={(value) => setAttributes({ mapType: value })}
+                    />
+                    <ToggleControl
+                        label={__('Show Zoom Control', 'google-maps-block')}
+                        checked={!!showZoomControl}
+                        onChange={(value) => setAttributes({ showZoomControl: value })}
+                    />
+                    <ToggleControl
+                        label={__('Show Street View Control', 'google-maps-block')}
+                        checked={!!showStreetViewControl}
+                        onChange={(value) => setAttributes({ showStreetViewControl: value })}
+                    />
+                    <ToggleControl
+                        label={__('Show Fullscreen Control', 'google-maps-block')}
+                        checked={!!showFullscreenControl}
+                        onChange={(value) => setAttributes({ showFullscreenControl: value })}
+                    />
+                    <ToggleControl
+                        label={__('Show Map Type Control', 'google-maps-block')}
+                        checked={!!showMapTypeControl}
+                        onChange={(value) => setAttributes({ showMapTypeControl: value })}
+                    />
+                    <TextControl
+                        label={__('Marker Label', 'google-maps-block')}
+                        value={markerLabel}
+                        onChange={(value) => setAttributes({ markerLabel: value })}
+                        help={__('Short label for the marker (1-2 chars).', 'google-maps-block')}
+                    />
+                    <TextControl
+                        label={__('Marker Tooltip', 'google-maps-block')}
+                        value={markerTooltip}
+                        onChange={(value) => setAttributes({ markerTooltip: value })}
+                        help={__('Tooltip text shown when marker is clicked.', 'google-maps-block')}
+                    />
+                    <ColorPalette
+                        label={__('Marker Color', 'google-maps-block')}
+                        value={markerColor}
+                        onChange={(value) => setAttributes({ markerColor: value })}
+                        colors={[
+                            { name: 'Red', color: 'red' },
+                            { name: 'Blue', color: 'blue' },
+                            { name: 'Green', color: 'green' },
+                            { name: 'Yellow', color: 'yellow' },
+                            { name: 'Purple', color: 'purple' },
+                            { name: 'Black', color: 'black' },
+                        ]}
+                    />
+                    <TextareaControl
+                        label={__('Custom Marker Label CSS', 'google-maps-block')}
+                        value={customCSS}
+                        onChange={(value) => setAttributes({ customCSS: value })}
+                        help={__('Enter custom CSS for the marker label. Example: .marker-position { margin-top: 55px; color: red; }', 'google-maps-block')}
+                        rows={4}
+                    />
+                    <ToggleControl
+                        label={__('Show Reset View Button', 'google-maps-block')}
+                        checked={!!attributes.showResetViewButton}
+                        onChange={(value) => setAttributes({ showResetViewButton: value })}
+                    />
                 </PanelBody>
             </InspectorControls>
-            {apiKey && (address || (lat && lng)) ? (
-                <iframe
-                    title="Google Map Preview"
-                    width={width}
-                    height={height}
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    allowFullScreen
-                    src={
-                        address
-                            ? `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(address)}&zoom=${zoom}`
-                            : `https://www.google.com/maps/embed/v1/view?key=${apiKey}&center=${lat},${lng}&zoom=${zoom}`
-                    }
-                />
-            ) : (
-                <div style={{ width, height, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f3f3', color: '#888', flexDirection: 'column' }}>
-                    <img
-                        src="https://maps.gstatic.com/tactile/basepage/pegman_sherlock.png"
-                        alt="Google Maps Placeholder"
-                        style={{ width: 64, height: 64, opacity: 0.5, marginBottom: 12 }}
-                    />
-                    {__('Google Map preview will appear here.', 'google-maps-block')}
-                </div>
-            )}
+            <div style={{ position: 'relative' }}>
+                {apiKey && (address || (lat && lng)) ? (
+                    <div ref={mapRef} style={{ width, height }} />
+                ) : (
+                    <div style={{ width, height, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f3f3', color: '#888', flexDirection: 'column' }}>
+                        <img
+                            src="https://maps.gstatic.com/tactile/basepage/pegman_sherlock.png"
+                            alt="Google Maps Placeholder"
+                            style={{ width: 64, height: 64, opacity: 0.5, marginBottom: 12 }}
+                        />
+                        {__('Google Map preview will appear here.', 'google-maps-block')}
+                    </div>
+				)}
+                {mapLoaded && attributes.showResetViewButton && (
+                    <Button
+                        style={{ position: 'absolute', bottom: 10, left: 10, zIndex: 2 }}
+						className="test123"
+                        onClick={() => {
+                            if (mapInstance.current && initialCenter) {
+                                mapInstance.current.setCenter(initialCenter);
+                                mapInstance.current.setZoom(initialZoom);
+                            }
+                        }}
+                        variant="primary"
+                    >
+                        {__('Reset View', 'google-maps-block')}
+                    </Button>
+                )}
+            </div>
         </div>
     );
 };

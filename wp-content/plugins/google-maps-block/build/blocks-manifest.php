@@ -50,6 +50,46 @@ return array(
 			'height' => array(
 				'type' => 'string',
 				'default' => '400px'
+			),
+			'mapType' => array(
+				'type' => 'string',
+				'default' => 'roadmap'
+			),
+			'showZoomControl' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'showStreetViewControl' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'showFullscreenControl' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'showMapTypeControl' => array(
+				'type' => 'boolean',
+				'default' => true
+			),
+			'markerLabel' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'markerTooltip' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'markerColor' => array(
+				'type' => 'string',
+				'default' => 'red'
+			),
+			'customCSS' => array(
+				'type' => 'string',
+				'default' => ''
+			),
+			'showResetViewButton' => array(
+				'type' => 'boolean',
+				'default' => false
 			)
 		)
 	)

@@ -24,6 +24,16 @@
 		"lng": { "type": "string", "default": "" },
 		"zoom": { "type": "number", "default": 14 },
 		"width": { "type": "string", "default": "100%" },
-		"height": { "type": "string", "default": "400px" }
+		"height": { "type": "string", "default": "400px" },
+		"mapType": { "type": "string", "default": "roadmap" },
+		"showZoomControl": { "type": "boolean", "default": true },
+		"showStreetViewControl": { "type": "boolean", "default": true },
+		"showFullscreenControl": { "type": "boolean", "default": true },
+		"showMapTypeControl": { "type": "boolean", "default": true },
+		"markerLabel": { "type": "string", "default": "" },
+		"markerTooltip": { "type": "string", "default": "" },
+		"markerColor": { "type": "string", "default": "red" },
+		"customCSS": { "type": "string", "default": "" },
+		"showResetViewButton": { "type": "boolean", "default": false }
 	}
 }
