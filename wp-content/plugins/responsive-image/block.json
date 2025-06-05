@@ -1,0 +1,21 @@
+{
+  "apiVersion": 3,
+  "name": "responsive-image/block",
+  "title": "Responsive Image",
+  "category": "media",
+  "icon": "format-image",
+  "description": "Image block with separate images for desktop and mobile.",
+  "attributes": {
+    "desktopImageUrl": { "type": "string", "default": "" },
+    "desktopImageId": { "type": "number" },
+    "mobileImageUrl": { "type": "string", "default": "" },
+    "mobileImageId": { "type": "number" },
+    "alt": { "type": "string", "default": "" },
+    "breakpoint": { "type": "number", "default": 767 }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:./build/index.js",
+  "style": "file:./build/style-index.css"
+}

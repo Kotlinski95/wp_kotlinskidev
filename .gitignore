@@ -24,6 +24,9 @@
 # Allow the google maps plugin directory
 !/wp-content/plugins/google-maps-block/
 
+# Allow the responsive image plugin directory
+!/wp-content/plugins/responsive-image/
+
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
 # !/wp-content/plugins/custom-plugin/
@@ -78,6 +81,9 @@ build
 
 # Allow only the build folder inside google-maps-block
 !/wp-content/plugins/google-maps-block/build/
+
+# Allow only the build folder inside responsive image
+!/wp-content/plugins/responsive-image/build/
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
