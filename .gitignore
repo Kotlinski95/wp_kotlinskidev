@@ -27,6 +27,9 @@
 # Allow the responsive image plugin directory
 !/wp-content/plugins/responsive-image/
 
+# Allow the responsive block visibility plugin directory
+!/wp-content/plugins/block-visibility/
+
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
 # !/wp-content/plugins/custom-plugin/
@@ -84,6 +87,9 @@ build
 
 # Allow only the build folder inside responsive image
 !/wp-content/plugins/responsive-image/build/
+
+# Allow only the build folder inside responsive image
+!/wp-content/plugins/block-visibility/build/
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*

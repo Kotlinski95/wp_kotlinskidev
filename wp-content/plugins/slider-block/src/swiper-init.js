@@ -29,7 +29,6 @@ import {
  * @see https://swiperjs.com/swiper-api#parameters
  */
 export function SwiperInit(container, options = {}) {
-	console.log('SWIPER INIT: ', container, 'options: ', options);
 	const parameters = {
 		centeredSlides: options?.centerSlides ?? false,
 		createElements: true,
@@ -88,12 +87,10 @@ export function SwiperInit(container, options = {}) {
 	};
 
 	if (!options?.scrollbar && options?.pagination) {
-		console.log('options?.pagination', options?.pagination, 'container: ', container);
 		parameters.pagination = true;
 	}
 
 	if (options?.scrollbar && !options.pagination) {
-		console.log('options?.scrollbar', options?.scrollbar, 'container: ', container);
 		parameters.scrollbar = true;
 	}
 

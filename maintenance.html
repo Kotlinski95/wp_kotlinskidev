@@ -369,7 +369,15 @@ Modern and efficient web development"
     </div>
 
     <div class="wp-login">
-      <a href="/wp-login.php" target="_self" class="wp-login-button" aria-visible="false" id="login-button" style="position:fixed; top: 10px; right: 10px; opacity: 0;" >Log-in</a>
+      <a href="#" target="_self" class="wp-login-button" aria-visible="false" id="login-button" style="position:fixed; top: 10px; right: 10px; opacity: 0;">Log-in</a>
+      <script>
+        (function() {
+          var loginBtn = document.getElementById('login-button');
+          // Dynamically build the login path based on current location
+          var href = location.pathname.replace(/[^\/]+$/, 'wp-login.php');
+          loginBtn.setAttribute('href', href);
+        })();
+      </script>
     </div>
 
     <script>
