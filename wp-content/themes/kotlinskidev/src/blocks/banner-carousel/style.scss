@@ -1,0 +1,9 @@
+@import '@node_modules/swiper/swiper-bundle.min.css';
+
+.swiper {
+    width: 100%;
+    .swiper-slide img {
+        width: 100%;
+        display: block;
+    }
+}

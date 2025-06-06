@@ -1,0 +1,24 @@
+{
+  "name": "contact-form-ts",
+  "version": "1.0.0",
+  "description": "A customizable contact form block for WordPress with TypeScript support.",
+  "author": "Adrian Kotlinski",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    	"@types/react": "^18.0.0",
+		"@types/react-dom": "^18.0.0",
+		"@types/wordpress__block-editor": "^11.5.16",
+		"@wordpress/block-editor": "^14.18.0",
+		"@wordpress/scripts": "^30.6.0",
+		"tailwindcss": "^3.4.17",
+		"typescript": "^5.8.3"
+  },
+  	"dependencies": {
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
+	}
+}

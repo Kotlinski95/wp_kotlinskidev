@@ -6,6 +6,6 @@
 .text-shadow-white {
     text-shadow: 1px 1px 2px $white;
 }
-.text-shadow-red {
-    text-shadow: 1px 1px 2px $red;
+.text-shadow-primary {
+    text-shadow: 1px 1px 2px var(--wp--preset--color--primary);
 }

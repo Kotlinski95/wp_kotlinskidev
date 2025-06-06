@@ -52,6 +52,14 @@ body {
   height:100vh;
 }
 
+.no-wrap{
+  flex-wrap: nowrap;
+}
+
+.wrap{
+  flex-wrap: wrap;
+}
+
 p:empty,
 h1:empty,
 h2:empty,
@@ -138,4 +146,8 @@ span:empty {
   .container {
     width: 70%;
   }
+}
+
+.swiper {
+  visibility: hidden;
 }

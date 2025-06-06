@@ -15,6 +15,20 @@
 !/wp-content/plugins/custom-google-analytics-loader/
 !/wp-content/plugins/custom-facebook-pixel-loader/
 
+# Allow the slider-block plugin directory
+!/wp-content/plugins/slider-block/
+
+# Allow the contact form plugin directory
+!/wp-content/plugins/contact-form-ts/
+
+# Allow the google maps plugin directory
+!/wp-content/plugins/google-maps-block/
+
+# Allow the responsive image plugin directory
+!/wp-content/plugins/responsive-image/
+
+# Allow the responsive block visibility plugin directory
+!/wp-content/plugins/block-visibility/
 
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
@@ -65,5 +79,20 @@ dist
 # Ingore build folders
 build
 
+# Allow only the build folder inside slider-block
+!/wp-content/plugins/slider-block/build/
+
+# Allow only the build folder inside google-maps-block
+!/wp-content/plugins/google-maps-block/build/
+
+# Allow only the build folder inside responsive image
+!/wp-content/plugins/responsive-image/build/
+
+# Allow only the build folder inside responsive image
+!/wp-content/plugins/block-visibility/build/
+
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
+
+# VS code worksspace files
+*.code-workspace

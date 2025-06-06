@@ -53,7 +53,14 @@ function mytheme_inline_theme_switcher_script()
 ?>
     <script type="text/javascript">
         (function() {
-            const savedTheme = localStorage.getItem('theme');
+            let savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    savedTheme = 'dark';
+                } else {
+                    savedTheme = 'light';
+                }
+            }
             if (savedTheme === 'light') {
                 document.body?.classList?.add('light-mode');
                 document.documentElement.classList.add('light-mode');

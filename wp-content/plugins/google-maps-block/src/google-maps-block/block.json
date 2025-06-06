@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "googlemaps/google-maps-block",
+	"version": "0.1.0",
+	"title": "Google Maps Block",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "A customizable Google Map block for your contact page.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "google-maps-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"apiKey": { "type": "string", "default": "" },
+		"address": { "type": "string", "default": "" },
+		"lat": { "type": "string", "default": "" },
+		"lng": { "type": "string", "default": "" },
+		"zoom": { "type": "number", "default": 14 },
+		"width": { "type": "string", "default": "100%" },
+		"height": { "type": "string", "default": "400px" },
+		"mapType": { "type": "string", "default": "roadmap" },
+		"showZoomControl": { "type": "boolean", "default": true },
+		"showStreetViewControl": { "type": "boolean", "default": true },
+		"showFullscreenControl": { "type": "boolean", "default": true },
+		"showMapTypeControl": { "type": "boolean", "default": true },
+		"markerLabel": { "type": "string", "default": "" },
+		"markerTooltip": { "type": "string", "default": "" },
+		"markerColor": { "type": "string", "default": "red" },
+		"customCSS": { "type": "string", "default": "" },
+		"showResetViewButton": { "type": "boolean", "default": false }
+	}
+}
