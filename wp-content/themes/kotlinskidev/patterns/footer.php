@@ -12,8 +12,8 @@ $kotlinskidev_images = array(
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/footer","name":"Footer"},"tagName":"footer","className":"kotlinskidev-footer","layout":{"type":"constrained","contentSize":"1180px"}} -->
 <footer class="wp-block-group kotlinskidev-footer">
-    <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-    <div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40);padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80);">
+    <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|20","bottom":"var:preset|spacing|80"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
+    <div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40);padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--80);">
         <!-- wp:columns {"style":{"spacing":{"margin":{"top":"0px"}}}} -->
         <div class="wp-block-columns" style="margin-top:0px">
             <!-- wp:column {"width":"40%"} -->
