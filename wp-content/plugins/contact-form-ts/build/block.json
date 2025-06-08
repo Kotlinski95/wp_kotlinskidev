@@ -1,0 +1,85 @@
+{
+  "apiVersion": 2,
+  "name": "contact-form-ts/form",
+  "title": "Contact Form",
+  "category": "common",
+  "icon": "email",
+  "attributes": {
+    "nameLabel": {
+      "type": "string",
+      "default": "Name"
+    },
+    "namePlaceholder": {
+      "type": "string",
+      "default": "Your Name"
+    },
+    "emailLabel": {
+      "type": "string",
+      "default": "Email"
+    },
+    "emailPlaceholder": {
+      "type": "string",
+      "default": "Your Email"
+    },
+    "topicLabel": {
+      "type": "string",
+      "default": "Topic"
+    },
+    "topicPlaceholder": {
+      "type": "string",
+      "default": "Topic"
+    },
+    "messageLabel": {
+      "type": "string",
+      "default": "Message"
+    },
+    "messagePlaceholder": {
+      "type": "string",
+      "default": "Your Message"
+    },
+    "agreeLabel": {
+      "type": "string",
+      "default": "I agree to be contacted via email."
+    },
+    "submitLabel": {
+      "type": "string",
+      "default": "Send"
+    },
+    "successMessage": {
+      "type": "string",
+      "default": "Thank you! Your message has been sent."
+    },
+    "errorMessage": {
+      "type": "string",
+      "default": "Sorry, there was an error. Please try again."
+    }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "fontFamily": true
+    },
+    "border": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true
+    },
+    "align": [
+      "wide",
+      "full"
+    ],
+    "customClassName": true
+  }
+}

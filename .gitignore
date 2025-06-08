@@ -82,6 +82,9 @@ build
 # Allow only the build folder inside slider-block
 !/wp-content/plugins/slider-block/build/
 
+# Allow only the build folder inside contact-form-ts
+!/wp-content/plugins/contact-form-ts/build/
+
 # Allow only the build folder inside google-maps-block
 !/wp-content/plugins/google-maps-block/build/
 
