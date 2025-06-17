@@ -1,5 +1,6 @@
 import React from 'react';
 import { useBlockProps } from '@wordpress/block-editor';
+import './style.scss';
 
 type BannerCarouselAttributes = {
     images: { url: string; alt?: string }[];
