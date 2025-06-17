@@ -191,11 +191,12 @@
         {
           "fontFace": [
             {
-              "fontFamily": "Sora",
+              "fontFamily": "Sora, Arial, sans-serif",
               "fontStretch": "normal",
               "fontStyle": "normal",
               "fontWeight": "300 400 500 600 700 900",
-              "src": ["file:./assets/fonts/sora/Sora-VariableFont_wght.ttf"]
+              "fontDisplay": "swap",
+              "src": ["file:./assets/fonts/sora/Sora-VariableFont_wght.woff2"]
             }
           ],
           "fontFamily": "\"Sora\", sans-serif",

@@ -18,3 +18,9 @@
 	--swiper-pagination-bullet-inactive-color: black;
 	--swiper-pagination-bullet-inactive-opacity: .2;
 }
+
+.swiper-wrapper{
+	img{
+		max-width: 100%;
+	}
+}

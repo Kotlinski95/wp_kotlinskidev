@@ -52,12 +52,12 @@ require_once get_template_directory() . '/functions/banner-slider.php';
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
 
+// Additional theme filters
+require_once get_template_directory() . '/functions/filters.php';
 
-add_filter('nocache_headers', function ($headers) {
-    unset($headers['Cache-Control']);
-    $headers['Cache-Control'] = 'public, max-age=31536000';
-    return $headers;
-});
+// Additional theme actions
+require_once get_template_directory() . '/functions/actions.php';
+
 
 function kotlinskidev_load_textdomain()
 {

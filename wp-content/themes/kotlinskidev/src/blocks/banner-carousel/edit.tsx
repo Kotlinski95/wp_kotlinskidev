@@ -1,6 +1,7 @@
 import React from 'react';
 import { useBlockProps, MediaUpload, MediaUploadCheck, InspectorControls } from '@wordpress/block-editor';
 import { CheckboxControl, RangeControl, PanelBody } from '@wordpress/components';
+import './style.scss';
 
 interface BannerCarouselAttributes {
     images: { id: number; url: string; alt?: string }[];

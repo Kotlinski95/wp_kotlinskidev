@@ -7,7 +7,7 @@
     margin: 4rem auto 0;
     padding-top: 1rem;
     padding-inline: 1rem;
-    min-height: 100vh;
+    min-height: 100dvh;
 }
 
 /* Page Loader Styles */
@@ -16,7 +16,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     background-color: transparent; /* Matches your site's background color */
     z-index: 9999; /* Ensure it's on top */
     display: flex;

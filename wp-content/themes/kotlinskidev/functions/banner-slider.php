@@ -20,6 +20,12 @@ add_action('wp_enqueue_scripts', function () {
             [],
             null
         );
+        wp_enqueue_style(
+            'kotlinskidev-style-banner-carousel-style',
+            get_template_directory_uri() . '/build/style-banner-carousel.css',
+            [],
+            null
+        );
     }
 });
 
@@ -41,6 +47,12 @@ add_action('enqueue_block_editor_assets', function () {
     wp_enqueue_style(
         'kotlinskidev-banner-carousel-editor-style',
         $theme_dir . '/build/banner-carousel.css',
+        [],
+        null
+    );
+    wp_enqueue_style(
+        'kotlinskidev-style-banner-carousel-editor-style',
+        $theme_dir . '/build/style-banner-carousel.css',
         [],
         null
     );

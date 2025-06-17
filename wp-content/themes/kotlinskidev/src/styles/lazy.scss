@@ -1,3 +1,26 @@
 header > * {
     visibility: visible !important;
 }
+
+.contact-form-success,
+.contact-form-error{
+    text-align: center;
+    font-size: var(--wp--preset--font-size--large);
+}
+
+.contact-form-success{
+ color: var(--wp--preset--color--primary);
+}
+
+.contact-form-error{
+    color: red;
+}
+
+.wp-block-social-link-anchor svg {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)) drop-shadow(0 0 0px #fff) drop-shadow(0 0 2px #fff);
+  transition: filter 0.2s;
+}
+
+.wp-block-social-link-anchor:hover svg {
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35)) drop-shadow(0 0 0px #fff) drop-shadow(0 0 3px #fff);
+}

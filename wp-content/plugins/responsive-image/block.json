@@ -11,7 +11,8 @@
     "mobileImageUrl": { "type": "string", "default": "" },
     "mobileImageId": { "type": "number" },
     "alt": { "type": "string", "default": "" },
-    "breakpoint": { "type": "number", "default": 767 }
+    "breakpoint": { "type": "number", "default": 767 },
+    "loading": { "type": "string", "default": "lazy" }
   },
   "supports": {
     "html": false

@@ -46,9 +46,18 @@ body {
   transform: translateX(-50%); /* Center it relative to viewport */
 }
 
+.full-container{
+  width: 100%;
+}
+
 .full-height{
-  min-height:100vh;
-  height:100vh;
+  min-height:100dvh;
+  height:100dvh;
+}
+
+.mx-auto{
+  display: block;
+  margin-inline: auto;
 }
 
 .no-wrap{
@@ -149,4 +158,8 @@ span:empty {
 
 .swiper {
   visibility: hidden;
+}
+
+img{
+  cursor: pointer;
 }
