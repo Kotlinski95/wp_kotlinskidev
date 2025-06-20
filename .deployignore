@@ -5,3 +5,6 @@
 !wp-content/
 !wp-content/themes/
 !wp-content/themes/kotlinskidev/**
+
+# Exclude all node_modules folders anywhere
+**/node_modules/
