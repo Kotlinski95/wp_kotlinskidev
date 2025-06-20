@@ -1,14 +1,7 @@
-# Ignore everything
-/**
-
-# Except the theme you want to deploy
-!wp-content/
-!wp-content/themes/
-!wp-content/themes/kotlinskidev/**
-
 # Now, re-ignore node_modules inside the theme
 wp-content/themes/kotlinskidev/node_modules/
 wp-content/themes/kotlinskidev/node_modules/**
 
 # (Optional) Exclude node_modules anywhere else
 **/node_modules/
+node_modules/**
