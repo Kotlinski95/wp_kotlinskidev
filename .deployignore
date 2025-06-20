@@ -1,0 +1,7 @@
+# Ignore everything
+/**
+
+# Except the theme you want to deploy
+!wp-content/
+!wp-content/themes/
+!wp-content/themes/kotlinskidev/**
