@@ -3,6 +3,7 @@
 
 # Ignore wp-config file
 /wp-config.php
+wp-config.php
 
 # Ignore WordPress core files and directories
 /wp-admin/
