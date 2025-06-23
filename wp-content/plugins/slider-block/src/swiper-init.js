@@ -58,6 +58,7 @@ export function SwiperInit(container, options = {}) {
 				  }
 				: options?.autoplay ?? true,
 		slidesPerView: options?.slidesPerView || 1,
+		spaceBetween: typeof options.spaceBetween === 'number' ? options.spaceBetween : 16,
 		breakpoints: {
 			640: {
 				slidesPerView: options?.slidesPerMobile || 1,

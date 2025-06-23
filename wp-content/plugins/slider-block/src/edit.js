@@ -18,6 +18,7 @@ import {
 	PanelRow,
 	ToggleControl,
 	RangeControl,
+	ColorPalette,
 } from '@wordpress/components';
 import { useRefEffect } from '@wordpress/compose';
 import { useSelect, useDispatch, select, subscribe } from '@wordpress/data';
@@ -178,7 +179,7 @@ const Slider = memo( ( { clientId, attributes, innerBlocksProps } ) => {
  * @return {Element} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const { autoplay, navigation, pagination } = attributes;
+	const { autoplay, navigation, pagination, controlsColor, spaceBetween } = attributes;
 	const { clientId } = useBlockEditContext();
 	const blockProps = useBlockProps();
 	// Our nested innerblocks that will be inserted by default.
@@ -380,6 +381,16 @@ export default function Edit( { attributes, setAttributes } ) {
 								'Enable or disable looping of slides.',
 								'wpe'
 							) }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<RangeControl
+							label={ __( 'Space Between Slides (px)', 'wpe' ) }
+							value={ spaceBetween }
+							onChange={ ( value ) => setAttributes( { spaceBetween: value } ) }
+							min={ 0 }
+							max={ 100 }
+							help={ __( 'Set the space between slides in pixels.', 'wpe' ) }
 						/>
 					</PanelRow>
 				</PanelBody>

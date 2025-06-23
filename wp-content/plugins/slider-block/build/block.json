@@ -50,6 +50,10 @@
     "loop": {
       "type": "boolean",
       "default": true
+    },
+    "spaceBetween": {
+      "type": "number",
+      "default": 16
     }
   },
   "example": {},
