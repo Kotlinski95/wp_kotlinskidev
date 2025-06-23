@@ -1,7 +1,13 @@
-# Now, re-ignore node_modules inside the theme
+# Ignore node_modules inside the theme
 wp-content/themes/kotlinskidev/node_modules/
 wp-content/themes/kotlinskidev/node_modules/**
 
 # (Optional) Exclude node_modules anywhere else
 **/node_modules/
 node_modules/**
+
+# Ignore rest files
+**/wp-content/
+wp-content/**
+**/wp-admin/
+wp-admin/**

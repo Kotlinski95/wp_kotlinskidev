@@ -41,8 +41,8 @@ $kotlinskidev_images = array(
         <!-- wp:column {"width":"66.66%"} -->
         <div class="wp-block-column" style="flex-basis:66.66%"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"28px"}}}} -->
             <div class="wp-block-columns"><!-- wp:column -->
-                <div class="wp-block-column"><!-- wp:group {"style":{"border":{"radius":"24px","width":"1px"},"spacing":{"padding":{"top":"40px","bottom":"40px","left":"40px","right":"40px"},"blockGap":"var:preset|spacing|30","margin":{"top":"0","bottom":"0"}}},"borderColor":"border-color","layout":{"type":"constrained"}} -->
-                    <div class="wp-block-group has-border-color has-border-color-border-color" style="border-width:1px;border-radius:24px;margin-top:0;margin-bottom:0;padding-top:40px;padding-right:40px;padding-bottom:40px;padding-left:40px"><!-- wp:image {"id":8695,"width":"75px","height":"75px","scale":"cover","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|primary-light"}}} -->
+                <div class="wp-block-column"><!-- wp:group {"style":{"border":{"radius":"24px","width":"1px"},"spacing":{"padding":{"top":"40px","bottom":"40px","left":"40px","right":"40px"},"blockGap":"var:preset|spacing|30","margin":{"top":"0","bottom":"0"}}},"borderColor":"border-color","height":"100%","layout":{"type":"constrained"}} -->
+                    <div class="wp-block-group has-border-color has-border-color-border-color" style="border-width:1px;border-radius:24px;margin-top:0;margin-bottom:0;padding-top:40px;padding-right:40px;padding-bottom:40px;padding-left:40px;height:100%"><!-- wp:image {"id":8695,"width":"75px","height":"75px","scale":"cover","sizeSlug":"full","linkDestination":"none","style":{"color":{"duotone":"var:preset|duotone|primary-light"}}} -->
                         <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:75px;height:75px" /></figure>
                         <!-- /wp:image -->
 

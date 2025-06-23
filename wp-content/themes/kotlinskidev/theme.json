@@ -15,22 +15,22 @@
       "palette": [
         {
           "slug": "primary",
-          "color": "#db1c1c",
+          "color": "#8209d3",
           "name": "Primary"
         },
         {
           "slug": "primary-hover",
-          "color": "#a90f0f",
+          "color": "#6a11cb",
           "name": "Primary"
         },
         {
           "slug": "primary-shade-1",
-          "color": "#db1c1d",
+          "color": "#8209d3",
           "name": "Primary Shade 1"
         },
         {
           "slug": "primary-shade-2",
-          "color": "#db1c1e",
+          "color": "#8209d3",
           "name": "Primary Shade 2"
         },
         {
@@ -67,7 +67,7 @@
       "duotone": [],
       "gradients": [
         {
-          "gradient": "linear-gradient(to right, #870000 0%, #190A05  51%, #870000  100%)",
+          "gradient": "linear-gradient(to right, #8209d3 0%, #190A05  51%, #8209d3  100%)",
           "name": "Gradient 1",
           "slug": "gradient-one"
         },
