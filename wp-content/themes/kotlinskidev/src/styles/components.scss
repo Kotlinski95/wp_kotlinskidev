@@ -4,6 +4,10 @@
     flex-wrap: nowrap;
 }
 
+.wp-block-post-featured-image{
+    display: none !important;
+}
+
 .is-kotlinskidev-sticky {
     position: sticky;
     top: $header !important;
