@@ -6,8 +6,22 @@ wp-content/themes/kotlinskidev/node_modules/**
 **/node_modules/
 node_modules/**
 
-# Ignore rest files
-**/wp-content/
-wp-content/**
-**/wp-admin/
+# Ignore rest files, but keep kotlinskidev theme and your own plugins
+# Exclude everything in wp-content except specific theme and plugins
+wp-content/*
+!wp-content/themes/
+wp-content/themes/*
+!wp-content/themes/kotlinskidev/
+wp-content/plugins/*
+!wp-content/plugins/block-visibility/
+!wp-content/plugins/contact-form-block/
+!wp-content/plugins/contact-form-ts/
+!wp-content/plugins/custom-facebook-pixel-loader/
+!wp-content/plugins/custom-google-analytics-loader/
+!wp-content/plugins/google-maps-block/
+!wp-content/plugins/kotlinskidev-custom-login/
+!wp-content/plugins/responsive-image/
+!wp-content/plugins/slider-block/
+
+# Ignore wp-admin except if you want to keep something specific, add exceptions below
 wp-admin/**
