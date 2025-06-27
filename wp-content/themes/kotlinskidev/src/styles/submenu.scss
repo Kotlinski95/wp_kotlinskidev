@@ -1,70 +1,116 @@
-@import 'variables';
-.light-mode{
-    .menu-item-has-children{
-        .sub-menu {
-            background-color: $white;
-        }
-    }
-}
-.menu-item-has-children{
-    &:after{
-        content: '\25be';
-        width: 10px;
-        height: 20px;
-        min-width: 10px;
-    }
-    position: relative;
+@import "variables";
+.light-mode {
+  .menu-item-has-children {
     .sub-menu {
-        display: none !important;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-gap: 10px;
-        position: relative;
-        right: 0;
-        left: 0;
-        top: 100%;
-        background-color: $black;
-        z-index: 9999;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        max-height: 400px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: smaller;
-        @media (min-width: $breakpoint-mobile) {
-            position: absolute;
-            left: auto;
-            font-size: inherit;
-        }
-        .menu-item{
-            padding-block: 1px;
-        }
-        padding-bottom: 10px;
+      background-color: $white;
     }
-
-
+  }
+}
+.menu-item-has-children {
+  @media (max-width: $breakpoint-mobile) {
+    .sub-menu {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition:
+        max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.25s;
+      display: block !important;
+    }
+    &.submenu-active {
+      .sub-menu {
+        max-height: 700px;
+        opacity: 1;
+        transition:
+          max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.25s,
+          transform 0.5s ease-out,
+          background 1.5s ease-in-out;
+      }
+      &::after {
+        transform: rotate(180deg);
+        transition: 0.5s all;
+      }
+    }
+    &:after {
+      content: "\25be";
+    }
+  }
+  position: relative;
+  .sub-menu {
+    // Remove display: none and grid for animation
+    grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
+    grid-gap: 10px;
+    position: relative;
+    right: 0;
+    left: 0;
+    top: 100%;
+    background-color: $black;
+    z-index: 9999;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 10px;
+    font-size: smaller;
+    text-align: center;
+    @media (min-width: $breakpoint-mobile) {
+      position: absolute;
+      left: auto;
+      font-size: inherit;
+      text-align: end;
+      padding: 0px 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .menu-item {
+      padding-block: 10px;
+      white-space: nowrap;
+    }
+    .menu-item:last-child {
+      padding-bottom: 10px;
+    }
+  }
+  & > a {
+    margin-inline-end: 5px;
+  }
 }
 
-
-/* Show the sub-menu on hover */
-.menu-item-has-children:hover {
-    .sub-menu{
-        display: grid !important;
-        // opacity: 1;
+@media (min-width: $breakpoint-mobile) {
+  .menu-item-has-children {
+    .sub-menu {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition:
+        max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.25s;
+      display: block !important;
     }
+    &:hover {
+      .sub-menu {
+        max-height: 700px;
+        opacity: 1;
+        transition:
+          max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.25s;
+      }
+    }
+    &:after {
+      content: "\25be";
+      width: 10px;
+      min-width: 10px;
+    }
+  }
+
+  .sub-menu li {
+    padding: 5px 10px;
+  }
 }
 
-/* Optional: Styling the sub-menu */
 .sub-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sub-menu li {
-    padding: 5px 10px; /* Adjust padding as needed */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sub-menu li a {
-    text-decoration: none;
+  text-decoration: none;
 }

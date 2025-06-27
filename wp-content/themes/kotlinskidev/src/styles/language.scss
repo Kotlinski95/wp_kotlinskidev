@@ -101,3 +101,18 @@
 .language-selector-button:hover + .language-modal {
   display: block;
 }
+
+.pll-parent-menu-item{
+  & > a {
+    margin-inline-end: 0.375rem;
+    display: flex;
+    align-items: center;
+    span {
+      display: none;
+    }
+    img {
+      width: 1.5rem !important;
+      height: auto !important; 
+    }
+  }
+}
