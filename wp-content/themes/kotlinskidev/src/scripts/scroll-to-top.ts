@@ -3,7 +3,7 @@
   const scrollToTopBtn = document.getElementById("scroll-to-top");
   if (!scrollToTopBtn) return;
   // Show/hide button based on scroll position
-  window.onscroll = function () {
+  document.body.addEventListener("scroll", function () {
     if (
       document.body.scrollTop > 100 ||
       document.documentElement.scrollTop > 100
@@ -12,11 +12,11 @@
     } else {
       scrollToTopBtn.style.display = "none";
     }
-  };
+  });
 
   // Scroll to top when the button is clicked
   scrollToTopBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.body.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
