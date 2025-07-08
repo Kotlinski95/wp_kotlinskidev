@@ -42,22 +42,45 @@ function responsive_spacing_controls_enqueue_frontend_assets()
 }
 add_action('wp_enqueue_scripts', 'responsive_spacing_controls_enqueue_frontend_assets');
 
-// Inject mobile spacing classes on frontend and in editor preview
+// Inject responsive spacing classes on frontend and in editor preview
 add_filter('render_block', function($block_content, $block) {
-    if (empty($block['attrs']['mobilePadding']) && empty($block['attrs']['mobileMargin'])) {
+    // Check if any responsive spacing attributes exist
+    $hasSpacing = false;
+    $breakpoints = ['desktop', 'tablet', 'mobile'];
+    $types = ['Padding', 'Margin'];
+    
+    foreach ($breakpoints as $breakpoint) {
+        foreach ($types as $type) {
+            if (!empty($block['attrs']["{$breakpoint}{$type}"])) {
+                $hasSpacing = true;
+                break 2;
+            }
+        }
+    }
+    
+    if (!$hasSpacing) {
         return $block_content;
     }
+    
     $classes = [];
-    foreach (['Padding' => 'pt', 'Margin' => 'mg'] as $type => $prefix) {
-        if (!empty($block['attrs']["mobile{$type}"]) && is_array($block['attrs']["mobile{$type}"])) {
-            foreach (['top', 'right', 'bottom', 'left'] as $side) {
-                $val = $block['attrs']["mobile{$type}"][$side] ?? '';
-                if ($val) {
-                    $classes[] = "mobile-{$prefix}-{$side}-" . preg_replace('/[^a-zA-Z0-9]/', '', $val);
+    
+    // Generate classes for all breakpoints
+    foreach ($breakpoints as $breakpoint) {
+        foreach (['Padding' => 'pt', 'Margin' => 'mg'] as $type => $prefix) {
+            $attr_key = "{$breakpoint}{$type}";
+            if (!empty($block['attrs'][$attr_key]) && is_array($block['attrs'][$attr_key])) {
+                foreach (['top', 'right', 'bottom', 'left'] as $side) {
+                    $val = $block['attrs'][$attr_key][$side] ?? '';
+                    if ($val && $val !== '0px') {
+                        // Use same class naming as CSS generation (replace . with 'dot')
+                        $class_suffix = preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $val));
+                        $classes[] = "{$breakpoint}-{$prefix}-{$side}-{$class_suffix}";
+                    }
                 }
             }
         }
     }
+    
     if ($classes) {
         $block_content = preg_replace(
             '/(<[^>]+class=")([^"]*)"/',
@@ -69,7 +92,7 @@ add_filter('render_block', function($block_content, $block) {
     return $block_content;
 }, 10, 2);
 
-// Add settings page for mobile breakpoint
+// Add settings page for responsive breakpoints
 add_action('admin_menu', function() {
     add_options_page(
         'Responsive Spacing Controls',
@@ -96,47 +119,188 @@ function responsive_spacing_controls_settings_page() {
 }
 
 add_action('admin_init', function() {
-    register_setting('responsive_spacing_controls_options', 'responsive_spacing_controls_breakpoint', [
+    register_setting('responsive_spacing_controls_options', 'responsive_spacing_controls_desktop_breakpoint', [
+        'type' => 'string',
+        'default' => '1024px',
+        'sanitize_callback' => function($value) {
+            return preg_match('/^\d+(\.\d+)?(px|em|rem)$/', $value) ? $value : '1024px';
+        }
+    ]);
+    
+    register_setting('responsive_spacing_controls_options', 'responsive_spacing_controls_tablet_breakpoint', [
         'type' => 'string',
         'default' => '768px',
         'sanitize_callback' => function($value) {
-            return preg_match('/^\\d+(px|em|rem)$/', $value) ? $value : '768px';
+            return preg_match('/^\d+(\.\d+)?(px|em|rem)$/', $value) ? $value : '768px';
         }
     ]);
+    
+    register_setting('responsive_spacing_controls_options', 'responsive_spacing_controls_mobile_breakpoint', [
+        'type' => 'string',
+        'default' => '480px',
+        'sanitize_callback' => function($value) {
+            return preg_match('/^\d+(\.\d+)?(px|em|rem)$/', $value) ? $value : '480px';
+        }
+    ]);
+    
     add_settings_section(
         'responsive_spacing_controls_section',
-        'Mobile Breakpoint',
-        null,
+        'Responsive Breakpoints',
+        function() {
+            echo '<p>Configure the breakpoints for desktop, tablet, and mobile responsive spacing controls.</p>';
+            echo '<p><strong>How it works:</strong></p>';
+            echo '<ul>';
+            echo '<li><strong>Desktop:</strong> Applies at widths above the desktop breakpoint</li>';
+            echo '<li><strong>Tablet:</strong> Applies between tablet and desktop breakpoints</li>';
+            echo '<li><strong>Mobile:</strong> Applies below the mobile breakpoint</li>';
+            echo '</ul>';
+        },
         'responsive-spacing-controls'
     );
+    
     add_settings_field(
-        'responsive_spacing_controls_breakpoint',
-        'Mobile Breakpoint (e.g. 600px, 40em)',
+        'responsive_spacing_controls_desktop_breakpoint',
+        'Desktop Breakpoint (min-width)',
         function() {
-            $value = esc_attr(get_option('responsive_spacing_controls_breakpoint', '768px'));
-            echo "<input type='text' name='responsive_spacing_controls_breakpoint' value='$value' />";
+            $value = esc_attr(get_option('responsive_spacing_controls_desktop_breakpoint', '1024px'));
+            echo "<input type='text' name='responsive_spacing_controls_desktop_breakpoint' value='$value' />";
+            echo "<p class='description'>Desktop styles apply above this width. Example: 1024px, 64em, 1200px</p>";
+        },
+        'responsive-spacing-controls',
+        'responsive_spacing_controls_section'
+    );
+    
+    add_settings_field(
+        'responsive_spacing_controls_tablet_breakpoint',
+        'Tablet Breakpoint (max-width)',
+        function() {
+            $value = esc_attr(get_option('responsive_spacing_controls_tablet_breakpoint', '768px'));
+            echo "<input type='text' name='responsive_spacing_controls_tablet_breakpoint' value='$value' />";
+            echo "<p class='description'>Tablet styles apply between mobile and desktop breakpoints. Example: 768px, 48em</p>";
+        },
+        'responsive-spacing-controls',
+        'responsive_spacing_controls_section'
+    );
+    
+    add_settings_field(
+        'responsive_spacing_controls_mobile_breakpoint',
+        'Mobile Breakpoint (max-width)',
+        function() {
+            $value = esc_attr(get_option('responsive_spacing_controls_mobile_breakpoint', '480px'));
+            echo "<input type='text' name='responsive_spacing_controls_mobile_breakpoint' value='$value' />";
+            echo "<p class='description'>Mobile styles apply below this width. Example: 480px, 30em</p>";
         },
         'responsive-spacing-controls',
         'responsive_spacing_controls_section'
     );
 });
 
-// Output custom mobile breakpoint CSS in editor and frontend, wrapping external CSS classes
+// Output custom responsive breakpoint CSS in editor and frontend
 function responsive_spacing_controls_output_breakpoint_css() {
-    $breakpoint = get_option('responsive_spacing_controls_breakpoint', '768px');
-    $css_path = plugin_dir_path(__FILE__) . 'build/responsive-spacing-controls.css';
-    if (file_exists($css_path)) {
-        $css = file_get_contents($css_path);
-        // Extract only the mobile classes (everything after .components-panel__body)
-        $pattern = '/\/\* Mobile spacing classes.*?\*\//s';
-        if (preg_match($pattern, $css, $matches, PREG_OFFSET_CAPTURE)) {
-            $start = $matches[0][1] + strlen($matches[0][0]);
-            $mobile_css = substr($css, $start);
-        } else {
-            $mobile_css = $css;
+    $desktop_breakpoint = get_option('responsive_spacing_controls_desktop_breakpoint', '1024px');
+    $tablet_breakpoint = get_option('responsive_spacing_controls_tablet_breakpoint', '768px');
+    $mobile_breakpoint = get_option('responsive_spacing_controls_mobile_breakpoint', '480px');
+    
+    // Get all used spacing values from the database by scanning all posts
+    global $wpdb;
+    $used_values = [];
+    
+    // Get all spacing attribute values from post content
+    $posts = $wpdb->get_results("
+        SELECT post_content 
+        FROM {$wpdb->posts} 
+        WHERE post_status = 'publish' 
+        AND post_content LIKE '%Padding%' 
+        OR post_content LIKE '%Margin%'
+    ");
+    
+    // Extract spacing values from block attributes
+    foreach ($posts as $post) {
+        if (preg_match_all('/"(?:desktop|tablet|mobile)(?:Padding|Margin)":({[^}]+})/', $post->post_content, $matches)) {
+            foreach ($matches[1] as $json_attr) {
+                $attr = json_decode($json_attr, true);
+                if ($attr) {
+                    foreach (['top', 'right', 'bottom', 'left'] as $side) {
+                        if (!empty($attr[$side]) && $attr[$side] !== '0px') {
+                            $used_values[] = $attr[$side];
+                        }
+                    }
+                }
+            }
         }
-        echo '<style id="responsive-spacing-controls-breakpoint">@media (max-width: ' . esc_attr($breakpoint) . ") {\n$mobile_css\n}</style>";
     }
+    
+    // Add common default values
+    $default_values = [
+        '0px', '0.125rem', '0.25rem', '0.5rem', '1rem', '2rem', '4rem', '8rem',
+        '1px', '2px', '4px', '8px', '12px', '16px', '20px', '24px', '32px', '40px', '48px', '64px'
+    ];
+    
+    $all_values = array_unique(array_merge($used_values, $default_values));
+    
+    $css = '';
+    
+    // Function to create safe class name from value
+    $create_class_name = function($value) {
+        // Normalize comma decimal separator to dot
+        $normalized_value = str_replace(',', '.', $value);
+        // Replace decimal point with 'dot' and remove other special chars
+        return preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $normalized_value));
+    };
+    
+    // Function to normalize spacing value for CSS output
+    $normalize_css_value = function($value) {
+        // Convert comma decimal separator to dot for CSS
+        return str_replace(',', '.', $value);
+    };
+    
+    // Mobile styles (base styles - no media query, applies to all screen sizes first)
+    foreach ($all_values as $value) {
+        $class_suffix = $create_class_name($value);
+        $css_value = $normalize_css_value($value);
+        $css .= ".mobile-pt-top-{$class_suffix} { padding-top: {$css_value} !important; }\n";
+        $css .= ".mobile-pt-right-{$class_suffix} { padding-right: {$css_value} !important; }\n";
+        $css .= ".mobile-pt-bottom-{$class_suffix} { padding-bottom: {$css_value} !important; }\n";
+        $css .= ".mobile-pt-left-{$class_suffix} { padding-left: {$css_value} !important; }\n";
+        $css .= ".mobile-mg-top-{$class_suffix} { margin-top: {$css_value} !important; }\n";
+        $css .= ".mobile-mg-right-{$class_suffix} { margin-right: {$css_value} !important; }\n";
+        $css .= ".mobile-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
+        $css .= ".mobile-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
+    }
+    
+    // Tablet styles (override mobile when screen is wider than mobile breakpoint)
+    $css .= "\n@media (min-width: " . ($mobile_breakpoint) . ") and (max-width: " . ($desktop_breakpoint) . ") {\n";
+    foreach ($all_values as $value) {
+        $class_suffix = $create_class_name($value);
+        $css_value = $normalize_css_value($value);
+        $css .= "  .tablet-pt-top-{$class_suffix} { padding-top: {$css_value} !important; }\n";
+        $css .= "  .tablet-pt-right-{$class_suffix} { padding-right: {$css_value} !important; }\n";
+        $css .= "  .tablet-pt-bottom-{$class_suffix} { padding-bottom: {$css_value} !important; }\n";
+        $css .= "  .tablet-pt-left-{$class_suffix} { padding-left: {$css_value} !important; }\n";
+        $css .= "  .tablet-mg-top-{$class_suffix} { margin-top: {$css_value} !important; }\n";
+        $css .= "  .tablet-mg-right-{$class_suffix} { margin-right: {$css_value} !important; }\n";
+        $css .= "  .tablet-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
+        $css .= "  .tablet-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
+    }
+    $css .= "}\n";
+    
+    // Desktop styles (override tablet/mobile when screen is wider than desktop breakpoint)
+    $css .= "\n@media (min-width: {$desktop_breakpoint}) {\n";
+    foreach ($all_values as $value) {
+        $class_suffix = $create_class_name($value);
+        $css_value = $normalize_css_value($value);
+        $css .= "  .desktop-pt-top-{$class_suffix} { padding-top: {$css_value} !important; }\n";
+        $css .= "  .desktop-pt-right-{$class_suffix} { padding-right: {$css_value} !important; }\n";
+        $css .= "  .desktop-pt-bottom-{$class_suffix} { padding-bottom: {$css_value} !important; }\n";
+        $css .= "  .desktop-pt-left-{$class_suffix} { padding-left: {$css_value} !important; }\n";
+        $css .= "  .desktop-mg-top-{$class_suffix} { margin-top: {$css_value} !important; }\n";
+        $css .= "  .desktop-mg-right-{$class_suffix} { margin-right: {$css_value} !important; }\n";
+        $css .= "  .desktop-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
+        $css .= "  .desktop-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
+    }
+    $css .= "}\n";
+    
+    echo '<style id="responsive-spacing-controls-breakpoints">' . $css . '</style>';
 }
 add_action('admin_head', 'responsive_spacing_controls_output_breakpoint_css');
 add_action('wp_head', 'responsive_spacing_controls_output_breakpoint_css');
