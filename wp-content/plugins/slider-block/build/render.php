@@ -19,6 +19,8 @@ $slidesPerTablet = empty( $attributes['slidesPerTablet'] ) ? 1 : $attributes['sl
 $slidesPerDesktop = empty( $attributes['slidesPerDesktop'] ) ? 1 : $attributes['slidesPerDesktop'];
 $loop = empty( $attributes['loop'] ) ? false : $attributes['loop'];
 $scrollbar = empty( $attributes['scrollbar'] ) ? false : $attributes['scrollbar'];
+$mousewheel = empty( $attributes['mousewheel'] ) ? false : $attributes['mousewheel'];
+$keyboard = empty( $attributes['keyboard'] ) ? true : $attributes['keyboard'];
 $spaceBetween = isset( $attributes['spaceBetween'] ) ? (int) $attributes['spaceBetween'] : 16;
 
 $swiper_attr = array(
@@ -32,6 +34,8 @@ $swiper_attr = array(
 	'slidesPerDesktop' => $slidesPerDesktop,
 	'loop'       => $loop,
 	'scrollbar'  => $scrollbar,
+	'mousewheel' => $mousewheel,
+	'keyboard'   => $keyboard,
 	'spaceBetween' => $spaceBetween,
 );
 $swiper_attr = htmlspecialchars( wp_json_encode( $swiper_attr ) );

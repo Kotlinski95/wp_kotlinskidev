@@ -1,0 +1,49 @@
+/* Editor Styles for Responsive Font Controls */
+
+.responsive-font-controls-panel .components-panel__body-title {
+    font-weight: 600;
+}
+
+.responsive-font-controls-device-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 80px;
+}
+
+.responsive-font-controls-device-label .components-text {
+    line-height: 1.2;
+}
+
+.responsive-font-controls-select {
+    flex: 1;
+    min-width: 0;
+}
+
+.responsive-font-controls-preview {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f6f7f7;
+    border-radius: 4px;
+    border-left: 3px solid #007cba;
+}
+
+.responsive-font-controls-preview-text {
+    font-size: 14px;
+    color: #1e1e1e;
+    margin: 0;
+}
+
+/* Visual indicator for responsive font sizes in editor */
+.has-responsive-font-size::before {
+    content: "📱📱🖥️";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 10px;
+    background: rgba(0, 124, 186, 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    z-index: 1;
+    pointer-events: none;
+}

@@ -393,6 +393,32 @@ export default function Edit( { attributes, setAttributes } ) {
 							help={ __( 'Set the space between slides in pixels.', 'wpe' ) }
 						/>
 					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'Mousewheel', 'wpe' ) }
+							checked={ attributes.mousewheel }
+							onChange={ ( value ) =>
+								setAttributes( { mousewheel: value } )
+							}
+							help={ __(
+								'Enable navigation with mouse wheel scrolling.',
+								'wpe'
+							) }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'Keyboard Navigation', 'wpe' ) }
+							checked={ attributes.keyboard }
+							onChange={ ( value ) =>
+								setAttributes( { keyboard: value } )
+							}
+							help={ __(
+								'Enable navigation with keyboard arrow keys.',
+								'wpe'
+							) }
+						/>
+					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
 		</>

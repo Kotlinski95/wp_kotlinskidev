@@ -23,6 +23,8 @@ wp-content/plugins/**
 !wp-content/plugins/kotlinskidev-custom-login/**
 !wp-content/plugins/responsive-image/**
 !wp-content/plugins/slider-block/**
+!wp-content/plugins/responsive-spacing-controls/**
+!wp-content/plugins/responsive-font-controls/**
 
 # Ignore wp-admin except if you want to keep something specific, add exceptions below
 wp-admin/**
