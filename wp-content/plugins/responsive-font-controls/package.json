@@ -1,0 +1,36 @@
+{
+  "name": "responsive-font-controls",
+  "version": "1.0.0",
+  "description": "WordPress plugin for responsive font size controls with TypeScript",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js"
+  },
+  "keywords": [
+    "wordpress",
+    "gutenberg",
+    "responsive",
+    "font-size",
+    "typography"
+  ],
+  "author": "Adrian Kotlinski",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/wordpress__block-editor": "^11.5.16",
+    "@types/wordpress__components": "^23.0.12",
+    "@types/wordpress__element": "^2.4.1",
+    "@types/wordpress__hooks": "^2.4.1",
+    "@wordpress/scripts": "^26.0.0",
+    "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.9.2",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^4.10.0"
+  }
+}

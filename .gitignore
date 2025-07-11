@@ -34,6 +34,9 @@ wp-config.php
 # Allow the responsive spacing controls plugin directory
 !/wp-content/plugins/responsive-spacing-controls/
 
+# Allow the responsive font controls plugin directory
+!/wp-content/plugins/responsive-font-controls/
+
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
 # !/wp-content/plugins/custom-plugin/
@@ -95,11 +98,14 @@ build
 # Allow only the build folder inside responsive image
 !/wp-content/plugins/responsive-image/build/
 
-# Allow only the build folder inside responsive image
+# Allow only the build folder block visibility
 !/wp-content/plugins/block-visibility/build/
 
-# Allow only the build folder inside responsive image
+# Allow only the build folder responsive spacing controls
 !/wp-content/plugins/responsive-spacing-controls/build/
+
+# Allow only the build folder responsive font controls
+!/wp-content/plugins/responsive-font-controls/build/
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
