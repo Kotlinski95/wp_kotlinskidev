@@ -74,8 +74,8 @@ export function SwiperInit(container, options = {}) {
 			maxRatio: 5,
 		},
 		parallax: true,
-		mousewheel: true,
-		keyboard: {
+		mousewheel: options?.mousewheel ?? false,
+		keyboard: options?.keyboard ?? {
 			enabled: true,
 			onlyInViewport: true,
 		},

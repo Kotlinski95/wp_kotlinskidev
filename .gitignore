@@ -15,7 +15,6 @@ wp-config.php
 !/wp-content/plugins/kotlinskidev-custom-login/
 !/wp-content/plugins/custom-google-analytics-loader/
 !/wp-content/plugins/custom-facebook-pixel-loader/
-!/wp-content/plugins/responsive-spacing-controls/
 
 # Allow the slider-block plugin directory
 !/wp-content/plugins/slider-block/
@@ -31,6 +30,9 @@ wp-config.php
 
 # Allow the responsive block visibility plugin directory
 !/wp-content/plugins/block-visibility/
+
+# Allow the responsive spacing controls plugin directory
+!/wp-content/plugins/responsive-spacing-controls/
 
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*

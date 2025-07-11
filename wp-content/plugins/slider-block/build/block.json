@@ -51,6 +51,14 @@
       "type": "boolean",
       "default": true
     },
+    "mousewheel": {
+      "type": "boolean",
+      "default": false
+    },
+    "keyboard": {
+      "type": "boolean",
+      "default": true
+    },
     "spaceBetween": {
       "type": "number",
       "default": 16

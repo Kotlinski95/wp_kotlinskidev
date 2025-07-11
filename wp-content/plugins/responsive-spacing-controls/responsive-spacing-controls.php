@@ -3,7 +3,7 @@
 Plugin Name: Responsive Spacing Controls
 Description: Adds responsive margin and padding controls to the block editor (mobile, tablet, desktop).
 Version: 1.0.0
-Author: Your Name
+Author: Adrian Kotlinski
 */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ function responsive_spacing_controls_enqueue_editor_assets()
         'responsive-spacing-controls',
         plugins_url('build/index.js', __FILE__),
         array('wp-blocks', 'wp-element', 'wp-edit-post', 'wp-components', 'wp-compose', 'wp-hooks', 'wp-i18n', 'wp-editor', 'wp-block-editor'),
-        filemtime(plugin_dir_path(__FILE__) . 'build/index.js'),
+        file_exists(plugin_dir_path(__FILE__) . 'build/index.js') ? filemtime(plugin_dir_path(__FILE__) . 'build/index.js') : '1.0.0',
         true
     );
     if (is_admin()) {
@@ -25,8 +25,235 @@ function responsive_spacing_controls_enqueue_editor_assets()
         'responsive-spacing-controls',
             plugins_url('build/index.css', __FILE__),
             array(),
-            filemtime(plugin_dir_path(__FILE__) . 'build/index.css'),
+            file_exists(plugin_dir_path(__FILE__) . 'build/index.css') ? filemtime(plugin_dir_path(__FILE__) . 'build/index.css') : '1.0.0'
         );
+        
+        // Enqueue dynamic responsive spacing CSS for the block editor
+        wp_add_inline_style('responsive-spacing-controls', responsive_spacing_controls_generate_css());
+        
+        // Pass breakpoint settings to JavaScript
+        $breakpoints = array(
+            'desktop' => get_option('responsive_spacing_controls_desktop_breakpoint', '1024px'),
+            'tablet' => get_option('responsive_spacing_controls_tablet_breakpoint', '768px'),
+            'mobile' => get_option('responsive_spacing_controls_mobile_breakpoint', '480px')
+        );
+        wp_localize_script('responsive-spacing-controls', 'spacingBreakpoints', $breakpoints);
+        
+        // Add inline script to handle live editor updates
+        wp_add_inline_script('responsive-spacing-controls', '
+            // Function to generate class name from spacing value
+            function generateSpacingClassName(prefix, type, side, value) {
+                if (!value || value === "0px") return "";
+                const classSuffix = value.replace(",", ".").replace(".", "dot").replace(/[^a-zA-Z0-9]/g, "");
+                return prefix + "-" + type + "-" + side + "-" + classSuffix;
+            }
+            
+            // Function to inject CSS for new spacing values
+            function injectSpacingCSS(value) {
+                if (!value || value === "0px") return;
+                
+                const classSuffix = value.replace(",", ".").replace(".", "dot").replace(/[^a-zA-Z0-9]/g, "");
+                const cssValue = value.replace(",", ".");
+                
+                // Check if CSS already exists for this value
+                const existingStyle = document.getElementById("spacing-" + classSuffix);
+                if (existingStyle) return;
+                
+                // Get breakpoint values from WordPress settings
+                const mobileBreakpoint = spacingBreakpoints.mobile || "480px";
+                const tabletBreakpoint = spacingBreakpoints.tablet || "768px";
+                const desktopBreakpoint = spacingBreakpoints.desktop || "1024px";
+                
+                // Parse numeric values from breakpoints for calculations
+                const mobileMax = parseInt(mobileBreakpoint) - 1;
+                const tabletMin = parseInt(mobileBreakpoint);
+                const tabletMax = parseInt(desktopBreakpoint) - 1;
+                const desktopMin = parseInt(desktopBreakpoint);
+                
+                // Create CSS for this specific value using dynamic breakpoints
+                const css = `
+                    /* Mobile only (0 to ${mobileMax}px) */
+                    @media (max-width: ${mobileMax}px) {
+                        .mobile-pt-top-${classSuffix} { padding-top: ${cssValue} !important; }
+                        .mobile-pt-right-${classSuffix} { padding-right: ${cssValue} !important; }
+                        .mobile-pt-bottom-${classSuffix} { padding-bottom: ${cssValue} !important; }
+                        .mobile-pt-left-${classSuffix} { padding-left: ${cssValue} !important; }
+                        .mobile-mg-top-${classSuffix} { margin-top: ${cssValue} !important; }
+                        .mobile-mg-right-${classSuffix} { margin-right: ${cssValue} !important; }
+                        .mobile-mg-bottom-${classSuffix} { margin-bottom: ${cssValue} !important; }
+                        .mobile-mg-left-${classSuffix} { margin-left: ${cssValue} !important; }
+                    }
+                    
+                    /* Tablet only (${tabletMin}px to ${tabletMax}px) */
+                    @media (min-width: ${tabletMin}px) and (max-width: ${tabletMax}px) {
+                        .tablet-pt-top-${classSuffix} { padding-top: ${cssValue} !important; }
+                        .tablet-pt-right-${classSuffix} { padding-right: ${cssValue} !important; }
+                        .tablet-pt-bottom-${classSuffix} { padding-bottom: ${cssValue} !important; }
+                        .tablet-pt-left-${classSuffix} { padding-left: ${cssValue} !important; }
+                        .tablet-mg-top-${classSuffix} { margin-top: ${cssValue} !important; }
+                        .tablet-mg-right-${classSuffix} { margin-right: ${cssValue} !important; }
+                        .tablet-mg-bottom-${classSuffix} { margin-bottom: ${cssValue} !important; }
+                        .tablet-mg-left-${classSuffix} { margin-left: ${cssValue} !important; }
+                    }
+                    
+                    /* Desktop only (${desktopMin}px and up) */
+                    @media (min-width: ${desktopMin}px) {
+                        .desktop-pt-top-${classSuffix} { padding-top: ${cssValue} !important; }
+                        .desktop-pt-right-${classSuffix} { padding-right: ${cssValue} !important; }
+                        .desktop-pt-bottom-${classSuffix} { padding-bottom: ${cssValue} !important; }
+                        .desktop-pt-left-${classSuffix} { padding-left: ${cssValue} !important; }
+                        .desktop-mg-top-${classSuffix} { margin-top: ${cssValue} !important; }
+                        .desktop-mg-right-${classSuffix} { margin-right: ${cssValue} !important; }
+                        .desktop-mg-bottom-${classSuffix} { margin-bottom: ${cssValue} !important; }
+                        .desktop-mg-left-${classSuffix} { margin-left: ${cssValue} !important; }
+                    }
+                `;
+                
+                // Inject the CSS
+                const styleElement = document.createElement("style");
+                styleElement.id = "spacing-" + classSuffix;
+                styleElement.textContent = css;
+                document.head.appendChild(styleElement);
+                
+                console.log("Injected CSS for new spacing value:", value, "using breakpoints:", {
+                    mobile: `0-${mobileMax}px`,
+                    tablet: `${tabletMin}-${tabletMax}px`, 
+                    desktop: `${desktopMin}px+`
+                });
+            }
+            
+            // Function to find the actual block element in editor
+            function findBlockElement(clientId) {
+                // Try multiple selectors that WordPress might use
+                const selectors = [
+                    `[data-block="${clientId}"]`,
+                    `#block-${clientId}`,
+                    `.wp-block[data-block="${clientId}"]`,
+                    `[data-client-id="${clientId}"]`,
+                    `.block-editor-block-list__block[data-client-id="${clientId}"]`
+                ];
+                
+                for (const selector of selectors) {
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        console.log("Found block element with selector:", selector, element);
+                        return element;
+                    }
+                }
+                
+                // If none found, try to find by walking the DOM
+                const allBlocks = document.querySelectorAll(".wp-block, .block-editor-block-list__block");
+                for (const block of allBlocks) {
+                    if (block.getAttribute("data-block") === clientId || 
+                        block.getAttribute("data-client-id") === clientId ||
+                        block.id === `block-${clientId}`) {
+                        console.log("Found block element by walking DOM:", block);
+                        return block;
+                    }
+                }
+                
+                console.warn("Could not find block element for clientId:", clientId);
+                return null;
+            }
+            
+            // Function to apply spacing classes to block element in editor
+            function applySpacingClassesToEditor(clientId, attributes) {
+                console.log("Attempting to apply spacing classes for block:", clientId, attributes);
+                
+                const blockElement = findBlockElement(clientId);
+                if (!blockElement) {
+                    console.warn("Block element not found for:", clientId);
+                    return;
+                }
+                
+                console.log("Block element found:", blockElement);
+                
+                // Remove existing spacing classes
+                const existingClasses = blockElement.className.split(" ");
+                const filteredClasses = existingClasses.filter(cls => {
+                    const isSpacingClass = /^(desktop|tablet|mobile)-(pt|mg)-(top|right|bottom|left)-/.test(cls);
+                    if (isSpacingClass) {
+                        console.log("Removing existing spacing class:", cls);
+                    }
+                    return !isSpacingClass;
+                });
+                
+                // Generate new spacing classes and inject CSS for new values
+                const newClasses = [];
+                const spacingTypes = [
+                    {prefix: "desktop", data: attributes.desktopPadding, type: "pt"},
+                    {prefix: "desktop", data: attributes.desktopMargin, type: "mg"},
+                    {prefix: "tablet", data: attributes.tabletPadding, type: "pt"},
+                    {prefix: "tablet", data: attributes.tabletMargin, type: "mg"},
+                    {prefix: "mobile", data: attributes.mobilePadding, type: "pt"},
+                    {prefix: "mobile", data: attributes.mobileMargin, type: "mg"}
+                ];
+                
+                spacingTypes.forEach(({prefix, data, type}) => {
+                    if (data && typeof data === "object") {
+                        ["top", "right", "bottom", "left"].forEach(side => {
+                            if (data[side] && data[side] !== "0px") {
+                                // Inject CSS for this value if it doesn not exist
+                                injectSpacingCSS(data[side]);
+                                
+                                const className = generateSpacingClassName(prefix, type, side, data[side]);
+                                if (className) {
+                                    newClasses.push(className);
+                                    console.log("Adding spacing class:", className);
+                                }
+                            }
+                        });
+                    }
+                });
+                
+                // Apply new classes
+                const finalClasses = [...filteredClasses, ...newClasses].join(" ");
+                console.log("Final classes:", finalClasses);
+                blockElement.className = finalClasses;
+            }
+            
+            // Enhanced hook into block updates
+            wp.hooks.addAction("blocks.updateBlock", "responsive-spacing-controls/update-editor-classes", function(clientId, updates) {
+                console.log("Block updated:", clientId, updates);
+                
+                if (updates.attributes) {
+                    const hasSpacingUpdates = Object.keys(updates.attributes).some(key => 
+                        key.includes("Padding") || key.includes("Margin")
+                    );
+                    
+                    if (hasSpacingUpdates) {
+                        console.log("Spacing attributes updated, applying classes...");
+                        
+                        // Try multiple timings to ensure DOM is ready
+                        [10, 50, 100, 200].forEach(delay => {
+                            setTimeout(() => {
+                                const block = wp.data.select("core/block-editor").getBlock(clientId);
+                                if (block) {
+                                    applySpacingClassesToEditor(clientId, block.attributes);
+                                }
+                            }, delay);
+                        });
+                    }
+                }
+            });
+            
+            // Also hook into selection changes to apply classes when blocks are selected
+            wp.data.subscribe(() => {
+                const selectedBlockClientId = wp.data.select("core/block-editor").getSelectedBlockClientId();
+                if (selectedBlockClientId) {
+                    const block = wp.data.select("core/block-editor").getBlock(selectedBlockClientId);
+                    if (block && (block.attributes.desktopPadding || block.attributes.tabletPadding || 
+                                  block.attributes.mobilePadding || block.attributes.desktopMargin || 
+                                  block.attributes.tabletMargin || block.attributes.mobileMargin)) {
+                        setTimeout(() => {
+                            applySpacingClassesToEditor(selectedBlockClientId, block.attributes);
+                        }, 50);
+                    }
+                }
+            });
+            
+            console.log("Responsive spacing controls editor script loaded");
+        ');
     }
 }
 add_action('enqueue_block_editor_assets', 'responsive_spacing_controls_enqueue_editor_assets');
@@ -37,8 +264,11 @@ function responsive_spacing_controls_enqueue_frontend_assets()
         'responsive-spacing-controls-style',
         plugins_url('build/responsive-spacing-controls.css', __FILE__),
         array(),
-        filemtime(plugin_dir_path(__FILE__) . 'build/responsive-spacing-controls.css')
+        file_exists(plugin_dir_path(__FILE__) . 'build/responsive-spacing-controls.css') ? filemtime(plugin_dir_path(__FILE__) . 'build/responsive-spacing-controls.css') : '1.0.0'
     );
+    
+    // Also enqueue dynamic responsive spacing CSS for the frontend
+    wp_add_inline_style('responsive-spacing-controls-style', responsive_spacing_controls_generate_css());
 }
 add_action('wp_enqueue_scripts', 'responsive_spacing_controls_enqueue_frontend_assets');
 
@@ -82,12 +312,28 @@ add_filter('render_block', function($block_content, $block) {
     }
     
     if ($classes) {
-        $block_content = preg_replace(
-            '/(<[^>]+class=")([^"]*)"/',
-            '$1$2 ' . implode(' ', $classes) . '"',
-            $block_content,
-            1
-        );
+        // Check if classes already exist to prevent duplicates
+        $existing_classes = '';
+        if (preg_match('/class="([^"]*)"/', $block_content, $matches)) {
+            $existing_classes = $matches[1];
+        }
+        
+        // Filter out classes that already exist
+        $new_classes = [];
+        foreach ($classes as $class) {
+            if (strpos($existing_classes, $class) === false) {
+                $new_classes[] = $class;
+            }
+        }
+        
+        if (!empty($new_classes)) {
+            $block_content = preg_replace(
+                '/(<[^>]+class=")([^"]*)"/',
+                '$1$2 ' . implode(' ', $new_classes) . '"',
+                $block_content,
+                1
+            );
+        }
     }
     return $block_content;
 }, 10, 2);
@@ -195,8 +441,8 @@ add_action('admin_init', function() {
     );
 });
 
-// Output custom responsive breakpoint CSS in editor and frontend
-function responsive_spacing_controls_output_breakpoint_css() {
+// Generate responsive spacing CSS
+function responsive_spacing_controls_generate_css() {
     $desktop_breakpoint = get_option('responsive_spacing_controls_desktop_breakpoint', '1024px');
     $tablet_breakpoint = get_option('responsive_spacing_controls_tablet_breakpoint', '768px');
     $mobile_breakpoint = get_option('responsive_spacing_controls_mobile_breakpoint', '480px');
@@ -210,8 +456,7 @@ function responsive_spacing_controls_output_breakpoint_css() {
         SELECT post_content 
         FROM {$wpdb->posts} 
         WHERE post_status = 'publish' 
-        AND post_content LIKE '%Padding%' 
-        OR post_content LIKE '%Margin%'
+        AND (post_content LIKE '%Padding%' OR post_content LIKE '%Margin%')
     ");
     
     // Extract spacing values from block attributes
@@ -230,22 +475,21 @@ function responsive_spacing_controls_output_breakpoint_css() {
         }
     }
     
-    // Add common default values
+    // Add common default values including the ones you're using
     $default_values = [
         '0px', '0.125rem', '0.25rem', '0.5rem', '1rem', '2rem', '4rem', '8rem',
-        '1px', '2px', '4px', '8px', '12px', '16px', '20px', '24px', '32px', '40px', '48px', '64px'
+        '1px', '2px', '4px', '8px', '12px', '16px', '20px', '24px', '32px', '35px', '40px', '48px', '64px',
+        '25px', '22.5px', '5.5rem', '1.1rem', '6.5rem', '1.3rem' // Add your specific values
     ];
     
     $all_values = array_unique(array_merge($used_values, $default_values));
     
     $css = '';
     
-    // Function to create safe class name from value
+    // Function to create safe class name from value (MUST match the render_block logic)
     $create_class_name = function($value) {
-        // Normalize comma decimal separator to dot
-        $normalized_value = str_replace(',', '.', $value);
-        // Replace decimal point with 'dot' and remove other special chars
-        return preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $normalized_value));
+        // This MUST match exactly what's in render_block filter
+        return preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $value));
     };
     
     // Function to normalize spacing value for CSS output
@@ -300,7 +544,22 @@ function responsive_spacing_controls_output_breakpoint_css() {
     }
     $css .= "}\n";
     
-    echo '<style id="responsive-spacing-controls-breakpoints">' . $css . '</style>';
+    return $css;
 }
-add_action('admin_head', 'responsive_spacing_controls_output_breakpoint_css');
-add_action('wp_head', 'responsive_spacing_controls_output_breakpoint_css');
+
+// Output custom responsive breakpoint CSS in editor and frontend
+function responsive_spacing_controls_output_breakpoint_css() {
+    echo '<style id="responsive-spacing-controls-breakpoints">' . responsive_spacing_controls_generate_css() . '</style>';
+}
+// Removed duplicate CSS output - now using wp_add_inline_style instead
+
+// Debug function to see generated CSS (remove after debugging)
+function responsive_spacing_controls_debug_css() {
+    if (is_admin() && current_user_can('manage_options') && isset($_GET['debug_spacing_css'])) {
+        echo '<pre style="background: #f1f1f1; padding: 20px; margin: 20px; font-size: 12px; overflow: auto; max-height: 500px;">';
+        echo 'Generated CSS for Responsive Spacing Controls:' . "\n\n";
+        echo esc_html(responsive_spacing_controls_generate_css());
+        echo '</pre>';
+    }
+}
+add_action('admin_notices', 'responsive_spacing_controls_debug_css');
