@@ -9,9 +9,7 @@ function kotlinskidev_navigation_shortcode()
             <div class="spinner"></div>
         </div>
         <div class="header-wrapper">
-
-            <section class="header-right">
-                <!-- <?php wp_nav_menu(array('theme_location' => 'primary')); ?> -->
+            <section class="header-right" style="display: none;">
                 <div class="theme-switcher">
                     <div class="btn">
                         <input type="checkbox" name="check" id="theme-toggle">

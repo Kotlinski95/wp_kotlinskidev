@@ -59,3 +59,7 @@ body.loaded #page-loader {
 header > * {
     visibility: hidden;
 }
+
+.wp-block-post-featured-image {
+  display: none !important;
+}
