@@ -9,7 +9,7 @@ function kotlinskidev_navigation_shortcode()
             <div class="spinner"></div>
         </div>
         <div class="header-wrapper">
-            <section class="header-right" style="display: none;">
+            <section class="header-right">
                 <div class="theme-switcher">
                     <div class="btn">
                         <input type="checkbox" name="check" id="theme-toggle">
