@@ -16,6 +16,7 @@ import {
 	Scrollbar,
 	Thumbs,
 	Zoom,
+	FreeMode,
 } from 'swiper/modules';
 
 /**
@@ -46,6 +47,7 @@ export function SwiperInit(container, options = {}) {
 			Scrollbar,
 			Thumbs,
 			Zoom,
+			FreeMode,
 		],
 		navigation: options?.navigation ?? false,
 		// pagination: options?.pagination ?? false,
@@ -54,7 +56,9 @@ export function SwiperInit(container, options = {}) {
 		autoplay:
 			options?.autoplay && options?.autoplayTime
 				? {
-						delay: ( options?.autoplayTime || 1 ) * 1000,
+						delay: options?.smoothTransition ? 1 : ( options?.autoplayTime || 1 ) * 1000,
+						disableOnInteraction: false,
+						pauseOnMouseEnter: true,
 				  }
 				: options?.autoplay ?? true,
 		slidesPerView: options?.slidesPerView || 1,
@@ -84,7 +88,24 @@ export function SwiperInit(container, options = {}) {
 			loadPrevNextAmount: 3,
 			loadOnTransitionStart: true,
 		},
-		speed: 300,
+		speed: options?.smoothTransition ? (options?.autoplayTime || 5) * 1000 : 300,
+		allowTouchMove: true,
+		resistanceRatio: 0.85,
+		// Add linear easing for smooth transition
+		...(options?.smoothTransition && {
+			cssMode: false,
+			touchRatio: 1,
+			touchAngle: 45,
+			simulateTouch: true,
+			followFinger: true,
+			shortSwipes: true,
+			longSwipes: true,
+			freeMode: {
+				enabled: true,
+				momentum: false,
+				sticky: false,
+			},
+		}),
 	};
 
 	if (!options?.scrollbar && options?.pagination) {
@@ -94,6 +115,34 @@ export function SwiperInit(container, options = {}) {
 	if (options?.scrollbar && !options.pagination) {
 		parameters.scrollbar = true;
 	}
+	const swiper = new Swiper(container, parameters);
 
-	return new Swiper( container, parameters );
+	// Add linear easing for smooth transitions
+	if (options?.smoothTransition) {
+		const swiperWrapper = container.querySelector('.swiper-wrapper');
+		if (swiperWrapper) {
+			swiperWrapper.style.transitionTimingFunction = 'linear';
+		}
+	}
+
+	// Simple click outside to restart autoplay
+	if (options?.autoplay) {
+		let userInteracted = false;
+
+		// Mark when user interacts with carousel
+		container.addEventListener('click', () => {
+			userInteracted = true;
+			swiper.autoplay.stop();
+		});
+
+		// Restart autoplay when clicking outside
+		document.addEventListener('click', (event) => {
+			if (!container.contains(event.target) && userInteracted) {
+				userInteracted = false;
+				swiper.autoplay.start();
+			}
+		});
+	}
+
+	return swiper;
 }

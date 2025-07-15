@@ -283,6 +283,19 @@ export default function Edit( { attributes, setAttributes } ) {
 						/>
 					</PanelRow>
 					<PanelRow>
+						<ToggleControl
+							label={ __( 'Smooth Transition', 'wpe' ) }
+							checked={ attributes.smoothTransition }
+							onChange={ ( value ) =>
+								setAttributes( { smoothTransition: value } )
+							}
+							help={ __(
+								'"Smooth Transition" creates a continuous smooth scrolling effect instead of discrete slide transitions.',
+								'wpe'
+							) }
+						/>
+					</PanelRow>
+					<PanelRow>
 						<RangeControl
 							label={ __( 'Autoplay Time (seconds)', 'wpe' ) }
 							value={ attributes.autoplayTime }
@@ -292,7 +305,9 @@ export default function Edit( { attributes, setAttributes } ) {
 							min={ 1 }
 							max={ 10 }
 							help={ __(
-								'Set the autoplay interval in seconds.',
+								attributes.smoothTransition
+									? 'Set the smooth scrolling speed in seconds.'
+									: 'Set the autoplay interval in seconds.',
 								'wpe'
 							) }
 						/>

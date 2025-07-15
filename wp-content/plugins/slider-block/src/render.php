@@ -11,6 +11,7 @@
 
 $autoplay   = empty( $attributes['autoplay'] ) ? false : $attributes['autoplay'];
 $autoplayTime  = empty( $attributes['autoplayTime'] ) ? 5 : $attributes['autoplayTime'];
+$smoothTransition = empty( $attributes['smoothTransition'] ) ? false : $attributes['smoothTransition'];
 $navigation = empty( $attributes['navigation'] ) ? false : $attributes['navigation'];
 $pagination = empty( $attributes['pagination'] ) ? false : $attributes['pagination'];
 $slidesPerView = empty( $attributes['slidesPerView'] ) ? 1 : $attributes['slidesPerView'];
@@ -26,6 +27,7 @@ $spaceBetween = isset( $attributes['spaceBetween'] ) ? (int) $attributes['spaceB
 $swiper_attr = array(
 	'autoplay'   => $autoplay,
 	'autoplayTime' => $autoplayTime,
+	'smoothTransition' => $smoothTransition,
 	'navigation' => $navigation,
 	'pagination' => $pagination,
 	'slidesPerView' => $slidesPerView,
