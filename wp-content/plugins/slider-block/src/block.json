@@ -17,6 +17,10 @@
 			"type": "number",
 			"default": 5
 		},
+		"smoothTransition": {
+			"type": "boolean",
+			"default": false
+		},
 		"navigation": {
 			"type": "boolean",
 			"default": true
