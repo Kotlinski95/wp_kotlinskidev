@@ -10,22 +10,18 @@
   @media (max-width: $breakpoint-mobile) {
     .sub-menu {
       max-height: 0;
-      opacity: 0;
       overflow: hidden !important;
       transition:
-        max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.25s;
+        max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       display: block !important;
     }
     &.submenu-active {
       .sub-menu {
         max-height: 1000px;
-        opacity: 1;
         transition:
           max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-          opacity 0.25s,
           transform 0.5s ease-out,
-          background 1.5s ease-in-out;
+          background 0.5s ease-in-out;
       }
       &::after {
         transform: rotate(180deg);
@@ -35,6 +31,9 @@
     }
     &.submenu-active > a {
       padding-bottom: 1rem;
+    }
+    & > a {
+      transition: .5s all;
     }
     &:after {
       content: "\25be";
@@ -76,6 +75,9 @@
       padding: 0px 10px;
       .menu-item:last-child {
         padding-bottom: 10px;
+      }
+      .menu-item {
+        text-align: end;
       }
     }
   }
