@@ -11,7 +11,7 @@
     .sub-menu {
       max-height: 0;
       opacity: 0;
-      overflow: hidden;
+      overflow: hidden !important;
       transition:
         max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
         opacity 0.25s;
@@ -19,7 +19,7 @@
     }
     &.submenu-active {
       .sub-menu {
-        max-height: 700px;
+        max-height: 1000px;
         opacity: 1;
         transition:
           max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -30,10 +30,16 @@
       &::after {
         transform: rotate(180deg);
         transition: 0.5s all;
+        margin-bottom: 16px;
       }
+    }
+    &.submenu-active > a {
+      padding-bottom: 1rem;
     }
     &:after {
       content: "\25be";
+      margin-inline-end: 25px;
+      line-height: 1;
     }
   }
   position: relative;
@@ -52,20 +58,25 @@
     border-radius: 10px;
     font-size: smaller;
     text-align: center;
+    .menu-item {
+      padding-block: 10px;
+      white-space: nowrap;
+      text-align: start;
+      padding-inline-start: 10px;
+    }
+    .menu-item:last-child {
+      padding-bottom: 0px;
+      border-bottom: none;
+    }
     @media (min-width: $breakpoint-mobile) {
       position: absolute;
       left: auto;
       font-size: inherit;
       text-align: end;
       padding: 0px 10px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .menu-item {
-      padding-block: 10px;
-      white-space: nowrap;
-    }
-    .menu-item:last-child {
-      padding-bottom: 10px;
+      .menu-item:last-child {
+        padding-bottom: 10px;
+      }
     }
   }
   & > a {

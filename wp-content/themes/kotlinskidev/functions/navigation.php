@@ -59,6 +59,20 @@ function kotlinskidev_navigation_shortcode()
                         'menu_class' => 'menu-items',
                     ));
                     ?>
+
+                    <div class="social-menu-container">
+                        <?php
+                        // Add social icons section after the mobile navigation menu
+                        if (has_nav_menu('social')) {
+                            wp_nav_menu(array(
+                                'theme_location' => 'social',
+                                'container' => 'nav',
+                                'container_class' => 'social-navigation',
+                                'menu_class' => 'social-menu-items',
+                            ));
+                        }
+                        ?>
+                    </div>
                 </div>
 
             </section>

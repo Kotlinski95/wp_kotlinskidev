@@ -88,6 +88,7 @@
         img &&
         !img.closest("a") &&
         !img.classList.contains("no-lightbox") &&
+        !img.closest(".no-lightbox") &&
         img.naturalWidth > img.clientWidth // Only if image is scaled down
       ) {
         e.preventDefault();
