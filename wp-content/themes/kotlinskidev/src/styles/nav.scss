@@ -177,7 +177,10 @@ header::before {
         width: 100%;
         justify-content: space-between;
         border-bottom: 1px solid #acacaccc;
-        padding-block: 1rem;
+
+        &:not(.menu-item-has-children) {
+          padding-block: 1rem;
+        }
         &:first-child {
           border-top: 1px solid #acacaccc;
         }
