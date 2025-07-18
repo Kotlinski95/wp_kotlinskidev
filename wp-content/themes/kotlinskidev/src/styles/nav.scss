@@ -190,6 +190,9 @@ header::before {
         a {
           padding-inline-start: 25px;
           flex: 1;
+          &:hover {
+            color: inherit !important;
+          }
         }
       }
     }
