@@ -12,4 +12,7 @@ import { debounce } from "./utils";
 
   const debouncedAdjustHeaderWidth = debounce(adjustHeaderWidth, 100);
   window.addEventListener("resize", debouncedAdjustHeaderWidth);
+
+  const resizeObserver = new ResizeObserver(debouncedAdjustHeaderWidth);
+  resizeObserver.observe(document.body);
 })();

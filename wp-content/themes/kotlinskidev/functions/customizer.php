@@ -147,6 +147,20 @@ function mytheme_customize_css()
     $dark_link_color_hover = get_theme_mod('dark_link_color_hover', '#ff6347');
 ?>
     <style type="text/css">
+        :root {
+            /* Light mode colors */
+            --light-bg-color: <?php echo esc_attr($background_color); ?>;
+            --light-text-color: <?php echo esc_attr($text_color); ?>;
+            --light-link-color: <?php echo esc_attr($link_color); ?>;
+            --light-link-hover-color: <?php echo esc_attr($link_color_hover); ?>;
+
+            /* Dark mode colors */
+            --dark-bg-color: <?php echo esc_attr($dark_background_color); ?>;
+            --dark-text-color: <?php echo esc_attr($dark_text_color); ?>;
+            --dark-link-color: <?php echo esc_attr($dark_link_color); ?>;
+            --dark-link-hover-color: <?php echo esc_attr($dark_link_color_hover); ?>;
+        }
+
         .dark-mode {
             background-color: <?php echo esc_attr($dark_background_color); ?>;
             color: <?php echo esc_attr($dark_text_color); ?>;
@@ -198,29 +212,30 @@ add_action('wp_enqueue_scripts', function (): void {
 ?>
 
 <?php
-function kotlinskidev_customize_register( $wp_customize ) {
-    $wp_customize->add_section( 'kotlinskidev_custom_settings_section', array(
-        'title'    => __( 'Custom Settings', 'kotlinskidev' ),
+function kotlinskidev_customize_register($wp_customize)
+{
+    $wp_customize->add_section('kotlinskidev_custom_settings_section', array(
+        'title'    => __('Custom Settings', 'kotlinskidev'),
         'priority' => 30,
-    ) );
+    ));
 
-    $wp_customize->add_setting( 'kotlinskidev_enable_lightbox', array(
+    $wp_customize->add_setting('kotlinskidev_enable_lightbox', array(
         'default'   => true,
         'transport' => 'refresh',
-    ) );
+    ));
 
-    $wp_customize->add_control( 'kotlinskidev_enable_lightbox', array(
-        'label'    => __( 'Enable Image Lightbox', 'kotlinskidev' ),
+    $wp_customize->add_control('kotlinskidev_enable_lightbox', array(
+        'label'    => __('Enable Image Lightbox', 'kotlinskidev'),
         'section'  => 'kotlinskidev_custom_settings_section',
         'settings' => 'kotlinskidev_enable_lightbox',
         'type'     => 'checkbox',
-    ) );
+    ));
 }
-add_action( 'customize_register', 'kotlinskidev_customize_register' );
-add_action('wp_head', function() {
-    ?>
+add_action('customize_register', 'kotlinskidev_customize_register');
+add_action('wp_head', function () {
+?>
     <script>
-    window.kotlinskidevEnableLightbox = <?php echo get_theme_mod('kotlinskidev_enable_lightbox', true) ? 'true' : 'false'; ?>;
+        window.kotlinskidevEnableLightbox = <?php echo get_theme_mod('kotlinskidev_enable_lightbox', true) ? 'true' : 'false'; ?>;
     </script>
-    <?php
+<?php
 });
