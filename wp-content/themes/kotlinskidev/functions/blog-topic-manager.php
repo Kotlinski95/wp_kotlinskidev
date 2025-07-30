@@ -467,4 +467,95 @@ function kotlinskidev_get_breadcrumb_settings($locale = null) {
     
     return $settings;
 }
+
+// Enhanced Search Functionality
+function kotlinskidev_get_search_excerpt($content, $search_query, $word_limit = 40) {
+    // Remove HTML tags and shortcodes
+    $content = wp_strip_all_tags(strip_shortcodes($content));
+    
+    // Find the position of the search term in content
+    $search_pos = stripos($content, $search_query);
+    
+    if ($search_pos !== false) {
+        // Extract context around the search term
+        $start = max(0, $search_pos - 100);
+        $excerpt = substr($content, $start, 300);
+        
+        // Trim to word boundaries
+        if ($start > 0) {
+            $excerpt = '...' . substr($excerpt, strpos($excerpt, ' '));
+        }
+        if (strlen($content) > $start + 300) {
+            $excerpt = substr($excerpt, 0, strrpos($excerpt, ' ')) . '...';
+        }
+    } else {
+        // Fallback to regular excerpt
+        $excerpt = wp_trim_words($content, $word_limit, '...');
+    }
+    
+    // Highlight search terms
+    return kotlinskidev_highlight_search_terms($excerpt, $search_query);
+}
+
+function kotlinskidev_highlight_search_terms($text, $search_query) {
+    if (empty($search_query)) {
+        return $text;
+    }
+    
+    // Split search query into individual words
+    $words = explode(' ', $search_query);
+    
+    foreach ($words as $word) {
+        if (strlen(trim($word)) > 2) { // Only highlight words longer than 2 characters
+            $text = preg_replace(
+                '/(' . preg_quote(trim($word), '/') . ')/i',
+                '<mark style="background:var(--wp--preset--color--primary);color:white;padding:2px 4px;border-radius:3px;">$1</mark>',
+                $text
+            );
+        }
+    }
+    
+    return $text;
+}
+
+// Improve WordPress search to include page content
+function kotlinskidev_enhance_search($query) {
+    if (!is_admin() && $query->is_main_query() && $query->is_search()) {
+        // Include pages in search results
+        $query->set('post_type', array('post', 'page'));
+        
+        // Improve search relevance
+        $query->set('orderby', 'relevance');
+        $query->set('order', 'DESC');
+    }
+}
+add_action('pre_get_posts', 'kotlinskidev_enhance_search');
+
+// Add search form shortcode for easy placement
+function kotlinskidev_search_form_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'placeholder' => 'Search articles and pages...',
+        'button_text' => 'Search'
+    ), $atts);
+    
+    ob_start();
+    ?>
+    <form method="get" action="<?php echo esc_url(home_url('/')); ?>" class="kotlinskidev-inline-search">
+        <div style="display:flex;gap:10px;align-items:center;">
+            <input type="text" 
+                   name="s" 
+                   value="<?php echo esc_attr(get_search_query()); ?>"
+                   placeholder="<?php echo esc_attr($atts['placeholder']); ?>"
+                   style="flex-grow:1;padding:10px 15px;border:2px solid var(--wp--preset--color--border-color);border-radius:8px;font-size:14px;"
+                   required />
+            <button type="submit" 
+                    style="background:var(--wp--preset--color--primary);color:white;border:none;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;">
+                <?php echo esc_html($atts['button_text']); ?>
+            </button>
+        </div>
+    </form>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('kotlinskidev_search', 'kotlinskidev_search_form_shortcode');
 ?>

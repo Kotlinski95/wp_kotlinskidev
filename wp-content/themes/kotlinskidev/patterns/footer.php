@@ -228,16 +228,33 @@ $kotlinskidev_images = array(
     </div>
     <!-- /wp:group -->
 
-    <!-- wp:shortcode -->
-    [copyrights_shortcode_here]
-    <!-- /wp:shortcode -->
 
-    <!-- wp:column {"verticalAlignment":"top","width":"100%"} -->
-    <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:100%">
-        <!-- wp:shortcode -->
-        [scroll_to_top_shortcode_here]
-        <!-- /wp:shortcode -->
-    </div>
-    <!-- /wp:column -->
+    <!-- wp:shortcode -->
+    <?php
+    // Check if we need to force shortcode processing with custom values
+    global $kotlinskidev_force_footer_shortcodes;
+    global $kotlinskidev_footer_shortcodes;
+    
+    if ($kotlinskidev_force_footer_shortcodes === true && !empty($kotlinskidev_footer_shortcodes)) {
+        // Use passed shortcode values with proper styling
+        if (isset($kotlinskidev_footer_shortcodes['copyrights'])) {
+            echo '<div style="text-align: center; padding: 20px 0;">';
+            echo do_shortcode($kotlinskidev_footer_shortcodes['copyrights']);
+            echo '</div>';
+        }
+        
+        if (isset($kotlinskidev_footer_shortcodes['scroll_to_top'])) {
+            echo '<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">';
+            echo do_shortcode($kotlinskidev_footer_shortcodes['scroll_to_top']);
+            echo '</div>';
+        }
+    } else {
+        // Use default shortcodes for regular pages
+        echo do_shortcode('[copyrights_shortcode_here]');
+        echo '<div class="wp-block-column is-vertically-aligned-top" style="flex-basis:100%">';
+        echo do_shortcode('[scroll_to_top_shortcode_here]');
+        echo '</div>';
+    }
+    ?>
 </footer>
 <!-- /wp:group -->

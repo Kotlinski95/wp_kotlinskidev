@@ -1,0 +1,94 @@
+<?php
+/**
+ * Title: Popular Content
+ * Slug: kotlinskidev/popular-content
+ * Categories: blog, kotlinskidev/blog
+ */
+?>
+
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"40px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:40px">
+    
+    <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
+    <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size">Popular Content</h3>
+    <!-- /wp:heading -->
+    
+    <!-- wp:html -->
+    <?php
+    // Get popular posts (by comments + views if available)
+    $popular_posts = new WP_Query(array(
+        'post_type' => array('post', 'page'),
+        'post_status' => 'publish',
+        'posts_per_page' => 6,
+        'orderby' => 'comment_count',
+        'order' => 'DESC',
+        'meta_query' => array(
+            'relation' => 'OR',
+            array(
+                'key' => '_wp_page_visibility',
+                'compare' => 'NOT EXISTS'
+            ),
+            array(
+                'key' => '_wp_page_visibility',
+                'value' => 'private',
+                'compare' => '!='
+            )
+        )
+    ));
+    
+    if ($popular_posts->have_posts()) :
+    ?>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 40px;">
+        <?php while ($popular_posts->have_posts()) : $popular_posts->the_post(); 
+            $post_type = get_post_type();
+            $is_page = ($post_type === 'page');
+        ?>
+        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:1px;border-radius:18px;padding:25px;display:flex;flex-direction:column;height:100%;">
+            
+            <?php if (has_post_thumbnail()) : ?>
+                <div style="margin-bottom:20px;flex-shrink:0;">
+                    <a href="<?php the_permalink(); ?>">
+                        <img src="<?php the_post_thumbnail_url('medium'); ?>" 
+                             alt="<?php the_title(); ?>" 
+                             style="width:100%;height:150px;object-fit:cover;border-radius:12px;" />
+                    </a>
+                </div>
+            <?php endif; ?>
+            
+            <div style="margin-bottom:15px;flex-shrink:0;">
+                <span style="background:var(--wp--preset--color--primary);color:white;padding:4px 12px;border-radius:15px;font-size:12px;font-weight:600;">
+                    <?php echo $is_page ? '📄 Page' : '📝 Article'; ?>
+                </span>
+            </div>
+            
+            <h4 style="margin-bottom:15px;font-size:1.125rem;font-weight:600;flex-shrink:0;">
+                <a href="<?php the_permalink(); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                    <?php the_title(); ?>
+                </a>
+            </h4>
+            
+            <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:20px;flex-grow:1;font-size:14px;">
+                <?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?>
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;font-size:12px;">
+                <span style="color:var(--wp--preset--color--foreground-alt);">
+                    <?php echo $is_page ? 'Updated ' . get_the_modified_date() : get_the_date(); ?>
+                </span>
+                <a href="<?php the_permalink(); ?>" 
+                   style="background:transparent;color:var(--wp--preset--color--primary);border:1px solid var(--wp--preset--color--primary);padding:6px 12px;border-radius:6px;text-decoration:none;font-size:12px;">
+                    <?php echo $is_page ? 'View' : 'Read'; ?>
+                </a>
+            </div>
+            
+        </div>
+        <?php endwhile; ?>
+    </div>
+    <?php 
+    endif; 
+    wp_reset_postdata();
+    ?>
+    <!-- /wp:html -->
+    
+</div>
+<!-- /wp:group -->

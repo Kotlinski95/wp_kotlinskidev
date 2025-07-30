@@ -35,7 +35,7 @@
                     <a href="<?php the_permalink(); ?>">
                         <img src="<?php the_post_thumbnail_url('medium_large'); ?>" 
                              alt="<?php the_title(); ?>" 
-                             style="width:100%;height:200px;object-fit:cover;border-radius:14px;" />
+                             style="width:100%;height:200px;object-fit:contain;border-radius:14px;" />
                     </a>
                 </div>
             <?php endif; ?>
@@ -69,7 +69,7 @@
                     if ($post_tags) {
                         $tag_names = array();
                         foreach ($post_tags as $tag) {
-                            if ($tag->term_id != $current_tag->term_id) { // Don't show current tag
+                            if ($tag->term_id !== $current_tag->term_id) { // Don't show current tag
                                 $tag_names[] = '#' . $tag->name;
                             }
                         }
