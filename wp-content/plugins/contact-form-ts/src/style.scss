@@ -45,6 +45,8 @@ form.contact-form-block,
 
     &:has(input[type='checkbox']) {
         flex-wrap: nowrap;
+        display: flex;
+        max-width: 100%;
     }
 
     cursor: pointer;

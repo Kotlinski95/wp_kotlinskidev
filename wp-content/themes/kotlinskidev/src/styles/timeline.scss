@@ -1,0 +1,190 @@
+// Vertical Timeline Styles
+.career-timeline {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+
+  // Central timeline line
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #e2e8f0, #cbd5e1, #e2e8f0);
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .wp-block-columns {
+    position: relative;
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Timeline items
+.timeline-item {
+  position: relative;
+
+  // Timeline dot/circle
+  &::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--wp--preset--color--primary);
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  // Content box styling
+  .wp-block-group {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    position: relative;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    // Arrow pointing to timeline
+    &::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 12px solid transparent;
+    }
+  }
+}
+
+// Left side items
+.timeline-left {
+  .timeline-item {
+    &::before {
+      right: -24px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .wp-block-group {
+      text-align: right;
+      margin-right: 30px;
+
+      &::before {
+        right: -12px;
+        border-left-color: #ffffff;
+      }
+    }
+  }
+}
+
+// Right side items
+.timeline-right {
+  .timeline-item {
+    &::before {
+      left: -24px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .wp-block-group {
+      text-align: left;
+      margin-left: 30px;
+
+      &::before {
+        left: -12px;
+        border-right-color: #ffffff;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .career-timeline {
+    padding: 20px 0;
+
+    // Move timeline to the left side on mobile
+    &::before {
+      left: -20px;
+      width: 3px;
+    }
+
+    .wp-block-columns {
+      margin-bottom: 10px;
+      flex-direction: column !important;
+    }
+
+    // Both left and right items align the same way on mobile
+    .timeline-left,
+    .timeline-right {
+      .wp-block-column {
+        width: 100% !important;
+        flex-basis: 100% !important;
+
+        &:empty {
+          display: none; // Hide empty columns on mobile
+        }
+      }
+
+      .timeline-item {
+        // Position dots on the left timeline
+        &::before {
+          left: -34px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 20px;
+          height: 20px;
+          background: var(--wp--preset--color--primary);
+          border: 4px solid #ffffff;
+        }
+
+        .wp-block-group {
+          text-align: left;
+          margin-left: 60px;
+          margin-right: 0;
+          padding: 24px 20px;
+
+          // Remove arrows on mobile - cleaner look
+          &::before {
+            display: none;
+          }
+
+          // Enhanced mobile styling
+          border-radius: 8px;
+          background: #ffffff;
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+          position: relative;
+
+          // Add subtle animation on mobile scroll
+          opacity: 0.95;
+          transform: translateX(5px);
+          transition: all 0.3s ease;
+
+          &:hover {
+            opacity: 1;
+            transform: translateX(0);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+          }
+        }
+      }
+    }
+  }
+}

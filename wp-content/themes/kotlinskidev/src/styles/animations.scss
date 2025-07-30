@@ -1,0 +1,90 @@
+// =============================================================================
+// HOVER ANIMATIONS
+// =============================================================================
+
+// Jump animation on hover - smooth upward movement
+.hover-jump {
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+}
+
+// Subtle jump - smaller movement
+.hover-jump-subtle {
+  transition: transform 0.25s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+// Strong jump - more pronounced movement
+.hover-jump-strong {
+  transition: transform 0.35s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-15px);
+  }
+}
+
+// Jump with shadow - adds depth effect
+.hover-jump-shadow {
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+// =============================================================================
+// ADDITIONAL HOVER EFFECTS
+// =============================================================================
+
+// Scale animation on hover
+.hover-scale {
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Fade animation on hover
+.hover-fade {
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// Rotate animation on hover
+.hover-rotate {
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: rotate(5deg);
+  }
+}
+
+// Bounce animation on hover
+.hover-bounce {
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
