@@ -1,0 +1,111 @@
+<?php
+/**
+ * Title: Other Topics Grid
+ * Slug: kotlinskidev/other-topics
+ * Categories: blog, kotlinskidev/blog, themeslug/custom
+ */
+
+$current_category = get_queried_object();
+
+// Get other categories (excluding current one)
+$other_categories = get_categories(array(
+    'hide_empty' => true,
+    'exclude' => array(1, $current_category->term_id), // Exclude "Uncategorized" and current category
+    'number' => 4,
+    'orderby' => 'count',
+    'order' => 'DESC'
+));
+?>
+
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"80px"},"padding":{"top":"60px"},"border":{"top":{"color":"var:preset|color|border-color","width":"1px"}}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:80px;padding-top:60px;border-top-color:var(--wp--preset--color--border-color);border-top-width:1px">
+    
+    <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
+    <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size">Other Topics</h3>
+    <!-- /wp:heading -->
+    
+    <?php if (!empty($other_categories)) : ?>
+    <!-- wp:html -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px;">
+        <?php foreach ($other_categories as $category) : 
+            $category_link = get_category_link($category->term_id);
+            $extended_description = kotlinskidev_get_category_description($category->term_id);
+            
+            // Get latest post from this category for featured image and info
+            $latest_post = get_posts(array(
+                'category' => $category->term_id,
+                'posts_per_page' => 1,
+                'post_status' => 'publish'
+            ));
+            
+            $featured_image = '';
+            $last_updated = '';
+            if (!empty($latest_post)) {
+                if (has_post_thumbnail($latest_post[0]->ID)) {
+                    $featured_image = get_the_post_thumbnail_url($latest_post[0]->ID, 'medium');
+                }
+                $last_updated = human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp')) . ' ago';
+            }
+        ?>
+        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:1px;border-radius:20px;padding:30px;transition:transform 0.3s ease;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+            
+            <?php if ($featured_image) : ?>
+            <div style="margin-bottom:20px;flex-shrink:0;">
+                <a href="<?php echo esc_url($category_link); ?>">
+                <img src="<?php echo esc_url($featured_image); ?>" 
+                     alt="<?php echo esc_attr($category->name); ?>" 
+                     style="width:100%;height:180px;object-fit:contain;border-radius:16px;" />
+                </a>
+            </div>
+            <?php endif; ?>
+            
+            <div style="text-align:center;flex-grow:1;display:flex;flex-direction:column;">
+            <h4 style="margin-bottom:15px;font-size:1.25rem;font-weight:700;flex-shrink:0;">
+                <a href="<?php echo esc_url($category_link); ?>" 
+                   style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                <?php echo esc_html($category->name); ?>
+                </a>
+            </h4>
+            
+            <?php if ($extended_description) : ?>
+                <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:20px;line-height:1.5;flex-grow:1;">
+                <?php echo esc_html($extended_description); ?>
+                </p>
+            <?php endif; ?>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:14px;flex-shrink:0;">
+                <span style="color:var(--wp--preset--color--primary);font-weight:600;">
+                <?php echo $category->count; ?> <?php echo $category->count === 1 ? 'article' : 'articles'; ?>
+                </span>
+                <?php if ($last_updated) : ?>
+                <span style="color:var(--wp--preset--color--foreground-alt);">
+                    Updated <?php echo $last_updated; ?>
+                </span>
+                <?php endif; ?>
+            </div>
+            
+            <div style="margin-top:auto;flex-shrink:0;">
+                <a href="<?php echo esc_url($category_link); ?>" 
+                   style="background:var(--wp--preset--color--primary);color:white;padding:12px 24px;border-radius:12px;text-decoration:none;display:inline-block;font-weight:600;transition:all 0.3s ease;">
+                Explore <?php echo esc_html($category->name); ?>
+                </a>
+            </div>
+            </div>
+            
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <!-- /wp:html -->
+    
+    <?php else : ?>
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"40px","bottom":"40px"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="padding-top:40px;padding-bottom:40px">
+        <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+        <p class="has-text-align-center has-foreground-alt-color has-text-color has-link-color">No other topics available yet.</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
+    <?php endif; ?>
+    
+</div>
+<!-- /wp:group -->

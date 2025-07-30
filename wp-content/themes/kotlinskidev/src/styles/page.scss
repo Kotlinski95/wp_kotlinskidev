@@ -60,6 +60,7 @@ header > * {
     visibility: hidden;
 }
 
-.wp-block-post-featured-image {
+.wp-block-post-featured-image,
+.wp-block-post-title {
   display: none !important;
 }

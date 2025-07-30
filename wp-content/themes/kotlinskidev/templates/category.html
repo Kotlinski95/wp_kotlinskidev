@@ -1,0 +1,26 @@
+<!-- wp:template-part {"slug":"header","theme":"kotlinskidev","area":"header"} /-->
+
+<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"75px","bottom":"60px","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"1180px"}} -->
+<main
+  class="wp-block-group has-background-alt-background-color has-background"
+  style="
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 75px;
+    padding-right: var(--wp--preset--spacing--40);
+    padding-bottom: 60px;
+    padding-left: var(--wp--preset--spacing--40);
+  "
+>
+  <!-- Category Header Pattern (includes breadcrumbs) -->
+  <!-- wp:pattern {"slug":"kotlinskidev/category-header"} /-->
+
+  <!-- Category Posts Grid Pattern -->
+  <!-- wp:pattern {"slug":"kotlinskidev/category-posts-grid"} /-->
+
+  <!-- Other Topics Pattern -->
+  <!-- wp:pattern {"slug":"kotlinskidev/other-topics"} /-->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","theme":"kotlinskidev","area":"footer"} /-->
