@@ -10,27 +10,27 @@ $current_category = isset($_GET['search_category']) ? sanitize_text_field($_GET[
 $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_type']) : '';
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"60px"},"padding":{"top":"40px","bottom":"40px","left":"30px","right":"30px"}},"border":{"radius":"20px","width":"1px"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"800px"}} -->
-<div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:1px;border-radius:20px;margin-bottom:60px;padding-top:40px;padding-right:30px;padding-bottom:40px;padding-left:30px">
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"},"padding":{"top":"15px","bottom":"15px","left":"20px","right":"20px"}},"border":{"radius":"20px","width":"0px"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"800px"}} -->
+<div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0px;border-radius:20px;margin-bottom:15px;padding-top:15px;padding-right:20px;padding-bottom:15px;padding-left:20px">
     
     <!-- wp:html -->
     <form method="get" action="<?php echo esc_url(home_url('/')); ?>" class="kotlinskidev-search-form">
         
         <!-- Main Search Input -->
-        <div style="margin-bottom:28px;">
+        <div style="margin-bottom:20px;">
             <label for="search-input" class="search-label">
-                🔍 Search for content
+                🔍 <?php esc_html_e('Search for content', 'kotlinskidev'); ?>
             </label>
             <input type="text" 
                    id="search-input"
                    name="s" 
                    value="<?php echo esc_attr($current_search); ?>"
-                   placeholder="Enter keywords, topics, or specific terms..."
+                   placeholder="<?php esc_attr_e('Enter keywords, topics, or specific terms...', 'kotlinskidev'); ?>"
                    class="search-input-field"
                    required 
                    aria-describedby="search-input-description" />
             <div id="search-input-description" class="sr-only">
-                Search across all articles, pages, and content on the site
+                <?php esc_html_e('Search across all articles, pages, and content on the site', 'kotlinskidev'); ?>
             </div>
         </div>
         
@@ -40,31 +40,31 @@ $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_
             <!-- Content Type Filter -->
             <div>
                 <label for="search-type" class="search-label">
-                    📄 Content Type
+                    📄 <?php esc_html_e('Content Type', 'kotlinskidev'); ?>
                 </label>
                 <select name="search_type" 
                         id="search-type" 
                         class="search-select-field"
                         aria-describedby="search-type-description">
-                    <option value="">All Content</option>
-                    <option value="post" <?php selected($current_type, 'post'); ?>>Articles</option>
-                    <option value="page" <?php selected($current_type, 'page'); ?>>Pages</option>
+                    <option value=""><?php esc_html_e('All Content', 'kotlinskidev'); ?></option>
+                    <option value="post" <?php selected($current_type, 'post'); ?>><?php esc_html_e('Articles', 'kotlinskidev'); ?></option>
+                    <option value="page" <?php selected($current_type, 'page'); ?>><?php esc_html_e('Pages', 'kotlinskidev'); ?></option>
                 </select>
                 <div id="search-type-description" class="sr-only">
-                    Filter results by content type: articles, pages, or all content
+                    <?php esc_html_e('Filter results by content type: articles, pages, or all content', 'kotlinskidev'); ?>
                 </div>
             </div>
             
             <!-- Category Filter -->
             <div>
                 <label for="search-category" class="search-label">
-                    📂 Topic Category
+                    📂 <?php esc_html_e('Topic Category', 'kotlinskidev'); ?>
                 </label>
                 <select name="search_category" 
                         id="search-category" 
                         class="search-select-field"
                         aria-describedby="search-category-description">
-                    <option value="">All Topics</option>
+                    <option value=""><?php esc_html_e('All Topics', 'kotlinskidev'); ?></option>
                     <?php
                     $categories = get_categories(array(
                         'hide_empty' => true,
@@ -79,7 +79,7 @@ $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_
                     ?>
                 </select>
                 <div id="search-category-description" class="sr-only">
-                    Filter results by topic category
+                    <?php esc_html_e('Filter results by topic category', 'kotlinskidev'); ?>
                 </div>
             </div>
         </div>
@@ -88,25 +88,47 @@ $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_
         <div style="text-align:center;margin-bottom:20px;">
             <button type="submit" class="search-button" aria-describedby="search-button-description">
                 <span>🔍</span>
-                <span>Search Content</span>
+                <span><?php esc_html_e('Search Content', 'kotlinskidev'); ?></span>
             </button>
             <div id="search-button-description" class="sr-only">
-                Search for content using the criteria above
+                <?php esc_html_e('Search for content using the criteria above', 'kotlinskidev'); ?>
             </div>
         </div>
         
         <?php if (!empty($current_search)) : ?>
         <!-- Clear Search -->
         <div style="text-align:center;">
-            <a href="<?php echo esc_url(home_url('/')); ?>" 
+            <?php
+            // Get translatable search slug
+            $search_slug = __('search', 'kotlinskidev');
+            $clear_url = home_url('/' . $search_slug . '/');
+            ?>
+            <a href="<?php echo esc_url($clear_url); ?>" 
                class="clear-search-link"
-               aria-label="Clear search and return to homepage">
-                ✕ Clear search and filters
+               aria-label="<?php esc_attr_e('Clear search and return to homepage', 'kotlinskidev'); ?>">
+                ✕ <?php esc_html_e('Clear search and filters', 'kotlinskidev'); ?>
             </a>
         </div>
         <?php endif; ?>
         
     </form>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.querySelector('.kotlinskidev-search-form');
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                // Remove empty form fields before submission
+                const inputs = searchForm.querySelectorAll('input, select');
+                inputs.forEach(function(input) {
+                    if (input.name && (input.value === '' || input.value === null)) {
+                        input.removeAttribute('name');
+                    }
+                });
+            });
+        }
+    });
+    </script>
     
 </div>
 <!-- /wp:group -->

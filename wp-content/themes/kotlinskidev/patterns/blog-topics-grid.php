@@ -20,7 +20,7 @@ if (!empty($categories)) :
 <div class="wp-block-group" style="margin-top:0;margin-bottom:0">
     
     <!-- wp:html -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
         <?php foreach ($categories as $category) : 
             $post_count = $category->count;
             $category_link = get_category_link($category->term_id);
@@ -39,10 +39,10 @@ if (!empty($categories)) :
             }
         ?>
         
-        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:1px;border-radius:20px;padding:40px;box-shadow:var(--wp--preset--shadow--natural);transition:transform 0.3s ease;hover:transform:translateY(-5px);">
+        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:2px;border-radius:20px;padding:20px;box-shadow:var(--wp--preset--shadow--natural);transition:transform 0.3s ease;hover:transform:translateY(-5px);">
             
             <?php if ($featured_image) : ?>
-            <div style="margin-bottom:25px;">
+            <div style="margin-bottom:15px;">
                 <a href="<?php echo esc_url($category_link); ?>">
                 <img src="<?php echo esc_url($featured_image); ?>" 
                      alt="<?php echo esc_attr($category->name); ?>" 
@@ -66,13 +66,16 @@ if (!empty($categories)) :
             <?php endif; ?>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;">
-                <span style="color:var(--wp--preset--color--primary);font-size:14px;font-weight:600;">
-                <?php echo $post_count; ?> <?php echo $post_count === 1 ? 'Article' : 'Articles'; ?>
+                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;font-weight:600;">
+                <?php echo $post_count; ?> <?php echo $post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev'); ?>
                 </span>
                 <span style="color:var(--wp--preset--color--foreground-alt);font-size:14px;">
                 <?php 
                 if (!empty($latest_post)) {
-                    echo 'Updated ' . human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp')) . ' ago';
+                    printf(
+                        esc_html__('Updated %s ago', 'kotlinskidev'),
+                        human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp'))
+                    );
                 }
                 ?>
                 </span>
@@ -80,7 +83,7 @@ if (!empty($categories)) :
             
             <a href="<?php echo esc_url($category_link); ?>" 
                style="background:var(--wp--preset--color--primary);color:white;border-radius:12px;padding:12px 24px;text-decoration:none;display:inline-block;font-weight:600;transition:all 0.3s ease;">
-                Explore <?php echo esc_html($category->name); ?>
+                <?php printf(esc_html__('Explore %s', 'kotlinskidev'), esc_html($category->name)); ?>
             </a>
             </div>
             
@@ -95,10 +98,10 @@ if (!empty($categories)) :
 
 <?php else : ?>
 
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="padding-top:60px;padding-bottom:60px">
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"20px","bottom":"20px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:20px;padding-bottom:20px">
     <!-- wp:heading {"textAlign":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-    <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color">No topics found</h2>
+    <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('No topics found', 'kotlinskidev'); ?></h2>
     <!-- /wp:heading -->
     
     <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->

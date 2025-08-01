@@ -10,12 +10,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2025-03-22 08:23+0000\n"
+"PO-Revision-Date: 2025-08-01 14:03+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.6.14; wp-6.6.1"
+
+msgid " with your current filters"
+msgstr " with your current filters"
 
 msgctxt "404"
 msgid "Categories"
@@ -38,11 +41,50 @@ msgstr "Homepage Banner layout"
 msgid "About Us"
 msgstr "About Us"
 
+msgid "All Content"
+msgstr "All Content"
+
+msgid "All Topics"
+msgstr "All Topics"
+
+msgid "Article"
+msgstr "Article"
+
+msgid "article"
+msgstr "article"
+
+msgid "Articles"
+msgstr "Articles"
+
+msgid "articles"
+msgstr "articles"
+
+msgid "Articles for this topic are coming soon!"
+msgstr "Articles for this topic are coming soon!"
+
+msgid "Articles tagged with \"%s\""
+msgstr "Articles tagged with \"%s\""
+
+msgid "Articles with this tag are coming soon!"
+msgstr "Articles with this tag are coming soon!"
+
 msgid "Blog"
 msgstr "Blog"
 
+msgid "Browse All Content"
+msgstr "Browse All Content"
+
+msgid "Browse All Topics"
+msgstr "Browse All Topics"
+
 msgid "Career"
 msgstr "Career"
+
+msgid "Check your spelling and try again"
+msgstr "Check your spelling and try again"
+
+msgid "Clear search and filters"
+msgstr "Clear search and filters"
 
 msgid "Contact address"
 msgstr "Poland, 40-143 Katowice, ul.Dekerta"
@@ -59,11 +101,20 @@ msgstr "Contact me"
 msgid "Contact phone"
 msgstr "+48 608 418 911"
 
+msgid "Content Type"
+msgstr "Content Type"
+
 msgid "Copyrights"
 msgstr " Kotlinskidev | Web Development"
 
 msgid "E-commerce"
 msgstr "E-commerce"
+
+msgid "Enter keywords, topics, or specific terms..."
+msgstr "Enter keywords, topics, or specific terms..."
+
+msgid "Explore %s"
+msgstr "Explore %s"
 
 msgid "FAQ"
 msgstr "FAQ"
@@ -77,6 +128,9 @@ msgstr "Here're some common question and information"
 msgid "FAQ What is Full Site Editing in WordPress?"
 msgstr "What is Full Site Editing in Wordpress?"
 
+msgid "Find articles, pages, and resources across our entire site"
+msgstr "Find articles, pages, and resources across our entire site"
+
 msgid "Footer description"
 msgstr ""
 "As a Senior Software Engineer with 5 years of experience, I specialize in "
@@ -85,6 +139,12 @@ msgstr ""
 "web applications, optimizing frontend systems, or leading teams through "
 "complex technical challenges, I bring a results-driven mindset to every "
 "project."
+
+msgid "Highly Related"
+msgstr "Highly Related"
+
+msgid "Home"
+msgstr "Home"
 
 msgid "Home Banner"
 msgstr "Homepage Banner"
@@ -105,8 +165,65 @@ msgstr "Kotlinskidev | Modern web development"
 msgid "kotlinskidev"
 msgstr "kotlinskidev"
 
+#. Blog and Article strings
+msgid "Latest Articles"
+msgstr "Latest Articles"
+
+#. Search Results strings
+msgid "Looking for something else?"
+msgstr "Looking for something else?"
+
+#. Reading time and navigation strings
+msgid "min read"
+msgstr "min read"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "No articles found with this tag"
+msgstr "No articles found with this tag"
+
+msgid "No articles in this topic yet"
+msgstr "No articles in this topic yet"
+
+msgid "No other tags available yet."
+msgstr "No other tags available yet."
+
+msgid "No other topics available yet."
+msgstr "No other topics available yet."
+
+msgid "No related articles found."
+msgstr "No related articles found."
+
+msgid "No results found"
+msgstr "No results found"
+
+msgid "No topics found"
+msgstr "No topics found"
+
+#. Other Topics strings
+msgid "Other Topics"
+msgstr "Other Topics"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Pages"
+msgstr "Pages"
+
 msgid "Policy"
 msgstr "Privacy Policy"
+
+#. Popular Content strings
+msgid "Popular Content"
+msgstr "Popular Content"
+
+msgid "Previous"
+msgstr "Previous"
+
+#. Navigation strings
+msgid "Primary Menu"
+msgstr ""
 
 msgid "Proudly powered by"
 msgstr ""
@@ -116,14 +233,110 @@ msgstr ""
 msgid "Quick Links"
 msgstr "Quick Links"
 
+msgid "Read"
+msgstr "Read"
+
+#. Category strings
+msgid "Read Article"
+msgstr "Read Article"
+
+msgid "Read More"
+msgstr "Read More"
+
+#. Related Articles strings
+msgid "Related Articles"
+msgstr "Related Articles"
+
+msgid "Related Tags"
+msgstr "Related Tags"
+
+msgid "Remove content type or category filters"
+msgstr "Remove content type or category filters"
+
+msgid "Same Topic"
+msgstr "Same Topic"
+
+msgid "search"
+msgstr ""
+
+msgid "Search across all articles, pages, and content on the site"
+msgstr "Search across all articles, pages, and content on the site"
+
+msgid "Search Content"
+msgstr "Search Content"
+
+#. Search Form strings
+msgid "Search for content"
+msgstr "Search for content"
+
+msgid "Search for related topics or synonyms"
+msgstr "Search for related topics or synonyms"
+
+msgid "Search Our Content"
+msgstr "Search Our Content"
+
+#. Search Header strings
+msgid "Search Results"
+msgstr "Search Results"
+
 msgid "See My Popular Posts"
 msgstr "See My Popular Posts"
 
 msgid "Services"
 msgstr "Services"
 
+msgid "Similar Tags"
+msgstr "Similar Tags"
+
+#. Tag strings
+msgid "Tag:"
+msgstr "Tag:"
+
 msgid "Terms and Conditions"
 msgstr "Terms and Conditions"
+
+msgid "Topic Category"
+msgstr "Topic Category"
+
+msgid "Topics"
+msgstr "Topics"
+
+msgid "Try more general terms"
+msgstr "Try more general terms"
+
+msgid ""
+"Try searching for a different term or explore more content using the search "
+"form below."
+msgstr ""
+"Try searching for a different term or explore more content using the search "
+"form below."
+
+msgid "Try these search tips:"
+msgstr "Try these search tips:"
+
+msgid "Updated"
+msgstr "Updated"
+
+msgid "Updated %s"
+msgstr "Updated %s"
+
+msgid "Updated %s ago"
+msgstr "Updated %s ago"
+
+msgid "Use fewer or different keywords"
+msgstr "Use fewer or different keywords"
+
+msgid "View"
+msgstr "View"
+
+msgid "View All Articles"
+msgstr "View All Articles"
+
+msgid "View Articles"
+msgstr "View Articles"
+
+msgid "We couldn't find any content matching \"%s\""
+msgstr "We couldn't find any content matching \"%s\""
 
 msgid "Web development"
 msgstr "Web development"

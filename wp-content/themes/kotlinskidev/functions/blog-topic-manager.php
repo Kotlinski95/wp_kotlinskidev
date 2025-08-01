@@ -57,9 +57,9 @@ function kotlinskidev_get_category_description($category_id) {
 // Add breadcrumbs for blog navigation
 function kotlinskidev_blog_breadcrumbs() {
     $locale = get_locale();
-    $home_text = ($locale == 'pl_PL') ? 'Strona główna' : 'Home';
-    $blog_text = ($locale == 'pl_PL') ? 'Blog' : 'Blog';
-    $topics_text = ($locale == 'pl_PL') ? 'Tematy' : 'Topics';
+    $home_text = __('Home', 'kotlinskidev');
+    $blog_text = __('Blog', 'kotlinskidev');
+    $topics_text = __('Topics', 'kotlinskidev');
     
     $breadcrumbs = array();
     $breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '">' . $home_text . '</a>';
@@ -97,10 +97,7 @@ function kotlinskidev_reading_time($post_id = null) {
     $word_count = str_word_count(strip_tags($content));
     $reading_time = ceil($word_count / 200); // Average reading speed: 200 words per minute
     
-    $locale = get_locale();
-    $text = ($locale == 'pl_PL') ? 'min czytania' : 'min read';
-    
-    return $reading_time . ' ' . $text;
+    return $reading_time . ' ' . __('min read', 'kotlinskidev');
 }
 
 // Add related posts by category
@@ -446,12 +443,12 @@ function kotlinskidev_get_breadcrumb_settings($locale = null) {
     
     $settings = array(
         'home_text' => $is_polish ? 
-            (isset($options['home_text_pl']) && !empty($options['home_text_pl']) ? $options['home_text_pl'] : 'Strona główna') :
-            (isset($options['home_text_en']) && !empty($options['home_text_en']) ? $options['home_text_en'] : 'Home'),
+            (isset($options['home_text_pl']) && !empty($options['home_text_pl']) ? $options['home_text_pl'] : __('Home', 'kotlinskidev')) :
+            (isset($options['home_text_en']) && !empty($options['home_text_en']) ? $options['home_text_en'] : __('Home', 'kotlinskidev')),
         
         'topics_text' => $is_polish ?
-            (isset($options['topics_text_pl']) && !empty($options['topics_text_pl']) ? $options['topics_text_pl'] : 'Tematy') :
-            (isset($options['topics_text_en']) && !empty($options['topics_text_en']) ? $options['topics_text_en'] : 'Topics'),
+            (isset($options['topics_text_pl']) && !empty($options['topics_text_pl']) ? $options['topics_text_pl'] : __('Topics', 'kotlinskidev')) :
+            (isset($options['topics_text_en']) && !empty($options['topics_text_en']) ? $options['topics_text_en'] : __('Topics', 'kotlinskidev')),
         
         'topics_url' => $is_polish ?
             (isset($options['topics_url_pl']) && !empty($options['topics_url_pl']) ? $options['topics_url_pl'] : home_url('/tematy-bloga/')) :
@@ -520,27 +517,55 @@ function kotlinskidev_highlight_search_terms($text, $search_query) {
 
 // Improve WordPress search to include page content
 function kotlinskidev_enhance_search($query) {
-    if (!is_admin() && $query->is_main_query() && $query->is_search()) {
-        // Include pages in search results
-        $query->set('post_type', array('post', 'page'));
+    if (!is_admin() && $query->is_main_query()) {
+        $is_search = $query->is_search();
+        $is_polish_search = false;
         
-        // Improve search relevance
-        $query->set('orderby', 'relevance');
-        $query->set('order', 'DESC');
+        // Check if current page uses Polish search template
+        if (is_page()) {
+            $template = get_page_template_slug();
+            if ($template === 'search_pl.html' && isset($_GET['s']) && !empty($_GET['s'])) {
+                $is_polish_search = true;
+            }
+        }
+        
+        if ($is_search || $is_polish_search) {
+            // Include pages in search results
+            $query->set('post_type', array('post', 'page'));
+            
+            // Improve search relevance
+            $query->set('orderby', 'relevance');
+            $query->set('order', 'DESC');
+            
+            // Handle Polish search page specifically
+            if ($is_polish_search) {
+                $query->set('s', sanitize_text_field($_GET['s']));
+                $query->is_search = true;
+                $query->is_page = false;
+            }
+        }
     }
 }
 add_action('pre_get_posts', 'kotlinskidev_enhance_search');
 
-// Add search form shortcode for easy placement
+// Add search form shortcode for easy placement with bilingual support
 function kotlinskidev_search_form_shortcode($atts) {
-    $atts = shortcode_atts(array(
-        'placeholder' => 'Search articles and pages...',
-        'button_text' => 'Search'
-    ), $atts);
+    $locale = get_locale();
+    $is_polish = ($locale == 'pl_PL');
+    
+    $defaults = array(
+        'placeholder' => $is_polish ? __('Search for content', 'kotlinskidev') : __('Search for content', 'kotlinskidev'),
+        'button_text' => $is_polish ? __('Search Content', 'kotlinskidev') : __('Search Content', 'kotlinskidev')
+    );
+    
+    $atts = shortcode_atts($defaults, $atts);
+    
+    // Determine search action URL based on language
+    $search_action = $is_polish ? home_url('/szukaj') : home_url('/');
     
     ob_start();
     ?>
-    <form method="get" action="<?php echo esc_url(home_url('/')); ?>" class="kotlinskidev-inline-search">
+    <form method="get" action="<?php echo esc_url($search_action); ?>" class="kotlinskidev-inline-search">
         <div style="display:flex;gap:10px;align-items:center;">
             <input type="text" 
                    name="s" 
@@ -558,4 +583,61 @@ function kotlinskidev_search_form_shortcode($atts) {
     return ob_get_clean();
 }
 add_shortcode('kotlinskidev_search', 'kotlinskidev_search_form_shortcode');
+
+// Polish Search Page Integration
+// Handle Polish search functionality for pages using search_pl.html template
+function kotlinskidev_handle_polish_search_integration() {
+    // Check if current page is using the Polish search template
+    $template = get_page_template_slug();
+    
+    if ($template === 'search_pl.html') {
+        global $wp_query;
+        
+        if (isset($_GET['s']) && !empty($_GET['s'])) {
+            $wp_query->is_search = true;
+            $wp_query->is_page = false;
+            $wp_query->set('s', sanitize_text_field($_GET['s']));
+            
+            // Use the same enhanced search functionality we already have
+            // The kotlinskidev_enhance_search function will handle the rest
+        }
+    }
+}
+add_action('wp', 'kotlinskidev_handle_polish_search_integration');
+
+// Redirect Polish search forms to Polish search page when Polish locale is active
+function kotlinskidev_redirect_to_polish_search($url) {
+    $locale = get_locale();
+    
+    if ($locale == 'pl_PL' && strpos($url, '/?s=') !== false) {
+        // Try to find a page using Polish search template (search_pl.html)
+        $polish_search_pages = get_pages(array(
+            'meta_key' => '_wp_page_template',
+            'meta_value' => 'search_pl.html',
+            'number' => 1
+        ));
+        
+        if (!empty($polish_search_pages)) {
+            $polish_page = $polish_search_pages[0];
+            $polish_url = get_permalink($polish_page->ID);
+            // Replace /?s= with polish page URL + ?s=
+            $search_term = str_replace('/?s=', '', $url);
+            $url = add_query_arg('s', $search_term, $polish_url);
+        }
+    }
+    
+    return $url;
+}
+add_filter('search_link', 'kotlinskidev_redirect_to_polish_search');
+
+// Add custom post states for pages using Polish search template
+function kotlinskidev_display_polish_search_states($post_states, $post) {
+    $template = get_page_template_slug($post->ID);
+    
+    if ($template === 'search_pl.html') {
+        $post_states['polish_search'] = __('Polish Search Page', 'kotlinskidev');
+    }
+    return $post_states;
+}
+add_filter('display_post_states', 'kotlinskidev_display_polish_search_states', 10, 2);
 ?>

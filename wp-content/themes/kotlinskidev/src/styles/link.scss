@@ -23,3 +23,24 @@ footer {
     }
   }
 }
+
+.dark-mode {
+  // Prevent styles if only whitespace (spaces, tabs, newlines) is present
+  .link-dark-variant-support:not(:empty) {
+    &:not(:has(a)) {
+      background-color: var(--wp--preset--color--primary) !important;
+      color: var(--wp--preset--color--white) !important;
+      padding: 5px 10px;
+      border-radius: 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    a {
+      background-color: var(--wp--preset--color--primary) !important;
+      color: var(--wp--preset--color--white) !important;
+      padding: 5px 10px;
+      border-radius: 15px;
+      transition: background-color 0.3s ease;
+    }
+  }
+}

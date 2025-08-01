@@ -26,12 +26,12 @@
     
     if ($tag_posts->have_posts()) :
     ?>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 40px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-bottom: 20px;">
         <?php while ($tag_posts->have_posts()) : $tag_posts->the_post(); ?>
-        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:1px;border-radius:18px;padding:30px;display:flex;flex-direction:column;height:100%;">
+        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:2px;border-radius:18px;padding:15px;display:flex;flex-direction:column;height:100%;">
             
             <?php if (has_post_thumbnail()) : ?>
-                <div style="margin-bottom:25px;flex-shrink:0;">
+                <div style="margin-bottom:15px;flex-shrink:0;">
                     <a href="<?php the_permalink(); ?>">
                         <img src="<?php the_post_thumbnail_url('medium_large'); ?>" 
                              alt="<?php the_title(); ?>" 
@@ -42,7 +42,7 @@
             
             <div style="display:flex;justify-content:space-between;margin-bottom:20px;font-size:14px;flex-shrink:0;">
                 <span style="color:var(--wp--preset--color--foreground-alt);"><?php echo get_the_date(); ?></span>
-                <span style="color:var(--wp--preset--color--primary);">
+                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);">
                     <?php 
                     $categories = get_the_category();
                     if (!empty($categories)) {
@@ -63,23 +63,30 @@
             </div>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;">
-                <div style="color:var(--wp--preset--color--primary);font-size:14px;">
-                    <?php 
-                    $post_tags = get_the_tags();
-                    if ($post_tags) {
-                        $tag_names = array();
-                        foreach ($post_tags as $tag) {
-                            if ($tag->term_id !== $current_tag->term_id) { // Don't show current tag
-                                $tag_names[] = '#' . $tag->name;
-                            }
+                <?php 
+                $post_tags = get_the_tags();
+                $tag_names = array();
+                $has_other_tags = false;
+                
+                if ($post_tags) {
+                    foreach ($post_tags as $tag) {
+                        if ($tag->term_id !== $current_tag->term_id) { // Don't show current tag
+                            $tag_names[] = '#' . $tag->name;
+                            $has_other_tags = true;
                         }
-                        echo implode(' ', array_slice($tag_names, 0, 2)); // Show max 2 other tags
                     }
-                    ?>
+                }
+                
+                if ($has_other_tags) : ?>
+                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;">
+                    <?php echo implode(' ', array_slice($tag_names, 0, 2)); // Show max 2 other tags ?>
                 </div>
-                <a href="<?php the_permalink(); ?>" 
-                   style="background:transparent;color:var(--wp--preset--color--primary);border:1px solid var(--wp--preset--color--primary);border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;">
-                    Read Article
+                <?php else : ?>
+                <div></div>
+                <?php endif; ?>
+                <a href="<?php the_permalink(); ?>" class="link-dark-variant-support"
+                   style="background:transparent;color:var(--wp--preset--color--primary);border:2px solid var(--wp--preset--color--primary);border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;">
+                    <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
                 </a>
             </div>
             
@@ -92,8 +99,8 @@
         <?php 
         echo paginate_links(array(
             'total' => $tag_posts->max_num_pages,
-            'prev_text' => '← Previous',
-            'next_text' => 'Next →',
+            'prev_text' => '← ' . esc_html__('Previous', 'kotlinskidev'),
+            'next_text' => esc_html__('Next', 'kotlinskidev') . ' →',
         )); 
         ?>
     </div>
@@ -101,8 +108,8 @@
     
     <?php else : ?>
     <div style="text-align:center;padding:60px 0;">
-        <h2 style="color:var(--wp--preset--color--foreground-alt);">No articles found with this tag</h2>
-        <p style="color:var(--wp--preset--color--foreground-alt);">Articles with this tag are coming soon!</p>
+        <h2 style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('No articles found with this tag', 'kotlinskidev'); ?></h2>
+        <p style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('Articles with this tag are coming soon!', 'kotlinskidev'); ?></p>
     </div>
     <?php 
     endif; 

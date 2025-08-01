@@ -17,13 +17,13 @@ $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);
 
 $breadcrumbs = array();
-$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
-$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
 $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">' . esc_html($category_name) . '</span>';
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"20px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
-<div class="wp-block-group" style="margin-bottom:20px">
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
+<div class="wp-block-group" style="margin-bottom:15px">
     <!-- wp:html -->
     <nav class="kotlinskidev-breadcrumbs" style="font-size:14px;color:var(--wp--preset--color--foreground-alt);">
         <?php echo implode(' <span style="margin:0 8px;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); ?>
@@ -32,24 +32,24 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"60px"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
-<div class="wp-block-group" style="margin-bottom:60px">
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"20px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
+<div class="wp-block-group" style="margin-bottom:20px">
     
     <!-- wp:html -->
     <div style="text-align:center;">
-        <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:15px;">
+        <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:10px;">
             <?php echo esc_html($category_name); ?>
         </h1>
         
         <?php if ($category_description) : ?>
-            <p style="color:var(--wp--preset--color--foreground-alt);font-size:1.125rem;margin-bottom:20px;">
+            <p style="color:var(--wp--preset--color--foreground-alt);font-size:1.125rem;margin-bottom:15px;">
                 <?php echo esc_html($category_description); ?>
             </p>
         <?php endif; ?>
         
-        <div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:30px;">
-            <span style="color:var(--wp--preset--color--primary);font-weight:600;">
-                <?php echo $post_count . ' ' . ($post_count === 1 ? 'Article' : 'Articles'); ?>
+        <div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:15px;">
+            <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-weight:600;">
+                <?php echo $post_count . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
             </span>
             <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
             
@@ -58,13 +58,13 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
                     <?php if ($index > 0) : ?>
                         <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
                     <?php endif; ?>
-                    <a href="<?php echo esc_url($link['url']); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;">
+                    <a href="<?php echo esc_url($link['url']); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">
                         <?php echo esc_html($link['text']); ?>
                     </a>
                 <?php endforeach; ?>
             <?php else : ?>
-                <a href="<?php echo esc_url(home_url('/blog-topics/')); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;">
-                    ← All Topics
+                <a href="<?php echo esc_url(home_url('/blog-topics/')); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">
+                    ← <?php esc_html_e('All Topics', 'kotlinskidev'); ?>
                 </a>
             <?php endif; ?>
         </div>

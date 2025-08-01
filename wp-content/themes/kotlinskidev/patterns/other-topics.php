@@ -17,16 +17,16 @@ $other_categories = get_categories(array(
 ));
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"80px"},"padding":{"top":"60px"},"border":{"top":{"color":"var:preset|color|border-color","width":"1px"}}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="margin-top:80px;padding-top:60px;border-top-color:var(--wp--preset--color--border-color);border-top-width:1px">
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"20px"},"padding":{"top":"20px"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:20px;padding-top:20px;">
     
     <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
-    <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size">Other Topics</h3>
+    <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size"><?php esc_html_e('Other Topics', 'kotlinskidev'); ?></h3>
     <!-- /wp:heading -->
     
     <?php if (!empty($other_categories)) : ?>
     <!-- wp:html -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-top: 20px;">
         <?php foreach ($other_categories as $category) : 
             $category_link = get_category_link($category->term_id);
             $extended_description = kotlinskidev_get_category_description($category->term_id);
@@ -47,7 +47,7 @@ $other_categories = get_categories(array(
                 $last_updated = human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp')) . ' ago';
             }
         ?>
-        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:1px;border-radius:20px;padding:30px;transition:transform 0.3s ease;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:2px;border-radius:20px;padding:15px;transition:transform 0.3s ease;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
             
             <?php if ($featured_image) : ?>
             <div style="margin-bottom:20px;flex-shrink:0;">
@@ -74,12 +74,12 @@ $other_categories = get_categories(array(
             <?php endif; ?>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:14px;flex-shrink:0;">
-                <span style="color:var(--wp--preset--color--primary);font-weight:600;">
-                <?php echo $category->count; ?> <?php echo $category->count === 1 ? 'article' : 'articles'; ?>
+                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-weight:600;">
+                <?php echo $category->count; ?> <?php echo $category->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
                 </span>
                 <?php if ($last_updated) : ?>
                 <span style="color:var(--wp--preset--color--foreground-alt);">
-                    Updated <?php echo $last_updated; ?>
+                    <?php printf(esc_html__('Updated %s', 'kotlinskidev'), $last_updated); ?>
                 </span>
                 <?php endif; ?>
             </div>
@@ -87,7 +87,7 @@ $other_categories = get_categories(array(
             <div style="margin-top:auto;flex-shrink:0;">
                 <a href="<?php echo esc_url($category_link); ?>" 
                    style="background:var(--wp--preset--color--primary);color:white;padding:12px 24px;border-radius:12px;text-decoration:none;display:inline-block;font-weight:600;transition:all 0.3s ease;">
-                Explore <?php echo esc_html($category->name); ?>
+                <?php printf(esc_html__('Explore %s', 'kotlinskidev'), esc_html($category->name)); ?>
                 </a>
             </div>
             </div>
@@ -101,7 +101,7 @@ $other_categories = get_categories(array(
     <!-- wp:group {"style":{"spacing":{"padding":{"top":"40px","bottom":"40px"}}},"layout":{"type":"constrained"}} -->
     <div class="wp-block-group" style="padding-top:40px;padding-bottom:40px">
         <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-        <p class="has-text-align-center has-foreground-alt-color has-text-color has-link-color">No other topics available yet.</p>
+        <p class="has-text-align-center has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('No other topics available yet.', 'kotlinskidev'); ?></p>
         <!-- /wp:paragraph -->
     </div>
     <!-- /wp:group -->

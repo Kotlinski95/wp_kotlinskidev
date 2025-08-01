@@ -13,7 +13,7 @@ function kotlinskidev_theme_setup()
 
     // Register menu location.
     register_nav_menus(array(
-        'primary' => __('Primary Menu', 'my-simple-theme'),
+        'primary' => __('Primary Menu', 'kotlinskidev'),
     ));
 }
 add_action('after_setup_theme', 'kotlinskidev_theme_setup');

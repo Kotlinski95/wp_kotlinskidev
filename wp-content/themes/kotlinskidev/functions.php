@@ -64,7 +64,6 @@ require_once get_template_directory() . '/functions/article-query-manager.php';
 // Blog topic management system
 require_once get_template_directory() . '/functions/blog-topic-manager.php';
 
-
 function kotlinskidev_load_textdomain()
 {
 

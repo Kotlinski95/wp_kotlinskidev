@@ -6,13 +6,21 @@
 
 // If there's a search query, redirect to WordPress default search
 if (isset($_GET['s']) && !empty($_GET['s'])) {
-    $search_url = home_url('/?s=' . urlencode($_GET['s']));
+    $search_params = array(
+        's' => $_GET['s']
+    );
+    
+    // Only add parameters that have actual values
     if (isset($_GET['search_category']) && !empty($_GET['search_category'])) {
-        $search_url .= '&search_category=' . urlencode($_GET['search_category']);
+        $search_params['search_category'] = $_GET['search_category'];
     }
+    
     if (isset($_GET['search_type']) && !empty($_GET['search_type'])) {
-        $search_url .= '&search_type=' . urlencode($_GET['search_type']);
+        $search_params['search_type'] = $_GET['search_type'];
     }
+    
+    // Build clean URL with only populated parameters
+    $search_url = home_url('/?' . http_build_query($search_params));
     wp_redirect($search_url);
     exit;
 }
@@ -21,7 +29,7 @@ get_header();
 echo do_blocks('<!-- wp:template-part {"slug":"header","theme":"kotlinskidev","area":"header"} /-->');
 ?>
 
-<main class="wp-block-group has-background-alt-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:75px;padding-right:var(--wp--preset--spacing--40);padding-bottom:60px;padding-left:var(--wp--preset--spacing--40);">
+<main class="wp-block-group has-background-alt-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:75px;padding-right:var(--wp--preset--spacing--40);padding-bottom:10px;padding-left:var(--wp--preset--spacing--40);">
 
     <!-- Search Header Pattern -->
     <?php get_template_part('patterns/search-header'); ?>

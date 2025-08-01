@@ -6,7 +6,6 @@ import './scripts/restoration';
 import './scripts/theme-switcher';
 import './scripts/scroll-animations';
 import './scripts/image-lightbox';
-import './scripts/header';
 
 document.addEventListener('DOMContentLoaded', function () {
 	document.body.classList.add('loaded');

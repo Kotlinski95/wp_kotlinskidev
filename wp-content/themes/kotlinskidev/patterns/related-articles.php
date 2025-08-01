@@ -5,8 +5,8 @@
  * Categories: blog, kotlinskidev/blog, themeslug/custom
  */
 ?>
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"60px","bottom":"60px","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->
-<div class="wp-block-group has-light-shade-background-color has-background" style="padding-top:60px;padding-right:var(--wp--preset--spacing--40);padding-bottom:60px;padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"20px","bottom":"20px","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->
+<div class="wp-block-group has-light-shade-background-color has-background" style="padding-top:20px;padding-right:var(--wp--preset--spacing--40);padding-bottom:20px;padding-left:var(--wp--preset--spacing--40)">
     
     <!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontStyle":"normal","fontWeight":"700"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
     <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e('Related Articles', 'kotlinskidev') ?></h2>
@@ -138,15 +138,15 @@
     
     if (!empty($related_posts)) :
     ?>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 40px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-top: 20px;">
         <?php foreach ($related_posts as $related_post) : 
             // Use a different variable name to avoid confusion
             $display_post = $related_post;
         ?>
-        <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:1px;border-radius:18px;padding:30px;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+        <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:2px;border-radius:18px;padding:15px;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
             
             <?php if (has_post_thumbnail($display_post->ID)) : ?>
-                <div style="margin-bottom:25px;flex-shrink:0;">
+                <div style="margin-bottom:15px;flex-shrink:0;">
                     <a href="<?php echo get_permalink($display_post->ID); ?>">
                         <img src="<?php echo get_the_post_thumbnail_url($display_post->ID, 'medium_large'); ?>" 
                              alt="<?php echo esc_attr($display_post->post_title); ?>" 
@@ -155,9 +155,9 @@
                 </div>
             <?php endif; ?>
             
-            <div style="display:flex;justify-content:space-between;margin-bottom:20px;font-size:14px;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:14px;flex-shrink:0;">
                 <span style="color:var(--wp--preset--color--foreground-alt);"><?php echo get_the_date('', $display_post->ID); ?></span>
-                <span style="color:var(--wp--preset--color--primary);">
+                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);">
                     <?php 
                     // Show relevance indicator
                     $post_categories = get_the_category($display_post->ID);
@@ -174,11 +174,11 @@
                     }
                     
                     if ($same_category && $same_tags) {
-                        echo '🎯 Highly Related';
+                        echo '🎯 ' . esc_html__('Highly Related', 'kotlinskidev');
                     } elseif ($same_category) {
-                        echo '📂 Same Topic';
+                        echo '📂 ' . esc_html__('Same Topic', 'kotlinskidev');
                     } elseif ($same_tags) {
-                        echo '🏷️ Similar Tags';
+                        echo '🏷️ ' . esc_html__('Similar Tags', 'kotlinskidev');
                     } else {
                         echo kotlinskidev_reading_time($display_post->ID);
                     }
@@ -203,7 +203,7 @@
             </div>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;">
-                <div style="color:var(--wp--preset--color--primary);font-size:14px;">
+                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;">
                     <?php 
                     if (!empty($post_categories)) {
                         echo esc_html($post_categories[0]->name);
@@ -212,7 +212,7 @@
                 </div>
                 <a href="<?php echo get_permalink($display_post->ID); ?>" 
                    style="background:var(--wp--preset--color--primary);color:white;border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;">
-                    Read Article
+                    <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
                 </a>
             </div>
             
@@ -222,7 +222,7 @@
     
     <?php else : ?>
     <div style="text-align:center;padding:40px 0;">
-        <p style="color:var(--wp--preset--color--foreground-alt);">No related articles found.</p>
+        <p style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('No related articles found.', 'kotlinskidev'); ?></p>
     </div>
     <?php endif; ?>
     <!-- /wp:html -->
