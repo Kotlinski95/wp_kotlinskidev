@@ -43,3 +43,31 @@ function preload_critical_css()
     }
 }
 add_action('wp_head', 'preload_critical_css', 1);
+
+// Enqueue styles for the block editor (Gutenberg)
+function kotlinskidev_editor_styles() {
+    // Load the same styles in the editor as on the frontend
+    wp_enqueue_style(
+        'kotlinskidev-editor-style',
+        get_template_directory_uri() . '/build/main.css',
+        array(),
+        wp_get_theme()->get('Version')
+    );
+    
+    // Also load critical CSS in editor
+    wp_enqueue_style(
+        'kotlinskidev-editor-critical',
+        get_template_directory_uri() . '/build/critical.css',
+        array(),
+        wp_get_theme()->get('Version')
+    );
+    
+    // Load Tailwind CSS in editor
+    wp_enqueue_style(
+        'kotlinskidev-editor-tailwind',
+        get_template_directory_uri() . '/build/tailwind.css',
+        array(),
+        wp_get_theme()->get('Version')
+    );
+}
+add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');

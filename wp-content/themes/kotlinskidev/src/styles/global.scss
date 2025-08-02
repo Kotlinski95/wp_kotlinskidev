@@ -1,8 +1,9 @@
 @import "variables.scss";
 
 html {
-  overflow-x: hidden !important;
+  // overflow-x: hidden !important; // cause the scrollbar overwritte by header
   scroll-behavior: smooth;
+  --scrollbar-width: calc(100vw - 100%);
 }
 
 body {
@@ -10,7 +11,7 @@ body {
   line-height: 1.6;
   max-height: 100dvh;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   scroll-behavior: smooth;
 
   &.scroll-lock {
@@ -29,9 +30,14 @@ body {
 
 .light-mode {
   .custom-logo,
-  .kotlinskidev-logo {
+  .kotlinskidev-logo,
+  .invert-light {
     filter: invert(100%);
   }
+}
+
+.invert {
+  filter: invert(100%);
 }
 
 .hide {
@@ -198,4 +204,25 @@ img {
 * {
   scrollbar-width: thin;
   scrollbar-color: #444 #222;
+}
+
+.dark-mode {
+  .wp-lightbox-overlay {
+    .scrim {
+      background: var(--dark-bg-color) !important;
+    }
+    .close-button {
+      fill: var(--light-bg-color) !important;
+    }
+  }
+}
+.light-mode {
+  .wp-lightbox-overlay {
+    .scrim {
+      background: var(--light-bg-color) !important;
+    }
+    .close-button {
+      fill: var(--dark-bg-color) !important;
+    }
+  }
 }
