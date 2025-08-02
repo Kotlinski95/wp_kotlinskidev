@@ -8,13 +8,55 @@
 $current_search = get_search_query();
 $current_category = isset($_GET['search_category']) ? sanitize_text_field($_GET['search_category']) : '';
 $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_type']) : '';
+
+// Detect current language context and set appropriate search URL dynamically
+$search_action_url = home_url('/');
+
+// Get current URL path to detect language prefix
+$current_url = $_SERVER['REQUEST_URI'];
+$parsed_url = parse_url($current_url);
+$path = isset($parsed_url['path']) ? trim($parsed_url['path'], '/') : '';
+
+// Check if URL starts with a language code pattern (2-letter language codes)
+if (preg_match('/^([a-z]{2})(?:\/|$)/', $path, $matches)) {
+    $lang_prefix = $matches[1];
+    $search_action_url = home_url('/' . $lang_prefix . '/');
+} 
+// Check for longer language codes like en_US, pl_PL format in URL
+elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $path, $matches)) {
+    $lang_prefix = $matches[1];
+    $search_action_url = home_url('/' . $lang_prefix . '/');
+}
+// Fallback: check current locale for common multilingual setups
+else {
+    $current_locale = get_locale();
+    // Map common locales to URL prefixes
+    $locale_map = array(
+        'pl_PL' => 'pl',
+        'de_DE' => 'de',
+        'fr_FR' => 'fr',
+        'es_ES' => 'es',
+        'it_IT' => 'it',
+        'pt_PT' => 'pt',
+        'ru_RU' => 'ru',
+        'nl_NL' => 'nl',
+        'sv_SE' => 'sv',
+        'da_DK' => 'da',
+        'no_NO' => 'no',
+        'fi_FI' => 'fi'
+    );
+    
+    if (isset($locale_map[$current_locale])) {
+        $search_action_url = home_url('/' . $locale_map[$current_locale] . '/');
+    }
+}
 ?>
 
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"},"padding":{"top":"15px","bottom":"15px","left":"20px","right":"20px"}},"border":{"radius":"20px","width":"0px"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"800px"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0px;border-radius:20px;margin-bottom:15px;padding-top:15px;padding-right:20px;padding-bottom:15px;padding-left:20px">
     
     <!-- wp:html -->
-    <form method="get" action="<?php echo esc_url(home_url('/')); ?>" class="kotlinskidev-search-form">
+    <form method="get" action="<?php echo esc_url($search_action_url); ?>" class="kotlinskidev-search-form">
         
         <!-- Main Search Input -->
         <div style="margin-bottom:20px;">
