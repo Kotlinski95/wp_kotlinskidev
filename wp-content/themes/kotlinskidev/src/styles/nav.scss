@@ -140,7 +140,7 @@ header::before {
 
     .menu-item.menu-item-has-children:hover::after {
       transform: rotate(180deg);
-      transition: 0.5s all;
+      transition: 0.35s all;
     }
   }
 }
@@ -244,8 +244,8 @@ header::before {
   justify-content: center;
   align-items: center;
   transition:
-    transform 0.5s ease-out,
-    background 1.5s ease-in-out;
+    transform 0.35s ease-out,
+    background 0.35s ease-in-out;
   transform: translateX(0);
   z-index: 1000;
   box-sizing: border-box;
@@ -322,7 +322,7 @@ header::before {
     position: absolute;
     display: block;
     color: var(--wp--preset--color--primary);
-    transition: all 0.6s var(--animation-curve);
+    transition: all 0.35s var(--animation-curve);
   }
 
   label::before {
@@ -358,7 +358,7 @@ header::before {
   }
 
   #toggle ~ label {
-    transition: all 0.5s var(--animation-curve);
+    transition: all 0.35s var(--animation-curve);
   }
 
   input {
