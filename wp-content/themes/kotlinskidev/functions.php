@@ -49,6 +49,9 @@ require_once get_template_directory() . '/functions/navigation.php';
 // Banner carousel
 require_once get_template_directory() . '/functions/banner-slider.php';
 
+// Dynamic footer functionality
+require_once get_template_directory() . '/functions/dynamic-footer.php';
+
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
 
@@ -58,6 +61,11 @@ require_once get_template_directory() . '/functions/filters.php';
 // Additional theme actions
 require_once get_template_directory() . '/functions/actions.php';
 
+// Article query manager for CMS control
+require_once get_template_directory() . '/functions/article-query-manager.php';
+
+// Blog topic management system
+require_once get_template_directory() . '/functions/blog-topic-manager.php';
 
 function kotlinskidev_load_textdomain()
 {

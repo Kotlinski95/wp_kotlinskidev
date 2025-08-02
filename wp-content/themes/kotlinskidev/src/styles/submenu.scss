@@ -1,4 +1,5 @@
 @import "variables";
+
 .light-mode {
   .menu-item-has-children {
     .sub-menu {
@@ -6,6 +7,7 @@
     }
   }
 }
+
 .menu-item-has-children {
   @media (max-width: $breakpoint-mobile) {
     .sub-menu {
@@ -13,6 +15,15 @@
       overflow: hidden !important;
       transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       display: block !important;
+
+      .menu-item {
+        padding-block: 0 !important;
+        font-size: 0.9em;
+
+        a {
+          padding-block: 1rem;
+        }
+      }
     }
     &.submenu-active {
       .sub-menu {
@@ -30,7 +41,7 @@
       padding-bottom: 1rem;
     }
     & > a {
-      transition: 0.5s all !important;
+      transition: 0.35s all !important;
       padding-block: 1rem;
     }
     &:after {
@@ -39,12 +50,58 @@
       line-height: 1;
       display: flex;
       align-items: center;
-      transition: 0.5s all;
+      transition: 0.35s all;
+    }
+
+    // 3rd level mobile behavior - same as 2nd level
+    .sub-menu .menu-item-has-children {
+      position: relative;
+
+      & > a {
+        transition: 0.35s all !important;
+        padding-block: 0.75rem;
+        padding-inline-start: 20px; // Extra indentation for 2nd level
+      }
+
+      &:after {
+        content: "\25be";
+        margin-inline-end: 25px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        transition: 0.35s all;
+      }
+
+      &.submenu-active:after {
+        transform: rotate(180deg);
+      }
+
+      .sub-menu {
+        max-height: 0;
+        overflow: hidden !important;
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .menu-item {
+          padding-inline-start: 40px;
+          padding-block: 0.5rem;
+
+          a {
+            padding-block: 1rem;
+          }
+        }
+      }
+
+      &.submenu-active .sub-menu {
+        max-height: 500px;
+        transition:
+          max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.5s ease-out,
+          background 0.5s ease-in-out;
+      }
     }
   }
   position: relative;
   .sub-menu {
-    // Remove display: none and grid for animation
     grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
     grid-gap: 10px;
     position: relative;
@@ -56,13 +113,19 @@
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 10px;
-    font-size: smaller;
     text-align: center;
+
     .menu-item {
-      padding-block: 10px;
+      padding-top: 10px;
+      padding-bottom: 5px;
       white-space: nowrap;
       text-align: start;
       padding-inline-start: 10px;
+    }
+    .menu-item.menu-item-has-children {
+      a {
+        padding-block: 1rem;
+      }
     }
     .menu-item:last-child {
       border-bottom: none;
@@ -78,11 +141,79 @@
       }
       .menu-item {
         text-align: end;
+        a{
+          padding-bottom: 5px;
+        }
       }
     }
   }
   & > a {
     margin-inline-end: 5px;
+  }
+}
+
+// GRID LAYOUT: Only when submenu contains 3rd level menus
+@media (min-width: $breakpoint-mobile) {
+  .menu-item-has-children {
+    // Remove arrows when submenu has 3rd level items
+    &:has(.sub-menu .menu-item-has-children) {
+      .menu-item-has-children:after {
+        display: none;
+      }
+    }
+
+    .sub-menu:has(.menu-item-has-children) {
+      display: grid !important;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      min-width: 600px;
+      max-width: 900px;
+      padding: 0;
+      text-align: start;
+
+      .menu-item.menu-item-has-children {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 22px;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        // 2nd level item (becomes column header) - inherit colors
+        > a {
+          // Inherit the same styling as regular menu items but make it a header
+          padding: 0.75rem 1rem 0;
+          font-weight: 600;
+          text-align: start;
+          text-decoration: none;
+        }
+
+        // 3rd level items (column content)
+        .sub-menu {
+          position: static;
+          display: block;
+          background: transparent;
+          padding: 0;
+          border-radius: 0;
+          box-shadow: none;
+          min-width: auto;
+          text-align: start;
+
+          .menu-item {
+            padding: 0;
+            text-align: left;
+
+            a {
+              display: block;
+              padding: 0.5rem 1rem 0;
+              text-decoration: none;
+              transition: all 0.35s ease;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

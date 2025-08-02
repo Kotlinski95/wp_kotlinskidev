@@ -100,6 +100,9 @@ msgstr ""
 msgid "FAQ Accordion"
 msgstr ""
 
+msgid "search"
+msgstr ""
+
 msgid "A predesigned faq layout"
 msgstr ""
 
@@ -125,4 +128,217 @@ msgstr ""
 
 msgctxt "404"
 msgid "Posts"
+msgstr ""
+
+#. Search Form strings
+msgid "Search for content"
+msgstr ""
+
+msgid "Enter keywords, topics, or specific terms..."
+msgstr ""
+
+msgid "Search across all articles, pages, and content on the site"
+msgstr ""
+
+msgid "Content Type"
+msgstr ""
+
+msgid "All Content"
+msgstr ""
+
+msgid "Articles"
+msgstr ""
+
+msgid "Pages"
+msgstr ""
+
+msgid "Topic Category"
+msgstr ""
+
+msgid "All Topics"
+msgstr ""
+
+msgid "Search Content"
+msgstr ""
+
+msgid "Clear search and filters"
+msgstr ""
+
+#. Search Header strings
+msgid "Search Results"
+msgstr ""
+
+msgid "Search Our Content"
+msgstr ""
+
+msgid "Find articles, pages, and resources across our entire site"
+msgstr ""
+
+#. Search Results strings
+msgid "Looking for something else?"
+msgstr ""
+
+msgid "Try searching for a different term or explore more content using the search form below."
+msgstr ""
+
+msgid "No results found"
+msgstr ""
+
+msgid "We couldn't find any content matching \"%s\""
+msgstr ""
+
+msgid " with your current filters"
+msgstr ""
+
+msgid "Try these search tips:"
+msgstr ""
+
+msgid "Check your spelling and try again"
+msgstr ""
+
+msgid "Use fewer or different keywords"
+msgstr ""
+
+msgid "Remove content type or category filters"
+msgstr ""
+
+msgid "Try more general terms"
+msgstr ""
+
+msgid "Search for related topics or synonyms"
+msgstr ""
+
+msgid "Browse All Content"
+msgstr ""
+
+#. Blog and Article strings
+msgid "Latest Articles"
+msgstr ""
+
+msgid "Read More"
+msgstr ""
+
+msgid "View All Articles"
+msgstr ""
+
+msgid "Article"
+msgstr ""
+
+msgid "Updated %s ago"
+msgstr ""
+
+msgid "Explore %s"
+msgstr ""
+
+msgid "No topics found"
+msgstr ""
+
+#. Category strings
+msgid "Read Article"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "No articles in this topic yet"
+msgstr ""
+
+msgid "Articles for this topic are coming soon!"
+msgstr ""
+
+#. Related Articles strings
+msgid "Related Articles"
+msgstr ""
+
+msgid "Highly Related"
+msgstr ""
+
+msgid "Same Topic"
+msgstr ""
+
+msgid "Similar Tags"
+msgstr ""
+
+msgid "No related articles found."
+msgstr ""
+
+#. Other Topics strings
+msgid "Other Topics"
+msgstr ""
+
+msgid "article"
+msgstr ""
+
+msgid "articles"
+msgstr ""
+
+msgid "Updated %s"
+msgstr ""
+
+msgid "No other topics available yet."
+msgstr ""
+
+#. Popular Content strings
+msgid "Popular Content"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+msgid "Updated"
+msgstr ""
+
+msgid "View"
+msgstr ""
+
+msgid "Read"
+msgstr ""
+
+#. Tag strings
+msgid "Tag:"
+msgstr ""
+
+msgid "Articles tagged with \"%s\""
+msgstr ""
+
+msgid "Browse All Topics"
+msgstr ""
+
+msgid "Related Tags"
+msgstr ""
+
+msgid "View Articles"
+msgstr ""
+
+msgid "No other tags available yet."
+msgstr ""
+
+msgid "No articles found with this tag"
+msgstr ""
+
+msgid "Articles with this tag are coming soon!"
+msgstr ""
+
+#. Navigation strings
+msgid "Primary Menu"
+msgstr ""
+
+#. Reading time and navigation strings
+msgid "min read"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "Topics"
+msgstr ""
+
+msgid "Blog"
+msgstr ""
+
+#. Polish search page
+msgid "Polish Search Page"
 msgstr ""

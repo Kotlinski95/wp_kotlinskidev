@@ -7,7 +7,9 @@
     justify-content: center;
     max-height: 75px;
     min-height: 73px;
-    border-top: 2px solid inherit;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: inherit;
     flex-wrap: nowrap;
 }
 
@@ -34,7 +36,7 @@
     background-position: center;
     text-indent: -9999px; /* Hide text */
     border-radius: 4px;
-    transition: opacity 0.3s ease, transform 0.2s ease;
+    transition: opacity 0.35s ease, transform 0.2s ease;
     
     &:hover {
         opacity: 0.8;
