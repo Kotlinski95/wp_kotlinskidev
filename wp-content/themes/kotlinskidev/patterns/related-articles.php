@@ -202,8 +202,8 @@
                 ?>
             </div>
             
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;">
-                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:5px;">
+                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;display:flex;flex-wrap:wrap;row-gap:5px;">
                     <?php 
                     if (!empty($post_categories)) {
                         echo esc_html($post_categories[0]->name);
@@ -211,7 +211,7 @@
                     ?>
                 </div>
                 <a href="<?php echo get_permalink($display_post->ID); ?>" 
-                   style="background:var(--wp--preset--color--primary);color:white;border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;">
+                   style="background:var(--wp--preset--color--primary);color:white;border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;white-space:nowrap;">
                     <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
                 </a>
             </div>

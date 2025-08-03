@@ -6,8 +6,8 @@
  */
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"top":"40px"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="margin-top:40px">
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"40px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:40px">
     
     <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
     <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size"><?php esc_html_e('Popular Content', 'kotlinskidev'); ?></h3>

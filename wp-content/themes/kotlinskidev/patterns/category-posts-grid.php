@@ -55,18 +55,18 @@
             <?php echo wp_trim_words(get_the_excerpt(), 30, '...'); ?>
             </div>
             
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:5px;">
             <?php 
             $post_tags = get_the_tags();
             if ($post_tags) : ?>
-            <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;">
+            <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;display:flex;flex-wrap:wrap;row-gap:5px;">
                 <?php the_tags('', ', ', ''); ?>
             </div>
             <?php else : ?>
             <div></div>
             <?php endif; ?>
             <a href="<?php the_permalink(); ?>" 
-               class="link-dark-variant-support" style="background:transparent;color:var(--wp--preset--color--primary);border:2px solid var(--wp--preset--color--primary);border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;">
+               class="link-dark-variant-support" style="background:transparent;color:var(--wp--preset--color--primary);border:2px solid var(--wp--preset--color--primary);border-radius:10px;padding:10px 20px;text-decoration:none;font-size:14px;transition:all 0.3s ease;white-space:nowrap;">
                 <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
             </a>
             </div>

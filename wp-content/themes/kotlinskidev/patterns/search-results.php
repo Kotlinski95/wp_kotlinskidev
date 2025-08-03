@@ -11,10 +11,13 @@ $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_
 
 if (!empty($search_query)) :
     // Build enhanced search arguments
+    $paged = max(1, get_query_var('paged', 1)); // Fix: Ensure minimum page is 1
+    
     $search_args = array(
         's' => $search_query,
         'post_status' => 'publish',
         'posts_per_page' => 10,
+        'paged' => $paged, // Fix: Add pagination support
         'orderby' => 'relevance',
         'order' => 'DESC'
     );
@@ -61,14 +64,14 @@ if (!empty($search_query)) :
                 </div>
                 <?php if ($search_results->max_num_pages > 1) : ?>
                 <div style="color:var(--wp--preset--color--primary);font-size:14px;" class="link-dark-variant-support">
-                    Page <?php echo get_query_var('paged', 1); ?> of <?php echo $search_results->max_num_pages; ?>
+                    Page <?php echo max(1, get_query_var('paged', 1)); ?> of <?php echo $search_results->max_num_pages; ?>
                 </div>
                 <?php endif; ?>
             </div>
         </div>
         
         <!-- Search Results Grid -->
-        <div style="display:grid;gap:15px;">
+        <div class="search-result-grid" style="display:grid;gap:15px;">
             <?php while ($search_results->have_posts()) : $search_results->the_post(); 
                 $post_type = get_post_type();
                 $is_page = ($post_type === 'page');
@@ -76,7 +79,7 @@ if (!empty($search_query)) :
                 $search_excerpt = kotlinskidev_get_search_excerpt(get_the_content(), $search_query, 40);
             ?>
             
-            <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:2px;border-radius:18px;padding:15px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:15px;">
+            <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:2px;border-radius:18px;padding:15px;display:flex;flex-wrap:wrap;justify-content:start;align-items:center;gap:15px;">
                 
                 <!-- Featured Image (if available) -->
                 <?php if (has_post_thumbnail()) : ?>
@@ -156,15 +159,36 @@ if (!empty($search_query)) :
         
         <!-- Pagination -->
         <?php if ($search_results->max_num_pages > 1) : ?>
-        <div style="display:flex;justify-content:center;margin-top:50px;">
+        <div class="search-results-pagination" style="display:flex;justify-content:center;margin-top:50px;">
             <?php 
-            echo paginate_links(array(
+            $current_page = max(1, get_query_var('paged', 1));
+            $pagination_args = array(
                 'total' => $search_results->max_num_pages,
-                'current' => get_query_var('paged', 1),
-                'prev_text' => '← Previous',
-                'next_text' => 'Next →',
-                'type' => 'plain'
-            )); 
+                'current' => $current_page,
+                'prev_text' => '<span class="arrow">←</span><span class="text">' . esc_html__('Previous', 'kotlinskidev') . '</span>',
+                'next_text' => '<span class="text">' . esc_html__('Next', 'kotlinskidev') . '</span><span class="arrow">→</span>',
+                'type' => 'array',
+                'show_all' => false,
+                'mid_size' => 2,
+                'end_size' => 1,
+            );
+            
+            $pagination_links = paginate_links($pagination_args);
+            
+            if ($pagination_links) {
+                foreach ($pagination_links as $link) {
+                    // Fix the current page issue for page 1
+                    if ($current_page == 1 && strpos($link, 'page-numbers') !== false && !strpos($link, 'prev') && !strpos($link, 'next') && !strpos($link, 'dots')) {
+                        // Check if this is the page 1 link
+                        if (preg_match('/>\s*1\s*</', $link) && !strpos($link, 'current')) {
+                            $link = str_replace('page-numbers', 'page-numbers current', $link);
+                            $link = preg_replace('/<a([^>]*)>/', '<span$1>', $link);
+                            $link = str_replace('</a>', '</span>', $link);
+                        }
+                    }
+                    echo $link;
+                }
+            }
             ?>
         </div>
         <?php endif; ?>
@@ -194,7 +218,7 @@ if (!empty($search_query)) :
     
     <!-- wp:html -->
     <div style="text-align:center;">
-        <div style="font-size:4rem;margin-bottom:15px;">🔍</div>
+        <div style="font-size:4rem;margin-bottom:15px;text-align:center;">🔍</div>
         
         <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:10px;">
             <?php esc_html_e('No results found', 'kotlinskidev'); ?>
@@ -210,9 +234,9 @@ if (!empty($search_query)) :
             <?php endif; ?>.
         </p>
         
-        <div style="background:var(--wp--preset--color--light-shade);padding:25px;border-radius:12px;text-align:left;margin-bottom:30px;">
+        <div style="background:var(--wp--preset--color--light-shade);padding:25px;border-radius:12px;text-align:left;margin-bottom:30px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
             <h4 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:15px;"><?php esc_html_e('Try these search tips:', 'kotlinskidev'); ?></h4>
-            <ul style="color:var(--wp--preset--color--foreground-alt);line-height:1.6;">
+            <ul style="color:var(--wp--preset--color--foreground-alt);line-height:1.6;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%;width:fit-content;">
                 <li><?php esc_html_e('Check your spelling and try again', 'kotlinskidev'); ?></li>
                 <li><?php esc_html_e('Use fewer or different keywords', 'kotlinskidev'); ?></li>
                 <li><?php esc_html_e('Remove content type or category filters', 'kotlinskidev'); ?></li>

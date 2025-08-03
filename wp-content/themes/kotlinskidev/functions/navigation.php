@@ -32,14 +32,14 @@ function kotlinskidev_navigation_shortcode()
                         </label>
                     </div>
                 </div>
-                <div id="hamburger-button" class="mobile-only">
+                <div id="hamburger-button" class="mobile-only tablet-only">
                     <input type="checkbox" id="toggle" name="hamburger-toggle" aria-label="hamburger menu toggle" autocomplete="off">
                     <label for="toggle">
                     </label>
                 </div>
 
                 <!-- Navigation Menu -->
-                <div class="hide-mobile">
+                <div class="hide-mobile hide-tablet">
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
@@ -50,7 +50,7 @@ function kotlinskidev_navigation_shortcode()
                     ?>
                 </div>
 
-                <div class="mobile-only hamburger-container" id="hamburger-menu">
+                <div class="mobile-only tablet-only hamburger-container" id="hamburger-menu">
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'mobile',

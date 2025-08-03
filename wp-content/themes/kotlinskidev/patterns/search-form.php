@@ -146,7 +146,7 @@ else {
             $clear_url = home_url('/' . $search_slug . '/');
             ?>
             <a href="<?php echo esc_url($clear_url); ?>" 
-               class="clear-search-link"
+               class="clear-search-link link-dark-variant-support"
                aria-label="<?php esc_attr_e('Clear search and return to homepage', 'kotlinskidev'); ?>">
                 ✕ <?php esc_html_e('Clear search and filters', 'kotlinskidev'); ?>
             </a>
