@@ -183,7 +183,7 @@ msgid "min read"
 msgstr "min czytania"
 
 msgid "Next"
-msgstr "Następny"
+msgstr "Dalej"
 
 msgid "No articles found with this tag"
 msgstr "Nie znaleziono artykułów z tym tagiem"
@@ -224,7 +224,7 @@ msgid "Popular Content"
 msgstr "Popularne treści"
 
 msgid "Previous"
-msgstr "Poprzedni"
+msgstr "Wstecz"
 
 #. Navigation strings
 msgid "Primary Menu"

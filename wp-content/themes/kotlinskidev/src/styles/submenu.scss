@@ -9,7 +9,7 @@
 }
 
 .menu-item-has-children {
-  @media (max-width: $breakpoint-mobile) {
+  @media (max-width: $breakpoint-desktop) {
     .sub-menu {
       max-height: 0;
       overflow: hidden !important;
@@ -19,9 +19,12 @@
       .menu-item {
         padding-block: 0 !important;
         font-size: 0.9em;
+        max-width: 100%;
+        box-sizing: border-box;
 
         a {
           padding-block: 1rem;
+          text-wrap: auto;
         }
       }
     }
@@ -84,9 +87,13 @@
         .menu-item {
           padding-inline-start: 40px;
           padding-block: 0.5rem;
+          padding-inline-end: 20px;
+          max-width: 100%;
+          box-sizing: border-box;
 
           a {
             padding-block: 1rem;
+            text-wrap: auto;
           }
         }
       }
@@ -130,7 +137,7 @@
     .menu-item:last-child {
       border-bottom: none;
     }
-    @media (min-width: $breakpoint-mobile) {
+    @media (min-width: $breakpoint-desktop) {
       position: absolute;
       left: auto;
       font-size: inherit;
@@ -141,7 +148,7 @@
       }
       .menu-item {
         text-align: end;
-        a{
+        a {
           padding-bottom: 5px;
         }
       }
@@ -153,7 +160,7 @@
 }
 
 // GRID LAYOUT: Only when submenu contains 3rd level menus
-@media (min-width: $breakpoint-mobile) {
+@media (min-width: $breakpoint-desktop) {
   .menu-item-has-children {
     // Remove arrows when submenu has 3rd level items
     &:has(.sub-menu .menu-item-has-children) {
@@ -187,6 +194,7 @@
           font-weight: 600;
           text-align: start;
           text-decoration: none;
+          text-wrap: auto;
         }
 
         // 3rd level items (column content)
@@ -209,6 +217,7 @@
               padding: 0.5rem 1rem 0;
               text-decoration: none;
               transition: all 0.35s ease;
+              text-wrap: auto;
             }
           }
         }
@@ -217,7 +226,7 @@
   }
 }
 
-@media (min-width: $breakpoint-mobile) {
+@media (min-width: $breakpoint-desktop) {
   .menu-item-has-children {
     .sub-menu {
       max-height: 0;

@@ -1,6 +1,6 @@
 header,
 footer {
-  @media (min-width: $breakpoint-mobile) {
+  @media (min-width: $breakpoint-desktop) {
     a:not(#scroll-to-top):not(.custom-logo-link) {
       position: relative;
       text-decoration: none;
