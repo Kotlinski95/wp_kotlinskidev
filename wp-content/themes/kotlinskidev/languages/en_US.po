@@ -349,3 +349,22 @@ msgstr "Website performance"
 
 msgid "Welcome to My Site"
 msgstr "Welcome to My Site"
+
+#. New search results translations
+msgid "Found %d results"
+msgstr "Found %d results"
+
+msgid "Showing results for \"%s\""
+msgstr "Showing results for \"%s\""
+
+msgid " in %s"
+msgstr " in %s"
+
+msgid " • %s only"
+msgstr " • %s only"
+
+msgid "Page %d of %d"
+msgstr "Page %d of %d"
+
+msgid "View Page"
+msgstr "View Page"

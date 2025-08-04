@@ -10,13 +10,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2025-08-01 14:02+0000\n"
+"PO-Revision-Date: 2025-08-04 10:02+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
-"X-Loco-Version: 2.6.14; wp-6.6.1"
+"X-Loco-Version: 2.7.1; wp-6.8.1"
 
 msgid " with your current filters"
 msgstr " z Twoimi obecnymi filtrami"
@@ -135,6 +135,9 @@ msgstr "W jakiej technologi napisana jest ta strona??"
 msgid "Find articles, pages, and resources across our entire site"
 msgstr "Znajdź artykuły, strony i zasoby na całej naszej stronie"
 
+msgid "Found %d results"
+msgstr "Znaleziono %d wyników"
+
 msgid "Footer description"
 msgstr ""
 "Jako starszy inżynier oprogramowania z 5-letnim doświadczeniem specjalizuję "
@@ -213,11 +216,18 @@ msgstr "Inne tematy"
 msgid "Page"
 msgstr "Strona"
 
+msgid "Page %d of %d"
+msgstr "Strona %d z %d"
+
 msgid "Pages"
 msgstr "Strony"
 
 msgid "Policy"
 msgstr "Polityka prywatności"
+
+#. Polish search page
+msgid "Polish Search Page"
+msgstr "Polska strona wyszukiwania"
 
 #. Popular Content strings
 msgid "Popular Content"
@@ -288,6 +298,9 @@ msgstr "Zobacz moje popularne posty"
 msgid "Services"
 msgstr "Usługi"
 
+msgid "Showing results for \"%s\""
+msgstr "Wyświetlanie wyników dla \"%s\""
+
 msgid "Similar Tags"
 msgstr "Podobne tagi"
 
@@ -338,6 +351,9 @@ msgstr "Zobacz wszystkie artykuły"
 msgid "View Articles"
 msgstr "Zobacz artykuły"
 
+msgid "View Page"
+msgstr "Zobacz stronę"
+
 msgid "We couldn't find any content matching \"%s\""
 msgstr "Nie mogliśmy znaleźć żadnych treści pasujących do \"%s\""
 
@@ -353,6 +369,9 @@ msgstr "Poprawa wydajności stron internetowych"
 msgid "Welcome to My Site"
 msgstr "Witaj na mojej stronie"
 
-#. Polish search page
-msgid "Polish Search Page"
-msgstr "Polska strona wyszukiwania"
+#. New search results translations
+msgid " in %s"
+msgstr " w %s"
+
+msgid " • %s only"
+msgstr " • tylko %s"

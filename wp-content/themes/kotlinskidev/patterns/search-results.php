@@ -49,21 +49,24 @@ if (!empty($search_query)) :
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;">
                 <div>
                     <h3 style="margin:0;color:var(--wp--preset--color--foreground-alt);font-size:1.25rem;">
-                        Found <?php echo $search_results->found_posts; ?> results
+                        <?php printf(esc_html__('Found %d results', 'kotlinskidev'), $search_results->found_posts); ?>
                     </h3>
                     <p style="margin:5px 0 0 0;color:var(--wp--preset--color--foreground-alt);font-size:14px;">
-                        Showing results for "<strong><?php echo esc_html($search_query); ?></strong>"
+                        <?php printf(esc_html__('Showing results for "%s"', 'kotlinskidev'), '<strong>' . esc_html($search_query) . '</strong>'); ?>
                         <?php if (!empty($current_category)) : ?>
-                            in <strong><?php echo esc_html(str_replace('-', ' ', $current_category)); ?></strong>
+                            <?php printf(esc_html__(' in %s', 'kotlinskidev'), '<strong>' . esc_html(str_replace('-', ' ', $current_category)) . '</strong>'); ?>
                         <?php endif; ?>
                         <?php if (!empty($current_type)) : ?>
-                            • <strong><?php echo ucfirst($current_type); ?>s</strong> only
+                            <?php 
+                            $type_label = ($current_type === 'post') ? esc_html__('Articles', 'kotlinskidev') : esc_html__('Pages', 'kotlinskidev');
+                            printf(esc_html__(' • %s only', 'kotlinskidev'), '<strong>' . $type_label . '</strong>');
+                            ?>
                         <?php endif; ?>
                     </p>
                 </div>
                 <?php if ($search_results->max_num_pages > 1) : ?>
                 <div style="color:var(--wp--preset--color--primary);font-size:14px;" class="link-dark-variant-support">
-                    Page <?php echo max(1, get_query_var('paged', 1)); ?> of <?php echo $search_results->max_num_pages; ?>
+                    <?php printf(esc_html__('Page %d of %d', 'kotlinskidev'), max(1, get_query_var('paged', 1)), $search_results->max_num_pages); ?>
                 </div>
                 <?php endif; ?>
             </div>
@@ -97,7 +100,7 @@ if (!empty($search_query)) :
                     <!-- Content Type & Meta -->
                     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:15px;margin-bottom:15px;font-size:14px;">
                         <span style="background:var(--wp--preset--color--primary);color:white;padding:4px 12px;border-radius:15px;font-weight:600;">
-                            <?php echo $is_page ? '📄 Page' : '📝 Article'; ?>
+                            <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
                         </span>
                         
                         <?php if (!$is_page) : ?>
@@ -146,7 +149,7 @@ if (!empty($search_query)) :
                     <div>
                         <a href="<?php the_permalink(); ?>" 
                            style="background:var(--wp--preset--color--primary);color:white;padding:10px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;transition:all 0.3s ease;">
-                            <?php echo $is_page ? 'View Page' : 'Read Article'; ?> →
+                            <?php echo $is_page ? esc_html__('View Page', 'kotlinskidev') : esc_html__('Read Article', 'kotlinskidev'); ?> →
                         </a>
                     </div>
                     

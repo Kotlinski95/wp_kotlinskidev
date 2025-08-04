@@ -14,41 +14,36 @@ $search_action_url = home_url('/');
 // Get current URL path to detect language prefix
 $current_url = $_SERVER['REQUEST_URI'];
 $parsed_url = parse_url($current_url);
-$path = isset($parsed_url['path']) ? trim($parsed_url['path'], '/') : '';
+$full_path = isset($parsed_url['path']) ? trim($parsed_url['path'], '/') : '';
+
+// Get the actual WordPress site path (not the current page path)
+$site_url = get_option('home') ?: site_url();
+$site_path = trim(parse_url($site_url, PHP_URL_PATH), '/');
+
+// Remove the WordPress installation path to get just the language/page path
+$relative_path = $full_path;
+if ($site_path && strpos($full_path, $site_path) === 0) {
+    $relative_path = trim(substr($full_path, strlen($site_path)), '/');
+} else {
+    // Fallback: assume the first part is the site directory
+    $path_parts = explode('/', $full_path);
+    if (count($path_parts) >= 2 && $path_parts[0] === 'adriankotlinski') {
+        $relative_path = implode('/', array_slice($path_parts, 1));
+    }
+}
 
 // Check if URL starts with a language code pattern (2-letter language codes)
-if (preg_match('/^([a-z]{2})(?:\/|$)/', $path, $matches)) {
+if (preg_match('/^([a-z]{2})(?:\/|$)/', $relative_path, $matches)) {
     $lang_prefix = $matches[1];
     $search_action_url = home_url('/' . $lang_prefix . '/');
 } 
 // Check for longer language codes like en_US, pl_PL format in URL
-elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $path, $matches)) {
-    $lang_prefix = $matches[1];
+elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $relative_path, $matches)) {
+    $lang_prefix = $matches[1]; 
     $search_action_url = home_url('/' . $lang_prefix . '/');
 }
-// Fallback: check current locale for common multilingual setups
-else {
-    $current_locale = get_locale();
-    // Map common locales to URL prefixes
-    $locale_map = array(
-        'pl_PL' => 'pl',
-        'de_DE' => 'de',
-        'fr_FR' => 'fr',
-        'es_ES' => 'es',
-        'it_IT' => 'it',
-        'pt_PT' => 'pt',
-        'ru_RU' => 'ru',
-        'nl_NL' => 'nl',
-        'sv_SE' => 'sv',
-        'da_DK' => 'da',
-        'no_NO' => 'no',
-        'fi_FI' => 'fi'
-    );
-    
-    if (isset($locale_map[$current_locale])) {
-        $search_action_url = home_url('/' . $locale_map[$current_locale] . '/');
-    }
-}
+// If no language prefix detected in current URL, this is the primary language
+// Keep search_action_url as default home_url('/') without any prefix
 ?>
 
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"},"padding":{"top":"15px","bottom":"15px","left":"20px","right":"20px"}},"border":{"radius":"20px","width":"0px"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"800px"}} -->
