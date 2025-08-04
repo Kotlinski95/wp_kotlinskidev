@@ -342,3 +342,22 @@ msgstr ""
 #. Polish search page
 msgid "Polish Search Page"
 msgstr ""
+
+#. New search results translations
+msgid "Found %d results"
+msgstr ""
+
+msgid "Showing results for \"%s\""
+msgstr ""
+
+msgid " in %s"
+msgstr ""
+
+msgid " • %s only"
+msgstr ""
+
+msgid "Page %d of %d"
+msgstr ""
+
+msgid "View Page"
+msgstr ""
