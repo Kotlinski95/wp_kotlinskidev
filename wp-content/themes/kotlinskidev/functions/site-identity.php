@@ -1,5 +1,4 @@
 <?php
-// Add support for Custom Logo
 function mytheme_setup()
 {
     add_theme_support('custom-logo', array(
@@ -10,4 +9,3 @@ function mytheme_setup()
     ));
 }
 add_action('after_setup_theme', 'mytheme_setup');
-?>

@@ -10,4 +10,3 @@ function theme_slug_register_menus()
     );
 }
 add_action('after_setup_theme', 'theme_slug_register_menus');
-?>

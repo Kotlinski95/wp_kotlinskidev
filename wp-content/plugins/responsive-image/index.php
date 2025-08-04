@@ -1,12 +1,10 @@
 <?php
-
 /**
  * Plugin Name: Responsive Image
  * Description: A custom block that allows separate images for desktop and mobile in the block editor.
  * Version: 1.0.0
  * Author: Adrian Kotlinski
  */
-
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
     exit;
@@ -53,6 +51,4 @@ if (! is_admin()) {
         echo '<link rel="stylesheet" id="responsive-image-block-style-css" href="' . esc_url($href) . '?ver=' . $ver . '" type="text/css" media="all" />';
     });
 }
-
-
 add_action('init', 'responsive_image_block_register');

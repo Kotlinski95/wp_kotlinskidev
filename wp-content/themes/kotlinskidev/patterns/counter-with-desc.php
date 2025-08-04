@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Counter Block with Description
  * Slug: kotlinskidev/counter-with-desc

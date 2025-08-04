@@ -1,12 +1,10 @@
 <?php
-
 /**
  * Plugin Name: Block Visibility (Mobile/Desktop)
  * Description: Adds a visibility option (mobile/desktop/both) to all blocks in the block editor.
  * Version: 1.0.0
  * Author: Adrian Kotlinski
  */
-
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
     exit;

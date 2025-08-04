@@ -4,7 +4,6 @@
  * Slug: kotlinskidev/blog-topics-grid
  * Categories: blog, kotlinskidev/blog, themeslug/custom
  */
-
 // Get all categories with posts
 $categories = get_categories(array(
     'hide_empty' => true,
@@ -39,7 +38,7 @@ if (!empty($categories)) :
             }
         ?>
         
-        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:2px;border-radius:20px;padding:20px;box-shadow:var(--wp--preset--shadow--natural);transition:transform 0.3s ease;hover:transform:translateY(-5px);">
+        <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:2px;border-radius:20px;padding:20px;box-shadow:var(--wp--preset--shadow--natural);transition:transform 0.3s ease;hover:transform:translateY(-5px);display:flex;flex-direction:column;justify-content:space-between;">
             
             <?php if ($featured_image) : ?>
             <div style="margin-bottom:15px;">
@@ -119,5 +118,4 @@ if (!empty($categories)) :
     <!-- /wp:buttons -->
 </div>
 <!-- /wp:group -->
-
-<?php endif; ?>
+<?php endif;

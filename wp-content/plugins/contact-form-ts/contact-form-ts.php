@@ -6,7 +6,6 @@
  * Author: Adrian Kotlinski
  * Text Domain: contact-form-ts
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }

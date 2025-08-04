@@ -4,7 +4,6 @@
  * Slug: kotlinskidev/search-results
  * Categories: search, kotlinskidev/search, themeslug/custom
  */
-
 $search_query = get_search_query();
 $current_category = isset($_GET['search_category']) ? sanitize_text_field($_GET['search_category']) : '';
 $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_type']) : '';
@@ -254,14 +253,12 @@ if (!empty($search_query)) :
     
 </div>
 <!-- /wp:group -->
-
 <?php 
     endif; 
     wp_reset_postdata();
 endif;
 ?>
-
 <!-- Suggested Content (when no search query) -->
 <?php if (empty($search_query)) : ?>
 <!-- wp:pattern {"slug":"kotlinskidev/popular-content"} /-->
-<?php endif; ?>
+<?php endif;

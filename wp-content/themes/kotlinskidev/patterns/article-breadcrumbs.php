@@ -4,7 +4,6 @@
  * Slug: kotlinskidev/article-breadcrumbs
  * Categories: header, kotlinskidev/header
  */
-
 // Generate breadcrumbs using CMS settings
 $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);

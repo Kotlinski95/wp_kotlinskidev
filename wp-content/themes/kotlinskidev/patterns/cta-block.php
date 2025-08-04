@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Call to Action
  * Slug: kotlinskidev/cta-block

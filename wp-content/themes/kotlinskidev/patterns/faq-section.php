@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: FAQ Section
  * Slug: kotlinskidev/faq-section

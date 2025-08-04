@@ -1,5 +1,4 @@
 <?php
-// Customize Register
 function mytheme_customize_register($wp_customize)
 {
     // Background Color Setting
@@ -209,9 +208,7 @@ add_action('wp_enqueue_scripts', function (): void {
     //$script_args = include( plugin_dir_path( __FILE__ ) . 'assets/public/scripts.asset.php');
     //wp_enqueue_script('wp-typescript', plugins_url('assets/public/scripts.js', __FILE__), $script_args['dependencies'], $script_args['version']);
 });
-?>
 
-<?php
 function kotlinskidev_customize_register($wp_customize)
 {
     $wp_customize->add_section('kotlinskidev_custom_settings_section', array(

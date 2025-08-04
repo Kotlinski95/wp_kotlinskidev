@@ -5,7 +5,6 @@
  * Categories: blog, kotlinskidev/blog, themeslug/custom
  */
 ?>
-
 <!-- wp:query {"queryId":1,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"layout":{"type":"constrained"}} -->
 <div class="wp-block-query">
     
@@ -97,6 +96,5 @@
     wp_reset_postdata();
     ?>
     <!-- /wp:html -->
-    
 </div>
 <!-- /wp:query -->

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Simple Text Section
  * Slug: kotlinskidev/simple-text

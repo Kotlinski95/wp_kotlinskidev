@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Counter Stats with Sticky Section
  * Slug: kotlinskidev/number-stats

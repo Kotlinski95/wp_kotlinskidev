@@ -5,12 +5,10 @@ Description: Customize the WordPress login page background, logo, and styling.
 Version: 1.0
 Author: Adrian Kotlinski
 */
-
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
 }
-
 // Add admin menu
 add_action('admin_menu', 'kotlinski_login_admin_menu');
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Highlight Features
  * Slug: kotlinskidev/highlight-features

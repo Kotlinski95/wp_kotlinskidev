@@ -62,4 +62,3 @@ if ($locale === 'pl_PL') {
     // Use default (English) footer
     echo do_blocks('<!-- wp:template-part {"slug":"footer","theme":"kotlinskidev","area":"footer"} /-->');
 }
-?>

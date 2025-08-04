@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Profile Links Card
  * Slug: kotlinskidev/profile-links-card

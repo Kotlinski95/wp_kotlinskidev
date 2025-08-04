@@ -3,10 +3,8 @@
  * Dynamic Footer Template Part Selector
  * This file hooks into WordPress to dynamically select the appropriate footer
  */
-
 // Hook into the template part rendering
 add_filter('render_block_core/template-part', 'kotlinskidev_dynamic_footer_template_part', 10, 2);
-
 function kotlinskidev_dynamic_footer_template_part($block_content, $block) {
     // Only apply to footer template parts with our dynamic slug
     if (isset($block['attrs']['slug']) && $block['attrs']['slug'] === 'footer-dynamic') {

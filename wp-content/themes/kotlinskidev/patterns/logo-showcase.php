@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Logos Showcase
  * Slug: kotlinskidev/logo-showcase

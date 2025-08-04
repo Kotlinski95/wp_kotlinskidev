@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Testimonials Grid
  * Slug: kotlinskidev/testimonial-grid

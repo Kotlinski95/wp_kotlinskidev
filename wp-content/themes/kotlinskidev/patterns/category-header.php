@@ -4,7 +4,6 @@
  * Slug: kotlinskidev/category-header
  * Categories: blog, kotlinskidev/blog, themeslug/custom
  */
-
 $current_category = get_queried_object();
 $category_name = $current_category->name;
 $category_description = kotlinskidev_get_category_description($current_category->term_id);

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: FAQ Accordion
  * Slug: kotlinskidev/faq-accordion

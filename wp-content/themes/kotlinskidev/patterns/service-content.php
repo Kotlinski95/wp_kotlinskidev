@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Service Section with big Image
  * Slug: kotlinskidev/services-content

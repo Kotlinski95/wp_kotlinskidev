@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Featured Content 2
  * Slug: kotlinskidev/featured-content-2

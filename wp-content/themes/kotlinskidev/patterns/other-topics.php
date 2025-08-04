@@ -4,9 +4,7 @@
  * Slug: kotlinskidev/other-topics
  * Categories: blog, kotlinskidev/blog, themeslug/custom
  */
-
 $current_category = get_queried_object();
-
 // Get other categories (excluding current one)
 $other_categories = get_categories(array(
     'hide_empty' => true,
@@ -16,7 +14,6 @@ $other_categories = get_categories(array(
     'order' => 'DESC'
 ));
 ?>
-
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"20px"},"padding":{"top":"20px"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="margin-top:20px;padding-top:20px;">
     

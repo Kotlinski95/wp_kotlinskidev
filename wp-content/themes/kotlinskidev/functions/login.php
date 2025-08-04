@@ -32,5 +32,3 @@ function custom_login_input_styles() {
     </style>';
 }
 add_action('login_head', 'custom_login_input_styles');
-
-?>

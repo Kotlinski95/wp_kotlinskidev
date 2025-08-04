@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: 404 Template
  * Slug: kotlinskidev/template-404

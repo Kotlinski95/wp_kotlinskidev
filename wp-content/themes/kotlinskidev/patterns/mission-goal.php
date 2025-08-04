@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Mission & Goal Content
  * Slug: kotlinskidev/mission-goal

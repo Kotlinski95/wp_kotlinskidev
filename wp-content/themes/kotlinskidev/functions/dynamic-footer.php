@@ -1,12 +1,5 @@
 <?php
-/**
- * Dynamic Footer Template Part Selector
- * This hooks into WordPress to dynamically select the appropriate footer
- */
-
-// Hook into the pattern rendering to make footer-dynamic work
 add_filter('render_block', 'kotlinskidev_dynamic_footer_pattern', 10, 2);
-
 function kotlinskidev_dynamic_footer_pattern($block_content, $block) {
     // Check if this is our dynamic footer pattern
     if (isset($block['blockName']) && $block['blockName'] === 'core/pattern' && 

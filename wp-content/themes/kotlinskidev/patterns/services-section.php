@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Service Section
  * Slug: kotlinskidev/services-section

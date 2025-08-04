@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Pricing Tables
  * Slug: kotlinskidev/pricing-tables

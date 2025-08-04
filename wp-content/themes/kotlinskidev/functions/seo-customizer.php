@@ -1,5 +1,4 @@
 <?php
-// Customize Register
 function mytheme_seo_customize_register($wp_customize) {
     // Meta Description Setting for Front Page
     $wp_customize->add_setting('meta_description', array(
@@ -16,4 +15,3 @@ function mytheme_seo_customize_register($wp_customize) {
     ));
 }
 add_action('customize_register', 'mytheme_seo_customize_register');
-?>
