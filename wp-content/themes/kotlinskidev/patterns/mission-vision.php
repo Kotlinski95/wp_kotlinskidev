@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Mission & Vision Section
  * Slug: kotlinskidev/mission-vision

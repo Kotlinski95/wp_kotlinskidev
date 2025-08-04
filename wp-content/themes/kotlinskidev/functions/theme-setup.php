@@ -1,5 +1,4 @@
 <?php
-// Theme setup function
 function kotlinskidev_theme_setup()
 {
     // Add default posts and comments RSS feed links to head.

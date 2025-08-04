@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Features and Benefits
  * Slug: kotlinskidev/features-and-benefits

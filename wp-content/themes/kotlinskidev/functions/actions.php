@@ -113,7 +113,6 @@ add_action('wp_head', function () {
     <link rel="preload" as="font" type="font/ttf" href="<?php echo get_theme_file_uri('assets/fonts/sora/Sora-VariableFont_wght.ttf'); ?>" crossorigin>
 <?php
 }, 1);
-
 // use this if need to skip the core block styles .css generation in body.
 // add_action('wp_footer', function () {
 //     wp_dequeue_style('core-block-supports');

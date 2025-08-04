@@ -11,4 +11,3 @@ function kotlinskidev_scroll_to_top_shortcode() {
     </div>';
 }
 add_shortcode('scroll_to_top', 'kotlinskidev_scroll_to_top_shortcode');
-?>

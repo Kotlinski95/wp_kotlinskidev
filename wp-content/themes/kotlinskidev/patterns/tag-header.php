@@ -4,22 +4,18 @@
  * Slug: kotlinskidev/tag-header
  * Categories: blog, kotlinskidev/blog
  */
-
 $current_tag = get_queried_object();
 $tag_name = $current_tag->name;
 $tag_description = $current_tag->description;
 $post_count = $current_tag->count;
-
 // Generate breadcrumbs using CMS settings
 $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);
-
 $breadcrumbs = array();
 $breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
 $breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
 $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">' . esc_html__('Tag:', 'kotlinskidev') . ' ' . esc_html($tag_name) . '</span>';
 ?>
-
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
 <div class="wp-block-group" style="margin-bottom:15px">
     <!-- wp:html -->
@@ -60,6 +56,5 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
         </div>
     </div>
     <!-- /wp:html -->
-    
 </div>
 <!-- /wp:group -->

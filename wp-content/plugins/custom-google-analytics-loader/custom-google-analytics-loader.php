@@ -5,7 +5,6 @@ Description: Allows you to manually provide a Google Analytics (gtag.js) script 
 Version: 1.0.0
 Author: Your Name
 */
-
 // Add settings page
 add_action('admin_menu', function() {
     add_options_page(

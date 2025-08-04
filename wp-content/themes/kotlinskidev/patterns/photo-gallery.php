@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Photo Gallery
  * Slug: kotlinskidev/photo-gallery

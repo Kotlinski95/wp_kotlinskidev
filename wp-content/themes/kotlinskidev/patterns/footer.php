@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Footer
  * Slug: kotlinskidev/footer

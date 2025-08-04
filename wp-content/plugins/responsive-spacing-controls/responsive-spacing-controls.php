@@ -5,7 +5,6 @@ Description: Adds responsive margin and padding controls to the block editor (mo
 Version: 1.0.0
 Author: Adrian Kotlinski
 */
-
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
     exit;

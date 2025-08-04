@@ -1,5 +1,4 @@
 <?php
-
 function kotlinskidev_theme_switcher_shortcode()
 {
     $template_dir = get_template_directory();
@@ -38,5 +37,3 @@ function kotlinskidev_theme_switcher_shortcode()
     return ob_get_clean();
 }
 add_shortcode('theme_switcher', 'kotlinskidev_theme_switcher_shortcode');
-
-?>

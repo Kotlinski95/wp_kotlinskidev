@@ -4,11 +4,9 @@
  * Slug: kotlinskidev/search-header
  * Categories: search, kotlinskidev/search, themeslug/custom
  */
-
 $search_query = get_search_query();
 $search_results_count = $GLOBALS['wp_query']->found_posts ?? 0;
 ?>
-
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"20px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
 <div class="wp-block-group" style="margin-bottom:20px">
     
@@ -29,6 +27,5 @@ $search_results_count = $GLOBALS['wp_query']->found_posts ?? 0;
         <?php endif; ?>
     </div>
     <!-- /wp:html -->
-    
 </div>
 <!-- /wp:group -->

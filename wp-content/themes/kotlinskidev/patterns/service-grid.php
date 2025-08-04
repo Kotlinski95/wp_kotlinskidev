@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Service Grid
  * Slug: kotlinskidev/services-grid

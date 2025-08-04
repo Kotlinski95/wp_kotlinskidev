@@ -1,7 +1,5 @@
 <?php
-// Admin settings page for Block Visibility plugin
 if (!defined('ABSPATH')) exit;
-
 function block_visibility_settings_page() {
     ?>
     <div class="wrap">

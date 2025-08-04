@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Features Section
  * Slug: kotlinskidev/features-section

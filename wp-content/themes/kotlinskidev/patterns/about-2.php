@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: About Section 2
  * Slug: kotlinskidev/about-2

@@ -5,7 +5,6 @@
  * Categories: blog, kotlinskidev/blog
  */
 ?>
-
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"40px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
 <div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:40px">
     

@@ -4,7 +4,6 @@
  * Slug: kotlinskidev/search-form
  * Categories: search, kotlinskidev/search, themeslug/custom
  */
-
 $current_search = get_search_query();
 $current_category = isset($_GET['search_category']) ? sanitize_text_field($_GET['search_category']) : '';
 $current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_type']) : '';

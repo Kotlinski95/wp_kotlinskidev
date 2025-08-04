@@ -4,9 +4,7 @@
  * Slug: kotlinskidev/related-tags
  * Categories: blog, kotlinskidev/blog
  */
-
 $current_tag = get_queried_object();
-
 // Get other popular tags (excluding current one)
 $related_tags = get_tags(array(
     'exclude' => array($current_tag->term_id),
@@ -16,7 +14,6 @@ $related_tags = get_tags(array(
     'hide_empty' => true
 ));
 ?>
-
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"20px"},"padding":{"top":"20px"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="margin-top:20px;padding-top:20px;">
     
@@ -79,6 +76,5 @@ $related_tags = get_tags(array(
     </div>
     <!-- /wp:group -->
     <?php endif; ?>
-    
 </div>
 <!-- /wp:group -->

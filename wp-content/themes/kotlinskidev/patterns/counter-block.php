@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Counter Blocks
  * Slug: kotlinskidev/counter-block

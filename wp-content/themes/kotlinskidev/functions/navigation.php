@@ -83,4 +83,3 @@ function kotlinskidev_navigation_shortcode()
     return ob_get_clean();
 }
 add_shortcode('navigation', 'kotlinskidev_navigation_shortcode');
-?>

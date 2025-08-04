@@ -171,7 +171,7 @@ header::before {
       flex: 1;
       min-width: 100%;
     }
-    @media (max-width: $breakpoint-desktop) {
+    @media (max-width: calc(#{$breakpoint-desktop} - 1px)) {
       font-size: 1.25rem;
       .menu-item {
         display: flex;
@@ -277,7 +277,7 @@ header::before {
   }
 }
 
-@media (max-width: $breakpoint-desktop) {
+@media (max-width: $breakpoint-desktop - 1) {
   #hamburger-button {
     display: flex !important;
     justify-content: center;

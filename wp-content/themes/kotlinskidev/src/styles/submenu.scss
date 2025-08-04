@@ -9,7 +9,7 @@
 }
 
 .menu-item-has-children {
-  @media (max-width: $breakpoint-desktop) {
+  @media (max-width: $breakpoint-desktop - 1) {
     .sub-menu {
       max-height: 0;
       overflow: hidden !important;
@@ -173,7 +173,7 @@
       display: grid !important;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 0;
-      min-width: 600px;
+      min-width: 700px;
       max-width: 900px;
       padding: 0;
       text-align: start;

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Responsive Font Controls
  * Description: Adds responsive font size controls to WordPress blocks, allowing different font sizes for mobile, tablet, and desktop.
@@ -7,7 +6,6 @@
  * Author: Adrian Kotlinski
  * Text Domain: responsive-font-controls
  */
-
 // Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
@@ -388,6 +386,4 @@ class ResponsiveFontControls
         return $css;
     }
 }
-
-// Initialize the plugin
 new ResponsiveFontControls();

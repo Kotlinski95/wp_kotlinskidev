@@ -18,4 +18,3 @@ function kotlinskidev_register_block_pattern_categories() {
     );
 }
 add_action('init', 'kotlinskidev_register_block_pattern_categories');
-?>

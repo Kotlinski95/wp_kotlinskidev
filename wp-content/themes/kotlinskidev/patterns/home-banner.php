@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Home Banner
  * Slug: kotlinskidev/home-banner

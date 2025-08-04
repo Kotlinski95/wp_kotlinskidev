@@ -1,10 +1,4 @@
 <?php
-/**
- * Blog Topic Management System
- * Handles categories, templates, and navigation for the kotlinskidev blog structure
- */
-
-// Add category descriptions support
 function kotlinskidev_category_description_support() {
     // Enable category descriptions in admin
     add_action('category_add_form_fields', 'kotlinskidev_add_category_description_field');
@@ -640,4 +634,3 @@ function kotlinskidev_display_polish_search_states($post_states, $post) {
     return $post_states;
 }
 add_filter('display_post_states', 'kotlinskidev_display_polish_search_states', 10, 2);
-?>

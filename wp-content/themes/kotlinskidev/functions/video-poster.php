@@ -1,5 +1,4 @@
 <?php
-// Add Poster Image to Cover block
 function add_poster_image_to_cover_video($output, $block)
 {
 
@@ -25,6 +24,4 @@ function add_poster_image_to_cover_video($output, $block)
 
     return $output;
 }
-
-// Hook up
 add_filter('render_block', 'add_poster_image_to_cover_video', 10, 2);

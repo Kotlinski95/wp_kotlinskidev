@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Title: Header Default
  * Slug: kotlinskidev/header-default

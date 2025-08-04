@@ -1,9 +1,4 @@
 <?php
-/**
- * Add custom fields for dynamic article queries
- */
-
-// Add custom meta boxes for article query configuration
 function kotlinskidev_add_article_query_meta_boxes() {
     add_meta_box(
         'article_query_settings',
@@ -218,4 +213,3 @@ function kotlinskidev_save_featured_post_meta($post_id) {
     }
 }
 add_action('save_post', 'kotlinskidev_save_featured_post_meta');
-?>
