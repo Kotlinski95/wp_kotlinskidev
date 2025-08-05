@@ -45,7 +45,8 @@ function preload_critical_css()
 add_action('wp_head', 'preload_critical_css', 1);
 
 // Enqueue styles for the block editor (Gutenberg)
-function kotlinskidev_editor_styles() {
+function kotlinskidev_editor_styles()
+{
     // Load the same styles in the editor as on the frontend
     wp_enqueue_style(
         'kotlinskidev-editor-style',
@@ -53,7 +54,7 @@ function kotlinskidev_editor_styles() {
         array(),
         wp_get_theme()->get('Version')
     );
-    
+
     // Also load critical CSS in editor
     wp_enqueue_style(
         'kotlinskidev-editor-critical',
@@ -61,7 +62,7 @@ function kotlinskidev_editor_styles() {
         array(),
         wp_get_theme()->get('Version')
     );
-    
+
     // Load Tailwind CSS in editor
     wp_enqueue_style(
         'kotlinskidev-editor-tailwind',
@@ -69,5 +70,59 @@ function kotlinskidev_editor_styles() {
         array(),
         wp_get_theme()->get('Version')
     );
+
+    // Load Editor overrides CSS in editor
+    wp_enqueue_style(
+        'kotlinskidev-editor-overrides',
+        get_template_directory_uri() . '/build/editor.css',
+        array(),
+        wp_get_theme()->get('Version')
+    );
+
+    // Load banner carousel
+    wp_enqueue_style(
+        'kotlinskidev-banner-carousel-styles',
+        get_template_directory_uri() . '/build/banner-carousel.css',
+        array(),
+        wp_get_theme()->get('Version')
+    );
 }
-add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');
+function kotlinskidev_editor_scripts()
+{
+    // Load the main JavaScript file in editor (includes scroll animations)
+    wp_enqueue_script(
+        'kotlinskidev-editor-index-js',
+        get_template_directory_uri() . '/build/main.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+
+    // Load critical JavaScript file in editor
+    wp_enqueue_script(
+        'kotlinskidev-editor-critical-js',
+        get_template_directory_uri() . '/build/critical.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+
+    // Load editor-only functionality (scroll animation controls)
+    wp_enqueue_script(
+        'kotlinskidev-editor-only',
+        get_template_directory_uri() . '/build/editor.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+
+    // Load banner carousel
+    wp_enqueue_script(
+        'kotlinskidev-banner-carousel',
+        get_template_directory_uri() . '/build/banner-carousel.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        true
+    );
+}
+add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles', 'kotlinskidev_editor_scripts');

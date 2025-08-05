@@ -8,6 +8,7 @@ module.exports = {
 		main: path.resolve(process.cwd(), 'src', 'index.ts'),
 		critical: path.resolve(process.cwd(), 'src', 'critical.scss'),
 		'banner-carousel': path.resolve(process.cwd(), 'src', 'blocks', 'banner-carousel', 'index.ts'),
+		'editor': path.resolve(process.cwd(), 'src', 'editor.ts'),
 	},
 
 	output: {
