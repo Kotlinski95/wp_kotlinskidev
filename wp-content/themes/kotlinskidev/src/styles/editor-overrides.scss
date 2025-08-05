@@ -1,0 +1,57 @@
+// Editor-only styles to override scroll animations
+// This ensures all content is visible in the WordPress block editor
+
+.block-editor-block-list__layout,
+.wp-block-editor,
+.editor-styles-wrapper {
+  // Override all scroll animation opacity to make content visible in editor
+  .fade-in-on-scroll,
+  .fade-up-on-scroll,
+  .fade-left-on-scroll,
+  .fade-right-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  // Also override the visible states to ensure consistency
+  .fade-in-on-scroll.visible,
+  .fade-up-on-scroll.visible,
+  .fade-left-on-scroll.visible,
+  .fade-right-on-scroll.visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+// Additional editor-specific overrides for better editing experience
+.block-editor-block-list__block {
+  // Ensure all blocks are fully visible regardless of animation classes
+  &.fade-in-on-scroll,
+  &.fade-up-on-scroll,
+  &.fade-left-on-scroll,
+  &.fade-right-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+// Override for nested blocks and group blocks
+.wp-block-group,
+.wp-block-columns,
+.wp-block-column {
+  .fade-in-on-scroll,
+  .fade-up-on-scroll,
+  .fade-left-on-scroll,
+  .fade-right-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+.swiper{
+    visibility: visible !important;
+}

@@ -89,7 +89,7 @@ if (!empty($search_query)) :
                     <a href="<?php the_permalink(); ?>">
                         <img src="<?php the_post_thumbnail_url('medium'); ?>" 
                              alt="<?php the_title(); ?>" 
-                             style="width:150px;height:100px;object-fit:cover;border-radius:12px;" />
+                             style="width:200px;height:200px;object-fit:contain;border-radius:12px;" />
                     </a>
                 </div>
                 <?php endif; ?>
