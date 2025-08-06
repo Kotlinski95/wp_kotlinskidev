@@ -125,4 +125,5 @@ function kotlinskidev_editor_scripts()
         true
     );
 }
-add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles', 'kotlinskidev_editor_scripts');
+add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');
+add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_scripts');

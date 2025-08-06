@@ -3,6 +3,7 @@
   "version": 3,
   "settings": {
     "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
     "layout": {
       "contentSize": "1180px",
       "wideSize": "1420px"
@@ -17,6 +18,11 @@
           "slug": "primary",
           "color": "#8209d3",
           "name": "Primary"
+        },
+        {
+          "slug": "primary-rgb",
+          "color": "59, 130, 246",
+          "name": "Primary RGB"
         },
         {
           "slug": "primary-hover",
@@ -67,9 +73,14 @@
       "duotone": [],
       "gradients": [
         {
-          "gradient": "linear-gradient(to right, #8209d3 0%, #190A05  51%, #8209d3  100%)",
+          "gradient": "linear-gradient(to right, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--contrast)  51%, var(--wp--preset--color--primary)  100%)",
           "name": "Gradient 1",
           "slug": "gradient-one"
+        },
+        {
+          "gradient": "linear-gradient(135deg, var(--wp--preset--color--primary) 0, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), .8) 100%)",
+          "name": "Gradient 2",
+          "slug": "gradient-two"
         },
         {
           "gradient": "radial-gradient(100% 53.32% at 50% 125%, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--primary-shade-1) 12%, var(--wp--preset--color--primary-shade-2) 44%, var(--wp--preset--color--transparent-shade) 100%)",
@@ -110,6 +121,65 @@
           "gradient": "radial-gradient(30.83% 47.59% at 100% 100%, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--primary-shade-1) 12%, var(--wp--preset--color--primary-shade-2) 44%, var(--wp--preset--color--transparent-shade) 100%)",
           "name": "Gradient block top right",
           "slug": "gradient-block-bottom-right"
+        }
+      ]
+    },
+    "shadow": {
+      "presets": [
+        {
+          "name": "Natural",
+          "slug": "natural",
+          "shadow": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+        },
+        {
+          "name": "Hover Jump Shadow",
+          "slug": "hover-jump",
+          "shadow": "0 15px 30px rgba(0, 0, 0, 0.15)"
+        },
+        {
+          "name": "Primary Shadow",
+          "slug": "primary",
+          "shadow": "0 8px 25px rgba(130, 9, 211, 0.15)"
+        },
+        {
+          "name": "Primary Glow",
+          "slug": "primary-glow",
+          "shadow": "0 0 20px rgba(130, 9, 211, 0.3), 0 4px 8px rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "name": "Primary Dynamic",
+          "slug": "primary-dynamic",
+          "shadow": "0 6px 20px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), .3), 0 2px 4px rgba(0, 0, 0, .1)"
+        },
+        {
+          "name": "Soft Elevation",
+          "slug": "soft-elevation",
+          "shadow": "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)"
+        },
+        {
+          "name": "Medium Elevation",
+          "slug": "medium-elevation",
+          "shadow": "0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)"
+        },
+        {
+          "name": "High Elevation",
+          "slug": "high-elevation",
+          "shadow": "0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)"
+        },
+        {
+          "name": "Dramatic",
+          "slug": "dramatic",
+          "shadow": "0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22)"
+        },
+        {
+          "name": "Inner Glow",
+          "slug": "inner-glow",
+          "shadow": "inset 0 0 10px rgba(130, 9, 211, 0.2)"
+        },
+        {
+          "name": "Colored Drop",
+          "slug": "colored-drop",
+          "shadow": "0 8px 16px rgba(25, 25, 25, 0.15), 0 4px 8px rgba(130, 9, 211, 0.1)"
         }
       ]
     },
@@ -335,19 +405,6 @@
           "color": "#ccc"
         }
       }
-    },
-    "custom": {
-      ".has-gradient-test-gradient-background": {
-        "background": "linear-gradient(to left, #ff7e5f, #feb47b)",
-        "color": "#ffffff",
-        "transition": "all 0.4s ease"
-      },
-      ".has-gradient-test-gradient-background:hover": {
-        "background": "linear-gradient(to right, #6a11cb, #2575fc)",
-        "color": "#000000"
-      }
     }
-  },
-  "customTemplates": [],
-  "patterns": true
+  }
 }

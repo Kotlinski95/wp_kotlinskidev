@@ -39,23 +39,31 @@ function responsive_spacing_controls_enqueue_editor_assets()
         wp_localize_script('responsive-spacing-controls', 'spacingBreakpoints', $breakpoints);
 
         // Add inline script to handle live editor updates
-        wp_add_inline_script('responsive-spacing-controls', '
+        $javascript_code = <<<'JAVASCRIPT'
             // Function to generate class name from spacing value
             function generateSpacingClassName(prefix, type, side, value) {
                 if (!value || value === "0px") return "";
-                const classSuffix = value.replace(",", ".").replace(".", "dot").replace(/[^a-zA-Z0-9]/g, "");
-                return prefix + "-" + type + "-" + side + "-" + classSuffix;
+                // Handle negative values by adding neg prefix
+                const isNegative = value.startsWith("-");
+                const absoluteValue = isNegative ? value.substring(1) : value;
+                const classSuffix = absoluteValue.replace(",", ".").replace(".", "dot").replace(/[^a-zA-Z0-9]/g, "");
+                const negPrefix = isNegative ? "neg" : "";
+                return prefix + "-" + type + "-" + side + "-" + negPrefix + classSuffix;
             }
             
             // Function to inject CSS for new spacing values
             function injectSpacingCSS(value) {
                 if (!value || value === "0px") return;
                 
-                const classSuffix = value.replace(",", ".").replace(".", "dot").replace(/[^a-zA-Z0-9]/g, "");
+                // Handle negative values properly
+                const isNegative = value.startsWith("-");
+                const absoluteValue = isNegative ? value.substring(1) : value;
+                const classSuffix = absoluteValue.replace(",", ".").replace(".", "dot").replace(/[^a-zA-Z0-9]/g, "");
                 const cssValue = value.replace(",", ".");
+                const negPrefix = isNegative ? "neg" : "";
                 
                 // Check if CSS already exists for this value
-                const existingStyle = document.getElementById("spacing-" + classSuffix);
+                const existingStyle = document.getElementById("spacing-" + negPrefix + classSuffix);
                 if (existingStyle) return;
                 
                 // Get breakpoint values from WordPress settings
@@ -63,54 +71,56 @@ function responsive_spacing_controls_enqueue_editor_assets()
                 const tabletBreakpoint = spacingBreakpoints.tablet || "768px";
                 const desktopBreakpoint = spacingBreakpoints.desktop || "1024px";
                 
-                // Parse numeric values from breakpoints for calculations
-                const mobileMax = parseInt(mobileBreakpoint) - 1;
-                const tabletMin = parseInt(mobileBreakpoint);
-                const tabletMax = parseInt(desktopBreakpoint) - 1;
-                const desktopMin = parseInt(desktopBreakpoint);
+                // Parse numeric values from breakpoints for calculations avoiding direct subtraction
+                const mobileNum = parseInt(mobileBreakpoint);
+                const tabletNum = parseInt(mobileBreakpoint);
+                const desktopNum = parseInt(desktopBreakpoint);
+                
+                const mobileMax = Math.max(0, mobileNum - 1);
+                const tabletMin = tabletNum;
+                const tabletMax = Math.max(0, desktopNum - 1);
+                const desktopMin = desktopNum;
+                
+            // (Duplicate block removed; this code is already present above)
                 
                 // Create CSS for this specific value using dynamic breakpoints
-                const css = `
-                    /* Mobile only (0 to ${mobileMax}px) */
-                    @media (max-width: ${mobileMax}px) {
-                        .mobile-pt-top-${classSuffix} { padding-top: ${cssValue} !important; }
-                        .mobile-pt-right-${classSuffix} { padding-right: ${cssValue} !important; }
-                        .mobile-pt-bottom-${classSuffix} { padding-bottom: ${cssValue} !important; }
-                        .mobile-pt-left-${classSuffix} { padding-left: ${cssValue} !important; }
-                        .mobile-mg-top-${classSuffix} { margin-top: ${cssValue} !important; }
-                        .mobile-mg-right-${classSuffix} { margin-right: ${cssValue} !important; }
-                        .mobile-mg-bottom-${classSuffix} { margin-bottom: ${cssValue} !important; }
-                        .mobile-mg-left-${classSuffix} { margin-left: ${cssValue} !important; }
-                    }
-                    
-                    /* Tablet only (${tabletMin}px to ${tabletMax}px) */
-                    @media (min-width: ${tabletMin}px) and (max-width: ${tabletMax}px) {
-                        .tablet-pt-top-${classSuffix} { padding-top: ${cssValue} !important; }
-                        .tablet-pt-right-${classSuffix} { padding-right: ${cssValue} !important; }
-                        .tablet-pt-bottom-${classSuffix} { padding-bottom: ${cssValue} !important; }
-                        .tablet-pt-left-${classSuffix} { padding-left: ${cssValue} !important; }
-                        .tablet-mg-top-${classSuffix} { margin-top: ${cssValue} !important; }
-                        .tablet-mg-right-${classSuffix} { margin-right: ${cssValue} !important; }
-                        .tablet-mg-bottom-${classSuffix} { margin-bottom: ${cssValue} !important; }
-                        .tablet-mg-left-${classSuffix} { margin-left: ${cssValue} !important; }
-                    }
-                    
-                    /* Desktop only (${desktopMin}px and up) */
-                    @media (min-width: ${desktopMin}px) {
-                        .desktop-pt-top-${classSuffix} { padding-top: ${cssValue} !important; }
-                        .desktop-pt-right-${classSuffix} { padding-right: ${cssValue} !important; }
-                        .desktop-pt-bottom-${classSuffix} { padding-bottom: ${cssValue} !important; }
-                        .desktop-pt-left-${classSuffix} { padding-left: ${cssValue} !important; }
-                        .desktop-mg-top-${classSuffix} { margin-top: ${cssValue} !important; }
-                        .desktop-mg-right-${classSuffix} { margin-right: ${cssValue} !important; }
-                        .desktop-mg-bottom-${classSuffix} { margin-bottom: ${cssValue} !important; }
-                        .desktop-mg-left-${classSuffix} { margin-left: ${cssValue} !important; }
-                    }
-                `;
+                const css = "/* Mobile only (0 to " + mobileMax + "px) */" +
+                    "@media (max-width: " + mobileMax + "px) {" +
+                        ".mobile-pt-top-" + negPrefix + classSuffix + " { padding-top: " + cssValue + " !important; }" +
+                        ".mobile-pt-right-" + negPrefix + classSuffix + " { padding-right: " + cssValue + " !important; }" +
+                        ".mobile-pt-bottom-" + negPrefix + classSuffix + " { padding-bottom: " + cssValue + " !important; }" +
+                        ".mobile-pt-left-" + negPrefix + classSuffix + " { padding-left: " + cssValue + " !important; }" +
+                        ".mobile-mg-top-" + negPrefix + classSuffix + " { margin-top: " + cssValue + " !important; }" +
+                        ".mobile-mg-right-" + negPrefix + classSuffix + " { margin-right: " + cssValue + " !important; }" +
+                        ".mobile-mg-bottom-" + negPrefix + classSuffix + " { margin-bottom: " + cssValue + " !important; }" +
+                        ".mobile-mg-left-" + negPrefix + classSuffix + " { margin-left: " + cssValue + " !important; }" +
+                    "}" +
+                    "/* Tablet only (" + tabletMin + "px to " + tabletMax + "px) */" +
+                    "@media (min-width: " + tabletMin + "px) and (max-width: " + tabletMax + "px) {" +
+                        ".tablet-pt-top-" + negPrefix + classSuffix + " { padding-top: " + cssValue + " !important; }" +
+                        ".tablet-pt-right-" + negPrefix + classSuffix + " { padding-right: " + cssValue + " !important; }" +
+                        ".tablet-pt-bottom-" + negPrefix + classSuffix + " { padding-bottom: " + cssValue + " !important; }" +
+                        ".tablet-pt-left-" + negPrefix + classSuffix + " { padding-left: " + cssValue + " !important; }" +
+                        ".tablet-mg-top-" + negPrefix + classSuffix + " { margin-top: " + cssValue + " !important; }" +
+                        ".tablet-mg-right-" + negPrefix + classSuffix + " { margin-right: " + cssValue + " !important; }" +
+                        ".tablet-mg-bottom-" + negPrefix + classSuffix + " { margin-bottom: " + cssValue + " !important; }" +
+                        ".tablet-mg-left-" + negPrefix + classSuffix + " { margin-left: " + cssValue + " !important; }" +
+                    "}" +
+                    "/* Desktop only (" + desktopMin + "px and up) */" +
+                    "@media (min-width: " + desktopMin + "px) {" +
+                        ".desktop-pt-top-" + negPrefix + classSuffix + " { padding-top: " + cssValue + " !important; }" +
+                        ".desktop-pt-right-" + negPrefix + classSuffix + " { padding-right: " + cssValue + " !important; }" +
+                        ".desktop-pt-bottom-" + negPrefix + classSuffix + " { padding-bottom: " + cssValue + " !important; }" +
+                        ".desktop-pt-left-" + negPrefix + classSuffix + " { padding-left: " + cssValue + " !important; }" +
+                        ".desktop-mg-top-" + negPrefix + classSuffix + " { margin-top: " + cssValue + " !important; }" +
+                        ".desktop-mg-right-" + negPrefix + classSuffix + " { margin-right: " + cssValue + " !important; }" +
+                        ".desktop-mg-bottom-" + negPrefix + classSuffix + " { margin-bottom: " + cssValue + " !important; }" +
+                        ".desktop-mg-left-" + negPrefix + classSuffix + " { margin-left: " + cssValue + " !important; }" +
+                    "}";
                 
                 // Inject the CSS
                 const styleElement = document.createElement("style");
-                styleElement.id = "spacing-" + classSuffix;
+                styleElement.id = "spacing-" + negPrefix + classSuffix;
                 styleElement.textContent = css;
                 document.head.appendChild(styleElement);
             }
@@ -119,11 +129,11 @@ function responsive_spacing_controls_enqueue_editor_assets()
             function findBlockElement(clientId) {
                 // Try multiple selectors that WordPress might use
                 const selectors = [
-                    `[data-block="${clientId}"]`,
-                    `#block-${clientId}`,
-                    `.wp-block[data-block="${clientId}"]`,
-                    `[data-client-id="${clientId}"]`,
-                    `.block-editor-block-list__block[data-client-id="${clientId}"]`
+                    "[data-block=\"" + clientId + "\"]",
+                    "#block-" + clientId,
+                    ".wp-block[data-block=\"" + clientId + "\"]",
+                    "[data-client-id=\"" + clientId + "\"]",
+                    ".block-editor-block-list__block[data-client-id=\"" + clientId + "\"]"
                 ];
                 
                 for (const selector of selectors) {
@@ -138,7 +148,7 @@ function responsive_spacing_controls_enqueue_editor_assets()
                 for (const block of allBlocks) {
                     if (block.getAttribute("data-block") === clientId || 
                         block.getAttribute("data-client-id") === clientId ||
-                        block.id === `block-${clientId}`) {
+                        block.id === "block-" + clientId) {
                         return block;
                     }
                 }
@@ -149,18 +159,17 @@ function responsive_spacing_controls_enqueue_editor_assets()
             
             // Function to apply spacing classes to block element in editor
             function applySpacingClassesToEditor(clientId, attributes) {
-                
                 const blockElement = findBlockElement(clientId);
                 if (!blockElement) {
                     console.warn("Block element not found for:", clientId);
                     return;
                 }
                 
-                
-                // Remove existing spacing classes
+                // Remove existing spacing classes (including both positive and negative variants)
                 const existingClasses = blockElement.className.split(" ");
                 const filteredClasses = existingClasses.filter(cls => {
-                    const isSpacingClass = /^(desktop|tablet|mobile)-(pt|mg)-(top|right|bottom|left)-/.test(cls);
+                    // Remove any existing spacing classes that match the pattern
+                    const isSpacingClass = /^(desktop|tablet|mobile)-(pt|mg)-(top|right|bottom|left)-(neg)?/.test(cls);
                     return !isSpacingClass;
                 });
                 
@@ -179,7 +188,7 @@ function responsive_spacing_controls_enqueue_editor_assets()
                     if (data && typeof data === "object") {
                         ["top", "right", "bottom", "left"].forEach(side => {
                             if (data[side] && data[side] !== "0px") {
-                                // Inject CSS for this value if it doesn not exist
+                                // Inject CSS for this value if it doesn't exist
                                 injectSpacingCSS(data[side]);
                                 
                                 const className = generateSpacingClassName(prefix, type, side, data[side]);
@@ -191,21 +200,19 @@ function responsive_spacing_controls_enqueue_editor_assets()
                     }
                 });
                 
-                // Apply new classes
+                // Apply new classes (combine filtered existing classes with new spacing classes)
                 const finalClasses = [...filteredClasses, ...newClasses].join(" ");
                 blockElement.className = finalClasses;
             }
             
             // Enhanced hook into block updates
             wp.hooks.addAction("blocks.updateBlock", "responsive-spacing-controls/update-editor-classes", function(clientId, updates) {
-                
                 if (updates.attributes) {
                     const hasSpacingUpdates = Object.keys(updates.attributes).some(key => 
                         key.includes("Padding") || key.includes("Margin")
                     );
                     
                     if (hasSpacingUpdates) {
-                        
                         // Try multiple timings to ensure DOM is ready
                         [10, 50, 100, 200].forEach(delay => {
                             setTimeout(() => {
@@ -294,8 +301,9 @@ function responsive_spacing_controls_enqueue_editor_assets()
                     }, 100);
                 }
             });
-
-        ');
+JAVASCRIPT;
+        
+        wp_add_inline_script('responsive-spacing-controls', $javascript_code);
     }
 }
 add_action('enqueue_block_editor_assets', 'responsive_spacing_controls_enqueue_editor_assets');
@@ -344,9 +352,12 @@ add_filter('render_block', function ($block_content, $block) {
                 foreach (['top', 'right', 'bottom', 'left'] as $side) {
                     $val = $block['attrs'][$attr_key][$side] ?? '';
                     if ($val && $val !== '0px') {
-                        // Use same class naming as CSS generation (replace . with 'dot')
-                        $class_suffix = preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $val));
-                        $classes[] = "{$breakpoint}-{$prefix}-{$side}-{$class_suffix}";
+                        // Handle negative values properly by adding 'neg' prefix
+                        $is_negative = strpos($val, '-') === 0;
+                        $absolute_value = $is_negative ? substr($val, 1) : $val;
+                        $class_suffix = preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $absolute_value));
+                        $neg_prefix = $is_negative ? 'neg' : '';
+                        $classes[] = "{$breakpoint}-{$prefix}-{$side}-{$neg_prefix}{$class_suffix}";
                     }
                 }
             }
@@ -360,18 +371,21 @@ add_filter('render_block', function ($block_content, $block) {
             $existing_classes = $matches[1];
         }
 
-        // Filter out classes that already exist
-        $new_classes = [];
-        foreach ($classes as $class) {
-            if (strpos($existing_classes, $class) === false) {
-                $new_classes[] = $class;
-            }
-        }
+        // Remove any existing spacing classes to prevent conflicts (including positive/negative variants)
+        $existing_classes_array = explode(' ', $existing_classes);
+        $filtered_classes = array_filter($existing_classes_array, function($class) {
+            // Remove any existing spacing classes that match the pattern
+            return !preg_match('/^(desktop|tablet|mobile)-(pt|mg)-(top|right|bottom|left)-(neg)?/', $class);
+        });
 
-        if (!empty($new_classes)) {
+        // Add new spacing classes
+        $final_classes = array_merge($filtered_classes, $classes);
+        $final_classes_string = implode(' ', array_filter($final_classes));
+
+        if (!empty($final_classes_string)) {
             $block_content = preg_replace(
-                '/(<[^>]+class=")([^"]*)"/',
-                '$1$2 ' . implode(' ', $new_classes) . '"',
+                '/(<[^>]+)class="[^"]*"/',
+                '$1class="' . $final_classes_string . '"',
                 $block_content,
                 1
             );
@@ -556,8 +570,12 @@ function responsive_spacing_controls_generate_css()
 
     // Function to create safe class name from value (MUST match the render_block logic)
     $create_class_name = function ($value) {
-        // This MUST match exactly what's in render_block filter
-        return preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $value));
+        // Handle negative values properly by adding 'neg' prefix
+        $is_negative = strpos($value, '-') === 0;
+        $absolute_value = $is_negative ? substr($value, 1) : $value;
+        $class_suffix = preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $absolute_value));
+        $neg_prefix = $is_negative ? 'neg' : '';
+        return $neg_prefix . $class_suffix;
     };
 
     // Function to normalize spacing value for CSS output

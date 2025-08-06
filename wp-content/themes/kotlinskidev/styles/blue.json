@@ -1,0 +1,66 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "title": "Blue Palette",
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "slug": "primary",
+          "color": "#3b82f6",
+          "name": "Primary"
+        },
+        {
+          "slug": "primary-rgb",
+          "color": "59, 130, 246",
+          "name": "Primary RGB"
+        },
+        {
+          "slug": "primary-hover",
+          "color": "#2563eb",
+          "name": "Primary Hover"
+        },
+        {
+          "slug": "primary-shade-1",
+          "color": "#60a5fa",
+          "name": "Primary Shade 1"
+        },
+        {
+          "slug": "primary-shade-2",
+          "color": "#93c5fd",
+          "name": "Primary Shade 2"
+        },
+        {
+          "slug": "contrast",
+          "color": "#000000",
+          "name": "Contrast"
+        },
+        {
+          "slug": "white",
+          "color": "#ffffff",
+          "name": "White"
+        },
+        {
+          "slug": "light-color",
+          "color": "#f2f2f2",
+          "name": "Light Color"
+        },
+        {
+          "slug": "dark-color",
+          "color": "#191919",
+          "name": "Dark Color"
+        },
+        {
+          "slug": "dark-shade",
+          "color": "#191919",
+          "name": "Dark Shade"
+        },
+        {
+          "slug": "transparent-shade",
+          "color": "#19191900",
+          "name": "Transparent Shade"
+        }
+      ]
+    }
+  }
+}

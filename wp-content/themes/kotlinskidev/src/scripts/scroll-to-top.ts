@@ -19,7 +19,7 @@ import { debounce } from "./utils";
   handleScroll();
 
   const debouncedHandleScroll = debounce(handleScroll, 100);
-  document.body.addEventListener("scroll", debouncedHandleScroll);
+  window.addEventListener("scroll", debouncedHandleScroll);
 
   // Scroll to top when the button is clicked
   scrollToTopBtn.addEventListener("click", function (e) {

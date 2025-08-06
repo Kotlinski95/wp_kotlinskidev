@@ -49,11 +49,17 @@ require_once get_template_directory() . '/functions/navigation.php';
 // Banner carousel
 require_once get_template_directory() . '/functions/banner-slider.php';
 
+// Hover animations
+require_once get_template_directory() . '/inc/hover-animations.php';
+
 // Dynamic footer functionality
 require_once get_template_directory() . '/functions/dynamic-footer.php';
 
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
+
+// Cover image classes for lazy loading control
+require_once get_template_directory() . '/functions/cover-image-classes.php';
 
 // Additional theme filters
 require_once get_template_directory() . '/functions/filters.php';

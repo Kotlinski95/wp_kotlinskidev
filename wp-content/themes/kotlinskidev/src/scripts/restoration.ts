@@ -1,4 +1,4 @@
-// /src/scripts/scroll-to-top.ts
+// /src/scripts/restoration.ts
 (function () {
   // Save scroll position on pagehide
   window.addEventListener('pagehide', () => {
