@@ -22,6 +22,16 @@
   }
 }
 
+// Smooth jump - very gentle movement
+.hover-jump-smooth {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
 // Strong jump - more pronounced movement
 .hover-jump-strong {
   transition: transform 0.35s ease-in-out;

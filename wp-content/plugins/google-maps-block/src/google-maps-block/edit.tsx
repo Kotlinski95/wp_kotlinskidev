@@ -192,17 +192,31 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
                             { name: 'Black', color: 'black' },
                         ]}
                     />
-                    <TextareaControl
-                        label={__('Custom Marker Label CSS', 'google-maps-block')}
-                        value={customCSS}
-                        onChange={(value) => setAttributes({ customCSS: value })}
-                        help={__('Enter custom CSS for the marker label. Example: .marker-position { margin-top: 55px; color: red; }', 'google-maps-block')}
-                        rows={4}
-                    />
                     <ToggleControl
                         label={__('Show Reset View Button', 'google-maps-block')}
                         checked={!!attributes.showResetViewButton}
                         onChange={(value) => setAttributes({ showResetViewButton: value })}
+                    />
+                </PanelBody>
+                <PanelBody title={__('Additional CSS', 'google-maps-block')} initialOpen={false}>
+                    <TextareaControl
+                        label={__('Custom CSS', 'google-maps-block')}
+                        value={customCSS}
+                        onChange={(value) => setAttributes({ customCSS: value })}
+                        help={__(
+                            'Add custom CSS to override Google Maps styles. Examples:\n\n' +
+                            '/* Hide Google Maps controls */\n' +
+                            '.gm-style-cc { display: none !important; }\n\n' +
+                            '/* Custom marker label styling */\n' +
+                            '.marker-position { margin-top: 55px; color: red; font-weight: bold; }\n\n' +
+                            '/* Hide "Map data" text */\n' +
+                            '.gm-style .gm-style-cc { display: none; }\n\n' +
+                            '/* Custom map container styling */\n' +
+                            '.gm-style { border-radius: 10px; }',
+                            'google-maps-block'
+                        )}
+                        rows={8}
+                        placeholder={__('/* Enter your custom CSS here */', 'google-maps-block')}
                     />
                 </PanelBody>
             </InspectorControls>

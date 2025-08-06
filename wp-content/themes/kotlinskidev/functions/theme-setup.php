@@ -14,6 +14,21 @@ function kotlinskidev_theme_setup()
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'kotlinskidev'),
     ));
+
+    // Add theme support for Full Site Editing
+    add_theme_support('block-templates');
+
+    // Add support for editor styles
+    add_theme_support('editor-styles');
+
+    // Add support for responsive embeds
+    add_theme_support('responsive-embeds');
+
+    // Add support for custom line height
+    add_theme_support('custom-line-height');
+
+    // Add support for custom units
+    add_theme_support('custom-units');
 }
 add_action('after_setup_theme', 'kotlinskidev_theme_setup');
 
