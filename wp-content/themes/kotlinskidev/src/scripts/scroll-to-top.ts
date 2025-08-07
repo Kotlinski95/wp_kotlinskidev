@@ -24,6 +24,6 @@ import { debounce } from "./utils";
   // Scroll to top when the button is clicked
   scrollToTopBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    document.body.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();

@@ -1,6 +1,6 @@
 /**
- * Cover Lazy Loading Extension
- * Adds lazy loading controls to the core/cover block
+ * Lazy Loading Extension
+ * Adds lazy loading controls to the core/cover and core/image blocks
  */
 import { addFilter } from '@wordpress/hooks';
 import { __ } from '@wordpress/i18n';
@@ -23,10 +23,10 @@ interface BlockEditProps {
 }
 
 /**
- * Add custom attribute to core/cover block
+ * Add custom attribute to core/cover and core/image blocks
  */
 function addCoverLazyLoadingAttribute(settings: any, name: string) {
-    if (name !== 'core/cover') {
+    if (name !== 'core/cover' && name !=='core/image') {
         return settings;
     }
 
@@ -50,7 +50,7 @@ const withCoverLazyLoadingControls = createHigherOrderComponent(
         return (props: BlockEditProps) => {
             const { attributes, setAttributes, name } = props;
             
-            if (name !== 'core/cover') {
+            if (name !== 'core/cover' && name !=='core/image') {
                 return <BlockEdit {...props} />;
             }
 
