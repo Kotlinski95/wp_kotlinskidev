@@ -49,6 +49,9 @@ require_once get_template_directory() . '/functions/navigation.php';
 // Banner carousel
 require_once get_template_directory() . '/functions/banner-slider.php';
 
+// Load search page block styles fix
+require_once get_template_directory() . '/functions/search-page-styles.php';
+
 // Hover animations
 require_once get_template_directory() . '/inc/hover-animations.php';
 

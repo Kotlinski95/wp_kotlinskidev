@@ -84,7 +84,8 @@
     }
     
     // Search button
-    .search-button {
+    .search-button,
+    .search-link {
         background: linear-gradient(
             135deg, 
             var(--wp--preset--color--primary) 0%, 
@@ -169,7 +170,8 @@
             font-size: 16px; // Prevent zoom on iOS
         }
         
-        .search-button {
+        .search-button,
+        .search-link {
             width: 100%;
             justify-content: center;
         }
