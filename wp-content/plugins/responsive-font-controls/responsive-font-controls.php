@@ -276,7 +276,7 @@ class ResponsiveFontControls
     {
         wp_enqueue_style(
             'responsive-font-controls-frontend',
-            plugin_dir_url(__FILE__) . 'build/style-index.css',
+            plugin_dir_url(__FILE__) . 'build/responsive-font-controls.css',
             array(),
             '1.0.0'
         );

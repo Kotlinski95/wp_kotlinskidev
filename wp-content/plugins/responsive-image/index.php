@@ -23,32 +23,30 @@ function responsive_image_block_register()
         true
     );
 
-    if (is_admin()) {
-        wp_register_style(
-            'responsive-image-block-style',
-            plugins_url('build/style-index.css', __FILE__),
-            array(),
-            $asset_file['version'],
-        );
-    }
-
+    // Always register the style but don't enqueue it yet
+    wp_register_style(
+        'responsive-image-block-style',
+        plugins_url('build/style-index.css', __FILE__),
+        array(),
+        $asset_file['version'],
+    );
 
     register_block_type(__DIR__, array(
         'editor_script' => 'responsive-image-block-editor',
+        'style' => is_admin() ? 'responsive-image-block-style' : null,
+        'render_callback' => 'responsive_image_block_render_callback',
     ));
 }
 
-if (! is_admin()) {
-    // Deregister the style so WP doesn't print it in the head
-    // add_action('wp_enqueue_scripts', function () {
-    //     wp_deregister_style('responsive-image-block-style');
-    // }, 20);
-
-    // Print the link tag in the footer
-    add_action('wp_footer', function () {
-        $href = plugins_url('build/style-index.css', __FILE__);
-        $ver = filemtime(plugin_dir_path(__FILE__) . 'build/style-index.css');
-        echo '<link rel="stylesheet" id="responsive-image-block-style-css" href="' . esc_url($href) . '?ver=' . $ver . '" type="text/css" media="all" />';
-    });
+function responsive_image_block_render_callback($attributes, $content, $block)
+{
+    // Enqueue the style only when the block is actually rendered
+    if (!is_admin()) {
+        wp_enqueue_style('responsive-image-block-style');
+    }
+    
+    // Return the block content as-is since we're just using this for conditional loading
+    return $content;
 }
+
 add_action('init', 'responsive_image_block_register');

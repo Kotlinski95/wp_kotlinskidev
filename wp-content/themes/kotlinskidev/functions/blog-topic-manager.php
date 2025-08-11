@@ -500,7 +500,7 @@ function kotlinskidev_highlight_search_terms($text, $search_query) {
         if (strlen(trim($word)) > 2) { // Only highlight words longer than 2 characters
             $text = preg_replace(
                 '/(' . preg_quote(trim($word), '/') . ')/i',
-                '<mark style="background:var(--wp--preset--color--primary);color:white;padding:2px 4px;border-radius:3px;">$1</mark>',
+                '<mark style="background:#5259ff;color:white;padding:2px 4px;border-radius:3px;">$1</mark>',
                 $text
             );
         }

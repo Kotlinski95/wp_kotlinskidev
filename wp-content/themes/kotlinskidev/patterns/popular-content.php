@@ -55,7 +55,7 @@
             <?php endif; ?>
             
             <div style="margin-bottom:15px;flex-shrink:0;">
-                <span style="background:var(--wp--preset--color--primary);color:white;padding:4px 12px;border-radius:15px;font-size:12px;font-weight:600;">
+                <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:4px 12px;border-radius:15px;font-size:12px;font-weight:600;">
                     <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
                 </span>
             </div>
@@ -74,8 +74,8 @@
                 <span style="color:var(--wp--preset--color--foreground-alt);">
                     <?php echo $is_page ? esc_html__('Updated', 'kotlinskidev') . ' ' . get_the_modified_date() : get_the_date(); ?>
                 </span>
-                <a href="<?php the_permalink(); ?>" class="link-dark-variant-support"
-                   style="background:transparent;color:var(--wp--preset--color--primary);border:1px solid var(--wp--preset--color--primary);padding:6px 12px;border-radius:6px;text-decoration:none;font-size:12px;">
+                <a href="<?php the_permalink(); ?>" class="search-link"
+                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:10px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 2px 4px rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
                     <?php echo $is_page ? esc_html__('View', 'kotlinskidev') : esc_html__('Read', 'kotlinskidev'); ?>
                 </a>
             </div>

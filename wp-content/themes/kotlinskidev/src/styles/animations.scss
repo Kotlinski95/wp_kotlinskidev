@@ -98,3 +98,71 @@
     transform: translateY(-8px) scale(1.02);
   }
 }
+
+// =============================================================================
+// CONSTANT ANIMATIONS (ALWAYS ACTIVE)
+// =============================================================================
+
+// Constant bouncing animation - smoothly bounces up and down to attract attention
+.constant-bounce {
+  animation: constant-bounce 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+// Subtle constant bounce - gentler movement
+.constant-bounce-subtle {
+  animation: constant-bounce-subtle 2.5s ease-in-out infinite;
+  cursor: pointer;
+}
+
+// Strong constant bounce - more pronounced movement
+.constant-bounce-strong {
+  animation: constant-bounce-strong 1.8s ease-in-out infinite;
+  cursor: pointer;
+}
+
+// Fast constant bounce - quicker bouncing for urgent attention
+.constant-bounce-fast {
+  animation: constant-bounce-fast 1.2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+// =============================================================================
+// KEYFRAMES FOR CONSTANT ANIMATIONS
+// =============================================================================
+
+@keyframes constant-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes constant-bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes constant-bounce-strong {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes constant-bounce-fast {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}

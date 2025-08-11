@@ -59,3 +59,12 @@
 :where(.wp-block-cover:not(.has-text-color)) {
   color: inherit !important;
 }
+
+details summary {
+  cursor: pointer;
+  transition: margin 150ms ease-out;
+}
+
+details[open] summary {
+  margin-bottom: 1rem;
+}

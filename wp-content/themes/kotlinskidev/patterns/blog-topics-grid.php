@@ -81,7 +81,8 @@ if (!empty($categories)) :
             </div>
             
             <a href="<?php echo esc_url($category_link); ?>" 
-               style="background:var(--wp--preset--color--primary);color:white;border-radius:12px;padding:12px 24px;text-decoration:none;display:inline-block;font-weight:600;transition:all 0.3s ease;">
+               class="search-link"
+               style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:10px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 2px 4px rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
                 <?php printf(esc_html__('Explore %s', 'kotlinskidev'), esc_html($category->name)); ?>
             </a>
             </div>

@@ -41,7 +41,7 @@ $related_tags = get_tags(array(
         ?>
         <div style="text-align:center;padding:15px;border:2px solid var(--wp--preset--color--border-color);border-radius:12px;background:var(--wp--preset--color--light-shade);transition:transform 0.3s ease;hover:transform:translateY(-2px);min-width:200px;">
             <div style="margin-bottom:8px;">
-                <span style="background:var(--wp--preset--color--primary);color:white;padding:6px 12px;border-radius:15px;font-size:14px;font-weight:600;">
+                <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:6px 12px;border-radius:15px;font-size:14px;font-weight:600;">
                     #<?php echo esc_html($tag->name); ?>
                 </span>
             </div>
@@ -57,8 +57,8 @@ $related_tags = get_tags(array(
             <?php endif; ?>
             
             <div style="margin-top:15px;">
-                <a href="<?php echo esc_url($tag_link); ?>" class="link-dark-variant-support"
-                   style="background:transparent;color:var(--wp--preset--color--primary);border:1px solid var(--wp--preset--color--primary);padding:8px 16px;border-radius:8px;text-decoration:none;font-size:12px;transition:all 0.3s ease;box-shadow:var(--wp--preset--shadow--natural);">
+                <a href="<?php echo esc_url($tag_link); ?>" class="search-link"
+                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:10px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 2px 4px rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
                     <?php esc_html_e('View Articles', 'kotlinskidev'); ?>
                 </a>
             </div>

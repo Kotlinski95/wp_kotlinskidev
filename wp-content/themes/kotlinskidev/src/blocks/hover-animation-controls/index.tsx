@@ -6,9 +6,10 @@ import { PanelBody, SelectControl } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import React from 'react';
 
-// Define available hover animations
+// Define available animations
 const hoverAnimations = [
     { label: __('No Animation', 'kotlinskidev'), value: '' },
+    // Hover animations (trigger on hover)
     { label: __('Jump', 'kotlinskidev'), value: 'hover-jump' },
     { label: __('Jump Subtle', 'kotlinskidev'), value: 'hover-jump-subtle' },
     { label: __('Jump Smooth', 'kotlinskidev'), value: 'hover-jump-smooth' },
@@ -18,6 +19,11 @@ const hoverAnimations = [
     { label: __('Fade', 'kotlinskidev'), value: 'hover-fade' },
     { label: __('Rotate', 'kotlinskidev'), value: 'hover-rotate' },
     { label: __('Bounce', 'kotlinskidev'), value: 'hover-bounce' },
+    // Constant animations (always active)
+    { label: __('Constant Bounce', 'kotlinskidev'), value: 'constant-bounce' },
+    { label: __('Constant Bounce Subtle', 'kotlinskidev'), value: 'constant-bounce-subtle' },
+    { label: __('Constant Bounce Strong', 'kotlinskidev'), value: 'constant-bounce-strong' },
+    { label: __('Constant Bounce Fast', 'kotlinskidev'), value: 'constant-bounce-fast' },
 ];
 
 // Add hover animation attribute to all blocks
