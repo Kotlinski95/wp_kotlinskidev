@@ -293,18 +293,11 @@ class ResponsiveFontControls
 
     public function render_responsive_font_styles($block_content, $block)
     {
-        // Debug: Log what we're receiving
-        error_log('Block name: ' . ($block['blockName'] ?? 'unknown'));
-        error_log('Block attrs: ' . print_r($block['attrs'] ?? array(), true));
-
         if (!isset($block['attrs']['responsiveFontSize'])) {
             return $block_content;
         }
 
         $font_sizes = $block['attrs']['responsiveFontSize'];
-
-        // Debug: Log font sizes
-        error_log('Font sizes: ' . print_r($font_sizes, true));
 
         // Check if we actually have any font sizes set
         $has_mobile = !empty($font_sizes['mobile']);
@@ -312,7 +305,6 @@ class ResponsiveFontControls
         $has_desktop = !empty($font_sizes['desktop']);
 
         if (!$has_mobile && !$has_tablet && !$has_desktop) {
-            error_log('No font sizes set, skipping...');
             return $block_content;
         }
 
@@ -324,15 +316,9 @@ class ResponsiveFontControls
         // Generate responsive CSS
         $responsive_styles = $this->generate_responsive_font_css($block_id, $font_sizes);
 
-        // Debug: Log generated CSS
-        error_log('Generated CSS: ' . $responsive_styles);
-
         if (!empty($responsive_styles)) {
             $updated_content = '<style>' . $responsive_styles . '</style>' . $updated_content;
         }
-
-        // Debug: Log final content
-        error_log('Final content: ' . $updated_content);
 
         return $updated_content;
     }

@@ -1,0 +1,31 @@
+/* Editor styles for text justify controls */
+.has-text-align-justify {
+    text-align: justify !important;
+    text-justify: inter-word;
+}
+
+/* Ensure justify styles work in the block editor */
+.block-editor-block-list__layout .has-text-align-justify {
+    text-align: justify !important;
+    text-justify: inter-word;
+}
+
+/* Style the justify button in toolbar */
+.components-toolbar-group .components-button[title="Justify"] svg,
+.components-toolbar-group .components-button[title="Justify text"] svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Enhanced inspector controls styling */
+.components-panel__body .text-alignment-controls {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.components-panel__body .text-alignment-controls .components-button {
+    min-width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+}

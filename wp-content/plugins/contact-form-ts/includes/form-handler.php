@@ -78,12 +78,8 @@ function contact_form_ts_handle_form()
         'Reply-To: ' . $email
     ];
 
-    error_log('Contact form handler called');
-
     // Send email
     $mail_result = wp_mail($admin_email, $subject, $body, $headers);
-
-    error_log('wp_mail result: ' . var_export($mail_result, true));
 
     if (!$mail_result) {
         error_log('Email sending failed.');

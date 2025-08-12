@@ -585,6 +585,7 @@ function responsive_spacing_controls_generate_css()
     };
 
     // Mobile styles (base styles - no media query, applies to all screen sizes first)
+    $css .= "\n@media (max-width: {$mobile_breakpoint}) {\n";
     foreach ($all_values as $value) {
         $class_suffix = $create_class_name($value);
         $css_value = $normalize_css_value($value);
@@ -597,6 +598,7 @@ function responsive_spacing_controls_generate_css()
         $css .= ".mobile-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
         $css .= ".mobile-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
     }
+    $css .= "}\n";
 
     // Tablet styles (override mobile when screen is wider than mobile breakpoint)
     $css .= "\n@media (min-width: " . ($mobile_breakpoint) . ") and (max-width: " . ($desktop_breakpoint) . ") {\n";

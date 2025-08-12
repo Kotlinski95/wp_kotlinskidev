@@ -25,6 +25,7 @@ wp-content/plugins/**
 !wp-content/plugins/slider-block/**
 !wp-content/plugins/responsive-spacing-controls/**
 !wp-content/plugins/responsive-font-controls/**
+!wp-content/plugins/text-justify-controls/**
 
 # Ignore wp-admin except if you want to keep something specific, add exceptions below
 wp-admin/**
