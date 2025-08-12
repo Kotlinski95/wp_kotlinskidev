@@ -42,9 +42,9 @@ class TextJustifyControls {
     public function enqueue_frontend_assets() {
         wp_enqueue_style(
             'text-justify-controls-frontend',
-            plugins_url('build/style-style-index.css', __FILE__),
+            plugins_url('build/style-text-justify-controls.css', __FILE__),
             array(),
-            filemtime(plugin_dir_path(__FILE__) . 'build/style-style-index.css')
+            filemtime(plugin_dir_path(__FILE__) . 'build/style-text-justify-controls.css')
         );
         
         // Add inline CSS for justify styles

@@ -100,8 +100,8 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"style-index": 0,
-/******/ 			"./style-style-index": 0
+/******/ 			"text-justify-controls": 0,
+/******/ 			"./style-text-justify-controls": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -151,9 +151,9 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-style-index"], () => (__webpack_require__("./src/style.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-text-justify-controls"], () => (__webpack_require__("./src/style.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=style-index.js.map
+//# sourceMappingURL=text-justify-controls.js.map
