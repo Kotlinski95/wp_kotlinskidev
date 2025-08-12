@@ -6,6 +6,8 @@
   text-align: justify !important;
   text-justify: inter-word;
   word-spacing: 0.05em;
+  -moz-text-align-last: left;
+       text-align-last: left; /* Add this to prevent last line justification */
   /* Prevent orphaned words (widows and orphans) */
   orphans: 2;
   widows: 2;
@@ -14,15 +16,18 @@
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
-  /* Prevent short words from being orphaned at line end */
-  word-break: keep-all;
+  hyphenate-limit-chars: 6 3 3; /* min word length, min chars before/after hyphen */
+  /* Better word breaking to avoid large gaps */
+  word-break: normal;
   overflow-wrap: break-word;
+  /* Modern CSS for better text wrapping */
+  text-wrap: pretty;
 }
 
 /* Responsive justify styles */
 @media (max-width: 768px) {
   .has-text-align-justify {
-    word-spacing: 0.1em;
+    word-spacing: 0.05em;
     /* More aggressive orphan/widow control on mobile */
     orphans: 3;
     widows: 3;
@@ -61,7 +66,7 @@
 .has-text-align-justify h5,
 .has-text-align-justify h6 {
   /* Better word spacing to reduce orphans */
-  word-spacing: 0.1em;
+  word-spacing: 0.05em;
   letter-spacing: 0.01em;
 }
 
@@ -84,4 +89,4 @@
   font-variant-ligatures: common-ligatures;
 }
 
-/*# sourceMappingURL=style-style-index.css.map*/
+/*# sourceMappingURL=style-text-justify-controls.css.map*/

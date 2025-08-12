@@ -4,7 +4,7 @@ module.exports = {
     ...defaultConfig,
     entry: {
         index: './src/index.tsx',
-        'style-index': './src/style.scss'
+        'text-justify-controls': './src/style.scss'
     },
     output: {
         ...defaultConfig.output,
