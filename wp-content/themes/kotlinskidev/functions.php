@@ -23,6 +23,12 @@ require_once get_template_directory() . '/functions/menus.php';
 // Load custom block patterns
 require_once get_template_directory() . '/functions/patterns.php';
 
+// Load responsive breakpoints helper
+require_once get_template_directory() . '/functions/breakpoints.php';
+
+// Load responsive order controls
+require_once get_template_directory() . '/functions/responsive-order.php';
+
 // Load tailwind CSS
 require_once get_template_directory() . '/functions/tailwind.php';
 

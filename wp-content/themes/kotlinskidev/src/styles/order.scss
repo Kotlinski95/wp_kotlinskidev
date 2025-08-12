@@ -1,0 +1,33 @@
+@import "variables.scss";
+
+/* =============================================================================
+   RESPONSIVE ORDER UTILITY CLASSES
+   For blocks with responsive order controls (-1 to 20)
+============================================================================= */
+
+// Desktop order classes (default - no media query needed)
+@media (min-width: #{$breakpoint-desktop}) {
+  @for $i from -1 through 20 {
+    .order-desktop-#{$i} {
+      order: #{$i};
+    }
+  }
+}
+
+// Tablet order classes
+@media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 1px}) {
+  @for $i from -1 through 20 {
+    .order-tablet-#{$i} {
+      order: #{$i};
+    }
+  }
+}
+
+// Mobile order classes
+@media (max-width: #{$breakpoint-mobile}) {
+  @for $i from -1 through 20 {
+    .order-mobile-#{$i} {
+      order: #{$i};
+    }
+  }
+}
