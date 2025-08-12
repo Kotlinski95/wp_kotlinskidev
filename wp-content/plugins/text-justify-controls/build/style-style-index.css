@@ -1,0 +1,87 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/@wordpress/scripts/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/* Frontend styles for text justify controls */
+.has-text-align-justify {
+  text-align: justify !important;
+  text-justify: inter-word;
+  word-spacing: 0.05em;
+  /* Prevent orphaned words (widows and orphans) */
+  orphans: 2;
+  widows: 2;
+  /* Enhanced hyphenation for better line breaks */
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  /* Prevent short words from being orphaned at line end */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Responsive justify styles */
+@media (max-width: 768px) {
+  .has-text-align-justify {
+    word-spacing: 0.1em;
+    /* More aggressive orphan/widow control on mobile */
+    orphans: 3;
+    widows: 3;
+  }
+}
+/* Improved readability for justified text */
+.has-text-align-justify p,
+.has-text-align-justify h1,
+.has-text-align-justify h2,
+.has-text-align-justify h3,
+.has-text-align-justify h4,
+.has-text-align-justify h5,
+.has-text-align-justify h6 {
+  text-align: justify;
+  text-justify: inter-word;
+  /* Prevent single words at the end of paragraphs */
+  orphans: 2;
+  widows: 2;
+}
+
+/* Advanced typography rules for Polish and English */
+/* Prevent specific short words from being orphaned at line end */
+.has-text-align-justify {
+  /* Use non-breaking spaces after short words */
+}
+.has-text-align-justify::after {
+  content: "";
+}
+
+/* Target specific short words that should never be orphaned */
+.has-text-align-justify p,
+.has-text-align-justify h1,
+.has-text-align-justify h2,
+.has-text-align-justify h3,
+.has-text-align-justify h4,
+.has-text-align-justify h5,
+.has-text-align-justify h6 {
+  /* Better word spacing to reduce orphans */
+  word-spacing: 0.1em;
+  letter-spacing: 0.01em;
+}
+
+/* Enhanced line breaking rules */
+.has-text-align-justify {
+  /* Prevent breaking after prepositions and conjunctions */
+  text-wrap: pretty; /* Modern browsers */
+  /* Fallback for older browsers */
+  word-break: normal;
+  line-break: strict;
+  /* Better handling of Polish diacritics and special characters */
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-kerning: normal;
+}
+
+/* Specific rules for common short words */
+.has-text-align-justify {
+  /* Enhanced text rendering for better typography */
+  text-rendering: optimizeLegibility;
+  font-variant-ligatures: common-ligatures;
+}
+
+/*# sourceMappingURL=style-style-index.css.map*/

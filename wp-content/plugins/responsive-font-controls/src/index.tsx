@@ -297,17 +297,6 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
 }) => {
   const [showCustom, setShowCustom] = React.useState(isCustom);
   
-  // Debug: Log what values we're receiving
-  React.useEffect(() => {
-    console.log(`${label} BreakpointControl:`, {
-      value,
-      isCustom,
-      presetValue,
-      customValue,
-      showCustom
-    });
-  }, [label, value, isCustom, presetValue, customValue, showCustom]);
-  
   // Sync local state with prop when isCustom changes (e.g., after page refresh)
   React.useEffect(() => {
     setShowCustom(isCustom);
@@ -455,11 +444,6 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
   const fontSizeOptions = getFontSizeOptions();
   const [isExpanded, setIsExpanded] = React.useState(false);
   const breakpoints = getBreakpoints();
-
-  // Debug: Log what we're getting from attributes
-  React.useEffect(() => {
-    console.log('ResponsiveFontSize attributes:', responsiveFontSize);
-  }, [responsiveFontSize]);
 
   const updateResponsiveFontSize = (
     device: keyof ResponsiveFontSize,

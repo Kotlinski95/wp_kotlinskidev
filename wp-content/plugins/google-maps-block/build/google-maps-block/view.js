@@ -1,1 +1,0 @@
-console.log("Hello World! (from googlemaps-google-maps-block block)");

@@ -8,7 +8,6 @@ function contact_form_ts_register_block() {
 add_action( 'init', 'contact_form_ts_register_block' );
 
 function contact_form_ts_render( $attributes, $content = '', $block = null ) {
-    // error_log('contact_form_ts_render called');
     ob_start();
     // Show success message if present in URL
     if (isset($_GET['contact-success'])) {
