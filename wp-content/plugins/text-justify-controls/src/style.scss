@@ -17,11 +17,16 @@
   hyphenate-limit-chars: 6 3 3; /* min word length, min chars before/after hyphen */
 
   /* Better word breaking to avoid large gaps */
+  /* Fallback for older browsers - allows breaking long words */
   word-break: normal;
+  /* Modern browsers with better phrase-aware breaking */
+  word-break: auto-phrase;
   overflow-wrap: break-word;
 
   /* Modern CSS for better text wrapping */
   text-wrap: pretty;
+  /* Additional property for better text rendering */
+  text-rendering: optimizeLegibility; 
 }
 
 /* Responsive justify styles */
@@ -77,8 +82,10 @@
   /* Prevent breaking after prepositions and conjunctions */
   text-wrap: pretty; /* Modern browsers */
 
-  /* Fallback for older browsers */
+  /* Fallback for older browsers - allows breaking long words */
   word-break: normal;
+  /* Modern browsers with better phrase-aware breaking */
+  word-break: auto-phrase;
   line-break: strict;
 
   /* Better handling of Polish diacritics and special characters */
