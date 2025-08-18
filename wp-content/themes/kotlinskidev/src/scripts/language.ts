@@ -18,17 +18,3 @@
     }
   });
 })();
-
-// document.addEventListener('DOMContentLoaded', function () {
-//   const languageLinks = document.querySelectorAll('.language-switcher a[data-locale]');
-//   languageLinks.forEach(link => {
-//     link.addEventListener('click', function (this: HTMLInputElement, event) {
-//           event.preventDefault();
-//           const selectedLocale = this.getAttribute('data-locale');
-
-//           document.cookie = "site_language=" + selectedLocale + "; path=/; max-age=31536000";
-
-//           window.location.reload();
-//       });
-//   });
-// });

@@ -28,7 +28,6 @@ body {
 }
 
 .light-mode {
-
   .custom-logo,
   .kotlinskidev-logo,
   .invert-light {
@@ -110,7 +109,6 @@ span:empty {
 }
 
 @media (min-width: $breakpoint-desktop) {
-
   .mobile-only,
   .tablet-only {
     display: none !important;
@@ -125,7 +123,7 @@ span:empty {
   }
 }
 
-@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop - 1) {
+@media (min-width: $breakpoint-tablet-wp) and (max-width: $breakpoint-desktop - 1) {
   .mobile-only {
     display: none !important;
   }
@@ -148,7 +146,6 @@ span:empty {
 }
 
 @media (max-width: $breakpoint-mobile) {
-
   .tablet-only,
   .desktop-only {
     display: none !important;

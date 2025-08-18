@@ -202,7 +202,7 @@
                 ?>
             </div>
             
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:5px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:15px;flex-wrap:wrap;">
                 <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;display:flex;flex-wrap:wrap;row-gap:5px;">
                     <?php 
                     if (!empty($post_categories)) {

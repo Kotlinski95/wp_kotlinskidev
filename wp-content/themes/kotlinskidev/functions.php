@@ -29,6 +29,9 @@ require_once get_template_directory() . '/functions/breakpoints.php';
 // Load responsive order controls
 require_once get_template_directory() . '/functions/responsive-order.php';
 
+// Load responsive display controls
+require_once get_template_directory() . '/functions/responsive-display.php';
+
 // Load tailwind CSS
 require_once get_template_directory() . '/functions/tailwind.php';
 

@@ -260,7 +260,7 @@ header::before {
     box-sizing: border-box;
   }
 
-  @media (min-width: $breakpoint-tablet) {
+  @media (min-width: $breakpoint-tablet-wp) {
     max-width: 700px;
     right: -1400px;
     border-left-width: 2px;
@@ -272,7 +272,7 @@ header::before {
 #hamburger-menu.open {
   transform: translateX(-100%);
   background-color: $black;
-  @media (min-width: $breakpoint-tablet) {
+  @media (min-width: $breakpoint-tablet-wp) {
     right: -700px;
   }
 }
