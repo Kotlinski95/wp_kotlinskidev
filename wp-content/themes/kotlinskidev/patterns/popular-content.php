@@ -49,7 +49,7 @@
                     <a href="<?php the_permalink(); ?>">
                         <img src="<?php the_post_thumbnail_url('medium'); ?>" 
                              alt="<?php the_title(); ?>" 
-                             style="width:100%;height:150px;object-fit:cover;border-radius:12px;" />
+                             style="width:100%;height:150px;object-fit:contain;border-radius:12px;" />
                     </a>
                 </div>
             <?php endif; ?>

@@ -1,0 +1,378 @@
+@import "variables";
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.grid {
+  display: grid;
+}
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.justify-self-start {
+  justify-self: start;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+.justify-self-stretch {
+  justify-self: stretch;
+}
+
+.justify-self-baseline {
+  justify-self: baseline;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.align-self-start {
+  align-self: start;
+}
+
+.align-self-end {
+  align-self: end;
+}
+
+.align-self-stretch {
+  align-self: stretch;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-items-start {
+  align-items: start;
+}
+
+.align-items-end {
+  align-items: end;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-start {
+  justify-content: start;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+.justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+/* Mobile-only classes (below 480px) */
+@media (max-width: ($breakpoint-mobile - 1px)) {
+  .mobile\:block {
+    display: block;
+  }
+
+  .mobile\:flex {
+    display: flex;
+  }
+
+  .mobile\:flex-row {
+    flex-direction: row;
+  }
+
+  .mobile\:flex-column {
+    flex-direction: column;
+  }
+
+  .mobile\:grid {
+    display: grid;
+  }
+
+  .mobile\:justify-self-center {
+    justify-self: center;
+  }
+
+  .mobile\:justify-self-start {
+    justify-self: start;
+  }
+
+  .mobile\:justify-self-end {
+    justify-self: end;
+  }
+
+  .mobile\:justify-self-stretch {
+    justify-self: stretch;
+  }
+
+  .mobile\:justify-self-baseline {
+    justify-self: baseline;
+  }
+
+  .mobile\:align-self-center {
+    align-self: center;
+  }
+
+  .mobile\:align-self-start {
+    align-self: start;
+  }
+
+  .mobile\:align-self-end {
+    align-self: end;
+  }
+
+  .mobile\:align-self-stretch {
+    align-self: stretch;
+  }
+
+  .mobile\:align-items-center {
+    align-items: center;
+  }
+
+  .mobile\:align-items-start {
+    align-items: start;
+  }
+
+  .mobile\:align-items-end {
+    align-items: end;
+  }
+
+  .mobile\:justify-content-center {
+    justify-content: center;
+  }
+
+  .mobile\:justify-content-start {
+    justify-content: start;
+  }
+
+  .mobile\:justify-content-end {
+    justify-content: end;
+  }
+
+  .mobile\:justify-content-space-between {
+    justify-content: space-between;
+  }
+
+  .mobile\:justify-content-space-around {
+    justify-content: space-around;
+  }
+
+  .mobile\:justify-content-space-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+/* Tablet classes (480px and above) */
+@media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-desktop - 1px)) {
+  .tablet\:block {
+    display: block;
+  }
+
+  .tablet\:flex {
+    display: flex;
+  }
+
+  .tablet\:flex-row {
+    flex-direction: row;
+  }
+
+  .tablet\:flex-column {
+    flex-direction: column;
+  }
+
+  .tablet\:grid {
+    display: grid;
+  }
+
+  .tablet\:justify-self-center {
+    justify-self: center;
+  }
+
+  .tablet\:justify-self-start {
+    justify-self: start;
+  }
+
+  .tablet\:justify-self-end {
+    justify-self: end;
+  }
+
+  .tablet\:justify-self-stretch {
+    justify-self: stretch;
+  }
+
+  .tablet\:justify-self-baseline {
+    justify-self: baseline;
+  }
+
+  .tablet\:align-self-center {
+    align-self: center;
+  }
+
+  .tablet\:align-self-start {
+    align-self: start;
+  }
+
+  .tablet\:align-self-end {
+    align-self: end;
+  }
+
+  .tablet\:align-self-stretch {
+    align-self: stretch;
+  }
+
+  .tablet\:align-items-center {
+    align-items: center;
+  }
+
+  .tablet\:align-items-start {
+    align-items: start;
+  }
+
+  .tablet\:align-items-end {
+    align-items: end;
+  }
+
+  .tablet\:justify-content-center {
+    justify-content: center;
+  }
+
+  .tablet\:justify-content-start {
+    justify-content: start;
+  }
+
+  .tablet\:justify-content-end {
+    justify-content: end;
+  }
+
+  .tablet\:justify-content-space-between {
+    justify-content: space-between;
+  }
+
+  .tablet\:justify-content-space-around {
+    justify-content: space-around;
+  }
+
+  .tablet\:justify-content-space-evenly {
+    justify-content: space-evenly;
+  }
+}
+
+/* Desktop classes (1024px and above) */
+@media (min-width: $breakpoint-desktop) {
+  .desktop\:block {
+    display: block;
+  }
+
+  .desktop\:flex {
+    display: flex;
+  }
+
+  .desktop\:flex-row {
+    flex-direction: row;
+  }
+
+  .desktop\:flex-column {
+    flex-direction: column;
+  }
+
+  .desktop\:grid {
+    display: grid;
+  }
+
+  .desktop\:justify-self-center {
+    justify-self: center;
+  }
+
+  .desktop\:justify-self-start {
+    justify-self: start;
+  }
+
+  .desktop\:justify-self-end {
+    justify-self: end;
+  }
+
+  .desktop\:justify-self-stretch {
+    justify-self: stretch;
+  }
+
+  .desktop\:justify-self-baseline {
+    justify-self: baseline;
+  }
+
+  .desktop\:align-self-center {
+    align-self: center;
+  }
+
+  .desktop\:align-self-start {
+    align-self: start;
+  }
+
+  .desktop\:align-self-end {
+    align-self: end;
+  }
+
+  .desktop\:align-self-stretch {
+    align-self: stretch;
+  }
+
+  .desktop\:align-items-center {
+    align-items: center;
+  }
+
+  .desktop\:align-items-start {
+    align-items: start;
+  }
+
+  .desktop\:align-items-end {
+    align-items: end;
+  }
+
+  .desktop\:justify-content-center {
+    justify-content: center;
+  }
+
+  .desktop\:justify-content-start {
+    justify-content: start;
+  }
+
+  .desktop\:justify-content-end {
+    justify-content: end;
+  }
+
+  .desktop\:justify-content-space-between {
+    justify-content: space-between;
+  }
+
+  .desktop\:justify-content-space-around {
+    justify-content: space-around;
+  }
+
+  .desktop\:justify-content-space-evenly {
+    justify-content: space-evenly;
+  }
+}

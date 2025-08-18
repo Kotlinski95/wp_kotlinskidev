@@ -60,7 +60,7 @@
                 <?php echo wp_trim_words(get_the_excerpt(), 30, '...'); ?>
             </div>
             
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:15px;flex-wrap:wrap;">
                 <?php 
                 $post_tags = get_the_tags();
                 $tag_names = array();

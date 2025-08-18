@@ -13,7 +13,7 @@
 .is-kotlinskidev-nowrap {
   flex-wrap: wrap;
 
-  @media (min-width: $tablet) {
+  @media (min-width: $breakpoint-tablet-wp) {
     flex-wrap: nowrap;
   }
 }
