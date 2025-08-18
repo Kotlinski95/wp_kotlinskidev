@@ -129,7 +129,18 @@ const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => 
     return (props: any) => {
         const { attributes, setAttributes } = props;
         const { responsiveDisplay = { desktop: {}, tablet: {}, mobile: {} } } = attributes;
-        const [displayAdvancedOpen, setDisplayAdvancedOpen] = useState(false);
+        
+        // Check if there are any responsive display settings configured
+        const hasResponsiveSettings = () => {
+            const checkDevice = (device: any) => {
+                return device && Object.values(device).some((value: any) => value && value !== '');
+            };
+            return checkDevice(responsiveDisplay.desktop) || 
+                   checkDevice(responsiveDisplay.tablet) || 
+                   checkDevice(responsiveDisplay.mobile);
+        };
+        
+        const [displayAdvancedOpen, setDisplayAdvancedOpen] = useState(hasResponsiveSettings());
         const breakpoints = getBreakpoints();
 
         const updateResponsiveDisplay = (device: string, property: string, value: string) => {
