@@ -35,12 +35,20 @@ function fix_polylang_accessibility() {
                 }
             });
             
-            // Fix any language flag images that might be missing alt text
+            // Fix language flag images - remove alt text if there's a span with language text
             const langImages = document.querySelectorAll('.pll-parent-menu-item img, .lang-item img');
             langImages.forEach(function(img) {
-                if (!img.getAttribute('alt')) {
-                    const parentLink = img.closest('a');
-                    if (parentLink) {
+                const parentLink = img.closest('a');
+                if (parentLink) {
+                    // Check if there's a span with text content in the same link
+                    const spanWithText = parentLink.querySelector('span');
+                    if (spanWithText && spanWithText.textContent.trim()) {
+                        // Remove alt attribute to avoid duplicate announcements
+                        img.removeAttribute('alt');
+                        // Set empty alt to make it decorative
+                        img.setAttribute('alt', '');
+                    } else if (!img.getAttribute('alt')) {
+                        // Only add alt text if there's no span with text
                         const linkText = parentLink.textContent.trim();
                         img.setAttribute('alt', linkText || 'Language flag');
                     }
