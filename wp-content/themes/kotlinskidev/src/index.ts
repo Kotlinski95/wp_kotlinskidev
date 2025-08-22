@@ -7,6 +7,7 @@ import "./scripts/theme-switcher";
 import "./scripts/scroll-animations";
 import "./scripts/image-lightbox";
 import "./scripts/smooth-scroll-offset";
+import "./scripts/parallax";
 
 document.addEventListener("DOMContentLoaded", function () {
   document.body.classList.add("loaded");
