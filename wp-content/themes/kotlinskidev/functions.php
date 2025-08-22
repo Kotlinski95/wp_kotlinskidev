@@ -32,6 +32,9 @@ require_once get_template_directory() . '/functions/responsive-order.php';
 // Load responsive display controls
 require_once get_template_directory() . '/functions/responsive-display.php';
 
+// Load parallax frontend support
+require_once get_template_directory() . '/inc/parallax-frontend.php';
+
 // Load tailwind CSS
 require_once get_template_directory() . '/functions/tailwind.php';
 
@@ -72,6 +75,9 @@ require_once get_template_directory() . '/functions/video-poster.php';
 
 // Cover image classes for lazy loading control
 require_once get_template_directory() . '/functions/cover-image-classes.php';
+
+// Polylang accessibility fixes
+require_once get_template_directory() . '/functions/polylang-accessibility.php';
 
 // Additional theme filters
 require_once get_template_directory() . '/functions/filters.php';

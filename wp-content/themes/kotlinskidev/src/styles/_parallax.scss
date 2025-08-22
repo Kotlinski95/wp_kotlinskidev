@@ -1,0 +1,125 @@
+// Universal parallax for all cover blocks
+.wp-block-cover.enable-parallax {
+  position: relative;
+  overflow: hidden;
+  min-height: 50vh; // More flexible than 100vh for general use
+
+  // Parallax background wrapper (hidden by default)
+  .parallax-bg-wrapper {
+    display: block;
+    position: absolute;
+    top: -20%;
+    left: 0;
+    right: 0;
+    bottom: -20%;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  // Parallax background image
+  .parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    object-fit: cover;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  // Ensure overlay stays in position
+  .wp-block-cover__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  // Content container
+  .wp-block-cover__inner-container {
+    position: relative;
+    z-index: 3;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  // Parallax content elements
+  .parallax-content {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.1s ease-out;
+  }
+}
+
+// Keep home banner specific styles for existing patterns
+.home-banner {
+  // Hide instructions note in frontend
+  .banner-instructions {
+    display: none;
+  }
+
+  // Default background image
+  .default-bg {
+    display: block;
+  }
+
+  // Parallax background wrapper (hidden by default)
+  .parallax-bg-wrapper {
+    display: none;
+  }
+
+  // When parallax is enabled via class or block settings
+  &.enable-parallax {
+    min-height: 100vh; // Full height for banners
+
+    .default-bg {
+      display: none;
+    }
+
+    .parallax-bg-wrapper {
+      display: block;
+    }
+  }
+}
+
+// Performance optimizations
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-cover.enable-parallax {
+    .parallax-bg,
+    .parallax-content {
+      transform: none !important;
+      will-change: auto;
+    }
+  }
+}
+
+// Mobile optimizations - reduce parallax on smaller screens
+@media (max-width: 768px) {
+  .wp-block-cover.enable-parallax {
+    .parallax-bg {
+      height: 110%;
+    }
+    
+    .parallax-bg-wrapper {
+      top: -10%;
+      bottom: -10%;
+    }
+  }
+}
+
+// Enhanced fade-in animation for parallax content
+.wp-block-cover.enable-parallax .parallax-content.fade-up-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 2rem, 0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  
+  &.visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -5,3 +5,4 @@ import './blocks/hover-animation-controls/index';
 import './blocks/cover-lazy-loading/index';
 import './blocks/responsive-order/index.tsx';
 import './blocks/responsive-display/index.tsx';
+import './blocks/parallax/index.tsx';

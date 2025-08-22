@@ -1,70 +1,72 @@
 // Dark mode support
 @media (prefers-color-scheme: dark) {
-    html:not(.light-mode) .contact-form-block {
-        background: var(--wp--preset--color--background, #23272A);
-        color: var(--wp--preset--color--foreground, inherit);
-        box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
-    }
+  html:not(.light-mode) .contact-form-block {
+    color: var(--wp--preset--color--foreground, inherit);
+  }
 
-    html:not(.light-mode) .contact-form-block label {
-        color: var(--wp--preset--color--foreground, inherit);
-    }
+  html:not(.light-mode) .contact-form-block label {
+    color: var(--wp--preset--color--foreground, inherit);
+  }
 
-    html:not(.light-mode) .contact-form-block input,
-    html:not(.light-mode) .contact-form-block textarea {
-        background: var(--wp--preset--color--input-background, transparent);
-        color: var(--wp--preset--color--foreground, inherit);
-        border-color: var(--wp--preset--color--border, #d1d5db);
-    }
+  html:not(.light-mode) .contact-form-block input,
+  html:not(.light-mode) .contact-form-block textarea {
+    background: var(--wp--preset--color--input-background, transparent);
+    color: var(--wp--preset--color--foreground, inherit);
+    border-color: var(--wp--preset--color--border, #d1d5db);
+  }
 
-    html:not(.light-mode) .contact-form-block input:focus,
-    html:not(.light-mode) .contact-form-block textarea:focus {
-        background: var(--wp--preset--color--background, transparent);
-        border-color: var(--wp--preset--color--primary, #7DD3FC);
-    }
+  html:not(.light-mode) .contact-form-block input:focus,
+  html:not(.light-mode) .contact-form-block textarea:focus {
+    background: var(--wp--preset--color--background, transparent);
+    border-color: var(--wp--preset--color--primary, #7dd3fc);
+  }
 
-    html:not(.light-mode) .contact-form-block button {
-        background: var(--wp--preset--color--primary, #7DD3FC);
-        color: var(--wp--preset--color--button-text, inherit);
-    }
+  html:not(.light-mode) .contact-form-block button {
+    background: var(--wp--preset--color--primary, #7dd3fc);
+    color: var(--wp--preset--color--button-text, inherit);
+  }
 
-    html:not(.light-mode) .contact-form-block button:hover,
-    html:not(.light-mode) .contact-form-block button:focus {
-        background: var(--wp--preset--color--primary-hover, #38bdf8);
-        color: var(--wp--preset--color--button-text, inherit);
-    }
+  html:not(.light-mode) .contact-form-block button:hover,
+  html:not(.light-mode) .contact-form-block button:focus {
+    background: var(--wp--preset--color--primary-hover, #38bdf8);
+    color: var(--wp--preset--color--button-text, inherit);
+  }
 }
 
 .dark-mode .contact-form-block {
-    background: var(--wp--preset--color--background, #23272A);
-    color: var(--wp--preset--color--foreground, inherit);
-    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
+  color: var(--wp--preset--color--foreground, inherit);
 }
 
 .dark-mode .contact-form-block label {
-    color: var(--wp--preset--color--foreground, inherit);
+  color: var(--wp--preset--color--foreground, inherit);
 }
 
 .dark-mode .contact-form-block input,
 .dark-mode .contact-form-block textarea {
-    background: var(--wp--preset--color--input-background, transparent);
-    color: var(--wp--preset--color--foreground, inherit);
-    border-color: var(--wp--preset--color--border, #d1d5db);
+  background: var(--wp--preset--color--input-background, transparent);
+  color: var(--wp--preset--color--foreground, inherit);
+  border-color: var(--wp--preset--color--border, #d1d5db);
 }
 
 .dark-mode .contact-form-block input:focus,
 .dark-mode .contact-form-block textarea:focus {
-    background: var(--wp--preset--color--background, #23272A);
-    border-color: var(--wp--preset--color--primary, #7DD3FC);
+  background: var(--wp--preset--color--background, #23272a);
+  border-color: var(--wp--preset--color--primary, #7dd3fc);
 }
 
 .dark-mode .contact-form-block button {
-    background: var(--wp--preset--color--primary, #7DD3FC);
-    color: var(--wp--preset--color--button-text, inherit);
+  background: var(--wp--preset--color--primary, #7dd3fc);
+  color: var(--wp--preset--color--button-text, inherit);
 }
 
 .dark-mode .contact-form-block button:hover,
-.dark-mode .contact-form-block button:focus {
-    background: var(--wp--preset--color--primary-hover, #38bdf8);
-    color: var(--wp--preset--color--button-text, inherit);
+.dark-mode  button:focus {
+  background: var(--wp--preset--color--primary-hover, #38bdf8);
+  color: var(--wp--preset--color--button-text, inherit);
+}
+
+.contact-form-block {
+    background: transparent !important;
+    box-shadow: none !important;;
+    border: none !important;
 }
