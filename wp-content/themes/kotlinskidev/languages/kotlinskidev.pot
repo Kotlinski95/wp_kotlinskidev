@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-03-22 09:25+0000\n"
+"POT-Creation-Date: 2025-08-25 07:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
@@ -178,7 +178,9 @@ msgstr ""
 msgid "Looking for something else?"
 msgstr ""
 
-msgid "Try searching for a different term or explore more content using the search form below."
+msgid ""
+"Try searching for a different term or explore more content using the search "
+"form below."
 msgstr ""
 
 msgid "No results found"
@@ -298,6 +300,9 @@ msgid "Read"
 msgstr ""
 
 #. Tag strings
+msgid "Tags"
+msgstr ""
+
 msgid "Tag:"
 msgstr ""
 
@@ -336,9 +341,6 @@ msgstr ""
 msgid "Topics"
 msgstr ""
 
-msgid "Blog"
-msgstr ""
-
 #. Polish search page
 msgid "Polish Search Page"
 msgstr ""
@@ -360,4 +362,7 @@ msgid "Page %d of %d"
 msgstr ""
 
 msgid "View Page"
+msgstr ""
+
+msgid "Helpful Link"
 msgstr ""

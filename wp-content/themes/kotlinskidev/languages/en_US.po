@@ -10,15 +10,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2025-08-01 14:03+0000\n"
+"PO-Revision-Date: 2025-08-25 07:07+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.6.14; wp-6.6.1"
 
+msgid " in %s"
+msgstr " in %s"
+
 msgid " with your current filters"
 msgstr " with your current filters"
+
+msgid " • %s only"
+msgstr " • %s only"
 
 msgctxt "404"
 msgid "Categories"
@@ -140,6 +146,10 @@ msgstr ""
 "complex technical challenges, I bring a results-driven mindset to every "
 "project."
 
+#. New search results translations
+msgid "Found %d results"
+msgstr "Found %d results"
+
 msgid "Highly Related"
 msgstr "Highly Related"
 
@@ -208,11 +218,18 @@ msgstr "Other Topics"
 msgid "Page"
 msgstr "Page"
 
+msgid "Page %d of %d"
+msgstr "Page %d of %d"
+
 msgid "Pages"
 msgstr "Pages"
 
 msgid "Policy"
 msgstr "Privacy Policy"
+
+#. Polish search page
+msgid "Polish Search Page"
+msgstr ""
 
 #. Popular Content strings
 msgid "Popular Content"
@@ -285,12 +302,18 @@ msgstr "See My Popular Posts"
 msgid "Services"
 msgstr "Services"
 
+msgid "Showing results for \"%s\""
+msgstr "Showing results for \"%s\""
+
 msgid "Similar Tags"
 msgstr "Similar Tags"
 
-#. Tag strings
 msgid "Tag:"
 msgstr "Tag:"
+
+#. Tag strings
+msgid "Tags"
+msgstr "Tags"
 
 msgid "Terms and Conditions"
 msgstr "Terms and Conditions"
@@ -335,6 +358,9 @@ msgstr "View All Articles"
 msgid "View Articles"
 msgstr "View Articles"
 
+msgid "View Page"
+msgstr "View Page"
+
 msgid "We couldn't find any content matching \"%s\""
 msgstr "We couldn't find any content matching \"%s\""
 
@@ -349,22 +375,3 @@ msgstr "Website performance"
 
 msgid "Welcome to My Site"
 msgstr "Welcome to My Site"
-
-#. New search results translations
-msgid "Found %d results"
-msgstr "Found %d results"
-
-msgid "Showing results for \"%s\""
-msgstr "Showing results for \"%s\""
-
-msgid " in %s"
-msgstr " in %s"
-
-msgid " • %s only"
-msgstr " • %s only"
-
-msgid "Page %d of %d"
-msgstr "Page %d of %d"
-
-msgid "View Page"
-msgstr "View Page"

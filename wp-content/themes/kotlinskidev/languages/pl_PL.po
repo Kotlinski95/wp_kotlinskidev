@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2025-08-04 10:02+0000\n"
+"PO-Revision-Date: 2025-08-25 07:43+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: pl_PL\n"
@@ -18,8 +18,14 @@ msgstr ""
 "&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "X-Loco-Version: 2.7.1; wp-6.8.1"
 
+msgid " in %s"
+msgstr " w %s"
+
 msgid " with your current filters"
 msgstr " z Twoimi obecnymi filtrami"
+
+msgid " • %s only"
+msgstr " • tylko %s"
 
 msgctxt "404"
 msgid "Categories"
@@ -135,9 +141,6 @@ msgstr "W jakiej technologi napisana jest ta strona??"
 msgid "Find articles, pages, and resources across our entire site"
 msgstr "Znajdź artykuły, strony i zasoby na całej naszej stronie"
 
-msgid "Found %d results"
-msgstr "Znaleziono %d wyników"
-
 msgid "Footer description"
 msgstr ""
 "Jako starszy inżynier oprogramowania z 5-letnim doświadczeniem specjalizuję "
@@ -147,6 +150,14 @@ msgstr ""
 "internetowych, optymalizację systemów frontendowych, czy prowadzenie "
 "zespołów przez złożone wyzwania techniczne, do każdego projektu wnoszę "
 "nastawienie na wyniki."
+
+#. New search results translations
+msgid "Found %d results"
+msgstr "Znaleziono %d wyników"
+
+#, fuzzy
+msgid "Helpful Link"
+msgstr "Pomocne linki"
 
 msgid "Highly Related"
 msgstr "Silnie powiązane"
@@ -304,9 +315,12 @@ msgstr "Wyświetlanie wyników dla \"%s\""
 msgid "Similar Tags"
 msgstr "Podobne tagi"
 
-#. Tag strings
 msgid "Tag:"
 msgstr "Tag:"
+
+#. Tag strings
+msgid "Tags"
+msgstr "Tagii"
 
 msgid "Terms and Conditions"
 msgstr "Zasady i warunki"
@@ -368,10 +382,3 @@ msgstr "Poprawa wydajności stron internetowych"
 
 msgid "Welcome to My Site"
 msgstr "Witaj na mojej stronie"
-
-#. New search results translations
-msgid " in %s"
-msgstr " w %s"
-
-msgid " • %s only"
-msgstr " • tylko %s"
