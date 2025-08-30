@@ -183,12 +183,12 @@ function mytheme_customize_css()
             color: <?php echo esc_attr($dark_text_color); ?>;
         }
 
-        .dark-mode a {
+        .dark-mode a:not(.custom-color) {
             color: <?php echo esc_attr($dark_link_color); ?>;
             transition: color 0.3s ease-in-out;
         }
 
-        .dark-mode a:hover {
+        .dark-mode a:not(.custom-color):hover {
             color: <?php echo esc_attr($dark_link_color_hover); ?>;
         }
 
@@ -198,11 +198,11 @@ function mytheme_customize_css()
             color: <?php echo esc_attr($text_color); ?>;
         }
 
-        .light-mode a {
+        .light-mode a:not(.custom-color) {
             color: <?php echo esc_attr($link_color); ?>;
         }
 
-        .light-mode a:hover {
+        .light-mode a:not(.custom-color):hover {
             color: <?php echo esc_attr($link_color_hover); ?>;
         }
     </style>

@@ -7,12 +7,6 @@ add_action('wp_head', function () {
         }
 
         /* contact page above fold inlinestyles */
-        .contact-above-fold [class*="wp-container-core-group-is-layout"] {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: var(--wp--preset--spacing--20);
-        }
-
         .contact-above-fold h2{
             font-size: var(--wp--preset--font-size--xx-large);
             line-height: 1.6;
@@ -21,9 +15,6 @@ add_action('wp_head', function () {
         .contact-above-fold h2 ~ p{
             font-size: var(--wp--preset--font-size--normal);
             line-height: 1.6;
-        }
-        .contact-above-fold .wp-block-column.is-vertically-aligned-top {
-            align-self: flex-start;
         }
 
         /* Social media icons */
@@ -110,7 +101,9 @@ add_action('wp_head', function () {
 
 add_action('wp_head', function () {
 ?>
-    <link rel="preload" as="font" type="font/ttf" href="<?php echo get_theme_file_uri('assets/fonts/sora/Sora-VariableFont_wght.ttf'); ?>" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="<?php echo get_theme_file_uri('assets/fonts/sora/Sora-VariableFont_wght.woff2'); ?>" crossorigin>
+    <link rel="preconnect" href="https://kotlinskidev.com" crossorigin>
+
 <?php
 }, 1);
 // use this if need to skip the core block styles .css generation in body.

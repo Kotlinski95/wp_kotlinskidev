@@ -52,8 +52,8 @@
         </div>
         <!-- /wp:columns -->
 
-        <!-- wp:columns {"style":{"spacing":{"margin":{"top":"40px","bottom":"-40px"}}}} -->
-        <div class="wp-block-columns" style="margin-top:40px;margin-bottom:-40px">
+        <!-- wp:columns {"style":{"spacing":{"margin":{"top":"40px"}}}} -->
+        <div class="wp-block-columns" style="margin-top:40px">
             <!-- wp:column -->
             <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
                 <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php echo esc_html_x('Pages', '404', 'kotlinskidev') ?></h4>
