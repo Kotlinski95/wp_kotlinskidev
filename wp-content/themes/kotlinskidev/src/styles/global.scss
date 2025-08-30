@@ -7,7 +7,9 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family:
+    "Sora",
+    Arial sans-serif;
   line-height: 1.6;
   overflow-y: auto;
   overflow-x: hidden !important;
@@ -33,10 +35,49 @@ body {
   .invert-light {
     filter: invert(100%);
   }
+
+  .invert-light-0 {
+    filter: invert(0);
+  }
+
+  .invert-light-image {
+    img,
+    [role="img"] {
+      filter: invert(100%);
+    }
+  }
+}
+
+.dark-mode {
+  .invert-dark {
+    filter: invert(100%);
+  }
+
+  .invert-dark-0 {
+    filter: invert(0);
+  }
+
+  .invert-dark-image {
+    img,
+    [role="img"] {
+      filter: invert(100%);
+    }
+  }
 }
 
 .invert {
   filter: invert(100%);
+}
+
+.invert-0 {
+  filter: invert(0);
+}
+
+.color-inherit {
+  color: inherit !important;
+  * {
+    color: inherit !important;
+  }
 }
 
 .hide {
