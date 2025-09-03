@@ -301,3 +301,14 @@ img {
     }
   }
 }
+
+.protection-loading-spinner {
+  width: 1em;
+  height: 1em;
+}
+
+.dark-mode {
+  .protection-loading-spinner {
+    filter: invert(1);
+  }
+}

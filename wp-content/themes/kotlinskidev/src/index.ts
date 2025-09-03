@@ -8,6 +8,7 @@ import "./scripts/scroll-animations";
 import "./scripts/image-lightbox";
 import "./scripts/smooth-scroll-offset";
 import "./scripts/parallax";
+import "./scripts/protected-content";
 
 document.addEventListener("DOMContentLoaded", function () {
   document.body.classList.add("loaded");

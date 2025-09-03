@@ -210,6 +210,11 @@
       "fluid": true,
       "lineHeight": true,
       "customFontSize": true,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": true,
+      "textDecoration": true,
+      "textTransform": true,
       "fontSizes": [
         {
           "slug": "x-small",

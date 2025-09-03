@@ -20,7 +20,14 @@ function kotlinskidev_dynamic_footer_pattern($block_content, $block) {
         // Parse and render the block
         $parsed_blocks = parse_blocks($template_part_block);
         if (!empty($parsed_blocks)) {
-            return render_block($parsed_blocks[0]);
+            $rendered_content = render_block($parsed_blocks[0]);
+            
+            // Apply our protection system to the footer content
+            if (function_exists('kotlinskidev_add_protection_to_content')) {
+                $rendered_content = kotlinskidev_add_protection_to_content($rendered_content);
+            }
+            
+            return $rendered_content;
         }
     }
     
