@@ -12,6 +12,112 @@ function contact_form_ts_handle_form()
     $message = sanitize_textarea_field($_POST['message'] ?? '');
     $agree   = isset($_POST['agree']) ? 'Yes' : 'No';
 
+    // Get block attributes to check if CAPTCHA is enabled
+    $recaptcha_response = $_POST['g-recaptcha-response'] ?? '';
+    $turnstile_response = $_POST['cf-turnstile-response'] ?? '';
+    
+    // Simple way to get the block attributes - we'll need to find the block in the current post
+    global $post;
+    if ($post && has_blocks($post->post_content)) {
+        $blocks = parse_blocks($post->post_content);
+        $contact_block = null;
+        
+        // Find our contact form block
+        foreach ($blocks as $block) {
+            if ($block['blockName'] === 'contact-form-ts/form') {
+                $contact_block = $block;
+                break;
+            }
+        }
+        
+        if ($contact_block) {
+            $enable_captcha = $contact_block['attrs']['enableCaptcha'] ?? false;
+            $captcha_provider = $contact_block['attrs']['captchaProvider'] ?? 'recaptcha';
+            $recaptcha_secret = $contact_block['attrs']['recaptchaSecretKey'] ?? '';
+            $turnstile_secret = $contact_block['attrs']['turnstileSecretKey'] ?? '';
+            
+            // Verify CAPTCHA if enabled
+            if ($enable_captcha) {
+                $captcha_verified = false;
+                
+                if ($captcha_provider === 'recaptcha' && !empty($recaptcha_secret)) {
+                    if (empty($recaptcha_response)) {
+                        $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+                        wp_redirect($redirect_url);
+                        exit;
+                    }
+                    
+                    // Verify reCAPTCHA with Google
+                    $verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+                    $verify_data = [
+                        'secret' => $recaptcha_secret,
+                        'response' => $recaptcha_response,
+                        'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''
+                    ];
+                    
+                    $response = wp_remote_post($verify_url, [
+                        'body' => $verify_data,
+                        'timeout' => 10
+                    ]);
+                    
+                    if (is_wp_error($response)) {
+                        error_log('reCAPTCHA verification failed: ' . $response->get_error_message());
+                        $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+                        wp_redirect($redirect_url);
+                        exit;
+                    }
+                    
+                    $response_body = wp_remote_retrieve_body($response);
+                    $result = json_decode($response_body, true);
+                    
+                    if (!$result['success']) {
+                        error_log('reCAPTCHA verification failed: ' . print_r($result, true));
+                        $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+                        wp_redirect($redirect_url);
+                        exit;
+                    }
+                    
+                } elseif ($captcha_provider === 'turnstile' && !empty($turnstile_secret)) {
+                    if (empty($turnstile_response)) {
+                        $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+                        wp_redirect($redirect_url);
+                        exit;
+                    }
+                    
+                    // Verify Turnstile with Cloudflare
+                    $verify_url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+                    $verify_data = [
+                        'secret' => $turnstile_secret,
+                        'response' => $turnstile_response,
+                        'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''
+                    ];
+                    
+                    $response = wp_remote_post($verify_url, [
+                        'body' => $verify_data,
+                        'timeout' => 10
+                    ]);
+                    
+                    if (is_wp_error($response)) {
+                        error_log('Turnstile verification failed: ' . $response->get_error_message());
+                        $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+                        wp_redirect($redirect_url);
+                        exit;
+                    }
+                    
+                    $response_body = wp_remote_retrieve_body($response);
+                    $result = json_decode($response_body, true);
+                    
+                    if (!$result['success']) {
+                        error_log('Turnstile verification failed: ' . print_r($result, true));
+                        $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+                        wp_redirect($redirect_url);
+                        exit;
+                    }
+                }
+            }
+        }
+    }
+
     // Prepare email
     $admin_email = get_option('admin_email');
     $subject = 'New Contact Form Submission';

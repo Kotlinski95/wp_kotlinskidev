@@ -7,6 +7,8 @@ import {
   TextControl,
   TextareaControl,
   Button,
+  ToggleControl,
+  SelectControl,
 } from "@wordpress/components";
 import "./style.scss";
 
@@ -36,6 +38,12 @@ registerBlockType("contact-form-ts/form", {
       type: "string",
       default: "Sorry, there was an error. Please try again.",
     },
+    enableCaptcha: { type: "boolean", default: false },
+    captchaProvider: { type: "string", default: "recaptcha" },
+    recaptchaSiteKey: { type: "string", default: "" },
+    recaptchaSecretKey: { type: "string", default: "" },
+    turnstileSiteKey: { type: "string", default: "" },
+    turnstileSecretKey: { type: "string", default: "" },
   },
   edit({
     attributes,
@@ -54,6 +62,12 @@ registerBlockType("contact-form-ts/form", {
       submitLabel: string;
       successMessage: string;
       errorMessage: string;
+      enableCaptcha: boolean;
+      captchaProvider: string;
+      recaptchaSiteKey: string;
+      recaptchaSecretKey: string;
+      turnstileSiteKey: string;
+      turnstileSecretKey: string;
     };
     setAttributes: (
       attrs: Partial<{
@@ -69,6 +83,12 @@ registerBlockType("contact-form-ts/form", {
         submitLabel: string;
         successMessage: string;
         errorMessage: string;
+        enableCaptcha: boolean;
+        captchaProvider: string;
+        recaptchaSiteKey: string;
+        recaptchaSecretKey: string;
+        turnstileSiteKey: string;
+        turnstileSecretKey: string;
       }>
     ) => void;
   }) {
@@ -139,6 +159,70 @@ registerBlockType("contact-form-ts/form", {
               onChange={(value) => setAttributes({ errorMessage: value })}
             />
           </PanelBody>
+          
+          <PanelBody title={__("CAPTCHA Settings", "contact-form-ts")} initialOpen={false}>
+            <ToggleControl
+              label={__("Enable CAPTCHA Protection", "contact-form-ts")}
+              checked={attributes.enableCaptcha}
+              onChange={(value) => setAttributes({ enableCaptcha: value })}
+              help={__("Enable CAPTCHA to prevent spam submissions.", "contact-form-ts")}
+            />
+            
+            {attributes.enableCaptcha && (
+              <>
+                <SelectControl
+                  label={__("CAPTCHA Provider", "contact-form-ts")}
+                  value={attributes.captchaProvider}
+                  options={[
+                    { label: __("Google reCAPTCHA v2", "contact-form-ts"), value: "recaptcha" },
+                    { label: __("Cloudflare Turnstile", "contact-form-ts"), value: "turnstile" },
+                  ]}
+                  onChange={(value) => setAttributes({ captchaProvider: value })}
+                  help={__("Choose your preferred CAPTCHA provider.", "contact-form-ts")}
+                />
+                
+                {attributes.captchaProvider === "recaptcha" && (
+                  <>
+                    <TextControl
+                      label={__("reCAPTCHA Site Key", "contact-form-ts")}
+                      value={attributes.recaptchaSiteKey}
+                      onChange={(value) => setAttributes({ recaptchaSiteKey: value })}
+                      help={__("Get your site key from Google reCAPTCHA console.", "contact-form-ts")}
+                      placeholder="6Lc..."
+                    />
+                    <TextControl
+                      label={__("reCAPTCHA Secret Key", "contact-form-ts")}
+                      value={attributes.recaptchaSecretKey}
+                      onChange={(value) => setAttributes({ recaptchaSecretKey: value })}
+                      help={__("Keep this secret! Used for server-side verification.", "contact-form-ts")}
+                      placeholder="6Lc..."
+                      type="password"
+                    />
+                  </>
+                )}
+                
+                {attributes.captchaProvider === "turnstile" && (
+                  <>
+                    <TextControl
+                      label={__("Turnstile Site Key", "contact-form-ts")}
+                      value={attributes.turnstileSiteKey}
+                      onChange={(value) => setAttributes({ turnstileSiteKey: value })}
+                      help={__("Get your site key from Cloudflare dashboard.", "contact-form-ts")}
+                      placeholder="0x4AAA..."
+                    />
+                    <TextControl
+                      label={__("Turnstile Secret Key", "contact-form-ts")}
+                      value={attributes.turnstileSecretKey}
+                      onChange={(value) => setAttributes({ turnstileSecretKey: value })}
+                      help={__("Keep this secret! Used for server-side verification.", "contact-form-ts")}
+                      placeholder="0x4AAA..."
+                      type="password"
+                    />
+                  </>
+                )}
+              </>
+            )}
+          </PanelBody>
         </InspectorControls>
         <form {...blockProps}>
           <label>
@@ -172,6 +256,27 @@ registerBlockType("contact-form-ts/form", {
           <label>
             <input type="checkbox" disabled /> {attributes.agreeLabel}
           </label>
+          
+          {attributes.enableCaptcha && (
+            (attributes.captchaProvider === "recaptcha" && attributes.recaptchaSiteKey) ||
+            (attributes.captchaProvider === "turnstile" && attributes.turnstileSiteKey)
+          ) && (
+            <div className="recaptcha-preview" style={{
+              border: '2px dashed #ccc',
+              padding: '20px',
+              textAlign: 'center',
+              margin: '10px 0',
+              backgroundColor: '#f9f9f9'
+            }}>
+              <p style={{ margin: 0, color: '#666' }}>
+                {attributes.captchaProvider === "recaptcha" 
+                  ? __("reCAPTCHA will appear here", "contact-form-ts")
+                  : __("Cloudflare Turnstile will appear here", "contact-form-ts")
+                }
+              </p>
+            </div>
+          )}
+          
           <Button disabled>
             {attributes.submitLabel}
           </Button>

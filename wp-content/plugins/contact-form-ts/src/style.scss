@@ -113,6 +113,60 @@ form.contact-form-block,
     cursor: not-allowed;
 }
 
+/* CAPTCHA styling - both reCAPTCHA and Turnstile */
+.contact-form-block .g-recaptcha,
+.contact-form-block .cf-turnstile {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Success and error messages */
+.contact-form-success {
+    background-color: #d1fae5;
+    border: 1px solid #10b981;
+    color: #065f46;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.contact-form-error {
+    background-color: #fee2e2;
+    border: 1px solid #ef4444;
+    color: #991b1b;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+/* Dark mode support for messages */
+@media (prefers-color-scheme: dark) {
+    .contact-form-success {
+        background-color: #064e3b;
+        border-color: #10b981;
+        color: #d1fae5;
+    }
+    
+    .contact-form-error {
+        background-color: #7f1d1d;
+        border-color: #ef4444;
+        color: #fee2e2;
+    }
+}
+
+/* reCAPTCHA preview in editor */
+.recaptcha-preview {
+    border: 2px dashed #ccc !important;
+    padding: 20px !important;
+    text-align: center !important;
+    margin: 10px 0 !important;
+    background-color: #f9f9f9 !important;
+    border-radius: 0.5rem !important;
+}
+
 // Responsive styles
 @media (max-width: 900px) {
 
