@@ -5,17 +5,157 @@ add_action('admin_post_contact_form_ts_submit', 'contact_form_ts_handle_form');
 
 function contact_form_ts_handle_form()
 {
-    // Sanitize and collect form data
-    $name    = sanitize_text_field($_POST['name'] ?? '');
-    $email   = sanitize_email($_POST['email'] ?? '');
-    $topic   = sanitize_text_field($_POST['topic'] ?? '');
-    $message = sanitize_textarea_field($_POST['message'] ?? '');
-    $agree   = isset($_POST['agree']) ? 'Yes' : 'No';
+  // Sanitize and collect form data
+  $name    = sanitize_text_field($_POST['name'] ?? '');
+  $email   = sanitize_email($_POST['email'] ?? '');
+  $topic   = sanitize_text_field($_POST['topic'] ?? '');
+  $message = sanitize_textarea_field($_POST['message'] ?? '');
+  $agree   = isset($_POST['agree']) ? 'Yes' : 'No';
 
-    // Prepare email
-    $admin_email = get_option('admin_email');
-    $subject = 'New Contact Form Submission';
-    $body = '<!DOCTYPE html>
+  // Get block attributes to check if CAPTCHA is enabled
+  $recaptcha_response = $_POST['g-recaptcha-response'] ?? '';
+  $turnstile_response = $_POST['cf-turnstile-response'] ?? '';
+
+  // Initialize redirect settings with defaults
+  $redirect_type = 'query_param';
+  $thank_you_page_url = '';
+
+  // Get the post that contains the form from the referer URL
+  $referer = wp_get_referer();
+  $post_id = null;
+  $contact_block = null;
+
+  if ($referer) {
+    $post_id = url_to_postid($referer);
+
+    if ($post_id) {
+      $post = get_post($post_id);
+    }
+  }
+
+  // Fallback to global post if we couldn't get it from referer
+  if (!$post) {
+    global $post;
+  }
+
+  if ($post && has_blocks($post->post_content)) {
+    $blocks = parse_blocks($post->post_content);
+
+    // Recursive function to find contact form block in nested blocks
+    function find_contact_form_block($blocks, $depth = 0)
+    {
+      foreach ($blocks as $block) {
+        if ($block['blockName'] === 'contact-form-ts/form') {
+          return $block;
+        }
+
+        // Check inner blocks recursively
+        if (!empty($block['innerBlocks'])) {
+          $found = find_contact_form_block($block['innerBlocks'], $depth + 1);
+          if ($found) {
+            return $found;
+          }
+        }
+      }
+      return null;
+    }
+
+    // Find our contact form block (including nested ones)
+    $contact_block = find_contact_form_block($blocks);
+  }
+
+  if ($contact_block) {
+    $enable_captcha = $contact_block['attrs']['enableCaptcha'] ?? false;
+    $captcha_provider = $contact_block['attrs']['captchaProvider'] ?? 'recaptcha';
+    $recaptcha_secret = $contact_block['attrs']['recaptchaSecretKey'] ?? '';
+    $turnstile_secret = $contact_block['attrs']['turnstileSecretKey'] ?? '';
+    $redirect_type = $contact_block['attrs']['redirectType'] ?? 'query_param';
+    $thank_you_page_url = $contact_block['attrs']['thankYouPageUrl'] ?? '';
+
+    // Verify CAPTCHA if enabled
+    if ($enable_captcha) {
+      $captcha_verified = false;
+
+      if ($captcha_provider === 'recaptcha' && !empty($recaptcha_secret)) {
+        if (empty($recaptcha_response)) {
+          $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+          wp_redirect($redirect_url);
+          exit;
+        }
+
+        // Verify reCAPTCHA with Google
+        $verify_url = 'https://www.google.com/recaptcha/api/siteverify';
+        $verify_data = [
+          'secret' => $recaptcha_secret,
+          'response' => $recaptcha_response,
+          'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''
+        ];
+
+        $response = wp_remote_post($verify_url, [
+          'body' => $verify_data,
+          'timeout' => 10
+        ]);
+
+        if (is_wp_error($response)) {
+          error_log('reCAPTCHA verification failed: ' . $response->get_error_message());
+          $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+          wp_redirect($redirect_url);
+          exit;
+        }
+
+        $response_body = wp_remote_retrieve_body($response);
+        $result = json_decode($response_body, true);
+
+        if (!$result['success']) {
+          error_log('reCAPTCHA verification failed: ' . print_r($result, true));
+          $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+          wp_redirect($redirect_url);
+          exit;
+        }
+      } elseif ($captcha_provider === 'turnstile' && !empty($turnstile_secret)) {
+        if (empty($turnstile_response)) {
+          $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+          wp_redirect($redirect_url);
+          exit;
+        }
+
+        // Verify Turnstile with Cloudflare
+        $verify_url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+        $verify_data = [
+          'secret' => $turnstile_secret,
+          'response' => $turnstile_response,
+          'remoteip' => $_SERVER['REMOTE_ADDR'] ?? ''
+        ];
+
+        $response = wp_remote_post($verify_url, [
+          'body' => $verify_data,
+          'timeout' => 10
+        ]);
+
+        if (is_wp_error($response)) {
+          error_log('Turnstile verification failed: ' . $response->get_error_message());
+          $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+          wp_redirect($redirect_url);
+          exit;
+        }
+
+        $response_body = wp_remote_retrieve_body($response);
+        $result = json_decode($response_body, true);
+
+        if (!$result['success']) {
+          error_log('Turnstile verification failed: ' . print_r($result, true));
+          $redirect_url = add_query_arg('contact-error', 'captcha', wp_get_referer() ?: home_url());
+          wp_redirect($redirect_url);
+          exit;
+        }
+      }
+    }
+  }
+
+  // Prepare email
+  $admin_email = get_option('admin_email');
+  $subject = 'New Contact Form Submission';
+  $body = '<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -73,20 +213,33 @@ function contact_form_ts_handle_form()
   </div>
 </body>
 </html>';
-    $headers = [
-        'Content-Type: text/html; charset=UTF-8',
-        'Reply-To: ' . $email
-    ];
+  $headers = [
+    'Content-Type: text/html; charset=UTF-8',
+    'Reply-To: ' . $email
+  ];
 
-    // Send email
-    $mail_result = wp_mail($admin_email, $subject, $body, $headers);
+  // Send email
+  $mail_result = wp_mail($admin_email, $subject, $body, $headers);
 
-    if (!$mail_result) {
-        error_log('Email sending failed.');
+  if (!$mail_result) {
+    error_log('Email sending failed.');
+  }
+
+  // Handle redirect based on block settings
+  if ($redirect_type === 'thank_you_page') {
+    // Redirect to thank you page
+    if (!empty($thank_you_page_url)) {
+      // Use custom thank you page URL
+      $redirect_url = esc_url_raw($thank_you_page_url);
+    } else {
+      // If thank you page is selected but no URL provided, redirect to home page with a different parameter
+      $redirect_url = add_query_arg('contact-thankyou', '1', home_url());
     }
-
-    // Add query param to referrer and redirect back to form page
+  } else {
+    // Default behavior: Add query param to referrer and redirect back to form page
     $redirect_url = add_query_arg('contact-success', '1', wp_get_referer() ?: home_url());
-    wp_redirect($redirect_url);
-    exit;
+  }
+
+  wp_redirect($redirect_url);
+  exit;
 }

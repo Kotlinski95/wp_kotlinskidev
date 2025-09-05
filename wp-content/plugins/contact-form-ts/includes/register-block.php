@@ -8,6 +8,20 @@ function contact_form_ts_register_block() {
 add_action( 'init', 'contact_form_ts_register_block' );
 
 function contact_form_ts_render( $attributes, $content = '', $block = null ) {
+    // Enqueue CAPTCHA script if enabled
+    $enable_captcha = $attributes['enableCaptcha'] ?? false;
+    $captcha_provider = $attributes['captchaProvider'] ?? 'recaptcha';
+    $recaptcha_site_key = $attributes['recaptchaSiteKey'] ?? '';
+    $turnstile_site_key = $attributes['turnstileSiteKey'] ?? '';
+    
+    if ($enable_captcha) {
+        if ($captcha_provider === 'recaptcha' && !empty($recaptcha_site_key)) {
+            wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js', [], null, true);
+        } elseif ($captcha_provider === 'turnstile' && !empty($turnstile_site_key)) {
+            wp_enqueue_script('cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], null, true);
+        }
+    }
+    
     ob_start();
     // Show success message if present in URL
     if (isset($_GET['contact-success'])) {
@@ -26,7 +40,19 @@ function contact_form_ts_render( $attributes, $content = '', $block = null ) {
     }
     // Show error message if present in URL (optional, for future use)
     if (isset($_GET['contact-error'])) {
-        echo '<div class="contact-form-error">' . esc_html($attributes['errorMessage'] ?? 'Sorry, there was an error. Please try again.') . '</div>';
+        $error_type = $_GET['contact-error'];
+        $error_message = $attributes['errorMessage'] ?? 'Sorry, there was an error. Please try again.';
+        
+        if ($error_type === 'captcha') {
+            $captcha_provider = $attributes['captchaProvider'] ?? 'recaptcha';
+            if ($captcha_provider === 'turnstile') {
+                $error_message = 'Please complete the Cloudflare Turnstile verification.';
+            } else {
+                $error_message = 'Please complete the reCAPTCHA verification.';
+            }
+        }
+        
+        echo '<div class="contact-form-error">' . esc_html($error_message) . '</div>';
         ?>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -53,6 +79,15 @@ function contact_form_ts_render( $attributes, $content = '', $block = null ) {
             <input type="checkbox" name="agree" required>
             <?php echo esc_html( $attributes['agreeLabel'] ?? 'I agree to be contacted via email.' ); ?>
         </label>
+        
+        <?php if ($enable_captcha) : ?>
+            <?php if ($captcha_provider === 'recaptcha' && !empty($recaptcha_site_key)) : ?>
+                <div class="g-recaptcha" data-sitekey="<?php echo esc_attr($recaptcha_site_key); ?>"></div>
+            <?php elseif ($captcha_provider === 'turnstile' && !empty($turnstile_site_key)) : ?>
+                <div class="cf-turnstile" data-sitekey="<?php echo esc_attr($turnstile_site_key); ?>"></div>
+            <?php endif; ?>
+        <?php endif; ?>
+        
         <button type="submit"><?php echo esc_html( $attributes['submitLabel'] ?? 'Send' ); ?></button>
     </form>
     <?php

@@ -52,6 +52,38 @@
     "errorMessage": {
       "type": "string",
       "default": "Sorry, there was an error. Please try again."
+    },
+    "enableCaptcha": {
+      "type": "boolean",
+      "default": false
+    },
+    "captchaProvider": {
+      "type": "string",
+      "default": "recaptcha"
+    },
+    "recaptchaSiteKey": {
+      "type": "string",
+      "default": ""
+    },
+    "recaptchaSecretKey": {
+      "type": "string",
+      "default": ""
+    },
+    "turnstileSiteKey": {
+      "type": "string",
+      "default": ""
+    },
+    "turnstileSecretKey": {
+      "type": "string",
+      "default": ""
+    },
+    "redirectType": {
+      "type": "string",
+      "default": "query_param"
+    },
+    "thankYouPageUrl": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {
