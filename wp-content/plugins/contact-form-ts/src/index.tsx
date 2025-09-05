@@ -44,6 +44,8 @@ registerBlockType("contact-form-ts/form", {
     recaptchaSecretKey: { type: "string", default: "" },
     turnstileSiteKey: { type: "string", default: "" },
     turnstileSecretKey: { type: "string", default: "" },
+    redirectType: { type: "string", default: "query_param" },
+    thankYouPageUrl: { type: "string", default: "" },
   },
   edit({
     attributes,
@@ -68,6 +70,8 @@ registerBlockType("contact-form-ts/form", {
       recaptchaSecretKey: string;
       turnstileSiteKey: string;
       turnstileSecretKey: string;
+      redirectType: string;
+      thankYouPageUrl: string;
     };
     setAttributes: (
       attrs: Partial<{
@@ -89,6 +93,8 @@ registerBlockType("contact-form-ts/form", {
         recaptchaSecretKey: string;
         turnstileSiteKey: string;
         turnstileSecretKey: string;
+        redirectType: string;
+        thankYouPageUrl: string;
       }>
     ) => void;
   }) {
@@ -221,6 +227,30 @@ registerBlockType("contact-form-ts/form", {
                   </>
                 )}
               </>
+            )}
+          </PanelBody>
+
+          <PanelBody title={__("Redirect Settings", "contact-form-ts")} initialOpen={false}>
+            <SelectControl
+              label={__("After Form Submission", "contact-form-ts")}
+              value={attributes.redirectType}
+              options={[
+                { label: __("Show success message on same page", "contact-form-ts"), value: "query_param" },
+                { label: __("Redirect to thank you page", "contact-form-ts"), value: "thank_you_page" },
+              ]}
+              onChange={(value) => setAttributes({ redirectType: value })}
+              help={__("Choose what happens after a successful form submission.", "contact-form-ts")}
+            />
+            
+            {attributes.redirectType === "thank_you_page" && (
+              <TextControl
+                label={__("Thank You Page URL", "contact-form-ts")}
+                value={attributes.thankYouPageUrl}
+                onChange={(value) => setAttributes({ thankYouPageUrl: value })}
+                help={__("Enter the full URL of your thank you page. Leave empty to use WordPress default.", "contact-form-ts")}
+                placeholder="https://yoursite.com/thank-you/"
+                type="url"
+              />
             )}
           </PanelBody>
         </InspectorControls>

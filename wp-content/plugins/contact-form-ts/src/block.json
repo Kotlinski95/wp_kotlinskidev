@@ -16,7 +16,15 @@
     "agreeLabel": { "type": "string", "default": "I agree to be contacted via email." },
     "submitLabel": { "type": "string", "default": "Send" },
     "successMessage": { "type": "string", "default": "Thank you! Your message has been sent." },
-    "errorMessage": { "type": "string", "default": "Sorry, there was an error. Please try again." }
+    "errorMessage": { "type": "string", "default": "Sorry, there was an error. Please try again." },
+    "enableCaptcha": { "type": "boolean", "default": false },
+    "captchaProvider": { "type": "string", "default": "recaptcha" },
+    "recaptchaSiteKey": { "type": "string", "default": "" },
+    "recaptchaSecretKey": { "type": "string", "default": "" },
+    "turnstileSiteKey": { "type": "string", "default": "" },
+    "turnstileSecretKey": { "type": "string", "default": "" },
+    "redirectType": { "type": "string", "default": "query_param" },
+    "thankYouPageUrl": { "type": "string", "default": "" }
   },
   "supports": {
     "html": false,

@@ -16,7 +16,7 @@ function control_block_lazy_loading($output, $block)
         // Get the configurable class name from theme options
         $lazy_class = get_theme_mod('kotlinskidev_lazy_loading_class', 'skip-lazy');
         
-        // Remove any lazy loading attributes and force eager loading
+        // Remove any lazy loading attributes and force eager loading for images
         $output = preg_replace_callback(
             '/<img([^>]*)>/i',
             function($matches) use ($lazy_class) {
@@ -24,12 +24,13 @@ function control_block_lazy_loading($output, $block)
                 
                 // Remove any existing lazy loading attributes
                 $img_attributes = preg_replace('/\s*loading=["\'][^"\']*["\']/', '', $img_attributes);
+                $img_attributes = preg_replace('/\s*fetchpriority=["\'][^"\']*["\']/', '', $img_attributes);
                 $img_attributes = preg_replace('/\s*data-lazy-src=["\'][^"\']*["\']/', '', $img_attributes);
                 $img_attributes = preg_replace('/\s*data-src=["\'][^"\']*["\']/', '', $img_attributes);
                 $img_attributes = preg_replace('/\s*data-lazy=["\'][^"\']*["\']/', '', $img_attributes);
                 
-                // Force eager loading
-                $img_attributes .= ' loading="eager"';
+                // Force eager loading and high fetch priority
+                $img_attributes .= ' loading="eager" fetchpriority="high"';
                 
                 // Add both the configurable skip-lazy class AND the debug class
                 $classes_to_add = array($lazy_class, 'no-lazy-loading');
@@ -43,6 +44,37 @@ function control_block_lazy_loading($output, $block)
                 }
                 
                 return '<img' . $img_attributes . '>';
+            },
+            $output
+        );
+        
+        // Handle video elements - remove lazy loading and set high priority
+        $output = preg_replace_callback(
+            '/<video([^>]*)>/i',
+            function($matches) use ($lazy_class) {
+                $video_attributes = $matches[1];
+                
+                // Remove any existing lazy loading attributes
+                $video_attributes = preg_replace('/\s*loading=["\'][^"\']*["\']/', '', $video_attributes);
+                $video_attributes = preg_replace('/\s*fetchpriority=["\'][^"\']*["\']/', '', $video_attributes);
+                $video_attributes = preg_replace('/\s*data-lazy=["\'][^"\']*["\']/', '', $video_attributes);
+                $video_attributes = preg_replace('/\s*data-src=["\'][^"\']*["\']/', '', $video_attributes);
+                
+                // Set high fetch priority for videos
+                $video_attributes .= ' fetchpriority="high"';
+                
+                // Add the skip-lazy class to videos as well
+                $classes_to_add = array($lazy_class, 'no-lazy-loading');
+                
+                if (strpos($video_attributes, 'class=') !== false) {
+                    // Add to existing class attribute
+                    $video_attributes = preg_replace('/class="([^"]*)"/', 'class="$1 ' . implode(' ', $classes_to_add) . '"', $video_attributes);
+                } else {
+                    // Create new class attribute
+                    $video_attributes .= ' class="' . implode(' ', $classes_to_add) . '"';
+                }
+                
+                return '<video' . $video_attributes . '>';
             },
             $output
         );
@@ -101,12 +133,28 @@ function add_lazy_loading_override_script() {
             img.removeAttribute('data-lazy');
             img.removeAttribute('data-smush-lazy');
             
-            // Force loading to eager
+            // Force loading to eager and set high fetch priority
             img.setAttribute('loading', 'eager');
+            img.setAttribute('fetchpriority', 'high');
             
             // If the image has a data-src (lazy loading), move it to src immediately
             if (img.hasAttribute('data-src') && !img.src) {
                 img.src = img.getAttribute('data-src');
+            }
+        });
+        
+        // Find all videos with no-lazy-loading class and ensure they have high priority
+        document.querySelectorAll('video.no-lazy-loading').forEach(function(video) {
+            // Remove any lazy loading attributes that might have been added by plugins
+            video.removeAttribute('data-lazy');
+            video.removeAttribute('data-src');
+            
+            // Set high fetch priority for videos
+            video.setAttribute('fetchpriority', 'high');
+            
+            // If the video has a data-src (lazy loading), move it to src immediately
+            if (video.hasAttribute('data-src') && !video.src) {
+                video.src = video.getAttribute('data-src');
             }
         });
     });
