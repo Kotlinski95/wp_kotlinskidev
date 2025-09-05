@@ -86,47 +86,7 @@ define( 'WP_DEBUG_DISPLAY', false );
 /* Add any custom values between this line and the "stop editing" line. */
 
 
-// Content Protection Encryption Keys
-// Add these constants to your wp-config.php file for secure key storage
-define('KOTLINSKIDEV_PRIVATE_KEY', '-----BEGIN PRIVATE KEY-----
-MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDWGvBCc/K6eu7N
-miFKNRhmKJxm8gIvM/OTTT1aqWcg269aeBAt19RswqOS3dM1rdiV+Kx/kTcFB4ML
-soV+KrpW55uFDiztje1lsC324rHIMP+V+rTX18P3dfPfr+Ocp7LtsYjC0jQBZV7M
-anbporXYQY0J5rHwtlRVT/yduRk6X9GXUN7s4c1XawjkxxL4ORT3BtbJqwAlUZPu
-NqPXYKZMDYzb5VAYefHMXHtSXjM4AlfuILJK8POGc/r7dhsrvQ7DC3mUiJatwPqm
-rgSKjN/f7kTsKqFKSugx02+9h+0qbXGh8V/1TUiN6ON1e63nGhv8gG8G43CIBQp2
-2VZYvVZFAgMBAAECggEAUy7IJalSpqzYVr0JLgGO5zHkAgMIYjp26cXajny+en+f
-kzCOaKEwAMlmL8tLIdHXEf05V56dl7Chc0v6nVgQaW82du1Y+zpm/1kBoqfUloii
-5CwxUqKbmmsTQtbdQaHN3JdbIQX1+ozd1eGPLZpvuANPvocInxLXlQWsicK+UHTv
-19MOZhXax5zCR6+Tpr+f1xPgslF3cw0hUBrWaBpJfQM2PvN9SSUzx7YRnLAJoXLW
-gM2h9vbMPBb5nTuZCQTjEtgQZ9iOWtNW+/xKBpHemuYDJNYyQYaxX+6C7EuS577B
-CjAGMiwtzdFvfZ1vDIn1MYla/FMQLD/puKOg+w3dAQKBgQDq9VltHByToJj+4lXa
-ttTE4pV1ovD+fvB/MWzmH92nz7bUTfL/aWh6Wz79ya2itXQnMlTbF40zqfaKlEnY
-WpPW7UZ4yIHwVmk3EgxfzsG8jGGO1WuszmNGcd+R+zsIIWwzc9tuLlvS0lduONf3
-znlGW4ZcrIsPZhA6YkA56fMf4QKBgQDpR4KNX2WPpIbGQod3X1ctFY07XZnLjZmP
-1CHkInDw2/edm4rgDOOcMNmr6pnb4aSxMItTPlIppIQjXZv14EiGpH4WnZDfdIsV
-IH4coZ0JqQtagbWIhloE+n1CIcpHT89Yl84Su5kqBkxz8HrN3Vatasd5RVoA0gEj
-udCxyoQS5QKBgQDCcWEcZtNPaOy0ouKiKgRTG6DMxZfjRXIKEQEqQNzS75dCg2/B
-553LBJBQvwKvULNbbM/EsOzuAI5DiQzDu9H1YE+dzXGbUCeqp4kOELFMNHDYH88I
-J5UIy1xWFy93PxGoUw0ZVcwv4FryoKA6N+ktTLkZIMHEcJaleoHka7QEgQKBgAa3
-f2PQrlzvcM3+lmXygdETgMiHzmjU/+nrQrqN31CgFMYd92ayGE+j/HB9xcZV/eb4
-LdrMvZLjYMaf6GCw/4WY8OR3zvcQJP0LvXXXlWz0yBXoDDENJURlbfvcezWIb8Du
-Rgm2CxfxrHveHbsVt2ww2eN9ArVpVo0PyZmE6j6dAoGBAKJ1zPCscAWur7Pwke8m
-JISfQX5HfhAjINGimIxjYNiYseHicPHnCeB5Dwtjzaz8l342H8Sf5mwqfSEO42sf
-rBwemZTGlevws4/TCRbpFy56dsdAIn514cPD/KKopSxqZPMLDLWD+f++fDAopJpt
-e9qrUwjQMwq3K/jeiwJye4BS
------END PRIVATE KEY-----
-');
-define('KOTLINSKIDEV_PUBLIC_KEY', '-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1hrwQnPyunruzZohSjUY
-ZiicZvICLzPzk009WqlnINuvWngQLdfUbMKjkt3TNa3Ylfisf5E3BQeDC7KFfiq6
-VuebhQ4s7Y3tZbAt9uKxyDD/lfq019fD93Xz36/jnKey7bGIwtI0AWVezGp26aK1
-2EGNCeax8LZUVU/8nbkZOl/Rl1De7OHNV2sI5McS+DkU9wbWyasAJVGT7jaj12Cm
-TA2M2+VQGHnxzFx7Ul4zOAJX7iCySvDzhnP6+3YbK70Owwt5lIiWrcD6pq4Eiozf
-3+5E7CqhSkroMdNvvYftKm1xofFf9U1IjejjdXut5xob/IBvBuNwiAUKdtlWWL1W
-RQIDAQAB
------END PUBLIC KEY-----
-');
+
 
 /* That's all, stop editing! Happy publishing. */
 
