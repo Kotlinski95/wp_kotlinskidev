@@ -3,44 +3,67 @@ function defer_global_css()
 {
     // Enqueue the global stylesheet with media="print" to prevent it from blocking render
     wp_enqueue_style('global-style', get_template_directory_uri() . '/build/main.css', [], null, 'print');
-
-    // Add a filter to change the media attribute to "all" after loading
-    add_filter('style_loader_tag', 'defer_css_media_attribute', 10, 2);
 }
 add_action('wp_enqueue_scripts', 'defer_global_css');
 
-function defer_css_media_attribute($html, $handle)
+// Enqueue critical JavaScript for frontend
+function enqueue_critical_js()
 {
-    // Check if it's the global stylesheet
-    if ('global-style' === $handle) {
-        // Modify the link tag to use "media=print" initially
-        $html = str_replace("rel='stylesheet'", "rel='stylesheet' media='print'", $html);
+    wp_enqueue_script(
+        'kotlinskidev-critical-js',
+        get_template_directory_uri() . '/build/critical.js',
+        array(),
+        wp_get_theme()->get('Version'),
+        false // Load in head (critical scripts should not be deferred)
+    );
+}
+add_action('wp_enqueue_scripts', 'enqueue_critical_js', 1); // High priority
 
-        // Add an onload event to change the media attribute to "all" after the page is loaded
-        $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
+// Master filter for all CSS modifications
+function master_css_filter($html, $handle)
+    
+    // Handle critical CSS protection
+    if ($handle === 'critical-style') {
+        $html = str_replace('<link', '<link data-no-optimize="1" data-critical="true"', $html);
     }
+    
+    // Handle main CSS defer - force media="print" and add onload
+    if ($handle === 'global-style') {
+        // Add protection attributes first
+        $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
+        
+        // Force media to "print" (override any plugin changes)
+        $html = str_replace('media="all"', 'media="print"', $html);
+        $html = str_replace("media='all'", "media='print'", $html);
+        
+        // Then add the onload event if it's not already there
+        if (strpos($html, 'onload=') === false) {
+            $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
+            $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
+        }
+        
+    }
+    
+    // Handle non-critical style preloading
+    if ($handle === 'icomoon-style' || $handle === 'tailwind-css') {
+        $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
+    }
+    
     return $html;
 }
+add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to run before plugins
 
 
 
-// Preload critical.css for faster rendering
+// Enqueue critical CSS and preload non-critical styles
 function preload_critical_css()
 {
-    // Critical CSS
+    // Critical CSS - load synchronously (blocking) for above-the-fold content
     wp_enqueue_style('critical-style', get_template_directory_uri() . '/build/critical.css', false, null);
-    // Icomoon fonts
+    
+    // Non-critical styles - preload asynchronously
     wp_enqueue_style('icomoon-style', get_template_directory_uri() . '/assets/css/icomoon.css', false, null);
-    // Tailwind CSS
     wp_enqueue_style('tailwind-css', get_template_directory_uri() . '/build/tailwind.css', false, null);
-    add_filter('style_loader_tag',  'preload_filter', 10, 2);
-    function preload_filter($html, $handle)
-    {
-        if ($handle === 'critical-style' || $handle === 'icomoon-style' || $handle === 'tailwind-css') {
-            $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
-        }
-        return $html;
-    }
 }
 add_action('wp_head', 'preload_critical_css', 1);
 
