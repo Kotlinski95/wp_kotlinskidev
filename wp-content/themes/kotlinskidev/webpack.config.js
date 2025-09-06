@@ -6,7 +6,7 @@ module.exports = {
 
 	entry: {
 		main: path.resolve(process.cwd(), 'src', 'index.ts'),
-		critical: path.resolve(process.cwd(), 'src', 'critical.scss'),
+		critical: path.resolve(process.cwd(), 'src', 'critical.ts'),
 		'banner-carousel': path.resolve(process.cwd(), 'src', 'blocks', 'banner-carousel', 'index.ts'),
 		'editor': path.resolve(process.cwd(), 'src', 'editor.ts'),
 	},
