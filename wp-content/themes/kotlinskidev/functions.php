@@ -76,6 +76,9 @@ require_once get_template_directory() . '/functions/dynamic-footer.php';
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
 
+// Cover video poster preload for performance optimization
+require_once get_template_directory() . '/functions/cover-video-preload.php';
+
 // Cover image classes for lazy loading control
 require_once get_template_directory() . '/functions/cover-image-classes.php';
 

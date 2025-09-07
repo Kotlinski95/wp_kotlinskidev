@@ -6,22 +6,24 @@ function defer_global_css()
 }
 add_action('wp_enqueue_scripts', 'defer_global_css');
 
-// Enqueue critical JavaScript for frontend
-function enqueue_critical_js()
+// Inline critical JavaScript for frontend
+function inline_critical_js()
 {
-    wp_enqueue_script(
-        'kotlinskidev-critical-js',
-        get_template_directory_uri() . '/build/critical.js',
-        array(),
-        wp_get_theme()->get('Version'),
-        false // Load in head (critical scripts should not be deferred)
-    );
+    // Inline critical JS directly in the head for optimal performance
+    $critical_js_path = get_template_directory() . '/build/critical.js';
+    
+    if (file_exists($critical_js_path)) {
+        $critical_js = file_get_contents($critical_js_path);
+        if ($critical_js) {
+            echo '<script id="critical-js">' . $critical_js . '</script>';
+        }
+    }
 }
-add_action('wp_enqueue_scripts', 'enqueue_critical_js', 1); // High priority
+add_action('wp_head', 'inline_critical_js', 2); // Load after critical CSS
 
 // Master filter for all CSS modifications
 function master_css_filter($html, $handle)
-    
+{
     // Handle critical CSS protection
     if ($handle === 'critical-style') {
         $html = str_replace('<link', '<link data-no-optimize="1" data-critical="true"', $html);
@@ -55,17 +57,24 @@ add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to
 
 
 
-// Enqueue critical CSS and preload non-critical styles
-function preload_critical_css()
+// Inline critical CSS and preload non-critical styles
+function inline_critical_css()
 {
-    // Critical CSS - load synchronously (blocking) for above-the-fold content
-    wp_enqueue_style('critical-style', get_template_directory_uri() . '/build/critical.css', false, null);
+    // Inline critical CSS directly in the head for optimal performance
+    $critical_css_path = get_template_directory() . '/build/critical.css';
+    
+    if (file_exists($critical_css_path)) {
+        $critical_css = file_get_contents($critical_css_path);
+        if ($critical_css) {
+            echo '<style id="critical-css">' . $critical_css . '</style>';
+        }
+    }
     
     // Non-critical styles - preload asynchronously
     wp_enqueue_style('icomoon-style', get_template_directory_uri() . '/assets/css/icomoon.css', false, null);
     wp_enqueue_style('tailwind-css', get_template_directory_uri() . '/build/tailwind.css', false, null);
 }
-add_action('wp_head', 'preload_critical_css', 1);
+add_action('wp_head', 'inline_critical_css', 1);
 
 // Enqueue styles for the block editor (Gutenberg)
 function kotlinskidev_editor_styles()
