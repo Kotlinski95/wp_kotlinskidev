@@ -123,9 +123,6 @@ form.contact-form-block,
 
 /* Success and error messages */
 .contact-form-success {
-    background-color: #d1fae5;
-    border: 1px solid #10b981;
-    color: #065f46;
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
@@ -144,12 +141,6 @@ form.contact-form-block,
 
 /* Dark mode support for messages */
 @media (prefers-color-scheme: dark) {
-    .contact-form-success {
-        background-color: #064e3b;
-        border-color: #10b981;
-        color: #d1fae5;
-    }
-    
     .contact-form-error {
         background-color: #7f1d1d;
         border-color: #ef4444;
