@@ -193,6 +193,10 @@ if (!function_exists('kotlinskidev_enqueue_protection_scripts')) {
         );
 
         wp_localize_script('wp-typescript', 'kotlinskidevProtectionConfig', $config);
+        
+        // Add no-cache headers for protection-related requests
+        add_action('wp_ajax_kotlinskidev_decrypt_content', 'kotlinskidev_set_nocache_headers', 1);
+        add_action('wp_ajax_nopriv_kotlinskidev_decrypt_content', 'kotlinskidev_set_nocache_headers', 1);
     }
     add_action('wp_enqueue_scripts', 'kotlinskidev_enqueue_protection_scripts');
 }
@@ -612,9 +616,20 @@ if (!function_exists('kotlinskidev_ajax_decrypt_content')) {
      */
     function kotlinskidev_ajax_decrypt_content()
     {
-        // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'kotlinskidev_protection_nonce')) {
-            wp_die('Security check failed');
+        // Set no-cache headers to prevent caching issues
+        kotlinskidev_set_nocache_headers();
+        
+        // Verify nonce with more lenient checking for cached environments
+        $nonce = sanitize_text_field($_POST['nonce'] ?? '');
+        
+        if (!wp_verify_nonce($nonce, 'kotlinskidev_protection_nonce')) {
+            // If nonce verification fails, it might be due to caching
+            // Let's provide a more helpful error message and suggest a refresh
+            wp_send_json_error(array(
+                'message' => 'Security token expired. This may be due to page caching. Please refresh the page and try again.',
+                'error_code' => 'nonce_expired',
+                'refresh_required' => true
+            ));
         }
 
         // For encrypted content, we need to preserve the base64 string without HTML sanitization
@@ -721,4 +736,32 @@ if (!function_exists('kotlinskidev_ajax_get_wp_config_constants')) {
         }
     }
     add_action('wp_ajax_kotlinskidev_get_wp_config_constants', 'kotlinskidev_ajax_get_wp_config_constants');
+}
+
+if (!function_exists('kotlinskidev_set_nocache_headers')) {
+    /**
+     * Set no-cache headers for AJAX requests to prevent nonce issues
+     */
+    function kotlinskidev_set_nocache_headers() {
+        if (!headers_sent()) {
+            header('Cache-Control: no-cache, no-store, must-revalidate');
+            header('Pragma: no-cache');
+            header('Expires: 0');
+        }
+    }
+}
+
+if (!function_exists('kotlinskidev_get_fresh_nonce')) {
+    /**
+     * AJAX endpoint to get a fresh nonce for protection requests
+     */
+    function kotlinskidev_get_fresh_nonce() {
+        kotlinskidev_set_nocache_headers();
+        
+        wp_send_json_success(array(
+            'nonce' => wp_create_nonce('kotlinskidev_protection_nonce')
+        ));
+    }
+    add_action('wp_ajax_kotlinskidev_get_fresh_nonce', 'kotlinskidev_get_fresh_nonce');
+    add_action('wp_ajax_nopriv_kotlinskidev_get_fresh_nonce', 'kotlinskidev_get_fresh_nonce');
 }

@@ -67,6 +67,10 @@ form.contact-form-block,
     box-sizing: border-box;
 }
 
+.contact-form-block textarea {
+    min-height: 12.5rem;
+}
+
 .contact-form-block input[type="checkbox"] {
     accent-color: var(--wp--preset--color--primary, #2563eb);
     width: 1rem !important;
