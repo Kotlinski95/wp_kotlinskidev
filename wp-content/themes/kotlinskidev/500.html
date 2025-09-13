@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server Error - KotlinskiDev</title>
+    <script>
+      // Theme detection and setting function - matches your theme-switcher.ts implementation
+      (function () {
+        // Check for stored theme preference or detect system preference
+        const storedTheme = localStorage.getItem("theme");
+        const systemPrefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        // Apply the appropriate theme
+        if (storedTheme === "light") {
+          document.documentElement.classList.add("light-mode");
+          document.documentElement.classList.remove("dark-mode");
+        } else if (storedTheme === "dark") {
+          document.documentElement.classList.add("dark-mode");
+          document.documentElement.classList.remove("light-mode");
+        } else {
+          // No stored preference, use system preference
+          if (systemPrefersDark) {
+            document.documentElement.classList.add("dark-mode");
+            document.documentElement.classList.remove("light-mode");
+          } else {
+            document.documentElement.classList.add("light-mode");
+            document.documentElement.classList.remove("dark-mode");
+          }
+        }
+      })();
+
+      // Listen for system preference changes
+      if (window.matchMedia) {
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", function (e) {
+            // Only apply if no user preference is stored
+            if (!localStorage.getItem("theme")) {
+              if (e.matches) {
+                document.documentElement.classList.add("dark-mode");
+                document.documentElement.classList.remove("light-mode");
+              } else {
+                document.documentElement.classList.add("light-mode");
+                document.documentElement.classList.remove("dark-mode");
+              }
+            }
+          });
+      }
+
+      // Translation system
+      // Default site language - change this to set your default language
+      const DEFAULT_LANGUAGE = "pl";
+
+      const translations = {
+        en: {
+          error_title: "Server Error",
+          error_message:
+            "There has been a technical issue. I'm working to resolve this issue as quickly as possible. I apologize for the inconvenience.",
+          homepage_button: "Go to Homepage",
+          retry_button: "Try Again",
+          error_code: "Error Code",
+          time: "Time",
+        },
+        pl: {
+          error_title: "Błąd Serwera",
+          error_message:
+            "Wystąpił problem techniczny. Pracuje nad rozwiązaniem tego problemu tak szybko, jak to możliwe. Przepraszam za niedogodności.",
+          homepage_button: "Przejdź do strony głównej",
+          retry_button: "Spróbuj ponownie",
+          error_code: "Kod błędu",
+          time: "Czas",
+        },
+      };
+
+      // Function to detect user's preferred language
+      function detectLanguage() {
+        // Try to get language from URL query parameter (e.g., ?lang=pl)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlLang = urlParams.get("lang");
+        if (urlLang && translations[urlLang]) {
+          return urlLang;
+        }
+
+        // Check if URL path contains language indicator (e.g., /en/, /pl/)
+        const path = window.location.pathname;
+        for (const lang in translations) {
+          // Check if path has language segment like /en/ or /pl/
+          if (path.includes("/" + lang + "/")) {
+            return lang;
+          }
+        }
+
+        // Special case: if URL doesn't contain '/en/', default to Polish
+        if (!path.includes("/en/")) {
+          // If English isn't explicitly indicated, use default language
+          return DEFAULT_LANGUAGE;
+        }
+
+        // Try to get language from localStorage
+        const storedLang = localStorage.getItem("language");
+        if (storedLang && translations[storedLang]) {
+          return storedLang;
+        }
+
+        // Try to get language from browser settings
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang) {
+          const langCode = browserLang.split("-")[0];
+          if (translations[langCode]) {
+            return langCode;
+          }
+        }
+
+        // If nothing else matches, use the default language
+        return DEFAULT_LANGUAGE;
+      }
+
+      // Store the detected language
+      const currentLang = detectLanguage();
+      document.documentElement.lang = currentLang;
+
+      // Function to translate the page
+      function translatePage() {
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((element) => {
+          const key = element.getAttribute("data-i18n");
+          if (translations[currentLang] && translations[currentLang][key]) {
+            element.textContent = translations[currentLang][key];
+          }
+        });
+      }
+
+      // Apply translations after DOM is loaded
+      document.addEventListener("DOMContentLoaded", translatePage);
+
+      // Function to set the correct background image path
+      function setBackgroundImage() {
+        // Get the current URL
+        const currentUrl = window.location.href;
+        let basePath = '';
+        
+        // Check if we're in a subdirectory (like your local setup)
+        if (currentUrl.includes('/adriankotlinski/')) {
+          // Local development with subdirectory
+          basePath = window.location.protocol + '//' + window.location.host + '/adriankotlinski/wp-content/themes/kotlinskidev/assets/images/kotlinskidev-logo.webp';
+        } else {
+          // Production or root installation
+          basePath = window.location.protocol + '//' + window.location.host + '/wp-content/themes/kotlinskidev/assets/images/kotlinskidev-logo.webp';
+        }
+        
+        // Set the background image with opacity effect
+        document.body.style.backgroundImage = `url('${basePath}')`;
+        document.body.style.opacity = '1';
+        
+        // Create a pseudo-element effect using a div overlay
+        const backgroundOverlay = document.createElement('div');
+        backgroundOverlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('${basePath}');
+          background-repeat: space;
+          background-position: top left;
+          background-size: 10%;
+          opacity: 0.2;
+          pointer-events: none;
+          z-index: -1;
+          filter: invert(15%);
+        `;
+        backgroundOverlay?.classList?.add('body-overlay');
+        document.body.appendChild(backgroundOverlay);
+        
+        // Remove the background from body to avoid double images
+        document.body.style.backgroundImage = 'none';
+      }
+
+      // Set background image when page loads
+      document.addEventListener("DOMContentLoaded", setBackgroundImage);
+    </script>
+    <style>
+      /* Theme variables */
+      :root {
+        /* Base theme variables that apply to both modes */
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --border-color: #e5e7eb;
+        --error-color: #dc3545;
+        --color-primary: #9b51e0;
+        --color-primary-rgb: 59, 130, 246;
+      }
+
+      /* Light mode (default) */
+      .light-mode {
+        --bg-main: #ffffff;
+        --bg-card: #ffffff;
+        --color-text: #000000;
+        --color-text-secondary: #666666;
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --border-color: #e5e7eb;
+        --details-bg: #f1f5f9;
+      }
+
+      /* Dark mode */
+      .dark-mode {
+        --bg-main: #000000;
+        --bg-card: #1a1a1a;
+        --color-text: #ffffff;
+        --color-text-secondary: #9ca3af;
+        --shadow-color: rgba(0, 0, 0, 0.25);
+        --border-color: #4b5563;
+        --details-bg: #374151;
+        --color-primary: #9b51e0;
+        --color-primary-rgb: 96, 165, 250;
+      }
+
+      /* Inline critical styles similar to your theme */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Sora",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+        background: var(--bg-main);
+        color: var(--color-text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+        /* Background image will be set dynamically via JavaScript */
+        background-repeat: repeat;
+        background-position: top left;
+        background-size: 15%;
+        background-attachment: scroll;
+        /* Add opacity and blend mode for subtle effect */
+        position: relative;
+      }
+
+      .error-container {
+        max-width: 600px;
+        text-align: center;
+        background: var(--bg-card);
+        padding: 3rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px var(--shadow-color);
+        transition:
+          background-color 0.3s ease,
+          box-shadow 0.3s ease;
+        border: 1px solid var(--border-color);
+      }
+
+      .error-icon {
+        font-size: 80px;
+        margin-bottom: 2rem;
+        color: var(--error-color);
+        transition: color 0.3s ease;
+      }
+
+      .error-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--color-text);
+        transition: color 0.3s ease;
+      }
+
+      .error-message {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        transition: color 0.3s ease;
+      }
+
+      .error-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 100px;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        border: none;
+        justify-content: center;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          rgb(130, 9, 211) 0px,
+          rgba(59, 130, 246, 0.8) 100%
+        );
+        color: white;
+        box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.25);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+        transition:
+          color 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(var(--color-primary-rgb), 0.3);
+      }
+
+      .error-details {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: var(--details-bg);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: var(--color-text-secondary);
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      @media (max-width: 600px) {
+        .error-title {
+          font-size: 2rem;
+        }
+
+        .error-container {
+          padding: 2rem 1.5rem;
+          margin-top: 3rem;
+        }
+
+        .error-actions {
+          flex-direction: column;
+        }
+      }
+
+      /* Theme toggle switch - based on your existing theme switcher */
+      .theme-toggle-container {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        width: 50px;
+        height: 26px;
+        background-color: black;
+        border-radius: 30px;
+        padding: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: relative;
+      }
+
+      .light-mode .box {
+        background-color: black;
+        color: white;
+      }
+
+      .light-mode .body-overlay {
+        opacity: 0.3 !important;
+      }
+
+      .dark-mode .box {
+        background-color: white;
+      }
+
+      .ball {
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+
+      .light-mode .ball {
+        transform: translateX(0%);
+      }
+
+      .dark-mode .ball {
+        transform: translateX(150%);
+        background-color: black;
+      }
+
+      /* Hide the actual checkbox */
+      #theme-toggle {
+        position: absolute;
+        opacity: 0;
+      }
+
+      /* Language selector styling */
+      .language-selector {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 5px;
+      }
+
+      .lang-btn {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        color: var(--color-text);
+        border-radius: 4px;
+        padding: 6px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .lang-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px var(--shadow-color);
+      }
+
+      .lang-btn.active {
+        background: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="language-selector">
+      <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+      <button class="lang-btn" onclick="changeLanguage('pl')">PL</button>
+    </div>
+    <div class="theme-toggle-container">
+      <input
+        type="checkbox"
+        id="theme-toggle"
+        aria-label="Toggle dark/light theme"
+      />
+      <label for="theme-toggle" class="box">
+        <div class="ball"></div>
+      </label>
+    </div>
+
+    <div class="error-container">
+      <div class="error-icon">⚠️</div>
+      <h1 class="error-title" data-i18n="error_title">Server Error</h1>
+      <p class="error-message" data-i18n="error_message">
+        We're experiencing technical difficulties. Our team has been notified
+        and is working to resolve this issue as quickly as possible.
+      </p>
+
+      <div class="error-actions">
+        <a href="/" class="btn btn-primary">
+          🏠 <span data-i18n="homepage_button">Go to Homepage</span>
+        </a>
+        <button onclick="location.reload()" class="btn btn-secondary">
+          🔄 <span data-i18n="retry_button">Try Again</span>
+        </button>
+      </div>
+
+      <div class="error-details">
+        <strong><span data-i18n="error_code">Error Code</span>:</strong> 500 -
+        Internal Server Error<br />
+        <strong><span data-i18n="time">Time</span>:</strong>
+        <script>
+          document.write(new Date().toLocaleString(currentLang));
+        </script>
+      </div>
+    </div>
+
+    <script>
+      // Theme toggle functionality - matches your theme-switcher.ts implementation
+      document.addEventListener("DOMContentLoaded", function () {
+        const box = document.querySelector(".box");
+        const ball = document.querySelector(".ball");
+        const themeToggleButton = document.getElementById("theme-toggle");
+        if (!themeToggleButton) return;
+
+        // Function to apply light theme
+        const applyLightTheme = () => {
+          document.documentElement.classList.add("light-mode");
+          document.documentElement.classList.remove("dark-mode");
+          document.body.classList.add("light-mode");
+          document.body.classList.remove("dark-mode");
+          themeToggleButton.checked = true;
+          if (box)
+            box.setAttribute("style", "background-color:black; color:white;");
+          if (ball) ball.setAttribute("style", "transform:translatex(0%);");
+        };
+
+        // Function to apply dark theme
+        const applyDarkTheme = () => {
+          document.documentElement.classList.add("dark-mode");
+          document.documentElement.classList.remove("light-mode");
+          document.body.classList.add("dark-mode");
+          document.body.classList.remove("light-mode");
+          themeToggleButton.checked = false;
+          if (box) box.setAttribute("style", "background-color:white;");
+          if (ball) ball.setAttribute("style", "transform:translatex(150%);");
+        };
+
+        // Set initial toggle state based on current theme
+        if (document.documentElement.classList.contains("light-mode")) {
+          themeToggleButton.checked = true;
+          if (box)
+            box.setAttribute("style", "background-color:black; color:white;");
+          if (ball) ball.setAttribute("style", "transform:translatex(0%);");
+        } else {
+          themeToggleButton.checked = false;
+          if (box) box.setAttribute("style", "background-color:white;");
+          if (ball) ball.setAttribute("style", "transform:translatex(150%);");
+        }
+
+        // Handle toggle change
+        themeToggleButton.addEventListener("change", function () {
+          if (this.checked) {
+            applyLightTheme();
+            localStorage.setItem("theme", "light");
+          } else {
+            applyDarkTheme();
+            localStorage.setItem("theme", "dark");
+          }
+        });
+
+        // Get the current language (accessing the global variable)
+        let activeLang = document.documentElement.lang || "en";
+
+        // Handle language selection
+        function updateLanguageButtons() {
+          const buttons = document.querySelectorAll(".lang-btn");
+          buttons.forEach((btn) => {
+            const lang = btn.getAttribute("onclick").split("'")[1];
+            if (lang === activeLang) {
+              btn.classList.add("active");
+            } else {
+              btn.classList.remove("active");
+            }
+          });
+        }
+
+        // Initial language button state
+        updateLanguageButtons();
+
+        // Expose language change function globally
+        window.changeLanguage = function (lang) {
+          if (translations[lang]) {
+            localStorage.setItem("language", lang);
+            document.documentElement.lang = lang;
+            // Update our local tracking variable
+            activeLang = lang;
+
+            // Apply translations
+            const elements = document.querySelectorAll("[data-i18n]");
+            elements.forEach((element) => {
+              const key = element.getAttribute("data-i18n");
+              if (translations[lang][key]) {
+                element.textContent = translations[lang][key];
+              }
+            });
+
+            // Update the date/time format
+            const timeElement = document.querySelector(".error-details script");
+            if (timeElement) {
+              const now = new Date();
+              const timeDisplay = document.createTextNode(
+                now.toLocaleString(lang)
+              );
+              timeElement.parentNode.replaceChild(timeDisplay, timeElement);
+            }
+
+            // Update button states
+            updateLanguageButtons();
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
