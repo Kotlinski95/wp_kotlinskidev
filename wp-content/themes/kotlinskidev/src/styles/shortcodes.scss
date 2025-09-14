@@ -1,11 +1,16 @@
-#scroll-to-top{
-    background-color: transparent;
-    width: 2rem;
-    height: 2rem;
-    padding: 0 !important;
-    background-color: transparent;
+#scroll-to-top {
+  background-color: var(--wp--preset--color--dark-color);
+  width: 2rem;
+  height: 2rem;
+  padding: 0 !important;
+  display: none;
+  br {
     display: none;
-    br{
-        display: none;
-    }
+  }
+}
+
+.light-mode {
+  #scroll-to-top {
+    background-color: var(--wp--preset--color--light-color);
+  }
 }

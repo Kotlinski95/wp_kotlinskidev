@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" 
+     viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-labelledby="cookieTitle">
+  <title id="cookieTitle">Cookie Icon</title>
+  
+  <!-- Gradients -->
+  <defs>
+    <!-- Base cookie shading -->
+    <radialGradient id="cookieBase" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#f9e1b5"/>
+      <stop offset="100%" stop-color="#d89a4d"/>
+    </radialGradient>
+    <!-- Highlight -->
+    <radialGradient id="highlight" cx="30%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+    </radialGradient>
+  </defs>
+
+  <!-- Cookie shape with "bite" -->
+  <path d="M32 8
+           a24 24 0 1 0 16 42
+           a6 6 0 0 1 6-10
+           a6 6 0 0 1-4-10
+           a5 5 0 0 1-3-9
+           a5 5 0 0 1-7-7
+           Z"
+        fill="url(#cookieBase)"/>
+
+  <!-- Chocolate chips -->
+  <g fill="#5c3a1a">
+    <circle cx="22" cy="22" r="3"/>
+    <circle cx="34" cy="28" r="3"/>
+    <circle cx="26" cy="36" r="3"/>
+    <circle cx="40" cy="40" r="2.5"/>
+    <circle cx="18" cy="30" r="2.2"/>
+  </g>
+
+  <!-- Chip highlights -->
+  <g fill="#8d5e3b">
+    <circle cx="23" cy="21" r="0.8"/>
+    <circle cx="35" cy="27" r="0.8"/>
+    <circle cx="27" cy="35" r="0.7"/>
+    <circle cx="41" cy="39" r="0.6"/>
+    <circle cx="19" cy="29" r="0.5"/>
+  </g>
+</svg>

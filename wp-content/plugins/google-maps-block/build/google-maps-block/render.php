@@ -21,6 +21,10 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
         $markerTooltip = isset($attributes['markerTooltip']) ? $attributes['markerTooltip'] : '';
         $markerColor = isset($attributes['markerColor']) ? $attributes['markerColor'] : 'red';
 
+        // Debug: Let's see what we're actually getting from WordPress
+        error_log('Google Maps Debug - Raw markerLabel: ' . var_export($markerLabel, true));
+        error_log('Google Maps Debug - markerLabel bytes: ' . bin2hex($markerLabel));
+
         if (!$apiKey || (!$address && (!$lat || !$lng))) {
             return '<div style="color:#888; background:#f3f3f3; width:' . esc_attr($width) . '; height:' . esc_attr($height) . '; display:flex; align-items:center; justify-content:center;">' . esc_html__('Please provide a Google Maps API key and address or coordinates in the block settings.', 'google-maps-block') . '</div>';
         }
@@ -38,6 +42,15 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
             <?php endif; ?>
         </div>
         <script type="text/javascript">
+        // Function to decode base64 encoded strings containing Polish characters
+        function decodeBase64(str) {
+            try {
+                return decodeURIComponent(escape(atob(str)));
+            } catch(e) {
+                return str; // Fallback to original string if decoding fails
+            }
+        }
+
         (function(){
             function initMap_<?php echo $map_id; ?>() {
                 const mapOptions = {
@@ -54,9 +67,10 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
                     map: map,
 					label: <?php
 						if ($markerLabel) {
-							// Build a JS object for the label with extra options
+							// Use base64 encoding to bypass WordPress HTML encoding
+							$encodedLabel = base64_encode($markerLabel);
 							echo '{';
-							echo "text: '" . esc_js($markerLabel) . "',";
+							echo "text: decodeBase64('" . $encodedLabel . "'),";
 							echo "color: 'black',";
 							echo "fontSize: '12px',";
 							echo "className: 'marker-position'";
@@ -82,7 +96,7 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
                     const marker = new google.maps.Marker(markerOptions);
                     if (<?php echo $markerTooltip !== '' ? 'true' : 'false'; ?>) {
                         var infowindow = new google.maps.InfoWindow({
-                            content: <?php echo json_encode('<div class="marker-tooltip" style="padding:8px 12px; font-size:1.1em; font-weight:bold; text-align:center; margin-top:8px; color:black;">' . htmlspecialchars($markerTooltip, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</div>'); ?>,
+                            content: <?php echo wp_json_encode('<div class="marker-tooltip" style="padding:8px 12px; font-size:1.1em; font-weight:bold; text-align:center; margin-top:8px; color:black;">' . $markerTooltip . '</div>', JSON_UNESCAPED_UNICODE); ?>,
                             pixelOffset: new google.maps.Size(0, 32) // Move tooltip below the marker
                         });
                         marker.addListener('click', function() { infowindow.open(map, marker); });
