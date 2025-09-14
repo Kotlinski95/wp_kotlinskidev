@@ -5,7 +5,6 @@ import "./scripts/parallax";
 import "./scripts/restoration";
 import "./scripts/utils";
 
-
 // Critical DOM ready functionality
 document.addEventListener("DOMContentLoaded", function () {
   // Add loaded class as soon as possible to prevent layout shifts

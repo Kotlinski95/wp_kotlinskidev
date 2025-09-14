@@ -6,6 +6,7 @@ import "./scripts/scroll-animations";
 import "./scripts/image-lightbox";
 import "./scripts/smooth-scroll-offset";
 import "./scripts/protected-content";
+import "./scripts/cookie-consent";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Note: body.loaded class is now added in critical.js for faster loading

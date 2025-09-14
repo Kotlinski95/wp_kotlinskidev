@@ -15,7 +15,7 @@ function inline_critical_js()
     if (file_exists($critical_js_path)) {
         $critical_js = file_get_contents($critical_js_path);
         if ($critical_js) {
-            echo '<script id="critical-js">' . $critical_js . '</script>';
+            echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>';
         }
     }
 }
