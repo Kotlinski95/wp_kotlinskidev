@@ -63,9 +63,12 @@ const retryWithFreshNonce = async (element: HTMLElement, encryptedContent: strin
     
     try {
         // Get a fresh nonce
+        const nonceFormData = new FormData();
+        nonceFormData.append('action', 'kotlinskidev_get_fresh_nonce');
+        
         const nonceResponse = await fetch(config.ajaxUrl, {
             method: 'POST',
-            body: new FormData().append('action', 'kotlinskidev_get_fresh_nonce')
+            body: nonceFormData
         });
 
         if (nonceResponse.ok) {
