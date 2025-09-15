@@ -1,0 +1,30 @@
+{
+    "name": "Kotlinskidev Web Development",
+    "short_name": "Kotlinskidev",
+    "description": "Kotlinskidev web development services - senior software engineer working in web development area.\nCreating websites, e-commerce apps, working on SEO, performance improvements.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "theme_color": "#000000",
+    "background_color": "#ffffff",
+    "icons": [
+        {
+            "src": "http://localhost:8888/adriankotlinski/wp-content/uploads/2025/09/Kotlinskidev-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "http://localhost:8888/adriankotlinski/wp-content/uploads/2025/09/Kotlinskidev-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "utilities"
+    ],
+    "lang": "en_US"
+}

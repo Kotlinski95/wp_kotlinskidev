@@ -1,0 +1,74 @@
+# Translation of WordPress PWA Manager in Polish
+# Copyright (C) 2025 WordPress PWA Manager
+# This file is distributed under the same license as the WordPress PWA Manager package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress PWA Manager 1.0.0\n"
+"Report-Msgid-Bugs-To: https://adriankotlinski.com\n"
+"POT-Creation-Date: 2025-09-15 12:00+0000\n"
+"PO-Revision-Date: 2025-09-15 11:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: Polish\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.7.1; wp-6.8.1"
+
+#: includes/class-pwa-frontend.php:33
+msgid "Try Again"
+msgstr "Spróbuj ponownie"
+
+#: wordpress-pwa-manager.php:101
+msgid "Install App"
+msgstr "Zainstaluj Kotlinskidev"
+
+#: wordpress-pwa-manager.php:102
+msgid ""
+"Install this app on your device for a better experience and quick access."
+msgstr ""
+"Zainstaluj tę aplikację na swoim urządzeniu, aby uzyskać lepsze wrażenia i "
+"szybki dostęp."
+
+#: wordpress-pwa-manager.php:103
+msgid "Install"
+msgstr "Zainstaluj"
+
+#: wordpress-pwa-manager.php:104
+msgid "Ask me later"
+msgstr "Zapytaj mnie później"
+
+#: wordpress-pwa-manager.php:105
+msgid "No thanks"
+msgstr "Nie, dziękuję"
+
+#: wordpress-pwa-manager.php:108
+msgid "Update Available"
+msgstr "Dostępna aktualizacja"
+
+#: wordpress-pwa-manager.php:109
+msgid ""
+"A new version of this app is available. Update now for the latest features "
+"and improvements."
+msgstr ""
+"Dostępna jest nowa wersja tej aplikacji. Zaktualizuj teraz, aby uzyskać "
+"najnowsze funkcje i ulepszenia."
+
+#: wordpress-pwa-manager.php:110
+msgid "Update Now"
+msgstr "Zaktualizuj teraz"
+
+#: wordpress-pwa-manager.php:111
+msgid "Later"
+msgstr "Później"
+
+#: wordpress-pwa-manager.php:114
+msgid "Back online"
+msgstr "Połączenie przywrócone"
+
+#: wordpress-pwa-manager.php:115
+msgid "You are offline"
+msgstr "Jesteś offline"

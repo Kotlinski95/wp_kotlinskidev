@@ -1,0 +1,390 @@
+// Frontend Styles for PWA Manager
+.pwa-install-prompt,
+.pwa-update-prompt {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 480px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+    bottom: 20px;
+  }
+}
+
+.pwa-prompt-content {
+  padding: 20px;
+  position: relative;
+
+  .pwa-prompt-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #0073aa;
+    border-radius: 50%;
+    margin: 0 auto 16px auto;
+    color: white;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .pwa-prompt-text {
+    text-align: center;
+    margin-bottom: 20px;
+
+    p {
+      margin: 0;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  .pwa-prompt-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      min-width: 80px;
+
+      &:focus {
+        outline: 2px solid #0073aa;
+        outline-offset: 2px;
+      }
+    }
+
+    .pwa-install-button,
+    .pwa-update-button {
+      background: #0073aa;
+      color: white;
+
+      &:hover {
+        background: #005a87;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .pwa-dismiss-button {
+      background: #f0f0f0;
+      color: #666;
+
+      &:hover {
+        background: #e0e0e0;
+        color: #333;
+      }
+    }
+  }
+
+  .pwa-close-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    &:focus {
+      outline: 2px solid #0073aa;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Update prompt specific styles
+.pwa-update-prompt {
+  .pwa-prompt-icon {
+    background: #f56500;
+
+    svg {
+      animation: spin 2s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Connection Status
+.pwa-connection-status {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10001;
+  opacity: 0;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+
+  &.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  &.pwa-status-online {
+    background: #e8f5e8;
+    border-color: #46b450;
+    color: #2e7d32;
+  }
+
+  &.pwa-status-offline {
+    background: #ffebee;
+    border-color: #f44336;
+    color: #c62828;
+  }
+
+  @media (max-width: 480px) {
+    left: 20px;
+    right: 20px;
+    transform: translateY(-20px);
+
+    &.show {
+      transform: translateY(0);
+    }
+  }
+}
+
+.pwa-status-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+
+  .pwa-status-icon {
+    font-size: 16px;
+  }
+}
+
+// Offline page styles
+.wp-pwa-offline-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 2rem;
+
+  .wp-pwa-offline-content {
+    max-width: 400px;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .wp-pwa-retry-button {
+      background: #0073aa;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #005a87;
+        transform: translateY(-1px);
+      }
+
+      &:focus {
+        outline: 2px solid #0073aa;
+        outline-offset: 2px;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+// Loading spinner for various components
+.pwa-loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #0073aa;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Responsive utilities
+@media (max-width: 768px) {
+  .pwa-install-prompt,
+  .pwa-update-prompt {
+    .pwa-prompt-buttons {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .pwa-install-prompt,
+  .pwa-update-prompt {
+    border: 2px solid #000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .pwa-prompt-content {
+    .pwa-install-button,
+    .pwa-update-button {
+      border: 2px solid #000;
+    }
+
+    .pwa-dismiss-button {
+      border: 2px solid #666;
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .pwa-install-prompt,
+  .pwa-update-prompt,
+  .pwa-connection-status {
+    transition: opacity 0.1s ease;
+  }
+
+  .pwa-prompt-icon svg {
+    animation: none;
+  }
+
+  .pwa-loading-spinner {
+    animation: none;
+    border-top-color: #0073aa;
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .pwa-install-prompt,
+  .pwa-update-prompt {
+    background: #2d2d2d;
+    border-color: #444;
+    color: #fff;
+
+    .pwa-prompt-text p {
+      color: #e0e0e0;
+    }
+
+    .pwa-dismiss-button {
+      background: #444;
+      color: #e0e0e0;
+
+      &:hover {
+        background: #555;
+      }
+    }
+
+    .pwa-close-button {
+      color: #e0e0e0;
+
+      &:hover {
+        background: #444;
+        color: #fff;
+      }
+    }
+  }
+
+  .pwa-connection-status {
+    background: #2d2d2d;
+    border-color: #444;
+
+    &.pwa-status-online {
+      background: #1b4332;
+      border-color: #46b450;
+      color: #81c784;
+    }
+
+    &.pwa-status-offline {
+      background: #4a1c1c;
+      border-color: #f44336;
+      color: #ef9a9a;
+    }
+  }
+
+  .wp-pwa-offline-page {
+    .wp-pwa-offline-content {
+      h1 {
+        color: #e0e0e0;
+      }
+
+      p {
+        color: #bbb;
+      }
+    }
+  }
+}

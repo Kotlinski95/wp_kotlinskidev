@@ -26,6 +26,7 @@ wp-content/plugins/**
 !wp-content/plugins/responsive-spacing-controls/**
 !wp-content/plugins/responsive-font-controls/**
 !wp-content/plugins/text-justify-controls/**
+!wp-content/plugins/wordpress-pwa-manager/**
 
 # Ignore wp-admin except if you want to keep something specific, add exceptions below
 wp-admin/**
