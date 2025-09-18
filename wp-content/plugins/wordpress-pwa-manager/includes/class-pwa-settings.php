@@ -27,6 +27,7 @@ class WP_PWA_Manager_Settings {
             'offline_page_message' => get_option('wp_pwa_offline_page_message', 'Please check your internet connection and try again.'),
             'offline_page_use_custom_template' => get_option('wp_pwa_offline_page_use_custom_template', false),
             'offline_page_template' => get_option('wp_pwa_offline_page_template', ''),
+            'offline_page_template_source' => get_option('wp_pwa_offline_page_template_source', 'plugin'),
             'cache_strategy' => get_option('wp_pwa_cache_strategy', 'cache_first'),
             'cache_max_entries' => (int) get_option('wp_pwa_cache_max_entries', 50),
             'cache_max_age' => (int) get_option('wp_pwa_cache_max_age', 30),
@@ -63,6 +64,9 @@ class WP_PWA_Manager_Settings {
             'wp_pwa_offline_page_enabled' => true,
             'wp_pwa_offline_page_title' => 'You are offline',
             'wp_pwa_offline_page_message' => 'Please check your internet connection and try again.',
+            'wp_pwa_offline_page_use_custom_template' => false,
+            'wp_pwa_offline_page_template' => '',
+            'wp_pwa_offline_page_template_source' => 'plugin',
             'wp_pwa_cache_strategy' => 'cache_first',
             'wp_pwa_cache_max_entries' => 50,
             'wp_pwa_cache_max_age' => 30,
@@ -208,5 +212,59 @@ class WP_PWA_Manager_Settings {
         );
         
         return str_replace(array_keys($placeholders), array_values($placeholders), $template);
+    }
+    
+    /**
+     * Get the offline template from theme file or plugin settings
+     */
+    public static function get_offline_template() {
+        $settings = self::get_all_settings();
+        
+        if (!$settings['offline_page_use_custom_template']) {
+            // Use default template if custom template is disabled
+            return self::get_default_offline_template();
+        }
+        
+        if ($settings['offline_page_template_source'] === 'theme') {
+            return self::get_theme_offline_template();
+        }
+        
+        // Use plugin settings template
+        return $settings['offline_page_template'] ?: self::get_default_offline_template();
+    }
+    
+    /**
+     * Get offline template from active theme directory
+     */
+    public static function get_theme_offline_template() {
+        $theme_template_path = get_template_directory() . '/offline.html';
+        
+        // Check if file exists and is readable
+        if (file_exists($theme_template_path) && is_readable($theme_template_path)) {
+            $content = file_get_contents($theme_template_path);
+            if ($content !== false) {
+                return $content;
+            }
+        }
+        
+        // Fallback to default template if theme file doesn't exist or can't be read
+        return self::get_default_offline_template();
+    }
+    
+    /**
+     * Check if theme offline template file exists
+     */
+    public static function theme_offline_template_exists() {
+        $theme_template_path = get_template_directory() . '/offline.html';
+        return file_exists($theme_template_path) && is_readable($theme_template_path);
+    }
+    
+    /**
+     * Get the processed offline template ready for use
+     */
+    public static function get_processed_offline_template() {
+        $template = self::get_offline_template();
+        $settings = self::get_all_settings();
+        return self::process_offline_template($template, $settings);
     }
 }

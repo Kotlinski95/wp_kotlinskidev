@@ -94,10 +94,20 @@ class WP_PWA_Manager_Admin {
             'permission_callback' => array($this, 'check_permissions'),
             'args' => array(
                 'template' => array(
-                    'required' => true,
+                    'required' => false,
+                    'type' => 'string'
+                ),
+                'template_source' => array(
+                    'required' => false,
                     'type' => 'string'
                 )
             )
+        ));
+        
+        register_rest_route('wp-pwa-manager/v1', '/offline-template/theme-status', array(
+            'methods' => 'GET',
+            'callback' => array($this, 'get_theme_template_status'),
+            'permission_callback' => array($this, 'check_permissions')
         ));
     }
     
@@ -165,13 +175,36 @@ class WP_PWA_Manager_Admin {
     
     public function preview_offline_template(WP_REST_Request $request) {
         $template = $request->get_param('template');
+        $template_source = $request->get_param('template_source');
         $settings = WP_PWA_Manager_Settings::get_all_settings();
+        
+        // If template_source is provided and is 'theme', use theme file
+        if ($template_source === 'theme') {
+            $template = WP_PWA_Manager_Settings::get_theme_offline_template();
+        } else if (!$template) {
+            // If no template provided and not using theme, get from settings
+            $template = WP_PWA_Manager_Settings::get_offline_template();
+        }
         
         $processed_template = WP_PWA_Manager_Settings::process_offline_template($template, $settings);
         
         return rest_ensure_response(array(
             'success' => true,
             'processed_template' => $processed_template
+        ));
+    }
+    
+    public function get_theme_template_status(WP_REST_Request $request) {
+        $theme_name = get_template();
+        $theme_template_path = get_template_directory() . '/offline.html';
+        $file_exists = WP_PWA_Manager_Settings::theme_offline_template_exists();
+        
+        return rest_ensure_response(array(
+            'success' => true,
+            'theme_name' => $theme_name,
+            'file_exists' => $file_exists,
+            'file_path' => 'wp-content/themes/' . $theme_name . '/offline.html',
+            'full_path' => $theme_template_path
         ));
     }
 }

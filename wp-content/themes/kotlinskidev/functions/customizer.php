@@ -210,30 +210,6 @@ function mytheme_customize_css()
 }
 add_action('wp_head', 'mytheme_customize_css');
 
-add_action('wp_enqueue_scripts', function (): void {
-    $script_args = include get_template_directory() . '/build/main.asset.php';
-    wp_enqueue_script(
-        'wp-typescript',
-        get_template_directory_uri() . '/build/main.js',
-        $script_args['dependencies'],
-        $script_args['version'],
-        [
-            'strategy' => 'defer',
-            'in_footer' => false, // Note: This is the default value.
-        ]
-    );
-    
-    // Make theme URL globally available to all JavaScript files
-    wp_localize_script('wp-typescript', 'kotlinskiTheme', [
-        'themeUrl' => get_template_directory_uri(),
-        'assetsUrl' => get_template_directory_uri() . '/assets',
-        'imagesUrl' => get_template_directory_uri() . '/assets/images'
-    ]);
-    
-    // When used in a WordPress plugin
-    //$script_args = include( plugin_dir_path( __FILE__ ) . 'assets/public/scripts.asset.php');
-    //wp_enqueue_script('wp-typescript', plugins_url('assets/public/scripts.js', __FILE__), $script_args['dependencies'], $script_args['version']);
-});
 
 function kotlinskidev_customize_register($wp_customize)
 {

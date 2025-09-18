@@ -5,7 +5,8 @@ import {
     ToggleControl, 
     Button, 
     Modal,
-    Notice
+    Notice,
+    RadioControl
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
@@ -15,6 +16,7 @@ interface OfflineSettings {
     offline_page_message: string;
     offline_page_use_custom_template: boolean;
     offline_page_template: string;
+    offline_page_template_source: 'plugin' | 'theme';
 }
 
 interface OfflineSettingsProps {
@@ -63,6 +65,44 @@ const OfflineSettings: React.FC<OfflineSettingsProps> = ({ settings, updateSetti
     };
 
     const previewTemplate = async () => {
+        // For theme file source, we don't need a template in settings
+        if (settings.offline_page_template_source === 'theme') {
+            // Preview theme file
+            setIsLoading(true);
+            try {
+                const response = await fetch('/wp-json/wp-pwa-manager/v1/offline-template/preview', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': ((window as any).wpApiSettings?.nonce) || wp.apiRequest?.nonce || ''
+                    },
+                    body: JSON.stringify({
+                        template_source: 'theme'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    setPreviewContent(data.processed_template);
+                    setIsPreviewModalOpen(true);
+                } else {
+                    throw new Error(data.message || 'Failed to preview theme template');
+                }
+            } catch (error) {
+                console.error('Error previewing theme template:', error);
+                setNotice({ type: 'error', message: __('Failed to preview theme template. Please check if the offline.html file exists in your theme directory.', 'wordpress-pwa-manager') });
+            } finally {
+                setIsLoading(false);
+            }
+            return;
+        }
+
+        // For plugin template source
         if (!settings.offline_page_template.trim()) {
             setNotice({ type: 'error', message: __('Please enter a template to preview.', 'wordpress-pwa-manager') });
             return;
@@ -171,6 +211,27 @@ const OfflineSettings: React.FC<OfflineSettingsProps> = ({ settings, updateSetti
                     </div>
 
                     {settings.offline_page_use_custom_template && (
+                        <div className="wp-pwa-settings-section">
+                            <RadioControl
+                                label={__('Template Source', 'wordpress-pwa-manager')}
+                                selected={settings.offline_page_template_source}
+                                options={[
+                                    {
+                                        label: __('Plugin Settings (editable below)', 'wordpress-pwa-manager'),
+                                        value: 'plugin'
+                                    },
+                                    {
+                                        label: __('Theme File (offline.html)', 'wordpress-pwa-manager'),
+                                        value: 'theme'
+                                    }
+                                ]}
+                                onChange={(value) => updateSetting('offline_page_template_source', value as 'plugin' | 'theme')}
+                                help={__('Choose whether to use the custom template from plugin settings or a local offline.html file from your active theme directory.', 'wordpress-pwa-manager')}
+                            />
+                        </div>
+                    )}
+
+                    {settings.offline_page_use_custom_template && settings.offline_page_template_source === 'plugin' && (
                         <div className="wp-pwa-settings-section wp-pwa-template-section">
                             <label className="components-base-control__label">
                                 {__('Custom Offline Template', 'wordpress-pwa-manager')}
@@ -207,10 +268,44 @@ const OfflineSettings: React.FC<OfflineSettingsProps> = ({ settings, updateSetti
                                 <Button
                                     variant="secondary"
                                     onClick={previewTemplate}
-                                    disabled={isLoading || !settings.offline_page_template.trim()}
+                                    disabled={isLoading || (settings.offline_page_template_source === 'plugin' && !settings.offline_page_template.trim())}
                                 >
                                     {isLoading ? __('Previewing...', 'wordpress-pwa-manager') : __('Preview Template', 'wordpress-pwa-manager')}
                                 </Button>
+                            </div>
+                        </div>
+                    )}
+
+                    {settings.offline_page_use_custom_template && settings.offline_page_template_source === 'theme' && (
+                        <div className="wp-pwa-settings-section">
+                            <div className="wp-pwa-theme-file-info">
+                                <h4>{__('Using Theme File', 'wordpress-pwa-manager')}</h4>
+                                <p>
+                                    {__('The offline page will use the offline.html file from your active theme directory. You can edit this file in your code editor and version control it with your theme.', 'wordpress-pwa-manager')}
+                                </p>
+                                <p>
+                                    <strong>{__('File location:', 'wordpress-pwa-manager')}</strong> <code>wp-content/themes/[active-theme]/offline.html</code>
+                                </p>
+                                <p>
+                                    {__('The same placeholders are available in your theme file:', 'wordpress-pwa-manager')}
+                                </p>
+                                <div className="wp-pwa-placeholders">
+                                    {availablePlaceholders.map(placeholder => (
+                                        <code key={placeholder} className="wp-pwa-placeholder">
+                                            {placeholder}
+                                        </code>
+                                    ))}
+                                </div>
+                                
+                                <div className="wp-pwa-template-actions">
+                                    <Button
+                                        variant="secondary"
+                                        onClick={previewTemplate}
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? __('Previewing...', 'wordpress-pwa-manager') : __('Preview Theme Template', 'wordpress-pwa-manager')}
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     )}

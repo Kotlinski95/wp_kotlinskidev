@@ -58,17 +58,54 @@ class WP_PWA_Manager_Service_Worker {
     private function get_settings_hash() {
         $settings = WP_PWA_Manager_Settings::get_all_settings();
         
-        // Only hash settings that affect the service worker
+        // Include ALL PWA settings in the hash so any change triggers SW regeneration
         $sw_settings = array(
-            'cache_strategy' => $settings['cache_strategy'],
-            'cache_max_entries' => $settings['cache_max_entries'],
-            'cache_max_age' => $settings['cache_max_age'],
+            // Core PWA settings
+            'pwa_enabled' => $settings['pwa_enabled'],
+            'app_name' => $settings['app_name'],
+            'app_short_name' => $settings['app_short_name'],
+            'app_description' => $settings['app_description'],
+            'theme_color' => $settings['theme_color'],
+            'background_color' => $settings['background_color'],
+            'display' => $settings['display'],
+            'orientation' => $settings['orientation'],
+            'start_url' => $settings['start_url'],
+            'scope' => $settings['scope'],
+            
+            // Icon settings
+            'icon_192' => $settings['icon_192'],
+            'icon_512' => $settings['icon_512'],
+            
+            // Install prompt settings
+            'install_prompt_enabled' => $settings['install_prompt_enabled'],
+            'install_prompt_text' => $settings['install_prompt_text'],
+            'install_prompt_button_text' => $settings['install_prompt_button_text'],
+            'install_prompt_dismiss_text' => $settings['install_prompt_dismiss_text'],
+            
+            // Offline page settings
+            'offline_page_enabled' => $settings['offline_page_enabled'],
             'offline_page_title' => $settings['offline_page_title'],
             'offline_page_message' => $settings['offline_page_message'],
             'offline_page_use_custom_template' => $settings['offline_page_use_custom_template'],
             'offline_page_template' => $settings['offline_page_template'],
-            'app_name' => $settings['app_name'],
-            'icon_192' => $settings['icon_192'],
+            'offline_page_template_source' => $settings['offline_page_template_source'],
+            
+            // Cache settings
+            'cache_strategy' => $settings['cache_strategy'],
+            'cache_max_entries' => $settings['cache_max_entries'],
+            'cache_max_age' => $settings['cache_max_age'],
+            
+            // Push notification settings
+            'push_notifications_enabled' => $settings['push_notifications_enabled'],
+            'vapid_public_key' => $settings['vapid_public_key'],
+            'vapid_private_key' => $settings['vapid_private_key'],
+            
+            // Update prompt settings
+            'update_prompt_enabled' => $settings['update_prompt_enabled'],
+            'update_prompt_text' => $settings['update_prompt_text'],
+            'update_prompt_button_text' => $settings['update_prompt_button_text'],
+            
+            // Plugin version for cache busting
             'plugin_version' => WP_PWA_MANAGER_VERSION
         );
         
@@ -95,7 +132,6 @@ self.addEventListener('install', event => {
     
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            console.log('Opened cache');
             return cache.addAll([
                 '<?php echo esc_js(home_url('/')); ?>',
             ]);
@@ -115,7 +151,6 @@ self.addEventListener('activate', event => {
             return Promise.all(
                 cacheNames.map(cacheName => {
                     if (cacheName !== CACHE_NAME) {
-                        console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
@@ -162,8 +197,7 @@ self.addEventListener('fetch', event => {
     }
     
     // Skip WordPress core files that should always come from server
-    if (event.request.url.includes('/wp-includes/') || 
-        event.request.url.includes('/wp-content/uploads/')) {
+    if (event.request.url.includes('/wp-includes/')) {
         return;
     }
     
@@ -311,12 +345,8 @@ function getOfflineResponse(request) {
 }
 
 function getOfflineHTML() {
-    // Use custom template if available, otherwise use default
-    <?php if ($settings['offline_page_use_custom_template'] && !empty($settings['offline_page_template'])): ?>
-    return `<?php echo addslashes(WP_PWA_Manager_Settings::process_offline_template($settings['offline_page_template'], $settings)); ?>`;
-    <?php else: ?>
-    return `<?php echo addslashes(WP_PWA_Manager_Settings::process_offline_template(WP_PWA_Manager_Settings::get_default_offline_template(), $settings)); ?>`;
-    <?php endif; ?>
+    // Use the new method that handles both plugin and theme file sources
+    return `<?php echo addslashes(WP_PWA_Manager_Settings::get_processed_offline_template()); ?>`;
 }
 
 // Handle messages from the main thread

@@ -73,16 +73,9 @@ export class PWAManager {
                 // Enhanced debugging
                 const swUrl = window.wpPwaManager?.swUrl || '/sw.js';
                 console.log('Attempting to register service worker at:', swUrl);
-                console.log('wpPwaManager object:', window.wpPwaManager);
                 
                 this.swRegistration = await navigator.serviceWorker.register(swUrl);
                 console.log('Service Worker registered successfully:', this.swRegistration);
-                console.log('Service Worker scope:', this.swRegistration.scope);
-                console.log('Service Worker state:', {
-                    installing: this.swRegistration.installing,
-                    waiting: this.swRegistration.waiting,
-                    active: this.swRegistration.active
-                });
 
                 // Listen for service worker updates
                 this.swRegistration.addEventListener('updatefound', () => {
@@ -94,13 +87,6 @@ export class PWAManager {
                 if (this.swRegistration.waiting) {
                     console.log('Found waiting service worker');
                     this.showUpdatePrompt();
-                }
-
-                // Test if service worker is actually controlling the page
-                if (navigator.serviceWorker.controller) {
-                    console.log('Service Worker is controlling the page:', navigator.serviceWorker.controller);
-                } else {
-                    console.log('Service Worker is NOT controlling the page yet');
                 }
 
             } catch (error) {
@@ -151,7 +137,6 @@ export class PWAManager {
             
             // If still within the dismissal period, don't show prompt
             if (now < dismissedTime) {
-                console.log('Install prompt still dismissed until:', new Date(dismissedTime));
                 return;
             } else {
                 // Dismissal period has expired, remove the temporary dismissal
@@ -226,7 +211,6 @@ export class PWAManager {
         if (!this.deferredPrompt) return;
 
         const result = await this.deferredPrompt.prompt();
-        console.log('Install prompt result:', result);
 
         this.hideInstallPrompt();
         this.deferredPrompt = null;

@@ -38,6 +38,7 @@ interface PWASettings {
     offline_page_message: string;
     offline_page_use_custom_template: boolean;
     offline_page_template: string;
+    offline_page_template_source: 'plugin' | 'theme';
     cache_strategy: string;
     cache_max_entries: number;
     cache_max_age: number;

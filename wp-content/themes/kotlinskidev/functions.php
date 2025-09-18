@@ -2,6 +2,9 @@
 // Include theme setup functions
 require_once get_template_directory() . '/functions/theme-setup.php';
 
+// Include internationalization functions
+require_once get_template_directory() . '/includes/i18n.php';
+
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 
@@ -48,6 +51,9 @@ require_once get_template_directory() . '/functions/tailwind.php';
 
 // Load scroll to top
 require_once get_template_directory() . '/functions/scroll-top-top.php';
+
+// Load internationalization (i18n) system
+require_once get_template_directory() . '/includes/i18n.php';
 
 // Copyrights
 require_once get_template_directory() . '/functions/copyrights.php';
