@@ -40,6 +40,9 @@ wp-config.php
 # Allow the text justify controls plugin directory
 !/wp-content/plugins/text-justify-controls/
 
+# Allow the wordpress pwa manager plugin directory
+!/wp-content/plugins/wordpress-pwa-manager/
+
 # But if you want to track custom themes and plugins, you can modify the above rules:
 # /wp-content/plugins/*
 # !/wp-content/plugins/custom-plugin/
@@ -112,6 +115,9 @@ build
 
 # Allow only the build folder text justify controls
 !/wp-content/plugins/text-justify-controls/build/
+
+# Allow only the build folder wordpress pwa manager
+!/wp-content/plugins/wordpress-pwa-manager/build/
 
 # Ignore ai1wm-backups files
 /wp-content/ai1wm-backups/*
