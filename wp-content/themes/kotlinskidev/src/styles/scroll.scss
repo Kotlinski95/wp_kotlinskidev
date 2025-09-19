@@ -2,8 +2,8 @@
 
 .kotlinskidev-scrollto-top {
     position: fixed;
-    bottom: 1.5rem;
-    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    right: calc(1rem + env(safe-area-inset-right));
     height: 2rem;
     width: 2rem;
     padding: 0;

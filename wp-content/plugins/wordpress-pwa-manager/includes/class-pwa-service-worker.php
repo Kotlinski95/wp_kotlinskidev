@@ -125,6 +125,7 @@ const OFFLINE_URL = '<?php echo esc_js($offline_url); ?>';
 const CACHE_STRATEGY = '<?php echo esc_js($settings['cache_strategy']); ?>';
 const MAX_ENTRIES = <?php echo intval($settings['cache_max_entries']); ?>;
 const MAX_AGE = <?php echo intval($settings['cache_max_age']); ?> * 24 * 60 * 60 * 1000; // Convert days to milliseconds
+const IS_ADMIN_USER = <?php echo (is_user_logged_in() && current_user_can('manage_options')) ? 'true' : 'false'; ?>;
 
 // Install event
 self.addEventListener('install', event => {
@@ -186,18 +187,8 @@ self.addEventListener('fetch', event => {
         return;
     }
     
-    // Skip admin pages
-    if (event.request.url.includes('/wp-admin/')) {
-        return;
-    }
-    
-    // Skip API requests
-    if (event.request.url.includes('/wp-json/')) {
-        return;
-    }
-    
-    // Skip WordPress core files that should always come from server
-    if (event.request.url.includes('/wp-includes/')) {
+    // Enhanced admin and WordPress system exclusions
+    if (shouldSkipRequest(event.request)) {
         return;
     }
     
@@ -213,6 +204,74 @@ self.addEventListener('fetch', event => {
     // Handle other same-origin requests normally
     event.respondWith(handleFetch(event.request));
 });
+
+function shouldSkipRequest(request) {
+    const url = request.url;
+    
+    // Enhanced admin pages detection
+    if (url.includes('/wp-admin/') || 
+        url.includes('/wp-login.php') ||
+        url.includes('/wp-signup.php') ||
+        url.includes('/wp-activate.php')) {
+        return true;
+    }
+    
+    // Skip API requests
+    if (url.includes('/wp-json/') || 
+        url.includes('/xmlrpc.php')) {
+        return true;
+    }
+    
+    // Skip WordPress core files that should always come from server
+    if (url.includes('/wp-includes/') ||
+        url.includes('/wp-content/uploads/') ||
+        url.includes('/wp-cron.php') ||
+        url.includes('/wp-trackback.php') ||
+        url.includes('/wp-comments-post.php')) {
+        return true;
+    }
+    
+    // Skip customizer requests
+    if (url.includes('customize.php') || 
+        url.includes('wp_customize=on') ||
+        url.includes('customize_changeset_uuid=')) {
+        return true;
+    }
+    
+    // Skip preview requests
+    if (url.includes('preview=true') ||
+        url.includes('preview_id=') ||
+        url.includes('preview_nonce=')) {
+        return true;
+    }
+    
+    // Skip admin-ajax requests
+    if (url.includes('admin-ajax.php')) {
+        return true;
+    }
+    
+    // Skip heartbeat API
+    if (url.includes('wp-admin/admin-ajax.php') && 
+        request.method === 'POST') {
+        return true;
+    }
+    
+    // Check if user is admin (this will be set by PHP)
+    if (typeof IS_ADMIN_USER !== 'undefined' && IS_ADMIN_USER === true) {
+        // For admin users, be more restrictive - only cache public content
+        if (url.includes('/wp-content/themes/') || 
+            url.includes('/wp-content/plugins/') ||
+            url.includes('/wp-content/uploads/')) {
+            // Allow caching of theme/plugin assets and uploads for admin users
+            return false;
+        }
+        
+        // Skip all other requests for admin users to ensure admin functionality works
+        return true;
+    }
+    
+    return false;
+}
 
 async function handleNavigationRequest(request) {
     try {

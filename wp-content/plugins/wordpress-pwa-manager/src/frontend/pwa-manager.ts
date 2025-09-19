@@ -432,7 +432,7 @@ export class PWAManager {
                     ${status === 'online' ? '📶' : '📵'}
                 </span>
                 <span class="pwa-status-text">
-                    ${status === 'online' ? 'Back online' : 'You are offline'}
+                    ${status === 'online' ? window.wpPwaManager.i18n.connectionOnline : window.wpPwaManager.i18n.connectionOffline}
                 </span>
             </div>
         `;
