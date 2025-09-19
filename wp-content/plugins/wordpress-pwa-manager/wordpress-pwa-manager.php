@@ -73,52 +73,58 @@ class WordPressPWAManager {
     }
     
     public function enqueue_frontend_assets() {
-        if (!is_admin()) {
-            $pwa_enabled = WP_PWA_Manager_Settings::get_setting('enabled', true);
+        // Don't load PWA assets in admin areas, login pages, or for admin users in admin context
+        if (is_admin() || 
+            $GLOBALS['pagenow'] === 'wp-login.php' ||
+            (defined('WP_ADMIN') && WP_ADMIN) ||
+            (function_exists('is_customize_preview') && is_customize_preview())) {
+            return;
+        }
+        
+        $pwa_enabled = WP_PWA_Manager_Settings::get_setting('enabled', true);
+        
+        if ($pwa_enabled) {
+            wp_enqueue_script(
+                'wp-pwa-manager-frontend',
+                WP_PWA_MANAGER_PLUGIN_URL . 'build/frontend.js',
+                array(),
+                WP_PWA_MANAGER_VERSION,
+                true
+            );
             
-            if ($pwa_enabled) {
-                wp_enqueue_script(
-                    'wp-pwa-manager-frontend',
-                    WP_PWA_MANAGER_PLUGIN_URL . 'build/frontend.js',
-                    array(),
-                    WP_PWA_MANAGER_VERSION,
-                    true
-                );
-                
-                wp_enqueue_style(
-                    'wp-pwa-manager-frontend',
-                    WP_PWA_MANAGER_PLUGIN_URL . 'build/frontend.css',
-                    array(),
-                    WP_PWA_MANAGER_VERSION
-                );
-                
-                // Localize script with settings
-                $settings = WP_PWA_Manager_Settings::get_all_settings();
-                wp_localize_script('wp-pwa-manager-frontend', 'wpPwaManager', array(
-                    'settings' => $settings,
-                    'swUrl' => home_url('/sw.js'),
-                    'ajaxUrl' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('wp_pwa_manager_nonce'),
-                    'i18n' => array(
-                        // Install prompt translations
-                        'installPromptTitle' => __('Install App', 'wordpress-pwa-manager'),
-                        'installPromptText' => __('Install this app on your device for a better experience and quick access.', 'wordpress-pwa-manager'),
-                        'installPromptInstall' => __('Install', 'wordpress-pwa-manager'),
-                        'installPromptLater' => __('Ask me later', 'wordpress-pwa-manager'),
-                        'installPromptDismiss' => __('No thanks', 'wordpress-pwa-manager'),
-                        
-                        // Update prompt translations
-                        'updatePromptTitle' => __('Update Available', 'wordpress-pwa-manager'),
-                        'updatePromptText' => __('A new version of this app is available. Update now for the latest features and improvements.', 'wordpress-pwa-manager'),
-                        'updatePromptUpdate' => __('Update Now', 'wordpress-pwa-manager'),
-                        'updatePromptLater' => __('Later', 'wordpress-pwa-manager'),
-                        
-                        // Connection status translations
-                        'connectionOnline' => __('Back online', 'wordpress-pwa-manager'),
-                        'connectionOffline' => __('You are offline', 'wordpress-pwa-manager'),
-                    )
-                ));
-            }
+            wp_enqueue_style(
+                'wp-pwa-manager-frontend',
+                WP_PWA_MANAGER_PLUGIN_URL . 'build/frontend.css',
+                array(),
+                WP_PWA_MANAGER_VERSION
+            );
+            
+            // Localize script with settings
+            $settings = WP_PWA_Manager_Settings::get_all_settings();
+            wp_localize_script('wp-pwa-manager-frontend', 'wpPwaManager', array(
+                'settings' => $settings,
+                'swUrl' => home_url('/sw.js'),
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('wp_pwa_manager_nonce'),
+                'i18n' => array(
+                    // Install prompt translations
+                    'installPromptTitle' => __('Install App', 'wordpress-pwa-manager'),
+                    'installPromptText' => __('Install this app on your device for a better experience and quick access.', 'wordpress-pwa-manager'),
+                    'installPromptInstall' => __('Install', 'wordpress-pwa-manager'),
+                    'installPromptLater' => __('Ask me later', 'wordpress-pwa-manager'),
+                    'installPromptDismiss' => __('No thanks', 'wordpress-pwa-manager'),
+                    
+                    // Update prompt translations
+                    'updatePromptTitle' => __('Update Available', 'wordpress-pwa-manager'),
+                    'updatePromptText' => __('A new version of this app is available. Update now for the latest features and improvements.', 'wordpress-pwa-manager'),
+                    'updatePromptUpdate' => __('Update Now', 'wordpress-pwa-manager'),
+                    'updatePromptLater' => __('Later', 'wordpress-pwa-manager'),
+                    
+                    // Connection status translations
+                    'connectionOnline' => __('Back online', 'wordpress-pwa-manager'),
+                    'connectionOffline' => __('You are offline', 'wordpress-pwa-manager'),
+                )
+            ));
         }
     }
     

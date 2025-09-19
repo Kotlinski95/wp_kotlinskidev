@@ -2,7 +2,7 @@
 
 header {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top);
   right: 0;
   left: 0;
   width: 100%;

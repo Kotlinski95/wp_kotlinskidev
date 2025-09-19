@@ -88,6 +88,8 @@
 }
 
 .pwa-connection-status {
-  top: calc($header + 20px) !important;
-  left: 110px !important;
+  top: calc($header + 20px + env(safe-area-inset-top)) !important;
+  left: 20px !important;
+  transform: translateX(0) !important;
+
 }
