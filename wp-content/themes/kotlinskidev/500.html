@@ -63,6 +63,9 @@
           retry_button: "Try Again",
           error_code: "Error Code",
           time: "Time",
+          themeLight:
+            "Switch between dark and light mode (currently light mode)",
+          themeDark: "Switch between dark and light mode (currently dark mode)",
         },
         pl: {
           error_title: "Błąd Serwera",
@@ -72,8 +75,14 @@
           retry_button: "Spróbuj ponownie",
           error_code: "Kod błędu",
           time: "Czas",
+          themeLight:
+            "Przełącz pomiędzy trybem ciemnym i jasnym (obecnie tryb jasny)",
+          themeDark:
+            "Przełącz pomiędzy trybem ciemnym i jasnym (obecnie tryb ciemny)",
         },
       };
+
+      window.translations = translations;
 
       // Function to detect user's preferred language
       function detectLanguage() {
@@ -140,23 +149,31 @@
       function setBackgroundImage() {
         // Get the current URL
         const currentUrl = window.location.href;
-        let basePath = '';
-        
+        let basePath = "";
+
         // Check if we're in a subdirectory (like your local setup)
-        if (currentUrl.includes('/adriankotlinski/')) {
+        if (currentUrl.includes("/adriankotlinski/")) {
           // Local development with subdirectory
-          basePath = window.location.protocol + '//' + window.location.host + '/adriankotlinski/wp-content/themes/kotlinskidev/assets/images/kotlinskidev-logo.webp';
+          basePath =
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            "/adriankotlinski/wp-content/themes/kotlinskidev/assets/images/kotlinskidev-logo.webp";
         } else {
           // Production or root installation
-          basePath = window.location.protocol + '//' + window.location.host + '/wp-content/themes/kotlinskidev/assets/images/kotlinskidev-logo.webp';
+          basePath =
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            "/wp-content/themes/kotlinskidev/assets/images/kotlinskidev-logo.webp";
         }
-        
+
         // Set the background image with opacity effect
         document.body.style.backgroundImage = `url('${basePath}')`;
-        document.body.style.opacity = '1';
-        
+        document.body.style.opacity = "1";
+
         // Create a pseudo-element effect using a div overlay
-        const backgroundOverlay = document.createElement('div');
+        const backgroundOverlay = document.createElement("div");
         backgroundOverlay.style.cssText = `
           position: fixed;
           top: 0;
@@ -172,11 +189,11 @@
           z-index: -1;
           filter: invert(15%);
         `;
-        backgroundOverlay?.classList?.add('body-overlay');
+        backgroundOverlay?.classList?.add("body-overlay");
         document.body.appendChild(backgroundOverlay);
-        
+
         // Remove the background from body to avoid double images
-        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundImage = "none";
       }
 
       // Set background image when page loads
@@ -362,62 +379,58 @@
       }
 
       /* Theme toggle switch - based on your existing theme switcher */
-      .theme-toggle-container {
+      .theme-switcher {
+        display: flex;
+        flex-direction: column;
+        z-index: 1001;
+        margin-inline-end: -1rem;
         position: absolute;
         top: 20px;
-        right: 20px;
-        display: flex;
-        align-items: center;
+        right: 40px;
       }
-
-      .box {
+      .theme-switcher p:empty,
+      .theme-switcher br {
+        display: none;
+      }
+      .theme-switcher .title {
+        text-align: center;
+      }
+      .theme-switcher .content {
+        text-align: justify;
+      }
+      .theme-switcher input[type="checkbox"] {
+        display: none;
+      }
+      .theme-switcher .icon {
         display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        width: 50px;
-        height: 26px;
-        background-color: black;
-        border-radius: 30px;
-        padding: 5px;
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 100%;
+        padding: 3px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        position: relative;
+        align-items: center;
       }
-
-      .light-mode .box {
-        background-color: black;
-        color: white;
+      .theme-switcher .icon svg {
+        width: 2rem;
+        height: 2rem;
       }
-
-      .light-mode .body-overlay {
-        opacity: 0.3 !important;
+      .theme-switcher .icon.light {
+        display: none;
       }
-
-      .dark-mode .box {
-        background-color: white;
+      .theme-switcher .icon:focus,
+      .theme-switcher .icon:hover {
+        background: rgba(242, 242, 242, 0.1);
       }
-
-      .ball {
-        width: 16px;
-        height: 16px;
-        background-color: white;
-        border-radius: 50%;
-        transition: transform 0.3s ease;
+      .light-mode .theme-switcher .icon.dark {
+        display: none;
       }
-
-      .light-mode .ball {
-        transform: translateX(0%);
+      .light-mode .theme-switcher .icon.light {
+        display: flex;
       }
-
-      .dark-mode .ball {
-        transform: translateX(150%);
-        background-color: black;
-      }
-
-      /* Hide the actual checkbox */
-      #theme-toggle {
-        position: absolute;
-        opacity: 0;
+      .light-mode .theme-switcher .icon:focus,
+      .light-mode .theme-switcher .icon:hover {
+        background: rgba(19, 19, 19, 0.2);
       }
 
       /* Language selector styling */
@@ -458,14 +471,38 @@
       <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
       <button class="lang-btn" onclick="changeLanguage('pl')">PL</button>
     </div>
-    <div class="theme-toggle-container">
-      <input
-        type="checkbox"
-        id="theme-toggle"
-        aria-label="Toggle dark/light theme"
-      />
-      <label for="theme-toggle" class="box">
-        <div class="ball"></div>
+
+    <div class="theme-switcher">
+      <input type="checkbox" name="check" id="theme-toggle" />
+      <label for="theme-toggle">
+        <span class="wrapper">
+          <span class="icon light" data-theme-icon="light">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="lightToggleIcon_pyhR"
+            >
+              <path
+                fill="currentColor"
+                d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"
+              ></path>
+            </svg>
+          </span>
+          <span class="icon dark" data-theme-icon="dark">
+            <svg
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="darkToggleIcon_wfgR"
+            >
+              <path
+                fill="currentColor"
+                d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"
+              ></path>
+            </svg>
+          </span>
+        </span>
       </label>
     </div>
 
@@ -499,10 +536,28 @@
     <script>
       // Theme toggle functionality - matches your theme-switcher.ts implementation
       document.addEventListener("DOMContentLoaded", function () {
-        const box = document.querySelector(".box");
-        const ball = document.querySelector(".ball");
         const themeToggleButton = document.getElementById("theme-toggle");
+        const lightIcon = document.querySelector(".icon.light");
+        const darkIcon = document.querySelector(".icon.dark");
         if (!themeToggleButton) return;
+
+        const updateIconTitles = (isLightMode) => {
+          if (lightIcon && darkIcon) {
+            if (isLightMode) {
+              lightIcon.setAttribute(
+                "title",
+                translations[document.documentElement.lang].themeLight
+              );
+              darkIcon.removeAttribute("title");
+            } else {
+              darkIcon.setAttribute(
+                "title",
+                translations[document.documentElement.lang].themeDark
+              );
+              lightIcon.removeAttribute("title");
+            }
+          }
+        };
 
         // Function to apply light theme
         const applyLightTheme = () => {
@@ -511,9 +566,7 @@
           document.body.classList.add("light-mode");
           document.body.classList.remove("dark-mode");
           themeToggleButton.checked = true;
-          if (box)
-            box.setAttribute("style", "background-color:black; color:white;");
-          if (ball) ball.setAttribute("style", "transform:translatex(0%);");
+          updateIconTitles(true);
         };
 
         // Function to apply dark theme
@@ -523,20 +576,33 @@
           document.body.classList.add("dark-mode");
           document.body.classList.remove("light-mode");
           themeToggleButton.checked = false;
-          if (box) box.setAttribute("style", "background-color:white;");
-          if (ball) ball.setAttribute("style", "transform:translatex(150%);");
+          updateIconTitles(false);
         };
 
         // Set initial toggle state based on current theme
         if (document.documentElement.classList.contains("light-mode")) {
           themeToggleButton.checked = true;
-          if (box)
-            box.setAttribute("style", "background-color:black; color:white;");
-          if (ball) ball.setAttribute("style", "transform:translatex(0%);");
         } else {
           themeToggleButton.checked = false;
-          if (box) box.setAttribute("style", "background-color:white;");
-          if (ball) ball.setAttribute("style", "transform:translatex(150%);");
+        }
+
+        // Check for stored theme preference or detect system preference
+        const storedTheme = localStorage.getItem("theme");
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+
+        if (storedTheme === "light") {
+          applyLightTheme();
+        } else if (storedTheme === "dark") {
+          applyDarkTheme();
+        } else {
+          // No stored preference, use system preference
+          if (systemPrefersDark) {
+            applyDarkTheme();
+          } else {
+            applyLightTheme();
+          }
         }
 
         // Handle toggle change
@@ -598,6 +664,11 @@
 
             // Update button states
             updateLanguageButtons();
+            if (storedTheme === "light") {
+              applyLightTheme();
+            } else if (storedTheme === "dark") {
+              applyDarkTheme();
+            }
           }
         };
       });

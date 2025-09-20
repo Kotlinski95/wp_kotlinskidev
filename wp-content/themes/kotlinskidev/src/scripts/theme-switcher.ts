@@ -1,11 +1,31 @@
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
-    const box = document.querySelector(".box");
-    const ball = document.querySelector(".ball");
     const themeToggleButton = document.getElementById(
       "theme-toggle"
     ) as HTMLInputElement;
+    const lightIcon = document.querySelector('.icon.light') as HTMLElement;
+    const darkIcon = document.querySelector('.icon.dark') as HTMLElement;
+    
     if (!themeToggleButton) return;
+
+    // Get translations from WordPress i18n system
+    const translations = (window as any).i18n?.themeSwitcher || {
+      lightMode: "Switch between dark and light mode (currently light mode)",
+      darkMode: "Switch between dark and light mode (currently dark mode)"
+    };
+
+    // Update icon titles based on current theme
+    const updateIconTitles = (isLightMode: boolean) => {
+      if (lightIcon && darkIcon) {
+        if (isLightMode) {
+          lightIcon.setAttribute('title', translations.lightMode);
+          darkIcon.removeAttribute('title');
+        } else {
+          darkIcon.setAttribute('title', translations.darkMode);
+          lightIcon.removeAttribute('title');
+        }
+      }
+    };
 
     // Function to apply light theme
     const applyLightTheme = () => {
@@ -14,8 +34,7 @@
       document.body?.classList?.remove("dark-mode");
       document.documentElement.classList.remove("dark-mode");
       themeToggleButton.checked = true;
-      box?.setAttribute("style", "background-color:black; color:white;");
-      ball?.setAttribute("style", "transform:translatex(0%);");
+      updateIconTitles(true);
     };
 
     // Function to apply dark theme
@@ -25,8 +44,7 @@
       document.body?.classList?.remove("light-mode");
       document.documentElement.classList.remove("light-mode");
       themeToggleButton.checked = false;
-      box?.setAttribute("style", "background-color:white;");
-      ball?.setAttribute("style", "transform:translatex(80%);");
+      updateIconTitles(false);
     };
 
     // Check for stored theme preference or detect system preference

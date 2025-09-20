@@ -201,6 +201,161 @@ msgstr ""
 msgid "Use fewer or different keywords"
 msgstr ""
 
+#. Navigation translations - from i18n.php
+msgid "Toggle navigation menu"
+msgstr ""
+
+msgid "Close menu"
+msgstr ""
+
+msgid "Open menu"
+msgstr ""
+
+msgid "Home"
+msgstr ""
+
+msgid "You are here:"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+msgid "of"
+msgstr ""
+
+#. Form translations - from i18n.php
+msgid "This field is required."
+msgstr ""
+
+msgid "Please enter a valid email address."
+msgstr ""
+
+msgid "Minimum length is %d characters."
+msgstr ""
+
+msgid "Maximum length is %d characters."
+msgstr ""
+
+msgid "Sending..."
+msgstr ""
+
+msgid "Message sent successfully!"
+msgstr ""
+
+msgid "An error occurred. Please try again."
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Send"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+#. General UI translations - from i18n.php
+msgid "Loading..."
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid "Success"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "Information"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Read more"
+msgstr ""
+
+msgid "Read less"
+msgstr ""
+
+msgid "Show more"
+msgstr ""
+
+msgid "Show less"
+msgstr ""
+
+#. Accessibility translations - from i18n.php
+msgid "Skip to main content"
+msgstr ""
+
+msgid "Scroll to top"
+msgstr ""
+
+msgid "External link"
+msgstr ""
+
+msgid "Opens in new window"
+msgstr ""
+
+msgid "Download file"
+msgstr ""
+
+#. Cookie Consent translations - from i18n.php
+msgid "This website uses cookies to ensure you get the best experience on our website."
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Decline"
+msgstr ""
+
+msgid "Learn more"
+msgstr ""
+
+msgid "Cookie Settings"
+msgstr ""
+
+#. Lightbox translations - from i18n.php
+msgid "Close lightbox"
+msgstr ""
+
+msgid "Next image"
+msgstr ""
+
+msgid "Previous image"
+msgstr ""
+
+msgid "Loading image..."
+msgstr ""
+
+msgid "%1$d of %2$d"
+msgstr ""
+
+#. Scroll Animations translations - from i18n.php
+msgid "Content revealed"
+msgstr ""
+
+msgid "Animation triggered"
+msgstr ""
+
+#. Theme Switcher translations - from i18n.php
+msgid "Switch between dark and light mode (currently light mode)"
+msgstr ""
+
+msgid "Switch between dark and light mode (currently dark mode)"
+msgstr ""
+
 msgid "Remove content type or category filters"
 msgstr ""
 

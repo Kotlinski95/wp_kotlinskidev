@@ -1,21 +1,83 @@
-@import 'variables';
+@import "variables";
 
 .kotlinskidev-scrollto-top {
-    position: fixed;
-    bottom: calc(1rem + env(safe-area-inset-bottom));
-    right: calc(1rem + env(safe-area-inset-right));
-    height: 2rem;
-    width: 2rem;
-    padding: 0;
-    z-index: 999;
-    #scroll-top-top{
-        height: 2rem;
-        width: 2rem;
-        padding: 0 !important;
-        font-size: 0;
-        background-color: transparent;
-        br{
-            display: none;
-        }
+  position: fixed;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
+  right: calc(1rem + env(safe-area-inset-right));
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  z-index: 999;
+  #scroll-top-top {
+    height: 40px;
+    width: 40px;
+    padding: 0 !important;
+    font-size: 0;
+    background-color: transparent;
+    br {
+      display: none;
     }
+  }
+}
+
+.scroll-to-top-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.progress-ring {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: rotate(-90deg);
+  z-index: 1;
+}
+
+.progress-ring__background {
+  stroke: var(--wp--preset--color--light-color);
+  opacity: 0.3;
+}
+
+.progress-ring__progress {
+  stroke: var(--wp--preset--color--primary);
+  stroke-dasharray: 163.36; /* 2π × 26 (radius) */
+  stroke-dashoffset: 163.36;
+  transition: stroke-dashoffset 0.1s ease-out;
+}
+
+#scroll-to-top {
+  background-color: var(--wp--preset--color--dark-color);
+  width: 2rem;
+  height: 2rem;
+  padding: 0 !important;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  br {
+    display: none;
+  }
+}
+
+.scroll-to-top-wrapper {
+  display: none;
+
+  &.show {
+    display: inline-block;
+  }
+}
+
+.light-mode {
+  .progress-ring__background {
+    stroke: var(--wp--preset--color--dark-color);
+    opacity: 0.2;
+  }
+
+  #scroll-to-top {
+    background-color: var(--wp--preset--color--light-color);
+  }
 }
