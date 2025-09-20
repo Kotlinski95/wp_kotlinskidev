@@ -53,3 +53,15 @@
 .icon-arrow-up:before {
   content: "\e908";
 }
+.icon-about:before {
+  content: "\e909";
+}
+.icon-contact:before {
+  content: "\e90a";
+}
+.icon-services:before {
+  content: "\e90b";
+}
+.icon-portfolio:before {
+  content: "\e90c";
+}

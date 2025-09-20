@@ -18,6 +18,10 @@
       display: none;
     }
   }
+  @media (max-width: $breakpoint-mobile) {
+    bottom: calc(1rem + $mobile-footer-nav);
+  }
+
 }
 
 .scroll-to-top-wrapper {

@@ -26,7 +26,11 @@ function kotlinskidev_dynamic_footer_pattern($block_content, $block) {
             if (function_exists('kotlinskidev_add_protection_to_content')) {
                 $rendered_content = kotlinskidev_add_protection_to_content($rendered_content);
             }
-            
+            // Include mobile footer menu
+            ob_start();
+            get_template_part('template-parts/mobile-footer-menu');
+            $mobile_footer_menu = ob_get_clean();
+            $rendered_content .= $mobile_footer_menu;
             return $rendered_content;
         }
     }

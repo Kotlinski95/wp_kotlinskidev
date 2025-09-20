@@ -5,6 +5,7 @@ function theme_slug_register_menus()
         array(
             'primary' => __('Header menu', 'theme_slug'),
             'mobile'  => __('Mobile Menu', 'theme_slug'),
+            'mobile_footer'  => __('Mobile Footer Menu', 'theme_slug'),
             'social'  => __('Social Media Menu', 'theme_slug')
         )
     );
