@@ -1,32 +1,15 @@
-// theme switcher
-$scale: 70px;
-$time: 0s;
-
-@mixin common($a, $b, $c, $d, $e, $f, $g) {
-  display: $a;
-  flex-direction: $b;
-  justify-content: $c;
-  align-items: $d;
-  width: $e;
-  height: $f;
-  background-color: $g;
-  transition: all $time ease;
-}
+@import "variables";
 
 .theme-switcher {
   p:empty,
-  br{
+  br {
     display: none;
-  }
-
-  p{
-    margin: 0;
   }
 
   display: flex;
   flex-direction: column;
-  height: 35px !important;
   z-index: 1001;
+  margin-inline-end: -1rem;
   .title {
     text-align: center;
   }
@@ -35,59 +18,53 @@ $time: 0s;
     text-align: justify;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     display: none;
   }
 
   .icon {
+    display: flex;
     font-size: 1.25rem;
-    width: 20px;
-    height: 20px;
-   p{
-    width: 20px;
-    height: 20px;
-   }
-  }
-
-  .btn {
-    align-self: center;
-    margin: 0;
-    min-height: $scale/2;
-  }
-
-  .box {
-    @include common(flex, column, center, null, $scale, $scale/2, white);
-    position: relative;
-    border-radius: $scale/4;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 100%;
+    padding: 3px;
     cursor: pointer;
-
-    .ball {
-      @include common(null, null, null, null, $scale/2, $scale/2, grey);
-      position: absolute;
-      border-radius: 50%;
-      border: 3px solid black;
-      transform: translatex(80%);
+    &.light {
+      display: none;
     }
-
-    .scenery {
-      @include common(flex, row, space-between, null, null, null, null);
-      padding: 0 10px;
-
-      svg {
-        width: $scale/3;
-        height: $scale/3;
-      }
+    &:focus,
+    &:hover {
+      background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
     }
   }
 }
 
 .light-mode {
   .theme-switcher {
-    .box {
-      @include common(flex, column, center, null, $scale, $scale/2, black);
+    .icon {
+      &.dark {
+        display: none;
+      }
+      &.light {
+        display: flex;
+      }
+      &:focus,
+      &:hover {
+        background: rgba(var(--wp--preset--color--dark-color-rgb), 0.1);
+      }
     }
-    .ball {
-      transform: translatex(0%);
+  }
+}
+
+@media (max-width: calc($breakpoint-desktop - 1px)) {
+  .theme-switcher {
+    .wrapper {
+      .icon,
+      .icon > svg {
+        width: 2rem;
+        height: 2rem;
+      }
     }
   }
 }

@@ -10,28 +10,7 @@ function kotlinskidev_navigation_shortcode()
         </div>
         <div class="header-wrapper">
             <section class="header-right" style="display: none;">
-                <div class="theme-switcher">
-                    <div class="btn">
-                        <input type="checkbox" name="check" id="theme-toggle">
-                        <label for="theme-toggle">
-                            <div class="box">
-                                <div class="ball"></div>
-                                <div class="scenery">
-                                    <div class="moon icon">
-                                        <!-- wp:html -->
-                                        <?php echo file_get_contents(get_template_directory() . '/assets/images/light-bulb-dark.svg'); ?>
-                                        <!-- /wp:html -->
-                                    </div>
-                                    <div class="sun icon">
-                                        <!-- wp:html -->
-                                        <?php echo file_get_contents(get_template_directory() . '/assets/images/light-bulb.svg'); ?>
-                                        <!-- /wp:html -->
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+                <?php echo do_shortcode('[theme_switcher]'); ?>
                 <div id="hamburger-button" class="mobile-only tablet-only">
                     <input type="checkbox" id="toggle" name="hamburger-toggle" aria-label="hamburger menu toggle" autocomplete="off">
                     <label for="toggle">

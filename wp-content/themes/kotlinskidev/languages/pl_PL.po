@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-12-04T09:48:11+00:00\n"
-"PO-Revision-Date: 2025-08-25 07:43+0000\n"
+"PO-Revision-Date: 2025-09-19 12:23+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: kotlinskidev\n"
 "Language: pl_PL\n"
@@ -26,6 +26,9 @@ msgstr " z Twoimi obecnymi filtrami"
 
 msgid " • %s only"
 msgstr " • tylko %s"
+
+msgid "%1$d of %2$d"
+msgstr "%1$d z %2$d"
 
 msgctxt "404"
 msgid "Categories"
@@ -48,11 +51,20 @@ msgstr "Gotowy układ bannera strony głównej"
 msgid "About Us"
 msgstr "O mnie"
 
+msgid "Accept"
+msgstr "Akceptuj"
+
 msgid "All Content"
 msgstr "Wszystkie treści"
 
 msgid "All Topics"
 msgstr "Wszystkie tematy"
+
+msgid "An error occurred. Please try again."
+msgstr "Wystąpił błąd. Spróbuj ponownie."
+
+msgid "Animation triggered"
+msgstr "Animacja uruchomiona"
 
 msgid "Article"
 msgstr "Artykuł"
@@ -84,6 +96,9 @@ msgstr "Przeglądaj wszystkie treści"
 msgid "Browse All Topics"
 msgstr "Przeglądaj wszystkie tematy"
 
+msgid "Cancel"
+msgstr "Anuluj"
+
 msgid "Career"
 msgstr "Kariera"
 
@@ -92,6 +107,16 @@ msgstr "Sprawdź pisownię i spróbuj ponownie"
 
 msgid "Clear search and filters"
 msgstr "Wyczyść wyszukiwanie i filtry"
+
+msgid "Close"
+msgstr "Zamknij"
+
+#. Lightbox translations - from i18n.php
+msgid "Close lightbox"
+msgstr "Zamknij lightbox"
+
+msgid "Close menu"
+msgstr "Zamknij menu"
 
 msgid "Contact address"
 msgstr "Polska, 40-143 Katowice, ul.Dekerta"
@@ -108,11 +133,24 @@ msgstr "Kontakt"
 msgid "Contact phone"
 msgstr "+48 608 418 911"
 
+#. Scroll Animations translations - from i18n.php
+msgid "Content revealed"
+msgstr "Treść ujawniona"
+
 msgid "Content Type"
 msgstr "Typ treści"
 
+msgid "Cookie Settings"
+msgstr "Ustawienia plików cookie"
+
 msgid "Copyrights"
 msgstr " Kotlinskidev | Projektowanie aplikacji i stron internetowych"
+
+msgid "Decline"
+msgstr "Odrzuć"
+
+msgid "Download file"
+msgstr "Pobierz plik"
 
 msgid "E-commerce"
 msgstr "E-commerce"
@@ -120,8 +158,14 @@ msgstr "E-commerce"
 msgid "Enter keywords, topics, or specific terms..."
 msgstr "Wprowadź słowa kluczowe, tematy lub konkretne terminy..."
 
+msgid "Error"
+msgstr "Błąd"
+
 msgid "Explore %s"
 msgstr "Odkryj %s"
+
+msgid "External link"
+msgstr "Link zewnętrzny"
 
 msgid "FAQ"
 msgstr "Często zadawane pytania"
@@ -179,6 +223,9 @@ msgstr ""
 msgid "Home Banner title"
 msgstr "Kotlinskidev | Nowoczesne tworzenie stron internetowych"
 
+msgid "Information"
+msgstr "Informacja"
+
 #. Theme Name of the theme
 #: style.css
 msgid "kotlinskidev"
@@ -188,16 +235,38 @@ msgstr "kotlinskidev"
 msgid "Latest Articles"
 msgstr "Najnowsze artykuły"
 
+msgid "Learn more"
+msgstr "Dowiedz się więcej"
+
+msgid "Loading image..."
+msgstr "Ładowanie obrazu..."
+
+#. General UI translations - from i18n.php
+msgid "Loading..."
+msgstr "Ładowanie..."
+
 #. Search Results strings
 msgid "Looking for something else?"
 msgstr "Szukasz czegoś innego?"
+
+msgid "Maximum length is %d characters."
+msgstr "Maksymalna długość to %d znaków."
+
+msgid "Message sent successfully!"
+msgstr "Wiadomość została wysłana pomyślnie!"
 
 #. Reading time and navigation strings
 msgid "min read"
 msgstr "min czytania"
 
+msgid "Minimum length is %d characters."
+msgstr "Minimalna długość to %d znaków."
+
 msgid "Next"
 msgstr "Dalej"
+
+msgid "Next image"
+msgstr "Następny obraz"
 
 msgid "No articles found with this tag"
 msgstr "Nie znaleziono artykułów z tym tagiem"
@@ -220,6 +289,15 @@ msgstr "Nie znaleziono wyników"
 msgid "No topics found"
 msgstr "Nie znaleziono tematów"
 
+msgid "of"
+msgstr "z"
+
+msgid "Open menu"
+msgstr "Otwórz menu"
+
+msgid "Opens in new window"
+msgstr "Otwiera się w nowym oknie"
+
 #. Other Topics strings
 msgid "Other Topics"
 msgstr "Inne tematy"
@@ -232,6 +310,9 @@ msgstr "Strona %d z %d"
 
 msgid "Pages"
 msgstr "Strony"
+
+msgid "Please enter a valid email address."
+msgstr "Proszę podać prawidłowy adres e-mail."
 
 msgid "Policy"
 msgstr "Polityka prywatności"
@@ -246,6 +327,9 @@ msgstr "Popularne treści"
 
 msgid "Previous"
 msgstr "Wstecz"
+
+msgid "Previous image"
+msgstr "Poprzedni obraz"
 
 #. Navigation strings
 msgid "Primary Menu"
@@ -264,7 +348,13 @@ msgstr "Czytaj"
 msgid "Read Article"
 msgstr "Czytaj artykuł"
 
+msgid "Read less"
+msgstr "Czytaj mniej"
+
 msgid "Read More"
+msgstr "Czytaj więcej"
+
+msgid "Read more"
 msgstr "Czytaj więcej"
 
 #. Related Articles strings
@@ -279,6 +369,12 @@ msgstr "Usuń filtry typu treści lub kategorii"
 
 msgid "Same Topic"
 msgstr "Ten sam temat"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Scroll to top"
+msgstr "Przewiń do góry"
 
 msgid "search"
 msgstr "szukaj"
@@ -306,14 +402,43 @@ msgstr "Wyniki wyszukiwania"
 msgid "See My Popular Posts"
 msgstr "Zobacz moje popularne posty"
 
+msgid "Send"
+msgstr "Wyślij"
+
+msgid "Sending..."
+msgstr "Wysyłanie..."
+
 msgid "Services"
 msgstr "Usługi"
+
+msgid "Show less"
+msgstr "Pokaż mniej"
+
+msgid "Show more"
+msgstr "Pokaż więcej"
 
 msgid "Showing results for \"%s\""
 msgstr "Wyświetlanie wyników dla \"%s\""
 
 msgid "Similar Tags"
 msgstr "Podobne tagi"
+
+#. Accessibility translations - from i18n.php
+msgid "Skip to main content"
+msgstr "Przejdź do głównej treści"
+
+msgid "Submit"
+msgstr "Wyślij"
+
+msgid "Success"
+msgstr "Sukces"
+
+msgid "Switch between dark and light mode (currently dark mode)"
+msgstr "Przełącz między trybem ciemnym a jasnym (obecnie tryb ciemny)"
+
+#. Theme Switcher translations - from i18n.php
+msgid "Switch between dark and light mode (currently light mode)"
+msgstr "Przełącz między trybem ciemnym a jasnym (obecnie tryb jasny)"
 
 msgid "Tag:"
 msgstr "Tag:"
@@ -324,6 +449,22 @@ msgstr "Tagii"
 
 msgid "Terms and Conditions"
 msgstr "Zasady i warunki"
+
+#. Form translations - from i18n.php
+msgid "This field is required."
+msgstr "To pole jest wymagane."
+
+#. Cookie Consent translations - from i18n.php
+msgid ""
+"This website uses cookies to ensure you get the best experience on our "
+"website."
+msgstr ""
+"Ta strona internetowa używa plików cookie, aby zapewnić najlepsze "
+"doświadczenia na naszej stronie."
+
+#. Navigation translations - from i18n.php
+msgid "Toggle navigation menu"
+msgstr "Przełącz menu nawigacji"
 
 msgid "Topic Category"
 msgstr "Kategoria tematu"
@@ -368,6 +509,9 @@ msgstr "Zobacz artykuły"
 msgid "View Page"
 msgstr "Zobacz stronę"
 
+msgid "Warning"
+msgstr "Ostrzeżenie"
+
 msgid "We couldn't find any content matching \"%s\""
 msgstr "Nie mogliśmy znaleźć żadnych treści pasujących do \"%s\""
 
@@ -382,3 +526,6 @@ msgstr "Poprawa wydajności stron internetowych"
 
 msgid "Welcome to My Site"
 msgstr "Witaj na mojej stronie"
+
+msgid "You are here:"
+msgstr "Jesteś tutaj:"

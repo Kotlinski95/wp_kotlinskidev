@@ -21,23 +21,36 @@ define('KOTLINSKIDEV_TEXT_DOMAIN', 'kotlinskidev');
  */
 function kotlinskidev_i18n_init() {
     add_action('after_setup_theme', 'kotlinskidev_load_theme_textdomain');
-    add_action('wp_enqueue_scripts', 'kotlinskidev_localize_scripts', 20); // Run with priority 20 (after scripts are enqueued)
+    add_action('wp_enqueue_scripts', 'kotlinskidev_localize_scripts', 999); // Run with very late priority to ensure locale is loaded
 }
 
 /**
  * Load theme text domain for translations
  */
 function kotlinskidev_load_theme_textdomain() {
+    // Force load with current locale
+    $locale = determine_locale();
     load_theme_textdomain(
         KOTLINSKIDEV_TEXT_DOMAIN,
         get_template_directory() . '/languages'
     );
+    
+    // Debug: Log what locale we're trying to load
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        error_log('KotlinskiDev: Loading textdomain for locale: ' . $locale);
+        error_log('KotlinskiDev: Textdomain loaded: ' . (is_textdomain_loaded(KOTLINSKIDEV_TEXT_DOMAIN) ? 'YES' : 'NO'));
+    }
 }
 
 /**
  * Localize scripts with translations
  */
 function kotlinskidev_localize_scripts() {
+    
+    // Ensure textdomain is loaded before localizing
+    if (!is_textdomain_loaded(KOTLINSKIDEV_TEXT_DOMAIN)) {
+        kotlinskidev_load_theme_textdomain();
+    }
     
     // Get the actual script handles from your theme
     $script_handles = [
@@ -51,10 +64,24 @@ function kotlinskidev_localize_scripts() {
     $localized = false;
     foreach ($script_handles as $handle) {
         if (wp_script_is($handle, 'enqueued') || wp_script_is($handle, 'registered')) {
-            wp_localize_script($handle, 'i18n', kotlinskidev_get_all_translations());
+            $translations = kotlinskidev_get_all_translations();
+            wp_localize_script($handle, 'i18n', $translations);
             $localized = true;
+            
+            // Debug: Log what translations are being sent to JavaScript
+            if (defined('WP_DEBUG') && WP_DEBUG) {
+                error_log('KotlinskiDev i18n: Localized to script handle: ' . $handle);
+                error_log('KotlinskiDev i18n: Sample translation - "Toggle navigation menu": ' . $translations['navigation']['menu']['toggle']);
+                error_log('KotlinskiDev i18n: Sample translation - "This field is required.": ' . $translations['forms']['validation']['required']);
+            }
+            
             break; // Only localize once
         }
+    }
+    
+    // Debug: Log current locale to help troubleshooting
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        error_log('KotlinskiDev i18n: Current locale is ' . get_locale());
     }
 }
 
@@ -72,6 +99,7 @@ function kotlinskidev_get_all_translations() {
         'cookieConsent' => kotlinskidev_get_cookie_consent_translations(),
         'lightbox' => kotlinskidev_get_lightbox_translations(),
         'scrollAnimations' => kotlinskidev_get_scroll_animations_translations(),
+        'themeSwitcher' => kotlinskidev_get_theme_switcher_translations(),
     ];
 }
 
@@ -201,6 +229,18 @@ function kotlinskidev_get_scroll_animations_translations() {
     return [
         'reveal' => __('Content revealed', KOTLINSKIDEV_TEXT_DOMAIN),
         'animated' => __('Animation triggered', KOTLINSKIDEV_TEXT_DOMAIN),
+    ];
+}
+
+/**
+ * Theme Switcher translations
+ * 
+ * @return array Theme switcher translations
+ */
+function kotlinskidev_get_theme_switcher_translations() {
+    return [
+        'lightMode' => __('Switch between dark and light mode (currently light mode)', KOTLINSKIDEV_TEXT_DOMAIN),
+        'darkMode' => __('Switch between dark and light mode (currently dark mode)', KOTLINSKIDEV_TEXT_DOMAIN),
     ];
 }
 

@@ -55,8 +55,18 @@
           "name": "Light Color"
         },
         {
+          "slug": "light-color-rgb",
+          "color": "242, 242, 242",
+          "name": "Light Color"
+        },
+        {
           "slug": "dark-color",
           "color": "#191919",
+          "name": "Dark Color"
+        },
+        {
+          "slug": "dark-color-rgb",
+          "color": "25, 25, 25",
           "name": "Dark Color"
         },
         {

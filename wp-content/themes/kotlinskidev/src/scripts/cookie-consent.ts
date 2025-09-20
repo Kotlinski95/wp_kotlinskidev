@@ -33,8 +33,8 @@ function replaceCookieConsentButton(): void {
       consentButton.innerHTML = `
         <img src="${cookieImagePath}" 
              alt="Cookie consent" 
-             width="32" 
-             height="32" 
+             width="40" 
+             height="40" 
              style="display: block; max-width: 100%; height: auto;"
              aria-hidden="true" />
       `;

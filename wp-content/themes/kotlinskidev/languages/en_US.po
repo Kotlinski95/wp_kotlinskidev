@@ -375,3 +375,152 @@ msgstr "Website performance"
 
 msgid "Welcome to My Site"
 msgstr "Welcome to My Site"
+
+#. Navigation translations - from i18n.php
+msgid "Toggle navigation menu"
+msgstr "Toggle navigation menu"
+
+msgid "Close menu"
+msgstr "Close menu"
+
+msgid "Open menu"
+msgstr "Open menu"
+
+msgid "You are here:"
+msgstr "You are here:"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "of"
+msgstr "of"
+
+#. Form translations - from i18n.php
+msgid "This field is required."
+msgstr "This field is required."
+
+msgid "Please enter a valid email address."
+msgstr "Please enter a valid email address."
+
+msgid "Minimum length is %d characters."
+msgstr "Minimum length is %d characters."
+
+msgid "Maximum length is %d characters."
+msgstr "Maximum length is %d characters."
+
+msgid "Sending..."
+msgstr "Sending..."
+
+msgid "Message sent successfully!"
+msgstr "Message sent successfully!"
+
+msgid "An error occurred. Please try again."
+msgstr "An error occurred. Please try again."
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Send"
+msgstr "Send"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+#. General UI translations - from i18n.php
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Information"
+msgstr "Information"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Read more"
+msgstr "Read more"
+
+msgid "Read less"
+msgstr "Read less"
+
+msgid "Show more"
+msgstr "Show more"
+
+msgid "Show less"
+msgstr "Show less"
+
+#. Accessibility translations - from i18n.php
+msgid "Skip to main content"
+msgstr "Skip to main content"
+
+msgid "Scroll to top"
+msgstr "Scroll to top"
+
+msgid "External link"
+msgstr "External link"
+
+msgid "Opens in new window"
+msgstr "Opens in new window"
+
+msgid "Download file"
+msgstr "Download file"
+
+#. Cookie Consent translations - from i18n.php
+msgid "This website uses cookies to ensure you get the best experience on our website."
+msgstr "This website uses cookies to ensure you get the best experience on our website."
+
+msgid "Accept"
+msgstr "Accept"
+
+msgid "Decline"
+msgstr "Decline"
+
+msgid "Learn more"
+msgstr "Learn more"
+
+msgid "Cookie Settings"
+msgstr "Cookie Settings"
+
+#. Lightbox translations - from i18n.php
+msgid "Close lightbox"
+msgstr "Close lightbox"
+
+msgid "Next image"
+msgstr "Next image"
+
+msgid "Previous image"
+msgstr "Previous image"
+
+msgid "Loading image..."
+msgstr "Loading image..."
+
+msgid "%1$d of %2$d"
+msgstr "%1$d of %2$d"
+
+#. Scroll Animations translations - from i18n.php
+msgid "Content revealed"
+msgstr "Content revealed"
+
+msgid "Animation triggered"
+msgstr "Animation triggered"
+
+#. Theme Switcher translations - from i18n.php
+msgid "Switch between dark and light mode (currently light mode)"
+msgstr "Switch between dark and light mode (currently light mode)"
+
+msgid "Switch between dark and light mode (currently dark mode)"
+msgstr "Switch between dark and light mode (currently dark mode)"
