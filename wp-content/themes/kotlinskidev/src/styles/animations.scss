@@ -6,6 +6,7 @@
 .hover-jump {
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
+  will-change: transform;
 
   &:hover {
     transform: translateY(-10px);
@@ -16,6 +17,7 @@
 .hover-jump-subtle {
   transition: transform 0.25s ease-in-out;
   cursor: pointer;
+  will-change: transform;
 
   &:hover {
     transform: translateY(-5px);
@@ -26,6 +28,7 @@
 .hover-jump-smooth {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  will-change: transform;
 
   &:hover {
     transform: translateY(-2px);
@@ -36,6 +39,7 @@
 .hover-jump-strong {
   transition: transform 0.35s ease-in-out;
   cursor: pointer;
+  will-change: transform;
 
   &:hover {
     transform: translateY(-15px);

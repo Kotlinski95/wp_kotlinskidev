@@ -39,7 +39,7 @@ require_once get_template_directory() . '/functions/protection-helpers.php';
 require_once get_template_directory() . '/functions/responsive-display.php';
 
 // Load parallax frontend support
-require_once get_template_directory() . '/inc/parallax-frontend.php';
+require_once get_template_directory() . '/includes/parallax-frontend.php';
 
 // Load tailwind CSS
 require_once get_template_directory() . '/functions/tailwind.php';
@@ -74,7 +74,7 @@ require_once get_template_directory() . '/functions/banner-slider.php';
 require_once get_template_directory() . '/functions/search-page-styles.php';
 
 // Hover animations
-require_once get_template_directory() . '/inc/hover-animations.php';
+require_once get_template_directory() . '/includes/hover-animations.php';
 
 // Dynamic footer functionality
 require_once get_template_directory() . '/functions/dynamic-footer.php';
