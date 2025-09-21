@@ -7,6 +7,7 @@
   justify-content: center;
   background: rgba(30, 32, 36, 0.92);
   animation: fadeIn 0.2s;
+  will-change: opacity, transform;
 }
 .image-lightbox-backdrop {
   position: absolute;
@@ -27,6 +28,7 @@
   align-items: center;
   justify-content: center;
   overflow: auto;
+  will-change: opacity, transform;
 }
 .image-lightbox-img {
   max-width: 80vw;

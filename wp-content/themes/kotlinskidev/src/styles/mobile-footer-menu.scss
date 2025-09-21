@@ -1,6 +1,14 @@
 @import "variables";
 .mobile-footer-nav {
   position: fixed;
+  /* using translateZ force browser to use hardware acceleration,
+   and fix issue with wrong rendered position
+  e.g. on chrome during scroll and hidden navigation bar on the bottom */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
   bottom: 0;
   left: 0;
   right: 0;
@@ -87,7 +95,7 @@
 }
 
 /* Show only on mobile devices */
-@media (max-width: $breakpoint-mobile) {
+@media (max-width: $breakpoint-desktop) {
   .mobile-footer-nav {
     display: block;
   }
@@ -95,6 +103,9 @@
   /* Add bottom padding to body to prevent content from being hidden behind menu */
   body:has(.mobile-footer-nav) {
     padding-bottom: 70px;
+    .kotlinskidev-footer {
+      margin-block-end: 0px !important;
+    }
   }
 }
 
