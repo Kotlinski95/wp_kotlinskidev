@@ -110,3 +110,14 @@ add_action('wp_head', function () {
 // add_action('wp_footer', function () {
 //     wp_dequeue_style('core-block-supports');
 // });
+
+// Remove all viewport meta tags except our custom one using output buffering
+add_action('template_redirect', function() {
+    ob_start(function($buffer) {
+        // Remove all viewport meta tags
+        $buffer = preg_replace('/<meta[^>]+name=["\']viewport["\'][^>]*>/i', '', $buffer);
+        // Add our custom viewport meta tag just after <head>
+        $buffer = preg_replace('/<head[^>]*>/', '$0<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, viewport-fit=cover, target-densitydpi=device-dpi">', $buffer, 1);
+        return $buffer;
+    });
+});

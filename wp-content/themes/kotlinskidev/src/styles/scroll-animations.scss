@@ -4,8 +4,8 @@
 .fade-right-on-scroll {
   opacity: 0;
   transition:
-    opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
 .fade-in-on-scroll.visible {
@@ -13,21 +13,21 @@
   transform: none;
 }
 .fade-up-on-scroll {
-  transform: translateY(60px);
+  transform: translateY(30px);
 }
 .fade-up-on-scroll.visible {
   opacity: 1;
   transform: none;
 }
 .fade-left-on-scroll {
-  transform: translateX(-60px);
+  transform: translateX(-30px);
 }
 .fade-left-on-scroll.visible {
   opacity: 1;
   transform: none;
 }
 .fade-right-on-scroll {
-  transform: translateX(60px);
+  transform: translateX(30px);
 }
 .fade-right-on-scroll.visible {
   opacity: 1;

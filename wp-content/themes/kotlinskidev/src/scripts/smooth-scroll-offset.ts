@@ -2,11 +2,11 @@
   const HEADER_OFFSET = 75;
 
   const scrollToElementWithOffset = (element: Element) => {
-    const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+    const elementTop = element.getBoundingClientRect().top + document.body.scrollTop;
     const offsetTop = elementTop - HEADER_OFFSET;
-
-    window.scrollTo({
+    document.body.scrollTo({
       top: Math.max(0, offsetTop),
+      behavior: "smooth"
     });
   };
 

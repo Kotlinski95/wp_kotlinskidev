@@ -562,7 +562,7 @@ function generate_maintenance_page()
         <meta name="twitter:description" content="<?php echo esc_attr($description); ?>" />
         <meta property="twitter:image" content="<?php echo esc_url($logo); ?>" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, user-scalable=no, viewport-fit=cover, target-densitydpi=device-dpi" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
