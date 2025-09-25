@@ -4,14 +4,14 @@
   position: fixed;
   bottom: calc(1rem + env(safe-area-inset-bottom));
   right: calc(1rem + env(safe-area-inset-right));
-  height: 40px;
-  width: 40px;
+  height: 2.5rem;
+  width: 2.5rem;
   padding: 0;
   z-index: 999;
   transform: translateZ(0);
   #scroll-top-top {
-    height: 40px;
-    width: 40px;
+    height: 2.5rem;
+    width: 2.5rem;
     padding: 0 !important;
     font-size: 0;
     background-color: transparent;
@@ -28,8 +28,8 @@
 .scroll-to-top-wrapper {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .progress-ring {
