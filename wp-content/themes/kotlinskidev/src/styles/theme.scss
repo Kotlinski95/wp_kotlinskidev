@@ -37,6 +37,10 @@
     &:hover {
       background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
     }
+    & > svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 }
 

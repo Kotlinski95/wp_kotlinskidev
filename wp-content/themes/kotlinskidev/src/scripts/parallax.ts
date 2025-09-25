@@ -10,6 +10,7 @@ const visibleElements = new Set<ParallaxElement>();
 let observer: IntersectionObserver | null = null;
 let ticking = false;
 let elements: ParallaxElement[] = [];
+let needsUpdate = false;
 
 function setupParallaxElements() {
   elements.forEach((element) => {
@@ -100,25 +101,22 @@ function updateParallax() {
   });
 }
 
+function animationLoop() {
+  if (needsUpdate) {
+    updateParallax();
+    needsUpdate = false;
+  }
+  requestAnimationFrame(animationLoop);
+}
+
 function bindEvents() {
-  let lastScrollTime = 0;
-  const DEBOUNCE_DELAY = 30;
   function handleScroll() {
-    const now = Date.now();
-    if (now - lastScrollTime < DEBOUNCE_DELAY) return;
-    lastScrollTime = now;
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateParallax();
-        ticking = false;
-      });
-      ticking = true;
-    }
+    needsUpdate = true;
   }
   document.body.addEventListener("scroll", handleScroll, { passive: true });
   document.documentElement.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", () => {
-    setTimeout(() => updateParallax(), 100);
+    needsUpdate = true;
   });
 }
 
@@ -136,6 +134,7 @@ function initParallax() {
   setupIntersectionObserver();
   bindEvents();
   updateParallax();
+  requestAnimationFrame(animationLoop);
 }
 
 document.addEventListener("DOMContentLoaded", initParallax);
