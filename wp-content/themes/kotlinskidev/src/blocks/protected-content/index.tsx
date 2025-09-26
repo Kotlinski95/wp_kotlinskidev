@@ -271,11 +271,11 @@ registerBlockType('kotlinskidev/protected-content', {
                             <div 
                                 className="html-preview"
                                 style={{
-                                    border: '1px solid #ddd',
-                                    padding: '12px',
-                                    marginTop: '8px',
+                                    border: '0.0625rem solid #ddd',
+                                    padding: '0.75rem',
+                                    marginTop: '0.5rem',
                                     backgroundColor: '#f9f9f9',
-                                    borderRadius: '4px'
+                                    borderRadius: '0.25rem'
                                 }}
                             >
                                 <strong>{__('Preview:', 'kotlinskidev')}</strong>

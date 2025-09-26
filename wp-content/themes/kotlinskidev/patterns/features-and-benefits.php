@@ -12,13 +12,13 @@ $kotlinskidev_images = array(
     $kotlinskidev_url . 'assets/images/service_icon.webp',
 );
 ?>
-<!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"gradient":"gradient-five","layout":{"type":"constrained","contentSize":"1180px"}} -->
+<!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"gradient":"gradient-five","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
 <div class="wp-block-group has-gradient-five-gradient-background has-background" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"verticalAlignment":"bottom"} -->
     <div class="wp-block-columns are-vertically-aligned-bottom"><!-- wp:column {"verticalAlignment":"bottom"} -->
-        <div class="wp-block-column is-vertically-aligned-bottom"><!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"0px"}}},"layout":{"type":"constrained","contentSize":"680px","justifyContent":"center"}} -->
-            <div class="wp-block-group" style="margin-top:0;margin-bottom:0px"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left"}} -->
-                <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"padding":{"top":"8px","bottom":"8px"}}},"layout":{"type":"constrained"}} -->
-                    <div class="wp-block-group" style="padding-top:8px;padding-bottom:8px">
+        <div class="wp-block-column is-vertically-aligned-bottom"><!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"0rem"}}},"layout":{"type":"constrained","contentSize":"42.5rem","justifyContent":"center"}} -->
+            <div class="wp-block-group" style="margin-top:0;margin-bottom:0rem"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left"}} -->
+                <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0.5rem","bottom":"0.5rem"}}},"layout":{"type":"constrained"}} -->
+                    <div class="wp-block-group" style="padding-top:0.5rem;padding-bottom:0.5rem">
                         <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
                         <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","gradient":"gradient-one","textColor":"light-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->
                             <div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-light-color-color has-gradient-one-gradient-background has-text-color has-background has-link-color wp-element-button"><?php esc_html_e('See My Popular Posts', 'kotlinskidev') ?></a></div>
@@ -47,15 +47,15 @@ $kotlinskidev_images = array(
     </div>
     <!-- /wp:columns -->
 
-    <!-- wp:columns {"style":{"spacing":{"margin":{"top":"84px"},"blockGap":{"left":"40px"}}}} -->
-    <div class="wp-block-columns" style="margin-top:84px"><!-- wp:column -->
+    <!-- wp:columns {"style":{"spacing":{"margin":{"top":"5.25rem"},"blockGap":{"left":"2.5rem"}}}} -->
+    <div class="wp-block-columns" style="margin-top:5.25rem"><!-- wp:column -->
         <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
-            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"60px","height":"60px","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:60px;height:60px" /></figure>
+            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"3.75rem","height":"3.75rem","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
+                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:3.75rem;height:3.75rem" /></figure>
                 <!-- /wp:image -->
 
-                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"28px"}}},"textColor":"foreground-alt","fontSize":"big"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:28px"><?php esc_html_e('Lifetime Free Update', 'kotlinskidev') ?></h4>
+                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"1.75rem"}}},"textColor":"foreground-alt","fontSize":"big"} -->
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:1.75rem"><?php esc_html_e('Lifetime Free Update', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
@@ -68,12 +68,12 @@ $kotlinskidev_images = array(
 
         <!-- wp:column -->
         <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
-            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"60px","height":"60px","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[1]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:60px;height:60px" /></figure>
+            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"3.75rem","height":"3.75rem","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
+                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[1]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:3.75rem;height:3.75rem" /></figure>
                 <!-- /wp:image -->
 
-                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"28px"}}},"textColor":"foreground-alt","fontSize":"big"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:28px"><?php esc_html_e('Native Interface', 'kotlinskidev') ?></h4>
+                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"1.75rem"}}},"textColor":"foreground-alt","fontSize":"big"} -->
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:1.75rem"><?php esc_html_e('Native Interface', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
@@ -86,12 +86,12 @@ $kotlinskidev_images = array(
 
         <!-- wp:column -->
         <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
-            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"60px","height":"60px","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[2]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:60px;height:60px" /></figure>
+            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"3.75rem","height":"3.75rem","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
+                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[2]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:3.75rem;height:3.75rem" /></figure>
                 <!-- /wp:image -->
 
-                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"28px"}}},"textColor":"foreground-alt","fontSize":"big"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:28px"><?php esc_html_e('Mobile First Approach', 'kotlinskidev') ?></h4>
+                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"1.75rem"}}},"textColor":"foreground-alt","fontSize":"big"} -->
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:1.75rem"><?php esc_html_e('Mobile First Approach', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
@@ -104,12 +104,12 @@ $kotlinskidev_images = array(
 
         <!-- wp:column -->
         <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
-            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"60px","height":"60px","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
-                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[3]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:60px;height:60px" /></figure>
+            <div class="wp-block-group"><!-- wp:image {"id":8695,"width":"3.75rem","height":"3.75rem","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
+                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[3]) ?>" alt="" class="wp-image-8695" style="object-fit:cover;width:3.75rem;height:3.75rem" /></figure>
                 <!-- /wp:image -->
 
-                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"28px"}}},"textColor":"foreground-alt","fontSize":"big"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:28px"><?php esc_html_e('Ecommerce Ready', 'kotlinskidev') ?></h4>
+                <!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}},"spacing":{"margin":{"top":"1.75rem"}}},"textColor":"foreground-alt","fontSize":"big"} -->
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-big-font-size" style="margin-top:1.75rem"><?php esc_html_e('Ecommerce Ready', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->

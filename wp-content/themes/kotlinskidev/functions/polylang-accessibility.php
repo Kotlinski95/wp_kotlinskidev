@@ -30,7 +30,7 @@ function fix_polylang_accessibility() {
                     const span = document.createElement('span');
                     span.className = 'screen-reader-text';
                     span.textContent = 'Language Switcher';
-                    span.style.cssText = 'position: absolute !important; clip: rect(1px, 1px, 1px, 1px) !important; padding: 0 !important; border: 0 !important; height: 1px !important; width: 1px !important; overflow: hidden !important;';
+                    span.style.cssText = 'position: absolute !important; clip: rect(0.0625rem, 0.0625rem, 0.0625rem, 0.0625rem) !important; padding: 0 !important; border: 0 !important; height: 0.0625rem !important; width: 0.0625rem !important; overflow: hidden !important;';
                     link.appendChild(span);
                 }
             });

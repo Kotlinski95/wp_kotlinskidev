@@ -2,16 +2,16 @@
 // Modern, accessible search form with animations and focus states
 
 .kotlinskidev-search-form {    
-    max-width: 800px;
+    max-width: 50rem;
     margin-inline: auto;
     display: block;
     // Main search input field
     .search-input-field {
         width: 100%;
-        padding: 18px 24px;
-        border: 2px solid var(--wp--preset--color--contrast);
-        border-radius: 16px;
-        font-size: 16px;
+        padding: 1.125rem 1.5rem;
+        border: 0.125rem solid var(--wp--preset--color--contrast);
+        border-radius: 1rem;
+        font-size: 1rem;
         background: var(--wp--preset--color--white);
         color: var(--wp--preset--color--contrast);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -21,10 +21,10 @@
         &:focus {
             border-color: var(--wp--preset--color--primary);
             box-shadow: 
-                0 0 0 4px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1),
-                0 8px 24px rgba(0, 0, 0, 0.12), 
-                0 4px 8px rgba(0, 0, 0, 0.08);
-            transform: translateY(-1px);
+                0 0 0 0.25rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1),
+                0 0.5rem 1.5rem rgba(0, 0, 0, 0.12), 
+                0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
+            transform: translateY(-0.0625rem);
         }
         
         &:hover {
@@ -38,15 +38,15 @@
     // Select dropdown fields
     .search-select-field {
         width: 100%;
-        padding: 15px 50px 15px 20px; // Add extra right padding for custom arrow
-        border: 2px solid var(--wp--preset--color--contrast);
-        border-radius: 12px;
-        font-size: 15px;
+        padding: 0.9375rem 3.125rem 0.9375rem 1.25rem;
+        border: 0.125rem solid var(--wp--preset--color--contrast);
+        border-radius: 0.75rem;
+        font-size: 0.9375rem;
         background: var(--wp--preset--color--white);
         color: var(--wp--preset--color--contrast);
         box-shadow: 
-            0 3px 8px rgba(0, 0, 0, 0.06), 
-            0 1px 3px rgba(0, 0, 0, 0.04);
+            0 0.375rem 1rem rgba(0, 0, 0, 0.06),
+            0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.04);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         outline: none;
         cursor: pointer;
@@ -56,20 +56,20 @@
         -moz-appearance: none;
         background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
         background-repeat: no-repeat;
-        background-position: right 16px center; // Position arrow 16px from right edge
-        background-size: 20px;
+        background-position: right 1rem center;
+        background-size: 1.25rem;
         
         &:focus {
             border-color: var(--wp--preset--color--primary);
             box-shadow: 
-                0 0 0 3px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1),
-                0 6px 16px rgba(0, 0, 0, 0.1);
-            transform: translateY(-1px);
+                0 0 0 0.1875rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1),
+                0 0.375rem 1rem rgba(0, 0, 0, 0.1);
+            transform: translateY(-0.0625rem);
         }
         
         &:hover {
             border-color: var(--wp--preset--color--primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
         }
     }
     
@@ -78,8 +78,8 @@
         display: block;
         font-weight: 600;
         color: var(--wp--preset--color--foreground-alt);
-        margin-bottom: 12px;
-        font-size: 15px;
+        margin-bottom: 0.75rem;
+        font-size: 0.9375rem;
         letter-spacing: 0.025em;
     }
     
@@ -93,9 +93,9 @@
         );
         color: white;
         border: none;
-        padding: 18px 40px;
-        border-radius: 16px;
-        font-size: 16px;
+        padding: 1.125rem 2.5rem;
+        border-radius: 1rem;
+        font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -154,20 +154,20 @@
     .search-filters-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin-bottom: 32px;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
     }
     
     // Mobile responsive styles
-    @media (max-width: 640px) {
+    @media (max-width: 40rem) {
         .search-filters-grid {
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 1.25rem;
         }
         
         .search-input-field {
-            padding: 16px 20px;
-            font-size: 16px; // Prevent zoom on iOS
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
         }
         
         .search-button,
@@ -192,10 +192,10 @@
 }
 
 .search-result-grid{
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(18.75rem,1fr));
 
     @media (min-width: $breakpoint-desktop){
-        grid-template-columns:repeat(auto-fit,minmax(500px,1fr));
+        grid-template-columns:repeat(auto-fit,minmax(31.25rem,1fr));
     }
 }
 
@@ -203,8 +203,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin: 48px 0;
+    gap: 0.5rem;
+    margin: 3rem 0;
     flex-wrap: wrap;
     
     // Base pagination link styles
@@ -212,18 +212,17 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 15px;
-        padding: 8px 12px;
-        border: 2px solid transparent;
-        border-radius: 12px;
-        font-size: 15px;
-        font-weight: 600;
+        min-width: 0.9375rem;
+        padding: 0.5rem 0.75rem;
+        border: 0.125rem solid transparent;
+        border-radius: 0.75rem;
+        font-size: 0.9375rem;
         text-decoration: none;
         color: var(--wp--preset--color--contrast);
         background: var(--wp--preset--color--white);
         box-shadow: 
-            0 2px 8px rgba(0, 0, 0, 0.06),
-            0 1px 4px rgba(0, 0, 0, 0.04);
+            0 0.125rem 0.5rem rgba(0, 0, 0, 0.06),
+            0 0.0625rem 0.25rem rgba(0, 0, 0, 0.04);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         outline: none;
@@ -261,8 +260,8 @@
         color: white;
         border-color: var(--wp--preset--color--primary);
         box-shadow: 
-            0 6px 20px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.3),
-            0 2px 8px rgba(0, 0, 0, 0.1);
+            0 0.375rem 1.25rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.3),
+            0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
         font-weight: 700;
         cursor: default;
         pointer-events: none;
@@ -270,8 +269,8 @@
         &::before {
             content: '';
             position: absolute;
-            inset: -2px;
-            border-radius: 14px;
+            inset: -0.125rem;
+            border-radius: 0.875rem;
             background: linear-gradient(135deg, var(--wp--preset--color--primary), rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.6));
             z-index: -1;
             opacity: 0.3;
@@ -282,8 +281,8 @@
     // Previous/Next navigation with arrows
     .page-numbers.prev,
     .page-numbers.next {
-        gap: 8px;
-        padding: 8px 16px;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
         min-width: auto;
         font-weight: 500;
         
@@ -300,27 +299,27 @@
         .arrow {
             display: inline-block;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 16px;
+            font-size: 1rem;
         }
     }
     
     .page-numbers.prev {
         .arrow {
-            transform: translateX(2px);
+            transform: translateX(0.125rem);
         }
         
         &:hover .arrow {
-            transform: translateX(-2px);
+            transform: translateX(-0.125rem);
         }
     }
     
     .page-numbers.next {
         .arrow {
-            transform: translateX(-2px);
+            transform: translateX(-0.125rem);
         }
         
         &:hover .arrow {
-            transform: translateX(2px);
+            transform: translateX(0.125rem);
         }
     }
     
@@ -333,7 +332,7 @@
         pointer-events: none;
         opacity: 0.6;
         font-weight: 700;
-        letter-spacing: 2px;
+        letter-spacing: 0.125rem;
         
         &:hover {
             transform: none;
@@ -344,20 +343,20 @@
     }
     
     // Mobile responsive adjustments
-    @media (max-width: 640px) {
-        gap: 6px;
-        margin: 32px 0;
+    @media (max-width: 40rem) {
+        gap: 0.375rem;
+        margin: 2rem 0;
         
         .page-numbers {
-            min-width: 40px;
-            height: 40px;
-            font-size: 14px;
-            padding: 6px 10px;
+            min-width: 2.5rem;
+            height: 2.5rem;
+            font-size: 0.875rem;
+            padding: 0.375rem 0.625rem;
         }
         
         .page-numbers.prev,
         .page-numbers.next {
-            padding: 6px 12px;
+            padding: 0.375rem 0.75rem;
             
             // Hide text on mobile, show only arrows
             .text {
@@ -365,7 +364,7 @@
             }
             
             .arrow {
-                font-size: 18px;
+                font-size: 1.125rem;
             }
         }
     }
@@ -386,9 +385,9 @@
 // Pagination info text (if you have page count info)
 .pagination-info {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
     color: var(--wp--preset--color--foreground-alt);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     opacity: 0.8;
 }

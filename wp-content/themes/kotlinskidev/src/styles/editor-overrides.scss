@@ -1,3 +1,5 @@
+@import 'variables';
+
 // Editor-only styles to override scroll animations
 // This ensures all content is visible in the WordPress block editor
 
@@ -57,7 +59,7 @@
 }
 
 .is-root-container {
-  max-width: 1180px;
+  max-width: $page-content;
   margin-left: auto !important;
   margin-right: auto !important;
 }

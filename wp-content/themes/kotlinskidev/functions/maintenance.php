@@ -65,7 +65,7 @@ function maintenance_mode_settings_page()
                             backgroundInput.value = attachment.url;
                         }
                         if (backgroundPreview) {
-                            backgroundPreview.innerHTML = '<img src="' + attachment.url + '" style="max-width: 200px; height: auto; border: 1px solid #ddd; padding: 5px;">';
+                            backgroundPreview.innerHTML = '<img src="' + attachment.url + '" style="max-width: 12.5rem; height: auto; border: 0.0625rem solid #ddd; padding: 0.3125rem;">';
                         }
                     });
 
@@ -98,7 +98,7 @@ function maintenance_mode_settings_page()
                             logoInput.value = attachment.url;
                         }
                         if (logoPreview) {
-                            logoPreview.innerHTML = '<img src="' + attachment.url + '" style="max-width: 150px; height: auto; border: 1px solid #ddd; padding: 5px;">';
+                            logoPreview.innerHTML = '<img src="' + attachment.url + '" style="max-width: 9.375rem; height: auto; border: 0.0625rem solid #ddd; padding: 0.3125rem;">';
                         }
                     });
 
@@ -295,16 +295,16 @@ function maintenance_mode_background_image_field()
 {
     $image_url = get_option('maintenance_mode_background_image', 'https://kotlinskidev.wordifysites.com/wp-content/uploads/2024/09/kotlinskidev-coming-soon-compressed.webp');
 ?>
-    <div style="margin-bottom: 10px;">
-        <input type="url" id="maintenance_mode_background_image" name="maintenance_mode_background_image" value="<?php echo esc_attr($image_url); ?>" style="width: 100%; max-width: 400px;" placeholder="Enter background image URL or use media library">
+    <div style="margin-bottom: 0.625rem;">
+        <input type="url" id="maintenance_mode_background_image" name="maintenance_mode_background_image" value="<?php echo esc_attr($image_url); ?>" style="width: 100%; max-width: 25rem;" placeholder="Enter background image URL or use media library">
     </div>
-    <div style="margin-bottom: 10px;">
+    <div style="margin-bottom: 0.625rem;">
         <button type="button" id="maintenance_background_upload_button" class="button">📁 Choose from Media Library</button>
         <button type="button" id="maintenance_background_clear_button" class="button">🗑️ Clear Image</button>
     </div>
-    <div id="maintenance_background_preview" style="margin-top: 10px;">
+    <div id="maintenance_background_preview" style="margin-top: 0.625rem;">
         <?php if ($image_url): ?>
-            <img src="<?php echo esc_url($image_url); ?>" style="max-width: 200px; height: auto; border: 1px solid #ddd; padding: 5px;">
+            <img src="<?php echo esc_url($image_url); ?>" style="max-width: 12.5rem; height: auto; border: 0.0625rem solid #ddd; padding: 0.3125rem;">
         <?php endif; ?>
     </div>
     <p class="description">Upload a background image using the media library or enter a URL directly.</p>
@@ -316,16 +316,16 @@ function maintenance_mode_logo_field()
 {
     $logo_url = get_option('maintenance_mode_logo', 'https://kotlinskidev.wordifysites.com/wp-content/uploads/2024/09/Kotlinskidev-transparent.webp');
 ?>
-    <div style="margin-bottom: 10px;">
-        <input type="url" id="maintenance_mode_logo" name="maintenance_mode_logo" value="<?php echo esc_attr($logo_url); ?>" style="width: 100%; max-width: 400px;" placeholder="Enter logo URL or use media library">
+    <div style="margin-bottom: 0.625rem;">
+        <input type="url" id="maintenance_mode_logo" name="maintenance_mode_logo" value="<?php echo esc_attr($logo_url); ?>" style="width: 100%; max-width: 25rem;" placeholder="Enter logo URL or use media library">
     </div>
-    <div style="margin-bottom: 10px;">
+    <div style="margin-bottom: 0.625rem;">
         <button type="button" id="maintenance_logo_upload_button" class="button">📁 Choose from Media Library</button>
         <button type="button" id="maintenance_logo_clear_button" class="button">🗑️ Clear Image</button>
     </div>
-    <div id="maintenance_logo_preview" style="margin-top: 10px;">
+    <div id="maintenance_logo_preview" style="margin-top: 0.625rem;">
         <?php if ($logo_url): ?>
-            <img src="<?php echo esc_url($logo_url); ?>" style="max-width: 150px; height: auto; border: 1px solid #ddd; padding: 5px;">
+            <img src="<?php echo esc_url($logo_url); ?>" style="max-width: 9.375rem; height: auto; border: 0.0625rem solid #ddd; padding: 0.3125rem;">
         <?php endif; ?>
     </div>
     <p class="description">Upload a logo using the media library or enter a URL directly.</p>
@@ -340,7 +340,7 @@ function maintenance_mode_heading_field()
     // Check if Polylang is active
     if (function_exists('pll_languages_list')) {
         $languages = pll_languages_list();
-        echo '<div style="margin-bottom: 15px;">';
+        echo '<div style="margin-bottom: 0.9375rem;">';
         echo '<strong>Heading Translations:</strong><br>';
         echo '<small>Enter the heading text for each language. If left empty, the default will be used.</small>';
         echo '</div>';
@@ -350,19 +350,19 @@ function maintenance_mode_heading_field()
             $heading_key = 'maintenance_mode_heading_' . $lang;
             $heading_value = get_option($heading_key, '');
 
-            echo '<div style="margin-bottom: 10px;">';
-            echo '<label style="display: inline-block; width: 60px; font-weight: bold;">' . esc_html($lang_name) . ':</label>';
-            echo '<input type="text" name="' . esc_attr($heading_key) . '" value="' . esc_attr($heading_value) . '" style="width: calc(100% - 70px); max-width: 430px;" placeholder="Enter heading for ' . esc_attr($lang_name) . '">';
+            echo '<div style="margin-bottom: 0.625rem;">';
+            echo '<label style="display: inline-block; width: 3.75rem; font-weight: bold;">' . esc_html($lang_name) . ':</label>';
+            echo '<input type="text" name="' . esc_attr($heading_key) . '" value="' . esc_attr($heading_value) . '" style="width: calc(100% - 4.375rem); max-width: 26.875rem;" placeholder="Enter heading for ' . esc_attr($lang_name) . '">';
             echo '</div>';
         }
 
-        echo '<div style="margin-top: 15px;">';
+        echo '<div style="margin-top: 0.9375rem;">';
         echo '<strong>Default Heading (fallback):</strong><br>';
-        echo '<input type="text" name="maintenance_mode_heading" value="' . esc_attr($heading) . '" style="width: 100%; max-width: 500px;" placeholder="Enter default heading">';
+        echo '<input type="text" name="maintenance_mode_heading" value="' . esc_attr($heading) . '" style="width: 100%; max-width: 31.25rem;" placeholder="Enter default heading">';
         echo '<br><small>This will be used if no translation is available for a language.</small>';
         echo '</div>';
     } else {
-        echo '<input type="text" name="maintenance_mode_heading" value="' . esc_attr($heading) . '" style="width: 100%; max-width: 500px;" placeholder="Enter main heading">';
+        echo '<input type="text" name="maintenance_mode_heading" value="' . esc_attr($heading) . '" style="width: 100%; max-width: 31.25rem;" placeholder="Enter main heading">';
         echo '<br><small>The main heading text displayed on the maintenance page.</small>';
     }
 }
@@ -375,7 +375,7 @@ function maintenance_mode_description_field()
     // Check if Polylang is active
     if (function_exists('pll_languages_list')) {
         $languages = pll_languages_list();
-        echo '<div style="margin-bottom: 15px;">';
+        echo '<div style="margin-bottom: 0.9375rem;">';
         echo '<strong>Description Translations:</strong><br>';
         echo '<small>Enter the description text for each language. If left empty, the default will be used.</small>';
         echo '</div>';
@@ -385,19 +385,19 @@ function maintenance_mode_description_field()
             $description_key = 'maintenance_mode_description_' . $lang;
             $description_value = get_option($description_key, '');
 
-            echo '<div style="margin-bottom: 10px;">';
-            echo '<label style="display: inline-block; width: 60px; font-weight: bold; vertical-align: top; margin-top: 5px;">' . esc_html($lang_name) . ':</label>';
-            echo '<textarea name="' . esc_attr($description_key) . '" rows="3" style="width: calc(100% - 70px); max-width: 430px;" placeholder="Enter description for ' . esc_attr($lang_name) . '">' . esc_textarea($description_value) . '</textarea>';
+            echo '<div style="margin-bottom: 0.625rem;">';
+            echo '<label style="display: inline-block; width: 3.75rem; font-weight: bold; vertical-align: top; margin-top: 0.3125rem;">' . esc_html($lang_name) . ':</label>';
+            echo '<textarea name="' . esc_attr($description_key) . '" rows="3" style="width: calc(100% - 4.375rem); max-width: 26.875rem;" placeholder="Enter description for ' . esc_attr($lang_name) . '">' . esc_textarea($description_value) . '</textarea>';
             echo '</div>';
         }
 
-        echo '<div style="margin-top: 15px;">';
+        echo '<div style="margin-top: 0.9375rem;">';
         echo '<strong>Default Description (fallback):</strong><br>';
-        echo '<textarea name="maintenance_mode_description" rows="4" style="width: 100%; max-width: 500px;" placeholder="Enter default description">' . esc_textarea($description) . '</textarea>';
+        echo '<textarea name="maintenance_mode_description" rows="4" style="width: 100%; max-width: 31.25rem;" placeholder="Enter default description">' . esc_textarea($description) . '</textarea>';
         echo '<br><small>This will be used if no translation is available for a language.</small>';
         echo '</div>';
     } else {
-        echo '<textarea name="maintenance_mode_description" rows="4" style="width: 100%; max-width: 500px;" placeholder="Enter description text">' . esc_textarea($description) . '</textarea>';
+        echo '<textarea name="maintenance_mode_description" rows="4" style="width: 100%; max-width: 31.25rem;" placeholder="Enter description text">' . esc_textarea($description) . '</textarea>';
         echo '<br><small>The description text displayed below the heading.</small>';
     }
 }
@@ -406,7 +406,7 @@ function maintenance_mode_description_field()
 function maintenance_mode_contact_email_field()
 {
     $email = get_option('maintenance_mode_contact_email', 'kotlinskidev@gmail.com');
-    echo '<input type="email" name="maintenance_mode_contact_email" value="' . esc_attr($email) . '" style="width: 100%; max-width: 500px;" placeholder="Enter contact email">';
+    echo '<input type="email" name="maintenance_mode_contact_email" value="' . esc_attr($email) . '" style="width: 100%; max-width: 31.25rem;" placeholder="Enter contact email">';
     echo '<br><small>The email address for the contact button.</small>';
 }
 
@@ -418,7 +418,7 @@ function maintenance_mode_contact_button_text_field()
     // Check if Polylang is active
     if (function_exists('pll_languages_list')) {
         $languages = pll_languages_list();
-        echo '<div style="margin-bottom: 15px;">';
+        echo '<div style="margin-bottom: 0.9375rem;">';
         echo '<strong>Button Text Translations:</strong><br>';
         echo '<small>Enter the contact button text for each language. If left empty, the default will be used.</small>';
         echo '</div>';
@@ -428,19 +428,19 @@ function maintenance_mode_contact_button_text_field()
             $button_text_key = 'maintenance_mode_contact_button_text_' . $lang;
             $button_text_value = get_option($button_text_key, '');
 
-            echo '<div style="margin-bottom: 10px;">';
-            echo '<label style="display: inline-block; width: 60px; font-weight: bold;">' . esc_html($lang_name) . ':</label>';
-            echo '<input type="text" name="' . esc_attr($button_text_key) . '" value="' . esc_attr($button_text_value) . '" style="width: calc(100% - 70px); max-width: 430px;" placeholder="Enter button text for ' . esc_attr($lang_name) . '">';
+            echo '<div style="margin-bottom: 0.625rem;">';
+            echo '<label style="display: inline-block; width: 3.75rem; font-weight: bold;">' . esc_html($lang_name) . ':</label>';
+            echo '<input type="text" name="' . esc_attr($button_text_key) . '" value="' . esc_attr($button_text_value) . '" style="width: calc(100% - 4.375rem); max-width: 26.875rem;" placeholder="Enter button text for ' . esc_attr($lang_name) . '">';
             echo '</div>';
         }
 
-        echo '<div style="margin-top: 15px;">';
+        echo '<div style="margin-top: 0.9375rem;">';
         echo '<strong>Default Button Text (fallback):</strong><br>';
-        echo '<input type="text" name="maintenance_mode_contact_button_text" value="' . esc_attr($button_text) . '" style="width: 100%; max-width: 500px;" placeholder="Enter default button text">';
+        echo '<input type="text" name="maintenance_mode_contact_button_text" value="' . esc_attr($button_text) . '" style="width: 100%; max-width: 31.25rem;" placeholder="Enter default button text">';
         echo '<br><small>This will be used if no translation is available for a language.</small>';
         echo '</div>';
     } else {
-        echo '<input type="text" name="maintenance_mode_contact_button_text" value="' . esc_attr($button_text) . '" style="width: 100%; max-width: 500px;" placeholder="Enter button text">';
+        echo '<input type="text" name="maintenance_mode_contact_button_text" value="' . esc_attr($button_text) . '" style="width: 100%; max-width: 31.25rem;" placeholder="Enter button text">';
         echo '<br><small>The text displayed on the contact button.</small>';
     }
 }
@@ -476,15 +476,15 @@ function maintenance_mode_social_media_field()
         'discord' => ['name' => 'Discord', 'icon' => '🎮'],
     ];
 
-    echo '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 20px;">';
+    echo '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr)); gap: 0.9375rem; margin-bottom: 1.25rem;">';
 
     foreach ($social_media_platforms as $platform => $details) {
         $option_name = 'maintenance_mode_' . $platform . '_url';
         $value = get_option($option_name, '');
 
-        echo '<div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">';
-        echo '<label style="display: block; font-weight: bold; margin-bottom: 8px;">';
-        echo '<span style="margin-right: 8px;">' . $details['icon'] . '</span>';
+        echo '<div style="background: #f9f9f9; padding: 0.9375rem; border-radius: 0.5rem; border: 0.0625rem solid #ddd;">';
+        echo '<label style="display: block; font-weight: bold; margin-bottom: 0.5rem;">';
+        echo '<span style="margin-right: 0.5rem;">' . $details['icon'] . '</span>';
         echo esc_html($details['name']);
         echo '</label>';
         echo '<input type="url" name="' . esc_attr($option_name) . '" value="' . esc_attr($value) . '" style="width: 100%;" placeholder="Enter ' . esc_attr($details['name']) . ' URL">';
@@ -607,15 +607,15 @@ function generate_maintenance_page()
             }
 
             .sp-image-block {
-                margin-top: 70px;
+                margin-top: 4.375rem;
             }
 
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 30rem) {
 
                 .sp-headline-block-y0sc75,
                 #sp-y0sc75,
                 #y0sc75 {
-                    font-size: 32px !important;
+                    font-size: 2rem !important;
                     text-align: center !important;
                 }
 
@@ -626,7 +626,7 @@ function generate_maintenance_page()
                 }
 
                 #sp-d4et4f {
-                    height: 10px !important;
+                    height: 0.625rem !important;
                 }
 
                 #sp-button-parent-q09cvl {
@@ -644,15 +644,15 @@ function generate_maintenance_page()
                 }
             }
 
-            @media only screen and (min-width: 481px) and (max-width: 1024px) {
+            @media only screen and (min-width: 30.0625rem) and (max-width: 64rem) {
                 .sp-image-block {
-                    margin-top: -60px;
+                    margin-top: -3.75rem;
                 }
             }
 
             body {
                 overflow: hidden;
-                font-size: 16px;
+                font-size: 1rem;
                 min-height: 100svh;
                 background: rgb(10, 10, 10);
             }
@@ -702,7 +702,7 @@ function generate_maintenance_page()
             }
 
             .sp-image-wrapper img {
-                max-width: 140px !important;
+                max-width: 8.75rem !important;
             }
 
             .wp-login {
@@ -712,8 +712,8 @@ function generate_maintenance_page()
             /* Language Switcher Styles */
             .maintenance-language-switcher {
                 position: fixed;
-                top: 20px;
-                left: 20px;
+                top: 1.25rem;
+                left: 1.25rem;
                 z-index: 1000;
             }
 
@@ -725,14 +725,14 @@ function generate_maintenance_page()
             .language-current {
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 0.5rem;
                 background: rgba(0, 0, 0, 0.7);
                 color: #ebebeb;
-                border: 1px solid #dad1b3;
-                border-radius: 6px;
-                padding: 8px 12px;
+                border: 0.0625rem solid #dad1b3;
+                border-radius: 0.375rem;
+                padding: 0.5rem 0.75rem;
                 cursor: pointer;
-                font-size: 14px;
+                font-size: 0.875rem;
                 font-family: 'Hind', sans-serif;
                 transition: all 0.3s ease;
             }
@@ -743,14 +743,14 @@ function generate_maintenance_page()
             }
 
             .flag-icon {
-                width: 16px;
-                height: 12px;
+                width: 1rem;
+                height: 0.75rem;
                 object-fit: cover;
-                border-radius: 2px;
+                border-radius: 0.125rem;
             }
 
             .dropdown-arrow {
-                font-size: 10px;
+                font-size: 0.625rem;
                 transition: transform 0.3s ease;
             }
 
@@ -764,12 +764,12 @@ function generate_maintenance_page()
                 left: 0;
                 min-width: 100%;
                 background: rgba(0, 0, 0, 0.9);
-                border: 1px solid #dad1b3;
-                border-radius: 6px;
-                margin-top: 4px;
+                border: 0.0625rem solid #dad1b3;
+                border-radius: 0.375rem;
+                margin-top: 0.25rem;
                 opacity: 0;
                 visibility: hidden;
-                transform: translateY(-10px);
+                transform: translateY(-0.625rem);
                 transition: all 0.3s ease;
             }
 
@@ -782,11 +782,11 @@ function generate_maintenance_page()
             .language-option {
                 display: flex;
                 align-items: center;
-                gap: 8px;
-                padding: 8px 12px;
+                gap: 0.5rem;
+                padding: 0.5rem 0.75rem;
                 color: #ebebeb;
                 text-decoration: none;
-                font-size: 14px;
+                font-size: 0.875rem;
                 font-family: 'Hind', sans-serif;
                 transition: background-color 0.3s ease;
             }
@@ -796,20 +796,20 @@ function generate_maintenance_page()
                 color: #dad1b3;
             }
 
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 30rem) {
                 .maintenance-language-switcher {
-                    top: 10px;
-                    left: 10px;
+                    top: 0.625rem;
+                    left: 0.625rem;
                 }
 
                 .language-current {
-                    padding: 6px 10px;
-                    font-size: 12px;
+                    padding: 0.375rem 0.625rem;
+                    font-size: 0.75rem;
                 }
 
                 .language-option {
-                    padding: 6px 10px;
-                    font-size: 12px;
+                    padding: 0.375rem 0.625rem;
+                    font-size: 0.75rem;
                 }
             }
 
@@ -818,8 +818,8 @@ function generate_maintenance_page()
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 16px;
-                margin-top: 40px;
+                gap: 1rem;
+                margin-top: 2.5rem;
                 flex-wrap: wrap;
             }
 
@@ -827,11 +827,11 @@ function generate_maintenance_page()
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: 40px;
-                height: 40px;
+                width: 2.5rem;
+                height: 2.5rem;
                 color: #dad1b3;
                 background: rgba(0, 0, 0, 0.3);
-                border: 1px solid #dad1b3;
+                border: 0.0625rem solid #dad1b3;
                 border-radius: 50%;
                 text-decoration: none;
                 transition: all 0.3s ease;
@@ -841,28 +841,28 @@ function generate_maintenance_page()
                 color: #ebebeb;
                 background: rgba(218, 209, 179, 0.2);
                 border-color: #ebebeb;
-                transform: translateY(-2px);
+                transform: translateY(-0.125rem);
             }
 
             .social-icon svg {
-                width: 20px;
-                height: 20px;
+                width: 1.25rem;
+                height: 1.25rem;
             }
 
-            @media only screen and (max-width: 480px) {
+            @media only screen and (max-width: 30rem) {
                 .social-media-links {
-                    gap: 12px;
-                    margin-top: 30px;
+                    gap: 0.75rem;
+                    margin-top: 1.875rem;
                 }
 
                 .social-icon {
-                    width: 36px;
-                    height: 36px;
+                    width: 2.25rem;
+                    height: 2.25rem;
                 }
 
                 .social-icon svg {
-                    width: 18px;
-                    height: 18px;
+                    width: 1.125rem;
+                    height: 1.125rem;
                 }
             }
         </style>
@@ -872,34 +872,34 @@ function generate_maintenance_page()
         <?php echo get_maintenance_language_switcher(); ?>
 
         <div id="sp-page" class="spBgcoverscroll sp-content-4" style="background-color: 191919; background-image: url('<?php echo esc_url($background_image); ?>') !important; font-family: 'Hind', Times, serif; font-weight: 400;">
-            <section id="sp-ks8a8s" class="sp-el-section" style="width: 100%; max-width: 100%; border-radius: 10px;">
-                <div id="sp-vw3kvy" class="sp-el-row sm:sp-flex sp-w-full sp-m-auto sp-justify-between" style="padding: 0px; width: auto; max-width: 1000px; margin-inline: auto;">
+            <section id="sp-ks8a8s" class="sp-el-section" style="width: 100%; max-width: 100%; border-radius: 0.625rem;">
+                <div id="sp-vw3kvy" class="sp-el-row sm:sp-flex sp-w-full sp-m-auto sp-justify-between" style="padding: 0px; width: auto; max-width: 62.5rem; margin-inline: auto;">
                     <div id="sp-ovbx1s" class="sp-el-col sp-w-full" style="width: calc(100% - 0px); height: 100vh; display: flex; flex-direction: column; justify-content:center; overflow: hidden;">
                         <figure id="sp-xp7nhn" class="sp-image-wrapper sp-el-block" style="margin: 0px; text-align: center;">
                             <div>
                                 <span>
-                                    <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?> Logo" width="500" height="500" class="sp-image-block" style="width: 500px; max-width: 100%; height: auto;" />
+                                    <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?> Logo" width="31.25rem" height="31.25rem" class="sp-image-block" style="width: 31.25rem; max-width: 100%; height: auto;" />
                                 </span>
                             </div>
                         </figure>
                         <div class="sp-footer">
-                            <div id="sp-jknss8" class="sp-spacer" style="height: 39px;"></div>
-                            <h1 id="sp-y0sc75" class="sp-css-target sp-el-block sp-headline-block-y0sc75 sp-type-header" style="font-size: 54px; text-align: center; margin: 0px;">
+                            <div id="sp-jknss8" class="sp-spacer" style="height: 2.4375rem;"></div>
+                            <h1 id="sp-y0sc75" class="sp-css-target sp-el-block sp-headline-block-y0sc75 sp-type-header" style="font-size: 3.375rem; text-align: center; margin: 0px;">
                                 <?php echo esc_html($heading); ?>
                             </h1>
-                            <div id="sp-p7ef8k" class="sp-css-target sp-text-wrapper sp-el-block sp-text-wrapper-p7ef8k" style="font-size: 22px; margin: 0px; text-align: center;">
+                            <div id="sp-p7ef8k" class="sp-css-target sp-text-wrapper sp-el-block sp-text-wrapper-p7ef8k" style="font-size: 1.375rem; margin: 0px; text-align: center;">
                                 <section class="section section-body">
                                     <p><?php echo esc_html($description); ?></p>
                                 </section>
                             </div>
-                            <div id="sp-d4et4f" class="sp-spacer" style="height: 10px;"></div>
+                            <div id="sp-d4et4f" class="sp-spacer" style="height: 0.625rem;"></div>
                             <div id="sp-button-parent-q09cvl" class="sp-button-wrapper sp-el-block" style="margin: 0px; text-align: center;">
-                                <a href="mailto:<?php echo esc_attr($contact_email); ?>" id="sp-q09cvl" target="" rel="noopener" class="sp-button sp-css-target sp-text-center sp-inline-block sp-leading-none sp-button-q09cvl mail-button" style="font-size: 18px; font-weight: 400; font-style: normal; background: transparent; color: #ebebeb; width: auto; padding: 12px 16px; border-radius: 4px; border: 3px solid #ebebeb; box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px inset;">
+                                <a href="mailto:<?php echo esc_attr($contact_email); ?>" id="sp-q09cvl" target="" rel="noopener" class="sp-button sp-css-target sp-text-center sp-inline-block sp-leading-none sp-button-q09cvl mail-button" style="font-size: 1.125rem; font-weight: 400; font-style: normal; background: transparent; color: #ebebeb; width: auto; padding: 0.75rem 1rem; border-radius: 0.25rem; border: 0.1875rem solid #ebebeb; box-shadow: rgba(255, 255, 255, 0.2) 0px 0.0625rem 0px inset;">
                                     <span style="font-family: Hind;"><?php echo esc_html($contact_button_text); ?></span>
                                 </a>
                             </div>
                             <?php echo get_maintenance_social_media_links(); ?>
-                            <div id="sp-qkrns1" class="sp-spacer" style="height: 12px;"></div>
+                            <div id="sp-qkrns1" class="sp-spacer" style="height: 0.75rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -907,7 +907,7 @@ function generate_maintenance_page()
         </div>
 
         <div class="wp-login">
-            <a href="<?php echo esc_url(wp_login_url()); ?>" target="_self" class="wp-login-button" style="position:fixed; top: 10px; right: 10px; opacity: 0.3; color: #fff; text-decoration: none; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 3px; font-size: 12px;">Log-in</a>
+            <a href="<?php echo esc_url(wp_login_url()); ?>" target="_self" class="wp-login-button" style="position:fixed; top: 0.625rem; right: 0.625rem; opacity: 0.3; color: #fff; text-decoration: none; background: rgba(0,0,0,0.5); padding: 0.3125rem 0.625rem; border-radius: 0.1875rem; font-size: 0.75rem;">Log-in</a>
         </div>
 
         <script>
@@ -1109,7 +1109,7 @@ function get_maintenance_social_media_links()
 
     foreach ($active_platforms as $platform => $details) {
         $social_html .= '<a href="' . esc_url($details['url']) . '" target="_blank" rel="noopener noreferrer" class="social-icon social-' . esc_attr($platform) . '" aria-label="' . esc_attr($details['name']) . '">';
-        $social_html .= '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">';
+        $social_html .= '<svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="currentColor">';
         $social_html .= '<path d="' . $details['icon'] . '"/>';
         $social_html .= '</svg>';
         $social_html .= '</a>';

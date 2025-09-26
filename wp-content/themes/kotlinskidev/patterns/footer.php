@@ -9,19 +9,19 @@ $kotlinskidev_images = array(
     $kotlinskidev_url . 'assets/images/kotlinskidev-logo.webp',
 );
 ?>
-<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/footer","name":"Footer"},"tagName":"footer","className":"kotlinskidev-footer","layout":{"type":"constrained","contentSize":"1180px"}} -->
+<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/footer","name":"Footer"},"tagName":"footer","className":"kotlinskidev-footer","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
 <footer class="wp-block-group kotlinskidev-footer">
-    <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|20","bottom":"var:preset|spacing|10"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
+    <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|40","left":"var:preset|spacing|40","top":"var:preset|spacing|20","bottom":"var:preset|spacing|10"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
     <div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40);padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--10);">
-        <!-- wp:columns {"style":{"spacing":{"margin":{"top":"0px"}}}} -->
-        <div class="wp-block-columns" style="margin-top:0px">
+        <!-- wp:columns {"style":{"spacing":{"margin":{"top":"0rem"}}}} -->
+        <div class="wp-block-columns" style="margin-top:0rem">
             <!-- wp:column {"width":"40%"} -->
             <div class="wp-block-column" style="flex-basis:40%">
-                <!-- wp:group {"layout":{"type":"constrained","contentSize":"380px","justifyContent":"left"}} -->
+                <!-- wp:group {"layout":{"type":"constrained","contentSize":"23.75rem","justifyContent":"left"}} -->
                 <div class="wp-block-group">
                     <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"className":"kotlinskidev-logo","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-                    <div class="wp-block-group kotlinskidev-logo"><!-- wp:image {"id":8815,"width":"200px","height":"200px","scale":"contain","sizeSlug":"full","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-8815" style="object-fit:contain;width:200px;height:200px" /></figure>
+                    <div class="wp-block-group kotlinskidev-logo"><!-- wp:image {"id":8815,"width":"12.5rem","height":"12.5rem","scale":"contain","sizeSlug":"full","linkDestination":"none"} -->
+                        <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-8815" style="object-fit:contain;width:12.5rem;height:12.5rem" /></figure>
                         <!-- /wp:image -->
                     </div>
                     <!-- /wp:group -->
@@ -168,8 +168,8 @@ $kotlinskidev_images = array(
                                                                                                                                                                                         ); ?></h3>
                 <!-- /wp:heading -->
 
-                <!-- wp:group {"className":"kotlinskidev-footer-list","style":{"spacing":{"blockGap":"var:preset|spacing|40","margin":{"top":"0","bottom":"0"},"padding":{"left":"0px","top":"0px"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
-                <div class="wp-block-group kotlinskidev-footer-list" style="margin-top:0;margin-bottom:0;padding-top:0px;padding-left:0px">
+                <!-- wp:group {"className":"kotlinskidev-footer-list","style":{"spacing":{"blockGap":"var:preset|spacing|40","margin":{"top":"0","bottom":"0"},"padding":{"left":"0rem","top":"0rem"}}},"layout":{"type":"flex","orientation":"vertical"}} -->
+                <div class="wp-block-group kotlinskidev-footer-list" style="margin-top:0;margin-bottom:0;padding-top:0rem;padding-left:0rem">
                     <!-- wp:list {"className":"is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet","style":{"spacing":{"padding":{"top":"0","right":"0","bottom":"0","left":"0"}},"typography":{"lineHeight":"2.5","textTransform":"none"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"},":hover":{"color":{"text":"var:preset|color|primary"}}}}},"fontSize":"small"} -->
                     <ul style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;line-height:2.5;text-transform:none" class="wp-block-list is-style-hide-bullet-list-link-hover-style-white is-style-list-style-no-bullet has-link-color has-small-font-size">
                         <!-- wp:list-item {"fontSize":"small"} -->
@@ -222,8 +222,8 @@ $kotlinskidev_images = array(
     </div>
     <!-- /wp:group -->
 
-    <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|0","left":"var:preset|spacing|0","top":"2px","bottom":"2px"},"margin":{"top":"0","bottom":"0"}},"border":{"top":{"color":"var:preset|color|border-color","width":"1px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-    <div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0);padding-top:2px;padding-bottom:2px;margin-top:0;margin-bottom:0;border-top-color:var(--wp--preset--color--border-color);border-top-width:1px;">
+    <!-- wp:group {"style":{"spacing":{"padding":{"right":"var:preset|spacing|0","left":"var:preset|spacing|0","top":"0.125rem","bottom":"0.125rem"},"margin":{"top":"0","bottom":"0"}},"border":{"top":{"color":"var:preset|color|border-color","width":"0.0625rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group" style="padding-right:var(--wp--preset--spacing--0);padding-left:var(--wp--preset--spacing--0);padding-top:0.125rem;padding-bottom:0.125rem;margin-top:0;margin-bottom:0;border-top-color:var(--wp--preset--color--border-color);border-top-width:0.0625rem;">
     </div>
     <!-- /wp:group -->
 
@@ -233,17 +233,17 @@ $kotlinskidev_images = array(
     // Check if we need to force shortcode processing with custom values
     global $kotlinskidev_force_footer_shortcodes;
     global $kotlinskidev_footer_shortcodes;
-    
+
     if ($kotlinskidev_force_footer_shortcodes === true && !empty($kotlinskidev_footer_shortcodes)) {
         // Use passed shortcode values with proper styling
         if (isset($kotlinskidev_footer_shortcodes['copyrights'])) {
-            echo '<div style="text-align: center; padding: 20px 0;">';
+            echo '<div style="text-align: center; padding: 1.25rem 0;">';
             echo do_shortcode($kotlinskidev_footer_shortcodes['copyrights']);
             echo '</div>';
         }
-        
+
         if (isset($kotlinskidev_footer_shortcodes['scroll_to_top'])) {
-            echo '<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">';
+            echo '<div style="position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 1000;">';
             echo do_shortcode($kotlinskidev_footer_shortcodes['scroll_to_top']);
             echo '</div>';
         }

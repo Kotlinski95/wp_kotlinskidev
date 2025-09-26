@@ -1,17 +1,13 @@
 /* Critical above-the-fold styles to prevent layout shifts */
 @import "variables";
 
-/* Title banner responsive spacing */
 .title-banner {
-  /* Mobile first: below 480px */
-  margin-inline: 1px;
+  margin-inline: 0.0625rem;
 
-  /* Tablet: 480px and above */
   @media (min-width: $mobile) {
     margin-inline: 5%;
   }
 
-  /* Desktop: 1024px and above */
   @media (min-width: $desktop) {
     margin-inline: 12.5%;
   }

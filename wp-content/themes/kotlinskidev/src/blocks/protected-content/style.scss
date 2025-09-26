@@ -4,13 +4,13 @@
 
   .protection-indicator {
     position: absolute;
-    top: -25px;
+    top: -1.5625rem;
     left: 0;
     background: #007cba;
     color: white;
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-size: 11px;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.1875rem;
+    font-size: 0.6875rem;
     font-weight: 500;
     z-index: 10;
 
@@ -18,12 +18,12 @@
       content: "";
       position: absolute;
       top: 100%;
-      left: 8px;
+      left: 0.5rem;
       width: 0;
       height: 0;
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 4px solid #007cba;
+      border-left: 0.25rem solid transparent;
+      border-right: 0.25rem solid transparent;
+      border-top: 0.25rem solid #007cba;
     }
   }
 }
@@ -50,9 +50,9 @@
       &::after {
         content: "📧";
         position: absolute;
-        right: -20px;
+        right: -1.25rem;
         top: 0;
-        font-size: 12px;
+        font-size: 0.75rem;
         opacity: 0.5;
       }
     }
@@ -61,9 +61,9 @@
       &::after {
         content: "📱";
         position: absolute;
-        right: -20px;
+        right: -1.25rem;
         top: 0;
-        font-size: 12px;
+        font-size: 0.75rem;
         opacity: 0.5;
       }
     }
@@ -72,9 +72,9 @@
       &::after {
         content: "🛡️";
         position: absolute;
-        right: -20px;
+        right: -1.25rem;
         top: 0;
-        font-size: 12px;
+        font-size: 0.75rem;
         opacity: 0.5;
       }
     }
@@ -91,12 +91,12 @@
 // Admin/editor specific styles
 .wp-admin {
   .protected-content-wrapper {
-    margin-top: 30px; // Space for protection indicator
+    margin-top: 1.875rem; // Space for protection indicator
   }
 }
 
 // Responsive adjustments
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .protected-content {
     &[data-protected="true"] {
       &::after {

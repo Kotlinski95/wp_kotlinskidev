@@ -5,8 +5,8 @@
  * Categories: blog, kotlinskidev/blog, themeslug/custom
  */
 ?>
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"20px","bottom":"20px","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->
-<div class="wp-block-group has-light-shade-background-color has-background" style="padding-top:20px;padding-right:var(--wp--preset--spacing--40);padding-bottom:20px;padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group has-light-shade-background-color has-background" style="padding-top:1.25rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:1.25rem;padding-left:var(--wp--preset--spacing--40)">
     
     <!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontStyle":"normal","fontWeight":"700"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
     <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e('Related Articles', 'kotlinskidev') ?></h2>
@@ -138,24 +138,24 @@
     
     if (!empty($related_posts)) :
     ?>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin-top: 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 0.9375rem; margin-top: 1.25rem;">
         <?php foreach ($related_posts as $related_post) : 
             // Use a different variable name to avoid confusion
             $display_post = $related_post;
         ?>
-        <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:2px;border-radius:18px;padding:15px;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+        <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:0.9375rem;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
             
             <?php if (has_post_thumbnail($display_post->ID)) : ?>
-                <div style="margin-bottom:15px;flex-shrink:0;">
+                <div style="margin-bottom:0.9375rem;flex-shrink:0;">
                     <a href="<?php echo get_permalink($display_post->ID); ?>">
                         <img src="<?php echo get_the_post_thumbnail_url($display_post->ID, 'medium_large'); ?>" 
                              alt="<?php echo esc_attr($display_post->post_title); ?>" 
-                             style="width:100%;height:180px;object-fit:contain;border-radius:14px;" />
+                             style="width:100%;height:11.25rem;object-fit:contain;border-radius:0.875rem;" />
                     </a>
                 </div>
             <?php endif; ?>
             
-            <div style="display:flex;justify-content:space-between;margin-bottom:15px;font-size:14px;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.9375rem;font-size:0.875rem;flex-shrink:0;">
                 <span style="color:var(--wp--preset--color--foreground-alt);"><?php echo get_the_date('', $display_post->ID); ?></span>
                 <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);">
                     <?php 
@@ -186,13 +186,13 @@
                 </span>
             </div>
             
-            <h3 style="margin-bottom:20px;font-size:1.25rem;font-weight:600;flex-shrink:0;">
+            <h3 style="margin-bottom:1.25rem;font-size:1.25rem;font-weight:600;flex-shrink:0;">
                 <a href="<?php echo get_permalink($display_post->ID); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
                     <?php echo esc_html($display_post->post_title); ?>
                 </a>
             </h3>
             
-            <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:25px;flex-grow:1;">
+            <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.5625rem;flex-grow:1;">
                 <?php 
                 $excerpt = $display_post->post_excerpt;
                 if (empty($excerpt)) {
@@ -202,8 +202,8 @@
                 ?>
             </div>
             
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:15px;flex-wrap:wrap;">
-                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:14px;display:flex;flex-wrap:wrap;row-gap:5px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">
+                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:0.875rem;display:flex;flex-wrap:wrap;row-gap:0.3125rem;">
                     <?php 
                     if (!empty($post_categories)) {
                         echo esc_html($post_categories[0]->name);
@@ -212,7 +212,7 @@
                 </div>
                 <a href="<?php echo get_permalink($display_post->ID); ?>" 
                    class="search-link"
-                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:10px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 2px 4px rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
+                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
                     <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
                 </a>
             </div>
@@ -222,7 +222,7 @@
     </div>
     
     <?php else : ?>
-    <div style="text-align:center;padding:40px 0;">
+    <div style="text-align:center;padding:2.5rem 0;">
         <p style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('No related articles found.', 'kotlinskidev'); ?></p>
     </div>
     <?php endif; ?>

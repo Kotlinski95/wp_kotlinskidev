@@ -5,8 +5,8 @@
  * Categories: pages, kotlinskidev/pages, themeslug/custom
  */
 ?>
-<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"100px","bottom":"0"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"100%"}} -->
-<main class="wp-block-group has-background-alt-background-color has-background" style="margin-top:100px;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"1rem"},"blockGap":"var:preset|spacing|50","margin":{"top":"0","bottom":"0"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"1180px"}} -->
+<!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"6.25rem","bottom":"0"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"100%"}} -->
+<main class="wp-block-group has-background-alt-background-color has-background" style="margin-top:6.25rem;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"1rem"},"blockGap":"var:preset|spacing|3.125rem","margin":{"top":"0","bottom":"0"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
     <div class="wp-block-group has-light-shade-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:1rem">
         <div style="text-align:center;">
             <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/404.webp'); ?>" alt="404" style="max-width:50%;width:100%;height:auto;display:inline-block;" />
@@ -18,18 +18,18 @@
         </h1>
         <style>
             .kotlinskidev-404-title {
-            font-size: 62px;
+            font-size: 3.875rem;
             }
-            @media (max-width: 600px) {
+            @media (max-width: 37.5rem) {
             .kotlinskidev-404-title {
-                font-size: 32px;
+                font-size: 2rem;
             }
             }
         </style>
-        <div style="text-align:center;margin:32px 0 24px 0;">
+        <div style="text-align:center;margin:2rem 0 1.5rem 0;">
             <a href="<?php echo esc_url(home_url('/')); ?>"
                class="search-link"
-               style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:14px 24px;border-radius:100px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 2px 4px rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
+               style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.875rem 1.5rem;border-radius:6.25rem;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
                 <?php esc_html_e('Go to Homepage', 'kotlinskidev'); ?>
             </a>
         </div>
@@ -37,8 +37,8 @@
     </div>
     <!-- /wp:group -->
 
-    <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","right":"var:preset|spacing|40","left":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-    <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns -->
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","right":"var:preset|spacing|2.5rem","left":"var:preset|spacing|2.5rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group" style="padding-top:1.25rem;padding-right:var(--wp--preset--spacing--2.5rem);padding-bottom:1.25rem;padding-left:var(--wp--preset--spacing--2.5rem)"><!-- wp:columns -->
         <div class="wp-block-columns"><!-- wp:column -->
             <div class="wp-block-column"><!-- wp:heading {"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
                 <h2 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="font-style:normal;font-weight:500"><?php esc_html_e('Helpful Link', 'kotlinskidev') ?></h2>
@@ -52,11 +52,11 @@
         </div>
         <!-- /wp:columns -->
 
-        <!-- wp:columns {"style":{"spacing":{"margin":{"top":"40px"}}}} -->
-        <div class="wp-block-columns" style="margin-top:40px">
+        <!-- wp:columns {"style":{"spacing":{"margin":{"top":"2.5rem"}}}} -->
+        <div class="wp-block-columns" style="margin-top:2.5rem">
             <!-- wp:column -->
-            <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php echo esc_html_x('Pages', '404', 'kotlinskidev') ?></h4>
+            <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|3.125rem"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--3.125rem);font-style:normal;font-weight:500"><?php echo esc_html_x('Pages', '404', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:page-list {"className":"is-style-kotlinskidev-page-list-bullet-hide-style is-style-kotlinskidev-page-list-bullet-hide-style","style":{"typography":{"lineHeight":"2"}}} /-->
@@ -64,8 +64,8 @@
             <!-- /wp:column -->
 
             <!-- wp:column -->
-            <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|50"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500"><?php echo esc_html_x('Categories', '404', 'kotlinskidev') ?></h4>
+            <div class="wp-block-column"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"500"},"spacing":{"margin":{"bottom":"var:preset|spacing|3.125rem"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--3.125rem);font-style:normal;font-weight:500"><?php echo esc_html_x('Categories', '404', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 
                 <!-- wp:categories {"className":"is-style-kotlinskidev-categories-bullet-hide-style is-style-kotlinskidev-categories-bullet-hide-style","style":{"typography":{"lineHeight":"2"}}} /-->
@@ -74,7 +74,7 @@
 
             <!-- wp:column -->
             <div class="wp-block-column">
-                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--50);font-style:normal;font-weight:500">
+                <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="margin-bottom:var(--wp--preset--spacing--3.125rem);font-style:normal;font-weight:500">
                     <?php echo esc_html_x('Posts', '404', 'kotlinskidev'); ?>
                 </h4>
                 <ul class="kotlinskidev-404-post-list">

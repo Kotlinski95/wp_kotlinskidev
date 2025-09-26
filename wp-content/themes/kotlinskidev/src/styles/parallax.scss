@@ -1,4 +1,5 @@
-// Universal parallax for all cover blocks
+@import 'variables';
+
 .wp-block-cover.enable-parallax {
   position: relative;
   overflow: hidden;
@@ -27,7 +28,7 @@
     will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
-    perspective: 1000px;
+    perspective: 62.5rem;
   }
 
   // Ensure overlay stays in position
@@ -99,7 +100,7 @@
 }
 
 // Mobile optimizations - reduce parallax on smaller screens
-@media (max-width: 768px) {
+@media (max-width: $mobile) {
   .wp-block-cover.enable-parallax {
     .parallax-bg {
       height: 110%;

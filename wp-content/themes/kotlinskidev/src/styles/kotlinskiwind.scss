@@ -92,8 +92,7 @@
   justify-content: space-evenly;
 }
 
-/* Mobile-only classes (below 480px) */
-@media (max-width: ($breakpoint-mobile - 1px)) {
+@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
   .mobile\:block {
     display: block;
   }
@@ -187,8 +186,7 @@
   }
 }
 
-/* Tablet classes (480px and above) */
-@media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-desktop - 1px)) {
+@media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-desktop - 0.0625rem)) {
   .tablet\:block {
     display: block;
   }
@@ -282,7 +280,6 @@
   }
 }
 
-/* Desktop classes (1024px and above) */
 @media (min-width: $breakpoint-desktop) {
   .desktop\:block {
     display: block;

@@ -5,15 +5,15 @@
  * Categories: faq, kotlinskidev/faq, themeslug/custom
  */
 ?>
-<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/faq-section","name":"FAQ Section"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"white","layout":{"type":"constrained","contentSize":"1080px"}} -->
-<div class="wp-block-group has-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--40)"><!-- wp:heading {"textAlign":"center","level":1,"className":"kotlinskidev-flip-up","style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"xx-large"} -->
+<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/faq-section","name":"FAQ Section"},"style":{"spacing":{"padding":{"top":"5rem","bottom":"5rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"white","layout":{"type":"constrained","contentSize":"67.5rem"}} -->
+<div class="wp-block-group has-white-background-color has-background" style="padding-top:5rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:5rem;padding-left:var(--wp--preset--spacing--40)"><!-- wp:heading {"textAlign":"center","level":1,"className":"kotlinskidev-flip-up","style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"xx-large"} -->
     <h1 class="wp-block-heading has-text-align-center kotlinskidev-flip-up has-foreground-alt-color has-text-color has-link-color has-xx-large-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e('Frequently Asked Question', 'kotlinskidev') ?></h1>
     <!-- /wp:heading -->
 
-    <!-- wp:columns {"style":{"spacing":{"margin":{"top":"44px"},"blockGap":{"top":"30px","left":"30px"}}}} -->
-    <div class="wp-block-columns" style="margin-top:44px"><!-- wp:column {"style":{"spacing":{"blockGap":"30px"}}} -->
-        <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"30px","bottom":"30px","left":"30px","right":"30px"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"12px"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:12px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+    <!-- wp:columns {"style":{"spacing":{"margin":{"top":"2.75rem"},"blockGap":{"top":"1.875rem","left":"1.875rem"}}}} -->
+    <div class="wp-block-columns" style="margin-top:2.75rem"><!-- wp:column {"style":{"spacing":{"blockGap":"1.875rem"}}} -->
+        <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"0.75rem"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
                 <div class="wp-block-group"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"medium"} -->
                     <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-medium-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e('What is Full Site Editing in WordPress?', 'kotlinskidev') ?></h4>
                     <!-- /wp:heading -->
@@ -26,8 +26,8 @@
             </div>
             <!-- /wp:group -->
 
-            <!-- wp:group {"style":{"spacing":{"padding":{"top":"30px","bottom":"30px","left":"30px","right":"30px"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"12px"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:12px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+            <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"0.75rem"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
                 <div class="wp-block-group"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"medium"} -->
                     <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-medium-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e('What is Full Site Editing in WordPress?', 'kotlinskidev') ?></h4>
                     <!-- /wp:heading -->
@@ -42,9 +42,9 @@
         </div>
         <!-- /wp:column -->
 
-        <!-- wp:column {"style":{"spacing":{"blockGap":"30px"}}} -->
-        <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"30px","bottom":"30px","left":"30px","right":"30px"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"12px"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:12px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+        <!-- wp:column {"style":{"spacing":{"blockGap":"1.875rem"}}} -->
+        <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"0.75rem"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
                 <div class="wp-block-group"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"medium"} -->
                     <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-medium-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e('What is Full Site Editing in WordPress?', 'kotlinskidev') ?></h4>
                     <!-- /wp:heading -->
@@ -57,8 +57,8 @@
             </div>
             <!-- /wp:group -->
 
-            <!-- wp:group {"style":{"spacing":{"padding":{"top":"30px","bottom":"30px","left":"30px","right":"30px"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"12px"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:12px;padding-top:30px;padding-right:30px;padding-bottom:30px;padding-left:30px"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+            <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"},"blockGap":"var:preset|spacing|40"},"border":{"radius":"0.75rem"}},"backgroundColor":"light-shade","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
                 <div class="wp-block-group"><!-- wp:heading {"level":4,"style":{"typography":{"fontStyle":"normal","fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"medium"} -->
                     <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-medium-font-size" style="font-style:normal;font-weight:600"><?php esc_html_e('What is Full Site Editing in WordPress?', 'kotlinskidev') ?></h4>
                     <!-- /wp:heading -->

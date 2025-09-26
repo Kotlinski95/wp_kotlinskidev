@@ -102,7 +102,7 @@ body {
 
 .container {
   width: 100%;
-  padding: 20px;
+  padding: 1.25rem;
   margin: 0 auto;
 }
 
@@ -176,7 +176,7 @@ span:empty {
   }
 }
 
-@media (min-width: $breakpoint-tablet-wp) and (max-width: $breakpoint-desktop - 1) {
+@media (min-width: $breakpoint-tablet-wp) and (max-width: #{ $breakpoint-desktop - 0.0625rem }) {
   .mobile-only {
     display: none !important;
   }
@@ -241,14 +241,14 @@ img {
 
 /* Custom scrollbar styles for dark theme */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 0.75rem;
   background: #222;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #444;
-  border-radius: 6px;
-  border: 2px solid #222;
+  border-radius: 0.375rem;
+  border: 0.125rem solid #222;
 }
 
 ::-webkit-scrollbar-thumb:hover {

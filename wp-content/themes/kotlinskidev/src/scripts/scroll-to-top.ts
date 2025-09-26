@@ -50,10 +50,10 @@ import { debounce } from "./utils";
     progressRing.setAttribute('tabindex', '-1');
     // Dynamically set SVG size and radius based on rem
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const sizeRem = 2.5; // 40px if root font-size is 16px
+    const sizeRem = 2.5; // 2.5rem (was 40px if root font-size is 16px)
     const sizePx = sizeRem * rem;
     const strokeWidth = 3; // match your SVG stroke-width
-    const radiusPx = (sizePx / 2) - (strokeWidth / 2);
+    const radiusPx = (sizePx / 2) - (strokeWidth / 2); // radius in px, but sizePx is now based on rem
     progressRing.setAttribute('width', sizePx.toString());
     progressRing.setAttribute('height', sizePx.toString());
     const circles = progressRing.querySelectorAll('circle');
