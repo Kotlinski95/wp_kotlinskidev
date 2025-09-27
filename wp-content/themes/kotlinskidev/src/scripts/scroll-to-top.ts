@@ -35,7 +35,43 @@ import { debounce } from "./utils";
 
   scrollToTopBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    const mainEl = document.querySelector("main");
+    if (!mainEl) return;
+    mainEl.setAttribute("tabindex", "-1"); // Ensure focusable
     document.body.scrollTo({ top: 0, behavior: "smooth" });
+    let lastScrollTop = -1;
+    const waitForScrollEnd = () => {
+      const currentScrollTop = document.body.scrollTop;
+      if (currentScrollTop === 0 && lastScrollTop === 0) {
+        mainEl.focus();
+        return;
+      }
+      lastScrollTop = currentScrollTop;
+      requestAnimationFrame(waitForScrollEnd);
+    };
+    requestAnimationFrame(waitForScrollEnd);
+  });
+
+  // Keyboard accessibility: activate on Enter or Space
+  scrollToTopBtn.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const mainEl = document.querySelector("main");
+      if (!mainEl) return;
+      mainEl.setAttribute("tabindex", "-1");
+      document.body.scrollTo({ top: 0, behavior: "smooth" });
+      let lastScrollTop = -1;
+      const waitForScrollEnd = () => {
+        const currentScrollTop = document.body.scrollTop;
+        if (currentScrollTop === 0 && lastScrollTop === 0) {
+          mainEl.focus();
+          return;
+        }
+        lastScrollTop = currentScrollTop;
+        requestAnimationFrame(waitForScrollEnd);
+      };
+      requestAnimationFrame(waitForScrollEnd);
+    }
   });
 })();
 

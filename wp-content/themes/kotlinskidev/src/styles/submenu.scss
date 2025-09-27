@@ -37,7 +37,8 @@
           transform 0.5s ease-out,
           background 0.25s ease-in-out;
       }
-      &::after {
+      &::after,
+      & > .submenu-toggle {
         transform: rotate(180deg);
       }
     }
@@ -48,7 +49,8 @@
       transition: 0.35s all !important;
       padding-block: 1rem;
     }
-    &:after {
+    &:after,
+    & > .submenu-toggle {
       content: "\25be";
       margin-inline-end: 25px;
       line-height: 1;
@@ -56,6 +58,11 @@
       align-items: center;
       transition: 0.35s all;
       font-size: 1.5rem;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+      border: none;
     }
 
     // 3rd level mobile behavior - same as 2nd level
@@ -77,7 +84,21 @@
         transition: 0.35s all;
       }
 
-      &.submenu-active:after {
+      & > .submenu-toggle {
+        margin-inline-end: 25px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        transition: 0.35s all;
+        background: transparent;
+        color: inherit;
+        box-shadow: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+
+      &.submenu-active:after,
+      &.submenu-active > .submenu-toggle {
         transform: rotate(180deg);
       }
 
@@ -167,7 +188,8 @@
   .menu-item-has-children {
     // Remove arrows when submenu has 3rd level items
     &:has(.sub-menu .menu-item-has-children) {
-      .menu-item-has-children:after {
+      .menu-item-has-children:after,
+      .menu-item-has-children > .submenu-toggle {
         display: none;
       }
     }
@@ -240,7 +262,8 @@
         opacity 0.25s;
       display: block !important;
     }
-    &:hover {
+    &:hover,
+    &:has([aria-expanded="true"]) {
       .sub-menu {
         max-height: 43.75rem;
         opacity: 1;
@@ -256,6 +279,16 @@
       content: "\25be";
       width: 0.625rem;
       min-width: 0.625rem;
+    }
+    & > .submenu-toggle {
+      width: 0.625rem;
+      min-width: 0.625rem;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+      border: none;
+      font-size: 1rem;
     }
   }
 
@@ -283,4 +316,10 @@
 
 .sub-menu li a {
   text-decoration: none;
+}
+
+.accessibility-js-enabled {
+  .menu-item-has-children:after {
+    display: none !important;
+  }
 }

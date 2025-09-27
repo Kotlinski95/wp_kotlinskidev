@@ -19,9 +19,9 @@ function kotlinskidev_scroll_to_top_shortcode() {
                             stroke-linecap="round" 
                             transform="rotate(0 20 20)"/>
                 </svg>
-                <a id="scroll-to-top" class="wp-block-button__link wp-element-button" style="border-radius:100%">
+                <a id="scroll-to-top" class="wp-block-button__link wp-element-button" style="border-radius:100%" aria-label="' . esc_html__('Scroll to Top', 'kotlinskidev') . '" tabindex="0">
                     <span class="icon-arrow-up" style="font-size:2rem;"></span>
-                    <span style="visibility: hidden;">' . esc_html__('Scroll to Top', 'kotlinskidev') . '</span>
+                    <span tabindex="-1" style="display:none;">' . esc_html__('Scroll to Top', 'kotlinskidev') . '</span>
                 </a>
             </div>
         </div>

@@ -1,0 +1,9 @@
+@import "./mixins";
+
+.skip-link.screen-reader-text {
+  @include custom-button-style();
+  position: fixed !important;
+  &:focus {
+    color: $white;
+  }
+}

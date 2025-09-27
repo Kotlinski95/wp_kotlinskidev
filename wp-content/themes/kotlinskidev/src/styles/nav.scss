@@ -145,6 +145,12 @@ header::before {
       transform: rotate(180deg);
       transition: 0.35s all;
     }
+    .menu-item.menu-item-has-children:hover {
+      &>.submenu-toggle {
+        transform: rotate(180deg);
+        transition: 0.35s all;
+      }
+    }
   }
 }
 
@@ -182,7 +188,9 @@ header::before {
         border-bottom: 0.0625rem solid #acacaccc;
 
         &:not(.menu-item-has-children) {
-          padding-block: 1rem;
+          a {
+            padding-block: 1rem;
+          }
         }
         &:first-child {
           border-top: 0.0625rem solid #acacaccc;
@@ -321,13 +329,18 @@ header::before {
     --animation-curve: cubic-bezier(1, 0, 0, 1);
   }
 
+  &:focus-visible{
+    outline: -webkit-focus-ring-color auto 1px;
+    outline-offset: 1px;
+  }
+
   label {
     width: 12em;
     height: 1.5em;
     background-color: $white;
     position: absolute;
     cursor: pointer;
-    transform: translate(10%, 500%);
+    transform: translate(0%, 500%);
   }
 
   label::before,
