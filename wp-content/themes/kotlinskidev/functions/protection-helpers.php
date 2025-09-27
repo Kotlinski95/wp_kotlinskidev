@@ -511,8 +511,8 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
                     <button type="button" id="show-wp-config-keys" class="button button-primary">
                         <?php _e('Generate & Show wp-config.php Constants', 'kotlinskidev'); ?>
                     </button>
-                    <div id="wp-config-instructions" style="display: none; margin-top: 15px;">
-                        <textarea readonly style="width: 100%; height: 150px; font-family: monospace; font-size: 12px;" id="wp-config-constants"></textarea>
+                    <div id="wp-config-instructions" style="display: none; margin-top: 0.9375rem;">
+                        <textarea readonly style="width: 100%; height: 9.375rem; font-family: monospace; font-size: 0.75rem;" id="wp-config-constants"></textarea>
                         <p><strong><?php _e('Instructions:', 'kotlinskidev'); ?></strong></p>
                         <ol>
                             <li><?php _e('Copy the constants above', 'kotlinskidev'); ?></li>

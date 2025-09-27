@@ -75,8 +75,8 @@ function kotlinskidev_blog_breadcrumbs() {
     }
     
     if (count($breadcrumbs) > 1) {
-        echo '<nav class="kotlinskidev-breadcrumbs" style="margin-bottom:30px;font-size:14px;color:var(--wp--preset--color--foreground-alt);">';
-        echo implode(' <span style="margin:0 8px;">→</span> ', $breadcrumbs);
+        echo '<nav class="kotlinskidev-breadcrumbs" style="margin-bottom:1.875rem;font-size:0.875rem;color:var(--wp--preset--color--foreground-alt);">';
+        echo implode(' <span style="margin:0 0.5rem;">→</span> ', $breadcrumbs);
         echo '</nav>';
     }
 }
@@ -413,7 +413,7 @@ function kotlinskidev_breadcrumb_settings_page() {
             ?>
         </form>
         
-        <div style="margin-top: 30px; padding: 15px; background: #f9f9f9; border-left: 4px solid #0073aa;">
+        <div style="margin-top: 1.875rem; padding: 0.9375rem; background: #f9f9f9; border-left: 0.25rem solid #0073aa;">
             <h3><?php _e('How to Use', 'kotlinskidev'); ?></h3>
             <ul>
                 <li><?php _e('Set custom text for "Home" and "Topics" links in both languages', 'kotlinskidev'); ?></li>
@@ -500,7 +500,7 @@ function kotlinskidev_highlight_search_terms($text, $search_query) {
         if (strlen(trim($word)) > 2) { // Only highlight words longer than 2 characters
             $text = preg_replace(
                 '/(' . preg_quote(trim($word), '/') . ')/i',
-                '<mark style="background:#5259ff;color:white;padding:2px 4px;border-radius:3px;">$1</mark>',
+                '<mark style="background:#5259ff;color:white;padding:0.125rem 0.25rem;border-radius:0.1875rem;">$1</mark>',
                 $text
             );
         }
@@ -560,15 +560,15 @@ function kotlinskidev_search_form_shortcode($atts) {
     ob_start();
     ?>
     <form method="get" action="<?php echo esc_url($search_action); ?>" class="kotlinskidev-inline-search">
-        <div style="display:flex;gap:10px;align-items:center;">
+        <div style="display:flex;gap:0.625rem;align-items:center;">
             <input type="text" 
                    name="s" 
                    value="<?php echo esc_attr(get_search_query()); ?>"
                    placeholder="<?php echo esc_attr($atts['placeholder']); ?>"
-                   style="flex-grow:1;padding:10px 15px;border:2px solid var(--wp--preset--color--border-color);border-radius:8px;font-size:14px;"
+                   style="flex-grow:1;padding:0.625rem 0.9375rem;border:0.125rem solid var(--wp--preset--color--border-color);border-radius:0.5rem;font-size:0.875rem;"
                    required />
             <button type="submit" 
-                    style="background:var(--wp--preset--color--primary);color:white;border:none;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;">
+                    style="background:var(--wp--preset--color--primary);color:white;border:none;padding:0.625rem 1.25rem;border-radius:0.5rem;font-weight:600;cursor:pointer;">
                 <?php echo esc_html($atts['button_text']); ?>
             </button>
         </div>

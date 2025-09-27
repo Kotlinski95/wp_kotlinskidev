@@ -21,32 +21,32 @@ $breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" 
 $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">' . esc_html($category_name) . '</span>';
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-<div class="wp-block-group" style="margin-bottom:15px">
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"0.9375rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group" style="margin-bottom:0.9375rem">
     <!-- wp:html -->
-    <nav class="kotlinskidev-breadcrumbs" style="font-size:14px;color:var(--wp--preset--color--foreground-alt);">
-        <?php echo implode(' <span style="margin:0 8px;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); ?>
+    <nav class="kotlinskidev-breadcrumbs" style="font-size:0.875rem;color:var(--wp--preset--color--foreground-alt);">
+        <?php echo implode(' <span style="margin:0 0.5rem;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); ?>
     </nav>
     <!-- /wp:html -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"20px"}}},"layout":{"type":"constrained","contentSize":"1180px"}} -->
-<div class="wp-block-group" style="margin-bottom:20px">
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"1.25rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group" style="margin-bottom:1.25rem">
     
     <!-- wp:html -->
     <div style="text-align:center;">
-        <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:10px;">
+        <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:0.625rem;">
             <?php echo esc_html($category_name); ?>
         </h1>
         
         <?php if ($category_description) : ?>
-            <p style="color:var(--wp--preset--color--foreground-alt);font-size:1.125rem;margin-bottom:15px;">
+            <p style="color:var(--wp--preset--color--foreground-alt);font-size:1.125rem;margin-bottom:0.9375rem;">
                 <?php echo esc_html($category_description); ?>
             </p>
         <?php endif; ?>
         
-        <div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:15px;">
+        <div style="display:flex;justify-content:center;align-items:center;gap:1.25rem;margin-bottom:1.875rem;">
             <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-weight:600;">
                 <?php echo $post_count . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
             </span>
@@ -69,7 +69,7 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
         </div>
         
         <?php if ($custom_content) : ?>
-            <div style="margin-top:30px;padding:20px;background:var(--wp--preset--color--light-shade);border-radius:12px;border:1px solid var(--wp--preset--color--border-color);">
+            <div style="margin-top:1.875rem;padding:1.25rem;background:var(--wp--preset--color--light-shade);border-radius:0.75rem;border:0.0625rem solid var(--wp--preset--color--border-color);">
                 <?php echo wp_kses_post($custom_content); ?>
             </div>
         <?php endif; ?>

@@ -59,7 +59,7 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                 $tags = get_tags(array('hide_empty' => false));
                 $selected_tags = is_array($filter_tags) ? $filter_tags : explode(',', $filter_tags);
                 ?>
-                <select name="filter_tags[]" id="filter_tags" multiple style="width: 300px; height: 120px;">
+                <select name="filter_tags[]" id="filter_tags" multiple style="width: 18.75rem; height: 7.5rem;">
                     <?php foreach($tags as $tag): ?>
                         <option value="<?php echo $tag->term_id; ?>" <?php echo in_array($tag->term_id, $selected_tags) ? 'selected' : ''; ?>>
                             <?php echo $tag->name; ?>
@@ -103,7 +103,7 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                     <option value="comment_count" <?php selected($order_by, 'comment_count'); ?>>Most Commented</option>
                 </select>
                 
-                <select name="order" id="order" style="margin-left: 10px;">
+                <select name="order" id="order" style="margin-left: 0.625rem;">
                     <option value="DESC" <?php selected($order, 'DESC'); ?>>Descending</option>
                     <option value="ASC" <?php selected($order, 'ASC'); ?>>Ascending</option>
                 </select>
@@ -114,7 +114,7 @@ function kotlinskidev_article_query_meta_box_callback($post) {
     
     <style>
     .form-table th {
-        width: 200px;
+        width: 12.5rem;
     }
     .form-table td {
         vertical-align: top;
@@ -122,7 +122,7 @@ function kotlinskidev_article_query_meta_box_callback($post) {
     .form-table .description {
         font-style: italic;
         color: #666;
-        margin-top: 5px;
+        margin-top: 0.3125rem;
     }
     </style>
     <?php

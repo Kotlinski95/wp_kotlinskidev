@@ -13,21 +13,21 @@
   transform: none;
 }
 .fade-up-on-scroll {
-  transform: translateY(30px);
+  transform: translateY(1.875rem);
 }
 .fade-up-on-scroll.visible {
   opacity: 1;
   transform: none;
 }
 .fade-left-on-scroll {
-  transform: translateX(-30px);
+  transform: translateX(-1.875rem);
 }
 .fade-left-on-scroll.visible {
   opacity: 1;
   transform: none;
 }
 .fade-right-on-scroll {
-  transform: translateX(30px);
+  transform: translateX(1.875rem);
 }
 .fade-right-on-scroll.visible {
   opacity: 1;

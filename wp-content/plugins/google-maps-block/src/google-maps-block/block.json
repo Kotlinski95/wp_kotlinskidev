@@ -24,7 +24,7 @@
 		"lng": { "type": "string", "default": "" },
 		"zoom": { "type": "number", "default": 14 },
 		"width": { "type": "string", "default": "100%" },
-		"height": { "type": "string", "default": "400px" },
+		"height": { "type": "string", "default": "25rem" },
 		"mapType": { "type": "string", "default": "roadmap" },
 		"showZoomControl": { "type": "boolean", "default": true },
 		"showStreetViewControl": { "type": "boolean", "default": true },

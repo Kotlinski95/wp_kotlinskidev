@@ -43,15 +43,15 @@ if (!empty($search_query)) :
 <div class="wp-block-group">
     
     <!-- wp:html -->
-    <div style="margin-bottom:15px;">
+    <div style="margin-bottom:0.9375rem;">
         <!-- Search Summary -->
-        <div style="background:var(--wp--preset--color--light-shade);padding:15px;border-radius:12px;border:2px solid var(--wp--preset--color--border-color);margin-bottom:20px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;">
+        <div style="background:var(--wp--preset--color--light-shade);padding:0.9375rem;border-radius:0.75rem;border:0.125rem solid var(--wp--preset--color--border-color);margin-bottom:1.25rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.9375rem;">
                 <div>
                     <h3 style="margin:0;color:var(--wp--preset--color--foreground-alt);font-size:1.25rem;">
                         <?php printf(esc_html__('Found %d results', 'kotlinskidev'), $search_results->found_posts); ?>
                     </h3>
-                    <p style="margin:5px 0 0 0;color:var(--wp--preset--color--foreground-alt);font-size:14px;">
+                    <p style="margin:0.3125rem 0 0 0;color:var(--wp--preset--color--foreground-alt);font-size:0.875rem;">
                         <?php printf(esc_html__('Showing results for "%s"', 'kotlinskidev'), '<strong>' . esc_html($search_query) . '</strong>'); ?>
                         <?php if (!empty($current_category)) : ?>
                             <?php printf(esc_html__(' in %s', 'kotlinskidev'), '<strong>' . esc_html(str_replace('-', ' ', $current_category)) . '</strong>'); ?>
@@ -65,7 +65,7 @@ if (!empty($search_query)) :
                     </p>
                 </div>
                 <?php if ($search_results->max_num_pages > 1) : ?>
-                <div style="color:var(--wp--preset--color--primary);font-size:14px;" class="link-dark-variant-support">
+                <div style="color:var(--wp--preset--color--primary);font-size:0.875rem;" class="link-dark-variant-support">
                     <?php printf(esc_html__('Page %d of %d', 'kotlinskidev'), max(1, get_query_var('paged', 1)), $search_results->max_num_pages); ?>
                 </div>
                 <?php endif; ?>
@@ -73,7 +73,7 @@ if (!empty($search_query)) :
         </div>
         
         <!-- Search Results Grid -->
-        <div class="search-result-grid" style="display:grid;gap:15px;">
+        <div class="search-result-grid" style="display:grid;gap:0.9375rem;">
             <?php while ($search_results->have_posts()) : $search_results->the_post(); 
                 $post_type = get_post_type();
                 $is_page = ($post_type === 'page');
@@ -81,7 +81,7 @@ if (!empty($search_query)) :
                 $search_excerpt = kotlinskidev_get_search_excerpt(get_the_content(), $search_query, 40);
             ?>
             
-            <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:2px;border-radius:18px;padding:15px;display:flex;flex-wrap:wrap;justify-content:start;align-items:center;gap:15px;">
+            <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:0.9375rem;display:flex;flex-wrap:wrap;justify-content:start;align-items:center;gap:0.9375rem;">
                 
                 <!-- Featured Image (if available) -->
                 <?php if (has_post_thumbnail()) : ?>
@@ -89,7 +89,7 @@ if (!empty($search_query)) :
                     <a href="<?php the_permalink(); ?>">
                         <img src="<?php the_post_thumbnail_url('medium'); ?>" 
                              alt="<?php the_title(); ?>" 
-                             style="width:200px;height:200px;object-fit:contain;border-radius:12px;" />
+                             style="width:12.5rem;height:12.5rem;object-fit:contain;border-radius:0.75rem;" />
                     </a>
                 </div>
                 <?php endif; ?>
@@ -98,8 +98,8 @@ if (!empty($search_query)) :
                 <div style="flex-grow:1;">
                     
                     <!-- Content Type & Meta -->
-                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:15px;margin-bottom:15px;font-size:14px;">
-                        <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:4px 12px;border-radius:15px;font-weight:600;">
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.9375rem;margin-bottom:0.9375rem;font-size:0.875rem;">
+                        <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:0.25rem 0.75rem;border-radius:0.9375rem;font-weight:600;">
                             <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
                         </span>
                         
@@ -121,14 +121,14 @@ if (!empty($search_query)) :
                     </div>
                     
                     <!-- Title -->
-                    <h3 style="margin-bottom:10px;font-size:1.5rem;font-weight:600;">
+                    <h3 style="margin-bottom:0.625rem;font-size:1.5rem;font-weight:600;">
                         <a href="<?php the_permalink(); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
                             <?php echo kotlinskidev_highlight_search_terms(get_the_title(), $search_query); ?>
                         </a>
                     </h3>
                     
                     <!-- Search-optimized excerpt -->
-                    <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:15px;line-height:1.6;">
+                    <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.9375rem;line-height:1.6;">
                         <?php echo $search_excerpt; ?>
                     </div>
                     
@@ -136,9 +136,9 @@ if (!empty($search_query)) :
                     <?php if (!$is_page) : 
                         $tags = get_the_tags();
                         if ($tags) : ?>
-                        <div style="margin-bottom:15px;">
+                        <div style="margin-bottom:0.9375rem;">
                             <?php foreach (array_slice($tags, 0, 3) as $tag) : ?>
-                                <span class="link-dark-variant-support" style="background:transparent;color:var(--wp--preset--color--primary);border:2px solid var(--wp--preset--color--primary);padding:4px 8px;border-radius:8px;font-size:12px;margin-right:8px;">
+                                <span class="link-dark-variant-support" style="background:transparent;color:var(--wp--preset--color--primary);border:0.125rem solid var(--wp--preset--color--primary);padding:0.25rem 0.5rem;border-radius:0.5rem;font-size:0.75rem;margin-right:0.5rem;">
                                     #<?php echo $tag->name; ?>
                                 </span>
                             <?php endforeach; ?>
@@ -149,7 +149,7 @@ if (!empty($search_query)) :
                     <div>
                         <a href="<?php the_permalink(); ?>" 
                            class="search-link"
-                           style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:10px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 2px 4px rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
+                           style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
                             <?php echo $is_page ? esc_html__('View Page', 'kotlinskidev') : esc_html__('Read Article', 'kotlinskidev'); ?> →
                         </a>
                     </div>
@@ -162,7 +162,7 @@ if (!empty($search_query)) :
         
         <!-- Pagination -->
         <?php if ($search_results->max_num_pages > 1) : ?>
-        <div class="search-results-pagination" style="display:flex;justify-content:center;margin-top:50px;">
+        <div class="search-results-pagination" style="display:flex;justify-content:center;margin-top:3.125rem;">
             <?php 
             $current_page = max(1, get_query_var('paged', 1));
             $pagination_args = array(
@@ -197,12 +197,12 @@ if (!empty($search_query)) :
         <?php endif; ?>
         
         <!-- Search Again Section -->
-        <div style="background:var(--wp--preset--color--light-shade);padding:15px;border-radius:16px;text-align:center;margin-top:20px;border:2px solid var(--wp--preset--color--border-color);">
-            <div style="font-size:2rem;margin-bottom:10px;">🔍</div>
-            <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:8px;font-size:1.5rem;">
+        <div style="background:var(--wp--preset--color--light-shade);padding:0.9375rem;border-radius:1rem;text-align:center;margin-top:1.25rem;border:0.125rem solid var(--wp--preset--color--border-color);">
+            <div style="font-size:2rem;margin-bottom:0.625rem;">🔍</div>
+            <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.5rem;font-size:1.5rem;">
                 <?php esc_html_e('Looking for something else?', 'kotlinskidev'); ?>
             </h3>
-            <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:10px;font-size:16px;line-height:1.5;">
+            <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.625rem;font-size:1rem;line-height:1.5;">
                 <?php esc_html_e('Try searching for a different term or explore more content using the search form below.', 'kotlinskidev'); ?>
             </p>
         </div>
@@ -216,18 +216,18 @@ if (!empty($search_query)) :
 <?php else : ?>
 
 <!-- No Results Found -->
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"20px","bottom":"20px"}}},"layout":{"type":"constrained","contentSize":"600px"}} -->
-<div class="wp-block-group" style="padding-top:20px;padding-bottom:20px">
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem"}}},"layout":{"type":"constrained","contentSize":"37.5rem"}} -->
+<div class="wp-block-group" style="padding-top:1.25rem;padding-bottom:1.25rem">
     
     <!-- wp:html -->
     <div style="text-align:center;">
-        <div style="font-size:4rem;margin-bottom:15px;text-align:center;">🔍</div>
+        <div style="font-size:4rem;margin-bottom:0.9375rem;text-align:center;">🔍</div>
         
-        <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:10px;">
+        <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.625rem;">
             <?php esc_html_e('No results found', 'kotlinskidev'); ?>
         </h3>
         
-        <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:30px;">
+        <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.875rem;">
             <?php printf(
                 esc_html__('We couldn\'t find any content matching "%s"', 'kotlinskidev'), 
                 '<strong>' . esc_html($search_query) . '</strong>'
@@ -237,8 +237,8 @@ if (!empty($search_query)) :
             <?php endif; ?>.
         </p>
         
-        <div style="background:var(--wp--preset--color--light-shade);padding:25px;border-radius:12px;text-align:left;margin-bottom:30px;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-            <h4 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:15px;"><?php esc_html_e('Try these search tips:', 'kotlinskidev'); ?></h4>
+        <div style="background:var(--wp--preset--color--light-shade);padding:1.5625rem;border-radius:0.75rem;text-align:left;margin-bottom:1.875rem;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+            <h4 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.9375rem;"><?php esc_html_e('Try these search tips:', 'kotlinskidev'); ?></h4>
             <ul style="color:var(--wp--preset--color--foreground-alt);line-height:1.6;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%;width:fit-content;">
                 <li><?php esc_html_e('Check your spelling and try again', 'kotlinskidev'); ?></li>
                 <li><?php esc_html_e('Use fewer or different keywords', 'kotlinskidev'); ?></li>
@@ -249,7 +249,7 @@ if (!empty($search_query)) :
         </div>
         
         <a href="<?php echo esc_url(home_url('/')); ?>" 
-           style="background:var(--wp--preset--color--primary);color:white;padding:12px 24px;border-radius:10px;text-decoration:none;font-weight:600;">
+           style="background:var(--wp--preset--color--primary);color:white;padding:0.75rem 1.5rem;border-radius:0.625rem;text-decoration:none;font-weight:600;">
             <?php esc_html_e('Browse All Content', 'kotlinskidev'); ?>
         </a>
     </div>
@@ -265,4 +265,4 @@ endif;
 <!-- Suggested Content (when no search query) -->
 <?php if (empty($search_query)) : ?>
 <!-- wp:pattern {"slug":"kotlinskidev/popular-content"} /-->
-<?php endif;
+<?php endif; ?>

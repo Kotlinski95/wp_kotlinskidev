@@ -9,8 +9,8 @@ $kotlinskidev_images = array(
     $kotlinskidev_url . 'assets/images/about.webp',
 );
 ?>
-<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/mission-goal","name":"Mission & Goal Content"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"1180px"}} -->
-<div class="wp-block-group has-background-alt-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"48px"},"margin":{"top":"0","bottom":"0"}}}} -->
+<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/mission-goal","name":"Mission & Goal Content"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group has-background-alt-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"3rem"},"margin":{"top":"0","bottom":"0"}}}} -->
     <div class="wp-block-columns are-vertically-aligned-center" style="margin-top:0;margin-bottom:0"><!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
         <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%"><!-- wp:cover {"url":"<?php echo esc_url($kotlinskidev_images[0]) ?>","id":5979,"dimRatio":0,"customOverlayColor":"#706f72","minHeight":610,"style":{"color":{"duotone":"var:preset|duotone|secondary-light"}},"layout":{"type":"constrained"}} -->
             <div class="wp-block-cover" style="min-height:610px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim" style="background-color:#706f72"></span><img class="wp-block-cover__image-background wp-image-5979" alt="" src="<?php echo esc_url($kotlinskidev_images[0]) ?>" data-object-fit="cover" />
@@ -25,8 +25,8 @@ $kotlinskidev_images = array(
 
         <!-- wp:column {"verticalAlignment":"center"} -->
         <div class="wp-block-column is-vertically-aligned-center"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left"}} -->
-            <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"padding":{"top":"8px","bottom":"8px"},"margin":{"bottom":"16px"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-                <div class="wp-block-group has-background-alt-background-color has-background" style="margin-bottom:16px;padding-top:8px;padding-bottom:8px">
+            <div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0.5rem","bottom":"0.5rem"},"margin":{"bottom":"1rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
+                <div class="wp-block-group has-background-alt-background-color has-background" style="margin-bottom:1rem;padding-top:0.5rem;padding-bottom:0.5rem">
                     <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
                     <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-outline","gradient":"gradient-one","textColor":"light-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->
                         <div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-light-color-color has-gradient-one-gradient-background has-text-color has-background has-link-color wp-element-button"><?php esc_html_e('See My Popular Posts', 'kotlinskidev') ?></a></div>
@@ -38,16 +38,16 @@ $kotlinskidev_images = array(
             </div>
             <!-- /wp:group -->
 
-            <!-- wp:heading {"level":1,"style":{"typography":{"fontStyle":"normal","fontWeight":"800","lineHeight":"1.2"},"spacing":{"margin":{"top":"10px","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"xx-large"} -->
-            <h1 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-xx-large-font-size" style="margin-top:10px;margin-bottom:0;font-style:normal;font-weight:800;line-height:1.2"><?php esc_html_e('Building Smarter Solutions: SaaS Experts', 'kotlinskidev') ?></h1>
+            <!-- wp:heading {"level":1,"style":{"typography":{"fontStyle":"normal","fontWeight":"800","lineHeight":"1.2"},"spacing":{"margin":{"top":"0.625rem","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"xx-large"} -->
+            <h1 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-xx-large-font-size" style="margin-top:0.625rem;margin-bottom:0;font-style:normal;font-weight:800;line-height:1.2"><?php esc_html_e('Building Smarter Solutions: SaaS Experts', 'kotlinskidev') ?></h1>
             <!-- /wp:heading -->
 
             <!-- wp:paragraph {"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
             <p class="has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.', 'kotlinskidev') ?></p>
             <!-- /wp:paragraph -->
 
-            <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","margin":{"top":"40px"}}},"layout":{"type":"constrained"}} -->
-            <div class="wp-block-group" style="margin-top:40px"><!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"medium"} -->
+            <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|30","margin":{"top":"2.5rem"}}},"layout":{"type":"constrained"}} -->
+            <div class="wp-block-group" style="margin-top:2.5rem"><!-- wp:heading {"level":4,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"medium"} -->
                 <h4 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-medium-font-size"><?php esc_html_e('Streamlined Digital Transformation', 'kotlinskidev') ?></h4>
                 <!-- /wp:heading -->
 

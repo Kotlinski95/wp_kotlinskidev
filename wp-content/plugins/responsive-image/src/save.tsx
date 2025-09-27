@@ -7,7 +7,7 @@ export default function save({ attributes }: any) {
     <div {...useBlockProps.save()}>
       <picture>
         {mobileImageUrl && (
-          <source srcSet={mobileImageUrl} media={`(max-width: ${breakpoint}px)`} />
+          <source srcSet={mobileImageUrl} media={`(max-width: ${breakpoint}rem)`} />
         )}
         <img src={desktopImageUrl || mobileImageUrl} alt={alt} loading={loading} />
       </picture>

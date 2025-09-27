@@ -1,4 +1,5 @@
 @import 'variables';
+@import "./mixins";
 
 // Dark mode support
 @media (prefers-color-scheme: dark) {
@@ -74,22 +75,12 @@
 }
 
 .pwa-install-button {
-  background-clip: border-box !important;
-  background-color: rgba(0, 0, 0, 0) !important;
-  background-image: linear-gradient(
-    135deg,
-    rgb(130, 9, 211) 0px,
-    rgba(59, 130, 246, 0.8) 100%
-  ) !important;
-  box-shadow:
-    rgba(59, 130, 246, 0.3) 0px 6px 20px 0px,
-    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px !important;
-  border: none !important;
+  @include custom-button-style();
 }
 
 .pwa-connection-status {
-  top: calc($header + 20px + env(safe-area-inset-top)) !important;
-  left: 20px !important;
+  top: calc($header + 1.25rem + env(safe-area-inset-top)) !important;
+  left: 1.25rem !important;
   transform: translateX(0) !important;
 
 }

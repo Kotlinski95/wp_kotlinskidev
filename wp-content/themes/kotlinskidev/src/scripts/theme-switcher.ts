@@ -3,6 +3,9 @@
     const themeToggleButton = document.getElementById(
       "theme-toggle"
     ) as HTMLInputElement;
+    const themeSwitcher = document.querySelector(
+      ".theme-switcher"
+    ) as HTMLInputElement;
     const lightIcon = document.querySelector('.icon.light') as HTMLElement;
     const darkIcon = document.querySelector('.icon.dark') as HTMLElement;
     
@@ -78,6 +81,14 @@
         }
       }
     );
+
+    // Listen for Enter key on theme toggle (for accessibility)
+    themeSwitcher.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        themeToggleButton.click();
+      }
+    });
 
     // Listen for OS theme changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

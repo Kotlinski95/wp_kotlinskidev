@@ -11,7 +11,7 @@ footer {
         left: 0;
         bottom: 0;
         width: 0;
-        height: 2px;
+        height: 0.125rem;
         background: currentColor;
         transition: width 0.3s ease;
       }
@@ -30,8 +30,8 @@ footer {
     &:not(:has(a)) {
       background-color: var(--wp--preset--color--primary) !important;
       color: var(--wp--preset--color--white) !important;
-      padding: 5px 10px;
-      border-radius: 15px;
+      padding: 0.3125rem 0.625rem;
+      border-radius: 0.9375rem;
       transition: background-color 0.3s ease;
       display: inline-block;
     }
@@ -39,8 +39,8 @@ footer {
     a {
       background-color: var(--wp--preset--color--primary) !important;
       color: var(--wp--preset--color--white) !important;
-      padding: 5px 10px;
-      border-radius: 15px;
+      padding: 0.3125rem 0.625rem;
+      border-radius: 0.9375rem;
       transition: background-color 0.3s ease;
     }
   }

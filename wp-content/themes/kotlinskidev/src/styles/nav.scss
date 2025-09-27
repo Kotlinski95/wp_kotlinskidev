@@ -11,7 +11,7 @@ header {
   position: fixed;
   width: 100%;
   background: rgba($black, 0.4);
-  box-shadow: 0 2px 3px rgba($black, 0.4);
+  box-shadow: 0 0.125rem 0.3125rem rgba($black, 0.4);
   backdrop-filter: blur(16px);
   z-index: 1000;
   min-width: 100vw;
@@ -26,7 +26,7 @@ header {
 .light-mode {
   header {
     background: rgba($white, 0.6);
-    box-shadow: 0 2px 3px rgba($white, 0.6);
+    box-shadow: 0 0.125rem 0.3125rem rgba($white, 0.6);
   }
 }
 
@@ -72,7 +72,7 @@ header::before {
 
 .logo,
 .custom-logo-link {
-  margin-left: 20px;
+  margin-left: 1.25rem;
   z-index: 1001;
   position: relative;
 }
@@ -90,7 +90,7 @@ header::before {
   max-height: 4rem;
   max-width: 6.25rem;
   width: auto;
-  height: 4rem;
+  height: 4rem !important;
 }
 
 .menu-header-menu-container ul {
@@ -98,7 +98,7 @@ header::before {
   align-items: center;
   gap: 1rem;
   list-style-type: none;
-  margin-right: 30px;
+  margin-right: 1.875rem;
 }
 
 .menu-header-menu-container ul a {
@@ -145,12 +145,18 @@ header::before {
       transform: rotate(180deg);
       transition: 0.35s all;
     }
+    .menu-item.menu-item-has-children:hover {
+      &>.submenu-toggle {
+        transform: rotate(180deg);
+        transition: 0.35s all;
+      }
+    }
   }
 }
 
 .hamburger-container {
-  min-height: calc(100dvh - 150px);
-  max-height: calc(100dvh - 150px);
+  min-height: calc(100dvh - 9.375rem);
+  max-height: calc(100dvh - 9.375rem);
   overflow-y: auto;
   display: flex;
   justify-content: start;
@@ -172,20 +178,22 @@ header::before {
       flex: 1;
       min-width: 100%;
     }
-    @media (max-width: calc(#{$breakpoint-desktop} - 1px)) {
+    @media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
       font-size: 1.25rem;
       .menu-item {
         display: flex;
         flex-wrap: wrap;
         width: 100%;
         justify-content: space-between;
-        border-bottom: 1px solid #acacaccc;
+        border-bottom: 0.0625rem solid #acacaccc;
 
         &:not(.menu-item-has-children) {
-          padding-block: 1rem;
+          a {
+            padding-block: 1rem;
+          }
         }
         &:first-child {
-          border-top: 1px solid #acacaccc;
+          border-top: 0.0625rem solid #acacaccc;
         }
         .sub-menu {
           order: 2;
@@ -194,7 +202,7 @@ header::before {
           min-width: 100%;
         }
         a {
-          padding-inline-start: 25px;
+          padding-inline-start: 1.5625rem;
           flex: 1;
           &:hover {
             color: inherit !important;
@@ -219,8 +227,8 @@ header::before {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 25px;
+  width: 1.875rem;
+  height: 1.5625rem;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -228,19 +236,19 @@ header::before {
 }
 
 .hamburger-menu .bar {
-  height: 4px;
+  height: 0.25rem;
   width: 100%;
   background-color: $white;
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 
 #hamburger-menu {
   position: fixed;
-  top: 75px;
+  top: 4.6875rem;
   right: -100%;
   width: 100%;
-  height: calc(100dvh - 75px);
-  min-height: calc(100dvh - 75px);
+  height: calc(100dvh - 4.6875rem);
+  min-height: calc(100dvh - 4.6875rem);
   background-color: rgba($black, 0.8);
   display: flex;
   flex-direction: column;
@@ -262,9 +270,9 @@ header::before {
   }
 
   @media (min-width: $breakpoint-tablet-wp) {
-    max-width: 700px;
-    right: -1400px;
-    border-left-width: 2px;
+    max-width: 100%;
+    right: -100%;
+    border-left-width: 0.125rem;
     border-left-style: solid;
     border-left-color: inherit;
   }
@@ -274,11 +282,11 @@ header::before {
   transform: translateX(-100%);
   background-color: $black;
   @media (min-width: $breakpoint-tablet-wp) {
-    right: -700px;
+    right: -100%;
   }
 }
 
-@media (max-width: $breakpoint-desktop - 1) {
+@media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
   #hamburger-button {
     display: flex !important;
     justify-content: center;
@@ -311,14 +319,19 @@ header::before {
 
 #hamburger-button {
   position: relative;
-  width: 50px;
-  height: 40px;
-  font-size: 2.5px;
+  width: 3.125rem;
+  height: 2.5rem;
+  font-size: 0.15625rem;
   z-index: 1001;
   order: 1;
 
   :root {
     --animation-curve: cubic-bezier(1, 0, 0, 1);
+  }
+
+  &:focus-visible{
+    outline: -webkit-focus-ring-color auto 1px;
+    outline-offset: 1px;
   }
 
   label {
@@ -327,7 +340,7 @@ header::before {
     background-color: $white;
     position: absolute;
     cursor: pointer;
-    transform: translate(10%, 500%);
+    transform: translate(0%, 500%);
   }
 
   label::before,

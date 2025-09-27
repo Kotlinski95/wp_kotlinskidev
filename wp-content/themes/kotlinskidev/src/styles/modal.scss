@@ -21,7 +21,7 @@
   max-height: 92vh;
   background: #fff;
   border-radius: 1.2rem;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 0.5rem 2.5rem rgba(0,0,0,0.25);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
   width: auto;
   height: auto;
   border-radius: 0.7rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 0.125rem 1rem rgba(0,0,0,0.12);
   margin-bottom: 1rem;
   background: #f8f8f8;
   display: block;
@@ -68,7 +68,7 @@
   font-size: 2rem;
   color: #222;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.10);
   transition: background 0.2s;
   z-index: 2;
 }

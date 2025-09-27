@@ -82,47 +82,47 @@ const getFontSizeOptions = (): FontSizeOption[] => {
   const defaultFontSizes: FontSizeOption[] = [
     {
       label: __("Extra Small", "responsive-font-controls"),
-      value: "12px",
+      value: "0.75rem",
       slug: "x-small",
     },
     {
       label: __("Small", "responsive-font-controls"),
-      value: "14px",
+      value: "0.875rem",
       slug: "small",
     },
     {
       label: __("Normal", "responsive-font-controls"),
-      value: "16px",
+      value: "1rem",
       slug: "normal",
     },
     {
       label: __("Medium", "responsive-font-controls"),
-      value: "20px",
+      value: "1.25rem",
       slug: "medium",
     },
     {
       label: __("Big", "responsive-font-controls"),
-      value: "24px",
+      value: "1.5rem",
       slug: "big",
     },
     {
       label: __("Large", "responsive-font-controls"),
-      value: "32px",
+      value: "2rem",
       slug: "large",
     },
     {
       label: __("Extra Large", "responsive-font-controls"),
-      value: "40px",
+      value: "2.5rem",
       slug: "x-large",
     },
     {
       label: __("XX Large", "responsive-font-controls"),
-      value: "48px",
+      value: "3rem",
       slug: "xx-large",
     },
     {
       label: __("XXX Large", "responsive-font-controls"),
-      value: "64px",
+      value: "4rem",
       slug: "xxx-large",
     },
   ];
@@ -175,12 +175,12 @@ const ResponsiveFontSizeControl: React.FC<ResponsiveFontSizeControlProps> = ({
 
       {/* Mobile Font Size */}
       <Flex gap={3} align="flex-start">
-        <FlexItem style={{ minWidth: "80px" }}>
+        <FlexItem style={{ minWidth: "5rem" }}>
           <BaseControl>
             <strong>📱 {__("Mobile", "responsive-font-controls")}</strong>
             <br />
             <small style={{ color: "#666" }}>
-              {__("< 768px", "responsive-font-controls")}
+              {__("< 48rem", "responsive-font-controls")}
             </small>
           </BaseControl>
         </FlexItem>
@@ -197,12 +197,12 @@ const ResponsiveFontSizeControl: React.FC<ResponsiveFontSizeControlProps> = ({
 
       {/* Tablet Font Size */}
       <Flex gap={3} align="flex-start">
-        <FlexItem style={{ minWidth: "80px" }}>
+        <FlexItem style={{ minWidth: "5rem" }}>
           <BaseControl>
             <strong>📱 {__("Tablet", "responsive-font-controls")}</strong>
             <br />
             <small style={{ color: "#666" }}>
-              {__("768px - 1023px", "responsive-font-controls")}
+              {__("48rem - 63.9375rem", "responsive-font-controls")}
             </small>
           </BaseControl>
         </FlexItem>
@@ -219,12 +219,12 @@ const ResponsiveFontSizeControl: React.FC<ResponsiveFontSizeControlProps> = ({
 
       {/* Desktop Font Size */}
       <Flex gap={3} align="flex-start">
-        <FlexItem style={{ minWidth: "80px" }}>
+        <FlexItem style={{ minWidth: "5rem" }}>
           <BaseControl>
             <strong>🖥️ {__("Desktop", "responsive-font-controls")}</strong>
             <br />
             <small style={{ color: "#666" }}>
-              {__("≥ 1024px", "responsive-font-controls")}
+              {__("≥ 64rem", "responsive-font-controls")}
             </small>
           </BaseControl>
         </FlexItem>
@@ -291,7 +291,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
   value,
   isCustom,
   presetValue = "",
-  customValue = "16px",
+  customValue = "1rem",
   fontSizeOptions,
   onChange,
 }) => {
@@ -304,16 +304,16 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
   
   // Parse current value to get numeric value for range control
   const getNumericValue = (val: string): number => {
-    if (!val) return 16;
+    if (!val) return 1;
     const match = val.match(/(\d+(?:\.\d+)?)/);
-    return match ? parseFloat(match[1]) : 16;
+    return match ? parseFloat(match[1]) : 1;
   };
 
   // Determine what value to show based on current mode
   const getDisplayValue = () => {
     if (showCustom) {
-      // In custom mode: use customValue if available, otherwise fall back to value, then 16px
-      return customValue || value || "16px";
+      // In custom mode: use customValue if available, otherwise fall back to value, then 1rem
+      return customValue || value || "1rem";
     } else {
       // In preset mode: use presetValue if available, otherwise fall back to value
       return presetValue || value || "";
@@ -331,7 +331,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
     setShowCustom(newShowCustom);
     if (newShowCustom) {
       // Switch to custom mode - use stored custom value or current value as fallback
-      const valueToUse = customValue || value || "16px";
+      const valueToUse = customValue || value || "1rem";
       onChange(valueToUse, true, presetValue, valueToUse);
     } else {
       // Switch to preset mode - use stored preset value or empty as fallback
@@ -342,7 +342,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
 
   const handleCustomChange = (newSize: number | undefined) => {
     if (typeof newSize === 'number') {
-      const newCustomValue = `${newSize}px`;
+      const newCustomValue = `${newSize}rem`;
       // Update the custom value and keep the current preset value
       onChange(newCustomValue, true, presetValue, newCustomValue);
     }
@@ -351,36 +351,36 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
   const displayValue = getDisplayValue();
 
   return (
-    <div style={{ marginBottom: '16px', width: '100%' }}>
+    <div style={{ marginBottom: '1rem', width: '100%' }}>
       <label style={{ 
         display: 'flex', 
         alignItems: 'center',
-        marginBottom: '8px', 
-        fontSize: '11px', 
+        marginBottom: '0.5rem', 
+        fontSize: '0.6875rem', 
         fontWeight: '500', 
         textTransform: 'uppercase', 
         color: '#757575',
-        gap: '6px'
+        gap: '0.375rem'
       }}>
-        <span style={{ fontSize: '14px' }}>{icon}</span>
+        <span style={{ fontSize: '0.875rem' }}>{icon}</span>
         {label}
-        <span style={{ fontSize: '10px', opacity: 0.7 }}>
+        <span style={{ fontSize: '0.625rem', opacity: 0.7 }}>
           {breakpointText}
         </span>
       </label>
       
-      <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
         <div style={{ flex: 1 }}>
           {showCustom ? (
             <RangeControl
               value={getNumericValue(displayValue)}
               onChange={handleCustomChange}
-              min={8}
-              max={100}
-              step={0.5}
+              min={0.5}
+              max={6.25}
+              step={0.03125}
               __nextHasNoMarginBottom
               withInputField={true}
-              help={`${getNumericValue(displayValue)}px`}
+              help={`${getNumericValue(displayValue)}rem`}
             />
           ) : (
             <SelectControl
@@ -405,7 +405,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
             </svg>
           }
           aria-label={__("Set custom size", "responsive-font-controls")}
-          style={{ minWidth: '36px', height: '36px' }}
+          style={{ minWidth: '2.25rem', height: '2.25rem' }}
         />
       </div>
     </div>
@@ -421,15 +421,15 @@ const getBreakpoints = () => {
   
   if (settings) {
     return {
-      tablet: settings.tabletBreakpoint + 'px',
-      desktop: settings.desktopBreakpoint + 'px'
+      tablet: settings.tabletBreakpoint + 'rem',
+      desktop: settings.desktopBreakpoint + 'rem'
     };
   }
   
   // Fallback to defaults if settings not available
   return {
-    tablet: '768px',
-    desktop: '1024px'
+    tablet: '48rem',
+    desktop: '64rem'
   };
 };
 
@@ -457,7 +457,7 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
     const customValueKey = `${device}CustomValue` as keyof ResponsiveFontSize;
     
     // If we're in custom mode and no customValue is provided, use the main value
-    const finalCustomValue = isCustom ? (customValue || value) : (customValue || responsiveFontSize[customValueKey] || "16px");
+    const finalCustomValue = isCustom ? (customValue || value) : (customValue || responsiveFontSize[customValueKey] || "1rem");
     
     setAttributes({
       responsiveFontSize: {
@@ -473,7 +473,7 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
   const hasValues = responsiveFontSize.mobile || responsiveFontSize.tablet || responsiveFontSize.desktop;
 
   return (
-    <div style={{ marginTop: '16px', gridColumn: '1 / -1', width: '100%' }}>
+    <div style={{ marginTop: '1rem', gridColumn: '1 / -1', width: '100%' }}>
       {/* Accordion Header */}
       <Button
         variant="tertiary"
@@ -481,12 +481,12 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
         style={{
           width: '100%',
           justifyContent: 'space-between',
-          padding: '8px 0',
+          padding: '0.5rem 0',
           border: 'none',
           borderRadius: '0',
-          borderBottom: '1px solid #ddd',
+          borderBottom: '.0625rem solid #ddd',
           background: 'transparent',
-          fontSize: '13px',
+          fontSize: '0.8125rem',
           fontWeight: '500',
           color: '#1e1e1e',
           cursor: 'pointer',
@@ -494,13 +494,13 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
           alignItems: 'center'
         }}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '16px' }}>📱</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span style={{ fontSize: '1rem' }}>📱</span>
           {__("Responsive font size", "responsive-font-controls")}
           {hasValues && (
             <span style={{ 
-              width: '6px', 
-              height: '6px', 
+              width: '0.375rem', 
+              height: '0.375rem', 
               borderRadius: '50%', 
               backgroundColor: '#007cba',
               display: 'inline-block'
@@ -510,7 +510,7 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
         <span style={{ 
           transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
           transition: 'transform 0.2s ease',
-          fontSize: '12px'
+          fontSize: '0.75rem'
         }}>
           ▼
         </span>
@@ -519,8 +519,8 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
       {/* Accordion Content */}
       {isExpanded && (
         <div style={{ 
-          paddingTop: '16px',
-          paddingBottom: '8px',
+          paddingTop: '1rem',
+          paddingBottom: '0.5rem',
           width: '100%'
         }}>
           {/* Mobile Font Size */}
@@ -531,7 +531,7 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
             value={responsiveFontSize.mobile || ""}
             isCustom={responsiveFontSize.mobileCustom || false}
             presetValue={responsiveFontSize.mobilePreset || ""}
-            customValue={responsiveFontSize.mobileCustomValue || responsiveFontSize.mobile || "16px"}
+            customValue={responsiveFontSize.mobileCustomValue || responsiveFontSize.mobile || "1rem"}
             fontSizeOptions={fontSizeOptions}
             onChange={(value, isCustom, presetValue, customValue) => updateResponsiveFontSize("mobile", value, isCustom, presetValue, customValue)}
           />
@@ -544,7 +544,7 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
             value={responsiveFontSize.tablet || ""}
             isCustom={responsiveFontSize.tabletCustom || false}
             presetValue={responsiveFontSize.tabletPreset || ""}
-            customValue={responsiveFontSize.tabletCustomValue || responsiveFontSize.tablet || "16px"}
+            customValue={responsiveFontSize.tabletCustomValue || responsiveFontSize.tablet || "1rem"}
             fontSizeOptions={fontSizeOptions}
             onChange={(value, isCustom, presetValue, customValue) => updateResponsiveFontSize("tablet", value, isCustom, presetValue, customValue)}
           />
@@ -557,7 +557,7 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
             value={responsiveFontSize.desktop || ""}
             isCustom={responsiveFontSize.desktopCustom || false}
             presetValue={responsiveFontSize.desktopPreset || ""}
-            customValue={responsiveFontSize.desktopCustomValue || responsiveFontSize.desktop || "16px"}
+            customValue={responsiveFontSize.desktopCustomValue || responsiveFontSize.desktop || "1rem"}
             fontSizeOptions={fontSizeOptions}
             onChange={(value, isCustom, presetValue, customValue) => updateResponsiveFontSize("desktop", value, isCustom, presetValue, customValue)}
           />

@@ -9,7 +9,7 @@
 }
 
 .menu-item-has-children {
-  @media (max-width: $breakpoint-desktop - 1) {
+  @media (max-width: #{ $breakpoint-desktop - 0.0625rem }) {
     .sub-menu {
       max-height: 0;
       overflow: hidden !important;
@@ -31,13 +31,14 @@
     }
     &.submenu-active {
       .sub-menu {
-        max-height: 1000px;
+        max-height: 62.5rem;
         transition:
           max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
           transform 0.5s ease-out,
           background 0.25s ease-in-out;
       }
-      &::after {
+      &::after,
+      & > .submenu-toggle {
         transform: rotate(180deg);
       }
     }
@@ -48,13 +49,20 @@
       transition: 0.35s all !important;
       padding-block: 1rem;
     }
-    &:after {
+    &:after,
+    & > .submenu-toggle {
       content: "\25be";
       margin-inline-end: 25px;
       line-height: 1;
       display: flex;
       align-items: center;
       transition: 0.35s all;
+      font-size: 1.5rem;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+      border: none;
     }
 
     // 3rd level mobile behavior - same as 2nd level
@@ -64,7 +72,7 @@
       & > a {
         transition: 0.35s all !important;
         padding-block: 0.75rem;
-        padding-inline-start: 20px; // Extra indentation for 2nd level
+        padding-inline-start: 20px;
       }
 
       &:after {
@@ -76,7 +84,21 @@
         transition: 0.35s all;
       }
 
-      &.submenu-active:after {
+      & > .submenu-toggle {
+        margin-inline-end: 25px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        transition: 0.35s all;
+        background: transparent;
+        color: inherit;
+        box-shadow: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+
+      &.submenu-active:after,
+      &.submenu-active > .submenu-toggle {
         transform: rotate(180deg);
       }
 
@@ -101,7 +123,7 @@
       }
 
       &.submenu-active .sub-menu {
-        max-height: 500px;
+        max-height: 31.25rem;
         transition:
           max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
           transform 0.5s ease-out,
@@ -112,7 +134,7 @@
   position: relative;
   .sub-menu {
     grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
-    grid-gap: 10px;
+    grid-gap: 0.625rem;
     position: relative;
     right: 0;
     left: 0;
@@ -121,15 +143,15 @@
     z-index: 9999;
     overflow-y: auto;
     overflow-x: hidden;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     text-align: center;
 
     .menu-item {
-      padding-top: 10px;
-      padding-bottom: 5px;
+      padding-top: 0.625rem;
+      padding-bottom: 0.3125rem;
       white-space: nowrap;
       text-align: start;
-      padding-inline-start: 10px;
+      padding-inline-start: 0.625rem;
     }
     .menu-item.menu-item-has-children {
       a {
@@ -144,20 +166,20 @@
       left: auto;
       font-size: inherit;
       text-align: end;
-      padding: 0px 10px;
+      padding: 0 0.625rem;
       .menu-item:last-child {
-        padding-bottom: 10px;
+        padding-bottom: 0.625rem;
       }
       .menu-item {
         text-align: end;
         a {
-          padding-bottom: 5px;
+          padding-bottom: 0.3125rem;
         }
       }
     }
   }
   & > a {
-    margin-inline-end: 5px;
+    margin-inline-end: 0.3125rem;
   }
 }
 
@@ -166,24 +188,25 @@
   .menu-item-has-children {
     // Remove arrows when submenu has 3rd level items
     &:has(.sub-menu .menu-item-has-children) {
-      .menu-item-has-children:after {
+      .menu-item-has-children:after,
+      .menu-item-has-children > .submenu-toggle {
         display: none;
       }
     }
 
     .sub-menu:has(.menu-item-has-children) {
       display: grid !important;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
       gap: 0;
-      min-width: 700px;
-      max-width: 900px;
+      min-width: 43.75rem;
+      max-width: 56.25rem;
       padding: 0;
       text-align: start;
 
       .menu-item.menu-item-has-children {
         display: flex;
         flex-direction: column;
-        padding-bottom: 22px;
+        padding-bottom: 1.375rem;
 
         &:last-child {
           border-right: none;
@@ -239,27 +262,38 @@
         opacity 0.25s;
       display: block !important;
     }
-    &:hover {
+    &:hover,
+    &:has([aria-expanded="true"]) {
       .sub-menu {
-        max-height: 700px;
+        max-height: 43.75rem;
         opacity: 1;
         transition:
           max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
           opacity 0.25s;
         box-shadow:
-          0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1),
+          0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
       }
     }
     &:after {
       content: "\25be";
-      width: 10px;
-      min-width: 10px;
+      width: 0.625rem;
+      min-width: 0.625rem;
+    }
+    & > .submenu-toggle {
+      width: 0.625rem;
+      min-width: 0.625rem;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      box-shadow: none;
+      border: none;
+      font-size: 1rem;
     }
   }
 
   .sub-menu li {
-    padding: 5px 10px;
+    padding: 0.3125rem 0.625rem;
   }
   .dark-mode {
     .menu-items {
@@ -282,4 +316,10 @@
 
 .sub-menu li a {
   text-decoration: none;
+}
+
+.accessibility-js-enabled {
+  .menu-item-has-children:after {
+    display: none !important;
+  }
 }

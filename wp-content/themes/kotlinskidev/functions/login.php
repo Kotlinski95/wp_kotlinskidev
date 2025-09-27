@@ -26,8 +26,8 @@ function custom_login_input_styles() {
     echo '<style type="text/css">
         .login input[type="text"], .login input[type="password"] {
             background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            padding: 10px;
+            border: 0.0625rem solid #ccc;
+            padding: 0.625rem;
         }
     </style>';
 }

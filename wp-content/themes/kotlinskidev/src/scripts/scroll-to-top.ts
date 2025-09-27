@@ -35,7 +35,43 @@ import { debounce } from "./utils";
 
   scrollToTopBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    const mainEl = document.querySelector("main");
+    if (!mainEl) return;
+    mainEl.setAttribute("tabindex", "-1"); // Ensure focusable
     document.body.scrollTo({ top: 0, behavior: "smooth" });
+    let lastScrollTop = -1;
+    const waitForScrollEnd = () => {
+      const currentScrollTop = document.body.scrollTop;
+      if (currentScrollTop === 0 && lastScrollTop === 0) {
+        mainEl.focus();
+        return;
+      }
+      lastScrollTop = currentScrollTop;
+      requestAnimationFrame(waitForScrollEnd);
+    };
+    requestAnimationFrame(waitForScrollEnd);
+  });
+
+  // Keyboard accessibility: activate on Enter or Space
+  scrollToTopBtn.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const mainEl = document.querySelector("main");
+      if (!mainEl) return;
+      mainEl.setAttribute("tabindex", "-1");
+      document.body.scrollTo({ top: 0, behavior: "smooth" });
+      let lastScrollTop = -1;
+      const waitForScrollEnd = () => {
+        const currentScrollTop = document.body.scrollTop;
+        if (currentScrollTop === 0 && lastScrollTop === 0) {
+          mainEl.focus();
+          return;
+        }
+        lastScrollTop = currentScrollTop;
+        requestAnimationFrame(waitForScrollEnd);
+      };
+      requestAnimationFrame(waitForScrollEnd);
+    }
   });
 })();
 
@@ -50,10 +86,10 @@ import { debounce } from "./utils";
     progressRing.setAttribute('tabindex', '-1');
     // Dynamically set SVG size and radius based on rem
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const sizeRem = 2.5; // 40px if root font-size is 16px
+    const sizeRem = 2.5; // 2.5rem (was 40px if root font-size is 16px)
     const sizePx = sizeRem * rem;
     const strokeWidth = 3; // match your SVG stroke-width
-    const radiusPx = (sizePx / 2) - (strokeWidth / 2);
+    const radiusPx = (sizePx / 2) - (strokeWidth / 2); // radius in px, but sizePx is now based on rem
     progressRing.setAttribute('width', sizePx.toString());
     progressRing.setAttribute('height', sizePx.toString());
     const circles = progressRing.querySelectorAll('circle');

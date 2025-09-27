@@ -11,8 +11,8 @@ $kotlinskidev_images = array(
     $kotlinskidev_url . 'assets/images/work.webp',
 );
 ?>
-<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/latest-work","name":"Latest Works Section"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"gradient":"gradient-block-bottom-right","layout":{"type":"constrained","contentSize":"1180px"}} -->
-<div class="wp-block-group has-gradient-block-bottom-right-gradient-background has-background" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"30px"}}}} -->
+<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/latest-work","name":"Latest Works Section"},"style":{"spacing":{"padding":{"top":"5rem","bottom":"5rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"},"blockGap":"0"}},"gradient":"gradient-block-bottom-right","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group has-gradient-block-bottom-right-gradient-background has-background" style="margin-top:0;margin-bottom:0;padding-top:5rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:5rem;padding-left:var(--wp--preset--spacing--40)"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"1.875rem"}}}} -->
     <div class="wp-block-columns"><!-- wp:column -->
         <div class="wp-block-column"><!-- wp:heading {"level":1,"style":{"typography":{"fontStyle":"normal","fontWeight":"800"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
             <h1 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="font-style:normal;font-weight:800"><?php esc_html_e('Featured Works', 'kotlinskidev') ?></h1>
@@ -36,8 +36,8 @@ $kotlinskidev_images = array(
     </div>
     <!-- /wp:columns -->
 
-    <!-- wp:columns {"style":{"spacing":{"margin":{"top":"60px"},"blockGap":{"left":"30px"}}}} -->
-    <div class="wp-block-columns" style="margin-top:60px"><!-- wp:column -->
+    <!-- wp:columns {"style":{"spacing":{"margin":{"top":"3.75rem"},"blockGap":{"left":"1.875rem"}}}} -->
+    <div class="wp-block-columns" style="margin-top:3.75rem"><!-- wp:column -->
         <div class="wp-block-column"><!-- wp:cover {"url":"<?php echo esc_url($kotlinskidev_images[0]) ?>","id":3449,"dimRatio":0,"minHeight":330,"className":"kotlinskidev-portfolio-box","layout":{"type":"constrained"}} -->
             <div class="wp-block-cover kotlinskidev-portfolio-box" style="min-height:330px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span><img class="wp-block-cover__image-background wp-image-3449" alt="" src="<?php echo esc_url($kotlinskidev_images[0]) ?>" data-object-fit="cover" />
                 <div class="wp-block-cover__inner-container"><!-- wp:group {"className":"kotlinskidev-portfolio-content","style":{"spacing":{"blockGap":"var:preset|spacing|40"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"center"}} -->

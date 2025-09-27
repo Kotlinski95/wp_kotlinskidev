@@ -13,19 +13,19 @@
 /* Style the justify button in toolbar */
 .components-toolbar-group .components-button[title="Justify"] svg,
 .components-toolbar-group .components-button[title="Justify text"] svg {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 /* Enhanced inspector controls styling */
 .components-panel__body .text-alignment-controls {
     display: flex;
-    gap: 4px;
+    gap: 0.25rem;
     flex-wrap: wrap;
 }
 
 .components-panel__body .text-alignment-controls .components-button {
-    min-width: 36px;
-    height: 36px;
+    min-width: 2.25rem;
+    height: 2.25rem;
     flex: 0 0 auto;
 }

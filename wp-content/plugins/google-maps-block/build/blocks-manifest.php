@@ -49,7 +49,7 @@ return array(
 			),
 			'height' => array(
 				'type' => 'string',
-				'default' => '400px'
+				'default' => '25rem'
 			),
 			'mapType' => array(
 				'type' => 'string',

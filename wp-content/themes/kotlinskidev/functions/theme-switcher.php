@@ -3,7 +3,7 @@ function kotlinskidev_theme_switcher_shortcode()
 {
     ob_start();
 ?>
-    <div class="theme-switcher">
+    <div class="theme-switcher" tabindex="0" aria-label="Toggle light and dark theme" type="button">
         <input type="checkbox" name="check" id="theme-toggle">
         <label for="theme-toggle">
             <span class="wrapper">

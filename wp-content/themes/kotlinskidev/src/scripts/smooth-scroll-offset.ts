@@ -26,6 +26,7 @@
         if (targetElement) {
           e.preventDefault();
           scrollToElementWithOffset(targetElement);
+          targetElement.focus(); // Ensure focus for accessibility
 
           if (history.pushState) {
             history.pushState(null, "", href);
@@ -43,6 +44,7 @@
       if (targetElement) {
         setTimeout(() => {
           scrollToElementWithOffset(targetElement);
+          targetElement.focus(); // Ensure focus for accessibility
         }, 100);
       }
     }

@@ -11,7 +11,7 @@
     left: 50%;
     top: 0;
     bottom: 0;
-    width: 4px;
+    width: 0.25rem;
     background: linear-gradient(to bottom, #e2e8f0, #cbd5e1, #e2e8f0);
     transform: translateX(-50%);
     z-index: 1;
@@ -19,7 +19,7 @@
 
   .wp-block-columns {
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 
     &:last-child {
       margin-bottom: 0;
@@ -35,22 +35,22 @@
   &::before {
     content: "";
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     background: var(--wp--preset--color--primary);
-    border: 3px solid #ffffff;
+    border: 0.1875rem solid #ffffff;
     border-radius: 50%;
     z-index: 2;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
   }
 
   // Content box styling
   .wp-block-group {
     background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+    padding: 1.875rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+    border: 0.0625rem solid #e2e8f0;
     position: relative;
     transition:
       transform 0.3s ease,
@@ -58,8 +58,8 @@
     transform: translateZ(0);
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      transform: translateY(-0.125rem);
+      box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.12);
     }
 
     // Arrow pointing to timeline
@@ -70,7 +70,7 @@
       height: 0;
       top: 50%;
       transform: translateY(-50%);
-      border: 12px solid transparent;
+      border: 0.75rem solid transparent;
     }
   }
 }
@@ -79,17 +79,17 @@
 .timeline-left {
   .timeline-item {
     &::before {
-      right: -24px;
+      right: -1.5rem;
       top: 50%;
       transform: translateY(-50%);
     }
 
     .wp-block-group {
       text-align: right;
-      margin-right: 30px;
+      margin-right: 1.875rem;
 
       &::before {
-        right: -12px;
+        right: -0.75rem;
         border-left-color: #ffffff;
       }
     }
@@ -100,36 +100,35 @@
 .timeline-right {
   .timeline-item {
     &::before {
-      left: -24px;
+      left: -1.5rem;
       top: 50%;
       transform: translateY(-50%);
     }
 
     .wp-block-group {
       text-align: left;
-      margin-left: 30px;
+      margin-left: 1.875rem;
 
       &::before {
-        left: -12px;
+        left: -0.75rem;
         border-right-color: #ffffff;
       }
     }
   }
 }
 
-// Responsive design
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .career-timeline {
-    padding: 20px 0;
+    padding: 1.25rem 0;
 
     // Move timeline to the left side on mobile
     &::before {
-      left: -20px;
-      width: 3px;
+      left: -1.25rem;
+      width: 0.1875rem;
     }
 
     .wp-block-columns {
-      margin-bottom: 10px;
+      margin-bottom: 0.625rem;
       flex-direction: column !important;
     }
 
@@ -148,20 +147,20 @@
       .timeline-item {
         // Position dots on the left timeline
         &::before {
-          left: -34px;
+          left: -2.125rem;
           top: 50%;
           transform: translateY(-50%);
-          width: 20px;
-          height: 20px;
+          width: 1.25rem;
+          height: 1.25rem;
           background: var(--wp--preset--color--primary);
-          border: 4px solid #ffffff;
+          border: 0.25rem solid #ffffff;
         }
 
         .wp-block-group {
           text-align: left;
-          margin-left: 60px;
+          margin-left: 3.75rem;
           margin-right: 0;
-          padding: 24px 20px;
+          padding: 1.5rem 1.25rem;
 
           // Remove arrows on mobile - cleaner look
           &::before {
@@ -169,20 +168,20 @@
           }
 
           // Enhanced mobile styling
-          border-radius: 8px;
+          border-radius: 0.5rem;
           background: #ffffff;
-          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.08);
           position: relative;
 
           // Add subtle animation on mobile scroll
           opacity: 0.95;
-          transform: translateX(5px);
+          transform: translateX(0.3125rem);
           transition: all 0.3s ease;
 
           &:hover {
             opacity: 1;
             transform: translateX(0);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.12);
           }
         }
       }

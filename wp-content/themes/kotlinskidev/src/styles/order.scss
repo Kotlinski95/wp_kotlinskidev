@@ -15,7 +15,7 @@
 }
 
 // Tablet order classes
-@media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 1px}) {
+@media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
   @for $i from -1 through 20 {
     .order-tablet-#{$i} {
       order: #{$i};

@@ -3,15 +3,15 @@
     background: var(--wp--preset--color--light-color) !important;
     color: var(--wp--preset--color--dark-color) !important;
     box-shadow:
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), // 0px 4px 6px -> 0rem 0.25rem 0.375rem
+      0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06); // 0px 2px 4px -> 0rem 0.125rem 0.25rem
   }
   .cmplz-cookiebanner {
     background: var(--wp--preset--color--dark-color) !important;
     color: var(--wp--preset--color--light-color) !important;
     box-shadow:
-      0 4px 6px -1px rgba(255, 255, 255, 0.1),
-      0 2px 4px -1px rgba(255, 255, 255, 0.06) !important;
+      0 0.25rem 0.375rem -0.0625rem rgba(255, 255, 255, 0.1), // 0px 4px 6px -> 0rem 0.25rem 0.375rem
+      0 0.125rem 0.25rem -0.0625rem rgba(255, 255, 255, 0.06) !important; // 0px 2px 4px -> 0rem 0.125rem 0.25rem
     * {
       &:not(.cmplz-btn) {
         color: var(--wp--preset--color--light-color) !important;
@@ -20,8 +20,8 @@
   }
   .cmplz-cookiebanner.cmplz-show {
     box-shadow:
-      0 0px 6px 2px rgba(255, 255, 255, 0.3),
-      0 0px 4px 2px rgba(255, 255, 255, 0.06) !important;
+      0 0rem 0.375rem 0.125rem rgba(255, 255, 255, 0.3), // 0px 6px 2px -> 0rem 0.375rem 0.125rem
+      0 0rem 0.25rem 0.125rem rgba(255, 255, 255, 0.06) !important; // 0px 4px 2px -> 0rem 0.25rem 0.125rem
   }
 
   .cmplz-logo {
@@ -36,8 +36,8 @@
     background: var(--wp--preset--color--dark-color) !important;
     color: var(--wp--preset--color--light-color) !important;
     box-shadow:
-      0 4px 6px -1px rgba(255, 255, 255, 0.1),
-      0 2px 4px -1px rgba(255, 255, 255, 0.06);
+      0 0.25rem 0.375rem -0.0625rem rgba(255, 255, 255, 0.1), // 0px 4px 6px -> 0rem 0.25rem 0.375rem
+      0 0.125rem 0.25rem -0.0625rem rgba(255, 255, 255, 0.06); // 0px 2px 4px -> 0rem 0.125rem 0.25rem
   }
   .cmplz-cookiebanner {
     background: var(--wp--preset--color--light-color) !important;
@@ -52,5 +52,12 @@
     img {
       filter: none !important;
     }
+  }
+}
+
+.cmplz-manage-consent{
+  img{
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

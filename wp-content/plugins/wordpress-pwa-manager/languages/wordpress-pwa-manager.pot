@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: WordPress\n"
 
-#: includes/class-pwa-frontend.php:33
+#: includes/pwa-frontend.php:35
 msgid "Try Again"
 msgstr ""
 

@@ -46,14 +46,14 @@ elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $relative_path, $matche
 // Keep search_action_url as default home_url('/') without any prefix
 ?>
 
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"15px"},"padding":{"top":"15px","bottom":"15px","left":"20px","right":"20px"}},"border":{"radius":"20px","width":"0px"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"800px"}} -->
-<div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0px;border-radius:20px;margin-bottom:15px;padding-top:15px;padding-right:20px;padding-bottom:15px;padding-left:20px">
+<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"0.9375rem"},"padding":{"top":"0.9375rem","bottom":"0.9375rem","left":"1.25rem","right":"1.25rem"}},"border":{"radius":"1.25rem","width":"0rem"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"50rem"}} -->
+<div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0rem;border-radius:1.25rem;margin-bottom:0.9375rem;padding-top:0.9375rem;padding-right:1.25rem;padding-bottom:0.9375rem;padding-left:1.25rem">
     
     <!-- wp:html -->
     <form method="get" action="<?php echo esc_url($search_action_url); ?>" class="kotlinskidev-search-form">
         
         <!-- Main Search Input -->
-        <div style="margin-bottom:20px;">
+        <div style="margin-bottom:1.25rem;">
             <label for="search-input" class="search-label">
                 🔍 <?php esc_html_e('Search for content', 'kotlinskidev'); ?>
             </label>
@@ -121,7 +121,7 @@ elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $relative_path, $matche
         </div>
         
         <!-- Search Button -->
-        <div style="text-align:center;margin-bottom:20px;">
+        <div style="text-align:center;margin-bottom:1.25rem;">
             <button type="submit" class="search-button" aria-describedby="search-button-description">
                 <span>🔍</span>
                 <span><?php esc_html_e('Search Content', 'kotlinskidev'); ?></span>

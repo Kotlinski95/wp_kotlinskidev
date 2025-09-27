@@ -16,7 +16,7 @@ export interface GoogleMapsBlockProps {
 
 const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
     const blockProps = useBlockProps();
-    const { apiKey = '', address = '', lat = '', lng = '', zoom = 14, width = '100%', height = '400px', mapType = 'roadmap', showZoomControl = true, showStreetViewControl = true, showFullscreenControl = true, showMapTypeControl = true, markerLabel = '', markerTooltip = '', markerColor = 'red', customCSS = '' } = attributes;
+    const { apiKey = '', address = '', lat = '', lng = '', zoom = 14, width = '100%', height = '25rem', mapType = 'roadmap', showZoomControl = true, showStreetViewControl = true, showFullscreenControl = true, showMapTypeControl = true, markerLabel = '', markerTooltip = '', markerColor = 'red', customCSS = '' } = attributes;
 
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstance = useRef(null);
@@ -128,13 +128,13 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
                         label={__('Map Width', 'google-maps-block')}
                         value={width}
                         onChange={(value) => setAttributes({ width: value })}
-                        help={__('Any valid CSS width value, e.g. 100%, 600px', 'google-maps-block')}
+                        help={__('Any valid CSS width value, e.g. 100%, 37.5rem', 'google-maps-block')}
                     />
                     <TextControl
                         label={__('Map Height', 'google-maps-block')}
                         value={height}
                         onChange={(value) => setAttributes({ height: value })}
-                        help={__('Any valid CSS height value, e.g. 400px', 'google-maps-block')}
+                        help={__('Any valid CSS height value, e.g. 25rem', 'google-maps-block')}
                     />
                     <SelectControl
                         label={__('Map Type', 'google-maps-block')}
@@ -208,11 +208,11 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
                             '/* Hide Google Maps controls */\n' +
                             '.gm-style-cc { display: none !important; }\n\n' +
                             '/* Custom marker label styling */\n' +
-                            '.marker-position { margin-top: 55px; color: red; font-weight: bold; }\n\n' +
+                            '.marker-position { margin-top: 3.4375rem; color: red; font-weight: bold; }\n\n' +
                             '/* Hide "Map data" text */\n' +
                             '.gm-style .gm-style-cc { display: none; }\n\n' +
                             '/* Custom map container styling */\n' +
-                            '.gm-style { border-radius: 10px; }',
+                            '.gm-style { border-radius: 0.625rem; }',
                             'google-maps-block'
                         )}
                         rows={8}
@@ -228,15 +228,15 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: any) => {
                         <img
                             src="https://maps.gstatic.com/tactile/basepage/pegman_sherlock.png"
                             alt="Google Maps Placeholder"
-                            style={{ width: 64, height: 64, opacity: 0.5, marginBottom: 12 }}
+                            style={{ width: '4rem', height: '4rem', opacity: 0.5, marginBottom: '0.75rem' }}
                         />
                         {__('Google Map preview will appear here.', 'google-maps-block')}
                     </div>
 				)}
                 {mapLoaded && attributes.showResetViewButton && (
                     <Button
-                        style={{ position: 'absolute', bottom: 10, left: 10, zIndex: 2 }}
-						className="test123"
+                        style={{ position: 'absolute', bottom: '0.625rem', left: '0.625rem', zIndex: 2 }}
+                        className="test123"
                         onClick={() => {
                             if (mapInstance.current && initialCenter) {
                                 mapInstance.current.setCenter(initialCenter);

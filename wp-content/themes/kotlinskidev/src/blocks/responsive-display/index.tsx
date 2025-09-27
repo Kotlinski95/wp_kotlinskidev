@@ -159,11 +159,11 @@ const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => 
             const deviceSettings = responsiveDisplay[device] || {};
             
             return (
-                <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ddd', borderRadius: '4px' }}>
-                    <h4 style={{ margin: '0 0 15px 0', fontSize: '14px', fontWeight: '600' }}>
+                <div style={{ marginBottom: '1.25rem', padding: '0.9375rem', border: '0.0625rem solid #ddd', borderRadius: '0.25rem' }}>
+                    <h4 style={{ margin: '0 0 0.9375rem 0', fontSize: '0.875rem', fontWeight: '600' }}>
                         {label}
                     </h4>
-                    <p style={{ fontSize: '12px', color: '#666', margin: '0 0 15px 0' }}>
+                    <p style={{ fontSize: '0.75rem', color: '#666', margin: '0 0 0.9375rem 0' }}>
                         {helpText}
                     </p>
                     
@@ -238,19 +238,19 @@ const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => 
                                 {renderDeviceControls(
                                     'desktop',
                                     __('Desktop', 'kotlinskidev'),
-                                    __('Settings for screens ' + breakpoints.desktop_min + 'px and above', 'kotlinskidev')
+                                    __('Settings for screens ' + (breakpoints.desktop_min / 16) + 'rem and above', 'kotlinskidev')
                                 )}
                                 
                                 {renderDeviceControls(
                                     'tablet',
                                     __('Tablet', 'kotlinskidev'),
-                                    __('Settings for screens ' + breakpoints.tablet_min + 'px - ' + breakpoints.tablet_max + 'px', 'kotlinskidev')
+                                    __('Settings for screens ' + (breakpoints.tablet_min / 16) + 'rem - ' + (breakpoints.tablet_max / 16) + 'rem', 'kotlinskidev')
                                 )}
                                 
                                 {renderDeviceControls(
                                     'mobile',
                                     __('Mobile', 'kotlinskidev'),
-                                    __('Settings for screens below ' + (breakpoints.mobile_max + 1) + 'px', 'kotlinskidev')
+                                    __('Settings for screens below ' + ((breakpoints.mobile_max + 1) / 16) + 'rem', 'kotlinskidev')
                                 )}
                             </>
                         )}

@@ -1,21 +1,21 @@
 // Breakpoints
-$breakpoint-large: 1200px;
-$breakpoint-desktop: 1024px;
-$breakpoint-tablet-wp: 782px;
-$breakpoint-mobile: 782px;
+$breakpoint-large: 75rem; // 1200px -> 75rem
+$breakpoint-desktop: 64rem; // 1024px -> 64rem
+$breakpoint-tablet-wp: 48.875rem; // 782px -> 48.875rem
+$breakpoint-mobile: 48.875rem; // 782px -> 48.875rem
 
 // Page size
-$page-large: 1420px;
-$page-content: 1180px;
+$page-large: 88.75rem; // 1420px -> 88.75rem
+$page-content: 73.75rem; // 1180px -> 73.75rem
 
 // Colors
 $black: #191919;
 $white: #f2f2f2;
 
 // Breakpoints
-$desktop: 1024px;
-$mobile: 782px;
+$desktop: 64rem; // 1024px -> 64rem
+$mobile: 48.875rem; // 782px -> 48.875rem
 
 // Sizes
-$header: 4.6875rem;
-$mobile-footer-nav: 3.5rem;
+$header: 4.6875rem; // 75px -> 4.6875rem
+$mobile-footer-nav: 3.5rem; // 56px -> 3.5rem;

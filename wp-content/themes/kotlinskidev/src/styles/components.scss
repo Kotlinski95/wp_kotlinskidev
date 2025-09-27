@@ -113,7 +113,7 @@ details[open] summary {
     color: $black;
   }
 
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 37.5rem) {
     #cmplz-cookies-overview .cmplz-dropdown .cookies-per-purpose .name-header,
     #cmplz-document .cmplz-dropdown .cookies-per-purpose .name-header,
     .editor-styles-wrapper
@@ -145,7 +145,7 @@ details[open] summary {
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 37.5rem) {
     #cmplz-cookies-overview
       .cmplz-dropdown
       .cookies-per-purpose

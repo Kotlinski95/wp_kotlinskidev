@@ -6,38 +6,38 @@
 }
 
 /* Mobile-first approach - no media query needed for mobile */
-.responsive-font-mobile-x-small { font-size: 12px !important; }
-.responsive-font-mobile-small { font-size: 14px !important; }
-.responsive-font-mobile-normal { font-size: 16px !important; }
-.responsive-font-mobile-medium { font-size: 20px !important; }
-.responsive-font-mobile-big { font-size: 24px !important; }
-.responsive-font-mobile-large { font-size: 32px !important; }
-.responsive-font-mobile-x-large { font-size: 40px !important; }
-.responsive-font-mobile-xx-large { font-size: 48px !important; }
-.responsive-font-mobile-xxx-large { font-size: 64px !important; }
+.responsive-font-mobile-x-small { font-size: 0.75rem !important; }
+.responsive-font-mobile-small { font-size: 0.875rem !important; }
+.responsive-font-mobile-normal { font-size: 1rem !important; }
+.responsive-font-mobile-medium { font-size: 1.25rem !important; }
+.responsive-font-mobile-big { font-size: 1.5rem !important; }
+.responsive-font-mobile-large { font-size: 2rem !important; }
+.responsive-font-mobile-x-large { font-size: 2.5rem !important; }
+.responsive-font-mobile-xx-large { font-size: 3rem !important; }
+.responsive-font-mobile-xxx-large { font-size: 4rem !important; }
 
 /* Tablet styles */
-@media (min-width: 768px) {
-    .responsive-font-tablet-x-small { font-size: 12px !important; }
-    .responsive-font-tablet-small { font-size: 14px !important; }
-    .responsive-font-tablet-normal { font-size: 16px !important; }
-    .responsive-font-tablet-medium { font-size: 20px !important; }
-    .responsive-font-tablet-big { font-size: 24px !important; }
-    .responsive-font-tablet-large { font-size: 32px !important; }
-    .responsive-font-tablet-x-large { font-size: 40px !important; }
-    .responsive-font-tablet-xx-large { font-size: 48px !important; }
-    .responsive-font-tablet-xxx-large { font-size: 64px !important; }
+@media (min-width: 48rem) {
+    .responsive-font-tablet-x-small { font-size: 0.75rem !important; }
+    .responsive-font-tablet-small { font-size: 0.875rem !important; }
+    .responsive-font-tablet-normal { font-size: 1rem !important; }
+    .responsive-font-tablet-medium { font-size: 1.25rem !important; }
+    .responsive-font-tablet-big { font-size: 1.5rem !important; }
+    .responsive-font-tablet-large { font-size: 2rem !important; }
+    .responsive-font-tablet-x-large { font-size: 2.5rem !important; }
+    .responsive-font-tablet-xx-large { font-size: 3rem !important; }
+    .responsive-font-tablet-xxx-large { font-size: 4rem !important; }
 }
 
 /* Desktop styles */
-@media (min-width: 1024px) {
-    .responsive-font-desktop-x-small { font-size: 12px !important; }
-    .responsive-font-desktop-small { font-size: 14px !important; }
-    .responsive-font-desktop-normal { font-size: 16px !important; }
-    .responsive-font-desktop-medium { font-size: 20px !important; }
-    .responsive-font-desktop-big { font-size: 24px !important; }
-    .responsive-font-desktop-large { font-size: 32px !important; }
-    .responsive-font-desktop-x-large { font-size: 40px !important; }
-    .responsive-font-desktop-xx-large { font-size: 48px !important; }
-    .responsive-font-desktop-xxx-large { font-size: 64px !important; }
+@media (min-width: 64rem) {
+    .responsive-font-desktop-x-small { font-size: 0.75rem !important; }
+    .responsive-font-desktop-small { font-size: 0.875rem !important; }
+    .responsive-font-desktop-normal { font-size: 1rem !important; }
+    .responsive-font-desktop-medium { font-size: 1.25rem !important; }
+    .responsive-font-desktop-big { font-size: 1.5rem !important; }
+    .responsive-font-desktop-large { font-size: 2rem !important; }
+    .responsive-font-desktop-x-large { font-size: 2.5rem !important; }
+    .responsive-font-desktop-xx-large { font-size: 3rem !important; }
+    .responsive-font-desktop-xxx-large { font-size: 4rem !important; }
 }

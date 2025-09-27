@@ -95,36 +95,36 @@ function kotlinskidev_show_custom_error_page() {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 20px;
+                padding: 1.25rem;
             }
             .error-container { 
-                max-width: 500px; 
+                max-width: 31.25rem; 
                 background: white; 
-                padding: 40px; 
-                border-radius: 15px; 
-                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                padding: 2.5rem; 
+                border-radius: 0.9375rem; 
+                box-shadow: 0 1.25rem 2.5rem rgba(0,0,0,0.1);
                 text-align: center;
                 animation: fadeIn 0.5s ease-out;
             }
             @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
+                from { opacity: 0; transform: translateY(1.25rem); }
                 to { opacity: 1; transform: translateY(0); }
             }
             .error-icon { 
                 font-size: 4rem; 
-                margin-bottom: 20px; 
+                margin-bottom: 1.25rem; 
                 display: block;
                 color: #e74c3c;
             }
             h1 { 
                 color: #2c3e50; 
                 font-size: 2rem; 
-                margin-bottom: 20px; 
+                margin-bottom: 1.25rem; 
                 font-weight: 600;
             }
             p { 
                 font-size: 1.1rem; 
-                margin-bottom: 30px; 
+                margin-bottom: 1.875rem; 
                 color: #7f8c8d; 
                 line-height: 1.6; 
             }
@@ -132,22 +132,22 @@ function kotlinskidev_show_custom_error_page() {
                 display: inline-block; 
                 background: linear-gradient(135deg, #3498db, #2980b9);
                 color: white; 
-                padding: 15px 30px; 
+                padding: 0.9375rem 1.875rem; 
                 text-decoration: none; 
-                border-radius: 50px; 
+                border-radius: 3.125rem; 
                 font-weight: 600;
                 transition: all 0.3s ease;
-                box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+                box-shadow: 0 0.25rem 0.9375rem rgba(52, 152, 219, 0.3);
             }
             .btn:hover { 
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+                transform: translateY(-0.125rem);
+                box-shadow: 0 0.5rem 1.5625rem rgba(52, 152, 219, 0.4);
             }
             .error-code {
                 font-size: 0.9rem;
                 color: #bdc3c7;
-                margin-top: 30px;
-                padding-top: 20px;
+                margin-top: 1.875rem;
+                padding-top: 1.25rem;
                 border-top: 1px solid #ecf0f1;
             }
         </style>
