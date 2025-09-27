@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.7.1; wp-6.8.1"
 
-#: includes/class-pwa-frontend.php:33
+#: includes/pwa-frontend.php:35
 msgid "Try Again"
 msgstr "Spróbuj ponownie"
 

@@ -11,7 +11,7 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
         $lng = isset($attributes['lng']) ? trim($attributes['lng']) : '';
         $zoom = isset($attributes['zoom']) ? intval($attributes['zoom']) : 14;
         $width = isset($attributes['width']) ? $attributes['width'] : '100%';
-        $height = isset($attributes['height']) ? $attributes['height'] : '400px';
+        $height = isset($attributes['height']) ? $attributes['height'] : '25rem';
         $mapType = isset($attributes['mapType']) ? $attributes['mapType'] : 'roadmap';
         $showZoomControl = isset($attributes['showZoomControl']) ? (bool)$attributes['showZoomControl'] : true;
         $showStreetViewControl = isset($attributes['showStreetViewControl']) ? (bool)$attributes['showStreetViewControl'] : true;
@@ -32,7 +32,7 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
         <div style="width:<?php echo esc_attr($width); ?>;height:<?php echo esc_attr($height); ?>;position:relative;">
             <div id="<?php echo esc_attr($map_id); ?>" style="width:100%;height:100%;"></div>
             <?php if (!empty($attributes['showResetViewButton'])): ?>
-                <button type="button" id="reset-view-btn-<?php echo esc_attr($map_id); ?>" style="font-size:18px;position:absolute;bottom:10px;left:10px;z-index:5;padding:6px 14px;background:#fff;color:#000;border:none;border-radius:3px;cursor:pointer;">
+                <button type="button" id="reset-view-btn-<?php echo esc_attr($map_id); ?>" style="font-size:1.125rem;position:absolute;bottom:0.625rem;left:0.625rem;z-index:5;padding:0.375rem 0.875rem;background:#fff;color:#000;border:none;border-radius:0.1875rem;cursor:pointer;">
                     <?php echo esc_html__('Reset View', 'google-maps-block'); ?>
                 </button>
             <?php endif; ?>
@@ -68,7 +68,7 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
 							echo '{';
 							echo "text: decodeBase64('" . $encodedLabel . "'),";
 							echo "color: 'black',";
-							echo "fontSize: '12px',";
+							echo "fontSize: '0.75rem',";
 							echo "className: 'marker-position'";
 							echo '}';
 						} else {
@@ -92,7 +92,7 @@ if ( ! function_exists( 'google_maps_block_render_map' ) ) {
                     const marker = new google.maps.Marker(markerOptions);
                     if (<?php echo $markerTooltip !== '' ? 'true' : 'false'; ?>) {
                         var infowindow = new google.maps.InfoWindow({
-                            content: <?php echo wp_json_encode('<div class="marker-tooltip" style="padding:8px 12px; font-size:1.1em; font-weight:bold; text-align:center; margin-top:8px; color:black;">' . $markerTooltip . '</div>', JSON_UNESCAPED_UNICODE); ?>,
+                            content: <?php echo wp_json_encode('<div class="marker-tooltip" style="padding:0.5rem 0.75rem; font-size:1.1em; font-weight:bold; text-align:center; margin-top:0.5rem; color:black;">' . $markerTooltip . '</div>', JSON_UNESCAPED_UNICODE); ?>,
                             pixelOffset: new google.maps.Size(0, 32) // Move tooltip below the marker
                         });
                         marker.addListener('click', function() { infowindow.open(map, marker); });

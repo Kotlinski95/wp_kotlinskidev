@@ -30,7 +30,7 @@
 }
 
 /* Responsive justify styles */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .has-text-align-justify {
     word-spacing: 0.05em;
     /* More aggressive orphan/widow control on mobile */

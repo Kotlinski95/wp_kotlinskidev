@@ -90,7 +90,7 @@ header::before {
   max-height: 4rem;
   max-width: 6.25rem;
   width: auto;
-  height: 4rem;
+  height: 4rem !important;
 }
 
 .menu-header-menu-container ul {
@@ -262,8 +262,8 @@ header::before {
   }
 
   @media (min-width: $breakpoint-tablet-wp) {
-    max-width: 43.75rem;
-    right: -87.5rem;
+    max-width: 100%;
+    right: -100%;
     border-left-width: 0.125rem;
     border-left-style: solid;
     border-left-color: inherit;
@@ -274,7 +274,7 @@ header::before {
   transform: translateX(-100%);
   background-color: $black;
   @media (min-width: $breakpoint-tablet-wp) {
-    right: -43.75rem;
+    right: -100%;
   }
 }
 

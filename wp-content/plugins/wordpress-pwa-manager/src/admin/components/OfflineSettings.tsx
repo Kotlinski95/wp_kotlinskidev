@@ -324,9 +324,9 @@ const OfflineSettings: React.FC<OfflineSettingsProps> = ({ settings, updateSetti
                             srcDoc={previewContent}
                             style={{
                                 width: '100%',
-                                height: '70vh',
-                                border: '1px solid #ddd',
-                                borderRadius: '4px'
+                                height: '70dvh',
+                                border: '0.0625rem solid #ddd',
+                                borderRadius: '0.25rem'
                             }}
                             title={__('Offline Page Preview', 'wordpress-pwa-manager')}
                         />

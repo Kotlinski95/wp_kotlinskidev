@@ -54,7 +54,7 @@ class ResponsiveFontControls
 
         add_settings_field(
             'tablet_breakpoint',
-            __('Tablet Breakpoint (px)', 'responsive-font-controls'),
+            __('Tablet Breakpoint (rem)', 'responsive-font-controls'),
             array($this, 'tablet_breakpoint_render'),
             'responsive_font_controls',
             'responsive_font_controls_breakpoints_section'
@@ -62,7 +62,7 @@ class ResponsiveFontControls
 
         add_settings_field(
             'desktop_breakpoint',
-            __('Desktop Breakpoint (px)', 'responsive-font-controls'),
+            __('Desktop Breakpoint (rem)', 'responsive-font-controls'),
             array($this, 'desktop_breakpoint_render'),
             'responsive_font_controls',
             'responsive_font_controls_breakpoints_section'
@@ -77,20 +77,20 @@ class ResponsiveFontControls
     public function tablet_breakpoint_render()
     {
         $options = get_option('responsive_font_controls_settings', array());
-        $tablet_breakpoint = isset($options['tablet_breakpoint']) ? $options['tablet_breakpoint'] : '768';
+        $tablet_breakpoint = isset($options['tablet_breakpoint']) ? $options['tablet_breakpoint'] : '48';
 ?>
-        <input type='number' name='responsive_font_controls_settings[tablet_breakpoint]' value='<?php echo esc_attr($tablet_breakpoint); ?>' min='300' max='2000' />
-        <p class="description"><?php _e('Minimum width for tablet view (default: 768px)', 'responsive-font-controls'); ?></p>
+        <input type='number' name='responsive_font_controls_settings[tablet_breakpoint]' value='<?php echo esc_attr($tablet_breakpoint); ?>' min='18.75' max='125' />
+        <p class="description"><?php _e('Minimum width for tablet view (default: 48rem)', 'responsive-font-controls'); ?></p>
     <?php
     }
 
     public function desktop_breakpoint_render()
     {
         $options = get_option('responsive_font_controls_settings', array());
-        $desktop_breakpoint = isset($options['desktop_breakpoint']) ? $options['desktop_breakpoint'] : '1024';
+        $desktop_breakpoint = isset($options['desktop_breakpoint']) ? $options['desktop_breakpoint'] : '64';
     ?>
-        <input type='number' name='responsive_font_controls_settings[desktop_breakpoint]' value='<?php echo esc_attr($desktop_breakpoint); ?>' min='500' max='2000' />
-        <p class="description"><?php _e('Minimum width for desktop view (default: 1024px)', 'responsive-font-controls'); ?></p>
+        <input type='number' name='responsive_font_controls_settings[desktop_breakpoint]' value='<?php echo esc_attr($desktop_breakpoint); ?>' min='31.25' max='125' />
+        <p class="description"><?php _e('Minimum width for desktop view (default: 64rem)', 'responsive-font-controls'); ?></p>
     <?php
     }
 
@@ -107,7 +107,7 @@ class ResponsiveFontControls
                 ?>
             </form>
 
-            <div class="card" style="margin-top: 20px;">
+            <div class="card" style="margin-top: 1.25rem;">
                 <h2><?php _e('How to Use', 'responsive-font-controls'); ?></h2>
                 <p><?php _e('1. Edit any block that supports typography (headings, paragraphs, etc.)', 'responsive-font-controls'); ?></p>
                 <p><?php _e('2. In the block inspector panel, look for "Responsive Font Size"', 'responsive-font-controls'); ?></p>
@@ -130,8 +130,8 @@ class ResponsiveFontControls
 
         // Pass plugin settings to JavaScript
         $options = get_option('responsive_font_controls_settings', array());
-        $tablet_breakpoint = isset($options['tablet_breakpoint']) ? $options['tablet_breakpoint'] : '768';
-        $desktop_breakpoint = isset($options['desktop_breakpoint']) ? $options['desktop_breakpoint'] : '1024';
+        $tablet_breakpoint = isset($options['tablet_breakpoint']) ? $options['tablet_breakpoint'] : '48';
+        $desktop_breakpoint = isset($options['desktop_breakpoint']) ? $options['desktop_breakpoint'] : '64';
 
         wp_localize_script(
             'responsive-font-controls-editor',
@@ -213,7 +213,7 @@ class ResponsiveFontControls
                     
                     if (fontSizeData && typeof fontSizeData === "object") {
                         const breakpoints = {
-                            mobile: ' . $tablet_breakpoint . ' - 1,
+                            mobile: ' . $tablet_breakpoint . ' - 0.0625,
                             tablet: ' . $tablet_breakpoint . ',
                             desktop: ' . $desktop_breakpoint . '
                         };
@@ -227,11 +227,11 @@ class ResponsiveFontControls
                                 // Generate CSS for this font size
                                 let css = "";
                                 if (device === "mobile") {
-                                    css = `@media (max-width: ${breakpoints.mobile}px) { .${className} { font-size: ${fontSize} !important; } }`;
+                                    css = `@media (max-width: ${breakpoints.mobile}rem) { .${className} { font-size: ${fontSize} !important; } }`;
                                 } else if (device === "tablet") {
-                                    css = `@media (min-width: ${breakpoints.tablet}px) and (max-width: ${breakpoints.desktop - 1}px) { .${className} { font-size: ${fontSize} !important; } }`;
+                                    css = `@media (min-width: ${breakpoints.tablet}rem) and (max-width: ${breakpoints.desktop - 0.0625}rem) { .${className} { font-size: ${fontSize} !important; } }`;
                                 } else if (device === "desktop") {
-                                    css = `@media (min-width: ${breakpoints.desktop}px) { .${className} { font-size: ${fontSize} !important; } }`;
+                                    css = `@media (min-width: ${breakpoints.desktop}rem) { .${className} { font-size: ${fontSize} !important; } }`;
                                 }
                                 
                                 injectFontSizeCSS(css);
@@ -351,22 +351,22 @@ class ResponsiveFontControls
     {
         $css = '';
         $options = get_option('responsive_font_controls_settings', array());
-        $tablet_breakpoint = isset($options['tablet_breakpoint']) ? $options['tablet_breakpoint'] : '768';
-        $desktop_breakpoint = isset($options['desktop_breakpoint']) ? $options['desktop_breakpoint'] : '1024';
+        $tablet_breakpoint = isset($options['tablet_breakpoint']) ? $options['tablet_breakpoint'] : '48';
+        $desktop_breakpoint = isset($options['desktop_breakpoint']) ? $options['desktop_breakpoint'] : '64';
 
-        // Mobile (up to tablet breakpoint - 1px)
+        // Mobile (up to tablet breakpoint - 1rem)
         if (isset($font_sizes['mobile']) && !empty($font_sizes['mobile'])) {
-            $css .= "@media (max-width: " . ($tablet_breakpoint - 1) . "px) { .{$selector} { font-size: {$font_sizes['mobile']} !important; } }\n";
+            $css .= "@media (max-width: " . ($tablet_breakpoint - 0.0625) . "rem) { .{$selector} { font-size: {$font_sizes['mobile']} !important; } }\n";
         }
 
-        // Tablet (from tablet breakpoint to desktop breakpoint - 1px)
+        // Tablet (from tablet breakpoint to desktop breakpoint - 1rem)
         if (isset($font_sizes['tablet']) && !empty($font_sizes['tablet'])) {
-            $css .= "@media (min-width: {$tablet_breakpoint}px) and (max-width: " . ($desktop_breakpoint - 1) . "px) { .{$selector} { font-size: {$font_sizes['tablet']} !important; } }\n";
+            $css .= "@media (min-width: {$tablet_breakpoint}rem) and (max-width: " . ($desktop_breakpoint - 0.0625) . "rem) { .{$selector} { font-size: {$font_sizes['tablet']} !important; } }\n";
         }
 
         // Desktop (from desktop breakpoint and up)
         if (isset($font_sizes['desktop']) && !empty($font_sizes['desktop'])) {
-            $css .= "@media (min-width: {$desktop_breakpoint}px) { .{$selector} { font-size: {$font_sizes['desktop']} !important; } }\n";
+            $css .= "@media (min-width: {$desktop_breakpoint}rem) { .{$selector} { font-size: {$font_sizes['desktop']} !important; } }\n";
         }
 
         return $css;

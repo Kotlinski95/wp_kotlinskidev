@@ -29,7 +29,7 @@ export default function Edit({ attributes, setAttributes }: ResponsiveImageEditP
             onChange={(value) => setAttributes({ alt: value })}
           />
           <RangeControl
-            label={__('Mobile Breakpoint (px)', 'responsive-image')}
+            label={__('Mobile Breakpoint (rem)', 'responsive-image')}
             value={breakpoint}
             onChange={(value) => setAttributes({ breakpoint: value })}
             min={320}

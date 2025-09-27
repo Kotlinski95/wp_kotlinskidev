@@ -1,16 +1,16 @@
 // Admin Styles for PWA Manager
 .wp-pwa-admin-app {
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem;
 
   .wp-pwa-admin-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.0625rem solid #ddd;
 
     h1 {
       margin: 0;
@@ -19,12 +19,12 @@
     }
 
     .wp-pwa-save-button {
-      min-width: 120px;
+      min-width: 7.5rem;
     }
   }
 
   .wp-pwa-admin-notice {
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
   }
 }
 
@@ -33,36 +33,36 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 3.75rem 1.25rem;
   text-align: center;
 
   p {
-    margin-top: 16px;
+    margin-top: 1rem;
     color: #666;
   }
 }
 
 // Tabs
 .wp-pwa-admin-tabs {
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 
   .wp-pwa-tab-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    border-bottom: 1px solid #ddd;
+    gap: 0.5rem;
+    border-bottom: 0.0625rem solid #ddd;
     padding-bottom: 0;
   }
 
   .wp-pwa-tab-button {
     background: none;
     border: none;
-    padding: 12px 20px;
+    padding: 0.75rem 1.25rem;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     color: #666;
-    border-bottom: 3px solid transparent;
+    border-bottom: 0.1875rem solid transparent;
     transition: all 0.2s ease;
 
     &:hover {
@@ -82,10 +82,10 @@
 .wp-pwa-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 16px;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 48.875rem) {
     grid-template-columns: 1fr;
   }
 }
@@ -96,18 +96,20 @@
 }
 
 .wp-pwa-select {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  min-height: 2.5rem;
 }
 
 // Settings Sections
 .wp-pwa-settings-section {
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 1.875rem;
+  padding: 1.25rem;
+  background: #fff;
+  border: 0.0625rem solid #e2e4e7;
+  border-radius: 0.25rem;
 
   &:last-child {
     border-bottom: none;
@@ -115,7 +117,7 @@
 
   h3 {
     margin-top: 0;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     color: #23282d;
     font-size: 1.2rem;
   }
@@ -124,16 +126,16 @@
 // PWA Enable/Disable Section
 .wp-pwa-enable-section {
   background: #f8f9fa;
-  padding: 24px;
-  border-radius: 8px;
-  border-left: 4px solid #0073aa;
-  margin-bottom: 32px;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border-left: 0.25rem solid #0073aa;
+  margin-bottom: 2rem;
 
   .wp-pwa-master-toggle {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     
     .components-toggle-control__label {
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 600;
       color: #23282d;
     }
@@ -142,17 +144,17 @@
 
 .wp-pwa-disabled-notice {
   background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  border-radius: 6px;
-  padding: 16px;
-  margin-top: 16px;
+  border: 0.0625rem solid #ffeaa7;
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin-top: 1rem;
   
   p {
     margin: 0;
     color: #856404;
     
     &:first-child {
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
     }
   }
 }
@@ -161,17 +163,17 @@
 .wp-pwa-color-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin: 24px 0;
+  gap: 2rem;
+  margin: 1.5rem 0;
 
-  @media (max-width: 768px) {
+  @media (max-width: 48.875rem) {
     grid-template-columns: 1fr;
   }
 }
 
 .wp-pwa-color-picker {
   .wp-color-picker {
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
   }
 }
 
@@ -179,54 +181,54 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
-  border-radius: 8px;
+  height: 3.75rem;
+  border-radius: 0.5rem;
   color: white;
   font-weight: 500;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  margin-top: 12px;
+  text-shadow: 0.0625rem 0.0625rem 0.125rem rgba(0, 0, 0, 0.3);
+  margin-top: 0.75rem;
 }
 
 // Mobile Preview
 .wp-pwa-preview-section {
-  margin-top: 32px;
-  padding: 24px;
+  margin-top: 2rem;
+  padding: 1.5rem;
   background: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .wp-pwa-mobile-preview {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .wp-pwa-mobile-frame {
-  width: 300px;
-  height: 600px;
-  border: 8px solid #333;
-  border-radius: 24px;
+  width: 18.75rem;
+  height: 37.5rem;
+  border: 0.5rem solid #333;
+  border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.2);
 }
 
 .wp-pwa-status-bar {
-  height: 32px;
+  height: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 1rem;
   color: white;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .wp-pwa-app-content {
-  padding: 32px 24px;
+  padding: 2rem 1.5rem;
   text-align: center;
 
   h4 {
-    margin: 0 0 16px 0;
+    margin: 0 0 1rem 0;
     font-size: 1.5rem;
     color: #333;
   }
@@ -241,56 +243,56 @@
 .wp-pwa-icons-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin: 24px 0;
+  gap: 2rem;
+  margin: 1.5rem 0;
 
-  @media (max-width: 768px) {
+  @media (max-width: 48.875rem) {
     grid-template-columns: 1fr;
   }
 }
 
 .wp-pwa-icon-section {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 24px;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
   background: white;
 }
 
 .wp-pwa-icon-upload {
-  margin-top: 16px;
+  margin-top: 1rem;
 }
 
 .wp-pwa-icon-preview {
   position: relative;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 
   .wp-pwa-icon-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
   }
 
   .wp-pwa-icon-actions {
-    margin-top: 12px;
+    margin-top: 0.75rem;
   }
 }
 
 .wp-pwa-icon-placeholder {
-  width: 120px;
-  height: 120px;
-  border: 2px dashed #ddd;
-  border-radius: 12px;
+  width: 7.5rem;
+  height: 7.5rem;
+  border: 0.125rem dashed #ddd;
+  border-radius: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f8f9fa;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 
   .wp-pwa-icon-placeholder-content {
     text-align: center;
     color: #666;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
   }
 }
@@ -302,14 +304,14 @@
 .wp-pwa-upload-button {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
   background: #0073aa;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.875rem;
   transition: background-color 0.2s ease;
 
   &:hover {
@@ -324,11 +326,11 @@
 
 // Icon Tips
 .wp-pwa-icon-tips {
-  margin-top: 32px;
-  padding: 20px;
+  margin-top: 2rem;
+  padding: 1.25rem;
   background: #e8f5e8;
-  border-radius: 8px;
-  border-left: 4px solid #46b450;
+  border-radius: 0.5rem;
+  border-left: 0.25rem solid #46b450;
 
   h3 {
     margin-top: 0;
@@ -337,44 +339,44 @@
 
   ul {
     margin: 0;
-    padding-left: 20px;
+    padding-left: 1.25rem;
   }
 
   li {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     color: #333;
   }
 }
 
 // Prompt Settings
 .wp-pwa-prompt-settings {
-  margin-left: 24px;
-  padding: 20px;
+  margin-left: 1.5rem;
+  padding: 1.25rem;
   background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #0073aa;
+  border-radius: 0.5rem;
+  border-left: 0.25rem solid #0073aa;
 }
 
 .wp-pwa-prompt-preview {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .wp-pwa-mock-prompt {
-  max-width: 400px;
+  max-width: 25rem;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
 .wp-pwa-prompt-content {
-  padding: 24px;
+  padding: 1.5rem;
   text-align: center;
 
   p {
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
     color: #333;
     line-height: 1.5;
   }
@@ -382,15 +384,15 @@
 
 .wp-pwa-prompt-buttons {
   display: flex;
-  gap: 12px;
+  gap: 0.75rem;
   justify-content: center;
 
   button {
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     transition: all 0.2s ease;
   }
@@ -416,15 +418,15 @@
 
 // Cache Settings
 .wp-pwa-cache-strategy-info {
-  margin: 12px 0 24px 0;
-  padding: 16px;
+  margin: 0.75rem 0 1.5rem 0;
+  padding: 1rem;
   background: #f0f8ff;
-  border-radius: 6px;
-  border-left: 4px solid #0073aa;
+  border-radius: 0.375rem;
+  border-left: 0.25rem solid #0073aa;
 
   p {
     margin: 0;
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.5;
   }
 
@@ -434,34 +436,34 @@
 }
 
 .wp-pwa-offline-settings {
-  margin-left: 24px;
-  padding: 20px;
+  margin-left: 1.5rem;
+  padding: 1.25rem 0;
   background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #0073aa;
+  border-radius: 0.5rem;
+  border-left: 0.25rem solid #0073aa;
 }
 
 .wp-pwa-cache-info {
-  margin-top: 32px;
-  padding: 20px;
+  margin-top: 2rem;
+  padding: 1.25rem;
   background: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .wp-pwa-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .wp-pwa-info-item {
   display: flex;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 0.75rem 1rem;
   background: white;
-  border-radius: 6px;
-  border: 1px solid #e0e0e0;
+  border-radius: 0.375rem;
+  border: 0.0625rem solid #e0e0e0;
 
   .wp-pwa-info-label {
     font-weight: 500;
@@ -476,15 +478,15 @@
 
 // Notification Settings
 .wp-pwa-vapid-settings {
-  margin-left: 24px;
-  padding: 20px;
+  margin-left: 1.5rem;
+  padding: 1.25rem;
   background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #0073aa;
+  border-radius: 0.5rem;
+  border-left: 0.25rem solid #0073aa;
 }
 
 .wp-pwa-vapid-actions {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .wp-pwa-generate-keys {
@@ -499,17 +501,17 @@
 
 .wp-pwa-vapid-key input {
   font-family: 'Courier New', monospace;
-  font-size: 12px;
-  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  letter-spacing: 0.03125rem;
 }
 
 .wp-pwa-permission-info,
 .wp-pwa-notification-tips {
-  margin-top: 24px;
-  padding: 20px;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
   background: #f0f8ff;
-  border-radius: 8px;
-  border-left: 4px solid #0073aa;
+  border-radius: 0.5rem;
+  border-left: 0.25rem solid #0073aa;
 
   h4, h3 {
     margin-top: 0;
@@ -517,66 +519,67 @@
   }
 
   ol, ul {
-    margin: 12px 0 0 0;
-    padding-left: 20px;
+    margin: 0.75rem 0 0 0;
+    padding-left: 1.25rem;
   }
 
   li {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     color: #333;
     line-height: 1.4;
   }
 }
 
 .wp-pwa-test-notification {
-  margin-top: 16px;
+  margin-top: 1rem;
 }
 
 .wp-pwa-test-disabled {
-  margin-top: 8px;
-  font-size: 13px;
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
   color: #666;
   font-style: italic;
 }
 
 /* Offline Settings Styles */
 .wp-pwa-offline-settings {
-    padding: 20px 0;
+    padding: 1.25rem 0;
 }
 
 .wp-pwa-settings-section {
-    margin-bottom: 30px;
-    padding: 20px;
+    margin-bottom: 1.875rem;
+    padding: 1.25rem;
     background: #fff;
-    border: 1px solid #e2e4e7;
-    border-radius: 4px;
+    border: 0.0625rem solid #e2e4e7;
+    border-radius: 0.25rem;
 }
 
 .wp-pwa-template-section {
     background: #f8f9fa;
-    border: 1px solid #d0d5dd;
+    border: 0.0625rem solid #d0d5dd;
+    border-radius: 0.25rem;
 }
 
 .wp-pwa-help-text {
     color: #646970;
-    font-size: 13px;
-    margin-bottom: 15px;
+    font-size: 0.8125rem;
+    margin-bottom: 0.9375rem;
 }
 
 .wp-pwa-placeholders {
     display: flex;
     flex-wrap: wrap;
     max-width: 100%;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 0.5rem;
+    margin-bottom: 0.9375rem;
 }
 
 .wp-pwa-placeholder {
     background: #e7f3ff;
-    border: 1px solid #2271b1;
-    border-radius: 3px;
-    padding: 2px 6px;
-    font-size: 11px;
+    border: 0.0625rem solid #2271b1;
+    border-radius: 0.1875rem;
+    padding: 0.125rem 0.375rem;
+    font-size: 0.6875rem;
     color: #2271b1;
     font-family: 'Monaco', 'Menlo', monospace;
 }
@@ -584,11 +587,11 @@
 .wp-pwa-template-editor {
     width: 100%;
     font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 1.5;
-    border: 1px solid #8c8f94;
-    border-radius: 4px;
-    padding: 12px;
+    border: 0.0625rem solid #8c8f94;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
     background: #fff;
     resize: vertical;
     max-width: 100%;
@@ -596,14 +599,14 @@
 
 .wp-pwa-template-editor:focus {
     border-color: #2271b1;
-    box-shadow: 0 0 0 1px #2271b1;
+    box-shadow: 0 0 0 0.0625rem #2271b1;
     outline: none;
 }
 
 .wp-pwa-template-actions {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 0.625rem;
+    margin-top: 0.9375rem;
 }
 
 .wp-pwa-preview-modal .components-modal__content {
@@ -611,35 +614,36 @@
 }
 
 .wp-pwa-preview-container {
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 .wp-pwa-modal-actions {
-    padding: 20px;
-    border-top: 1px solid #e2e4e7;
+    padding: 1.25rem;
+    border-top: 0.0625rem solid #e2e4e7;
     text-align: right;
     background: #f8f9fa;
 }
 
 .wp-pwa-notice {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .wp-pwa-disabled-notice {
     background: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 10px;
+    border: 0.0625rem solid #ddd;
+    padding: 0.9375rem;
+    border-radius: 0.25rem;
+    margin-top: 0.625rem;
 }
 
 .wp-pwa-disabled-notice p {
     margin: 0;
     color: #646970;
+    font-size: 0.8125rem;
 }
 
 /* Mobile responsive */
-@media (max-width: 782px) {
+@media (max-width: 48.875rem) {
     .wp-pwa-template-actions {
         flex-direction: column;
     }
@@ -649,6 +653,6 @@
     }
     
     .wp-pwa-template-editor {
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 }

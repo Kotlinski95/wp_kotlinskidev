@@ -292,10 +292,10 @@ registerBlockType("contact-form-ts/form", {
             (attributes.captchaProvider === "turnstile" && attributes.turnstileSiteKey)
           ) && (
             <div className="recaptcha-preview" style={{
-              border: '2px dashed #ccc',
-              padding: '20px',
+              border: '0.125rem dashed #ccc',
+              padding: '1.25rem',
               textAlign: 'center',
-              margin: '10px 0',
+              margin: '0.625rem 0',
               backgroundColor: '#f9f9f9'
             }}>
               <p style={{ margin: 0, color: '#666' }}>
