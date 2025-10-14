@@ -7,3 +7,239 @@
     color: $white;
   }
 }
+
+// =============================================================================
+// REDUCED MOTION ACCESSIBILITY
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  // =============================================================================
+  // DISABLE SCROLL ANIMATIONS
+  // =============================================================================
+
+  .fade-in-on-scroll,
+  .fade-up-on-scroll,
+  .fade-left-on-scroll,
+  .fade-right-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  .flip-up-on-scroll,
+  .flip-down-on-scroll,
+  .flip-left-on-scroll,
+  .flip-right-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+    perspective: none !important;
+  }
+
+  // =============================================================================
+  // DISABLE HOVER ANIMATIONS
+  // =============================================================================
+
+  .hover-jump,
+  .hover-jump-subtle,
+  .hover-jump-smooth,
+  .hover-jump-strong,
+  .hover-jump-shadow {
+    transition: none !important;
+    will-change: auto !important;
+
+    &:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .hover-scale,
+  .hover-fade,
+  .hover-rotate,
+  .hover-bounce {
+    transition: none !important;
+    will-change: auto !important;
+
+    &:hover {
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
+
+  // =============================================================================
+  // DISABLE CONSTANT ANIMATIONS
+  // =============================================================================
+
+  .constant-bounce,
+  .constant-bounce-subtle,
+  .constant-bounce-strong,
+  .constant-bounce-fast {
+    animation: none !important;
+  }
+
+  // =============================================================================
+  // DISABLE PARALLAX EFFECTS
+  // =============================================================================
+
+  .wp-block-cover.enable-parallax {
+    .parallax-bg,
+    .parallax-content {
+      transform: none !important;
+      will-change: auto !important;
+      transition: none !important;
+    }
+
+    .parallax-content.fade-up-on-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  // =============================================================================
+  // DISABLE/CONTROL VIDEO AUTOPLAY
+  // =============================================================================
+
+  .wp-block-cover video:not([data-user-override]),
+  .wp-block-cover-image video:not([data-user-override]),
+  video[autoplay]:not([data-user-override]),
+  video[data-autoplay="true"]:not([data-user-override]) {
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+
+    &[poster] {
+      background-image: attr(poster) !important;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+  }
+
+  video {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  // =============================================================================
+  // DISABLE SCROLL PROGRESS AND SMOOTH SCROLLING
+  // =============================================================================
+
+  html,
+  body {
+    scroll-behavior: auto !important;
+  }
+
+  .progress-ring__progress {
+    transition: none !important;
+  }
+
+  // =============================================================================
+  // DISABLE GRADIENT ANIMATIONS
+  // =============================================================================
+
+  .has-gradient-one-gradient-background {
+    transition: none !important;
+    background-position: left center !important;
+
+    &:hover {
+      background-position: left center !important;
+    }
+  }
+
+  // =============================================================================
+  // DISABLE MODAL AND LIGHTBOX ANIMATIONS
+  // =============================================================================
+
+  .image-lightbox-modal {
+    animation: none !important;
+  }
+
+  .image-lightbox-img {
+    transition: none !important;
+  }
+
+  // =============================================================================
+  // DISABLE NAVIGATION AND LINK ANIMATIONS
+  // =============================================================================
+
+  header a:not(#scroll-to-top):not(.custom-logo-link)::after,
+  footer a:not(#scroll-to-top):not(.custom-logo-link)::after {
+    transition: none !important;
+    width: 0 !important;
+  }
+
+  .arrow {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .page-numbers.prev:hover .arrow,
+  .page-numbers.next:hover .arrow {
+    transform: none !important;
+  }
+
+  // =============================================================================
+  // DISABLE SOCIAL ICONS ANIMATIONS
+  // =============================================================================
+
+  .wp-block-social-link-anchor svg {
+    transition: none !important;
+    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25))
+      drop-shadow(0 0 0rem #fff) drop-shadow(0 0 0.125rem #fff) !important;
+  }
+
+  .wp-block-social-link-anchor:hover svg {
+    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25))
+      drop-shadow(0 0 0rem #fff) drop-shadow(0 0 0.125rem #fff) !important;
+  }
+
+  // =============================================================================
+  // DISABLE PWA AND LOADING ANIMATIONS
+  // =============================================================================
+
+  .pwa-install-prompt,
+  .pwa-update-prompt {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+
+    &.show {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  .pwa-update-prompt .pwa-prompt-icon svg {
+    animation: none !important;
+  }
+
+  #page-loader::after {
+    animation: none !important;
+  }
+
+  // =============================================================================
+  // GLOBAL ANIMATION RESET
+  // =============================================================================
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [class*="fade-"],
+  [class*="flip-"],
+  [class*="hover-"],
+  [class*="constant-"] {
+    transform: none !important;
+    will-change: auto !important;
+  }
+}

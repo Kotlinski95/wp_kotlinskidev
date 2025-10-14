@@ -7,3 +7,4 @@ import './blocks/responsive-order/index.tsx';
 import './blocks/responsive-display/index.tsx';
 import './blocks/parallax/index.tsx';
 import './blocks/protected-content/index.tsx';
+import './blocks/animated-counter/index.tsx';

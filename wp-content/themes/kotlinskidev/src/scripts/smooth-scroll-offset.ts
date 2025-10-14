@@ -1,12 +1,19 @@
 (function () {
   const HEADER_OFFSET = 75;
 
+  const prefersReducedMotion = () => {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  };
+
   const scrollToElementWithOffset = (element: Element) => {
     const elementTop = element.getBoundingClientRect().top + document.body.scrollTop;
     const offsetTop = elementTop - HEADER_OFFSET;
+    
+    const scrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
+    
     document.body.scrollTo({
       top: Math.max(0, offsetTop),
-      behavior: "smooth"
+      behavior: scrollBehavior
     });
   };
 

@@ -67,6 +67,10 @@ header::before {
     justify-content: end;
     min-block-size: 4.0625rem;
     max-block-size: 4.0625rem;
+    *:not(path):not(img):empty,
+    p:empty {
+      display: none;
+    }
   }
 }
 
@@ -318,6 +322,7 @@ header::before {
 }
 
 #hamburger-button {
+  all:unset;
   position: relative;
   width: 3.125rem;
   height: 2.5rem;

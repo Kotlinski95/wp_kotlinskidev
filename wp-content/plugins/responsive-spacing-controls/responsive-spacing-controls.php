@@ -505,27 +505,27 @@ function responsive_spacing_controls_generate_css()
     $tablet_breakpoint = get_option('responsive_spacing_controls_tablet_breakpoint', '768px');
     $mobile_breakpoint = get_option('responsive_spacing_controls_mobile_breakpoint', '480px');
 
-    // Get all used spacing values from the database by scanning all posts
-    global $wpdb;
-    $used_values = [];
-
-    // Get all spacing attribute values from post content
-    $posts = $wpdb->get_results("
-        SELECT post_content 
-        FROM {$wpdb->posts} 
-        WHERE post_status = 'publish' 
-        AND (post_content LIKE '%Padding%' OR post_content LIKE '%Margin%')
-    ");
-
-    // Extract spacing values from block attributes
-    foreach ($posts as $post) {
-        if (preg_match_all('/"(?:desktop|tablet|mobile)(?:Padding|Margin)":({[^}]+})/', $post->post_content, $matches)) {
-            foreach ($matches[1] as $json_attr) {
-                $attr = json_decode($json_attr, true);
+    // Get used spacing combinations from the current page/post only (breakpoint+type+side+value)
+    global $post;
+    $used_combinations = [];
+    
+    // Only scan the current post content for exact spacing combinations
+    if ($post && !empty($post->post_content)) {
+        // Match desktopPadding, tabletPadding, mobilePadding, desktopMargin, etc.
+        if (preg_match_all('/"(desktop|tablet|mobile)(Padding|Margin)":({[^}]+})/', $post->post_content, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $breakpoint = strtolower($match[1]); // desktop, tablet, mobile
+                $type = strtolower($match[2]) === 'padding' ? 'pt' : 'mg'; // pt or mg
+                $attr = json_decode($match[3], true);
                 if ($attr) {
                     foreach (['top', 'right', 'bottom', 'left'] as $side) {
                         if (!empty($attr[$side]) && $attr[$side] !== '0px') {
-                            $used_values[] = $attr[$side];
+                            $used_combinations[] = [
+                                'breakpoint' => $breakpoint,
+                                'type' => $type,
+                                'side' => $side,
+                                'value' => $attr[$side]
+                            ];
                         }
                     }
                 }
@@ -533,44 +533,13 @@ function responsive_spacing_controls_generate_css()
         }
     }
 
-    // Add common default values including the ones you're using
-    $default_values = [
-        '0px',
-        '0.125rem',
-        '0.25rem',
-        '0.5rem',
-        '1rem',
-        '2rem',
-        '4rem',
-        '8rem',
-        '1px',
-        '2px',
-        '4px',
-        '8px',
-        '12px',
-        '16px',
-        '20px',
-        '24px',
-        '32px',
-        '35px',
-        '40px',
-        '48px',
-        '64px',
-        '25px',
-        '22.5px',
-        '5.5rem',
-        '1.1rem',
-        '6.5rem',
-        '1.3rem' // Add your specific values
-    ];
+    // Return empty CSS if no combinations are used
+    if (empty($used_combinations)) {
+        return '';
+    }
 
-    $all_values = array_unique(array_merge($used_values, $default_values));
-
-    $css = '';
-
-    // Function to create safe class name from value (MUST match the render_block logic)
+    // Helper functions
     $create_class_name = function ($value) {
-        // Handle negative values properly by adding 'neg' prefix
         $is_negative = strpos($value, '-') === 0;
         $absolute_value = $is_negative ? substr($value, 1) : $value;
         $class_suffix = preg_replace('/[^a-zA-Z0-9]/', '', str_replace('.', 'dot', $absolute_value));
@@ -578,59 +547,44 @@ function responsive_spacing_controls_generate_css()
         return $neg_prefix . $class_suffix;
     };
 
-    // Function to normalize spacing value for CSS output
     $normalize_css_value = function ($value) {
-        // Convert comma decimal separator to dot for CSS
         return str_replace(',', '.', $value);
     };
 
-    // Mobile styles (base styles - no media query, applies to all screen sizes first)
-    $css .= "\n@media (max-width: {$mobile_breakpoint}) {\n";
-    foreach ($all_values as $value) {
-        $class_suffix = $create_class_name($value);
-        $css_value = $normalize_css_value($value);
-        $css .= ".mobile-pt-top-{$class_suffix} { padding-top: {$css_value} !important; }\n";
-        $css .= ".mobile-pt-right-{$class_suffix} { padding-right: {$css_value} !important; }\n";
-        $css .= ".mobile-pt-bottom-{$class_suffix} { padding-bottom: {$css_value} !important; }\n";
-        $css .= ".mobile-pt-left-{$class_suffix} { padding-left: {$css_value} !important; }\n";
-        $css .= ".mobile-mg-top-{$class_suffix} { margin-top: {$css_value} !important; }\n";
-        $css .= ".mobile-mg-right-{$class_suffix} { margin-right: {$css_value} !important; }\n";
-        $css .= ".mobile-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
-        $css .= ".mobile-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
+    // Group and deduplicate combinations by breakpoint
+    $by_breakpoint = [];
+    $seen_rules = [];
+    foreach ($used_combinations as $combo) {
+        $rule_key = "{$combo['breakpoint']}-{$combo['type']}-{$combo['side']}-{$combo['value']}";
+        if (!isset($seen_rules[$rule_key])) {
+            $by_breakpoint[$combo['breakpoint']][] = $combo;
+            $seen_rules[$rule_key] = true;
+        }
     }
-    $css .= "}\n";
 
-    // Tablet styles (override mobile when screen is wider than mobile breakpoint)
-    $css .= "\n@media (min-width: " . ($mobile_breakpoint) . ") and (max-width: " . ($desktop_breakpoint) . ") {\n";
-    foreach ($all_values as $value) {
-        $class_suffix = $create_class_name($value);
-        $css_value = $normalize_css_value($value);
-        $css .= "  .tablet-pt-top-{$class_suffix} { padding-top: {$css_value} !important; }\n";
-        $css .= "  .tablet-pt-right-{$class_suffix} { padding-right: {$css_value} !important; }\n";
-        $css .= "  .tablet-pt-bottom-{$class_suffix} { padding-bottom: {$css_value} !important; }\n";
-        $css .= "  .tablet-pt-left-{$class_suffix} { padding-left: {$css_value} !important; }\n";
-        $css .= "  .tablet-mg-top-{$class_suffix} { margin-top: {$css_value} !important; }\n";
-        $css .= "  .tablet-mg-right-{$class_suffix} { margin-right: {$css_value} !important; }\n";
-        $css .= "  .tablet-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
-        $css .= "  .tablet-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
-    }
-    $css .= "}\n";
+    $css_parts = [];
 
-    // Desktop styles (override tablet/mobile when screen is wider than desktop breakpoint)
-    $css .= "\n@media (min-width: {$desktop_breakpoint}) {\n";
-    foreach ($all_values as $value) {
-        $class_suffix = $create_class_name($value);
-        $css_value = $normalize_css_value($value);
-        $css .= "  .desktop-pt-top-{$class_suffix} { padding-top: {$css_value} !important; }\n";
-        $css .= "  .desktop-pt-right-{$class_suffix} { padding-right: {$css_value} !important; }\n";
-        $css .= "  .desktop-pt-bottom-{$class_suffix} { padding-bottom: {$css_value} !important; }\n";
-        $css .= "  .desktop-pt-left-{$class_suffix} { padding-left: {$css_value} !important; }\n";
-        $css .= "  .desktop-mg-top-{$class_suffix} { margin-top: {$css_value} !important; }\n";
-        $css .= "  .desktop-mg-right-{$class_suffix} { margin-right: {$css_value} !important; }\n";
-        $css .= "  .desktop-mg-bottom-{$class_suffix} { margin-bottom: {$css_value} !important; }\n";
-        $css .= "  .desktop-mg-left-{$class_suffix} { margin-left: {$css_value} !important; }\n";
+    // Generate minified CSS only for exact combinations used
+    foreach (['mobile' => "max-width:{$mobile_breakpoint}", 
+              'tablet' => "min-width:{$mobile_breakpoint}) and (max-width:{$desktop_breakpoint}", 
+              'desktop' => "min-width:{$desktop_breakpoint}"] as $breakpoint => $media_query) {
+        
+        if (!empty($by_breakpoint[$breakpoint])) {
+            $rules = [];
+            foreach ($by_breakpoint[$breakpoint] as $combo) {
+                $class_suffix = $create_class_name($combo['value']);
+                $css_value = $normalize_css_value($combo['value']);
+                $property = $combo['type'] === 'pt' ? 'padding' : 'margin';
+                $rules[] = ".{$breakpoint}-{$combo['type']}-{$combo['side']}-{$class_suffix}{{$property}-{$combo['side']}:{$css_value}!important}";
+            }
+            
+            if (!empty($rules)) {
+                $css_parts[] = "@media({$media_query}){" . implode('', $rules) . "}";
+            }
+        }
     }
-    $css .= "}\n";
+
+    $css = implode('', $css_parts);
 
     return $css;
 }

@@ -11,11 +11,11 @@ function kotlinskidev_navigation_shortcode()
         <div class="header-wrapper">
             <section class="header-right" style="display: none;">
                 <?php echo do_shortcode('[theme_switcher]'); ?>
-                <div id="hamburger-button" class="mobile-only tablet-only" tabindex="0" aria-label="hamburger menu toggle">
+                <button id="hamburger-button" class="mobile-only tablet-only" tabindex="0" aria-label="hamburger menu toggle">
                     <input type="checkbox" id="toggle" name="hamburger-toggle" autocomplete="off" tabindex="-1">
                     <label for="toggle">
                     </label>
-                </div>
+                </button>
 
                 <!-- Navigation Menu -->
                 <div class="hide-mobile hide-tablet">

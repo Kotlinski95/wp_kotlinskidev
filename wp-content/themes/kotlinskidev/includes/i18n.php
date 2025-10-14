@@ -187,6 +187,8 @@ function kotlinskidev_get_accessibility_translations() {
         'external_link' => __('External link', KOTLINSKIDEV_TEXT_DOMAIN),
         'new_window' => __('Opens in new window', KOTLINSKIDEV_TEXT_DOMAIN),
         'download' => __('Download file', KOTLINSKIDEV_TEXT_DOMAIN),
+        'video_paused' => __('Video paused (Reduced motion mode)', KOTLINSKIDEV_TEXT_DOMAIN),
+        'play_anyway' => __('Play anyway', KOTLINSKIDEV_TEXT_DOMAIN),
     ];
 }
 

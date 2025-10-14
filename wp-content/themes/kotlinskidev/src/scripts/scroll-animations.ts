@@ -5,7 +5,11 @@
         '.fade-in-on-scroll',
         '.fade-up-on-scroll',
         '.fade-left-on-scroll',
-        '.fade-right-on-scroll'
+        '.fade-right-on-scroll',
+        '.flip-up-on-scroll',
+        '.flip-down-on-scroll',
+        '.flip-left-on-scroll',
+        '.flip-right-on-scroll'
     ];
     const elements = document.querySelectorAll<HTMLElement>(selectors.join(','));
     if ('IntersectionObserver' in window) {
