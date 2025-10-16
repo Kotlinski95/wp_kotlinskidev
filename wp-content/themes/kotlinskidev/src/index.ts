@@ -9,6 +9,7 @@ import "./scripts/protected-content";
 import "./scripts/cookie-consent";
 import "./scripts/accessibility";
 import "./scripts/animated-counter";
+import "./scripts/page-views";
 
 document.addEventListener("DOMContentLoaded", function () {
   // Note: body.loaded class is now added in critical.js for faster loading
