@@ -10,11 +10,9 @@ import "./scripts/cookie-consent";
 import "./scripts/accessibility";
 import "./scripts/animated-counter";
 import "./scripts/page-views";
+import "./scripts/hide-nav-on-scroll";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Note: body.loaded class is now added in critical.js for faster loading
-
-  // Enhanced developer console guide
   console.log(
     "%c🚀 Welcome to KotlinskiDev!",
     'font-size: 1.75rem; color: #6366f1; font-weight: bold; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.125rem 0.125rem 0.25rem rgba(99, 102, 241, 0.3);'
@@ -45,10 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "color: #6366f1; font-family: monospace; font-size: 0.75rem;"
   );
 
-  console.log(
-    "%c│",
-    "color: #a855f7; font-family: monospace; font-size: 0.75rem;"
-  );
+  console.log("%c│", "color: #a855f7; font-family: monospace; font-size: 0.75rem;");
 
   console.log(
     "%c│  🎨  FEATURES",
@@ -65,10 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;"
   );
 
-  console.log(
-    "%c│",
-    "color: #a855f7; font-family: monospace; font-size: 0.75rem;"
-  );
+  console.log("%c│", "color: #a855f7; font-family: monospace; font-size: 0.75rem;");
 
   console.log(
     "%c│  🔧  DEVELOPMENT",
@@ -84,10 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "color: #a855f7; font-family: monospace; font-size: 0.75rem;"
   );
 
-  console.log(
-    "%c│",
-    "color: #a855f7; font-family: monospace; font-size: 0.75rem;"
-  );
+  console.log("%c│", "color: #a855f7; font-family: monospace; font-size: 0.75rem;");
 
   console.log(
     "%c│  📁  FILE STRUCTURE",
@@ -118,11 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
     'font-size: 0.875rem; color: #7c3aed; font-weight: 500; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); padding: 0.5rem 0.75rem; border-radius: 0.375rem; border-left: 0.25rem solid #8b5cf6;'
   );
 
-  // Bonus: Site performance info
   if (window.performance && window.performance.timing) {
     const loadTime =
-      window.performance.timing.loadEventEnd -
-      window.performance.timing.navigationStart;
+      window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
     console.log(
       `%c⚡ Site loaded in ${loadTime}ms`,
       "font-size: 0.75rem; color: #059669; font-weight: 600; font-family: monospace; background-color: #ecfdf5; padding: 0.25rem 0.5rem; border-radius: 0.25rem;"

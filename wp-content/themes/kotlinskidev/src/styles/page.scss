@@ -1,65 +1,63 @@
-@import 'variables';
+@import "variables";
 
 #content {
-    display: block;
-    width: 100%;
-    max-width: $page-large;
-    margin: 4rem auto 0;
-    padding-top: 1rem;
-    padding-inline: 1rem;
-    min-height: 100dvh;
+  display: block;
+  width: 100%;
+  max-width: $page-large;
+  margin: 4rem auto 0;
+  padding-top: 1rem;
+  padding-inline: 1rem;
+  min-height: 100dvh;
 }
 
-/* Page Loader Styles */
 #page-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100dvh;
-    background-color: transparent; /* Matches your site's background color */
-    z-index: 9999; /* Ensure it's on top */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateZ(0);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background-color: transparent;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateZ(0);
 }
 
 .spinner {
-    width: 3.125rem;
-    height: 3.125rem;
-    border: 0.3125rem solid rgba(0, 0, 0, 0.2);
-    border-top: 0.3125rem solid #000;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    transform: translateZ(0);
+  width: 3.125rem;
+  height: 3.125rem;
+  border: 0.3125rem solid rgba(0, 0, 0, 0.2);
+  border-top: 0.3125rem solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translateZ(0);
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Hide the loader after page loads */
 body.loaded #page-loader {
-    display: none;
+  display: none;
 }
 
-.margin-top-header{
-    margin-top: -$header;
+.margin-top-header {
+  margin-top: -$header;
 }
 
-.wp-block-site-logo{
-    height: 4rem;
-    width: auto;
+.wp-block-site-logo {
+  height: 4rem;
+  width: auto;
 }
 
 header > * {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .wp-block-post-featured-image,
@@ -67,6 +65,6 @@ header > * {
   display: none !important;
 }
 
-.hero-banner{
-    min-height: calc(100dvh - $header) !important;
+.hero-banner {
+  min-height: calc(100dvh - $header) !important;
 }

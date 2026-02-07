@@ -2,25 +2,23 @@
   const HEADER_OFFSET = 75;
 
   const prefersReducedMotion = () => {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   };
 
   const scrollToElementWithOffset = (element: Element) => {
     const elementTop = element.getBoundingClientRect().top + document.body.scrollTop;
     const offsetTop = elementTop - HEADER_OFFSET;
-    
+
     const scrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
-    
+
     document.body.scrollTo({
       top: Math.max(0, offsetTop),
-      behavior: scrollBehavior
+      behavior: scrollBehavior,
     });
   };
 
   const handleAnchorLinks = () => {
-    const anchorLinks = document.querySelectorAll(
-      'a[href^="#"]:not([href="#"])'
-    );
+    const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
 
     anchorLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
@@ -33,7 +31,7 @@
         if (targetElement) {
           e.preventDefault();
           scrollToElementWithOffset(targetElement);
-          targetElement.focus(); // Ensure focus for accessibility
+          targetElement.focus();
 
           if (history.pushState) {
             history.pushState(null, "", href);
@@ -51,7 +49,7 @@
       if (targetElement) {
         setTimeout(() => {
           scrollToElementWithOffset(targetElement);
-          targetElement.focus(); // Ensure focus for accessibility
+          targetElement.focus();
         }, 100);
       }
     }

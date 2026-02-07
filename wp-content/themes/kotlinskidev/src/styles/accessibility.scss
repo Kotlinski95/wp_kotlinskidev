@@ -189,13 +189,13 @@
 
   .wp-block-social-link-anchor svg {
     transition: none !important;
-    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25))
-      drop-shadow(0 0 0rem #fff) drop-shadow(0 0 0.125rem #fff) !important;
+    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0rem #fff)
+      drop-shadow(0 0 0.125rem #fff) !important;
   }
 
   .wp-block-social-link-anchor:hover svg {
-    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25))
-      drop-shadow(0 0 0rem #fff) drop-shadow(0 0 0.125rem #fff) !important;
+    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0rem #fff)
+      drop-shadow(0 0 0.125rem #fff) !important;
   }
 
   // =============================================================================

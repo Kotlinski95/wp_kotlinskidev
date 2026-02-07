@@ -5,7 +5,6 @@ import { PanelBody, ToggleControl, RangeControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 
-// Types
 interface ParallaxAttributes {
   enableParallax?: boolean;
   parallaxSpeed?: number;
@@ -22,7 +21,6 @@ interface BlockEditProps {
   clientId: string;
 }
 
-// Add parallax attributes to core/cover block
 addFilter(
   "blocks.registerBlockType",
   "kotlinskidev/cover-parallax-attributes",
@@ -48,7 +46,6 @@ addFilter(
   }
 );
 
-// Add parallax controls to cover block inspector
 const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     const { attributes, setAttributes, name } = props;
@@ -62,7 +59,6 @@ const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
     const handleParallaxToggle = (value: boolean) => {
       setAttributes({ enableParallax: value });
 
-      // Apply/remove parallax class to the block element
       setTimeout(() => {
         const blockElement = document.querySelector(
           `[data-block="${props.clientId}"]`
@@ -71,10 +67,7 @@ const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
         if (blockElement) {
           if (value) {
             blockElement.classList.add("enable-parallax");
-            blockElement.setAttribute(
-              "data-parallax-speed",
-              parallaxSpeed.toString()
-            );
+            blockElement.setAttribute("data-parallax-speed", parallaxSpeed.toString());
           } else {
             blockElement.classList.remove("enable-parallax");
             blockElement.removeAttribute("data-parallax-speed");
@@ -89,7 +82,6 @@ const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
       const newSpeed = value || 0.5;
       setAttributes({ parallaxSpeed: newSpeed });
 
-      // Update speed attribute on block element
       setTimeout(() => {
         const blockElement = document.querySelector(
           `[data-block="${props.clientId}"]`
@@ -140,8 +132,4 @@ const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
   };
 }, "withParallaxControls");
 
-addFilter(
-  "editor.BlockEdit",
-  "kotlinskidev/cover-parallax-controls",
-  withParallaxControls
-);
+addFilter("editor.BlockEdit", "kotlinskidev/cover-parallax-controls", withParallaxControls);

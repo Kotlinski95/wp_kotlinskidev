@@ -13,7 +13,7 @@
   left: 0;
   right: 0;
   padding-inline: 1rem;
-  padding-block: .25rem;
+  padding-block: 0.25rem;
   display: none; /* Hidden by default, shown only on mobile */
   margin-top: 0;
   height: $mobile-footer-nav;
@@ -26,6 +26,11 @@
   z-index: 999;
   min-width: calc(100vw - 2rem);
   max-width: calc(100vw - 2rem);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.nav-hidden {
+    transform: translateY(calc(100% + 1rem)) translateZ(0);
+  }
 
   .mobile-footer-menu-items {
     display: flex;
@@ -67,7 +72,7 @@
       height: calc(100% - 0.375rem);
 
       &:hover,
-      &:focus{
+      &:focus {
         color: inherit !important;
       }
     }
@@ -93,15 +98,12 @@
   height: 100%;
 }
 
-/* Show only on mobile devices */
 @media (max-width: $breakpoint-desktop) {
   .mobile-footer-nav {
     display: block;
   }
 
-  /* Add bottom padding to body to prevent content from being hidden behind menu */
   body:has(.mobile-footer-nav) {
-    // padding-bottom: 4.375rem;
     .kotlinskidev-footer {
       margin-block-end: 4.375rem !important;
     }

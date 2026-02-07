@@ -1,7 +1,6 @@
 @import "variables.scss";
 
 html {
-  // overflow-x: hidden !important; // cause the scrollbar overwritte by header
   scroll-behavior: smooth;
   --scrollbar-width: calc(100vw - 100%);
   /* overflow + width - only with body position fixed

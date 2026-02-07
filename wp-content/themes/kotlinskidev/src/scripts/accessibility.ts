@@ -1,20 +1,13 @@
-// accessibility.ts
-// Adds accessible submenu toggles to WordPress navigation menus
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Hide CSS-only arrows if JS is enabled
   document.body.classList.add("accessibility-js-enabled");
 
-  // Select all menu items with submenus
   const menuItems = document.querySelectorAll(".menu-item-has-children");
 
   menuItems.forEach((item) => {
-    // Find the first link inside the menu item
     const link = item.querySelector("a");
     const submenu = item.querySelector(".sub-menu");
     if (!link || !submenu) return;
 
-    // Create a button for toggling submenu
     const toggleBtn = document.createElement("button");
     toggleBtn.setAttribute("type", "button");
     toggleBtn.setAttribute("aria-haspopup", "true");
@@ -23,40 +16,32 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.className = "submenu-toggle";
     toggleBtn.setAttribute("aria-label", "Toggle submenu");
 
-    // Use the same arrow as in CSS :after
     toggleBtn.innerHTML = "&#x25be;";
 
-    // Insert the button after the link
     link.insertAdjacentElement("afterend", toggleBtn);
 
-    // Helper to set submenu links and inner toggles tabindex
     const setSubmenuTabbables = (active: boolean) => {
-      // Set all submenu links
       const subLinks = submenu.querySelectorAll("a");
       subLinks.forEach((link) => {
         link.setAttribute("tabindex", active ? "0" : "-1");
       });
-      // Set all inner submenu-toggle buttons
       const innerToggles = submenu.querySelectorAll(".submenu-toggle");
       innerToggles.forEach((btn) => {
         btn.setAttribute("tabindex", active ? "0" : "-1");
       });
     };
 
-    // Toggle submenu on click or keyboard
     const toggleSubmenu = () => {
       const expanded = toggleBtn.getAttribute("aria-expanded") === "true";
       toggleBtn.setAttribute("aria-expanded", String(!expanded));
       item.classList.toggle("submenu-active", !expanded);
       setSubmenuTabbables(!expanded);
       if (!expanded) {
-        // Focus first submenu link when opened
         const firstSubLink = submenu.querySelector("a");
         if (firstSubLink) firstSubLink.focus();
       }
     };
 
-    // Listen for 'Escape' key on submenu links and toggles
     submenu.addEventListener("keydown", (e) => {
       const event = e as KeyboardEvent;
       if (event.key === "Escape") {
@@ -67,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Initialize submenu links and toggles as not focusable
     setSubmenuTabbables(false);
 
     toggleBtn.addEventListener("click", toggleSubmenu);
@@ -78,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Close submenu when focus leaves submenu or its links/toggles
     submenu.addEventListener("focusout", (e) => {
       setTimeout(() => {
         if (!submenu.contains(document.activeElement)) {
@@ -95,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // REDUCED MOTION VIDEO CONTROL
 // =============================================================================
 
-// Types for better type safety
 type VideoState = {
   autoplay: boolean;
   muted: boolean;
@@ -103,7 +85,6 @@ type VideoState = {
   controls: boolean;
 };
 
-// Pure function to get video selectors
 const getVideoSelectors = (): string[] => [
   ".wp-block-cover video",
   ".wp-block-cover-image video",
@@ -113,7 +94,6 @@ const getVideoSelectors = (): string[] => [
   ".background-video",
 ];
 
-// Pure function to extract video state
 const extractVideoState = (video: HTMLVideoElement): VideoState => ({
   autoplay: video.hasAttribute("autoplay"),
   muted: video.muted,
@@ -121,18 +101,14 @@ const extractVideoState = (video: HTMLVideoElement): VideoState => ({
   controls: video.hasAttribute("controls"),
 });
 
-// Function to get translations from WordPress i18n system
 const getVideoTranslations = () => {
-  // Check if WordPress i18n translations are available
   const i18n = (window as any).i18n;
 
-  // Default English translations as fallback
   const defaults = {
     pauseMessage: "Video paused (Reduced motion mode)",
     playButton: "Play anyway",
   };
 
-  // Try to get translations from WordPress i18n system first
   if (i18n?.accessibility) {
     return {
       pauseMessage: i18n.accessibility.video_paused || defaults.pauseMessage,
@@ -143,7 +119,6 @@ const getVideoTranslations = () => {
   return defaults;
 };
 
-// Pure function to create video indicator element
 const createVideoIndicator = (): HTMLDivElement => {
   const translations = getVideoTranslations();
 
@@ -157,12 +132,10 @@ const createVideoIndicator = (): HTMLDivElement => {
     </div>
   `;
 
-  // Apply styles using a pure function
   applyIndicatorStyles(indicator);
   return indicator;
 };
 
-// Pure function to apply indicator styles
 const applyIndicatorStyles = (indicator: HTMLDivElement): void => {
   indicator.style.cssText = `
     position: absolute;
@@ -181,7 +154,6 @@ const applyIndicatorStyles = (indicator: HTMLDivElement): void => {
   `;
 };
 
-// Pure function to apply button styles
 const applyButtonStyles = (button: HTMLButtonElement): void => {
   button.style.cssText = `
     background: rgba(255, 255, 255, 0.2);
@@ -198,30 +170,24 @@ const applyButtonStyles = (button: HTMLButtonElement): void => {
   `;
 };
 
-// Higher-order function to create a state manager
 const createVideoStateManager = () => {
   const videoStates = new Map<HTMLVideoElement, VideoState>();
 
   return {
-    store: (video: HTMLVideoElement, state: VideoState) =>
-      videoStates.set(video, state),
+    store: (video: HTMLVideoElement, state: VideoState) => videoStates.set(video, state),
     retrieve: (video: HTMLVideoElement) => videoStates.get(video),
     has: (video: HTMLVideoElement) => videoStates.has(video),
     clear: () => videoStates.clear(),
   };
 };
 
-// Functional approach to video operations
 const VideoOperations = {
-  // Pure function to get all target videos
   getTargetVideos: (): HTMLVideoElement[] =>
     getVideoSelectors().flatMap((selector) =>
       Array.from(document.querySelectorAll<HTMLVideoElement>(selector))
     ),
 
-  // Pure function to pause a video
   pauseVideo: (video: HTMLVideoElement): void => {
-    // Skip pausing if user has overridden the reduced motion setting for this video
     if (video.hasAttribute("data-user-override")) {
       return;
     }
@@ -236,24 +202,15 @@ const VideoOperations = {
     }
 
     video.muted = true;
-    video.setAttribute(
-      "aria-label",
-      "Video paused due to reduced motion preference"
-    );
-    video.setAttribute(
-      "title",
-      "Video paused (Reduced motion mode) - Click to play manually"
-    );
+    video.setAttribute("aria-label", "Video paused due to reduced motion preference");
+    video.setAttribute("title", "Video paused (Reduced motion mode) - Click to play manually");
   },
 
-  // Pure function to restore a video
   restoreVideo: (video: HTMLVideoElement, originalState: VideoState): void => {
     if (originalState.autoplay) {
       video.setAttribute("autoplay", "true");
       if (!video.hasAttribute("data-user-interacted")) {
-        video
-          .play()
-          .catch(() => console.log("Autoplay prevented by browser policy"));
+        video.play().catch(() => console.log("Autoplay prevented by browser policy"));
       }
     }
 
@@ -270,7 +227,6 @@ const VideoOperations = {
     video.removeAttribute("title");
   },
 
-  // Function to ensure parent positioning
   ensureParentPositioning: (element: HTMLElement): void => {
     const parent = element.parentElement;
     if (parent && window.getComputedStyle(parent).position === "static") {
@@ -279,11 +235,7 @@ const VideoOperations = {
   },
 };
 
-// Higher-order function to create button event handlers
-const createButtonHandlers = (
-  video: HTMLVideoElement,
-  indicator: HTMLDivElement
-) => ({
+const createButtonHandlers = (video: HTMLVideoElement, indicator: HTMLDivElement) => ({
   onMouseEnter: (button: HTMLButtonElement) => () => {
     button.style.background = "rgba(255, 255, 255, 0.3)";
   },
@@ -296,39 +248,27 @@ const createButtonHandlers = (
     e.stopPropagation();
     e.preventDefault();
 
-    // Mark video as user-interacted to prevent re-pausing
     video.setAttribute("data-user-interacted", "true");
     video.setAttribute("data-user-override", "true");
 
-    // Remove the reduced motion paused attribute
     video.removeAttribute("data-reduced-motion-paused");
 
-    // Remove accessibility attributes
     video.removeAttribute("aria-label");
     video.removeAttribute("title");
 
-    // Reset video styling to normal (remove reduced motion CSS effects)
     video.style.opacity = "1";
     video.style.pointerEvents = "auto";
 
-    // Start playing the video
     video.play().catch((error) => {
       console.log("Video play failed:", error);
     });
 
-    // Remove the indicator immediately
     indicator.remove();
   },
 });
 
-// Function to setup button interactions
-const setupButtonInteractions = (
-  video: HTMLVideoElement,
-  indicator: HTMLDivElement
-): void => {
-  const playBtn = indicator.querySelector(
-    ".play-anyway-btn"
-  ) as HTMLButtonElement;
+const setupButtonInteractions = (video: HTMLVideoElement, indicator: HTMLDivElement): void => {
+  const playBtn = indicator.querySelector(".play-anyway-btn") as HTMLButtonElement;
   if (!playBtn) return;
 
   applyButtonStyles(playBtn);
@@ -339,7 +279,6 @@ const setupButtonInteractions = (
   playBtn.addEventListener("click", handlers.onClick());
 };
 
-// Function to add indicator to video
 const addIndicatorToVideo = (video: HTMLVideoElement): void => {
   if (video.parentElement?.querySelector(".reduced-motion-indicator")) return;
 
@@ -349,19 +288,14 @@ const addIndicatorToVideo = (video: HTMLVideoElement): void => {
   video.parentElement?.appendChild(indicator);
 };
 
-// Function to remove all indicators
 const removeAllIndicators = (): void => {
-  document
-    .querySelectorAll(".reduced-motion-indicator")
-    .forEach((indicator) => indicator.remove());
+  document.querySelectorAll(".reduced-motion-indicator").forEach((indicator) => indicator.remove());
 };
 
-// Main video controller using functional composition
 const createReducedMotionVideoController = () => {
   const stateManager = createVideoStateManager();
   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // Pure function to handle pausing all videos
   const pauseAllVideos = (): void => {
     VideoOperations.getTargetVideos().forEach((video) => {
       if (!stateManager.has(video)) {
@@ -371,7 +305,6 @@ const createReducedMotionVideoController = () => {
     });
   };
 
-  // Pure function to restore all videos
   const restoreAllVideos = (): void => {
     document
       .querySelectorAll<HTMLVideoElement>("video[data-reduced-motion-paused]")
@@ -383,14 +316,12 @@ const createReducedMotionVideoController = () => {
       });
   };
 
-  // Pure function to add all indicators
   const addAllIndicators = (): void => {
     document
       .querySelectorAll<HTMLVideoElement>("video[data-reduced-motion-paused]")
       .forEach(addIndicatorToVideo);
   };
 
-  // Main handler function
   const handleMotionPreference = (prefersReducedMotion: boolean): void => {
     if (prefersReducedMotion) {
       pauseAllVideos();
@@ -403,14 +334,10 @@ const createReducedMotionVideoController = () => {
     }
   };
 
-  // Initialize function
   const init = (): void => {
     handleMotionPreference(mediaQuery.matches);
-    mediaQuery.addEventListener("change", (e) =>
-      handleMotionPreference(e.matches)
-    );
+    mediaQuery.addEventListener("change", (e) => handleMotionPreference(e.matches));
 
-    // Setup mutation observer for dynamic content
     const observer = new MutationObserver(() => {
       if (mediaQuery.matches) {
         pauseAllVideos();
@@ -421,24 +348,20 @@ const createReducedMotionVideoController = () => {
     observer.observe(document.body, { childList: true, subtree: true });
   };
 
-  // Return public API
   return {
     init,
     checkVideos: () => handleMotionPreference(mediaQuery.matches),
   };
 };
 
-// Initialize video controller using functional approach
 const initializeVideoController = () => {
   const videoController = createReducedMotionVideoController();
   videoController.init();
 
-  // Make available globally
   (window as any).reducedMotionVideoController = videoController;
   return videoController;
 };
 
-// Initialize when DOM is ready
 const videoController =
   document.readyState === "loading"
     ? (() => {
@@ -456,8 +379,7 @@ const videoController =
 
 const DOMOperations = {
   addBodyClass: (className: string) => document.body.classList.add(className),
-  removeBodyClass: (className: string) =>
-    document.body.classList.remove(className),
+  removeBodyClass: (className: string) => document.body.classList.remove(className),
   setScrollBehavior: (behavior: string) => {
     document.documentElement.style.scrollBehavior = behavior;
     document.body.style.scrollBehavior = behavior;
@@ -488,9 +410,7 @@ const createMotionHandlers = () => ({
 
 const handleMotionPreference = (prefersReducedMotion: boolean) => {
   const handlers = createMotionHandlers();
-  return prefersReducedMotion
-    ? handlers.onReducedMotion()
-    : handlers.onFullMotion();
+  return prefersReducedMotion ? handlers.onReducedMotion() : handlers.onFullMotion();
 };
 
 const createMotionPreferenceListener = () => {
@@ -498,9 +418,7 @@ const createMotionPreferenceListener = () => {
 
   handleMotionPreference(mediaQuery.matches);
 
-  mediaQuery.addEventListener("change", (e) =>
-    handleMotionPreference(e.matches)
-  );
+  mediaQuery.addEventListener("change", (e) => handleMotionPreference(e.matches));
 
   return mediaQuery;
 };
@@ -512,13 +430,9 @@ const motionMediaQuery = createMotionPreferenceListener();
 // =============================================================================
 
 const MotionUtils = {
-  prefersReducedMotion: () =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  prefersReducedMotion: () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 
-  createMediaQueryListener: (
-    query: string,
-    handler: (matches: boolean) => void
-  ) => {
+  createMediaQueryListener: (query: string, handler: (matches: boolean) => void) => {
     const mediaQuery = window.matchMedia(query);
     const listener = (e: MediaQueryListEvent) => handler(e.matches);
 
@@ -534,15 +448,13 @@ const createMotionSensitiveHandler = (
   onReduce: () => void,
   onRestore: () => void
 ) => {
-  return MotionUtils.createMediaQueryListener(
-    "(prefers-reduced-motion: reduce)",
-    (matches) => (matches ? onReduce() : onRestore())
+  return MotionUtils.createMediaQueryListener("(prefers-reduced-motion: reduce)", (matches) =>
+    matches ? onReduce() : onRestore()
   );
 };
 
 const getVideoController = () => {
-  const controller =
-    typeof videoController === "function" ? videoController() : videoController;
+  const controller = typeof videoController === "function" ? videoController() : videoController;
   return controller;
 };
 

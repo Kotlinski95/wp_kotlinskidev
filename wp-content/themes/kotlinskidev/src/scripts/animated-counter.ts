@@ -1,14 +1,10 @@
-// Animated Counter Script - Performance Optimized
-// Handles number counting animations when elements come into view
-
 (function () {
   const activeAnimations = new Map<HTMLElement, number>();
 
   const easingFunctions = {
     linear: (t: number) => t,
     easeOut: (t: number) => 1 - Math.pow(1 - t, 3),
-    easeInOut: (t: number) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+    easeInOut: (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
     bounce: (t: number) => {
       const n1 = 7.5625;
       const d1 = 2.75;
@@ -81,14 +77,11 @@
 
     const startValue = 0;
     const endValue = numberInfo.number;
-    const duration = parseInt(
-      element.getAttribute("data-counter-duration") || "2000"
-    );
+    const duration = parseInt(element.getAttribute("data-counter-duration") || "2000");
     const easingType = element.getAttribute("data-counter-easing") || "easeOut";
 
     const easingFunction =
-      easingFunctions[easingType as keyof typeof easingFunctions] ||
-      easingFunctions.easeOut;
+      easingFunctions[easingType as keyof typeof easingFunctions] || easingFunctions.easeOut;
 
     let startTime: number | null = null;
     const range = endValue - startValue;
@@ -227,11 +220,7 @@
     const originalText = element.textContent || "100";
     const numberInfo = extractNumberInfo(originalText);
 
-    const finalNumber = formatNumber(
-      numberInfo.number,
-      numberInfo.decimals,
-      numberInfo.hasCommas
-    );
+    const finalNumber = formatNumber(numberInfo.number, numberInfo.decimals, numberInfo.hasCommas);
     element.textContent = `${numberInfo.prefix}${finalNumber}${numberInfo.suffix}`;
     element.setAttribute("data-counter-animated", "true");
   };
@@ -263,11 +252,7 @@
                   hasNewElements = true;
                   break;
                 }
-                if (
-                  element.querySelector?.(
-                    ".animated-counter:not([data-counter-animated])"
-                  )
-                ) {
+                if (element.querySelector?.(".animated-counter:not([data-counter-animated])")) {
                   hasNewElements = true;
                   break;
                 }

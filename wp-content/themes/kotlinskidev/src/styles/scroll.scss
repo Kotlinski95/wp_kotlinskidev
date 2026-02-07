@@ -9,6 +9,8 @@
   padding: 0;
   z-index: 999;
   transform: translateZ(0);
+  transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
   #scroll-top-top {
     height: 2.5rem;
     width: 2.5rem;
@@ -19,10 +21,17 @@
       display: none;
     }
   }
-  @media (max-width: $breakpoint-desktop) {
-    bottom: calc(1rem + $mobile-footer-nav);
-  }
+}
 
+body:has(.mobile-footer-nav) {
+  .kotlinskidev-scrollto-top {
+    @media (max-width: $breakpoint-desktop) {
+      bottom: calc(1rem + $mobile-footer-nav);
+      &.mobile-nav-hidden {
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+      }
+    }
+  }
 }
 
 .scroll-to-top-wrapper {
