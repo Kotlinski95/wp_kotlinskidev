@@ -103,6 +103,9 @@ require_once get_template_directory() . '/functions/article-query-manager.php';
 // Blog topic management system
 require_once get_template_directory() . '/functions/blog-topic-manager.php';
 
+// Include page view tracking functionality
+require_once get_template_directory() . '/functions/page-view-tracking.php';
+
 function kotlinskidev_load_textdomain()
 {
 

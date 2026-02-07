@@ -1,22 +1,22 @@
-@import '@node_modules/swiper/swiper-bundle.min.css';
+@import "@node_modules/swiper/swiper-bundle.min.css";
 
 .swiper,
 .swiper-wrapper {
+  width: 100%;
+  padding-bottom: 0.9375rem !important;
+  .swiper-slide {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .swiper-slide img {
     width: 100%;
-    padding-bottom: .9375rem !important;
-    .swiper-slide{
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .swiper-slide img {
-        width: 100%;
-        width: 100%;
-        display: block;
-        max-width: 100%;
-        max-height: fit-content;
-        object-fit: cover;
-    }
+    width: 100%;
+    display: block;
+    max-width: 100%;
+    max-height: fit-content;
+    object-fit: cover;
+  }
 }

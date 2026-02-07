@@ -479,6 +479,12 @@ msgstr "Opens in new window"
 msgid "Download file"
 msgstr "Download file"
 
+msgid "Video paused (Reduced motion mode)"
+msgstr "Video paused (Reduced motion mode)"
+
+msgid "Play anyway"
+msgstr "Play anyway"
+
 #. Cookie Consent translations - from i18n.php
 msgid "This website uses cookies to ensure you get the best experience on our website."
 msgstr "This website uses cookies to ensure you get the best experience on our website."

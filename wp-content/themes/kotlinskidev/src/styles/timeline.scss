@@ -1,10 +1,8 @@
-// Vertical Timeline Styles
 .career-timeline {
   position: relative;
   margin: 0 auto;
   padding: 0;
 
-  // Central timeline line
   &::before {
     content: "";
     position: absolute;
@@ -14,7 +12,7 @@
     width: 0.25rem;
     background: linear-gradient(to bottom, #e2e8f0, #cbd5e1, #e2e8f0);
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 0;
   }
 
   .wp-block-columns {
@@ -27,11 +25,9 @@
   }
 }
 
-// Timeline items
 .timeline-item {
   position: relative;
 
-  // Timeline dot/circle
   &::before {
     content: "";
     position: absolute;
@@ -40,11 +36,10 @@
     background: var(--wp--preset--color--primary);
     border: 0.1875rem solid #ffffff;
     border-radius: 50%;
-    z-index: 2;
+    z-index: 10;
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
   }
 
-  // Content box styling
   .wp-block-group {
     background: #ffffff;
     padding: 1.875rem;
@@ -62,7 +57,6 @@
       box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.12);
     }
 
-    // Arrow pointing to timeline
     &::before {
       content: "";
       position: absolute;
@@ -75,11 +69,10 @@
   }
 }
 
-// Left side items
 .timeline-left {
   .timeline-item {
     &::before {
-      right: -1.5rem;
+      right: -0.9375rem;
       top: 50%;
       transform: translateY(-50%);
     }
@@ -96,11 +89,10 @@
   }
 }
 
-// Right side items
 .timeline-right {
   .timeline-item {
     &::before {
-      left: -1.5rem;
+      left: -0.9375rem;
       top: 50%;
       transform: translateY(-50%);
     }
@@ -121,7 +113,6 @@
   .career-timeline {
     padding: 1.25rem 0;
 
-    // Move timeline to the left side on mobile
     &::before {
       left: -1.25rem;
       width: 0.1875rem;
@@ -132,7 +123,6 @@
       flex-direction: column !important;
     }
 
-    // Both left and right items align the same way on mobile
     .timeline-left,
     .timeline-right {
       .wp-block-column {
@@ -140,12 +130,11 @@
         flex-basis: 100% !important;
 
         &:empty {
-          display: none; // Hide empty columns on mobile
+          display: none;
         }
       }
 
       .timeline-item {
-        // Position dots on the left timeline
         &::before {
           left: -2.125rem;
           top: 50%;
@@ -162,18 +151,15 @@
           margin-right: 0;
           padding: 1.5rem 1.25rem;
 
-          // Remove arrows on mobile - cleaner look
           &::before {
             display: none;
           }
 
-          // Enhanced mobile styling
           border-radius: 0.5rem;
           background: #ffffff;
           box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.08);
           position: relative;
 
-          // Add subtle animation on mobile scroll
           opacity: 0.95;
           transform: translateX(0.3125rem);
           transition: all 0.3s ease;

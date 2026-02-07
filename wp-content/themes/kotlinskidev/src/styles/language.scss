@@ -4,7 +4,6 @@
   display: inline-block;
   position: relative;
   max-width: 3rem;
-  // z-index: 1001;
   @media (min-width: $breakpoint-mobile) {
     max-width: 4rem;
   }
@@ -36,7 +35,7 @@
   height: auto;
   aspect-ratio: 1.89;
   border-radius: 0.125rem;
-  box-shadow: #333 0 0 0.125rem; // 2px -> 0.125rem
+  box-shadow: #333 0 0 0.125rem;
 }
 
 /* Language modal (hidden by default) */
@@ -64,8 +63,8 @@
 }
 
 .language-switcher li {
-  padding: 0.625rem; // 10px -> 0.625rem
-  border-bottom: 0.0625rem solid #eee; // 1px -> 0.0625rem
+  padding: 0.625rem;
+  border-bottom: 0.0625rem solid #eee;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -87,12 +86,10 @@
   color: var(--wp--preset--color--primary);
 }
 
-/* Active language indicator */
 .language-switcher li.active {
   font-weight: bold;
 }
 
-/* Show modal on hover or click */
 .language-selector:hover .language-modal {
   display: block;
 }

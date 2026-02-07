@@ -1,38 +1,172 @@
-.fade-in-on-scroll,
-.fade-up-on-scroll,
-.fade-left-on-scroll,
-.fade-right-on-scroll {
+// =============================================================================
+// SCROLL ANIMATIONS - MIXINS & FUNCTIONS
+// =============================================================================
+
+// Function to convert px to rem
+@function px-to-rem($px) {
+  @return ($px / 16) * 1rem;
+}
+
+// Base animation mixin
+@mixin scroll-animation-base {
   opacity: 0;
   transition:
     opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1),
     transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
 }
-.fade-in-on-scroll.visible {
+
+// Visible state mixin
+@mixin animation-visible {
   opacity: 1;
   transform: none;
 }
+
+// Direction-specific animation mixins
+@mixin fade-direction($direction, $distance: 1.875rem) {
+  @include scroll-animation-base;
+
+  @if $direction == "up" {
+    transform: translateY($distance);
+  } @else if $direction == "left" {
+    transform: translateX(-$distance);
+  } @else if $direction == "right" {
+    transform: translateX($distance);
+  }
+
+  &.visible {
+    @include animation-visible;
+  }
+}
+
+// Flip animation mixins (AOS.js style)
+@mixin flip-animation($direction, $rotation: 90deg) {
+  @include scroll-animation-base;
+  transform-origin: center center;
+
+  @if $direction == "up" {
+    transform: perspective(1000px) rotateX($rotation);
+  } @else if $direction == "down" {
+    transform: perspective(1000px) rotateX(-$rotation);
+  } @else if $direction == "left" {
+    transform: perspective(1000px) rotateY($rotation);
+  } @else if $direction == "right" {
+    transform: perspective(1000px) rotateY(-$rotation);
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  }
+}
+
+// Generate translate distance variations
+@mixin generate-translate-distances($animation-class, $direction) {
+  $distances: (
+    "sm": px-to-rem(20),
+    "md": px-to-rem(40),
+    "lg": px-to-rem(60),
+    "xl": px-to-rem(80),
+    "2xl": px-to-rem(100),
+  );
+
+  @each $size, $distance in $distances {
+    &.translate-#{$size} {
+      @if $direction == "up" {
+        transform: translateY($distance);
+      } @else if $direction == "left" {
+        transform: translateX(-$distance);
+      } @else if $direction == "right" {
+        transform: translateX($distance);
+      }
+
+      &.visible {
+        @include animation-visible;
+      }
+    }
+  }
+}
+
+// Generate rotation angle variations for flip animations
+@mixin generate-flip-rotations($direction) {
+  $rotations: (
+    "sm": 45deg,
+    "md": 90deg,
+    "lg": 120deg,
+    "xl": 150deg,
+    "2xl": 180deg,
+  );
+
+  @each $size, $rotation in $rotations {
+    &.translate-#{$size} {
+      @if $direction == "up" {
+        transform: perspective(1000px) rotateX($rotation);
+      } @else if $direction == "down" {
+        transform: perspective(1000px) rotateX(-$rotation);
+      } @else if $direction == "left" {
+        transform: perspective(1000px) rotateY($rotation);
+      } @else if $direction == "right" {
+        transform: perspective(1000px) rotateY(-$rotation);
+      }
+
+      &.visible {
+        opacity: 1;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+      }
+    }
+  }
+}
+
+// =============================================================================
+// SCROLL ANIMATIONS - IMPLEMENTATION
+// =============================================================================
+
+.fade-in-on-scroll {
+  @include scroll-animation-base;
+
+  &.visible {
+    @include animation-visible;
+  }
+}
+
 .fade-up-on-scroll {
-  transform: translateY(1.875rem);
+  @include fade-direction("up");
+  @include generate-translate-distances("fade-up-on-scroll", "up");
 }
-.fade-up-on-scroll.visible {
-  opacity: 1;
-  transform: none;
-}
+
 .fade-left-on-scroll {
-  transform: translateX(-1.875rem);
+  @include fade-direction("left");
+  @include generate-translate-distances("fade-left-on-scroll", "left");
 }
-.fade-left-on-scroll.visible {
-  opacity: 1;
-  transform: none;
-}
+
 .fade-right-on-scroll {
-  transform: translateX(1.875rem);
+  @include fade-direction("right");
+  @include generate-translate-distances("fade-right-on-scroll", "right");
 }
-.fade-right-on-scroll.visible {
-  opacity: 1;
-  transform: none;
+
+.flip-up-on-scroll {
+  @include flip-animation("up");
+  @include generate-flip-rotations("up");
 }
+
+.flip-down-on-scroll {
+  @include flip-animation("down");
+  @include generate-flip-rotations("down");
+}
+
+.flip-left-on-scroll {
+  @include flip-animation("left");
+  @include generate-flip-rotations("left");
+}
+
+.flip-right-on-scroll {
+  @include flip-animation("right");
+  @include generate-flip-rotations("right");
+}
+
+// =============================================================================
+// LIGHTBOX OVERRIDES
+// =============================================================================
 
 .wp-lightbox-overlay {
   .fade-in-on-scroll,

@@ -1,4 +1,3 @@
-// src/scripts/parallax.ts
 interface ParallaxElement extends HTMLElement {
   dataset: DOMStringMap & {
     parallaxSpeed?: string;
@@ -46,16 +45,12 @@ function setupParallaxElements() {
         will-change: transform;
       `;
     }
-    const innerContainer = element.querySelector(
-      ".wp-block-cover__inner-container"
-    ) as HTMLElement;
+    const innerContainer = element.querySelector(".wp-block-cover__inner-container") as HTMLElement;
     if (innerContainer) {
       innerContainer.style.position = "relative";
       innerContainer.style.zIndex = "3";
     }
-    const overlay = element.querySelector(
-      ".wp-block-cover__background"
-    ) as HTMLElement;
+    const overlay = element.querySelector(".wp-block-cover__background") as HTMLElement;
     if (overlay) {
       overlay.style.zIndex = "2";
     }
@@ -71,20 +66,23 @@ function setupParallaxElements() {
 function setupIntersectionObserver() {
   if (observer) observer.disconnect();
   visibleElements.clear();
-  observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      const el = entry.target as ParallaxElement;
-      if (entry.isIntersecting) {
-        visibleElements.add(el);
-      } else {
-        visibleElements.delete(el);
-      }
-    });
-  }, {
-    root: null,
-    threshold: 0
-  });
-  elements.forEach(el => observer!.observe(el));
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target as ParallaxElement;
+        if (entry.isIntersecting) {
+          visibleElements.add(el);
+        } else {
+          visibleElements.delete(el);
+        }
+      });
+    },
+    {
+      root: null,
+      threshold: 0,
+    }
+  );
+  elements.forEach((el) => observer!.observe(el));
 }
 
 function updateParallax() {
@@ -122,9 +120,7 @@ function bindEvents() {
 
 function initParallax() {
   elements = Array.from(
-    document.querySelectorAll<ParallaxElement>(
-      ".wp-block-cover.enable-parallax"
-    )
+    document.querySelectorAll<ParallaxElement>(".wp-block-cover.enable-parallax")
   );
   if (elements.length === 0) {
     console.warn("⚠️ Parallax Debug: No parallax elements found! Exiting...");

@@ -1,4 +1,3 @@
-// Mixin for custom button styles
 @mixin custom-button-style(
   $bg-gradient-angle: 135deg,
   $bg-gradient-start: rgb(130, 9, 211),
@@ -13,8 +12,6 @@
     $bg-gradient-start 0rem,
     $bg-gradient-end 100%
   ) !important;
-  box-shadow:
-    $box-shadow1,
-    $box-shadow2 !important;
+  box-shadow: $box-shadow1, $box-shadow2 !important;
   border: none !important;
 }

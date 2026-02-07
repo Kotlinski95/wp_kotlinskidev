@@ -310,6 +310,12 @@ msgstr ""
 msgid "Download file"
 msgstr ""
 
+msgid "Video paused (Reduced motion mode)"
+msgstr ""
+
+msgid "Play anyway"
+msgstr ""
+
 #. Cookie Consent translations - from i18n.php
 msgid "This website uses cookies to ensure you get the best experience on our website."
 msgstr ""

@@ -1,11 +1,10 @@
-@import 'variables';
+@import "variables";
 
 .wp-block-cover.enable-parallax {
   position: relative;
   overflow: hidden;
-  min-height: 50dvh; // More flexible than 100dvh for general use
+  min-height: 50dvh;
 
-  // Parallax background wrapper (hidden by default)
   .parallax-bg-wrapper {
     display: block;
     position: absolute;
@@ -17,7 +16,6 @@
     z-index: 1;
   }
 
-  // Parallax background image
   .parallax-bg {
     position: absolute;
     top: 0;
@@ -31,7 +29,6 @@
     perspective: 62.5rem;
   }
 
-  // Ensure overlay stays in position
   .wp-block-cover__background {
     position: absolute;
     top: 0;
@@ -41,7 +38,6 @@
     z-index: 2;
   }
 
-  // Content container
   .wp-block-cover__inner-container {
     position: relative;
     z-index: 3;
@@ -49,7 +45,6 @@
     padding-bottom: 2rem;
   }
 
-  // Parallax content elements
   .parallax-content {
     will-change: transform;
     transform: translate3d(0, 0, 0);
@@ -57,26 +52,21 @@
   }
 }
 
-// Keep home banner specific styles for existing patterns
 .home-banner {
-  // Hide instructions note in frontend
   .banner-instructions {
     display: none;
   }
 
-  // Default background image
   .default-bg {
     display: block;
   }
 
-  // Parallax background wrapper (hidden by default)
   .parallax-bg-wrapper {
     display: none;
   }
 
-  // When parallax is enabled via class or block settings
   &.enable-parallax {
-    min-height: 100dvh; // Full height for banners
+    min-height: 100dvh;
 
     .default-bg {
       display: none;
@@ -88,7 +78,6 @@
   }
 }
 
-// Performance optimizations
 @media (prefers-reduced-motion: reduce) {
   .wp-block-cover.enable-parallax {
     .parallax-bg,
@@ -99,13 +88,12 @@
   }
 }
 
-// Mobile optimizations - reduce parallax on smaller screens
 @media (max-width: $mobile) {
   .wp-block-cover.enable-parallax {
     .parallax-bg {
       height: 110%;
     }
-    
+
     .parallax-bg-wrapper {
       top: -10%;
       bottom: -10%;
@@ -113,12 +101,13 @@
   }
 }
 
-// Enhanced fade-in animation for parallax content
 .wp-block-cover.enable-parallax .parallax-content.fade-up-on-scroll {
   opacity: 0;
   transform: translate3d(0, 2rem, 0);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+
   &.visible {
     opacity: 1;
     transform: translate3d(0, 0, 0);

@@ -1,10 +1,5 @@
 (() => {
-  function createLightbox(
-    src: string,
-    alt: string,
-    width: number,
-    height: number
-  ) {
+  function createLightbox(src: string, alt: string, width: number, height: number) {
     const modal = document.createElement("div");
     modal.className = "image-lightbox-modal";
     modal.innerHTML = `
@@ -63,33 +58,27 @@
     function escHandler(e: KeyboardEvent) {
       if (e.key === "Escape") closeModal();
     }
-    (
-      modal.querySelector(".image-lightbox-close") as HTMLButtonElement
-    ).onclick = closeModal;
-    (
-      modal.querySelector(".image-lightbox-backdrop") as HTMLDivElement
-    ).onclick = closeModal;
+    (modal.querySelector(".image-lightbox-close") as HTMLButtonElement).onclick = closeModal;
+    (modal.querySelector(".image-lightbox-backdrop") as HTMLDivElement).onclick = closeModal;
     document.addEventListener("keydown", escHandler);
   }
 
   document.addEventListener("click", function (e) {
     if ((window as any).kotlinskidevEnableLightbox !== false) {
-      // Try to find an <img> element: if the target is a span or other sibling, check its siblings
       let img = (e.target as HTMLElement).closest("img");
       const parentElement = (e.target as HTMLElement).parentElement;
       if (!img && parentElement) {
-        // Look for an img sibling if the target is not an img itself
         img =
-          (Array.from(parentElement.children).find(
-            (el) => el.tagName === "IMG"
-          ) as HTMLImageElement | undefined) || null;
+          (Array.from(parentElement.children).find((el) => el.tagName === "IMG") as
+            | HTMLImageElement
+            | undefined) || null;
       }
       if (
         img &&
         !img.closest("a") &&
         !img.classList.contains("no-lightbox") &&
         !img.closest(".no-lightbox") &&
-        img.naturalWidth > img.clientWidth // Only if image is scaled down
+        img.naturalWidth > img.clientWidth
       ) {
         e.preventDefault();
 

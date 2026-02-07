@@ -1,36 +1,29 @@
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
-    const themeToggleButton = document.getElementById(
-      "theme-toggle"
-    ) as HTMLInputElement;
-    const themeSwitcher = document.querySelector(
-      ".theme-switcher"
-    ) as HTMLInputElement;
-    const lightIcon = document.querySelector('.icon.light') as HTMLElement;
-    const darkIcon = document.querySelector('.icon.dark') as HTMLElement;
-    
+    const themeToggleButton = document.getElementById("theme-toggle") as HTMLInputElement;
+    const themeSwitcher = document.querySelector(".theme-switcher") as HTMLInputElement;
+    const lightIcon = document.querySelector(".icon.light") as HTMLElement;
+    const darkIcon = document.querySelector(".icon.dark") as HTMLElement;
+
     if (!themeToggleButton) return;
 
-    // Get translations from WordPress i18n system
     const translations = (window as any).i18n?.themeSwitcher || {
       lightMode: "Switch between dark and light mode (currently light mode)",
-      darkMode: "Switch between dark and light mode (currently dark mode)"
+      darkMode: "Switch between dark and light mode (currently dark mode)",
     };
 
-    // Update icon titles based on current theme
     const updateIconTitles = (isLightMode: boolean) => {
       if (lightIcon && darkIcon) {
         if (isLightMode) {
-          lightIcon.setAttribute('title', translations.lightMode);
-          darkIcon.removeAttribute('title');
+          lightIcon.setAttribute("title", translations.lightMode);
+          darkIcon.removeAttribute("title");
         } else {
-          darkIcon.setAttribute('title', translations.darkMode);
-          lightIcon.removeAttribute('title');
+          darkIcon.setAttribute("title", translations.darkMode);
+          lightIcon.removeAttribute("title");
         }
       }
     };
 
-    // Function to apply light theme
     const applyLightTheme = () => {
       document.body?.classList?.add("light-mode");
       document.documentElement.classList.add("light-mode");
@@ -40,7 +33,6 @@
       updateIconTitles(true);
     };
 
-    // Function to apply dark theme
     const applyDarkTheme = () => {
       document.body?.classList?.add("dark-mode");
       document.documentElement.classList.add("dark-mode");
@@ -50,11 +42,8 @@
       updateIconTitles(false);
     };
 
-    // Check for stored theme preference or detect system preference
     const storedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     if (storedTheme === "light") {
       applyLightTheme();
@@ -69,22 +58,19 @@
       }
     }
 
-    themeToggleButton.addEventListener(
-      "change",
-      function (this: HTMLInputElement) {
-        if (this.checked) {
-          applyLightTheme();
-          localStorage.setItem("theme", "light");
-        } else {
-          applyDarkTheme();
-          localStorage.setItem("theme", "dark");
-        }
+    themeToggleButton.addEventListener("change", function (this: HTMLInputElement) {
+      if (this.checked) {
+        applyLightTheme();
+        localStorage.setItem("theme", "light");
+      } else {
+        applyDarkTheme();
+        localStorage.setItem("theme", "dark");
       }
-    );
+    });
 
     // Listen for Enter key on theme toggle (for accessibility)
-    themeSwitcher.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
+    themeSwitcher.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         themeToggleButton.click();
       }

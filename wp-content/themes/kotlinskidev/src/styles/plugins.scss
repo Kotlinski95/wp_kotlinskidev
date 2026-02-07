@@ -1,4 +1,4 @@
-@import 'variables';
+@import "variables";
 @import "./mixins";
 
 // Dark mode support
@@ -82,5 +82,4 @@
   top: calc($header + 1.25rem + env(safe-area-inset-top)) !important;
   left: 1.25rem !important;
   transform: translateX(0) !important;
-
 }

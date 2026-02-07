@@ -1,0 +1,22 @@
+# Build outputs
+build/
+dist/
+*.min.js
+*.min.css
+
+# Dependencies
+node_modules/
+vendor/
+
+# WordPress core
+/wp-admin/
+/wp-includes/
+/wp-content/plugins/
+/wp-content/mu-plugins/
+/wp-content/uploads/
+
+# Other
+*.log
+.DS_Store
+package-lock.json
+composer.lock

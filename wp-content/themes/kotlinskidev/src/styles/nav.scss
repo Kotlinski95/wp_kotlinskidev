@@ -17,6 +17,15 @@ header {
   min-width: 100vw;
   max-width: 100vw;
   will-change: transform;
+
+  @media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.nav-hidden {
+      transform: translateY(-100%);
+    }
+  }
+
   .wp-block-group {
     display: flex;
     justify-content: space-between;
@@ -37,11 +46,7 @@ header::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
   pointer-events: none;
 }
 
@@ -67,6 +72,10 @@ header::before {
     justify-content: end;
     min-block-size: 4.0625rem;
     max-block-size: 4.0625rem;
+    *:not(path):not(img):empty,
+    p:empty {
+      display: none;
+    }
   }
 }
 
@@ -146,7 +155,7 @@ header::before {
       transition: 0.35s all;
     }
     .menu-item.menu-item-has-children:hover {
-      &>.submenu-toggle {
+      & > .submenu-toggle {
         transform: rotate(180deg);
         transition: 0.35s all;
       }
@@ -318,6 +327,7 @@ header::before {
 }
 
 #hamburger-button {
+  all: unset;
   position: relative;
   width: 3.125rem;
   height: 2.5rem;
@@ -329,7 +339,7 @@ header::before {
     --animation-curve: cubic-bezier(1, 0, 0, 1);
   }
 
-  &:focus-visible{
+  &:focus-visible {
     outline: -webkit-focus-ring-color auto 1px;
     outline-offset: 1px;
   }

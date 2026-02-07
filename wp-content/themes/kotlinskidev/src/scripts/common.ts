@@ -1,8 +1,3 @@
-/**
- * Global Types and Utilities
- * Shared types, interfaces, and utility functions for the kotlinskidev theme
- */
-
 // =============================================================================
 // GLOBAL TRANSLATION INTERFACES
 // =============================================================================
@@ -104,14 +99,12 @@ export interface KotlinskiDevTranslations {
 declare global {
   interface Window {
     kotlinskiDevL10n?: KotlinskiDevTranslations;
-    
-    // Add other global variables that might be used across the theme
+
     wpApiSettings?: {
       root: string;
       nonce: string;
     };
-    
-    // Custom theme globals
+
     kotlinskiDevConfig?: {
       ajaxUrl: string;
       homeUrl: string;
@@ -142,124 +135,133 @@ export interface Dimensions {
 
 export interface Rect extends Point, Dimensions {}
 
-export type DeviceType = 'mobile' | 'tablet' | 'desktop';
-export type ThemeMode = 'light' | 'dark' | 'auto';
+export type DeviceType = "mobile" | "tablet" | "desktop";
+export type ThemeMode = "light" | "dark" | "auto";
 
 // =============================================================================
 // UTILITY FUNCTIONS
 // =============================================================================
 
-/**
- * Get translations with fallback
- */
 export const getTranslations = (): KotlinskiDevTranslations => {
-  return window.kotlinskiDevL10n || {
-    networkStatus: {
-      offline: { icon: '📱', message: 'You are offline. Some features may be limited.' },
-      slow: { icon: '🐌', message: 'Slow internet connection detected. Content may load slowly.' },
-      online: { icon: '✅', message: 'Connection restored!' },
-      aria: { 
-        status_label: 'Network connection status', 
-        close_label: 'Close network status notification' 
-      }
-    },
-    navigation: {
-      menu: { toggle: 'Toggle navigation menu', close: 'Close menu', open: 'Open menu' },
-      breadcrumbs: { home: 'Home', you_are_here: 'You are here:' },
-      pagination: { prev: 'Previous', next: 'Next', page: 'Page', of: 'of' }
-    },
-    forms: {
-      validation: {
-        required: 'This field is required.',
-        email_invalid: 'Please enter a valid email address.',
-        min_length: 'Minimum length is %d characters.',
-        max_length: 'Maximum length is %d characters.'
+  return (
+    window.kotlinskiDevL10n || {
+      networkStatus: {
+        offline: {
+          icon: "📱",
+          message: "You are offline. Some features may be limited.",
+        },
+        slow: {
+          icon: "🐌",
+          message: "Slow internet connection detected. Content may load slowly.",
+        },
+        online: { icon: "✅", message: "Connection restored!" },
+        aria: {
+          status_label: "Network connection status",
+          close_label: "Close network status notification",
+        },
       },
-      messages: { sending: 'Sending...', success: 'Message sent successfully!', error: 'An error occurred. Please try again.' },
-      buttons: { submit: 'Submit', send: 'Send', cancel: 'Cancel', save: 'Save' }
-    },
-    general: {
-      loading: 'Loading...',
-      error: 'Error',
-      success: 'Success',
-      warning: 'Warning',
-      info: 'Information',
-      close: 'Close',
-      read_more: 'Read more',
-      read_less: 'Read less',
-      show_more: 'Show more',
-      show_less: 'Show less'
-    },
-    accessibility: {
-      skip_to_content: 'Skip to main content',
-      scroll_to_top: 'Scroll to top',
-      external_link: 'External link',
-      new_window: 'Opens in new window',
-      download: 'Download file'
-    },
-    cookieConsent: {
-      message: 'This website uses cookies to ensure you get the best experience on our website.',
-      accept: 'Accept',
-      decline: 'Decline',
-      learn_more: 'Learn more',
-      settings: 'Cookie Settings'
-    },
-    lightbox: {
-      close: 'Close lightbox',
-      next: 'Next image',
-      prev: 'Previous image',
-      loading: 'Loading image...',
-      counter: '%1$d of %2$d'
-    },
-    scrollAnimations: {
-      reveal: 'Content revealed',
-      animated: 'Animation triggered'
+      navigation: {
+        menu: {
+          toggle: "Toggle navigation menu",
+          close: "Close menu",
+          open: "Open menu",
+        },
+        breadcrumbs: { home: "Home", you_are_here: "You are here:" },
+        pagination: { prev: "Previous", next: "Next", page: "Page", of: "of" },
+      },
+      forms: {
+        validation: {
+          required: "This field is required.",
+          email_invalid: "Please enter a valid email address.",
+          min_length: "Minimum length is %d characters.",
+          max_length: "Maximum length is %d characters.",
+        },
+        messages: {
+          sending: "Sending...",
+          success: "Message sent successfully!",
+          error: "An error occurred. Please try again.",
+        },
+        buttons: {
+          submit: "Submit",
+          send: "Send",
+          cancel: "Cancel",
+          save: "Save",
+        },
+      },
+      general: {
+        loading: "Loading...",
+        error: "Error",
+        success: "Success",
+        warning: "Warning",
+        info: "Information",
+        close: "Close",
+        read_more: "Read more",
+        read_less: "Read less",
+        show_more: "Show more",
+        show_less: "Show less",
+      },
+      accessibility: {
+        skip_to_content: "Skip to main content",
+        scroll_to_top: "Scroll to top",
+        external_link: "External link",
+        new_window: "Opens in new window",
+        download: "Download file",
+      },
+      cookieConsent: {
+        message: "This website uses cookies to ensure you get the best experience on our website.",
+        accept: "Accept",
+        decline: "Decline",
+        learn_more: "Learn more",
+        settings: "Cookie Settings",
+      },
+      lightbox: {
+        close: "Close lightbox",
+        next: "Next image",
+        prev: "Previous image",
+        loading: "Loading image...",
+        counter: "%1$d of %2$d",
+      },
+      scrollAnimations: {
+        reveal: "Content revealed",
+        animated: "Animation triggered",
+      },
     }
-  };
+  );
 };
 
-/**
- * Get specific translation group
- */
 export const getTranslationGroup = <K extends keyof KotlinskiDevTranslations>(
   group: K
 ): KotlinskiDevTranslations[K] => {
   return getTranslations()[group];
 };
 
-/**
- * Debounce function
- */
 export const debounce = <T extends (...args: any[]) => void>(
   func: T,
   wait: number,
   immediate = false
 ): ((...args: Parameters<T>) => void) => {
   let timeout: NodeJS.Timeout | null = null;
-  
+
   return (...args: Parameters<T>) => {
     const callNow = immediate && !timeout;
-    
+
     if (timeout) clearTimeout(timeout);
-    
+
     timeout = setTimeout(() => {
       timeout = null;
       if (!immediate) func(...args);
     }, wait);
-    
+
     if (callNow) func(...args);
   };
 };
 
-/**
- * Throttle function
- */
 export const throttle = <T extends (...args: any[]) => void>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
-  
+
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
       func(...args);
@@ -269,9 +271,6 @@ export const throttle = <T extends (...args: any[]) => void>(
   };
 };
 
-/**
- * Check if element is in viewport
- */
 export const isElementInViewport = (el: Element): boolean => {
   const rect = el.getBoundingClientRect();
   return (
@@ -282,37 +281,25 @@ export const isElementInViewport = (el: Element): boolean => {
   );
 };
 
-/**
- * Get device type based on window width
- */
 export const getDeviceType = (): DeviceType => {
   const width = window.innerWidth;
-  if (width < 768) return 'mobile';
-  if (width < 1024) return 'tablet';
-  return 'desktop';
+  if (width < 768) return "mobile";
+  if (width < 1024) return "tablet";
+  return "desktop";
 };
 
-/**
- * Check if user prefers reduced motion
- */
 export const prefersReducedMotion = (): boolean => {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 };
 
-/**
- * Get user's theme preference
- */
 export const getThemePreference = (): ThemeMode => {
-  const saved = localStorage.getItem('theme-preference') as ThemeMode;
+  const saved = localStorage.getItem("theme-preference") as ThemeMode;
   if (saved) return saved;
-  
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
-  return 'light';
+
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+  return "light";
 };
 
-/**
- * Format string with placeholders
- */
 export const formatString = (str: string, ...args: (string | number)[]): string => {
   return str.replace(/%(\d+)\$?[sd]/g, (match, index) => {
     const argIndex = parseInt(index) - 1;
@@ -320,49 +307,39 @@ export const formatString = (str: string, ...args: (string | number)[]): string 
   });
 };
 
-/**
- * Create DOM element with attributes
- */
 export const createElement = <K extends keyof HTMLElementTagNameMap>(
   tagName: K,
   attributes: Partial<HTMLElementTagNameMap[K]> & { [key: string]: any } = {},
   children: (Node | string)[] = []
 ): HTMLElementTagNameMap[K] => {
   const element = document.createElement(tagName);
-  
+
   Object.entries(attributes).forEach(([key, value]) => {
-    if (key.startsWith('data-') || key.startsWith('aria-')) {
+    if (key.startsWith("data-") || key.startsWith("aria-")) {
       element.setAttribute(key, String(value));
     } else if (key in element) {
       (element as any)[key] = value;
     }
   });
-  
-  children.forEach(child => {
-    if (typeof child === 'string') {
+
+  children.forEach((child) => {
+    if (typeof child === "string") {
       element.appendChild(document.createTextNode(child));
     } else {
       element.appendChild(child);
     }
   });
-  
+
   return element;
 };
 
-/**
- * Wait for DOM to be ready
- */
 export const domReady = (callback: VoidCallback): void => {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', callback);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", callback);
   } else {
     callback();
   }
 };
-
-/**
- * Simple event emitter class
- */
 export class EventEmitter {
   private events: { [key: string]: Array<(...args: any[]) => void> } = {};
 
@@ -375,11 +352,11 @@ export class EventEmitter {
 
   off(event: string, callback: (...args: any[]) => void): void {
     if (!this.events[event]) return;
-    this.events[event] = this.events[event].filter(cb => cb !== callback);
+    this.events[event] = this.events[event].filter((cb) => cb !== callback);
   }
 
   emit(event: string, ...args: any[]): void {
     if (!this.events[event]) return;
-    this.events[event].forEach(callback => callback(...args));
+    this.events[event].forEach((callback) => callback(...args));
   }
 }
