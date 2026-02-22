@@ -20,7 +20,7 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress_adriankotlinski' );
+define( 'DB_NAME', 'local' );
 
 /** Database username */
 define( 'DB_USER', 'root' );
@@ -87,6 +87,7 @@ define( 'WP_DEBUG_DISPLAY', false );
 
 
 
+define( 'WP_ENVIRONMENT_TYPE', 'local' );
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

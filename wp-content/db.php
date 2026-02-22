@@ -1,0 +1,1 @@
+/Users/adriankotlinski/Local Sites/kotlinskidev/app/public/wp-content/plugins/query-monitor/wp-content/db.php

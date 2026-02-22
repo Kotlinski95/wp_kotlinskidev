@@ -30,3 +30,9 @@ wp-content/plugins/**
 
 # Ignore wp-admin except if you want to keep something specific, add exceptions below
 wp-admin/**
+
+# Ignore local wp-config
+wp-config.php
+
+# Ignore local .htaccess
+.htaccess
