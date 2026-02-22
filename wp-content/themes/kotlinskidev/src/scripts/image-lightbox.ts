@@ -1,89 +1,121 @@
 (() => {
-  function createLightbox(src: string, alt: string, width: number, height: number) {
-    const modal = document.createElement("div");
-    modal.className = "image-lightbox-modal";
-    modal.innerHTML = `
-      <div class="image-lightbox-backdrop"></div>
-      <div class="image-lightbox-content">
-        <img src="${src}" alt="${
-          alt || ""
-        }" class="no-lightbox image-lightbox-img image-lightbox-zoomable" width="${width}" height="${height}" />
-        <button class="image-lightbox-close" aria-label="Close">&times;</button>
-      </div>
-    `;
-    document.body.appendChild(modal);
+  let initialDistance = 0;
+  let currentScale = 1;
+  let baseScale = 1;
+  let isPinching = false;
 
-    const img = modal.querySelector(".image-lightbox-img") as HTMLImageElement;
-    let isZoomed = false;
+  const getDistance = (touches: TouchList): number => {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
 
-    img.style.transition = "transform 0.25s cubic-bezier(.4,2,.6,1)";
-    img.style.cursor = "zoom-in";
-    img.style.transformOrigin = "center center";
+  const getMidpoint = (touches: TouchList, container: HTMLElement) => {
+    const rect = container.getBoundingClientRect();
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2 - rect.left,
+      y: (touches[0].clientY + touches[1].clientY) / 2 - rect.top,
+    };
+  };
 
-    function setTransformOriginFromMouse(e: MouseEvent) {
-      const rect = img.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      img.style.transformOrigin = `${x}% ${y}%`;
-    }
+  const onTouchStart = (e: TouchEvent) => {
+    if (e.touches.length !== 2) return;
 
-    function handleMouseMove(e: MouseEvent) {
-      if (isZoomed) {
-        setTransformOriginFromMouse(e);
+    isPinching = true;
+    initialDistance = getDistance(e.touches);
+    baseScale = currentScale;
+
+    const container = e.currentTarget as HTMLElement;
+    const img = container.querySelector<HTMLElement>('img');
+    if (!img) return;
+
+    const mid = getMidpoint(e.touches, container);
+    img.style.transformOrigin = `${mid.x}px ${mid.y}px`;
+  };
+
+  const onTouchMove = (e: TouchEvent) => {
+    if (e.touches.length !== 2 || !isPinching) return;
+
+    e.stopPropagation();
+
+    const distance = getDistance(e.touches);
+    currentScale = Math.min(Math.max(baseScale * (distance / initialDistance), 1), 4);
+
+    const container = e.currentTarget as HTMLElement;
+    const img = container.querySelector<HTMLElement>('img');
+    if (!img) return;
+
+    img.style.transform = `scale(${currentScale})`;
+  };
+
+  const onTouchEnd = (e: TouchEvent) => {
+    if (e.touches.length >= 2) return;
+
+    isPinching = false;
+
+    if (currentScale <= 1.05) {
+      currentScale = 1;
+      const container = e.currentTarget as HTMLElement;
+      const img = container.querySelector<HTMLElement>('img');
+      if (img) {
+        img.style.transform = '';
+        img.style.transformOrigin = '';
       }
     }
+  };
 
-    img.addEventListener("mouseenter", (e) => {
-      isZoomed = true;
-      img.style.transform = "scale(1.5)";
-      img.style.zIndex = "2";
-      img.style.cursor = "zoom-out";
-      setTransformOriginFromMouse(e as MouseEvent);
+  const attachZoom = (overlay: Element) => {
+    overlay.querySelectorAll<HTMLElement>('.lightbox-image-container').forEach((container) => {
+      container.addEventListener('touchstart', onTouchStart, { passive: true });
+      container.addEventListener('touchmove', onTouchMove, { passive: false });
+      container.addEventListener('touchend', onTouchEnd, { passive: true });
     });
-    img.addEventListener("mousemove", handleMouseMove);
-    img.addEventListener("mouseleave", () => {
-      isZoomed = false;
-      img.style.transform = "scale(1)";
-      img.style.cursor = "zoom-in";
-      img.style.transformOrigin = "center center";
+  };
+
+  const detachZoom = (overlay: Element) => {
+    overlay.querySelectorAll<HTMLElement>('.lightbox-image-container').forEach((container) => {
+      container.removeEventListener('touchstart', onTouchStart);
+      container.removeEventListener('touchmove', onTouchMove);
+      container.removeEventListener('touchend', onTouchEnd);
+
+      const img = container.querySelector<HTMLElement>('img');
+      if (img) {
+        img.style.transform = '';
+        img.style.transformOrigin = '';
+      }
     });
 
-    function closeModal() {
-      modal.remove();
-      document.removeEventListener("keydown", escHandler);
-      img.removeEventListener("mouseenter", () => {});
-      img.removeEventListener("mousemove", handleMouseMove);
-      img.removeEventListener("mouseleave", () => {});
+    currentScale = 1;
+    baseScale = 1;
+    isPinching = false;
+  };
+
+  const initLightboxZoom = () => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        const overlay = mutation.target as Element;
+        if (overlay.classList.contains('active')) {
+          attachZoom(overlay);
+        } else {
+          detachZoom(overlay);
+        }
+      });
+    });
+
+    const lightboxOverlay = document.querySelector('.wp-lightbox-overlay');
+    if (!lightboxOverlay) return;
+
+    observer.observe(lightboxOverlay, { attributes: true, attributeFilter: ['class'] });
+
+    if (lightboxOverlay.classList.contains('active')) {
+      attachZoom(lightboxOverlay);
     }
-    function escHandler(e: KeyboardEvent) {
-      if (e.key === "Escape") closeModal();
-    }
-    (modal.querySelector(".image-lightbox-close") as HTMLButtonElement).onclick = closeModal;
-    (modal.querySelector(".image-lightbox-backdrop") as HTMLDivElement).onclick = closeModal;
-    document.addEventListener("keydown", escHandler);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLightboxZoom);
+  } else {
+    initLightboxZoom();
   }
-
-  document.addEventListener("click", function (e) {
-    if ((window as any).kotlinskidevEnableLightbox !== false) {
-      let img = (e.target as HTMLElement).closest("img");
-      const parentElement = (e.target as HTMLElement).parentElement;
-      if (!img && parentElement) {
-        img =
-          (Array.from(parentElement.children).find((el) => el.tagName === "IMG") as
-            | HTMLImageElement
-            | undefined) || null;
-      }
-      if (
-        img &&
-        !img.closest("a") &&
-        !img.classList.contains("no-lightbox") &&
-        !img.closest(".no-lightbox") &&
-        img.naturalWidth > img.clientWidth
-      ) {
-        e.preventDefault();
-
-        createLightbox(img.src, img.alt, img.naturalWidth, img.naturalHeight);
-      }
-    }
-  });
 })();
+
