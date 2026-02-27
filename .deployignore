@@ -28,9 +28,6 @@ wp-content/plugins/**
 !wp-content/plugins/text-justify-controls/**
 !wp-content/plugins/wordpress-pwa-manager/**
 
-# Ignore wp-admin except if you want to keep something specific, add exceptions below
-wp-admin/**
-
 # Ignore local wp-config
 wp-config.php
 
