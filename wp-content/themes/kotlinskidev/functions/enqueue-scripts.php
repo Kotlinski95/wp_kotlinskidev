@@ -9,14 +9,24 @@ add_action('wp_enqueue_scripts', 'defer_global_css');
 // Inline critical JavaScript for frontend
 function inline_critical_js()
 {
-    // Inline critical JS directly in the head for optimal performance
     $critical_js_path = get_template_directory() . '/build/critical.js';
-    
-    if (file_exists($critical_js_path)) {
+    if (!file_exists($critical_js_path)) {
+        return;
+    }
+
+    // Cache the file contents — it only changes on build deploys.
+    // filemtime() in the cache key auto-invalidates whenever the file changes.
+    $cache_key  = 'kotlinskidev_critical_js_' . filemtime($critical_js_path);
+    $critical_js = get_transient($cache_key);
+    if ($critical_js === false) {
         $critical_js = file_get_contents($critical_js_path);
         if ($critical_js) {
-            echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>';
+            set_transient($cache_key, $critical_js, WEEK_IN_SECONDS);
         }
+    }
+
+    if ($critical_js) {
+        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>';
     }
 }
 add_action('wp_head', 'inline_critical_js', 2); // Load after critical CSS
@@ -60,11 +70,17 @@ add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to
 // Inline critical CSS and preload non-critical styles
 function inline_critical_css()
 {
-    // Inline critical CSS directly in the head for optimal performance
     $critical_css_path = get_template_directory() . '/build/critical.css';
-    
     if (file_exists($critical_css_path)) {
-        $critical_css = file_get_contents($critical_css_path);
+        // Cache the file — it only changes on build deploys.
+        $cache_key = 'kotlinskidev_critical_css_' . filemtime($critical_css_path);
+        $critical_css = get_transient($cache_key);
+        if ($critical_css === false) {
+            $critical_css = file_get_contents($critical_css_path);
+            if ($critical_css) {
+                set_transient($cache_key, $critical_css, WEEK_IN_SECONDS);
+            }
+        }
         if ($critical_css) {
             echo '<style id="critical-css">' . $critical_css . '</style>';
         }

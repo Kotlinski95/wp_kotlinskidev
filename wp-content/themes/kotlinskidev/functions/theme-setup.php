@@ -34,8 +34,8 @@ add_action('after_setup_theme', 'kotlinskidev_theme_setup');
 
 function remove_jquery()
 {
-    // Deregister jQuery from the front end
-    if (!is_admin()) {
+    // Deregister jQuery from the front end, but keep it for logged-in admins
+    if (!is_admin() && !current_user_can('manage_options')) {
         wp_deregister_script('jquery');
     }
 }

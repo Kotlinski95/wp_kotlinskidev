@@ -2,6 +2,9 @@
 // Include theme setup functions
 require_once get_template_directory() . '/functions/theme-setup.php';
 
+// Cache manager — must load before any file that reads/writes transients
+require_once get_template_directory() . '/functions/cache.php';
+
 // Include internationalization functions
 require_once get_template_directory() . '/includes/i18n.php';
 
@@ -52,8 +55,7 @@ require_once get_template_directory() . '/functions/tailwind.php';
 // Load scroll to top
 require_once get_template_directory() . '/functions/scroll-top-top.php';
 
-// Load internationalization (i18n) system
-require_once get_template_directory() . '/includes/i18n.php';
+// (i18n already loaded above)
 
 // Copyrights
 require_once get_template_directory() . '/functions/copyrights.php';

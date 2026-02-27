@@ -428,8 +428,16 @@ function kotlinskidev_breadcrumb_settings_page() {
 
 // Get breadcrumb settings with fallbacks
 function kotlinskidev_get_breadcrumb_settings($locale = null) {
+    // Cache per locale — get_option() and home_url() would otherwise be called
+    // on every breadcrumb render within a request.
+    static $cache = [];
+
     if (!$locale) {
         $locale = get_locale();
+    }
+
+    if (isset($cache[$locale])) {
+        return $cache[$locale];
     }
     
     $options = get_option('kotlinskidev_breadcrumb_settings', array());
@@ -455,7 +463,8 @@ function kotlinskidev_get_breadcrumb_settings($locale = null) {
     } elseif (str_starts_with($settings['topics_url'], '/')) {
         $settings['topics_url'] = home_url($settings['topics_url']);
     }
-    
+
+    $cache[$locale] = $settings;
     return $settings;
 }
 
@@ -604,17 +613,23 @@ function kotlinskidev_redirect_to_polish_search($url) {
     $locale = get_locale();
     
     if ($locale == 'pl_PL' && strpos($url, '/?s=') !== false) {
-        // Try to find a page using Polish search template (search_pl.html)
-        $polish_search_pages = get_pages(array(
-            'meta_key' => '_wp_page_template',
-            'meta_value' => 'search_pl.html',
-            'number' => 1
-        ));
+        // Cache the Polish search page lookup — get_pages() with a meta_query is an
+        // extra DB query that would fire on every search link rendered on the page.
+        $cache_key = 'kotlinskidev_polish_search_page_id';
+        $polish_page_id = wp_cache_get($cache_key);
         
-        if (!empty($polish_search_pages)) {
-            $polish_page = $polish_search_pages[0];
-            $polish_url = get_permalink($polish_page->ID);
-            // Replace /?s= with polish page URL + ?s=
+        if ($polish_page_id === false) {
+            $polish_search_pages = get_pages(array(
+                'meta_key'   => '_wp_page_template',
+                'meta_value' => 'search_pl.html',
+                'number'     => 1,
+            ));
+            $polish_page_id = !empty($polish_search_pages) ? $polish_search_pages[0]->ID : 0;
+            wp_cache_set($cache_key, $polish_page_id, '', HOUR_IN_SECONDS);
+        }
+        
+        if ($polish_page_id) {
+            $polish_url  = get_permalink($polish_page_id);
             $search_term = str_replace('/?s=', '', $url);
             $url = add_query_arg('s', $search_term, $polish_url);
         }
