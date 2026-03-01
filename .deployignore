@@ -6,8 +6,16 @@ wp-content/themes/kotlinskidev/node_modules/**
 **/node_modules/
 node_modules/**
 
-# Ignore rest files, but keep kotlinskidev theme and your own plugins
-# Exclude everything in wp-content except specific theme and plugins
+# Ignore WordPress core files
+wp-admin/**
+wp-includes/**
+wp-*.php
+index.php
+xmlrpc.php
+license.txt
+readme.html
+
+# Ignore WordPress content except specific theme and plugins
 wp-content/*
 !wp-content/themes/
 wp-content/themes/*
