@@ -1,4 +1,21 @@
+@use '../../utils/carousel/carousel-nav' as *;
 @import "@node_modules/swiper/swiper-bundle.min.css";
+
+.banner-carousel {
+  .swiper {
+    position: relative;
+
+    .carousel-nav {
+      @include carousel-nav(#fff, rgba(255, 255, 255, 0.5));
+    }
+  }
+
+  .carousel-nav--outside {
+    @include carousel-nav(currentColor, rgba(0, 0, 0, 0.3));
+    position: static;
+    margin-top: 1rem;
+  }
+}
 
 .swiper,
 .swiper-wrapper {

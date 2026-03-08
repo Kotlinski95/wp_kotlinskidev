@@ -11,7 +11,11 @@
 		"allowJs": true,
 		"lib": ["DOM", "ESNext"],
 		"jsx": "react",
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@utils/*": ["utils/*"]
+		}
 	},
 	"include": ["./src/**/*"]
 }

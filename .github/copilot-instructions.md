@@ -16,6 +16,9 @@ Specialized agents in `.github/agents/` — invoke in Copilot Chat with `@agent-
 - `@plugin-scaffold` — generate a full custom plugin boilerplate matching the class-based PHP + TypeScript + webpack structure of existing plugins.
 - `@pattern-builder` — create, debug, or fix a WordPress block pattern PHP file. Knows all registered categories, theme preset values, and common block markup pitfalls.
 
+### Design
+- `@design-system` — design guidance for any UI component or section. Enforces light/dark theme support, references EPAM/Wolański/Smart Agency aesthetics, and produces full SCSS with both modes, hover/focus states, and motion rules.
+
 ### Code Quality
 - `@refactor` — apply SOLID principles, clean code, and design patterns to existing code without changing behavior. Works across TS, SCSS, and PHP.
 - `@performance-audit` — audit a file or area for performance issues: layout thrash, missing passive listeners, N+1 queries, memory leaks, Core Web Vitals impact.
@@ -34,6 +37,16 @@ These orchestrate multiple agents in sequence — one command, full pipeline:
 - Use pipeline agents (`@pre-deploy`, `@code-cleanup`) for end-to-end multi-step tasks
 - Use single agents for focused tasks (scaffolding, auditing one area, reviewing one file)
 - Use inline Copilot (Tab/chat) for single-line completions, quick fixes, and explanations
+
+**Agent routing — when a request matches an agent's scope, always suggest using that agent instead of answering inline:**
+- Any request to create, scaffold, or add a new Gutenberg block → suggest `@block-builder`
+- Any request to create a new plugin → suggest `@plugin-scaffold`
+- Any request to create or fix a block pattern → suggest `@pattern-builder`
+- Any pre-push / deployment check → suggest `@pre-deploy`
+- Any refactor or code quality request on a specific file → suggest `@code-cleanup` or `@refactor`
+- Any performance concern, Core Web Vitals question, or suspected memory leak → suggest `@performance-audit`
+- Any request to clean up, optimise, or refactor a specific file end-to-end → suggest `@code-cleanup`
+- Any request to design a component, choose colors, handle theming, or match a visual style → suggest `@design-system`
 
 ## Custom Prompt Files
 Reusable prompts in `.github/prompts/` — apply via Copilot Chat with `/prompt-name` or `#filename`:

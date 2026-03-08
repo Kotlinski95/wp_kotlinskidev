@@ -1,0 +1,70 @@
+@mixin carousel-nav($color: currentColor, $border-color: rgba(255, 255, 255, 0.5)) {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+
+  &--bottom-left  { bottom: 1.5rem; left: 1.5rem; }
+  &--bottom-center { bottom: 1.5rem; left: 50%; transform: translateX(-50%); }
+  &--bottom-right { bottom: 1.5rem; right: 1.5rem; }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: static;
+    margin-top: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--carousel-nav-border-color, #{$border-color});
+    border-radius: 50%;
+    color: var(--carousel-nav-color, #{$color});
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+    flex-shrink: 0;
+
+    &::after {
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    &:hover {
+      border-color: var(--carousel-nav-color, #{$color});
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+
+  &--outside {
+    position: static;
+    width: 100%;
+    align-self: stretch;
+    margin-block: 1rem;
+    transform: none; // reset translateX(-50%) from --bottom-center when used inside
+
+    &.carousel-nav--bottom-left   { justify-content: flex-start; padding-inline: 2rem 0; }
+    &.carousel-nav--bottom-center { justify-content: center; }
+    &.carousel-nav--bottom-right  { justify-content: flex-end; padding-inline: 0 2rem; }
+  }
+
+  &__counter {
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+    min-width: 3.25rem;
+    text-align: center;
+    color: var(--carousel-nav-color, #{$color});
+    white-space: nowrap;
+  }
+
+  &__current {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}

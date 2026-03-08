@@ -8,6 +8,9 @@ module.exports = {
 		main: path.resolve(process.cwd(), 'src', 'index.ts'),
 		critical: path.resolve(process.cwd(), 'src', 'critical.ts'),
 		'banner-carousel': path.resolve(process.cwd(), 'src', 'blocks', 'banner-carousel', 'index.ts'),
+		'gallery-lightbox': path.resolve(process.cwd(), 'src', 'blocks', 'gallery-lightbox', 'index.tsx'),
+		'gallery-lightbox-init': path.resolve(process.cwd(), 'src', 'blocks', 'gallery-lightbox', 'init.ts'),
+		'banner-carousel-init': path.resolve(process.cwd(), 'src', 'blocks', 'banner-carousel', 'init.ts'),
 		'editor': path.resolve(process.cwd(), 'src', 'editor.ts'),
 	},
 
@@ -22,6 +25,7 @@ module.exports = {
 		alias: {
 			...defaults.resolve.alias,
 			'@node_modules': `${__dirname}/node_modules`,
+			'@utils': path.resolve(__dirname, 'src/utils'),
 		},
 	},
 };
