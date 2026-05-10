@@ -16,6 +16,7 @@
 .social-navigation {
   display: flex;
   align-items: center;
+
   li:has(a) {
     &:focus-within {
       outline: -webkit-focus-ring-color auto 1px;

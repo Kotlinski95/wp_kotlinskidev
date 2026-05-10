@@ -2,6 +2,7 @@
   max-width: 50rem;
   margin-inline: auto;
   display: block;
+
   .search-input-field {
     width: 100%;
     padding: 1.125rem 1.5rem;
@@ -48,7 +49,10 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url(
+      data:image/svg + xml;charset=UTF-8,
+      %3Csvgxmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"fill="none"stroke="currentColor"stroke-width="2"stroke-linecap="round"stroke-linejoin="round"%3E%3Cpolylinepoints="6,9 12,15 18,9"%3E%3C/polyline%3E%3C/svg%3E
+    );
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1.25rem;
@@ -361,6 +365,7 @@
     opacity: 0.2;
     transform: scale(0.98);
   }
+
   100% {
     opacity: 0.4;
     transform: scale(1.02);

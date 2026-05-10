@@ -1,5 +1,4 @@
-const isTouchDevice = () =>
-  window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+const isTouchDevice = () => window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
 const getDistance = (touches: TouchList): number => {
   const dx = touches[0].clientX - touches[1].clientX;
@@ -29,7 +28,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   let panStartTranslateY = 0;
   let isPanning = false;
 
-  const img = (): HTMLElement | null => container.querySelector<HTMLElement>('img');
+  const img = (): HTMLElement | null => container.querySelector<HTMLElement>("img");
 
   const clampTranslate = () => {
     const { width: W, height: H } = container.getBoundingClientRect();
@@ -41,7 +40,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     const el = img();
     if (!el) return;
     el.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
-    el.style.transformOrigin = '0 0';
+    el.style.transformOrigin = "0 0";
   };
 
   const reset = (animate = true) => {
@@ -53,23 +52,23 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     isZoomedIn = false;
     isPanning = false;
     if (animate) {
-      el.style.transition = 'transform 0.2s ease';
-      el.style.cursor = 'zoom-in';
+      el.style.transition = "transform 0.2s ease";
+      el.style.cursor = "zoom-in";
       applyTransform();
       const cleanup = () => {
-        container.style.overflow = '';
-        el.style.transform = '';
-        el.style.transformOrigin = '';
-        el.style.transition = '';
-        el.removeEventListener('transitionend', cleanup);
+        container.style.overflow = "";
+        el.style.transform = "";
+        el.style.transformOrigin = "";
+        el.style.transition = "";
+        el.removeEventListener("transitionend", cleanup);
       };
-      el.addEventListener('transitionend', cleanup);
+      el.addEventListener("transitionend", cleanup);
     } else {
-      container.style.overflow = '';
-      el.style.transform = '';
-      el.style.transformOrigin = '';
-      el.style.transition = '';
-      el.style.cursor = '';
+      container.style.overflow = "";
+      el.style.transform = "";
+      el.style.transformOrigin = "";
+      el.style.transition = "";
+      el.style.cursor = "";
     }
   };
 
@@ -80,13 +79,13 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     isZoomedIn = !isZoomedIn;
 
     if (isZoomedIn) {
-      container.style.overflow = 'visible';
+      container.style.overflow = "visible";
       currentScale = 1.75;
       const rect = el.getBoundingClientRect();
       translateX = (rect.width * (1 - currentScale)) / 2;
       translateY = (rect.height * (1 - currentScale)) / 2;
-      el.style.transition = 'transform 0.25s ease';
-      el.style.cursor = 'zoom-out';
+      el.style.transition = "transform 0.25s ease";
+      el.style.cursor = "zoom-out";
       applyTransform();
     } else {
       reset(true);
@@ -119,7 +118,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     e.stopImmediatePropagation();
     const el = img();
     if (!el) return;
-    el.style.transition = 'none';
+    el.style.transition = "none";
 
     if (e.touches.length === 2) {
       const distance = getDistance(e.touches);
@@ -142,7 +141,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
         (midY - pinchStartMidY);
       currentScale = newScale;
       clampTranslate();
-      container.style.overflow = currentScale > MIN_SCALE ? 'visible' : '';
+      container.style.overflow = currentScale > MIN_SCALE ? "visible" : "";
       applyTransform();
     } else if (e.touches.length === 1 && isPanning) {
       translateX = panStartTranslateX + (e.touches[0].clientX - panStartX);
@@ -170,22 +169,22 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   const teardown = () => {
     reset(false);
     if (isTouchDevice()) {
-      container.removeEventListener('touchstart', onTouchStart);
-      container.removeEventListener('touchmove', onTouchMove);
-      container.removeEventListener('touchend', onTouchEnd);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
     } else {
-      container.removeEventListener('click', onImageClick);
+      container.removeEventListener("click", onImageClick);
     }
   };
 
   if (isTouchDevice()) {
-    container.addEventListener('touchstart', onTouchStart, { passive: false });
-    container.addEventListener('touchmove', onTouchMove, { passive: false });
-    container.addEventListener('touchend', onTouchEnd, { passive: false });
+    container.addEventListener("touchstart", onTouchStart, { passive: false });
+    container.addEventListener("touchmove", onTouchMove, { passive: false });
+    container.addEventListener("touchend", onTouchEnd, { passive: false });
   } else {
     const el = img();
-    if (el) el.style.cursor = 'zoom-in';
-    container.addEventListener('click', onImageClick);
+    if (el) el.style.cursor = "zoom-in";
+    container.addEventListener("click", onImageClick);
   }
 
   return teardown;

@@ -10,9 +10,9 @@ export interface CarouselSettings {
   slidesPerTablet: number;
   slidesPerDesktop: number;
   lazyLoad: boolean;
-  arrowsPosition: 'sides' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  arrowsPosition: "sides" | "bottom-left" | "bottom-center" | "bottom-right";
   navColor: string;
-  navPlacement: 'inside' | 'outside';
+  navPlacement: "inside" | "outside";
   trackActiveSlide: boolean;
 }
 

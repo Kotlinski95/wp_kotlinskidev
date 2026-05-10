@@ -17,6 +17,7 @@
     padding: 0 !important;
     font-size: 0;
     background-color: transparent;
+
     br {
       display: none;
     }
@@ -27,6 +28,7 @@ body:has(.mobile-footer-nav) {
   .kotlinskidev-scrollto-top {
     @media (max-width: $breakpoint-desktop) {
       bottom: calc(1rem + $mobile-footer-nav);
+
       &.mobile-nav-hidden {
         bottom: calc(1rem + env(safe-area-inset-bottom));
       }
@@ -72,9 +74,11 @@ body:has(.mobile-footer-nav) {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+
   br {
     display: none;
   }
+
   &:focus,
   &:focus-visible {
     outline: -webkit-focus-ring-color auto 1px;

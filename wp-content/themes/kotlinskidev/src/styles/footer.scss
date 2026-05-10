@@ -8,9 +8,11 @@ footer,
   margin: 0 auto 0;
   padding-inline: 1rem;
   box-sizing: border-box;
+
   .copyrights-container {
     display: flex;
     flex-wrap: wrap;
+
     p {
       margin-inline: auto;
       font-size: 0.75rem;
@@ -25,6 +27,7 @@ footer,
 
   .kotlinskidev-footer-list {
     text-align: center;
+
     ul {
       list-style: none;
     }
@@ -34,9 +37,11 @@ footer,
     .kotlinskidev-footer-list {
       text-align: left;
     }
+
     .copyrights-container {
       flex-wrap: nowrap;
       justify-content: space-between;
+
       p {
         margin-inline: 0;
         font-size: 0.8125rem;

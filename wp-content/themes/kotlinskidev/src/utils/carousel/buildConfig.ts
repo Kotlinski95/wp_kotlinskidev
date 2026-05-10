@@ -1,4 +1,4 @@
-import type { CarouselSettings } from './types';
+import type { CarouselSettings } from "./types";
 
 export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
   const {
@@ -26,16 +26,12 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
       1024: { slidesPerView: slidesPerDesktop },
     },
     navigation: showArrows
-      ? { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+      ? { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
       : false,
     pagination:
-      showPagination && !showScrollbar
-        ? { el: '.swiper-pagination', clickable: true }
-        : false,
+      showPagination && !showScrollbar ? { el: ".swiper-pagination", clickable: true } : false,
     scrollbar:
-      showScrollbar && !showPagination
-        ? { el: '.swiper-scrollbar', draggable: true }
-        : false,
+      showScrollbar && !showPagination ? { el: ".swiper-scrollbar", draggable: true } : false,
     autoplay: autoplay ? { delay: autoplayDelay, disableOnInteraction: false } : false,
   };
 };

@@ -1,0 +1,15 @@
+:root {
+  --kt-text-gradient: var(--wp--preset--gradient--fancy-text-dark);
+}
+
+body.light-mode {
+  --kt-text-gradient: var(--wp--preset--gradient--fancy-text-light);
+}
+
+@mixin gradient-text($gradient: var(--kt-text-gradient)) {
+  background: $gradient;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}

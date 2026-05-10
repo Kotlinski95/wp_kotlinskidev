@@ -32,7 +32,14 @@ export default function Edit({
         <CarouselPanel
           settings={carouselSettings}
           onChange={(partial) => setAttributes(partial)}
-          features={{ slidesPerBreakpoint: true, scrollbar: true, autoplay: true, arrowsPosition: true, navColor: true, navPlacement: true }}
+          features={{
+            slidesPerBreakpoint: true,
+            scrollbar: true,
+            autoplay: true,
+            arrowsPosition: true,
+            navColor: true,
+            navPlacement: true,
+          }}
         />
       </InspectorControls>
       <div {...useBlockProps()}>

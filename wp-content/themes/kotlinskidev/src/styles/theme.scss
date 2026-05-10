@@ -10,6 +10,7 @@
   flex-direction: column;
   z-index: 1001;
   margin-inline-end: -1rem;
+
   .title {
     text-align: center;
   }
@@ -30,13 +31,16 @@
     border-radius: 100%;
     padding: 0.1875rem;
     cursor: pointer;
+
     &.light {
       display: none;
     }
+
     &:focus,
     &:hover {
       background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
     }
+
     & > svg {
       width: 1.5rem;
       height: 1.5rem;
@@ -47,6 +51,7 @@
     background: inherit !important;
     color: inherit !important;
   }
+
   &:focus-visible {
     outline: -webkit-focus-ring-color auto 1px;
     outline-offset: 2px;
@@ -59,9 +64,11 @@
       &.dark {
         display: none;
       }
+
       &.light {
         display: flex;
       }
+
       &:focus,
       &:hover {
         background: rgba(var(--wp--preset--color--dark-color-rgb), 0.1);

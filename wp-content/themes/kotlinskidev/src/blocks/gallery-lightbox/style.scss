@@ -1,4 +1,4 @@
-@use '../../utils/carousel/carousel-nav' as *;
+@use "../../utils/carousel/carousel-nav" as *;
 
 .gallery-lightbox-modal {
   --lightbox-bg: rgba(0, 0, 0, 0.95);
@@ -66,6 +66,7 @@ body.light-mode .gallery-lightbox-modal {
   flex: 1;
   min-height: 0;
   width: 100%;
+
   &.swiper {
     visibility: visible;
   }
@@ -133,7 +134,9 @@ body.light-mode .gallery-lightbox-modal {
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
   }
 
   &:hover img,
@@ -190,7 +193,7 @@ body.light-mode .gallery-lightbox-modal {
 
   &__current {
     text-decoration: underline;
-    text-underline-offset: 0.2em;
+    text-underline-offset: 0.25em;
   }
 }
 

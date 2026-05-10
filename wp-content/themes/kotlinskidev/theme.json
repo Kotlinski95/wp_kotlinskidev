@@ -83,6 +83,16 @@
       "duotone": [],
       "gradients": [
         {
+          "gradient": "linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%, rgb(0, 255, 240) 100%)",
+          "name": "Fancy Text — Dark",
+          "slug": "fancy-text-dark"
+        },
+        {
+          "gradient": "linear-gradient(to left, rgb(132, 83, 210) 0%, rgb(0, 71, 255) 60%, rgb(0, 120, 194) 100%)",
+          "name": "Fancy Text — Light",
+          "slug": "fancy-text-light"
+        },
+        {
           "gradient": "linear-gradient(to right, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--contrast)  51%, var(--wp--preset--color--primary)  100%)",
           "name": "Gradient 1",
           "slug": "gradient-one"

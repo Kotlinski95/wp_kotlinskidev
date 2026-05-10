@@ -1,11 +1,9 @@
 @import "variables";
 
 header {
-  position: fixed;
   top: env(safe-area-inset-top);
   right: 0;
   left: 0;
-  width: 100%;
   min-block-size: 4.6875rem;
   max-block-size: 4.6875rem;
   position: fixed;
@@ -60,6 +58,7 @@ header::before {
   margin: 0 auto;
   min-block-size: 4.0625rem;
   max-block-size: 4.0625rem;
+
   a {
     text-decoration: none;
   }
@@ -72,6 +71,7 @@ header::before {
     justify-content: end;
     min-block-size: 4.0625rem;
     max-block-size: 4.0625rem;
+
     *:not(path):not(img):empty,
     p:empty {
       display: none;
@@ -88,7 +88,6 @@ header::before {
 
 .logo a,
 .custom-logo-link a {
-  display: block;
   height: 100%;
   display: flex;
   align-items: center;
@@ -120,6 +119,7 @@ header::before {
 
 .navigation {
   margin-inline-end: 2rem;
+
   .menu-items {
     display: flex;
     flex-wrap: nowrap;
@@ -141,9 +141,11 @@ header::before {
       gap: 1rem;
       list-style: none;
     }
+
     .sub-menu {
       display: none;
     }
+
     .menu-item.menu-item-has-children {
       a {
         margin-inline-end: 0.375rem;
@@ -154,6 +156,7 @@ header::before {
       transform: rotate(180deg);
       transition: 0.35s all;
     }
+
     .menu-item.menu-item-has-children:hover {
       & > .submenu-toggle {
         transform: rotate(180deg);
@@ -187,8 +190,10 @@ header::before {
       flex: 1;
       min-width: 100%;
     }
+
     @media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
       font-size: 1.25rem;
+
       .menu-item {
         display: flex;
         flex-wrap: wrap;
@@ -201,24 +206,29 @@ header::before {
             padding-block: 1rem;
           }
         }
+
         &:first-child {
           border-top: 0.0625rem solid #acacaccc;
         }
+
         .sub-menu {
           order: 2;
           width: 100%;
           flex: 1;
           min-width: 100%;
         }
+
         a {
           padding-inline-start: 1.5625rem;
           flex: 1;
+
           &:hover {
             color: inherit !important;
           }
         }
       }
     }
+
     ul {
       gap: 1rem;
       display: flex;
@@ -274,6 +284,7 @@ header::before {
   border-top-width: 2px;
   border-top-style: solid;
   border-top-color: inherit;
+
   nav {
     box-sizing: border-box;
   }
@@ -290,6 +301,7 @@ header::before {
 #hamburger-menu.open {
   transform: translateX(-100%);
   background-color: $black;
+
   @media (min-width: $breakpoint-tablet-wp) {
     right: -100%;
   }
@@ -300,6 +312,7 @@ header::before {
     display: flex !important;
     justify-content: center;
   }
+
   .hamburger-menu {
     display: flex;
   }
@@ -427,9 +440,11 @@ header::before {
     label::after {
       background-color: $black;
     }
+
     #toggle:checked ~ label {
       background-color: transparent;
     }
+
     .hamburger-menu .bar {
       background-color: $black;
     }

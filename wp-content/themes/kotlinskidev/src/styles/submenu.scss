@@ -29,6 +29,7 @@
         }
       }
     }
+
     &.submenu-active {
       .sub-menu {
         max-height: 62.5rem;
@@ -37,19 +38,23 @@
           transform 0.5s ease-out,
           background 0.25s ease-in-out;
       }
+
       &::after,
       & > .submenu-toggle {
         transform: rotate(180deg);
       }
     }
+
     &.submenu-active > a {
       padding-bottom: 1rem;
     }
+
     & > a {
       transition: 0.35s all !important;
       padding-block: 1rem;
     }
-    &:after,
+
+    &::after,
     & > .submenu-toggle {
       content: "\25be";
       margin-inline-end: 25px;
@@ -75,7 +80,7 @@
         padding-inline-start: 20px;
       }
 
-      &:after {
+      &::after {
         content: "\25be";
         margin-inline-end: 25px;
         line-height: 1;
@@ -97,7 +102,7 @@
         font-size: 1.5rem;
       }
 
-      &.submenu-active:after,
+      &.submenu-active::after,
       &.submenu-active > .submenu-toggle {
         transform: rotate(180deg);
       }
@@ -132,6 +137,7 @@
     }
   }
   position: relative;
+
   .sub-menu {
     grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
     grid-gap: 0.625rem;
@@ -153,31 +159,38 @@
       text-align: start;
       padding-inline-start: 0.625rem;
     }
+
     .menu-item.menu-item-has-children {
       a {
         padding-block: 1rem;
       }
     }
+
     .menu-item:last-child {
       border-bottom: none;
     }
+
     @media (min-width: $breakpoint-desktop) {
       position: absolute;
       left: auto;
       font-size: inherit;
       text-align: end;
       padding: 0 0.625rem;
+
       .menu-item:last-child {
         padding-bottom: 0.625rem;
       }
+
       .menu-item {
         text-align: end;
+
         a {
           padding-bottom: 0.3125rem;
         }
       }
     }
   }
+
   & > a {
     margin-inline-end: 0.3125rem;
   }
@@ -188,7 +201,7 @@
   .menu-item-has-children {
     // Remove arrows when submenu has 3rd level items
     &:has(.sub-menu .menu-item-has-children) {
-      .menu-item-has-children:after,
+      .menu-item-has-children::after,
       .menu-item-has-children > .submenu-toggle {
         display: none;
       }
@@ -262,6 +275,7 @@
         opacity 0.25s;
       display: block !important;
     }
+
     &:hover,
     &:has([aria-expanded="true"]) {
       .sub-menu {
@@ -275,11 +289,13 @@
           0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
       }
     }
-    &:after {
+
+    &::after {
       content: "\25be";
       width: 0.625rem;
       min-width: 0.625rem;
     }
+
     & > .submenu-toggle {
       width: 0.625rem;
       min-width: 0.625rem;
@@ -295,6 +311,7 @@
   .sub-menu li {
     padding: 0.3125rem 0.625rem;
   }
+
   .dark-mode {
     .menu-items {
       & > .menu-item {
@@ -319,7 +336,7 @@
 }
 
 .accessibility-js-enabled {
-  .menu-item-has-children:after {
+  .menu-item-has-children::after {
     display: none !important;
   }
 }

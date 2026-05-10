@@ -34,14 +34,14 @@
     width: 1rem;
     height: 1rem;
     background: var(--wp--preset--color--primary);
-    border: 0.1875rem solid #ffffff;
+    border: 0.1875rem solid #fff;
     border-radius: 50%;
     z-index: 10;
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
   }
 
   .wp-block-group {
-    background: #ffffff;
+    background: #fff;
     padding: 1.875rem;
     border-radius: 0.75rem;
     box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
@@ -83,7 +83,7 @@
 
       &::before {
         right: -0.75rem;
-        border-left-color: #ffffff;
+        border-left-color: #fff;
       }
     }
   }
@@ -103,7 +103,7 @@
 
       &::before {
         left: -0.75rem;
-        border-right-color: #ffffff;
+        border-right-color: #fff;
       }
     }
   }
@@ -142,7 +142,7 @@
           width: 1.25rem;
           height: 1.25rem;
           background: var(--wp--preset--color--primary);
-          border: 0.25rem solid #ffffff;
+          border: 0.25rem solid #fff;
         }
 
         .wp-block-group {
@@ -156,7 +156,7 @@
           }
 
           border-radius: 0.5rem;
-          background: #ffffff;
+          background: #fff;
           box-shadow: 0 0.125rem 0.75rem rgba(0, 0, 0, 0.08);
           position: relative;
 
