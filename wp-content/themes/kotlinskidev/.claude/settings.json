@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"/Users/adriankotlinski/Local Sites/kotlinskidev/app/public/wp-content/themes/kotlinskidev/.claude/hooks/theme-lint.sh\"",
+            "statusMessage": "Formatting and linting modified file..."
+          }
+        ]
+      }
+    ]
+  }
+}
