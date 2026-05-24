@@ -13,3 +13,6 @@ See @README.md for project overview and @package.json for available npm commands
 
 # Additional Instructions
 - Git workflow: @docs/git-instructions.md
+
+## No Comments
+Do not add inline or block comments. Types and function signatures must be self-documenting.

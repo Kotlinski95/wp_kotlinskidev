@@ -8,6 +8,9 @@ require_once get_template_directory() . '/functions/cache.php';
 // Include internationalization functions
 require_once get_template_directory() . '/includes/i18n.php';
 
+// Register custom blocks via block.json
+require_once get_template_directory() . '/functions/blocks.php';
+
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 

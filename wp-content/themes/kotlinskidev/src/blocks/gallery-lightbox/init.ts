@@ -1,7 +1,5 @@
 import "swiper/swiper-bundle.css";
-import Swiper from "swiper";
-import { Navigation, Pagination, Keyboard, Autoplay } from "swiper/modules";
-import { buildSwiperConfig } from "@utils/carousel/buildConfig";
+import { initSwiper } from "@utils/carousel/initSwiper";
 import { attachImageZoom } from "@utils/zoom/attachImageZoom";
 
 const MODAL_ID = "gallery-lightbox-modal";
@@ -133,25 +131,16 @@ const openModal = (
   const modal = document.getElementById(MODAL_ID) as HTMLElement;
   const swiperEl = modal.querySelector<HTMLElement>(".gallery-lightbox-swiper")!;
 
-  const config = buildSwiperConfig({ ...settings, slidesPerView: 1 });
-  const swiper = new Swiper(swiperEl, {
-    modules: [Navigation, Pagination, Keyboard, Autoplay],
-    ...config,
-    initialSlide: startIndex,
-    loop: images.length > 1 && (settings.loop ?? true),
-  });
-
-  const counterEl = modal.querySelector<HTMLElement>(".carousel-nav__counter");
-  const total = images.length;
-  const onSwiperSlideChange = () => {
-    const index = swiper.realIndex ?? 0;
-    if (counterEl) {
-      counterEl.innerHTML = `<span class="carousel-nav__current">${String(index + 1).padStart(2, "0")}</span> / ${String(total).padStart(2, "0")}`;
+  const swiper = initSwiper(
+    swiperEl,
+    { ...settings, slidesPerView: 1 },
+    {
+      initialSlide: startIndex,
+      forceLoop: images.length > 1 && (settings.loop ?? true),
+      slideCount: images.length,
+      onSlideChange,
     }
-    onSlideChange?.(index);
-  };
-  onSwiperSlideChange();
-  swiper.on("slideChange", onSwiperSlideChange);
+  );
 
   const pauseActiveVideo = () => {
     const activeSlide = swiper.slides[swiper.activeIndex] as HTMLElement | undefined;

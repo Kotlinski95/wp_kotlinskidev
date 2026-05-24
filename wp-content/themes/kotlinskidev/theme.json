@@ -141,6 +141,11 @@
           "gradient": "radial-gradient(30.83% 47.59% at 100% 100%, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--primary-shade-1) 12%, var(--wp--preset--color--primary-shade-2) 44%, var(--wp--preset--color--transparent-shade) 100%)",
           "name": "Gradient block top right",
           "slug": "gradient-block-bottom-right"
+        },
+        {
+          "gradient": "linear-gradient(to right, #00ffd3 15%, #00f6ff 50%, #b896ff 90%)",
+          "name": "Cyber Accent",
+          "slug": "cyber-accent"
         }
       ]
     },

@@ -91,7 +91,6 @@ registerBlockType("kotlinskidev/protected-content", {
       default: false,
     },
   },
-
   deprecated: [
     {
       attributes: {

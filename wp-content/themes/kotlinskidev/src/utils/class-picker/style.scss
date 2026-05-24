@@ -1,0 +1,19 @@
+.kt-utility-panel {
+  &__group {
+    & + & {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e0e0e0;
+    }
+  }
+
+  &__group-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #757575;
+    margin-block: 6px;
+  }
+}

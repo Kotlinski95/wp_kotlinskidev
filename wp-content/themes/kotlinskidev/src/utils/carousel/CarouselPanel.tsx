@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  PanelBody,
-  RangeControl,
-  ToggleControl,
-  SelectControl,
-  ColorPicker,
-  BaseControl,
-} from "@wordpress/components";
+import { PanelBody, RangeControl, ToggleControl, SelectControl } from "@wordpress/components";
+import { __experimentalColorGradientControl as ColorGradientControl } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import type { CarouselSettings, CarouselFeatures } from "./types";
 
@@ -37,9 +31,25 @@ export default function CarouselPanel({
     lazyLoad = false,
     arrowsPosition = "sides",
     navColor = "",
+    navColorOnHover = false,
     navPlacement = "inside",
     trackActiveSlide = false,
   } = settings;
+
+  const pendingNavColorRef = React.useRef<string | null>(null);
+
+  const handleNavColorChange = (value: string | undefined) => {
+    if (value !== undefined) {
+      pendingNavColorRef.current = value;
+      onChange({ navColor: value });
+    } else if (pendingNavColorRef.current !== null) {
+      pendingNavColorRef.current = null;
+    } else {
+      onChange({ navColor: "" });
+    }
+  };
+
+  const isNavGradient = navColor.includes("gradient");
 
   return (
     <PanelBody title={title ?? __("Carousel Settings", "kotlinskidev")} initialOpen={true}>
@@ -63,47 +73,34 @@ export default function CarouselPanel({
           }
         />
       )}
-      {showArrows && features.navPlacement && (
+      {showArrows && features.navPlacement && arrowsPosition !== "sides" && (
         <ToggleControl
           label={__("Show navigation outside carousel", "kotlinskidev")}
           help={__("Renders nav below the slides instead of overlaying them.", "kotlinskidev")}
           checked={navPlacement === "outside"}
-          onChange={(value) => {
-            const updates: Partial<CarouselSettings> = {
-              navPlacement: value ? "outside" : "inside",
-            };
-            if (value && arrowsPosition === "sides") {
-              updates.arrowsPosition = "bottom-center";
-            }
-            onChange(updates);
-          }}
+          onChange={(value) => onChange({ navPlacement: value ? "outside" : "inside" })}
         />
       )}
-      {showArrows &&
-        features.navColor &&
-        (navPlacement === "outside" || arrowsPosition !== "sides") && (
-          <>
-            <ToggleControl
-              label={__("Use custom navigation color", "kotlinskidev")}
-              checked={!!navColor}
-              onChange={(value) => onChange({ navColor: value ? "#ffffff" : "" })}
-            />
-            {!!navColor && (
-              <BaseControl
-                label={__("Navigation Color", "kotlinskidev")}
-                id="carousel-nav-color"
-                __nextHasNoMarginBottom
-              >
-                <ColorPicker
-                  color={navColor}
-                  onChange={(value) => onChange({ navColor: value })}
-                  enableAlpha={false}
-                  copyFormat="hex"
-                />
-              </BaseControl>
-            )}
-          </>
-        )}
+      {(showArrows || showPagination) && features.navColor && (
+        <ColorGradientControl
+          label={__("Navigation color", "kotlinskidev")}
+          colorValue={navColor && !isNavGradient ? navColor : undefined}
+          gradientValue={isNavGradient ? navColor : undefined}
+          onColorChange={handleNavColorChange}
+          onGradientChange={handleNavColorChange}
+          clearable={true}
+          __experimentalIsRenderedInSidebar={true}
+          __nextHasNoMarginBottom
+        />
+      )}
+      {(showArrows || showPagination) && features.navColor && navColor && (
+        <ToggleControl
+          label={__("Color on hover only", "kotlinskidev")}
+          help={__("Uses default colors normally; applies custom color on hover.", "kotlinskidev")}
+          checked={navColorOnHover}
+          onChange={(value) => onChange({ navColorOnHover: value })}
+        />
+      )}
       <ToggleControl
         label={__("Show Pagination", "kotlinskidev")}
         checked={showPagination}
@@ -121,7 +118,7 @@ export default function CarouselPanel({
         checked={loop}
         onChange={(value) => onChange({ loop: value })}
       />
-      {features.autoplay !== false && (
+      {features.autoplay && (
         <>
           <ToggleControl
             label={__("Autoplay", "kotlinskidev")}
@@ -139,7 +136,7 @@ export default function CarouselPanel({
           )}
         </>
       )}
-      {features.lazyLoad !== false && (
+      {features.lazyLoad && (
         <ToggleControl
           label={__("Lazy Load First Image", "kotlinskidev")}
           help={__("Enable if this block is below the fold.", "kotlinskidev")}

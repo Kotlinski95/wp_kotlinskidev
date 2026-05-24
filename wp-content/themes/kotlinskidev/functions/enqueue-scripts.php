@@ -127,28 +127,6 @@ function kotlinskidev_editor_styles()
         wp_get_theme()->get('Version')
     );
 
-    // Load banner carousel
-    wp_enqueue_style(
-        'kotlinskidev-banner-carousel-styles',
-        get_template_directory_uri() . '/build/banner-carousel.css',
-        array(),
-        wp_get_theme()->get('Version')
-    );
-
-    // Load gallery lightbox block
-    wp_enqueue_style(
-        'kotlinskidev-gallery-lightbox-styles',
-        get_template_directory_uri() . '/build/gallery-lightbox.css',
-        array(),
-        wp_get_theme()->get('Version')
-    );
-
-    wp_enqueue_style(
-        'kotlinskidev-gallery-lightbox-shared-styles',
-        get_template_directory_uri() . '/build/style-gallery-lightbox.css',
-        array(),
-        wp_get_theme()->get('Version')
-    );
 }
 function kotlinskidev_editor_scripts()
 {
@@ -179,85 +157,10 @@ function kotlinskidev_editor_scripts()
         true
     );
 
-    // Load banner carousel
-    $banner_carousel_asset = include get_template_directory() . '/build/banner-carousel.asset.php';
-    wp_enqueue_script(
-        'kotlinskidev-banner-carousel',
-        get_template_directory_uri() . '/build/banner-carousel.js',
-        $banner_carousel_asset['dependencies'],
-        $banner_carousel_asset['version'],
-        true
-    );
-
-    // Load gallery lightbox block
-    $gallery_lightbox_asset = include get_template_directory() . '/build/gallery-lightbox.asset.php';
-    wp_enqueue_script(
-        'kotlinskidev-gallery-lightbox',
-        get_template_directory_uri() . '/build/gallery-lightbox.js',
-        $gallery_lightbox_asset['dependencies'],
-        $gallery_lightbox_asset['version'],
-        true
-    );
 }
 add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');
 add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_scripts');
 
-add_action('wp_enqueue_scripts', function (): void {
-    if (!is_singular()) {
-        return;
-    }
-
-    if (!has_block('kotlinskidev/gallery-lightbox', get_queried_object_id())) {
-        return;
-    }
-
-    wp_enqueue_style(
-        'kotlinskidev-gallery-lightbox-styles',
-        get_template_directory_uri() . '/build/style-gallery-lightbox.css',
-        [],
-        wp_get_theme()->get('Version')
-    );
-
-    $init_args = include get_template_directory() . '/build/gallery-lightbox-init.asset.php';
-    wp_enqueue_style(
-        'kotlinskidev-gallery-lightbox-init-styles',
-        get_template_directory_uri() . '/build/gallery-lightbox-init.css',
-        [],
-        $init_args['version']
-    );
-    wp_enqueue_script(
-        'kotlinskidev-gallery-lightbox-init',
-        get_template_directory_uri() . '/build/gallery-lightbox-init.js',
-        $init_args['dependencies'],
-        $init_args['version'],
-        ['strategy' => 'defer', 'in_footer' => true]
-    );
-});
-
-add_action('wp_enqueue_scripts', function (): void {
-    if (!is_singular()) {
-        return;
-    }
-
-    if (!has_block('kotlinskidev/banner-carousel', get_queried_object_id())) {
-        return;
-    }
-
-    $init_args = include get_template_directory() . '/build/banner-carousel-init.asset.php';
-    wp_enqueue_style(
-        'kotlinskidev-banner-carousel-init-styles',
-        get_template_directory_uri() . '/build/banner-carousel-init.css',
-        [],
-        $init_args['version']
-    );
-    wp_enqueue_script(
-        'kotlinskidev-banner-carousel-init',
-        get_template_directory_uri() . '/build/banner-carousel-init.js',
-        $init_args['dependencies'],
-        $init_args['version'],
-        ['strategy' => 'defer', 'in_footer' => true]
-    );
-});
 
 add_action('wp_enqueue_scripts', function (): void {
     $script_args = include get_template_directory() . '/build/main.asset.php';
@@ -284,3 +187,4 @@ add_action('wp_enqueue_scripts', function (): void {
     //$script_args = include( plugin_dir_path( __FILE__ ) . 'assets/public/scripts.asset.php');
     //wp_enqueue_script('wp-typescript', plugins_url('assets/public/scripts.js', __FILE__), $script_args['dependencies'], $script_args['version']);
 });
+

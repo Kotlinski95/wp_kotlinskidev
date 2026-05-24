@@ -12,6 +12,7 @@ export interface CarouselSettings {
   lazyLoad: boolean;
   arrowsPosition: "sides" | "bottom-left" | "bottom-center" | "bottom-right";
   navColor: string;
+  navColorOnHover: boolean;
   navPlacement: "inside" | "outside";
   trackActiveSlide: boolean;
 }

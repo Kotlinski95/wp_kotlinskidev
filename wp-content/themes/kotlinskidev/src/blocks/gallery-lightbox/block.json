@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/gallery-lightbox",
+  "version": "1.0.0",
+  "title": "Gallery Lightbox",
+  "category": "media",
+  "icon": "format-gallery",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/gallery-lightbox.js",
+  "viewScript": "file:../../../build/gallery-lightbox-init.js",
+  "style": "file:../../../build/style-gallery-lightbox.css",
+  "viewStyle": "file:../../../build/gallery-lightbox-init.css",
+  "supports": {
+    "align": true,
+    "__experimentalBorder": {
+      "radius": true
+    },
+    "shadow": true
+  },
+  "attributes": {
+    "images": { "type": "array", "default": [] },
+    "showArrows": { "type": "boolean", "default": true },
+    "showPagination": { "type": "boolean", "default": true },
+    "loop": { "type": "boolean", "default": true },
+    "autoplay": { "type": "boolean", "default": false },
+    "autoplayDelay": { "type": "number", "default": 3000 },
+    "lazyLoad": { "type": "boolean", "default": false },
+    "arrowsPosition": { "type": "string", "default": "sides" },
+    "navColor": { "type": "string", "default": "" },
+    "navPlacement": { "type": "string", "default": "inside" },
+    "trackActiveSlide": { "type": "boolean", "default": false },
+    "videoControls": { "type": "boolean", "default": true },
+    "videoAutoplay": { "type": "boolean", "default": false },
+    "videoLoop": { "type": "boolean", "default": false },
+    "videoMuted": { "type": "boolean", "default": false },
+    "useMobileMedia": { "type": "boolean", "default": false },
+    "mobileImages": { "type": "array", "default": [] }
+  }
+}

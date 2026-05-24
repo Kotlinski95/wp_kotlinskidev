@@ -23,7 +23,7 @@ interface GalleryMedia {
   height: number;
 }
 
-interface GalleryLightboxAttributes extends Partial<CarouselSettings> {
+export interface GalleryLightboxAttributes extends Partial<CarouselSettings> {
   images: GalleryMedia[];
   videoControls: boolean;
   videoAutoplay: boolean;

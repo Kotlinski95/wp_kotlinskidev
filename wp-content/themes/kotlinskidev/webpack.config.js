@@ -29,6 +29,15 @@ module.exports = {
       "banner-carousel",
       "init.ts"
     ),
+    "hero-carousel": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "index.ts"),
+    "hero-carousel-init": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "init.ts"),
+    "protected-content": path.resolve(
+      process.cwd(),
+      "src",
+      "blocks",
+      "protected-content",
+      "index.tsx"
+    ),
     editor: path.resolve(process.cwd(), "src", "editor.ts"),
   },
 

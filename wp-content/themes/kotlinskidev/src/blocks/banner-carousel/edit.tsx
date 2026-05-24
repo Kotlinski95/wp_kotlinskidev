@@ -9,7 +9,7 @@ import CarouselPanel from "@utils/carousel/CarouselPanel";
 import type { CarouselSettings } from "@utils/carousel/types";
 import "./style.scss";
 
-interface BannerCarouselAttributes extends Partial<CarouselSettings> {
+export interface BannerCarouselAttributes extends Partial<CarouselSettings> {
   images: { id: number; url: string; alt?: string }[];
 }
 

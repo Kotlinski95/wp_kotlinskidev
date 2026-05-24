@@ -1,5 +1,4 @@
 @use "../../utils/carousel/carousel-nav" as *;
-@import "@node_modules/swiper/swiper-bundle.min.css";
 
 .banner-carousel {
   .swiper {
@@ -20,7 +19,6 @@
 .swiper,
 .swiper-wrapper {
   width: 100%;
-  padding-bottom: 0.9375rem !important;
 
   .swiper-slide {
     height: 100%;

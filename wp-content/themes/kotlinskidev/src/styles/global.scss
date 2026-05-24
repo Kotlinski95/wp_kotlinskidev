@@ -1,5 +1,15 @@
 @import "variables";
 
+:root {
+  --kt-above-fold: calc(100dvh - #{$header});
+}
+
+@media (max-width: $breakpoint-mobile) {
+  :root {
+    --kt-above-fold: calc(100dvh - #{$header} - #{$mobile-footer-nav});
+  }
+}
+
 html {
   scroll-behavior: smooth;
   --scrollbar-width: calc(100vw - 100%);
@@ -129,6 +139,11 @@ body {
 .full-height {
   min-height: 100dvh;
   height: 100dvh;
+}
+
+.above-fold {
+  height: var(--kt-above-fold);
+  max-height: var(--kt-above-fold);
 }
 
 .mx-auto {
