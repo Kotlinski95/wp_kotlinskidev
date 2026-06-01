@@ -11,6 +11,7 @@ import "./scripts/accessibility";
 import "./scripts/animated-counter";
 import "./scripts/page-views";
 import "./scripts/hide-nav-on-scroll";
+import "./scripts/gsap-sticky";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

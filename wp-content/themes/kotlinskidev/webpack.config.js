@@ -31,6 +31,14 @@ module.exports = {
     ),
     "hero-carousel": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "index.ts"),
     "hero-carousel-init": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "init.ts"),
+    "scroll-section": path.resolve(process.cwd(), "src", "blocks", "scroll-section", "index.ts"),
+    "scroll-section-init": path.resolve(
+      process.cwd(),
+      "src",
+      "blocks",
+      "scroll-section",
+      "init.ts"
+    ),
     "protected-content": path.resolve(
       process.cwd(),
       "src",

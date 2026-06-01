@@ -12,7 +12,6 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
     slidesPerMobile = 1,
     slidesPerTablet = 1,
     slidesPerDesktop = 1,
-    lazyLoad = false,
   } = settings;
 
   return {
@@ -34,6 +33,5 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
     scrollbar:
       showScrollbar && !showPagination ? { el: ".swiper-scrollbar", draggable: true } : false,
     autoplay: autoplay ? { delay: autoplayDelay, disableOnInteraction: false } : false,
-    lazy: lazyLoad ? { loadPrevNext: true } : false,
   };
 };

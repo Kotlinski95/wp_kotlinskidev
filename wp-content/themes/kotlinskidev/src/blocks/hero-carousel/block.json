@@ -12,11 +12,11 @@
   "viewScript": "file:../../../build/hero-carousel-init.js",
   "style": "file:../../../build/style-hero-carousel.css",
   "viewStyle": "file:../../../build/hero-carousel-init.css",
-  "providesContext": {
-    "kotlinskidev/lazyLoad": "lazyLoad"
-  },
   "supports": {
     "align": ["full", "wide"]
+  },
+  "providesContext": {
+    "kotlinskidev/lazyLoad": "lazyLoad"
   },
   "attributes": {
     "minHeight": { "type": "number", "default": 80 },

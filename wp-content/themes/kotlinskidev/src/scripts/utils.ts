@@ -58,3 +58,21 @@ export function initMobileOnly(onMobile: () => void, onDesktop?: () => void): vo
   handleScreenSize(isMobile());
   onScreenSizeChange(handleScreenSize);
 }
+
+export function getScrollTop(): number {
+  return document.body.scrollTop || window.scrollY || 0;
+}
+
+export function scrollTo(top: number, behavior: ScrollBehavior = "smooth") {
+  window.scrollTo({ top, behavior });
+}
+
+export function onScroll(callback: () => void): () => void {
+  window.addEventListener("scroll", callback, { passive: true });
+  return () => window.removeEventListener("scroll", callback);
+}
+
+export function setScrollBehavior(behavior: ScrollBehavior): void {
+  document.documentElement.style.scrollBehavior = behavior;
+  document.body.style.scrollBehavior = behavior;
+}

@@ -1,3 +1,5 @@
+import { getScrollTop, onScroll } from "./utils";
+
 interface ParallaxElement extends HTMLElement {
   dataset: DOMStringMap & {
     parallaxSpeed?: string;
@@ -86,7 +88,7 @@ function setupIntersectionObserver() {
 }
 
 function updateParallax() {
-  const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  const scrollTop = getScrollTop();
   visibleElements.forEach((element) => {
     const rect = element.getBoundingClientRect();
     const elementTop = rect.top + scrollTop;
@@ -108,14 +110,8 @@ function animationLoop() {
 }
 
 function bindEvents() {
-  function handleScroll() {
-    needsUpdate = true;
-  }
-  document.body.addEventListener("scroll", handleScroll, { passive: true });
-  document.documentElement.addEventListener("scroll", handleScroll, { passive: true });
-  window.addEventListener("resize", () => {
-    needsUpdate = true;
-  });
+  onScroll(() => { needsUpdate = true; });
+  window.addEventListener("resize", () => { needsUpdate = true; }, { passive: true });
 }
 
 function initParallax() {

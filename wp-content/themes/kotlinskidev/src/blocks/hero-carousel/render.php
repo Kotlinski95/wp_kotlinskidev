@@ -22,6 +22,12 @@ $settings = wp_json_encode( [
 	'navPlacement'    => $nav_placement,
 ] ) ?: '{}';
 
+$slides_html = '';
+foreach ( $block->inner_blocks as $i => $slide_block ) {
+	$slide_block->attributes['slideIndex'] = $i;
+	$slides_html .= $slide_block->render();
+}
+
 $inline_style = '--hero-min-height: ' . $min_height . 'vh';
 if ( $nav_color ) {
 	$prop          = $nav_color_hover ? '--carousel-nav-color-hover' : '--carousel-nav-color';
@@ -43,7 +49,7 @@ $nav_html = '<div class="' . $nav_class . '"><div class="swiper-button-prev"></d
 <div <?php echo $wrapper_attributes; ?>>
 	<div class="swiper hero-carousel__swiper" data-carousel-settings="<?php echo esc_attr( $settings ); ?>">
 		<div class="swiper-wrapper">
-			<?php echo $content; ?>
+			<?php echo $slides_html; ?>
 		</div>
 		<?php if ( $show_arrows && $effective_placement === 'inside' ) : ?>
 			<?php echo $nav_html; ?>

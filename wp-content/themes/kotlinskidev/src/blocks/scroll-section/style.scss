@@ -1,0 +1,78 @@
+.scroll-section {
+  overflow: hidden;
+
+  &__track {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    will-change: transform;
+
+    &--editor {
+      height: auto;
+      overflow-x: auto;
+      will-change: unset;
+      gap: 2px;
+
+      .block-editor-block-list__layout {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+      }
+
+      .block-editor-block-list__layout > .wp-block {
+        flex-shrink: 0;
+
+        .block-editor-block-list__layout {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  &__item {
+    flex-shrink: 0;
+
+    .scroll-section__track--editor & {
+      height: auto;
+      overflow: visible;
+    }
+  }
+
+  &--editor {
+    overflow: hidden;
+    border: 1px dashed var(--wp-admin-theme-color, #007cba);
+    border-radius: 2px;
+  }
+}
+
+.scroll-section-editor__add {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--wp-admin-theme-color, #007cba);
+  background: #fff;
+  color: var(--wp-admin-theme-color, #007cba);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  &:hover {
+    background: var(--wp-admin-theme-color, #007cba);
+    color: #fff;
+  }
+}
+
+.scroll-section-sidebar__count {
+  margin: 0 0 0.75rem;
+  font-size: 12px;
+  color: #757575;
+}

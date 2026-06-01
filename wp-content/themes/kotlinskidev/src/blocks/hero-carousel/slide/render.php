@@ -3,33 +3,36 @@ $bg_image_id  = absint( $attributes['bgImageId'] ?? 0 );
 $bg_image_url = esc_url( $attributes['bgImageUrl'] ?? '' );
 $bg_video_url = esc_url( $attributes['bgVideoUrl'] ?? '' );
 $bg_overlay   = min( 1.0, max( 0.0, (float) ( $attributes['bgOverlay'] ?? 0.4 ) ) );
-$lazy_load     = (bool) ( $block->context['kotlinskidev/lazyLoad'] ?? false );
-$loading       = $lazy_load ? 'lazy' : 'eager';
-static $high_priority_set = false;
-$fetchpriority = ( ! $lazy_load && ! $high_priority_set ) ? 'high' : null;
-if ( null !== $fetchpriority ) {
-	$high_priority_set = true;
-}
+$slide_index  = absint( $attributes['slideIndex'] ?? 0 );
+$lazy_load    = (bool) ( $block->context['kotlinskidev/lazyLoad'] ?? false );
+$poster_url   = $bg_image_id ? wp_get_attachment_url( $bg_image_id ) : $bg_image_url;
+
+$is_eager = $slide_index === 0 && ! $lazy_load;
 
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => 'swiper-slide hero-carousel__slide',
 ] );
 ?>
+<?php if ( $is_eager && $poster_url ) : ?>
+<link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url( $poster_url ); ?>">
+<?php endif; ?>
 <div <?php echo $wrapper_attributes; ?>>
 	<div class="hero-carousel__bg">
 		<?php if ( $bg_video_url ) : ?>
 			<video
-				src="<?php echo esc_url( $bg_video_url ); ?>"
-				autoplay
+				<?php if ( $is_eager ) : ?>
+					src="<?php echo esc_url( $bg_video_url ); ?>"
+					autoplay
+					preload="auto"
+					fetchpriority="high"
+					<?php if ( $poster_url ) : ?>poster="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
+				<?php else : ?>
+					data-src="<?php echo esc_url( $bg_video_url ); ?>"
+					<?php if ( $poster_url ) : ?>data-poster="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
+				<?php endif; ?>
 				muted
 				loop
 				playsinline
-				preload="metadata"
-				<?php if ( $bg_image_id ) : ?>
-					poster="<?php echo esc_url( wp_get_attachment_url( $bg_image_id ) ); ?>"
-				<?php elseif ( $bg_image_url ) : ?>
-					poster="<?php echo $bg_image_url; ?>"
-				<?php endif; ?>
 			></video>
 		<?php elseif ( $bg_image_id ) : ?>
 			<?php
@@ -37,23 +40,23 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 				$bg_image_id,
 				'full',
 				false,
-				array_filter( [
-					'loading'       => $loading,
+				[
+					'loading'       => $is_eager ? 'eager' : 'lazy',
 					'decoding'      => 'async',
 					'role'          => 'presentation',
 					'alt'           => '',
-					'fetchpriority' => $fetchpriority,
-				] )
+					'fetchpriority' => $is_eager ? 'high' : 'auto',
+				]
 			);
 			?>
 		<?php elseif ( $bg_image_url ) : ?>
 			<img
-				src="<?php echo $bg_image_url; ?>"
+				src="<?php echo esc_url( $bg_image_url ); ?>"
 				alt=""
 				role="presentation"
-				loading="<?php echo esc_attr( $loading ); ?>"
+				loading="<?php echo $is_eager ? 'eager' : 'lazy'; ?>"
 				decoding="async"
-				<?php if ( $fetchpriority ) : ?>fetchpriority="high"<?php endif; ?>
+				<?php if ( $is_eager ) : ?>fetchpriority="high"<?php endif; ?>
 			/>
 		<?php endif; ?>
 		<div

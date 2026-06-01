@@ -1,3 +1,5 @@
+import { getScrollTop, scrollTo } from "./utils";
+
 (function () {
   const HEADER_OFFSET = 75;
 
@@ -6,15 +8,12 @@
   };
 
   const scrollToElementWithOffset = (element: Element) => {
-    const elementTop = element.getBoundingClientRect().top + document.body.scrollTop;
+    const elementTop = element.getBoundingClientRect().top + getScrollTop();
     const offsetTop = elementTop - HEADER_OFFSET;
 
-    const scrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
+    const scrollBehavior: ScrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
 
-    document.body.scrollTo({
-      top: Math.max(0, offsetTop),
-      behavior: scrollBehavior,
-    });
+    scrollTo(Math.max(0, offsetTop), scrollBehavior);
   };
 
   const handleAnchorLinks = () => {

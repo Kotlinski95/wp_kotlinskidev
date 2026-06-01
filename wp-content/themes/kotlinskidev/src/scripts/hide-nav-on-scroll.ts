@@ -1,4 +1,4 @@
-import { debounce, isMobile, onScreenSizeChange } from "./utils";
+import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "./utils";
 
 (function () {
   const header = document.querySelector("header") as HTMLElement;
@@ -23,7 +23,7 @@ import { debounce, isMobile, onScreenSizeChange } from "./utils";
   };
 
   const handleScroll = () => {
-    const scrollTop = document.body.scrollTop || window.scrollY;
+    const scrollTop = getScrollTop();
     const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
     const scrollDiff = Math.abs(scrollTop - lastScrollTop);
 
@@ -55,24 +55,22 @@ import { debounce, isMobile, onScreenSizeChange } from "./utils";
 
   const debouncedHandleScroll = debounce(handleScroll, 10);
   let isListening = false;
+  let removeScrollListener: (() => void) | null = null;
 
   const enableScrollHide = () => {
     if (isListening) return;
 
     handleScroll();
 
-    document.body.addEventListener("scroll", debouncedHandleScroll, {
-      passive: true,
-    });
-    window.addEventListener("scroll", debouncedHandleScroll, { passive: true });
+    removeScrollListener = onScroll(debouncedHandleScroll);
     isListening = true;
   };
 
   const disableScrollHide = () => {
     if (!isListening) return;
 
-    document.body.removeEventListener("scroll", debouncedHandleScroll);
-    window.removeEventListener("scroll", debouncedHandleScroll);
+    removeScrollListener?.();
+    removeScrollListener = null;
 
     if (header) header.classList.remove("nav-hidden");
     if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");

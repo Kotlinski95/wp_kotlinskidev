@@ -5,5 +5,7 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/hero-carousel' );
     register_block_type( get_template_directory() . '/src/blocks/hero-carousel/slide' );
     register_block_type( get_template_directory() . '/src/blocks/protected-content' );
+    register_block_type( get_template_directory() . '/src/blocks/scroll-section' );
+    register_block_type( get_template_directory() . '/src/blocks/scroll-section/item' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );

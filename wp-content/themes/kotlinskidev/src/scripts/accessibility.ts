@@ -1,3 +1,5 @@
+import { setScrollBehavior } from "./utils";
+
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("accessibility-js-enabled");
 
@@ -380,10 +382,7 @@ const videoController =
 const DOMOperations = {
   addBodyClass: (className: string) => document.body.classList.add(className),
   removeBodyClass: (className: string) => document.body.classList.remove(className),
-  setScrollBehavior: (behavior: string) => {
-    document.documentElement.style.scrollBehavior = behavior;
-    document.body.style.scrollBehavior = behavior;
-  },
+  setScrollBehavior: (behavior: ScrollBehavior) => setScrollBehavior(behavior),
   dispatchMotionEvent: (prefersReducedMotion: boolean) =>
     window.dispatchEvent(
       new CustomEvent("motionPreferenceChanged", {

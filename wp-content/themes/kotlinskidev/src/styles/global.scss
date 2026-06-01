@@ -16,8 +16,9 @@ html {
 
   /* overflow + width - only with body position fixed
   (solving issue with space after hiding the chrome navbar during scroll to bottom) */
-  overflow: hidden;
-  width: 100%;
+  // overflow: hidden;
+  // overflow-x: hidden !important;
+  // width: 100%;
 
   /* ==== end ===== */
 }
@@ -25,17 +26,17 @@ html {
 body {
   font-family: Sora, "Arial sans-serif";
   line-height: 1.6;
-  overflow-y: scroll;
-  overflow-x: hidden !important;
+  // overflow-y: scroll;
+  // overflow-x: hidden !important;
   scroll-behavior: smooth;
 
   /* set of styles  with body position fixed
   (solving issue with space after hiding the chrome navbar during scroll to bottom)
   === start === */
-  height: 100%;
-  position: fixed;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
+  // height: 100%;
+  // position: fixed;
+  // -webkit-overflow-scrolling: touch;
+  // width: 100%;
 
   /* ==== end ===== */
   &.scroll-lock {
