@@ -15,7 +15,7 @@ function createLayoutPlaceholder(el: HTMLElement): HTMLElement {
 
 function createPortalHost(): HTMLElement {
   const host = document.createElement("div");
-  host.style.cssText = "position:absolute;top:0;left:0;pointer-events:none;";
+  host.style.cssText = "position:absolute;top:0;left:0;pointer-events:none;visibility:hidden;";
   document.body.appendChild(host);
   return host;
 }
@@ -75,11 +75,20 @@ function mountStickyPortal(el: HTMLElement, pageWrapper: HTMLElement): void {
   host.appendChild(el);
   applyNativeSticky(el, topOffset);
 
+  let placeholderVisible = false;
   const sync = () => alignHostToPlaceholder(host, placeholder, stickyParent);
+  const syncIfVisible = () => {
+    if (placeholderVisible) sync();
+  };
 
-  window.addEventListener("load", sync);
-  watchForTransformChange(pageWrapper, sync);
-  watchParentResize(stickyParent, placeholder, el, sync);
+  new IntersectionObserver((entries) => {
+    placeholderVisible = entries[0].isIntersecting;
+    host.style.visibility = placeholderVisible ? "visible" : "hidden";
+    if (placeholderVisible) sync();
+  }).observe(stickyParent);
+
+  watchForTransformChange(pageWrapper, syncIfVisible);
+  watchParentResize(stickyParent, placeholder, el, syncIfVisible);
 }
 
 // GSAP's scroll-section applies a persistent transform to .main-wrapper via pinnedContainer
@@ -90,7 +99,8 @@ function initGsapSticky(): void {
   const pageWrapper = document.querySelector<HTMLElement>(".main-wrapper");
   if (!pageWrapper || !document.querySelector(".scroll-section")) return;
 
-  document.querySelectorAll<HTMLElement>(".is-kotlinskidev-sticky")
+  document
+    .querySelectorAll<HTMLElement>(".is-kotlinskidev-sticky")
     .forEach((el) => mountStickyPortal(el, pageWrapper));
 }
 

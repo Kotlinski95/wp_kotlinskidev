@@ -13,7 +13,16 @@
   "viewScript": "file:../../../build/scroll-section-init.js",
   "style": "file:../../../build/style-scroll-section.css",
   "supports": {
-    "align": ["full", "wide"]
+    "align": ["full", "wide"],
+    "anchor": true,
+    "spacing": {
+      "padding": true,
+      "margin": ["top", "bottom"],
+      "blockGap": false
+    },
+    "dimensions": {
+      "minHeight": true
+    }
   },
   "attributes": {
     "trigger": {
@@ -23,6 +32,15 @@
     "backgroundColor": {
       "type": "string",
       "default": ""
+    },
+    "markers": {
+      "type": "boolean",
+      "default": false
+    },
+    "slideWidth": {
+      "type": "string",
+      "enum": ["auto", "full"],
+      "default": "auto"
     }
   }
 }

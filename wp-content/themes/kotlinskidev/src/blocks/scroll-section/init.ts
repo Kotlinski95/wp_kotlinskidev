@@ -14,25 +14,24 @@ const init = (): void => {
     const lastItem = items[items.length - 1];
     if (!lastItem) return;
 
-    const distance = () => {
-      const lastItemBounds = lastItem.getBoundingClientRect();
-      const trackBounds = track.getBoundingClientRect();
-
-      return Math.max(0, lastItemBounds.right - trackBounds.right);
-    };
+    const section = track.closest<HTMLElement>("[data-scroll-section]");
+    const markers = section?.dataset.markers === "true";
+    const triggerPoint = section?.dataset.trigger ?? "center";
+    const start = `top ${triggerPoint}`;
+    const distance = () => Math.max(0, track.scrollWidth - track.clientWidth);
 
     gsap.to(track, {
       x: () => -distance(),
       ease: "none",
       scrollTrigger: {
         trigger: track,
-        start: "top center",
+        start,
         pinnedContainer: pageWrapper,
         end: () => "+=" + distance(),
         pin: pageWrapper,
         scrub: true,
         invalidateOnRefresh: true,
-        markers: true,
+        markers,
       },
     });
   });

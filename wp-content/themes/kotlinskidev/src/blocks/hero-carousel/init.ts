@@ -62,20 +62,22 @@ const initHeroCarousel = (el: HTMLElement): void => {
 };
 
 const init = (): void => {
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        initHeroCarousel(entry.target as HTMLElement);
-        obs.unobserve(entry.target);
-      });
-    },
-    { rootMargin: "200px 0px" }
-  );
-
   document
     .querySelectorAll<HTMLElement>(".hero-carousel__swiper[data-carousel-settings]")
-    .forEach((el) => observer.observe(el));
+    .forEach((el) => {
+      const rootMargin = parseSettings(el).lazyLoad ? "0px" : "200px 0px";
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            initHeroCarousel(entry.target as HTMLElement);
+            obs.unobserve(entry.target);
+          });
+        },
+        { rootMargin }
+      );
+      observer.observe(el);
+    });
 };
 
 if (document.readyState === "loading") {

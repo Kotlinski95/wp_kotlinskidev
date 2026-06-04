@@ -1,4 +1,5 @@
 @use "../../utils/carousel/carousel-nav" as *;
+@import "../../styles/variables";
 
 .hero-carousel {
 	position: relative;
@@ -49,11 +50,14 @@
 		flex-direction: column;
 		justify-content: center;
 		min-height: var(--hero-min-height, 80vh);
-		padding: 4rem 2rem;
+		padding: 4rem 1.5rem;
 		color: #fff;
 		gap: 1.5rem;
 		width: 100%;
 		box-sizing: border-box;
+		max-width: $page-content;
+		margin-inline: auto;
+	    padding-inline: 1.5rem;
 
 		h1,
 		h2,

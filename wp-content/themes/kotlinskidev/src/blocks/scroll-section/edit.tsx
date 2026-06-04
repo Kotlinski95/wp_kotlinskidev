@@ -2,7 +2,13 @@ import React from "react";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
-import { PanelBody, Button, SelectControl, ColorPalette } from "@wordpress/components";
+import {
+  PanelBody,
+  Button,
+  SelectControl,
+  ColorPalette,
+  ToggleControl,
+} from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import "./style.scss";
 
@@ -22,10 +28,13 @@ interface BlockEditorActions {
 }
 
 type TriggerValue = "top" | "center" | "bottom";
+type SlideWidth = "auto" | "full";
 
 interface ScrollSectionAttributes {
   trigger: TriggerValue;
   backgroundColor: string;
+  markers: boolean;
+  slideWidth: SlideWidth;
 }
 
 export default function Edit({
@@ -60,9 +69,11 @@ export default function Edit({
     if (last) removeBlock(last.clientId);
   };
 
-  const editorStyle = attributes.backgroundColor
-    ? { background: attributes.backgroundColor }
-    : undefined;
+  const blockProps = useBlockProps({
+    className: "scroll-section scroll-section--editor",
+    style: attributes.backgroundColor ? { background: attributes.backgroundColor } : undefined,
+    "data-slide-width": attributes.slideWidth,
+  });
 
   return (
     <>
@@ -76,9 +87,21 @@ export default function Edit({
               { label: __("Center of screen", "kotlinskidev"), value: "center" as TriggerValue },
               { label: __("Top of screen", "kotlinskidev"), value: "top" as TriggerValue },
             ]}
-            onChange={(value: string) =>
-              setAttributes({ trigger: value as TriggerValue })
-            }
+            onChange={(value: string) => setAttributes({ trigger: value as TriggerValue })}
+          />
+          <SelectControl
+            label={__("Slide width", "kotlinskidev")}
+            value={attributes.slideWidth}
+            options={[
+              { label: __("Auto", "kotlinskidev"), value: "auto" as SlideWidth },
+              { label: __("Full", "kotlinskidev"), value: "full" as SlideWidth },
+            ]}
+            onChange={(value: string) => setAttributes({ slideWidth: value as SlideWidth })}
+          />
+          <ToggleControl
+            label={__("Show markers", "kotlinskidev")}
+            checked={attributes.markers}
+            onChange={(value: boolean) => setAttributes({ markers: value })}
           />
         </PanelBody>
         <PanelBody title={__("Background", "kotlinskidev")}>
@@ -113,10 +136,7 @@ export default function Edit({
         </PanelBody>
       </InspectorControls>
 
-      <div
-        {...useBlockProps({ className: "scroll-section scroll-section--editor" })}
-        style={editorStyle}
-      >
+      <div {...blockProps}>
         <div className="scroll-section__track scroll-section__track--editor">
           <InnerBlocks
             allowedBlocks={ALLOWED_BLOCKS}
