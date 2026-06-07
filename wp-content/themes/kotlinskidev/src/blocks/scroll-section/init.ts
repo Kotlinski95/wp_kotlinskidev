@@ -3,6 +3,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 const init = (): void => {
   const pageWrapper = document.querySelector<HTMLElement>(".main-wrapper");
   if (!pageWrapper) return;

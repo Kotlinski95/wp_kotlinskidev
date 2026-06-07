@@ -84,18 +84,6 @@ export default function Edit({
     }
   }, [innerBlocks.length, activeSlide]);
 
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => {
-      innerBlocks.forEach((block, i) => {
-        const el = document.querySelector(`[data-block="${block.clientId}"]`);
-        if (el instanceof HTMLElement) {
-          el.style.display = i === activeSlide ? "" : "none";
-        }
-      });
-    });
-    return () => cancelAnimationFrame(raf);
-  }, [activeSlide, innerBlocks]);
-
   const slideCount = innerBlocks.length;
 
   const handleNavigate = (index: number) => {
@@ -236,7 +224,7 @@ export default function Edit({
         data-active-slide={activeSlide}
         style={
           {
-            "--hero-min-height": `${minHeight}vh`,
+            "--hero-min-height": `${minHeight}svh`,
             ...(navColorStyle ?? {}),
           } as React.CSSProperties
         }

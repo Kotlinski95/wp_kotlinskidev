@@ -1,6 +1,5 @@
 import "./critical.scss";
 import "./scripts/theme-switcher";
-import "./scripts/parallax";
 import "./scripts/restoration";
 import "./scripts/utils";
 

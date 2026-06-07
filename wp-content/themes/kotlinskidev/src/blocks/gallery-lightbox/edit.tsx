@@ -31,6 +31,7 @@ export interface GalleryLightboxAttributes extends Partial<CarouselSettings> {
   videoMuted: boolean;
   useMobileMedia: boolean;
   mobileImages: GalleryMedia[];
+  lockHeight: boolean;
 }
 
 interface WPMediaItem {
@@ -80,7 +81,7 @@ export default function Edit({
     videoLoop = false,
     videoMuted = false,
   } = attributes;
-  const { useMobileMedia = false, mobileImages = [] } = attributes;
+  const { useMobileMedia = false, mobileImages = [], lockHeight = false } = attributes;
   const hasVideos = images.some((item) => item.type === "video");
 
   const onAdd = (selected: WPMediaItem | WPMediaItem[]) => {
@@ -158,6 +159,18 @@ export default function Edit({
                 </Button>
               )}
             />
+
+            <div className="gallery-lightbox-sidebar-divider">
+              <ToggleControl
+                label={__("Lock height to first image", "kotlinskidev")}
+                help={__(
+                  "Keeps the block height fixed when slides change. Requires 'Track active slide' to be enabled.",
+                  "kotlinskidev"
+                )}
+                checked={lockHeight}
+                onChange={(value) => setAttributes({ lockHeight: value })}
+              />
+            </div>
 
             <div className="gallery-lightbox-sidebar-divider">
               <ToggleControl

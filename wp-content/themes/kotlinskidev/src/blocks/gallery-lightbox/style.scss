@@ -78,7 +78,7 @@ body.light-mode .gallery-lightbox-modal {
 
     img {
       max-width: 90vw;
-      max-height: 90vh;
+      max-height: 90svh;
       width: auto;
       height: auto;
       object-fit: contain;
@@ -89,7 +89,7 @@ body.light-mode .gallery-lightbox-modal {
   .swiper-slide--video {
     video {
       max-width: 90vw;
-      max-height: 80vh;
+      max-height: 80svh;
       width: fit-content;
       height: auto;
       object-fit: contain;

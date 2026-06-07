@@ -70,7 +70,6 @@ function kotlinskidev_tracked_build_files(): array {
         $build . 'critical.js',
         $build . 'main.css',
         $build . 'main.js',
-        $build . 'tailwind.css',
     ];
 }
 

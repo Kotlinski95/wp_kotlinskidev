@@ -28,7 +28,7 @@ foreach ( $block->inner_blocks as $i => $slide_block ) {
 	$slides_html .= $slide_block->render();
 }
 
-$inline_style = '--hero-min-height: ' . $min_height . 'vh';
+$inline_style = '--hero-min-height: ' . $min_height . 'svh';
 if ( $nav_color ) {
 	$prop          = $nav_color_hover ? '--carousel-nav-color-hover' : '--carousel-nav-color';
 	$inline_style .= '; ' . $prop . ': ' . esc_attr( $nav_color );

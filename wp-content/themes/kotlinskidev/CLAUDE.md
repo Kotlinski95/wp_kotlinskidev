@@ -9,7 +9,7 @@ See @README.md for project overview and @package.json for available npm commands
 - `styles/` at the root holds alternative `theme.json` colour scheme variants. `src/styles/` holds SCSS source. They are unrelated directories.
 - jQuery is intentionally deregistered on the front end. Do not assume it is available in frontend scripts.
 - Polylang handles i18n routing. Pattern files may have `-pl` language variants alongside the default.
-- `npm run build` runs two steps (Webpack + Tailwind). Do not substitute `wp-scripts build` — it skips the Tailwind step.
+- `npm run build` runs webpack.
 
 # Additional Instructions
 - Git workflow: @docs/git-instructions.md

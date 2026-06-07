@@ -1,6 +1,6 @@
 # kotlinskidev
 
-Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS, and Tailwind CSS. Features 10 custom Gutenberg blocks, 56 reusable block patterns, multilingual support, and a dark/light theme switcher.
+Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 10 custom Gutenberg blocks, 56 reusable block patterns, multilingual support, and a dark/light theme switcher.
 
 ---
 
@@ -34,7 +34,7 @@ npm run build
 
 ```bash
 npm run start          # Watch mode — JS, TS, SCSS
-npm run build          # Production build (Webpack + Tailwind)
+npm run build          # Production build (Webpack)
 npm run prettier       # Format all src/**
 npm run lint:js        # ESLint
 npm run lint:css       # Stylelint
@@ -65,8 +65,7 @@ npm run test:e2e       # End-to-end tests
 ├── templates/         FSE block templates (HTML)
 ├── functions.php      Main entry — module loader
 ├── theme.json         Global styles, colour palette, typography, layout
-├── webpack.config.js  Extends @wordpress/scripts defaults
-└── tailwind.config.js
+└── webpack.config.js  Extends @wordpress/scripts defaults
 ```
 
 ---
@@ -131,7 +130,6 @@ The theme uses [Polylang](https://polylang.pro/) for PL/EN support. Language-spe
 - **PHP modules** follow a single-responsibility pattern. `functions/cache.php` must be the first module loaded — it provides transient helpers used by all subsequent modules.
 - **jQuery** is intentionally deregistered on the front end. Frontend scripts use vanilla TypeScript.
 - **Webpack** extends `@wordpress/scripts` defaults with custom entry points (`main`, `critical`, `editor`, block-specific bundles) and path aliases (`@utils`, `@node_modules`).
-- **Tailwind** is used for utility classes in patterns and templates. Custom component styles live in SCSS.
 - **Dark/light mode** is toggled via `body.dark-mode` / `body.light-mode` classes set from `localStorage` before first paint to avoid flash.
 
 ---

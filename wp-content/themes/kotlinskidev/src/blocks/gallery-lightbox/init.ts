@@ -260,15 +260,17 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
       img.alt = item.alt;
       if (item.width) img.width = item.width;
       if (item.height) img.height = item.height;
-      if (item.width && item.height) {
-        applyAspectRatio(trigger, item.width, item.height);
-      } else {
-        applyAspectRatioFromImage(img);
+      if (!settings.lockHeight) {
+        if (item.width && item.height) {
+          applyAspectRatio(trigger, item.width, item.height);
+        } else {
+          applyAspectRatioFromImage(img);
+        }
       }
       if (badge) badge.style.display = "none";
     }
 
-    if (item.type === "video" && item.width && item.height) {
+    if (!settings.lockHeight && item.type === "video" && item.width && item.height) {
       applyAspectRatio(trigger, item.width, item.height);
     }
 

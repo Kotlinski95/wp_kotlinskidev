@@ -10,6 +10,13 @@ const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   }
 };
 
+const preloadSlideImages = (slide: HTMLElement): void => {
+  slide.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+    if (img.loading !== "lazy" || !img.src) return;
+    img.loading = "eager";
+  });
+};
+
 const prepareSlideVideo = (slide: HTMLElement): void => {
   const video = slide.querySelector<HTMLVideoElement>("video");
   if (!video) return;
@@ -42,17 +49,19 @@ const initHeroCarousel = (el: HTMLElement): void => {
   const swiper = initSwiper(el, parseSettings(el));
   el.style.visibility = "visible";
 
+  swiper.slides.forEach((slide, i) => {
+    if (i !== swiper.activeIndex) {
+      prepareSlideVideo(slide);
+      preloadSlideImages(slide);
+    }
+  });
+
   const firstSlide = swiper.slides[swiper.activeIndex];
-  if (firstSlide) {
-    prepareSlideVideo(firstSlide);
-    playSlideVideo(firstSlide);
-  }
+  if (firstSlide) playSlideVideo(firstSlide);
 
   swiper.on("slideChangeTransitionStart", () => {
     const prev = swiper.slides[swiper.previousIndex];
     if (prev) pauseSlideVideo(prev);
-    const active = swiper.slides[swiper.activeIndex];
-    if (active) prepareSlideVideo(active);
   });
 
   swiper.on("slideChangeTransitionEnd", () => {

@@ -28,6 +28,9 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   let panStartTranslateY = 0;
   let isPanning = false;
 
+  let isMousePanning = false;
+  let mouseDragged = false;
+
   const img = (): HTMLElement | null => container.querySelector<HTMLElement>("img");
 
   const clampTranslate = () => {
@@ -72,8 +75,46 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     }
   };
 
+  const onMouseMove = (e: MouseEvent) => {
+    const dx = e.clientX - panStartX;
+    const dy = e.clientY - panStartY;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) mouseDragged = true;
+    if (!mouseDragged) return;
+    translateX = panStartTranslateX + dx;
+    translateY = panStartTranslateY + dy;
+    clampTranslate();
+    applyTransform();
+  };
+
+  const onMouseUp = () => {
+    isMousePanning = false;
+    document.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("mouseup", onMouseUp);
+    const el = img();
+    if (el && isZoomedIn) el.style.cursor = "grab";
+  };
+
+  const onMouseDown = (e: MouseEvent) => {
+    mouseDragged = false;
+    if (!isZoomedIn) return;
+    e.preventDefault();
+    isMousePanning = true;
+    panStartX = e.clientX;
+    panStartY = e.clientY;
+    panStartTranslateX = translateX;
+    panStartTranslateY = translateY;
+    const el = img();
+    if (el) {
+      el.style.transition = "none";
+      el.style.cursor = "grabbing";
+    }
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  };
+
   const onImageClick = (e: MouseEvent) => {
     e.stopPropagation();
+    if (mouseDragged) return;
     const el = img();
     if (!el) return;
     isZoomedIn = !isZoomedIn;
@@ -82,10 +123,13 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
       container.style.overflow = "visible";
       currentScale = 1.75;
       const rect = el.getBoundingClientRect();
-      translateX = (rect.width * (1 - currentScale)) / 2;
-      translateY = (rect.height * (1 - currentScale)) / 2;
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      translateX = cx * (1 - currentScale);
+      translateY = cy * (1 - currentScale);
+      clampTranslate();
       el.style.transition = "transform 0.25s ease";
-      el.style.cursor = "zoom-out";
+      el.style.cursor = "grab";
       applyTransform();
     } else {
       reset(true);
@@ -168,11 +212,14 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
 
   const teardown = () => {
     reset(false);
+    document.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("mouseup", onMouseUp);
     if (isTouchDevice()) {
       container.removeEventListener("touchstart", onTouchStart);
       container.removeEventListener("touchmove", onTouchMove);
       container.removeEventListener("touchend", onTouchEnd);
     } else {
+      container.removeEventListener("mousedown", onMouseDown);
       container.removeEventListener("click", onImageClick);
     }
   };
@@ -184,6 +231,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   } else {
     const el = img();
     if (el) el.style.cursor = "zoom-in";
+    container.addEventListener("mousedown", onMouseDown);
     container.addEventListener("click", onImageClick);
   }
 

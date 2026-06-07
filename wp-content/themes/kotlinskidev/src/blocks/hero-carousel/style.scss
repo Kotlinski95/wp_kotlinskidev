@@ -17,7 +17,7 @@
 
 	&__slide {
 		position: relative;
-		min-height: var(--hero-min-height, 80vh);
+		min-height: var(--hero-min-height, 80svh);
 		overflow: hidden;
 	}
 
@@ -40,16 +40,16 @@
 		position: absolute;
 		inset: 0;
 		background: rgba(0, 0, 0, var(--overlay-opacity, 0.4));
-		z-index: 1;
 		pointer-events: none;
 	}
 
 	&__content {
 		position: relative;
+		transform: translateZ(0);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		min-height: var(--hero-min-height, 80vh);
+		min-height: var(--hero-min-height, 80svh);
 		padding: 4rem 1.5rem;
 		color: #fff;
 		gap: 1.5rem;
@@ -57,7 +57,7 @@
 		box-sizing: border-box;
 		max-width: $page-content;
 		margin-inline: auto;
-	    padding-inline: 1.5rem;
+		padding-inline: 1.5rem;
 
 		h1,
 		h2,
@@ -204,6 +204,17 @@
 			border-radius: 50%;
 			display: inline-block;
 			cursor: pointer;
+		}
+
+		@for $i from 0 through 19 {
+			&[data-active-slide="#{$i}"] {
+				.swiper-wrapper
+				> .block-editor-inner-blocks
+				> .block-editor-block-list__layout
+				> .wp-block:not(:nth-child(#{$i + 1})) {
+					display: none !important;
+				}
+			}
 		}
 	}
 }

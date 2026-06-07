@@ -47,9 +47,6 @@ require_once get_template_directory() . '/functions/responsive-display.php';
 // Load parallax frontend support
 require_once get_template_directory() . '/includes/parallax-frontend.php';
 
-// Load tailwind CSS
-require_once get_template_directory() . '/functions/tailwind.php';
-
 // Load custom login page - can also be handled via plugin
 // require_once get_template_directory() . '/functions/login.php';
 
@@ -95,6 +92,15 @@ require_once get_template_directory() . '/functions/cover-image-classes.php';
 
 // Polylang accessibility fixes
 require_once get_template_directory() . '/functions/polylang-accessibility.php';
+
+// SVG upload support and inline rendering
+require_once get_template_directory() . '/functions/svg-support.php';
+
+// Admin settings page (must load before disable-comments so the option is registered)
+require_once get_template_directory() . '/functions/settings-page.php';
+
+// Disable comments site-wide
+require_once get_template_directory() . '/functions/disable-comments.php';
 
 // Additional theme filters
 require_once get_template_directory() . '/functions/filters.php';

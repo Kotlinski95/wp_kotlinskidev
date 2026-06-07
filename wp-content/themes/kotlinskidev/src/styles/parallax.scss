@@ -1,115 +1,42 @@
 @import "variables";
 
 .wp-block-cover.enable-parallax {
-  position: relative;
-  overflow: hidden;
-  min-height: 50dvh;
+	position: relative;
+	overflow: visible;
+	min-height: 50svh;
 
-  .parallax-bg-wrapper {
-    display: block;
-    position: absolute;
-    top: -20%;
-    left: 0;
-    right: 0;
-    bottom: -20%;
-    overflow: hidden;
-    z-index: 1;
-  }
+	> .wp-block-cover__image-background {
+		display: none;
+	}
 
-  .parallax-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 150%;
-    object-fit: cover;
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 62.5rem;
-  }
-
-  .wp-block-cover__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-  }
-
-  .wp-block-cover__inner-container {
-    position: relative;
-    z-index: 3;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .parallax-content {
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    transition: transform 0.1s ease-out;
-  }
+	.wp-block-cover__inner-container {
+		position: relative;
+		z-index: 2;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
 }
 
-.home-banner {
-  .banner-instructions {
-    display: none;
-  }
-
-  .default-bg {
-    display: block;
-  }
-
-  .parallax-bg-wrapper {
-    display: none;
-  }
-
-  &.enable-parallax {
-    min-height: 100dvh;
-
-    .default-bg {
-      display: none;
-    }
-
-    .parallax-bg-wrapper {
-      display: block;
-    }
-  }
+.home-banner.enable-parallax {
+	min-height: 100svh;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wp-block-cover.enable-parallax {
-    .parallax-bg,
-    .parallax-content {
-      transform: none !important;
-      will-change: auto;
-    }
-  }
-}
 
-@media (max-width: $mobile) {
-  .wp-block-cover.enable-parallax {
-    .parallax-bg {
-      height: 110%;
-    }
-
-    .parallax-bg-wrapper {
-      top: -10%;
-      bottom: -10%;
-    }
-  }
+	.wp-block-cover.enable-parallax {
+		background-attachment: scroll;
+	}
 }
 
 .wp-block-cover.enable-parallax .parallax-content.fade-up-on-scroll {
-  opacity: 0;
-  transform: translate3d(0, 2rem, 0);
-  transition:
-    opacity 0.8s ease-out,
-    transform 0.8s ease-out;
+	opacity: 0;
+	transform: translate3d(0, 2rem, 0);
+	transition:
+		opacity 0.8s ease-out,
+		transform 0.8s ease-out;
 
-  &.visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+	&.visible {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
 }

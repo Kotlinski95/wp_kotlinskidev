@@ -35,6 +35,7 @@
     "videoLoop": { "type": "boolean", "default": false },
     "videoMuted": { "type": "boolean", "default": false },
     "useMobileMedia": { "type": "boolean", "default": false },
-    "mobileImages": { "type": "array", "default": [] }
+    "mobileImages": { "type": "array", "default": [] },
+    "lockHeight": { "type": "boolean", "default": false }
   }
 }
