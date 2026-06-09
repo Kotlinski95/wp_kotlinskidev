@@ -177,3 +177,11 @@
 		}
 	}
 }
+
+.carousel-nav:has(.swiper-button-prev[disabled]) {
+	display: none;
+}
+
+.carousel-nav:has(.swiper-button-prev[disabled]) ~ .swiper-pagination {
+	display: none;
+}

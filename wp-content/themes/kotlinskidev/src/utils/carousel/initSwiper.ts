@@ -55,6 +55,11 @@ export const initSwiper = (
   const total =
     slideCount ?? el.querySelectorAll(".swiper-slide:not(.swiper-slide-duplicate)").length;
 
+  if (total <= 1) {
+    prevEl?.setAttribute("disabled", "");
+    nextEl?.setAttribute("disabled", "");
+  }
+
   if (counterEl || onSlideChange) {
     const updateCounter = () => {
       const index = swiper.realIndex ?? 0;

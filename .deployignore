@@ -1,43 +1,107 @@
-# Ignore node_modules inside the theme
-wp-content/themes/kotlinskidev/node_modules/
-wp-content/themes/kotlinskidev/node_modules/**
-
-# (Optional) Exclude node_modules anywhere else
-**/node_modules/
-node_modules/**
-
-# Ignore WordPress core files
+# ── WordPress core ────────────────────────────────────────────────
+wp-admin
 wp-admin/**
+wp-includes
 wp-includes/**
 wp-*.php
-index.php
 xmlrpc.php
+index.php
 license.txt
 readme.html
 
-# Ignore WordPress content except specific theme and plugins
-wp-content/*
-!wp-content/themes/
-wp-content/themes/*
-!wp-content/themes/kotlinskidev/
-!wp-content/themes/kotlinskidev/**
-wp-content/plugins/**
-!wp-content/plugins/block-visibility/**
-!wp-content/plugins/contact-form-block/**
-!wp-content/plugins/contact-form-ts/**
-!wp-content/plugins/custom-facebook-pixel-loader/**
-!wp-content/plugins/custom-google-analytics-loader/**
-!wp-content/plugins/google-maps-block/**
-!wp-content/plugins/kotlinskidev-custom-login/**
-!wp-content/plugins/responsive-image/**
-!wp-content/plugins/slider-block/**
-!wp-content/plugins/responsive-spacing-controls/**
-!wp-content/plugins/responsive-font-controls/**
-!wp-content/plugins/text-justify-controls/**
-!wp-content/plugins/wordpress-pwa-manager/**
-
-# Ignore local wp-config
+# ── Local / sensitive ─────────────────────────────────────────────
 wp-config.php
-
-# Ignore local .htaccess
 .htaccess
+local-xdebuginfo.php
+composer.json
+composer.lock
+**/*.log
+**/*.sql
+**/*.sqlite
+**/*.bak
+db
+db/**
+
+# ── Dev tooling & VCS ─────────────────────────────────────────────
+.git
+.git/**
+.github
+.github/**
+.claude
+.claude/**
+.vscode
+.vscode/**
+.DS_Store
+Thumbs.db
+
+# ── wp-content: allow only theme + custom plugins ─────────────────
+wp-content/*
+!wp-content/themes
+!wp-content/plugins
+!wp-content/mu-plugins
+!wp-content/languages
+!wp-content/db.php
+!wp-content/index.php
+
+wp-content/uploads
+wp-content/uploads/**
+wp-content/cache
+wp-content/cache/**
+wp-content/ai1wm-backups
+wp-content/ai1wm-backups/**
+wp-content/debug.log
+wp-content/upgrade
+wp-content/upgrade/**
+wp-content/upgrade-temp-backup
+wp-content/upgrade-temp-backup/**
+wp-content/smush-webp
+wp-content/smush-webp/**
+wp-content/wp-staging
+wp-content/wp-staging/**
+wp-content/novamira-sandbox
+wp-content/novamira-sandbox/**
+
+# ── Theme: include kotlinskidev only, strip dev artifacts ─────────
+wp-content/themes/*
+!wp-content/themes/kotlinskidev
+!wp-content/themes/kotlinskidev/**
+wp-content/themes/kotlinskidev/node_modules
+wp-content/themes/kotlinskidev/node_modules/**
+wp-content/themes/kotlinskidev/src
+wp-content/themes/kotlinskidev/src/**
+wp-content/themes/kotlinskidev/docs
+wp-content/themes/kotlinskidev/docs/**
+wp-content/themes/kotlinskidev/.claude
+wp-content/themes/kotlinskidev/.claude/**
+wp-content/themes/kotlinskidev/.nvmrc
+wp-content/themes/kotlinskidev/.prettierignore
+wp-content/themes/kotlinskidev/.prettierrc.json
+wp-content/themes/kotlinskidev/package.json
+wp-content/themes/kotlinskidev/package-lock.json
+wp-content/themes/kotlinskidev/webpack.config.js
+wp-content/themes/kotlinskidev/tsconfig.json
+wp-content/themes/kotlinskidev/tailwind.config.js
+wp-content/themes/kotlinskidev/tailwind.css
+wp-content/themes/kotlinskidev/CLAUDE.md
+wp-content/themes/kotlinskidev/README.md
+
+# ── Plugins: custom plugins only ──────────────────────────────────
+wp-content/plugins/*
+!wp-content/plugins/block-visibility
+!wp-content/plugins/contact-form-block
+!wp-content/plugins/contact-form-ts
+!wp-content/plugins/custom-facebook-pixel-loader
+!wp-content/plugins/custom-google-analytics-loader
+!wp-content/plugins/google-maps-block
+!wp-content/plugins/kotlinskidev-custom-login
+!wp-content/plugins/responsive-image
+!wp-content/plugins/slider-block
+!wp-content/plugins/responsive-spacing-controls
+!wp-content/plugins/responsive-font-controls
+!wp-content/plugins/text-justify-controls
+!wp-content/plugins/wordpress-pwa-manager
+
+wp-content/plugins/*/node_modules
+wp-content/plugins/*/node_modules/**
+wp-content/plugins/*/src
+wp-content/plugins/*/src/**
