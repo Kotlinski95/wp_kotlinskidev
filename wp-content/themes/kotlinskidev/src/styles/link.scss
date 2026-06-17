@@ -1,47 +1,60 @@
 header,
 footer {
-  @media (min-width: $breakpoint-desktop) {
-    a:not(#scroll-to-top):not(.custom-logo-link) {
-      position: relative;
-      text-decoration: none;
 
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 0;
-        height: 0.125rem;
-        background: currentcolor;
-        transition: width 0.3s ease;
-      }
+	@media (min-width: $breakpoint-desktop) {
 
-      &:hover::after,
-      &:focus::after {
-        width: 100%;
-      }
-    }
-  }
+		a:not(#scroll-to-top):not(.custom-logo-link) {
+			position: relative;
+			text-decoration: none;
+
+			&::after {
+				content: "";
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 0;
+				height: 0.125rem;
+				background:
+ var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+				transition: width 0.3s ease;
+			}
+
+			&:hover::after,
+			&:focus::after {
+				width: 100%;
+			}
+
+			&:focus {
+				background-image:
+ var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+				background-clip: text;
+				-webkit-background-clip: text;
+				color: transparent;
+				-webkit-text-fill-color: transparent;
+			}
+		}
+	}
 }
 
 .dark-mode {
-  // Prevent styles if only whitespace (spaces, tabs, newlines) is present
-  .link-dark-variant-support:not(:empty) {
-    &:not(:has(a)) {
-      background-color: var(--wp--preset--color--primary) !important;
-      color: var(--wp--preset--color--white) !important;
-      padding: 0.3125rem 0.625rem;
-      border-radius: 0.9375rem;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-    }
+	// Prevent styles if only whitespace (spaces, tabs, newlines) is present
+	.link-dark-variant-support:not(:empty) {
 
-    a {
-      background-color: var(--wp--preset--color--primary) !important;
-      color: var(--wp--preset--color--white) !important;
-      padding: 0.3125rem 0.625rem;
-      border-radius: 0.9375rem;
-      transition: background-color 0.3s ease;
-    }
-  }
+		&:not(:has(a)) {
+			background-color: var(--wp--preset--color--primary) !important;
+			color: var(--wp--preset--color--white) !important;
+			padding: 0.3125rem 0.625rem;
+			border-radius: 0.9375rem;
+			transition: background-color 0.3s ease;
+			display: inline-block;
+		}
+
+		a {
+			background-color: var(--wp--preset--color--primary) !important;
+			color: var(--wp--preset--color--white) !important;
+			padding: 0.3125rem 0.625rem;
+			border-radius: 0.9375rem;
+			transition: background-color 0.3s ease;
+		}
+	}
 }

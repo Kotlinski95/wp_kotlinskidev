@@ -5,9 +5,6 @@ function kotlinskidev_navigation_shortcode()
     ob_start();
 ?>
     <nav>
-        <div id="page-loader">
-            <div class="spinner"></div>
-        </div>
         <div class="header-wrapper">
             <section class="header-right" style="display: none;">
                 <?php echo do_shortcode('[theme_switcher]'); ?>

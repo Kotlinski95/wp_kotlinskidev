@@ -21,3 +21,15 @@ declare module "@wordpress/block-editor" {
 
   export const __experimentalColorGradientControl: import("react").FC<ColorGradientControlProps>;
 }
+
+declare module "@wordpress/server-side-render" {
+  import { ComponentType } from "react";
+
+  interface ServerSideRenderProps {
+    block: string;
+    attributes?: Record<string, unknown>;
+  }
+
+  const ServerSideRender: ComponentType<ServerSideRenderProps>;
+  export default ServerSideRender;
+}

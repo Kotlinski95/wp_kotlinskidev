@@ -41,17 +41,19 @@ function remove_jquery()
 }
 add_action('wp_enqueue_scripts', 'remove_jquery');
 
-// Disable admin bar for all users on the front end
-add_filter('show_admin_bar', '__return_false');
-
-// Remove admin bar CSS from the front end
-function remove_admin_bar_css()
+function kotlinskidev_show_admin_bar(bool $show): bool
 {
-    if (!is_admin()) {
+    return current_user_can('manage_options') ? $show : false;
+}
+add_filter('show_admin_bar', 'kotlinskidev_show_admin_bar');
+
+function kotlinskidev_remove_admin_bar_css(): void
+{
+    if (!is_admin() && !current_user_can('manage_options')) {
         wp_deregister_style('admin-bar');
     }
 }
-add_action('wp_enqueue_scripts', 'remove_admin_bar_css');
+add_action('wp_enqueue_scripts', 'kotlinskidev_remove_admin_bar_css');
 
 // disable stylesheet (wpassetcleanup-style-css id added by wpassetcleanup plugin)
 function shapeSpace_disable_scripts_styles()

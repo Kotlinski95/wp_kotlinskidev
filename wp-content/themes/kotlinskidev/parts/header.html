@@ -1,1 +1,37 @@
-<!-- wp:pattern {"slug":"kotlinskidev/header"} /-->
+<!-- wp:group {"metadata":{"name":"Header"},"tagName":"header","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"100%"}} -->
+<header class="wp-block-group" style="margin-top: 0; margin-bottom: 0; height: 100%;">
+  <!-- wp:group {"metadata":{"name":"Content Container"},"style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"0rem","bottom":"0rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+  <div
+    class="wp-block-group"
+    style="
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0rem;
+      padding-right: var(--wp--preset--spacing--40);
+      padding-bottom: 0rem;
+      padding-left: var(--wp--preset--spacing--40);
+      height: 100%;
+    "
+  >
+    <!-- wp:group {"metadata":{"name":"Header Row"},"style":{"dimensions":{"width":"100%"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+    <div class="wp-block-group" style="width: 100%; height: 100%">
+      <!-- wp:group {"metadata":{"name":"Header Logo"},"style":{"spacing":{"blockGap":"var:preset|spacing|30","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+      <div class="wp-block-group" style="margin-top: 0; margin-bottom: 0">
+        <!-- wp:site-logo {"metadata":{"name":"Logo"},"width":86,"height":64,"shouldSyncIcon":false} /-->
+      </div>
+      <!-- /wp:group -->
+
+      <!-- wp:group {"metadata":{"name":"Header Controls"},"style":{"spacing":{"blockGap":"var:preset|spacing|30","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center","gap":"var:preset|spacing|80"}} -->
+      <div class="wp-block-group" style="margin-top: 0; margin-bottom: 0; gap: var(--wp--preset--spacing--80); display: flex; height: 100%">
+        <!-- wp:kotlinskidev/theme-switcher {"metadata":{"name":"Theme Switcher"}} /-->
+
+        <!-- wp:kotlinskidev/navigation {"metadata":{"name":"Desktop Nav"},"menuSlug":"desktop-menu","overlayMenu":"never","className":"nav-desktop"} /-->
+        <!-- wp:kotlinskidev/navigation {"metadata":{"name":"Mobile Nav"},"menuSlug":"mobile-menu","overlayMenu":"always","className":"nav-mobile"} /-->
+      </div>
+      <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+  </div>
+  <!-- /wp:group -->
+</header>
+<!-- /wp:group -->

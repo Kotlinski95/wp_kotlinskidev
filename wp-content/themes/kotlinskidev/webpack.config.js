@@ -47,6 +47,8 @@ module.exports = {
       "index.tsx"
     ),
     editor: path.resolve(process.cwd(), "src", "editor.ts"),
+    navigation: path.resolve(process.cwd(), "src", "blocks", "navigation", "index.tsx"),
+    "theme-switcher": path.resolve(process.cwd(), "src", "blocks", "theme-switcher", "index.tsx"),
   },
 
   output: {

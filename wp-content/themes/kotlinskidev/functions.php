@@ -66,6 +66,9 @@ require_once get_template_directory() . '/functions/language-switcher.php';
 // Theme switcher
 require_once get_template_directory() . '/functions/theme-switcher.php';
 
+// Page loader
+require_once get_template_directory() . '/functions/page-loader.php';
+
 // Navigation
 require_once get_template_directory() . '/functions/navigation.php';
 
