@@ -1,4 +1,16 @@
+import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
+
 document.addEventListener("DOMContentLoaded", () => {
+  const closeHamburger = () => {
+    document
+      .querySelectorAll<HTMLButtonElement>(
+        ".wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close"
+      )
+      .forEach((btn) => btn.click());
+  };
+
+  registerPanel(closeHamburger);
+
   document
     .querySelectorAll<HTMLButtonElement>(".wp-block-navigation__responsive-container-open")
     .forEach((openBtn) => {
@@ -17,6 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         { capture: true }
       );
+
+      openBtn.addEventListener("click", () => {
+        const nav = openBtn.closest(".wp-block-navigation");
+        const isAlreadyOpen = !!nav?.querySelector(
+          ".wp-block-navigation__responsive-container.is-menu-open"
+        );
+        if (!isAlreadyOpen) {
+          closeAllExcept(closeHamburger);
+        }
+      });
     });
 
   document.addEventListener(

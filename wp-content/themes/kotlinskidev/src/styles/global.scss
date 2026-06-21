@@ -16,6 +16,11 @@ html {
 	--scrollbar-width: calc(100vw - 100%);
 	overflow-x: clip;
 	overscroll-behavior: none;
+
+	&.has-modal-open {
+		overflow: hidden;
+		touch-action: none;
+	}
 }
 
 body {
@@ -28,6 +33,16 @@ body {
 	&.scroll-lock {
 		overflow: hidden;
 		touch-action: none;
+	}
+
+	&.dark-mode {
+		background-color: var(--color-surface);
+		color: var(--color-text);
+	}
+
+	&.light-mode {
+		background-color: var(--color-surface);
+		color: var(--color-text);
 	}
 }
 
@@ -195,12 +210,12 @@ span:empty {
 	.wp-lightbox-overlay {
 
 		.scrim {
-			background: var(--light-bg-color) !important;
+			background: var(--wp--preset--color--light-color) !important;
 		}
 
 		.close-button,
 		.wp-lightbox-close-button {
-			fill: var(--dark-bg-color) !important;
+			fill: var(--wp--preset--color--dark-color) !important;
 		}
 	}
 }
@@ -226,12 +241,12 @@ span:empty {
 	.wp-lightbox-overlay {
 
 		.scrim {
-			background: var(--dark-bg-color) !important;
+			background: var(--wp--preset--color--dark-color) !important;
 		}
 
 		.close-button,
 		.wp-lightbox-close-button {
-			fill: var(--light-bg-color) !important;
+			fill: var(--wp--preset--color--light-color) !important;
 		}
 	}
 
@@ -327,20 +342,35 @@ span:empty {
 			position: fixed;
 			inset: 0;
 			z-index: 999;
-			background: var(--dark-bg-color);
+			background: var(--wp--preset--color--dark-color);
 			opacity: 0.5;
 			pointer-events: auto;
 			transition: background 0.3s;
 		}
 
 		&.dark-mode::before {
-			background: var(--dark-bg-color);
+			background: var(--wp--preset--color--dark-color);
 			opacity: 0.7;
 		}
 
 		&.light-mode::before {
-			background: var(--light-bg-color);
+			background: var(--wp--preset--color--light-color);
 			opacity: 0.7;
 		}
+	}
+}
+
+.dark-mode,
+.light-mode {
+
+	a:not(.custom-color):not(.has-text-color):not(.has-background) {
+		display: inline-block;
+	}
+
+	a:not(.custom-color):not(.has-text-color):not(.has-background):hover {
+		background: var(--color-link-hover-override, var(--kt-text-gradient));
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
 	}
 }

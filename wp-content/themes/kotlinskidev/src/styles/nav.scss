@@ -1,16 +1,24 @@
 @import "variables";
+@import "theme-colors";
 
 :root {
 	--animation-curve: cubic-bezier(1, 0, 0, 1);
+	--color-surface: var(--wp--preset--color--dark-color);
+	--color-text: var(--wp--preset--color--light-color);
+}
+
+body.light-mode {
+	--color-surface: var(--wp--preset--color--light-color);
+	--color-text: var(--wp--preset--color--dark-color);
 }
 
 header {
 	top: env(safe-area-inset-top);
 	right: 0;
 	left: 0;
-	height: 4.6875rem;
-	min-block-size: 4.6875rem;
-	max-block-size: 4.6875rem;
+	height: $header;
+	min-block-size: $header;
+	max-block-size: $header;
 	position: fixed;
 	width: 100%;
 	z-index: 1000;
@@ -36,10 +44,11 @@ header {
 			transition:
 				inset 0.4s ease-in-out,
 				border-radius 0.4s ease-in-out,
+				box-shadow 0.4s ease-in-out,
 				background-color 0.1s ease-in-out,
 				backdrop-filter 0.1s ease-in-out,
-				filter 0.1s ease-in-out,
-				box-shadow 0.1s ease-in-out;
+				filter 0.1s ease-in-out;
+			will-change: inset, border-radius, box-shadow, background-color, backdrop-filter, filter;
 		}
 
 		&.header-sticky {
@@ -313,11 +322,11 @@ header::before {
 
 #hamburger-menu {
 	position: fixed;
-	top: 4.6875rem;
+	top: $header;
 	right: -100%;
 	width: 100%;
-	height: calc(100svh - 4.6875rem);
-	min-height: calc(100svh - 4.6875rem);
+	height: calc(100svh - $header);
+	min-height: calc(100svh - $header);
 	background-color: rgba($black, 0.8);
 	display: flex;
 	flex-direction: column;
@@ -532,25 +541,25 @@ header::before {
 body.admin-bar {
 
 	header {
-		top: calc(32px + env(safe-area-inset-top));
+		top: calc(#{$admin-bar-desktop} + env(safe-area-inset-top));
 	}
 
 	#hamburger-menu {
-		top: calc(4.6875rem + 32px);
-		height: calc(100svh - 4.6875rem - 32px);
-		min-height: calc(100svh - 4.6875rem - 32px);
+		top: calc(#{$header} + #{$admin-bar-desktop});
+		height: calc(100svh - #{$header} - #{$admin-bar-desktop});
+		min-height: calc(100svh - #{$header} - #{$admin-bar-desktop});
 	}
 
 	@media (min-width: 601px) and (max-width: 782px) {
 
 		header {
-			top: calc(46px + env(safe-area-inset-top));
+			top: calc(#{$admin-bar-mobile} + env(safe-area-inset-top));
 		}
 
 		#hamburger-menu {
-			top: calc(4.6875rem + 46px);
-			height: calc(100svh - 4.6875rem - 46px);
-			min-height: calc(100svh - 4.6875rem - 46px);
+			top: calc(#{$header} + #{$admin-bar-mobile});
+			height: calc(100svh - #{$header} - #{$admin-bar-mobile});
+			min-height: calc(100svh - #{$header} - #{$admin-bar-mobile});
 		}
 	}
 
@@ -561,13 +570,13 @@ body.admin-bar {
 		}
 
 		header {
-			top: calc(46px + env(safe-area-inset-top));
+			top: calc(#{$admin-bar-mobile} + env(safe-area-inset-top));
 		}
 
 		#hamburger-menu {
-			top: calc(4.6875rem + 46px);
-			height: calc(100svh - 4.6875rem - 46px);
-			min-height: calc(100svh - 4.6875rem - 46px);
+			top: calc(#{$header} + #{$admin-bar-mobile});
+			height: calc(100svh - #{$header} - #{$admin-bar-mobile});
+			min-height: calc(100svh - #{$header} - #{$admin-bar-mobile});
 		}
 	}
 }
@@ -670,12 +679,12 @@ body.admin-bar {
 	&.is-menu-open {
 		position: fixed;
 		animation: kt-nav-slide-in 0.35s var(--animation-curve);
-		top: 4.6875rem;
+		top: $header;
 		right: 0;
 		left: 0;
 		width: 100%;
-		height: calc(100svh - 4.6875rem);
-		min-height: calc(100svh - 4.6875rem);
+		height: calc(100svh - $header);
+		min-height: calc(100svh - $header);
 		background-color: rgba($black, 0.8);
 		display: flex;
 		flex-direction: column;
@@ -689,30 +698,6 @@ body.admin-bar {
 
 		.light-mode & {
 			background-color: rgba($white, 0.8);
-		}
-
-		body.admin-bar & {
-			top: calc(4.6875rem + 32px);
-			height: calc(100svh - 4.6875rem - 32px);
-			min-height: calc(100svh - 4.6875rem - 32px);
-		}
-
-		@media (min-width: 601px) and (max-width: 782px) {
-
-			body.admin-bar & {
-				top: calc(4.6875rem + 46px);
-				height: calc(100svh - 4.6875rem - 46px);
-				min-height: calc(100svh - 4.6875rem - 46px);
-			}
-		}
-
-		@media (max-width: 600px) {
-
-			body.admin-bar & {
-				top: calc(4.6875rem + 46px);
-				height: calc(100svh - 4.6875rem - 46px);
-				min-height: calc(100svh - 4.6875rem - 46px);
-			}
 		}
 	}
 }
@@ -737,7 +722,7 @@ body.admin-bar {
 		width: 100%;
 	}
 
-	.has-child {
+	.wp-block-navigation-item.has-child {
 		display: grid !important;
 		grid-template-columns: 1fr;
 	}
@@ -816,7 +801,8 @@ body.admin-bar {
 
 		&:hover {
 			opacity: 1;
-			color: var(--wp--preset--color--primary) !important;
+
+			@include gradient-text();
 		}
 	}
 
@@ -838,7 +824,6 @@ body.admin-bar {
 		border: none;
 		color: inherit;
 		box-sizing: border-box;
-		transition: color 0.3s ease;
 		grid-area: 1 / 1;
 		margin: 0 !important;
 		width: 100% !important;
@@ -857,11 +842,13 @@ body.admin-bar {
 		}
 
 		&:hover {
-			color: var(--wp--preset--color--primary);
+
+			@include gradient-text();
 		}
 
 		&[aria-expanded="true"] {
-			color: var(--wp--preset--color--primary);
+
+			@include gradient-text();
 		}
 	}
 
@@ -905,5 +892,12 @@ body.admin-bar {
 
 	.wp-block-kotlinskidev-navigation.nav-desktop {
 		display: none;
+	}
+}
+
+.wp-block-navigation {
+
+	.wp-block-navigation__responsive-dialog {
+		margin-top: 0 !important;
 	}
 }

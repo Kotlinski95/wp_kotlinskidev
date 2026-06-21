@@ -13,5 +13,10 @@ body.light-mode {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
+}
+
+@mixin text-inherit() {
+  color: inherit !important;
+  -webkit-text-fill-color: initial !important;
+  background: none !important;
 }

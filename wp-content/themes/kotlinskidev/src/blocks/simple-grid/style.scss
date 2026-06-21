@@ -1,0 +1,29 @@
+.kt-simple-grid {
+	display: grid;
+	grid-template-columns: repeat(var(--kt-sg-cols, 2), 1fr);
+	gap: var(--wp--style--block-gap, 1.5rem);
+
+	&__add {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		border: 1px dashed rgba(0, 0, 0, 0.3);
+		border-radius: 0.25rem;
+		background: transparent;
+		cursor: pointer;
+		font-size: 1.25rem;
+		color: rgba(0, 0, 0, 0.5);
+		margin-top: 0.5rem;
+
+		&:hover {
+			border-color: rgba(0, 0, 0, 0.6);
+			color: rgba(0, 0, 0, 0.8);
+		}
+	}
+}
+
+.kt-holder {
+	min-height: 2rem;
+}

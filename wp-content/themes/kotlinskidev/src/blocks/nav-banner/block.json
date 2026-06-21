@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/nav-banner",
+  "version": "1.0.0",
+  "title": "Nav Banner",
+  "category": "kotlinskidev-navigation",
+  "icon": "align-center",
+  "description": "Banner with background image and overlay content for navigation panels.",
+  "textdomain": "kotlinskidev",
+  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder"],
+  "editorScript": "file:../../../build/nav-content.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "mediaId": { "type": "integer", "default": 0 },
+    "mediaUrl": { "type": "string", "default": "" },
+    "heading": { "type": "string", "default": "" },
+    "description": { "type": "string", "default": "" },
+    "linkUrl": { "type": "string", "default": "" },
+    "linkLabel": { "type": "string", "default": "" },
+    "overlayOpacity": { "type": "integer", "default": 40 }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "spacing": {
+      "padding": true
+    }
+  }
+}

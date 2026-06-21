@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/search-panel",
+  "version": "1.0.0",
+  "title": "Search Panel",
+  "category": "kotlinskidev",
+  "icon": "search",
+  "description": "Search trigger with configurable panel content. Place inside a navigation for a mega-menu panel, or in the header for a standalone mobile modal.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/search-panel.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "Search"
+    },
+    "visibility": {
+      "type": "string",
+      "default": "both"
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "lock": false,
+    "color": false,
+    "spacing": false,
+    "typography": false
+  }
+}

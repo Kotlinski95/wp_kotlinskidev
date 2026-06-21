@@ -96,6 +96,12 @@ require_once get_template_directory() . '/functions/cover-image-classes.php';
 // Polylang accessibility fixes
 require_once get_template_directory() . '/functions/polylang-accessibility.php';
 
+// SVG gradient defs for icon fill effects
+require_once get_template_directory() . '/functions/svg-gradient-defs.php';
+
+// Register wp_navigation as a Polylang-translatable post type
+require_once get_template_directory() . '/functions/polylang-navigation.php';
+
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';
 

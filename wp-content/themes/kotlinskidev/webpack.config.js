@@ -49,6 +49,10 @@ module.exports = {
     editor: path.resolve(process.cwd(), "src", "editor.ts"),
     navigation: path.resolve(process.cwd(), "src", "blocks", "navigation", "index.tsx"),
     "theme-switcher": path.resolve(process.cwd(), "src", "blocks", "theme-switcher", "index.tsx"),
+    "search-panel": path.resolve(process.cwd(), "src", "blocks", "search-panel", "index.tsx"),
+    "popular-pages": path.resolve(process.cwd(), "src", "blocks", "popular-pages", "index.tsx"),
+    "simple-grid": path.resolve(process.cwd(), "src", "blocks", "simple-grid", "index.ts"),
+    "nav-content": path.resolve(process.cwd(), "src", "blocks", "nav-content", "index.tsx"),
   },
 
   output: {

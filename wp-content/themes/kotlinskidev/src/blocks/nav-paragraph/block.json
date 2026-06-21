@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/nav-paragraph",
+  "version": "1.0.0",
+  "title": "Nav Paragraph",
+  "category": "kotlinskidev-navigation",
+  "icon": "editor-paragraph",
+  "description": "Text paragraph for use inside navigation panels and holders.",
+  "textdomain": "kotlinskidev",
+  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder"],
+  "editorScript": "file:../../../build/nav-content.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": false,
+    "spacing": false,
+    "typography": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/nav-popular-pages",
+  "version": "1.0.0",
+  "title": "Popular Pages",
+  "category": "kotlinskidev-navigation",
+  "icon": "chart-bar",
+  "description": "Compact list of most-visited pages. Place inside a navigation block.",
+  "textdomain": "kotlinskidev",
+  "parent": ["core/navigation", "kotlinskidev/nav-search-panel"],
+  "editorScript": "file:../../../build/popular-pages.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Popular Pages"
+    },
+    "count": {
+      "type": "integer",
+      "default": 5
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": false,
+    "spacing": false,
+    "typography": false
+  }
+}

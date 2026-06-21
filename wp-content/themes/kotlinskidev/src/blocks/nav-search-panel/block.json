@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/nav-search-panel",
+  "version": "1.0.0",
+  "title": "Search Panel",
+  "category": "kotlinskidev-navigation",
+  "icon": "search",
+  "description": "Search trigger with dropdown panel. Place inside a navigation block.",
+  "textdomain": "kotlinskidev",
+  "parent": ["core/navigation"],
+  "editorScript": "file:../../../build/search-panel.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "Search"
+    },
+    "visibility": {
+      "type": "string",
+      "default": "both"
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "lock": false,
+    "color": false,
+    "spacing": false,
+    "typography": false
+  }
+}
