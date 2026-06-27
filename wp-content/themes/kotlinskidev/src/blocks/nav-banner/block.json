@@ -6,7 +6,7 @@
   "title": "Nav Banner",
   "category": "kotlinskidev-navigation",
   "icon": "align-center",
-  "description": "Banner with background image and overlay content for navigation panels.",
+  "description": "Banner with media image and content for navigation panels.",
   "textdomain": "kotlinskidev",
   "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder"],
   "editorScript": "file:../../../build/nav-content.js",
@@ -14,17 +14,30 @@
   "attributes": {
     "mediaId": { "type": "integer", "default": 0 },
     "mediaUrl": { "type": "string", "default": "" },
+    "altText": { "type": "string", "default": "" },
     "heading": { "type": "string", "default": "" },
     "description": { "type": "string", "default": "" },
     "linkUrl": { "type": "string", "default": "" },
-    "linkLabel": { "type": "string", "default": "" },
-    "overlayOpacity": { "type": "integer", "default": 40 }
+    "linkLabel": { "type": "string", "default": "" }
   },
   "supports": {
     "html": false,
     "reusable": false,
+    "color": {
+      "text": true,
+      "background": false
+    },
     "spacing": {
       "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": true,
+      "textDecoration": true,
+      "textTransform": true
     }
   }
 }

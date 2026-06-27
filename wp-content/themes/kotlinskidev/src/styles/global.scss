@@ -16,6 +16,12 @@ html {
 	--scrollbar-width: calc(100vw - 100%);
 	overflow-x: clip;
 	overscroll-behavior: none;
+	scrollbar-gutter: stable;
+	background-color: var(--color-surface);
+
+	&:has(.light-mode) {
+		--color-surface: var(--wp--preset--color--light-color);
+	}
 
 	&.has-modal-open {
 		overflow: hidden;
@@ -43,6 +49,18 @@ body {
 	&.light-mode {
 		background-color: var(--color-surface);
 		color: var(--color-text);
+	}
+}
+
+ul {
+	list-style: none !important;
+}
+
+li {
+	list-style: none;
+
+	&::marker {
+		content: none;
 	}
 }
 
@@ -330,33 +348,6 @@ span:empty {
 
 	.container {
 		width: 70%;
-	}
-}
-
-@media (max-width: $breakpoint-desktop) {
-
-	body:has(.hamburger-container.open) {
-
-		&::before {
-			content: "";
-			position: fixed;
-			inset: 0;
-			z-index: 999;
-			background: var(--wp--preset--color--dark-color);
-			opacity: 0.5;
-			pointer-events: auto;
-			transition: background 0.3s;
-		}
-
-		&.dark-mode::before {
-			background: var(--wp--preset--color--dark-color);
-			opacity: 0.7;
-		}
-
-		&.light-mode::before {
-			background: var(--wp--preset--color--light-color);
-			opacity: 0.7;
-		}
 	}
 }
 

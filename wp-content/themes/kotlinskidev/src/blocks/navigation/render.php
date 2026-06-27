@@ -35,6 +35,51 @@ if ( $overlay_menu !== 'never' ) {
 	return;
 }
 
+if ( ! function_exists( 'kotlinskidev_inline_nav_icon' ) ) {
+	function kotlinskidev_inline_nav_icon( int $id ): string {
+		if ( ! $id ) {
+			return '';
+		}
+		$file = get_attached_file( $id );
+		if ( ! $file || 'svg' !== strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) ) {
+			return '';
+		}
+		$svg = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( ! $svg ) {
+			return '';
+		}
+		$svg = preg_replace( '/ fill="[^"]*"/i', '', $svg );
+		return preg_replace( '/<svg(\s)/i', '<svg aria-hidden="true" focusable="false" fill="currentColor"$1', $svg, 1 );
+	}
+}
+
+if ( ! function_exists( 'kotlinskidev_nav_link_styles' ) ) {
+	function kotlinskidev_nav_link_styles( array $attrs ): array {
+		$parts = [];
+		$class = '';
+		$typo  = $attrs['style']['typography'] ?? [];
+		$color = $attrs['style']['color'] ?? [];
+
+		if ( ! empty( $typo['fontSize'] ) ) {
+			$parts[] = 'font-size:' . $typo['fontSize'];
+		} elseif ( ! empty( $attrs['fontSize'] ) ) {
+			$class .= ' has-' . sanitize_html_class( $attrs['fontSize'] ) . '-font-size';
+		}
+		foreach ( [ 'lineHeight' => 'line-height', 'fontStyle' => 'font-style', 'fontWeight' => 'font-weight', 'letterSpacing' => 'letter-spacing', 'textDecoration' => 'text-decoration', 'textTransform' => 'text-transform' ] as $attr => $prop ) {
+			if ( ! empty( $typo[ $attr ] ) ) {
+				$parts[] = $prop . ':' . $typo[ $attr ];
+			}
+		}
+		if ( ! empty( $color['text'] ) ) {
+			$parts[] = 'color:' . $color['text'];
+		} elseif ( ! empty( $attrs['textColor'] ) ) {
+			$class .= ' has-text-color has-' . sanitize_html_class( $attrs['textColor'] ) . '-color';
+		}
+
+		return [ 'style' => $parts ? implode( ';', $parts ) . ';' : '', 'class' => $class ];
+	}
+}
+
 if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 	function kotlinskidev_parse_nav_blocks( array $blocks ): array {
 		$items = [];
@@ -53,11 +98,15 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 			if ( in_array( $block['blockName'], [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel' ], true ) ) {
 				$attrs         = $block['attrs'];
 				$inner_content = implode( '', array_map( 'render_block', $block['innerBlocks'] ?? [] ) );
+				$sp_fs         = kotlinskidev_nav_link_styles( $attrs );
 				$items[]       = [
-					'label'         => $attrs['label'] ?? __( 'Search', 'kotlinskidev' ),
-					'url'           => '#',
-					'children'      => [],
-					'panel_content' => $inner_content,
+					'label'           => $attrs['label'] ?? __( 'Search', 'kotlinskidev' ),
+					'url'             => '#',
+					'children'        => [],
+					'panel_content'   => $inner_content,
+					'nav_icon_id'     => (int) ( $attrs['navIconId'] ?? 0 ),
+					'font_size_style' => $sp_fs['style'],
+					'font_size_class' => $sp_fs['class'],
 				];
 				continue;
 			}
@@ -75,10 +124,14 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 					$panel_blocks[] = $inner;
 				}
 			}
-			$item = [
-				'label'    => $attrs['label'] ?? '',
-				'url'      => $attrs['url'] ?? '#',
-				'children' => kotlinskidev_parse_nav_blocks( $nav_children ),
+			$nl_fs = kotlinskidev_nav_link_styles( $attrs );
+			$item  = [
+				'label'           => $attrs['label'] ?? '',
+				'url'             => $attrs['url'] ?? '#',
+				'children'        => kotlinskidev_parse_nav_blocks( $nav_children ),
+				'nav_icon_id'     => (int) ( $attrs['navIconId'] ?? 0 ),
+				'font_size_style' => $nl_fs['style'],
+				'font_size_class' => $nl_fs['class'],
 			];
 			if ( ! empty( $panel_blocks ) ) {
 				$item['panel_content'] = implode( '', array_map( 'render_block', $panel_blocks ) );
@@ -122,10 +175,15 @@ if ( ! $post instanceof WP_Post ) {
 $raw_blocks    = parse_blocks( $post->post_content );
 $items         = kotlinskidev_parse_nav_blocks( $raw_blocks );
 $extras        = kotlinskidev_render_nav_extras( $raw_blocks );
-$wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-mega-nav' ] );
+$link_navigates = ! empty( $attributes['linkNavigatesOnClick'] );
+$extra_attrs    = [ 'class' => 'kt-mega-nav' ];
+if ( $link_navigates ) {
+	$extra_attrs['data-link-navigates'] = 'true';
+}
+$wrapper_attrs = get_block_wrapper_attributes( $extra_attrs );
 
-foreach ( $items as &$item ) {
-	$item['panel_slug'] = sanitize_title( $item['label'] );
+foreach ( $items as $idx => &$item ) {
+	$item['panel_slug'] = sanitize_title( $item['label'] ) ?: 'panel-' . $idx;
 	if ( isset( $item['panel_content'] ) ) {
 		$item['panel_hero'] = '';
 		$item['has_panel']  = true;
@@ -136,6 +194,23 @@ foreach ( $items as &$item ) {
 }
 unset( $item );
 
+static $kt_nav_icon_grads = false;
+if ( ! $kt_nav_icon_grads ) {
+	$kt_nav_icon_grads = true;
+	echo '<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs>'
+		. '<linearGradient id="kt-icon-grad-dark" x1="1" y1="0" x2="0" y2="0" gradientUnits="objectBoundingBox">'
+		. '<stop offset="0%" stop-color="rgb(184,150,255)"/>'
+		. '<stop offset="60%" stop-color="rgb(0,246,255)"/>'
+		. '<stop offset="100%" stop-color="rgb(0,255,240)"/>'
+		. '</linearGradient>'
+		. '<linearGradient id="kt-icon-grad-light" x1="1" y1="0" x2="0" y2="0" gradientUnits="objectBoundingBox">'
+		. '<stop offset="0%" stop-color="rgb(132,83,210)"/>'
+		. '<stop offset="60%" stop-color="rgb(0,71,255)"/>'
+		. '<stop offset="100%" stop-color="rgb(0,120,194)"/>'
+		. '</linearGradient>'
+		. '</defs></svg>';
+}
+
 ob_start();
 ?>
 <div <?php echo $wrapper_attrs; ?>>
@@ -144,8 +219,20 @@ ob_start();
 			<?php foreach ( $items as $item ) : ?>
 			<li class="kt-mega-nav__item<?php echo $item['has_panel'] ? ' has-children' : ''; ?>"
 				<?php echo $item['has_panel'] ? 'data-panel="' . esc_attr( $item['panel_slug'] ) . '"' : ''; ?>>
-				<a class="kt-mega-nav__link" href="<?php echo esc_url( $item['url'] ); ?>">
-					<?php echo esc_html( $item['label'] ); ?>
+				<?php
+				$nav_icon_svg = kotlinskidev_inline_nav_icon( (int) ( $item['nav_icon_id'] ?? 0 ) );
+				$nav_label    = $item['label'] ?? '';
+				?>
+				<a class="kt-mega-nav__link<?php echo $nav_icon_svg ? ' kt-mega-nav__link--icon' : ''; ?><?php echo $item['font_size_class'] ?? ''; ?> custom-color"
+					href="<?php echo esc_url( $item['url'] ); ?>"
+					<?php if ( ! empty( $item['font_size_style'] ) ) : ?>style="<?php echo esc_attr( $item['font_size_style'] ); ?>"<?php endif; ?>
+					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php endif; ?>>
+					<?php if ( $nav_label !== '' ) : ?>
+					<span class="kt-mega-nav__link-label"><?php echo esc_html( $nav_label ); ?></span>
+					<?php endif; ?>
+					<?php if ( $nav_icon_svg ) : ?>
+					<?php echo $nav_icon_svg; ?>
+					<?php endif; ?>
 				</a>
 			</li>
 			<?php endforeach; ?>

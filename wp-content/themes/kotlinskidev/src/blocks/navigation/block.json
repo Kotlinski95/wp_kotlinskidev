@@ -21,6 +21,10 @@
     "className": {
       "type": "string",
       "default": ""
+    },
+    "linkNavigatesOnClick": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

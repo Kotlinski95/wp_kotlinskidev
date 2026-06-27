@@ -14,28 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll<HTMLButtonElement>(".wp-block-navigation__responsive-container-open")
     .forEach((openBtn) => {
-      openBtn.addEventListener(
-        "click",
-        (e) => {
-          const nav = openBtn.closest(".wp-block-navigation");
-          const openContainer = nav?.querySelector<HTMLElement>(
-            ".wp-block-navigation__responsive-container.is-menu-open"
-          );
-          if (!openContainer) return;
-          e.stopPropagation();
-          openContainer
-            .querySelector<HTMLButtonElement>(".wp-block-navigation__responsive-container-close")
-            ?.click();
-        },
-        { capture: true }
+      const nav = openBtn.closest(".wp-block-navigation");
+      const closeBtn = nav?.querySelector<HTMLButtonElement>(
+        ".wp-block-navigation__responsive-container-close"
       );
+      if (closeBtn) {
+        openBtn.insertAdjacentElement("afterend", closeBtn);
+      }
 
       openBtn.addEventListener("click", () => {
-        const nav = openBtn.closest(".wp-block-navigation");
-        const isAlreadyOpen = !!nav?.querySelector(
+        const isOpen = !!nav?.querySelector(
           ".wp-block-navigation__responsive-container.is-menu-open"
         );
-        if (!isAlreadyOpen) {
+        if (!isOpen) {
           closeAllExcept(closeHamburger);
         }
       });

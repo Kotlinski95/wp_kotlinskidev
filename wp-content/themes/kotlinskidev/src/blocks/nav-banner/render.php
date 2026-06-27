@@ -1,17 +1,22 @@
 <?php
 $media_url  = $attributes['mediaUrl'] ?? '';
+$alt_text   = $attributes['altText'] ?? '';
 $heading    = $attributes['heading'] ?? '';
 $desc       = $attributes['description'] ?? '';
 $link_url   = $attributes['linkUrl'] ?? '';
 $link_label = ! empty( $attributes['linkLabel'] ) ? $attributes['linkLabel'] : __( 'Learn more', 'kotlinskidev' );
-$opacity    = absint( $attributes['overlayOpacity'] ?? 40 ) / 100;
 
-$bg_style = $media_url ? 'background-image:url(' . esc_url( $media_url ) . ');background-size:cover;background-position:center;' : 'background-color:#444;';
-
-$wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-nav-banner', 'style' => $bg_style ] );
+$wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-nav-banner' ] );
 ?>
 <div <?php echo $wrapper_attrs; ?>>
-	<div class="kt-nav-banner__overlay" style="--kt-banner-overlay:<?php echo esc_attr( $opacity ); ?>"></div>
+	<?php if ( $media_url ) : ?>
+	<figure class="kt-nav-banner__media">
+		<?php
+		$img = '<img src="' . esc_url( $media_url ) . '" alt="' . esc_attr( $alt_text ) . '" loading="lazy">';
+		echo $link_url ? '<a class="kt-nav-banner__media-link" href="' . esc_url( $link_url ) . '">' . $img . '</a>' : $img;
+		?>
+	</figure>
+	<?php endif; ?>
 	<div class="kt-nav-banner__content">
 		<?php if ( $heading ) : ?>
 		<h3 class="kt-nav-banner__heading"><?php echo wp_kses_post( $heading ); ?></h3>

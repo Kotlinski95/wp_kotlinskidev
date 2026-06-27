@@ -1,7 +1,7 @@
 import React from "react";
 import { registerBlockType } from "@wordpress/blocks";
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { PanelBody, SelectControl } from "@wordpress/components";
+import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 
@@ -17,6 +17,7 @@ interface NavigationAttributes {
   menuSlug: string;
   overlayMenu: OverlayMenu;
   className: string;
+  linkNavigatesOnClick: boolean;
 }
 
 const overlayMenuOptions = [
@@ -32,6 +33,7 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
     menuSlug: { type: "string", default: "" },
     overlayMenu: { type: "string", default: "never" },
     className: { type: "string", default: "" },
+    linkNavigatesOnClick: { type: "boolean", default: false },
   },
   edit({ attributes, setAttributes }) {
     const blockProps = useBlockProps({ className: "kt-nav-placeholder" });
@@ -72,6 +74,15 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
               value={attributes.overlayMenu}
               options={overlayMenuOptions}
               onChange={(overlayMenu) => setAttributes({ overlayMenu: overlayMenu as OverlayMenu })}
+            />
+            <ToggleControl
+              label={__("Navigate top-level links on click", "kotlinskidev")}
+              help={__(
+                "When on, clicking a link with a real URL navigates to it. Links with '#' or no URL still toggle the panel.",
+                "kotlinskidev"
+              )}
+              checked={attributes.linkNavigatesOnClick}
+              onChange={(linkNavigatesOnClick) => setAttributes({ linkNavigatesOnClick })}
             />
           </PanelBody>
         </InspectorControls>

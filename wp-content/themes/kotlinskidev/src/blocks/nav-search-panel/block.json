@@ -16,6 +16,14 @@
       "type": "string",
       "default": "Search"
     },
+    "navIconId": {
+      "type": "integer",
+      "default": 0
+    },
+    "navIconUrl": {
+      "type": "string",
+      "default": ""
+    },
     "visibility": {
       "type": "string",
       "default": "both"
@@ -25,8 +33,19 @@
     "html": false,
     "reusable": false,
     "lock": false,
-    "color": false,
+    "color": {
+      "text": true,
+      "background": false
+    },
     "spacing": false,
-    "typography": false
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": true,
+      "textDecoration": true,
+      "textTransform": true
+    }
   }
 }

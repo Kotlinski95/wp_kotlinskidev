@@ -14,6 +14,9 @@ require_once get_template_directory() . '/functions/blocks.php';
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 
+// Admin bar style overrides — loaded only when the bar is visible
+require_once get_template_directory() . '/functions/admin-bar-styles.php';
+
 // Include customizer settings and functions
 require_once get_template_directory() . '/functions/customizer.php';
 
@@ -69,8 +72,6 @@ require_once get_template_directory() . '/functions/theme-switcher.php';
 // Page loader
 require_once get_template_directory() . '/functions/page-loader.php';
 
-// Navigation
-require_once get_template_directory() . '/functions/navigation.php';
 
 // Banner carousel
 require_once get_template_directory() . '/functions/banner-slider.php';

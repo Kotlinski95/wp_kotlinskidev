@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const panels = nav.querySelectorAll<HTMLElement>(".kt-mega-nav__panel");
   const backdrop = nav.querySelector<HTMLElement>(".kt-mega-nav__backdrop");
   const header = document.querySelector<HTMLElement>("header");
+  const linkNavigates = nav.hasAttribute("data-link-navigates");
   let closeTimer: ReturnType<typeof setTimeout> | null = null;
 
   const cancelClose = () => {
@@ -51,6 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
       item
         .querySelector<HTMLAnchorElement>(".kt-mega-nav__link")
         ?.addEventListener("click", (e) => {
+          const href = (e.currentTarget as HTMLAnchorElement).getAttribute("href") ?? "";
+          const isRealHref = linkNavigates && href !== "" && href !== "#" && !href.startsWith("#");
+          if (isRealHref) return;
           e.preventDefault();
           if (item.classList.contains("is-active")) {
             closeAll();

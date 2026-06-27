@@ -5,15 +5,8 @@ import {
   InspectorControls,
   MediaUpload,
   MediaUploadCheck,
-  MediaPlaceholder,
 } from "@wordpress/block-editor";
-import {
-  PanelBody,
-  Button,
-  TextControl,
-  TextareaControl,
-  RangeControl,
-} from "@wordpress/components";
+import { PanelBody, Button, TextControl, TextareaControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import paragraphMetadata from "../nav-paragraph/block.json";
 import imageMetadata from "../nav-image/block.json";
@@ -39,11 +32,11 @@ interface NavImageAttributes {
 interface NavBannerAttributes {
   mediaId: number;
   mediaUrl: string;
+  altText: string;
   heading: string;
   description: string;
   linkUrl: string;
   linkLabel: string;
-  overlayOpacity: number;
 }
 
 const previewStyle: CSSProperties = {
@@ -149,31 +142,15 @@ function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttr
 
 function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
   const blockProps = useBlockProps();
-  const { mediaId, mediaUrl, heading, description, linkUrl, linkLabel, overlayOpacity } =
-    attributes;
+  const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel } = attributes;
 
   const onSelectMedia = (media: MediaObject) =>
-    setAttributes({ mediaId: media.id, mediaUrl: media.url });
-
-  const overlayAlpha = overlayOpacity / 100;
+    setAttributes({ mediaId: media.id, mediaUrl: media.url, altText: media.alt ?? "" });
 
   return (
     <div {...blockProps}>
       <InspectorControls>
-        <PanelBody title={__("Content", "kotlinskidev")} initialOpen>
-          <TextControl
-            label={__("Heading", "kotlinskidev")}
-            value={heading}
-            onChange={(value) => setAttributes({ heading: value })}
-          />
-          <TextareaControl
-            label={__("Description", "kotlinskidev")}
-            value={description}
-            onChange={(value) => setAttributes({ description: value })}
-            rows={3}
-          />
-        </PanelBody>
-        <PanelBody title={__("Background image", "kotlinskidev")}>
+        <PanelBody title={__("Image", "kotlinskidev")} initialOpen>
           <MediaUploadCheck>
             <MediaUpload
               onSelect={onSelectMedia}
@@ -192,12 +169,23 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
               )}
             />
           </MediaUploadCheck>
-          <RangeControl
-            label={__("Overlay opacity", "kotlinskidev")}
-            value={overlayOpacity}
-            onChange={(value) => setAttributes({ overlayOpacity: value ?? 40 })}
-            min={0}
-            max={100}
+          <TextControl
+            label={__("Alt text", "kotlinskidev")}
+            value={altText}
+            onChange={(value) => setAttributes({ altText: value })}
+          />
+        </PanelBody>
+        <PanelBody title={__("Content", "kotlinskidev")}>
+          <TextControl
+            label={__("Heading", "kotlinskidev")}
+            value={heading}
+            onChange={(value) => setAttributes({ heading: value })}
+          />
+          <TextareaControl
+            label={__("Description", "kotlinskidev")}
+            value={description}
+            onChange={(value) => setAttributes({ description: value })}
+            rows={3}
           />
         </PanelBody>
         <PanelBody title={__("Link", "kotlinskidev")}>
@@ -215,58 +203,38 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
         </PanelBody>
       </InspectorControls>
 
-      <div
-        style={{
-          position: "relative",
-          minHeight: 200,
-          backgroundImage: mediaUrl ? `url(${mediaUrl})` : undefined,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundColor: mediaUrl ? undefined : "#555",
-          padding: "1.5rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          boxSizing: "border-box",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: `rgba(0,0,0,${overlayAlpha})`,
-            pointerEvents: "none",
-          }}
-        />
-        <div style={{ position: "relative", color: "#fff" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+        {mediaUrl ? (
+          <img
+            src={mediaUrl}
+            alt={altText}
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
+        ) : (
+          <div style={previewStyle}>
+            <p style={placeholderStyle}>
+              {__("Nav banner — select an image in the panel →", "kotlinskidev")}
+            </p>
+          </div>
+        )}
+        <div style={previewStyle}>
           {heading ? (
-            <h3 style={{ margin: "0 0 0.5rem", color: "#fff" }}>{heading}</h3>
+            <strong style={{ display: "block", marginBottom: "0.25rem" }}>{heading}</strong>
           ) : (
-            <h3
-              style={{ margin: "0 0 0.5rem", color: "rgba(255,255,255,0.4)", fontStyle: "italic" }}
-            >
+            <strong style={{ display: "block", marginBottom: "0.25rem", ...placeholderStyle }}>
               {__("Heading…", "kotlinskidev")}
-            </h3>
+            </strong>
           )}
           {description ? (
-            <p style={{ margin: "0 0 1rem", color: "rgba(255,255,255,0.85)" }}>{description}</p>
+            <p style={{ margin: "0 0 0.5rem", fontSize: "0.875rem" }}>{description}</p>
           ) : (
-            <p style={{ margin: "0 0 1rem", color: "rgba(255,255,255,0.3)", fontStyle: "italic" }}>
+            <p style={{ margin: "0 0 0.5rem", fontSize: "0.875rem", ...placeholderStyle }}>
               {__("Description…", "kotlinskidev")}
             </p>
           )}
           {(linkUrl || linkLabel) && (
-            <span
-              style={{
-                display: "inline-block",
-                padding: "0.375rem 0.75rem",
-                background: "rgba(255,255,255,0.2)",
-                borderRadius: "0.25rem",
-                color: "#fff",
-                fontSize: "0.875rem",
-              }}
-            >
-              {linkLabel || __("Learn more", "kotlinskidev")}
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500 }}>
+              {linkLabel || __("Learn more", "kotlinskidev")} →
             </span>
           )}
         </div>

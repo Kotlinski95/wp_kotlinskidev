@@ -1,13 +1,26 @@
 import React from "react";
 import { useState } from "@wordpress/element";
 import { registerBlockType, TemplateArray, type BlockEditProps } from "@wordpress/blocks";
-import { InspectorControls, useBlockProps, InnerBlocks } from "@wordpress/block-editor";
-import { PanelBody, TextControl } from "@wordpress/components";
+import {
+  InspectorControls,
+  useBlockProps,
+  InnerBlocks,
+  MediaUpload,
+  MediaUploadCheck,
+} from "@wordpress/block-editor";
+import { PanelBody, TextControl, Button } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 interface SearchPanelAttributes {
   label: string;
   visibility: string;
+  navIconId: number;
+  navIconUrl: string;
+}
+
+interface NavIconMedia {
+  id: number;
+  url: string;
 }
 
 const TEMPLATE: TemplateArray = [
@@ -53,6 +66,53 @@ const SearchIcon = () => (
   </svg>
 );
 
+function NavIconPicker({
+  iconId,
+  iconUrl,
+  onChange,
+}: {
+  iconId: number;
+  iconUrl: string;
+  onChange: (id: number, url: string) => void;
+}) {
+  return (
+    <MediaUploadCheck>
+      <MediaUpload
+        onSelect={(media: NavIconMedia) => onChange(media.id, media.url)}
+        allowedTypes={["image/svg+xml"]}
+        value={iconId}
+        render={({ open }: { open: () => void }) => (
+          <>
+            {iconUrl && (
+              <img
+                src={iconUrl}
+                alt=""
+                style={{ width: 24, height: 24, display: "block", marginBottom: "0.5rem" }}
+              />
+            )}
+            <Button
+              variant={iconId ? "secondary" : "primary"}
+              onClick={open}
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                marginBottom: iconId ? "0.25rem" : 0,
+              }}
+            >
+              {iconId ? __("Replace icon", "kotlinskidev") : __("Select SVG icon", "kotlinskidev")}
+            </Button>
+            {iconId ? (
+              <Button variant="link" isDestructive onClick={() => onChange(0, "")}>
+                {__("Remove icon", "kotlinskidev")}
+              </Button>
+            ) : null}
+          </>
+        )}
+      />
+    </MediaUploadCheck>
+  );
+}
+
 function SearchPanelEdit({ attributes, setAttributes }: BlockEditProps<SearchPanelAttributes>) {
   const blockProps = useBlockProps({ className: "kt-search-panel-editor" });
   const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +125,14 @@ function SearchPanelEdit({ attributes, setAttributes }: BlockEditProps<SearchPan
             label={__("Nav label", "kotlinskidev")}
             value={attributes.label}
             onChange={(label) => setAttributes({ label })}
-            help={__("Label shown in the navigation bar trigger.", "kotlinskidev")}
+            help={__("Used as aria-label when an icon is set.", "kotlinskidev")}
+          />
+        </PanelBody>
+        <PanelBody title={__("Nav Icon", "kotlinskidev")}>
+          <NavIconPicker
+            iconId={attributes.navIconId}
+            iconUrl={attributes.navIconUrl}
+            onChange={(id, url) => setAttributes({ navIconId: id, navIconUrl: url })}
           />
         </PanelBody>
       </InspectorControls>
@@ -76,7 +143,11 @@ function SearchPanelEdit({ attributes, setAttributes }: BlockEditProps<SearchPan
         onClick={() => setIsOpen((o) => !o)}
         aria-expanded={isOpen}
       >
-        <SearchIcon />
+        {attributes.navIconUrl ? (
+          <img src={attributes.navIconUrl} alt="" width={16} height={16} />
+        ) : (
+          <SearchIcon />
+        )}
         <span>{attributes.label || __("Search", "kotlinskidev")}</span>
       </button>
 

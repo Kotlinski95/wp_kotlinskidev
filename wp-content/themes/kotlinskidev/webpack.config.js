@@ -53,6 +53,7 @@ module.exports = {
     "popular-pages": path.resolve(process.cwd(), "src", "blocks", "popular-pages", "index.tsx"),
     "simple-grid": path.resolve(process.cwd(), "src", "blocks", "simple-grid", "index.ts"),
     "nav-content": path.resolve(process.cwd(), "src", "blocks", "nav-content", "index.tsx"),
+    "admin-bar": path.resolve(process.cwd(), "src", "admin-bar.ts"),
   },
 
   output: {

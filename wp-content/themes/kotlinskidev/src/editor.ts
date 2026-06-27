@@ -8,3 +8,4 @@ import "./blocks/responsive-order/index.tsx";
 import "./blocks/responsive-display/index.tsx";
 import "./blocks/parallax/index.tsx";
 import "./blocks/animated-counter/index.tsx";
+import "./blocks/navigation/nav-icon-filter.tsx";
