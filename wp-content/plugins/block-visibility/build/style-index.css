@@ -1,1 +1,0 @@
-:root{--block-visibility-breakpoint:767px}.is-visible-desktop,.is-visible-mobile{display:block}@media(max-width:var(--block-visibility-breakpoint )){.is-visible-desktop{display:none!important}}@media(min-width:calc(var(--block-visibility-breakpoint ) + 1px)){.is-visible-mobile{display:none!important}}
