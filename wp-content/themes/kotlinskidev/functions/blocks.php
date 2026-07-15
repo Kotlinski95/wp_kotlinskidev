@@ -31,5 +31,15 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/nav-paragraph' );
     register_block_type( get_template_directory() . '/src/blocks/nav-image' );
     register_block_type( get_template_directory() . '/src/blocks/nav-banner' );
+    register_block_type( get_template_directory() . '/src/blocks/copyrights' );
+    register_block_type( get_template_directory() . '/src/blocks/scroll-to-top' );
+    register_block_type( get_template_directory() . '/src/blocks/social-section' );
+    register_block_type( get_template_directory() . '/src/blocks/social-section/item' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
+
+function kotlinskidev_navigation_listable_blocks( array $blocks ): array {
+    $blocks[] = 'kotlinskidev/social-section';
+    return $blocks;
+}
+add_filter( 'block_core_navigation_listable_blocks', 'kotlinskidev_navigation_listable_blocks' );

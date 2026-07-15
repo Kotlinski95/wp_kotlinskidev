@@ -2,7 +2,7 @@ import React from "react";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
-import { PanelBody, Button, TextControl } from "@wordpress/components";
+import { PanelBody, SelectControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import "./style.scss";
 
@@ -13,18 +13,26 @@ const TEMPLATE: [string, Record<string, unknown>][] = [
   ["kotlinskidev/holder", {}],
 ];
 
+interface HolderBlock {
+  clientId: string;
+  innerBlocks: unknown[];
+}
+
 interface BlockEditorStore {
-  getBlock: (id: string) => { innerBlocks: Array<{ clientId: string }> } | undefined;
+  getBlock: (id: string) => { innerBlocks: HolderBlock[] } | undefined;
 }
 
 interface BlockEditorDispatch {
   insertBlock: (block: unknown, index?: number, rootClientId?: string) => void;
-  removeBlock: (clientId: string) => void;
+  removeBlocks: (clientIds: string[]) => void;
 }
 
 interface SimpleGridAttributes {
   label: string;
+  mobileColumns?: number;
 }
+
+const COLUMN_CHOICES = [2, 3, 4];
 
 export default function Edit({
   clientId,
@@ -44,21 +52,56 @@ export default function Edit({
     [clientId]
   );
 
-  const { insertBlock, removeBlock } = useDispatch(
+  const { insertBlock, removeBlocks } = useDispatch(
     "core/block-editor"
   ) as unknown as BlockEditorDispatch;
 
-  const onAddHolder = () => {
-    insertBlock(createBlock("kotlinskidev/holder"), undefined, clientId);
-  };
-
-  const onRemoveLast = () => {
-    if (innerBlocks.length <= 1) return;
-    const last = innerBlocks[innerBlocks.length - 1];
-    if (last) removeBlock(last.clientId);
-  };
-
   const colCount = Math.max(1, innerBlocks.length);
+
+  const columnOptions = [...new Set([...COLUMN_CHOICES, colCount])]
+    .sort((a, b) => a - b)
+    .map((count) => ({
+      label: String(count),
+      value: String(count),
+    }));
+
+  const onColumnsChange = (value: string) => {
+    const target = parseInt(value, 10);
+    if (!Number.isFinite(target) || target < 1 || target === innerBlocks.length) {
+      return;
+    }
+    if (target > innerBlocks.length) {
+      for (let i = innerBlocks.length; i < target; i += 1) {
+        insertBlock(createBlock("kotlinskidev/holder"), undefined, clientId);
+      }
+      return;
+    }
+    const removed = innerBlocks.slice(target);
+    const hasContent = removed.some((holder) => holder.innerBlocks.length > 0);
+    if (
+      hasContent &&
+      !window.confirm(
+        __(
+          "Reducing columns will delete the content of the removed column(s). Continue?",
+          "kotlinskidev"
+        )
+      )
+    ) {
+      return;
+    }
+    removeBlocks(removed.map((holder) => holder.clientId));
+  };
+
+  const mobileColumnOptions = [
+    { label: __("Same as desktop", "kotlinskidev"), value: "0" },
+    { label: __("1 column", "kotlinskidev"), value: "1" },
+    ...(colCount >= 2 ? [{ label: __("2 columns", "kotlinskidev"), value: "2" }] : []),
+  ];
+
+  const onMobileColumnsChange = (value: string) => {
+    const mobileColumns = parseInt(value, 10);
+    setAttributes({ mobileColumns: mobileColumns > 0 ? mobileColumns : undefined });
+  };
 
   const blockProps = useBlockProps({
     className: "kt-simple-grid",
@@ -77,26 +120,22 @@ export default function Edit({
           />
         </PanelBody>
         <PanelBody title={__("Columns", "kotlinskidev")}>
-          <p style={{ margin: "0 0 0.75rem", fontSize: "0.8125rem" }}>
-            {colCount} {__("column(s)", "kotlinskidev")}
-          </p>
-          <Button
-            variant="secondary"
-            onClick={onAddHolder}
-            style={{ width: "100%", justifyContent: "center" }}
-          >
-            {__("+ Add Column", "kotlinskidev")}
-          </Button>
-          {innerBlocks.length > 1 && (
-            <Button
-              variant="tertiary"
-              isDestructive
-              onClick={onRemoveLast}
-              style={{ width: "100%", justifyContent: "center", marginTop: "0.5rem" }}
-            >
-              {__("Remove Last Column", "kotlinskidev")}
-            </Button>
-          )}
+          <SelectControl
+            label={__("Columns", "kotlinskidev")}
+            value={String(colCount)}
+            options={columnOptions}
+            onChange={onColumnsChange}
+          />
+          <SelectControl
+            label={__("Mobile layout", "kotlinskidev")}
+            value={String(attributes.mobileColumns ?? 0)}
+            options={mobileColumnOptions}
+            onChange={onMobileColumnsChange}
+            help={__(
+              "Applied below the mobile breakpoint on the front end. The editor canvas always shows the desktop layout.",
+              "kotlinskidev"
+            )}
+          />
         </PanelBody>
       </InspectorControls>
 

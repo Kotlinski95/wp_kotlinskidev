@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/social-item",
+  "version": "1.0.0",
+  "title": "Social Link",
+  "category": "kotlinskidev-navigation",
+  "icon": "admin-links",
+  "description": "Single social link. Icon comes from the link URL, a CSS class, or an SVG from the media library.",
+  "textdomain": "kotlinskidev",
+  "parent": ["kotlinskidev/social-section"],
+  "editorScript": "file:../../../../build/social-section.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "url": {
+      "type": "string",
+      "default": ""
+    },
+    "iconClass": {
+      "type": "string",
+      "default": ""
+    },
+    "navIconId": {
+      "type": "integer",
+      "default": 0
+    },
+    "navIconUrl": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false
+  }
+}

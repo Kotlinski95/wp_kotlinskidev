@@ -29,9 +29,6 @@ require_once get_template_directory() . '/functions/site-identity.php';
 // Include maintenance settings and functions
 require_once get_template_directory() . '/functions/maintenance.php';
 
-// Include menu functions
-require_once get_template_directory() . '/functions/menus.php';
-
 // Load custom block patterns
 require_once get_template_directory() . '/functions/patterns.php';
 
@@ -82,9 +79,6 @@ require_once get_template_directory() . '/functions/search-page-styles.php';
 // Hover animations
 require_once get_template_directory() . '/includes/hover-animations.php';
 
-// Dynamic footer functionality
-require_once get_template_directory() . '/functions/dynamic-footer.php';
-
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
 
@@ -100,8 +94,8 @@ require_once get_template_directory() . '/functions/polylang-accessibility.php';
 // SVG gradient defs for icon fill effects
 require_once get_template_directory() . '/functions/svg-gradient-defs.php';
 
-// Register wp_navigation as a Polylang-translatable post type
-require_once get_template_directory() . '/functions/polylang-navigation.php';
+// Polylang-translatable post types (wp_navigation, wp_block) and slug-based translated post resolution
+require_once get_template_directory() . '/functions/polylang-content-resolution.php';
 
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';

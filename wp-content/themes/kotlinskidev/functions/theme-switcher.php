@@ -30,3 +30,15 @@ function kotlinskidev_theme_switcher_shortcode()
     return ob_get_clean();
 }
 add_shortcode('theme_switcher', 'kotlinskidev_theme_switcher_shortcode');
+
+function kotlinskidev_theme_switcher_config(): array {
+    $mode = (string) get_option( 'kotlinskidev_theme_default_mode', 'auto' );
+    if ( ! in_array( $mode, [ 'auto', 'light', 'dark' ], true ) ) {
+        $mode = 'auto';
+    }
+
+    return [
+        'enabled'     => (bool) get_option( 'kotlinskidev_theme_switching_enabled', true ),
+        'defaultMode' => $mode,
+    ];
+}

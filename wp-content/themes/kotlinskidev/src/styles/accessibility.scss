@@ -1,12 +1,13 @@
 @import "./mixins";
 
 .skip-link.screen-reader-text {
-  @include custom-button-style();
-  position: fixed !important;
 
-  &:focus {
-    color: $white;
-  }
+	@include custom-button-style();
+	position: fixed !important;
+
+	&:focus {
+		color: var(--wp--preset--color--light-color);
+	}
 }
 
 // =============================================================================
@@ -14,221 +15,224 @@
 // =============================================================================
 
 @media (prefers-reduced-motion: reduce) {
-  // =============================================================================
-  // DISABLE SCROLL ANIMATIONS
-  // =============================================================================
+	// =============================================================================
+	// DISABLE SCROLL ANIMATIONS
+	// =============================================================================
 
-  .fade-in-on-scroll,
-  .fade-up-on-scroll,
-  .fade-left-on-scroll,
-  .fade-right-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-    animation: none !important;
-    will-change: auto !important;
-  }
+	.fade-in-on-scroll,
+	.fade-up-on-scroll,
+	.fade-left-on-scroll,
+	.fade-right-on-scroll {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+		animation: none !important;
+		will-change: auto !important;
+	}
 
-  .flip-up-on-scroll,
-  .flip-down-on-scroll,
-  .flip-left-on-scroll,
-  .flip-right-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-    animation: none !important;
-    will-change: auto !important;
-    perspective: none !important;
-  }
+	.flip-up-on-scroll,
+	.flip-down-on-scroll,
+	.flip-left-on-scroll,
+	.flip-right-on-scroll {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+		animation: none !important;
+		will-change: auto !important;
+		perspective: none !important;
+	}
 
-  // =============================================================================
-  // DISABLE HOVER ANIMATIONS
-  // =============================================================================
+	// =============================================================================
+	// DISABLE HOVER ANIMATIONS
+	// =============================================================================
 
-  .hover-jump,
-  .hover-jump-subtle,
-  .hover-jump-smooth,
-  .hover-jump-strong,
-  .hover-jump-shadow {
-    transition: none !important;
-    will-change: auto !important;
+	.hover-jump,
+	.hover-jump-subtle,
+	.hover-jump-smooth,
+	.hover-jump-strong,
+	.hover-jump-shadow {
+		transition: none !important;
+		will-change: auto !important;
 
-    &:hover {
-      transform: none !important;
-      box-shadow: none !important;
-    }
-  }
+		&:hover {
+			transform: none !important;
+			box-shadow: none !important;
+		}
+	}
 
-  .hover-scale,
-  .hover-fade,
-  .hover-rotate,
-  .hover-bounce {
-    transition: none !important;
-    will-change: auto !important;
+	.hover-scale,
+	.hover-fade,
+	.hover-rotate,
+	.hover-bounce {
+		transition: none !important;
+		will-change: auto !important;
 
-    &:hover {
-      transform: none !important;
-      opacity: 1 !important;
-    }
-  }
+		&:hover {
+			transform: none !important;
+			opacity: 1 !important;
+		}
+	}
 
-  // =============================================================================
-  // DISABLE CONSTANT ANIMATIONS
-  // =============================================================================
+	// =============================================================================
+	// DISABLE CONSTANT ANIMATIONS
+	// =============================================================================
 
-  .constant-bounce,
-  .constant-bounce-subtle,
-  .constant-bounce-strong,
-  .constant-bounce-fast {
-    animation: none !important;
-  }
+	.constant-bounce,
+	.constant-bounce-subtle,
+	.constant-bounce-strong,
+	.constant-bounce-fast {
+		animation: none !important;
+	}
 
-  // =============================================================================
-  // DISABLE PARALLAX EFFECTS
-  // =============================================================================
+	// =============================================================================
+	// DISABLE PARALLAX EFFECTS
+	// =============================================================================
 
-  .wp-block-cover.enable-parallax {
-    .parallax-bg,
-    .parallax-content {
-      transform: none !important;
-      will-change: auto !important;
-      transition: none !important;
-    }
+	.wp-block-cover.enable-parallax {
 
-    .parallax-content.fade-up-on-scroll {
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  }
+		.parallax-bg,
+		.parallax-content {
+			transform: none !important;
+			will-change: auto !important;
+			transition: none !important;
+		}
 
-  // =============================================================================
-  // DISABLE/CONTROL VIDEO AUTOPLAY
-  // =============================================================================
+		.parallax-content.fade-up-on-scroll {
+			opacity: 1 !important;
+			transform: none !important;
+			transition: none !important;
+		}
+	}
 
-  .wp-block-cover video:not([data-user-override]),
-  .wp-block-cover-image video:not([data-user-override]),
-  video[autoplay]:not([data-user-override]),
-  video[data-autoplay="true"]:not([data-user-override]) {
-    opacity: 0.5 !important;
-    pointer-events: none !important;
+	// =============================================================================
+	// DISABLE/CONTROL VIDEO AUTOPLAY
+	// =============================================================================
 
-    &[poster] {
-      background-image: attr(poster) !important;
-      background-size: cover !important;
-      background-position: center !important;
-    }
-  }
+	.wp-block-cover video:not([data-user-override]),
+	.wp-block-cover-image video:not([data-user-override]),
+	video[autoplay]:not([data-user-override]),
+	video[data-autoplay="true"]:not([data-user-override]) {
+		opacity: 0.5 !important;
+		pointer-events: none !important;
 
-  video {
-    transition: none !important;
-    transform: none !important;
-    animation: none !important;
-  }
+		&[poster] {
+			background-image: attr(poster) !important;
+			background-size: cover !important;
+			background-position: center !important;
+		}
+	}
 
-  // =============================================================================
-  // DISABLE SCROLL PROGRESS AND SMOOTH SCROLLING
-  // =============================================================================
+	video {
+		transition: none !important;
+		transform: none !important;
+		animation: none !important;
+	}
 
-  html,
-  body {
-    scroll-behavior: auto !important;
-  }
+	// =============================================================================
+	// DISABLE SCROLL PROGRESS AND SMOOTH SCROLLING
+	// =============================================================================
 
-  .progress-ring__progress {
-    transition: none !important;
-  }
+	html,
+	body {
+		scroll-behavior: auto !important;
+	}
 
-  // =============================================================================
-  // DISABLE GRADIENT ANIMATIONS
-  // =============================================================================
+	.progress-ring__progress {
+		transition: none !important;
+	}
 
-  .has-gradient-one-gradient-background {
-    transition: none !important;
-    background-position: left center !important;
+	// =============================================================================
+	// DISABLE GRADIENT ANIMATIONS
+	// =============================================================================
 
-    &:hover {
-      background-position: left center !important;
-    }
-  }
+	.has-gradient-one-gradient-background {
+		transition: none !important;
+		background-position: left center !important;
 
-  // =============================================================================
-  // DISABLE NAVIGATION AND LINK ANIMATIONS
-  // =============================================================================
+		&:hover {
+			background-position: left center !important;
+		}
+	}
 
-  header a:not(#scroll-to-top):not(.custom-logo-link)::after,
-  footer a:not(#scroll-to-top):not(.custom-logo-link)::after {
-    transition: none !important;
-    width: 0 !important;
-  }
+	// =============================================================================
+	// DISABLE NAVIGATION AND LINK ANIMATIONS
+	// =============================================================================
 
-  .arrow {
-    transition: none !important;
-    transform: none !important;
-  }
+	header a:not(#scroll-to-top):not(.custom-logo-link)::after,
+	footer a:not(#scroll-to-top):not(.custom-logo-link)::after {
+		transition: none !important;
+		width: 0 !important;
+	}
 
-  .page-numbers.prev:hover .arrow,
-  .page-numbers.next:hover .arrow {
-    transform: none !important;
-  }
+	.arrow {
+		transition: none !important;
+		transform: none !important;
+	}
 
-  // =============================================================================
-  // DISABLE SOCIAL ICONS ANIMATIONS
-  // =============================================================================
+	.page-numbers.prev:hover .arrow,
+	.page-numbers.next:hover .arrow {
+		transform: none !important;
+	}
 
-  .wp-block-social-link-anchor svg {
-    transition: none !important;
-    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff)
-      drop-shadow(0 0 0.125rem #fff) !important;
-  }
+	// =============================================================================
+	// DISABLE SOCIAL ICONS ANIMATIONS
+	// =============================================================================
 
-  .wp-block-social-link-anchor:hover svg {
-    filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff)
-      drop-shadow(0 0 0.125rem #fff) !important;
-  }
+	.wp-block-social-link-anchor svg {
+		transition: none !important;
+		filter:
+			drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff)
+			drop-shadow(0 0 0.125rem #fff) !important;
+	}
 
-  // =============================================================================
-  // DISABLE PWA AND LOADING ANIMATIONS
-  // =============================================================================
+	.wp-block-social-link-anchor:hover svg {
+		filter:
+			drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff)
+			drop-shadow(0 0 0.125rem #fff) !important;
+	}
 
-  .pwa-install-prompt,
-  .pwa-update-prompt {
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+	// =============================================================================
+	// DISABLE PWA AND LOADING ANIMATIONS
+	// =============================================================================
 
-    &.show {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
+	.pwa-install-prompt,
+	.pwa-update-prompt {
+		transition: none !important;
+		opacity: 1 !important;
+		transform: none !important;
 
-  .pwa-update-prompt .pwa-prompt-icon svg {
-    animation: none !important;
-  }
+		&.show {
+			opacity: 1 !important;
+			transform: none !important;
+		}
+	}
 
-  #page-loader::after {
-    animation: none !important;
-  }
+	.pwa-update-prompt .pwa-prompt-icon svg {
+		animation: none !important;
+	}
 
-  // =============================================================================
-  // GLOBAL ANIMATION RESET
-  // =============================================================================
+	#page-loader::after {
+		animation: none !important;
+	}
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+	// =============================================================================
+	// GLOBAL ANIMATION RESET
+	// =============================================================================
 
-  [class*="fade-"],
-  [class*="flip-"],
-  [class*="hover-"],
-  [class*="constant-"] {
-    transform: none !important;
-    will-change: auto !important;
-  }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	[class*="fade-"],
+	[class*="flip-"],
+	[class*="hover-"],
+	[class*="constant-"] {
+		transform: none !important;
+		will-change: auto !important;
+	}
 }

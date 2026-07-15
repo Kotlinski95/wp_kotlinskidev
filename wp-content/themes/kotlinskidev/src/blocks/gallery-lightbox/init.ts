@@ -13,7 +13,10 @@ interface GalleryMedia {
   height: number;
 }
 
-const MOBILE_BREAKPOINT: number = (window as any).kotlinskiTheme?.mobileBreakpoint ?? 767;
+const MOBILE_BREAKPOINT: number =
+  (window as any).kotlinskiTheme?.breakpoints?.mobile_max ??
+  (window as any).kotlinskiTheme?.mobileBreakpoint ??
+  781;
 
 const parseImages = (gallery: HTMLElement): GalleryMedia[] => {
   const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;

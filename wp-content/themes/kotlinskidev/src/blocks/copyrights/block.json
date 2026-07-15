@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/copyrights",
+  "version": "1.0.0",
+  "title": "Copyrights",
+  "category": "kotlinskidev",
+  "icon": "info",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/copyrights.js",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "inserter": true
+  }
+}

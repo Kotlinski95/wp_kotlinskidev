@@ -8,14 +8,35 @@ export function debounce<T extends (...args: any[]) => void>(func: T, wait: numb
   };
 }
 
-export const MOBILE_BREAKPOINT = 1024;
+export type ThemeBreakpoints = {
+  mobile_max: number;
+  tablet_min: number;
+  tablet_max: number;
+  desktop_min: number;
+  large: number;
+};
+
+const defaultBreakpoints: ThemeBreakpoints = {
+  mobile_max: 781,
+  tablet_min: 782,
+  tablet_max: 1023,
+  desktop_min: 1024,
+  large: 1200,
+};
+
+export function getBreakpoints(): ThemeBreakpoints {
+  return (
+    (window as unknown as { kotlinskiTheme?: { breakpoints?: ThemeBreakpoints } }).kotlinskiTheme
+      ?.breakpoints ?? defaultBreakpoints
+  );
+}
 
 /**
  * Check if current viewport width is considered mobile
- * @returns true if viewport is below mobile breakpoint
+ * @returns true if viewport is below the desktop breakpoint
  */
 export function isMobile(): boolean {
-  return window.innerWidth < MOBILE_BREAKPOINT;
+  return window.innerWidth < getBreakpoints().desktop_min;
 }
 
 /**

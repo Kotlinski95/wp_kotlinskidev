@@ -1,22 +1,55 @@
 :root {
-  --kt-text-gradient: var(--wp--preset--gradient--fancy-text-dark);
-  --kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-dark);
+	color-scheme: dark;
+	--color-surface: var(--wp--preset--color--surface);
+	--color-text: var(--wp--preset--color--foreground);
+	--kt-text-gradient: var(--wp--preset--gradient--fancy-text-dark);
+	--kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-dark);
+}
+
+html.light-mode {
+	color-scheme: light;
+}
+
+html.dark-mode {
+	color-scheme: dark;
+}
+
+.editor-styles-wrapper.light-mode {
+	color-scheme: light;
+}
+
+.editor-styles-wrapper.dark-mode {
+	color-scheme: dark;
 }
 
 body.light-mode {
-  --kt-text-gradient: var(--wp--preset--gradient--fancy-text-light);
-  --kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-light);
+	--kt-text-gradient: var(--wp--preset--gradient--fancy-text-light);
+	--kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-light);
+}
+
+@supports not (color: light-dark(#000, #fff)) {
+
+	:root {
+		--color-surface: var(--wp--preset--color--surface-dark);
+		--color-text: var(--wp--preset--color--foreground-dark);
+	}
+
+	html.light-mode,
+	body.light-mode {
+		--color-surface: var(--wp--preset--color--surface-light);
+		--color-text: var(--wp--preset--color--foreground-light);
+	}
 }
 
 @mixin gradient-text($gradient: var(--kt-text-gradient)) {
-  background: $gradient;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+	background: $gradient;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 @mixin text-inherit() {
-  color: inherit !important;
-  -webkit-text-fill-color: initial !important;
-  background: none !important;
+	color: inherit !important;
+	-webkit-text-fill-color: initial !important;
+	background: none !important;
 }

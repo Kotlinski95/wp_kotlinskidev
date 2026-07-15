@@ -1,5 +1,41 @@
 @import "variables";
 
+.kt-editor-placeholder,
+.kt-nav-placeholder {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+	border: 1px dashed color-mix(in srgb, currentcolor 40%, transparent);
+	border-radius: 0.5rem;
+	font-size: 0.875rem;
+	line-height: 1.4;
+
+	code {
+		padding: 0.125rem 0.375rem;
+		border-radius: 0.25rem;
+		background: color-mix(in srgb, currentcolor 10%, transparent);
+		font-size: 0.8125rem;
+	}
+}
+
+.kt-editor-placeholder__icon,
+.kt-nav-placeholder__icon {
+	font-size: 1.125rem;
+	line-height: 1;
+}
+
+.kt-editor-placeholder__label,
+.kt-nav-placeholder__label {
+	font-weight: 600;
+}
+
+.kt-editor-placeholder__hint,
+.kt-nav-placeholder__mode {
+	opacity: 0.65;
+	font-size: 0.8125rem;
+}
+
 .kotlinskidev-brands {
 	flex-wrap: nowrap;
 }
@@ -20,7 +56,7 @@
 }
 
 .swiper-scrollbar {
-	background: #fffd !important;
+	background: color-mix(in srgb, var(--color-text) 87%, transparent) !important;
 
 	.swiper-scrollbar-drag {
 		background: var(--wp--preset--color--primary) !important;
@@ -43,11 +79,7 @@
 .light-mode {
 
 	.swiper-scrollbar {
-		background: #0000001a !important;
-
-		.swiper-scrollbar-drag {
-			background: var(--wp--preset--color--primary) !important;
-		}
+		background: color-mix(in srgb, var(--color-text) 10%, transparent) !important;
 	}
 }
 

@@ -383,6 +383,7 @@ if (!function_exists('kotlinskidev_maybe_add_auto_protection')) {
 
             // Navigation menu protection
             add_filter('wp_nav_menu', 'kotlinskidev_add_protection_to_content');
+            add_filter('render_block_kotlinskidev/navigation', 'kotlinskidev_add_protection_to_content');
 
             // Theme content protection (for template parts, footer, etc.)
             add_filter('kotlinskidev_protect_content', 'kotlinskidev_add_protection_to_content');

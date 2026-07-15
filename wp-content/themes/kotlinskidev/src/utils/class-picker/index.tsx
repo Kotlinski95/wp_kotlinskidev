@@ -79,11 +79,28 @@ const UTILITY_GROUPS: UtilityGroup[] = [
   {
     label: __("Visibility", "kotlinskidev"),
     classes: [
-      { label: __("Mobile Only", "kotlinskidev"), value: "mobile-only" },
-      { label: __("Tablet Only", "kotlinskidev"), value: "tablet-only" },
-      { label: __("Desktop Only", "kotlinskidev"), value: "desktop-only" },
+      {
+        label: __("Mobile Only", "kotlinskidev"),
+        value: "mobile-only",
+        help: __("Visible below 782px — do not combine with other 'Only' options", "kotlinskidev"),
+      },
+      {
+        label: __("Tablet Only", "kotlinskidev"),
+        value: "tablet-only",
+        help: __("Visible between 782px and 1024px", "kotlinskidev"),
+      },
+      {
+        label: __("Desktop Only", "kotlinskidev"),
+        value: "desktop-only",
+        help: __("Visible from 1024px up", "kotlinskidev"),
+      },
       { label: __("Hide on Mobile", "kotlinskidev"), value: "hide-mobile" },
       { label: __("Hide on Tablet", "kotlinskidev"), value: "hide-tablet" },
+      {
+        label: __("Hide on Desktop", "kotlinskidev"),
+        value: "hide-desktop",
+        help: __("Visible below 1024px — use instead of Mobile Only + Tablet Only", "kotlinskidev"),
+      },
     ],
   },
   {

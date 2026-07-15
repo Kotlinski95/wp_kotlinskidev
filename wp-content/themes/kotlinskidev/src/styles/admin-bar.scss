@@ -15,12 +15,18 @@
 }
 
 body.admin-bar {
+	--admin-bar-offset: #{$admin-bar-desktop};
 
 	header {
 		top: calc(#{$admin-bar-desktop} + env(safe-area-inset-top));
 	}
 
+	.wp-block-navigation__responsive-dialog {
+		margin-top: 0 !important;
+	}
+
 	@media (min-width: 601px) and (max-width: 782px) {
+		--admin-bar-offset: #{$admin-bar-mobile};
 
 		header {
 			top: calc(#{$admin-bar-mobile} + env(safe-area-inset-top));
@@ -28,6 +34,7 @@ body.admin-bar {
 	}
 
 	@media (max-width: 600px) {
+		--admin-bar-offset: #{$admin-bar-mobile};
 
 		#wpadminbar {
 			position: fixed;

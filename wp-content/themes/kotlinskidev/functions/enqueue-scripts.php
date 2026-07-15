@@ -72,12 +72,13 @@ function inline_critical_css()
 {
     $critical_css_path = get_template_directory() . '/build/critical.css';
     if (file_exists($critical_css_path)) {
-        // Cache the file — it only changes on build deploys.
-        $cache_key = 'kotlinskidev_critical_css_' . filemtime($critical_css_path);
+        // Cache the file — it only changes on build deploys or breakpoint setting changes.
+        $cache_key = 'kotlinskidev_critical_css_' . filemtime($critical_css_path) . '_' . kotlinskidev_breakpoints_hash();
         $critical_css = get_transient($cache_key);
         if ($critical_css === false) {
             $critical_css = file_get_contents($critical_css_path);
             if ($critical_css) {
+                $critical_css = kotlinskidev_transform_breakpoint_css($critical_css);
                 set_transient($cache_key, $critical_css, WEEK_IN_SECONDS);
             }
         }
@@ -135,7 +136,8 @@ add_action('wp_enqueue_scripts', function (): void {
         'themeUrl' => get_template_directory_uri(),
         'assetsUrl' => get_template_directory_uri() . '/assets',
         'imagesUrl' => get_template_directory_uri() . '/assets/images',
-        'mobileBreakpoint' => (int) get_theme_mod('mobile_breakpoint', 767),
+        'mobileBreakpoint' => kotlinskidev_get_breakpoints()['mobile_max'],
+        'breakpoints' => kotlinskidev_get_breakpoints(),
     ]);
     
     // When used in a WordPress plugin

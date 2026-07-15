@@ -80,12 +80,7 @@ header {
 	min-width: unset !important;
 	max-width: unset !important;
 	width: 100% !important;
-	background-color: $white !important;
-
-	img.custom-logo,
-	img.kotlinskidev-logo {
-		filter: invert(0);
-	}
+	background-color: var(--color-surface) !important;
 
 	.wp-block-site-logo svg,
 	svg.custom-logo,

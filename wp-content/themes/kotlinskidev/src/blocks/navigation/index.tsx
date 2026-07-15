@@ -6,6 +6,7 @@ import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 
 type OverlayMenu = "never" | "mobile" | "always";
+type DisplayMode = "mega" | "list" | "bar";
 
 interface NavigationPost {
   id: number;
@@ -16,6 +17,7 @@ interface NavigationPost {
 interface NavigationAttributes {
   menuSlug: string;
   overlayMenu: OverlayMenu;
+  displayMode: DisplayMode;
   className: string;
   linkNavigatesOnClick: boolean;
 }
@@ -26,12 +28,19 @@ const overlayMenuOptions = [
   { label: __("Always — hamburger", "kotlinskidev"), value: "always" },
 ];
 
+const displayModeOptions = [
+  { label: __("Mega menu bar", "kotlinskidev"), value: "mega" },
+  { label: __("Flat link list", "kotlinskidev"), value: "list" },
+  { label: __("Mobile bottom bar", "kotlinskidev"), value: "bar" },
+];
+
 registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
   title: "Navigation",
   category: "kotlinskidev",
   attributes: {
     menuSlug: { type: "string", default: "" },
     overlayMenu: { type: "string", default: "never" },
+    displayMode: { type: "string", default: "mega" },
     className: { type: "string", default: "" },
     linkNavigatesOnClick: { type: "boolean", default: false },
   },
@@ -70,6 +79,16 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
               onChange={(menuSlug) => setAttributes({ menuSlug })}
             />
             <SelectControl
+              label={__("Display mode", "kotlinskidev")}
+              help={__(
+                "Flat link list renders top-level links only, e.g. footer link columns.",
+                "kotlinskidev"
+              )}
+              value={attributes.displayMode}
+              options={displayModeOptions}
+              onChange={(displayMode) => setAttributes({ displayMode: displayMode as DisplayMode })}
+            />
+            <SelectControl
               label={__("Overlay mode", "kotlinskidev")}
               value={attributes.overlayMenu}
               options={overlayMenuOptions}
@@ -91,6 +110,7 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
         <code className="kt-nav-placeholder__slug">
           {attributes.menuSlug || __("(no slug)", "kotlinskidev")}
         </code>
+        <span className="kt-nav-placeholder__mode">{attributes.displayMode}</span>
       </div>
     );
   },

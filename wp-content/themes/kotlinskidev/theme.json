@@ -78,6 +78,66 @@
           "slug": "transparent-shade",
           "color": "#19191900",
           "name": "Transparent Shade"
+        },
+        {
+          "slug": "surface-light",
+          "color": "#f2f2f2",
+          "name": "Surface · Light Mode"
+        },
+        {
+          "slug": "surface-dark",
+          "color": "#191919",
+          "name": "Surface · Dark Mode"
+        },
+        {
+          "slug": "foreground-light",
+          "color": "#191919",
+          "name": "Foreground · Light Mode"
+        },
+        {
+          "slug": "foreground-dark",
+          "color": "#f2f2f2",
+          "name": "Foreground · Dark Mode"
+        },
+        {
+          "slug": "foreground-alt-light",
+          "color": "#4a4a4a",
+          "name": "Foreground Alt · Light Mode"
+        },
+        {
+          "slug": "foreground-alt-dark",
+          "color": "#b8b8b8",
+          "name": "Foreground Alt · Dark Mode"
+        },
+        {
+          "slug": "divider-light",
+          "color": "#d9d9d9",
+          "name": "Divider · Light Mode"
+        },
+        {
+          "slug": "divider-dark",
+          "color": "#2e2e2e",
+          "name": "Divider · Dark Mode"
+        },
+        {
+          "slug": "surface",
+          "color": "light-dark(var(--wp--preset--color--surface-light), var(--wp--preset--color--surface-dark))",
+          "name": "Surface (Adaptive)"
+        },
+        {
+          "slug": "foreground",
+          "color": "light-dark(var(--wp--preset--color--foreground-light), var(--wp--preset--color--foreground-dark))",
+          "name": "Foreground (Adaptive)"
+        },
+        {
+          "slug": "foreground-alt",
+          "color": "light-dark(var(--wp--preset--color--foreground-alt-light), var(--wp--preset--color--foreground-alt-dark))",
+          "name": "Foreground Alt (Adaptive)"
+        },
+        {
+          "slug": "divider",
+          "color": "light-dark(var(--wp--preset--color--divider-light), var(--wp--preset--color--divider-dark))",
+          "name": "Divider (Adaptive)"
         }
       ],
       "duotone": [],

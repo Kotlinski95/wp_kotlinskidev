@@ -27,8 +27,8 @@
 .spinner {
 	width: 3.125rem;
 	height: 3.125rem;
-	border: 0.3125rem solid rgba(0, 0, 0, 0.2);
-	border-top: 0.3125rem solid #000;
+	border: 0.3125rem solid color-mix(in srgb, var(--color-text) 20%, transparent);
+	border-top: 0.3125rem solid var(--color-text);
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 	transform: translateZ(0);

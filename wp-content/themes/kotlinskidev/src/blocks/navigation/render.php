@@ -1,25 +1,19 @@
 <?php
 $menu_slug    = $attributes['menuSlug'] ?? '';
 $overlay_menu = $attributes['overlayMenu'] ?? 'never';
+$display_mode = $attributes['displayMode'] ?? 'mega';
 
 if ( empty( $menu_slug ) ) {
 	return;
 }
 
-$nav_post = get_page_by_path( $menu_slug, OBJECT, 'wp_navigation' );
+$nav_post = kotlinskidev_resolve_translatable_post( $menu_slug, 'wp_navigation' );
 
 if ( ! $nav_post instanceof WP_Post ) {
 	return;
 }
 
 $nav_id = $nav_post->ID;
-
-if ( function_exists( 'pll_get_post' ) ) {
-	$translated_id = pll_get_post( $nav_id );
-	if ( $translated_id ) {
-		$nav_id = $translated_id;
-	}
-}
 
 if ( $overlay_menu !== 'never' ) {
 	echo '<div ' . get_block_wrapper_attributes() . '>' . render_block( [
@@ -32,6 +26,95 @@ if ( $overlay_menu !== 'never' ) {
 		'innerHTML'    => '',
 		'innerContent' => [],
 	] ) . '</div>';
+	return;
+}
+
+if ( ! function_exists( 'kotlinskidev_render_nav_list_group' ) ) {
+	function kotlinskidev_render_nav_list_group( string $heading, array $items ): string {
+		ob_start();
+		echo '<div class="kt-nav-list__group">';
+		if ( $heading !== '' ) {
+			echo '<h3 class="kt-nav-list__title">' . esc_html( $heading ) . '</h3>';
+		}
+		echo '<ul class="kt-nav-list__items" role="list">';
+		foreach ( $items as $item ) {
+			echo '<li class="kt-nav-list__item"><a class="kt-nav-list__link" href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['label'] ) . '</a></li>';
+		}
+		echo '</ul></div>';
+		return ob_get_clean();
+	}
+}
+
+if ( $display_mode === 'list' ) {
+	$columns      = [];
+	$brand_blocks = [];
+	$loose_items  = [];
+	$list_skipped = [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel', 'kotlinskidev/nav-popular-pages', 'kotlinskidev/simple-grid' ];
+
+	foreach ( parse_blocks( $nav_post->post_content ) as $list_block ) {
+		if ( empty( $list_block['blockName'] ) ) {
+			continue;
+		}
+
+		if ( $list_block['blockName'] === 'core/navigation-submenu' ) {
+			$group_items = [];
+			foreach ( $list_block['innerBlocks'] ?? [] as $child_block ) {
+				if ( $child_block['blockName'] !== 'core/navigation-link' ) {
+					continue;
+				}
+				$child_label = $child_block['attrs']['label'] ?? '';
+				if ( $child_label === '' ) {
+					continue;
+				}
+				$group_items[] = [
+					'label' => $child_label,
+					'url'   => $child_block['attrs']['url'] ?? '#',
+				];
+			}
+			if ( ! empty( $group_items ) ) {
+				$columns[] = kotlinskidev_render_nav_list_group( $list_block['attrs']['label'] ?? '', $group_items );
+			}
+			continue;
+		}
+
+		if ( $list_block['blockName'] === 'core/navigation-link' ) {
+			$loose_label = $list_block['attrs']['label'] ?? '';
+			if ( $loose_label !== '' ) {
+				$loose_items[] = [
+					'label' => $loose_label,
+					'url'   => $list_block['attrs']['url'] ?? '#',
+				];
+			}
+			continue;
+		}
+
+		if ( in_array( $list_block['blockName'], $list_skipped, true ) ) {
+			continue;
+		}
+
+		$brand_blocks[] = render_block( $list_block );
+	}
+
+	if ( ! empty( $loose_items ) ) {
+		$columns[] = kotlinskidev_render_nav_list_group( empty( $columns ) ? get_the_title( $nav_post ) : '', $loose_items );
+	}
+
+	if ( empty( $columns ) && empty( $brand_blocks ) ) {
+		return;
+	}
+
+	$list_wrapper_attrs = get_block_wrapper_attributes( [
+		'class' => 'kt-nav-list' . ( empty( $brand_blocks ) ? '' : ' has-brand' ),
+	] );
+
+	echo '<div ' . $list_wrapper_attrs . '>';
+	if ( ! empty( $brand_blocks ) ) {
+		echo '<div class="kt-nav-list__brand">' . implode( '', $brand_blocks ) . '</div>';
+	}
+	if ( ! empty( $columns ) ) {
+		echo '<div class="kt-nav-list__columns" style="--kt-nav-list-cols:' . count( $columns ) . '">' . implode( '', $columns ) . '</div>';
+	}
+	echo '</div>';
 	return;
 }
 
@@ -51,6 +134,46 @@ if ( ! function_exists( 'kotlinskidev_inline_nav_icon' ) ) {
 		$svg = preg_replace( '/ fill="[^"]*"/i', '', $svg );
 		return preg_replace( '/<svg(\s)/i', '<svg aria-hidden="true" focusable="false" fill="currentColor"$1', $svg, 1 );
 	}
+}
+
+if ( $display_mode === 'bar' ) {
+	$bar_items = [];
+
+	foreach ( parse_blocks( $nav_post->post_content ) as $bar_block ) {
+		if ( ( $bar_block['blockName'] ?? '' ) !== 'core/navigation-link' ) {
+			continue;
+		}
+		$bar_label = $bar_block['attrs']['label'] ?? '';
+		if ( $bar_label === '' ) {
+			continue;
+		}
+		$bar_items[] = [
+			'label'      => $bar_label,
+			'url'        => $bar_block['attrs']['url'] ?? '#',
+			'icon_id'    => (int) ( $bar_block['attrs']['navIconId'] ?? 0 ),
+			'class_name' => $bar_block['attrs']['className'] ?? '',
+		];
+	}
+
+	if ( empty( $bar_items ) ) {
+		return;
+	}
+
+	echo '<nav id="mobile-footer-menu" class="mobile-footer-nav" aria-label="' . esc_attr__( 'Mobile navigation', 'kotlinskidev' ) . '">';
+	echo '<div class="mobile-fixed-nav"><ul class="mobile-footer-menu-items">';
+	foreach ( $bar_items as $bar_item ) {
+		$bar_icon    = kotlinskidev_inline_nav_icon( $bar_item['icon_id'] );
+		$bar_classes = array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', $bar_item['class_name'], -1, PREG_SPLIT_NO_EMPTY ) ) );
+		array_unshift( $bar_classes, 'menu-item' );
+		echo '<li class="' . esc_attr( implode( ' ', $bar_classes ) ) . '"><a href="' . esc_url( $bar_item['url'] ) . '">';
+		if ( $bar_icon !== '' ) {
+			echo '<span class="mobile-menu-icon">' . $bar_icon . '</span>';
+		}
+		echo '<span class="mobile-menu-text">' . esc_html( $bar_item['label'] ) . '</span>';
+		echo '</a></li>';
+	}
+	echo '</ul></div></nav>';
+	return;
 }
 
 if ( ! function_exists( 'kotlinskidev_nav_link_styles' ) ) {

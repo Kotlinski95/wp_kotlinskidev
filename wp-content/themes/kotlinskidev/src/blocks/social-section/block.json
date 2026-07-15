@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/social-section",
+  "version": "1.0.0",
+  "title": "Social Section",
+  "category": "kotlinskidev-navigation",
+  "icon": "share",
+  "description": "Row of social links. Place inside a navigation block; optionally pinned to the bottom of the menu overlay.",
+  "textdomain": "kotlinskidev",
+  "parent": ["core/navigation"],
+  "editorScript": "file:../../../build/social-section.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "attachToBottom": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false
+  }
+}

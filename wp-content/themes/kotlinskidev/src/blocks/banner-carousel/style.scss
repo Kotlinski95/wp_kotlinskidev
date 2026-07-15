@@ -1,39 +1,42 @@
 @use "../../utils/carousel/carousel-nav" as *;
 
 .banner-carousel {
-  .swiper {
-    position: relative;
 
-    .carousel-nav {
-      @include carousel-nav(#fff, rgba(255, 255, 255, 0.5));
-    }
-  }
+	.swiper {
+		position: relative;
 
-  .carousel-nav--outside {
-    @include carousel-nav(currentColor, rgba(0, 0, 0, 0.3));
-    position: static;
-    margin-top: 1rem;
-  }
+		.carousel-nav {
+
+			@include carousel-nav(#fff, rgba(255, 255, 255, 0.5));
+		}
+	}
+
+	.carousel-nav--outside {
+
+		@include carousel-nav(currentColor, color-mix(in srgb, currentcolor 30%, transparent));
+		position: static;
+		margin-top: 1rem;
+	}
 }
 
 .swiper,
 .swiper-wrapper {
-  width: 100%;
+	width: 100%;
 
-  .swiper-slide {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
+	.swiper-slide {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
 
-  .swiper-slide img {
-    width: 100%;
-    width: 100%;
-    display: block;
-    max-width: 100%;
-    max-height: fit-content;
-    object-fit: cover;
-  }
+	.swiper-slide img {
+		width: 100%;
+		width: 100%;
+		display: block;
+		max-width: 100%;
+		max-height: fit-content;
+		object-fit: cover;
+	}
 }

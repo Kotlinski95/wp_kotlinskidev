@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "wordpress-local": {
+      "type": "http",
+      "url": "http://kotlinskidev.local/wp-json/mcp/mcp-adapter-default-server",
+      "headers": {
+        "Authorization": "Bearer ${WP_MCP_API_KEY}"
+      }
+    },
+    "wordpress-prod": {
+      "type": "http",
+      "url": "https://kotlinskidev.com/wp-json/mcp/mcp-adapter-default-server",
+      "headers": {
+        "Authorization": "Bearer ${WP_MCP_API_KEY_PROD}"
+      }
+    }
+  }
+}

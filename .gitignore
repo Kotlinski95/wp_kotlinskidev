@@ -124,3 +124,5 @@ build
 
 # VS code worksspace files
 *.code-workspace
+# Local environment secrets (MCP API keys etc.) — commit .env.example only
+.env

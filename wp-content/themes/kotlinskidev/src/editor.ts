@@ -1,4 +1,5 @@
 import "./styles/editor-overrides.scss";
+import "./scripts/editor-theme-toggle";
 import "./formats/gradient-highlight/index";
 import "./utils/class-picker/index";
 import "./blocks/scroll-animations/index";

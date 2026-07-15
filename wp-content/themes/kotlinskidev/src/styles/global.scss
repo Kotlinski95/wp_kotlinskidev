@@ -19,10 +19,6 @@ html {
 	scrollbar-gutter: stable;
 	background-color: var(--color-surface);
 
-	&:has(.light-mode) {
-		--color-surface: var(--wp--preset--color--light-color);
-	}
-
 	&.has-modal-open {
 		overflow: hidden;
 		touch-action: none;
@@ -78,26 +74,28 @@ img {
 
 * {
 	scrollbar-width: thin;
-	scrollbar-color: #444 #222;
+	scrollbar-color:
+		color-mix(in srgb, var(--color-text) 20%, var(--color-surface))
+		color-mix(in srgb, var(--color-text) 5%, var(--color-surface));
 }
 
 ::-webkit-scrollbar {
 	width: 0.75rem;
-	background: #222;
+	background: color-mix(in srgb, var(--color-text) 5%, var(--color-surface));
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #444;
+	background: color-mix(in srgb, var(--color-text) 20%, var(--color-surface));
 	border-radius: 0.375rem;
-	border: 0.125rem solid #222;
+	border: 0.125rem solid color-mix(in srgb, var(--color-text) 5%, var(--color-surface));
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #767676;
+	background: color-mix(in srgb, var(--color-text) 45%, var(--color-surface));
 }
 
 ::-webkit-scrollbar-corner {
-	background: #222;
+	background: color-mix(in srgb, var(--color-text) 5%, var(--color-surface));
 }
 
 .w-full {
@@ -202,8 +200,6 @@ span:empty {
 
 .light-mode {
 
-	img.custom-logo,
-	img.kotlinskidev-logo,
 	.invert-light {
 		filter: invert(100%);
 	}
@@ -280,12 +276,9 @@ span:empty {
 @media (min-width: $breakpoint-desktop) {
 
 	.mobile-only,
-	.tablet-only {
+	.tablet-only,
+	.hide-desktop {
 		display: none !important;
-	}
-
-	.desktop-only {
-		display: block !important;
 	}
 
 	.container {
@@ -295,56 +288,43 @@ span:empty {
 
 @media (min-width: $breakpoint-tablet-wp) and (max-width: #{ $breakpoint-desktop - 0.0625rem }) {
 
-	.mobile-only {
+	.mobile-only,
+	.hide-tablet {
 		display: none !important;
-	}
-
-	.desktop-only {
-		display: none !important;
-	}
-
-	.tablet-only {
-		display: block !important;
 	}
 
 	.container {
 		width: 90%;
-	}
-
-	.hide-tablet {
-		display: none !important;
 	}
 }
 
 @media (max-width: $breakpoint-mobile) {
 
 	.tablet-only,
-	.desktop-only {
+	.hide-mobile {
 		display: none !important;
-	}
-
-	.mobile-only {
-		display: block !important;
 	}
 
 	.container {
 		width: 100%;
 	}
+}
 
-	.hide-mobile {
+@media (max-width: #{ $breakpoint-desktop - 0.0625rem }) {
+
+	.desktop-only {
 		display: none !important;
 	}
+}
 
-	.show-mobile {
-		display: block !important;
+@media (max-width: #{ $breakpoint-large - 0.0625rem }) {
+
+	.desktop-large {
+		display: none !important;
 	}
 }
 
 @media (min-width: $breakpoint-large) {
-
-	.desktop-large {
-		display: block !important;
-	}
 
 	.container {
 		width: 70%;

@@ -16,6 +16,9 @@
     "label": {
       "type": "string",
       "default": "Menu"
+    },
+    "mobileColumns": {
+      "type": "number"
     }
   },
   "supports": {

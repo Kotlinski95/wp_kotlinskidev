@@ -18,6 +18,10 @@
       "type": "string",
       "default": "never"
     },
+    "displayMode": {
+      "type": "string",
+      "default": "mega"
+    },
     "className": {
       "type": "string",
       "default": ""
