@@ -49,7 +49,7 @@ if ( $display_mode === 'list' ) {
 	$columns      = [];
 	$brand_blocks = [];
 	$loose_items  = [];
-	$list_skipped = [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel', 'kotlinskidev/nav-popular-pages', 'kotlinskidev/simple-grid' ];
+	$list_skipped = [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel', 'kotlinskidev/language-panel', 'kotlinskidev/nav-language-panel', 'polylang/navigation-language-switcher', 'kotlinskidev/nav-popular-pages', 'kotlinskidev/simple-grid' ];
 
 	foreach ( parse_blocks( $nav_post->post_content ) as $list_block ) {
 		if ( empty( $list_block['blockName'] ) ) {
@@ -233,6 +233,43 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 				];
 				continue;
 			}
+			if ( in_array( $block['blockName'], [ 'kotlinskidev/language-panel', 'kotlinskidev/nav-language-panel' ], true ) ) {
+				$attrs         = $block['attrs'];
+				$inner_content = implode( '', array_map( 'render_block', $block['innerBlocks'] ?? [] ) );
+				if ( $inner_content === '' ) {
+					continue;
+				}
+				$lp_fs    = kotlinskidev_nav_link_styles( $attrs );
+				$lp_lang  = kotlinskidev_pll_current_language_data();
+				$lp_label = $attrs['label'] ?? '';
+				if ( $lp_label === '' && $lp_lang !== null ) {
+					$lp_label = ( $attrs['labelStyle'] ?? 'short' ) === 'full'
+						? (string) ( $lp_lang['name'] ?? '' )
+						: strtoupper( (string) ( $lp_lang['slug'] ?? '' ) );
+				}
+				if ( $lp_label === '' ) {
+					$lp_label = __( 'Language', 'kotlinskidev' );
+				}
+				$lp_flag = ( $attrs['showFlag'] ?? true ) && $lp_lang !== null
+					? (string) ( $lp_lang['flag'] ?? '' )
+					: '';
+				$items[] = [
+					'label'           => $lp_label,
+					'url'             => '#',
+					'children'        => [],
+					'panel_content'   => '<ul class="kt-lang-panel__list" role="list">' . $inner_content . '</ul>',
+					'nav_icon_id'     => (int) ( $attrs['navIconId'] ?? 0 ),
+					'flag'            => $lp_flag,
+					'font_size_style' => $lp_fs['style'],
+					'font_size_class' => $lp_fs['class'],
+					'indicator'       => [
+						'show'    => $attrs['showIndicator'] ?? true,
+						'icon_id' => (int) ( $attrs['indicatorIconId'] ?? 0 ),
+						'effect'  => $attrs['indicatorEffect'] ?? 'rotate',
+					],
+				];
+				continue;
+			}
 			if ( ! in_array( $block['blockName'], [ 'core/navigation-link', 'core/navigation-submenu' ], true ) ) {
 				continue;
 			}
@@ -267,7 +304,7 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 
 if ( ! function_exists( 'kotlinskidev_render_nav_extras' ) ) {
 	function kotlinskidev_render_nav_extras( array $blocks ): string {
-		$skip   = [ 'core/navigation-link', 'core/navigation-submenu', 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel', 'kotlinskidev/nav-popular-pages', 'kotlinskidev/simple-grid' ];
+		$skip   = [ 'core/navigation-link', 'core/navigation-submenu', 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel', 'kotlinskidev/language-panel', 'kotlinskidev/nav-language-panel', 'kotlinskidev/nav-popular-pages', 'kotlinskidev/simple-grid' ];
 		$output = '';
 		foreach ( $blocks as $block ) {
 			if ( empty( $block['blockName'] ) || in_array( $block['blockName'], $skip, true ) ) {
@@ -350,11 +387,28 @@ ob_start();
 					href="<?php echo esc_url( $item['url'] ); ?>"
 					<?php if ( ! empty( $item['font_size_style'] ) ) : ?>style="<?php echo esc_attr( $item['font_size_style'] ); ?>"<?php endif; ?>
 					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php endif; ?>>
+					<?php if ( ! empty( $item['flag'] ) ) : ?>
+					<img class="kt-mega-nav__flag" src="<?php echo esc_url( $item['flag'] ); ?>" alt="" width="20" height="15" />
+					<?php endif; ?>
 					<?php if ( $nav_label !== '' ) : ?>
 					<span class="kt-mega-nav__link-label"><?php echo esc_html( $nav_label ); ?></span>
 					<?php endif; ?>
 					<?php if ( $nav_icon_svg ) : ?>
 					<?php echo $nav_icon_svg; ?>
+					<?php endif; ?>
+					<?php
+					$indicator = $item['indicator'] ?? [];
+					if ( $item['has_panel'] && ! empty( $indicator['show'] ) ) :
+						$indicator_svg   = kotlinskidev_inline_nav_icon( (int) ( $indicator['icon_id'] ?? 0 ) );
+						$indicator_class = 'kt-mega-nav__indicator';
+						$indicator_fx    = $indicator['effect'] ?? 'rotate';
+						if ( $indicator_fx !== 'none' ) {
+							$indicator_class .= ' kt-mega-nav__indicator--' . sanitize_html_class( $indicator_fx );
+						}
+					?>
+					<span class="<?php echo esc_attr( $indicator_class ); ?>" aria-hidden="true">
+						<?php echo $indicator_svg !== '' ? $indicator_svg : '<svg class="kt-indicator-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>'; ?>
+					</span>
 					<?php endif; ?>
 				</a>
 			</li>

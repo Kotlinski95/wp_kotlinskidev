@@ -37,6 +37,30 @@
 	align-items: center;
 }
 
+.kt-mega-nav__indicator {
+	display: inline-flex;
+	align-items: center;
+	flex-shrink: 0;
+
+	svg {
+		width: 0.875rem;
+		height: 0.875rem;
+		display: block;
+	}
+
+	&--rotate svg {
+		transition: transform 0.2s var(--animation-curve);
+	}
+}
+
+.kt-mega-nav__flag {
+	width: 1.25rem;
+	height: auto;
+	border-radius: 0.125rem;
+	flex-shrink: 0;
+	box-shadow: color-mix(in srgb, var(--color-text) 20%, transparent) 0 0 0.125rem;
+}
+
 .kt-mega-nav__link {
 	display: inline-flex;
 	align-items: center;
@@ -84,18 +108,28 @@
 	}
 }
 
-.kt-mega-nav__chevron {
-	display: inline-block;
-	width: 0.3125rem;
-	height: 0.3125rem;
-	border-right: 1.5px solid currentcolor;
-	border-bottom: 1.5px solid currentcolor;
-	transform: rotate(45deg) translateY(-0.0625rem);
-	flex-shrink: 0;
-	transition: transform 0.2s var(--animation-curve);
+.kt-mega-nav .kt-mega-nav__item.is-active .kt-mega-nav__indicator--rotate svg,
+.kt-mega-nav .kt-mega-nav__item.is-active .kt-mega-nav__indicator--rotate-instant svg {
+	transform: rotate(180deg);
+}
 
-	.kt-mega-nav__item.is-active & {
-		transform: rotate(-135deg) translateY(0.0625rem);
+.kt-mega-nav .kt-mega-nav__link:hover .kt-mega-nav__indicator svg,
+.kt-mega-nav .kt-mega-nav__item.is-active .kt-mega-nav__indicator svg {
+	fill: url(#kt-icon-grad-dark);
+
+	.light-mode & {
+		fill: url(#kt-icon-grad-light);
+	}
+}
+
+.kt-mega-nav .kt-mega-nav__link:hover .kt-mega-nav__indicator .kt-indicator-chevron,
+.kt-mega-nav .kt-mega-nav__item.is-active .kt-mega-nav__indicator .kt-indicator-chevron {
+	fill: none;
+	stroke: url(#kt-icon-grad-dark);
+
+	.light-mode & {
+		fill: none;
+		stroke: url(#kt-icon-grad-light);
 	}
 }
 

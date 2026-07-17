@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/language-panel",
+  "version": "1.0.0",
+  "title": "Language Panel",
+  "category": "kotlinskidev",
+  "icon": "translation",
+  "description": "Language switcher trigger with dropdown panel. Wraps the native Polylang navigation language switcher.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/language-panel.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "labelStyle": {
+      "type": "string",
+      "default": "short"
+    },
+    "showFlag": {
+      "type": "boolean",
+      "default": true
+    },
+    "navIconId": {
+      "type": "integer",
+      "default": 0
+    },
+    "navIconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "visibility": {
+      "type": "string",
+      "default": "both"
+    },
+    "showIndicator": {
+      "type": "boolean",
+      "default": true
+    },
+    "indicatorIconId": {
+      "type": "integer",
+      "default": 0
+    },
+    "indicatorIconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "indicatorEffect": {
+      "type": "string",
+      "default": "rotate"
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "lock": false,
+    "color": {
+      "text": true,
+      "background": false
+    },
+    "spacing": false,
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "fontStyle": true,
+      "fontWeight": true,
+      "letterSpacing": true,
+      "textDecoration": true,
+      "textTransform": true
+    }
+  }
+}

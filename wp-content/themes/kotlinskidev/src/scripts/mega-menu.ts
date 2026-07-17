@@ -1,3 +1,6 @@
+const SWITCH_DELAY = 150;
+const CLOSE_DELAY = 500;
+
 document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector<HTMLElement>(".kt-mega-nav");
   if (!nav) return;
@@ -8,11 +11,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector<HTMLElement>("header");
   const linkNavigates = nav.hasAttribute("data-link-navigates");
   let closeTimer: ReturnType<typeof setTimeout> | null = null;
+  let switchTimer: ReturnType<typeof setTimeout> | null = null;
 
   const cancelClose = () => {
     if (closeTimer !== null) {
       clearTimeout(closeTimer);
       closeTimer = null;
+    }
+  };
+
+  const cancelSwitch = () => {
+    if (switchTimer !== null) {
+      clearTimeout(switchTimer);
+      switchTimer = null;
     }
   };
 
@@ -33,17 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
     cancelClose();
     closeTimer = setTimeout(() => {
       if (!nav.contains(document.activeElement)) closeAll();
-    }, 150);
+    }, CLOSE_DELAY);
   };
 
   const openPanel = (panelId: string) => {
     cancelClose();
+    cancelSwitch();
     closeAll();
     nav.querySelector(`.kt-mega-nav__item[data-panel="${panelId}"]`)?.classList.add("is-active");
     nav.querySelector(`.kt-mega-nav__panel[data-panel="${panelId}"]`)?.classList.add("is-open");
     nav.classList.add("has-open-panel");
     document.documentElement.classList.add("has-modal-open");
   };
+
+  const hasOpenPanel = () => nav.classList.contains("has-open-panel");
 
   items.forEach((item) => {
     const panelId = item.dataset.panel;
@@ -65,31 +79,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     item.addEventListener("mouseenter", () => {
+      cancelClose();
+      cancelSwitch();
       if (panelId) {
-        openPanel(panelId);
-      } else {
-        cancelClose();
-        closeAll();
+        if (!hasOpenPanel()) {
+          openPanel(panelId);
+        } else if (!item.classList.contains("is-active")) {
+          switchTimer = setTimeout(() => openPanel(panelId), SWITCH_DELAY);
+        }
+      } else if (hasOpenPanel()) {
+        scheduleClose();
       }
     });
+
+    item.addEventListener("mouseleave", cancelSwitch);
   });
 
   panels.forEach((panel) => {
-    panel.addEventListener("mouseenter", cancelClose);
+    panel.addEventListener("mouseenter", () => {
+      cancelClose();
+      cancelSwitch();
+    });
     panel.addEventListener("mouseleave", scheduleClose);
   });
 
   nav.addEventListener("mouseenter", cancelClose);
-  nav.addEventListener("mouseleave", scheduleClose);
+  nav.addEventListener("mouseleave", () => {
+    cancelSwitch();
+    scheduleClose();
+  });
 
   backdrop?.addEventListener("click", () => {
     cancelClose();
+    cancelSwitch();
     closeAll();
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       cancelClose();
+      cancelSwitch();
       closeAll();
     }
   });

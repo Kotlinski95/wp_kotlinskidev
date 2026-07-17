@@ -20,7 +20,9 @@
                 <!-- wp:kotlinskidev/theme-switcher /-->
 
                 <!-- wp:navigation {"overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"right","flexWrap":"nowrap"}} -->
-                <!-- wp:polylang/navigation-language-switcher /-->
+                <!-- wp:kotlinskidev/nav-language-panel -->
+                <!-- wp:polylang/navigation-language-switcher {"dropdown":false,"show_names":true,"show_flags":true,"force_home":false,"hide_current":false,"hide_if_no_translation":false} /-->
+                <!-- /wp:kotlinskidev/nav-language-panel -->
                 <!-- /wp:navigation -->
             </div>
             <!-- /wp:group -->

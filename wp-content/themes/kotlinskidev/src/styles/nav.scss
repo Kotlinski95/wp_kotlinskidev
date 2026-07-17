@@ -157,7 +157,8 @@ header::before {
 }
 
 header:has(.wp-block-navigation__responsive-container.is-menu-open),
-header:has(.kt-search-panel.is-open) {
+header:has(.kt-search-panel.is-open),
+header:has(.kt-lang-panel.is-open) {
 
 	@media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
 		background: var(--color-surface);

@@ -2,6 +2,7 @@ import "./index.scss";
 import "./scripts/hamburger";
 import "./scripts/mega-menu";
 import "./scripts/search-panel";
+import "./scripts/language-panel";
 import "./scripts/scroll-to-top";
 import "./scripts/language";
 import "./scripts/scroll-animations";
