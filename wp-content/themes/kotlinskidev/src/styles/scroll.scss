@@ -82,7 +82,6 @@ body:has(.mobile-footer-nav) {
 		display: none;
 	}
 
-	&:focus,
 	&:focus-visible {
 		outline: -webkit-focus-ring-color auto 1px;
 		outline-offset: 2px;

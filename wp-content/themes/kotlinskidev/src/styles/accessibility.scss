@@ -5,7 +5,7 @@
 	@include custom-button-style();
 	position: fixed !important;
 
-	&:focus {
+	&:focus-visible {
 		color: var(--wp--preset--color--light-color);
 	}
 }

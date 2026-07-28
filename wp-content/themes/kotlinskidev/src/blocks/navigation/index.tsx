@@ -7,6 +7,8 @@ import { __ } from "@wordpress/i18n";
 
 type OverlayMenu = "never" | "mobile" | "always";
 type DisplayMode = "mega" | "list" | "bar";
+type Visibility = "all" | "desktop" | "mobile";
+type HorizontalSide = "right" | "left";
 
 interface NavigationPost {
   id: number;
@@ -18,6 +20,9 @@ interface NavigationAttributes {
   menuSlug: string;
   overlayMenu: OverlayMenu;
   displayMode: DisplayMode;
+  visibility: Visibility;
+  overlaySlide: HorizontalSide;
+  hamburgerLineAlign: HorizontalSide;
   className: string;
   linkNavigatesOnClick: boolean;
 }
@@ -34,6 +39,28 @@ const displayModeOptions = [
   { label: __("Mobile bottom bar", "kotlinskidev"), value: "bar" },
 ];
 
+const visibilityOptions = [
+  { label: __("Always visible", "kotlinskidev"), value: "all" },
+  { label: __("Desktop only", "kotlinskidev"), value: "desktop" },
+  { label: __("Mobile & tablet only", "kotlinskidev"), value: "mobile" },
+];
+
+const overlaySlideOptions = [
+  { label: __("From right", "kotlinskidev"), value: "right" },
+  { label: __("From left", "kotlinskidev"), value: "left" },
+];
+
+const hamburgerLineAlignOptions = [
+  { label: __("Right", "kotlinskidev"), value: "right" },
+  { label: __("Left", "kotlinskidev"), value: "left" },
+];
+
+const visibilityClassMap: Record<Visibility, string> = {
+  all: "",
+  desktop: "nav-desktop",
+  mobile: "nav-mobile",
+};
+
 registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
   title: "Navigation",
   category: "kotlinskidev",
@@ -41,11 +68,18 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
     menuSlug: { type: "string", default: "" },
     overlayMenu: { type: "string", default: "never" },
     displayMode: { type: "string", default: "mega" },
+    visibility: { type: "string", default: "all" },
+    overlaySlide: { type: "string", default: "right" },
+    hamburgerLineAlign: { type: "string", default: "right" },
     className: { type: "string", default: "" },
     linkNavigatesOnClick: { type: "boolean", default: false },
   },
   edit({ attributes, setAttributes }) {
-    const blockProps = useBlockProps({ className: "kt-nav-placeholder" });
+    const blockProps = useBlockProps({
+      className: ["kt-nav-placeholder", visibilityClassMap[attributes.visibility]]
+        .filter(Boolean)
+        .join(" "),
+    });
 
     const navigationPosts = useSelect((select) => {
       return (select("core") as any).getEntityRecords("postType", "wp_navigation", {
@@ -94,6 +128,33 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
               options={overlayMenuOptions}
               onChange={(overlayMenu) => setAttributes({ overlayMenu: overlayMenu as OverlayMenu })}
             />
+            <SelectControl
+              label={__("Visibility", "kotlinskidev")}
+              help={__("Choose on which screen sizes this navigation renders.", "kotlinskidev")}
+              value={attributes.visibility}
+              options={visibilityOptions}
+              onChange={(visibility) => setAttributes({ visibility: visibility as Visibility })}
+            />
+            {attributes.overlayMenu === "always" && (
+              <>
+                <SelectControl
+                  label={__("Overlay slide direction", "kotlinskidev")}
+                  value={attributes.overlaySlide}
+                  options={overlaySlideOptions}
+                  onChange={(overlaySlide) =>
+                    setAttributes({ overlaySlide: overlaySlide as HorizontalSide })
+                  }
+                />
+                <SelectControl
+                  label={__("Hamburger short line alignment", "kotlinskidev")}
+                  value={attributes.hamburgerLineAlign}
+                  options={hamburgerLineAlignOptions}
+                  onChange={(hamburgerLineAlign) =>
+                    setAttributes({ hamburgerLineAlign: hamburgerLineAlign as HorizontalSide })
+                  }
+                />
+              </>
+            )}
             <ToggleControl
               label={__("Navigate top-level links on click", "kotlinskidev")}
               help={__(
@@ -107,10 +168,6 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
         </InspectorControls>
         <span className="kt-nav-placeholder__icon dashicons dashicons-menu" />
         <span className="kt-nav-placeholder__label">{__("Navigation", "kotlinskidev")}</span>
-        <code className="kt-nav-placeholder__slug">
-          {attributes.menuSlug || __("(no slug)", "kotlinskidev")}
-        </code>
-        <span className="kt-nav-placeholder__mode">{attributes.displayMode}</span>
       </div>
     );
   },

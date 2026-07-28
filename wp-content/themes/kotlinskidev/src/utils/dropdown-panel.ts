@@ -1,4 +1,5 @@
 import { registerPanel, closeAllExcept } from "./panel-coordinator";
+import { lockScroll, unlockScroll } from "./scroll-lock";
 
 interface DropdownPanelConfig {
   rootSelector: string;
@@ -19,6 +20,7 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
         ?.setAttribute("aria-expanded", "false");
       panel.querySelector<HTMLElement>(config.modalSelector)?.setAttribute("aria-hidden", "true");
     });
+    unlockScroll(config.rootSelector);
   };
 
   registerPanel(closeAll);
@@ -36,6 +38,7 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
         panel.classList.add("is-open");
         trigger.setAttribute("aria-expanded", "true");
         modal?.setAttribute("aria-hidden", "false");
+        lockScroll(config.rootSelector);
         if (modal) config.onOpen?.(modal);
       }
     });

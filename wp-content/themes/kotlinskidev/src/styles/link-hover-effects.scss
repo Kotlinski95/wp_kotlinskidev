@@ -1,0 +1,46 @@
+@import "theme-colors";
+
+.kt-hover-no-underline,
+.kt-hover-no-underline a {
+	&::after {
+		display: none !important;
+	}
+
+	&:hover,
+	&:focus-visible {
+		&::after {
+			width: 0 !important;
+			display: none !important;
+		}
+
+		@include text-inherit();
+		background-clip: initial !important;
+		-webkit-background-clip: initial !important;
+	}
+}
+
+.kt-hover-no-background,
+.kt-hover-no-background a {
+
+	&:hover,
+	&:focus-visible {
+		@include text-inherit();
+		background-clip: initial !important;
+		-webkit-background-clip: initial !important;
+		opacity: 1 !important;
+		transform: none !important;
+	}
+
+	svg {
+
+		&:hover,
+		&:focus-visible {
+			fill: currentcolor !important;
+		}
+	}
+
+	&:hover svg,
+	&:focus-visible svg {
+		fill: currentcolor !important;
+	}
+}

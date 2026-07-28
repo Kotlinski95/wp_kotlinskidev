@@ -6,22 +6,19 @@ import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import "./style.scss";
 
+type ProtectionType = "email" | "phone" | "address" | "other" | "text";
+
 interface Attributes {
   content: string;
   useProtection: boolean;
-  protectionType: "email" | "phone" | "text";
+  protectionType: ProtectionType;
   tagName: string;
-  originalContent?: string;
   isHtmlMode: boolean;
 }
 
 interface EditProps {
   attributes: Attributes;
   setAttributes: (attributes: Partial<Attributes>) => void;
-}
-
-interface SaveProps {
-  attributes: Attributes;
 }
 
 registerBlockType("kotlinskidev/protected-content", {
@@ -63,8 +60,6 @@ registerBlockType("kotlinskidev/protected-content", {
   attributes: {
     content: {
       type: "string",
-      source: "html",
-      selector: ".protected-content",
       default: "",
     },
     useProtection: {
@@ -79,100 +74,14 @@ registerBlockType("kotlinskidev/protected-content", {
       type: "string",
       default: "p",
     },
-    originalContent: {
-      type: "string",
-      source: "attribute",
-      selector: ".protected-content",
-      attribute: "data-original-content",
-      default: "",
-    },
     isHtmlMode: {
       type: "boolean",
       default: false,
     },
   },
-  deprecated: [
-    {
-      attributes: {
-        content: {
-          type: "string",
-          source: "html",
-          selector: ".protected-content",
-          default: "",
-        },
-        useProtection: {
-          type: "boolean",
-          default: false,
-        },
-        protectionType: {
-          type: "string",
-          default: "email",
-        },
-        tagName: {
-          type: "string",
-          default: "p",
-        },
-        originalContent: {
-          type: "string",
-          source: "attribute",
-          selector: ".protected-content",
-          attribute: "data-original-content",
-          default: "",
-        },
-      },
-      save: ({ attributes }: SaveProps) => {
-        const { content, useProtection, protectionType, tagName, originalContent } = attributes;
-        const blockProps = useBlockProps.save();
-
-        if (!useProtection) {
-          return (
-            <RichText.Content
-              {...blockProps}
-              tagName={tagName as any}
-              className="protected-content"
-              value={content}
-            />
-          );
-        }
-
-        const contentToStore = originalContent || content || "";
-        return (
-          <RichText.Content
-            {...blockProps}
-            tagName={tagName as any}
-            className={`protected-content protected-content--${protectionType}`}
-            data-protected="true"
-            data-protection-type={protectionType}
-            data-original-content={contentToStore}
-            value={contentToStore}
-          />
-        );
-      },
-      migrate: (attributes: any) => {
-        let migratedOriginalContent = attributes.originalContent;
-
-        if (migratedOriginalContent) {
-          try {
-            const decoded = atob(migratedOriginalContent);
-            if (decoded && (decoded.includes("<") || decoded.length > 0)) {
-              migratedOriginalContent = decoded;
-            }
-          } catch (e) {}
-        }
-
-        return {
-          ...attributes,
-          originalContent: migratedOriginalContent || attributes.content || "",
-        };
-      },
-    },
-  ],
 
   edit: ({ attributes, setAttributes }: EditProps) => {
-    const { content, useProtection, protectionType, tagName, originalContent, isHtmlMode } =
-      attributes;
-
-    const displayContent = originalContent || content;
+    const { content, useProtection, protectionType, tagName, isHtmlMode } = attributes;
 
     const blockProps = useBlockProps();
 
@@ -191,7 +100,9 @@ registerBlockType("kotlinskidev/protected-content", {
     const protectionTypeOptions = [
       { label: __("Email", "kotlinskidev"), value: "email" },
       { label: __("Phone", "kotlinskidev"), value: "phone" },
-      { label: __("General Text", "kotlinskidev"), value: "text" },
+      { label: __("Address", "kotlinskidev"), value: "address" },
+      { label: __("Other", "kotlinskidev"), value: "other" },
+      { label: __("General Text (preserves HTML)", "kotlinskidev"), value: "text" },
     ];
 
     return (
@@ -200,7 +111,7 @@ registerBlockType("kotlinskidev/protected-content", {
           <PanelBody title={__("Protection Settings", "kotlinskidev")} initialOpen={true}>
             <ToggleControl
               label={__("Use Protection", "kotlinskidev")}
-              help={__("Enable obfuscation to protect content from bots", "kotlinskidev")}
+              help={__("Encrypt this content server-side; only revealed after a click.", "kotlinskidev")}
               checked={useProtection}
               onChange={(value) => setAttributes({ useProtection: value })}
             />
@@ -210,11 +121,7 @@ registerBlockType("kotlinskidev/protected-content", {
                 label={__("Protection Type", "kotlinskidev")}
                 value={protectionType}
                 options={protectionTypeOptions}
-                onChange={(value) =>
-                  setAttributes({
-                    protectionType: value as "email" | "phone" | "text",
-                  })
-                }
+                onChange={(value) => setAttributes({ protectionType: value as ProtectionType })}
               />
             )}
 
@@ -253,13 +160,8 @@ registerBlockType("kotlinskidev/protected-content", {
           >
             <TextareaControl
               label={__("HTML Content", "kotlinskidev")}
-              value={displayContent}
-              onChange={(value) => {
-                setAttributes({
-                  content: value,
-                  originalContent: value, // Store the full HTML content
-                });
-              }}
+              value={content}
+              onChange={(value) => setAttributes({ content: value })}
               placeholder={__("Enter your HTML content here...", "kotlinskidev")}
               rows={6}
               help={__(
@@ -268,7 +170,7 @@ registerBlockType("kotlinskidev/protected-content", {
               )}
             />
 
-            {displayContent && (
+            {content && (
               <div
                 className="html-preview"
                 style={{
@@ -280,7 +182,7 @@ registerBlockType("kotlinskidev/protected-content", {
                 }}
               >
                 <strong>{__("Preview:", "kotlinskidev")}</strong>
-                <div dangerouslySetInnerHTML={{ __html: displayContent }} />
+                <div dangerouslySetInnerHTML={{ __html: content }} />
               </div>
             )}
           </div>
@@ -293,13 +195,8 @@ registerBlockType("kotlinskidev/protected-content", {
                 ? `protected-content protected-content--${protectionType}`
                 : "protected-content"
             }
-            value={displayContent}
-            onChange={(value) => {
-              setAttributes({
-                content: value,
-                originalContent: value,
-              });
-            }}
+            value={content}
+            onChange={(value) => setAttributes({ content: value })}
             placeholder={__("Enter your content here...", "kotlinskidev")}
             allowedFormats={[
               "core/bold",
@@ -307,6 +204,8 @@ registerBlockType("kotlinskidev/protected-content", {
               "core/link",
               "core/strikethrough",
               "core/underline",
+              "kotlinskidev/highlight-gradient",
+              "kotlinskidev/gradient-text",
             ]}
             multiline={false}
             preserveWhiteSpace={true}
@@ -316,34 +215,5 @@ registerBlockType("kotlinskidev/protected-content", {
     );
   },
 
-  save: ({ attributes }: SaveProps) => {
-    const { content, useProtection, protectionType, tagName, originalContent } = attributes;
-
-    const blockProps = useBlockProps.save();
-
-    if (!useProtection) {
-      return (
-        <RichText.Content
-          {...blockProps}
-          tagName={tagName as any}
-          className="protected-content"
-          value={content}
-        />
-      );
-    }
-
-    const contentToStore = originalContent || content || "";
-
-    return (
-      <RichText.Content
-        {...blockProps}
-        tagName={tagName as any}
-        className={`protected-content protected-content--${protectionType}`}
-        data-protected="true"
-        data-protection-type={protectionType}
-        data-original-content={contentToStore}
-        value=""
-      />
-    );
-  },
+  save: () => null,
 });

@@ -35,6 +35,10 @@
   },
   "supports": {
     "html": false,
-    "reusable": false
+    "reusable": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
   }
 }

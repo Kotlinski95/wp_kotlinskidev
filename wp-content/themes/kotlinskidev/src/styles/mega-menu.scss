@@ -72,6 +72,7 @@
 	font-weight: 500;
 	border-radius: 0.375rem;
 	white-space: nowrap;
+	cursor: pointer;
 
 	&:hover .kt-mega-nav__link-label,
 	.kt-mega-nav__item.is-active & .kt-mega-nav__link-label {
@@ -173,9 +174,7 @@
 		margin: 0;
 	}
 
-	a:not(.kt-mega-nav__l2-link):not(.kt-mega-nav__l3-link):not(.wp-element-button):not(
-	.wp-block-button__link
-) {
+	a:not(.kt-mega-nav__l2-link):not(.kt-mega-nav__l3-link):not(.wp-element-button):not(.wp-block-button__link):not(.kt-nav-link) {
 		color: inherit;
 	}
 
@@ -480,11 +479,12 @@
 
 .kt-mega-nav__backdrop {
 	position: fixed;
-	top: 100%;
-	left: 0;
-	right: 0;
-	height: 100vh;
-	z-index: 997;
+	top: calc(-1 * #{$header});
+	right: auto;
+	left: calc((100% - 100vw) / 2);
+	width: 100vw;
+	height: calc(100vh + #{$header});
+	z-index: -1;
 	background: rgba($black, 0.45);
 	backdrop-filter: blur(2px);
 	opacity: 0;
@@ -534,22 +534,7 @@
 }
 
 .kt-nav-list {
-	display: flex;
-	align-items: flex-start;
-	gap: var(--wp--preset--spacing--50, 2rem);
-
-	@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
-		flex-direction: column;
-		align-items: stretch;
-	}
-
-	&__brand {
-		flex: 0 1 23.75rem;
-		min-width: 0;
-	}
-
 	&__columns {
-		flex: 1;
 		display: grid;
 		grid-template-columns: repeat(var(--kt-nav-list-cols, 4), 1fr);
 		gap: var(--wp--preset--spacing--50, 2rem);
@@ -564,6 +549,10 @@
 		min-width: 0;
 	}
 
+	&__extras {
+		margin-top: var(--wp--preset--spacing--50, 2rem);
+	}
+
 	&__title {
 		margin: 0 0 0.75rem;
 		font-size: var(--wp--preset--font-size--medium);
@@ -576,6 +565,10 @@
 		list-style: none;
 		font-size: var(--wp--preset--font-size--small);
 		line-height: 2.5;
+
+		a {
+			text-decoration: none;
+		}
 	}
 
 	&__link {

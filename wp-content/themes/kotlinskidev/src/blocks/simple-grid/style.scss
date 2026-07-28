@@ -5,6 +5,10 @@
 	grid-template-columns: repeat(var(--kt-sg-cols, 2), 1fr);
 	gap: var(--wp--style--block-gap, 1.5rem);
 
+	@media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-desktop - 0.0625rem)) {
+		grid-template-columns: repeat(var(--kt-sg-cols-tablet, var(--kt-sg-cols, 2)), 1fr);
+	}
+
 	@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
 		grid-template-columns: repeat(var(--kt-sg-cols-mobile, var(--kt-sg-cols, 2)), 1fr);
 	}

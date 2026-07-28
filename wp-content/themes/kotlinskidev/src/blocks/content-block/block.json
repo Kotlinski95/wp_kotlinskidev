@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/content-block",
+  "version": "1.0.0",
+  "title": "Content Block",
+  "category": "kotlinskidev",
+  "icon": "layout",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/content-block.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "contentSlug": {
+      "type": "string",
+      "default": ""
+    },
+    "className": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "customClassName": true
+  }
+}

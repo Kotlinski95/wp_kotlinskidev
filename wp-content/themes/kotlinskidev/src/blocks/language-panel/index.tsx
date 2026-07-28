@@ -33,7 +33,15 @@ const TEMPLATE: TemplateArray = [
   ],
 ];
 
-const ALLOWED_BLOCKS = ["polylang/navigation-language-switcher"];
+const ALLOWED_BLOCKS = [
+  "polylang/navigation-language-switcher",
+  "kotlinskidev/simple-grid",
+  "kotlinskidev/nav-link",
+  "kotlinskidev/nav-banner",
+  "kotlinskidev/nav-image",
+  "kotlinskidev/nav-paragraph",
+  "kotlinskidev/button",
+];
 
 const ChevronIcon = ({ rotated, animated }: { rotated: boolean; animated: boolean }) => (
   <svg

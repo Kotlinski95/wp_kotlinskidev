@@ -22,6 +22,18 @@
       "type": "string",
       "default": "mega"
     },
+    "visibility": {
+      "type": "string",
+      "default": "all"
+    },
+    "overlaySlide": {
+      "type": "string",
+      "default": "right"
+    },
+    "hamburgerLineAlign": {
+      "type": "string",
+      "default": "right"
+    },
     "className": {
       "type": "string",
       "default": ""

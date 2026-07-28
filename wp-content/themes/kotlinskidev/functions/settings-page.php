@@ -30,6 +30,16 @@ function kotlinskidev_settings_tabs(): array
             'group' => 'kotlinskidev_settings_breakpoints',
             'page'  => 'kotlinskidev-settings-breakpoints',
         ],
+        'login'       => [
+            'label' => esc_html__('Login Page', 'kotlinskidev'),
+            'group' => 'kotlinskidev_settings_login',
+            'page'  => 'kotlinskidev-settings-login',
+        ],
+        'tracking'    => [
+            'label' => esc_html__('Tracking', 'kotlinskidev'),
+            'group' => 'kotlinskidev_settings_tracking',
+            'page'  => 'kotlinskidev-settings-tracking',
+        ],
     ];
 }
 
@@ -172,6 +182,187 @@ function kotlinskidev_register_settings(): void
         'kotlinskidev-settings-breakpoints',
         'kotlinskidev_section_breakpoints'
     );
+
+    register_setting(
+        'kotlinskidev_settings_login',
+        'kotlinskidev_login_enable_custom',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_login',
+        'kotlinskidev_login_bg_image',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'default'           => '',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_login',
+        'kotlinskidev_login_logo_image',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'default'           => '',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_login',
+        'kotlinskidev_login_bg_color',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_hex_color',
+            'default'           => '#191919',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_login',
+        'kotlinskidev_login_accent_color',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_hex_color',
+            'default'           => '#8209d3',
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_login',
+        esc_html__('Login Page Branding', 'kotlinskidev'),
+        'kotlinskidev_render_login_section',
+        'kotlinskidev-settings-login'
+    );
+
+    add_settings_field(
+        'kotlinskidev_login_enable_custom',
+        esc_html__('Enable custom login', 'kotlinskidev'),
+        'kotlinskidev_render_login_enable_field',
+        'kotlinskidev-settings-login',
+        'kotlinskidev_section_login'
+    );
+
+    add_settings_field(
+        'kotlinskidev_login_bg_image',
+        esc_html__('Background image', 'kotlinskidev'),
+        'kotlinskidev_render_login_bg_image_field',
+        'kotlinskidev-settings-login',
+        'kotlinskidev_section_login'
+    );
+
+    add_settings_field(
+        'kotlinskidev_login_logo_image',
+        esc_html__('Logo image', 'kotlinskidev'),
+        'kotlinskidev_render_login_logo_image_field',
+        'kotlinskidev-settings-login',
+        'kotlinskidev_section_login'
+    );
+
+    add_settings_field(
+        'kotlinskidev_login_bg_color',
+        esc_html__('Background color', 'kotlinskidev'),
+        'kotlinskidev_render_login_bg_color_field',
+        'kotlinskidev-settings-login',
+        'kotlinskidev_section_login'
+    );
+
+    add_settings_field(
+        'kotlinskidev_login_accent_color',
+        esc_html__('Accent color', 'kotlinskidev'),
+        'kotlinskidev_render_login_accent_color_field',
+        'kotlinskidev-settings-login',
+        'kotlinskidev_section_login'
+    );
+
+    register_setting(
+        'kotlinskidev_settings_tracking',
+        'custom_fb_pixel_loader_pixel_id',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_tracking',
+        'custom_fb_pixel_loader_custom_script',
+        [
+            'type'    => 'string',
+            'default' => '',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_tracking',
+        'custom_ga_loader_ga_id',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_tracking',
+        'custom_ga_loader_custom_script',
+        [
+            'type'    => 'string',
+            'default' => '',
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_tracking_fb',
+        esc_html__('Facebook Pixel', 'kotlinskidev'),
+        'kotlinskidev_render_tracking_fb_section',
+        'kotlinskidev-settings-tracking'
+    );
+
+    add_settings_field(
+        'custom_fb_pixel_loader_pixel_id',
+        esc_html__('Pixel ID', 'kotlinskidev'),
+        'kotlinskidev_render_fb_pixel_id_field',
+        'kotlinskidev-settings-tracking',
+        'kotlinskidev_section_tracking_fb'
+    );
+
+    add_settings_field(
+        'custom_fb_pixel_loader_custom_script',
+        esc_html__('Custom script (overrides ID)', 'kotlinskidev'),
+        'kotlinskidev_render_fb_pixel_script_field',
+        'kotlinskidev-settings-tracking',
+        'kotlinskidev_section_tracking_fb'
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_tracking_ga',
+        esc_html__('Google Analytics', 'kotlinskidev'),
+        'kotlinskidev_render_tracking_ga_section',
+        'kotlinskidev-settings-tracking'
+    );
+
+    add_settings_field(
+        'custom_ga_loader_ga_id',
+        esc_html__('Measurement ID', 'kotlinskidev'),
+        'kotlinskidev_render_ga_id_field',
+        'kotlinskidev-settings-tracking',
+        'kotlinskidev_section_tracking_ga'
+    );
+
+    add_settings_field(
+        'custom_ga_loader_custom_script',
+        esc_html__('Custom script (overrides ID)', 'kotlinskidev'),
+        'kotlinskidev_render_ga_script_field',
+        'kotlinskidev-settings-tracking',
+        'kotlinskidev_section_tracking_ga'
+    );
 }
 
 function kotlinskidev_sanitize_theme_default_mode(string $value): string
@@ -295,6 +486,147 @@ function kotlinskidev_render_breakpoint_large_field(): void
     <p class="description">
         <?php esc_html_e('Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200.', 'kotlinskidev'); ?>
     </p>
+    <?php
+}
+
+function kotlinskidev_login_default_bg_image(): string
+{
+    return get_template_directory_uri() . '/assets/images/kotlinskidev-background.webp';
+}
+
+function kotlinskidev_login_default_logo_image(): string
+{
+    return get_template_directory_uri() . '/assets/images/kotlinskidev-logo.webp';
+}
+
+function kotlinskidev_render_login_section(): void
+{
+    echo '<p>' . esc_html__('Customize the wp-login.php background, logo, and accent color.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_login_enable_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_login_enable_custom', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_login_enable_custom" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Enable custom login page styling', 'kotlinskidev'); ?>
+    </label>
+    <?php
+}
+
+function kotlinskidev_render_login_bg_image_field(): void
+{
+    $value = get_option('kotlinskidev_login_bg_image', '');
+    ?>
+    <input type="url" name="kotlinskidev_login_bg_image" value="<?php echo esc_attr($value); ?>" class="regular-text kotlinskidev-login-media-field" />
+    <button type="button" class="button kotlinskidev-login-media-button" data-target="kotlinskidev_login_bg_image"><?php esc_html_e('Choose Image', 'kotlinskidev'); ?></button>
+    <p class="description">
+        <?php esc_html_e('Defaults to the theme background image when left empty.', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_login_logo_image_field(): void
+{
+    $value = get_option('kotlinskidev_login_logo_image', '');
+    ?>
+    <input type="url" name="kotlinskidev_login_logo_image" value="<?php echo esc_attr($value); ?>" class="regular-text kotlinskidev-login-media-field" />
+    <button type="button" class="button kotlinskidev-login-media-button" data-target="kotlinskidev_login_logo_image"><?php esc_html_e('Choose Image', 'kotlinskidev'); ?></button>
+    <p class="description">
+        <?php esc_html_e('Defaults to the theme logo when left empty.', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_login_bg_color_field(): void
+{
+    $value = get_option('kotlinskidev_login_bg_color', '#191919');
+    ?>
+    <input type="color" name="kotlinskidev_login_bg_color" value="<?php echo esc_attr($value); ?>" />
+    <p class="description"><?php esc_html_e('Fallback background color when no image loads.', 'kotlinskidev'); ?></p>
+    <?php
+}
+
+function kotlinskidev_render_login_accent_color_field(): void
+{
+    $value = get_option('kotlinskidev_login_accent_color', '#8209d3');
+    ?>
+    <input type="color" name="kotlinskidev_login_accent_color" value="<?php echo esc_attr($value); ?>" />
+    <p class="description"><?php esc_html_e('Color for links and hover effects.', 'kotlinskidev'); ?></p>
+    <?php
+}
+
+function kotlinskidev_enqueue_login_settings_media(string $hook): void
+{
+    if ('settings_page_kotlinskidev-settings' !== $hook || 'login' !== kotlinskidev_active_settings_tab()) {
+        return;
+    }
+
+    wp_enqueue_media();
+    wp_add_inline_script('media-editor', '
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".kotlinskidev-login-media-button").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var targetInput = document.getElementsByName(button.dataset.target)[0];
+                    var uploader = wp.media({
+                        title: "Choose Image",
+                        button: { text: "Use Image" },
+                        multiple: false,
+                    });
+                    uploader.on("select", function () {
+                        var attachment = uploader.state().get("selection").first().toJSON();
+                        targetInput.value = attachment.url;
+                    });
+                    uploader.open();
+                });
+            });
+        });
+    ');
+}
+add_action('admin_enqueue_scripts', 'kotlinskidev_enqueue_login_settings_media');
+
+function kotlinskidev_render_tracking_fb_section(): void
+{
+    echo '<p>' . esc_html__('Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses).', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_fb_pixel_id_field(): void
+{
+    $value = get_option('custom_fb_pixel_loader_pixel_id', '');
+    ?>
+    <input type="text" name="custom_fb_pixel_loader_pixel_id" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="123456789012345" />
+    <?php
+}
+
+function kotlinskidev_render_fb_pixel_script_field(): void
+{
+    $value = get_option('custom_fb_pixel_loader_custom_script', '');
+    ?>
+    <textarea name="custom_fb_pixel_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
+    <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
+    <?php
+}
+
+function kotlinskidev_render_tracking_ga_section(): void
+{
+    echo '<p>' . esc_html__('Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses).', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_ga_id_field(): void
+{
+    $value = get_option('custom_ga_loader_ga_id', '');
+    ?>
+    <input type="text" name="custom_ga_loader_ga_id" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="G-XXXXXXXXXX" />
+    <?php
+}
+
+function kotlinskidev_render_ga_script_field(): void
+{
+    $value = get_option('custom_ga_loader_custom_script', '');
+    ?>
+    <textarea name="custom_ga_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
+    <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
     <?php
 }
 

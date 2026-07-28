@@ -10,6 +10,7 @@
   "textdomain": "kotlinskidev",
   "editorScript": "file:../../../build/protected-content.js",
   "style": "file:../../../build/style-protected-content.css",
+  "render": "file:./render.php",
   "supports": {
     "html": false,
     "anchor": true,
@@ -29,22 +30,10 @@
     "border": { "color": true, "radius": true, "style": true, "width": true }
   },
   "attributes": {
-    "content": {
-      "type": "string",
-      "source": "html",
-      "selector": ".protected-content",
-      "default": ""
-    },
+    "content": { "type": "string", "default": "" },
     "useProtection": { "type": "boolean", "default": false },
     "protectionType": { "type": "string", "default": "email" },
     "tagName": { "type": "string", "default": "p" },
-    "originalContent": {
-      "type": "string",
-      "source": "attribute",
-      "selector": ".protected-content",
-      "attribute": "data-original-content",
-      "default": ""
-    },
     "isHtmlMode": { "type": "boolean", "default": false }
   }
 }

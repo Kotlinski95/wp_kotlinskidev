@@ -1,0 +1,18 @@
+@import "variables";
+
+.kt-has-responsive-width {
+	@media (min-width: #{$breakpoint-desktop}) {
+		width: var(--kt-width-desktop, auto);
+		max-width: var(--kt-max-width-desktop, none);
+	}
+
+	@media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
+		width: var(--kt-width-tablet, var(--kt-width-desktop, auto));
+		max-width: var(--kt-max-width-tablet, var(--kt-max-width-desktop, none));
+	}
+
+	@media (max-width: #{$breakpoint-mobile}) {
+		width: var(--kt-width-mobile, var(--kt-width-tablet, var(--kt-width-desktop, auto)));
+		max-width: var(--kt-max-width-mobile, var(--kt-max-width-tablet, var(--kt-max-width-desktop, none)));
+	}
+}

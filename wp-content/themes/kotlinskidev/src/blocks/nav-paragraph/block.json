@@ -8,11 +8,19 @@
   "icon": "editor-paragraph",
   "description": "Text paragraph for use inside navigation panels and holders.",
   "textdomain": "kotlinskidev",
-  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder"],
+  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder", "kotlinskidev/search-panel", "kotlinskidev/nav-search-panel", "kotlinskidev/language-panel", "kotlinskidev/nav-language-panel"],
   "editorScript": "file:../../../build/nav-content.js",
   "render": "file:./render.php",
   "attributes": {
     "content": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "textGradient": {
       "type": "string",
       "default": ""
     }
@@ -20,8 +28,32 @@
   "supports": {
     "html": false,
     "reusable": false,
-    "color": false,
-    "spacing": false,
-    "typography": false
+    "color": {
+      "text": false,
+      "background": true,
+      "gradients": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "margin": true,
+        "padding": true
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
+    "shadow": true
   }
 }

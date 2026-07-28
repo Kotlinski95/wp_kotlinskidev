@@ -15,7 +15,7 @@
 		outline: none;
 		box-sizing: border-box;
 
-		&:focus {
+		&:focus-visible {
 			border-color: var(--wp--preset--color--primary);
 			box-shadow:
 				0 0 0 0.25rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1),
@@ -54,7 +54,7 @@
 		background-position: right 1rem center;
 		background-size: 1.25rem;
 
-		&:focus {
+		&:focus-visible {
 			border-color: var(--wp--preset--color--primary);
 			box-shadow:
 				0 0 0 0.1875rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1),
@@ -106,7 +106,7 @@
 				0 4px 8px rgba(0, 0, 0, 0.15);
 		}
 
-		&:focus {
+		&:focus-visible {
 			box-shadow:
 				0 0 0 4px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.2),
 				0 8px 28px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.4);
@@ -133,7 +133,7 @@
 			background: rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1);
 		}
 
-		&:focus {
+		&:focus-visible {
 			box-shadow: 0 0 0 2px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.2);
 			background: rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.1);
 		}
@@ -220,7 +220,7 @@
 			transform: translateY(-1px);
 		}
 
-		&:focus {
+		&:focus-visible {
 			border-color: var(--wp--preset--color--primary);
 			box-shadow:
 				0 0 0 4px rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.2),
@@ -400,7 +400,7 @@
 	outline: none;
 	padding: 0.75rem 1rem;
 	color: var(--color-text);
-	font-size: 0.9375rem;
+	font-size: var(--wp--preset--font-size--normal);
 	font-family: inherit;
 	line-height: 1.5;
 

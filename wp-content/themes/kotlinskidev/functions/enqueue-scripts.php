@@ -2,7 +2,9 @@
 function defer_global_css()
 {
     // Enqueue the global stylesheet with media="print" to prevent it from blocking render
-    wp_enqueue_style('global-style', get_template_directory_uri() . '/build/main.css', [], null, 'print');
+    $main_css_path = get_template_directory() . '/build/main.css';
+    $main_css_ver  = file_exists($main_css_path) ? filemtime($main_css_path) : null;
+    wp_enqueue_style('global-style', get_template_directory_uri() . '/build/main.css', [], $main_css_ver, 'print');
 }
 add_action('wp_enqueue_scripts', 'defer_global_css');
 

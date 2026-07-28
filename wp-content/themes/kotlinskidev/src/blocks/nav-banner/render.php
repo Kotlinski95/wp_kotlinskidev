@@ -4,7 +4,7 @@ $alt_text   = $attributes['altText'] ?? '';
 $heading    = $attributes['heading'] ?? '';
 $desc       = $attributes['description'] ?? '';
 $link_url   = $attributes['linkUrl'] ?? '';
-$link_label = ! empty( $attributes['linkLabel'] ) ? $attributes['linkLabel'] : __( 'Learn more', 'kotlinskidev' );
+$link_label = $attributes['linkLabel'] ?? '';
 
 $wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-nav-banner' ] );
 ?>
@@ -24,7 +24,7 @@ $wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-nav-banner' ] );
 		<?php if ( $desc ) : ?>
 		<p class="kt-nav-banner__desc"><?php echo wp_kses_post( $desc ); ?></p>
 		<?php endif; ?>
-		<?php if ( $link_url ) : ?>
+		<?php if ( $link_url && $link_label ) : ?>
 		<a class="kt-nav-banner__link" href="<?php echo esc_url( $link_url ); ?>">
 			<?php echo esc_html( $link_label ); ?>
 		</a>

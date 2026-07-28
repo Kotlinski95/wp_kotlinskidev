@@ -66,9 +66,22 @@ function kotlinskidev_get_popular_posts($limit = 6, $post_types = array('post', 
         'orderby' => 'meta_value_num',
         'order' => 'DESC',
         'meta_query' => array(
+            'relation' => 'AND',
             array(
                 'key' => '_kotlinskidev_page_views',
                 'compare' => 'EXISTS'
+            ),
+            array(
+                'relation' => 'OR',
+                array(
+                    'key' => '_yoast_wpseo_meta-robots-noindex',
+                    'compare' => 'NOT EXISTS'
+                ),
+                array(
+                    'key' => '_yoast_wpseo_meta-robots-noindex',
+                    'value' => '1',
+                    'compare' => '!='
+                )
             )
         )
     );

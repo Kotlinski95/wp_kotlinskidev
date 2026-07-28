@@ -212,6 +212,26 @@ function kotlinskidev_get_js_breakpoints(): array
     return kotlinskidev_get_breakpoints();
 }
 
+function kotlinskidev_build_scoped_responsive_css( string $selector, array $properties ): string
+{
+    $media_queries = kotlinskidev_get_css_breakpoints();
+    $css = '';
+
+    foreach ( [ 'desktop', 'tablet', 'mobile' ] as $device ) {
+        $declarations = '';
+        foreach ( $properties as $css_property => $values ) {
+            if ( ! empty( $values[ $device ] ) ) {
+                $declarations .= "{$css_property}:{$values[ $device ]};";
+            }
+        }
+        if ( '' !== $declarations ) {
+            $css .= "{$media_queries[ $device ]}{{$selector}{{$declarations}}}";
+        }
+    }
+
+    return $css;
+}
+
 function kotlinskidev_localize_breakpoints(): void
 {
     wp_localize_script('kotlinskidev-editor-only', 'kotlinskidevBreakpoints', kotlinskidev_get_js_breakpoints());

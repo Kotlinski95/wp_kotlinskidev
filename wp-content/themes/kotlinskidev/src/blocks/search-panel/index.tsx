@@ -36,6 +36,12 @@ const ALLOWED_BLOCKS = [
   "core/buttons",
   "core/group",
   "kotlinskidev/popular-pages",
+  "kotlinskidev/simple-grid",
+  "kotlinskidev/nav-link",
+  "kotlinskidev/nav-banner",
+  "kotlinskidev/nav-image",
+  "kotlinskidev/nav-paragraph",
+  "kotlinskidev/button",
 ];
 
 const SearchIcon = () => (

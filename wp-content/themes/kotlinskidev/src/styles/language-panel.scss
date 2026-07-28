@@ -12,6 +12,8 @@
 .kt-lang-panel__trigger {
 
 	@include kt-panel-trigger();
+	padding: 0;
+	font-size: 1.25rem;
 
 	&:hover,
 	&[aria-expanded="true"] {

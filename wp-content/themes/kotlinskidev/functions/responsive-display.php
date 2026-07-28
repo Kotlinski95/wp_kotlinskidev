@@ -88,25 +88,15 @@ function kotlinskidev_add_responsive_display_attributes($block_content, $block) 
 
     // Add classes to the block wrapper if we have any display classes
     if (!empty($classes)) {
-        $class_string = implode(' ', $classes);
-        
-        // Find the first opening tag and add our classes
-        $new_content = preg_replace(
-            '/^(\s*)(<[^>]+class="[^"]*")/',
-            '$1$2 ' . esc_attr($class_string),
-            $block_content
-        );
-        
-        // If no class attribute exists, add one
-        if (strpos($block_content, 'class=') === false) {
-            $new_content = preg_replace(
-                '/^(\s*)(<[^>]+)(>)/',
-                '$1$2 class="' . esc_attr($class_string) . '"$3',
-                $block_content
-            );
+        $processor = new WP_HTML_Tag_Processor($block_content);
+        if (!$processor->next_tag()) {
+            return $block_content;
         }
-        
-        return $new_content;
+
+        $existing_class = $processor->get_attribute('class') ?? '';
+        $processor->set_attribute('class', trim($existing_class . ' ' . implode(' ', $classes)));
+
+        return $processor->get_updated_html();
     }
 
     return $block_content;

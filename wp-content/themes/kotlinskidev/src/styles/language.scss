@@ -127,15 +127,4 @@
 		width: 1.5rem !important;
 		height: auto !important;
 	}
-
-	&:not(.current-lang) {
-
-		.wp-block-navigation-item__content {
-
-			&:hover {
-
-				@include text-inherit();
-			}
-		}
-	}
 }

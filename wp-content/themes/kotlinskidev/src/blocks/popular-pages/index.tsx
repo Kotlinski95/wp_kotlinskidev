@@ -1,18 +1,20 @@
 import React from "react";
 import { registerBlockType, type BlockEditProps } from "@wordpress/blocks";
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { PanelBody, TextControl, RangeControl } from "@wordpress/components";
+import { InspectorControls, useBlockProps, useSettings } from "@wordpress/block-editor";
+import { PanelBody, TextControl, RangeControl, FontSizePicker } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
 interface PopularPagesAttributes {
   title: string;
   count: number;
+  titleFontSize?: string;
 }
 
 function PopularPagesEdit({ attributes, setAttributes }: BlockEditProps<PopularPagesAttributes>) {
   const blockProps = useBlockProps({ className: "kt-popular-pages" });
   const previewCount = Math.min(attributes.count, 5);
   const remainder = attributes.count - previewCount;
+  const [fontSizes] = useSettings("typography.fontSizes");
 
   return (
     <div {...blockProps}>
@@ -31,12 +33,19 @@ function PopularPagesEdit({ attributes, setAttributes }: BlockEditProps<PopularP
             max={20}
           />
         </PanelBody>
+        <PanelBody title={__("Title Typography", "kotlinskidev")}>
+          <FontSizePicker
+            fontSizes={fontSizes as never}
+            value={attributes.titleFontSize}
+            onChange={(titleFontSize) => setAttributes({ titleFontSize: titleFontSize ?? undefined })}
+          />
+        </PanelBody>
       </InspectorControls>
 
       {attributes.title && (
         <p
           style={{
-            fontSize: "0.6875rem",
+            fontSize: attributes.titleFontSize || "0.6875rem",
             fontWeight: 600,
             textTransform: "uppercase",
             letterSpacing: "0.1em",

@@ -11,6 +11,9 @@ require_once get_template_directory() . '/includes/i18n.php';
 // Register custom blocks via block.json
 require_once get_template_directory() . '/functions/blocks.php';
 
+// Text shadow style support for any block with native shadow support
+require_once get_template_directory() . '/functions/text-shadow-support.php';
+
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 
@@ -41,14 +44,35 @@ require_once get_template_directory() . '/functions/responsive-order.php';
 // Load protected content functionality
 require_once get_template_directory() . '/functions/protection-helpers.php';
 
+// Allow theme.json CSS custom properties inside gradient() values through wp_kses_post()
+require_once get_template_directory() . '/functions/safe-css-gradient-vars.php';
+
 // Load responsive display controls
 require_once get_template_directory() . '/functions/responsive-display.php';
+
+// Load responsive width controls
+require_once get_template_directory() . '/functions/responsive-width.php';
+
+// Load responsive spacing controls
+require_once get_template_directory() . '/functions/responsive-spacing.php';
+
+// Load responsive font size controls
+require_once get_template_directory() . '/functions/responsive-font-size.php';
+
+// Load contact form submission handler
+require_once get_template_directory() . '/functions/contact-form.php';
+
+// Load link hover effects controls
+require_once get_template_directory() . '/functions/link-hover-effects.php';
+
+// Load Facebook Pixel / Google Analytics tracking scripts
+require_once get_template_directory() . '/functions/tracking-scripts.php';
 
 // Load parallax frontend support
 require_once get_template_directory() . '/includes/parallax-frontend.php';
 
-// Load custom login page - can also be handled via plugin
-// require_once get_template_directory() . '/functions/login.php';
+// Load custom login page
+require_once get_template_directory() . '/functions/login.php';
 
 // ======== Shortcodes ========
 

@@ -2,6 +2,14 @@
 $menu_slug    = $attributes['menuSlug'] ?? '';
 $overlay_menu = $attributes['overlayMenu'] ?? 'never';
 $display_mode = $attributes['displayMode'] ?? 'mega';
+$visibility   = $attributes['visibility'] ?? 'all';
+
+$nav_classes = [];
+if ( $visibility === 'desktop' ) {
+	$nav_classes[] = 'nav-desktop';
+} elseif ( $visibility === 'mobile' ) {
+	$nav_classes[] = 'nav-mobile';
+}
 
 if ( empty( $menu_slug ) ) {
 	return;
@@ -16,7 +24,16 @@ if ( ! $nav_post instanceof WP_Post ) {
 $nav_id = $nav_post->ID;
 
 if ( $overlay_menu !== 'never' ) {
-	echo '<div ' . get_block_wrapper_attributes() . '>' . render_block( [
+	if ( $visibility !== 'mobile' ) {
+		$nav_classes[] = 'kt-hamburger-desktop';
+	}
+	if ( ( $attributes['overlaySlide'] ?? 'right' ) === 'left' ) {
+		$nav_classes[] = 'kt-nav-slide-left';
+	}
+	if ( ( $attributes['hamburgerLineAlign'] ?? 'right' ) === 'left' ) {
+		$nav_classes[] = 'kt-hamburger-line-left';
+	}
+	echo '<div ' . get_block_wrapper_attributes( [ 'class' => implode( ' ', $nav_classes ) ] ) . '>' . render_block( [
 		'blockName'    => 'core/navigation',
 		'attrs'        => [
 			'ref'         => $nav_id,
@@ -46,10 +63,9 @@ if ( ! function_exists( 'kotlinskidev_render_nav_list_group' ) ) {
 }
 
 if ( $display_mode === 'list' ) {
-	$columns      = [];
-	$brand_blocks = [];
-	$loose_items  = [];
-	$list_skipped = [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel', 'kotlinskidev/language-panel', 'kotlinskidev/nav-language-panel', 'polylang/navigation-language-switcher', 'kotlinskidev/nav-popular-pages', 'kotlinskidev/simple-grid' ];
+	$columns     = [];
+	$loose_items = [];
+	$extras      = [];
 
 	foreach ( parse_blocks( $nav_post->post_content ) as $list_block ) {
 		if ( empty( $list_block['blockName'] ) ) {
@@ -88,31 +104,41 @@ if ( $display_mode === 'list' ) {
 			continue;
 		}
 
-		if ( in_array( $list_block['blockName'], $list_skipped, true ) ) {
+		if ( $list_block['blockName'] === 'kotlinskidev/simple-grid' ) {
+			$grid_heading = $list_block['attrs']['label'] ?? '';
+			$grid_content = render_block( $list_block );
+			ob_start();
+			echo '<div class="kt-nav-list__group">';
+			if ( $grid_heading !== '' ) {
+				echo '<h3 class="kt-nav-list__title">' . esc_html( $grid_heading ) . '</h3>';
+			}
+			echo $grid_content;
+			echo '</div>';
+			$columns[] = ob_get_clean();
 			continue;
 		}
 
-		$brand_blocks[] = render_block( $list_block );
+		$extras[] = render_block( $list_block );
 	}
 
 	if ( ! empty( $loose_items ) ) {
 		$columns[] = kotlinskidev_render_nav_list_group( empty( $columns ) ? get_the_title( $nav_post ) : '', $loose_items );
 	}
 
-	if ( empty( $columns ) && empty( $brand_blocks ) ) {
+	if ( empty( $columns ) && empty( $extras ) ) {
 		return;
 	}
 
 	$list_wrapper_attrs = get_block_wrapper_attributes( [
-		'class' => 'kt-nav-list' . ( empty( $brand_blocks ) ? '' : ' has-brand' ),
+		'class' => trim( 'kt-nav-list ' . implode( ' ', $nav_classes ) ),
 	] );
 
 	echo '<div ' . $list_wrapper_attrs . '>';
-	if ( ! empty( $brand_blocks ) ) {
-		echo '<div class="kt-nav-list__brand">' . implode( '', $brand_blocks ) . '</div>';
-	}
 	if ( ! empty( $columns ) ) {
 		echo '<div class="kt-nav-list__columns" style="--kt-nav-list-cols:' . count( $columns ) . '">' . implode( '', $columns ) . '</div>';
+	}
+	if ( ! empty( $extras ) ) {
+		echo '<div class="kt-nav-list__extras">' . implode( '', $extras ) . '</div>';
 	}
 	echo '</div>';
 	return;
@@ -137,10 +163,15 @@ if ( ! function_exists( 'kotlinskidev_inline_nav_icon' ) ) {
 }
 
 if ( $display_mode === 'bar' ) {
-	$bar_items = [];
+	$bar_items  = [];
+	$bar_extras = [];
 
 	foreach ( parse_blocks( $nav_post->post_content ) as $bar_block ) {
-		if ( ( $bar_block['blockName'] ?? '' ) !== 'core/navigation-link' ) {
+		if ( empty( $bar_block['blockName'] ) ) {
+			continue;
+		}
+		if ( $bar_block['blockName'] !== 'core/navigation-link' ) {
+			$bar_extras[] = render_block( $bar_block );
 			continue;
 		}
 		$bar_label = $bar_block['attrs']['label'] ?? '';
@@ -155,7 +186,7 @@ if ( $display_mode === 'bar' ) {
 		];
 	}
 
-	if ( empty( $bar_items ) ) {
+	if ( empty( $bar_items ) && empty( $bar_extras ) ) {
 		return;
 	}
 
@@ -171,6 +202,9 @@ if ( $display_mode === 'bar' ) {
 		}
 		echo '<span class="mobile-menu-text">' . esc_html( $bar_item['label'] ) . '</span>';
 		echo '</a></li>';
+	}
+	foreach ( $bar_extras as $bar_extra ) {
+		echo '<li class="menu-item menu-item--extra">' . $bar_extra . '</li>';
 	}
 	echo '</ul></div></nav>';
 	return;
@@ -336,7 +370,7 @@ $raw_blocks    = parse_blocks( $post->post_content );
 $items         = kotlinskidev_parse_nav_blocks( $raw_blocks );
 $extras        = kotlinskidev_render_nav_extras( $raw_blocks );
 $link_navigates = ! empty( $attributes['linkNavigatesOnClick'] );
-$extra_attrs    = [ 'class' => 'kt-mega-nav' ];
+$extra_attrs    = [ 'class' => trim( 'kt-mega-nav ' . implode( ' ', $nav_classes ) ) ];
 if ( $link_navigates ) {
 	$extra_attrs['data-link-navigates'] = 'true';
 }
@@ -386,7 +420,8 @@ ob_start();
 				<a class="kt-mega-nav__link<?php echo $nav_icon_svg ? ' kt-mega-nav__link--icon' : ''; ?><?php echo $item['font_size_class'] ?? ''; ?> custom-color"
 					href="<?php echo esc_url( $item['url'] ); ?>"
 					<?php if ( ! empty( $item['font_size_style'] ) ) : ?>style="<?php echo esc_attr( $item['font_size_style'] ); ?>"<?php endif; ?>
-					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php endif; ?>>
+					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php endif; ?>
+					<?php if ( $item['has_panel'] ) : ?>role="button" aria-haspopup="true" aria-expanded="false"<?php endif; ?>>
 					<?php if ( ! empty( $item['flag'] ) ) : ?>
 					<img class="kt-mega-nav__flag" src="<?php echo esc_url( $item['flag'] ); ?>" alt="" width="20" height="15" />
 					<?php endif; ?>

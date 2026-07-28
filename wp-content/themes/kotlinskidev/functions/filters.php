@@ -1,10 +1,4 @@
 <?php
-add_filter('nocache_headers', function ($headers) {
-    unset($headers['Cache-Control']);
-    $headers['Cache-Control'] = 'public, max-age=31536000';
-    return $headers;
-});
-
 /**
  * Return cached image dimensions for a given URL.
  *

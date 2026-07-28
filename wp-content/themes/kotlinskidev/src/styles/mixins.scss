@@ -1,3 +1,11 @@
+@function kt-not($selectors) {
+	$chain: "";
+	@each $selector in $selectors {
+		$chain: $chain + ":not(#{$selector})";
+	}
+	@return $chain;
+}
+
 @mixin kt-panel-trigger {
 	all: unset;
 	display: flex;
@@ -14,7 +22,7 @@
 
 @mixin kt-panel-modal {
 	position: fixed;
-	top: $header;
+	top: calc(#{$header} + var(--admin-bar-offset, 0px));
 	left: 0;
 	right: 0;
 	z-index: 998;

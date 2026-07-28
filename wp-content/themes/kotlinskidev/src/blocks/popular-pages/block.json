@@ -18,6 +18,9 @@
     "count": {
       "type": "integer",
       "default": 5
+    },
+    "titleFontSize": {
+      "type": "string"
     }
   },
   "supports": {

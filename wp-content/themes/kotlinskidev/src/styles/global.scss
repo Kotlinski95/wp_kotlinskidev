@@ -4,6 +4,10 @@
 	--kt-above-fold: calc(100svh - #{$header});
 }
 
+.wp-block-social-link-anchor {
+	vertical-align: top;
+}
+
 @media (max-width: $breakpoint-mobile) {
 
 	:root {
@@ -32,7 +36,7 @@ body {
 	overflow-x: clip;
 	overscroll-behavior: none;
 
-	&.scroll-lock {
+	.has-modal-open & {
 		overflow: hidden;
 		touch-action: none;
 	}
@@ -338,7 +342,7 @@ span:empty {
 		display: inline-block;
 	}
 
-	a:not(.custom-color):not(.has-text-color):not(.has-background):hover {
+	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):hover {
 		background: var(--color-link-hover-override, var(--kt-text-gradient));
 		-webkit-background-clip: text;
 		background-clip: text;

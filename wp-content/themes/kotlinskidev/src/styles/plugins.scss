@@ -22,8 +22,8 @@
 	border-color: var(--wp--preset--color--divider);
 }
 
-.dark-mode .contact-form-block input:focus,
-.dark-mode .contact-form-block textarea:focus {
+.dark-mode .contact-form-block input:focus-visible,
+.dark-mode .contact-form-block textarea:focus-visible {
 	background: var(--color-surface);
 	border-color: var(--wp--preset--color--primary);
 }
@@ -34,7 +34,7 @@
 }
 
 .dark-mode .contact-form-block button:hover,
-.dark-mode .contact-form-block button:focus {
+.dark-mode .contact-form-block button:focus-visible {
 	background: var(--wp--preset--color--primary-hover);
 	color: var(--wp--preset--color--light-color);
 }

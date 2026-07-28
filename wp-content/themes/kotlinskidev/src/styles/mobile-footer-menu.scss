@@ -76,7 +76,7 @@
 			height: calc(100% - 0.375rem);
 
 			&:hover,
-			&:focus {
+			&:focus-visible {
 
 				@include gradient-text();
 			}

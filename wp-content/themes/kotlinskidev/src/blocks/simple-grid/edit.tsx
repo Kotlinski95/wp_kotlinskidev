@@ -30,6 +30,7 @@ interface BlockEditorDispatch {
 interface SimpleGridAttributes {
   label: string;
   mobileColumns?: number;
+  tabletColumns?: number;
 }
 
 const COLUMN_CHOICES = [2, 3, 4];
@@ -103,6 +104,22 @@ export default function Edit({
     setAttributes({ mobileColumns: mobileColumns > 0 ? mobileColumns : undefined });
   };
 
+  const tabletColumnOptions = [
+    { label: __("Same as desktop", "kotlinskidev"), value: "0" },
+    ...Array.from({ length: colCount }, (_, i) => i + 1).map((count) => ({
+      label:
+        count === 1
+          ? __("1 column", "kotlinskidev")
+          : `${count} ${__("columns", "kotlinskidev")}`,
+      value: String(count),
+    })),
+  ];
+
+  const onTabletColumnsChange = (value: string) => {
+    const tabletColumns = parseInt(value, 10);
+    setAttributes({ tabletColumns: tabletColumns > 0 ? tabletColumns : undefined });
+  };
+
   const blockProps = useBlockProps({
     className: "kt-simple-grid",
     style: { "--kt-sg-cols": colCount } as React.CSSProperties,
@@ -125,6 +142,16 @@ export default function Edit({
             value={String(colCount)}
             options={columnOptions}
             onChange={onColumnsChange}
+          />
+          <SelectControl
+            label={__("Tablet layout", "kotlinskidev")}
+            value={String(attributes.tabletColumns ?? 0)}
+            options={tabletColumnOptions}
+            onChange={onTabletColumnsChange}
+            help={__(
+              "Applied between the mobile and desktop breakpoints on the front end. The editor canvas always shows the desktop layout.",
+              "kotlinskidev"
+            )}
           />
           <SelectControl
             label={__("Mobile layout", "kotlinskidev")}

@@ -47,30 +47,6 @@
 		}
 
 		// Different protection types styling
-		&.protected-content--email {
-
-			&::after {
-				content: "📧";
-				position: absolute;
-				right: -1.25rem;
-				top: 0;
-				font-size: 0.75rem;
-				opacity: 0.5;
-			}
-		}
-
-		&.protected-content--phone {
-
-			&::after {
-				content: "📱";
-				position: absolute;
-				right: -1.25rem;
-				top: 0;
-				font-size: 0.75rem;
-				opacity: 0.5;
-			}
-		}
-
 		&.protected-content--text {
 
 			&::after {

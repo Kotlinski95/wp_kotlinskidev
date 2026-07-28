@@ -1,9 +1,31 @@
+@import "variables";
+@import "mixins";
+
+$kt-dead-link-triggers: (
+	".kt-mega-nav__link"
+);
+
+$kt-underline-link-exceptions: (
+	"#scroll-to-top",
+	".custom-logo-link",
+	'[href="#"]',
+	".wp-element-button",
+	".wp-block-button__link",
+	".kt-hover-no-link-gradient",
+	".wp-block-social-link-anchor"
+);
+
 header,
 footer {
 
 	@media (min-width: $breakpoint-desktop) {
 
-		a:not(#scroll-to-top):not(.custom-logo-link) {
+		a[href="#"]#{kt-not($kt-dead-link-triggers)},
+		a:not([href]):not(#scroll-to-top) {
+			pointer-events: none;
+		}
+
+		a[href]#{kt-not($kt-underline-link-exceptions)} {
 			position: relative;
 			text-decoration: none;
 
@@ -20,11 +42,11 @@ footer {
 			}
 
 			&:hover::after,
-			&:focus::after {
+			&:focus-visible::after {
 				width: 100%;
 			}
 
-			&:focus {
+			&:focus-visible {
 				background-image:
  var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 				background-clip: text;

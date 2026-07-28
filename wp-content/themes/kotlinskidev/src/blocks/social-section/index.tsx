@@ -7,11 +7,36 @@ import {
   MediaUpload,
   MediaUploadCheck,
 } from "@wordpress/block-editor";
-import { PanelBody, TextControl, ToggleControl, Button } from "@wordpress/components";
+import {
+  PanelBody,
+  TextControl,
+  ToggleControl,
+  Button,
+  __experimentalUnitControl as UnitControl,
+} from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+
+interface ResponsiveValue {
+  desktop?: string;
+  tablet?: string;
+  mobile?: string;
+}
+
+type ResponsiveDevice = keyof ResponsiveValue;
+
+const RESPONSIVE_DEVICES: ResponsiveDevice[] = ["desktop", "tablet", "mobile"];
+
+const ICON_SIZE_UNITS = [
+  { value: "px", label: "px" },
+  { value: "rem", label: "rem" },
+  { value: "%", label: "%" },
+];
 
 interface SocialSectionAttributes {
   attachToBottom: boolean;
+  iconWidth: ResponsiveValue;
+  iconHeight: ResponsiveValue;
+  itemGap: ResponsiveValue;
 }
 
 interface SocialItemAttributes {
@@ -35,6 +60,16 @@ const SocialSectionEdit = ({
 }: BlockEditProps<SocialSectionAttributes>) => {
   const blockProps = useBlockProps({ className: "kt-social-section-editor" });
 
+  const updateResponsive = (
+    key: "iconWidth" | "iconHeight" | "itemGap",
+    device: ResponsiveDevice,
+    value: string
+  ) => {
+    setAttributes({
+      [key]: { ...attributes[key], [device]: value || undefined },
+    } as Partial<SocialSectionAttributes>);
+  };
+
   return (
     <div {...blockProps}>
       <InspectorControls>
@@ -45,6 +80,54 @@ const SocialSectionEdit = ({
             checked={attributes.attachToBottom}
             onChange={(attachToBottom) => setAttributes({ attachToBottom })}
           />
+        </PanelBody>
+        <PanelBody title={__("Icon Size & Spacing", "kotlinskidev")} initialOpen={false}>
+          {RESPONSIVE_DEVICES.map((device) => (
+            <div
+              key={device}
+              style={{
+                marginBottom: "1rem",
+                padding: "0.75rem",
+                border: "0.0625rem solid #ddd",
+                borderRadius: "0.25rem",
+              }}
+            >
+              <h4
+                style={{
+                  margin: "0 0 0.75rem 0",
+                  fontSize: "0.8125rem",
+                  fontWeight: 600,
+                  textTransform: "capitalize",
+                }}
+              >
+                {device}
+              </h4>
+              <UnitControl
+                label={__("Icon Width", "kotlinskidev")}
+                value={attributes.iconWidth?.[device] || ""}
+                units={ICON_SIZE_UNITS}
+                onChange={(value: string | undefined) =>
+                  updateResponsive("iconWidth", device, value || "")
+                }
+              />
+              <UnitControl
+                label={__("Icon Height", "kotlinskidev")}
+                value={attributes.iconHeight?.[device] || ""}
+                units={ICON_SIZE_UNITS}
+                onChange={(value: string | undefined) =>
+                  updateResponsive("iconHeight", device, value || "")
+                }
+              />
+              <UnitControl
+                label={__("Gap Between Icons", "kotlinskidev")}
+                value={attributes.itemGap?.[device] || ""}
+                units={ICON_SIZE_UNITS}
+                onChange={(value: string | undefined) =>
+                  updateResponsive("itemGap", device, value || "")
+                }
+              />
+            </div>
+          ))}
         </PanelBody>
       </InspectorControls>
       <InnerBlocks
@@ -136,6 +219,15 @@ registerBlockType<SocialSectionAttributes>("kotlinskidev/social-section", {
   category: "kotlinskidev-navigation",
   attributes: {
     attachToBottom: { type: "boolean", default: true },
+    iconWidth: { type: "object", default: {} },
+    iconHeight: { type: "object", default: {} },
+    itemGap: { type: "object", default: {} },
+  },
+  supports: {
+    spacing: {
+      margin: true,
+      padding: true,
+    },
   },
   edit: SocialSectionEdit,
   save: SocialSectionSave,
@@ -150,6 +242,12 @@ registerBlockType<SocialItemAttributes>("kotlinskidev/social-item", {
     iconClass: { type: "string", default: "" },
     navIconId: { type: "integer", default: 0 },
     navIconUrl: { type: "string", default: "" },
+  },
+  supports: {
+    spacing: {
+      margin: true,
+      padding: true,
+    },
   },
   edit: SocialItemEdit,
   save: () => null,

@@ -657,7 +657,9 @@ if (!function_exists('kotlinskidev_ajax_decrypt_content')) {
                 $formatted_content = sprintf('<a href="tel:%s">%s</a>', esc_attr($clean_phone), esc_html($decrypted_content));
                 break;
             case 'text':
-                // For text type, allow HTML content but sanitize it for security
+            case 'address':
+            case 'other':
+                // These types allow HTML content but sanitize it for security
                 $formatted_content = wp_kses_post($decrypted_content);
                 break;
             default:
