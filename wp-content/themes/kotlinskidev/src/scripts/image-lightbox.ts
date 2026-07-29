@@ -157,9 +157,33 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
     }
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initLightbox);
-  } else {
+  const applyTriggerLabel = (button: HTMLButtonElement) => {
+    if (button.getAttribute("aria-label")) return;
+    const img = button.closest("figure")?.querySelector("img");
+    button.setAttribute("aria-label", img?.alt || "Expand image");
+  };
+
+  const labelLightboxTriggers = () => {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(
+      ".wp-block-image button.lightbox-trigger"
+    );
+    buttons.forEach((button) => {
+      applyTriggerLabel(button);
+      new MutationObserver(() => applyTriggerLabel(button)).observe(button, {
+        attributes: true,
+        attributeFilter: ["aria-label"],
+      });
+    });
+  };
+
+  const init = () => {
     initLightbox();
+    labelLightboxTriggers();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();

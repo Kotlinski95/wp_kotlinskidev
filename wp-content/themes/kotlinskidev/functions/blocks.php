@@ -56,14 +56,10 @@ function kotlinskidev_navigation_listable_blocks( array $blocks ): array {
 add_filter( 'block_core_navigation_listable_blocks', 'kotlinskidev_navigation_listable_blocks' );
 
 function kotlinskidev_inline_nav_icon( int $id ): string {
-    if ( ! $id ) {
+    if ( ! $id || 'image/svg+xml' !== get_post_mime_type( $id ) ) {
         return '';
     }
-    $file = get_attached_file( $id );
-    if ( ! $file || 'svg' !== strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) ) {
-        return '';
-    }
-    $svg = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+    $svg = kotlinskidev_load_svg_content( $id );
     if ( ! $svg ) {
         return '';
     }

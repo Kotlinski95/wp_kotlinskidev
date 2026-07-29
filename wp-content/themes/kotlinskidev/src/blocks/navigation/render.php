@@ -257,7 +257,8 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 				$inner_content = implode( '', array_map( 'render_block', $block['innerBlocks'] ?? [] ) );
 				$sp_fs         = kotlinskidev_nav_link_styles( $attrs );
 				$items[]       = [
-					'label'           => $attrs['label'] ?? __( 'Search', 'kotlinskidev' ),
+					'label'           => $attrs['label'] ?? '',
+					'aria_label'      => ( $attrs['label'] ?? '' ) !== '' ? $attrs['label'] : __( 'Search', 'kotlinskidev' ),
 					'url'             => '#',
 					'children'        => [],
 					'panel_content'   => $inner_content,
@@ -420,10 +421,10 @@ ob_start();
 				<a class="kt-mega-nav__link<?php echo $nav_icon_svg ? ' kt-mega-nav__link--icon' : ''; ?><?php echo $item['font_size_class'] ?? ''; ?> custom-color"
 					href="<?php echo esc_url( $item['url'] ); ?>"
 					<?php if ( ! empty( $item['font_size_style'] ) ) : ?>style="<?php echo esc_attr( $item['font_size_style'] ); ?>"<?php endif; ?>
-					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['label'] ); ?>"<?php endif; ?>
+					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['aria_label'] ?? $item['label'] ); ?>"<?php endif; ?>
 					<?php if ( $item['has_panel'] ) : ?>role="button" aria-haspopup="true" aria-expanded="false"<?php endif; ?>>
 					<?php if ( ! empty( $item['flag'] ) ) : ?>
-					<img class="kt-mega-nav__flag" src="<?php echo esc_url( $item['flag'] ); ?>" alt="" width="20" height="15" />
+					<img class="kt-mega-nav__flag" src="<?php echo esc_url( $item['flag'] ); ?>" alt="" width="48" height="30" />
 					<?php endif; ?>
 					<?php if ( $nav_label !== '' ) : ?>
 					<span class="kt-mega-nav__link-label"><?php echo esc_html( $nav_label ); ?></span>

@@ -18,9 +18,16 @@ if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
 }
 
 function kotlinskidev_resolve_translatable_post( string $slug, string $post_type ): ?WP_Post {
+	static $resolved = [];
+
+	$cache_key = $slug . '|' . $post_type;
+	if ( array_key_exists( $cache_key, $resolved ) ) {
+		return $resolved[ $cache_key ];
+	}
+
 	$post = get_page_by_path( $slug, OBJECT, $post_type );
 	if ( ! $post instanceof WP_Post ) {
-		return null;
+		return $resolved[ $cache_key ] = null;
 	}
 	if ( function_exists( 'pll_get_post' ) ) {
 		$translated_id = pll_get_post( $post->ID );
@@ -28,5 +35,5 @@ function kotlinskidev_resolve_translatable_post( string $slug, string $post_type
 			$post = get_post( $translated_id );
 		}
 	}
-	return $post instanceof WP_Post ? $post : null;
+	return $resolved[ $cache_key ] = ( $post instanceof WP_Post ? $post : null );
 }

@@ -13,6 +13,23 @@
       "headers": {
         "Authorization": "Bearer ${WP_MCP_API_KEY_PROD}"
       }
+    },
+    "lighthouse": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "lighthouse-mcp"
+      ],
+      "env": {}
+    },
+    "chrome-devtools-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp"
+      ],
+      "env": {}
     }
   }
 }

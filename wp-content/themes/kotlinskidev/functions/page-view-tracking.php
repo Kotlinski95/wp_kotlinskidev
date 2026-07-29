@@ -58,35 +58,63 @@ function kotlinskidev_get_page_views($post_id)
 
 function kotlinskidev_get_popular_posts($limit = 6, $post_types = array('post', 'page'))
 {
-    $args = array(
-        'post_type' => $post_types,
-        'post_status' => 'publish',
-        'posts_per_page' => $limit * 2,
-        'meta_key' => '_kotlinskidev_page_views',
-        'orderby' => 'meta_value_num',
-        'order' => 'DESC',
-        'meta_query' => array(
-            'relation' => 'AND',
-            array(
-                'key' => '_kotlinskidev_page_views',
-                'compare' => 'EXISTS'
-            ),
-            array(
-                'relation' => 'OR',
+    $lang = function_exists('pll_current_language') ? pll_current_language() : '';
+    $cache_key = KOTLINSKIDEV_CACHE_PREFIX . 'popular_posts_' . md5($limit . '|' . implode(',', (array) $post_types) . '|' . $lang);
+    $post_ids  = get_transient($cache_key);
+
+    if ($post_ids === false) {
+        $args = array(
+            'post_type' => $post_types,
+            'post_status' => 'publish',
+            'posts_per_page' => $limit * 2,
+            'meta_key' => '_kotlinskidev_page_views',
+            'orderby' => 'meta_value_num',
+            'order' => 'DESC',
+            'fields' => 'ids',
+            'no_found_rows' => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+            'meta_query' => array(
+                'relation' => 'AND',
                 array(
-                    'key' => '_yoast_wpseo_meta-robots-noindex',
-                    'compare' => 'NOT EXISTS'
+                    'key' => '_kotlinskidev_page_views',
+                    'compare' => 'EXISTS'
                 ),
                 array(
-                    'key' => '_yoast_wpseo_meta-robots-noindex',
-                    'value' => '1',
-                    'compare' => '!='
+                    'relation' => 'OR',
+                    array(
+                        'key' => '_yoast_wpseo_meta-robots-noindex',
+                        'compare' => 'NOT EXISTS'
+                    ),
+                    array(
+                        'key' => '_yoast_wpseo_meta-robots-noindex',
+                        'value' => '1',
+                        'compare' => '!='
+                    )
                 )
             )
-        )
-    );
+        );
 
-    return new WP_Query($args);
+        $post_ids = ( new WP_Query($args) )->posts;
+        set_transient($cache_key, $post_ids, 15 * MINUTE_IN_SECONDS);
+    }
+
+    if (empty($post_ids)) {
+        return new WP_Query(array('post__in' => array(0), 'lang' => ''));
+    }
+
+    // 'lang' => '' skips Polylang's per-post language re-validation here — the IDs
+    // are already language-resolved by the cached query above, so re-checking each
+    // one again on every request (cache hit or not) would be redundant DB work.
+    return new WP_Query(array(
+        'post__in' => $post_ids,
+        'orderby' => 'post__in',
+        'post_type' => $post_types,
+        'post_status' => 'publish',
+        'posts_per_page' => count($post_ids),
+        'no_found_rows' => true,
+        'lang' => '',
+    ));
 }
 
 function kotlinskidev_add_views_column($columns)

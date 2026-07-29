@@ -64,6 +64,20 @@ function replaceCookieConsentButton(): void {
   }
 }
 
+function labelCookieBannerLogo(): void {
+  try {
+    const logoLink = document.querySelector(
+      "#cmplz-cookiebanner-1-optin .cmplz-logo a.custom-logo-link"
+    ) as HTMLAnchorElement;
+
+    if (logoLink && !logoLink.getAttribute("aria-label")) {
+      logoLink.setAttribute("aria-label", document.title.split("|")[0].trim() || "Home");
+    }
+  } catch (error) {
+    console.warn("Failed to label cookie banner logo:", error);
+  }
+}
+
 function observeConsentButton(): void {
   try {
     const targetNode = document.body || document.documentElement;
@@ -87,6 +101,8 @@ function observeConsentButton(): void {
                 if (consentButton && !document.querySelector(".cookie-consent-icon")) {
                   setTimeout(replaceCookieConsentButton, 100);
                 }
+
+                labelCookieBannerLogo();
               }
             });
           }
@@ -121,6 +137,7 @@ function observeConsentButton(): void {
 function initCookieConsentReplacement(): void {
   try {
     replaceCookieConsentButton();
+    labelCookieBannerLogo();
 
     observeConsentButton();
 
@@ -128,12 +145,14 @@ function initCookieConsentReplacement(): void {
       document.addEventListener("DOMContentLoaded", () => {
         try {
           setTimeout(replaceCookieConsentButton, 500);
+          setTimeout(labelCookieBannerLogo, 500);
         } catch (error) {
           console.warn("Failed to replace cookie consent button on DOM ready:", error);
         }
       });
     } else {
       setTimeout(replaceCookieConsentButton, 500);
+      setTimeout(labelCookieBannerLogo, 500);
     }
   } catch (error) {
     console.warn("Failed to initialize cookie consent replacement:", error);

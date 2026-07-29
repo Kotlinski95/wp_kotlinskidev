@@ -68,7 +68,13 @@ export default function Save({ attributes }: { attributes: GalleryLightboxAttrib
       <button
         className="gallery-lightbox-trigger"
         type="button"
-        aria-label={first.alt || "Open gallery"}
+        aria-label={`${first.alt || "Open gallery"}${
+          totalCount > 1
+            ? carouselSettings.trackActiveSlide
+              ? ` 01 / ${String(totalCount).padStart(2, "0")}`
+              : ` +${rest.length}`
+            : ""
+        }`}
         style={
           first.width && first.height
             ? { aspectRatio: `${first.width}/${first.height}` }

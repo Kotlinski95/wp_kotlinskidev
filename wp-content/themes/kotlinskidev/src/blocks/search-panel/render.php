@@ -1,5 +1,5 @@
 <?php
-$label    = $attributes['label'] ?? __( 'Search', 'kotlinskidev' );
+$label    = ( $attributes['label'] ?? '' ) !== '' ? $attributes['label'] : __( 'Search', 'kotlinskidev' );
 $panel_id = 'kt-search-modal-' . wp_unique_id();
 ?>
 <div <?php echo get_block_wrapper_attributes( [ 'class' => 'kt-search-panel' ] ); ?>>

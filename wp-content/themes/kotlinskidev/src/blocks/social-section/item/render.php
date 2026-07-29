@@ -8,24 +8,6 @@ if ( $url === '' ) {
 	return;
 }
 
-if ( ! function_exists( 'kotlinskidev_inline_nav_icon' ) ) {
-	function kotlinskidev_inline_nav_icon( int $id ): string {
-		if ( ! $id ) {
-			return '';
-		}
-		$file = get_attached_file( $id );
-		if ( ! $file || 'svg' !== strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) ) {
-			return '';
-		}
-		$svg = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		if ( ! $svg ) {
-			return '';
-		}
-		$svg = preg_replace( '/ fill="[^"]*"/i', '', $svg );
-		return preg_replace( '/<svg(\s)/i', '<svg aria-hidden="true" focusable="false" fill="currentColor"$1', $svg, 1 );
-	}
-}
-
 if ( ! function_exists( 'kotlinskidev_url_has_known_social_icon' ) ) {
 	function kotlinskidev_url_has_known_social_icon( string $url ): bool {
 		$known_icon_domains = [

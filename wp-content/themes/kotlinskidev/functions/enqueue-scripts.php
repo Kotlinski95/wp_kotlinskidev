@@ -62,7 +62,21 @@ function master_css_filter($html, $handle)
     if ($handle === 'icomoon-style') {
         $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
     }
-    
+
+    $deferred_handles = [
+        'wp-block-navigation',
+        'wp-pwa-manager-frontend',
+    ];
+    if (in_array($handle, $deferred_handles, true)) {
+        $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
+        $html = str_replace('media="all"', 'media="print"', $html);
+        $html = str_replace("media='all'", "media='print'", $html);
+        if (strpos($html, 'onload=') === false) {
+            $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
+            $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
+        }
+    }
+
     return $html;
 }
 add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to run before plugins

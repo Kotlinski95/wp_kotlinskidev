@@ -73,7 +73,8 @@
 			display: block;
 			position: absolute;
 			inset: 0;
-			height: calc(100% - 0.375rem);
+			height: calc(100% - 0.125rem);
+			min-height: 2.75rem;
 
 			&:hover,
 			&:focus-visible {

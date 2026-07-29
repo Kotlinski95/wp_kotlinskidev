@@ -109,13 +109,31 @@ function kotlinskidev_get_related_posts($post_id = null, $limit = 3) {
     foreach ($categories as $category) {
         $category_ids[] = $category->term_id;
     }
-    
-    $related_posts = get_posts(array(
+
+    // ORDER BY RAND() forces MySQL to sort every matching row on every request —
+    // fetch matching IDs only (cheap, indexed) and randomize in PHP instead.
+    $candidate_ids = get_posts(array(
         'category__in' => $category_ids,
         'post__not_in' => array($post_id),
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'fields' => 'ids',
+        'no_found_rows' => true,
+    ));
+
+    if (empty($candidate_ids)) {
+        return array();
+    }
+
+    shuffle($candidate_ids);
+    $selected_ids = array_slice($candidate_ids, 0, $limit);
+
+    $related_posts = get_posts(array(
+        'post__in' => $selected_ids,
+        'orderby' => 'post__in',
         'posts_per_page' => $limit,
         'post_status' => 'publish',
-        'orderby' => 'rand'
+        'no_found_rows' => true,
     ));
     
     return $related_posts;

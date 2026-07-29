@@ -195,7 +195,7 @@
 	flex-wrap: wrap;
 
 	.page-numbers {
-		display: inline-flex;
+		display: inline-flex !important;
 		align-items: center;
 		justify-content: center;
 		min-width: 0.9375rem;

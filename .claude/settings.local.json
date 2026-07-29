@@ -7,7 +7,23 @@
       "mcp__claude_ai_Notion__notion-fetch",
       "mcp__claude_ai_Notion__notion-update-page",
       "Bash(npm run *)",
-      "WebSearch"
+      "WebSearch",
+      "mcp__chrome-devtools-mcp__new_page",
+      "mcp__chrome-devtools-mcp__evaluate_script",
+      "mcp__chrome-devtools-mcp__navigate_page",
+      "mcp__lighthouse__run_audit",
+      "mcp__chrome-devtools-mcp__list_network_requests",
+      "mcp__chrome-devtools-mcp__get_network_request",
+      "mcp__chrome-devtools-mcp__lighthouse_audit",
+      "Bash(python3 -c ' *)",
+      "Bash(sips -g pixelWidth -g pixelHeight polylang/en_US.png polylang/pl_PL.png)",
+      "mcp__chrome-devtools-mcp__resize_page",
+      "mcp__chrome-devtools-mcp__list_console_messages",
+      "Bash(grep -o \"labelLightboxTriggers[^;]\\\\{0,80\\\\}\" served-bundle.network-response)",
+      "Bash(node -c served-bundle.network-response)",
+      "Bash(node --check served-bundle-check.js)",
+      "mcp__chrome-devtools-mcp__take_screenshot",
+      "mcp__chrome-devtools-mcp__performance_analyze_insight"
     ]
   }
 }
