@@ -30,6 +30,23 @@
         "chrome-devtools-mcp"
       ],
       "env": {}
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_MCP_TOKEN}"
+      }
+    },
+    "deployhq": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "deployhq-mcp-server"],
+      "env": {
+        "DEPLOYHQ_EMAIL": "${DEPLOYHQ_EMAIL}",
+        "DEPLOYHQ_API_KEY": "${DEPLOYHQ_API_KEY}",
+        "DEPLOYHQ_ACCOUNT": "${DEPLOYHQ_ACCOUNT}"
+      }
     }
   }
 }

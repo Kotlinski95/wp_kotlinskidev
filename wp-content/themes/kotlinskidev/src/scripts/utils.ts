@@ -88,6 +88,18 @@ export function scrollTo(top: number, behavior: ScrollBehavior = "smooth") {
   window.scrollTo({ top, behavior });
 }
 
+export function rafThrottle<A extends unknown[]>(func: (...args: A) => void): (...args: A) => void {
+  let ticking = false;
+  return (...args: A) => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      func(...args);
+      ticking = false;
+    });
+  };
+}
+
 export function onScroll(callback: () => void): () => void {
   window.addEventListener("scroll", callback, { passive: true });
   return () => window.removeEventListener("scroll", callback);

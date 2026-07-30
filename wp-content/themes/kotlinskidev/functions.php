@@ -29,6 +29,8 @@ require_once get_template_directory() . '/functions/customizer.php';
 // Include logo functions
 require_once get_template_directory() . '/functions/site-identity.php';
 
+require_once get_template_directory() . '/functions/image-link-accessibility.php';
+
 // Include maintenance settings and functions
 require_once get_template_directory() . '/functions/maintenance.php';
 

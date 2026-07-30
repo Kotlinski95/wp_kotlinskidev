@@ -42,7 +42,7 @@
 
 .is-kotlinskidev-sticky {
 	position: sticky;
-	top: $header !important;
+	top: calc(#{$header} + var(--admin-bar-offset, 0px) + 0.5rem) !important;
 	z-index: 10;
 	align-self: flex-start;
 }
@@ -59,7 +59,7 @@
 	background: color-mix(in srgb, var(--color-text) 87%, transparent) !important;
 
 	.swiper-scrollbar-drag {
-		background: var(--wp--preset--color--primary) !important;
+		background: var(--kt-text-gradient) !important;
 	}
 }
 

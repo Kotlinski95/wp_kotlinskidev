@@ -1,3 +1,5 @@
+@import "theme-colors";
+
 .kotlinskidev-search-form {
 	max-width: 50rem;
 	margin-inline: auto;
@@ -377,18 +379,17 @@
 	border-radius: 0.5rem;
 	overflow: hidden;
 	background: color-mix(in srgb, var(--color-text) 5%, transparent);
-	transition: border-color 0.2s ease;
+	transition:
+		border-color 0.2s ease,
+		background 0.2s ease;
 	--kt-autofill-color: var(--color-text);
 
 	&:focus-within {
-		border-color: color-mix(in srgb, var(--color-text) 45%, transparent);
-	}
-
-	.light-mode & {
-
-		&:focus-within {
-			border-color: var(--wp--preset--color--primary);
-		}
+		border-color: transparent;
+		background:
+			linear-gradient(color-mix(in srgb, var(--color-text) 5%, var(--color-surface)), color-mix(in srgb, var(--color-text) 5%, var(--color-surface)))
+			padding-box,
+			var(--kt-text-gradient) border-box;
 	}
 }
 
@@ -433,21 +434,16 @@
 	svg {
 		width: 1.125rem;
 		height: 1.125rem;
-		fill: currentcolor;
+		fill: url(#kt-icon-gradient-dark);
 		flex-shrink: 0;
-		transition: fill 0.2s ease;
+	}
+
+	.light-mode & svg {
+		fill: url(#kt-icon-gradient-light);
 	}
 
 	&:hover,
 	&:focus-visible {
 		outline: none;
-
-		svg {
-			fill: url(#kt-icon-gradient-dark);
-		}
-
-		.light-mode & svg {
-			fill: url(#kt-icon-gradient-light);
-		}
 	}
 }

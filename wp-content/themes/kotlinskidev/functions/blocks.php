@@ -51,6 +51,12 @@ function kotlinskidev_navigation_listable_blocks( array $blocks ): array {
     $blocks[] = 'kotlinskidev/social-section';
     $blocks[] = 'kotlinskidev/nav-link';
     $blocks[] = 'kotlinskidev/button';
+    $blocks[] = 'kotlinskidev/nav-search-panel';
+    $blocks[] = 'kotlinskidev/nav-language-panel';
+    $blocks[] = 'kotlinskidev/nav-popular-pages';
+    $blocks[] = 'kotlinskidev/nav-image';
+    $blocks[] = 'kotlinskidev/nav-banner';
+    $blocks[] = 'kotlinskidev/nav-paragraph';
     return $blocks;
 }
 add_filter( 'block_core_navigation_listable_blocks', 'kotlinskidev_navigation_listable_blocks' );

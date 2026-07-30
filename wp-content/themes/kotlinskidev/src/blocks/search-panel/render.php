@@ -1,6 +1,7 @@
 <?php
-$label    = ( $attributes['label'] ?? '' ) !== '' ? $attributes['label'] : __( 'Search', 'kotlinskidev' );
-$panel_id = 'kt-search-modal-' . wp_unique_id();
+$raw_label = $attributes['label'] ?? '';
+$label     = $raw_label !== '' ? $raw_label : __( 'Search', 'kotlinskidev' );
+$panel_id  = 'kt-search-modal-' . wp_unique_id();
 ?>
 <div <?php echo get_block_wrapper_attributes( [ 'class' => 'kt-search-panel' ] ); ?>>
 	<button
@@ -14,7 +15,9 @@ $panel_id = 'kt-search-modal-' . wp_unique_id();
 			<circle cx="11" cy="11" r="8"/>
 			<path d="m21 21-4.35-4.35"/>
 		</svg>
-		<span class="kt-search-panel__label"><?php echo esc_html( $label ); ?></span>
+		<?php if ( $raw_label !== '' ) : ?>
+			<span class="kt-search-panel__label"><?php echo esc_html( $raw_label ); ?></span>
+		<?php endif; ?>
 	</button>
 	<div
 		class="kt-search-panel__modal"

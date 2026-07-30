@@ -23,7 +23,15 @@
       "Bash(node -c served-bundle.network-response)",
       "Bash(node --check served-bundle-check.js)",
       "mcp__chrome-devtools-mcp__take_screenshot",
-      "mcp__chrome-devtools-mcp__performance_analyze_insight"
+      "mcp__chrome-devtools-mcp__performance_analyze_insight",
+      "Bash(curl -s \"http://kotlinskidev.local/wp-json/novamira/v1/gutenberg/finalizer-runtime/status?token=W94BTMRmg_q6TL4eu-nIyA&batch_id=4199&batch_token=f2e5b29191b6ee090c52675f1b159bea\")",
+      "Read(//Users/adriankotlinski/Local Sites/kotlinskidev/app/public/**)",
+      "Bash(wp user *)",
+      "Bash(grep -v \"Deprecated\\\\|Notice\\\\|<strong>\\\\|^$\")",
+      "Bash(wp option *)",
+      "Bash(wp eval ' *)",
+      "mcp__chrome-devtools-mcp__click",
+      "mcp__chrome-devtools-mcp__take_snapshot"
     ]
   }
 }

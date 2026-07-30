@@ -29,7 +29,7 @@ body:has(.mobile-footer-nav) {
 	.kotlinskidev-scrollto-top {
 
 		@media (max-width: $breakpoint-desktop) {
-			bottom: calc(.5rem + $mobile-footer-nav);
+			bottom: calc(0.5rem + $mobile-footer-nav);
 
 			&.mobile-nav-hidden {
 				bottom: calc(1rem + env(safe-area-inset-bottom));
@@ -59,10 +59,9 @@ body:has(.mobile-footer-nav) {
 }
 
 .progress-ring__progress {
-	stroke: var(--wp--preset--color--primary);
-	stroke-dasharray: 163.36; /* 2π × 1.625rem (radius) */
+	stroke: url(#kt-icon-gradient-dark);
+	stroke-dasharray: 163.36;
 	stroke-dashoffset: 163.36;
-	transition: stroke-dashoffset 0.1s ease-out;
 }
 
 #scroll-to-top {
@@ -100,5 +99,9 @@ body:has(.mobile-footer-nav) {
 
 	.progress-ring__background {
 		opacity: 0.2;
+	}
+
+	.progress-ring__progress {
+		stroke: url(#kt-icon-gradient-light);
 	}
 }

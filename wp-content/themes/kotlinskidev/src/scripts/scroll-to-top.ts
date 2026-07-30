@@ -1,4 +1,4 @@
-import { debounce, getScrollTop, onScroll, scrollTo } from "./utils";
+import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
 
 (function () {
   const scrollToTopBtn = document.getElementById("scroll-to-top");
@@ -28,8 +28,8 @@ import { debounce, getScrollTop, onScroll, scrollTo } from "./utils";
 
   handleScroll();
 
-  const debouncedHandleScroll = debounce(handleScroll, 16);
-  onScroll(debouncedHandleScroll);
+  const throttledHandleScroll = rafThrottle(handleScroll);
+  onScroll(throttledHandleScroll);
 
   const handleScrollToTop = (e: Event) => {
     e.preventDefault();

@@ -30,6 +30,10 @@
 
 	@include kt-panel-modal();
 
+	.kt-simple-grid {
+		--kt-sg-cols: 1 !important;
+	}
+
 	.kt-search-panel.is-open & {
 
 		@include kt-panel-modal-open();

@@ -1,9 +1,7 @@
 @import "variables";
 @import "mixins";
 
-$kt-dead-link-triggers: (
-	".kt-mega-nav__link"
-);
+$kt-dead-link-triggers: (".kt-mega-nav__link");
 
 $kt-underline-link-exceptions: (
 	"#scroll-to-top",
@@ -19,7 +17,6 @@ header,
 footer {
 
 	@media (min-width: $breakpoint-desktop) {
-
 		a[href="#"]#{kt-not($kt-dead-link-triggers)},
 		a:not([href]):not(#scroll-to-top) {
 			pointer-events: none;
