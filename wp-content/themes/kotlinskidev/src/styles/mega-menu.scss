@@ -75,11 +75,13 @@
 	cursor: pointer;
 
 	&:hover .kt-mega-nav__link-label,
+	&.kt-link-current .kt-mega-nav__link-label,
 	.kt-mega-nav__item.is-active & .kt-mega-nav__link-label {
 
 		@include gradient-text();
 	}
 
+	&.kt-link-current,
 	.kt-mega-nav__item.is-active & {
 
 		&::after {
@@ -174,7 +176,9 @@
 		margin: 0;
 	}
 
-	a:not(.kt-mega-nav__l2-link):not(.kt-mega-nav__l3-link):not(.wp-element-button):not(.wp-block-button__link):not(.kt-nav-link) {
+	a:not(.kt-mega-nav__l2-link):not(.kt-mega-nav__l3-link):not(.wp-element-button):not(
+	.wp-block-button__link
+):not(.kt-nav-link) {
 		color: inherit;
 	}
 
@@ -237,9 +241,17 @@
 
 			&-link {
 				display: block;
+				position: relative;
+				isolation: isolate;
+				border-radius: 0.5rem;
 
 				&::after {
 					display: none !important;
+				}
+
+				&.kt-link-current::before {
+
+					@include gradient-border();
 				}
 			}
 		}
@@ -290,9 +302,17 @@
 	.wp-block-kotlinskidev-nav-image {
 
 		a {
+			position: relative;
+			isolation: isolate;
+			border-radius: 0.5rem;
 
 			&::after {
 				display: none !important;
+			}
+
+			&.kt-link-current::before {
+
+				@include gradient-border();
 			}
 		}
 	}
@@ -534,6 +554,7 @@
 }
 
 .kt-nav-list {
+
 	&__columns {
 		display: grid;
 		grid-template-columns: repeat(var(--kt-nav-list-cols, 4), 1fr);

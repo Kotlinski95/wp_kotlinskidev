@@ -79,21 +79,10 @@ function kotlinskidev_get_popular_posts($limit = 6, $post_types = array('post', 
                 array(
                     'key' => '_kotlinskidev_page_views',
                     'compare' => 'EXISTS'
-                ),
-                array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => '_yoast_wpseo_meta-robots-noindex',
-                        'compare' => 'NOT EXISTS'
-                    ),
-                    array(
-                        'key' => '_yoast_wpseo_meta-robots-noindex',
-                        'value' => '1',
-                        'compare' => '!='
-                    )
                 )
             )
         );
+        $args = kotlinskidev_apply_seo_noindex_exclusion($args);
 
         $post_ids = ( new WP_Query($args) )->posts;
         set_transient($cache_key, $post_ids, 15 * MINUTE_IN_SECONDS);

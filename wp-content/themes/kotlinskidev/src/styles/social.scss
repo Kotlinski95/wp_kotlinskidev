@@ -119,6 +119,7 @@
 
 	&:hover,
 	&:focus-visible {
+
 		@include gradient-text();
 	}
 }

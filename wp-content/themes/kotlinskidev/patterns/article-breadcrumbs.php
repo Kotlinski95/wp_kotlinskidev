@@ -9,15 +9,15 @@ $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);
 
 $breadcrumbs = array();
-$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
-$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
 
 // Add category link for single posts
 if (is_single() && get_post_type() === 'post') {
     $categories = get_the_category();
     if (!empty($categories)) {
         $category = $categories[0]; // Use the first category
-        $breadcrumbs[] = '<a href="' . esc_url(get_category_link($category->term_id)) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($category->name) . '</a>';
+        $breadcrumbs[] = '<a href="' . esc_url(get_category_link($category->term_id)) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($category->name) . '</a>';
     }
     
     // Add current article title (non-clickable)

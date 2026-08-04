@@ -27,23 +27,6 @@ const TEMPLATE: TemplateArray = [
   ],
 ];
 
-const ALLOWED_BLOCKS = [
-  "core/search",
-  "core/image",
-  "core/cover",
-  "core/paragraph",
-  "core/heading",
-  "core/buttons",
-  "core/group",
-  "kotlinskidev/popular-pages",
-  "kotlinskidev/simple-grid",
-  "kotlinskidev/nav-link",
-  "kotlinskidev/nav-banner",
-  "kotlinskidev/nav-image",
-  "kotlinskidev/nav-paragraph",
-  "kotlinskidev/button",
-];
-
 const SearchIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +84,7 @@ function SearchPanelEdit({ attributes, setAttributes }: BlockEditProps<SearchPan
       </button>
 
       <div className="kt-search-panel-editor__panel" hidden={!isOpen}>
-        <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} template={TEMPLATE} templateLock={false} />
+        <InnerBlocks template={TEMPLATE} templateLock={false} />
       </div>
     </div>
   );

@@ -14,24 +14,15 @@
 	padding: 0.667em 1.333em;
 	text-decoration: none;
 	background: var(--kt-btn-bg, transparent);
+	border: none;
+	border-radius: inherit;
 	transition:
 		background 0.25s ease,
 		color 0.25s ease;
 
 	&::before {
-		content: "";
-		position: absolute;
-		inset: 0;
-		border-radius: inherit;
-		padding: var(--kt-btn-border-width, 0.125rem);
-		background: var(--kt-btn-border, transparent);
-		-webkit-mask:
-			linear-gradient(#fff 0 0) content-box,
-			linear-gradient(#fff 0 0);
-		-webkit-mask-composite: xor;
-		mask-composite: exclude;
-		pointer-events: none;
-		z-index: -1;
+
+		@include gradient-border(var(--kt-btn-border-width, 0.125rem), var(--kt-btn-border, transparent));
 		transition: background 0.25s ease;
 	}
 
@@ -52,5 +43,5 @@
 
 .kt-button__link:hover .kt-button__label,
 .kt-button__link:focus-visible .kt-button__label {
-	background: var(--kt-btn-hover-color, var(--kt-btn-color, currentColor));
+	background-image: var(--kt-btn-hover-color, var(--kt-btn-color, currentColor));
 }

@@ -15,8 +15,7 @@
 		top: 0;
 		bottom: 0;
 		width: 0.25rem;
-		background:
- linear-gradient(to bottom, var(--wp--preset--color--divider), color-mix(in srgb, var(--wp--preset--color--divider) 85%, var(--color-text)), var(--wp--preset--color--divider));
+		background: linear-gradient(to bottom, var(--wp--preset--color--divider), color-mix(in srgb, var(--wp--preset--color--divider) 85%, var(--color-text)), var(--wp--preset--color--divider));
 		transform: translateX(-50%);
 		z-index: 0;
 	}

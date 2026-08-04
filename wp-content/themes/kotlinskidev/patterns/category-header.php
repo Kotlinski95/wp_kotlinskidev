@@ -16,8 +16,8 @@ $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);
 
 $breadcrumbs = array();
-$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
-$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
 $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">' . esc_html($category_name) . '</span>';
 ?>
 
@@ -47,7 +47,7 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
         <?php endif; ?>
         
         <div style="display:flex;justify-content:center;align-items:center;gap:1.25rem;margin-bottom:1.875rem;">
-            <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-weight:600;">
+            <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
                 <?php echo $post_count . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
             </span>
             <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
@@ -57,12 +57,12 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
                     <?php if ($index > 0) : ?>
                         <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
                     <?php endif; ?>
-                    <a href="<?php echo esc_url($link['url']); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">
+                    <a href="<?php echo esc_url($link['url']); ?>" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">
                         <?php echo esc_html($link['text']); ?>
                     </a>
                 <?php endforeach; ?>
             <?php else : ?>
-                <a href="<?php echo esc_url(home_url('/blog-topics/')); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">
+                <a href="<?php echo esc_url(home_url('/blog-topics/')); ?>" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">
                     ← <?php esc_html_e('All Topics', 'kotlinskidev'); ?>
                 </a>
             <?php endif; ?>

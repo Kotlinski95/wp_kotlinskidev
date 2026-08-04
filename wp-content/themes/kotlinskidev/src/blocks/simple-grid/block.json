@@ -11,7 +11,6 @@
   "editorScript": "file:../../../build/simple-grid.js",
   "style": "file:../../../build/style-simple-grid.css",
   "render": "file:./render.php",
-  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder", "kotlinskidev/search-panel", "kotlinskidev/nav-search-panel", "kotlinskidev/language-panel", "kotlinskidev/nav-language-panel"],
   "attributes": {
     "label": {
       "type": "string",

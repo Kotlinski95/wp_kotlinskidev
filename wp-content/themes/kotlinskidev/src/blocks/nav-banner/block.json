@@ -8,7 +8,6 @@
   "icon": "align-center",
   "description": "Banner with media image and content for navigation panels.",
   "textdomain": "kotlinskidev",
-  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder", "kotlinskidev/search-panel", "kotlinskidev/nav-search-panel", "kotlinskidev/language-panel", "kotlinskidev/nav-language-panel"],
   "editorScript": "file:../../../build/nav-content.js",
   "render": "file:./render.php",
   "attributes": {

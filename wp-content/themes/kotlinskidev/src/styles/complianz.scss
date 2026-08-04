@@ -1,93 +1,102 @@
 .dark-mode {
-  .cmplz-manage-consent {
-    background: var(--wp--preset--color--light-color) !important;
-    color: var(--wp--preset--color--dark-color) !important;
-    box-shadow:
-      0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1),
-      0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
-  }
 
-  .cmplz-cookiebanner {
-    background: var(--wp--preset--color--dark-color) !important;
-    color: var(--wp--preset--color--light-color) !important;
-    box-shadow:
-      0 0.25rem 0.375rem -0.0625rem rgba(255, 255, 255, 0.1),
-      0 0.125rem 0.25rem -0.0625rem rgba(255, 255, 255, 0.06) !important;
+	.cmplz-manage-consent {
+		background: var(--wp--preset--color--light-color) !important;
+		color: var(--wp--preset--color--dark-color) !important;
+		box-shadow:
+			0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1),
+			0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
+	}
 
-    * {
-      &:not(.cmplz-btn) {
-        color: var(--wp--preset--color--light-color) !important;
-      }
-    }
-  }
+	.cmplz-cookiebanner {
+		background: var(--wp--preset--color--dark-color) !important;
+		color: var(--wp--preset--color--light-color) !important;
+		box-shadow:
+			0 0.25rem 0.375rem -0.0625rem rgba(255, 255, 255, 0.1),
+			0 0.125rem 0.25rem -0.0625rem rgba(255, 255, 255, 0.06) !important;
 
-  .cmplz-cookiebanner.cmplz-show {
-    box-shadow:
-      0 0 0.375rem 0.125rem rgba(255, 255, 255, 0.3),
-      0 0 0.25rem 0.125rem rgba(255, 255, 255, 0.06) !important;
-  }
+		* {
 
-  .cmplz-logo {
-    img {
-      filter: invert(100%) !important;
-    }
-  }
+			&:not(.cmplz-btn) {
+				color: var(--wp--preset--color--light-color) !important;
+			}
+		}
+	}
+
+	.cmplz-cookiebanner.cmplz-show {
+		box-shadow:
+			0 0 0.375rem 0.125rem rgba(255, 255, 255, 0.3),
+			0 0 0.25rem 0.125rem rgba(255, 255, 255, 0.06) !important;
+	}
+
+	.cmplz-logo {
+
+		img {
+			filter: invert(100%) !important;
+		}
+	}
 }
 
 .light-mode {
-  .cmplz-manage-consent {
-    background: var(--wp--preset--color--dark-color) !important;
-    color: var(--wp--preset--color--light-color) !important;
-    box-shadow:
-      0 0.25rem 0.375rem -0.0625rem rgba(255, 255, 255, 0.1),
-      0 0.125rem 0.25rem -0.0625rem rgba(255, 255, 255, 0.06);
-  }
 
-  .cmplz-cookiebanner {
-    background: var(--wp--preset--color--light-color) !important;
-    color: var(--wp--preset--color--dark-color) !important;
+	.cmplz-manage-consent {
+		background: var(--wp--preset--color--dark-color) !important;
+		color: var(--wp--preset--color--light-color) !important;
+		box-shadow:
+			0 0.25rem 0.375rem -0.0625rem rgba(255, 255, 255, 0.1),
+			0 0.125rem 0.25rem -0.0625rem rgba(255, 255, 255, 0.06);
+	}
 
-    * {
-      &:not(.cmplz-btn) {
-        color: var(--wp--preset--color--dark-color) !important;
-      }
-    }
-  }
+	.cmplz-cookiebanner {
+		background: var(--wp--preset--color--light-color) !important;
+		color: var(--wp--preset--color--dark-color) !important;
 
-  .cmplz-logo {
-    img {
-      filter: none !important;
-    }
-  }
+		* {
+
+			&:not(.cmplz-btn) {
+				color: var(--wp--preset--color--dark-color) !important;
+			}
+		}
+	}
+
+	.cmplz-logo {
+
+		img {
+			filter: none !important;
+		}
+	}
 }
 
 .cmplz-manage-consent {
-  img {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
+
+	img {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
 }
 
 #cmplz-manage-consent {
-  transform: none !important;
-  will-change: auto !important;
+	transform: none !important;
+	will-change: auto !important;
 }
 
 .cmplz-btn.cmplz-manage-consent {
-  position: fixed !important;
+	position: fixed !important;
 }
 
 body:has(.mobile-footer-nav) {
-  @media (max-width: $breakpoint-desktop) {
-    .cmplz-btn.cmplz-manage-consent {
-      transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-      animation: none !important;
-      bottom: 4.5rem !important;
-      left: calc(1rem + env(safe-area-inset-left)) !important;
 
-      &.mobile-nav-hidden {
-        bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
-      }
-    }
-  }
+	@media (max-width: $breakpoint-desktop) {
+
+		.cmplz-btn.cmplz-manage-consent {
+			transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+			animation: none !important;
+			bottom: 4.5rem !important;
+			left: calc(1rem + env(safe-area-inset-left)) !important;
+
+			&.mobile-nav-hidden {
+				bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+			}
+		}
+	}
 }

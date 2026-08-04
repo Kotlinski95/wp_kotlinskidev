@@ -12,7 +12,7 @@
 	-moz-transform: translateZ(0);
 	-ms-transform: translateZ(0);
 	-o-transform: translateZ(0);
-	bottom: 0 !important;
+	bottom: var(--kt-vv-bottom-offset, 0) !important;
 	left: 0;
 	right: 0;
 	padding-inline: 1rem;
@@ -77,7 +77,8 @@
 			min-height: 2.75rem;
 
 			&:hover,
-			&:focus-visible {
+			&:focus-visible,
+			&.kt-link-current {
 
 				@include gradient-text();
 			}

@@ -2,13 +2,13 @@
 @import "variables";
 
 .title-banner {
-  margin-inline: 0.0625rem;
+	margin-inline: 0.0625rem;
 
-  @media (min-width: $mobile) {
-    margin-inline: 5%;
-  }
+	@media (min-width: $mobile) {
+		margin-inline: 5%;
+	}
 
-  @media (min-width: $desktop) {
-    margin-inline: 12.5%;
-  }
+	@media (min-width: $desktop) {
+		margin-inline: 12.5%;
+	}
 }

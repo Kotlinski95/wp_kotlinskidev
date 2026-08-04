@@ -225,8 +225,7 @@ header:has(.kt-lang-panel.is-open) {
 
 	&:hover::before,
 	&:hover::after {
-		background:
- var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+		background: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 	}
 
 	&:focus-visible {
@@ -287,15 +286,13 @@ header:has(.kt-lang-panel.is-open) {
 	.wp-block-navigation__responsive-container-open {
 
 		&::before {
-			background:
- var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+			background: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 			transform: translateY(0.40625rem) rotate(45deg);
 		}
 
 		&::after {
 			width: 1.875rem;
-			background:
- var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+			background: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 			transform: translateY(-0.40625rem) rotate(-45deg);
 		}
 	}
@@ -340,6 +337,10 @@ header:has(.kt-lang-panel.is-open) {
 		transition:
 			max-width var(--nav-reveal-duration) var(--nav-reveal-ease),
 			display var(--nav-reveal-duration) allow-discrete;
+	}
+
+	&.hidden-by-default.kt-nav-panel-animating {
+		overflow-y: hidden !important;
 	}
 
 	&.is-menu-open.is-menu-open {
@@ -638,17 +639,20 @@ header:has(.kt-lang-panel.is-open) {
 	.wp-block-navigation__submenu-container .wp-block-navigation-item__content {
 		font-size: 1rem;
 
-		&:hover {
+		&:hover,
+		&.kt-link-current {
 
 			@include gradient-text();
 		}
 	}
 
-	.wp-block-navigation__container > .wp-block-navigation-item.kt-nav-cta::after {
+	.wp-block-navigation__container > .wp-block-navigation-item.kt-nav-cta::after,
+	.wp-block-navigation__container > .wp-block-navigation-item:has(> .kt-nav-cta)::after {
 		display: none;
 	}
 
-	.wp-block-navigation-item.kt-nav-cta {
+	.wp-block-navigation-item.kt-nav-cta,
+	.wp-block-navigation__container > .wp-block-navigation-item:has(> .kt-nav-cta) {
 		padding: 0.75rem 1.5625rem 1.25rem;
 	}
 
@@ -804,7 +808,8 @@ header:has(.kt-lang-panel.is-open) {
 	header .kt-hamburger-desktop a.wp-block-navigation-item__content:not(#scroll-to-top) {
 
 		&:hover,
-		&:focus-visible {
+		&:focus-visible,
+		&.kt-link-current {
 
 			@include gradient-text();
 		}

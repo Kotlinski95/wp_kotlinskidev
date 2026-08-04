@@ -91,32 +91,37 @@ function kotlinskidev_pll_current_language_data(): ?array {
 
 function kotlinskidev_navigation_container_blocks(): array {
     return [
+        'core/navigation',
+        'core/navigation-submenu',
         'kotlinskidev/holder',
-        'kotlinskidev/simple-grid',
-        'kotlinskidev/language-panel',
-        'kotlinskidev/nav-language-panel',
         'kotlinskidev/search-panel',
         'kotlinskidev/nav-search-panel',
-        'kotlinskidev/popular-pages',
-        'kotlinskidev/nav-popular-pages',
+        'kotlinskidev/language-panel',
+        'kotlinskidev/nav-language-panel',
     ];
 }
 
-function kotlinskidev_extend_navigation_scoped_blocks( array $args, string $block_type ): array {
-    $restricted_to = array_merge( $args['parent'] ?? [], $args['ancestor'] ?? [] );
+function kotlinskidev_navigation_item_blocks(): array {
+    return [
+        'kotlinskidev/nav-image',
+        'kotlinskidev/nav-banner',
+        'kotlinskidev/nav-link',
+        'kotlinskidev/nav-paragraph',
+        'kotlinskidev/simple-grid',
+        'kotlinskidev/social-section',
+        'kotlinskidev/nav-popular-pages',
+        'kotlinskidev/button',
+        'polylang/navigation-language-switcher',
+    ];
+}
 
-    if ( ! in_array( 'core/navigation', $restricted_to, true ) ) {
+function kotlinskidev_assign_navigation_item_parents( array $args, string $block_type ): array {
+    if ( ! in_array( $block_type, kotlinskidev_navigation_item_blocks(), true ) ) {
         return $args;
     }
 
-    $args['ancestor'] = array_values( array_unique( array_merge(
-        $args['ancestor'] ?? [],
-        $args['parent'] ?? [],
-        [ 'core/navigation' ],
-        kotlinskidev_navigation_container_blocks()
-    ) ) );
-    unset( $args['parent'] );
+    $args['parent'] = kotlinskidev_navigation_container_blocks();
 
     return $args;
 }
-add_filter( 'register_block_type_args', 'kotlinskidev_extend_navigation_scoped_blocks', 10, 2 );
+add_filter( 'register_block_type_args', 'kotlinskidev_assign_navigation_item_parents', 10, 2 );

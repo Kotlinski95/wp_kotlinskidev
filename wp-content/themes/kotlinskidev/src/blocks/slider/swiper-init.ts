@@ -122,6 +122,8 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
   }
 
   if (options.autoplay) {
+    resyncActiveIndexOnAutoplayResume(swiper);
+
     let userInteracted = false;
 
     container.addEventListener("click", () => {
@@ -138,4 +140,16 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
   }
 
   return swiper;
+}
+
+interface SwiperWithActiveIndexSync {
+  updateActiveIndex: () => void;
+}
+
+function resyncActiveIndexOnAutoplayResume(swiper: Swiper): void {
+  const syncableSwiper = swiper as unknown as SwiperWithActiveIndexSync;
+  const resync = () => syncableSwiper.updateActiveIndex();
+
+  swiper.on("autoplayStart", resync);
+  swiper.on("autoplayResume", resync);
 }

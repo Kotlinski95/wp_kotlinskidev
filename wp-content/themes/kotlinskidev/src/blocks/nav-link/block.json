@@ -8,7 +8,6 @@
   "icon": "admin-links",
   "description": "Link for navigation panels and holders with full color, spacing, and typography supports.",
   "textdomain": "kotlinskidev",
-  "parent": ["core/navigation", "core/navigation-submenu", "kotlinskidev/holder", "kotlinskidev/search-panel", "kotlinskidev/nav-search-panel", "kotlinskidev/language-panel", "kotlinskidev/nav-language-panel"],
   "editorScript": "file:../../../build/nav-content.js",
   "render": "file:./render.php",
   "attributes": {

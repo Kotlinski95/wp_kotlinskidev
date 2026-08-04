@@ -1,90 +1,98 @@
 @import "variables";
 
 .theme-switcher {
-  p:empty,
-  br {
-    display: none;
-  }
-  all: unset;
-  display: flex;
-  flex-direction: column;
-  z-index: 1001;
-  margin-inline-end: -1rem;
 
-  .title {
-    text-align: center;
-  }
+	p:empty,
+	br {
+		display: none;
+	}
+	all: unset;
+	display: flex;
+	flex-direction: column;
+	z-index: 1001;
+	margin-inline-end: -1rem;
 
-  .content {
-    text-align: justify;
-  }
+	.title {
+		text-align: center;
+	}
 
-  input[type="checkbox"] {
-    display: none;
-  }
+	.content {
+		text-align: justify;
+	}
 
-  .icon {
-    display: flex;
-    font-size: 1.25rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 100%;
-    padding: 0.1875rem;
-    cursor: pointer;
+	input[type="checkbox"] {
+		display: none;
+	}
 
-    &.light {
-      display: none;
-    }
+	.icon {
+		font-size: 1.25rem;
+		width: 2.125rem;
+		height: 2.125rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 100%;
+		cursor: pointer;
 
-    &:focus-visible,
-    &:hover {
-      background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
-    }
+		&.light {
+			display: none;
+		}
 
-    & > svg {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
+		&:focus-visible,
+		&:hover {
+			background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
+		}
 
-  &:focus {
-    background: inherit !important;
-    color: inherit !important;
-  }
+		& > svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
 
-  &:focus-visible {
-    outline: -webkit-focus-ring-color auto 1px;
-    outline-offset: 2px;
-  }
+	&:focus {
+		background: inherit !important;
+		color: inherit !important;
+	}
+
+	&:focus-visible {
+		outline: -webkit-focus-ring-color auto 1px;
+		outline-offset: 2px;
+	}
 }
 
 .light-mode {
-  .theme-switcher {
-    .icon {
-      &.dark {
-        display: none;
-      }
 
-      &.light {
-        display: flex;
-      }
+	.theme-switcher {
 
-      &:focus-visible,
-      &:hover {
-        background: rgba(var(--wp--preset--color--dark-color-rgb), 0.1);
-      }
-    }
-  }
+		.icon {
+
+			&.dark {
+				display: none;
+			}
+
+			&.light {
+				display: flex;
+			}
+
+			&:focus-visible,
+			&:hover {
+				background: rgba(var(--wp--preset--color--dark-color-rgb), 0.1);
+			}
+		}
+	}
 }
 
 @media (max-width: calc($breakpoint-desktop - 0.0625rem)) {
-  .theme-switcher {
-    .wrapper {
-      .icon,
-      .icon > svg {
-        width: 2rem;
-        height: 2rem;
-      }
-    }
-  }
+
+	.theme-switcher {
+
+		.wrapper {
+
+			.icon,
+			.icon > svg {
+				width: 2rem;
+				height: 2rem;
+			}
+		}
+	}
 }

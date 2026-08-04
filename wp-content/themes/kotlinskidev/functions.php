@@ -40,6 +40,9 @@ require_once get_template_directory() . '/functions/patterns.php';
 // Load responsive breakpoints helper
 require_once get_template_directory() . '/functions/breakpoints.php';
 
+// Load anchor scroll offset settings
+require_once get_template_directory() . '/functions/scroll-offset.php';
+
 // Load responsive order controls
 require_once get_template_directory() . '/functions/responsive-order.php';
 
@@ -55,6 +58,9 @@ require_once get_template_directory() . '/functions/responsive-display.php';
 // Load responsive width controls
 require_once get_template_directory() . '/functions/responsive-width.php';
 
+// Load universal gradient-border support
+require_once get_template_directory() . '/functions/border-gradient.php';
+
 // Load responsive spacing controls
 require_once get_template_directory() . '/functions/responsive-spacing.php';
 
@@ -66,6 +72,11 @@ require_once get_template_directory() . '/functions/contact-form.php';
 
 // Load link hover effects controls
 require_once get_template_directory() . '/functions/link-hover-effects.php';
+
+// Load active-page link state controls
+require_once get_template_directory() . '/functions/active-link-state.php';
+
+require_once get_template_directory() . '/functions/faq-layout.php';
 
 // Load Facebook Pixel / Google Analytics tracking scripts
 require_once get_template_directory() . '/functions/tracking-scripts.php';
@@ -140,6 +151,9 @@ require_once get_template_directory() . '/functions/actions.php';
 
 // Article query manager for CMS control
 require_once get_template_directory() . '/functions/article-query-manager.php';
+
+// Universal noindex detection across common SEO plugins (Yoast, Rank Math, AIOSEO, SEOPress)
+require_once get_template_directory() . '/functions/seo-noindex-compat.php';
 
 // Blog topic management system
 require_once get_template_directory() . '/functions/blog-topic-manager.php';

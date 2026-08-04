@@ -1,6 +1,7 @@
 @import "variables";
 
 .kt-has-responsive-width {
+
 	@media (min-width: #{$breakpoint-desktop}) {
 		width: var(--kt-width-desktop, auto);
 		max-width: var(--kt-max-width-desktop, none);

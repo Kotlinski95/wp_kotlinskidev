@@ -41,12 +41,12 @@ $related_tags = get_tags(array(
         ?>
         <div style="text-align:center;padding:0.9375rem;border:0.125rem solid var(--wp--preset--color--border-color);border-radius:0.75rem;background:var(--wp--preset--color--light-shade);transition:transform 0.3s ease;hover:transform:translateY(-0.125rem);min-width:12.5rem;">
             <div style="margin-bottom:0.5rem;">
-                <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:0.375rem 0.75rem;border-radius:0.9375rem;font-size:0.875rem;font-weight:600;">
+                <span class="kt-gradient-pill" style="padding:0.375rem 0.75rem;border-radius:0.9375rem;font-size:0.875rem;font-weight:600;">
                     #<?php echo esc_html($tag->name); ?>
                 </span>
             </div>
             
-            <p class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:0.875rem;margin:0.3125rem 0;">
+            <p class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;margin:0.3125rem 0;">
                 <?php echo $tag->count; ?> <?php echo $tag->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
             </p>
             
@@ -57,8 +57,7 @@ $related_tags = get_tags(array(
             <?php endif; ?>
             
             <div style="margin-top:0.9375rem;">
-                <a href="<?php echo esc_url($tag_link); ?>" class="search-link"
-                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
+                <a href="<?php echo esc_url($tag_link); ?>" class="search-link">
                     <?php esc_html_e('View Articles', 'kotlinskidev'); ?>
                 </a>
             </div>

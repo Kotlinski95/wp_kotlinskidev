@@ -157,8 +157,8 @@
             
             <div style="display:flex;justify-content:space-between;margin-bottom:0.9375rem;font-size:0.875rem;flex-shrink:0;">
                 <span style="color:var(--wp--preset--color--foreground-alt);"><?php echo get_the_date('', $display_post->ID); ?></span>
-                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);">
-                    <?php 
+                <span class="link-dark-variant-support kt-gradient-text">
+                    <?php
                     // Show relevance indicator
                     $post_categories = get_the_category($display_post->ID);
                     $post_tags = get_the_tags($display_post->ID);
@@ -203,7 +203,7 @@
             </div>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">
-                <div class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-size:0.875rem;display:flex;flex-wrap:wrap;row-gap:0.3125rem;">
+                <div class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;display:flex;flex-wrap:wrap;row-gap:0.3125rem;">
                     <?php 
                     if (!empty($post_categories)) {
                         echo esc_html($post_categories[0]->name);
@@ -211,8 +211,7 @@
                     ?>
                 </div>
                 <a href="<?php echo get_permalink($display_post->ID); ?>" 
-                   class="search-link"
-                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
+                   class="search-link">
                     <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
                 </a>
             </div>

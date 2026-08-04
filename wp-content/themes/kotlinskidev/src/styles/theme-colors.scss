@@ -48,6 +48,61 @@ body.light-mode {
 	-webkit-text-fill-color: transparent;
 }
 
+@mixin gradient-border($width: 0.125rem, $gradient: var(--kt-text-gradient)) {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: $width;
+	background: $gradient;
+	-webkit-mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	pointer-events: none;
+	z-index: -1;
+}
+
+@mixin gradient-border-bg(
+	$fill: var(--color-surface),
+	$gradient: var(--kt-text-gradient),
+	$extra-layer: null
+) {
+	border-color: transparent;
+
+	@if $extra-layer {
+		background:
+			#{$extra-layer},
+			linear-gradient($fill, $fill) padding-box,
+			$gradient border-box;
+	} @else {
+		background:
+			linear-gradient($fill, $fill) padding-box,
+			$gradient border-box;
+	}
+}
+
+.kt-gradient-text {
+
+	@include gradient-text();
+}
+
+.kt-gradient-pill {
+	position: relative;
+	isolation: isolate;
+	display: inline-flex;
+	align-items: center;
+	background: transparent;
+
+	@include gradient-text();
+
+	&::before {
+
+		@include gradient-border();
+	}
+}
+
 @mixin text-inherit() {
 	color: inherit !important;
 	-webkit-text-fill-color: initial !important;

@@ -40,6 +40,11 @@ function kotlinskidev_settings_tabs(): array
             'group' => 'kotlinskidev_settings_tracking',
             'page'  => 'kotlinskidev-settings-tracking',
         ],
+        'advanced' => [
+            'label' => esc_html__('Advanced', 'kotlinskidev'),
+            'group' => 'kotlinskidev_settings_advanced',
+            'page'  => 'kotlinskidev-settings-advanced',
+        ],
     ];
 }
 
@@ -181,6 +186,92 @@ function kotlinskidev_register_settings(): void
         'kotlinskidev_render_breakpoint_large_field',
         'kotlinskidev-settings-breakpoints',
         'kotlinskidev_section_breakpoints'
+    );
+
+    register_setting(
+        'kotlinskidev_settings_advanced',
+        'kotlinskidev_scroll_offset_desktop',
+        [
+            'type'              => 'integer',
+            'sanitize_callback' => 'kotlinskidev_sanitize_scroll_offset_px',
+            'default'           => KOTLINSKIDEV_SCROLL_OFFSET_DEFAULTS['desktop'],
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_advanced',
+        'kotlinskidev_scroll_offset_mobile',
+        [
+            'type'              => 'integer',
+            'sanitize_callback' => 'kotlinskidev_sanitize_scroll_offset_px',
+            'default'           => KOTLINSKIDEV_SCROLL_OFFSET_DEFAULTS['mobile'],
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_scroll_offset',
+        esc_html__('Anchor Scroll Offset', 'kotlinskidev'),
+        'kotlinskidev_render_scroll_offset_section',
+        'kotlinskidev-settings-advanced'
+    );
+
+    add_settings_field(
+        'kotlinskidev_scroll_offset_desktop',
+        esc_html__('Desktop offset (px)', 'kotlinskidev'),
+        'kotlinskidev_render_scroll_offset_desktop_field',
+        'kotlinskidev-settings-advanced',
+        'kotlinskidev_section_scroll_offset'
+    );
+
+    add_settings_field(
+        'kotlinskidev_scroll_offset_mobile',
+        esc_html__('Mobile offset (px)', 'kotlinskidev'),
+        'kotlinskidev_render_scroll_offset_mobile_field',
+        'kotlinskidev-settings-advanced',
+        'kotlinskidev_section_scroll_offset'
+    );
+
+    register_setting(
+        'kotlinskidev_settings_advanced',
+        'kotlinskidev_active_link_state_enabled',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_advanced',
+        'kotlinskidev_active_link_state_block_clicks',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_active_link_state',
+        esc_html__('Active Page Links', 'kotlinskidev'),
+        'kotlinskidev_render_active_link_state_section',
+        'kotlinskidev-settings-advanced'
+    );
+
+    add_settings_field(
+        'kotlinskidev_active_link_state_enabled',
+        esc_html__('Highlight active-page links', 'kotlinskidev'),
+        'kotlinskidev_render_active_link_state_enabled_field',
+        'kotlinskidev-settings-advanced',
+        'kotlinskidev_section_active_link_state'
+    );
+
+    add_settings_field(
+        'kotlinskidev_active_link_state_block_clicks',
+        esc_html__('Disable current-page link clicks', 'kotlinskidev'),
+        'kotlinskidev_render_active_link_state_block_clicks_field',
+        'kotlinskidev-settings-advanced',
+        'kotlinskidev_section_active_link_state'
     );
 
     register_setting(
@@ -375,6 +466,11 @@ function kotlinskidev_sanitize_breakpoint_px($value): int
     return max(320, min(1920, absint($value)));
 }
 
+function kotlinskidev_sanitize_scroll_offset_px($value): int
+{
+    return max(0, min(400, absint($value)));
+}
+
 function kotlinskidev_render_spam_section(): void
 {
     echo '<p>' . esc_html__('This site does not use comments. Enabling this protection closes comments at the server level — spam bots that POST directly to wp-comments-post.php or call XML-RPC comment methods are rejected with a 403 before any database write or email notification occurs. WordPress Discussion settings alone do not stop this traffic.', 'kotlinskidev') . '</p>';
@@ -485,6 +581,80 @@ function kotlinskidev_render_breakpoint_large_field(): void
     <input type="number" name="kotlinskidev_breakpoint_large" value="<?php echo esc_attr((string) $value); ?>" min="1024" max="1920" step="1" />
     <p class="description">
         <?php esc_html_e('Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200.', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_scroll_offset_section(): void
+{
+    echo '<p>' . esc_html__('Distance kept between the sticky header and the target when clicking an in-page anchor link (e.g. "#services"). Desktop keeps its floating header visible at all times, so it needs the full header height as clearance. Mobile hides the header while scrolling and only re-shows it near the top of the page, so it typically needs little or no offset.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_scroll_offset_desktop_field(): void
+{
+    $default = KOTLINSKIDEV_SCROLL_OFFSET_DEFAULTS['desktop'];
+    $value   = (int) get_option('kotlinskidev_scroll_offset_desktop', $default);
+    ?>
+    <input type="number" name="kotlinskidev_scroll_offset_desktop" value="<?php echo esc_attr((string) $value); ?>" min="0" max="400" step="1" />
+    <p class="description">
+        <?php
+        printf(
+            /* translators: %d: default desktop scroll offset in pixels */
+            esc_html__('Applies above the desktop breakpoint, where the header stays visible while scrolling. Theme default: %d (matches the header height).', 'kotlinskidev'),
+            (int) $default
+        );
+        ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_scroll_offset_mobile_field(): void
+{
+    $default = KOTLINSKIDEV_SCROLL_OFFSET_DEFAULTS['mobile'];
+    $value   = (int) get_option('kotlinskidev_scroll_offset_mobile', $default);
+    ?>
+    <input type="number" name="kotlinskidev_scroll_offset_mobile" value="<?php echo esc_attr((string) $value); ?>" min="0" max="400" step="1" />
+    <p class="description">
+        <?php
+        printf(
+            /* translators: %d: default mobile scroll offset in pixels */
+            esc_html__('Applies below the desktop breakpoint, where the header hides on scroll. Theme default: %d, since the header is typically hidden by the time the scroll finishes.', 'kotlinskidev'),
+            (int) $default
+        );
+        ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_active_link_state_section(): void
+{
+    echo '<p>' . esc_html__('When a link (navigation, button, in-content) points at the page currently being viewed, it can be marked as active — the same gradient-text/underline style normally reserved for hover — and/or prevented from being clicked, since navigating to the page a visitor is already on does nothing useful. Individual blocks can still opt out from their own Advanced panel regardless of these settings.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_active_link_state_enabled_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_active_link_state_enabled', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_active_link_state_enabled" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Mark links pointing at the current page with the active hover-style highlight', 'kotlinskidev'); ?>
+    </label>
+    <p class="description">
+        <?php esc_html_e('Adds a kt-link-current class and aria-current="page" to matching links sitewide (navigation, footer, hamburger, mega menu, popular pages).', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_active_link_state_block_clicks_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_active_link_state_block_clicks', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_active_link_state_block_clicks" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Prevent clicking a link/button that points at the page currently being viewed', 'kotlinskidev'); ?>
+    </label>
+    <p class="description">
+        <?php esc_html_e('Adds aria-disabled and removes the link from tab order. Menu items that also open a mega-menu panel stay fully interactive. Has no effect if highlighting above is disabled.', 'kotlinskidev'); ?>
     </p>
     <?php
 }

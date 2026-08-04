@@ -31,6 +31,23 @@ export function getBreakpoints(): ThemeBreakpoints {
   );
 }
 
+export type ThemeScrollOffsets = {
+  desktop: number;
+  mobile: number;
+};
+
+const defaultScrollOffsets: ThemeScrollOffsets = {
+  desktop: 75,
+  mobile: 0,
+};
+
+export function getScrollOffsets(): ThemeScrollOffsets {
+  return (
+    (window as unknown as { kotlinskiTheme?: { scrollOffsets?: ThemeScrollOffsets } })
+      .kotlinskiTheme?.scrollOffsets ?? defaultScrollOffsets
+  );
+}
+
 /**
  * Check if current viewport width is considered mobile
  * @returns true if viewport is below the desktop breakpoint

@@ -18,7 +18,7 @@ $full_path = isset($parsed_url['path']) ? trim($parsed_url['path'], '/') : '';
 
 // Get the actual WordPress site path (not the current page path)
 $site_url = get_option('home') ?: site_url();
-$site_path = trim(parse_url($site_url, PHP_URL_PATH), '/');
+$site_path = trim(parse_url($site_url, PHP_URL_PATH) ?? '', '/');
 
 // Remove the WordPress installation path to get just the language/page path
 $relative_path = $full_path;

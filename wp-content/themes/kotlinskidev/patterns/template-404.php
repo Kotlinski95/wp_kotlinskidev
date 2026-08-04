@@ -28,8 +28,7 @@
         </style>
         <div style="text-align:center;margin:2rem 0 1.5rem 0;">
             <a href="<?php echo esc_url(home_url('/')); ?>"
-               class="search-link"
-               style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.875rem 1.5rem;border-radius:6.25rem;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
+               class="search-link">
                 <?php esc_html_e('Go to Homepage', 'kotlinskidev'); ?>
             </a>
         </div>

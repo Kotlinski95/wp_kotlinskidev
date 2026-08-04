@@ -84,7 +84,7 @@
                     <?php endif; ?>
 
                     <div style="margin-bottom:0.9375rem;flex-shrink:0;">
-                        <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:0.25rem 0.75rem;border-radius:0.9375rem;font-size:0.75rem;font-weight:600;">
+                        <span class="kt-gradient-pill" style="padding:0.25rem 0.75rem;border-radius:0.9375rem;font-size:0.75rem;font-weight:600;">
                             <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
                         </span>
                     </div>
@@ -103,8 +103,7 @@
                         <span style="color:var(--wp--preset--color--foreground-alt);">
                             <?php echo $is_page ? esc_html__('Updated', 'kotlinskidev') . ' ' . get_the_modified_date() : get_the_date(); ?>
                         </span>
-                        <a href="<?php the_permalink(); ?>" class="search-link"
-                            style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
+                        <a href="<?php the_permalink(); ?>" class="search-link">
                             <?php echo $is_page ? esc_html__('View', 'kotlinskidev') : esc_html__('Read', 'kotlinskidev'); ?>
                         </a>
                     </div>

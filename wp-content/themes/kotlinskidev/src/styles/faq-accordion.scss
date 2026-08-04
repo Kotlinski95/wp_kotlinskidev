@@ -1,0 +1,85 @@
+@import "variables";
+@import "theme-colors";
+
+:where(.wp-block-group:has(> .wp-block-details)) {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--wp--preset--spacing--30, 1.25rem);
+}
+
+.wp-block-group:has(> .wp-block-details) {
+
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.wp-block-details {
+	width: 100%;
+	height: 100%;
+
+	&[open] {
+		height: auto;
+	}
+
+	> summary {
+		list-style: none;
+		position: relative;
+		padding-right: 2.5rem;
+
+		&::-webkit-details-marker {
+			display: none;
+		}
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			right: 0.5rem;
+			top: 50%;
+			background: var(--kt-text-gradient);
+			transition: transform 0.3s ease-in-out;
+		}
+
+		&::before {
+			width: 0.875rem;
+			height: 0.125rem;
+			transform: translate(50%, -50%);
+		}
+
+		&::after {
+			width: 0.125rem;
+			height: 0.875rem;
+			transform: translate(50%, -50%);
+		}
+	}
+
+	&[open] > summary::after {
+		transform: translate(50%, -50%) rotate(90deg);
+	}
+
+	&.kt-details-animating {
+		overflow: hidden;
+	}
+}
+
+.kt-faq-independent-columns,
+.kt-faq-independent-columns-2,
+.kt-faq-independent-columns-3,
+.kt-faq-independent-columns-4 {
+	display: flex !important;
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--30, 1.25rem);
+
+	@media (max-width: $breakpoint-mobile) {
+		flex-direction: column;
+	}
+}
+
+.kt-faq-column {
+	display: flex;
+	flex: 1 1 0;
+	min-width: 0;
+	flex-direction: column;
+	gap: var(--wp--preset--spacing--30, 1.25rem);
+}

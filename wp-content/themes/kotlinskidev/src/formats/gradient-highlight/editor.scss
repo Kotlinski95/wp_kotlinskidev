@@ -1,13 +1,14 @@
 .kt-gradient-popover {
-  min-width: 260px;
+	min-width: 260px;
 
-  .kt-gradient-popover__tabs {
-    .components-tab-panel__tabs {
-      border-bottom: 1px solid #ddd;
-    }
-  }
+	.kt-gradient-popover__tabs {
 
-  .kt-gradient-popover__panel {
-    padding: 8px 16px 16px;
-  }
+		.components-tab-panel__tabs {
+			border-bottom: 1px solid #ddd;
+		}
+	}
+
+	.kt-gradient-popover__panel {
+		padding: 8px 16px 16px;
+	}
 }

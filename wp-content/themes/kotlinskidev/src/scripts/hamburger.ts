@@ -44,10 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
       let wasOpen = container.classList.contains("is-menu-open");
       if (wasOpen) lockScroll(LOCK_OWNER);
 
+      container.addEventListener("transitionend", (e) => {
+        if (e.target === container && e.propertyName === "max-width") {
+          container.classList.remove("kt-nav-panel-animating");
+        }
+      });
+
       const observer = new MutationObserver(() => {
         const isOpen = container.classList.contains("is-menu-open");
         if (isOpen && !wasOpen) {
           lockScroll(LOCK_OWNER);
+          container.classList.add("kt-nav-panel-animating");
           const closeBtn = container
             .closest(".wp-block-navigation")
             ?.querySelector<HTMLButtonElement>(".wp-block-navigation__responsive-container-close");
@@ -59,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
           container.addEventListener("focusin", redirectInitialFocus);
         } else if (!isOpen && wasOpen) {
           unlockScroll(LOCK_OWNER);
+          container.classList.add("kt-nav-panel-animating");
         }
         wasOpen = isOpen;
       });

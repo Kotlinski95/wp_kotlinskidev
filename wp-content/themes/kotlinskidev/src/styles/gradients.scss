@@ -1,9 +1,9 @@
 .has-gradient-one-gradient-background {
-  transition: 0.5s;
-  background-size: 200% auto !important;
-  will-change: background-position;
+	transition: 0.5s;
+	background-size: 200% auto !important;
+	will-change: background-position;
 
-  &:hover {
-    background-position: right center !important;
-  }
+	&:hover {
+		background-position: right center !important;
+	}
 }

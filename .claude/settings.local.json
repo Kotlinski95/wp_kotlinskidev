@@ -31,7 +31,12 @@
       "Bash(wp option *)",
       "Bash(wp eval ' *)",
       "mcp__chrome-devtools-mcp__click",
-      "mcp__chrome-devtools-mcp__take_snapshot"
+      "mcp__chrome-devtools-mcp__take_snapshot",
+      "Bash(php -l \"functions/blocks.php\")",
+      "Bash(npx tsc *)",
+      "mcp__wordpress-local__mcp-adapter-get-ability-info",
+      "Bash(curl *)",
+      "Bash(grep -n \"^//\\\\|^/\\\\*\\\\|^\\\\.[a-zA-Z-]*\\\\s*{$\\\\|:focus\\\\|skip-link\\\\|screen-reader\" src/styles/accessibility.scss)"
     ]
   }
 }

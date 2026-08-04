@@ -6,25 +6,28 @@
 ============================================================================= */
 
 @media (min-width: #{$breakpoint-desktop}) {
-  @for $i from -1 through 20 {
-    .order-desktop-#{$i} {
-      order: #{$i};
-    }
-  }
+
+	@for $i from -1 through 20 {
+		.order-desktop-#{$i} {
+			order: #{$i};
+		}
+	}
 }
 
 @media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
-  @for $i from -1 through 20 {
-    .order-tablet-#{$i} {
-      order: #{$i};
-    }
-  }
+
+	@for $i from -1 through 20 {
+		.order-tablet-#{$i} {
+			order: #{$i};
+		}
+	}
 }
 
 @media (max-width: #{$breakpoint-mobile}) {
-  @for $i from -1 through 20 {
-    .order-mobile-#{$i} {
-      order: #{$i};
-    }
-  }
+
+	@for $i from -1 through 20 {
+		.order-mobile-#{$i} {
+			order: #{$i};
+		}
+	}
 }

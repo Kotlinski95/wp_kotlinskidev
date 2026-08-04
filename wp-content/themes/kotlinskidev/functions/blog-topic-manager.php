@@ -553,10 +553,22 @@ function kotlinskidev_enhance_search($query) {
         if ($is_search || $is_polish_search) {
             // Include pages in search results
             $query->set('post_type', array('post', 'page'));
-            
+
             // Improve search relevance
             $query->set('orderby', 'relevance');
             $query->set('order', 'DESC');
+
+            // Exclude content marked noindex (utility pages like Thank You / Search itself)
+            $excluded = kotlinskidev_apply_seo_noindex_exclusion(array(
+                'meta_query' => (array) $query->get('meta_query'),
+                'post__not_in' => (array) $query->get('post__not_in'),
+            ));
+            if (!empty($excluded['meta_query'])) {
+                $query->set('meta_query', $excluded['meta_query']);
+            }
+            if (!empty($excluded['post__not_in'])) {
+                $query->set('post__not_in', $excluded['post__not_in']);
+            }
             
             // Handle Polish search page specifically
             if ($is_polish_search) {

@@ -16,7 +16,7 @@
             <p class="has-text-align-center"><?php esc_html_e('FAQ description', 'kotlinskidev') ?></p>
             <!-- /wp:paragraph -->
 
-            <!-- wp:group {"style":{"spacing":{"margin":{"top":"2.75rem"},"blockGap":"var:preset|spacing|30"}},"layout":{"type":"constrained"}} -->
+            <!-- wp:group {"style":{"spacing":{"margin":{"top":"2.75rem"},"blockGap":"var:preset|spacing|30"}},"layout":{"type":"grid","columnCount":2}} -->
             <div class="wp-block-group" style="margin-top:2.75rem">
                 <!-- wp:details {"style":{"typography":{"fontStyle":"normal","fontWeight":"600","fontSize":"1.125rem"},"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}}} -->
                 <details class="wp-block-details" style="padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40);font-size:1.125rem;font-style:normal;font-weight:600">

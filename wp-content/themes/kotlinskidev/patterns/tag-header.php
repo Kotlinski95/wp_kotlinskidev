@@ -12,8 +12,8 @@ $post_count = $current_tag->count;
 $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);
 $breadcrumbs = array();
-$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
-$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
+$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
 $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">' . esc_html__('Tag:', 'kotlinskidev') . ' ' . esc_html($tag_name) . '</span>';
 ?>
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"0.9375rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
@@ -31,7 +31,7 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
     
     <!-- wp:html -->
     <div style="text-align:center;">
-        <div style="display:inline-block;padding:0.5rem 1rem;background:var(--wp--preset--color--primary);color:white;border-radius:1.25rem;font-size:0.875rem;font-weight:600;margin-bottom:0.9375rem;">
+        <div class="kt-gradient-pill" style="padding:0.5rem 1rem;border-radius:1.25rem;font-size:0.875rem;font-weight:600;margin-bottom:0.9375rem;">
             #<?php echo esc_html($tag_name); ?>
         </div>
         
@@ -46,11 +46,11 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
         <?php endif; ?>
         
         <div style="display:flex;justify-content:center;align-items:center;gap:1.25rem;margin-bottom:1.875rem;">
-            <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-weight:600;">
+            <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
                 <?php echo $post_count . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
             </span>
             <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
-            <a href="<?php echo esc_url($breadcrumb_settings['topics_url']); ?>" style="color:var(--wp--preset--color--primary);text-decoration:none;" class="link-dark-variant-support">
+            <a href="<?php echo esc_url($breadcrumb_settings['topics_url']); ?>" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">
                 ← <?php esc_html_e('Browse All Topics', 'kotlinskidev'); ?>
             </a>
         </div>

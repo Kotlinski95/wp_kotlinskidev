@@ -154,6 +154,7 @@ add_action('wp_enqueue_scripts', function (): void {
         'imagesUrl' => get_template_directory_uri() . '/assets/images',
         'mobileBreakpoint' => kotlinskidev_get_breakpoints()['mobile_max'],
         'breakpoints' => kotlinskidev_get_breakpoints(),
+        'scrollOffsets' => kotlinskidev_get_scroll_offsets(),
     ]);
     
     // When used in a WordPress plugin
