@@ -1,118 +1,104 @@
 // Protection indicator in editor
 .protected-content-wrapper {
-  position: relative;
+	position: relative;
 
-  .protection-indicator {
-    position: absolute;
-    top: -1.5625rem;
-    left: 0;
-    background: #007cba;
-    color: white;
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.1875rem;
-    font-size: 0.6875rem;
-    font-weight: 500;
-    z-index: 10;
+	.protection-indicator {
+		position: absolute;
+		top: -1.5625rem;
+		left: 0;
+		background: #007cba;
+		color: white;
+		padding: 0.125rem 0.5rem;
+		border-radius: 0.1875rem;
+		font-size: 0.6875rem;
+		font-weight: 500;
+		z-index: 10;
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 100%;
-      left: 0.5rem;
-      width: 0;
-      height: 0;
-      border-left: 0.25rem solid transparent;
-      border-right: 0.25rem solid transparent;
-      border-top: 0.25rem solid #007cba;
-    }
-  }
+		&::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 0.5rem;
+			width: 0;
+			height: 0;
+			border-left: 0.25rem solid transparent;
+			border-right: 0.25rem solid transparent;
+			border-top: 0.25rem solid #007cba;
+		}
+	}
 }
 
 // Frontend protected content styling
 .protected-content {
-  &[data-protected="true"] {
-    position: relative;
 
-    // Loading state
-    &::before {
-      content: "🔒 " attr(data-loading-text, "Loading protected content...");
-      color: #666;
-      font-style: italic;
-    }
+	&[data-protected="true"] {
+		position: relative;
 
-    // Hidden state for screen readers
-    &[aria-hidden="true"] {
-      opacity: 0.7;
-    }
+		// Loading state
+		&::before {
+			content: "🔒 " attr(data-loading-text, "Loading protected content...");
+			color: var(--wp--preset--color--foreground-alt);
+			font-style: italic;
+		}
 
-    // Different protection types styling
-    &.protected-content--email {
-      &::after {
-        content: "📧";
-        position: absolute;
-        right: -1.25rem;
-        top: 0;
-        font-size: 0.75rem;
-        opacity: 0.5;
-      }
-    }
+		// Hidden state for screen readers
+		&[aria-hidden="true"] {
+			opacity: 0.7;
+		}
 
-    &.protected-content--phone {
-      &::after {
-        content: "📱";
-        position: absolute;
-        right: -1.25rem;
-        top: 0;
-        font-size: 0.75rem;
-        opacity: 0.5;
-      }
-    }
+		// Different protection types styling
+		&.protected-content--text {
 
-    &.protected-content--text {
-      &::after {
-        content: "🛡️";
-        position: absolute;
-        right: -1.25rem;
-        top: 0;
-        font-size: 0.75rem;
-        opacity: 0.5;
-      }
-    }
-  }
+			&::after {
+				content: "🛡️";
+				position: absolute;
+				right: -1.25rem;
+				top: 0;
+				font-size: 0.75rem;
+				opacity: 0.5;
+			}
+		}
+	}
 
-  // Once loaded, remove loading states
-  &.protection-loaded {
-    &::before {
-      display: none;
-    }
-  }
+	// Once loaded, remove loading states
+	&.protection-loaded {
+
+		&::before {
+			display: none;
+		}
+	}
 }
 
 // Admin/editor specific styles
 .wp-admin {
-  .protected-content-wrapper {
-    margin-top: 1.875rem; // Space for protection indicator
-  }
+
+	.protected-content-wrapper {
+		margin-top: 1.875rem; // Space for protection indicator
+	}
 }
 
 // Responsive adjustments
 @media (max-width: 48rem) {
-  .protected-content {
-    &[data-protected="true"] {
-      &::after {
-        display: none; // Hide protection icons on mobile
-      }
-    }
-  }
+
+	.protected-content {
+
+		&[data-protected="true"] {
+
+			&::after {
+				display: none; // Hide protection icons on mobile
+			}
+		}
+	}
 }
 
 .protection-loading-spinner {
-  width: 1em;
-  height: 1em;
+	width: 1em;
+	height: 1em;
 }
 
 .dark-mode {
-  .protection-loading-spinner {
-    filter: invert(1);
-  }
+
+	.protection-loading-spinner {
+		filter: invert(1);
+	}
 }

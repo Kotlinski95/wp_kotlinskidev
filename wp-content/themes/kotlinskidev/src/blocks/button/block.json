@@ -1,0 +1,110 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/button",
+  "version": "1.0.0",
+  "title": "Button",
+  "category": "kotlinskidev",
+  "icon": "button",
+  "description": "Button with independent normal/hover control over text, background, and border colors, including gradients.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/button.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "url": {
+      "type": "string",
+      "default": ""
+    },
+    "opensInNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "rel": {
+      "type": "string",
+      "default": ""
+    },
+    "borderWidth": {
+      "type": "number",
+      "default": 2
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "textGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "borderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "borderGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "hoverTextColor": {
+      "type": "string",
+      "default": ""
+    },
+    "hoverTextGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "hoverBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "hoverBackgroundGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "hoverBorderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "hoverBorderGradient": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "spacing": {
+      "padding": true,
+      "margin": true,
+      "__experimentalDefaultControls": {
+        "padding": true
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalLetterSpacing": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "color": false,
+      "width": false,
+      "style": false
+    },
+    "shadow": true
+  }
+}

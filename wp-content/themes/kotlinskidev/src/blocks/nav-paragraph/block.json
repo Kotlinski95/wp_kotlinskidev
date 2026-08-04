@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/nav-paragraph",
+  "version": "1.0.0",
+  "title": "Nav Paragraph",
+  "category": "kotlinskidev-navigation",
+  "icon": "editor-paragraph",
+  "description": "Text paragraph for use inside navigation panels and holders.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/nav-content.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "textGradient": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": {
+      "text": false,
+      "background": true,
+      "gradients": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "margin": true,
+        "padding": true
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
+    "shadow": true
+  }
+}

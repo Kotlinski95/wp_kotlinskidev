@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/responsive-image",
+  "title": "Responsive Image",
+  "category": "media",
+  "icon": "format-image",
+  "description": "Image block with separate images for desktop and mobile.",
+  "textdomain": "kotlinskidev",
+  "version": "1.0.0",
+  "attributes": {
+    "desktopImageUrl": { "type": "string", "default": "" },
+    "desktopImageId": { "type": "number" },
+    "mobileImageUrl": { "type": "string", "default": "" },
+    "mobileImageId": { "type": "number" },
+    "alt": { "type": "string", "default": "" },
+    "breakpoint": { "type": "number", "default": 767 },
+    "loading": { "type": "string", "default": "lazy" }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "file:../../../build/responsive-image.js",
+  "style": "file:../../../build/style-responsive-image.css"
+}

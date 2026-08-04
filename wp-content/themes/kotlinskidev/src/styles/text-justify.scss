@@ -1,0 +1,23 @@
+.has-text-align-justify {
+	text-align: justify;
+	text-align-last: left;
+	text-justify: inter-word;
+	word-spacing: 0.05em;
+	letter-spacing: 0.01em;
+	orphans: 2;
+	widows: 2;
+	hyphens: auto;
+	overflow-wrap: break-word;
+	text-wrap: pretty;
+	text-rendering: optimizelegibility;
+	font-kerning: normal;
+	font-feature-settings:
+		"kern" 1,
+		"liga" 1;
+	font-variant-ligatures: common-ligatures;
+
+	@media (max-width: 48rem) {
+		orphans: 3;
+		widows: 3;
+	}
+}

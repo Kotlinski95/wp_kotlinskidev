@@ -1,0 +1,100 @@
+import React from "react";
+import { __ } from "@wordpress/i18n";
+import { addFilter } from "@wordpress/hooks";
+import { createHigherOrderComponent } from "@wordpress/compose";
+import { InspectorControls } from "@wordpress/block-editor";
+import { PanelBody, ToggleControl } from "@wordpress/components";
+import { Fragment } from "@wordpress/element";
+
+interface LinkHoverEffects {
+  disableBackgroundHover?: boolean;
+  disableUnderlineHover?: boolean;
+  disableLinkGradient?: boolean;
+}
+
+interface BlockAttributes {
+  linkHoverEffects?: LinkHoverEffects;
+}
+
+interface BlockEditProps {
+  attributes: BlockAttributes;
+  setAttributes: (attrs: Partial<BlockAttributes>) => void;
+}
+
+interface BlockSettings {
+  attributes?: Record<string, unknown>;
+  [key: string]: unknown;
+}
+
+const addLinkHoverEffectsAttribute = (settings: BlockSettings): BlockSettings => ({
+  ...settings,
+  attributes: {
+    ...settings.attributes,
+    linkHoverEffects: {
+      type: "object",
+      default: {},
+    },
+  },
+});
+
+const withLinkHoverEffectsControls = createHigherOrderComponent((BlockEdit) => {
+  return (props: BlockEditProps) => {
+    const { attributes, setAttributes } = props;
+    const linkHoverEffects = attributes.linkHoverEffects || {};
+
+    const update = (key: keyof LinkHoverEffects, value: boolean) => {
+      setAttributes({
+        linkHoverEffects: { ...linkHoverEffects, [key]: value },
+      });
+    };
+
+    return (
+      <Fragment>
+        <BlockEdit {...props} />
+        <InspectorControls>
+          <PanelBody title={__("Link Hover Effects", "kotlinskidev")} initialOpen={false}>
+            <ToggleControl
+              label={__("Disable background hover effect", "kotlinskidev")}
+              help={__(
+                "Turns off the gradient/fill hover effect on links inside this block.",
+                "kotlinskidev"
+              )}
+              checked={!!linkHoverEffects.disableBackgroundHover}
+              onChange={(value) => update("disableBackgroundHover", value)}
+            />
+            <ToggleControl
+              label={__("Disable underline hover effect", "kotlinskidev")}
+              help={__(
+                "Turns off the sliding underline hover/focus effect on links inside this block.",
+                "kotlinskidev"
+              )}
+              checked={!!linkHoverEffects.disableUnderlineHover}
+              onChange={(value) => update("disableUnderlineHover", value)}
+            />
+            <ToggleControl
+              label={__("Disable link underline/gradient effect", "kotlinskidev")}
+              help={__(
+                "Excludes links in this block from the sitewide header/footer hover-underline and gradient-text-on-focus effect, without affecting this block's own hover/focus styling. Enabled by default sitewide; turn this on only where it conflicts, like the Social Link block.",
+                "kotlinskidev"
+              )}
+              checked={!!linkHoverEffects.disableLinkGradient}
+              onChange={(value) => update("disableLinkGradient", value)}
+            />
+          </PanelBody>
+        </InspectorControls>
+      </Fragment>
+    );
+  };
+}, "withLinkHoverEffectsControls");
+
+addFilter(
+  "blocks.registerBlockType",
+  "kotlinskidev/link-hover-effects-attributes",
+  addLinkHoverEffectsAttribute
+);
+
+addFilter(
+  "editor.BlockEdit",
+  "kotlinskidev/link-hover-effects-controls",
+  withLinkHoverEffectsControls
+);

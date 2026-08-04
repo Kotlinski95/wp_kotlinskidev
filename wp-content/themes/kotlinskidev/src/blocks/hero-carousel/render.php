@@ -1,0 +1,64 @@
+<?php
+$min_height      = absint( $attributes['minHeight'] ?? 80 );
+$show_arrows     = (bool) ( $attributes['showArrows'] ?? true );
+$show_pagination = (bool) ( $attributes['showPagination'] ?? true );
+$arrows_position = sanitize_key( $attributes['arrowsPosition'] ?? 'sides' );
+$nav_color       = sanitize_text_field( $attributes['navColor'] ?? '' );
+$nav_color_hover = (bool) ( $attributes['navColorOnHover'] ?? false );
+$nav_placement   = sanitize_key( $attributes['navPlacement'] ?? 'inside' );
+
+$effective_placement = $arrows_position === 'sides' ? 'inside' : $nav_placement;
+
+$settings = wp_json_encode( [
+	'showArrows'      => $show_arrows,
+	'showPagination'  => $show_pagination,
+	'loop'            => (bool) ( $attributes['loop'] ?? true ),
+	'autoplay'        => (bool) ( $attributes['autoplay'] ?? false ),
+	'autoplayDelay'   => absint( $attributes['autoplayDelay'] ?? 5000 ),
+	'lazyLoad'        => (bool) ( $attributes['lazyLoad'] ?? false ),
+	'arrowsPosition'  => $arrows_position,
+	'navColor'        => $nav_color,
+	'navColorOnHover' => $nav_color_hover,
+	'navPlacement'    => $nav_placement,
+] ) ?: '{}';
+
+$slides_html = '';
+foreach ( $block->inner_blocks as $i => $slide_block ) {
+	$slide_block->attributes['slideIndex'] = $i;
+	$slides_html .= $slide_block->render();
+}
+
+$inline_style = '--hero-min-height: ' . $min_height . 'svh';
+if ( $nav_color ) {
+	$prop          = $nav_color_hover ? '--carousel-nav-color-hover' : '--carousel-nav-color';
+	$inline_style .= '; ' . $prop . ': ' . esc_attr( $nav_color );
+}
+
+$wrapper_attributes = get_block_wrapper_attributes( [
+	'class' => 'hero-carousel',
+	'style' => $inline_style,
+] );
+
+$nav_class = 'carousel-nav carousel-nav--' . esc_attr( $arrows_position );
+if ( $effective_placement === 'outside' ) {
+	$nav_class .= ' carousel-nav--outside';
+}
+$counter  = $arrows_position !== 'sides' ? '<span class="carousel-nav__counter"></span>' : '';
+$nav_html = '<div class="' . $nav_class . '"><div class="swiper-button-prev"></div>' . $counter . '<div class="swiper-button-next"></div></div>';
+?>
+<div <?php echo $wrapper_attributes; ?>>
+	<div class="swiper hero-carousel__swiper" data-carousel-settings="<?php echo esc_attr( $settings ); ?>">
+		<div class="swiper-wrapper">
+			<?php echo $slides_html; ?>
+		</div>
+		<?php if ( $show_arrows && $effective_placement === 'inside' ) : ?>
+			<?php echo $nav_html; ?>
+		<?php endif; ?>
+		<?php if ( $show_pagination && $effective_placement === 'inside' && $arrows_position === 'sides' ) : ?>
+			<div class="swiper-pagination"></div>
+		<?php endif; ?>
+	</div>
+	<?php if ( $show_arrows && $effective_placement === 'outside' ) : ?>
+		<?php echo $nav_html; ?>
+	<?php endif; ?>
+</div>

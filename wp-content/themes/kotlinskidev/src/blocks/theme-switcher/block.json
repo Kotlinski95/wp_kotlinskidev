@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/theme-switcher",
+  "version": "1.0.0",
+  "title": "Theme Switcher",
+  "category": "kotlinskidev",
+  "icon": "button",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/theme-switcher.js",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "inserter": false
+  }
+}

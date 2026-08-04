@@ -1,3 +1,5 @@
+import { getBreakpoints } from "./utils";
+
 // =============================================================================
 // GLOBAL TRANSLATION INTERFACES
 // =============================================================================
@@ -283,8 +285,9 @@ export const isElementInViewport = (el: Element): boolean => {
 
 export const getDeviceType = (): DeviceType => {
   const width = window.innerWidth;
-  if (width < 768) return "mobile";
-  if (width < 1024) return "tablet";
+  const breakpoints = getBreakpoints();
+  if (width <= breakpoints.mobile_max) return "mobile";
+  if (width <= breakpoints.tablet_max) return "tablet";
   return "desktop";
 };
 

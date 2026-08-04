@@ -21,7 +21,7 @@
         },
         {
           "slug": "primary-rgb",
-          "color": "59, 130, 246",
+          "color": "130, 9, 211",
           "name": "Primary RGB"
         },
         {
@@ -78,10 +78,90 @@
           "slug": "transparent-shade",
           "color": "#19191900",
           "name": "Transparent Shade"
+        },
+        {
+          "slug": "surface-light",
+          "color": "#f2f2f2",
+          "name": "Surface · Light Mode"
+        },
+        {
+          "slug": "surface-dark",
+          "color": "#191919",
+          "name": "Surface · Dark Mode"
+        },
+        {
+          "slug": "foreground-light",
+          "color": "#191919",
+          "name": "Foreground · Light Mode"
+        },
+        {
+          "slug": "foreground-dark",
+          "color": "#f2f2f2",
+          "name": "Foreground · Dark Mode"
+        },
+        {
+          "slug": "foreground-alt-light",
+          "color": "#4a4a4a",
+          "name": "Foreground Alt · Light Mode"
+        },
+        {
+          "slug": "foreground-alt-dark",
+          "color": "#b8b8b8",
+          "name": "Foreground Alt · Dark Mode"
+        },
+        {
+          "slug": "divider-light",
+          "color": "#d9d9d9",
+          "name": "Divider · Light Mode"
+        },
+        {
+          "slug": "divider-dark",
+          "color": "#2e2e2e",
+          "name": "Divider · Dark Mode"
+        },
+        {
+          "slug": "surface",
+          "color": "light-dark(var(--wp--preset--color--surface-light), var(--wp--preset--color--surface-dark))",
+          "name": "Surface (Adaptive)"
+        },
+        {
+          "slug": "foreground",
+          "color": "light-dark(var(--wp--preset--color--foreground-light), var(--wp--preset--color--foreground-dark))",
+          "name": "Foreground (Adaptive)"
+        },
+        {
+          "slug": "foreground-alt",
+          "color": "light-dark(var(--wp--preset--color--foreground-alt-light), var(--wp--preset--color--foreground-alt-dark))",
+          "name": "Foreground Alt (Adaptive)"
+        },
+        {
+          "slug": "foreground-contrast",
+          "color": "light-dark(var(--wp--preset--color--foreground-dark), var(--wp--preset--color--foreground-light))",
+          "name": "Foreground Contrast (Adaptive)"
+        },
+        {
+          "slug": "divider",
+          "color": "light-dark(var(--wp--preset--color--divider-light), var(--wp--preset--color--divider-dark))",
+          "name": "Divider (Adaptive)"
         }
       ],
       "duotone": [],
       "gradients": [
+        {
+          "gradient": "linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%, rgb(0, 255, 240) 100%)",
+          "name": "Link & Text Gradient — Dark Mode",
+          "slug": "fancy-text-dark"
+        },
+        {
+          "gradient": "linear-gradient(to left, rgb(132, 83, 210) 0%, rgb(0, 71, 255) 60%, rgb(0, 120, 194) 100%)",
+          "name": "Link & Text Gradient — Light Mode",
+          "slug": "fancy-text-light"
+        },
+        {
+          "gradient": "linear-gradient(to left, light-dark(rgb(132, 83, 210), rgb(184, 150, 255)) 0%, light-dark(rgb(0, 71, 255), rgb(0, 246, 255)) 60%, light-dark(rgb(0, 120, 194), rgb(0, 255, 240)) 100%)",
+          "name": "Link & Text Gradient (Adaptive)",
+          "slug": "fancy-text"
+        },
         {
           "gradient": "linear-gradient(to right, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--contrast)  51%, var(--wp--preset--color--primary)  100%)",
           "name": "Gradient 1",
@@ -131,6 +211,11 @@
           "gradient": "radial-gradient(30.83% 47.59% at 100% 100%, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--primary-shade-1) 12%, var(--wp--preset--color--primary-shade-2) 44%, var(--wp--preset--color--transparent-shade) 100%)",
           "name": "Gradient block top right",
           "slug": "gradient-block-bottom-right"
+        },
+        {
+          "gradient": "linear-gradient(to right, #00ffd3 15%, #00f6ff 50%, #b896ff 90%)",
+          "name": "Cyber Accent",
+          "slug": "cyber-accent"
         }
       ]
     },
@@ -201,6 +286,23 @@
           "medium": 1.4,
           "normal": 1.6
         }
+      },
+      "textShadow": {
+        "adaptive": "0 0 0.5rem currentColor",
+        "adaptive-subtle": "0 0 0.25rem color-mix(in srgb, currentColor 40%, transparent)",
+        "adaptive-strong": "0 0 0.5rem currentColor, 0 0 1rem color-mix(in srgb, currentColor 60%, transparent)",
+        "adaptive-contrast": "0 0 0.5rem var(--wp--preset--color--foreground-contrast)",
+        "adaptive-contrast-subtle": "0 0 0.25rem color-mix(in srgb, var(--wp--preset--color--foreground-contrast) 40%, transparent)",
+        "adaptive-contrast-strong": "0 0 0.5rem var(--wp--preset--color--foreground-contrast), 0 0 1rem color-mix(in srgb, var(--wp--preset--color--foreground-contrast) 60%, transparent)",
+        "light-subtle": "0 0 0.25rem color-mix(in srgb, var(--wp--preset--color--foreground-light) 40%, transparent)",
+        "light-strong": "0 0 0.5rem var(--wp--preset--color--foreground-light), 0 0 1rem color-mix(in srgb, var(--wp--preset--color--foreground-light) 60%, transparent)",
+        "dark-subtle": "0 0 0.25rem color-mix(in srgb, var(--wp--preset--color--foreground-dark) 40%, transparent)",
+        "dark-strong": "0 0 0.5rem var(--wp--preset--color--foreground-dark), 0 0 1rem color-mix(in srgb, var(--wp--preset--color--foreground-dark) 60%, transparent)",
+        "subtle": "0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)",
+        "soft-glow": "0 0 0.5rem rgba(130, 9, 211, 0.5)",
+        "primary-glow": "0 0 0.75rem rgba(130, 9, 211, 0.6)",
+        "strong": "0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.45)",
+        "outline-pop": "0.0625rem 0.0625rem 0 rgba(0, 0, 0, 0.85)"
       }
     },
     "spacing": {

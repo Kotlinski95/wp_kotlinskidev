@@ -1,42 +1,43 @@
 {
-	"name": "kotlinskidev",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"build": "wp-scripts build && npx tailwindcss -i ./tailwind.css -o ./build/tailwind.css --minify",
-		"check-engines": "wp-scripts check-engines",
-		"check-licenses": "wp-scripts check-licenses",
-		"format": "wp-scripts format",
-		"prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss,css,json}\"",
-		"prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,scss,css,json}\"",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
-		"lint:md:docs": "wp-scripts lint-md-docs",
-		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start",
-		"test:e2e": "wp-scripts test-e2e",
-		"test:unit": "wp-scripts test-unit-js"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"@types/react": "^18.0.0",
-		"@types/react-dom": "^18.0.0",
-
-		"@types/wordpress__block-editor": "^11.5.16",
-		"@wordpress/block-editor": "^14.18.0",
-		"@wordpress/scripts": "^30.6.0",
-		"prettier": "^3.2.5",
-		"tailwindcss": "^3.4.17",
-		"typescript": "^5.8.3"
-	},
-	"dependencies": {
-		"react": "^18.0.0",
-		"react-dom": "^18.0.0",
-		"swiper": "^11.2.6"
-	}
+  "name": "kotlinskidev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss,css,json}\"",
+    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,scss,css,json}\"",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/wordpress__block-editor": "^11.5.16",
+    "@wordpress/block-editor": "^14.18.0",
+    "@wordpress/icons": "^10.23.0",
+    "@wordpress/scripts": "^30.6.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "swiper": "^11.2.6"
+  }
 }

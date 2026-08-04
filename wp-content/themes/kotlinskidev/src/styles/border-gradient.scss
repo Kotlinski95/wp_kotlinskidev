@@ -1,0 +1,12 @@
+@import "theme-colors";
+
+.kt-has-gradient-border {
+	position: relative;
+	isolation: isolate;
+	border-color: transparent !important;
+
+	&::before {
+
+		@include gradient-border(var(--kt-border-width, 0.0625rem), var(--kt-border-gradient));
+	}
+}

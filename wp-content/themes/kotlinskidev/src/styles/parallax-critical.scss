@@ -1,0 +1,34 @@
+.wp-block-cover.enable-parallax {
+	overflow: visible;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+
+	> .wp-block-cover__image-background {
+		display: none;
+	}
+}
+
+.wp-block-cover.enable-parallax.full-width {
+	left: calc(50% - 50vw);
+	transform: none;
+}
+
+@media (hover: none) {
+
+	.wp-block-cover.enable-parallax {
+		background-attachment: scroll;
+	}
+
+	.wp-block-cover.enable-parallax.full-width {
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wp-block-cover.enable-parallax {
+		background-attachment: scroll;
+	}
+}

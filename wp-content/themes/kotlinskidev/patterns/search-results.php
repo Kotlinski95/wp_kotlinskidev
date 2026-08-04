@@ -20,6 +20,7 @@ if (!empty($search_query)) :
         'orderby' => 'relevance',
         'order' => 'DESC'
     );
+    $search_args = kotlinskidev_apply_seo_noindex_exclusion($search_args);
     
     // Filter by content type if specified
     if (!empty($current_type)) {
@@ -65,7 +66,7 @@ if (!empty($search_query)) :
                     </p>
                 </div>
                 <?php if ($search_results->max_num_pages > 1) : ?>
-                <div style="color:var(--wp--preset--color--primary);font-size:0.875rem;" class="link-dark-variant-support">
+                <div style="font-size:0.875rem;" class="link-dark-variant-support kt-gradient-text">
                     <?php printf(esc_html__('Page %d of %d', 'kotlinskidev'), max(1, get_query_var('paged', 1)), $search_results->max_num_pages); ?>
                 </div>
                 <?php endif; ?>
@@ -99,7 +100,7 @@ if (!empty($search_query)) :
                     
                     <!-- Content Type & Meta -->
                     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.9375rem;margin-bottom:0.9375rem;font-size:0.875rem;">
-                        <span style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;padding:0.25rem 0.75rem;border-radius:0.9375rem;font-weight:600;">
+                        <span class="kt-gradient-pill" style="padding:0.25rem 0.75rem;border-radius:0.9375rem;font-weight:600;">
                             <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
                         </span>
                         
@@ -109,13 +110,13 @@ if (!empty($search_query)) :
                             </span>
                             
                             <?php if (!empty($categories)) : ?>
-                                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);">
+                                <span class="link-dark-variant-support kt-gradient-text">
                                     📂 <?php echo esc_html($categories[0]->name); ?>
                                 </span>
                             <?php endif; ?>
                         <?php endif; ?>
-                        
-                        <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);">
+
+                        <span class="link-dark-variant-support kt-gradient-text">
                             <?php echo kotlinskidev_reading_time(); ?>
                         </span>
                     </div>
@@ -138,7 +139,7 @@ if (!empty($search_query)) :
                         if ($tags) : ?>
                         <div style="margin-bottom:0.9375rem;">
                             <?php foreach (array_slice($tags, 0, 3) as $tag) : ?>
-                                <span class="link-dark-variant-support" style="background:transparent;color:var(--wp--preset--color--primary);border:0.125rem solid var(--wp--preset--color--primary);padding:0.25rem 0.5rem;border-radius:0.5rem;font-size:0.75rem;margin-right:0.5rem;">
+                                <span class="kt-gradient-pill" style="padding:0.25rem 0.5rem;border-radius:0.5rem;font-size:0.75rem;margin-right:0.5rem;">
                                     #<?php echo $tag->name; ?>
                                 </span>
                             <?php endforeach; ?>
@@ -148,8 +149,7 @@ if (!empty($search_query)) :
                     <!-- Read More Button -->
                     <div>
                         <a href="<?php the_permalink(); ?>" 
-                           class="search-link"
-                           style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
+                           class="search-link">
                             <?php echo $is_page ? esc_html__('View Page', 'kotlinskidev') : esc_html__('Read Article', 'kotlinskidev'); ?> →
                         </a>
                     </div>
@@ -248,8 +248,8 @@ if (!empty($search_query)) :
             </ul>
         </div>
         
-        <a href="<?php echo esc_url(home_url('/')); ?>" 
-           style="background:var(--wp--preset--color--primary);color:white;padding:0.75rem 1.5rem;border-radius:0.625rem;text-decoration:none;font-weight:600;">
+        <a href="<?php echo esc_url(home_url('/')); ?>"
+           class="search-link">
             <?php esc_html_e('Browse All Content', 'kotlinskidev'); ?>
         </a>
     </div>

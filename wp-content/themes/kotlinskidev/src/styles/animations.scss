@@ -3,55 +3,55 @@
 // =============================================================================
 
 .hover-jump {
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
-  will-change: transform;
+	transition: transform 0.3s ease-in-out;
+	cursor: pointer;
+	will-change: transform;
 
-  &:hover {
-    transform: translateY(-0.625rem);
-  }
+	&:hover {
+		transform: translateY(-0.625rem);
+	}
 }
 
 .hover-jump-subtle {
-  transition: transform 0.25s ease-in-out;
-  cursor: pointer;
-  will-change: transform;
+	transition: transform 0.25s ease-in-out;
+	cursor: pointer;
+	will-change: transform;
 
-  &:hover {
-    transform: translateY(-0.3125rem);
-  }
+	&:hover {
+		transform: translateY(-0.3125rem);
+	}
 }
 
 .hover-jump-smooth {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  will-change: transform;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	cursor: pointer;
+	will-change: transform;
 
-  &:hover {
-    transform: translateY(-0.125rem);
-  }
+	&:hover {
+		transform: translateY(-0.125rem);
+	}
 }
 
 .hover-jump-strong {
-  transition: transform 0.35s ease-in-out;
-  cursor: pointer;
-  will-change: transform;
+	transition: transform 0.35s ease-in-out;
+	cursor: pointer;
+	will-change: transform;
 
-  &:hover {
-    transform: translateY(-0.9375rem);
-  }
+	&:hover {
+		transform: translateY(-0.9375rem);
+	}
 }
 
 .hover-jump-shadow {
-  transition:
-    transform 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out;
-  cursor: pointer;
+	transition:
+		transform 0.3s ease-in-out,
+		box-shadow 0.3s ease-in-out;
+	cursor: pointer;
 
-  &:hover {
-    transform: translateY(-0.625rem);
-    box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
-  }
+	&:hover {
+		transform: translateY(-0.625rem);
+		box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+	}
 }
 
 // =============================================================================
@@ -59,39 +59,39 @@
 // =============================================================================
 
 .hover-scale {
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+	cursor: pointer;
 
-  &:hover {
-    transform: scale(1.05);
-  }
+	&:hover {
+		transform: scale(1.05);
+	}
 }
 
 .hover-fade {
-  transition: opacity 0.3s ease-in-out;
-  cursor: pointer;
+	transition: opacity 0.3s ease-in-out;
+	cursor: pointer;
 
-  &:hover {
-    opacity: 0.8;
-  }
+	&:hover {
+		opacity: 0.8;
+	}
 }
 
 .hover-rotate {
-  transition: transform 0.3s ease-in-out;
-  cursor: pointer;
+	transition: transform 0.3s ease-in-out;
+	cursor: pointer;
 
-  &:hover {
-    transform: rotate(5deg);
-  }
+	&:hover {
+		transform: rotate(5deg);
+	}
 }
 
 .hover-bounce {
-  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  cursor: pointer;
+	transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	cursor: pointer;
 
-  &:hover {
-    transform: translateY(-0.5rem) scale(1.02);
-  }
+	&:hover {
+		transform: translateY(-0.5rem) scale(1.02);
+	}
 }
 
 // =============================================================================
@@ -99,23 +99,23 @@
 // =============================================================================
 
 .constant-bounce {
-  animation: constant-bounce 2s ease-in-out infinite;
-  cursor: pointer;
+	animation: constant-bounce 2s ease-in-out infinite;
+	cursor: pointer;
 }
 
 .constant-bounce-subtle {
-  animation: constant-bounce-subtle 2.5s ease-in-out infinite;
-  cursor: pointer;
+	animation: constant-bounce-subtle 2.5s ease-in-out infinite;
+	cursor: pointer;
 }
 
 .constant-bounce-strong {
-  animation: constant-bounce-strong 1.8s ease-in-out infinite;
-  cursor: pointer;
+	animation: constant-bounce-strong 1.8s ease-in-out infinite;
+	cursor: pointer;
 }
 
 .constant-bounce-fast {
-  animation: constant-bounce-fast 1.2s ease-in-out infinite;
-  cursor: pointer;
+	animation: constant-bounce-fast 1.2s ease-in-out infinite;
+	cursor: pointer;
 }
 
 // =============================================================================
@@ -123,41 +123,49 @@
 // =============================================================================
 
 @keyframes constant-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.5rem);
-  }
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-0.5rem);
+	}
 }
 
 @keyframes constant-bounce-subtle {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.25rem);
-  }
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-0.25rem);
+	}
 }
 
 @keyframes constant-bounce-strong {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.75rem);
-  }
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-0.75rem);
+	}
 }
 
 @keyframes constant-bounce-fast {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.375rem);
-  }
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-0.375rem);
+	}
 }

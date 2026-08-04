@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/scroll-to-top",
+  "version": "1.0.0",
+  "title": "Scroll To Top",
+  "category": "kotlinskidev",
+  "icon": "arrow-up-alt",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/scroll-to-top.js",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "inserter": true
+  }
+}

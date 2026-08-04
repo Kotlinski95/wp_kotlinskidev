@@ -1,5 +1,8 @@
 import "./index.scss";
 import "./scripts/hamburger";
+import "./scripts/mega-menu";
+import "./scripts/search-panel";
+import "./scripts/language-panel";
 import "./scripts/scroll-to-top";
 import "./scripts/language";
 import "./scripts/scroll-animations";
@@ -11,6 +14,9 @@ import "./scripts/accessibility";
 import "./scripts/animated-counter";
 import "./scripts/page-views";
 import "./scripts/hide-nav-on-scroll";
+import "./scripts/visual-viewport-offset";
+import "./scripts/gsap-sticky";
+import "./scripts/faq-accordion";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

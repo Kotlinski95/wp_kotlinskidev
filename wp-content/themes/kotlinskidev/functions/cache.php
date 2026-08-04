@@ -27,8 +27,23 @@
  *   kotlinskidev_i18n_{locale}              JS translation array assembled from
  *                                           ~40 __() calls, cached per locale.
  *
- *   img_size_{md5(url)}                     Image width/height for the content
- *                                           filter (replaces live getimagesize()).
+ *   kotlinskidev_img_sizes                  Single map of md5(url) => width/height
+ *                                           for the content filter (replaces live
+ *                                           getimagesize()) — one transient for every
+ *                                           image site-wide instead of one per URL,
+ *                                           loaded once per request and written back
+ *                                           at most once, at shutdown. Per-entry
+ *                                           invalidation on edit_/delete_attachment.
+ *                                           Legacy `img_size_{md5(url)}` entries from
+ *                                           before this consolidation may still exist
+ *                                           until they expire or a manual flush runs.
+ *
+ *   kotlinskidev_popular_posts_{md5(args)}  Post IDs for the popular-pages block's
+ *                                           view-count query. 15 minute TTL — view
+ *                                           counts don't need to be real-time.
+ *
+ *   kotlinskidev_svg_{attachment_id}        Inlined SVG file contents for nav icons
+ *                                           and image-block SVGs. WEEK_IN_SECONDS.
  *                                           Invalidated on edit_/delete_attachment.
  *
  *   kotlinskidev_build_fingerprint          Combined filemtime hash of all tracked
@@ -70,7 +85,6 @@ function kotlinskidev_tracked_build_files(): array {
         $build . 'critical.js',
         $build . 'main.css',
         $build . 'main.js',
-        $build . 'tailwind.css',
     ];
 }
 
@@ -289,7 +303,17 @@ function kotlinskidev_cache_admin_page(): void {
                 </tr>
                 <tr>
                     <td>Image dimensions</td>
-                    <td><code>img_size_{md5}</code></td>
+                    <td><code>kotlinskidev_img_sizes</code></td>
+                    <td>Attachment edit / delete / manual flush</td>
+                </tr>
+                <tr>
+                    <td>Popular posts</td>
+                    <td><code>kotlinskidev_popular_posts_{md5}</code></td>
+                    <td>15 minute TTL / manual flush</td>
+                </tr>
+                <tr>
+                    <td>Inlined SVGs</td>
+                    <td><code>kotlinskidev_svg_{attachment_id}</code></td>
                     <td>Attachment edit / delete / manual flush</td>
                 </tr>
                 <tr>

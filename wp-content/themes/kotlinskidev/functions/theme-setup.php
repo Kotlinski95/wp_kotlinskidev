@@ -10,16 +10,13 @@ function kotlinskidev_theme_setup()
     // Enable support for Post Thumbnails on posts and pages.
     add_theme_support('post-thumbnails');
 
-    // Register menu location.
-    register_nav_menus(array(
-        'primary' => __('Primary Menu', 'kotlinskidev'),
-    ));
-
     // Add theme support for Full Site Editing
     add_theme_support('block-templates');
 
     // Add support for editor styles
     add_theme_support('editor-styles');
+    add_editor_style('build/critical.css');
+    add_editor_style('build/main.css');
 
     // Add support for responsive embeds
     add_theme_support('responsive-embeds');
@@ -41,17 +38,19 @@ function remove_jquery()
 }
 add_action('wp_enqueue_scripts', 'remove_jquery');
 
-// Disable admin bar for all users on the front end
-add_filter('show_admin_bar', '__return_false');
-
-// Remove admin bar CSS from the front end
-function remove_admin_bar_css()
+function kotlinskidev_show_admin_bar(bool $show): bool
 {
-    if (!is_admin()) {
+    return current_user_can('manage_options') ? $show : false;
+}
+add_filter('show_admin_bar', 'kotlinskidev_show_admin_bar');
+
+function kotlinskidev_remove_admin_bar_css(): void
+{
+    if (!is_admin() && !current_user_can('manage_options')) {
         wp_deregister_style('admin-bar');
     }
 }
-add_action('wp_enqueue_scripts', 'remove_admin_bar_css');
+add_action('wp_enqueue_scripts', 'kotlinskidev_remove_admin_bar_css');
 
 // disable stylesheet (wpassetcleanup-style-css id added by wpassetcleanup plugin)
 function shapeSpace_disable_scripts_styles()
@@ -64,15 +63,18 @@ add_action('wp_enqueue_scripts', 'shapeSpace_disable_scripts_styles', 100);
 
 function mytheme_inline_theme_switcher_script()
 {
+    $config = kotlinskidev_theme_switcher_config();
 ?>
     <script type="text/javascript">
         (function() {
-            let savedTheme = localStorage.getItem('theme');
+            var config = <?php echo wp_json_encode($config); ?>;
+            window.kotlinskidevTheme = config;
+            var savedTheme = config.enabled ? localStorage.getItem('theme') : null;
             if (!savedTheme) {
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    savedTheme = 'dark';
+                if (config.defaultMode === 'auto') {
+                    savedTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
                 } else {
-                    savedTheme = 'light';
+                    savedTheme = config.defaultMode;
                 }
             }
             if (savedTheme === 'light') {
@@ -84,17 +86,6 @@ function mytheme_inline_theme_switcher_script()
             }
         })();
     </script>
-    <style>
-        .light-mode {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        .dark-mode {
-            background-color: #000000;
-            color: #ffffff;
-        }
-    </style>
 <?php
 }
 add_action('wp_head', 'mytheme_inline_theme_switcher_script', 1);

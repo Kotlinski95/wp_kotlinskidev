@@ -12,6 +12,6 @@
         <?php esc_html_e('Tags', 'kotlinskidev'); ?>
     </h3>
     <!-- /wp:heading -->
-    <!-- wp:post-terms {"term":"post_tag","className":"link-dark-variant-support","style":{"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} /-->
+    <!-- wp:post-terms {"term":"post_tag","className":"link-dark-variant-support kt-gradient-text"} /-->
 </div>
 <!-- /wp:group -->

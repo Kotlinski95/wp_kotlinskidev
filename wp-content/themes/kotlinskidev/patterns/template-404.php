@@ -6,7 +6,7 @@
  */
 ?>
 <!-- wp:group {"tagName":"main","style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"6.25rem","bottom":"0"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"100%"}} -->
-<main class="wp-block-group has-background-alt-background-color has-background" style="margin-top:6.25rem;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0" tabindex="-1"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"1rem"},"blockGap":"var:preset|spacing|3.125rem","margin":{"top":"0","bottom":"0"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<main class="main-wrapper wp-block-group has-background-alt-background-color has-background" style="margin-top:6.25rem;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0" tabindex="-1"><!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"1rem"},"blockGap":"var:preset|spacing|3.125rem","margin":{"top":"0","bottom":"0"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
     <div class="wp-block-group has-light-shade-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:1rem">
         <div style="text-align:center;">
             <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/404.webp'); ?>" alt="404" style="max-width:50%;width:100%;height:auto;display:inline-block;" />
@@ -28,8 +28,7 @@
         </style>
         <div style="text-align:center;margin:2rem 0 1.5rem 0;">
             <a href="<?php echo esc_url(home_url('/')); ?>"
-               class="search-link"
-               style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.875rem 1.5rem;border-radius:6.25rem;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;white-space:nowrap;">
+               class="search-link">
                 <?php esc_html_e('Go to Homepage', 'kotlinskidev'); ?>
             </a>
         </div>

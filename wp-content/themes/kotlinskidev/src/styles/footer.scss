@@ -1,46 +1,95 @@
 @import "variables";
 
+.kotlinskidev-footer__top {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--50, 2rem);
+
+	> .kotlinskidev-footer__brand,
+	> .kotlinskidev-footer__nav {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
+		flex-direction: column;
+		align-items: stretch;
+	}
+}
+
+.kotlinskidev-footer__brand {
+	flex: 0 1 23.75rem;
+	min-width: 0;
+
+	@media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-desktop - 0.0625rem)) {
+		flex-basis: 17.5rem;
+	}
+}
+
+.kotlinskidev-footer__nav {
+	flex: 1;
+	min-width: 0;
+}
+
 footer,
 .kotlinskidev-footer {
-  display: block;
-  width: 100%;
-  max-width: $page-large;
-  margin: 0 auto 0;
-  padding-inline: 1rem;
-  box-sizing: border-box;
-  .copyrights-container {
-    display: flex;
-    flex-wrap: wrap;
-    p {
-      margin-inline: auto;
-      font-size: 0.75rem;
-      margin-block: 0.5rem;
-    }
-  }
+	display: block;
+	width: 100%;
+	max-width: $page-large;
+	margin: 0 auto 0;
+	padding-inline: 1rem;
+	box-sizing: border-box;
 
-  .copyrights {
-    margin-inline: auto;
-    text-align: center;
-  }
+	.copyrights-container {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
 
-  .kotlinskidev-footer-list {
-    text-align: center;
-    ul {
-      list-style: none;
-    }
-  }
+		p {
+			margin-inline: 0;
+			font-size: 0.75rem;
+			margin-block: 0.5rem;
+			text-align: start;
+		}
 
-  @media (min-width: $breakpoint-tablet-wp) {
-    .kotlinskidev-footer-list {
-      text-align: left;
-    }
-    .copyrights-container {
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      p {
-        margin-inline: 0;
-        font-size: 0.8125rem;
-      }
-    }
-  }
+		a {
+			color: inherit;
+		}
+	}
+
+	.copyrights {
+		margin-inline: auto;
+		text-align: start;
+	}
+
+	.kotlinskidev-footer-list {
+		text-align: center;
+
+		ul {
+			list-style: none;
+		}
+	}
+
+	@media (min-width: $breakpoint-tablet-wp) {
+
+		.kotlinskidev-footer-list {
+			text-align: start;
+		}
+
+		.copyrights {
+			text-align: center;
+		}
+
+		.copyrights-container {
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			gap: 1.5rem;
+
+			p {
+				font-size: 0.8125rem;
+				text-align: center;
+			}
+		}
+	}
 }

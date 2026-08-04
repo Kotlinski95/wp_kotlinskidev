@@ -1,4 +1,4 @@
-import { debounce, isMobile, onScreenSizeChange } from "./utils";
+import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "./utils";
 
 (function () {
   const header = document.querySelector("header") as HTMLElement;
@@ -10,6 +10,7 @@ import { debounce, isMobile, onScreenSizeChange } from "./utils";
   let lastScrollTop = 0;
   const scrollThreshold = 10;
   const topThreshold = 100;
+  const bottomThreshold = 100;
 
   const toggleCookieButtonClass = (add: boolean) => {
     const cookieButton = document.querySelector(".cmplz-btn.cmplz-manage-consent");
@@ -22,32 +23,43 @@ import { debounce, isMobile, onScreenSizeChange } from "./utils";
     }
   };
 
+  const showNav = () => {
+    if (header) header.classList.remove("nav-hidden");
+    if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");
+    if (scrollToTop) scrollToTop.classList.remove("mobile-nav-hidden");
+    toggleCookieButtonClass(false);
+  };
+
+  const hideNav = () => {
+    if (header) header.classList.add("nav-hidden");
+    if (mobileFooterNav) mobileFooterNav.classList.add("nav-hidden");
+    if (scrollToTop) scrollToTop.classList.add("mobile-nav-hidden");
+    toggleCookieButtonClass(true);
+  };
+
+  const isNearBottom = (scrollTop: number) => {
+    const documentHeight = document.documentElement.scrollHeight;
+    const viewportHeight = window.innerHeight;
+    return documentHeight - (scrollTop + viewportHeight) < bottomThreshold;
+  };
+
   const handleScroll = () => {
-    const scrollTop = document.body.scrollTop || window.scrollY;
+    const scrollTop = getScrollTop();
     const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
     const scrollDiff = Math.abs(scrollTop - lastScrollTop);
 
     if (scrollDiff < scrollThreshold) return;
 
-    if (scrollTop < topThreshold) {
-      if (header) header.classList.remove("nav-hidden");
-      if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");
-      if (scrollToTop) scrollToTop.classList.remove("mobile-nav-hidden");
-      toggleCookieButtonClass(false);
+    if (scrollTop < topThreshold || isNearBottom(scrollTop)) {
+      showNav();
       lastScrollTop = scrollTop;
       return;
     }
 
     if (scrollDirection === "down") {
-      if (header) header.classList.add("nav-hidden");
-      if (mobileFooterNav) mobileFooterNav.classList.add("nav-hidden");
-      if (scrollToTop) scrollToTop.classList.add("mobile-nav-hidden");
-      toggleCookieButtonClass(true);
+      hideNav();
     } else {
-      if (header) header.classList.remove("nav-hidden");
-      if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");
-      if (scrollToTop) scrollToTop.classList.remove("mobile-nav-hidden");
-      toggleCookieButtonClass(false);
+      showNav();
     }
 
     lastScrollTop = scrollTop;
@@ -55,29 +67,24 @@ import { debounce, isMobile, onScreenSizeChange } from "./utils";
 
   const debouncedHandleScroll = debounce(handleScroll, 10);
   let isListening = false;
+  let removeScrollListener: (() => void) | null = null;
 
   const enableScrollHide = () => {
     if (isListening) return;
 
     handleScroll();
 
-    document.body.addEventListener("scroll", debouncedHandleScroll, {
-      passive: true,
-    });
-    window.addEventListener("scroll", debouncedHandleScroll, { passive: true });
+    removeScrollListener = onScroll(debouncedHandleScroll);
     isListening = true;
   };
 
   const disableScrollHide = () => {
     if (!isListening) return;
 
-    document.body.removeEventListener("scroll", debouncedHandleScroll);
-    window.removeEventListener("scroll", debouncedHandleScroll);
+    removeScrollListener?.();
+    removeScrollListener = null;
 
-    if (header) header.classList.remove("nav-hidden");
-    if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");
-    if (scrollToTop) scrollToTop.classList.remove("mobile-nav-hidden");
-    toggleCookieButtonClass(false);
+    showNav();
     isListening = false;
   };
 

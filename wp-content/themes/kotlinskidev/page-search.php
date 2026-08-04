@@ -29,7 +29,7 @@ get_header();
 echo do_blocks('<!-- wp:template-part {"slug":"header","theme":"kotlinskidev","area":"header"} /-->');
 ?>
 
-<main class="wp-block-group has-background-alt-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:4.6875rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:0.625rem;padding-left:var(--wp--preset--spacing--40);" tabindex="-1">
+<main class="main-wrapper wp-block-group has-background-alt-background-color has-background" style="margin-top:0;margin-bottom:0;padding-top:4.6875rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:0.625rem;padding-left:var(--wp--preset--spacing--40);" tabindex="-1">
 
     <!-- Search Header Pattern -->
     <?php get_template_part('patterns/search-header'); ?>

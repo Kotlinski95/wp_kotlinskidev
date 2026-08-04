@@ -1,17 +1,22 @@
 {
-	"compilerOptions": {
-		"outDir": "./build/",
-		"sourceMap": true,
-		"strict": true,
-		"noImplicitReturns": true,
-		"noImplicitAny": true,
-		"module": "es6",
-		"moduleResolution": "node",
-		"target": "es5",
-		"allowJs": true,
-		"lib": ["DOM", "ESNext"],
-		"jsx": "react",
-		"allowSyntheticDefaultImports": true
-	},
-	"include": ["./src/**/*"]
+  "compilerOptions": {
+    "outDir": "./build/",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "target": "es5",
+    "allowJs": true,
+    "lib": ["DOM", "ESNext"],
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@utils/*": ["utils/*"]
+    }
+  },
+  "include": ["./src/**/*"]
 }

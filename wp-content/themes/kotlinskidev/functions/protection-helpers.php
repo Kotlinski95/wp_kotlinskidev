@@ -383,6 +383,7 @@ if (!function_exists('kotlinskidev_maybe_add_auto_protection')) {
 
             // Navigation menu protection
             add_filter('wp_nav_menu', 'kotlinskidev_add_protection_to_content');
+            add_filter('render_block_kotlinskidev/navigation', 'kotlinskidev_add_protection_to_content');
 
             // Theme content protection (for template parts, footer, etc.)
             add_filter('kotlinskidev_protect_content', 'kotlinskidev_add_protection_to_content');
@@ -656,7 +657,9 @@ if (!function_exists('kotlinskidev_ajax_decrypt_content')) {
                 $formatted_content = sprintf('<a href="tel:%s">%s</a>', esc_attr($clean_phone), esc_html($decrypted_content));
                 break;
             case 'text':
-                // For text type, allow HTML content but sanitize it for security
+            case 'address':
+            case 'other':
+                // These types allow HTML content but sanitize it for security
                 $formatted_content = wp_kses_post($decrypted_content);
                 break;
             default:

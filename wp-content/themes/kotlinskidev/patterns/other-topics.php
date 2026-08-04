@@ -71,7 +71,7 @@ $other_categories = get_categories(array(
             <?php endif; ?>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;font-size:0.875rem;flex-shrink:0;">
-                <span class="link-dark-variant-support" style="color:var(--wp--preset--color--primary);font-weight:600;">
+                <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
                 <?php echo $category->count; ?> <?php echo $category->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
                 </span>
                 <?php if ($last_updated) : ?>
@@ -83,8 +83,7 @@ $other_categories = get_categories(array(
             
             <div style="margin-top:auto;flex-shrink:0;">
                 <a href="<?php echo esc_url($category_link); ?>" 
-                   class="search-link"
-                   style="background:linear-gradient(135deg, var(--wp--preset--color--primary) 0%, rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.8) 100%);color:white;border:none;padding:0.625rem 1.5rem;border-radius:0.75rem;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 0.25rem 0.75rem rgba(var(--wp--preset--color--primary-rgb, 59, 130, 246), 0.25), 0 0.125rem 0.25rem rgba(0, 0, 0, 0.08);text-transform:none;letter-spacing:0.025em;outline:none;text-decoration:none;line-height:1.4;">
+                   class="search-link">
                 <?php printf(esc_html__('Explore %s', 'kotlinskidev'), esc_html($category->name)); ?>
                 </a>
             </div>

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/hero-carousel-slide",
+  "version": "1.0.0",
+  "title": "Hero Slide",
+  "category": "media",
+  "icon": "image-crop",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/hero-carousel"],
+  "usesContext": ["kotlinskidev/lazyLoad"],
+  "supports": {
+    "inserter": false,
+    "reusable": false,
+    "html": false
+  },
+  "attributes": {
+    "bgImageUrl": { "type": "string", "default": "" },
+    "bgImageId": { "type": "number", "default": 0 },
+    "bgVideoUrl": { "type": "string", "default": "" },
+    "bgVideoId": { "type": "number", "default": 0 },
+    "bgOverlay": { "type": "number", "default": 0.4 },
+    "slideIndex": { "type": "number", "default": 0 }
+  }
+}

@@ -1,4 +1,4 @@
-import { debounce } from "./utils";
+import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
 
 (function () {
   const scrollToTopBtn = document.getElementById("scroll-to-top");
@@ -8,8 +8,8 @@ import { debounce } from "./utils";
   if (!scrollToTopBtn || !scrollWrapper || !progressRing) return;
 
   const handleScroll = () => {
-    const scrollTop = document.body.scrollTop;
-    const scrollHeight = document.body.scrollHeight - document.body.clientHeight;
+    const scrollTop = getScrollTop();
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
     if (scrollTop > 100) {
       scrollToTopBtn.style.display = "block";
@@ -28,19 +28,18 @@ import { debounce } from "./utils";
 
   handleScroll();
 
-  const debouncedHandleScroll = debounce(handleScroll, 16);
-  document.body.addEventListener("scroll", debouncedHandleScroll);
-  window.addEventListener("scroll", debouncedHandleScroll);
+  const throttledHandleScroll = rafThrottle(handleScroll);
+  onScroll(throttledHandleScroll);
 
-  scrollToTopBtn.addEventListener("click", function (e) {
+  const handleScrollToTop = (e: Event) => {
     e.preventDefault();
     const mainEl = document.querySelector("main");
     if (!mainEl) return;
     mainEl.setAttribute("tabindex", "-1");
-    document.body.scrollTo({ top: 0, behavior: "smooth" });
+    scrollTo(0, "smooth");
     let lastScrollTop = -1;
     const waitForScrollEnd = () => {
-      const currentScrollTop = document.body.scrollTop;
+      const currentScrollTop = getScrollTop();
       if (currentScrollTop === 0 && lastScrollTop === 0) {
         mainEl.focus();
         return;
@@ -49,26 +48,13 @@ import { debounce } from "./utils";
       requestAnimationFrame(waitForScrollEnd);
     };
     requestAnimationFrame(waitForScrollEnd);
-  });
+  };
+
+  scrollToTopBtn.addEventListener("click", handleScrollToTop);
 
   scrollToTopBtn.addEventListener("keydown", function (e) {
     if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      const mainEl = document.querySelector("main");
-      if (!mainEl) return;
-      mainEl.setAttribute("tabindex", "-1");
-      document.body.scrollTo({ top: 0, behavior: "smooth" });
-      let lastScrollTop = -1;
-      const waitForScrollEnd = () => {
-        const currentScrollTop = document.body.scrollTop;
-        if (currentScrollTop === 0 && lastScrollTop === 0) {
-          mainEl.focus();
-          return;
-        }
-        lastScrollTop = currentScrollTop;
-        requestAnimationFrame(waitForScrollEnd);
-      };
-      requestAnimationFrame(waitForScrollEnd);
+      handleScrollToTop(e);
     }
   });
 })();

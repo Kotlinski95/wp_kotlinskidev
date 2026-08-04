@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/navigation",
+  "version": "2.0.0",
+  "title": "Navigation",
+  "category": "kotlinskidev",
+  "icon": "menu",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/navigation.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "menuSlug": {
+      "type": "string",
+      "default": ""
+    },
+    "overlayMenu": {
+      "type": "string",
+      "default": "never"
+    },
+    "displayMode": {
+      "type": "string",
+      "default": "mega"
+    },
+    "visibility": {
+      "type": "string",
+      "default": "all"
+    },
+    "overlaySlide": {
+      "type": "string",
+      "default": "right"
+    },
+    "hamburgerLineAlign": {
+      "type": "string",
+      "default": "right"
+    },
+    "className": {
+      "type": "string",
+      "default": ""
+    },
+    "linkNavigatesOnClick": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "inserter": false,
+    "customClassName": true
+  }
+}

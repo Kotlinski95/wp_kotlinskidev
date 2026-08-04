@@ -1,83 +1,98 @@
 @import "variables";
 
 .theme-switcher {
-  p:empty,
-  br {
-    display: none;
-  }
-  all: unset;
-  display: flex;
-  flex-direction: column;
-  z-index: 1001;
-  margin-inline-end: -1rem;
-  .title {
-    text-align: center;
-  }
 
-  .content {
-    text-align: justify;
-  }
+	p:empty,
+	br {
+		display: none;
+	}
+	all: unset;
+	display: flex;
+	flex-direction: column;
+	z-index: 1001;
+	margin-inline-end: -1rem;
 
-  input[type="checkbox"] {
-    display: none;
-  }
+	.title {
+		text-align: center;
+	}
 
-  .icon {
-    display: flex;
-    font-size: 1.25rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 100%;
-    padding: 0.1875rem;
-    cursor: pointer;
-    &.light {
-      display: none;
-    }
-    &:focus,
-    &:hover {
-      background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
-    }
-    & > svg {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
-  }
+	.content {
+		text-align: justify;
+	}
 
-  &:focus {
-    background: inherit !important;
-    color: inherit !important;
-  }
-  &:focus-visible {
-    outline: -webkit-focus-ring-color auto 1px;
-    outline-offset: 2px;
-  }
+	input[type="checkbox"] {
+		display: none;
+	}
+
+	.icon {
+		font-size: 1.25rem;
+		width: 2.125rem;
+		height: 2.125rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 100%;
+		cursor: pointer;
+
+		&.light {
+			display: none;
+		}
+
+		&:focus-visible,
+		&:hover {
+			background: rgba(var(--wp--preset--color--light-color-rgb), 0.2);
+		}
+
+		& > svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+
+	&:focus {
+		background: inherit !important;
+		color: inherit !important;
+	}
+
+	&:focus-visible {
+		outline: -webkit-focus-ring-color auto 1px;
+		outline-offset: 2px;
+	}
 }
 
 .light-mode {
-  .theme-switcher {
-    .icon {
-      &.dark {
-        display: none;
-      }
-      &.light {
-        display: flex;
-      }
-      &:focus,
-      &:hover {
-        background: rgba(var(--wp--preset--color--dark-color-rgb), 0.1);
-      }
-    }
-  }
+
+	.theme-switcher {
+
+		.icon {
+
+			&.dark {
+				display: none;
+			}
+
+			&.light {
+				display: flex;
+			}
+
+			&:focus-visible,
+			&:hover {
+				background: rgba(var(--wp--preset--color--dark-color-rgb), 0.1);
+			}
+		}
+	}
 }
 
 @media (max-width: calc($breakpoint-desktop - 0.0625rem)) {
-  .theme-switcher {
-    .wrapper {
-      .icon,
-      .icon > svg {
-        width: 2rem;
-        height: 2rem;
-      }
-    }
-  }
+
+	.theme-switcher {
+
+		.wrapper {
+
+			.icon,
+			.icon > svg {
+				width: 2rem;
+				height: 2rem;
+			}
+		}
+	}
 }

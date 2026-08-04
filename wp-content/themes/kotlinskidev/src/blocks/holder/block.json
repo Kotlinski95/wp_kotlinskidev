@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/holder",
+  "version": "1.0.0",
+  "title": "Holder",
+  "category": "layout",
+  "icon": "columns",
+  "description": "Content container for use inside Simple Grid. Accepts any blocks.",
+  "textdomain": "kotlinskidev",
+  "parent": ["kotlinskidev/simple-grid"],
+  "editorScript": "file:../../../build/simple-grid.js",
+  "style": "file:../../../build/style-simple-grid.css",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true,
+      "blockGap": true
+    },
+    "typography": {
+      "fontSize": true
+    }
+  }
+}

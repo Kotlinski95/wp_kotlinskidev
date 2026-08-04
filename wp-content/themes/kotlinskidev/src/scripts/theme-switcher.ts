@@ -1,5 +1,13 @@
+type ThemeSwitcherConfig = {
+  enabled: boolean;
+  defaultMode: string;
+};
+
 (function () {
   document.addEventListener("DOMContentLoaded", function () {
+    const config: ThemeSwitcherConfig = (
+      window as unknown as { kotlinskidevTheme?: ThemeSwitcherConfig }
+    ).kotlinskidevTheme ?? { enabled: true, defaultMode: "auto" };
     const themeToggleButton = document.getElementById("theme-toggle") as HTMLInputElement;
     const themeSwitcher = document.querySelector(".theme-switcher") as HTMLInputElement;
     const lightIcon = document.querySelector(".icon.light") as HTMLElement;
@@ -42,20 +50,21 @@
       updateIconTitles(false);
     };
 
-    const storedTheme = localStorage.getItem("theme");
+    const storedTheme = config.enabled ? localStorage.getItem("theme") : null;
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     if (storedTheme === "light") {
       applyLightTheme();
     } else if (storedTheme === "dark") {
       applyDarkTheme();
+    } else if (config.defaultMode === "light") {
+      applyLightTheme();
+    } else if (config.defaultMode === "dark") {
+      applyDarkTheme();
+    } else if (systemPrefersDark) {
+      applyDarkTheme();
     } else {
-      // No stored preference, use system preference
-      if (systemPrefersDark) {
-        applyDarkTheme();
-      } else {
-        applyLightTheme();
-      }
+      applyLightTheme();
     }
 
     themeToggleButton.addEventListener("change", function (this: HTMLInputElement) {
@@ -80,6 +89,9 @@
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
     const handleOSThemeChange = (e: MediaQueryListEvent) => {
+      if (localStorage.getItem("theme") || config.defaultMode !== "auto") {
+        return;
+      }
       if (e.matches) {
         applyDarkTheme();
       } else {

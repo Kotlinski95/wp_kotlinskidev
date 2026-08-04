@@ -1,0 +1,187 @@
+@import "../../styles/variables";
+
+@mixin carousel-nav($color: currentColor, $border-color: rgba(255, 255, 255, 0.5)) {
+	position: absolute;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	pointer-events: auto;
+	box-sizing: border-box;
+
+	&--bottom-left,
+	&--bottom-right {
+		bottom: 1.5rem;
+		max-width: $page-content;
+		margin-inline: auto;
+		padding-inline: 1.5rem;
+		width: 100%;
+		left: 0;
+		right: 0;
+
+		@media (max-width: calc(#{$breakpoint-mobile} - 0.0625rem)) {
+			left: 50%;
+			right: auto;
+			width: auto;
+			max-width: none;
+			padding-inline: 0;
+			margin-inline: 0;
+			transform: translateX(-50%);
+		}
+	}
+
+	&--bottom-center {
+		bottom: 1.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	.swiper-button-prev,
+	.swiper-button-next {
+		position: relative;
+		top: auto;
+		left: auto;
+		right: auto;
+		margin-top: 0;
+		pointer-events: auto;
+		width: 2.5rem;
+		height: 2.5rem;
+		border: none;
+		border-radius: 50%;
+		color: var(--carousel-nav-color, #{$color});
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition:
+			filter 0.2s ease,
+			opacity 0.2s ease;
+		flex-shrink: 0;
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			padding: 2px;
+			background: var(--carousel-nav-color, #{$border-color});
+			-webkit-mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			-webkit-mask-composite: xor;
+			mask:
+				linear-gradient(#fff 0 0) content-box,
+				linear-gradient(#fff 0 0);
+			mask-composite: exclude;
+			pointer-events: none;
+		}
+
+		&::after {
+			font-size: 0.75rem;
+			font-weight: 700;
+			background: var(--carousel-nav-color, #{$color});
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		&:hover {
+			filter: brightness(1.25);
+			color: var(--carousel-nav-color-hover, var(--carousel-nav-color, #{$color}));
+
+			&::before {
+				background: var(--carousel-nav-color-hover, var(--carousel-nav-color, #{$border-color}));
+			}
+
+			&::after {
+				background: var(--carousel-nav-color-hover, var(--carousel-nav-color, #{$color}));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+		}
+
+		&.swiper-button-disabled {
+			opacity: 0.3;
+			cursor: not-allowed;
+		}
+	}
+
+	&--sides {
+		inset: 0;
+		justify-content: space-between;
+		align-items: center;
+		padding-inline: 1rem;
+		pointer-events: none;
+	}
+
+	&--outside {
+		position: static;
+		width: 100%;
+		align-self: stretch;
+		margin-block: 1rem;
+		transform: none; // reset translateX(-50%) from --bottom-center when used inside
+
+		&.carousel-nav--bottom-left {
+			justify-content: flex-start;
+			padding-inline: 2rem 0;
+
+			@media (max-width: calc(#{$breakpoint-mobile} - 0.0625rem)) {
+				justify-content: center;
+				padding-inline: 0;
+			}
+		}
+
+		&.carousel-nav--bottom-center {
+			justify-content: center;
+		}
+
+		&.carousel-nav--bottom-right {
+			justify-content: flex-end;
+			padding-inline: 0 2rem;
+
+			@media (max-width: calc(#{$breakpoint-mobile} - 0.0625rem)) {
+				justify-content: center;
+				padding-inline: 0;
+			}
+		}
+	}
+
+	&__counter {
+		font-size: 0.875rem;
+		font-variant-numeric: tabular-nums;
+		letter-spacing: 0.05em;
+		min-width: 3.25rem;
+		text-align: center;
+		background: var(--carousel-nav-color, #{$color});
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		white-space: nowrap;
+	}
+
+	&__current {
+		text-decoration: underline;
+		text-underline-offset: 0.21em;
+	}
+}
+
+@mixin carousel-pagination($color: #fff) {
+
+	.swiper-pagination-bullet {
+		background: var(--carousel-nav-color, #{$color});
+		opacity: 0.2;
+
+		&-active {
+			opacity: 1;
+		}
+	}
+}
+
+.carousel-nav:has(.swiper-button-prev[disabled]) {
+	display: none;
+}
+
+.carousel-nav:has(.swiper-button-prev[disabled]) ~ .swiper-pagination {
+	display: none;
+}

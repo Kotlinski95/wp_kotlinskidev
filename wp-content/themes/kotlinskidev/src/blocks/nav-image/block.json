@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/nav-image",
+  "version": "1.0.0",
+  "title": "Nav Image",
+  "category": "kotlinskidev-navigation",
+  "icon": "format-image",
+  "description": "Image for use inside navigation panels and holders.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/nav-content.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "mediaId": { "type": "integer", "default": 0 },
+    "mediaUrl": { "type": "string", "default": "" },
+    "altText": { "type": "string", "default": "" },
+    "linkUrl": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": false,
+    "spacing": {
+      "padding": true
+    }
+  }
+}

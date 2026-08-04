@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/protected-content",
+  "version": "1.0.0",
+  "title": "Protected Content",
+  "description": "Content that can be protected from bots using obfuscation",
+  "category": "kotlinskidev",
+  "icon": "shield",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/protected-content.js",
+  "style": "file:../../../build/style-protected-content.css",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "className": true,
+    "color": { "text": true, "background": true, "link": true },
+    "spacing": { "margin": true, "padding": true, "blockGap": true },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true
+    },
+    "border": { "color": true, "radius": true, "style": true, "width": true }
+  },
+  "attributes": {
+    "content": { "type": "string", "default": "" },
+    "useProtection": { "type": "boolean", "default": false },
+    "protectionType": { "type": "string", "default": "email" },
+    "tagName": { "type": "string", "default": "p" },
+    "isHtmlMode": { "type": "boolean", "default": false }
+  }
+}

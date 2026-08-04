@@ -109,13 +109,31 @@ function kotlinskidev_get_related_posts($post_id = null, $limit = 3) {
     foreach ($categories as $category) {
         $category_ids[] = $category->term_id;
     }
-    
-    $related_posts = get_posts(array(
+
+    // ORDER BY RAND() forces MySQL to sort every matching row on every request —
+    // fetch matching IDs only (cheap, indexed) and randomize in PHP instead.
+    $candidate_ids = get_posts(array(
         'category__in' => $category_ids,
         'post__not_in' => array($post_id),
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'fields' => 'ids',
+        'no_found_rows' => true,
+    ));
+
+    if (empty($candidate_ids)) {
+        return array();
+    }
+
+    shuffle($candidate_ids);
+    $selected_ids = array_slice($candidate_ids, 0, $limit);
+
+    $related_posts = get_posts(array(
+        'post__in' => $selected_ids,
+        'orderby' => 'post__in',
         'posts_per_page' => $limit,
         'post_status' => 'publish',
-        'orderby' => 'rand'
+        'no_found_rows' => true,
     ));
     
     return $related_posts;
@@ -535,10 +553,22 @@ function kotlinskidev_enhance_search($query) {
         if ($is_search || $is_polish_search) {
             // Include pages in search results
             $query->set('post_type', array('post', 'page'));
-            
+
             // Improve search relevance
             $query->set('orderby', 'relevance');
             $query->set('order', 'DESC');
+
+            // Exclude content marked noindex (utility pages like Thank You / Search itself)
+            $excluded = kotlinskidev_apply_seo_noindex_exclusion(array(
+                'meta_query' => (array) $query->get('meta_query'),
+                'post__not_in' => (array) $query->get('post__not_in'),
+            ));
+            if (!empty($excluded['meta_query'])) {
+                $query->set('meta_query', $excluded['meta_query']);
+            }
+            if (!empty($excluded['post__not_in'])) {
+                $query->set('post__not_in', $excluded['post__not_in']);
+            }
             
             // Handle Polish search page specifically
             if ($is_polish_search) {

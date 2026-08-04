@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "wpe/slider",
+  "title": "Slider",
+  "category": "media",
+  "description": "Display your images in a horizontal carousel.",
+  "icon": "slides",
+  "keywords": ["carousel", "slideshow"],
+  "textdomain": "kotlinskidev",
+  "version": "1.0.0",
+  "attributes": {
+    "autoplay": { "type": "boolean", "default": true },
+    "autoplayTime": { "type": "number", "default": 5 },
+    "smoothTransition": { "type": "boolean", "default": false },
+    "navigation": { "type": "boolean", "default": true },
+    "pagination": { "type": "boolean", "default": true },
+    "slidesPerView": { "type": "number", "default": 1 },
+    "slidesPerMobile": { "type": "number", "default": 1 },
+    "slidesPerTablet": { "type": "number", "default": 1 },
+    "slidesPerDesktop": { "type": "number", "default": 1 },
+    "scrollbar": { "type": "boolean", "default": false },
+    "loop": { "type": "boolean", "default": true },
+    "mousewheel": { "type": "boolean", "default": false },
+    "keyboard": { "type": "boolean", "default": true },
+    "spaceBetween": { "type": "number", "default": 16 }
+  },
+  "example": {},
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "className": true,
+    "color": {
+      "background": true,
+      "gradients": true,
+      "link": true,
+      "text": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": ["top", "bottom"]
+    }
+  },
+  "editorScript": "file:../../../build/slider.js",
+  "editorStyle": "file:../../../build/slider.css",
+  "style": "file:../../../build/style-slider.css",
+  "viewScript": "file:../../../build/slider-init.js",
+  "render": "file:./render.php"
+}

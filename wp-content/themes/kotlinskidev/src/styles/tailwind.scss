@@ -1,11 +1,13 @@
-@import "variables.scss";
+@import "variables";
 
 .text-shadow {
-  text-shadow: 0.0625rem 0.0625rem 0.125rem $black;
+	text-shadow: 0.0625rem 0.0625rem 0.125rem $black;
 }
+
 .text-shadow-white {
-  text-shadow: 0.0625rem 0.0625rem 0.125rem $white;
+	text-shadow: 0.0625rem 0.0625rem 0.125rem $white;
 }
+
 .text-shadow-primary {
-  text-shadow: 0.0625rem 0.0625rem 0.125rem var(--wp--preset--color--primary);
+	text-shadow: 0.0625rem 0.0625rem 0.125rem var(--wp--preset--color--primary);
 }

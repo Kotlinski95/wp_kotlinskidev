@@ -20,8 +20,8 @@ declare global {
 const getBreakpoints = () => {
   return (
     window.kotlinskidevBreakpoints || {
-      mobile_max: 479,
-      tablet_min: 480,
+      mobile_max: 781,
+      tablet_min: 782,
       tablet_max: 1023,
       desktop_min: 1024,
     }

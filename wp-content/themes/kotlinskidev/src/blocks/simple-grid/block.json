@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/simple-grid",
+  "version": "1.0.0",
+  "title": "Simple Grid",
+  "category": "layout",
+  "icon": "layout",
+  "description": "Flexible grid container. Add Holder blocks inside to create columns.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/simple-grid.js",
+  "style": "file:../../../build/style-simple-grid.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "Menu"
+    },
+    "mobileColumns": {
+      "type": "number"
+    },
+    "tabletColumns": {
+      "type": "number"
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": true,
+    "align": ["wide", "full"],
+    "spacing": {
+      "blockGap": true,
+      "padding": true,
+      "margin": true
+    }
+  }
+}

@@ -1,85 +1,51 @@
 @import "variables";
 @import "./mixins";
 
-// Dark mode support
-@media (prefers-color-scheme: dark) {
-  html:not(.light-mode) .contact-form-block {
-    color: var(--wp--preset--color--foreground, inherit);
-  }
-
-  html:not(.light-mode) .contact-form-block label {
-    color: var(--wp--preset--color--foreground, inherit);
-  }
-
-  html:not(.light-mode) .contact-form-block input,
-  html:not(.light-mode) .contact-form-block textarea {
-    background: var(--wp--preset--color--input-background, transparent);
-    color: var(--wp--preset--color--foreground, inherit);
-    border-color: var(--wp--preset--color--border, #d1d5db);
-  }
-
-  html:not(.light-mode) .contact-form-block input:focus,
-  html:not(.light-mode) .contact-form-block textarea:focus {
-    background: var(--wp--preset--color--background, transparent);
-    border-color: var(--wp--preset--color--primary, #7dd3fc);
-  }
-
-  html:not(.light-mode) .contact-form-block button {
-    background: var(--wp--preset--color--primary, #7dd3fc);
-    color: var(--wp--preset--color--button-text, inherit);
-  }
-
-  html:not(.light-mode) .contact-form-block button:hover,
-  html:not(.light-mode) .contact-form-block button:focus {
-    background: var(--wp--preset--color--primary-hover, #38bdf8);
-    color: var(--wp--preset--color--button-text, inherit);
-  }
+.contact-form-block {
+	background: transparent !important;
+	box-shadow: none !important;
+	border: none !important;
 }
 
 .dark-mode .contact-form-block {
-  color: var(--wp--preset--color--foreground, inherit);
+	color: var(--color-text);
 }
 
 .dark-mode .contact-form-block label {
-  color: var(--wp--preset--color--foreground, inherit);
+	color: var(--color-text);
 }
 
 .dark-mode .contact-form-block input,
 .dark-mode .contact-form-block textarea {
-  background: var(--wp--preset--color--input-background, transparent);
-  color: var(--wp--preset--color--foreground, inherit);
-  border-color: var(--wp--preset--color--border, #d1d5db);
+	background: transparent;
+	color: var(--color-text);
+	border-color: var(--wp--preset--color--divider);
 }
 
-.dark-mode .contact-form-block input:focus,
-.dark-mode .contact-form-block textarea:focus {
-  background: var(--wp--preset--color--background, #23272a);
-  border-color: var(--wp--preset--color--primary, #7dd3fc);
+.dark-mode .contact-form-block input:focus-visible,
+.dark-mode .contact-form-block textarea:focus-visible {
+	background: var(--color-surface);
+	border-color: var(--wp--preset--color--primary);
 }
 
 .dark-mode .contact-form-block button {
-  background: var(--wp--preset--color--primary, #7dd3fc);
-  color: var(--wp--preset--color--button-text, inherit);
+	background: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--light-color);
 }
 
 .dark-mode .contact-form-block button:hover,
-.dark-mode button:focus {
-  background: var(--wp--preset--color--primary-hover, #38bdf8);
-  color: var(--wp--preset--color--button-text, inherit);
-}
-
-.contact-form-block {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
+.dark-mode .contact-form-block button:focus-visible {
+	background: var(--wp--preset--color--primary-hover);
+	color: var(--wp--preset--color--light-color);
 }
 
 .pwa-install-button {
-  @include custom-button-style();
+
+	@include custom-button-style();
 }
 
 .pwa-connection-status {
-  top: calc($header + 1.25rem + env(safe-area-inset-top)) !important;
-  left: 1.25rem !important;
-  transform: translateX(0) !important;
+	top: calc($header + 1.25rem + env(safe-area-inset-top)) !important;
+	left: 1.25rem !important;
+	transform: translateX(0) !important;
 }
