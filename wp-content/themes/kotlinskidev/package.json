@@ -4,7 +4,13 @@
   "description": "Kotlinskidev Theme for WordPress, built with React, TypeScript, and GSAP.",
   "author": "Adrian Kotlinski",
   "license": "GPL-2.0-or-later",
-  "keywords": ["WordPress", "React", "TypeScript", "GSAP", "Theme"],
+  "keywords": [
+    "WordPress",
+    "React",
+    "TypeScript",
+    "GSAP",
+    "Theme"
+  ],
   "homepage": "https://github.com/Kotlinski95/wp_kotlinskidev#readme",
   "repository": {
     "type": "git",
@@ -21,11 +27,16 @@
     "swiper": "^14.0.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.3",
     "@types/jest": "^29.5.14",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/wordpress__block-editor": "^11.5.16",
     "@wordpress/block-editor": "^14.18.0",
+    "@wordpress/env": "^10.39.0",
     "@wordpress/icons": "^10.23.0",
     "@wordpress/scripts": "^30.6.0",
     "better-npm-audit": "^3.11.0",
@@ -62,7 +73,14 @@
     "security:php": "vendor/bin/phpcs --standard=.phpcs.security.xml",
     "security:secrets": "gitleaks detect --source . --log-opts=\"-- .\" --config .gitleaks.toml -v",
     "start": "wp-scripts start",
-    "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js"
+    "test": "npm run test:unit && npm run test:php",
+    "test:coverage": "npm run test:unit:coverage && npm run test:php:coverage",
+    "test:e2e": "wp-scripts test-playwright",
+    "test:unit": "wp-scripts test-unit-js",
+    "test:unit:coverage": "wp-scripts test-unit-js --coverage",
+    "test:unit:watch": "wp-scripts test-unit-js --watch",
+    "test:php": "composer test:unit",
+    "test:php:coverage": "composer test:unit:coverage",
+    "test:php:integration": "composer test:integration"
   }
 }

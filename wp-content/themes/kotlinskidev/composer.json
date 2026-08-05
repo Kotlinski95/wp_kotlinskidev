@@ -2,11 +2,25 @@
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.9",
     "wp-coding-standards/wpcs": "^3.1",
-    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "pestphp/pest": "^5.0",
+    "brain/monkey": "^2.7",
+    "wp-phpunit/wp-phpunit": "^7.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test:unit": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit",
+    "test:unit:coverage": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit --coverage --coverage-html=coverage/php --coverage-clover=coverage/php/clover.xml",
+    "test:integration": "php -d pcov.directory=. vendor/bin/pest --configuration=phpunit-integration.xml"
   },
   "config": {
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "pestphp/pest-plugin": true
     }
   }
 }

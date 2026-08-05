@@ -1,0 +1,8 @@
+# wp-scripts' own default ignores — lost once a project-level .eslintignore exists, so repeated here
+build
+node_modules
+vendor
+
+# generated test coverage reports and e2e output (gitignored, but present on disk once tests run)
+coverage
+artifacts

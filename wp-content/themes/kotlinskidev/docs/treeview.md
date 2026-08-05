@@ -23,6 +23,7 @@ kotlinskidev/
 │   ├── performance.md                          # performance review checklist (JS runtime, rendering, network, WP backend)
 │   ├── security.md                             # security review checklist (OWASP Top 10, WP hardening, MCP attack surface, ISO 27001 cross-ref)
 │   ├── seo.md                                  # technical SEO review checklist (crawlability, schema, hreflang, Core Web Vitals overlap)
+│   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
 ├── functions/                                  # 51 PHP modules, require_once'd from functions.php (cache.php must load first)
