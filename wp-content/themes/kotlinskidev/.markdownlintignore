@@ -1,0 +1,6 @@
+**/build/**
+**/node_modules/**
+**/vendor/**
+
+CLAUDE.md
+src/blocks/scroll-section/CLAUDE.md

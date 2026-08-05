@@ -86,6 +86,9 @@ Thumbs.db
 # Ignore node modules
 node_modules
 
+# Husky's own auto-regenerated helper scripts (recreated by `npm run prepare`)
+.husky/_
+
 # Ignore composer vendor directory
 vendor
 

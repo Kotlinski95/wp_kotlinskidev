@@ -1,10 +1,10 @@
 {
   "name": "kotlinskidev",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "Kotlinskidev Theme for WordPress, built with React, TypeScript, and GSAP.",
+  "author": "Adrian Kotlinski",
   "license": "GPL-2.0-or-later",
-  "keywords": [],
+  "keywords": ["WordPress", "React", "TypeScript", "GSAP", "Theme"],
   "homepage": "https://github.com/Kotlinski95/wp_kotlinskidev#readme",
   "repository": {
     "type": "git",
@@ -32,10 +32,12 @@
     "eslint-plugin-no-unsanitized": "^4.0.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-security": "^4.0.1",
+    "husky": "^9.1.7",
     "prettier": "^3.2.5",
     "typescript": "^5.8.3"
   },
   "scripts": {
+    "prepare": "bash bin/setup-husky.sh",
     "build": "wp-scripts build",
     "build:debug": "KOTLINSKIDEV_SOURCEMAPS=1 wp-scripts build",
     "check-engines": "wp-scripts check-engines",

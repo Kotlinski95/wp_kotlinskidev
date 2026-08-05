@@ -1,0 +1,6 @@
+set -e
+cd "$(dirname "$0")/.."
+
+npm run prettier:check
+npm run lint:css
+npm run lint:js
