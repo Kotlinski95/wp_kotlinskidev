@@ -4,6 +4,8 @@ const defaults = require("@wordpress/scripts/config/webpack.config");
 module.exports = {
   ...defaults,
 
+  devtool: process.env.KOTLINSKIDEV_SOURCEMAPS ? "source-map" : defaults.devtool,
+
   entry: {
     main: path.resolve(process.cwd(), "src", "index.ts"),
     critical: path.resolve(process.cwd(), "src", "critical.ts"),
@@ -61,7 +63,13 @@ module.exports = {
     "scroll-to-top": path.resolve(process.cwd(), "src", "blocks", "scroll-to-top", "index.tsx"),
     slider: path.resolve(process.cwd(), "src", "blocks", "slider", "index.ts"),
     "slider-init": path.resolve(process.cwd(), "src", "blocks", "slider", "init.ts"),
-    "responsive-image": path.resolve(process.cwd(), "src", "blocks", "responsive-image", "index.ts"),
+    "responsive-image": path.resolve(
+      process.cwd(),
+      "src",
+      "blocks",
+      "responsive-image",
+      "index.ts"
+    ),
     "google-maps": path.resolve(process.cwd(), "src", "blocks", "google-maps", "index.ts"),
     "contact-form": path.resolve(process.cwd(), "src", "blocks", "contact-form", "index.tsx"),
     "admin-bar": path.resolve(process.cwd(), "src", "admin-bar.ts"),

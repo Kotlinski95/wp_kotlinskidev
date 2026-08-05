@@ -107,6 +107,8 @@ function wp_pwa_manager_enqueue_admin_assets($hook) {
             true
         );
 
+        wp_set_script_translations('wp-pwa-manager-admin', 'wordpress-pwa-manager', WP_PWA_MANAGER_PLUGIN_PATH . 'languages');
+
         wp_enqueue_style(
             'wp-pwa-manager-admin',
             WP_PWA_MANAGER_PLUGIN_URL . 'build/admin.css',

@@ -98,7 +98,7 @@ export class PWAManager {
                 });
             }
         } else {
-            console.error('Service Workers are not supported in this browser');
+            console.warn('Service Workers are not supported in this browser');
         }
     }
 

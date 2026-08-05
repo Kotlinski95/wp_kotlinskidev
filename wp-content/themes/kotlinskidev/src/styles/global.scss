@@ -17,6 +17,8 @@
 
 * {
 	box-sizing: border-box;
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in srgb, var(--color-text) 20%, var(--color-surface)) color-mix(in srgb, var(--color-text) 5%, var(--color-surface));
 }
 
 html {
@@ -78,13 +80,6 @@ svg.custom-logo {
 
 img {
 	cursor: pointer;
-}
-
-* {
-	scrollbar-width: thin;
-	scrollbar-color:
-		color-mix(in srgb, var(--color-text) 20%, var(--color-surface))
-		color-mix(in srgb, var(--color-text) 5%, var(--color-surface));
 }
 
 ::-webkit-scrollbar {
@@ -346,9 +341,7 @@ span:empty {
 		display: inline-block;
 	}
 
-	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):not(
-	.kt-nav-cta *
-):hover {
+	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):not(.kt-nav-cta *):hover {
 		background: var(--color-link-hover-override, var(--kt-text-gradient));
 		-webkit-background-clip: text;
 		background-clip: text;

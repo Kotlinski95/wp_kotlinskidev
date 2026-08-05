@@ -35,7 +35,7 @@
 			}
 
 			&::after,
-			& > .submenu-toggle {
+			> .submenu-toggle {
 				transform: rotate(180deg);
 			}
 		}
@@ -44,13 +44,13 @@
 			padding-bottom: 1rem;
 		}
 
-		& > a {
+		> a {
 			transition: 0.35s all !important;
 			padding-block: 1rem;
 		}
 
 		&::after,
-		& > .submenu-toggle {
+		> .submenu-toggle {
 			content: "\25be";
 			margin-inline-end: 25px;
 			line-height: 1;
@@ -69,7 +69,7 @@
 		.sub-menu .menu-item-has-children {
 			position: relative;
 
-			& > a {
+			> a {
 				transition: 0.35s all !important;
 				padding-block: 0.75rem;
 				padding-inline-start: 20px;
@@ -84,7 +84,7 @@
 				transition: 0.35s all;
 			}
 
-			& > .submenu-toggle {
+			> .submenu-toggle {
 				margin-inline-end: 25px;
 				line-height: 1;
 				display: flex;
@@ -187,7 +187,7 @@
 		}
 	}
 
-	& > a {
+	> a {
 		margin-inline-end: 0.3125rem;
 	}
 }
@@ -297,7 +297,7 @@
 			min-width: 0.625rem;
 		}
 
-		& > .submenu-toggle {
+		> .submenu-toggle {
 			width: 0.625rem;
 			min-width: 0.625rem;
 			padding: 0;

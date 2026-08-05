@@ -84,6 +84,16 @@
 	position: fixed !important;
 }
 
+.cmplz-documents {
+
+	a.cmplz-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 1.5rem;
+		padding-block: 0.1875rem;
+	}
+}
+
 body:has(.mobile-footer-nav) {
 
 	@media (max-width: $breakpoint-desktop) {
@@ -97,6 +107,11 @@ body:has(.mobile-footer-nav) {
 			&.mobile-nav-hidden {
 				bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
 			}
+		}
+
+		.cmplz-cookiebanner {
+			bottom: $mobile-footer-nav !important;
+			max-height: calc(100vh - $mobile-footer-nav - 1.25rem) !important;
 		}
 	}
 }

@@ -17,5 +17,5 @@ function kotlinskidev_add_site_logo_aria_label( string $block_content ): string 
 		return $block_content;
 	}
 	$label = sprintf( __( '%s home', 'kotlinskidev' ), get_bloginfo( 'name' ) );
-	return preg_replace( '/class="custom-logo-link"/', 'aria-label="' . esc_attr( $label ) . '" $0', $block_content, 1 );
+	return preg_replace( '/class="[^"]*\bcustom-logo-link\b[^"]*"/', 'aria-label="' . esc_attr( $label ) . '" $0', $block_content, 1 );
 }

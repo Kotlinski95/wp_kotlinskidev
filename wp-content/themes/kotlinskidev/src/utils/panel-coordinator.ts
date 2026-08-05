@@ -8,6 +8,8 @@ export function registerPanel(close: CloseHandler): void {
 
 export function closeAllExcept(current?: CloseHandler): void {
   registry.forEach((close) => {
-    if (close !== current) close();
+    if (close !== current) {
+      close();
+    }
   });
 }

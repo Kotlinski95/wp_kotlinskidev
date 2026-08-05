@@ -14,6 +14,8 @@ require_once get_template_directory() . '/functions/blocks.php';
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
 
+require_once get_template_directory() . '/functions/deferred-block-assets.php';
+
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 

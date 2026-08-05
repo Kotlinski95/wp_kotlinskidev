@@ -145,40 +145,52 @@ Given swap was already ~18% used at rest, also worth watching `swap_used_percent
 This is the highest-leverage item on this page given the server facts above — a ~914MiB box is running 10 concurrent PHP-FPM version stacks when it needs one.
 
 **Confirmed 2026-07-30 via cp.kotlinskidev.com (CloudPanel admin):**
+
 - Active PHP version for kotlinskidev.com: **PHP 8.4** (the only site on this server — confirmed no other sites hosted here, so every other version is safe to remove).
 - `memory_limit: 512MB` per script — on a 914MiB box, worth noting as a contributing risk factor (two workers simultaneously near this limit alone approach total RAM), though not changed here since lowering it risks breaking legitimate large operations (media uploads, image processing).
 
 1. List all PHP-FPM systemd units and verify each one's config path before touching anything (don't assume names — the CloudPanel-internal pool at `/home/clp/services/php-fpm/` is not a site pool and must be left alone):
+
    ```bash
    systemctl list-units --type=service --all | grep -i fpm
    systemctl cat php7.1-fpm   # repeat per unit to confirm its config path
    ```
+
 2. **Tier 1 — stop & disable (immediate, fully reversible):**
+
    ```bash
    for v in 7.1 7.2 7.3 7.4 8.0 8.1 8.2 8.3; do
      sudo systemctl stop php${v}-fpm
      sudo systemctl disable php${v}-fpm
    done
    ```
+
    Confirm kotlinskidev.com still loads correctly immediately after, then recheck `free -h` for the reclaimed memory.
 
    **Done, confirmed 2026-07-30.** All 8 units removed from `multi-user.target.wants`, and `ps aux --sort=-%mem | grep php-fpm` now shows exactly two masters (PHP 8.4 + the CloudPanel-internal pool), down from ten. A single `free -h` taken right after showed `used` up rather than down (620Mi→772Mi) — that's explained by page cache/swap churn from real site activity between snapshots (buff/cache and swap both dropped as `used` rose, consistent with the kernel reclaiming cache and pages moving back into RAM, not with the stop/disable action itself, which can only reduce usage). Trend data via the CloudWatch agent (Part 4/5) is needed for a clean read instead of single snapshots — worth prioritizing that next given usage was observed at ~84%, close to the 85% alarm threshold in Part 8.
 3. **Tier 2 — fully uninstall (optional, after a few stable days on Tier 1; frees disk too, less easily reversed):**
+
    ```bash
    dpkg -l | grep -E '^ii\s+php(7\.[1-4]|8\.[0-3])'    # review the list first
    sudo apt purge $(dpkg -l | grep -E '^ii\s+php(7\.[1-4]|8\.[0-3])' | awk '{print $2}')
    sudo apt autoremove
    ```
+
 4. For PHP 8.4 (the one in use), right-size `pm.max_children` in its pool config (`/etc/php/8.4/fpm/pool.d/*.conf`, or CloudPanel's managed pool file) against the real ~914MiB budget:
+
    ```bash
    free -h
    ps aux --sort=-%mem | grep 'pool www'   # find average worker RSS for the active pool
    ```
+
    Reserve ~300–400MiB for OS + nginx + MySQL, divide the remainder by average worker RSS.
+
 5. Check MySQL isn't over-allocated for a box this size:
+
    ```bash
    sudo mysql -e "SHOW VARIABLES LIKE 'innodb_buffer_pool_size';"
    ```
+
    Should be well under half of total RAM here (128–256MiB is typically the safe range).
 
 ## Optional last resort — this one does cost money
@@ -201,16 +213,19 @@ Varnish was already installed (`varnishd`, ~85-88MB) but, when first discovered,
 **Bugs found and fixed while enabling it via CloudPanel (cp.kotlinskidev.com → Sites → kotlinskidev.com → Varnish Cache):**
 
 1. **Missing directory blocked enabling entirely** — CloudPanel's enable action failed with a cryptic error (`readlink -f '/home/kotlinskidev/.varnish-cache/settings.json'` failing, empty error message). Root cause: `/home/kotlinskidev/.varnish-cache/` didn't exist on disk. Fixed:
+
    ```bash
    sudo mkdir -p /home/kotlinskidev/.varnish-cache
    sudo chown kotlinskidev:kotlinskidev /home/kotlinskidev/.varnish-cache
    sudo chmod 755 /home/kotlinskidev/.varnish-cache
    ```
+
 2. **Saving settings and toggling "Enabled" are separate actions** in the CloudPanel UI — editing the Excludes/Cache Lifetime fields and clicking Save does not by itself flip `enabled: true`. The toggle switch itself needs to be explicitly clicked to "On".
 3. **Toggling Enabled reset the Excludes field to empty** — had to re-enter the WordPress-specific excludes after enabling, not before.
 4. **The wp-login exclude needed to target the actual file, not a directory** — `^/admin/` (the CloudPanel default) doesn't match WordPress's `/wp-admin/` at all; `/wp-login/` (a directory-style pattern) doesn't match the real file `/wp-login.php`. Working pattern: `\/wp-login.php` (matches as a substring, no anchor needed).
 
 **Final working config** (`/home/kotlinskidev/.varnish-cache/settings.json`):
+
 ```json
 {
     "enabled": true,
@@ -224,10 +239,12 @@ Varnish was already installed (`varnishd`, ~85-88MB) but, when first discovered,
 **Verification gotcha worth remembering:** testing cache hits in a browser where you're logged into `/wp-admin/` will always show misses — WordPress's `wordpress_logged_in_*` cookie correctly makes Varnish bypass the cache for that session (needed so admin/personalized content never gets cached or served to the wrong visitor). This is correct behavior, not a bug. Test with a fresh incognito window (or curl, though this domain's Cloudflare/WAF blocks curl's default User-Agent with a `403` — use a real browser for testing instead). Also note Varnish's cache is shared across all visitors, not per-session — reopening a fresh incognito window can show immediate hits for already-cached static assets from earlier testing, which is expected.
 
 **Note for future memory pressure:** Varnish is the one piece of this setup that's a net memory cost (~85-88MB, constantly) rather than a fix — it was kept as defense-in-depth, not because it's essential. The actual protection against a repeat of the 2026-07-28 incident is the `pm.max_children` fix (Part 10) plus the pre-existing Cloudflare APO + Super Page Cache plugin layers, none of which depend on Varnish. **If memory pressure becomes an issue again, disabling Varnish and relying solely on the Cloudflare/plugin caching layer is the first thing to try** — it reclaims ~85-88MB with the least disruption of anything on this page, since the other two caching layers stay fully intact without it:
+
 ```bash
 sudo systemctl stop varnish
 sudo systemctl disable varnish
 ```
+
 (Or toggle it off via CloudPanel → Sites → kotlinskidev.com → Varnish Cache.)
 
 ## Status

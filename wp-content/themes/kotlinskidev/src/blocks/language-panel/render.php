@@ -49,7 +49,7 @@ if ( $kotlinskidev_indicator_effect !== 'none' ) {
 		<span class="kt-lang-panel__label"><?php echo esc_html( $kotlinskidev_lang_label ); ?></span>
 		<?php if ( $kotlinskidev_show_indicator ) : ?>
 		<span class="<?php echo esc_attr( $kotlinskidev_indicator_class ); ?>" aria-hidden="true">
-			<?php echo $kotlinskidev_indicator_svg !== '' ? $kotlinskidev_indicator_svg : '<svg class="kt-indicator-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>'; ?>
+			<?php echo $kotlinskidev_indicator_svg !== '' ? $kotlinskidev_indicator_svg : '<svg class="kt-indicator-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $kotlinskidev_indicator_svg is sanitized via kotlinskidev_load_svg_content()/kotlinskidev_sanitize_svg(); fallback branch is a static SVG literal ?>
 		</span>
 		<?php endif; ?>
 	</button>
@@ -62,7 +62,7 @@ if ( $kotlinskidev_indicator_effect !== 'none' ) {
 	>
 		<div class="kt-lang-panel__modal-inner">
 			<ul class="kt-lang-panel__list" role="list">
-				<?php echo $content; ?>
+				<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
 			</ul>
 		</div>
 	</div>

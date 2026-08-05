@@ -10,11 +10,12 @@ add_action('init', 'kotlinskidev_category_description_support');
 
 // Add custom description field to category creation
 function kotlinskidev_add_category_description_field($taxonomy) {
+    wp_nonce_field('kotlinskidev_category_fields_action', 'kotlinskidev_category_fields_nonce');
     ?>
     <div class="form-field">
-        <label for="kotlinskidev_category_description"><?php _e('Extended Description', 'kotlinskidev'); ?></label>
+        <label for="kotlinskidev_category_description"><?php esc_html_e('Extended Description', 'kotlinskidev'); ?></label>
         <textarea name="kotlinskidev_category_description" id="kotlinskidev_category_description" rows="5" cols="50"></textarea>
-        <p class="description"><?php _e('This description will be shown on the category archive page.', 'kotlinskidev'); ?></p>
+        <p class="description"><?php esc_html_e('This description will be shown on the category archive page.', 'kotlinskidev'); ?></p>
     </div>
     <?php
 }
@@ -22,14 +23,15 @@ function kotlinskidev_add_category_description_field($taxonomy) {
 // Add custom description field to category editing
 function kotlinskidev_edit_category_description_field($term) {
     $extended_description = get_term_meta($term->term_id, 'kotlinskidev_category_description', true);
+    wp_nonce_field('kotlinskidev_category_fields_action', 'kotlinskidev_category_fields_nonce');
     ?>
     <tr class="form-field">
         <th scope="row" valign="top">
-            <label for="kotlinskidev_category_description"><?php _e('Extended Description', 'kotlinskidev'); ?></label>
+            <label for="kotlinskidev_category_description"><?php esc_html_e('Extended Description', 'kotlinskidev'); ?></label>
         </th>
         <td>
             <textarea name="kotlinskidev_category_description" id="kotlinskidev_category_description" rows="5" cols="50"><?php echo esc_textarea($extended_description); ?></textarea>
-            <p class="description"><?php _e('This description will be shown on the category archive page.', 'kotlinskidev'); ?></p>
+            <p class="description"><?php esc_html_e('This description will be shown on the category archive page.', 'kotlinskidev'); ?></p>
         </td>
     </tr>
     <?php
@@ -37,8 +39,17 @@ function kotlinskidev_edit_category_description_field($term) {
 
 // Save custom category description
 function kotlinskidev_save_category_description($term_id) {
+    if (!isset($_POST['kotlinskidev_category_fields_nonce']) ||
+        !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kotlinskidev_category_fields_nonce'])), 'kotlinskidev_category_fields_action')) {
+        return;
+    }
+
+    if (!current_user_can('manage_categories')) {
+        return;
+    }
+
     if (isset($_POST['kotlinskidev_category_description'])) {
-        update_term_meta($term_id, 'kotlinskidev_category_description', sanitize_textarea_field($_POST['kotlinskidev_category_description']));
+        update_term_meta($term_id, 'kotlinskidev_category_description', sanitize_textarea_field(wp_unslash($_POST['kotlinskidev_category_description'])));
     }
 }
 
@@ -70,13 +81,13 @@ function kotlinskidev_blog_breadcrumbs() {
             $topics_url = ($locale == 'pl_PL') ? home_url('/tematy-bloga/') : home_url('/blog-topics/');
             $breadcrumbs[] = '<a href="' . esc_url($topics_url) . '">' . $topics_text . '</a>';
             $breadcrumbs[] = '<a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>';
-            $breadcrumbs[] = '<span>' . get_the_title() . '</span>';
+            $breadcrumbs[] = '<span>' . esc_html(get_the_title()) . '</span>';
         }
     }
     
     if (count($breadcrumbs) > 1) {
         echo '<nav class="kotlinskidev-breadcrumbs" style="margin-bottom:1.875rem;font-size:0.875rem;color:var(--wp--preset--color--foreground-alt);">';
-        echo implode(' <span style="margin:0 0.5rem;">→</span> ', $breadcrumbs);
+        echo implode(' <span style="margin:0 0.5rem;">→</span> ', $breadcrumbs); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every $breadcrumbs element is esc_url()/esc_html() wrapped at construction above
         echo '</nav>';
     }
 }
@@ -91,7 +102,7 @@ function kotlinskidev_reading_time($post_id = null) {
     $word_count = str_word_count(strip_tags($content));
     $reading_time = ceil($word_count / 200); // Average reading speed: 200 words per minute
     
-    return $reading_time . ' ' . __('min read', 'kotlinskidev');
+    return esc_html($reading_time . ' ' . __('min read', 'kotlinskidev'));
 }
 
 // Add related posts by category
@@ -224,23 +235,23 @@ function kotlinskidev_add_category_custom_content_field($term) {
     ?>
     <tr class="form-field">
         <th scope="row" valign="top">
-            <label for="kotlinskidev_category_custom_content"><?php _e('Custom Banner/Content', 'kotlinskidev'); ?></label>
+            <label for="kotlinskidev_category_custom_content"><?php esc_html_e('Custom Banner/Content', 'kotlinskidev'); ?></label>
         </th>
         <td>
             <textarea name="kotlinskidev_category_custom_content" id="kotlinskidev_category_custom_content" rows="4" cols="50" placeholder="Add custom HTML content, banners, or announcements for this category..."><?php echo esc_textarea($custom_content); ?></textarea>
-            <p class="description"><?php _e('Custom HTML content that will appear below the category header. You can add banners, special announcements, or custom links here.', 'kotlinskidev'); ?></p>
+            <p class="description"><?php esc_html_e('Custom HTML content that will appear below the category header. You can add banners, special announcements, or custom links here.', 'kotlinskidev'); ?></p>
         </td>
     </tr>
     
     <tr class="form-field">
         <th scope="row" valign="top">
-            <label for="kotlinskidev_category_custom_links"><?php _e('Custom Navigation Links', 'kotlinskidev'); ?></label>
+            <label for="kotlinskidev_category_custom_links"><?php esc_html_e('Custom Navigation Links', 'kotlinskidev'); ?></label>
         </th>
         <td>
             <textarea name="kotlinskidev_category_custom_links" id="kotlinskidev_category_custom_links" rows="3" cols="50" placeholder="Home|/
 Resources|/resources
 Tutorials|/tutorials"><?php echo esc_textarea($custom_links); ?></textarea>
-            <p class="description"><?php _e('Custom navigation links in format: "Link Text|URL" (one per line). This will replace the default "← All Topics" link.', 'kotlinskidev'); ?></p>
+            <p class="description"><?php esc_html_e('Custom navigation links in format: "Link Text|URL" (one per line). This will replace the default "← All Topics" link.', 'kotlinskidev'); ?></p>
         </td>
     </tr>
     <?php
@@ -251,16 +262,16 @@ add_action('category_edit_form_fields', 'kotlinskidev_add_category_custom_conten
 function kotlinskidev_add_category_custom_content_field_new($taxonomy) {
     ?>
     <div class="form-field">
-        <label for="kotlinskidev_category_custom_content"><?php _e('Custom Banner/Content', 'kotlinskidev'); ?></label>
+        <label for="kotlinskidev_category_custom_content"><?php esc_html_e('Custom Banner/Content', 'kotlinskidev'); ?></label>
         <textarea name="kotlinskidev_category_custom_content" id="kotlinskidev_category_custom_content" rows="4" cols="50" placeholder="Add custom HTML content, banners, or announcements..."></textarea>
-        <p class="description"><?php _e('Custom HTML content that will appear below the category header.', 'kotlinskidev'); ?></p>
+        <p class="description"><?php esc_html_e('Custom HTML content that will appear below the category header.', 'kotlinskidev'); ?></p>
     </div>
     
     <div class="form-field">
-        <label for="kotlinskidev_category_custom_links"><?php _e('Custom Navigation Links', 'kotlinskidev'); ?></label>
+        <label for="kotlinskidev_category_custom_links"><?php esc_html_e('Custom Navigation Links', 'kotlinskidev'); ?></label>
         <textarea name="kotlinskidev_category_custom_links" id="kotlinskidev_category_custom_links" rows="3" cols="50" placeholder="Home|/
 Resources|/resources"></textarea>
-        <p class="description"><?php _e('Custom navigation links in format: "Link Text|URL" (one per line).', 'kotlinskidev'); ?></p>
+        <p class="description"><?php esc_html_e('Custom navigation links in format: "Link Text|URL" (one per line).', 'kotlinskidev'); ?></p>
     </div>
     <?php
 }
@@ -268,12 +279,21 @@ add_action('category_add_form_fields', 'kotlinskidev_add_category_custom_content
 
 // Save custom category content and links
 function kotlinskidev_save_category_custom_content($term_id) {
-    if (isset($_POST['kotlinskidev_category_custom_content'])) {
-        update_term_meta($term_id, 'kotlinskidev_category_custom_content', wp_kses_post($_POST['kotlinskidev_category_custom_content']));
+    if (!isset($_POST['kotlinskidev_category_fields_nonce']) ||
+        !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kotlinskidev_category_fields_nonce'])), 'kotlinskidev_category_fields_action')) {
+        return;
     }
-    
+
+    if (!current_user_can('manage_categories')) {
+        return;
+    }
+
+    if (isset($_POST['kotlinskidev_category_custom_content'])) {
+        update_term_meta($term_id, 'kotlinskidev_category_custom_content', wp_kses_post(wp_unslash($_POST['kotlinskidev_category_custom_content'])));
+    }
+
     if (isset($_POST['kotlinskidev_category_custom_links'])) {
-        update_term_meta($term_id, 'kotlinskidev_category_custom_links', sanitize_textarea_field($_POST['kotlinskidev_category_custom_links']));
+        update_term_meta($term_id, 'kotlinskidev_category_custom_links', sanitize_textarea_field(wp_unslash($_POST['kotlinskidev_category_custom_links'])));
     }
 }
 add_action('created_category', 'kotlinskidev_save_category_custom_content');
@@ -400,22 +420,22 @@ function kotlinskidev_breadcrumb_settings_init() {
 
 // Section callback
 function kotlinskidev_breadcrumb_section_callback() {
-    echo '<p>' . __('Configure breadcrumb navigation texts and URLs for both English and Polish versions of your site.', 'kotlinskidev') . '</p>';
+    echo '<p>' . esc_html__('Configure breadcrumb navigation texts and URLs for both English and Polish versions of your site.', 'kotlinskidev') . '</p>';
 }
 
 // Text field callback
 function kotlinskidev_breadcrumb_text_field($args) {
     $options = get_option('kotlinskidev_breadcrumb_settings');
     $value = isset($options[$args['field']]) ? $options[$args['field']] : '';
-    echo '<input type="text" name="kotlinskidev_breadcrumb_settings[' . $args['field'] . ']" value="' . esc_attr($value) . '" placeholder="' . esc_attr($args['placeholder']) . '" class="regular-text" />';
+    echo '<input type="text" name="kotlinskidev_breadcrumb_settings[' . esc_attr($args['field']) . ']" value="' . esc_attr($value) . '" placeholder="' . esc_attr($args['placeholder']) . '" class="regular-text" />';
 }
 
 // URL field callback
 function kotlinskidev_breadcrumb_url_field($args) {
     $options = get_option('kotlinskidev_breadcrumb_settings');
     $value = isset($options[$args['field']]) ? $options[$args['field']] : '';
-    echo '<input type="text" name="kotlinskidev_breadcrumb_settings[' . $args['field'] . ']" value="' . esc_attr($value) . '" placeholder="' . esc_attr($args['placeholder']) . '" class="regular-text" />';
-    echo '<p class="description">' . __('Enter a relative path (e.g., /articles, /blog-topics) or full URL (e.g., https://yoursite.com/topics/)', 'kotlinskidev') . '</p>';
+    echo '<input type="text" name="kotlinskidev_breadcrumb_settings[' . esc_attr($args['field']) . ']" value="' . esc_attr($value) . '" placeholder="' . esc_attr($args['placeholder']) . '" class="regular-text" />';
+    echo '<p class="description">' . esc_html__('Enter a relative path (e.g., /articles, /blog-topics) or full URL (e.g., https://yoursite.com/topics/)', 'kotlinskidev') . '</p>';
 }
 
 // Settings page
@@ -432,12 +452,12 @@ function kotlinskidev_breadcrumb_settings_page() {
         </form>
         
         <div style="margin-top: 1.875rem; padding: 0.9375rem; background: #f9f9f9; border-left: 0.25rem solid #0073aa;">
-            <h3><?php _e('How to Use', 'kotlinskidev'); ?></h3>
+            <h3><?php esc_html_e('How to Use', 'kotlinskidev'); ?></h3>
             <ul>
-                <li><?php _e('Set custom text for "Home" and "Topics" links in both languages', 'kotlinskidev'); ?></li>
-                <li><?php _e('Configure URLs for your topics pages (can be relative paths or full URLs)', 'kotlinskidev'); ?></li>
-                <li><?php _e('Leave fields empty to use default values', 'kotlinskidev'); ?></li>
-                <li><?php _e('Changes will apply immediately to all category and article pages', 'kotlinskidev'); ?></li>
+                <li><?php esc_html_e('Set custom text for "Home" and "Topics" links in both languages', 'kotlinskidev'); ?></li>
+                <li><?php esc_html_e('Configure URLs for your topics pages (can be relative paths or full URLs)', 'kotlinskidev'); ?></li>
+                <li><?php esc_html_e('Leave fields empty to use default values', 'kotlinskidev'); ?></li>
+                <li><?php esc_html_e('Changes will apply immediately to all category and article pages', 'kotlinskidev'); ?></li>
             </ul>
         </div>
     </div>
@@ -516,23 +536,26 @@ function kotlinskidev_get_search_excerpt($content, $search_query, $word_limit = 
 }
 
 function kotlinskidev_highlight_search_terms($text, $search_query) {
+    $text = esc_html($text);
+
     if (empty($search_query)) {
         return $text;
     }
-    
+
     // Split search query into individual words
     $words = explode(' ', $search_query);
-    
+
     foreach ($words as $word) {
-        if (strlen(trim($word)) > 2) { // Only highlight words longer than 2 characters
+        $word = esc_html(trim($word));
+        if (strlen($word) > 2) { // Only highlight words longer than 2 characters
             $text = preg_replace(
-                '/(' . preg_quote(trim($word), '/') . ')/i',
+                '/(' . preg_quote($word, '/') . ')/i',
                 '<mark style="background:#5259ff;color:white;padding:0.125rem 0.25rem;border-radius:0.1875rem;">$1</mark>',
                 $text
             );
         }
     }
-    
+
     return $text;
 }
 
@@ -545,6 +568,7 @@ function kotlinskidev_enhance_search($query) {
         // Check if current page uses Polish search template
         if (is_page()) {
             $template = get_page_template_slug();
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search query detection, no state change
             if ($template === 'search_pl.html' && isset($_GET['s']) && !empty($_GET['s'])) {
                 $is_polish_search = true;
             }
@@ -572,7 +596,8 @@ function kotlinskidev_enhance_search($query) {
             
             // Handle Polish search page specifically
             if ($is_polish_search) {
-                $query->set('s', sanitize_text_field($_GET['s']));
+                // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search query filtering, no state change
+                $query->set('s', sanitize_text_field(wp_unslash($_GET['s'])));
                 $query->is_search = true;
                 $query->is_page = false;
             }
@@ -626,10 +651,12 @@ function kotlinskidev_handle_polish_search_integration() {
     if ($template === 'search_pl.html') {
         global $wp_query;
         
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search query detection, no state change
         if (isset($_GET['s']) && !empty($_GET['s'])) {
             $wp_query->is_search = true;
             $wp_query->is_page = false;
-            $wp_query->set('s', sanitize_text_field($_GET['s']));
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search query filtering, no state change
+            $wp_query->set('s', sanitize_text_field(wp_unslash($_GET['s'])));
             
             // Use the same enhanced search functionality we already have
             // The kotlinskidev_enhance_search function will handle the rest

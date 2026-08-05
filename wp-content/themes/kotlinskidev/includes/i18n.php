@@ -309,7 +309,7 @@ function kotlinskidev__($group, $key, $default = '') {
  * @param mixed $default Default value
  */
 function kotlinskidev_e($group, $key, $default = '') {
-    echo kotlinskidev_get_string($group, $key, $default);
+    echo esc_html(kotlinskidev_get_string($group, $key, $default));
 }
 
 // Initialize the i18n system

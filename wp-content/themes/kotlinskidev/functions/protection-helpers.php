@@ -5,6 +5,10 @@
  * Server-side utilities for the Protected Content block with RSA encryption
  */
 
+if (!defined('KOTLINSKIDEV_MAX_DECRYPT_BATCH_SIZE')) {
+    define('KOTLINSKIDEV_MAX_DECRYPT_BATCH_SIZE', 50);
+}
+
 if (!function_exists('kotlinskidev_generate_rsa_keys')) {
     /**
      * Generate RSA key pair for content protection
@@ -419,10 +423,19 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
     function kotlinskidev_protection_settings_page()
     {
         if (isset($_POST['submit'])) {
+            if (!isset($_POST['kotlinskidev_protection_settings_nonce']) ||
+                !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kotlinskidev_protection_settings_nonce'])), 'kotlinskidev_protection_settings_action')) {
+                wp_die(esc_html__('Security check failed', 'kotlinskidev'));
+            }
+
+            if (!current_user_can('manage_options')) {
+                wp_die(esc_html__('You do not have permission to change these settings', 'kotlinskidev'));
+            }
+
             update_option('kotlinskidev_auto_protect_emails', isset($_POST['auto_protect_emails']));
             update_option('kotlinskidev_auto_protect_phones', isset($_POST['auto_protect_phones']));
-            update_option('kotlinskidev_key_storage_method', sanitize_text_field($_POST['key_storage_method']));
-            echo '<div class="notice notice-success"><p>' . __('Settings saved!', 'kotlinskidev') . '</p></div>';
+            update_option('kotlinskidev_key_storage_method', isset($_POST['key_storage_method']) ? sanitize_text_field(wp_unslash($_POST['key_storage_method'])) : 'database');
+            echo '<div class="notice notice-success"><p>' . esc_html__('Settings saved!', 'kotlinskidev') . '</p></div>';
         }
 
         $auto_protect_emails = get_option('kotlinskidev_auto_protect_emails', false);
@@ -433,70 +446,71 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
         $using_wp_config = defined('KOTLINSKIDEV_PRIVATE_KEY') && defined('KOTLINSKIDEV_PUBLIC_KEY');
 ?>
         <div class="wrap">
-            <h1><?php _e('Content Protection Settings', 'kotlinskidev'); ?></h1>
+            <h1><?php esc_html_e('Content Protection Settings', 'kotlinskidev'); ?></h1>
 
             <form method="post" action="">
-                <h2><?php _e('Auto-Protection Settings', 'kotlinskidev'); ?></h2>
+                <?php wp_nonce_field('kotlinskidev_protection_settings_action', 'kotlinskidev_protection_settings_nonce'); ?>
+                <h2><?php esc_html_e('Auto-Protection Settings', 'kotlinskidev'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Auto-protect Emails', 'kotlinskidev'); ?></th>
+                        <th scope="row"><?php esc_html_e('Auto-protect Emails', 'kotlinskidev'); ?></th>
                         <td>
                             <input type="checkbox" name="auto_protect_emails" <?php checked($auto_protect_emails); ?> />
-                            <p class="description"><?php _e('Automatically protect all email addresses in content', 'kotlinskidev'); ?></p>
+                            <p class="description"><?php esc_html_e('Automatically protect all email addresses in content', 'kotlinskidev'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Auto-protect Phone Numbers', 'kotlinskidev'); ?></th>
+                        <th scope="row"><?php esc_html_e('Auto-protect Phone Numbers', 'kotlinskidev'); ?></th>
                         <td>
                             <input type="checkbox" name="auto_protect_phones" <?php checked($auto_protect_phones); ?> />
-                            <p class="description"><?php _e('Automatically protect all phone numbers in content', 'kotlinskidev'); ?></p>
+                            <p class="description"><?php esc_html_e('Automatically protect all phone numbers in content', 'kotlinskidev'); ?></p>
                         </td>
                     </tr>
                 </table>
 
-                <h2><?php _e('Encryption Settings', 'kotlinskidev'); ?></h2>
+                <h2><?php esc_html_e('Encryption Settings', 'kotlinskidev'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php _e('Encryption Status', 'kotlinskidev'); ?></th>
+                        <th scope="row"><?php esc_html_e('Encryption Status', 'kotlinskidev'); ?></th>
                         <td>
                             <?php if ($keys_exist): ?>
-                                <span style="color: green;">✓ <?php _e('RSA-2048 encryption is active', 'kotlinskidev'); ?></span>
+                                <span style="color: green;">✓ <?php esc_html_e('RSA-2048 encryption is active', 'kotlinskidev'); ?></span>
                                 <?php if ($using_wp_config): ?>
-                                    <br><small style="color: #0073aa;">🔒 <?php _e('Keys are stored securely in wp-config.php', 'kotlinskidev'); ?></small>
+                                    <br><small style="color: #0073aa;">🔒 <?php esc_html_e('Keys are stored securely in wp-config.php', 'kotlinskidev'); ?></small>
                                 <?php else: ?>
-                                    <br><small style="color: #d63638;">⚠️ <?php _e('Keys are stored in database (less secure)', 'kotlinskidev'); ?></small>
+                                    <br><small style="color: #d63638;">⚠️ <?php esc_html_e('Keys are stored in database (less secure)', 'kotlinskidev'); ?></small>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <span style="color: red;">✗ <?php _e('No encryption keys found', 'kotlinskidev'); ?></span>
+                                <span style="color: red;">✗ <?php esc_html_e('No encryption keys found', 'kotlinskidev'); ?></span>
                             <?php endif; ?>
-                            <p class="description"><?php _e('Content is encrypted using RSA-2048 encryption for maximum security.', 'kotlinskidev'); ?></p>
+                            <p class="description"><?php esc_html_e('Content is encrypted using RSA-2048 encryption for maximum security.', 'kotlinskidev'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Key Storage Method', 'kotlinskidev'); ?></th>
+                        <th scope="row"><?php esc_html_e('Key Storage Method', 'kotlinskidev'); ?></th>
                         <td>
                             <?php if ($using_wp_config): ?>
-                                <p><strong><?php _e('Currently using wp-config.php (Recommended)', 'kotlinskidev'); ?></strong></p>
-                                <p class="description"><?php _e('Keys are securely stored in wp-config.php constants.', 'kotlinskidev'); ?></p>
+                                <p><strong><?php esc_html_e('Currently using wp-config.php (Recommended)', 'kotlinskidev'); ?></strong></p>
+                                <p class="description"><?php esc_html_e('Keys are securely stored in wp-config.php constants.', 'kotlinskidev'); ?></p>
                             <?php else: ?>
                                 <select name="key_storage_method">
-                                    <option value="database" <?php selected($key_storage_method, 'database'); ?>><?php _e('Database (Default)', 'kotlinskidev'); ?></option>
-                                    <option value="wp_config" <?php selected($key_storage_method, 'wp_config'); ?>><?php _e('wp-config.php (More Secure)', 'kotlinskidev'); ?></option>
+                                    <option value="database" <?php selected($key_storage_method, 'database'); ?>><?php esc_html_e('Database (Default)', 'kotlinskidev'); ?></option>
+                                    <option value="wp_config" <?php selected($key_storage_method, 'wp_config'); ?>><?php esc_html_e('wp-config.php (More Secure)', 'kotlinskidev'); ?></option>
                                 </select>
                                 <p class="description">
-                                    <?php _e('Database storage is convenient but less secure. wp-config.php storage requires manual setup but is more secure.', 'kotlinskidev'); ?>
+                                    <?php esc_html_e('Database storage is convenient but less secure. wp-config.php storage requires manual setup but is more secure.', 'kotlinskidev'); ?>
                                 </p>
                             <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php _e('Generate New Keys', 'kotlinskidev'); ?></th>
+                        <th scope="row"><?php esc_html_e('Generate New Keys', 'kotlinskidev'); ?></th>
                         <td>
                             <button type="button" id="regenerate-keys" class="button button-secondary">
-                                <?php _e('Generate New Encryption Keys', 'kotlinskidev'); ?>
+                                <?php esc_html_e('Generate New Encryption Keys', 'kotlinskidev'); ?>
                             </button>
                             <p class="description">
-                                <?php _e('Warning: Regenerating keys will make all existing protected content unreadable until re-protected.', 'kotlinskidev'); ?>
+                                <?php esc_html_e('Warning: Regenerating keys will make all existing protected content unreadable until re-protected.', 'kotlinskidev'); ?>
                             </p>
                         </td>
                     </tr>
@@ -507,18 +521,18 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
 
             <?php if ($key_storage_method === 'wp_config' && !$using_wp_config): ?>
                 <div class="notice notice-info">
-                    <h3><?php _e('wp-config.php Setup Instructions', 'kotlinskidev'); ?></h3>
-                    <p><?php _e('To use wp-config.php storage, add these constants to your wp-config.php file:', 'kotlinskidev'); ?></p>
+                    <h3><?php esc_html_e('wp-config.php Setup Instructions', 'kotlinskidev'); ?></h3>
+                    <p><?php esc_html_e('To use wp-config.php storage, add these constants to your wp-config.php file:', 'kotlinskidev'); ?></p>
                     <button type="button" id="show-wp-config-keys" class="button button-primary">
-                        <?php _e('Generate & Show wp-config.php Constants', 'kotlinskidev'); ?>
+                        <?php esc_html_e('Generate & Show wp-config.php Constants', 'kotlinskidev'); ?>
                     </button>
                     <div id="wp-config-instructions" style="display: none; margin-top: 0.9375rem;">
                         <textarea readonly style="width: 100%; height: 9.375rem; font-family: monospace; font-size: 0.75rem;" id="wp-config-constants"></textarea>
-                        <p><strong><?php _e('Instructions:', 'kotlinskidev'); ?></strong></p>
+                        <p><strong><?php esc_html_e('Instructions:', 'kotlinskidev'); ?></strong></p>
                         <ol>
-                            <li><?php _e('Copy the constants above', 'kotlinskidev'); ?></li>
-                            <li><?php _e('Add them to your wp-config.php file before the line that says "/* That\'s all, stop editing! */"', 'kotlinskidev'); ?></li>
-                            <li><?php _e('Save the file and reload this page', 'kotlinskidev'); ?></li>
+                            <li><?php esc_html_e('Copy the constants above', 'kotlinskidev'); ?></li>
+                            <li><?php esc_html_e('Add them to your wp-config.php file before the line that says "/* That\'s all, stop editing! */"', 'kotlinskidev'); ?></li>
+                            <li><?php esc_html_e('Save the file and reload this page', 'kotlinskidev'); ?></li>
                         </ol>
                     </div>
                 </div>
@@ -526,29 +540,29 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
 
             <script>
                 document.getElementById('regenerate-keys').addEventListener('click', function() {
-                    if (!confirm('<?php _e('Are you sure? This will invalidate all existing protected content.', 'kotlinskidev'); ?>')) {
+                    if (!confirm('<?php echo esc_js(__('Are you sure? This will invalidate all existing protected content.', 'kotlinskidev')); ?>')) {
                         return;
                     }
 
                     var data = new FormData();
                     data.append('action', 'kotlinskidev_regenerate_keys');
-                    data.append('nonce', '<?php echo wp_create_nonce('kotlinskidev_admin_nonce'); ?>');
+                    data.append('nonce', '<?php echo esc_js(wp_create_nonce('kotlinskidev_admin_nonce')); ?>');
 
-                    fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                    fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', {
                             method: 'POST',
                             body: data
                         })
                         .then(response => response.json())
                         .then(result => {
                             if (result.success) {
-                                alert('<?php _e('Keys regenerated successfully!', 'kotlinskidev'); ?>');
+                                alert('<?php echo esc_js(__('Keys regenerated successfully!', 'kotlinskidev')); ?>');
                                 location.reload();
                             } else {
-                                alert('<?php _e('Error: ', 'kotlinskidev'); ?>' + result.data);
+                                alert('<?php echo esc_js(__('Error: ', 'kotlinskidev')); ?>' + result.data);
                             }
                         })
                         .catch(error => {
-                            alert('<?php _e('Network error occurred', 'kotlinskidev'); ?>');
+                            alert('<?php echo esc_js(__('Network error occurred', 'kotlinskidev')); ?>');
                         });
                 });
 
@@ -556,9 +570,9 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
                     document.getElementById('show-wp-config-keys').addEventListener('click', function() {
                         var data = new FormData();
                         data.append('action', 'kotlinskidev_get_wp_config_constants');
-                        data.append('nonce', '<?php echo wp_create_nonce('kotlinskidev_admin_nonce'); ?>');
+                        data.append('nonce', '<?php echo esc_js(wp_create_nonce('kotlinskidev_admin_nonce')); ?>');
 
-                        fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                        fetch('<?php echo esc_url(admin_url('admin-ajax.php')); ?>', {
                                 method: 'POST',
                                 body: data
                             })
@@ -567,24 +581,24 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
                                 if (result.success) {
                                     document.getElementById('wp-config-constants').value = result.data;
                                     document.getElementById('wp-config-instructions').style.display = 'block';
-                                    this.textContent = '<?php _e('Constants Generated', 'kotlinskidev'); ?>';
+                                    this.textContent = '<?php echo esc_js(__('Constants Generated', 'kotlinskidev')); ?>';
                                     this.disabled = true;
                                 } else {
-                                    alert('<?php _e('Error: ', 'kotlinskidev'); ?>' + result.data);
+                                    alert('<?php echo esc_js(__('Error: ', 'kotlinskidev')); ?>' + result.data);
                                 }
                             })
                             .catch(error => {
-                                alert('<?php _e('Network error occurred', 'kotlinskidev'); ?>');
+                                alert('<?php echo esc_js(__('Network error occurred', 'kotlinskidev')); ?>');
                             });
                     });
                 <?php endif; ?>
             </script>
 
-            <h2><?php _e('Usage Examples', 'kotlinskidev'); ?></h2>
-            <h3><?php _e('Block Editor', 'kotlinskidev'); ?></h3>
-            <p><?php _e('Use the "Protected Content" block from the KotlinskiDev category.', 'kotlinskidev'); ?></p>
+            <h2><?php esc_html_e('Usage Examples', 'kotlinskidev'); ?></h2>
+            <h3><?php esc_html_e('Block Editor', 'kotlinskidev'); ?></h3>
+            <p><?php esc_html_e('Use the "Protected Content" block from the KotlinskiDev category.', 'kotlinskidev'); ?></p>
 
-            <h3><?php _e('Shortcode', 'kotlinskidev'); ?></h3>
+            <h3><?php esc_html_e('Shortcode', 'kotlinskidev'); ?></h3>
             <code>[protect type="email"]example@email.com[/protect]</code><br>
             <code>[protect type="phone"]+1 (555) 123-4567[/protect]</code><br>
             <code>[protect type="text"]Sensitive information[/protect]</code>
@@ -611,67 +625,70 @@ if (!function_exists('kotlinskidev_protect_output')) {
     }
 }
 
+if (!function_exists('kotlinskidev_format_decrypted_content')) {
+    function kotlinskidev_format_decrypted_content($decrypted_content, $protection_type)
+    {
+        switch ($protection_type) {
+            case 'email':
+                return sprintf('<a href="mailto:%s">%s</a>', esc_attr($decrypted_content), esc_html($decrypted_content));
+            case 'phone':
+                $clean_phone = preg_replace('/[^+0-9]/', '', $decrypted_content);
+                return sprintf('<a href="tel:%s">%s</a>', esc_attr($clean_phone), esc_html($decrypted_content));
+            case 'text':
+            case 'address':
+            case 'other':
+                return wp_kses_post($decrypted_content);
+            default:
+                return esc_html($decrypted_content);
+        }
+    }
+}
+
 if (!function_exists('kotlinskidev_ajax_decrypt_content')) {
-    /**
-     * AJAX handler for decrypting protected content
-     */
     function kotlinskidev_ajax_decrypt_content()
     {
-        // Set no-cache headers to prevent caching issues
         kotlinskidev_set_nocache_headers();
-        
-        // Verify nonce with more lenient checking for cached environments
-        $nonce = sanitize_text_field($_POST['nonce'] ?? '');
-        
+
+        $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+
         if (!wp_verify_nonce($nonce, 'kotlinskidev_protection_nonce')) {
-            // If nonce verification fails, it might be due to caching
-            // Let's provide a more helpful error message and suggest a refresh
             wp_send_json_error(array(
-                'message' => 'Security token expired. This may be due to page caching. Please refresh the page and try again.',
+                'message' => __('Security token expired. This may be due to page caching. Please refresh the page and try again.', 'kotlinskidev'),
                 'error_code' => 'nonce_expired',
                 'refresh_required' => true
             ));
         }
 
-        // For encrypted content, we need to preserve the base64 string without HTML sanitization
-        // The content should already be encrypted and base64 encoded, so we just need basic sanitization
-        $encrypted_content = wp_unslash($_POST['content']);
-        $encrypted_content = trim($encrypted_content);
-        $protection_type = sanitize_text_field($_POST['type']);
+        $items = json_decode(wp_unslash($_POST['items'] ?? ''), true); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- decoded JSON items are sanitized per-field below (sanitize_text_field for type, decrypted content is escaped in kotlinskidev_format_decrypted_content)
 
-        if (empty($encrypted_content)) {
-            wp_send_json_error('No content provided');
+        if (!is_array($items) || empty($items)) {
+            wp_send_json_error(__('No content provided', 'kotlinskidev'));
         }
 
-        $decrypted_content = kotlinskidev_decrypt_content($encrypted_content);
-
-        // Format the decrypted content based on type
-        $formatted_content = $decrypted_content;
-        switch ($protection_type) {
-            case 'email':
-                $formatted_content = sprintf('<a href="mailto:%s">%s</a>', esc_attr($decrypted_content), esc_html($decrypted_content));
-                break;
-            case 'phone':
-                // Clean phone number for tel: link
-                $clean_phone = preg_replace('/[^+0-9]/', '', $decrypted_content);
-                $formatted_content = sprintf('<a href="tel:%s">%s</a>', esc_attr($clean_phone), esc_html($decrypted_content));
-                break;
-            case 'text':
-            case 'address':
-            case 'other':
-                // These types allow HTML content but sanitize it for security
-                $formatted_content = wp_kses_post($decrypted_content);
-                break;
-            default:
-                // Fallback - escape HTML for unknown types
-                $formatted_content = esc_html($decrypted_content);
-                break;
+        if (count($items) > KOTLINSKIDEV_MAX_DECRYPT_BATCH_SIZE) {
+            wp_send_json_error(__('Too many items requested', 'kotlinskidev'));
         }
 
-        wp_send_json_success(array(
-            'content' => $formatted_content,
-            'raw_content' => $decrypted_content
-        ));
+        $results = array();
+
+        foreach ($items as $key => $item) {
+            $encrypted_content = trim((string) ($item['content'] ?? ''));
+            $protection_type = sanitize_text_field($item['type'] ?? '');
+
+            if (empty($encrypted_content)) {
+                $results[$key] = null;
+                continue;
+            }
+
+            $decrypted_content = kotlinskidev_decrypt_content($encrypted_content);
+
+            $results[$key] = array(
+                'content' => kotlinskidev_format_decrypted_content($decrypted_content, $protection_type),
+                'raw_content' => $decrypted_content
+            );
+        }
+
+        wp_send_json_success(array('results' => $results));
     }
     add_action('wp_ajax_kotlinskidev_decrypt_content', 'kotlinskidev_ajax_decrypt_content');
     add_action('wp_ajax_nopriv_kotlinskidev_decrypt_content', 'kotlinskidev_ajax_decrypt_content');
@@ -689,7 +706,8 @@ if (!function_exists('kotlinskidev_ajax_regenerate_keys')) {
         }
 
         // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'kotlinskidev_admin_nonce')) {
+        $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+        if (!wp_verify_nonce($nonce, 'kotlinskidev_admin_nonce')) {
             wp_die('Security check failed');
         }
 
@@ -722,7 +740,8 @@ if (!function_exists('kotlinskidev_ajax_get_wp_config_constants')) {
         }
 
         // Verify nonce
-        if (!wp_verify_nonce($_POST['nonce'], 'kotlinskidev_admin_nonce')) {
+        $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+        if (!wp_verify_nonce($nonce, 'kotlinskidev_admin_nonce')) {
             wp_die('Security check failed');
         }
 

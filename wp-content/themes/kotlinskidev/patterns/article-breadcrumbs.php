@@ -29,7 +29,7 @@ if (is_single() && get_post_type() === 'post') {
 <div class="wp-block-group" style="margin-bottom:0.9375rem;margin-top:0.5rem;">
     <!-- wp:html -->
     <nav class="kotlinskidev-breadcrumbs" style="font-size:0.875rem;color:var(--wp--preset--color--foreground-alt);">
-        <?php echo implode(' <span style="margin:0 0.5rem;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); ?>
+        <?php echo implode(' <span style="margin:0 0.5rem;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every $breadcrumbs element is esc_url()/esc_html() wrapped at construction above ?>
     </nav>
     <!-- /wp:html -->
 </div>

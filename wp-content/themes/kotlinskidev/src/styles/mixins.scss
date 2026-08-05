@@ -64,16 +64,12 @@
 	transition: opacity 0.25s ease;
 }
 
-@mixin custom-button-style(
-	$bg-gradient-angle: 135deg,
-	$bg-gradient-start: var(--wp--preset--color--primary),
-  $bg-gradient-end: rgba(var(--wp--preset--color--primary-rgb), 0.8),
-  $box-shadow1: rgba(var(--wp--preset--color--primary-rgb), 0.3) 0 0.375rem 1.25rem 0,
-  $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0
-) {
+@mixin custom-button-style($bg-gradient-angle: 135deg, $bg-gradient-start: var(--wp--preset--color--primary), $bg-gradient-end: rgba(var(--wp--preset--color--primary-rgb), 0.8), $box-shadow1: rgba(var(--wp--preset--color--primary-rgb), 0.3) 0 0.375rem 1.25rem 0, $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0) {
+	$gradient: linear-gradient($bg-gradient-angle, $bg-gradient-start 0, $bg-gradient-end 100%);
+
 	background-clip: border-box !important;
 	background-color: rgba(0, 0, 0, 0) !important;
-	background-image: linear-gradient($bg-gradient-angle, $bg-gradient-start 0, $bg-gradient-end 100%) !important;
+	background-image: $gradient !important;
 	box-shadow: $box-shadow1, $box-shadow2 !important;
 	border: none !important;
 }

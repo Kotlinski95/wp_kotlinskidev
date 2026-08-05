@@ -69,7 +69,7 @@ function kotlinskidev_contact_form_handle_submit() {
                         'body'    => [
                             'secret'   => $recaptcha_secret,
                             'response' => $recaptcha_response,
-                            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                            'remoteip' => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
                         ],
                         'timeout' => 10,
                     ]
@@ -96,7 +96,7 @@ function kotlinskidev_contact_form_handle_submit() {
                         'body'    => [
                             'secret'   => $turnstile_secret,
                             'response' => $turnstile_response,
-                            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                            'remoteip' => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
                         ],
                         'timeout' => 10,
                     ]

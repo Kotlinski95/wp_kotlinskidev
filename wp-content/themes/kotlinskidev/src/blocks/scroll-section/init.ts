@@ -7,14 +7,18 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 
 const init = (): void => {
   const pageWrapper = document.querySelector<HTMLElement>(".main-wrapper");
-  if (!pageWrapper) return;
+  if (!pageWrapper) {
+    return;
+  }
 
   const tracks = gsap.utils.toArray<HTMLElement>(".scroll-section__track");
 
   tracks.forEach((track) => {
     const items = track.querySelectorAll<HTMLElement>(".scroll-section__item");
     const lastItem = items[items.length - 1];
-    if (!lastItem) return;
+    if (!lastItem) {
+      return;
+    }
 
     const section = track.closest<HTMLElement>("[data-scroll-section]");
     const markers = section?.dataset.markers === "true";

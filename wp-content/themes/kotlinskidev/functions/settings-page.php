@@ -51,6 +51,7 @@ function kotlinskidev_settings_tabs(): array
 function kotlinskidev_active_settings_tab(): string
 {
     $tabs = kotlinskidev_settings_tabs();
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only admin tab navigation, no state change
     $tab  = isset($_GET['tab']) ? sanitize_key(wp_unslash($_GET['tab'])) : 'general';
     return array_key_exists($tab, $tabs) ? $tab : 'general';
 }

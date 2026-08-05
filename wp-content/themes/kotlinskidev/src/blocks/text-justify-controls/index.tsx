@@ -74,8 +74,4 @@ const withTextJustifyControl = createHigherOrderComponent((BlockEdit) => {
   };
 }, "withTextJustifyControl");
 
-addFilter(
-  "editor.BlockEdit",
-  "kotlinskidev/text-justify-controls",
-  withTextJustifyControl
-);
+addFilter("editor.BlockEdit", "kotlinskidev/text-justify-controls", withTextJustifyControl);

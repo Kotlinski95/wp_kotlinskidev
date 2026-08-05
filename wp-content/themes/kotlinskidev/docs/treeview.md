@@ -4,7 +4,7 @@ Full current-state file/folder tree of the theme, annotated inline. Every `docs/
 
 Keep this in sync with `CHANGELOG.md`: when a change adds/removes/renames a block, pattern, template, or function module, update the relevant line here too. `node_modules/` and `build/` (both gitignored, generated) are omitted.
 
-```
+```text
 kotlinskidev/
 ├── assets/                                     # static: css/ fonts/ icons/ images/ videos/
 ├── docs/                                       # architecture reference, workflow, and tooling docs (current state only)
@@ -25,7 +25,7 @@ kotlinskidev/
 │   ├── seo.md                                  # technical SEO review checklist (crawlability, schema, hreflang, Core Web Vitals overlap)
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 47 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 51 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
@@ -41,6 +41,7 @@ kotlinskidev/
 │   ├── cover-image-classes.php                 # lazy-loading behavior control for cover blocks
 │   ├── cover-video-preload.php                 # injects <link rel=preload> for cover-block video posters
 │   ├── customizer.php                          # Customizer panel registration
+│   ├── deferred-block-assets.php               # filterable block-name→handle registry + per-page above-the-fold scan/cache for CSS defer decisions
 │   ├── disable-comments.php                    # site-wide comment disabling
 │   ├── enqueue-scripts.php                     # main script/style enqueue pipeline
 │   ├── faq-layout.php                          # applies kt-faq-independent-columns-N class to core/group per its faqLayout Advanced-panel choice
@@ -146,7 +147,9 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 47 custom block dirs: 31 registered blocks + 16 JS-only block-extension filters
+│   ├── blocks/                                 # 48 custom block dirs: 31 registered blocks + 17 JS-only block-extension filters
+│   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
+│   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
 │   │   │   └── index.tsx
 │   │   ├── animated-counter/                   # extension: count-up-on-scroll for heading/paragraph/group/columns

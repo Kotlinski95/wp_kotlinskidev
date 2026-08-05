@@ -5,23 +5,23 @@
  */
 
 // If there's a search query, redirect to WordPress default search
-if (isset($_GET['s']) && !empty($_GET['s'])) {
+if (isset($_GET['s']) && !empty($_GET['s'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
     $search_params = array(
-        's' => $_GET['s']
+        's' => sanitize_text_field(wp_unslash($_GET['s'])) // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
     );
-    
+
     // Only add parameters that have actual values
-    if (isset($_GET['search_category']) && !empty($_GET['search_category'])) {
-        $search_params['search_category'] = $_GET['search_category'];
+    if (isset($_GET['search_category']) && !empty($_GET['search_category'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+        $search_params['search_category'] = sanitize_text_field(wp_unslash($_GET['search_category'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
     }
-    
-    if (isset($_GET['search_type']) && !empty($_GET['search_type'])) {
-        $search_params['search_type'] = $_GET['search_type'];
+
+    if (isset($_GET['search_type']) && !empty($_GET['search_type'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+        $search_params['search_type'] = sanitize_text_field(wp_unslash($_GET['search_type'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
     }
-    
+
     // Build clean URL with only populated parameters
     $search_url = home_url('/?' . http_build_query($search_params));
-    wp_redirect($search_url);
+    wp_safe_redirect($search_url);
     exit;
 }
 

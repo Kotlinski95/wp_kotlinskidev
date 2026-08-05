@@ -304,9 +304,7 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
             </p>
           )}
           {linkUrl && linkLabel && (
-            <span style={{ fontSize: "0.8125rem", fontWeight: 500 }}>
-              {linkLabel} →
-            </span>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500 }}>{linkLabel} →</span>
           )}
         </div>
       </div>

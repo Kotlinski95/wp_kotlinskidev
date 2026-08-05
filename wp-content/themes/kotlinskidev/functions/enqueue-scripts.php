@@ -28,7 +28,7 @@ function inline_critical_js()
     }
 
     if ($critical_js) {
-        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>';
+        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/critical.js, not user input; escaping would corrupt the inline JS
     }
 }
 add_action('wp_head', 'inline_critical_js', 2); // Load after critical CSS
@@ -63,10 +63,13 @@ function master_css_filter($html, $handle)
         $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
     }
 
-    $deferred_handles = [
-        'wp-block-navigation',
-        'wp-pwa-manager-frontend',
-    ];
+    $deferred_handles = array_merge(
+        [
+            'wp-block-navigation',
+            'wp-pwa-manager-frontend',
+        ],
+        kotlinskidev_get_deferred_block_style_handles()
+    );
     if (in_array($handle, $deferred_handles, true)) {
         $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
         $html = str_replace('media="all"', 'media="print"', $html);
@@ -80,6 +83,24 @@ function master_css_filter($html, $handle)
     return $html;
 }
 add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to run before plugins
+
+function kotlinskidev_defer_deferrable_scripts($tag, $handle)
+{
+    $deferred_script_handles = [
+        'wp-pwa-manager-frontend',
+    ];
+
+    if (!in_array($handle, $deferred_script_handles, true)) {
+        return $tag;
+    }
+
+    if (strpos($tag, ' defer') !== false) {
+        return $tag;
+    }
+
+    return str_replace(' src=', ' defer src=', $tag);
+}
+add_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts', 10, 2);
 
 
 
@@ -99,7 +120,7 @@ function inline_critical_css()
             }
         }
         if ($critical_css) {
-            echo '<style id="critical-css">' . $critical_css . '</style>';
+            echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/critical.css, not user input; escaping would corrupt the inline CSS
         }
     }
     

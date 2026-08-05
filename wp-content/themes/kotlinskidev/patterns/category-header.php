@@ -25,7 +25,7 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
 <div class="wp-block-group" style="margin-bottom:0.9375rem">
     <!-- wp:html -->
     <nav class="kotlinskidev-breadcrumbs" style="font-size:0.875rem;color:var(--wp--preset--color--foreground-alt);">
-        <?php echo implode(' <span style="margin:0 0.5rem;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); ?>
+        <?php echo implode(' <span style="margin:0 0.5rem;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every $breadcrumbs element is esc_url()/esc_html() wrapped at construction above ?>
     </nav>
     <!-- /wp:html -->
 </div>
@@ -48,7 +48,7 @@ $breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">
         
         <div style="display:flex;justify-content:center;align-items:center;gap:1.25rem;margin-bottom:1.875rem;">
             <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
-                <?php echo $post_count . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
+                <?php echo absint($post_count) . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
             </span>
             <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
             

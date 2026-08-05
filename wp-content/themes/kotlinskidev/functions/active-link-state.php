@@ -16,7 +16,8 @@ function kotlinskidev_is_current_link_url( string $url ): bool {
 	}
 
 	$link_path = untrailingslashit( (string) wp_parse_url( $url, PHP_URL_PATH ) );
-	$current_path = untrailingslashit( (string) wp_parse_url( home_url( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ) );
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$current_path = untrailingslashit( (string) wp_parse_url( home_url( $request_uri ), PHP_URL_PATH ) );
 
 	return $link_path === $current_path;
 }

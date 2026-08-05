@@ -2,13 +2,17 @@ import { getScrollTop, isMobile, onScroll, onScreenSizeChange } from "./utils";
 
 document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector("header") as HTMLElement | null;
-  if (!header) return;
+  if (!header) {
+    return;
+  }
 
   const stickyThreshold = 30;
   let rafId: number | null = null;
 
   const handleScroll = () => {
-    if (rafId !== null) return;
+    if (rafId !== null) {
+      return;
+    }
     rafId = requestAnimationFrame(() => {
       header.classList.toggle("header-sticky", getScrollTop() > stickyThreshold);
       rafId = null;
@@ -18,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let removeListener: (() => void) | null = null;
 
   const enable = () => {
-    if (removeListener) return;
+    if (removeListener) {
+      return;
+    }
     handleScroll();
     removeListener = onScroll(handleScroll);
   };

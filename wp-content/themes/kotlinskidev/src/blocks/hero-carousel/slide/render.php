@@ -16,7 +16,7 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 <?php if ( $is_eager && $poster_url ) : ?>
 <link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url( $poster_url ); ?>">
 <?php endif; ?>
-<div <?php echo $wrapper_attributes; ?>>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<div class="hero-carousel__bg">
 		<?php if ( $bg_video_url ) : ?>
 			<video
@@ -65,6 +65,6 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 		></div>
 	</div>
 	<div class="hero-carousel__content">
-		<?php echo $content; ?>
+		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
 	</div>
 </div>

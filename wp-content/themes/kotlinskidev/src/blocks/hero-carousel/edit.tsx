@@ -3,9 +3,10 @@ import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
 import { PanelBody, RangeControl, Button } from "@wordpress/components";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 import CarouselPanel from "@utils/carousel/CarouselPanel";
 import type { CarouselSettings } from "@utils/carousel/types";
+import { onActivationKey } from "@utils/keyboardActivation";
 import "./style.scss";
 
 export interface HeroCarouselAttributes extends Partial<CarouselSettings> {
@@ -75,7 +76,9 @@ export default function Edit({
 
   useEffect(() => {
     const idx = innerBlocks.findIndex((b) => selectedBlockParents.includes(b.clientId));
-    if (idx >= 0) setActiveSlide(idx);
+    if (idx >= 0) {
+      setActiveSlide(idx);
+    }
   }, [selectedBlockParents, innerBlocks]);
 
   useEffect(() => {
@@ -97,18 +100,23 @@ export default function Edit({
   };
 
   const handleRemoveSlide = (index: number) => {
-    if (slideCount <= 1) return;
+    if (slideCount <= 1) {
+      return;
+    }
     const target = innerBlocks[index];
-    if (target) removeBlock(target.clientId);
+    if (target) {
+      removeBlock(target.clientId);
+    }
   };
 
   const effectivePlacement = arrowsPosition === "sides" ? "inside" : (navPlacement ?? "inside");
 
-  const navColorStyle: React.CSSProperties | undefined = navColor
-    ? navColorOnHover
+  let navColorStyle: React.CSSProperties | undefined;
+  if (navColor) {
+    navColorStyle = navColorOnHover
       ? ({ "--carousel-nav-color-hover": navColor } as React.CSSProperties)
-      : ({ "--carousel-nav-color": navColor } as React.CSSProperties)
-    : undefined;
+      : ({ "--carousel-nav-color": navColor } as React.CSSProperties);
+  }
 
   const editorNav = showArrows ? (
     <div
@@ -117,6 +125,7 @@ export default function Edit({
       <div
         className={`swiper-button-prev${activeSlide === 0 ? " swiper-button-disabled" : ""}`}
         onClick={() => activeSlide > 0 && handleNavigate(activeSlide - 1)}
+        onKeyDown={onActivationKey(() => activeSlide > 0 && handleNavigate(activeSlide - 1))}
         role="button"
         tabIndex={0}
         aria-label={__("Previous slide", "kotlinskidev")}
@@ -131,6 +140,9 @@ export default function Edit({
       <div
         className={`swiper-button-next${activeSlide === slideCount - 1 ? " swiper-button-disabled" : ""}`}
         onClick={() => activeSlide < slideCount - 1 && handleNavigate(activeSlide + 1)}
+        onKeyDown={onActivationKey(
+          () => activeSlide < slideCount - 1 && handleNavigate(activeSlide + 1)
+        )}
         role="button"
         tabIndex={0}
         aria-label={__("Next slide", "kotlinskidev")}
@@ -145,6 +157,7 @@ export default function Edit({
           key={i}
           className={`swiper-pagination-bullet${i === activeSlide ? " swiper-pagination-bullet-active" : ""}`}
           onClick={() => handleNavigate(i)}
+          onKeyDown={onActivationKey(() => handleNavigate(i))}
           role="button"
           tabIndex={0}
           aria-label={`${__("Go to slide", "kotlinskidev")} ${i + 1}`}
@@ -172,6 +185,18 @@ export default function Edit({
                     .filter(Boolean)
                     .join(" ")}
                   onClick={() => handleNavigate(i)}
+                  onKeyDown={(e) => {
+                    if (e.target === e.currentTarget) {
+                      onActivationKey(() => handleNavigate(i))(e);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={sprintf(
+                    // translators: %d: slide number
+                    __("Slide %d", "kotlinskidev"),
+                    i + 1
+                  )}
                 >
                   {imgUrl ? <img src={imgUrl} alt="" /> : <span>{i + 1}</span>}
                   {slideCount > 1 && (

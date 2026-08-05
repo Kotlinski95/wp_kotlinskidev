@@ -3,7 +3,7 @@ import { createHigherOrderComponent } from "@wordpress/compose";
 import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, __experimentalNumberControl as NumberControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 
 declare global {
   interface Window {
@@ -68,11 +68,13 @@ const withResponsiveOrderControls = createHigherOrderComponent((BlockEdit) => {
               label={__("Desktop Order", "kotlinskidev")}
               value={responsiveOrder.desktop || 0}
               onChange={(value: number) => updateResponsiveOrder("desktop", value)}
-              help={__(
-                "Set the order for desktop screens (" +
-                  breakpoints.desktop_min +
-                  "px+). Use negative values like -1 for higher priority.",
-                "kotlinskidev"
+              help={sprintf(
+                // translators: %s: breakpoint value in px
+                __(
+                  "Set the order for desktop screens (%spx+). Use negative values like -1 for higher priority.",
+                  "kotlinskidev"
+                ),
+                breakpoints.desktop_min
               )}
               min={-1}
               max={20}
@@ -82,13 +84,11 @@ const withResponsiveOrderControls = createHigherOrderComponent((BlockEdit) => {
               label={__("Tablet Order", "kotlinskidev")}
               value={responsiveOrder.tablet || 0}
               onChange={(value: number) => updateResponsiveOrder("tablet", value)}
-              help={__(
-                "Set the order for tablet screens (" +
-                  breakpoints.tablet_min +
-                  "px - " +
-                  breakpoints.tablet_max +
-                  "px).",
-                "kotlinskidev"
+              help={sprintf(
+                // translators: %1$s: minimum breakpoint in px, %2$s: maximum breakpoint in px
+                __("Set the order for tablet screens (%1$spx - %2$spx).", "kotlinskidev"),
+                breakpoints.tablet_min,
+                breakpoints.tablet_max
               )}
               min={-1}
               max={20}
@@ -98,9 +98,10 @@ const withResponsiveOrderControls = createHigherOrderComponent((BlockEdit) => {
               label={__("Mobile Order", "kotlinskidev")}
               value={responsiveOrder.mobile || 0}
               onChange={(value: number) => updateResponsiveOrder("mobile", value)}
-              help={__(
-                "Set the order for mobile screens (below " + breakpoints.mobile_max + "px).",
-                "kotlinskidev"
+              help={sprintf(
+                // translators: %s: breakpoint value in px
+                __("Set the order for mobile screens (below %spx).", "kotlinskidev"),
+                breakpoints.mobile_max
               )}
               min={-1}
               max={20}

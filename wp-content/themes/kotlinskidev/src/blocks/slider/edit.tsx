@@ -89,74 +89,74 @@ interface SliderProps {
   innerBlocksProps: Record<string, unknown>;
 }
 
-const Slider = memo(({ clientId, attributes, innerBlocksProps }: SliderProps): React.ReactElement => {
-  const sliderRef = useRefEffect((element: HTMLElement) => {
-    const options = {
-      ...attributes,
-      autoplay: false,
-      grabCursor: false,
-      simulateTouch: false,
-    };
+const Slider = memo(
+  ({ clientId, attributes, innerBlocksProps }: SliderProps): React.ReactElement => {
+    const sliderRef = useRefEffect((element: HTMLElement) => {
+      const options = {
+        ...attributes,
+        autoplay: false,
+        grabCursor: false,
+        simulateTouch: false,
+      };
 
-    let slider = SwiperInit(element, options);
-    let slideOrder = select(blockEditorStore).getBlockOrder(clientId);
+      let slider = SwiperInit(element, options);
+      let slideOrder = select(blockEditorStore).getBlockOrder(clientId);
 
-    const unsubscribeSliderUpdateListener = subscribe(() => {
-      const currentSlidesOrder = select(blockEditorStore).getBlockOrder(clientId);
+      const unsubscribeSliderUpdateListener = subscribe(() => {
+        const currentSlidesOrder = select(blockEditorStore).getBlockOrder(clientId);
 
-      if (currentSlidesOrder.toString() !== slideOrder.toString()) {
-        const selectedBlock = select(blockEditorStore).getSelectedBlock();
-        const slideAdded = currentSlidesOrder.length > slideOrder.length;
-        const slideRemoved = currentSlidesOrder.length < slideOrder.length;
-        const slideMoved = currentSlidesOrder.length === slideOrder.length;
-        const activeIndex = slider.activeIndex;
+        if (currentSlidesOrder.toString() !== slideOrder.toString()) {
+          const selectedBlock = select(blockEditorStore).getSelectedBlock();
+          const slideAdded = currentSlidesOrder.length > slideOrder.length;
+          const slideRemoved = currentSlidesOrder.length < slideOrder.length;
+          const slideMoved = currentSlidesOrder.length === slideOrder.length;
+          const activeIndex = slider.activeIndex;
 
-        slideOrder = currentSlidesOrder;
+          slideOrder = currentSlidesOrder;
+          slider.destroy();
+
+          window.requestAnimationFrame(() => {
+            slider = SwiperInit(element, options);
+
+            let slideToIndex = activeIndex;
+            if (slideAdded) {
+              slideToIndex = slideOrder.length;
+            } else if (slideRemoved) {
+              slideToIndex = activeIndex - 1;
+            } else if (slideMoved && selectedBlock) {
+              slideToIndex = slideOrder.findIndex((id: string) => id === selectedBlock.clientId);
+            }
+
+            if (slideToIndex < 0) {
+              slideToIndex = 0;
+            }
+
+            slider.slideTo(slideToIndex, 0);
+          });
+        }
+      });
+
+      return () => {
+        unsubscribeSliderUpdateListener();
         slider.destroy();
+      };
+    }, []);
 
-        window.requestAnimationFrame(() => {
-          slider = SwiperInit(element, options);
+    return (
+      <>
+        <BlockControls>
+          <SliderToolbar clientId={clientId} />
+        </BlockControls>
 
-          let slideToIndex = activeIndex;
-          if (slideAdded) {
-            slideToIndex = slideOrder.length;
-          } else if (slideRemoved) {
-            slideToIndex = activeIndex - 1;
-          } else if (slideMoved && selectedBlock) {
-            slideToIndex = slideOrder.findIndex(
-              (id: string) => id === selectedBlock.clientId
-            );
-          }
+        <div className="swiper" ref={sliderRef}>
+          <div {...innerBlocksProps} />
+        </div>
 
-          if (slideToIndex < 0) {
-            slideToIndex = 0;
-          }
-
-          slider.slideTo(slideToIndex, 0);
-        });
-      }
-    });
-
-    return () => {
-      unsubscribeSliderUpdateListener();
-      slider.destroy();
-    };
-  }, []);
-
-  return (
-    <>
-      <BlockControls>
-        <SliderToolbar clientId={clientId} />
-      </BlockControls>
-
-      <div className="swiper" ref={sliderRef}>
-        <div {...innerBlocksProps} />
-      </div>
-
-      <ButtonBlockAppender className="slider-appender has-icon" rootClientId={clientId} />
-    </>
-  );
-});
+        <ButtonBlockAppender className="slider-appender has-icon" rootClientId={clientId} />
+      </>
+    );
+  }
+);
 
 export default function Edit({ attributes, setAttributes }: EditProps): React.ReactElement {
   const { autoplay, navigation, pagination, spaceBetween } = attributes;
@@ -180,12 +180,22 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
         [
           DEFAULT_BLOCK,
           { url: `${PLACEHOLDER_IMG_1}`, ...DEFAULT_BLOCK_ATTRIBUTES },
-          [[DEFAULT_INNERBLOCK, { placeholder: __("Slide title…", "kotlinskidev"), ...DEFAULT_INNERBLOCK_ATTRIBUTES }]],
+          [
+            [
+              DEFAULT_INNERBLOCK,
+              { placeholder: __("Slide title…", "kotlinskidev"), ...DEFAULT_INNERBLOCK_ATTRIBUTES },
+            ],
+          ],
         ],
         [
           DEFAULT_BLOCK,
           { url: `${PLACEHOLDER_IMG_2}`, ...DEFAULT_BLOCK_ATTRIBUTES },
-          [[DEFAULT_INNERBLOCK, { placeholder: __("Slide title…", "kotlinskidev"), ...DEFAULT_INNERBLOCK_ATTRIBUTES }]],
+          [
+            [
+              DEFAULT_INNERBLOCK,
+              { placeholder: __("Slide title…", "kotlinskidev"), ...DEFAULT_INNERBLOCK_ATTRIBUTES },
+            ],
+          ],
         ],
       ],
       renderAppender: false,
@@ -216,7 +226,10 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               label={__("Navigation", "kotlinskidev")}
               checked={navigation}
               onChange={(value) => setAttributes({ navigation: value })}
-              help={__("“Navigation” will display arrows so user can navigate forward/backward.", "kotlinskidev")}
+              help={__(
+                "“Navigation” will display arrows so user can navigate forward/backward.",
+                "kotlinskidev"
+              )}
             />
           </PanelRow>
           <PanelRow>
@@ -224,7 +237,10 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               label={__("Pagination", "kotlinskidev")}
               checked={pagination}
               onChange={(value) => setAttributes({ pagination: value })}
-              help={__("“Pagination” will display dots along the bottom for user to click through slides.", "kotlinskidev")}
+              help={__(
+                "“Pagination” will display dots along the bottom for user to click through slides.",
+                "kotlinskidev"
+              )}
             />
           </PanelRow>
           <PanelRow>
@@ -245,12 +261,11 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               onChange={(value) => setAttributes({ autoplayTime: value })}
               min={1}
               max={10}
-              help={__(
+              help={
                 attributes.smoothTransition
-                  ? "Set the smooth scrolling speed in seconds."
-                  : "Set the autoplay interval in seconds.",
-                "kotlinskidev"
-              )}
+                  ? __("Set the smooth scrolling speed in seconds.", "kotlinskidev")
+                  : __("Set the autoplay interval in seconds.", "kotlinskidev")
+              }
             />
           </PanelRow>
           <PanelRow>

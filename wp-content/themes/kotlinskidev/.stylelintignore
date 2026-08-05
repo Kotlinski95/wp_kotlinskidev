@@ -1,0 +1,6 @@
+# wp-scripts' own default ignores — lost once a project-level .stylelintignore exists, so repeated here
+build
+vendor
+
+assets/css/icomoon.css
+src/styles/shortcodes.scss

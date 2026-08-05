@@ -43,7 +43,7 @@ eval "$(direnv hook zsh)"
 
 The committed `.envrc` in the theme root contains just:
 
-```
+```text
 dotenv
 ```
 

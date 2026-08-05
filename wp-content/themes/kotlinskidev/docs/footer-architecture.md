@@ -4,7 +4,7 @@ The footer is a single template part (`parts/footer.html`), the same across ever
 
 ## Structure
 
-```
+```text
 parts/footer.html
   wp:group (.kotlinskidev-footer)
     wp:group (.kotlinskidev-footer__top — flex row: brand + nav columns)
@@ -28,6 +28,7 @@ The footer's `wp_navigation` post (slug `footer`) holds one `kotlinskidev/simple
 ## Contact info protection
 
 The address, email, and phone in the Contact holder are protected from bot scraping two ways:
+
 - **Address**: an explicit `kotlinskidev/protected-content` block (`protectionType: "address"`), RSA-encrypted server-side, revealed on click.
 - **Email/phone**: auto-detected and encrypted by `kotlinskidev_add_protection_to_content()` (`functions/protection-helpers.php`), which hooks `render_block_kotlinskidev/navigation` among other filters — so any `mailto:`/`tel:` link or plain-text email/phone rendered through the footer's navigation block is protected automatically, with no per-instance setup needed.
 

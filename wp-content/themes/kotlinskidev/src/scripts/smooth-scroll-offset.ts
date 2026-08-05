@@ -25,7 +25,9 @@ import { getScrollTop, scrollTo, isMobile, getScrollOffsets } from "./utils";
     anchorLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
         const href = (link as HTMLAnchorElement).getAttribute("href");
-        if (!href) return;
+        if (!href) {
+          return;
+        }
 
         const targetId = href.substring(1);
         const targetElement = document.getElementById(targetId);

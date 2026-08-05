@@ -96,7 +96,7 @@
                     </h4>
 
                     <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.25rem;flex-grow:1;font-size:0.875rem;">
-                        <?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?>
+                        <?php echo esc_html(wp_trim_words(get_the_excerpt(), 20, '...')); ?>
                     </div>
 
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;font-size:0.75rem;">

@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   menuItems.forEach((item) => {
     const link = item.querySelector("a");
     const submenu = item.querySelector(".sub-menu");
-    if (!link || !submenu) return;
+    if (!link || !submenu) {
+      return;
+    }
 
     const toggleBtn = document.createElement("button");
     toggleBtn.setAttribute("type", "button");
@@ -24,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const setSubmenuTabbables = (active: boolean) => {
       const subLinks = submenu.querySelectorAll("a");
-      subLinks.forEach((link) => {
-        link.setAttribute("tabindex", active ? "0" : "-1");
+      subLinks.forEach((subLink) => {
+        subLink.setAttribute("tabindex", active ? "0" : "-1");
       });
       const innerToggles = submenu.querySelectorAll(".submenu-toggle");
       innerToggles.forEach((btn) => {
@@ -40,7 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setSubmenuTabbables(!expanded);
       if (!expanded) {
         const firstSubLink = submenu.querySelector("a");
-        if (firstSubLink) firstSubLink.focus();
+        if (firstSubLink) {
+          firstSubLink.focus();
+        }
       }
     };
 
@@ -64,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    submenu.addEventListener("focusout", (e) => {
+    submenu.addEventListener("focusout", () => {
       setTimeout(() => {
         if (!submenu.contains(document.activeElement)) {
           toggleBtn.setAttribute("aria-expanded", "false");
@@ -129,10 +133,12 @@ const createVideoIndicator = (): HTMLDivElement => {
   indicator.innerHTML = `
     <div class="reduced-motion-message">
       <span class="icon">⏸️</span>
-      <span class="text">${translations.pauseMessage}</span>
-      <button class="play-anyway-btn" type="button">${translations.playButton}</button>
+      <span class="text"></span>
+      <button class="play-anyway-btn" type="button"></button>
     </div>
   `;
+  indicator.querySelector(".text")!.textContent = translations.pauseMessage;
+  indicator.querySelector(".play-anyway-btn")!.textContent = translations.playButton;
 
   applyIndicatorStyles(indicator);
   return indicator;
@@ -212,7 +218,7 @@ const VideoOperations = {
     if (originalState.autoplay) {
       video.setAttribute("autoplay", "true");
       if (!video.hasAttribute("data-user-interacted")) {
-        video.play().catch(() => console.log("Autoplay prevented by browser policy"));
+        video.play().catch(() => console.warn("Autoplay prevented by browser policy"));
       }
     }
 
@@ -262,7 +268,7 @@ const createButtonHandlers = (video: HTMLVideoElement, indicator: HTMLDivElement
     video.style.pointerEvents = "auto";
 
     video.play().catch((error) => {
-      console.log("Video play failed:", error);
+      console.warn("Video play failed:", error);
     });
 
     indicator.remove();
@@ -271,7 +277,9 @@ const createButtonHandlers = (video: HTMLVideoElement, indicator: HTMLDivElement
 
 const setupButtonInteractions = (video: HTMLVideoElement, indicator: HTMLDivElement): void => {
   const playBtn = indicator.querySelector(".play-anyway-btn") as HTMLButtonElement;
-  if (!playBtn) return;
+  if (!playBtn) {
+    return;
+  }
 
   applyButtonStyles(playBtn);
   const handlers = createButtonHandlers(video, indicator);
@@ -282,7 +290,9 @@ const setupButtonInteractions = (video: HTMLVideoElement, indicator: HTMLDivElem
 };
 
 const addIndicatorToVideo = (video: HTMLVideoElement): void => {
-  if (video.parentElement?.querySelector(".reduced-motion-indicator")) return;
+  if (video.parentElement?.querySelector(".reduced-motion-indicator")) {
+    return;
+  }
 
   const indicator = createVideoIndicator();
   setupButtonInteractions(video, indicator);
@@ -328,11 +338,9 @@ const createReducedMotionVideoController = () => {
     if (prefersReducedMotion) {
       pauseAllVideos();
       addAllIndicators();
-      console.log("🎥 Reduced motion detected: Autoplay videos paused");
     } else {
       restoreAllVideos();
       removeAllIndicators();
-      console.log("🎥 Motion enabled: Autoplay videos restored");
     }
   };
 
@@ -396,14 +404,12 @@ const createMotionHandlers = () => ({
     DOMOperations.addBodyClass("reduce-motion");
     DOMOperations.setScrollBehavior("auto");
     DOMOperations.dispatchMotionEvent(true);
-    console.log("🎭 Reduced motion mode activated");
   },
 
   onFullMotion: () => {
     DOMOperations.removeBodyClass("reduce-motion");
     DOMOperations.setScrollBehavior("");
     DOMOperations.dispatchMotionEvent(false);
-    console.log("🎭 Full motion mode activated");
   },
 });
 
@@ -422,7 +428,7 @@ const createMotionPreferenceListener = () => {
   return mediaQuery;
 };
 
-const motionMediaQuery = createMotionPreferenceListener();
+createMotionPreferenceListener();
 
 // =============================================================================
 // UTILITY FUNCTIONS

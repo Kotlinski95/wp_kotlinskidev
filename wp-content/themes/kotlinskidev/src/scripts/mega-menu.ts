@@ -7,7 +7,9 @@ const LOCK_OWNER = "mega-menu";
 
 document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector<HTMLElement>(".kt-mega-nav");
-  if (!nav) return;
+  if (!nav) {
+    return;
+  }
 
   const items = nav.querySelectorAll<HTMLElement>(".kt-mega-nav__item");
   const panels = nav.querySelectorAll<HTMLElement>(".kt-mega-nav__panel");
@@ -33,12 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeAll = () => {
     header?.classList.add("no-transition");
-    nav
-      .querySelectorAll<HTMLElement>(".kt-mega-nav__item.is-active")
-      .forEach((t) => {
-        t.classList.remove("is-active");
-        t.querySelector(".kt-mega-nav__link")?.setAttribute("aria-expanded", "false");
-      });
+    nav.querySelectorAll<HTMLElement>(".kt-mega-nav__item.is-active").forEach((t) => {
+      t.classList.remove("is-active");
+      t.querySelector(".kt-mega-nav__link")?.setAttribute("aria-expanded", "false");
+    });
     nav
       .querySelectorAll<HTMLElement>(".kt-mega-nav__panel.is-open")
       .forEach((p) => p.classList.remove("is-open"));
@@ -50,7 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const scheduleClose = () => {
     cancelClose();
     closeTimer = setTimeout(() => {
-      if (!nav.contains(document.activeElement)) closeAll();
+      if (!nav.contains(document.activeElement)) {
+        closeAll();
+      }
     }, CLOSE_DELAY);
   };
 
@@ -83,7 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
       trigger?.addEventListener("click", (e) => {
         const href = (e.currentTarget as HTMLAnchorElement).getAttribute("href") ?? "";
         const isRealHref = linkNavigates && href !== "" && href !== "#" && !href.startsWith("#");
-        if (isRealHref) return;
+        if (isRealHref) {
+          return;
+        }
         e.preventDefault();
         togglePanel();
       });
@@ -124,13 +128,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   panels.forEach((panel) => {
     panel.addEventListener("keydown", (e) => {
-      if (e.key !== "Tab") return;
-      const focusables = panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      if (e.key !== "Tab") {
+        return;
+      }
       const trigger = nav.querySelector<HTMLElement>(
         `.kt-mega-nav__item[data-panel="${panel.dataset.panel}"] .kt-mega-nav__link`
       );
-      if (!trigger) return;
+      if (!trigger) {
+        return;
+      }
 
+      const focusables = panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
       if (e.shiftKey && focusables[0] === e.target) {
         e.preventDefault();
         trigger.focus();
@@ -161,13 +169,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   nav.addEventListener("focusout", (e) => {
-    if (!hasOpenPanel()) return;
+    if (!hasOpenPanel()) {
+      return;
+    }
     const nextFocus = e.relatedTarget as Node | null;
     const openItem = nav.querySelector<HTMLElement>(".kt-mega-nav__item.is-active");
     const openPanelEl = nav.querySelector<HTMLElement>(".kt-mega-nav__panel.is-open");
     const staysWithin =
       !!nextFocus &&
-      ((openItem && openItem.contains(nextFocus)) || (openPanelEl && openPanelEl.contains(nextFocus)));
+      ((openItem && openItem.contains(nextFocus)) ||
+        (openPanelEl && openPanelEl.contains(nextFocus)));
     if (!staysWithin) {
       closeAll();
     }

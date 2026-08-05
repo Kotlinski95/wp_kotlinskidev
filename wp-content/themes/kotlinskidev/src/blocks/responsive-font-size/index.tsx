@@ -130,12 +130,15 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
   }, [isCustom]);
 
   const getNumericValue = (val: string): number => {
-    if (!val) return 1;
+    if (!val) {
+      return 1;
+    }
     const match = val.match(/(\d+(?:\.\d+)?)/);
     return match ? parseFloat(match[1]) : 1;
   };
 
-  const getDisplayValue = () => (showCustom ? customValue || value || "1rem" : presetValue || value || "");
+  const getDisplayValue = () =>
+    showCustom ? customValue || value || "1rem" : presetValue || value || "";
 
   const handlePresetChange = (newValue: string) => {
     setShowCustom(false);
@@ -165,7 +168,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
 
   return (
     <div style={{ marginBottom: "1rem", width: "100%" }}>
-      <label
+      <div
         style={{
           display: "flex",
           alignItems: "center",
@@ -180,7 +183,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
         <span style={{ fontSize: "0.875rem" }}>{icon}</span>
         {label}
         <span style={{ fontSize: "0.625rem", opacity: 0.7 }}>{breakpointText}</span>
-      </label>
+      </div>
 
       <div style={{ display: "flex", gap: "0.5rem", alignItems: "flex-start" }}>
         <div style={{ flex: 1 }}>
@@ -210,7 +213,14 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
           onClick={handleCustomToggle}
           isPressed={showCustom}
           icon={
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              aria-hidden="true"
+              focusable="false"
+            >
               <path d="m19 7.5h-7.628c-.3089-.87389-1.1423-1.5-2.122-1.5-.97966 0-1.81309.62611-2.12197 1.5h-2.12803v1.5h2.12803c.30888.87389 1.14231 1.5 2.12197 1.5.9797 0 1.8131-.62611 2.122-1.5h7.628z"></path>
               <path d="m19 15h-2.128c-.3089-.8739-1.1423-1.5-2.122-1.5s-1.8131.6261-2.122 1.5h-7.628v1.5h7.628c.3089.8739 1.1423 1.5 2.122 1.5s1.8131-.6261 2.122-1.5h2.128z"></path>
             </svg>
@@ -329,7 +339,9 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
             value={responsiveFontSize.mobile || ""}
             isCustom={responsiveFontSize.mobileCustom || false}
             presetValue={responsiveFontSize.mobilePreset || ""}
-            customValue={responsiveFontSize.mobileCustomValue || responsiveFontSize.mobile || "1rem"}
+            customValue={
+              responsiveFontSize.mobileCustomValue || responsiveFontSize.mobile || "1rem"
+            }
             fontSizeOptions={fontSizeOptions}
             onChange={(value, isCustom, presetValue, customValue) =>
               updateResponsiveFontSize("mobile", value, isCustom, presetValue, customValue)
@@ -343,7 +355,9 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
             value={responsiveFontSize.tablet || ""}
             isCustom={responsiveFontSize.tabletCustom || false}
             presetValue={responsiveFontSize.tabletPreset || ""}
-            customValue={responsiveFontSize.tabletCustomValue || responsiveFontSize.tablet || "1rem"}
+            customValue={
+              responsiveFontSize.tabletCustomValue || responsiveFontSize.tablet || "1rem"
+            }
             fontSizeOptions={fontSizeOptions}
             onChange={(value, isCustom, presetValue, customValue) =>
               updateResponsiveFontSize("tablet", value, isCustom, presetValue, customValue)
@@ -357,7 +371,9 @@ const ResponsiveFontSizeInlineControl: React.FC<ResponsiveFontSizeControlProps> 
             value={responsiveFontSize.desktop || ""}
             isCustom={responsiveFontSize.desktopCustom || false}
             presetValue={responsiveFontSize.desktopPreset || ""}
-            customValue={responsiveFontSize.desktopCustomValue || responsiveFontSize.desktop || "1rem"}
+            customValue={
+              responsiveFontSize.desktopCustomValue || responsiveFontSize.desktop || "1rem"
+            }
             fontSizeOptions={fontSizeOptions}
             onChange={(value, isCustom, presetValue, customValue) =>
               updateResponsiveFontSize("desktop", value, isCustom, presetValue, customValue)

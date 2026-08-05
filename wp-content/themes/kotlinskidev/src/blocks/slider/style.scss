@@ -15,7 +15,7 @@
 	--swiper-pagination-bullet-vertical-gap: 0.25rem;
 	--swiper-pagination-bullet-size: 0.75rem;
 	--swiper-pagination-bullet-opacity: 1;
-	--swiper-pagination-bullet-inactive-color: black;
+	--swiper-pagination-bullet-inactive-color: var(--wp--preset--color--contrast);
 	--swiper-pagination-bullet-inactive-opacity: 0.2;
 
 	.swiper-wrapper img {

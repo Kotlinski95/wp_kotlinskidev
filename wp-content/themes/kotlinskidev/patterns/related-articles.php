@@ -147,8 +147,8 @@
             
             <?php if (has_post_thumbnail($display_post->ID)) : ?>
                 <div style="margin-bottom:0.9375rem;flex-shrink:0;">
-                    <a href="<?php echo get_permalink($display_post->ID); ?>">
-                        <img src="<?php echo get_the_post_thumbnail_url($display_post->ID, 'medium_large'); ?>" 
+                    <a href="<?php echo esc_url(get_permalink($display_post->ID)); ?>">
+                        <img src="<?php echo esc_url(get_the_post_thumbnail_url($display_post->ID, 'medium_large')); ?>"
                              alt="<?php echo esc_attr($display_post->post_title); ?>" 
                              style="width:100%;height:11.25rem;object-fit:contain;border-radius:0.875rem;" />
                     </a>
@@ -187,30 +187,30 @@
             </div>
             
             <h3 style="margin-bottom:1.25rem;font-size:1.25rem;font-weight:600;flex-shrink:0;">
-                <a href="<?php echo get_permalink($display_post->ID); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                <a href="<?php echo esc_url(get_permalink($display_post->ID)); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
                     <?php echo esc_html($display_post->post_title); ?>
                 </a>
             </h3>
-            
+
             <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.5625rem;flex-grow:1;">
-                <?php 
+                <?php
                 $excerpt = $display_post->post_excerpt;
                 if (empty($excerpt)) {
                     $excerpt = $display_post->post_content;
                 }
-                echo wp_trim_words($excerpt, 25, '...');
+                echo esc_html(wp_trim_words($excerpt, 25, '...'));
                 ?>
             </div>
-            
+
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">
                 <div class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;display:flex;flex-wrap:wrap;row-gap:0.3125rem;">
-                    <?php 
+                    <?php
                     if (!empty($post_categories)) {
                         echo esc_html($post_categories[0]->name);
                     }
                     ?>
                 </div>
-                <a href="<?php echo get_permalink($display_post->ID); ?>" 
+                <a href="<?php echo esc_url(get_permalink($display_post->ID)); ?>"
                    class="search-link">
                     <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
                 </a>

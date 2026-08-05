@@ -36,10 +36,14 @@ interface FormatEditProps {
 }
 
 function extractStyleProp(styleStr: string | undefined, prop: string): string | undefined {
-  if (!styleStr) return undefined;
+  if (!styleStr) {
+    return undefined;
+  }
   const prefix = `${prop}:`;
   const idx = styleStr.indexOf(prefix);
-  if (idx === -1) return undefined;
+  if (idx === -1) {
+    return undefined;
+  }
   const raw = styleStr.slice(idx + prefix.length);
   const end = raw.indexOf(";");
   return (end === -1 ? raw : raw.slice(0, end)).trim() || undefined;
@@ -83,7 +87,9 @@ function GradientPickerButton({
   onChangeRef.current = onChange;
 
   useEffect(() => {
-    if (isOpen) return;
+    if (isOpen) {
+      return;
+    }
     if (value.start !== undefined && value.end !== undefined && value.start !== value.end) {
       capturedValueRef.current = value;
     }
@@ -123,7 +129,9 @@ function GradientPickerButton({
   const popoverAnchor = isOpen ? (frozenAnchorRef.current ?? liveAnchor) : liveAnchor;
 
   useEffect(() => {
-    if (!isEitherActive) setIsOpen(false);
+    if (!isEitherActive) {
+      setIsOpen(false);
+    }
   }, [isEitherActive]);
 
   const preventEditorBlur = (e: React.MouseEvent) => {

@@ -46,19 +46,19 @@ if ( $effective_placement === 'outside' ) {
 $counter  = $arrows_position !== 'sides' ? '<span class="carousel-nav__counter"></span>' : '';
 $nav_html = '<div class="' . $nav_class . '"><div class="swiper-button-prev"></div>' . $counter . '<div class="swiper-button-next"></div></div>';
 ?>
-<div <?php echo $wrapper_attributes; ?>>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<div class="swiper hero-carousel__swiper" data-carousel-settings="<?php echo esc_attr( $settings ); ?>">
 		<div class="swiper-wrapper">
-			<?php echo $slides_html; ?>
+			<?php echo $slides_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from $slide_block->render(), WP core's own self-escaping block render pipeline ?>
 		</div>
 		<?php if ( $show_arrows && $effective_placement === 'inside' ) : ?>
-			<?php echo $nav_html; ?>
+			<?php echo $nav_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from static markup plus esc_attr()-wrapped values only ?>
 		<?php endif; ?>
 		<?php if ( $show_pagination && $effective_placement === 'inside' && $arrows_position === 'sides' ) : ?>
 			<div class="swiper-pagination"></div>
 		<?php endif; ?>
 	</div>
 	<?php if ( $show_arrows && $effective_placement === 'outside' ) : ?>
-		<?php echo $nav_html; ?>
+		<?php echo $nav_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from static markup plus esc_attr()-wrapped values only ?>
 	<?php endif; ?>
 </div>

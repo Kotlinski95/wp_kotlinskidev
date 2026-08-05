@@ -66,7 +66,7 @@ if (!empty($categories)) :
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5625rem;">
                 <span class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;font-weight:600;">
-                <?php echo $post_count; ?> <?php echo $post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev'); ?>
+                <?php echo absint($post_count); ?> <?php echo $post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev'); ?>
                 </span>
                 <span style="color:var(--wp--preset--color--foreground-alt);font-size:0.875rem;">
                 <?php 

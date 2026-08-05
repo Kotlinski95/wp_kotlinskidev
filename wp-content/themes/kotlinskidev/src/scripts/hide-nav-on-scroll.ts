@@ -5,7 +5,9 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   const mobileFooterNav = document.querySelector(".mobile-footer-nav") as HTMLElement;
   const scrollToTop = document.querySelector(".kotlinskidev-scrollto-top") as HTMLElement;
 
-  if (!header && !mobileFooterNav) return;
+  if (!header && !mobileFooterNav) {
+    return;
+  }
 
   let lastScrollTop = 0;
   const scrollThreshold = 10;
@@ -24,16 +26,28 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   };
 
   const showNav = () => {
-    if (header) header.classList.remove("nav-hidden");
-    if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");
-    if (scrollToTop) scrollToTop.classList.remove("mobile-nav-hidden");
+    if (header) {
+      header.classList.remove("nav-hidden");
+    }
+    if (mobileFooterNav) {
+      mobileFooterNav.classList.remove("nav-hidden");
+    }
+    if (scrollToTop) {
+      scrollToTop.classList.remove("mobile-nav-hidden");
+    }
     toggleCookieButtonClass(false);
   };
 
   const hideNav = () => {
-    if (header) header.classList.add("nav-hidden");
-    if (mobileFooterNav) mobileFooterNav.classList.add("nav-hidden");
-    if (scrollToTop) scrollToTop.classList.add("mobile-nav-hidden");
+    if (header) {
+      header.classList.add("nav-hidden");
+    }
+    if (mobileFooterNav) {
+      mobileFooterNav.classList.add("nav-hidden");
+    }
+    if (scrollToTop) {
+      scrollToTop.classList.add("mobile-nav-hidden");
+    }
     toggleCookieButtonClass(true);
   };
 
@@ -48,7 +62,9 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
     const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
     const scrollDiff = Math.abs(scrollTop - lastScrollTop);
 
-    if (scrollDiff < scrollThreshold) return;
+    if (scrollDiff < scrollThreshold) {
+      return;
+    }
 
     if (scrollTop < topThreshold || isNearBottom(scrollTop)) {
       showNav();
@@ -70,7 +86,9 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   let removeScrollListener: (() => void) | null = null;
 
   const enableScrollHide = () => {
-    if (isListening) return;
+    if (isListening) {
+      return;
+    }
 
     handleScroll();
 
@@ -79,7 +97,9 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   };
 
   const disableScrollHide = () => {
-    if (!isListening) return;
+    if (!isListening) {
+      return;
+    }
 
     removeScrollListener?.();
     removeScrollListener = null;

@@ -11,6 +11,8 @@ $page-content: 73.75rem; // 1180px -> 73.75rem
 // Colors
 $black: #191919;
 $white: #f2f2f2;
+$color-error: #dc3545;
+$kt-gradient-fallback: linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast));
 
 // Breakpoints
 $desktop: 64rem; // 1024px -> 64rem

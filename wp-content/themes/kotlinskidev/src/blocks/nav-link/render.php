@@ -45,4 +45,4 @@ $kotlinskidev_nav_link_description_html = $kotlinskidev_nav_link_description !==
 	? '<span class="wp-block-navigation-item__description">' . esc_html( $kotlinskidev_nav_link_description ) . '</span>'
 	: '';
 ?>
-<a <?php echo get_block_wrapper_attributes( $kotlinskidev_nav_link_attrs ); ?> href="<?php echo esc_url( $kotlinskidev_nav_link_url ); ?>"<?php echo $kotlinskidev_nav_link_opens_new_tab ? ' target="_blank"' : ''; ?>><?php echo $kotlinskidev_nav_link_label_html . $kotlinskidev_nav_link_description_html; ?></a>
+<a <?php echo get_block_wrapper_attributes( $kotlinskidev_nav_link_attrs ); ?> href="<?php echo esc_url( $kotlinskidev_nav_link_url ); ?>"<?php echo $kotlinskidev_nav_link_opens_new_tab ? ' target="_blank"' : ''; ?>><?php echo $kotlinskidev_nav_link_label_html . $kotlinskidev_nav_link_description_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- both html fragments are wp_kses_post()/esc_html() wrapped at construction above ?></a>

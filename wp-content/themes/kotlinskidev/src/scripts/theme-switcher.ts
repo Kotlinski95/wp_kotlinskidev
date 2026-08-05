@@ -13,7 +13,9 @@ type ThemeSwitcherConfig = {
     const lightIcon = document.querySelector(".icon.light") as HTMLElement;
     const darkIcon = document.querySelector(".icon.dark") as HTMLElement;
 
-    if (!themeToggleButton) return;
+    if (!themeToggleButton) {
+      return;
+    }
 
     const translations = (window as any).i18n?.themeSwitcher || {
       lightMode: "Switch between dark and light mode (currently light mode)",

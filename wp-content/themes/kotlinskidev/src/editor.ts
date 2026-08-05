@@ -20,3 +20,4 @@ import "./blocks/animated-counter/index.tsx";
 import "./blocks/navigation/nav-icon-filter.tsx";
 import "./blocks/button-styles/index";
 import "./blocks/text-shadow-support/index";
+import "./blocks/above-fold/index.tsx";

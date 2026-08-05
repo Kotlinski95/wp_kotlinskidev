@@ -86,6 +86,9 @@ Thumbs.db
 # Ignore node modules
 node_modules
 
+# Ignore composer vendor directory
+vendor
+
 # Ingore dist folders
 dist
 
@@ -126,3 +129,4 @@ build
 *.code-workspace
 # Local environment secrets (MCP API keys etc.) — commit .env.example only
 .env
+.aider*

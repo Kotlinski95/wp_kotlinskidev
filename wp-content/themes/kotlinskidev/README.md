@@ -46,7 +46,7 @@ npm run test:e2e       # End-to-end tests
 
 ## Project Structure
 
-```
+```text
 ├── .claude/           Claude Code project rules
 ├── assets/            Fonts, icons, static images (WebP)
 ├── build/             Compiled output — do not edit manually, not committed

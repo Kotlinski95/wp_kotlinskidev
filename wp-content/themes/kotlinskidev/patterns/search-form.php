@@ -5,14 +5,16 @@
  * Categories: search, kotlinskidev/search, themeslug/custom
  */
 $current_search = get_search_query();
-$current_category = isset($_GET['search_category']) ? sanitize_text_field($_GET['search_category']) : '';
-$current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_type']) : '';
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search filter selection, no state change
+$current_category = isset($_GET['search_category']) ? sanitize_text_field(wp_unslash($_GET['search_category'])) : '';
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search filter selection, no state change
+$current_type = isset($_GET['search_type']) ? sanitize_text_field(wp_unslash($_GET['search_type'])) : '';
 
 // Detect current language context and set appropriate search URL dynamically
 $search_action_url = home_url('/');
 
 // Get current URL path to detect language prefix
-$current_url = $_SERVER['REQUEST_URI'];
+$current_url = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
 $parsed_url = parse_url($current_url);
 $full_path = isset($parsed_url['path']) ? trim($parsed_url['path'], '/') : '';
 
@@ -109,7 +111,7 @@ elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $relative_path, $matche
                     ));
                     foreach ($categories as $category) {
                         echo '<option value="' . esc_attr($category->slug) . '"' . selected($current_category, $category->slug, false) . '>';
-                        echo esc_html($category->name) . ' (' . $category->count . ')';
+                        echo esc_html($category->name) . ' (' . absint($category->count) . ')';
                         echo '</option>';
                     }
                     ?>

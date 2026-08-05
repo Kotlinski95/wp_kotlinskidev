@@ -42,7 +42,9 @@ function watchForTransformChange(pageWrapper: HTMLElement, onChange: () => void)
   let lastTransform = "__init__";
   gsap.ticker.add(() => {
     const current = pageWrapper.style.transform;
-    if (current === lastTransform) return;
+    if (current === lastTransform) {
+      return;
+    }
     lastTransform = current;
     onChange();
   });
@@ -63,7 +65,9 @@ function watchParentResize(
 }
 
 function mountStickyPortal(el: HTMLElement, pageWrapper: HTMLElement): void {
-  if (!el.closest(".wp-block-columns")) return;
+  if (!el.closest(".wp-block-columns")) {
+    return;
+  }
 
   const stickyParent = el.parentElement!;
   const topOffset = readStickyTopOffset(el);
@@ -78,13 +82,17 @@ function mountStickyPortal(el: HTMLElement, pageWrapper: HTMLElement): void {
   let placeholderVisible = false;
   const sync = () => alignHostToPlaceholder(host, placeholder, stickyParent);
   const syncIfVisible = () => {
-    if (placeholderVisible) sync();
+    if (placeholderVisible) {
+      sync();
+    }
   };
 
   new IntersectionObserver((entries) => {
     placeholderVisible = entries[0].isIntersecting;
     host.style.visibility = placeholderVisible ? "visible" : "hidden";
-    if (placeholderVisible) sync();
+    if (placeholderVisible) {
+      sync();
+    }
   }).observe(stickyParent);
 
   watchForTransformChange(pageWrapper, syncIfVisible);
@@ -97,7 +105,9 @@ function mountStickyPortal(el: HTMLElement, pageWrapper: HTMLElement): void {
 // preserves the original column layout.
 function initGsapSticky(): void {
   const pageWrapper = document.querySelector<HTMLElement>(".main-wrapper");
-  if (!pageWrapper || !document.querySelector(".scroll-section")) return;
+  if (!pageWrapper || !document.querySelector(".scroll-section")) {
+    return;
+  }
 
   document
     .querySelectorAll<HTMLElement>(".is-kotlinskidev-sticky")

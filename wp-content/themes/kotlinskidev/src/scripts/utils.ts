@@ -50,7 +50,7 @@ export function getScrollOffsets(): ThemeScrollOffsets {
 
 /**
  * Check if current viewport width is considered mobile
- * @returns true if viewport is below the desktop breakpoint
+ * @return true if viewport is below the desktop breakpoint
  */
 export function isMobile(): boolean {
   return window.innerWidth < getBreakpoints().desktop_min;
@@ -58,9 +58,9 @@ export function isMobile(): boolean {
 
 /**
  * Execute callback on screen size changes (mobile/desktop transitions)
- * @param callback Function to call with isMobile state
+ * @param callback   Function to call with isMobile state
  * @param debounceMs Debounce delay in milliseconds (default: 150)
- * @returns Cleanup function to remove listener
+ * @return Cleanup function to remove listener
  */
 export function onScreenSizeChange(
   callback: (isMobile: boolean) => void,
@@ -81,7 +81,7 @@ export function onScreenSizeChange(
 
 /**
  * Initialize functionality only on mobile devices
- * @param onMobile Function to call when mobile
+ * @param onMobile  Function to call when mobile
  * @param onDesktop Optional function to call when desktop
  */
 export function initMobileOnly(onMobile: () => void, onDesktop?: () => void): void {
@@ -108,7 +108,9 @@ export function scrollTo(top: number, behavior: ScrollBehavior = "smooth") {
 export function rafThrottle<A extends unknown[]>(func: (...args: A) => void): (...args: A) => void {
   let ticking = false;
   return (...args: A) => {
-    if (ticking) return;
+    if (ticking) {
+      return;
+    }
     ticking = true;
     requestAnimationFrame(() => {
       func(...args);

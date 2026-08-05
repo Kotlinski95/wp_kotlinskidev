@@ -29,7 +29,7 @@ function maintenance_mode_settings_page()
 {
 ?>
     <div class="wrap">
-        <h1><?php _e('Maintenance Mode Settings', 'your-theme'); ?></h1>
+        <h1><?php esc_html_e('Maintenance Mode Settings', 'your-theme'); ?></h1>
         <form method="post" action="options.php">
             <?php
             settings_fields('maintenance_mode_options');
@@ -280,7 +280,7 @@ function maintenance_mode_enabled_field()
 {
     $checked = get_option('maintenance_mode_enabled', false) ? 'checked' : '';
     echo '<input type="checkbox" name="maintenance_mode_enabled" value="1" ' .
-        $checked .
+        esc_attr($checked) .
         '> Enable Maintenance Mode';
 }
 
@@ -451,7 +451,7 @@ function maintenance_mode_language_switcher_field()
     $show_switcher = get_option('maintenance_mode_show_language_switcher', true);
     $checked = $show_switcher ? 'checked' : '';
 
-    echo '<input type="checkbox" name="maintenance_mode_show_language_switcher" value="1" ' . $checked . '> Show language switcher with flags';
+    echo '<input type="checkbox" name="maintenance_mode_show_language_switcher" value="1" ' . esc_attr($checked) . '> Show language switcher with flags';
     echo '<br><small>Display a language dropdown with flags on the maintenance page for visitors to switch languages.</small>';
 }
 
@@ -484,7 +484,7 @@ function maintenance_mode_social_media_field()
 
         echo '<div style="background: #f9f9f9; padding: 0.9375rem; border-radius: 0.5rem; border: 0.0625rem solid #ddd;">';
         echo '<label style="display: block; font-weight: bold; margin-bottom: 0.5rem;">';
-        echo '<span style="margin-right: 0.5rem;">' . $details['icon'] . '</span>';
+        echo '<span style="margin-right: 0.5rem;">' . esc_html($details['icon']) . '</span>';
         echo esc_html($details['name']);
         echo '</label>';
         echo '<input type="url" name="' . esc_attr($option_name) . '" value="' . esc_attr($value) . '" style="width: 100%;" placeholder="Enter ' . esc_attr($details['name']) . ' URL">';
@@ -947,8 +947,11 @@ function get_maintenance_current_language()
     $languages = pll_languages_list();
 
     // First, check for URL parameter (for language switcher)
-    if (isset($_GET['lang']) && in_array($_GET['lang'], $languages)) {
-        return $_GET['lang'];
+    if (isset($_GET['lang'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only locale lookup, no state change
+        $lang_param = sanitize_text_field(wp_unslash($_GET['lang'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only locale lookup, no state change
+        if (in_array($lang_param, $languages, true)) {
+            return $lang_param;
+        }
     }
 
     // Try to get language from Polylang
@@ -960,7 +963,8 @@ function get_maintenance_current_language()
     }
 
     // If no language detected, try to get from browser
-    $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '', 0, 2);
+    $accept_language = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE'])) : '';
+    $browser_lang = substr($accept_language, 0, 2);
 
     // Check if browser language is available
     if (in_array($browser_lang, $languages)) {
@@ -1059,8 +1063,8 @@ function get_maintenance_flag_url($lang)
 // Get language URL for maintenance page
 function get_maintenance_language_url($lang)
 {
-    // Build the URL with language parameter
-    $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
+    $current_url = home_url($request_uri);
 
     // Remove existing language parameter if present
     $current_url = preg_replace('/[?&]lang=[^&]*/', '', $current_url);

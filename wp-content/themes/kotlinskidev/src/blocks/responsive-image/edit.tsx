@@ -1,6 +1,11 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, MediaUpload, MediaUploadCheck, InspectorControls } from "@wordpress/block-editor";
+import {
+  useBlockProps,
+  MediaUpload,
+  MediaUploadCheck,
+  InspectorControls,
+} from "@wordpress/block-editor";
 import { Button, PanelBody, TextControl, RangeControl, SelectControl } from "@wordpress/components";
 
 type LoadingStrategy = "lazy" | "eager" | "auto";
@@ -70,33 +75,45 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
         <strong>{__("Desktop Image", "kotlinskidev")}</strong>
         <MediaUploadCheck>
           <MediaUpload
-            onSelect={(media: MediaObject) => setAttributes({ desktopImageUrl: media.url, desktopImageId: media.id })}
+            onSelect={(media: MediaObject) =>
+              setAttributes({ desktopImageUrl: media.url, desktopImageId: media.id })
+            }
             allowedTypes={["image"]}
             value={desktopImageId}
             render={({ open }: { open: () => void }) => (
               <Button onClick={open} isSecondary>
-                {desktopImageUrl ? __("Replace Image", "kotlinskidev") : __("Select Image", "kotlinskidev")}
+                {desktopImageUrl
+                  ? __("Replace Image", "kotlinskidev")
+                  : __("Select Image", "kotlinskidev")}
               </Button>
             )}
           />
         </MediaUploadCheck>
-        {desktopImageUrl && <img src={desktopImageUrl} alt={alt} style={{ maxWidth: "100%", marginTop: 8 }} />}
+        {desktopImageUrl && (
+          <img src={desktopImageUrl} alt={alt} style={{ maxWidth: "100%", marginTop: 8 }} />
+        )}
       </div>
       <div>
         <strong>{__("Mobile Image (optional)", "kotlinskidev")}</strong>
         <MediaUploadCheck>
           <MediaUpload
-            onSelect={(media: MediaObject) => setAttributes({ mobileImageUrl: media.url, mobileImageId: media.id })}
+            onSelect={(media: MediaObject) =>
+              setAttributes({ mobileImageUrl: media.url, mobileImageId: media.id })
+            }
             allowedTypes={["image"]}
             value={mobileImageId}
             render={({ open }: { open: () => void }) => (
               <Button onClick={open} isSecondary>
-                {mobileImageUrl ? __("Replace Image", "kotlinskidev") : __("Select Image", "kotlinskidev")}
+                {mobileImageUrl
+                  ? __("Replace Image", "kotlinskidev")
+                  : __("Select Image", "kotlinskidev")}
               </Button>
             )}
           />
         </MediaUploadCheck>
-        {mobileImageUrl && <img src={mobileImageUrl} alt={alt} style={{ maxWidth: "100%", marginTop: 8 }} />}
+        {mobileImageUrl && (
+          <img src={mobileImageUrl} alt={alt} style={{ maxWidth: "100%", marginTop: 8 }} />
+        )}
       </div>
     </div>
   );

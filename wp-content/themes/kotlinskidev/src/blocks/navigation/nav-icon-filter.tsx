@@ -17,7 +17,9 @@ addFilter(
   "kotlinskidev/nav-icon-attr",
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (settings: any, name: string) => {
-    if (!NAV_ICON_BLOCKS.includes(name)) return settings;
+    if (!NAV_ICON_BLOCKS.includes(name)) {
+      return settings;
+    }
     return {
       ...settings,
       attributes: {
@@ -34,7 +36,9 @@ const withNavIconControl = createHigherOrderComponent(
   (BlockEdit: React.ComponentType<any>) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (props: any) => {
-      if (!NAV_ICON_BLOCKS.includes(props.name)) return <BlockEdit {...props} />;
+      if (!NAV_ICON_BLOCKS.includes(props.name)) {
+        return <BlockEdit {...props} />;
+      }
       const navIconId: number = props.attributes.navIconId ?? 0;
       const navIconUrl: string = props.attributes.navIconUrl ?? "";
       return (

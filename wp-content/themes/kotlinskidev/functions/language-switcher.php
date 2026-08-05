@@ -26,9 +26,9 @@ function render_language_switcher()
     foreach ($languages as $locale => $data) {
         // Redirect to homepages based on locale
         $current_url = ($locale === 'pl_PL') ? home_url('/pl/') : home_url('/');
-        $class = ($locale === $current_locale) ? 'class="active"' : '';
+        $active_class = ($locale === $current_locale) ? 'active' : '';
 
-        echo '<li><a href="' . esc_url($current_url) . '" ' . $class . '>';
+        echo '<li><a href="' . esc_url($current_url) . '" class="' . esc_attr($active_class) . '">';
         echo '<img src="' . esc_url($data['flag']) . '" alt="' . esc_attr($data['name']) . '" class="language-flag" />';
         echo esc_html($data['name']);
         echo '</a></li>';
@@ -48,11 +48,11 @@ function render_language_switcher_shortcode()
 add_shortcode('language_switcher', 'render_language_switcher_shortcode');
 
 add_action('init', function () {
-    if (isset($_GET['lang'])) {
-        $locale = sanitize_text_field($_GET['lang']);
+    if (isset($_GET['lang'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only locale switch, value is whitelisted against a fixed list before use, no state change
+        $locale = sanitize_text_field(wp_unslash($_GET['lang'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only locale switch, value is whitelisted against a fixed list before use, no state change
         if (in_array($locale, ['en_US', 'pl_PL'])) {
             $home_url = ($locale === 'pl_PL') ? home_url('/pl/') : home_url('/');
-            wp_redirect($home_url);
+            wp_safe_redirect($home_url);
             exit;
         }
     }

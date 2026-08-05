@@ -1,0 +1,14 @@
+title = "kotlinskidev gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated/vendored dirs inside the theme itself — not our secrets"
+paths = [
+  '''node_modules''',
+  '''vendor''',
+  '''build''',
+  '''package-lock\.json''',
+  '''composer\.lock''',
+]

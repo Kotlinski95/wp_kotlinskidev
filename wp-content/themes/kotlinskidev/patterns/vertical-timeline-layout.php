@@ -14,17 +14,17 @@
             <!-- wp:group {"className":"timeline-item"} -->
             <div class="wp-block-group timeline-item">
                 <!-- wp:heading {"level":3} -->
-                <h3 class="wp-block-heading">Started Freelancing</h3>
+                <h3 class="wp-block-heading"><?php esc_html_e('Started Freelancing', 'kotlinskidev') ?></h3>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph -->
-                <p>Began my journey by building WordPress sites and helping small businesses get online.</p>
+                <p><?php esc_html_e('Began my journey by building WordPress sites and helping small businesses get online.', 'kotlinskidev') ?></p>
                 <!-- /wp:paragraph -->
 
                 <!-- wp:buttons -->
                 <div class="wp-block-buttons">
                     <!-- wp:button -->
-                    <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#projects">View Projects</a></div>
+                    <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#projects"><?php esc_html_e('View Projects', 'kotlinskidev') ?></a></div>
                     <!-- /wp:button -->
                 </div>
                 <!-- /wp:buttons -->
@@ -50,17 +50,17 @@
             <!-- wp:group {"className":"timeline-item"} -->
             <div class="wp-block-group timeline-item">
                 <!-- wp:heading {"level":3} -->
-                <h3 class="wp-block-heading">Joined Agency</h3>
+                <h3 class="wp-block-heading"><?php esc_html_e('Joined Agency', 'kotlinskidev') ?></h3>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph -->
-                <p>Worked with a team to develop Angular and Next.js projects for clients in e-commerce and tech.</p>
+                <p><?php esc_html_e('Worked with a team to develop Angular and Next.js projects for clients in e-commerce and tech.', 'kotlinskidev') ?></p>
                 <!-- /wp:paragraph -->
 
                 <!-- wp:buttons -->
                 <div class="wp-block-buttons">
                     <!-- wp:button -->
-                    <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#services">See What I Offer Now</a></div>
+                    <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#services"><?php esc_html_e('See What I Offer Now', 'kotlinskidev') ?></a></div>
                     <!-- /wp:button -->
                 </div>
                 <!-- /wp:buttons -->
@@ -78,17 +78,17 @@
             <!-- wp:group {"className":"timeline-item"} -->
             <div class="wp-block-group timeline-item">
                 <!-- wp:heading {"level":3} -->
-                <h3 class="wp-block-heading">Specialized in Performance</h3>
+                <h3 class="wp-block-heading"><?php esc_html_e('Specialized in Performance', 'kotlinskidev') ?></h3>
                 <!-- /wp:heading -->
 
                 <!-- wp:paragraph -->
-                <p>Focused on optimizing websites for Core Web Vitals, speed, and smooth UX across all devices.</p>
+                <p><?php esc_html_e('Focused on optimizing websites for Core Web Vitals, speed, and smooth UX across all devices.', 'kotlinskidev') ?></p>
                 <!-- /wp:paragraph -->
 
                 <!-- wp:buttons -->
                 <div class="wp-block-buttons">
                     <!-- wp:button -->
-                    <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#performance">Check Optimization Services</a></div>
+                    <div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#performance"><?php esc_html_e('Check Optimization Services', 'kotlinskidev') ?></a></div>
                     <!-- /wp:button -->
                 </div>
                 <!-- /wp:buttons -->

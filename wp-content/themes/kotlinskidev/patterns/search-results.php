@@ -5,8 +5,10 @@
  * Categories: search, kotlinskidev/search, themeslug/custom
  */
 $search_query = get_search_query();
-$current_category = isset($_GET['search_category']) ? sanitize_text_field($_GET['search_category']) : '';
-$current_type = isset($_GET['search_type']) ? sanitize_text_field($_GET['search_type']) : '';
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search filter selection, no state change
+$current_category = isset($_GET['search_category']) ? sanitize_text_field(wp_unslash($_GET['search_category'])) : '';
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search filter selection, no state change
+$current_type = isset($_GET['search_type']) ? sanitize_text_field(wp_unslash($_GET['search_type'])) : '';
 
 if (!empty($search_query)) :
     // Build enhanced search arguments
@@ -50,7 +52,7 @@ if (!empty($search_query)) :
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.9375rem;">
                 <div>
                     <h3 style="margin:0;color:var(--wp--preset--color--foreground-alt);font-size:1.25rem;">
-                        <?php printf(esc_html__('Found %d results', 'kotlinskidev'), $search_results->found_posts); ?>
+                        <?php printf(esc_html__('Found %d results', 'kotlinskidev'), absint($search_results->found_posts)); ?>
                     </h3>
                     <p style="margin:0.3125rem 0 0 0;color:var(--wp--preset--color--foreground-alt);font-size:0.875rem;">
                         <?php printf(esc_html__('Showing results for "%s"', 'kotlinskidev'), '<strong>' . esc_html($search_query) . '</strong>'); ?>
@@ -60,14 +62,14 @@ if (!empty($search_query)) :
                         <?php if (!empty($current_type)) : ?>
                             <?php 
                             $type_label = ($current_type === 'post') ? esc_html__('Articles', 'kotlinskidev') : esc_html__('Pages', 'kotlinskidev');
-                            printf(esc_html__(' • %s only', 'kotlinskidev'), '<strong>' . $type_label . '</strong>');
+                            printf(esc_html__(' • %s only', 'kotlinskidev'), '<strong>' . $type_label . '</strong>'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $type_label is built exclusively from esc_html__() calls above
                             ?>
                         <?php endif; ?>
                     </p>
                 </div>
                 <?php if ($search_results->max_num_pages > 1) : ?>
                 <div style="font-size:0.875rem;" class="link-dark-variant-support kt-gradient-text">
-                    <?php printf(esc_html__('Page %d of %d', 'kotlinskidev'), max(1, get_query_var('paged', 1)), $search_results->max_num_pages); ?>
+                    <?php printf(esc_html__('Page %d of %d', 'kotlinskidev'), absint(max(1, get_query_var('paged', 1))), absint($search_results->max_num_pages)); ?>
                 </div>
                 <?php endif; ?>
             </div>
@@ -130,7 +132,7 @@ if (!empty($search_query)) :
                     
                     <!-- Search-optimized excerpt -->
                     <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.9375rem;line-height:1.6;">
-                        <?php echo $search_excerpt; ?>
+                        <?php echo $search_excerpt; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_get_search_excerpt() returns output already escaped via kotlinskidev_highlight_search_terms() ?>
                     </div>
                     
                     <!-- Tags (for articles) -->
@@ -140,7 +142,7 @@ if (!empty($search_query)) :
                         <div style="margin-bottom:0.9375rem;">
                             <?php foreach (array_slice($tags, 0, 3) as $tag) : ?>
                                 <span class="kt-gradient-pill" style="padding:0.25rem 0.5rem;border-radius:0.5rem;font-size:0.75rem;margin-right:0.5rem;">
-                                    #<?php echo $tag->name; ?>
+                                    #<?php echo esc_html($tag->name); ?>
                                 </span>
                             <?php endforeach; ?>
                         </div>
@@ -189,7 +191,7 @@ if (!empty($search_query)) :
                             $link = str_replace('</a>', '</span>', $link);
                         }
                     }
-                    echo $link;
+                    echo $link; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $link comes from WP core's paginate_links() array output, only modified via fixed str_replace/preg_replace patterns, no user input involved
                 }
             }
             ?>

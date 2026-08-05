@@ -9,13 +9,19 @@ interface ResponsiveImageAttributes {
   loading?: "lazy" | "eager" | "auto";
 }
 
-export default function save({ attributes }: { attributes: ResponsiveImageAttributes }): React.ReactElement {
+export default function save({
+  attributes,
+}: {
+  attributes: ResponsiveImageAttributes;
+}): React.ReactElement {
   const { desktopImageUrl, mobileImageUrl, alt, breakpoint = 767, loading = "lazy" } = attributes;
 
   return (
     <div {...useBlockProps.save()}>
       <picture>
-        {mobileImageUrl && <source srcSet={mobileImageUrl} media={`(max-width: ${breakpoint}px)`} />}
+        {mobileImageUrl && (
+          <source srcSet={mobileImageUrl} media={`(max-width: ${breakpoint}px)`} />
+        )}
         <img src={desktopImageUrl || mobileImageUrl} alt={alt} loading={loading} />
       </picture>
     </div>

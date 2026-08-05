@@ -72,11 +72,11 @@ $other_categories = get_categories(array(
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;font-size:0.875rem;flex-shrink:0;">
                 <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
-                <?php echo $category->count; ?> <?php echo $category->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
+                <?php echo absint($category->count); ?> <?php echo $category->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
                 </span>
                 <?php if ($last_updated) : ?>
                 <span style="color:var(--wp--preset--color--foreground-alt);">
-                    <?php printf(esc_html__('Updated %s', 'kotlinskidev'), $last_updated); ?>
+                    <?php printf(esc_html__('Updated %s', 'kotlinskidev'), esc_html($last_updated)); ?>
                 </span>
                 <?php endif; ?>
             </div>

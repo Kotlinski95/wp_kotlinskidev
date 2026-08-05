@@ -19,7 +19,9 @@ const collapseSubmenuTree = (submenu: HTMLElement) => {
 
 const setSubmenuTabbable = (toggle: HTMLButtonElement, expanded: boolean) => {
   const submenu = getSubmenuContainer(toggle);
-  if (!submenu) return;
+  if (!submenu) {
+    return;
+  }
   if (expanded) {
     submenu
       .querySelectorAll<HTMLElement>(
@@ -42,7 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelectorAll<HTMLElement>(".wp-block-navigation__responsive-container")
     .forEach((container) => {
       let wasOpen = container.classList.contains("is-menu-open");
-      if (wasOpen) lockScroll(LOCK_OWNER);
+      if (wasOpen) {
+        lockScroll(LOCK_OWNER);
+      }
 
       container.addEventListener("transitionend", (e) => {
         if (e.target === container && e.propertyName === "max-width") {
@@ -61,7 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
           closeBtn?.focus();
           const redirectInitialFocus = (e: FocusEvent) => {
             container.removeEventListener("focusin", redirectInitialFocus);
-            if (e.target !== closeBtn) closeBtn?.focus();
+            if (e.target !== closeBtn) {
+              closeBtn?.focus();
+            }
           };
           container.addEventListener("focusin", redirectInitialFocus);
         } else if (!isOpen && wasOpen) {
@@ -116,7 +122,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const toggle = (e.target as Element).closest<HTMLButtonElement>(
         ".wp-block-navigation-submenu__toggle"
       );
-      if (!toggle) return;
+      if (!toggle) {
+        return;
+      }
       e.stopImmediatePropagation();
       const parentContainer = toggle.closest(
         ".wp-block-navigation__submenu-container, .wp-block-navigation__container"

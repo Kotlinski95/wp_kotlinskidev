@@ -19,4 +19,4 @@ $kotlinskidev_nav_paragraph_content_html = $kotlinskidev_nav_paragraph_style !==
 	? '<span style="' . esc_attr( $kotlinskidev_nav_paragraph_style ) . '">' . $kotlinskidev_nav_paragraph_content_html . '</span>'
 	: $kotlinskidev_nav_paragraph_content_html;
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>><?php echo $kotlinskidev_nav_paragraph_content_html; ?></p>
+<p <?php echo get_block_wrapper_attributes(); ?>><?php echo $kotlinskidev_nav_paragraph_content_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built via nl2br(esc_html()) plus an esc_attr()-wrapped inline style, no raw input reaches output ?></p>

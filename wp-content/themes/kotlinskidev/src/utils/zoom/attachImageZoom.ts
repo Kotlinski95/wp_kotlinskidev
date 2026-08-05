@@ -28,7 +28,6 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   let panStartTranslateY = 0;
   let isPanning = false;
 
-  let isMousePanning = false;
   let mouseDragged = false;
 
   const img = (): HTMLElement | null => container.querySelector<HTMLElement>("img");
@@ -41,14 +40,18 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
 
   const applyTransform = () => {
     const el = img();
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     el.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
     el.style.transformOrigin = "0 0";
   };
 
   const reset = (animate = true) => {
     const el = img();
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     currentScale = 1;
     translateX = 0;
     translateY = 0;
@@ -78,8 +81,12 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   const onMouseMove = (e: MouseEvent) => {
     const dx = e.clientX - panStartX;
     const dy = e.clientY - panStartY;
-    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) mouseDragged = true;
-    if (!mouseDragged) return;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+      mouseDragged = true;
+    }
+    if (!mouseDragged) {
+      return;
+    }
     translateX = panStartTranslateX + dx;
     translateY = panStartTranslateY + dy;
     clampTranslate();
@@ -87,18 +94,20 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   };
 
   const onMouseUp = () => {
-    isMousePanning = false;
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", onMouseUp);
     const el = img();
-    if (el && isZoomedIn) el.style.cursor = "grab";
+    if (el && isZoomedIn) {
+      el.style.cursor = "grab";
+    }
   };
 
   const onMouseDown = (e: MouseEvent) => {
     mouseDragged = false;
-    if (!isZoomedIn) return;
+    if (!isZoomedIn) {
+      return;
+    }
     e.preventDefault();
-    isMousePanning = true;
     panStartX = e.clientX;
     panStartY = e.clientY;
     panStartTranslateX = translateX;
@@ -114,9 +123,13 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
 
   const onImageClick = (e: MouseEvent) => {
     e.stopPropagation();
-    if (mouseDragged) return;
+    if (mouseDragged) {
+      return;
+    }
     const el = img();
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     isZoomedIn = !isZoomedIn;
 
     if (isZoomedIn) {
@@ -161,7 +174,9 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     e.preventDefault();
     e.stopImmediatePropagation();
     const el = img();
-    if (!el) return;
+    if (!el) {
+      return;
+    }
     el.style.transition = "none";
 
     if (e.touches.length === 2) {
@@ -206,7 +221,9 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     }
     if (e.touches.length === 0) {
       isPanning = false;
-      if (currentScale <= 1.05) reset(true);
+      if (currentScale <= 1.05) {
+        reset(true);
+      }
     }
   };
 
@@ -230,7 +247,9 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     container.addEventListener("touchend", onTouchEnd, { passive: false });
   } else {
     const el = img();
-    if (el) el.style.cursor = "zoom-in";
+    if (el) {
+      el.style.cursor = "zoom-in";
+    }
     container.addEventListener("mousedown", onMouseDown);
     container.addEventListener("click", onImageClick);
   }

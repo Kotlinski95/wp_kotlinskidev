@@ -22,7 +22,8 @@ add_action('wp_enqueue_scripts', 'kotlinskidev_localize_page_view_data', 20);
 
 function kotlinskidev_handle_page_view_tracking()
 {
-    if (!wp_verify_nonce($_POST['nonce'] ?? '', 'kotlinskidev_page_view_nonce')) {
+    $submitted_nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+    if (!wp_verify_nonce($submitted_nonce, 'kotlinskidev_page_view_nonce')) {
         wp_die('Security check failed');
     }
 

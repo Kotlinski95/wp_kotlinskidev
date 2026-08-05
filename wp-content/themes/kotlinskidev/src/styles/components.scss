@@ -108,10 +108,7 @@ details[open] summary {
 
 .dark-mode {
 
-	#cmplz-manage-consent-container.cmplz-manage-consent-container
-	.cmplz-categories
-	.cmplz-category
-	.cmplz-category-header {
+	#cmplz-manage-consent-container.cmplz-manage-consent-container .cmplz-categories .cmplz-category .cmplz-category-header {
 		background-color: rgba(239, 239, 239, 0.5);
 		color: $black;
 	}
@@ -139,18 +136,10 @@ details[open] summary {
 		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose .name-header,
 		#cmplz-cookies-overview .cmplz-dropdown .cookies-per-purpose .retention-header,
 		#cmplz-document .cmplz-dropdown .cookies-per-purpose .retention-header,
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		.retention-header,
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose .retention-header,
 		#cmplz-cookies-overview .cmplz-dropdown .cookies-per-purpose .function-header,
 		#cmplz-document .cmplz-dropdown .cookies-per-purpose .function-header,
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		.function-header {
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose .function-header {
 			color: $black;
 		}
 	}
@@ -169,36 +158,12 @@ details[open] summary {
 		#cmplz-document .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 5),
 		#cmplz-document .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 6),
 		#cmplz-document .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 7),
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		div:nth-child(12n + 2),
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		div:nth-child(12n + 3),
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		div:nth-child(12n + 4),
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		div:nth-child(12n + 5),
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		div:nth-child(12n + 6),
-		.editor-styles-wrapper
-		.cmplz-unlinked-mode
-		.cmplz-dropdown
-		.cookies-per-purpose
-		div:nth-child(12n + 7) {
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 2),
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 3),
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 4),
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 5),
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 6),
+		.editor-styles-wrapper .cmplz-unlinked-mode .cmplz-dropdown .cookies-per-purpose div:nth-child(12n + 7) {
 			color: $black;
 		}
 	}

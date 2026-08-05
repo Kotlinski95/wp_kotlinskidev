@@ -37,7 +37,9 @@ function PopularPagesEdit({ attributes, setAttributes }: BlockEditProps<PopularP
           <FontSizePicker
             fontSizes={fontSizes as never}
             value={attributes.titleFontSize}
-            onChange={(titleFontSize) => setAttributes({ titleFontSize: titleFontSize ?? undefined })}
+            onChange={(titleFontSize) =>
+              setAttributes({ titleFontSize: titleFontSize ?? undefined })
+            }
           />
         </PanelBody>
       </InspectorControls>

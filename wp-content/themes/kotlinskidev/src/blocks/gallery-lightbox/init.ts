@@ -4,6 +4,9 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
 
 const MODAL_ID = "gallery-lightbox-modal";
 
+const escapeAttribute = (value: string): string =>
+  value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 interface GalleryMedia {
   src: string;
   alt: string;
@@ -23,7 +26,9 @@ const parseImages = (gallery: HTMLElement): GalleryMedia[] => {
   if (isMobile && gallery.dataset.mobileImages) {
     try {
       const mobile = JSON.parse(gallery.dataset.mobileImages);
-      if (Array.isArray(mobile) && mobile.length) return mobile;
+      if (Array.isArray(mobile) && mobile.length) {
+        return mobile;
+      }
     } catch {
       // fall through to desktop
     }
@@ -61,12 +66,16 @@ const buildModalHTML = (
   } = settings;
 
   const slides = images
-    .map(({ src, alt, type, poster }, i) =>
-      type === "video"
+    .map(({ src, alt, type, poster }, i) => {
+      const safeSrc = escapeAttribute(src);
+      const safeAlt = escapeAttribute(alt);
+      const safePoster = escapeAttribute(poster);
+
+      return type === "video"
         ? `<div class="swiper-slide swiper-slide--video">
               <video
-                src="${src}"
-                ${poster ? `poster="${poster}"` : ""}
+                src="${safeSrc}"
+                ${poster ? `poster="${safePoster}"` : ""}
                 ${videoControls ? "controls" : ""}
                 ${videoLoop ? "loop" : ""}
                 ${videoMuted || videoAutoplay ? "muted" : ""}
@@ -76,13 +85,13 @@ const buildModalHTML = (
             </div>`
         : `<div class="swiper-slide">
               <img
-                src="${src}"
-                alt="${alt}"
+                src="${safeSrc}"
+                alt="${safeAlt}"
                 loading="${i === startIndex ? "eager" : "lazy"}"
                 decoding="async"
               />
-            </div>`
-    )
+            </div>`;
+    })
     .join("");
 
   const isOutside = navPlacement === "outside";
@@ -94,18 +103,18 @@ const buildModalHTML = (
     ? ` style="--carousel-nav-color: ${navColor}; --carousel-nav-border-color: ${navColor}"`
     : "";
 
-  const arrowsHTML = showArrows
-    ? hasCustomNav
-      ? `<div class="${navClass}"${navStyle}>
+  let arrowsHTML = "";
+  if (showArrows && hasCustomNav) {
+    arrowsHTML = `<div class="${navClass}"${navStyle}>
           <div class="swiper-button-prev"></div>
           <span class="carousel-nav__counter"></span>
           <div class="swiper-button-next"></div>
-        </div>`
-      : '<div class="swiper-button-prev"></div><div class="swiper-button-next"></div>'
-    : "";
+        </div>`;
+  } else if (showArrows) {
+    arrowsHTML = '<div class="swiper-button-prev"></div><div class="swiper-button-next"></div>';
+  }
 
-  const insideNav =
-    hasCustomNav && !isOutside ? arrowsHTML : showArrows && !hasCustomNav ? arrowsHTML : "";
+  const insideNav = (hasCustomNav && !isOutside) || (showArrows && !hasCustomNav) ? arrowsHTML : "";
   const outsideNav = hasCustomNav && isOutside ? arrowsHTML : "";
 
   return `
@@ -151,7 +160,9 @@ const openModal = (
   };
 
   const playActiveVideoIfEnabled = () => {
-    if (!settings.videoAutoplay) return;
+    if (!settings.videoAutoplay) {
+      return;
+    }
     const activeSlide = swiper.slides[swiper.activeIndex] as HTMLElement | undefined;
     activeSlide
       ?.querySelector("video")
@@ -207,14 +218,18 @@ const openModal = (
   modal.addEventListener(
     "click",
     (e) => {
-      if (e.target === modal) closeModal();
+      if (e.target === modal) {
+        closeModal();
+      }
     },
     { signal }
   );
   document.addEventListener(
     "keydown",
     (e) => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") {
+        closeModal();
+      }
     },
     { signal }
   );
@@ -222,12 +237,16 @@ const openModal = (
 
 const initGalleryLightbox = (gallery: HTMLElement): void => {
   const images = parseImages(gallery);
-  if (!images.length) return;
+  if (!images.length) {
+    return;
+  }
+
+  const trigger = gallery.querySelector<HTMLElement>(".gallery-lightbox-trigger");
+  if (!trigger) {
+    return;
+  }
 
   const settings = parseSettings(gallery);
-  const trigger = gallery.querySelector<HTMLElement>(".gallery-lightbox-trigger");
-  if (!trigger) return;
-
   let activeIndex = 0;
 
   const syncTrigger = (index: number): void => {
@@ -248,10 +267,14 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
         video.playsInline = true;
         existingImg?.replaceWith(video);
       }
-      if (item.poster) video.poster = item.poster;
+      if (item.poster) {
+        video.poster = item.poster;
+      }
       video.src = item.src;
       video.play().catch(() => {});
-      if (badge) badge.style.display = "none";
+      if (badge) {
+        badge.style.display = "none";
+      }
     } else {
       let img = existingImg;
       if (!img) {
@@ -261,8 +284,12 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
       }
       img.src = item.src;
       img.alt = item.alt;
-      if (item.width) img.width = item.width;
-      if (item.height) img.height = item.height;
+      if (item.width) {
+        img.width = item.width;
+      }
+      if (item.height) {
+        img.height = item.height;
+      }
       if (!settings.lockHeight) {
         if (item.width && item.height) {
           applyAspectRatio(trigger, item.width, item.height);
@@ -270,7 +297,9 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
           applyAspectRatioFromImage(img);
         }
       }
-      if (badge) badge.style.display = "none";
+      if (badge) {
+        badge.style.display = "none";
+      }
     }
 
     if (!settings.lockHeight && item.type === "video" && item.width && item.height) {
@@ -278,12 +307,21 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
     }
 
     if (countEl) {
-      countEl.innerHTML = `<span class="gallery-lightbox-count__current">${String(index + 1).padStart(2, "0")}</span> / ${String(images.length).padStart(2, "0")}`;
+      let currentSpan = countEl.querySelector<HTMLElement>(".gallery-lightbox-count__current");
+      if (!currentSpan) {
+        currentSpan = document.createElement("span");
+        currentSpan.className = "gallery-lightbox-count__current";
+        countEl.textContent = "";
+        countEl.append(currentSpan, ` / ${String(images.length).padStart(2, "0")}`);
+      }
+      currentSpan.textContent = String(index + 1).padStart(2, "0");
     }
   };
 
   const applyAspectRatio = (el: HTMLElement, w: number, h: number): void => {
-    if (w && h) el.style.aspectRatio = `${w}/${h}`;
+    if (w && h) {
+      el.style.aspectRatio = `${w}/${h}`;
+    }
   };
 
   const applyAspectRatioFromImage = (img: HTMLImageElement): void => {
@@ -300,7 +338,9 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
 
   const syncInitialTrigger = (): void => {
     const item = images[0];
-    if (!item) return;
+    if (!item) {
+      return;
+    }
 
     const img = trigger.querySelector<HTMLImageElement>("img");
     const countEl = trigger.querySelector<HTMLElement>(".gallery-lightbox-count");
@@ -309,21 +349,33 @@ const initGalleryLightbox = (gallery: HTMLElement): void => {
     if (img) {
       img.src = item.type === "video" ? item.poster || item.src : item.src;
       img.alt = item.alt;
-      if (item.width) img.width = item.width;
-      if (item.height) img.height = item.height;
+      if (item.width) {
+        img.width = item.width;
+      }
+      if (item.height) {
+        img.height = item.height;
+      }
       if (item.width && item.height) {
         applyAspectRatio(trigger, item.width, item.height);
       } else if (item.type !== "video") {
         applyAspectRatioFromImage(img);
       }
     }
-    if (badge) badge.style.display = item.type === "video" ? "" : "none";
+    if (badge) {
+      badge.style.display = item.type === "video" ? "" : "none";
+    }
     if (countEl) {
       if (images.length > 1) {
         countEl.style.display = "";
-        countEl.innerHTML = settings.trackActiveSlide
-          ? `<span class="gallery-lightbox-count__current">01</span> / ${String(images.length).padStart(2, "0")}`
-          : `+${images.length - 1}`;
+        countEl.textContent = "";
+        if (settings.trackActiveSlide) {
+          const currentSpan = document.createElement("span");
+          currentSpan.className = "gallery-lightbox-count__current";
+          currentSpan.textContent = "01";
+          countEl.append(currentSpan, ` / ${String(images.length).padStart(2, "0")}`);
+        } else {
+          countEl.textContent = `+${images.length - 1}`;
+        }
       } else {
         countEl.style.display = "none";
       }

@@ -15,7 +15,7 @@ if ( ! in_array( $tag_name, $allowed_tags, true ) ) {
 
 if ( ! $use_protection ) {
 	$wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'protected-content' ] );
-	echo '<' . $tag_name . ' ' . $wrapper_attrs . '>' . wp_kses_post( $content ) . '</' . $tag_name . '>';
+	echo '<' . $tag_name . ' ' . $wrapper_attrs . '>' . wp_kses_post( $content ) . '</' . $tag_name . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $tag_name is validated against a fixed whitelist above; $wrapper_attrs is get_block_wrapper_attributes() output
 	return;
 }
 
@@ -26,6 +26,6 @@ $wrapper_attrs = get_block_wrapper_attributes( [
 	'class' => 'protected-content protected-content--' . sanitize_html_class( $protection_type ),
 ] );
 
-echo '<' . $tag_name . ' ' . $wrapper_attrs
+echo '<' . $tag_name . ' ' . $wrapper_attrs // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $tag_name is validated against a fixed whitelist above; $wrapper_attrs is get_block_wrapper_attributes() output
 	. ' data-protected="true" data-protection-type="' . esc_attr( $protection_type ) . '"'
-	. ' data-original-content="' . esc_attr( $encrypted ) . '"></' . $tag_name . '>';
+	. ' data-original-content="' . esc_attr( $encrypted ) . '"></' . $tag_name . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $tag_name is validated against a fixed whitelist above

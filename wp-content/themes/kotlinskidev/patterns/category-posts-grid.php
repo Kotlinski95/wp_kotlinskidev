@@ -51,7 +51,7 @@
             </h2>
             
             <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.5625rem;flex-grow:1;">
-            <?php echo wp_trim_words(get_the_excerpt(), 30, '...'); ?>
+            <?php echo esc_html(wp_trim_words(get_the_excerpt(), 30, '...')); ?>
             </div>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">

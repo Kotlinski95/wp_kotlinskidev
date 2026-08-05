@@ -12,14 +12,18 @@ const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
 
 const preloadSlideImages = (slide: HTMLElement): void => {
   slide.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
-    if (img.loading !== "lazy" || !img.src) return;
+    if (img.loading !== "lazy" || !img.src) {
+      return;
+    }
     img.loading = "eager";
   });
 };
 
 const prepareSlideVideo = (slide: HTMLElement): void => {
   const video = slide.querySelector<HTMLVideoElement>("video");
-  if (!video) return;
+  if (!video) {
+    return;
+  }
   if (video.dataset.src) {
     video.src = video.dataset.src;
     delete video.dataset.src;
@@ -39,7 +43,9 @@ const playSlideVideo = (slide: HTMLElement): void => {
 
 const pauseSlideVideo = (slide: HTMLElement): void => {
   const video = slide.querySelector<HTMLVideoElement>("video");
-  if (!video) return;
+  if (!video) {
+    return;
+  }
   video.pause();
   video.currentTime = 0;
 };
@@ -57,16 +63,22 @@ const initHeroCarousel = (el: HTMLElement): void => {
   });
 
   const firstSlide = swiper.slides[swiper.activeIndex];
-  if (firstSlide) playSlideVideo(firstSlide);
+  if (firstSlide) {
+    playSlideVideo(firstSlide);
+  }
 
   swiper.on("slideChangeTransitionStart", () => {
     const prev = swiper.slides[swiper.previousIndex];
-    if (prev) pauseSlideVideo(prev);
+    if (prev) {
+      pauseSlideVideo(prev);
+    }
   });
 
   swiper.on("slideChangeTransitionEnd", () => {
     const active = swiper.slides[swiper.activeIndex];
-    if (active) playSlideVideo(active);
+    if (active) {
+      playSlideVideo(active);
+    }
   });
 };
 
@@ -78,7 +90,9 @@ const init = (): void => {
       const observer = new IntersectionObserver(
         (entries, obs) => {
           entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
+            if (!entry.isIntersecting) {
+              return;
+            }
             initHeroCarousel(entry.target as HTMLElement);
             obs.unobserve(entry.target);
           });

@@ -5,7 +5,9 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
   const scrollWrapper = document.querySelector(".scroll-to-top-wrapper") as HTMLElement;
   const progressRing = document.querySelector(".progress-ring__progress") as SVGCircleElement;
 
-  if (!scrollToTopBtn || !scrollWrapper || !progressRing) return;
+  if (!scrollToTopBtn || !scrollWrapper || !progressRing) {
+    return;
+  }
 
   const handleScroll = () => {
     const scrollTop = getScrollTop();
@@ -34,7 +36,9 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
   const handleScrollToTop = (e: Event) => {
     e.preventDefault();
     const mainEl = document.querySelector("main");
-    if (!mainEl) return;
+    if (!mainEl) {
+      return;
+    }
     mainEl.setAttribute("tabindex", "-1");
     scrollTo(0, "smooth");
     let lastScrollTop = -1;

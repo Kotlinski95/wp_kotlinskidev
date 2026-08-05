@@ -10,14 +10,7 @@
 	}
 }
 
-// =============================================================================
-// REDUCED MOTION ACCESSIBILITY
-// =============================================================================
-
 @media (prefers-reduced-motion: reduce) {
-	// =============================================================================
-	// DISABLE SCROLL ANIMATIONS
-	// =============================================================================
 
 	.fade-in-on-scroll,
 	.fade-up-on-scroll,
@@ -41,10 +34,6 @@
 		will-change: auto !important;
 		perspective: none !important;
 	}
-
-	// =============================================================================
-	// DISABLE HOVER ANIMATIONS
-	// =============================================================================
 
 	.hover-jump,
 	.hover-jump-subtle,
@@ -73,20 +62,12 @@
 		}
 	}
 
-	// =============================================================================
-	// DISABLE CONSTANT ANIMATIONS
-	// =============================================================================
-
 	.constant-bounce,
 	.constant-bounce-subtle,
 	.constant-bounce-strong,
 	.constant-bounce-fast {
 		animation: none !important;
 	}
-
-	// =============================================================================
-	// DISABLE PARALLAX EFFECTS
-	// =============================================================================
 
 	.wp-block-cover.enable-parallax {
 
@@ -103,10 +84,6 @@
 			transition: none !important;
 		}
 	}
-
-	// =============================================================================
-	// DISABLE/CONTROL VIDEO AUTOPLAY
-	// =============================================================================
 
 	.wp-block-cover video:not([data-user-override]),
 	.wp-block-cover-image video:not([data-user-override]),
@@ -128,10 +105,6 @@
 		animation: none !important;
 	}
 
-	// =============================================================================
-	// DISABLE SCROLL PROGRESS AND SMOOTH SCROLLING
-	// =============================================================================
-
 	html,
 	body {
 		scroll-behavior: auto !important;
@@ -141,10 +114,6 @@
 		transition: none !important;
 	}
 
-	// =============================================================================
-	// DISABLE GRADIENT ANIMATIONS
-	// =============================================================================
-
 	.has-gradient-one-gradient-background {
 		transition: none !important;
 		background-position: left center !important;
@@ -153,10 +122,6 @@
 			background-position: left center !important;
 		}
 	}
-
-	// =============================================================================
-	// DISABLE NAVIGATION AND LINK ANIMATIONS
-	// =============================================================================
 
 	header a:not(#scroll-to-top):not(.custom-logo-link)::after,
 	footer a:not(#scroll-to-top):not(.custom-logo-link)::after {
@@ -174,26 +139,14 @@
 		transform: none !important;
 	}
 
-	// =============================================================================
-	// DISABLE SOCIAL ICONS ANIMATIONS
-	// =============================================================================
-
 	.wp-block-social-link-anchor svg {
 		transition: none !important;
-		filter:
-			drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff)
-			drop-shadow(0 0 0.125rem #fff) !important;
+		filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff) drop-shadow(0 0 0.125rem #fff) !important;
 	}
 
 	.wp-block-social-link-anchor:hover svg {
-		filter:
-			drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff)
-			drop-shadow(0 0 0.125rem #fff) !important;
+		filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff) drop-shadow(0 0 0.125rem #fff) !important;
 	}
-
-	// =============================================================================
-	// DISABLE PWA AND LOADING ANIMATIONS
-	// =============================================================================
 
 	.pwa-install-prompt,
 	.pwa-update-prompt {
@@ -214,10 +167,6 @@
 	#page-loader::after {
 		animation: none !important;
 	}
-
-	// =============================================================================
-	// GLOBAL ANIMATION RESET
-	// =============================================================================
 
 	*,
 	*::before,

@@ -61,6 +61,109 @@ const visibilityClassMap: Record<Visibility, string> = {
   mobile: "nav-mobile",
 };
 
+interface EditProps {
+  attributes: NavigationAttributes;
+  setAttributes: (attrs: Partial<NavigationAttributes>) => void;
+}
+
+function Edit({ attributes, setAttributes }: EditProps) {
+  const blockProps = useBlockProps({
+    className: ["kt-nav-placeholder", visibilityClassMap[attributes.visibility]]
+      .filter(Boolean)
+      .join(" "),
+  });
+
+  const navigationPosts = useSelect((select) => {
+    return (select("core") as any).getEntityRecords("postType", "wp_navigation", {
+      per_page: 100,
+      status: "publish",
+    }) as NavigationPost[] | null;
+  }, []);
+
+  const menuOptions = [
+    {
+      label:
+        navigationPosts === null
+          ? __("Loading…", "kotlinskidev")
+          : __("— Select a menu —", "kotlinskidev"),
+      value: "",
+    },
+    ...(navigationPosts ?? []).map((post) => ({
+      label: post.title.rendered || post.slug,
+      value: post.slug,
+    })),
+  ];
+
+  return (
+    <div {...blockProps}>
+      <InspectorControls>
+        <PanelBody title={__("Navigation", "kotlinskidev")} initialOpen={true}>
+          <SelectControl
+            label={__("Navigation menu", "kotlinskidev")}
+            value={attributes.menuSlug}
+            options={menuOptions}
+            onChange={(menuSlug) => setAttributes({ menuSlug })}
+          />
+          <SelectControl
+            label={__("Display mode", "kotlinskidev")}
+            help={__(
+              "Flat link list renders top-level links only, e.g. footer link columns.",
+              "kotlinskidev"
+            )}
+            value={attributes.displayMode}
+            options={displayModeOptions}
+            onChange={(displayMode) => setAttributes({ displayMode: displayMode as DisplayMode })}
+          />
+          <SelectControl
+            label={__("Overlay mode", "kotlinskidev")}
+            value={attributes.overlayMenu}
+            options={overlayMenuOptions}
+            onChange={(overlayMenu) => setAttributes({ overlayMenu: overlayMenu as OverlayMenu })}
+          />
+          <SelectControl
+            label={__("Visibility", "kotlinskidev")}
+            help={__("Choose on which screen sizes this navigation renders.", "kotlinskidev")}
+            value={attributes.visibility}
+            options={visibilityOptions}
+            onChange={(visibility) => setAttributes({ visibility: visibility as Visibility })}
+          />
+          {attributes.overlayMenu === "always" && (
+            <>
+              <SelectControl
+                label={__("Overlay slide direction", "kotlinskidev")}
+                value={attributes.overlaySlide}
+                options={overlaySlideOptions}
+                onChange={(overlaySlide) =>
+                  setAttributes({ overlaySlide: overlaySlide as HorizontalSide })
+                }
+              />
+              <SelectControl
+                label={__("Hamburger short line alignment", "kotlinskidev")}
+                value={attributes.hamburgerLineAlign}
+                options={hamburgerLineAlignOptions}
+                onChange={(hamburgerLineAlign) =>
+                  setAttributes({ hamburgerLineAlign: hamburgerLineAlign as HorizontalSide })
+                }
+              />
+            </>
+          )}
+          <ToggleControl
+            label={__("Navigate top-level links on click", "kotlinskidev")}
+            help={__(
+              "When on, clicking a link with a real URL navigates to it. Links with '#' or no URL still toggle the panel.",
+              "kotlinskidev"
+            )}
+            checked={attributes.linkNavigatesOnClick}
+            onChange={(linkNavigatesOnClick) => setAttributes({ linkNavigatesOnClick })}
+          />
+        </PanelBody>
+      </InspectorControls>
+      <span className="kt-nav-placeholder__icon dashicons dashicons-menu" />
+      <span className="kt-nav-placeholder__label">{__("Navigation", "kotlinskidev")}</span>
+    </div>
+  );
+}
+
 registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
   title: "Navigation",
   category: "kotlinskidev",
@@ -74,103 +177,7 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
     className: { type: "string", default: "" },
     linkNavigatesOnClick: { type: "boolean", default: false },
   },
-  edit({ attributes, setAttributes }) {
-    const blockProps = useBlockProps({
-      className: ["kt-nav-placeholder", visibilityClassMap[attributes.visibility]]
-        .filter(Boolean)
-        .join(" "),
-    });
-
-    const navigationPosts = useSelect((select) => {
-      return (select("core") as any).getEntityRecords("postType", "wp_navigation", {
-        per_page: 100,
-        status: "publish",
-      }) as NavigationPost[] | null;
-    }, []);
-
-    const menuOptions = [
-      {
-        label:
-          navigationPosts === null
-            ? __("Loading…", "kotlinskidev")
-            : __("— Select a menu —", "kotlinskidev"),
-        value: "",
-      },
-      ...(navigationPosts ?? []).map((post) => ({
-        label: post.title.rendered || post.slug,
-        value: post.slug,
-      })),
-    ];
-
-    return (
-      <div {...blockProps}>
-        <InspectorControls>
-          <PanelBody title={__("Navigation", "kotlinskidev")} initialOpen={true}>
-            <SelectControl
-              label={__("Navigation menu", "kotlinskidev")}
-              value={attributes.menuSlug}
-              options={menuOptions}
-              onChange={(menuSlug) => setAttributes({ menuSlug })}
-            />
-            <SelectControl
-              label={__("Display mode", "kotlinskidev")}
-              help={__(
-                "Flat link list renders top-level links only, e.g. footer link columns.",
-                "kotlinskidev"
-              )}
-              value={attributes.displayMode}
-              options={displayModeOptions}
-              onChange={(displayMode) => setAttributes({ displayMode: displayMode as DisplayMode })}
-            />
-            <SelectControl
-              label={__("Overlay mode", "kotlinskidev")}
-              value={attributes.overlayMenu}
-              options={overlayMenuOptions}
-              onChange={(overlayMenu) => setAttributes({ overlayMenu: overlayMenu as OverlayMenu })}
-            />
-            <SelectControl
-              label={__("Visibility", "kotlinskidev")}
-              help={__("Choose on which screen sizes this navigation renders.", "kotlinskidev")}
-              value={attributes.visibility}
-              options={visibilityOptions}
-              onChange={(visibility) => setAttributes({ visibility: visibility as Visibility })}
-            />
-            {attributes.overlayMenu === "always" && (
-              <>
-                <SelectControl
-                  label={__("Overlay slide direction", "kotlinskidev")}
-                  value={attributes.overlaySlide}
-                  options={overlaySlideOptions}
-                  onChange={(overlaySlide) =>
-                    setAttributes({ overlaySlide: overlaySlide as HorizontalSide })
-                  }
-                />
-                <SelectControl
-                  label={__("Hamburger short line alignment", "kotlinskidev")}
-                  value={attributes.hamburgerLineAlign}
-                  options={hamburgerLineAlignOptions}
-                  onChange={(hamburgerLineAlign) =>
-                    setAttributes({ hamburgerLineAlign: hamburgerLineAlign as HorizontalSide })
-                  }
-                />
-              </>
-            )}
-            <ToggleControl
-              label={__("Navigate top-level links on click", "kotlinskidev")}
-              help={__(
-                "When on, clicking a link with a real URL navigates to it. Links with '#' or no URL still toggle the panel.",
-                "kotlinskidev"
-              )}
-              checked={attributes.linkNavigatesOnClick}
-              onChange={(linkNavigatesOnClick) => setAttributes({ linkNavigatesOnClick })}
-            />
-          </PanelBody>
-        </InspectorControls>
-        <span className="kt-nav-placeholder__icon dashicons dashicons-menu" />
-        <span className="kt-nav-placeholder__label">{__("Navigation", "kotlinskidev")}</span>
-      </div>
-    );
-  },
+  edit: Edit,
   save() {
     return null;
   },

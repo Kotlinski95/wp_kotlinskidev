@@ -7,14 +7,18 @@
     const metaTag = document.querySelector('meta[name="post-id"]') as HTMLMetaElement;
     if (metaTag && metaTag.content) {
       const id = parseInt(metaTag.content, 10);
-      if (!isNaN(id)) return id;
+      if (!isNaN(id)) {
+        return id;
+      }
     }
 
     const bodyClasses = document.body.className.split(" ");
     for (const className of bodyClasses) {
       if (className.startsWith("postid-") || className.startsWith("page-id-")) {
         const id = parseInt(className.replace(/^(postid-|page-id-)/, ""), 10);
-        if (!isNaN(id)) return id;
+        if (!isNaN(id)) {
+          return id;
+        }
       }
     }
 
@@ -48,7 +52,7 @@
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
         try {
-          const response = JSON.parse(xhr.responseText);
+          JSON.parse(xhr.responseText);
         } catch (e) {
           console.error(`Something went wrong during increasing page view for page: ${postId}`);
         }

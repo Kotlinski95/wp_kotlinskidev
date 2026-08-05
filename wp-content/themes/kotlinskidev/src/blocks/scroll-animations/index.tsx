@@ -120,7 +120,7 @@ const withScrollAnimationControls = createHigherOrderComponent((BlockEdit) => {
 function applyScrollAnimationClass(extraProps: any, blockType: any, attributes: any) {
   const { scrollAnimation, scrollAnimationDelay, scrollAnimationTranslate } = attributes;
 
-  let classes = [];
+  const classes = [];
 
   if (scrollAnimation) {
     classes.push(scrollAnimation);

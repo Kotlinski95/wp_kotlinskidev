@@ -57,7 +57,7 @@
             </h2>
             
             <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.5625rem;flex-grow:1;">
-                <?php echo wp_trim_words(get_the_excerpt(), 30, '...'); ?>
+                <?php echo esc_html(wp_trim_words(get_the_excerpt(), 30, '...')); ?>
             </div>
             
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">
@@ -69,7 +69,7 @@
                 if ($post_tags) {
                     foreach ($post_tags as $tag) {
                         if ($tag->term_id !== $current_tag->term_id) { // Don't show current tag
-                            $tag_names[] = '#' . $tag->name;
+                            $tag_names[] = '#' . esc_html($tag->name);
                             $has_other_tags = true;
                         }
                     }
@@ -77,7 +77,7 @@
                 
                 if ($has_other_tags) : ?>
                 <div class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;">
-                    <?php echo implode(' ', array_slice($tag_names, 0, 2)); // Show max 2 other tags ?>
+                    <?php echo implode(' ', array_slice($tag_names, 0, 2)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $tag_names entries are esc_html() wrapped at construction above ?>
                 </div>
                 <?php else : ?>
                 <div></div>

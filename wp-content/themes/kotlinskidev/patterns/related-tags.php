@@ -47,12 +47,12 @@ $related_tags = get_tags(array(
             </div>
             
             <p class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;margin:0.3125rem 0;">
-                <?php echo $tag->count; ?> <?php echo $tag->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
+                <?php echo absint($tag->count); ?> <?php echo $tag->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
             </p>
             
             <?php if ($last_updated) : ?>
                 <p style="color:var(--wp--preset--color--foreground-alt);font-size:0.75rem;margin:0.3125rem 0;">
-                    <?php printf(esc_html__('Updated %s', 'kotlinskidev'), $last_updated); ?>
+                    <?php printf(esc_html__('Updated %s', 'kotlinskidev'), esc_html($last_updated)); ?>
                 </p>
             <?php endif; ?>
             

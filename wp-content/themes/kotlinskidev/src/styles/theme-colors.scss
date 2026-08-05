@@ -64,11 +64,7 @@ body.light-mode {
 	z-index: -1;
 }
 
-@mixin gradient-border-bg(
-	$fill: var(--color-surface),
-	$gradient: var(--kt-text-gradient),
-	$extra-layer: null
-) {
+@mixin gradient-border-bg($fill: var(--color-surface), $gradient: var(--kt-text-gradient), $extra-layer: null) {
 	border-color: transparent;
 
 	@if $extra-layer {

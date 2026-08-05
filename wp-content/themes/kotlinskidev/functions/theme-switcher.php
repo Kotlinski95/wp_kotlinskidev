@@ -11,7 +11,7 @@ function kotlinskidev_theme_switcher_shortcode()
                     <?php
                     $svg_path = get_template_directory() . '/assets/icons/light.svg';
                     if (file_exists($svg_path)) {
-                        echo file_get_contents($svg_path);
+                        echo file_get_contents($svg_path); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static theme-bundled icon asset under version control, not user-uploaded content; unrelated to the media-upload SVG path in functions/svg-support.php
                     }
                     ?>
                 </span>
@@ -19,7 +19,7 @@ function kotlinskidev_theme_switcher_shortcode()
                     <?php
                     $svg_path = get_template_directory() . '/assets/icons/dark.svg';
                     if (file_exists($svg_path)) {
-                        echo file_get_contents($svg_path);
+                        echo file_get_contents($svg_path); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static theme-bundled icon asset under version control, not user-uploaded content; unrelated to the media-upload SVG path in functions/svg-support.php
                     }
                     ?>
                 </span>

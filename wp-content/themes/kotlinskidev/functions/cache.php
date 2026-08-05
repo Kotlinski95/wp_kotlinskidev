@@ -287,39 +287,39 @@ function kotlinskidev_cache_admin_page(): void {
             </thead>
             <tbody>
                 <tr>
-                    <td>Critical CSS</td>
+                    <td><?php esc_html_e( 'Critical CSS', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_critical_css_*</code></td>
-                    <td>Build deploy (filemtime)</td>
+                    <td><?php esc_html_e( 'Build deploy (filemtime)', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Critical JS</td>
+                    <td><?php esc_html_e( 'Critical JS', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_critical_js_*</code></td>
-                    <td>Build deploy (filemtime)</td>
+                    <td><?php esc_html_e( 'Build deploy (filemtime)', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>JS translations</td>
+                    <td><?php esc_html_e( 'JS translations', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_i18n_{locale}</code></td>
-                    <td>Language file update / manual flush</td>
+                    <td><?php esc_html_e( 'Language file update / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Image dimensions</td>
+                    <td><?php esc_html_e( 'Image dimensions', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_img_sizes</code></td>
-                    <td>Attachment edit / delete / manual flush</td>
+                    <td><?php esc_html_e( 'Attachment edit / delete / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Popular posts</td>
+                    <td><?php esc_html_e( 'Popular posts', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_popular_posts_{md5}</code></td>
-                    <td>15 minute TTL / manual flush</td>
+                    <td><?php esc_html_e( '15 minute TTL / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Inlined SVGs</td>
+                    <td><?php esc_html_e( 'Inlined SVGs', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_svg_{attachment_id}</code></td>
-                    <td>Attachment edit / delete / manual flush</td>
+                    <td><?php esc_html_e( 'Attachment edit / delete / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Build fingerprint</td>
+                    <td><?php esc_html_e( 'Build fingerprint', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_build_fingerprint</code></td>
-                    <td>Set automatically on every new build</td>
+                    <td><?php esc_html_e( 'Set automatically on every new build', 'kotlinskidev' ); ?></td>
                 </tr>
             </tbody>
         </table>

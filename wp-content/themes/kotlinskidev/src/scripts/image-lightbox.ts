@@ -83,16 +83,22 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
 
   const setupLightbox = (overlay: HTMLElement) => {
     overlay.addEventListener("click", blockOverlayClickHandler, true);
-    if (isTouchDevice()) overlay.style.touchAction = "none";
+    if (isTouchDevice()) {
+      overlay.style.touchAction = "none";
+    }
 
     const containers = overlay.querySelectorAll<HTMLElement>(".lightbox-image-container");
     const thumbnailContainer = containers[0];
     const enlargedContainer = containers[1];
 
-    if (thumbnailContainer) thumbnailContainer.style.display = "none";
+    if (thumbnailContainer) {
+      thumbnailContainer.style.display = "none";
+    }
     if (enlargedContainer) {
       currentZoomTeardown = attachImageZoom(enlargedContainer);
-      if (pendingContext) applyContext(overlay, pendingContext, enlargedContainer);
+      if (pendingContext) {
+        applyContext(overlay, pendingContext, enlargedContainer);
+      }
     }
 
     pendingContext = null;
@@ -106,7 +112,9 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
     currentZoomTeardown = null;
 
     const containers = overlay.querySelectorAll<HTMLElement>(".lightbox-image-container");
-    if (containers[0]) containers[0].style.display = "";
+    if (containers[0]) {
+      containers[0].style.display = "";
+    }
 
     const onDone = () => {
       clearTimeout(fallback);
@@ -114,7 +122,9 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
       clearContext(overlay);
     };
     const onTransitionEnd = (e: TransitionEvent) => {
-      if (e.target !== overlay) return;
+      if (e.target !== overlay) {
+        return;
+      }
       onDone();
     };
     const fallback = setTimeout(onDone, 500);
@@ -123,7 +133,9 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
 
   const initLightbox = () => {
     const lightboxOverlay = document.querySelector<HTMLElement>(".wp-lightbox-overlay");
-    if (!lightboxOverlay) return;
+    if (!lightboxOverlay) {
+      return;
+    }
 
     document.addEventListener(
       "pointerdown",
@@ -158,7 +170,9 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
   };
 
   const applyTriggerLabel = (button: HTMLButtonElement) => {
-    if (button.getAttribute("aria-label")) return;
+    if (button.getAttribute("aria-label")) {
+      return;
+    }
     const img = button.closest("figure")?.querySelector("img");
     button.setAttribute("aria-label", img?.alt || "Expand image");
   };

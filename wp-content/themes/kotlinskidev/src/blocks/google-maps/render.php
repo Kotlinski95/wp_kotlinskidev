@@ -1,4 +1,12 @@
 <?php
+if ( ! function_exists( 'kotlinskidev_sanitize_map_css' ) ) {
+    function kotlinskidev_sanitize_map_css( string $css ): string {
+        $css = preg_replace( '/@import\b[^;]*;?/i', '', $css );
+        $css = preg_replace( '/url\s*\([^)]*\)/i', '', $css );
+        return $css;
+    }
+}
+
 if ( ! function_exists( 'kotlinskidev_google_maps_block_render_map' ) ) {
     function kotlinskidev_google_maps_block_render_map( $attributes ) {
         $apiKey = isset( $attributes['apiKey'] ) ? trim( $attributes['apiKey'] ) : '';
@@ -14,7 +22,7 @@ if ( ! function_exists( 'kotlinskidev_google_maps_block_render_map' ) ) {
         $showFullscreenControl = isset( $attributes['showFullscreenControl'] ) ? (bool) $attributes['showFullscreenControl'] : true;
         $showMapTypeControl = isset( $attributes['showMapTypeControl'] ) ? (bool) $attributes['showMapTypeControl'] : true;
         $markerLabel = isset( $attributes['markerLabel'] ) ? $attributes['markerLabel'] : '';
-        $markerTooltip = isset( $attributes['markerTooltip'] ) ? $attributes['markerTooltip'] : '';
+        $markerTooltip = isset( $attributes['markerTooltip'] ) ? wp_kses_post( $attributes['markerTooltip'] ) : '';
         $markerColor = isset( $attributes['markerColor'] ) ? $attributes['markerColor'] : 'red';
 
         if ( ! $apiKey || ( ! $address && ( ! $lat || ! $lng ) ) ) {
@@ -42,7 +50,7 @@ if ( ! function_exists( 'kotlinskidev_google_maps_block_render_map' ) ) {
         }
 
         (function () {
-            function initMap_<?php echo $map_id; ?>() {
+            function initMap_<?php echo esc_js( $map_id ); ?>() {
                 const mapOptions = {
                     zoom: <?php echo (int) $zoom; ?>,
                     mapTypeId: '<?php echo esc_js( $mapType ); ?>',
@@ -59,7 +67,7 @@ if ( ! function_exists( 'kotlinskidev_google_maps_block_render_map' ) ) {
                         if ( $markerLabel ) {
                             $encodedLabel = base64_encode( $markerLabel );
                             echo '{';
-                            echo "text: kotlinskidevDecodeBase64('" . $encodedLabel . "'),";
+                            echo "text: kotlinskidevDecodeBase64('" . esc_js( $encodedLabel ) . "'),";
                             echo "color: 'black',";
                             echo "fontSize: '0.75rem',";
                             echo "className: 'marker-position'";
@@ -120,23 +128,24 @@ if ( ! function_exists( 'kotlinskidev_google_maps_block_render_map' ) ) {
                 const script = document.createElement('script');
                 script.src = 'https://maps.googleapis.com/maps/api/js?key=<?php echo esc_attr( $apiKey ); ?>';
                 script.async = true;
-                script.onload = initMap_<?php echo $map_id; ?>;
+                script.onload = initMap_<?php echo esc_js( $map_id ); ?>;
                 document.body.appendChild(script);
             } else {
-                initMap_<?php echo $map_id; ?>();
+                initMap_<?php echo esc_js( $map_id ); ?>();
             }
         })();
         </script>
         <?php
         if ( ! empty( $attributes['customCSS'] ) ) {
+            $css = kotlinskidev_sanitize_map_css( $attributes['customCSS'] );
             $css = preg_replace_callback(
                 '/(^|\}|\s)(\.[a-zA-Z0-9_-]+)/',
                 function ( $matches ) use ( $map_id ) {
                     return $matches[1] . '#' . $map_id . ' ' . $matches[2];
                 },
-                $attributes['customCSS']
+                $css
             );
-            echo '<style id="marker-label-css-' . esc_attr( $map_id ) . '">' . $css . '</style>';
+            echo '<style id="marker-label-css-' . esc_attr( $map_id ) . '">' . $css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $css is sanitized by kotlinskidev_sanitize_map_css() (strips @import and url()) before this point
         }
         return ob_get_clean();
     }

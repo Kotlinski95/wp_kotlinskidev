@@ -15,9 +15,8 @@
         return n1 * (t -= 1.5 / d1) * t + 0.75;
       } else if (t < 2.5 / d1) {
         return n1 * (t -= 2.25 / d1) * t + 0.9375;
-      } else {
-        return n1 * (t -= 2.625 / d1) * t + 0.984375;
       }
+      return n1 * (t -= 2.625 / d1) * t + 0.984375;
     },
   };
 
@@ -159,12 +158,10 @@
               if (!element.hasAttribute("data-counter-animated")) {
                 if (getReducedMotionPreference()) {
                   showFinalValue(element);
+                } else if ("requestIdleCallback" in window) {
+                  requestIdleCallback(() => animateCounter(element));
                 } else {
-                  if ("requestIdleCallback" in window) {
-                    requestIdleCallback(() => animateCounter(element));
-                  } else {
-                    animateCounter(element);
-                  }
+                  animateCounter(element);
                 }
               }
 
@@ -283,16 +280,14 @@
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
+  } else if ("requestIdleCallback" in window) {
+    requestIdleCallback(init);
   } else {
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(init);
-    } else {
-      init();
-    }
+    init();
   }
 
   window.addEventListener("beforeunload", () => {
-    activeAnimations.forEach((animationId, element) => {
+    activeAnimations.forEach((animationId) => {
       cancelAnimationFrame(animationId);
     });
     activeAnimations.clear();

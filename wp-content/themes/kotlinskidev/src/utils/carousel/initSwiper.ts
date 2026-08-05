@@ -42,8 +42,12 @@ export const initSwiper = (
   }
 
   const overrides: Record<string, unknown> = {};
-  if (initialSlide !== undefined) overrides.initialSlide = initialSlide;
-  if (forceLoop !== undefined) overrides.loop = forceLoop;
+  if (initialSlide !== undefined) {
+    overrides.initialSlide = initialSlide;
+  }
+  if (forceLoop !== undefined) {
+    overrides.loop = forceLoop;
+  }
 
   const swiper = new Swiper(el, {
     modules: [Navigation, Pagination, Keyboard, Autoplay],
@@ -61,10 +65,17 @@ export const initSwiper = (
   }
 
   if (counterEl || onSlideChange) {
+    let currentSpan: HTMLSpanElement | null = null;
+    if (counterEl) {
+      currentSpan = document.createElement("span");
+      currentSpan.className = "carousel-nav__current";
+      counterEl.textContent = "";
+      counterEl.append(currentSpan, ` / ${String(total).padStart(2, "0")}`);
+    }
     const updateCounter = () => {
       const index = swiper.realIndex ?? 0;
-      if (counterEl) {
-        counterEl.innerHTML = `<span class="carousel-nav__current">${String(index + 1).padStart(2, "0")}</span> / ${String(total).padStart(2, "0")}`;
+      if (currentSpan) {
+        currentSpan.textContent = String(index + 1).padStart(2, "0");
       }
       onSlideChange?.(index);
     };

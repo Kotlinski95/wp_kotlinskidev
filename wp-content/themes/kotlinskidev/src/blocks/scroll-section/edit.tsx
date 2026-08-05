@@ -64,9 +64,13 @@ export default function Edit({
   };
 
   const handleRemoveLast = () => {
-    if (innerBlocks.length <= 1) return;
+    if (innerBlocks.length <= 1) {
+      return;
+    }
     const last = innerBlocks[innerBlocks.length - 1];
-    if (last) removeBlock(last.clientId);
+    if (last) {
+      removeBlock(last.clientId);
+    }
   };
 
   const blockProps = useBlockProps({

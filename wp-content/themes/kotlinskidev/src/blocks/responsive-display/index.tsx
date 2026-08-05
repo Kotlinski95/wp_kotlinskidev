@@ -4,7 +4,7 @@ import { createHigherOrderComponent } from "@wordpress/compose";
 import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 import { Fragment, useState } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 
 declare global {
   interface Window {
@@ -212,31 +212,31 @@ const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => 
                 {renderDeviceControls(
                   "desktop",
                   __("Desktop", "kotlinskidev"),
-                  __(
-                    "Settings for screens " + breakpoints.desktop_min / 16 + "rem and above",
-                    "kotlinskidev"
+                  sprintf(
+                    // translators: %s: breakpoint value in rem
+                    __("Settings for screens %srem and above", "kotlinskidev"),
+                    breakpoints.desktop_min / 16
                   )
                 )}
 
                 {renderDeviceControls(
                   "tablet",
                   __("Tablet", "kotlinskidev"),
-                  __(
-                    "Settings for screens " +
-                      breakpoints.tablet_min / 16 +
-                      "rem - " +
-                      breakpoints.tablet_max / 16 +
-                      "rem",
-                    "kotlinskidev"
+                  sprintf(
+                    // translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
+                    __("Settings for screens %1$srem - %2$srem", "kotlinskidev"),
+                    breakpoints.tablet_min / 16,
+                    breakpoints.tablet_max / 16
                   )
                 )}
 
                 {renderDeviceControls(
                   "mobile",
                   __("Mobile", "kotlinskidev"),
-                  __(
-                    "Settings for screens below " + (breakpoints.mobile_max + 1) / 16 + "rem",
-                    "kotlinskidev"
+                  sprintf(
+                    // translators: %s: breakpoint value in rem
+                    __("Settings for screens below %srem", "kotlinskidev"),
+                    (breakpoints.mobile_max + 1) / 16
                   )
                 )}
               </>
@@ -258,32 +258,68 @@ const addResponsiveDisplayClasses = createHigherOrderComponent((BlockListBlock) 
     if (responsiveDisplay) {
       if (responsiveDisplay.desktop) {
         const desktop = responsiveDisplay.desktop;
-        if (desktop.display) additionalClasses += ` desktop:${desktop.display}`;
-        if (desktop.flexDirection) additionalClasses += ` desktop:${desktop.flexDirection}`;
-        if (desktop.justifyContent) additionalClasses += ` desktop:${desktop.justifyContent}`;
-        if (desktop.alignItems) additionalClasses += ` desktop:${desktop.alignItems}`;
-        if (desktop.justifySelf) additionalClasses += ` desktop:${desktop.justifySelf}`;
-        if (desktop.alignSelf) additionalClasses += ` desktop:${desktop.alignSelf}`;
+        if (desktop.display) {
+          additionalClasses += ` desktop:${desktop.display}`;
+        }
+        if (desktop.flexDirection) {
+          additionalClasses += ` desktop:${desktop.flexDirection}`;
+        }
+        if (desktop.justifyContent) {
+          additionalClasses += ` desktop:${desktop.justifyContent}`;
+        }
+        if (desktop.alignItems) {
+          additionalClasses += ` desktop:${desktop.alignItems}`;
+        }
+        if (desktop.justifySelf) {
+          additionalClasses += ` desktop:${desktop.justifySelf}`;
+        }
+        if (desktop.alignSelf) {
+          additionalClasses += ` desktop:${desktop.alignSelf}`;
+        }
       }
 
       if (responsiveDisplay.tablet) {
         const tablet = responsiveDisplay.tablet;
-        if (tablet.display) additionalClasses += ` tablet:${tablet.display}`;
-        if (tablet.flexDirection) additionalClasses += ` tablet:${tablet.flexDirection}`;
-        if (tablet.justifyContent) additionalClasses += ` tablet:${tablet.justifyContent}`;
-        if (tablet.alignItems) additionalClasses += ` tablet:${tablet.alignItems}`;
-        if (tablet.justifySelf) additionalClasses += ` tablet:${tablet.justifySelf}`;
-        if (tablet.alignSelf) additionalClasses += ` tablet:${tablet.alignSelf}`;
+        if (tablet.display) {
+          additionalClasses += ` tablet:${tablet.display}`;
+        }
+        if (tablet.flexDirection) {
+          additionalClasses += ` tablet:${tablet.flexDirection}`;
+        }
+        if (tablet.justifyContent) {
+          additionalClasses += ` tablet:${tablet.justifyContent}`;
+        }
+        if (tablet.alignItems) {
+          additionalClasses += ` tablet:${tablet.alignItems}`;
+        }
+        if (tablet.justifySelf) {
+          additionalClasses += ` tablet:${tablet.justifySelf}`;
+        }
+        if (tablet.alignSelf) {
+          additionalClasses += ` tablet:${tablet.alignSelf}`;
+        }
       }
 
       if (responsiveDisplay.mobile) {
         const mobile = responsiveDisplay.mobile;
-        if (mobile.display) additionalClasses += ` mobile:${mobile.display}`;
-        if (mobile.flexDirection) additionalClasses += ` mobile:${mobile.flexDirection}`;
-        if (mobile.justifyContent) additionalClasses += ` mobile:${mobile.justifyContent}`;
-        if (mobile.alignItems) additionalClasses += ` mobile:${mobile.alignItems}`;
-        if (mobile.justifySelf) additionalClasses += ` mobile:${mobile.justifySelf}`;
-        if (mobile.alignSelf) additionalClasses += ` mobile:${mobile.alignSelf}`;
+        if (mobile.display) {
+          additionalClasses += ` mobile:${mobile.display}`;
+        }
+        if (mobile.flexDirection) {
+          additionalClasses += ` mobile:${mobile.flexDirection}`;
+        }
+        if (mobile.justifyContent) {
+          additionalClasses += ` mobile:${mobile.justifyContent}`;
+        }
+        if (mobile.alignItems) {
+          additionalClasses += ` mobile:${mobile.alignItems}`;
+        }
+        if (mobile.justifySelf) {
+          additionalClasses += ` mobile:${mobile.justifySelf}`;
+        }
+        if (mobile.alignSelf) {
+          additionalClasses += ` mobile:${mobile.alignSelf}`;
+        }
       }
     }
 
@@ -304,32 +340,68 @@ function applyResponsiveDisplayClass(extraProps: any, blockType: any, attributes
 
     if (responsiveDisplay.desktop) {
       const desktop = responsiveDisplay.desktop;
-      if (desktop.display) additionalClasses += ` desktop:${desktop.display}`;
-      if (desktop.flexDirection) additionalClasses += ` desktop:${desktop.flexDirection}`;
-      if (desktop.justifyContent) additionalClasses += ` desktop:${desktop.justifyContent}`;
-      if (desktop.alignItems) additionalClasses += ` desktop:${desktop.alignItems}`;
-      if (desktop.justifySelf) additionalClasses += ` desktop:${desktop.justifySelf}`;
-      if (desktop.alignSelf) additionalClasses += ` desktop:${desktop.alignSelf}`;
+      if (desktop.display) {
+        additionalClasses += ` desktop:${desktop.display}`;
+      }
+      if (desktop.flexDirection) {
+        additionalClasses += ` desktop:${desktop.flexDirection}`;
+      }
+      if (desktop.justifyContent) {
+        additionalClasses += ` desktop:${desktop.justifyContent}`;
+      }
+      if (desktop.alignItems) {
+        additionalClasses += ` desktop:${desktop.alignItems}`;
+      }
+      if (desktop.justifySelf) {
+        additionalClasses += ` desktop:${desktop.justifySelf}`;
+      }
+      if (desktop.alignSelf) {
+        additionalClasses += ` desktop:${desktop.alignSelf}`;
+      }
     }
 
     if (responsiveDisplay.tablet) {
       const tablet = responsiveDisplay.tablet;
-      if (tablet.display) additionalClasses += ` tablet:${tablet.display}`;
-      if (tablet.flexDirection) additionalClasses += ` tablet:${tablet.flexDirection}`;
-      if (tablet.justifyContent) additionalClasses += ` tablet:${tablet.justifyContent}`;
-      if (tablet.alignItems) additionalClasses += ` tablet:${tablet.alignItems}`;
-      if (tablet.justifySelf) additionalClasses += ` tablet:${tablet.justifySelf}`;
-      if (tablet.alignSelf) additionalClasses += ` tablet:${tablet.alignSelf}`;
+      if (tablet.display) {
+        additionalClasses += ` tablet:${tablet.display}`;
+      }
+      if (tablet.flexDirection) {
+        additionalClasses += ` tablet:${tablet.flexDirection}`;
+      }
+      if (tablet.justifyContent) {
+        additionalClasses += ` tablet:${tablet.justifyContent}`;
+      }
+      if (tablet.alignItems) {
+        additionalClasses += ` tablet:${tablet.alignItems}`;
+      }
+      if (tablet.justifySelf) {
+        additionalClasses += ` tablet:${tablet.justifySelf}`;
+      }
+      if (tablet.alignSelf) {
+        additionalClasses += ` tablet:${tablet.alignSelf}`;
+      }
     }
 
     if (responsiveDisplay.mobile) {
       const mobile = responsiveDisplay.mobile;
-      if (mobile.display) additionalClasses += ` mobile:${mobile.display}`;
-      if (mobile.flexDirection) additionalClasses += ` mobile:${mobile.flexDirection}`;
-      if (mobile.justifyContent) additionalClasses += ` mobile:${mobile.justifyContent}`;
-      if (mobile.alignItems) additionalClasses += ` mobile:${mobile.alignItems}`;
-      if (mobile.justifySelf) additionalClasses += ` mobile:${mobile.justifySelf}`;
-      if (mobile.alignSelf) additionalClasses += ` mobile:${mobile.alignSelf}`;
+      if (mobile.display) {
+        additionalClasses += ` mobile:${mobile.display}`;
+      }
+      if (mobile.flexDirection) {
+        additionalClasses += ` mobile:${mobile.flexDirection}`;
+      }
+      if (mobile.justifyContent) {
+        additionalClasses += ` mobile:${mobile.justifyContent}`;
+      }
+      if (mobile.alignItems) {
+        additionalClasses += ` mobile:${mobile.alignItems}`;
+      }
+      if (mobile.justifySelf) {
+        additionalClasses += ` mobile:${mobile.justifySelf}`;
+      }
+      if (mobile.alignSelf) {
+        additionalClasses += ` mobile:${mobile.alignSelf}`;
+      }
     }
 
     if (additionalClasses) {

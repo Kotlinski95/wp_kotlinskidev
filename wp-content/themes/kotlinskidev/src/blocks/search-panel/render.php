@@ -27,7 +27,7 @@ $panel_id  = 'kt-search-modal-' . wp_unique_id();
 		aria-label="<?php echo esc_attr( $label ); ?>"
 	>
 		<div class="kt-search-panel__modal-inner">
-			<?php echo $content; ?>
+			<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
 		</div>
 	</div>
 	<div class="kt-search-panel__backdrop" aria-hidden="true"></div>

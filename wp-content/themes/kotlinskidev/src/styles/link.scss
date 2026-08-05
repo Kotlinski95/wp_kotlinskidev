@@ -3,16 +3,7 @@
 
 $kt-dead-link-triggers: (".kt-mega-nav__link");
 
-$kt-underline-link-exceptions: (
-	"#scroll-to-top",
-	".custom-logo-link",
-	'[href="#"]',
-	".wp-element-button",
-	".wp-block-button__link",
-	".kt-button__link",
-	".kt-hover-no-link-gradient",
-	".wp-block-social-link-anchor"
-);
+$kt-underline-link-exceptions: ("#scroll-to-top", ".custom-logo-link", '[href="#"]', ".wp-element-button", ".wp-block-button__link", ".kt-button__link", ".kt-hover-no-link-gradient", ".wp-block-social-link-anchor");
 
 header,
 footer {

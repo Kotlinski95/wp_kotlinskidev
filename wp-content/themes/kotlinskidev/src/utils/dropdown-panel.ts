@@ -10,7 +10,9 @@ interface DropdownPanelConfig {
 
 export function initDropdownPanels(config: DropdownPanelConfig): void {
   const panels = document.querySelectorAll<HTMLElement>(config.rootSelector);
-  if (!panels.length) return;
+  if (!panels.length) {
+    return;
+  }
 
   const closeAll = () => {
     panels.forEach((panel) => {
@@ -39,7 +41,9 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
         trigger.setAttribute("aria-expanded", "true");
         modal?.setAttribute("aria-hidden", "false");
         lockScroll(config.rootSelector);
-        if (modal) config.onOpen?.(modal);
+        if (modal) {
+          config.onOpen?.(modal);
+        }
       }
     });
 
@@ -49,11 +53,15 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
   });
 
   document.addEventListener("click", () => {
-    if ([...panels].some((p) => p.contains(document.activeElement))) return;
+    if ([...panels].some((p) => p.contains(document.activeElement))) {
+      return;
+    }
     closeAll();
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeAll();
+    if (e.key === "Escape") {
+      closeAll();
+    }
   });
 }

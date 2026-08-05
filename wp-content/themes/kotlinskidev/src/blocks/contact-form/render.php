@@ -12,7 +12,7 @@ if ( $enable_captcha ) {
     }
 }
 
-if ( isset( $_GET['contact-success'] ) ) {
+if ( isset( $_GET['contact-success'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
     echo '<div class="contact-form-success" id="contact-form-ts-success">' . esc_html( $attributes['successMessage'] ?? 'Thank you! Your message has been sent.' ) . '</div>';
     ?>
     <script>
@@ -26,8 +26,8 @@ if ( isset( $_GET['contact-success'] ) ) {
     <?php
 }
 
-if ( isset( $_GET['contact-error'] ) ) {
-    $error_type    = sanitize_key( wp_unslash( $_GET['contact-error'] ) );
+if ( isset( $_GET['contact-error'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
+    $error_type    = sanitize_key( wp_unslash( $_GET['contact-error'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
     $error_message = $attributes['errorMessage'] ?? 'Sorry, there was an error. Please try again.';
 
     if ( 'captcha' === $error_type ) {

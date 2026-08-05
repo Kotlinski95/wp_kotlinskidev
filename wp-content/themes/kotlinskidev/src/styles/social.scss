@@ -1,8 +1,7 @@
 @import "variables";
 @import "theme-colors";
 
-.wp-block-navigation__responsive-container
-.wp-block-navigation-item:has(.social-menu-container:not(.social-menu-container--inline)) {
+.wp-block-navigation__responsive-container .wp-block-navigation-item:has(.social-menu-container:not(.social-menu-container--inline)) {
 	position: sticky;
 	bottom: 0;
 	z-index: 1;

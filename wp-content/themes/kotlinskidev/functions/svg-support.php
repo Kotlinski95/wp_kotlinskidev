@@ -29,13 +29,75 @@ function kotlinskidev_load_svg_content( int $attachment_id ): string {
 		return '';
 	}
 
-	$svg = preg_replace( '/^\s*<\?xml[^>]*\?>\s*/i', '', $raw );
-	$svg = preg_replace( '/<!DOCTYPE[^>]*>/i', '', $svg );
-	$svg = trim( $svg );
+	$svg = kotlinskidev_sanitize_svg( $raw );
 
 	set_transient( $cache_key, $svg, WEEK_IN_SECONDS );
 
 	return $svg;
+}
+
+function kotlinskidev_sanitize_svg( string $raw ): string {
+	if ( '' === trim( $raw ) ) {
+		return '';
+	}
+
+	$previous_error_setting = libxml_use_internal_errors( true );
+
+	$dom    = new DOMDocument();
+	$loaded = $dom->loadXML( $raw, LIBXML_NONET );
+
+	libxml_clear_errors();
+	libxml_use_internal_errors( $previous_error_setting );
+
+	if ( ! $loaded || ! $dom->documentElement || 'svg' !== strtolower( $dom->documentElement->localName ) ) {
+		return '';
+	}
+
+	$disallowed_tags = array( 'script', 'foreignobject', 'iframe', 'embed', 'object', 'link', 'meta', 'base', 'style' );
+	$xpath           = new DOMXPath( $dom );
+
+	foreach ( $disallowed_tags as $tag ) {
+		$nodes = $xpath->query( "//*[translate(local-name(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')='{$tag}']" );
+		foreach ( $nodes as $node ) {
+			$node->parentNode->removeChild( $node );
+		}
+	}
+
+	$safe_url_attrs = array( 'href', 'xlink:href', 'src' );
+
+	foreach ( $xpath->query( '//*' ) as $element ) {
+		if ( ! $element->hasAttributes() ) {
+			continue;
+		}
+
+		$attributes_to_remove = array();
+
+		foreach ( $element->attributes as $attribute ) {
+			$attr_name  = strtolower( $attribute->nodeName );
+			$attr_value = trim( $attribute->nodeValue );
+
+			if ( 0 === strpos( $attr_name, 'on' ) ) {
+				$attributes_to_remove[] = $attribute->nodeName;
+				continue;
+			}
+
+			if ( in_array( $attr_name, $safe_url_attrs, true ) ) {
+				$normalized   = strtolower( preg_replace( '/\s+/', '', $attr_value ) );
+				$is_fragment  = 0 === strpos( $attr_value, '#' );
+				$is_safe_data = 0 === strpos( $normalized, 'data:image/' );
+
+				if ( ! $is_fragment && ! $is_safe_data ) {
+					$attributes_to_remove[] = $attribute->nodeName;
+				}
+			}
+		}
+
+		foreach ( $attributes_to_remove as $attr_name ) {
+			$element->removeAttribute( $attr_name );
+		}
+	}
+
+	return trim( $dom->saveXML( $dom->documentElement ) );
 }
 
 function kotlinskidev_build_inline_svg( string $svg, string $img_html ): string {

@@ -8,6 +8,19 @@ interface ProtectionConfig {
   errorText: string;
 }
 
+interface DecryptItem {
+  content: string;
+  type: string;
+}
+
+interface DecryptResult {
+  content: string;
+  raw_content: string;
+}
+
+const BATCH_DEBOUNCE_MS = 50;
+const OBSERVER_ROOT_MARGIN = "200px 0px";
+
 const getConfig = (): ProtectionConfig => {
   return (
     (window as any).kotlinskidevProtectionConfig || {
@@ -18,77 +31,60 @@ const getConfig = (): ProtectionConfig => {
   );
 };
 
-const decryptContent = async (
-  element: HTMLElement,
-  encryptedContent: string,
-  type: string
-): Promise<void> => {
+const refreshNonce = async (): Promise<boolean> => {
   const config = getConfig();
+  const formData = new FormData();
+  formData.append("action", "kotlinskidev_get_fresh_nonce");
 
-  try {
-    const formData = new FormData();
-    formData.append("action", "kotlinskidev_decrypt_content");
-    formData.append("content", encryptedContent);
-    formData.append("type", type);
-    formData.append("nonce", config.nonce);
+  const response = await fetch(config.ajaxUrl, {
+    method: "POST",
+    body: formData,
+  });
 
-    const response = await fetch(config.ajaxUrl, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    if (result.success) {
-      revealContent(element, result.data.content, type);
-    } else {
-      if (result.data?.error_code === "nonce_expired") {
-        await retryWithFreshNonce(element, encryptedContent, type);
-      } else {
-        throw new Error(result.data?.message || result.data || "Unknown decryption error");
-      }
-    }
-  } catch (error) {
-    console.error("Failed to decrypt protected content:", error);
-    showError(element, type);
+  if (!response.ok) {
+    return false;
   }
+
+  const result = await response.json();
+
+  if (result.success) {
+    (window as any).kotlinskidevProtectionConfig.nonce = result.data.nonce;
+    return true;
+  }
+
+  return false;
 };
 
-const retryWithFreshNonce = async (
-  element: HTMLElement,
-  encryptedContent: string,
-  type: string
-): Promise<void> => {
+const fetchDecryptedItems = async (
+  items: DecryptItem[],
+  hasRetried = false
+): Promise<Record<number, DecryptResult | null>> => {
   const config = getConfig();
+  const formData = new FormData();
+  formData.append("action", "kotlinskidev_decrypt_content");
+  formData.append("items", JSON.stringify(items));
+  formData.append("nonce", config.nonce);
 
-  try {
-    const nonceFormData = new FormData();
-    nonceFormData.append("action", "kotlinskidev_get_fresh_nonce");
+  const response = await fetch(config.ajaxUrl, {
+    method: "POST",
+    body: formData,
+  });
 
-    const nonceResponse = await fetch(config.ajaxUrl, {
-      method: "POST",
-      body: nonceFormData,
-    });
-
-    if (nonceResponse.ok) {
-      const nonceResult = await nonceResponse.json();
-      if (nonceResult.success) {
-        (window as any).kotlinskidevProtectionConfig.nonce = nonceResult.data.nonce;
-
-        await decryptContent(element, encryptedContent, type);
-        return;
-      }
-    }
-
-    throw new Error("Failed to refresh security token");
-  } catch (error) {
-    console.error("Failed to get fresh nonce:", error);
-    showError(element, type);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
   }
+
+  const result = await response.json();
+
+  if (result.success) {
+    return result.data.results;
+  }
+
+  if (result.data?.error_code === "nonce_expired" && !hasRetried && (await refreshNonce())) {
+    return fetchDecryptedItems(items, true);
+  }
+
+  throw new Error(result.data?.message || result.data || "Unknown decryption error");
 };
 
 const revealContent = (element: HTMLElement, content: string, type: string): void => {
@@ -114,30 +110,86 @@ const showLoading = (element: HTMLElement): void => {
   element.classList.add("protection-loading");
 };
 
-const processElement = (element: HTMLElement): void => {
-  const originalContent = element.getAttribute("data-original-content");
-  const protectionType = element.getAttribute("data-protection-type") || "text";
+let pendingElements: HTMLElement[] = [];
+let flushScheduled = false;
 
-  if (!originalContent) {
+const flushPendingElements = async (): Promise<void> => {
+  const elements = pendingElements;
+  pendingElements = [];
+  flushScheduled = false;
+
+  if (elements.length === 0) {
+    return;
+  }
+
+  const items: DecryptItem[] = elements.map((element) => ({
+    content: element.getAttribute("data-original-content") || "",
+    type: element.getAttribute("data-protection-type") || "text",
+  }));
+
+  elements.forEach(showLoading);
+
+  try {
+    const results = await fetchDecryptedItems(items);
+    elements.forEach((element, index) => {
+      const result = results[index];
+      if (result) {
+        revealContent(element, result.content, items[index].type);
+      } else {
+        showError(element, items[index].type);
+      }
+    });
+  } catch (error) {
+    console.error("Failed to decrypt protected content:", error);
+    elements.forEach((element, index) => showError(element, items[index].type));
+  }
+};
+
+const scheduleFlush = (): void => {
+  if (flushScheduled) {
+    return;
+  }
+  flushScheduled = true;
+  setTimeout(flushPendingElements, BATCH_DEBOUNCE_MS);
+};
+
+const enqueueElement = (element: HTMLElement): void => {
+  if (!element.getAttribute("data-original-content")) {
     console.warn("Protected element missing original content data");
     return;
   }
 
-  showLoading(element);
+  pendingElements.push(element);
+  scheduleFlush();
+};
 
-  setTimeout(
-    () => {
-      decryptContent(element, originalContent, protectionType);
-    },
-    Math.random() * 500 + 200
-  );
+let intersectionObserver: IntersectionObserver | null = null;
+
+const getIntersectionObserver = (): IntersectionObserver => {
+  if (!intersectionObserver) {
+    intersectionObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+            enqueueElement(entry.target as HTMLElement);
+          }
+        });
+      },
+      { rootMargin: OBSERVER_ROOT_MARGIN }
+    );
+  }
+
+  return intersectionObserver;
+};
+
+const observeElement = (element: HTMLElement): void => {
+  getIntersectionObserver().observe(element);
 };
 
 const processProtectedElements = (): void => {
   const protectedElements = document.querySelectorAll('[data-protected="true"]');
-  protectedElements.forEach((element) => {
-    processElement(element as HTMLElement);
-  });
+  protectedElements.forEach((element) => observeElement(element as HTMLElement));
 };
 
 const observeDOM = (): void => {
@@ -148,12 +200,12 @@ const observeDOM = (): void => {
           const element = node as HTMLElement;
 
           if (element.hasAttribute("data-protected")) {
-            processElement(element);
+            observeElement(element);
           }
 
           const protectedElements = element.querySelectorAll('[data-protected="true"]');
           protectedElements.forEach((protectedEl) => {
-            processElement(protectedEl as HTMLElement);
+            observeElement(protectedEl as HTMLElement);
           });
         }
       });
@@ -167,75 +219,14 @@ const observeDOM = (): void => {
 };
 
 const decryptText = async (encryptedText: string, type: string = "text"): Promise<string> => {
-  const config = getConfig();
+  const results = await fetchDecryptedItems([{ content: encryptedText, type }]);
+  const result = results[0];
 
-  try {
-    const formData = new FormData();
-    formData.append("action", "kotlinskidev_decrypt_content");
-    formData.append("content", encryptedText);
-    formData.append("type", type);
-    formData.append("nonce", config.nonce);
-
-    const response = await fetch(config.ajaxUrl, {
-      method: "POST",
-      body: formData,
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      return result.data.raw_content;
-    } else {
-      if (result.data?.error_code === "nonce_expired") {
-        return await retryDecryptTextWithFreshNonce(encryptedText, type);
-      } else {
-        throw new Error(result.data?.message || result.data || "Unknown decryption error");
-      }
-    }
-  } catch (error) {
-    console.error("Failed to decrypt text:", error);
-    throw error;
-  }
-};
-
-const retryDecryptTextWithFreshNonce = async (
-  encryptedText: string,
-  type: string
-): Promise<string> => {
-  const config = getConfig();
-
-  const nonceFormData = new FormData();
-  nonceFormData.append("action", "kotlinskidev_get_fresh_nonce");
-
-  const nonceResponse = await fetch(config.ajaxUrl, {
-    method: "POST",
-    body: nonceFormData,
-  });
-
-  if (nonceResponse.ok) {
-    const nonceResult = await nonceResponse.json();
-    if (nonceResult.success) {
-      (window as any).kotlinskidevProtectionConfig.nonce = nonceResult.data.nonce;
-
-      const retryFormData = new FormData();
-      retryFormData.append("action", "kotlinskidev_decrypt_content");
-      retryFormData.append("content", encryptedText);
-      retryFormData.append("type", type);
-      retryFormData.append("nonce", nonceResult.data.nonce);
-
-      const retryResponse = await fetch(config.ajaxUrl, {
-        method: "POST",
-        body: retryFormData,
-      });
-
-      const retryResult = await retryResponse.json();
-      if (retryResult.success) {
-        return retryResult.data.raw_content;
-      }
-    }
+  if (!result) {
+    throw new Error("Unknown decryption error");
   }
 
-  throw new Error("Failed to refresh security token and decrypt content");
+  return result.raw_content;
 };
 
 const initProtection = (): void => {
@@ -251,7 +242,7 @@ const initProtection = (): void => {
 const kotlinskidevProtection = {
   decryptText,
   processProtectedElements,
-  processElement,
+  processElement: observeElement,
   initProtection,
 };
 
