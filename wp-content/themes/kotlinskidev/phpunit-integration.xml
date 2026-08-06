@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="tests/Integration/vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="tests/Integration/bootstrap.php"
          colors="true"
 >
     <testsuites>
         <testsuite name="Integration">
-            <directory suffix="Test.php">./tests/Integration</directory>
+            <directory suffix="Test.php">./tests/Integration/tests</directory>
         </testsuite>
     </testsuites>
-    <source>
-        <include>
+    <filter>
+        <whitelist>
             <directory>functions</directory>
             <directory>includes</directory>
             <directory suffix="render.php">src/blocks</directory>
-        </include>
-    </source>
+            <exclude>
+                <file>functions/seo-customizer.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>

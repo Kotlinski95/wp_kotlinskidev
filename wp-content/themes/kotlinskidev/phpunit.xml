@@ -15,5 +15,8 @@
             <directory>includes</directory>
             <directory suffix="render.php">src/blocks</directory>
         </include>
+        <exclude>
+            <file>functions/seo-customizer.php</file>
+        </exclude>
     </source>
 </phpunit>

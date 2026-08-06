@@ -1,6 +1,6 @@
 {
   "require-dev": {
-    "squizlabs/php_codesniffer": "^3.9",
+    "squizlabs/php_codesniffer": "^3.13.6",
     "wp-coding-standards/wpcs": "^3.1",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
     "pestphp/pest": "^5.0",
@@ -15,7 +15,8 @@
   "scripts": {
     "test:unit": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit",
     "test:unit:coverage": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit --coverage --coverage-html=coverage/php --coverage-clover=coverage/php/clover.xml",
-    "test:integration": "php -d pcov.directory=. vendor/bin/pest --configuration=phpunit-integration.xml"
+    "test:integration": "cd tests/Integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml",
+    "test:integration:coverage": "cd tests/Integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml --coverage --coverage-html=../../coverage/php-integration --coverage-clover=../../coverage/php-integration/clover.xml"
   },
   "config": {
     "allow-plugins": {

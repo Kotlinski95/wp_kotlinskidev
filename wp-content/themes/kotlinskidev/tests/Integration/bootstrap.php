@@ -1,5 +1,16 @@
 <?php
 
+if (defined('KOTLINSKIDEV_WP_TESTS_BOOTSTRAPPED')) {
+    return;
+}
+define('KOTLINSKIDEV_WP_TESTS_BOOTSTRAPPED', true);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+if (!getenv('WP_PHPUNIT__TESTS_CONFIG')) {
+    putenv('WP_PHPUNIT__TESTS_CONFIG=' . __DIR__ . '/wp-tests-config.php');
+}
+
 $_tests_dir = getenv('WP_TESTS_DIR');
 
 if (!$_tests_dir) {
@@ -7,7 +18,7 @@ if (!$_tests_dir) {
 }
 
 if (!$_tests_dir) {
-    $_tests_dir = dirname(__DIR__, 2) . '/vendor/wp-phpunit/wp-phpunit';
+    $_tests_dir = __DIR__ . '/vendor/wp-phpunit/wp-phpunit';
 }
 
 require_once $_tests_dir . '/includes/functions.php';
@@ -15,7 +26,6 @@ require_once $_tests_dir . '/includes/functions.php';
 function _kotlinskidev_manually_load_theme()
 {
     switch_theme('kotlinskidev');
-    require dirname(__DIR__, 2) . '/functions.php';
 }
 tests_add_filter('setup_theme', '_kotlinskidev_manually_load_theme');
 
