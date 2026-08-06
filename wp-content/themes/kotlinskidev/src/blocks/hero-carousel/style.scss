@@ -128,6 +128,11 @@
 	.swiper-button-prev,
 	.swiper-button-next {
 		color: #fff;
+
+		svg {
+			width: 50%;
+			height: 50%;
+		}
 	}
 
 	@include carousel-pagination(#fff);

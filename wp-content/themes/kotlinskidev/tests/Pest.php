@@ -16,4 +16,17 @@ if (!function_exists('add_action')) {
     }
 }
 
+if (!function_exists('kotlinskidev_render_block_file')) {
+    function kotlinskidev_render_block_file(string $file, array $attributes, string $content = '', mixed $block = []): string
+    {
+        $render = function () use ($file, $attributes, $content, $block) {
+            ob_start();
+            include $file;
+            return ob_get_clean();
+        };
+
+        return $render();
+    }
+}
+
 pest()->extend(TestCase::class)->in('Unit');

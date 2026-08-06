@@ -11,7 +11,7 @@ $slides_per_desktop  = empty( $attributes['slidesPerDesktop'] ) ? 1 : $attribute
 $loop              = empty( $attributes['loop'] ) ? false : $attributes['loop'];
 $scrollbar         = empty( $attributes['scrollbar'] ) ? false : $attributes['scrollbar'];
 $mousewheel        = empty( $attributes['mousewheel'] ) ? false : $attributes['mousewheel'];
-$keyboard          = empty( $attributes['keyboard'] ) ? true : $attributes['keyboard'];
+$keyboard          = isset( $attributes['keyboard'] ) ? (bool) $attributes['keyboard'] : true;
 $space_between      = isset( $attributes['spaceBetween'] ) ? (int) $attributes['spaceBetween'] : 16;
 
 $swiper_settings = array(

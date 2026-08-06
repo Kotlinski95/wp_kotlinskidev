@@ -93,7 +93,7 @@ function kotlinskidev_localize_scripts() {
 function kotlinskidev_get_all_translations() {
     return [
         'navigation' => kotlinskidev_get_navigation_translations(),
-        'forms' => kotlinskidev_get_form_translations(),
+        'forms' => kotlinskidev_get_forms_translations(),
         'general' => kotlinskidev_get_general_translations(),
         'accessibility' => kotlinskidev_get_accessibility_translations(),
         'cookieConsent' => kotlinskidev_get_cookie_consent_translations(),
@@ -133,7 +133,7 @@ function kotlinskidev_get_navigation_translations() {
  * 
  * @return array Form translations
  */
-function kotlinskidev_get_form_translations() {
+function kotlinskidev_get_forms_translations() {
     return [
         'validation' => [
             'required' => __('This field is required.', KOTLINSKIDEV_TEXT_DOMAIN),

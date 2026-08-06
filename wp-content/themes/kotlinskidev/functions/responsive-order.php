@@ -29,13 +29,13 @@ function kotlinskidev_add_responsive_order_attributes($block_content, $block) {
     if (!empty($classes)) {
         $class_string = implode(' ', $classes);
         
-        // Find the first opening tag and add our classes
+        // Find the first opening tag and merge our classes into its class attribute
         $new_content = preg_replace(
-            '/^(\s*)(<[^>]+class="[^"]*")/',
-            '$1$2 ' . esc_attr($class_string),
+            '/^(\s*<[^>]+class="[^"]*)"/',
+            '$1 ' . esc_attr($class_string) . '"',
             $block_content
         );
-        
+
         // If no class attribute exists, add one
         if (strpos($block_content, 'class=') === false) {
             $new_content = preg_replace(

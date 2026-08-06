@@ -39,7 +39,8 @@
       "Bash(grep -n \"^//\\\\|^/\\\\*\\\\|^\\\\.[a-zA-Z-]*\\\\s*{$\\\\|:focus\\\\|skip-link\\\\|screen-reader\" src/styles/accessibility.scss)",
       "mcp__chrome-devtools-mcp__performance_start_trace",
       "Bash(vendor/bin/phpcs --standard=.phpcs.security.xml --report=json)",
-      "Bash(npx wp-scripts *)"
+      "Bash(npx wp-scripts *)",
+      "Bash(composer test:unit)"
     ]
   }
 }
