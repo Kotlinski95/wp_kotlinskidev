@@ -160,7 +160,7 @@ describe("gallery-lightbox/init.ts", () => {
 
     const modal = document.getElementById("gallery-lightbox-modal") as HTMLElement;
     expect(modal.querySelector("script")).toBeNull();
-    expect(modal.querySelector("img")?.getAttribute("alt")).toBe('"><script>x</script>');
+    expect(modal.querySelector("img")?.getAttribute("alt")).toBeNull();
   });
 
   it("renders a video slide with controls and poster", () => {

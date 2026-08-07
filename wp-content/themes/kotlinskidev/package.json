@@ -21,10 +21,35 @@
   },
   "main": "index.js",
   "dependencies": {
+    "dompurify": "^3.4.13",
     "gsap": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "swiper": "^14.0.7"
+  },
+  "overrides": {
+    "@wordpress/scripts": {
+      "adm-zip": "^0.6.0",
+      "markdownlint-cli": {
+        "minimatch": "^3.1.5",
+        "markdownlint": {
+          "markdown-it": {
+            ".": "^14.2.0",
+            "linkify-it": "^5.0.2"
+          }
+        }
+      },
+      "copy-webpack-plugin": {
+        "serialize-javascript": "^7.0.5"
+      },
+      "@wordpress/eslint-plugin": {
+        "@typescript-eslint/parser": {
+          "@typescript-eslint/typescript-estree": {
+            "minimatch": "^9.0.9"
+          }
+        }
+      }
+    }
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

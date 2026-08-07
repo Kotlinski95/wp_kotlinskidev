@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import "swiper/swiper-bundle.css";
 import { initSwiper } from "@utils/carousel/initSwiper";
 import { attachImageZoom } from "@utils/zoom/attachImageZoom";
@@ -138,7 +139,10 @@ const openModal = (
 ): void => {
   document.getElementById(MODAL_ID)?.remove();
   document.body.style.overflow = "hidden";
-  document.body.insertAdjacentHTML("beforeend", buildModalHTML(images, startIndex, settings));
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    DOMPurify.sanitize(buildModalHTML(images, startIndex, settings))
+  );
 
   const modal = document.getElementById(MODAL_ID) as HTMLElement;
   const swiperEl = modal.querySelector<HTMLElement>(".gallery-lightbox-swiper")!;

@@ -2,6 +2,8 @@
  * Protected Content Frontend Handler
  */
 
+import DOMPurify from "dompurify";
+
 interface ProtectionConfig {
   ajaxUrl: string;
   nonce: string;
@@ -88,7 +90,7 @@ const fetchDecryptedItems = async (
 };
 
 const revealContent = (element: HTMLElement, content: string, type: string): void => {
-  element.innerHTML = content;
+  element.innerHTML = DOMPurify.sanitize(content);
   element.classList.remove("protection-loading");
   element.classList.add("protection-loaded");
   element.removeAttribute("data-original-content");
@@ -97,7 +99,7 @@ const revealContent = (element: HTMLElement, content: string, type: string): voi
 
 const showError = (element: HTMLElement, type: string): void => {
   const config = getConfig();
-  element.innerHTML = config.errorText;
+  element.innerHTML = DOMPurify.sanitize(config.errorText);
   element.classList.remove("protection-loading");
   element.classList.add("protection-error");
   element.setAttribute("aria-label", `Failed to load protected ${type} content`);
@@ -106,7 +108,12 @@ const showError = (element: HTMLElement, type: string): void => {
 const showLoading = (element: HTMLElement): void => {
   const themeUrl =
     (window as any).kotlinskidevProtectionConfig?.themeUrl || "/wp-content/themes/kotlinskidev";
-  element.innerHTML = `<img src="${themeUrl}/assets/images/loading.svg" alt="Loading..." class="protection-loading-spinner" />`;
+  element.replaceChildren();
+  const spinner = document.createElement("img");
+  spinner.src = `${themeUrl}/assets/images/loading.svg`;
+  spinner.alt = "Loading...";
+  spinner.className = "protection-loading-spinner";
+  element.append(spinner);
   element.classList.add("protection-loading");
 };
 
