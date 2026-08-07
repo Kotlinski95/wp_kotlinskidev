@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="tests/Integration/vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="tests/Integration/bootstrap.php"
+         xsi:noNamespaceSchemaLocation="tests/integration/vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/integration/bootstrap.php"
          colors="true"
 >
     <testsuites>
         <testsuite name="Integration">
-            <directory suffix="Test.php">./tests/Integration/tests</directory>
+            <directory suffix="Test.php">./tests/integration/tests</directory>
         </testsuite>
     </testsuites>
     <filter>

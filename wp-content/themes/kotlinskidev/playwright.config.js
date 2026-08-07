@@ -6,6 +6,7 @@ process.env.WP_ARTIFACTS_PATH ??= path.join(process.cwd(), "artifacts");
 const baseUrl = new URL(process.env.WP_BASE_URL || "http://kotlinskidev.local");
 
 module.exports = defineConfig({
+  globalSetup: require.resolve("./tests/e2e/global-setup.js"),
   reporter: process.env.CI ? [["github"]] : [["list"]],
   forbidOnly: !!process.env.CI,
   workers: 1,

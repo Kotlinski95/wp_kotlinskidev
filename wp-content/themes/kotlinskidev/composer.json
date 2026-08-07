@@ -15,8 +15,8 @@
   "scripts": {
     "test:unit": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit",
     "test:unit:coverage": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit --coverage --coverage-html=coverage/php --coverage-clover=coverage/php/clover.xml",
-    "test:integration": "cd tests/Integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml",
-    "test:integration:coverage": "cd tests/Integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml --coverage --coverage-html=../../coverage/php-integration --coverage-clover=../../coverage/php-integration/clover.xml"
+    "test:integration": "cd tests/integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml",
+    "test:integration:coverage": "cd tests/integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml --coverage --coverage-html=../../coverage/php-integration --coverage-clover=../../coverage/php-integration/clover.xml"
   },
   "config": {
     "allow-plugins": {

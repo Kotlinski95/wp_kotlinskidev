@@ -29,4 +29,4 @@ if (!function_exists('kotlinskidev_render_block_file')) {
     }
 }
 
-pest()->extend(TestCase::class)->in('Unit');
+pest()->extend(TestCase::class)->in('unit');
