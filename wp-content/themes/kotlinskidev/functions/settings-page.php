@@ -40,6 +40,11 @@ function kotlinskidev_settings_tabs(): array
             'group' => 'kotlinskidev_settings_tracking',
             'page'  => 'kotlinskidev-settings-tracking',
         ],
+        'security'    => [
+            'label' => esc_html__('Security', 'kotlinskidev'),
+            'group' => 'kotlinskidev_settings_security',
+            'page'  => 'kotlinskidev-settings-security',
+        ],
         'advanced' => [
             'label' => esc_html__('Advanced', 'kotlinskidev'),
             'group' => 'kotlinskidev_settings_advanced',
@@ -455,6 +460,141 @@ function kotlinskidev_register_settings(): void
         'kotlinskidev-settings-tracking',
         'kotlinskidev_section_tracking_ga'
     );
+
+    register_setting(
+        'kotlinskidev_settings_security',
+        'kotlinskidev_csp_enabled',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_security',
+        'kotlinskidev_csp_enforce',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => false,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_security',
+        'kotlinskidev_csp_upgrade_insecure_requests',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    $csp_defaults = kotlinskidev_csp_directive_defaults();
+    foreach (array_values(kotlinskidev_csp_directive_option_map()) as $csp_option_key) {
+        register_setting(
+            'kotlinskidev_settings_security',
+            $csp_option_key,
+            [
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'default'           => $csp_defaults[$csp_option_key],
+            ]
+        );
+    }
+
+    add_settings_section(
+        'kotlinskidev_section_csp_general',
+        esc_html__('Content Security Policy', 'kotlinskidev'),
+        'kotlinskidev_render_csp_general_section',
+        'kotlinskidev-settings-security'
+    );
+
+    add_settings_field(
+        'kotlinskidev_csp_enabled',
+        esc_html__('Enable CSP', 'kotlinskidev'),
+        'kotlinskidev_render_csp_enabled_field',
+        'kotlinskidev-settings-security',
+        'kotlinskidev_section_csp_general'
+    );
+
+    add_settings_field(
+        'kotlinskidev_csp_enforce',
+        esc_html__('Mode', 'kotlinskidev'),
+        'kotlinskidev_render_csp_enforce_field',
+        'kotlinskidev-settings-security',
+        'kotlinskidev_section_csp_general'
+    );
+
+    add_settings_field(
+        'kotlinskidev_csp_upgrade_insecure_requests',
+        esc_html__('Upgrade insecure requests', 'kotlinskidev'),
+        'kotlinskidev_render_csp_upgrade_insecure_requests_field',
+        'kotlinskidev-settings-security',
+        'kotlinskidev_section_csp_general'
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_csp_directives',
+        esc_html__('CSP Directives', 'kotlinskidev'),
+        'kotlinskidev_render_csp_directives_section',
+        'kotlinskidev-settings-security'
+    );
+
+    foreach (kotlinskidev_csp_directive_labels() as $csp_option_key => $csp_label) {
+        add_settings_field(
+            $csp_option_key,
+            $csp_label,
+            'kotlinskidev_render_csp_directive_field',
+            'kotlinskidev-settings-security',
+            'kotlinskidev_section_csp_directives',
+            ['option' => $csp_option_key]
+        );
+    }
+
+    register_setting(
+        'kotlinskidev_settings_security',
+        'kotlinskidev_referrer_policy',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'kotlinskidev_sanitize_referrer_policy',
+            'default'           => 'strict-origin-when-cross-origin',
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_security',
+        'kotlinskidev_permissions_policy',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => kotlinskidev_permissions_policy_default(),
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_other_headers',
+        esc_html__('Other Security Headers', 'kotlinskidev'),
+        'kotlinskidev_render_other_headers_section',
+        'kotlinskidev-settings-security'
+    );
+
+    add_settings_field(
+        'kotlinskidev_referrer_policy',
+        esc_html__('Referrer-Policy', 'kotlinskidev'),
+        'kotlinskidev_render_referrer_policy_field',
+        'kotlinskidev-settings-security',
+        'kotlinskidev_section_other_headers'
+    );
+
+    add_settings_field(
+        'kotlinskidev_permissions_policy',
+        esc_html__('Permissions-Policy', 'kotlinskidev'),
+        'kotlinskidev_render_permissions_policy_field',
+        'kotlinskidev-settings-security',
+        'kotlinskidev_section_other_headers'
+    );
 }
 
 function kotlinskidev_sanitize_theme_default_mode(string $value): string
@@ -470,6 +610,11 @@ function kotlinskidev_sanitize_breakpoint_px($value): int
 function kotlinskidev_sanitize_scroll_offset_px($value): int
 {
     return max(0, min(400, absint($value)));
+}
+
+function kotlinskidev_sanitize_referrer_policy(string $value): string
+{
+    return in_array($value, kotlinskidev_referrer_policy_choices(), true) ? $value : 'strict-origin-when-cross-origin';
 }
 
 function kotlinskidev_render_spam_section(): void
@@ -798,6 +943,95 @@ function kotlinskidev_render_ga_script_field(): void
     ?>
     <textarea name="custom_ga_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
     <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
+    <?php
+}
+
+function kotlinskidev_render_csp_general_section(): void
+{
+    echo '<p>' . esc_html__('Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme\'s own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_csp_enabled_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_csp_enabled', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_csp_enabled" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Send a Content-Security-Policy header', 'kotlinskidev'); ?>
+    </label>
+    <?php
+}
+
+function kotlinskidev_render_csp_enforce_field(): void
+{
+    $enforce = (bool) get_option('kotlinskidev_csp_enforce', false);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_csp_enforce" value="1" <?php checked($enforce); ?> />
+        <?php esc_html_e('Enforce the policy (blocks violations)', 'kotlinskidev'); ?>
+    </label>
+    <p class="description">
+        <?php esc_html_e('Leave unchecked to send Content-Security-Policy-Report-Only instead — the browser reports violations to the console without blocking anything. Recommended for at least a few days on a new site before enforcing.', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_csp_upgrade_insecure_requests_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_csp_upgrade_insecure_requests', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_csp_upgrade_insecure_requests" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Add the upgrade-insecure-requests directive', 'kotlinskidev'); ?>
+    </label>
+    <?php
+}
+
+function kotlinskidev_render_csp_directives_section(): void
+{
+    echo '<p>' . esc_html__('One field per CSP directive. Values are sanitized as plain text (no HTML, no line breaks) before being sent in the header.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_csp_directive_field(array $args): void
+{
+    $option  = $args['option'];
+    $default = kotlinskidev_csp_directive_defaults()[$option];
+    $value   = (string) get_option($option, $default);
+    ?>
+    <input type="text" name="<?php echo esc_attr($option); ?>" value="<?php echo esc_attr($value); ?>" class="large-text code" placeholder="<?php echo esc_attr($default); ?>" />
+    <?php
+}
+
+function kotlinskidev_render_other_headers_section(): void
+{
+    echo '<p>' . esc_html__('Referrer-Policy and Permissions-Policy are sent on every frontend response (never on wp-admin or REST requests). Set independently per site — no need to touch code to give a different customer a different policy.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_referrer_policy_field(): void
+{
+    $value = kotlinskidev_sanitize_referrer_policy((string) get_option('kotlinskidev_referrer_policy', 'strict-origin-when-cross-origin'));
+    ?>
+    <select name="kotlinskidev_referrer_policy">
+        <?php foreach (kotlinskidev_referrer_policy_choices() as $choice) : ?>
+            <option value="<?php echo esc_attr($choice); ?>" <?php selected($value, $choice); ?>>
+                <?php echo esc_html($choice); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <p class="description">
+        <?php esc_html_e('Controls how much of the current page URL is sent to other sites when a visitor follows a link away from this one. strict-origin-when-cross-origin is a balanced default.', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_permissions_policy_field(): void
+{
+    $value = get_option('kotlinskidev_permissions_policy', kotlinskidev_permissions_policy_default());
+    ?>
+    <textarea name="kotlinskidev_permissions_policy" rows="4" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
+    <p class="description">
+        <?php esc_html_e('Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty.', 'kotlinskidev'); ?>
+    </p>
     <?php
 }
 

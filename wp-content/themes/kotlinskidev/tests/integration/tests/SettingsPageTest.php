@@ -6,12 +6,14 @@ beforeEach(function () {
     unset($_GET['tab']);
 });
 
-it('exposes the six expected settings tabs', function () {
+it('exposes the seven expected settings tabs', function () {
     $tabs = kotlinskidev_settings_tabs();
 
-    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'advanced']);
+    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'advanced']);
     expect($tabs['breakpoints']['group'])->toBe('kotlinskidev_settings_breakpoints');
     expect($tabs['breakpoints']['page'])->toBe('kotlinskidev-settings-breakpoints');
+    expect($tabs['security']['group'])->toBe('kotlinskidev_settings_security');
+    expect($tabs['security']['page'])->toBe('kotlinskidev-settings-security');
 });
 
 it('defaults the active tab to general with no query var', function () {
@@ -57,6 +59,62 @@ it('registers every settings group with a real default value', function () {
     expect((int) get_option('kotlinskidev_breakpoint_large'))->toBe(1200);
     expect(get_option('kotlinskidev_login_bg_color'))->toBe('#191919');
     expect(get_option('kotlinskidev_login_accent_color'))->toBe('#8209d3');
+    expect(get_option('kotlinskidev_csp_enabled'))->toBeTrue();
+    expect(get_option('kotlinskidev_csp_enforce'))->toBeFalse();
+    expect(get_option('kotlinskidev_csp_script_src'))->toContain('maps.googleapis.com');
+    expect(get_option('kotlinskidev_referrer_policy'))->toBe('strict-origin-when-cross-origin');
+    expect(get_option('kotlinskidev_permissions_policy'))->toContain('camera=()');
+});
+
+it('renders the Referrer-Policy select with the stored value marked selected', function () {
+    update_option('kotlinskidev_referrer_policy', 'no-referrer');
+
+    ob_start();
+    kotlinskidev_render_referrer_policy_field();
+    $html = ob_get_clean();
+
+    expect($html)->toMatch('/<option value="no-referrer"[^>]*selected=\'selected\'/');
+    expect($html)->not->toMatch('/<option value="origin"[^>]*selected=\'selected\'/');
+
+    delete_option('kotlinskidev_referrer_policy');
+});
+
+it('renders the Permissions-Policy textarea with the stored value', function () {
+    update_option('kotlinskidev_permissions_policy', 'geolocation=(self)');
+
+    ob_start();
+    kotlinskidev_render_permissions_policy_field();
+    $html = ob_get_clean();
+
+    expect($html)->toContain('name="kotlinskidev_permissions_policy"');
+    expect($html)->toContain('geolocation=(self)');
+
+    delete_option('kotlinskidev_permissions_policy');
+});
+
+it('sanitizes the referrer policy to a known value or falls back to strict-origin-when-cross-origin', function () {
+    expect(kotlinskidev_sanitize_referrer_policy('no-referrer'))->toBe('no-referrer');
+    expect(kotlinskidev_sanitize_referrer_policy('not-a-real-policy'))->toBe('strict-origin-when-cross-origin');
+});
+
+it('renders one CSP directive field per registered directive, prefilled with the stored value', function () {
+    update_option('kotlinskidev_csp_frame_ancestors', "'self' https://embed.example.com");
+
+    ob_start();
+    kotlinskidev_render_csp_directive_field(['option' => 'kotlinskidev_csp_frame_ancestors']);
+    $html = ob_get_clean();
+
+    expect($html)->toContain('name="kotlinskidev_csp_frame_ancestors"');
+    expect($html)->toContain('value="&#039;self&#039; https://embed.example.com"');
+});
+
+it('renders the CSP enforce toggle unchecked by default (Report-Only)', function () {
+    ob_start();
+    kotlinskidev_render_csp_enforce_field();
+    $html = ob_get_clean();
+
+    expect($html)->toContain('name="kotlinskidev_csp_enforce"');
+    expect($html)->not->toContain("checked='checked'");
 });
 
 it('sanitizes the theme default mode to a known value or falls back to auto', function () {

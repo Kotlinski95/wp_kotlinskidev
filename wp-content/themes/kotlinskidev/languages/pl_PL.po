@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-08-05T13:34:36+00:00\n"
+"POT-Creation-Date: 2026-08-09T13:40:12+00:00\n"
 "PO-Revision-Date: 2025-10-05 09:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -12,10 +12,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
 "X-Domain: kotlinskidev\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10 >= 2 && n%10<=4 "
-"&&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.7.1; wp-6.8.1\n"
 
 #. Theme Name of the theme
@@ -34,12 +33,12 @@ msgstr "https://kotlinskidev.com"
 msgid ""
 "A custom WordPress theme built by Adrian Kotliński. Features dark/light "
 "mode, scroll animations, parallax effects, PWA support, and a fully custom "
-"block-based layout. Focused on clean code, performance and efficiency, and a "
-"great user experience."
+"block-based layout. Focused on clean code, performance and efficiency, and a"
+" great user experience."
 msgstr ""
 "Autorski motyw WordPress stworzony przez Adriana Kotlińskiego. Zawiera tryb "
-"jasny/ciemny, animacje przy przewijaniu, efekty paralaksy, wsparcie PWA oraz "
-"w pełni autorski układ oparty na blokach. Skupiony na czystym kodzie, "
+"jasny/ciemny, animacje przy przewijaniu, efekty paralaksy, wsparcie PWA oraz"
+" w pełni autorski układ oparty na blokach. Skupiony na czystym kodzie, "
 "wydajności i świetnym doświadczeniu użytkownika."
 
 #. Author of the theme
@@ -49,20 +48,20 @@ msgstr "Adrian Kotliński"
 
 #: build/blocks/google-maps/render.php:29 src/blocks/google-maps/render.php:29
 msgid ""
-"Please provide a Google Maps API key and address or coordinates in the block "
-"settings."
+"Please provide a Google Maps API key and address or coordinates in the block"
+" settings."
 msgstr ""
 "Podaj klucz API Google Maps oraz adres lub współrzędne w ustawieniach bloku."
 
 #: build/blocks/google-maps/render.php:39 src/blocks/google-maps/render.php:39
-#: build/google-maps.js:360
+#: build/google-maps.js:1
 msgid "Reset View"
 msgstr "Resetuj widok"
 
 #: build/blocks/language-panel/render.php:19
 #: build/blocks/navigation/render.php:268
-#: src/blocks/language-panel/render.php:19 src/blocks/navigation/render.php:268
-#: build/language-panel.js:1
+#: src/blocks/language-panel/render.php:19
+#: src/blocks/navigation/render.php:268 build/language-panel.js:1
 msgid "Language"
 msgstr "Język"
 
@@ -352,15 +351,14 @@ msgstr "Jak korzystać"
 
 #: functions/blog-topic-manager.php:457
 msgid "Set custom text for \"Home\" and \"Topics\" links in both languages"
-msgstr ""
-"Ustaw własny tekst dla linków \"Strona główna\" i \"Tematy\" w obu językach"
+msgstr "Ustaw własny tekst dla linków \"Strona główna\" i \"Tematy\" w obu językach"
 
 #: functions/blog-topic-manager.php:458
 msgid ""
 "Configure URLs for your topics pages (can be relative paths or full URLs)"
 msgstr ""
-"Skonfiguruj adresy URL stron tematów (mogą to być ścieżki względne lub pełne "
-"adresy URL)"
+"Skonfiguruj adresy URL stron tematów (mogą to być ścieżki względne lub pełne"
+" adresy URL)"
 
 #: functions/blog-topic-manager.php:459
 msgid "Leave fields empty to use default values"
@@ -698,7 +696,8 @@ msgstr "Instrukcje konfiguracji wp-config.php"
 
 #: functions/protection-helpers.php:525
 msgid ""
-"To use wp-config.php storage, add these constants to your wp-config.php file:"
+"To use wp-config.php storage, add these constants to your wp-config.php "
+"file:"
 msgstr ""
 "Aby korzystać z przechowywania w wp-config.php, dodaj te stałe do pliku wp-"
 "config.php:"
@@ -720,8 +719,8 @@ msgid ""
 "Add them to your wp-config.php file before the line that says \"/* That's "
 "all, stop editing! */\""
 msgstr ""
-"Dodaj je do pliku wp-config.php przed linią \"/* That's all, stop editing! */"
-"\""
+"Dodaj je do pliku wp-config.php przed linią \"/* That's all, stop editing! "
+"*/\""
 
 #: functions/protection-helpers.php:535
 msgid "Save the file and reload this page"
@@ -795,7 +794,7 @@ msgstr "Kotlinski.dev"
 msgid "General"
 msgstr "Ogólne"
 
-#: functions/settings-page.php:24 functions/settings-page.php:110
+#: functions/settings-page.php:24 functions/settings-page.php:115
 msgid "Theme Mode"
 msgstr "Tryb motywu"
 
@@ -812,129 +811,165 @@ msgid "Tracking"
 msgstr "Śledzenie"
 
 #: functions/settings-page.php:44
+msgid "Security"
+msgstr "Bezpieczeństwo"
+
+#: functions/settings-page.php:49
 msgid "Advanced"
 msgstr "Zaawansowane"
 
-#: functions/settings-page.php:75
+#: functions/settings-page.php:80
 msgid "Comment Spam Protection"
 msgstr "Ochrona przed spamem w komentarzach"
 
-#: functions/settings-page.php:82
+#: functions/settings-page.php:87
 msgid "Disable comments"
 msgstr "Wyłącz komentarze"
 
-#: functions/settings-page.php:117
+#: functions/settings-page.php:122
 msgid "Light/dark switching"
 msgstr "Przełączanie jasny/ciemny"
 
-#: functions/settings-page.php:125
+#: functions/settings-page.php:130
 msgid "Default mode"
 msgstr "Tryb domyślny"
 
-#: functions/settings-page.php:163
+#: functions/settings-page.php:168
 msgid "Responsive Breakpoints"
 msgstr "Responsywne punkty przełamania"
 
-#: functions/settings-page.php:170
+#: functions/settings-page.php:175
 msgid "Mobile max width (px)"
 msgstr "Maks. szerokość mobilna (px)"
 
-#: functions/settings-page.php:178
+#: functions/settings-page.php:183
 msgid "Tablet max width (px)"
 msgstr "Maks. szerokość tabletu (px)"
 
-#: functions/settings-page.php:186
+#: functions/settings-page.php:191
 msgid "Large desktop min width (px)"
 msgstr "Min. szerokość dużego ekranu (px)"
 
-#: functions/settings-page.php:214
+#: functions/settings-page.php:219
 msgid "Anchor Scroll Offset"
 msgstr "Przesunięcie przewijania do kotwicy"
 
-#: functions/settings-page.php:221
+#: functions/settings-page.php:226
 msgid "Desktop offset (px)"
 msgstr "Przesunięcie na komputerze (px)"
 
-#: functions/settings-page.php:229
+#: functions/settings-page.php:234
 msgid "Mobile offset (px)"
 msgstr "Przesunięcie na urządzeniu mobilnym (px)"
 
-#: functions/settings-page.php:257
+#: functions/settings-page.php:262
 msgid "Active Page Links"
 msgstr "Linki aktywnej strony"
 
-#: functions/settings-page.php:264
+#: functions/settings-page.php:269
 msgid "Highlight active-page links"
 msgstr "Podświetl linki aktywnej strony"
 
-#: functions/settings-page.php:272
+#: functions/settings-page.php:277
 msgid "Disable current-page link clicks"
 msgstr "Wyłącz klikanie linku aktualnej strony"
 
-#: functions/settings-page.php:330
+#: functions/settings-page.php:335
 msgid "Login Page Branding"
 msgstr "Branding strony logowania"
 
-#: functions/settings-page.php:337
+#: functions/settings-page.php:342
 msgid "Enable custom login"
 msgstr "Włącz własne logowanie"
 
-#: functions/settings-page.php:345
+#: functions/settings-page.php:350
 msgid "Background image"
 msgstr "Obraz tła"
 
-#: functions/settings-page.php:353
+#: functions/settings-page.php:358
 msgid "Logo image"
 msgstr "Obraz logo"
 
-#: functions/settings-page.php:361
+#: functions/settings-page.php:366
 msgid "Background color"
 msgstr "Kolor tła"
 
-#: functions/settings-page.php:369
+#: functions/settings-page.php:374
 msgid "Accent color"
 msgstr "Kolor akcentu"
 
-#: functions/settings-page.php:415
+#: functions/settings-page.php:420
 msgid "Facebook Pixel"
 msgstr "Piksel Facebooka"
 
-#: functions/settings-page.php:422
+#: functions/settings-page.php:427
 msgid "Pixel ID"
 msgstr "ID piksela"
 
-#: functions/settings-page.php:430 functions/settings-page.php:453
+#: functions/settings-page.php:435 functions/settings-page.php:458
 msgid "Custom script (overrides ID)"
 msgstr "Własny skrypt (nadpisuje ID)"
 
-#: functions/settings-page.php:438
+#: functions/settings-page.php:443
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: functions/settings-page.php:445
+#: functions/settings-page.php:450
 msgid "Measurement ID"
 msgstr "Identyfikator pomiaru"
 
-#: functions/settings-page.php:477
+#: functions/settings-page.php:509
+msgid "Content Security Policy"
+msgstr "Content Security Policy"
+
+#: functions/settings-page.php:516
+msgid "Enable CSP"
+msgstr "Włącz CSP"
+
+#: functions/settings-page.php:524
+msgid "Mode"
+msgstr "Tryb"
+
+#: functions/settings-page.php:532
+msgid "Upgrade insecure requests"
+msgstr "Upgrade insecure requests"
+
+#: functions/settings-page.php:540
+msgid "CSP Directives"
+msgstr "Dyrektywy CSP"
+
+#: functions/settings-page.php:578
+msgid "Other Security Headers"
+msgstr "Inne nagłówki bezpieczeństwa"
+
+#: functions/settings-page.php:585
+msgid "Referrer-Policy"
+msgstr "Referrer-Policy"
+
+#: functions/settings-page.php:593
+msgid "Permissions-Policy"
+msgstr "Permissions-Policy"
+
+#: functions/settings-page.php:622
 msgid ""
-"This site does not use comments. Enabling this protection closes comments at "
-"the server level — spam bots that POST directly to wp-comments-post.php or "
+"This site does not use comments. Enabling this protection closes comments at"
+" the server level — spam bots that POST directly to wp-comments-post.php or "
 "call XML-RPC comment methods are rejected with a 403 before any database "
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
 msgstr ""
-"Ta strona nie korzysta z komentarzy. Włączenie tej ochrony zamyka komentarze "
-"na poziomie serwera — boty spamujące, które wysyłają żądania POST "
-"bezpośrednio do wp-comments-post.php lub wywołują metody komentarzy XML-RPC, "
-"są odrzucane kodem 403, zanim dojdzie do zapisu w bazie danych lub "
-"powiadomienia e-mail. Same ustawienia dyskusji WordPress nie zatrzymują tego "
-"ruchu."
+"Ta strona nie korzysta z komentarzy. Włączenie tej ochrony zamyka komentarze"
+" na poziomie serwera — boty spamujące, które wysyłają żądania POST "
+"bezpośrednio do wp-comments-post.php lub wywołują metody komentarzy XML-RPC,"
+" są odrzucane kodem 403, zanim dojdzie do zapisu w bazie danych lub "
+"powiadomienia e-mail. Same ustawienia dyskusji WordPress nie zatrzymują tego"
+" ruchu."
 
-#: functions/settings-page.php:491
+#: functions/settings-page.php:636
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr "Blokuj wszystkie zgłoszenia komentarzy w całej witrynie (zalecane)"
 
-#: functions/settings-page.php:494
+#: functions/settings-page.php:639
 msgid ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
@@ -942,7 +977,7 @@ msgstr ""
 "Podłącza się do preprocess_comment i xmlrpc_methods. Usuwa interfejs "
 "komentarzy z edytora bloków i menu administracyjnego."
 
-#: functions/settings-page.php:501
+#: functions/settings-page.php:646
 msgid ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
@@ -951,24 +986,24 @@ msgstr ""
 "przełącznika motywu jest ukryty, a strona pozostaje zablokowana w trybie "
 "domyślnym."
 
-#: functions/settings-page.php:515
+#: functions/settings-page.php:660
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr ""
 "Pokaż przełącznik motywu i pozwól odwiedzającym przełączać tryb jasny/ciemny"
 
-#: functions/settings-page.php:524
+#: functions/settings-page.php:669
 msgid "Auto (visitor system preference)"
 msgstr "Automatyczny (preferencja systemowa odwiedzającego)"
 
-#: functions/settings-page.php:525
+#: functions/settings-page.php:670
 msgid "Light"
 msgstr "Jasny"
 
-#: functions/settings-page.php:526
+#: functions/settings-page.php:671
 msgid "Dark"
 msgstr "Ciemny"
 
-#: functions/settings-page.php:537
+#: functions/settings-page.php:682
 msgid ""
 "Initial mode for visitors without a saved preference. With switching "
 "disabled, this is the only mode used."
@@ -976,7 +1011,7 @@ msgstr ""
 "Początkowy tryb dla odwiedzających bez zapisanej preferencji. Przy "
 "wyłączonym przełączaniu jest to jedyny używany tryb."
 
-#: functions/settings-page.php:545
+#: functions/settings-page.php:690
 msgid ""
 "One source of truth for responsive ranges. These values drive the compiled "
 "theme CSS (media queries are rewritten at runtime and cached), the editor "
@@ -984,39 +1019,39 @@ msgid ""
 "mobile_breakpoint / tablet_breakpoint theme mods."
 msgstr ""
 "Jedno źródło prawdy dla zakresów responsywności. Te wartości sterują "
-"skompilowanym CSS motywu (zapytania media są przepisywane w czasie działania "
-"i buforowane), responsywnymi ustawieniami edytora, skryptami frontendowymi "
+"skompilowanym CSS motywu (zapytania media są przepisywane w czasie działania"
+" i buforowane), responsywnymi ustawieniami edytora, skryptami frontendowymi "
 "oraz każdą wtyczką odczytującą modyfikacje motywu mobile_breakpoint / "
 "tablet_breakpoint."
 
-#: functions/settings-page.php:547
+#: functions/settings-page.php:692
 msgid "Range"
 msgstr "Zakres"
 
-#: functions/settings-page.php:548
+#: functions/settings-page.php:693
 msgid "Effective values"
 msgstr "Wartości efektywne"
 
-#: functions/settings-page.php:549 build/editor.js:16 build/editor.js:25
+#: functions/settings-page.php:694 build/editor.js:16 build/editor.js:25
 #: build/editor.js:34 build/editor.js:37
 msgid "Mobile"
 msgstr "Mobilny"
 
-#: functions/settings-page.php:550 build/editor.js:13 build/editor.js:22
+#: functions/settings-page.php:695 build/editor.js:13 build/editor.js:22
 #: build/editor.js:31 build/editor.js:37
 msgid "Tablet"
 msgstr "Tablet"
 
-#: functions/settings-page.php:551 build/editor.js:10 build/editor.js:19
+#: functions/settings-page.php:696 build/editor.js:10 build/editor.js:19
 #: build/editor.js:28 build/editor.js:37
 msgid "Desktop"
 msgstr "Komputer"
 
-#: functions/settings-page.php:552
+#: functions/settings-page.php:697
 msgid "Large desktop"
 msgstr "Duży ekran"
 
-#: functions/settings-page.php:562
+#: functions/settings-page.php:707
 msgid ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
@@ -1024,7 +1059,7 @@ msgstr ""
 "Ekrany do tej szerokości są mobilne. Tablet zaczyna się od tej wartości + "
 "1px. Wartość domyślna motywu: 781."
 
-#: functions/settings-page.php:573
+#: functions/settings-page.php:718
 msgid ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
@@ -1032,7 +1067,7 @@ msgstr ""
 "Ekrany do tej szerokości są tabletowe. Komputer zaczyna się od tej wartości "
 "+ 1px. Wartość domyślna motywu: 1023."
 
-#: functions/settings-page.php:584
+#: functions/settings-page.php:729
 msgid ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
@@ -1040,23 +1075,23 @@ msgstr ""
 "Od tej wartości zaczynają się udoskonalenia dla szerokich ekranów (np. "
 "szerszy kontener treści). Wartość domyślna motywu: 1200."
 
-#: functions/settings-page.php:591
+#: functions/settings-page.php:736
 msgid ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
 "visible at all times, so it needs the full header height as clearance. "
-"Mobile hides the header while scrolling and only re-shows it near the top of "
-"the page, so it typically needs little or no offset."
+"Mobile hides the header while scrolling and only re-shows it near the top of"
+" the page, so it typically needs little or no offset."
 msgstr ""
 "Odstęp zachowywany między przyklejonym nagłówkiem a celem po kliknięciu "
-"linku kotwicy na stronie (np. \"#uslugi\"). Na komputerze pływający nagłówek "
-"jest zawsze widoczny, więc potrzebuje pełnej wysokości nagłówka jako "
+"linku kotwicy na stronie (np. \"#uslugi\"). Na komputerze pływający nagłówek"
+" jest zawsze widoczny, więc potrzebuje pełnej wysokości nagłówka jako "
 "odstępu. Na urządzeniach mobilnych nagłówek jest ukrywany podczas "
 "przewijania i pokazywany ponownie tylko blisko góry strony, więc zwykle "
 "wymaga małego lub żadnego przesunięcia."
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:604
+#: functions/settings-page.php:749
 #, php-format
 msgid ""
 "Applies above the desktop breakpoint, where the header stays visible while "
@@ -1067,7 +1102,7 @@ msgstr ""
 "(odpowiada wysokości nagłówka)."
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:622
+#: functions/settings-page.php:767
 #, php-format
 msgid ""
 "Applies below the desktop breakpoint, where the header hides on scroll. "
@@ -1075,33 +1110,34 @@ msgid ""
 "scroll finishes."
 msgstr ""
 "Stosowane poniżej punktu przełamania dla komputerów, gdzie nagłówek ukrywa "
-"się podczas przewijania. Wartość domyślna motywu: %d, ponieważ nagłówek jest "
-"zwykle ukryty do momentu zakończenia przewijania."
+"się podczas przewijania. Wartość domyślna motywu: %d, ponieważ nagłówek jest"
+" zwykle ukryty do momentu zakończenia przewijania."
 
-#: functions/settings-page.php:632
+#: functions/settings-page.php:777
 msgid ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
 "style normally reserved for hover — and/or prevented from being clicked, "
 "since navigating to the page a visitor is already on does nothing useful. "
-"Individual blocks can still opt out from their own Advanced panel regardless "
-"of these settings."
+"Individual blocks can still opt out from their own Advanced panel regardless"
+" of these settings."
 msgstr ""
 "Gdy link (nawigacja, przycisk, treść) wskazuje na aktualnie przeglądaną "
 "stronę, może zostać oznaczony jako aktywny — tym samym stylem gradientowego "
-"tekstu/podkreślenia zwykle zarezerwowanym dla najechania — i/lub zablokowany "
-"przed kliknięciem, ponieważ przejście na stronę, na której odwiedzający już "
-"się znajduje, nic nie daje. Poszczególne bloki mogą nadal wyłączyć tę "
+"tekstu/podkreślenia zwykle zarezerwowanym dla najechania — i/lub zablokowany"
+" przed kliknięciem, ponieważ przejście na stronę, na której odwiedzający już"
+" się znajduje, nic nie daje. Poszczególne bloki mogą nadal wyłączyć tę "
 "funkcję we własnym panelu zaawansowanym, niezależnie od tych ustawień."
 
-#: functions/settings-page.php:641
+#: functions/settings-page.php:786
 msgid ""
-"Mark links pointing at the current page with the active hover-style highlight"
+"Mark links pointing at the current page with the active hover-style "
+"highlight"
 msgstr ""
 "Oznacz linki wskazujące na bieżącą stronę aktywnym stylem podświetlenia jak "
 "przy najechaniu"
 
-#: functions/settings-page.php:644
+#: functions/settings-page.php:789
 msgid ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
@@ -1110,52 +1146,53 @@ msgstr ""
 "całej witrynie (nawigacja, stopka, menu hamburger, mega menu, popularne "
 "strony)."
 
-#: functions/settings-page.php:655
+#: functions/settings-page.php:800
 msgid ""
-"Prevent clicking a link/button that points at the page currently being viewed"
+"Prevent clicking a link/button that points at the page currently being "
+"viewed"
 msgstr ""
 "Zablokuj klikanie linku/przycisku wskazującego na aktualnie przeglądaną "
 "stronę"
 
-#: functions/settings-page.php:658
+#: functions/settings-page.php:803
 msgid ""
-"Adds aria-disabled and removes the link from tab order. Menu items that also "
-"open a mega-menu panel stay fully interactive. Has no effect if highlighting "
-"above is disabled."
+"Adds aria-disabled and removes the link from tab order. Menu items that also"
+" open a mega-menu panel stay fully interactive. Has no effect if "
+"highlighting above is disabled."
 msgstr ""
 "Dodaje aria-disabled i usuwa link z kolejności tabulacji. Elementy menu, "
-"które otwierają również panel mega menu, pozostają w pełni interaktywne. Nie "
-"ma efektu, jeśli powyższe podświetlenie jest wyłączone."
+"które otwierają również panel mega menu, pozostają w pełni interaktywne. Nie"
+" ma efektu, jeśli powyższe podświetlenie jest wyłączone."
 
-#: functions/settings-page.php:675
+#: functions/settings-page.php:820
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr "Dostosuj tło, logo i kolor akcentu strony wp-login.php."
 
-#: functions/settings-page.php:684
+#: functions/settings-page.php:829
 msgid "Enable custom login page styling"
 msgstr "Włącz własny styl strony logowania"
 
-#: functions/settings-page.php:694 functions/settings-page.php:706
+#: functions/settings-page.php:839 functions/settings-page.php:851
 msgid "Choose Image"
 msgstr "Wybierz obraz"
 
-#: functions/settings-page.php:696
+#: functions/settings-page.php:841
 msgid "Defaults to the theme background image when left empty."
 msgstr "Domyślnie obraz tła motywu, jeśli pozostawione puste."
 
-#: functions/settings-page.php:708
+#: functions/settings-page.php:853
 msgid "Defaults to the theme logo when left empty."
 msgstr "Domyślnie logo motywu, jeśli pozostawione puste."
 
-#: functions/settings-page.php:718
+#: functions/settings-page.php:863
 msgid "Fallback background color when no image loads."
 msgstr "Zapasowy kolor tła, gdy obraz się nie załaduje."
 
-#: functions/settings-page.php:727
+#: functions/settings-page.php:872
 msgid "Color for links and hover effects."
 msgstr "Kolor linków i efektów najechania."
 
-#: functions/settings-page.php:762
+#: functions/settings-page.php:907
 msgid ""
 "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
 "responses)."
@@ -1163,18 +1200,97 @@ msgstr ""
 "Ładuje Piksel Facebooka tylko na froncie (nie w wp-admin ani odpowiedziach "
 "REST)."
 
-#: functions/settings-page.php:778 functions/settings-page.php:800
+#: functions/settings-page.php:923 functions/settings-page.php:945
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr ""
 "Wklej tutaj pełny tag skryptu, aby nadpisać powyższy fragment oparty na ID."
 
-#: functions/settings-page.php:784
+#: functions/settings-page.php:929
 msgid ""
 "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
 "REST responses)."
 msgstr ""
 "Ładuje Google Analytics (gtag.js) tylko na froncie (nie w wp-admin ani "
 "odpowiedziach REST)."
+
+#: functions/settings-page.php:951
+msgid ""
+"Controls the Content-Security-Policy header sent on frontend responses "
+"(never on wp-admin or REST requests). Each directive below is a space-"
+"separated list of sources, exactly as it appears in a real CSP header — "
+"clear a field to omit that directive entirely. Defaults match this theme's "
+"own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google "
+"Analytics, Cloudflare Turnstile); edit them to match whatever a given site "
+"actually loads."
+msgstr ""
+"Kontroluje nagłówek Content-Security-Policy wysyłany w odpowiedziach front-"
+"endu (nigdy na wp-admin ani w żądaniach REST). Każda dyrektywa poniżej to "
+"lista źródeł rozdzielonych spacją, dokładnie tak jak w prawdziwym nagłówku "
+"CSP — wyczyść pole, aby całkowicie pominąć daną dyrektywę. Wartości domyślne"
+" odpowiadają rzeczywistym zewnętrznym zasobom tego motywu (Google "
+"Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); "
+"dostosuj je do tego, co faktycznie ładuje dana strona."
+
+#: functions/settings-page.php:960
+msgid "Send a Content-Security-Policy header"
+msgstr "Wysyłaj nagłówek Content-Security-Policy"
+
+#: functions/settings-page.php:971
+msgid "Enforce the policy (blocks violations)"
+msgstr "Wymuszaj politykę (blokuje naruszenia)"
+
+#: functions/settings-page.php:974
+msgid ""
+"Leave unchecked to send Content-Security-Policy-Report-Only instead — the "
+"browser reports violations to the console without blocking anything. "
+"Recommended for at least a few days on a new site before enforcing."
+msgstr ""
+"Pozostaw niezaznaczone, aby zamiast tego wysyłać Content-Security-Policy-"
+"Report-Only — przeglądarka zgłasza naruszenia w konsoli, niczego nie "
+"blokując. Zalecane przez co najmniej kilka dni na nowej stronie przed "
+"włączeniem wymuszania."
+
+#: functions/settings-page.php:985
+msgid "Add the upgrade-insecure-requests directive"
+msgstr "Dodaj dyrektywę upgrade-insecure-requests"
+
+#: functions/settings-page.php:992
+msgid ""
+"One field per CSP directive. Values are sanitized as plain text (no HTML, no"
+" line breaks) before being sent in the header."
+msgstr ""
+"Jedno pole na każdą dyrektywę CSP. Wartości są oczyszczane jako czysty tekst"
+" (bez HTML, bez znaków nowej linii) przed wysłaniem w nagłówku."
+
+#: functions/settings-page.php:1007
+msgid ""
+"Referrer-Policy and Permissions-Policy are sent on every frontend response "
+"(never on wp-admin or REST requests). Set independently per site — no need "
+"to touch code to give a different customer a different policy."
+msgstr ""
+"Referrer-Policy i Permissions-Policy są wysyłane w każdej odpowiedzi front-"
+"endu (nigdy na wp-admin ani w żądaniach REST). Ustawiane niezależnie dla "
+"każdej strony — nie trzeba edytować kodu, aby dać innemu klientowi inną "
+"politykę."
+
+#: functions/settings-page.php:1022
+msgid ""
+"Controls how much of the current page URL is sent to other sites when a "
+"visitor follows a link away from this one. strict-origin-when-cross-origin "
+"is a balanced default."
+msgstr ""
+"Kontroluje, ile z adresu URL bieżącej strony jest wysyłane do innych witryn,"
+" gdy odwiedzający kliknie link prowadzący poza tę stronę. strict-origin-"
+"when-cross-origin to zrównoważona wartość domyślna."
+
+#: functions/settings-page.php:1033
+msgid ""
+"Full Permissions-Policy header value. Clear this field to stop sending the "
+"header entirely — it will not fall back to a default once saved empty."
+msgstr ""
+"Pełna wartość nagłówka Permissions-Policy. Wyczyść to pole, aby całkowicie "
+"zaprzestać wysyłania nagłówka — po zapisaniu jako puste nie wróci do "
+"wartości domyślnej."
 
 #: functions/site-identity.php:19
 #, php-format
@@ -1190,19 +1306,19 @@ msgctxt "Pattern title"
 msgid "About Section 2"
 msgstr "Sekcja O nas 2"
 
-#: patterns/about-2.php:23 patterns/about-us.php:26 patterns/cta-block-2.php:21
-#: patterns/cta-block.php:29 patterns/featured-content.php:21
-#: patterns/featured-content.php:60 patterns/featured-content.php:94
-#: patterns/features-and-benefits.php:24 patterns/highlight-features.php:20
-#: patterns/latest-work.php:30 patterns/latest-work.php:50
-#: patterns/latest-work.php:72 patterns/latest-work.php:94
-#: patterns/mission-goal.php:32 patterns/mission-goal.php:73
-#: patterns/mission-vision.php:29 patterns/mission-vision.php:81
-#: patterns/photo-gallery.php:32 patterns/pricing-tables.php:44
-#: patterns/pricing-tables.php:106 patterns/pricing-tables.php:168
-#: patterns/service-content.php:22 patterns/service-grid.php:22
-#: patterns/services-section.php:31 patterns/simple-banner.php:21
-#: patterns/testimonial-section.php:129
+#: patterns/about-2.php:23 patterns/about-us.php:26
+#: patterns/cta-block-2.php:21 patterns/cta-block.php:29
+#: patterns/featured-content.php:21 patterns/featured-content.php:60
+#: patterns/featured-content.php:94 patterns/features-and-benefits.php:24
+#: patterns/highlight-features.php:20 patterns/latest-work.php:30
+#: patterns/latest-work.php:50 patterns/latest-work.php:72
+#: patterns/latest-work.php:94 patterns/mission-goal.php:32
+#: patterns/mission-goal.php:73 patterns/mission-vision.php:29
+#: patterns/mission-vision.php:81 patterns/photo-gallery.php:32
+#: patterns/pricing-tables.php:44 patterns/pricing-tables.php:106
+#: patterns/pricing-tables.php:168 patterns/service-content.php:22
+#: patterns/service-grid.php:22 patterns/services-section.php:31
+#: patterns/simple-banner.php:21 patterns/testimonial-section.php:129
 msgid "See My Popular Posts"
 msgstr "Zobacz moje popularne posty"
 
@@ -1213,14 +1329,14 @@ msgstr "Budowanie mądrzejszych rozwiązań, eksperci SaaS"
 #: patterns/about-2.php:40 patterns/about-us.php:21
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore."
 
@@ -1447,13 +1563,13 @@ msgstr "100+"
 #: patterns/number-stats.php:91
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat."
 
 #: patterns/counter-with-desc.php:55 patterns/number-stats.php:64
@@ -1499,12 +1615,12 @@ msgstr "Czym jest Full Site Editing w WordPress?"
 
 #: patterns/faq-accordion.php:24 patterns/faq-section.php:55
 msgid ""
-"Full Site Editing in WordPress allows users to create and edit their website "
-"more efficiently and with more control. It enables users to create unique "
+"Full Site Editing in WordPress allows users to create and edit their website"
+" more efficiently and with more control. It enables users to create unique "
 "and custom designs without needing to have advanced coding skills."
 msgstr ""
-"Full Site Editing w WordPress pozwala użytkownikom tworzyć i edytować stronę "
-"bardziej efektywnie i z większą kontrolą. Umożliwia tworzenie unikalnych, "
+"Full Site Editing w WordPress pozwala użytkownikom tworzyć i edytować stronę"
+" bardziej efektywnie i z większą kontrolą. Umożliwia tworzenie unikalnych, "
 "własnych projektów bez potrzeby zaawansowanych umiejętności "
 "programistycznych."
 
@@ -1517,8 +1633,8 @@ msgstr "Jakie są korzyści z Full Site Editing w WordPress?"
 #: patterns/faq-accordion.php:72 patterns/faq-section.php:24
 msgid ""
 "Full Site Editing in WordPress refers to a feature that allows users to "
-"create and edit their website’s entire layout, including the header, footer, "
-"and other structural elements, using a visual editor."
+"create and edit their website’s entire layout, including the header, footer,"
+" and other structural elements, using a visual editor."
 msgstr ""
 "Full Site Editing w WordPress to funkcja pozwalająca użytkownikom tworzyć i "
 "edytować cały układ strony, w tym nagłówek, stopkę i inne elementy "
@@ -1532,13 +1648,13 @@ msgstr "Jak włączyć Full Site Editing w WordPress?"
 #: patterns/faq-section.php:38
 msgid ""
 "To enable Full Site Editing in WordPress, you need to ensure that you are "
-"using a compatible WordPress theme that supports Full Site Editing. You will "
-"also need to install the latest version of WordPress and enable the "
+"using a compatible WordPress theme that supports Full Site Editing. You will"
+" also need to install the latest version of WordPress and enable the "
 "Gutenberg editor."
 msgstr ""
-"Aby włączyć Full Site Editing w WordPress, musisz korzystać z kompatybilnego "
-"motywu WordPress obsługującego tę funkcję. Musisz też zainstalować najnowszą "
-"wersję WordPress i włączyć edytor Gutenberg."
+"Aby włączyć Full Site Editing w WordPress, musisz korzystać z kompatybilnego"
+" motywu WordPress obsługującego tę funkcję. Musisz też zainstalować "
+"najnowszą wersję WordPress i włączyć edytor Gutenberg."
 
 #: patterns/faq-accordion.php:63
 msgid "What are some popular WordPress themes that support Full Site Editing?"
@@ -1548,8 +1664,8 @@ msgstr "Jakie popularne motywy WordPress obsługują Full Site Editing?"
 msgid ""
 "Some popular WordPress themes that support Full Site Editing include the "
 "FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes "
-"have built-in support for Full Site Editing, allowing users to create custom "
-"designs without needing to know how to code."
+"have built-in support for Full Site Editing, allowing users to create custom"
+" designs without needing to know how to code."
 msgstr ""
 "Popularne motywy WordPress obsługujące Full Site Editing to m.in. FotaWP "
 "Theme, ReviveNews Theme i Hello Agency Theme. Motywy te mają wbudowane "
@@ -1580,15 +1696,15 @@ msgstr "Media społecznościowe i tożsamość marki"
 #: patterns/featured-content-2.php:31 patterns/featured-content-2.php:54
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
 "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
 "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -1640,8 +1756,9 @@ msgid "Lifetime Free Update"
 msgstr "Dożywotnia darmowa aktualizacja"
 
 #: patterns/features-and-benefits.php:62 patterns/features-and-benefits.php:80
-#: patterns/features-and-benefits.php:98 patterns/features-and-benefits.php:116
-#: patterns/latest-work.php:25 patterns/photo-gallery.php:23
+#: patterns/features-and-benefits.php:98
+#: patterns/features-and-benefits.php:116 patterns/latest-work.php:25
+#: patterns/photo-gallery.php:23
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua."
@@ -1714,12 +1831,12 @@ msgstr "Skalowalne rozwiązania na każdym etapie"
 #: patterns/highlight-features.php:34
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco "
-"laboris."
+"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
+" laboris."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco "
-"laboris."
+"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
+" laboris."
 
 #: patterns/highlight-features.php:40
 msgid "Scalability &amp; Flexibility"
@@ -1741,12 +1858,13 @@ msgstr "Analityka i raportowanie w czasie rzeczywistym"
 
 #: patterns/highlight-features.php:60
 msgid ""
-"Access to powerful, real-time data analytics and custom reporting tools that "
-"help you make informed business decisions and track performance effortlessly."
+"Access to powerful, real-time data analytics and custom reporting tools that"
+" help you make informed business decisions and track performance "
+"effortlessly."
 msgstr ""
-"Dostęp do zaawansowanej analityki danych w czasie rzeczywistym oraz własnych "
-"narzędzi raportowania, które pomagają podejmować świadome decyzje biznesowe "
-"i bez wysiłku śledzić wyniki."
+"Dostęp do zaawansowanej analityki danych w czasie rzeczywistym oraz własnych"
+" narzędzi raportowania, które pomagają podejmować świadome decyzje biznesowe"
+" i bez wysiłku śledzić wyniki."
 
 #: patterns/highlight-features.php:68
 msgid "User-Centric Interface"
@@ -1805,12 +1923,12 @@ msgstr "Treść misji i celu"
 #: patterns/mission-goal.php:46
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris."
 
 #: patterns/mission-goal.php:51
 msgid "Streamlined Digital Transformation"
@@ -2197,8 +2315,8 @@ msgid ""
 "Try searching for a different term or explore more content using the search "
 "form below."
 msgstr ""
-"Spróbuj wyszukać inne hasło lub przejrzyj więcej treści za pomocą formularza "
-"wyszukiwania poniżej."
+"Spróbuj wyszukać inne hasło lub przejrzyj więcej treści za pomocą formularza"
+" wyszukiwania poniżej."
 
 #: patterns/search-results.php:229
 msgid "No results found"
@@ -2276,14 +2394,14 @@ msgstr "Siatka usług"
 #: patterns/simple-text.php:15
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur."
 
@@ -2372,15 +2490,15 @@ msgstr ""
 
 #: patterns/simple-text.php:27
 msgid ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited "
-"with discovering the source behind the ubiquitous filler text. In seeing a "
+"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
+" with discovering the source behind the ubiquitous filler text. In seeing a "
 "sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
 "albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
 "passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
 "Evil”), a first-century B.C. text from the Roman philosopher Cicero."
 msgstr ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited "
-"with discovering the source behind the ubiquitous filler text. In seeing a "
+"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
+" with discovering the source behind the ubiquitous filler text. In seeing a "
 "sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
 "albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
 "passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
@@ -2422,19 +2540,19 @@ msgctxt "Pattern title"
 msgid "404 Template"
 msgstr "Szablon 404"
 
-#: patterns/template-404.php:17
+#: patterns/template-404.php:19
 msgid "OOPS! Page Not Found!"
 msgstr "OOPS! Strona nie została znaleziona!"
 
-#: patterns/template-404.php:32
+#: patterns/template-404.php:37
 msgid "Go to Homepage"
 msgstr "Przejdź do strony głównej"
 
-#: patterns/template-404.php:43
+#: patterns/template-404.php:48
 msgid "Helpful Link"
 msgstr "Pomocny link"
 
-#: patterns/template-404.php:47
+#: patterns/template-404.php:52
 msgid ""
 "Something went wrong! We couldn’t find the page you were looking for. But "
 "don’t worry, we’ve got some other Links that might be helpful:"
@@ -2442,22 +2560,22 @@ msgstr ""
 "Coś poszło nie tak! Nie mogliśmy znaleźć szukanej strony. Bez obaw, mamy "
 "inne linki, które mogą się przydać:"
 
-#: patterns/template-404.php:58
+#: patterns/template-404.php:63
 msgctxt "404"
 msgid "Pages"
 msgstr "Strony"
 
-#: patterns/template-404.php:67
+#: patterns/template-404.php:72
 msgctxt "404"
 msgid "Categories"
 msgstr "Kategorie"
 
-#: patterns/template-404.php:77
+#: patterns/template-404.php:82
 msgctxt "404"
 msgid "Posts"
 msgstr "Posty"
 
-#: patterns/template-404.php:90
+#: patterns/template-404.php:98
 msgid "No posts found."
 msgstr "Nie znaleziono postów."
 
@@ -2475,12 +2593,12 @@ msgstr "Posłuchaj naszych zadowolonych klientów: ich historie"
 #: patterns/testimonials-grid.php:186
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco."
 
 #: patterns/testimonial-section.php:46 patterns/testimonials-grid.php:45
 msgid "Henry Benzamin Clark"
@@ -2532,16 +2650,18 @@ msgstr "Bloger"
 #: patterns/testimonials-grid.php:96
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"consequat."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
-"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
+" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"consequat."
 
 #: patterns/testimonials-grid.php:106
 msgid "Robert Linken"
@@ -2594,8 +2714,8 @@ msgstr "Dołączenie do agencji"
 
 #: patterns/vertical-timeline-layout.php:57
 msgid ""
-"Worked with a team to develop Angular and Next.js projects for clients in e-"
-"commerce and tech."
+"Worked with a team to develop Angular and Next.js projects for clients in "
+"e-commerce and tech."
 msgstr ""
 "Pracowałem w zespole tworzącym projekty Angular i Next.js dla klientów z "
 "branży e-commerce i tech."
@@ -3256,8 +3376,8 @@ msgstr "Dystans animacji"
 #: build/editor.js:1
 msgid "Control how far elements move during fade/slide animations."
 msgstr ""
-"Kontroluj, jak daleko poruszają się elementy podczas animacji pojawiania się/"
-"przesuwania."
+"Kontroluj, jak daleko poruszają się elementy podczas animacji pojawiania "
+"się/przesuwania."
 
 #: build/editor.js:1
 msgid "Jump"
@@ -3344,7 +3464,9 @@ msgstr "Kolejność na komputerze"
 msgid ""
 "Set the order for desktop screens (%spx+). Use negative values like -1 for "
 "higher priority."
-msgstr "Ustaw kolejność dla ekranów desktopowych (%spx+). Użyj wartości ujemnych, np. -1, dla wyższego priorytetu."
+msgstr ""
+"Ustaw kolejność dla ekranów desktopowych (%spx+). Użyj wartości ujemnych, "
+"np. -1, dla wyższego priorytetu."
 
 #: build/editor.js:4
 msgid "Tablet Order"
@@ -3457,7 +3579,8 @@ msgstr "Skonfiguruj responsywne właściwości wyświetlania, flex i grid"
 msgid "Settings for screens %srem and above"
 msgstr "Ustawienia dla ekranów od %srem wzwyż"
 
-#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
+#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in
+#. rem
 #: build/editor.js:16 build/editor.js:25 build/editor.js:34
 msgid "Settings for screens %1$srem - %2$srem"
 msgstr "Ustawienia dla ekranów %1$srem - %2$srem"
@@ -3551,10 +3674,10 @@ msgstr "Wyłącz efekt podkreślenia/gradientu linku"
 
 #: build/editor.js:37
 msgid ""
-"Excludes links in this block from the sitewide header/footer hover-underline "
-"and gradient-text-on-focus effect, without affecting this block's own hover/"
-"focus styling. Enabled by default sitewide; turn this on only where it "
-"conflicts, like the Social Link block."
+"Excludes links in this block from the sitewide header/footer hover-underline"
+" and gradient-text-on-focus effect, without affecting this block's own "
+"hover/focus styling. Enabled by default sitewide; turn this on only where it"
+" conflicts, like the Social Link block."
 msgstr ""
 "Wyklucza linki w tym bloku z ogólnowitrynowego efektu podkreślenia przy "
 "najechaniu w nagłówku/stopce oraz gradientu tekstu przy fokusie, bez wpływu "
@@ -3568,13 +3691,13 @@ msgstr "Wyłącz podświetlenie aktywnej strony"
 
 #: build/editor.js:37
 msgid ""
-"Excludes links in this block from the sitewide active-page gradient-text/"
-"underline treatment shown when a link points at the page currently being "
-"viewed. Enabled by default sitewide."
+"Excludes links in this block from the sitewide active-page gradient-"
+"text/underline treatment shown when a link points at the page currently "
+"being viewed. Enabled by default sitewide."
 msgstr ""
-"Wyklucza linki w tym bloku z ogólnowitrynowego stylu gradientowego tekstu/"
-"podkreślenia aktywnej strony, pokazywanego gdy link wskazuje na aktualnie "
-"przeglądaną stronę. Domyślnie włączone w całej witrynie."
+"Wyklucza linki w tym bloku z ogólnowitrynowego stylu gradientowego "
+"tekstu/podkreślenia aktywnej strony, pokazywanego gdy link wskazuje na "
+"aktualnie przeglądaną stronę. Domyślnie włączone w całej witrynie."
 
 #: build/editor.js:37
 msgid "Default grid"
@@ -3590,8 +3713,8 @@ msgstr "Zachowanie kolumn FAQ"
 
 #: build/editor.js:37
 msgid ""
-"Default: closed items align into uniform rows, but opening one stretches its "
-"row partner. Independent columns: each column grows on its own, no "
+"Default: closed items align into uniform rows, but opening one stretches its"
+" row partner. Independent columns: each column grows on its own, no "
 "stretching, but closed items no longer line up edge-to-edge."
 msgstr ""
 "Domyślnie: zamknięte elementy wyrównują się w jednolite wiersze, ale "
@@ -3835,127 +3958,128 @@ msgstr "Wymagane dla autoodtwarzania w większości przeglądarek."
 msgid "Loop"
 msgstr "Zapętlenie"
 
-#: build/google-maps.js:156
+#: build/google-maps.js:1
 msgid "Map Settings"
 msgstr "Ustawienia mapy"
 
-#: build/google-maps.js:158
+#: build/google-maps.js:1
 msgid "Google Maps API Key"
 msgstr "Klucz API Google Maps"
 
-#: build/google-maps.js:163
-msgid "Get your API key from https://console.cloud.google.com/apis/credentials"
+#: build/google-maps.js:1
+msgid ""
+"Get your API key from https://console.cloud.google.com/apis/credentials"
 msgstr "Pobierz klucz API z https://console.cloud.google.com/apis/credentials"
 
-#: build/google-maps.js:165 build/protected-content.js:1
+#: build/google-maps.js:1 build/protected-content.js:1
 msgid "Address"
 msgstr "Adres"
 
-#: build/google-maps.js:170
+#: build/google-maps.js:1
 msgid "Enter the address or leave blank to use coordinates."
 msgstr "Wpisz adres lub pozostaw puste, aby użyć współrzędnych."
 
-#: build/google-maps.js:172
+#: build/google-maps.js:1
 msgid "Latitude"
 msgstr "Szerokość geograficzna"
 
-#: build/google-maps.js:178
+#: build/google-maps.js:1
 msgid "Longitude"
 msgstr "Długość geograficzna"
 
-#: build/google-maps.js:184
+#: build/google-maps.js:1
 msgid "Zoom Level"
 msgstr "Poziom przybliżenia"
 
-#: build/google-maps.js:192
+#: build/google-maps.js:1
 msgid "Map Width"
 msgstr "Szerokość mapy"
 
-#: build/google-maps.js:197
+#: build/google-maps.js:1
 msgid "Any valid CSS width value, e.g. 100%, 37.5rem"
 msgstr "Dowolna prawidłowa wartość CSS szerokości, np. 100%, 37.5rem"
 
-#: build/google-maps.js:199
+#: build/google-maps.js:1
 msgid "Map Height"
 msgstr "Wysokość mapy"
 
-#: build/google-maps.js:204
+#: build/google-maps.js:1
 msgid "Any valid CSS height value, e.g. 25rem"
 msgstr "Dowolna prawidłowa wartość CSS wysokości, np. 25rem"
 
-#: build/google-maps.js:206
+#: build/google-maps.js:1
 msgid "Map Type"
 msgstr "Typ mapy"
 
-#: build/google-maps.js:209
+#: build/google-maps.js:1
 msgid "Roadmap"
 msgstr "Mapa drogowa"
 
-#: build/google-maps.js:212
+#: build/google-maps.js:1
 msgid "Satellite"
 msgstr "Satelitarna"
 
-#: build/google-maps.js:215
+#: build/google-maps.js:1
 msgid "Hybrid"
 msgstr "Hybrydowa"
 
-#: build/google-maps.js:218
+#: build/google-maps.js:1
 msgid "Terrain"
 msgstr "Teren"
 
-#: build/google-maps.js:225
+#: build/google-maps.js:1
 msgid "Show Zoom Control"
 msgstr "Pokaż sterowanie przybliżeniem"
 
-#: build/google-maps.js:231
+#: build/google-maps.js:1
 msgid "Show Street View Control"
 msgstr "Pokaż sterowanie Street View"
 
-#: build/google-maps.js:237
+#: build/google-maps.js:1
 msgid "Show Fullscreen Control"
 msgstr "Pokaż sterowanie pełnym ekranem"
 
-#: build/google-maps.js:243
+#: build/google-maps.js:1
 msgid "Show Map Type Control"
 msgstr "Pokaż sterowanie typem mapy"
 
-#: build/google-maps.js:249
+#: build/google-maps.js:1
 msgid "Marker Label"
 msgstr "Etykieta znacznika"
 
-#: build/google-maps.js:254
+#: build/google-maps.js:1
 msgid "Short label for the marker (1–2 chars)."
 msgstr "Krótka etykieta znacznika (1-2 znaki)."
 
-#: build/google-maps.js:256
+#: build/google-maps.js:1
 msgid "Marker Tooltip"
 msgstr "Dymek znacznika"
 
-#: build/google-maps.js:261
+#: build/google-maps.js:1
 msgid "Tooltip text shown when marker is clicked."
 msgstr "Tekst dymka wyświetlany po kliknięciu znacznika."
 
-#: build/google-maps.js:287
+#: build/google-maps.js:1
 msgid "Show Reset View Button"
 msgstr "Pokaż przycisk resetowania widoku"
 
-#: build/google-maps.js:294
+#: build/google-maps.js:1
 msgid "Additional CSS"
 msgstr "Dodatkowy CSS"
 
-#: build/google-maps.js:297
+#: build/google-maps.js:1
 msgid "Custom CSS"
 msgstr "Własny CSS"
 
-#: build/google-maps.js:303
+#: build/google-maps.js:1
 msgid "Add custom CSS to override Google Maps styles. Examples:"
 msgstr "Dodaj własny CSS, aby nadpisać style Google Maps. Przykłady:"
 
-#: build/google-maps.js:312
+#: build/google-maps.js:1
 msgid "/* Enter your custom CSS here */"
 msgstr "/* Wpisz tutaj własny CSS */"
 
-#: build/google-maps.js:345
+#: build/google-maps.js:1
 msgid "Google Map preview will appear here."
 msgstr "Podgląd mapy Google pojawi się tutaj."
 
@@ -4277,8 +4401,8 @@ msgid ""
 "When on, clicking a link with a real URL navigates to it. Links with '#' or "
 "no URL still toggle the panel."
 msgstr ""
-"Gdy włączone, kliknięcie linku z rzeczywistym adresem URL powoduje przejście "
-"do niego. Linki z \"#\" lub bez adresu URL nadal przełączają panel."
+"Gdy włączone, kliknięcie linku z rzeczywistym adresem URL powoduje przejście"
+" do niego. Linki z \"#\" lub bez adresu URL nadal przełączają panel."
 
 #: build/popular-pages.js:1
 msgid "Popular Pages"
@@ -4399,7 +4523,8 @@ msgstr "Wpisz tutaj treść HTML..."
 #: build/protected-content.js:1
 msgid ""
 "You can paste rich HTML content including links, formatting, and attributes."
-msgstr "Możesz wkleić bogatą treść HTML, w tym linki, formatowanie i atrybuty."
+msgstr ""
+"Możesz wkleić bogatą treść HTML, w tym linki, formatowanie i atrybuty."
 
 #: build/protected-content.js:1
 msgid "Preview:"
@@ -4612,10 +4737,11 @@ msgstr ""
 "wyłączone w edytorze, ale wpłynie na front."
 
 #: build/slider.js:1
-msgid "“Navigation” will display arrows so user can navigate forward/backward."
+msgid ""
+"“Navigation” will display arrows so user can navigate forward/backward."
 msgstr ""
-"„Nawigacja” wyświetli strzałki, aby użytkownik mógł przechodzić do przodu/"
-"tyłu."
+"„Nawigacja” wyświetli strzałki, aby użytkownik mógł przechodzić do "
+"przodu/tyłu."
 
 #: build/slider.js:1
 msgid "Pagination"
@@ -4785,8 +4911,8 @@ msgid ""
 "Button with independent normal/hover control over text, background, and "
 "border colors, including gradients."
 msgstr ""
-"Przycisk z niezależną kontrolą koloru tekstu, tła i ramki w stanie normalnym/"
-"najechania, w tym gradientów."
+"Przycisk z niezależną kontrolą koloru tekstu, tła i ramki w stanie "
+"normalnym/najechania, w tym gradientów."
 
 #: build/blocks/contact-form/block.json src/blocks/contact-form/block.json
 msgctxt "block title"
@@ -4899,8 +5025,8 @@ msgid ""
 "Link for navigation panels and holders with full color, spacing, and "
 "typography supports."
 msgstr ""
-"Link dla paneli nawigacyjnych i uchwytów z pełnym wsparciem koloru, odstępów "
-"i typografii."
+"Link dla paneli nawigacyjnych i uchwytów z pełnym wsparciem koloru, odstępów"
+" i typografii."
 
 #: build/blocks/nav-paragraph/block.json src/blocks/nav-paragraph/block.json
 msgctxt "block title"
@@ -4948,7 +5074,8 @@ msgstr "Nawigacja"
 
 #: build/blocks/popular-pages/block.json src/blocks/popular-pages/block.json
 msgctxt "block description"
-msgid "Compact list of most-visited pages, sorted by internal page-view count."
+msgid ""
+"Compact list of most-visited pages, sorted by internal page-view count."
 msgstr ""
 "Zwięzła lista najczęściej odwiedzanych stron, posortowana według liczby "
 "wyświetleń."
@@ -5452,8 +5579,7 @@ msgstr "Pomarańcz Zachodu"
 #~ ".gm-style-cc { display: none !important; }\n"
 #~ "\n"
 #~ "/* Custom marker label styling */\n"
-#~ ".marker-position { margin-top: 3.4375rem; color: red; font-weight: "
-#~ "bold; }\n"
+#~ ".marker-position { margin-top: 3.4375rem; color: red; font-weight: bold; }\n"
 #~ "\n"
 #~ "/* Hide \"Map data\" text */\n"
 #~ ".gm-style .gm-style-cc { display: none; }\n"
@@ -5467,8 +5593,7 @@ msgstr "Pomarańcz Zachodu"
 #~ ".gm-style-cc { display: none !important; }\n"
 #~ "\n"
 #~ "/* Własny styl etykiety znacznika */\n"
-#~ ".marker-position { margin-top: 3.4375rem; color: red; font-weight: "
-#~ "bold; }\n"
+#~ ".marker-position { margin-top: 3.4375rem; color: red; font-weight: bold; }\n"
 #~ "\n"
 #~ "/* Ukryj tekst \"Dane mapy\" */\n"
 #~ ".gm-style .gm-style-cc { display: none; }\n"

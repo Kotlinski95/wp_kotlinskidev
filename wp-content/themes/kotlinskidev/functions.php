@@ -5,6 +5,9 @@ require_once get_template_directory() . '/functions/theme-setup.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+// HTTP security response headers (CSP, Referrer-Policy, Permissions-Policy)
+require_once get_template_directory() . '/functions/security-headers.php';
+
 // Include internationalization functions
 require_once get_template_directory() . '/includes/i18n.php';
 

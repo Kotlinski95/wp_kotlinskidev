@@ -31,7 +31,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 ## 3. Cryptographic Failures (OWASP A02)
 
 - [ ] HTTPS is enforced site-wide (HTTP→HTTPS redirect at Cloudflare and/or origin), including all internal links, asset URLs, and the contact-form POST target.
-- [ ] HSTS is enabled (`Strict-Transport-Security` header) at Cloudflare or origin, with a sensible `max-age` and `includeSubDomains`.
+- [ ] HSTS is enabled (`Strict-Transport-Security` header) at Cloudflare or origin, with a sensible `max-age` and `includeSubDomains` — see `docs/security-headers.md` §2/§4 for the exact value and layer.
 - [ ] Protected-content RSA keys (`kotlinskidev_get_or_create_keys`) are sourced from `wp-config.php` constants (`KOTLINSKIDEV_PRIVATE_KEY`/`PUBLIC_KEY`) in production, not the DB-options fallback — private key in `wp_options` is readable by any code with DB access (including a compromised plugin).
 - [x] Private key material is never logged, echoed, or included in error messages/debug output. Verified via grep across `functions/*.php` — no `error_log`/`print_r`/`var_dump` call touches key/secret material.
 - [ ] WordPress secret keys/salts (`AUTH_KEY`, `NONCE_KEY`, etc.) are unique, high-entropy, and not left at placeholder/default values — rotate if there's any chance they were ever committed or shared.
@@ -53,7 +53,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] `DISALLOW_FILE_EDIT` and ideally `DISALLOW_FILE_MODS` are set in production `wp-config.php` to block the theme/plugin editor and in-dashboard plugin installs.
 - [ ] Directory listing is disabled at the webserver level (`Options -Indexes` or nginx equivalent) for `wp-content/uploads/`, `wp-content/themes/`, etc.
 - [ ] `.env`, `.git/`, `.envrc`, `composer.json`/`lock`, and any other dev-only files are not web-accessible on the production origin (test directly: `curl -I https://kotlinskidev.com/.env`, `/.git/config`).
-- [ ] Security response headers are set (currently none found in `functions/`): `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN` (or CSP `frame-ancestors`), `Referrer-Policy`, `Permissions-Policy`, and a `Content-Security-Policy` scoped to the actual script/style/font/image sources in use (self, Cloudflare, Google reCAPTCHA/Turnstile, fonts). Set at Cloudflare edge and/or via `send_headers` in PHP.
+- [ ] Security response headers are set (currently none found anywhere — confirmed 2026-08-09, see `docs/security-headers.md` for the full investigation): `Strict-Transport-Security`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and a `Content-Security-Policy` scoped to this site's actual third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile). `docs/security-headers.md` has the exact recommended values, the GDPR Art. 32 rationale, the PHP-vs-Cloudflare split, and the CSP Report-Only rollout plan — implement from there, not from this line alone.
 - [ ] WordPress version number isn't exposed in `<meta name="generator">`, readme.html, or asset query strings.
 - [ ] Default/guessable admin username (`admin`) is not in use; confirm via `wp user list` there's no obviously-named super-admin account.
 - [ ] File permissions on the origin follow WordPress hardening guidance (directories 755, files 644, `wp-config.php` 600/640) — verify on the EC2 host, ties to `docs/monitoring.md`.

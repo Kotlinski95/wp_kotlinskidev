@@ -92,12 +92,14 @@ function checkCatalog(name, sourceDir, domain, languagesDir) {
 
       const untranslatedPo = execFileSync(
         "msgattrib",
-        ["--untranslated", "--no-obsolete", tmpMerged],
+        ["--untranslated", "--no-obsolete", "--no-wrap", tmpMerged],
         { stdio: ["ignore", "pipe", "ignore"] }
       ).toString();
-      const fuzzyPo = execFileSync("msgattrib", ["--only-fuzzy", "--no-obsolete", tmpMerged], {
-        stdio: ["ignore", "pipe", "ignore"],
-      }).toString();
+      const fuzzyPo = execFileSync(
+        "msgattrib",
+        ["--only-fuzzy", "--no-obsolete", "--no-wrap", tmpMerged],
+        { stdio: ["ignore", "pipe", "ignore"] }
+      ).toString();
 
       for (const line of extractMsgids(untranslatedPo, "missing: ")) {
         process.stdout.write(`${line}\n`);

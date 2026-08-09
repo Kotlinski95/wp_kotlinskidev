@@ -21,12 +21,13 @@ kotlinskidev/
 │   ├── monitoring.md                           # EC2 CloudWatch alarms/agent setup + PHP-FPM memory cleanup
 │   ├── navigation-structure.md                 # desktop mega-menu + hamburger architecture
 │   ├── performance.md                          # performance review checklist (JS runtime, rendering, network, WP backend)
+│   ├── security-headers.md                     # HTTP security header reference — GDPR/EU regulatory context, OWASP-sourced recommended values, CSP rollout plan, PHP-vs-Cloudflare split
 │   ├── security.md                             # security review checklist (OWASP Top 10, WP hardening, MCP attack surface, ISO 27001 cross-ref)
 │   ├── seo.md                                  # technical SEO review checklist (crawlability, schema, hreflang, Core Web Vitals overlap)
 │   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 52 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 53 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
@@ -65,6 +66,7 @@ kotlinskidev/
 │   ├── responsive-width.php                    # per-breakpoint width attribute
 │   ├── scroll-top-top.php                      # [scroll_to_top] shortcode
 │   ├── search-page-styles.php                  # conditional style fixes on search results pages
+│   ├── security-headers.php                    # Referrer-Policy/Permissions-Policy/CSP-Report-Only via the wp_headers filter, skips wp-admin/REST — see docs/security-headers.md
 │   ├── seo-customizer.php                      # SEO Customizer fields — currently commented out, not loaded
 │   ├── seo-noindex-compat.php                  # detects active SEO plugin (Yoast/Rank Math/AIOSEO/SEOPress), returns query-args noindex exclusion
 │   ├── settings-page.php                       # main theme settings admin page
@@ -497,7 +499,7 @@ kotlinskidev/
 │       ├── Pest.php                            # integration-suite bootstrap
 │       ├── TestCase.php                        # extends WP_UnitTestCase
 │       ├── bootstrap.php                       # boots wp-phpunit against a dedicated kotlinskidev_test MySQL database
-│       └── tests/                              # 55 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
+│       └── tests/                              # 56 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
 ├── .env
 ├── .env.example
 ├── .envrc
