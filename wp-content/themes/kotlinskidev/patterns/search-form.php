@@ -167,6 +167,6 @@ elseif (preg_match('/^([a-z]{2}[_-][a-z]{2})(?:\/|$)/i', $relative_path, $matche
         }
     });
     </script>
-    
+    <!-- /wp:html -->
 </div>
 <!-- /wp:group -->

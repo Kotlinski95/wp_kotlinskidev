@@ -78,6 +78,9 @@ require_once get_template_directory() . '/functions/link-hover-effects.php';
 // Load active-page link state controls
 require_once get_template_directory() . '/functions/active-link-state.php';
 
+// Inject tabindex="-1" on the main content wrapper at render time (skip-link focus target)
+require_once get_template_directory() . '/functions/main-content-focus.php';
+
 require_once get_template_directory() . '/functions/faq-layout.php';
 
 // Load Facebook Pixel / Google Analytics tracking scripts

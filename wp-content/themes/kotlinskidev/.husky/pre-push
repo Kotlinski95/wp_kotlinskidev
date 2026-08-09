@@ -1,6 +1,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
+npm run check-version-sync
 npm run prettier:check
 npm run lint:css
 npm run lint:js

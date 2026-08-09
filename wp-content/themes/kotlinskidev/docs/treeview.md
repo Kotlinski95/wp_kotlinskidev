@@ -26,7 +26,7 @@ kotlinskidev/
 │   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 51 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 52 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
@@ -50,6 +50,7 @@ kotlinskidev/
 │   ├── language-switcher.php                   # [language_switcher] shortcode
 │   ├── link-hover-effects.php                  # applies configurable link hover-effect classes to blocks
 │   ├── login.php                               # custom wp-login.php styling
+│   ├── main-content-focus.php                  # injects tabindex="-1" onto the <main class="main-wrapper"> core/group at render time (skip-link focus target, kept out of stored markup so block validation doesn't flag an attribute the block itself can't declare)
 │   ├── maintenance.php                         # maintenance-mode toggle + admin settings page
 │   ├── page-loader.php                         # renders page-loader markup on wp_body_open
 │   ├── page-view-tracking.php                  # AJAX view tracking + Popular Pages query source
@@ -465,6 +466,38 @@ kotlinskidev/
 │   ├── page.html                               # generic page
 │   ├── search.html                             # search results
 │   └── tag.html                                # tag archive
+├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
+│   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey (tests/TestCase.php extends this setup)
+│   ├── TestCase.php                            # base class for all PHP unit tests
+│   ├── Unit/                                   # 66 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
+│   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
+│   │   ├── .env.example                        # documents the required .env keys, committed
+│   │   ├── global-setup.js                     # logs in once via /login/, saves session to artifacts/.auth/admin.json; no-ops with a warning if credentials are absent
+│   │   ├── utils.ts                            # shared content-agnostic helpers: acceptCookies, clickAndExpectNavigation, getFirstLiveLink, NOT_CURRENT_PAGE
+│   │   ├── wp-cli.ts                           # WP-CLI fixture helpers: createFixturePage/deleteFixturePage/deletePost/getPostUrl/getRegisteredPatterns
+│   │   ├── homepage.spec.ts                    # smoke test — homepage loads
+│   │   ├── header.spec.ts                      # 31 tests — parts/header.html (mega-nav, search/language dropdowns, hamburger overlay, sticky header)
+│   │   ├── footer.spec.ts                      # 9 tests — parts/footer.html (nav grid, brand block, copyrights, scroll-to-top, mobile bottom nav)
+│   │   ├── animated-counter.spec.ts            # frontend — kotlinskidev/animated-counter block extension
+│   │   ├── banner-carousel.spec.ts             # frontend — kotlinskidev/banner-carousel block
+│   │   ├── cover-lazy-loading.spec.ts          # frontend — kotlinskidev/cover-lazy-loading block extension
+│   │   ├── gallery-lightbox.spec.ts            # frontend — kotlinskidev/gallery-lightbox block
+│   │   ├── hover-animation-controls.spec.ts    # frontend — kotlinskidev/hover-animation-controls block extension
+│   │   ├── parallax.spec.ts                    # frontend — kotlinskidev/parallax block extension
+│   │   ├── protected-content.spec.ts           # frontend — kotlinskidev/protected-content block
+│   │   ├── responsive-display.spec.ts          # frontend — kotlinskidev/responsive-display block extension
+│   │   ├── responsive-order.spec.ts            # frontend — kotlinskidev/responsive-order block extension
+│   │   ├── scroll-animations.spec.ts           # frontend — kotlinskidev/scroll-animations block extension
+│   │   └── editor/                             # authenticated specs — opt in per-file via test.use({ storageState })
+│   │       ├── site-editor.spec.ts             # confirms the Site Editor loads under the test account instead of redirecting to login
+│   │       ├── patterns-validity.spec.ts       # one test per registered theme pattern — asserts none trigger Gutenberg's "Block contains unexpected or invalid content." warning
+│   │       └── {block}.spec.ts                 # editor-side counterpart to each frontend block spec above (animated-counter, banner-carousel, cover-lazy-loading, gallery-lightbox, hover-animation-controls, parallax, protected-content, responsive-display, responsive-order, scroll-animations)
+│   └── integration/                            # PHP integration (Pest + wp-phpunit + WP_UnitTestCase) — own isolated toolchain (Pest 1.23/PHPUnit 9.6), separate composer.json/vendor from the root
+│       ├── Pest.php                            # integration-suite bootstrap
+│       ├── TestCase.php                        # extends WP_UnitTestCase
+│       ├── bootstrap.php                       # boots wp-phpunit against a dedicated kotlinskidev_test MySQL database
+│       └── tests/                              # 55 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
 ├── .env
 ├── .env.example
 ├── .envrc

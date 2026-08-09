@@ -47,3 +47,22 @@ export function getPostUrl(id: number): string {
 export function deletePost(id: number): void {
   wp(["post", "delete", String(id), "--force"]);
 }
+
+export interface RegisteredPattern {
+  name: string;
+  content: string;
+}
+
+export function getRegisteredPatterns(): RegisteredPattern[] {
+  const script = `
+$patterns = WP_Block_Patterns_Registry::get_instance()->get_all_registered();
+$theme_patterns = array_values(array_filter($patterns, function ($pattern) {
+    return isset($pattern['name']) && str_starts_with($pattern['name'], 'kotlinskidev/');
+}));
+echo wp_json_encode(array_map(function ($pattern) {
+    return ['name' => $pattern['name'], 'content' => $pattern['content']];
+}, $theme_patterns));
+`;
+
+  return JSON.parse(wp(["eval", script]));
+}

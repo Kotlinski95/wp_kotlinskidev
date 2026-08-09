@@ -11,14 +11,14 @@ $kotlinskidev_images = array(
 ?>
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"margin":{"top":"0","bottom":"0"}}},"gradient":"gradient-block-bottom","layout":{"type":"constrained","contentSize":"100%"}} -->
 <div class="wp-block-group has-gradient-block-bottom-gradient-background has-background" style="margin-top:0;margin-bottom:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|2.5rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-    <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--2.5rem)"><!-- wp:image {"id":10027,"sizeSlug":"large","linkDestination":"none","align":"wide"} -->
+    <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--2-5-rem)"><!-- wp:image {"id":10027,"sizeSlug":"large","linkDestination":"none","align":"wide"} -->
         <figure class="wp-block-image alignwide size-large"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-10027" /></figure>
         <!-- /wp:image -->
     </div>
     <!-- /wp:group -->
 
     <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/contact-with-form","name":"Contact with Form"},"style":{"spacing":{"padding":{"top":"5rem","bottom":"5rem","right":"var:preset|spacing|2.5rem","left":"var:preset|spacing|2.5rem"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-    <div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:5rem;padding-right:var(--wp--preset--spacing--2.5rem);padding-bottom:5rem;padding-left:var(--wp--preset--spacing--2.5rem)"><!-- wp:group {"style":{"spacing":{"margin":{"bottom":"3.75rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:5rem;padding-right:var(--wp--preset--spacing--2-5-rem);padding-bottom:5rem;padding-left:var(--wp--preset--spacing--2-5-rem)"><!-- wp:group {"style":{"spacing":{"margin":{"bottom":"3.75rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
         <div class="wp-block-group" style="margin-bottom:3.75rem"><!-- wp:group {"layout":{"type":"constrained","contentSize":"46.25rem","justifyContent":"left"}} -->
             <div class="wp-block-group"><!-- wp:heading {"level":1,"style":{"typography":{"fontStyle":"normal","fontWeight":"800"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
                 <h1 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color" style="font-style:normal;font-weight:800"><?php esc_html_e('Keep in Touch', 'kotlinskidev') ?></h1>
