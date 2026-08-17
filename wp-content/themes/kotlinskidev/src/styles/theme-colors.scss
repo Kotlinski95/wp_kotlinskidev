@@ -1,9 +1,13 @@
+@import "./mixins";
+
 :root {
 	color-scheme: dark;
 	--color-surface: var(--wp--preset--color--surface);
 	--color-text: var(--wp--preset--color--foreground);
 	--kt-text-gradient: var(--wp--preset--gradient--fancy-text-dark);
 	--kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-dark);
+	--kt-gradient-start: rgb(184, 150, 255);
+	--kt-gradient-end: rgb(0, 255, 240);
 }
 
 html.light-mode {
@@ -25,6 +29,8 @@ html.dark-mode {
 body.light-mode {
 	--kt-text-gradient: var(--wp--preset--gradient--fancy-text-light);
 	--kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-light);
+	--kt-gradient-start: rgb(132, 83, 210);
+	--kt-gradient-end: rgb(0, 120, 194);
 }
 
 @supports not (color: light-dark(#000, #fff)) {
@@ -46,22 +52,6 @@ body.light-mode {
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-}
-
-@mixin gradient-border($width: 0.125rem, $gradient: var(--kt-text-gradient)) {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: inherit;
-	padding: $width;
-	background: $gradient;
-	-webkit-mask:
-		linear-gradient(#fff 0 0) content-box,
-		linear-gradient(#fff 0 0);
-	-webkit-mask-composite: xor;
-	mask-composite: exclude;
-	pointer-events: none;
-	z-index: -1;
 }
 
 @mixin gradient-border-bg($fill: var(--color-surface), $gradient: var(--kt-text-gradient), $extra-layer: null) {

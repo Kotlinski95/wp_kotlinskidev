@@ -10,101 +10,106 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 **When releasing:** bump `Version` in `style.css` and `"version"` in `package.json` together (they must always match), move the `[Unreleased]` entries under a new dated version heading, and start a fresh empty `[Unreleased]` section. See `docs/treeview.md` for the full current structure reference — update it alongside any change that adds/removes/renames a block, pattern, template, function module, or test file. See `.claude/skills/sync-docs/SKILL.md` for the full checklist to run before considering any change "done."
 
-This file starts tracking from 2026-07-28. Work before that date was ticket-based (see `git log`, tickets `T3`–`T16`) and is not itemized retroactively — `1.0.0` below represents the theme's accumulated state as of this file's creation, not a dated release. Each entry below is dated to the day the underlying work happened, reconstructed from `git log` where not tracked live.
+Keep changelog short: max 2-3 sentences per entry, to keep the file scannable and its size down. If a change needs more detail than that, put it in the commit message or PR description instead.
 
 ---
 
 ## [Unreleased]
 
+### Added
+
+- **2026-08-16 — Zoom hover animation:** Renamed "Zoom Background" to "Zoom" and extended it beyond Cover blocks to Image, Video, Gallery, and Media & Text — it now scales the block's own `img`/`video` element on hover instead of only Cover's background layer. The block's own Border-panel radius is now carried through as `--hover-zoom-radius` so rounded corners survive the zoom crop instead of clipping to a square edge.
+
+- **2026-08-16 — Background effects control:** Added a "Background Effects" panel (available on every supported block, alongside Hover Animations) offering five curated, always-on animated CSS presets — Gradient Shift, Aurora, Shimmer Text, Wave, Glow Border — built from `theme.json` colour tokens with `prefers-reduced-motion` overrides. Each effect exposes up to 3 alpha/gradient-capable colour pickers per block instance, falling back to theme-wide brand defaults when left empty. Glow Border reuses the existing mask-based `gradient-border` mixin instead of `border-image`, so it only animates colour — the block's own native Border panel still controls width, radius, and style.
+
+- **2026-08-15 — Slider editor preview parity:** The block editor now approximates the frontend layout (`slidesPerView`, `centerSlides`/peek, `spaceBetween`) via CSS instead of showing one slide at a time, so the editor is a closer visual match to what's published. Slides scroll into view on selection instead of being hidden. The block's own navigation/pagination/scrollbar controls now render (and function) in the editor when enabled; the previous editor-only prev/next + dots switcher is kept only as a fallback when all three are off, so every slide stays reachable.
+
+- **2026-08-15 — Slider autoplay improvements:** Added continuous ticker-style autoplay to `wpe/slider`, with lazy initialization, hover/focus pausing, and optional progress indicators for regular autoplay.
+
+- **2026-08-12 — Responsive slider layouts:** Added centered “peek” slides, responsive slide sizing, configurable maximum slide width, and reusable pagination placement controls to `wpe/slider`.
+
+- **2026-08-12 — Slider modals:** Added the ability to open a modal when clicking a slider slide, reusing the theme's existing modal system.
+
+- **2026-08-12 — Reusable tooltips:** Added a theme-wide CSS tooltip system with dark/light theme support and keyboard accessibility. Integrated it with social links, icons, and the theme switcher.
+
+- **2026-08-11 — Breadcrumbs:** Added a new global breadcrumbs block with responsive visibility, sticky-header integration, multilingual support, and synchronized Yoast structured data.
+
+- **2026-08-11 — Modal system:** Added a native modal content system using a dedicated `kt_modal` post type. Modals support arbitrary block content, Polylang translations, configurable sizes, and can be triggered from both custom and WordPress core link/button blocks.
+
+- **2026-08-11 — 3D model viewer:** Added a reusable `kotlinskidev/model-viewer` block for interactive `.glb` models, including optional animations, orbit controls, dynamic screen text, accessibility support, lazy loading, and WebGL detection.
+
+- **2026-08-11 — SVG icon system:** Replaced the remaining IcoMoon-based icons with a Media Library-based SVG system and added reusable icon controls for custom and core button/navigation blocks.
+
+### Fixed
+
+- **2026-08-17 — i18n tooling and translation debt:** `bin/i18n-check.js` was silently no-op'ing on the theme catalog — `wp i18n make-pot` OOM'd under the default 128M CLI `memory_limit` (repo outgrew it), and the failure was swallowed, always "passing." Now runs via `php -d memory_limit=512M`. Also translated the 108 strings this had let drift untranslated/fuzzy across `en_US.po`/`pl_PL.po`, and removed a malformed multi-line obsolete (`#~`) entry that was failing `msgmerge` outright.
+
+- **2026-08-16 — Mobile/tablet header + breadcrumbs:** Breadcrumbs visibility was direction-based on mobile (`hide-nav-on-scroll.ts` re-showed them on any upward scroll, anywhere on the page) instead of position-based like desktop. `sticky-header.ts` now runs its near-top threshold check on all breakpoints and is the sole owner of breadcrumbs + `.header-sticky` state; the mobile header background was also always translucent/blurred and now stays solid until scrolled past the same threshold, matching desktop.
+
+- **2026-08-15 — Slider autoplay:** Fixed several continuous and regular autoplay issues involving pausing/resuming, loop positioning, clicks, focus, and interaction with Swiper's internal state.
+
+- **2026-08-15 — Continuous autoplay hover/focus resume:** Fixed the ticker skipping ahead on every hover-out/focus-out. First attempt used `performance.now()`-tracked remaining duration to resume, but rapid hover in/out revealed the deeper issue: `swiper.autoplay.resume()`'s own elapsed-time math (`delay - elapsed`) is fundamentally the wrong model for a ticker built from one long `slideNext()` transition. Replaced with a purely position/state-based design (matching how this worked before the autoplay rework): read Swiper's own `animating` flag at the moment of pause — if a transition was genuinely in flight, resume finishes it via `slideTo(activeIndex, speed, ...)`; if idle between cycles, resume starts a fresh `slideNext()`. No time tracking involved.
+
+- **2026-08-15 — Continuous autoplay pause-moment jump:** Fixed hover-in snapping to a nearby grid position instead of freezing exactly where the pointer landed. `loopFix()`'s own append/prepend reshuffle (which periodically relocates duplicated loop slides as the ticker advances) calls `slideTo(index, 0, ...)` internally, which snaps translate to that slide's exact grid position — discarding whatever arbitrary sub-slide offset was mid-transition — and silently renumbers `activeIndex` in the process. Freeze now calls `loopFix({ byMousewheel: true })`, Swiper's own built-in path for preserving an arbitrary live position through the same reshuffle, and the resume target index is read after the freeze completes instead of before (the earlier read could capture an index `loopFix` was about to renumber out from under it).
+
+- **2026-08-15 — Continuous autoplay hover freezing on the wrong slide:** Fixed the frozen slide's *content* consistently being one slide ahead of whatever was actually under the cursor on hover — reproduced deterministically with zero real elapsed time (synthetic same-tick event dispatch), ruling out human/browser reaction latency. Root cause: `loopFix()` rotates the DOM order of duplicated loop slides as part of its normal bookkeeping; with a small slide count (as in `centerSlides` layouts) this reorder threshold is crossed on nearly every hover. Even with the earlier `byMousewheel: true` fix, `swiper.translate` came back numerically unchanged while the slide occupying that position had rotated — a real visual shift the translate-only check couldn't see. Freeze no longer calls `loopFix()` at all; it wasn't actually needed once the resume-target-index ordering was already fixed, and removing it eliminates the content rotation entirely (confirmed via the existing many-cycle stress tests, which still pass without it).
+
+- **2026-08-12 — Slider editor:** Fixed the editor preview so all slides remain directly editable and navigation/pagination work correctly inside Gutenberg.
+
+- **2026-08-12 — Slider pagination:** Fixed pagination rendering and click behavior, and moved pagination outside the slide area by default.
+
+- **2026-08-12 — Navigation accessibility:** Removed redundant keyboard focus from hamburger-menu parent links that are covered by submenu controls.
+
+- **2026-08-11 — Modal accessibility & SEO:** Improved modal focus management, background inertness, accessible naming, focus styling, and preservation of real link destinations for search engines.
+
+- **2026-08-11 — GLB uploads:** Fixed `.glb` uploads failing through some WordPress media code paths.
+
+- **2026-08-11 — SVG icons:** Fixed icon sizing and gradient states after migrating from IcoMoon fonts to inline SVGs.
+
 ### Chore
 
-- **2026-08-09** — Added `npm run check-version-sync` (`bin/check-version-sync.js`), wired into `.husky/pre-push`, to catch `style.css`/`package.json` version drift automatically instead of relying on remembering to bump both by hand.
-- **2026-08-09** — Fixed a real bug in `bin/i18n-check.js`: its "missing:"/"fuzzy:" listing silently omitted any string long enough for `wp i18n make-pot` to word-wrap across multiple lines (their first line is always the bare `msgid ""` marker, which the listing filter explicitly excluded). It caught the correct untranslated *count* but hid 6 of them from the printed list — inherited unchanged from the original bash version, not introduced by the earlier Node rewrite. Fixed by passing `--no-wrap` to `msgattrib` so every msgid stays on one line. Verified with a real regression test: blanked a known translation, confirmed it's now listed, restored it.
-- **2026-08-09** — Translated the 17 real strings the Security tab work left behind untranslated (11 shown by the check, 6 hidden by the bug above) plus 1 wrong fuzzy match (`msgmerge` had fuzzy-matched the new "Mode" field label to an unrelated existing Polish translation, "Tryb zapętlenia" — loop mode — which had nothing to do with CSP enforcement mode). Both `pl_PL.po`/`en_US.po` recompiled (`.mo`/`.l10n.php`/JSON) and now pass `npm run i18n:check` clean at 1151/1151.
-- **2026-08-09** — Fixed `tests/unit/SettingsPageTest.php`'s hardcoded tab-list assertion, same drift as the integration test fixed earlier — missed this second copy the first time since the two suites (Brain Monkey unit vs. real `WP_UnitTestCase` integration) live in separate directories with no shared fixture. Full suite green: 470 unit + 402 integration.
-- **2026-08-09** — Rewrote `bin/i18n-check.sh` and `bin/setup-husky.sh` as `i18n-check.js`/`setup-husky.js` (Node instead of bash), keeping this project's tooling in one language. Verified byte-for-byte output parity against the originals, including the untranslated/fuzzy-string listing path, before deleting the `.sh` versions.
-- **2026-08-09** — Fixed `.markdownlint.json`'s `MD024` (no-duplicate-heading) to `siblings_only: true` — its default flagged repeated `### Chore`/`### Fixed`/etc. headings across different `## [version]` sections as duplicates, which is normal and required by the Keep a Changelog format this file follows.
+- **2026-08-12 — Icon migration:** Removed the final hardcoded SVG/icon-font dependencies and moved social icons fully to the Media Library-based system.
+
+- **2026-08-09 — Version checks:** Added automatic version synchronization checks for `style.css` and `package.json`.
+
+- **2026-08-09 — Internationalization tooling:** Improved translation checks and fixed detection of wrapped/untranslated strings. The theme's translations now pass the full i18n check.
 
 ### Security
 
-- **2026-08-09** — Added `docs/security-headers.md`: HTTP security header reference grounded in the OWASP Secure Headers Project's current recommendations and a confirmed EU legal read (GDPR Art. 32 applies; NIS2/CRA don't at this site's scale), with a real audit finding zero security headers currently set anywhere in the stack. Includes a site-specific CSP domain inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile) and a PHP-vs-Cloudflare implementation split — no code changed yet, this is the reference the implementation will follow.
-- **2026-08-09** — Added the `security-headers` Claude Code skill (`.claude/skills/security-headers/SKILL.md`) so future header/CSP/third-party-script work loads `docs/security-headers.md` first instead of reconstructing generic advice.
-- **2026-08-09** — Implemented `Referrer-Policy`, `Permissions-Policy`, and a site-specific `Content-Security-Policy-Report-Only` via new `functions/security-headers.php` (`wp_headers` filter, skips `wp-admin`/REST). Verified via 3 integration tests, real `curl -I` checks (present on frontend, absent on `wp-admin`/`wp-json`), and a real browser pass across the homepage/an article/the Google-Maps-loaded Contact page — zero CSP violations observed. `Strict-Transport-Security`/`X-Content-Type-Options`/`X-Frame-Options` deliberately live at the Cloudflare edge instead (manual setup, not yet done); CSP stays Report-Only and `script-src`/`style-src` keep `'unsafe-inline'` until a longer monitoring window and optional nonce-hardening — both tracked as open items in `docs/security-headers.md` rather than silently dropped.
-- **2026-08-09** — Made every CSP directive admin-configurable: a new Security tab (Settings → Kotlinski.dev, `functions/settings-page.php`) with a master enable toggle, a Report-Only/Enforcing mode toggle, and one text field per directive, all falling back to `functions/security-headers.php`'s existing defaults when unset. The point: this theme's CSP setup is now reusable across other WordPress sites without editing PHP — configure per-site from wp-admin instead. Verified end-to-end in a real browser (edit → save → confirmed the new value in the live response header via `curl` → reverted); added 2 more integration tests, full suite still green at 397.
-- **2026-08-09** — Extended the same admin-configurability to `Referrer-Policy` (dropdown, 8 valid values) and `Permissions-Policy` (textarea) — no security header on this site is hardcoded anymore. Revised the Cloudflare guidance in `docs/security-headers.md` after review: only `X-Content-Type-Options`/`X-Frame-Options` belong in a Cloudflare Transform Rule now — `Referrer-Policy`/`Permissions-Policy` must stay WordPress-only, since Cloudflare's `Set` operation unconditionally overwrites an origin-set header of the same name and would silently defeat the new per-customer configurability. Also folded in corrected TLS guidance (SSL/TLS Full (Strict), Always Use HTTPS, Minimum TLS 1.2, and a more precise HSTS `includeSubDomains` caveat for any non-HTTPS-proxied `cp.`/`ssh.`-style subdomains). Verified the new fields end-to-end in a real browser same as the CSP fields; full suite green at 402.
-- **2026-08-09** — Restructured `docs/security-headers.md` with a clear "what's applied vs. what's still needed" status section (§0), split into WordPress-level (done), WordPress-level (deferred), and Cloudflare/3rd-party-level (not yet done) checklists — replaces the previous scattered prose with one scannable answer to "is the site fully protected yet." Includes a confirmed note that Wordfence (active on this site) sets no HTTP response headers, so it doesn't overlap with or reduce anything on the list.
+- **2026-08-17 — Dependency audit:** Patched `nanoid` (moderate, unbounded-loop) via `overrides` and bumped `@wordpress/env` to `^11.13.0` (npm's own suggested fix). Excluded advisory 1139346 (`extract-zip`, high) from `security:audit:full` — confirmed unpatched upstream for every published version, dev-only (Puppeteer/e2e tooling), never shipped; documented in `docs/security.md`.
+
+- **2026-08-09 — Security headers:** Added configurable `Content-Security-Policy`, `Referrer-Policy`, and `Permissions-Policy` support with a dedicated Security settings tab. CSP currently runs in Report-Only mode and is designed to be configurable per site.
+
+- **2026-08-09 — Security documentation:** Added a security-header reference and implementation checklist covering WordPress, Cloudflare, CSP, TLS, and remaining security work.
 
 ---
 
 ## [1.1.0] — 2026-08-09
 
-### Chore
-
-- **2026-08-05** — Wired `prettier:check`/`lint:css`/`lint:js` into `.husky/pre-commit`, and those plus `lint:pkg-json`/`lint:md:docs`/`i18n:check`/`security:secrets`/`build` into `.husky/pre-push`. Required a custom `bin/setup-husky.sh` since this repo's git root and `package.json` live in different directories.
-- **2026-08-05** — Cleared `lint:pkg-json`, `lint:i18n:js`, `i18n:check`, and `lint:md:docs` (all previously failing, never run before). Fixed `package.json`'s wrong license field and missing metadata, filled the translation gap the pass surfaced, and added `.markdownlint.json`/`.markdownlintignore` for this project's 2-space list-indent convention.
-- **2026-08-05** — Resolved a Prettier/stylelint conflict on SCSS (tabs vs. spaces, disagreeing line-wrap behavior) by removing `.scss`/`.css` from Prettier's scope entirely — stylelint is now the sole CSS/SCSS formatter, with `lint:css:fix` added alongside it.
-- **2026-08-05** — Cleared `npm run lint:js` (430 → 0 problems) and `npm run lint:css` (90 → 0 errors): real bugs fixed (hooks-in-object-shorthand blind spot, untranslatable string concatenation, keyboard-inaccessible custom controls, dead `tailwind.css`/duplicate selectors) alongside several rules tuned with justification recorded inline.
-- **2026-08-05 to 2026-08-06** — Built out theme-wide test coverage: 996 JS/TS tests (88.91% coverage), 470 PHP unit tests, and a new 238-test PHP integration suite (its own isolated toolchain, since `wp-phpunit` needs PHPUnit 9.6 while the main suite runs Pest 5/PHPUnit 13). Found and fixed 3 real bugs purely by writing tests: a broken `responsive-order` CSS class, an ignored slider keyboard-disable option, and a mismatched translation-group key.
-- **2026-08-07** — Wired `security:sast` into `.husky/pre-commit` now that its two known findings are genuinely fixed rather than suppressed.
-- **2026-08-09** — Fixed unbounded `wp_posts` growth from `npm run test:e2e`: every editor test's `admin.createNewPost()` leaves a real `auto-draft` row that WP-Cron only reaps after 7 days — a direct DB audit found 422 accumulated in just two days of runs. Added `test:e2e:purge-drafts`, chained into `test:e2e` itself so it always runs regardless of pass/fail (npm's automatic `post`-hook does **not** fire on failure, confirmed empirically).
-
-### Security
-
-- **2026-08-05** — Added `security:audit:php` (`composer audit`) and `security:secrets` (`gitleaks`, scoped to this theme's own commit history) alongside the existing `security:audit`/`security:sast`.
-- **2026-08-05** — `security:secrets`' first run found a real private key committed directly into `wp-config.php`, already pushed to the GitHub remote. Flagged, not fixed (that file is off-limits per project rules) — **needs rotation and removal from version control** as its own follow-up.
-- **2026-08-07** — Fixed `kotlinskidev/protected-content` storing its "protected" content as **plaintext** in an HTML attribute — converted to a real server-rendered block using the theme's existing RSA encryption. This was an active plaintext leak on the live Contact pages.
-- **2026-08-05** — Marked the Search utility pages `noindex`; they were incorrectly indexable and surfacing in the Popular Pages block.
-- **2026-08-07** — Fixed stored XSS in `kotlinskidev/gallery-lightbox` (unescaped attachment `src`/`alt`/`poster` interpolated into raw HTML) and in the Article Query Settings admin meta box (unescaped tag name — an Author→Admin privilege-escalation path).
-- **2026-08-07** — Fixed stored XSS in SVG upload/inline rendering: added a `DOMDocument`-based sanitizer stripping `<script>`/event handlers/dangerous URIs, applied once at the shared loader function so every caller (upload path and nav-icon rendering) is covered.
-- **2026-08-07** — Bumped `swiper` 11→14 for a critical prototype-pollution advisory; capped the protected-content AJAX decrypt batch size against resource exhaustion; fixed a host-header-driven open-redirect in the maintenance page's language switcher.
-- **2026-08-05 to 2026-08-07** — Added `better-npm-audit`, `eslint-plugin-security`/`no-unsanitized`, and PHP-side `security:php` (WPCS security sniffs, first Composer setup in this project). `npm audit fix` resolved 68/109 advisories; the rest need a deliberately-deferred `@wordpress/scripts` major bump.
-- **2026-08-07** — Triaged all 319 `security:php` findings to 0: fixed 2 critical unsanitized-HTML sinks in `google-maps/render.php` (marker tooltip, custom CSS), removed a dead duplicate unsanitized SVG loader, added missing CSRF nonces to 2 admin forms, plus ~30 minor escaping/redirect fixes.
-- **2026-08-07** — Resolved the remaining 7 high-severity `npm audit` findings via scoped `overrides` rather than a risky `@wordpress/scripts` major bump (which broke `.eslintignore` support when tried). Closed the last 2 unsanitized-HTML sinks (`protected-content.ts`, `gallery-lightbox/init.ts`) with real `DOMPurify` sanitization instead of continuing to suppress them.
-
 ### Added
 
-- **2026-08-09** — `tests/e2e/editor/patterns-validity.spec.ts`: validates every registered theme pattern against Gutenberg's own block-validation check (the "Block contains unexpected or invalid content." warning). Caught and fixed 3 real, previously-unnoticed bugs — see `### Fixed` below. All 52 patterns now pass.
-- **2026-08-05** — Full 4-layer test-tooling setup: JS/TS unit (Jest), PHP unit (Pest + Brain Monkey), PHP integration (scaffolded), and e2e (Playwright), wired into `.husky/pre-push`.
-- **2026-08-06 to 2026-08-07** — Built an authenticated e2e testing foundation (dedicated test admin user, session `storageState`, `tests/e2e/editor/`), then ten block-level e2e coverage passes — one per custom block in the README — each with frontend + editor tests. Surfaced several real bugs along the way (dead CSS classes, a client/server type-coercion mismatch, a broken script enqueue), all reported in their respective commits rather than silently fixed.
-- **2026-08-04** — Added FAQ accordion independent-columns layout mode plus a `kotlinskidev/faq-layout` block extension exposing it as an editor control.
-- **2026-08-04** — New capabilities: `kotlinskidev/content-block` (Polylang-aware `wp_block` resolution), `simple-grid` tablet-column control, `protected-content` address/other types, `popular-pages` title font-size control, and generic block pass-through in `kotlinskidev/navigation`'s list/bar modes.
-- **2026-08-04** — Sitewide active-page link highlighting (`kt-link-current`/`aria-current`) with click-disable and new site-wide + per-block settings toggles. Also added universal gradient-border support for any border-capable block, and `functions/seo-noindex-compat.php` for cross-plugin (Yoast/Rank Math/AIOSEO/SEOPress) noindex detection.
-- **2026-08-04** — FAQ accordion redesign: animated `+`/`−` indicator, Web Animations API open/close transition, 2-column grid layout.
-- **2026-08-06** — PHP integration coverage extended to 18 more previously-untested modules (238 → 392 tests).
+- **2026-08-09 — Testing infrastructure:** Added comprehensive JS/TS, PHP unit/integration, and Playwright e2e testing infrastructure with authenticated editor testing and pattern validation.
+
+- **2026-08-04 — Block improvements:** Added new FAQ layout controls, content blocks, protected-content options, popular-pages typography controls, navigation improvements, active-page highlighting, gradient borders, and cross-plugin noindex support.
 
 ### Changed
 
-- **2026-08-04** — Footer restructured: brand content moved into a `content-block` instance, nav rebuilt as a `simple-grid` with real per-column headings, address moved into a `protected-content` block, social links synced to the full canonical platform set.
-- **2026-08-05** — Cleaned up `docs/` to describe only current, implemented state — removed superseded planning documents.
-- **2026-08-07** — `kotlinskidev/protected-content` gained Gradient Colors formatting support (`RichText` `allowedFormats`).
+- **2026-08-04 — Footer redesign:** Restructured the footer around reusable blocks, improved navigation structure, protected the address content, and synchronized social links.
 
 ### Fixed
 
-- **2026-08-09** — Fixed the 3 real pattern-validity bugs `patterns-validity.spec.ts` caught: `search-form`'s unclosed `wp:html` block, `template-404`'s markup nesting plus 3 CSS-preset-var typos (and a `tabindex` attribute moved to a proper `render_block` PHP filter, `functions/main-content-focus.php`, matching the existing `active-link-state.php` pattern), and `contact-page`'s 2 CSS-preset-var typos.
-- **2026-08-05** — Regenerated and translated the theme's and `wordpress-pwa-manager`'s i18n catalogs from actual source (~1980 combined missing/never-wrapped strings) — both now compile at 100% translated, 0 fuzzy.
-- **2026-08-04** — Footer/nav visual fixes: centering, mobile-viewport alignment, tablet brand-column width, social-icon vertical alignment, CTA social-links justification and two swapped URLs, dead-link cursor, a PHP 8.1 deprecation notice, and noindex pages leaking into search results.
-- **2026-08-07** — Fixed Gradient Colors formatting on `protected-content` being silently stripped for non-`text` types — three separate causes (tag-stripping, output escaping, and a WP core CSS filter rejecting `var()`-based gradients).
-- **2026-08-04** — Lighthouse-driven accessibility pass: fixed 5 missing/broken `aria-label`s, one image aspect-ratio mismatch, one touch-target size. Accessibility score 97/93 → 100/100 (desktop/mobile).
-- **2026-08-04** — FAQ accordion grid/animation fixes: row-stretch bug, column count not actually being editor-configurable (migrated 21 live groups to native grid layout), open-item clipping, and animation timing desync.
-- **2026-08-04** — More accessibility fixes: gallery-lightbox counter label, core image-lightbox fallback label, cookie-consent banner label, testimonial heading levels, 3 icon-only links — root-caused a plugin JS-combine bug that was masking several of these from taking effect.
-- **2026-08-04** — Fixed the homepage slider's autoplay-resume jump after a manual drag (Swiper active-index resync) and the site logo's missing accessible name on the homepage (a hook-ordering bug between two `render_block` filters).
-- **2026-08-04** — Fixed Complianz cookie-banner touch-target size and mobile-nav overlap. All accessibility fixes verified via a live Lighthouse re-audit: Accessibility 97/93 → 100/100, Agentic Browsing 67 → 100.
+- **2026-08-09 — Pattern validation:** Fixed multiple invalid theme patterns discovered through automated Gutenberg validation.
+
+- **2026-08-07 — Security fixes:** Fixed stored XSS vulnerabilities, unsafe SVG handling, an open redirect, resource-exhaustion risks, and multiple escaping/CSRF issues.
+
+- **2026-08-04 — Accessibility:** Completed a Lighthouse-driven accessibility pass, fixing labels, touch targets, image issues, navigation problems, and plugin-related accessibility issues. Accessibility reached 100/100 on desktop and mobile.
 
 ### Performance
 
-- **2026-08-04** — Fixed LCP on About pages (~1.93s → 1.67s) by deferring 2 more non-critical CSS handles; confirmed by testing that Swiper-dependent CSS must stay render-blocking (deferring it broke LCP).
-- **2026-08-04** — Built a generic, per-page-dynamic "defer unless marked above-the-fold" system (`functions/deferred-block-assets.php`) replacing a hardcoded handle list — registered 4 blocks with per-block defaults and content-based cache invalidation, plus deferred a plugin script's execution via `script_loader_tag` without touching its files.
-- **2026-08-04** — Query-count audit on the About page (161 → 144 queries): added memoization/transient caching to 4 functions, fixed a Polylang re-validation regression introduced along the way, replaced an `ORDER BY RAND()` with an ID-shuffle.
-- **2026-08-04** — Batched and lazy-loaded `protected-content`'s decrypt AJAX calls (one request instead of one per element, `IntersectionObserver`-gated) instead of firing one request per protected element on every page load.
+- **2026-08-04 — Performance improvements:** Reduced About-page LCP and database query count through dynamic asset deferral, caching, and query optimizations.
+
+- **2026-08-04 — Protected content:** Batched and lazy-loaded protected-content decryption requests to reduce page-load overhead.
 
 ### Internationalization
 
-- **2026-08-05** — Added `npm run i18n:check` and `npm run lint:i18n:js` for ongoing translation-drift detection.
-- **2026-08-05** — Full i18n audit: translated ~964 drifted-plus-newly-wrapped strings across the theme (1120/1120 PL+EN, 0 fuzzy).
-- **2026-08-05** — Same audit for the `wordpress-pwa-manager` plugin (162 strings) — also fixed 2 real bugs that were silently blocking the translations from ever loading (a missing `wp_set_script_translations()` call and a wrong JSON filename hash).
-
----
-
-## [1.0.0] — Baseline (2026-07-28)
-
-Represents the theme as it stood when changelog tracking began: the FSE block theme described in `README.md` — 10 custom blocks (pre-this-session count), 56 patterns, 9 templates, dark/light mode, scroll animations, parallax, PWA support, Polylang multilingual support, the `T16` navigation/mega-menu redesign, and the footer/protected-content/popular-pages baseline this file's `[1.1.0]` section builds on. See `docs/treeview.md` for the full current inventory.
+- **2026-08-05 — Translation coverage:** Added automated i18n checks and completed a full translation audit for the theme and `wordpress-pwa-manager`, eliminating missing and fuzzy translations.

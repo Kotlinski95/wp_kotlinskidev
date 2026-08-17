@@ -19,6 +19,7 @@ beforeEach(function () {
     );
     Functions\when('esc_url')->alias(fn ($t) => $t);
     Functions\when('esc_html')->alias(fn ($t) => $t);
+    Functions\when('esc_attr')->alias(fn ($t) => $t);
     Functions\when('sanitize_html_class')->alias(fn ($t) => $t);
     Functions\when('get_transient')->justReturn('');
 });
@@ -37,10 +38,10 @@ it('renders a plain label link with only the menu-item class when there is no ic
     expect($html)->not->toContain('kt-social-item--icon');
 });
 
-it('adds the icon class for a known social domain, even without a custom icon', function () {
+it('does not add the icon class for a known social domain without a custom icon or SVG', function () {
     $html = kotlinskidev_social_section_item_render(['url' => 'https://facebook.com/me', 'label' => 'Facebook']);
 
-    expect($html)->toContain('kt-social-item--icon');
+    expect($html)->not->toContain('kt-social-item--icon');
     expect($html)->not->toContain('kt-social-item--svg');
 });
 
@@ -73,4 +74,24 @@ it('wraps the label in a span and includes the icon svg when an svg icon is set'
     expect($html)->toContain('kt-social-item--svg');
     expect($html)->toContain('<svg aria-hidden="true"');
     expect($html)->toContain('<span class="kt-social-item__label">GitHub</span>');
+});
+
+it('adds a hover tooltip with the label when an svg icon is set', function () {
+    Functions\when('get_post_mime_type')->justReturn('image/svg+xml');
+    Functions\when('get_transient')->justReturn('<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>');
+
+    $html = kotlinskidev_social_section_item_render([
+        'url' => 'https://example.test',
+        'label' => 'GitHub',
+        'navIconId' => 5,
+    ]);
+
+    expect($html)->toContain('class="kt-tooltip" data-tooltip="GitHub"');
+});
+
+it('omits the tooltip when there is no svg icon', function () {
+    $html = kotlinskidev_social_section_item_render(['url' => 'https://example.test', 'label' => 'X']);
+
+    expect($html)->not->toContain('kt-tooltip');
+    expect($html)->not->toContain('data-tooltip');
 });

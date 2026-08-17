@@ -17,6 +17,15 @@ if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
 	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_reusable_blocks', 10, 2 );
 }
 
+function kotlinskidev_pll_register_modals( array $post_types, bool $is_settings ): array {
+	$post_types['kt_modal'] = 'kt_modal';
+	return $post_types;
+}
+
+if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
+	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_modals', 10, 2 );
+}
+
 function kotlinskidev_resolve_translatable_post( string $slug, string $post_type ): ?WP_Post {
 	static $resolved = [];
 

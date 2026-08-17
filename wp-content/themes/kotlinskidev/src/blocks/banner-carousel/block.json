@@ -17,15 +17,16 @@
     "showPagination": { "type": "boolean", "default": true },
     "showScrollbar": { "type": "boolean", "default": false },
     "loop": { "type": "boolean", "default": false },
+    "draggable": { "type": "boolean", "default": true },
     "autoplay": { "type": "boolean", "default": false },
     "autoplayDelay": { "type": "number", "default": 3000 },
     "lazyLoad": { "type": "boolean", "default": false },
     "arrowsPosition": { "type": "string", "default": "sides" },
     "navColor": { "type": "string", "default": "" },
     "navPlacement": { "type": "string", "default": "inside" },
-    "slidesPerView": { "type": "number", "default": 1 },
-    "slidesPerMobile": { "type": "number", "default": 1 },
-    "slidesPerTablet": { "type": "number", "default": 1 },
-    "slidesPerDesktop": { "type": "number", "default": 1 }
+    "slidesPerView": { "type": ["number", "string"], "default": 1 },
+    "slidesPerMobile": { "type": ["number", "string"], "default": 1 },
+    "slidesPerTablet": { "type": ["number", "string"], "default": 1 },
+    "slidesPerDesktop": { "type": ["number", "string"], "default": 1 }
   }
 }

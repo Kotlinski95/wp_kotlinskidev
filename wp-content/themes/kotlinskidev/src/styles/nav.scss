@@ -66,11 +66,17 @@ header {
 	}
 
 	@media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
-		background: color-mix(in srgb, var(--color-surface) 40%, transparent);
+		background: var(--color-surface);
 		box-shadow: 0 0.125rem 0.3125rem color-mix(in srgb, var(--color-surface) 40%, transparent);
 		transition:
 			transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-			background-color var(--nav-reveal-duration) var(--nav-reveal-ease);
+			background-color var(--nav-reveal-duration) var(--nav-reveal-ease),
+			backdrop-filter var(--nav-reveal-duration) var(--nav-reveal-ease);
+
+		&.header-sticky {
+			background: color-mix(in srgb, var(--color-surface) 40%, transparent);
+			backdrop-filter: blur(6px);
+		}
 
 		&.nav-hidden {
 			transform: translateY(-100%);
@@ -147,8 +153,12 @@ header::before {
 	header {
 
 		@media (max-width: calc(#{$breakpoint-desktop} - 0.0625rem)) {
-			background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+			background: var(--color-surface);
 			box-shadow: 0 0.125rem 0.3125rem color-mix(in srgb, var(--color-surface) 60%, transparent);
+
+			&.header-sticky {
+				background: color-mix(in srgb, var(--color-surface) 60%, transparent);
+			}
 		}
 
 		@media (min-width: $breakpoint-desktop) {
@@ -447,7 +457,7 @@ header:has(.kt-lang-panel.is-open) {
 		}
 	}
 
-	header .kt-hamburger-desktop a:not(#scroll-to-top):not(.custom-logo-link) {
+	header .kt-hamburger-desktop a:not(#scroll-to-top):not(.custom-logo-link):not(.kt-tooltip) {
 
 		&::after {
 			content: none !important;

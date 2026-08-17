@@ -1,0 +1,75 @@
+@import "./mixins";
+
+:root {
+	--kt-bg-fx-color-1: var(--wp--preset--color--primary);
+	--kt-bg-fx-color-2: var(--wp--preset--color--primary-hover);
+	--kt-bg-fx-color-3: var(--wp--preset--color--contrast);
+}
+
+.kt-bg-fx-gradient-shift {
+	$gradient-shift-gradient: linear-gradient(-45deg, var(--kt-bg-fx-color-1), var(--kt-bg-fx-color-2), var(--kt-bg-fx-color-3), var(--kt-bg-fx-color-2));
+
+	@include kt-bg-fx-pan($gradient-shift-gradient);
+}
+
+.kt-bg-fx-aurora {
+	$aurora-gradient: radial-gradient(circle at 20% 20%, var(--kt-bg-fx-color-1), transparent 40%), radial-gradient(circle at 80% 30%, var(--kt-bg-fx-color-2), transparent 40%), radial-gradient(circle at 50% 80%, var(--kt-bg-fx-color-3), transparent 40%);
+
+	@include kt-bg-fx-pan($aurora-gradient, 200% 200%, 12s);
+	background-color: var(--wp--preset--color--dark-color);
+}
+
+.kt-bg-fx-shimmer-text {
+	$shimmer-gradient: linear-gradient(90deg, var(--kt-bg-fx-color-1), var(--kt-bg-fx-color-2), var(--kt-bg-fx-color-3), var(--kt-bg-fx-color-2), var(--kt-bg-fx-color-1));
+
+	background: $shimmer-gradient;
+	background-size: 300% 100%;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	animation: kt-bg-fx-shimmer 6s linear infinite;
+}
+
+.kt-bg-fx-wave {
+	$wave-gradient: linear-gradient(270deg, var(--kt-bg-fx-color-1), var(--kt-bg-fx-color-2));
+
+	@include kt-bg-fx-pan($wave-gradient, 200% 200%, 8s);
+}
+
+.kt-bg-fx-glow-border {
+	position: relative;
+	isolation: isolate;
+	border-color: transparent !important;
+
+	&::before {
+		$glow-border-gradient: linear-gradient(90deg, var(--kt-bg-fx-color-1), var(--kt-bg-fx-color-2), var(--kt-bg-fx-color-3), var(--kt-bg-fx-color-1));
+
+		@include gradient-border(var(--kt-bg-fx-border-width, 0.125rem), $glow-border-gradient);
+		background-size: 300% 100%;
+		animation: kt-bg-fx-shimmer 6s linear infinite;
+	}
+}
+
+@keyframes kt-bg-fx-pan {
+
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+@keyframes kt-bg-fx-shimmer {
+
+	0% {
+		background-position: 0% 50%;
+	}
+
+	100% {
+		background-position: 100% 50%;
+	}
+}

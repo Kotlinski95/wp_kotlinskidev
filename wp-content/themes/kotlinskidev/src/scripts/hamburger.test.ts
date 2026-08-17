@@ -95,6 +95,65 @@ describe("hamburger.ts", () => {
     expect(link.getAttribute("tabindex")).toBe("0");
   });
 
+  it("hides a parent link that a submenu toggle covers inside the overlay content", () => {
+    document.body.innerHTML = `
+      <div class="wp-block-navigation__responsive-container-content">
+        <ul class="wp-block-navigation__container">
+          <li class="wp-block-navigation-item has-child">
+            <a class="wp-block-navigation-item__content" href="/services/">Services</a>
+            <button class="wp-block-navigation-submenu__toggle" aria-expanded="false"></button>
+            <ul class="wp-block-navigation__submenu-container">
+              <li class="wp-block-navigation-item">
+                <a class="wp-block-navigation-item__content" href="/services/all/">All services</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    `;
+
+    loadModule();
+
+    const parentLink = document.querySelector('a[href="/services/"]') as HTMLElement;
+    expect(parentLink.getAttribute("tabindex")).toBe("-1");
+    expect(parentLink.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("leaves a has-child link untouched outside the overlay content (e.g. the mega-nav bar)", () => {
+    document.body.innerHTML = `
+      <ul class="kt-mega-nav__bar">
+        <li class="wp-block-navigation-item has-child">
+          <a class="wp-block-navigation-item__content" href="/services/">Services</a>
+          <button class="wp-block-navigation-submenu__toggle" aria-expanded="false"></button>
+        </li>
+      </ul>
+    `;
+
+    loadModule();
+
+    const parentLink = document.querySelector('a[href="/services/"]') as HTMLElement;
+    expect(parentLink.getAttribute("tabindex")).toBeNull();
+    expect(parentLink.getAttribute("aria-hidden")).toBeNull();
+  });
+
+  it("leaves a parent link untouched when there is no covering toggle button", () => {
+    document.body.innerHTML = `
+      <div class="wp-block-navigation__responsive-container-content">
+        <ul class="wp-block-navigation__container">
+          <li class="wp-block-navigation-item has-child">
+            <a class="wp-block-navigation-item__content" href="/services/">Services</a>
+          </li>
+        </ul>
+      </div>
+    `;
+
+    loadModule();
+
+    const parentLink = document.querySelector('a[href="/services/"]') as HTMLElement;
+    expect(parentLink.getAttribute("tabindex")).toBeNull();
+    expect(parentLink.getAttribute("aria-hidden")).toBeNull();
+  });
+
   it("removes the animating class only on the container's own max-width transition", () => {
     buildNav();
     loadModule();
@@ -275,6 +334,89 @@ describe("hamburger.ts", () => {
     const toggleA = document.getElementById("a") as HTMLElement;
     expect(toggleA.getAttribute("aria-expanded")).toBe("false");
     expect(toggleB.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  it("closes the open menu by clicking its close button when Escape is pressed", () => {
+    buildNav({ open: true });
+    loadModule();
+    const closeBtn = document.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    ) as HTMLButtonElement;
+    const clickSpy = jest.spyOn(closeBtn, "click");
+
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+
+    expect(clickSpy).toHaveBeenCalled();
+  });
+
+  it("does nothing on Escape when no menu is open", () => {
+    buildNav({ open: false });
+    loadModule();
+    const closeBtn = document.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    ) as HTMLButtonElement;
+    const clickSpy = jest.spyOn(closeBtn, "click");
+
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
+  it("does nothing on other key presses", () => {
+    buildNav({ open: true });
+    loadModule();
+    const closeBtn = document.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    ) as HTMLButtonElement;
+    const clickSpy = jest.spyOn(closeBtn, "click");
+
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
+
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
+  it("closes the open menu by clicking its close button when clicking outside the nav", () => {
+    buildNav({ open: true });
+    loadModule();
+    const closeBtn = document.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    ) as HTMLButtonElement;
+    const clickSpy = jest.spyOn(closeBtn, "click");
+    const outside = document.createElement("div");
+    document.body.append(outside);
+
+    outside.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+    expect(clickSpy).toHaveBeenCalled();
+  });
+
+  it("does not close when clicking inside the open nav", () => {
+    buildNav({ open: true });
+    loadModule();
+    const closeBtn = document.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    ) as HTMLButtonElement;
+    const clickSpy = jest.spyOn(closeBtn, "click");
+    const link = document.querySelector(".wp-block-navigation-item__content") as HTMLElement;
+
+    link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
+  it("does nothing when clicking outside while no menu is open", () => {
+    buildNav({ open: false });
+    loadModule();
+    const closeBtn = document.querySelector(
+      ".wp-block-navigation__responsive-container-close"
+    ) as HTMLButtonElement;
+    const clickSpy = jest.spyOn(closeBtn, "click");
+    const outside = document.createElement("div");
+    document.body.append(outside);
+
+    outside.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+    expect(clickSpy).not.toHaveBeenCalled();
   });
 
   it("ignores clicks that do not originate from a submenu toggle", () => {

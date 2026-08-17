@@ -59,4 +59,20 @@ describe("buildSwiperConfig", () => {
 
     expect(config.autoplay).toBe(false);
   });
+
+  it("enables touch dragging by default", () => {
+    const config = buildSwiperConfig({});
+
+    expect(config.grabCursor).toBe(true);
+    expect(config.simulateTouch).toBe(true);
+    expect(config.allowTouchMove).toBe(true);
+  });
+
+  it("disables touch dragging entirely when draggable is turned off", () => {
+    const config = buildSwiperConfig({ draggable: false });
+
+    expect(config.grabCursor).toBe(false);
+    expect(config.simulateTouch).toBe(false);
+    expect(config.allowTouchMove).toBe(false);
+  });
 });

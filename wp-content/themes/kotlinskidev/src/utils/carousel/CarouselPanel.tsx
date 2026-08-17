@@ -3,6 +3,7 @@ import { PanelBody, RangeControl, ToggleControl, SelectControl } from "@wordpres
 import { __experimentalColorGradientControl as ColorGradientControl } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import type { CarouselSettings, CarouselFeatures } from "./types";
+import SlidesPerViewControl from "./SlidesPerViewControl";
 
 interface CarouselPanelProps {
   settings: Partial<CarouselSettings>;
@@ -22,6 +23,7 @@ export default function CarouselPanel({
     showPagination = true,
     showScrollbar = false,
     loop = true,
+    draggable = true,
     autoplay = false,
     autoplayDelay = 3000,
     slidesPerView = 1,
@@ -34,6 +36,7 @@ export default function CarouselPanel({
     navColorOnHover = false,
     navPlacement = "inside",
     trackActiveSlide = false,
+    paginationPlacement = "inside",
   } = settings;
 
   const pendingNavColorRef = React.useRef<string | null>(null);
@@ -106,6 +109,17 @@ export default function CarouselPanel({
         checked={showPagination}
         onChange={(value) => onChange({ showPagination: value })}
       />
+      {showPagination && features.paginationPlacement && (
+        <ToggleControl
+          label={__("Show pagination outside carousel", "kotlinskidev")}
+          help={__(
+            "Renders the pagination dots below the slides instead of overlaying them.",
+            "kotlinskidev"
+          )}
+          checked={paginationPlacement === "outside"}
+          onChange={(value) => onChange({ paginationPlacement: value ? "outside" : "inside" })}
+        />
+      )}
       {features.scrollbar && (
         <ToggleControl
           label={__("Show Scrollbar", "kotlinskidev")}
@@ -117,6 +131,12 @@ export default function CarouselPanel({
         label={__("Loop Mode", "kotlinskidev")}
         checked={loop}
         onChange={(value) => onChange({ loop: value })}
+      />
+      <ToggleControl
+        label={__("Draggable", "kotlinskidev")}
+        help={__("Lets users manually swipe/drag through the slides.", "kotlinskidev")}
+        checked={draggable}
+        onChange={(value) => onChange({ draggable: value })}
       />
       {features.autoplay && (
         <>
@@ -157,33 +177,25 @@ export default function CarouselPanel({
       )}
       {features.slidesPerBreakpoint && (
         <>
-          <RangeControl
+          <SlidesPerViewControl
             label={__("Slides Per View", "kotlinskidev")}
             value={slidesPerView}
-            onChange={(value) => onChange({ slidesPerView: value ?? 1 })}
-            min={1}
-            max={5}
+            onChange={(value) => onChange({ slidesPerView: value })}
           />
-          <RangeControl
+          <SlidesPerViewControl
             label={__("Slides (Mobile)", "kotlinskidev")}
             value={slidesPerMobile}
-            onChange={(value) => onChange({ slidesPerMobile: value ?? 1 })}
-            min={1}
-            max={5}
+            onChange={(value) => onChange({ slidesPerMobile: value })}
           />
-          <RangeControl
+          <SlidesPerViewControl
             label={__("Slides (Tablet)", "kotlinskidev")}
             value={slidesPerTablet}
-            onChange={(value) => onChange({ slidesPerTablet: value ?? 1 })}
-            min={1}
-            max={5}
+            onChange={(value) => onChange({ slidesPerTablet: value })}
           />
-          <RangeControl
+          <SlidesPerViewControl
             label={__("Slides (Desktop)", "kotlinskidev")}
             value={slidesPerDesktop}
-            onChange={(value) => onChange({ slidesPerDesktop: value ?? 1 })}
-            min={1}
-            max={5}
+            onChange={(value) => onChange({ slidesPerDesktop: value })}
           />
         </>
       )}

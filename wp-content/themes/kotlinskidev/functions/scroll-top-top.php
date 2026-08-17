@@ -1,4 +1,6 @@
 <?php
+define( 'KOTLINSKIDEV_SCROLL_TO_TOP_ICON_ID', 5505 );
+
 function kotlinskidev_scroll_to_top_shortcode() {
     return '
     <div class="wp-block-buttons" style="margin-top:0;margin-bottom:0">
@@ -20,7 +22,7 @@ function kotlinskidev_scroll_to_top_shortcode() {
                             transform="rotate(0 20 20)"/>
                 </svg>
                 <a id="scroll-to-top" class="wp-block-button__link wp-element-button" style="border-radius:100%" aria-label="' . esc_html__('Scroll to Top', 'kotlinskidev') . '" tabindex="0">
-                    <span class="icon-arrow-up" style="font-size:2rem;"></span>
+                    <span class="kt-icon" style="--kt-icon-size:2rem;">' . kotlinskidev_inline_nav_icon( KOTLINSKIDEV_SCROLL_TO_TOP_ICON_ID ) . '</span>
                     <span tabindex="-1" style="display:none;">' . esc_html__('Scroll to Top', 'kotlinskidev') . '</span>
                 </a>
             </div>

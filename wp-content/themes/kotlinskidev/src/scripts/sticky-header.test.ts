@@ -81,43 +81,51 @@ describe("sticky-header.ts", () => {
     expect(header.classList.contains("header-sticky")).toBe(true);
   });
 
-  it("removes header-sticky once the viewport switches to mobile", () => {
+  it("also adds header-sticky past the threshold on a mobile viewport", () => {
+    setInnerWidth(500);
+    const header = loadWithHeader();
+    setScrollTop(50);
+
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+
+    expect(header.classList.contains("header-sticky")).toBe(true);
+  });
+
+  it("stays position-based across a resize, regardless of direction or breakpoint", () => {
+    setInnerWidth(500);
     const header = loadWithHeader();
     setScrollTop(50);
     window.dispatchEvent(new Event("scroll"));
     flushRaf();
     expect(header.classList.contains("header-sticky")).toBe(true);
-
-    setInnerWidth(500);
-    window.dispatchEvent(new Event("resize"));
-    jest.advanceTimersByTime(150);
-
-    expect(header.classList.contains("header-sticky")).toBe(false);
-  });
-
-  it("does not enable sticky behavior at all when starting on mobile", () => {
-    setInnerWidth(500);
-    const header = loadWithHeader();
-    setScrollTop(50);
-
-    window.dispatchEvent(new Event("scroll"));
-    flushRaf();
-
-    expect(header.classList.contains("header-sticky")).toBe(false);
-  });
-
-  it("re-enables sticky behavior when switching back to desktop", () => {
-    setInnerWidth(500);
-    const header = loadWithHeader();
 
     setInnerWidth(1200);
     window.dispatchEvent(new Event("resize"));
-    jest.advanceTimersByTime(150);
-    flushRaf();
-    setScrollTop(50);
+    setScrollTop(10);
     window.dispatchEvent(new Event("scroll"));
     flushRaf();
 
-    expect(header.classList.contains("header-sticky")).toBe(true);
+    expect(header.classList.contains("header-sticky")).toBe(false);
+  });
+
+  it("hides the breadcrumbs past the threshold on a mobile viewport too", () => {
+    setInnerWidth(500);
+    document.body.innerHTML = '<header></header><nav class="kt-breadcrumbs"></nav>';
+    jest.resetModules();
+    require("./sticky-header");
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+    flushRaf();
+    const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement;
+
+    setScrollTop(50);
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+    expect(breadcrumbs.classList.contains("kt-breadcrumbs--hidden")).toBe(true);
+
+    setScrollTop(10);
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+    expect(breadcrumbs.classList.contains("kt-breadcrumbs--hidden")).toBe(false);
   });
 });

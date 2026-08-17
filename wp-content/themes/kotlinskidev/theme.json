@@ -57,7 +57,7 @@
         {
           "slug": "light-color-rgb",
           "color": "242, 242, 242",
-          "name": "Light Color"
+          "name": "Light Color RGB"
         },
         {
           "slug": "dark-color",
@@ -67,7 +67,7 @@
         {
           "slug": "dark-color-rgb",
           "color": "25, 25, 25",
-          "name": "Dark Color"
+          "name": "Dark Color RGB"
         },
         {
           "slug": "dark-shade",

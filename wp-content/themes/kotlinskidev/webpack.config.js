@@ -73,6 +73,17 @@ module.exports = {
     "google-maps": path.resolve(process.cwd(), "src", "blocks", "google-maps", "index.ts"),
     "contact-form": path.resolve(process.cwd(), "src", "blocks", "contact-form", "index.tsx"),
     "admin-bar": path.resolve(process.cwd(), "src", "admin-bar.ts"),
+    breadcrumbs: path.resolve(process.cwd(), "src", "blocks", "breadcrumbs", "index.ts"),
+    "modal-settings-panel": path.resolve(
+      process.cwd(),
+      "src",
+      "blocks",
+      "modal-settings-panel",
+      "index.tsx"
+    ),
+    "model-viewer": path.resolve(process.cwd(), "src", "blocks", "model-viewer", "index.ts"),
+    "model-viewer-init": path.resolve(process.cwd(), "src", "blocks", "model-viewer", "init.ts"),
+    icon: path.resolve(process.cwd(), "src", "blocks", "icon", "index.ts"),
   },
 
   output: {

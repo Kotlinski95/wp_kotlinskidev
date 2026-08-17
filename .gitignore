@@ -63,6 +63,9 @@ wp-content/debug.log
 # Ignore the cache directory (if used by plugins)
 wp-content/cache/
 
+# Ignore Wordfence's runtime WAF state (auto-regenerated, contains API key/secrets)
+wp-content/wflogs/
+
 # Ignore local development files
 *.local
 *.env

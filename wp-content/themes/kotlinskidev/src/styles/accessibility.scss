@@ -69,6 +69,19 @@
 		animation: none !important;
 	}
 
+	.kt-bg-fx-gradient-shift,
+	.kt-bg-fx-aurora,
+	.kt-bg-fx-shimmer-text,
+	.kt-bg-fx-wave {
+		animation: none !important;
+		background-position: 0% 50% !important;
+	}
+
+	.kt-bg-fx-glow-border::before {
+		animation: none !important;
+		background-position: 0% 50% !important;
+	}
+
 	.wp-block-cover.enable-parallax {
 
 		.parallax-bg,
@@ -103,6 +116,26 @@
 		transition: none !important;
 		transform: none !important;
 		animation: none !important;
+	}
+
+	.hover-zoom-bg {
+
+		img,
+		video,
+		.wp-block-cover__image-background,
+		.wp-block-cover__video-background {
+			transition: none !important;
+		}
+
+		&:hover {
+
+			img,
+			video,
+			.wp-block-cover__image-background,
+			.wp-block-cover__video-background {
+				transform: none !important;
+			}
+		}
 	}
 
 	html,

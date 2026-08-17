@@ -20,7 +20,9 @@ import { getScrollTop, scrollTo, isMobile, getScrollOffsets } from "./utils";
   };
 
   const handleAnchorLinks = () => {
-    const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+    const anchorLinks = document.querySelectorAll(
+      'a[href^="#"]:not([href="#"]):not([href^="#kt-modal-"])'
+    );
 
     anchorLinks.forEach((link) => {
       link.addEventListener("click", (e) => {

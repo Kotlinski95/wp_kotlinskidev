@@ -177,6 +177,56 @@ describe("CarouselPanel", () => {
     expect(onChange).toHaveBeenCalledWith({ navPlacement: "outside" });
   });
 
+  it("shows the pagination-placement toggle only once pagination is on and the feature is enabled", () => {
+    const { rerender } = render(
+      <CarouselPanel
+        settings={{ showPagination: false }}
+        onChange={jest.fn()}
+        features={{ paginationPlacement: true }}
+      />
+    );
+    expect(
+      screen.queryByRole("checkbox", { name: "Show pagination outside carousel" })
+    ).not.toBeInTheDocument();
+
+    rerender(
+      <CarouselPanel
+        settings={{ showPagination: true }}
+        onChange={jest.fn()}
+        features={{ paginationPlacement: true }}
+      />
+    );
+    expect(
+      screen.getByRole("checkbox", { name: "Show pagination outside carousel" })
+    ).toBeInTheDocument();
+  });
+
+  it("does not show the pagination-placement toggle when the feature flag is off", () => {
+    render(
+      <CarouselPanel settings={{ showPagination: true }} onChange={jest.fn()} features={{}} />
+    );
+
+    expect(
+      screen.queryByRole("checkbox", { name: "Show pagination outside carousel" })
+    ).not.toBeInTheDocument();
+  });
+
+  it("toggles paginationPlacement between outside and inside", async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <CarouselPanel
+        settings={{ showPagination: true, paginationPlacement: "inside" }}
+        onChange={onChange}
+        features={{ paginationPlacement: true }}
+      />
+    );
+
+    await user.click(screen.getByRole("checkbox", { name: "Show pagination outside carousel" }));
+
+    expect(onChange).toHaveBeenCalledWith({ paginationPlacement: "outside" });
+  });
+
   it("shows the nav color control when the feature is on and arrows or pagination are visible", () => {
     render(
       <CarouselPanel
@@ -317,6 +367,16 @@ describe("CarouselPanel", () => {
       target: { value: "4" },
     });
     expect(onChange).toHaveBeenCalledWith({ slidesPerDesktop: 4 });
+  });
+
+  it("toggles draggable", async () => {
+    const onChange = jest.fn();
+    const user = userEvent.setup();
+    render(<CarouselPanel settings={{ draggable: true }} onChange={onChange} />);
+
+    await user.click(screen.getByRole("checkbox", { name: "Draggable" }));
+
+    expect(onChange).toHaveBeenCalledWith({ draggable: false });
   });
 
   it("converts the autoplay delay slider value between seconds and milliseconds", () => {

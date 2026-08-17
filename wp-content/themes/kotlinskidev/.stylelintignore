@@ -5,5 +5,4 @@ vendor
 # generated test coverage reports (gitignored, but present on disk once tests run)
 coverage
 
-assets/css/icomoon.css
 src/styles/shortcodes.scss

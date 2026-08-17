@@ -23,6 +23,7 @@
     "showArrows": { "type": "boolean", "default": true },
     "showPagination": { "type": "boolean", "default": true },
     "loop": { "type": "boolean", "default": true },
+    "draggable": { "type": "boolean", "default": true },
     "autoplay": { "type": "boolean", "default": false },
     "autoplayDelay": { "type": "number", "default": 5000 },
     "lazyLoad": { "type": "boolean", "default": false },

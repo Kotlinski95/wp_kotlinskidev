@@ -3,7 +3,7 @@ function kotlinskidev_theme_switcher_shortcode()
 {
     ob_start();
 ?>
-    <button class="theme-switcher" tabindex="0" aria-label="Toggle light and dark theme">
+    <button class="theme-switcher kt-tooltip kt-tooltip--below" tabindex="0" aria-label="<?php echo esc_attr__( 'Toggle light and dark theme', 'kotlinskidev' ); ?>" data-tooltip="<?php echo esc_attr__( 'Toggle light and dark theme', 'kotlinskidev' ); ?>">
         <input type="checkbox" name="check" id="theme-toggle">
         <label for="theme-toggle">
             <span class="wrapper">

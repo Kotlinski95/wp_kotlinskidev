@@ -127,3 +127,25 @@ it('encodes the swiper settings as a json data attribute', function () {
     expect($settings['autoplay'])->toBeTrue();
     expect($settings['autoplayDelay'])->toBe(3000);
 });
+
+it('defaults draggable to true in the swiper settings', function () {
+    Functions\when('esc_attr')->alias(fn ($t) => htmlspecialchars((string) $t, ENT_QUOTES));
+
+    $html = kotlinskidev_hero_carousel_render([]);
+
+    preg_match('/data-carousel-settings="([^"]+)"/', $html, $matches);
+    $settings = json_decode(htmlspecialchars_decode($matches[1]), true);
+
+    expect($settings['draggable'])->toBeTrue();
+});
+
+it('reflects draggable when explicitly disabled', function () {
+    Functions\when('esc_attr')->alias(fn ($t) => htmlspecialchars((string) $t, ENT_QUOTES));
+
+    $html = kotlinskidev_hero_carousel_render(['draggable' => false]);
+
+    preg_match('/data-carousel-settings="([^"]+)"/', $html, $matches);
+    $settings = json_decode(htmlspecialchars_decode($matches[1]), true);
+
+    expect($settings['draggable'])->toBeFalse();
+});

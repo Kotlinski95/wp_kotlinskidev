@@ -161,10 +161,7 @@ const SocialItemEdit = ({ attributes, setAttributes }: BlockEditProps<SocialItem
           />
           <TextControl
             label={__("Icon class", "kotlinskidev")}
-            help={__(
-              "Optional CSS class on the list item, e.g. icon-facebook. Links to known social domains get their icon automatically from the URL.",
-              "kotlinskidev"
-            )}
+            help={__("Optional CSS class on the list item.", "kotlinskidev")}
             value={attributes.iconClass}
             onChange={(iconClass) => setAttributes({ iconClass })}
           />

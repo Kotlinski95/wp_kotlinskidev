@@ -44,6 +44,9 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/responsive-image' );
     register_block_type( get_template_directory() . '/src/blocks/google-maps' );
     register_block_type( get_template_directory() . '/src/blocks/contact-form' );
+    register_block_type( get_template_directory() . '/src/blocks/breadcrumbs' );
+    register_block_type( get_template_directory() . '/src/blocks/model-viewer' );
+    register_block_type( get_template_directory() . '/src/blocks/icon' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
 

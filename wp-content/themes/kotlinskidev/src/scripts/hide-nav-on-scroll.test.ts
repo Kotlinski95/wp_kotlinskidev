@@ -149,6 +149,19 @@ describe("hide-nav-on-scroll.ts", () => {
     expect(header.classList.contains("nav-hidden")).toBe(false);
   });
 
+  it("does not touch breadcrumbs visibility (owned by sticky-header.ts, position-based)", () => {
+    buildMarkup();
+    document.body.insertAdjacentHTML("beforeend", '<nav class="kt-breadcrumbs"></nav>');
+    loadOnMobile();
+    const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement;
+
+    scrollAndFlush(300);
+    expect(breadcrumbs.classList.contains("kt-breadcrumbs--hidden")).toBe(false);
+
+    scrollAndFlush(150);
+    expect(breadcrumbs.classList.contains("kt-breadcrumbs--hidden")).toBe(false);
+  });
+
   it("re-enables scroll hiding when switching back to mobile", () => {
     buildMarkup();
     setInnerWidth(1200);

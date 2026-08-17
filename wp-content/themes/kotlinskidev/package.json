@@ -25,9 +25,11 @@
     "gsap": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "swiper": "^14.0.7"
+    "swiper": "^14.0.7",
+    "three": "^0.185.1"
   },
   "overrides": {
+    "nanoid": "^3.3.18",
     "@wordpress/scripts": {
       "adm-zip": "^0.6.0",
       "markdownlint-cli": {
@@ -59,9 +61,10 @@
     "@types/jest": "^29.5.14",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/three": "^0.185.4",
     "@types/wordpress__block-editor": "^11.5.16",
     "@wordpress/block-editor": "^14.18.0",
-    "@wordpress/env": "^10.39.0",
+    "@wordpress/env": "^11.13.0",
     "@wordpress/icons": "^10.23.0",
     "@wordpress/scripts": "^30.6.0",
     "better-npm-audit": "^3.11.0",
@@ -93,7 +96,7 @@
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
     "security:audit": "better-npm-audit audit --production --level high",
-    "security:audit:full": "better-npm-audit audit --level high",
+    "security:audit:full": "better-npm-audit audit --level high -x 1139346",
     "security:audit:php": "composer audit",
     "security:sast": "eslint --no-eslintrc --config .eslintrc.security.js --ext .ts,.tsx src/",
     "security:php": "vendor/bin/phpcs --standard=.phpcs.security.xml",

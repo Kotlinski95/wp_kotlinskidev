@@ -14,6 +14,12 @@ require_once get_template_directory() . '/includes/i18n.php';
 // Register custom blocks via block.json
 require_once get_template_directory() . '/functions/blocks.php';
 
+// Manageable modal content system: kt_modal CPT, link triggers, footer render
+require_once get_template_directory() . '/functions/modals.php';
+
+// Opens a manageable modal when a wpe/slider slide (core/cover, .swiper-slide) is clicked
+require_once get_template_directory() . '/functions/slider-modal-trigger.php';
+
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
 
@@ -44,6 +50,9 @@ require_once get_template_directory() . '/functions/patterns.php';
 
 // Load responsive breakpoints helper
 require_once get_template_directory() . '/functions/breakpoints.php';
+
+// Load breadcrumb trail builder
+require_once get_template_directory() . '/functions/breadcrumbs.php';
 
 // Load anchor scroll offset settings
 require_once get_template_directory() . '/functions/scroll-offset.php';
@@ -144,6 +153,18 @@ require_once get_template_directory() . '/functions/polylang-content-resolution.
 
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';
+
+// .glb upload support for the model-viewer block
+require_once get_template_directory() . '/functions/model-viewer-mime.php';
+
+// Media Library "Icons (SVG)" type filter
+require_once get_template_directory() . '/functions/icon-library.php';
+
+// Leading-icon extension for button/link blocks
+require_once get_template_directory() . '/functions/icon-extension.php';
+
+// Hover/focus tooltip for core Social Links block anchors
+require_once get_template_directory() . '/functions/social-link-tooltip.php';
 
 // Admin settings page (must load before disable-comments so the option is registered)
 require_once get_template_directory() . '/functions/settings-page.php';

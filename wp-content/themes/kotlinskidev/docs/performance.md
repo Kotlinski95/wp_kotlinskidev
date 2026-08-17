@@ -2,7 +2,7 @@
 
 A comprehensive review checklist for kotlinskidev.dev, modeled on what a best-in-class website should meet on every axis: JS runtime behavior, rendering/compositing, network delivery, and WordPress backend performance. This is a working checklist, not a description of current state — items get checked off as each is verified against the live site and codebase.
 
-Scope for this pass: `src/blocks/*` (10 custom Gutenberg blocks), `src/scripts/*` (22 frontend TS modules), `src/styles/*` (SCSS), GSAP/ScrollTrigger usage (`src/index.ts`, `src/blocks/scroll-section/init.ts`, `src/scripts/gsap-sticky.ts`), Swiper (`banner-carousel`, `hero-carousel`), and the PHP render/query layer in `functions/`.
+Scope for this pass: `src/blocks/*` (10 custom Gutenberg blocks), `src/scripts/*` (22 frontend TS modules), `src/styles/*` (SCSS), GSAP/ScrollTrigger usage (`src/index.ts`, `src/blocks/scroll-section/init.ts`, `src/scripts/gsap-sticky.ts`), Swiper (`banner-carousel`, `hero-carousel`), three.js (`model-viewer`), and the PHP render/query layer in `functions/`.
 
 ---
 
@@ -77,6 +77,7 @@ Scope for this pass: `src/blocks/*` (10 custom Gutenberg blocks), `src/scripts/*
 - [ ] Static assets are served with long-lived `Cache-Control` + cache-busting via filename hash/version query, so repeat visits don't re-download unchanged files.
 - [ ] Third-party requests (fonts, analytics, embeds) use `preconnect`/`dns-prefetch` where they're known to be needed early.
 - [ ] Total JS/CSS payload per page is tracked over time (bundle-size budget) so a future change doesn't silently regress it.
+- [x] **`model-viewer`'s three.js runtime (~615 KB uncompressed / ~150-190 KB gzipped for the vendor chunk) is a real, deliberately isolated cost** — `init.ts` (the eager `viewScript`, ~3 KB) only dynamically `import()`s `./runtime` after an `IntersectionObserver` fires *and* `canvas.getContext("webgl2"/"webgl")` succeeds, so an unsupported browser or a page where the block is never scrolled into view downloads zero bytes of it. Confirmed via `npm run build` output: `three`/`GLTFLoader` appear only in the async chunk webpack code-splits off `model-viewer-init.js` (not a webpack entry itself), and a `grep` for `THREE`/`GLTFLoader` across `build/main.js`/`build/editor.js`/`build/critical.js` returns zero matches.
 
 ## 8. JavaScript Bundle & Build
 

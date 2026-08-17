@@ -114,6 +114,10 @@
 		display: grid !important;
 	}
 
+	.mobile\:none {
+		display: none !important;
+	}
+
 	.mobile\:justify-self-center {
 		justify-self: center !important;
 	}
@@ -209,6 +213,10 @@
 		display: grid !important;
 	}
 
+	.tablet\:none {
+		display: none !important;
+	}
+
 	.tablet\:justify-self-center {
 		justify-self: center !important;
 	}
@@ -302,6 +310,10 @@
 
 	.desktop\:grid {
 		display: grid !important;
+	}
+
+	.desktop\:none {
+		display: none !important;
 	}
 
 	.desktop\:justify-self-center {

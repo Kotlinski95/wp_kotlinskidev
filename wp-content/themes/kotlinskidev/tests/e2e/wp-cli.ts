@@ -44,6 +44,13 @@ export function getPostUrl(id: number): string {
   return wp(["post", "get", String(id), "--field=url"]);
 }
 
+export function importFixtureMedia(filePath: string): { id: number; url: string } {
+  const id = wp(["media", "import", filePath, "--porcelain"]);
+  const url = wp(["eval", `echo wp_get_attachment_url(${id});`]);
+
+  return { id: Number(id), url };
+}
+
 export function deletePost(id: number): void {
   wp(["post", "delete", String(id), "--force"]);
 }

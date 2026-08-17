@@ -80,6 +80,22 @@ describe("smooth-scroll-offset.ts", () => {
     expect(window.scrollTo).toHaveBeenCalledWith(expect.objectContaining({ top: 500 }));
   });
 
+  it("ignores kt-modal trigger links, leaving them for modal-manager.ts to handle", () => {
+    document.body.innerHTML = "";
+    const link = document.createElement("a");
+    link.href = "#kt-modal-5480";
+    const modal = document.createElement("div");
+    modal.id = "kt-modal-5480";
+    document.body.append(link, modal);
+    require("./smooth-scroll-offset");
+
+    const clickEvent = new MouseEvent("click", { bubbles: true, cancelable: true });
+    link.dispatchEvent(clickEvent);
+
+    expect(clickEvent.defaultPrevented).toBe(false);
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
   it("does nothing when the anchor's target element does not exist", () => {
     document.body.innerHTML = "";
     const link = document.createElement("a");

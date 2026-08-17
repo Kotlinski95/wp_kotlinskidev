@@ -1,10 +1,12 @@
-import { getScrollTop, isMobile, onScroll, onScreenSizeChange } from "./utils";
+import { getScrollTop, onScroll } from "./utils";
 
 document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector("header") as HTMLElement | null;
   if (!header) {
     return;
   }
+
+  const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement | null;
 
   const stickyThreshold = 30;
   let rafId: number | null = null;
@@ -14,39 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     rafId = requestAnimationFrame(() => {
-      header.classList.toggle("header-sticky", getScrollTop() > stickyThreshold);
+      const scrolled = getScrollTop() > stickyThreshold;
+      header.classList.toggle("header-sticky", scrolled);
+      breadcrumbs?.classList.toggle("kt-breadcrumbs--hidden", scrolled);
       rafId = null;
     });
   };
 
-  let removeListener: (() => void) | null = null;
-
-  const enable = () => {
-    if (removeListener) {
-      return;
-    }
-    handleScroll();
-    removeListener = onScroll(handleScroll);
-  };
-
-  const disable = () => {
-    if (rafId !== null) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
-    }
-    removeListener?.();
-    removeListener = null;
-    header.classList.remove("header-sticky");
-  };
-
-  const handleScreenSizeChange = (mobile: boolean) => {
-    if (mobile) {
-      disable();
-    } else {
-      enable();
-    }
-  };
-
-  handleScreenSizeChange(isMobile());
-  onScreenSizeChange(handleScreenSizeChange);
+  handleScroll();
+  onScroll(handleScroll);
 });

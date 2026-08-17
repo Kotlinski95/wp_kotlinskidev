@@ -16,11 +16,13 @@ import {
   PanelRow,
   ToggleControl,
   RangeControl,
+  __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
-import { useRefEffect } from "@wordpress/compose";
-import { useSelect, useDispatch, select, subscribe } from "@wordpress/data";
-import { memo } from "@wordpress/element";
+import { useSelect, useDispatch } from "@wordpress/data";
+import { memo, useEffect, useRef, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { onActivationKey } from "@utils/keyboardActivation";
+import SlidesPerViewControl from "@utils/carousel/SlidesPerViewControl";
 
 import {
   ALLOWED_BLOCKS,
@@ -29,7 +31,6 @@ import {
   DEFAULT_INNERBLOCK,
   DEFAULT_INNERBLOCK_ATTRIBUTES,
 } from "./constants";
-import { SwiperInit } from "./swiper-init";
 import "./editor.scss";
 
 import PLACEHOLDER_IMG_1 from "./assets/image1.webp";
@@ -40,18 +41,74 @@ interface SliderAttributes {
   autoplay: boolean;
   autoplayTime: number;
   smoothTransition: boolean;
+  continuousAutoplay: boolean;
   navigation: boolean;
   pagination: boolean;
-  slidesPerView: number;
-  slidesPerMobile: number;
-  slidesPerTablet: number;
-  slidesPerDesktop: number;
+  showProgress: boolean;
+  slidesPerView: number | "auto";
+  slidesPerMobile: number | "auto";
+  slidesPerTablet: number | "auto";
+  slidesPerDesktop: number | "auto";
   scrollbar: boolean;
   loop: boolean;
+  draggable: boolean;
   mousewheel: boolean;
   keyboard: boolean;
   spaceBetween: number;
+  centerSlides: boolean;
+  peek: number;
+  slideMaxWidth: string | number;
+  paginationPlacement: "inside" | "outside";
 }
+
+const SLIDE_MAX_WIDTH_UNITS = [
+  { value: "px", label: "px", default: 900 },
+  { value: "%", label: "%", default: 50 },
+  { value: "rem", label: "rem", default: 56.25 },
+  { value: "vw", label: "vw", default: 70 },
+];
+
+const normalizeSlideMaxWidth = (value: SliderAttributes["slideMaxWidth"]): string =>
+  typeof value === "number" ? `${value}px` : value || "900px";
+
+const flatWidth = (perView: number | "auto", spaceBetween: number): string =>
+  perView === "auto" ? "auto" : `calc((100% - ${spaceBetween * (perView - 1)}px) / ${perView})`;
+
+const editorSlideLayoutVars = (
+  attributes: SliderAttributes
+): { className: string; style: React.CSSProperties } => {
+  if (attributes.centerSlides) {
+    return {
+      className: "swiper has-center-slides",
+      style: {
+        "--kt-slider-slide-width": `${100 - attributes.peek * 2}%`,
+        "--kt-slider-slide-max-width": normalizeSlideMaxWidth(attributes.slideMaxWidth),
+      } as React.CSSProperties,
+    };
+  }
+
+  return {
+    className: "swiper",
+    style: {
+      "--kt-slider-editor-flat-width": flatWidth(
+        attributes.slidesPerView || 1,
+        attributes.spaceBetween
+      ),
+      "--kt-slider-editor-flat-width-mobile": flatWidth(
+        attributes.slidesPerMobile || 1,
+        attributes.spaceBetween
+      ),
+      "--kt-slider-editor-flat-width-tablet": flatWidth(
+        attributes.slidesPerTablet || 1,
+        attributes.spaceBetween
+      ),
+      "--kt-slider-editor-flat-width-desktop": flatWidth(
+        attributes.slidesPerDesktop || 1,
+        attributes.spaceBetween
+      ),
+    } as React.CSSProperties,
+  };
+};
 
 interface EditProps {
   attributes: SliderAttributes;
@@ -85,62 +142,69 @@ const SliderToolbar = ({ clientId }: { clientId: string }): React.ReactElement =
 
 interface SliderProps {
   clientId: string;
-  attributes: SliderAttributes;
   innerBlocksProps: Record<string, unknown>;
+  attributes: SliderAttributes;
+}
+
+interface BlockEditorSelectors {
+  getBlockOrder: (id: string) => string[];
+  getSelectedBlockClientId: () => string | null;
+  getBlockParents: (id: string) => string[];
 }
 
 const Slider = memo(
-  ({ clientId, attributes, innerBlocksProps }: SliderProps): React.ReactElement => {
-    const sliderRef = useRefEffect((element: HTMLElement) => {
-      const options = {
-        ...attributes,
-        autoplay: false,
-        grabCursor: false,
-        simulateTouch: false,
-      };
+  ({ clientId, innerBlocksProps, attributes }: SliderProps): React.ReactElement => {
+    const [activeSlide, setActiveSlide] = useState(0);
+    const { selectBlock } = useDispatch(blockEditorStore);
+    const swiperRef = useRef<HTMLDivElement>(null);
 
-      let slider = SwiperInit(element, options);
-      let slideOrder = select(blockEditorStore).getBlockOrder(clientId);
+    const { slideOrder, selectedBlockParents } = useSelect(
+      (selectFn) => {
+        const store = selectFn(blockEditorStore) as unknown as BlockEditorSelectors;
+        const selectedCid = store.getSelectedBlockClientId();
+        const parents: string[] = selectedCid ? store.getBlockParents(selectedCid) : [];
+        return {
+          slideOrder: store.getBlockOrder(clientId),
+          selectedBlockParents: selectedCid ? [...parents, selectedCid] : [],
+        };
+      },
+      [clientId]
+    );
 
-      const unsubscribeSliderUpdateListener = subscribe(() => {
-        const currentSlidesOrder = select(blockEditorStore).getBlockOrder(clientId);
+    useEffect(() => {
+      const idx = slideOrder.findIndex((id) => selectedBlockParents.includes(id));
+      if (idx >= 0) {
+        setActiveSlide(idx);
+      }
+    }, [selectedBlockParents, slideOrder]);
 
-        if (currentSlidesOrder.toString() !== slideOrder.toString()) {
-          const selectedBlock = select(blockEditorStore).getSelectedBlock();
-          const slideAdded = currentSlidesOrder.length > slideOrder.length;
-          const slideRemoved = currentSlidesOrder.length < slideOrder.length;
-          const slideMoved = currentSlidesOrder.length === slideOrder.length;
-          const activeIndex = slider.activeIndex;
+    useEffect(() => {
+      if (slideOrder.length > 0 && activeSlide >= slideOrder.length) {
+        setActiveSlide(slideOrder.length - 1);
+      }
+    }, [slideOrder.length, activeSlide]);
 
-          slideOrder = currentSlidesOrder;
-          slider.destroy();
+    useEffect(() => {
+      const wrapperEl = swiperRef.current?.querySelector<HTMLElement>(":scope > .swiper-wrapper");
+      const target = wrapperEl?.children[activeSlide] as HTMLElement | undefined;
+      target?.scrollIntoView?.({ behavior: "smooth", inline: "nearest", block: "nearest" });
+    }, [activeSlide]);
 
-          window.requestAnimationFrame(() => {
-            slider = SwiperInit(element, options);
+    const slideCount = slideOrder.length;
 
-            let slideToIndex = activeIndex;
-            if (slideAdded) {
-              slideToIndex = slideOrder.length;
-            } else if (slideRemoved) {
-              slideToIndex = activeIndex - 1;
-            } else if (slideMoved && selectedBlock) {
-              slideToIndex = slideOrder.findIndex((id: string) => id === selectedBlock.clientId);
-            }
+    const goToSlide = (index: number) => {
+      setActiveSlide(index);
+      const targetClientId = slideOrder[index];
+      if (targetClientId) {
+        selectBlock(targetClientId);
+      }
+    };
 
-            if (slideToIndex < 0) {
-              slideToIndex = 0;
-            }
-
-            slider.slideTo(slideToIndex, 0);
-          });
-        }
-      });
-
-      return () => {
-        unsubscribeSliderUpdateListener();
-        slider.destroy();
-      };
-    }, []);
+    const hasFrontendSwitcher =
+      attributes.navigation || attributes.pagination || attributes.scrollbar;
+    const showArrows = slideCount > 1 && (attributes.navigation || !hasFrontendSwitcher);
+    const showDots = slideCount > 1 && (attributes.pagination || !hasFrontendSwitcher);
+    const { className: swiperClassName, style: swiperStyle } = editorSlideLayoutVars(attributes);
 
     return (
       <>
@@ -148,8 +212,45 @@ const Slider = memo(
           <SliderToolbar clientId={clientId} />
         </BlockControls>
 
-        <div className="swiper" ref={sliderRef}>
+        <div ref={swiperRef} className={swiperClassName} style={swiperStyle}>
           <div {...innerBlocksProps} />
+          {showArrows && (
+            <>
+              <div
+                className={`swiper-button-prev${activeSlide === 0 ? " swiper-button-disabled" : ""}`}
+                onClick={() => activeSlide > 0 && goToSlide(activeSlide - 1)}
+                onKeyDown={onActivationKey(() => activeSlide > 0 && goToSlide(activeSlide - 1))}
+                role="button"
+                tabIndex={0}
+                aria-label={__("Previous slide", "kotlinskidev")}
+              />
+              <div
+                className={`swiper-button-next${activeSlide === slideCount - 1 ? " swiper-button-disabled" : ""}`}
+                onClick={() => activeSlide < slideCount - 1 && goToSlide(activeSlide + 1)}
+                onKeyDown={onActivationKey(
+                  () => activeSlide < slideCount - 1 && goToSlide(activeSlide + 1)
+                )}
+                role="button"
+                tabIndex={0}
+                aria-label={__("Next slide", "kotlinskidev")}
+              />
+            </>
+          )}
+          {showDots && (
+            <div className="swiper-pagination">
+              {slideOrder.map((id, i) => (
+                <span
+                  key={id}
+                  className={`swiper-pagination-bullet${i === activeSlide ? " swiper-pagination-bullet-active" : ""}`}
+                  onClick={() => goToSlide(i)}
+                  onKeyDown={onActivationKey(() => goToSlide(i))}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${__("Go to slide", "kotlinskidev")} ${i + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <ButtonBlockAppender className="slider-appender has-icon" rootClientId={clientId} />
@@ -164,7 +265,7 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
   const blockProps = useBlockProps();
 
   const innerBlocksProps = useInnerBlocksProps(
-    { className: "swiper-wrapper" },
+    { className: "swiper-wrapper", style: { gap: `${spaceBetween}px` } },
     {
       allowedBlocks: ALLOWED_BLOCKS,
       defaultBlock: {
@@ -205,7 +306,7 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
   return (
     <>
       <div {...blockProps}>
-        <Slider clientId={clientId} attributes={attributes} innerBlocksProps={innerBlocksProps} />
+        <Slider clientId={clientId} innerBlocksProps={innerBlocksProps} attributes={attributes} />
       </div>
 
       <InspectorControls>
@@ -221,6 +322,32 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               )}
             />
           </PanelRow>
+          {autoplay && (
+            <PanelRow>
+              <ToggleControl
+                label={__("Continuous Autoplay", "kotlinskidev")}
+                checked={attributes.continuousAutoplay}
+                onChange={(value) => setAttributes({ continuousAutoplay: value })}
+                help={__(
+                  "Scrolls continuously (like a ticker) instead of pausing between slides. Starts once the carousel scrolls into view, and pauses on hover or keyboard focus, resuming once the pointer or focus leaves.",
+                  "kotlinskidev"
+                )}
+              />
+            </PanelRow>
+          )}
+          {autoplay && !attributes.continuousAutoplay && (
+            <PanelRow>
+              <ToggleControl
+                label={__("Show progress circle", "kotlinskidev")}
+                checked={attributes.showProgress}
+                onChange={(value) => setAttributes({ showProgress: value })}
+                help={__(
+                  "Displays a circular countdown indicator that fills up before each automatic slide change.",
+                  "kotlinskidev"
+                )}
+              />
+            </PanelRow>
+          )}
           <PanelRow>
             <ToggleControl
               label={__("Navigation", "kotlinskidev")}
@@ -243,13 +370,28 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               )}
             />
           </PanelRow>
+          {pagination && (
+            <PanelRow>
+              <ToggleControl
+                label={__("Show pagination outside carousel", "kotlinskidev")}
+                checked={attributes.paginationPlacement === "outside"}
+                onChange={(value) =>
+                  setAttributes({ paginationPlacement: value ? "outside" : "inside" })
+                }
+                help={__(
+                  "Renders the pagination dots below the slides instead of overlaying them.",
+                  "kotlinskidev"
+                )}
+              />
+            </PanelRow>
+          )}
           <PanelRow>
             <ToggleControl
               label={__("Smooth Transition", "kotlinskidev")}
               checked={attributes.smoothTransition}
               onChange={(value) => setAttributes({ smoothTransition: value })}
               help={__(
-                "Creates a continuous smooth scrolling effect instead of discrete slide transitions.",
+                "Uses a linear easing curve for a smoother feel between slides.",
                 "kotlinskidev"
               )}
             />
@@ -262,50 +404,41 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               min={1}
               max={10}
               help={
-                attributes.smoothTransition
-                  ? __("Set the smooth scrolling speed in seconds.", "kotlinskidev")
+                attributes.continuousAutoplay
+                  ? __(
+                      "Set how long one full continuous scroll cycle takes, in seconds.",
+                      "kotlinskidev"
+                    )
                   : __("Set the autoplay interval in seconds.", "kotlinskidev")
               }
             />
           </PanelRow>
           <PanelRow>
-            <RangeControl
+            <SlidesPerViewControl
               label={__("Slides Per View", "kotlinskidev")}
               value={attributes.slidesPerView}
               onChange={(value) => setAttributes({ slidesPerView: value })}
-              min={1}
-              max={5}
-              help={__("Set the number of slides visible at once.", "kotlinskidev")}
             />
           </PanelRow>
           <PanelRow>
-            <RangeControl
+            <SlidesPerViewControl
               label={__("Slides Per Mobile", "kotlinskidev")}
               value={attributes.slidesPerMobile}
               onChange={(value) => setAttributes({ slidesPerMobile: value })}
-              min={1}
-              max={5}
-              help={__("Set the number of slides visible on mobile devices.", "kotlinskidev")}
             />
           </PanelRow>
           <PanelRow>
-            <RangeControl
+            <SlidesPerViewControl
               label={__("Slides Per Tablet", "kotlinskidev")}
               value={attributes.slidesPerTablet}
               onChange={(value) => setAttributes({ slidesPerTablet: value })}
-              min={1}
-              max={5}
-              help={__("Set the number of slides visible on tablets.", "kotlinskidev")}
             />
           </PanelRow>
           <PanelRow>
-            <RangeControl
+            <SlidesPerViewControl
               label={__("Slides Per Desktop", "kotlinskidev")}
               value={attributes.slidesPerDesktop}
               onChange={(value) => setAttributes({ slidesPerDesktop: value })}
-              min={1}
-              max={5}
-              help={__("Set the number of slides visible on desktop devices.", "kotlinskidev")}
             />
           </PanelRow>
           <PanelRow>
@@ -324,6 +457,57 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               help={__("Enable or disable looping of slides.", "kotlinskidev")}
             />
           </PanelRow>
+          <PanelRow>
+            <ToggleControl
+              label={__("Draggable", "kotlinskidev")}
+              checked={attributes.draggable}
+              onChange={(value) => setAttributes({ draggable: value })}
+              help={__(
+                "Lets users manually swipe/drag the slides. Keep this on to allow manual swiping even during Continuous Autoplay.",
+                "kotlinskidev"
+              )}
+            />
+          </PanelRow>
+          <PanelRow>
+            <ToggleControl
+              label={__("Centered slides (peek effect)", "kotlinskidev")}
+              checked={attributes.centerSlides}
+              onChange={(value) => setAttributes({ centerSlides: value })}
+              help={__(
+                "Centers the active slide with the next/previous slides peeking in from the sides. Below tablet width, always shows a single full-width slide regardless of these settings. Use the block's own Wide/Full alignment for an edge-to-edge carousel.",
+                "kotlinskidev"
+              )}
+            />
+          </PanelRow>
+          {attributes.centerSlides && (
+            <>
+              <PanelRow>
+                <RangeControl
+                  label={__("Side peek (%)", "kotlinskidev")}
+                  value={attributes.peek}
+                  onChange={(value) => setAttributes({ peek: value ?? 20 })}
+                  min={0}
+                  max={40}
+                  help={__(
+                    "How much of each side slide is visible, as a percentage of the carousel width, up to the max slide width below.",
+                    "kotlinskidev"
+                  )}
+                />
+              </PanelRow>
+              <PanelRow>
+                <UnitControl
+                  label={__("Max slide width", "kotlinskidev")}
+                  value={normalizeSlideMaxWidth(attributes.slideMaxWidth)}
+                  units={SLIDE_MAX_WIDTH_UNITS}
+                  onChange={(value?: string) => setAttributes({ slideMaxWidth: value || "900px" })}
+                  help={__(
+                    "Caps how wide the active slide can grow. On wider screens the slide stays this width, so more of the side slides peek in.",
+                    "kotlinskidev"
+                  )}
+                />
+              </PanelRow>
+            </>
+          )}
           <PanelRow>
             <RangeControl
               label={__("Space Between Slides (px)", "kotlinskidev")}

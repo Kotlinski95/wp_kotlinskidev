@@ -1,7 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { addFilter } from "@wordpress/hooks";
 import { Fragment } from "@wordpress/element";
-import { InspectorControls } from "@wordpress/block-editor";
+import {
+  InspectorControls,
+  __experimentalColorGradientControl as ColorGradientControl,
+} from "@wordpress/block-editor";
 import { PanelBody, SelectControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
@@ -14,6 +17,7 @@ const hoverAnimations = [
   { label: __("Jump Strong", "kotlinskidev"), value: "hover-jump-strong" },
   { label: __("Jump with Shadow", "kotlinskidev"), value: "hover-jump-shadow" },
   { label: __("Scale", "kotlinskidev"), value: "hover-scale" },
+  { label: __("Zoom", "kotlinskidev"), value: "hover-zoom-bg" },
   { label: __("Fade", "kotlinskidev"), value: "hover-fade" },
   { label: __("Rotate", "kotlinskidev"), value: "hover-rotate" },
   { label: __("Bounce", "kotlinskidev"), value: "hover-bounce" },
@@ -37,6 +41,14 @@ function addHoverAnimationAttribute(settings: any) {
         type: "string",
         default: "",
       },
+      hoverBackgroundColor: {
+        type: "string",
+        default: "",
+      },
+      hoverTextColor: {
+        type: "string",
+        default: "",
+      },
     };
   }
 
@@ -46,9 +58,22 @@ function addHoverAnimationAttribute(settings: any) {
 const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
   return (props: any) => {
     const { attributes, setAttributes, name } = props;
-    const { hoverAnimation } = attributes;
+    const { hoverAnimation, hoverBackgroundColor, hoverTextColor } = attributes;
 
     const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+
+    const pendingBgColorRef = React.useRef<string | null>(null);
+    const handleBackgroundColorChange = (value: string | undefined) => {
+      if (value !== undefined) {
+        pendingBgColorRef.current = value;
+        setAttributes({ hoverBackgroundColor: value });
+      } else if (pendingBgColorRef.current !== null) {
+        pendingBgColorRef.current = null;
+      } else {
+        setAttributes({ hoverBackgroundColor: "" });
+      }
+    };
+    const isBgGradient = (hoverBackgroundColor || "").includes("gradient");
 
     if (excludedBlocks.includes(name)) {
       return <BlockEdit {...props} />;
@@ -69,6 +94,36 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
                 "kotlinskidev"
               )}
             />
+            {hoverAnimation === "hover-zoom-bg" && (
+              <p className="components-base-control__help">
+                {__(
+                  "Zooms only the block's own image/video on hover, keeping surrounding content still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a border radius in this block's own Border panel to keep rounded corners while zooming.",
+                  "kotlinskidev"
+                )}
+              </p>
+            )}
+            <ColorGradientControl
+              label={__("Hover background color", "kotlinskidev")}
+              colorValue={hoverBackgroundColor && !isBgGradient ? hoverBackgroundColor : undefined}
+              gradientValue={isBgGradient ? hoverBackgroundColor : undefined}
+              onColorChange={handleBackgroundColorChange}
+              onGradientChange={handleBackgroundColorChange}
+              enableAlpha={true}
+              clearable={true}
+              __experimentalIsRenderedInSidebar={true}
+              __nextHasNoMarginBottom
+            />
+            <ColorGradientControl
+              label={__("Hover text color", "kotlinskidev")}
+              colorValue={hoverTextColor || undefined}
+              onColorChange={(value: string | undefined) =>
+                setAttributes({ hoverTextColor: value || "" })
+              }
+              enableAlpha={true}
+              clearable={true}
+              __experimentalIsRenderedInSidebar={true}
+              __nextHasNoMarginBottom
+            />
           </PanelBody>
         </InspectorControls>
       </Fragment>
@@ -77,12 +132,29 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
 }, "withHoverAnimationControls");
 
 function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: any) {
-  const { hoverAnimation } = attributes;
+  const { hoverAnimation, hoverBackgroundColor, hoverTextColor } = attributes;
 
-  if (hoverAnimation) {
-    extraProps.className = extraProps.className
-      ? `${extraProps.className} ${hoverAnimation}`
-      : hoverAnimation;
+  const classes = [extraProps.className, hoverAnimation].filter(Boolean);
+
+  if (hoverBackgroundColor || hoverTextColor) {
+    classes.push("has-hover-color-transition");
+    extraProps.style = {
+      ...extraProps.style,
+      ...(hoverBackgroundColor && { "--hover-bg-color": hoverBackgroundColor }),
+      ...(hoverTextColor && { "--hover-text-color": hoverTextColor }),
+    };
+  }
+
+  const borderRadius = attributes?.style?.border?.radius;
+  if (hoverAnimation === "hover-zoom-bg" && typeof borderRadius === "string" && borderRadius) {
+    extraProps.style = {
+      ...extraProps.style,
+      "--hover-zoom-radius": borderRadius,
+    };
+  }
+
+  if (classes.length) {
+    extraProps.className = classes.join(" ");
   }
 
   return extraProps;

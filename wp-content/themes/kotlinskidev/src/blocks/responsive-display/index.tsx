@@ -33,6 +33,7 @@ const displayOptions = [
   { label: __("Block", "kotlinskidev"), value: "block" },
   { label: __("Flex", "kotlinskidev"), value: "flex" },
   { label: __("Grid", "kotlinskidev"), value: "grid" },
+  { label: __("None (hidden)", "kotlinskidev"), value: "none" },
 ];
 
 const flexDirectionOptions = [

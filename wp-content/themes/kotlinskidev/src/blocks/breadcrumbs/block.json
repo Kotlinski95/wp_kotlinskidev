@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/breadcrumbs",
+  "version": "1.0.0",
+  "title": "Breadcrumbs",
+  "category": "kotlinskidev",
+  "icon": "list-view",
+  "description": "Breadcrumb trail below the header, hidden on the homepage by default and hidden on scroll.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/breadcrumbs.js",
+  "style": "file:../../../build/style-breadcrumbs.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "showOnHomepage": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": false
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalLetterSpacing": true
+    },
+    "color": {
+      "text": true,
+      "background": true,
+      "gradients": true,
+      "link": true
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "width": true,
+      "style": true
+    }
+  }
+}

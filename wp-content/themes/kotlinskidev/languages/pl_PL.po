@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-08-09T13:40:12+00:00\n"
+"POT-Creation-Date: 2026-08-17T08:12:01+00:00\n"
 "PO-Revision-Date: 2025-10-05 09:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -30,16 +30,8 @@ msgstr "https://kotlinskidev.com"
 
 #. Description of the theme
 #: style.css
-msgid ""
-"A custom WordPress theme built by Adrian Kotliński. Features dark/light "
-"mode, scroll animations, parallax effects, PWA support, and a fully custom "
-"block-based layout. Focused on clean code, performance and efficiency, and a"
-" great user experience."
-msgstr ""
-"Autorski motyw WordPress stworzony przez Adriana Kotlińskiego. Zawiera tryb "
-"jasny/ciemny, animacje przy przewijaniu, efekty paralaksy, wsparcie PWA oraz"
-" w pełni autorski układ oparty na blokach. Skupiony na czystym kodzie, "
-"wydajności i świetnym doświadczeniu użytkownika."
+msgid "A custom WordPress theme built by Adrian Kotliński. Features dark/light mode, scroll animations, parallax effects, PWA support, and a fully custom block-based layout. Focused on clean code, performance and efficiency, and a great user experience."
+msgstr "Autorski motyw WordPress stworzony przez Adriana Kotlińskiego. Zawiera tryb jasny/ciemny, animacje przy przewijaniu, efekty paralaksy, wsparcie PWA oraz w pełni autorski układ oparty na blokach. Skupiony na czystym kodzie, wydajności i świetnym doświadczeniu użytkownika."
 
 #. Author of the theme
 #: style.css
@@ -47,11 +39,8 @@ msgid "Adrian Kotliński"
 msgstr "Adrian Kotliński"
 
 #: build/blocks/google-maps/render.php:29 src/blocks/google-maps/render.php:29
-msgid ""
-"Please provide a Google Maps API key and address or coordinates in the block"
-" settings."
-msgstr ""
-"Podaj klucz API Google Maps oraz adres lub współrzędne w ustawieniach bloku."
+msgid "Please provide a Google Maps API key and address or coordinates in the block settings."
+msgstr "Podaj klucz API Google Maps oraz adres lub współrzędne w ustawieniach bloku."
 
 #: build/blocks/google-maps/render.php:39 src/blocks/google-maps/render.php:39
 #: build/google-maps.js:1
@@ -60,8 +49,8 @@ msgstr "Resetuj widok"
 
 #: build/blocks/language-panel/render.php:19
 #: build/blocks/navigation/render.php:268
-#: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:268 build/language-panel.js:1
+#: src/blocks/language-panel/render.php:19 src/blocks/navigation/render.php:268
+#: build/language-panel.js:1
 msgid "Language"
 msgstr "Język"
 
@@ -75,6 +64,12 @@ msgstr "Wybierz język, aktualny: %s"
 #: src/blocks/language-panel/render.php:61
 msgid "Language selection"
 msgstr "Wybór języka"
+
+#: build/blocks/model-viewer/render.php:10
+#: build/blocks/model-viewer/render.php:13
+#: src/blocks/model-viewer/render.php:10 src/blocks/model-viewer/render.php:13
+msgid "Interactive 3D model — click to open or close"
+msgstr "Interaktywny model 3D — kliknij, aby otworzyć lub zamknąć"
 
 #: build/blocks/navigation/render.php:175 src/blocks/navigation/render.php:175
 msgid "Mobile navigation"
@@ -250,9 +245,10 @@ msgstr "Strona tematów bloga"
 msgid "Blog Topics Page (PL)"
 msgstr "Strona tematów bloga (PL)"
 
-#: functions/blog-topic-manager.php:201 patterns/blog-topics-grid.php:69
-#: patterns/category-header.php:51 patterns/search-form.php:88
-#: patterns/search-results.php:64 patterns/tag-header.php:50
+#: functions/blog-topic-manager.php:201 functions/breadcrumbs.php:56
+#: patterns/blog-topics-grid.php:69 patterns/category-header.php:32
+#: patterns/search-form.php:88 patterns/search-results.php:64
+#: patterns/tag-header.php:35
 msgid "Articles"
 msgstr "Artykuły"
 
@@ -265,24 +261,16 @@ msgid "Custom Banner/Content"
 msgstr "Własny baner/treść"
 
 #: functions/blog-topic-manager.php:242
-msgid ""
-"Custom HTML content that will appear below the category header. You can add "
-"banners, special announcements, or custom links here."
-msgstr ""
-"Własna treść HTML wyświetlana pod nagłówkiem kategorii. Możesz tu dodać "
-"banery, specjalne ogłoszenia lub własne linki."
+msgid "Custom HTML content that will appear below the category header. You can add banners, special announcements, or custom links here."
+msgstr "Własna treść HTML wyświetlana pod nagłówkiem kategorii. Możesz tu dodać banery, specjalne ogłoszenia lub własne linki."
 
 #: functions/blog-topic-manager.php:248 functions/blog-topic-manager.php:271
 msgid "Custom Navigation Links"
 msgstr "Własne linki nawigacyjne"
 
 #: functions/blog-topic-manager.php:254
-msgid ""
-"Custom navigation links in format: \"Link Text|URL\" (one per line). This "
-"will replace the default \"← All Topics\" link."
-msgstr ""
-"Własne linki nawigacyjne w formacie: \"Tekst linku|URL\" (jeden na linię). "
-"Zastąpi to domyślny link \"← Wszystkie tematy\"."
+msgid "Custom navigation links in format: \"Link Text|URL\" (one per line). This will replace the default \"← All Topics\" link."
+msgstr "Własne linki nawigacyjne w formacie: \"Tekst linku|URL\" (jeden na linię). Zastąpi to domyślny link \"← Wszystkie tematy\"."
 
 #: functions/blog-topic-manager.php:267
 msgid "Custom HTML content that will appear below the category header."
@@ -290,8 +278,7 @@ msgstr "Własna treść HTML wyświetlana pod nagłówkiem kategorii."
 
 #: functions/blog-topic-manager.php:274
 msgid "Custom navigation links in format: \"Link Text|URL\" (one per line)."
-msgstr ""
-"Własne linki nawigacyjne w formacie: \"Tekst linku|URL\" (jeden na linię)."
+msgstr "Własne linki nawigacyjne w formacie: \"Tekst linku|URL\" (jeden na linię)."
 
 #: functions/blog-topic-manager.php:345 functions/blog-topic-manager.php:346
 msgid "Breadcrumb Settings"
@@ -326,20 +313,12 @@ msgid "Topics Page URL (Polish)"
 msgstr "Adres URL strony tematów (polski)"
 
 #: functions/blog-topic-manager.php:423
-msgid ""
-"Configure breadcrumb navigation texts and URLs for both English and Polish "
-"versions of your site."
-msgstr ""
-"Skonfiguruj teksty i adresy URL nawigacji okruszkowej dla angielskiej i "
-"polskiej wersji strony."
+msgid "Configure breadcrumb navigation texts and URLs for both English and Polish versions of your site."
+msgstr "Skonfiguruj teksty i adresy URL nawigacji okruszkowej dla angielskiej i polskiej wersji strony."
 
 #: functions/blog-topic-manager.php:438
-msgid ""
-"Enter a relative path (e.g., /articles, /blog-topics) or full URL (e.g., "
-"https://yoursite.com/topics/)"
-msgstr ""
-"Podaj ścieżkę względną (np. /artykuly, /tematy-bloga) lub pełny adres URL "
-"(np. https://twojastrona.pl/tematy/)"
+msgid "Enter a relative path (e.g., /articles, /blog-topics) or full URL (e.g., https://yoursite.com/topics/)"
+msgstr "Podaj ścieżkę względną (np. /artykuly, /tematy-bloga) lub pełny adres URL (np. https://twojastrona.pl/tematy/)"
 
 #: functions/blog-topic-manager.php:450
 msgid "Save Breadcrumb Settings"
@@ -354,11 +333,8 @@ msgid "Set custom text for \"Home\" and \"Topics\" links in both languages"
 msgstr "Ustaw własny tekst dla linków \"Strona główna\" i \"Tematy\" w obu językach"
 
 #: functions/blog-topic-manager.php:458
-msgid ""
-"Configure URLs for your topics pages (can be relative paths or full URLs)"
-msgstr ""
-"Skonfiguruj adresy URL stron tematów (mogą to być ścieżki względne lub pełne"
-" adresy URL)"
+msgid "Configure URLs for your topics pages (can be relative paths or full URLs)"
+msgstr "Skonfiguruj adresy URL stron tematów (mogą to być ścieżki względne lub pełne adresy URL)"
 
 #: functions/blog-topic-manager.php:459
 msgid "Leave fields empty to use default values"
@@ -366,9 +342,7 @@ msgstr "Pozostaw pola puste, aby użyć wartości domyślnych"
 
 #: functions/blog-topic-manager.php:460
 msgid "Changes will apply immediately to all category and article pages"
-msgstr ""
-"Zmiany zostaną natychmiast zastosowane na wszystkich stronach kategorii i "
-"artykułów"
+msgstr "Zmiany zostaną natychmiast zastosowane na wszystkich stronach kategorii i artykułów"
 
 #: functions/blog-topic-manager.php:615 patterns/search-form.php:60
 msgid "Search for content"
@@ -381,6 +355,11 @@ msgstr "Wyszukaj treści"
 #: functions/blog-topic-manager.php:704
 msgid "Polish Search Page"
 msgstr "Polska strona wyszukiwania"
+
+#: functions/breadcrumbs.php:49
+#, php-format
+msgid "Search results for \"%s\""
+msgstr "Wyniki wyszukiwania dla \"%s\""
 
 #: functions/cache.php:235 functions/cache.php:236
 msgid "Theme Cache"
@@ -464,9 +443,7 @@ msgstr "Wyczyść całą pamięć podręczną motywu"
 
 #: functions/contact-form.php:24
 msgid "Security check failed. Please reload the page and try again."
-msgstr ""
-"Weryfikacja bezpieczeństwa nie powiodła się. Odśwież stronę i spróbuj "
-"ponownie."
+msgstr "Weryfikacja bezpieczeństwa nie powiodła się. Odśwież stronę i spróbuj ponownie."
 
 #: functions/customizer.php:6 build/editor.js:1
 msgid "Lazy Loading Settings"
@@ -481,12 +458,8 @@ msgid "Lazy Loading Exclusion Class"
 msgstr "Klasa wykluczenia z leniwego ładowania"
 
 #: functions/customizer.php:23
-msgid ""
-"CSS class name to add to cover images that should skip lazy loading. Common "
-"options: skip-lazy, no-lazy, exclude-lazy"
-msgstr ""
-"Nazwa klasy CSS dodawana do obrazów okładki, które mają pomijać leniwe "
-"ładowanie. Popularne opcje: skip-lazy, no-lazy, exclude-lazy"
+msgid "CSS class name to add to cover images that should skip lazy loading. Common options: skip-lazy, no-lazy, exclude-lazy"
+msgstr "Nazwa klasy CSS dodawana do obrazów okładki, które mają pomijać leniwe ładowanie. Popularne opcje: skip-lazy, no-lazy, exclude-lazy"
 
 #: functions/customizer.php:33
 msgid "Custom Settings"
@@ -503,6 +476,22 @@ msgstr "Komentarze są wyłączone na tej stronie."
 #: functions/disable-comments.php:28
 msgid "Comments Disabled"
 msgstr "Komentarze wyłączone"
+
+#: functions/icon-library.php:4
+msgid "Icons (SVG)"
+msgstr "Ikony (SVG)"
+
+#: functions/icon-library.php:5
+msgid "Manage Icons (SVG)"
+msgstr "Zarządzaj ikonami (SVG)"
+
+#: functions/icon-library.php:6
+#, php-format
+msgid "Icon (SVG) <span class=\"count\">(%s)</span>"
+msgid_plural "Icons (SVG) <span class=\"count\">(%s)</span>"
+msgstr[0] "Ikona (SVG) <span class=\"count\">(%s)</span>"
+msgstr[1] "Ikony (SVG) <span class=\"count\">(%s)</span>"
+msgstr[2] "Ikon (SVG) <span class=\"count\">(%s)</span>"
 
 #: functions/image-link-accessibility.php:4
 msgid "View services"
@@ -527,6 +516,34 @@ msgstr "Zobacz projekty"
 #: functions/image-link-accessibility.php:9
 msgid "Kontakt"
 msgstr "Kontakt"
+
+#: functions/modals.php:5
+msgid "Modals"
+msgstr "Modale"
+
+#: functions/modals.php:6 build/editor.js:37
+msgid "Modal"
+msgstr "Modal"
+
+#: functions/modals.php:7
+msgid "Add New Modal"
+msgstr "Dodaj nowy modal"
+
+#: functions/modals.php:8
+msgid "Edit Modal"
+msgstr "Edytuj modal"
+
+#: functions/modals.php:9
+msgid "Search Modals"
+msgstr "Szukaj modali"
+
+#: functions/modals.php:10
+msgid "No modals found"
+msgstr "Nie znaleziono modali"
+
+#: functions/modals.php:129
+msgid "Close"
+msgstr "Zamknij"
 
 #: functions/patterns.php:5
 msgid "FAQs"
@@ -642,8 +659,7 @@ msgstr "Nie znaleziono kluczy szyfrujących"
 
 #: functions/protection-helpers.php:486
 msgid "Content is encrypted using RSA-2048 encryption for maximum security."
-msgstr ""
-"Treść jest szyfrowana algorytmem RSA-2048 dla maksymalnego bezpieczeństwa."
+msgstr "Treść jest szyfrowana algorytmem RSA-2048 dla maksymalnego bezpieczeństwa."
 
 #: functions/protection-helpers.php:490
 msgid "Key Storage Method"
@@ -666,13 +682,8 @@ msgid "wp-config.php (More Secure)"
 msgstr "wp-config.php (Bezpieczniejsze)"
 
 #: functions/protection-helpers.php:501
-msgid ""
-"Database storage is convenient but less secure. wp-config.php storage "
-"requires manual setup but is more secure."
-msgstr ""
-"Przechowywanie w bazie danych jest wygodne, ale mniej bezpieczne. "
-"Przechowywanie w wp-config.php wymaga ręcznej konfiguracji, ale jest "
-"bezpieczniejsze."
+msgid "Database storage is convenient but less secure. wp-config.php storage requires manual setup but is more secure."
+msgstr "Przechowywanie w bazie danych jest wygodne, ale mniej bezpieczne. Przechowywanie w wp-config.php wymaga ręcznej konfiguracji, ale jest bezpieczniejsze."
 
 #: functions/protection-helpers.php:507
 msgid "Generate New Keys"
@@ -683,24 +694,16 @@ msgid "Generate New Encryption Keys"
 msgstr "Wygeneruj nowe klucze szyfrujące"
 
 #: functions/protection-helpers.php:513
-msgid ""
-"Warning: Regenerating keys will make all existing protected content "
-"unreadable until re-protected."
-msgstr ""
-"Uwaga: ponowne wygenerowanie kluczy sprawi, że cała istniejąca chroniona "
-"treść stanie się nieczytelna do czasu ponownego zabezpieczenia."
+msgid "Warning: Regenerating keys will make all existing protected content unreadable until re-protected."
+msgstr "Uwaga: ponowne wygenerowanie kluczy sprawi, że cała istniejąca chroniona treść stanie się nieczytelna do czasu ponownego zabezpieczenia."
 
 #: functions/protection-helpers.php:524
 msgid "wp-config.php Setup Instructions"
 msgstr "Instrukcje konfiguracji wp-config.php"
 
 #: functions/protection-helpers.php:525
-msgid ""
-"To use wp-config.php storage, add these constants to your wp-config.php "
-"file:"
-msgstr ""
-"Aby korzystać z przechowywania w wp-config.php, dodaj te stałe do pliku wp-"
-"config.php:"
+msgid "To use wp-config.php storage, add these constants to your wp-config.php file:"
+msgstr "Aby korzystać z przechowywania w wp-config.php, dodaj te stałe do pliku wp-config.php:"
 
 #: functions/protection-helpers.php:527
 msgid "Generate & Show wp-config.php Constants"
@@ -715,12 +718,8 @@ msgid "Copy the constants above"
 msgstr "Skopiuj powyższe stałe"
 
 #: functions/protection-helpers.php:534
-msgid ""
-"Add them to your wp-config.php file before the line that says \"/* That's "
-"all, stop editing! */\""
-msgstr ""
-"Dodaj je do pliku wp-config.php przed linią \"/* That's all, stop editing! "
-"*/\""
+msgid "Add them to your wp-config.php file before the line that says \"/* That's all, stop editing! */\""
+msgstr "Dodaj je do pliku wp-config.php przed linią \"/* That's all, stop editing! */\""
 
 #: functions/protection-helpers.php:535
 msgid "Save the file and reload this page"
@@ -763,12 +762,8 @@ msgid "Shortcode"
 msgstr "Shortcode"
 
 #: functions/protection-helpers.php:656
-msgid ""
-"Security token expired. This may be due to page caching. Please refresh the "
-"page and try again."
-msgstr ""
-"Token bezpieczeństwa wygasł. Może to być spowodowane buforowaniem strony. "
-"Odśwież stronę i spróbuj ponownie."
+msgid "Security token expired. This may be due to page caching. Please refresh the page and try again."
+msgstr "Token bezpieczeństwa wygasł. Może to być spowodowane buforowaniem strony. Odśwież stronę i spróbuj ponownie."
 
 #: functions/protection-helpers.php:665
 msgid "No content provided"
@@ -778,7 +773,7 @@ msgstr "Nie podano treści"
 msgid "Too many items requested"
 msgstr "Zażądano zbyt wielu elementów"
 
-#: functions/scroll-top-top.php:22 functions/scroll-top-top.php:24
+#: functions/scroll-top-top.php:24 functions/scroll-top-top.php:26
 msgid "Scroll to Top"
 msgstr "Przewiń do góry"
 
@@ -890,7 +885,7 @@ msgstr "Obraz tła"
 msgid "Logo image"
 msgstr "Obraz logo"
 
-#: functions/settings-page.php:366
+#: functions/settings-page.php:366 build/model-viewer.js:1
 msgid "Background color"
 msgstr "Kolor tła"
 
@@ -951,45 +946,24 @@ msgid "Permissions-Policy"
 msgstr "Permissions-Policy"
 
 #: functions/settings-page.php:622
-msgid ""
-"This site does not use comments. Enabling this protection closes comments at"
-" the server level — spam bots that POST directly to wp-comments-post.php or "
-"call XML-RPC comment methods are rejected with a 403 before any database "
-"write or email notification occurs. WordPress Discussion settings alone do "
-"not stop this traffic."
-msgstr ""
-"Ta strona nie korzysta z komentarzy. Włączenie tej ochrony zamyka komentarze"
-" na poziomie serwera — boty spamujące, które wysyłają żądania POST "
-"bezpośrednio do wp-comments-post.php lub wywołują metody komentarzy XML-RPC,"
-" są odrzucane kodem 403, zanim dojdzie do zapisu w bazie danych lub "
-"powiadomienia e-mail. Same ustawienia dyskusji WordPress nie zatrzymują tego"
-" ruchu."
+msgid "This site does not use comments. Enabling this protection closes comments at the server level — spam bots that POST directly to wp-comments-post.php or call XML-RPC comment methods are rejected with a 403 before any database write or email notification occurs. WordPress Discussion settings alone do not stop this traffic."
+msgstr "Ta strona nie korzysta z komentarzy. Włączenie tej ochrony zamyka komentarze na poziomie serwera — boty spamujące, które wysyłają żądania POST bezpośrednio do wp-comments-post.php lub wywołują metody komentarzy XML-RPC, są odrzucane kodem 403, zanim dojdzie do zapisu w bazie danych lub powiadomienia e-mail. Same ustawienia dyskusji WordPress nie zatrzymują tego ruchu."
 
 #: functions/settings-page.php:636
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr "Blokuj wszystkie zgłoszenia komentarzy w całej witrynie (zalecane)"
 
 #: functions/settings-page.php:639
-msgid ""
-"Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
-"the block editor and admin menu."
-msgstr ""
-"Podłącza się do preprocess_comment i xmlrpc_methods. Usuwa interfejs "
-"komentarzy z edytora bloków i menu administracyjnego."
+msgid "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from the block editor and admin menu."
+msgstr "Podłącza się do preprocess_comment i xmlrpc_methods. Usuwa interfejs komentarzy z edytora bloków i menu administracyjnego."
 
 #: functions/settings-page.php:646
-msgid ""
-"Controls the light/dark color mode. When switching is disabled, the theme "
-"switcher button is hidden and the site stays locked to the default mode."
-msgstr ""
-"Kontroluje tryb jasny/ciemny. Gdy przełączanie jest wyłączone, przycisk "
-"przełącznika motywu jest ukryty, a strona pozostaje zablokowana w trybie "
-"domyślnym."
+msgid "Controls the light/dark color mode. When switching is disabled, the theme switcher button is hidden and the site stays locked to the default mode."
+msgstr "Kontroluje tryb jasny/ciemny. Gdy przełączanie jest wyłączone, przycisk przełącznika motywu jest ukryty, a strona pozostaje zablokowana w trybie domyślnym."
 
 #: functions/settings-page.php:660
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
-msgstr ""
-"Pokaż przełącznik motywu i pozwól odwiedzającym przełączać tryb jasny/ciemny"
+msgstr "Pokaż przełącznik motywu i pozwól odwiedzającym przełączać tryb jasny/ciemny"
 
 #: functions/settings-page.php:669
 msgid "Auto (visitor system preference)"
@@ -1004,25 +978,12 @@ msgid "Dark"
 msgstr "Ciemny"
 
 #: functions/settings-page.php:682
-msgid ""
-"Initial mode for visitors without a saved preference. With switching "
-"disabled, this is the only mode used."
-msgstr ""
-"Początkowy tryb dla odwiedzających bez zapisanej preferencji. Przy "
-"wyłączonym przełączaniu jest to jedyny używany tryb."
+msgid "Initial mode for visitors without a saved preference. With switching disabled, this is the only mode used."
+msgstr "Początkowy tryb dla odwiedzających bez zapisanej preferencji. Przy wyłączonym przełączaniu jest to jedyny używany tryb."
 
 #: functions/settings-page.php:690
-msgid ""
-"One source of truth for responsive ranges. These values drive the compiled "
-"theme CSS (media queries are rewritten at runtime and cached), the editor "
-"responsive controls, frontend scripts, and any plugin reading the "
-"mobile_breakpoint / tablet_breakpoint theme mods."
-msgstr ""
-"Jedno źródło prawdy dla zakresów responsywności. Te wartości sterują "
-"skompilowanym CSS motywu (zapytania media są przepisywane w czasie działania"
-" i buforowane), responsywnymi ustawieniami edytora, skryptami frontendowymi "
-"oraz każdą wtyczką odczytującą modyfikacje motywu mobile_breakpoint / "
-"tablet_breakpoint."
+msgid "One source of truth for responsive ranges. These values drive the compiled theme CSS (media queries are rewritten at runtime and cached), the editor responsive controls, frontend scripts, and any plugin reading the mobile_breakpoint / tablet_breakpoint theme mods."
+msgstr "Jedno źródło prawdy dla zakresów responsywności. Te wartości sterują skompilowanym CSS motywu (zapytania media są przepisywane w czasie działania i buforowane), responsywnymi ustawieniami edytora, skryptami frontendowymi oraz każdą wtyczką odczytującą modyfikacje motywu mobile_breakpoint / tablet_breakpoint."
 
 #: functions/settings-page.php:692
 msgid "Range"
@@ -1052,117 +1013,52 @@ msgid "Large desktop"
 msgstr "Duży ekran"
 
 #: functions/settings-page.php:707
-msgid ""
-"Screens up to this width are mobile. Tablet starts at this value + 1px. "
-"Theme default: 781."
-msgstr ""
-"Ekrany do tej szerokości są mobilne. Tablet zaczyna się od tej wartości + "
-"1px. Wartość domyślna motywu: 781."
+msgid "Screens up to this width are mobile. Tablet starts at this value + 1px. Theme default: 781."
+msgstr "Ekrany do tej szerokości są mobilne. Tablet zaczyna się od tej wartości + 1px. Wartość domyślna motywu: 781."
 
 #: functions/settings-page.php:718
-msgid ""
-"Screens up to this width are tablet. Desktop starts at this value + 1px. "
-"Theme default: 1023."
-msgstr ""
-"Ekrany do tej szerokości są tabletowe. Komputer zaczyna się od tej wartości "
-"+ 1px. Wartość domyślna motywu: 1023."
+msgid "Screens up to this width are tablet. Desktop starts at this value + 1px. Theme default: 1023."
+msgstr "Ekrany do tej szerokości są tabletowe. Komputer zaczyna się od tej wartości + 1px. Wartość domyślna motywu: 1023."
 
 #: functions/settings-page.php:729
-msgid ""
-"Wide-desktop refinements (e.g. wider content container) start here. Theme "
-"default: 1200."
-msgstr ""
-"Od tej wartości zaczynają się udoskonalenia dla szerokich ekranów (np. "
-"szerszy kontener treści). Wartość domyślna motywu: 1200."
+msgid "Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200."
+msgstr "Od tej wartości zaczynają się udoskonalenia dla szerokich ekranów (np. szerszy kontener treści). Wartość domyślna motywu: 1200."
 
 #: functions/settings-page.php:736
-msgid ""
-"Distance kept between the sticky header and the target when clicking an in-"
-"page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
-"visible at all times, so it needs the full header height as clearance. "
-"Mobile hides the header while scrolling and only re-shows it near the top of"
-" the page, so it typically needs little or no offset."
-msgstr ""
-"Odstęp zachowywany między przyklejonym nagłówkiem a celem po kliknięciu "
-"linku kotwicy na stronie (np. \"#uslugi\"). Na komputerze pływający nagłówek"
-" jest zawsze widoczny, więc potrzebuje pełnej wysokości nagłówka jako "
-"odstępu. Na urządzeniach mobilnych nagłówek jest ukrywany podczas "
-"przewijania i pokazywany ponownie tylko blisko góry strony, więc zwykle "
-"wymaga małego lub żadnego przesunięcia."
+msgid "Distance kept between the sticky header and the target when clicking an in-page anchor link (e.g. \"#services\"). Desktop keeps its floating header visible at all times, so it needs the full header height as clearance. Mobile hides the header while scrolling and only re-shows it near the top of the page, so it typically needs little or no offset."
+msgstr "Odstęp zachowywany między przyklejonym nagłówkiem a celem po kliknięciu linku kotwicy na stronie (np. \"#uslugi\"). Na komputerze pływający nagłówek jest zawsze widoczny, więc potrzebuje pełnej wysokości nagłówka jako odstępu. Na urządzeniach mobilnych nagłówek jest ukrywany podczas przewijania i pokazywany ponownie tylko blisko góry strony, więc zwykle wymaga małego lub żadnego przesunięcia."
 
 #. translators: %d: default desktop scroll offset in pixels
 #: functions/settings-page.php:749
 #, php-format
-msgid ""
-"Applies above the desktop breakpoint, where the header stays visible while "
-"scrolling. Theme default: %d (matches the header height)."
-msgstr ""
-"Stosowane powyżej punktu przełamania dla komputerów, gdzie nagłówek "
-"pozostaje widoczny podczas przewijania. Wartość domyślna motywu: %d "
-"(odpowiada wysokości nagłówka)."
+msgid "Applies above the desktop breakpoint, where the header stays visible while scrolling. Theme default: %d (matches the header height)."
+msgstr "Stosowane powyżej punktu przełamania dla komputerów, gdzie nagłówek pozostaje widoczny podczas przewijania. Wartość domyślna motywu: %d (odpowiada wysokości nagłówka)."
 
 #. translators: %d: default mobile scroll offset in pixels
 #: functions/settings-page.php:767
 #, php-format
-msgid ""
-"Applies below the desktop breakpoint, where the header hides on scroll. "
-"Theme default: %d, since the header is typically hidden by the time the "
-"scroll finishes."
-msgstr ""
-"Stosowane poniżej punktu przełamania dla komputerów, gdzie nagłówek ukrywa "
-"się podczas przewijania. Wartość domyślna motywu: %d, ponieważ nagłówek jest"
-" zwykle ukryty do momentu zakończenia przewijania."
+msgid "Applies below the desktop breakpoint, where the header hides on scroll. Theme default: %d, since the header is typically hidden by the time the scroll finishes."
+msgstr "Stosowane poniżej punktu przełamania dla komputerów, gdzie nagłówek ukrywa się podczas przewijania. Wartość domyślna motywu: %d, ponieważ nagłówek jest zwykle ukryty do momentu zakończenia przewijania."
 
 #: functions/settings-page.php:777
-msgid ""
-"When a link (navigation, button, in-content) points at the page currently "
-"being viewed, it can be marked as active — the same gradient-text/underline "
-"style normally reserved for hover — and/or prevented from being clicked, "
-"since navigating to the page a visitor is already on does nothing useful. "
-"Individual blocks can still opt out from their own Advanced panel regardless"
-" of these settings."
-msgstr ""
-"Gdy link (nawigacja, przycisk, treść) wskazuje na aktualnie przeglądaną "
-"stronę, może zostać oznaczony jako aktywny — tym samym stylem gradientowego "
-"tekstu/podkreślenia zwykle zarezerwowanym dla najechania — i/lub zablokowany"
-" przed kliknięciem, ponieważ przejście na stronę, na której odwiedzający już"
-" się znajduje, nic nie daje. Poszczególne bloki mogą nadal wyłączyć tę "
-"funkcję we własnym panelu zaawansowanym, niezależnie od tych ustawień."
+msgid "When a link (navigation, button, in-content) points at the page currently being viewed, it can be marked as active — the same gradient-text/underline style normally reserved for hover — and/or prevented from being clicked, since navigating to the page a visitor is already on does nothing useful. Individual blocks can still opt out from their own Advanced panel regardless of these settings."
+msgstr "Gdy link (nawigacja, przycisk, treść) wskazuje na aktualnie przeglądaną stronę, może zostać oznaczony jako aktywny — tym samym stylem gradientowego tekstu/podkreślenia zwykle zarezerwowanym dla najechania — i/lub zablokowany przed kliknięciem, ponieważ przejście na stronę, na której odwiedzający już się znajduje, nic nie daje. Poszczególne bloki mogą nadal wyłączyć tę funkcję we własnym panelu zaawansowanym, niezależnie od tych ustawień."
 
 #: functions/settings-page.php:786
-msgid ""
-"Mark links pointing at the current page with the active hover-style "
-"highlight"
-msgstr ""
-"Oznacz linki wskazujące na bieżącą stronę aktywnym stylem podświetlenia jak "
-"przy najechaniu"
+msgid "Mark links pointing at the current page with the active hover-style highlight"
+msgstr "Oznacz linki wskazujące na bieżącą stronę aktywnym stylem podświetlenia jak przy najechaniu"
 
 #: functions/settings-page.php:789
-msgid ""
-"Adds a kt-link-current class and aria-current=\"page\" to matching links "
-"sitewide (navigation, footer, hamburger, mega menu, popular pages)."
-msgstr ""
-"Dodaje klasę kt-link-current i aria-current=\"page\" do pasujących linków w "
-"całej witrynie (nawigacja, stopka, menu hamburger, mega menu, popularne "
-"strony)."
+msgid "Adds a kt-link-current class and aria-current=\"page\" to matching links sitewide (navigation, footer, hamburger, mega menu, popular pages)."
+msgstr "Dodaje klasę kt-link-current i aria-current=\"page\" do pasujących linków w całej witrynie (nawigacja, stopka, menu hamburger, mega menu, popularne strony)."
 
 #: functions/settings-page.php:800
-msgid ""
-"Prevent clicking a link/button that points at the page currently being "
-"viewed"
-msgstr ""
-"Zablokuj klikanie linku/przycisku wskazującego na aktualnie przeglądaną "
-"stronę"
+msgid "Prevent clicking a link/button that points at the page currently being viewed"
+msgstr "Zablokuj klikanie linku/przycisku wskazującego na aktualnie przeglądaną stronę"
 
 #: functions/settings-page.php:803
-msgid ""
-"Adds aria-disabled and removes the link from tab order. Menu items that also"
-" open a mega-menu panel stay fully interactive. Has no effect if "
-"highlighting above is disabled."
-msgstr ""
-"Dodaje aria-disabled i usuwa link z kolejności tabulacji. Elementy menu, "
-"które otwierają również panel mega menu, pozostają w pełni interaktywne. Nie"
-" ma efektu, jeśli powyższe podświetlenie jest wyłączone."
+msgid "Adds aria-disabled and removes the link from tab order. Menu items that also open a mega-menu panel stay fully interactive. Has no effect if highlighting above is disabled."
+msgstr "Dodaje aria-disabled i usuwa link z kolejności tabulacji. Elementy menu, które otwierają również panel mega menu, pozostają w pełni interaktywne. Nie ma efektu, jeśli powyższe podświetlenie jest wyłączone."
 
 #: functions/settings-page.php:820
 msgid "Customize the wp-login.php background, logo, and accent color."
@@ -1193,43 +1089,20 @@ msgid "Color for links and hover effects."
 msgstr "Kolor linków i efektów najechania."
 
 #: functions/settings-page.php:907
-msgid ""
-"Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
-"responses)."
-msgstr ""
-"Ładuje Piksel Facebooka tylko na froncie (nie w wp-admin ani odpowiedziach "
-"REST)."
+msgid "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses)."
+msgstr "Ładuje Piksel Facebooka tylko na froncie (nie w wp-admin ani odpowiedziach REST)."
 
 #: functions/settings-page.php:923 functions/settings-page.php:945
 msgid "Paste a full script tag here to override the ID-based snippet above."
-msgstr ""
-"Wklej tutaj pełny tag skryptu, aby nadpisać powyższy fragment oparty na ID."
+msgstr "Wklej tutaj pełny tag skryptu, aby nadpisać powyższy fragment oparty na ID."
 
 #: functions/settings-page.php:929
-msgid ""
-"Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
-"REST responses)."
-msgstr ""
-"Ładuje Google Analytics (gtag.js) tylko na froncie (nie w wp-admin ani "
-"odpowiedziach REST)."
+msgid "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses)."
+msgstr "Ładuje Google Analytics (gtag.js) tylko na froncie (nie w wp-admin ani odpowiedziach REST)."
 
 #: functions/settings-page.php:951
-msgid ""
-"Controls the Content-Security-Policy header sent on frontend responses "
-"(never on wp-admin or REST requests). Each directive below is a space-"
-"separated list of sources, exactly as it appears in a real CSP header — "
-"clear a field to omit that directive entirely. Defaults match this theme's "
-"own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google "
-"Analytics, Cloudflare Turnstile); edit them to match whatever a given site "
-"actually loads."
-msgstr ""
-"Kontroluje nagłówek Content-Security-Policy wysyłany w odpowiedziach front-"
-"endu (nigdy na wp-admin ani w żądaniach REST). Każda dyrektywa poniżej to "
-"lista źródeł rozdzielonych spacją, dokładnie tak jak w prawdziwym nagłówku "
-"CSP — wyczyść pole, aby całkowicie pominąć daną dyrektywę. Wartości domyślne"
-" odpowiadają rzeczywistym zewnętrznym zasobom tego motywu (Google "
-"Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); "
-"dostosuj je do tego, co faktycznie ładuje dana strona."
+msgid "Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme's own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads."
+msgstr "Kontroluje nagłówek Content-Security-Policy wysyłany w odpowiedziach front-endu (nigdy na wp-admin ani w żądaniach REST). Każda dyrektywa poniżej to lista źródeł rozdzielonych spacją, dokładnie tak jak w prawdziwym nagłówku CSP — wyczyść pole, aby całkowicie pominąć daną dyrektywę. Wartości domyślne odpowiadają rzeczywistym zewnętrznym zasobom tego motywu (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); dostosuj je do tego, co faktycznie ładuje dana strona."
 
 #: functions/settings-page.php:960
 msgid "Send a Content-Security-Policy header"
@@ -1240,62 +1113,43 @@ msgid "Enforce the policy (blocks violations)"
 msgstr "Wymuszaj politykę (blokuje naruszenia)"
 
 #: functions/settings-page.php:974
-msgid ""
-"Leave unchecked to send Content-Security-Policy-Report-Only instead — the "
-"browser reports violations to the console without blocking anything. "
-"Recommended for at least a few days on a new site before enforcing."
-msgstr ""
-"Pozostaw niezaznaczone, aby zamiast tego wysyłać Content-Security-Policy-"
-"Report-Only — przeglądarka zgłasza naruszenia w konsoli, niczego nie "
-"blokując. Zalecane przez co najmniej kilka dni na nowej stronie przed "
-"włączeniem wymuszania."
+msgid "Leave unchecked to send Content-Security-Policy-Report-Only instead — the browser reports violations to the console without blocking anything. Recommended for at least a few days on a new site before enforcing."
+msgstr "Pozostaw niezaznaczone, aby zamiast tego wysyłać Content-Security-Policy-Report-Only — przeglądarka zgłasza naruszenia w konsoli, niczego nie blokując. Zalecane przez co najmniej kilka dni na nowej stronie przed włączeniem wymuszania."
 
 #: functions/settings-page.php:985
 msgid "Add the upgrade-insecure-requests directive"
 msgstr "Dodaj dyrektywę upgrade-insecure-requests"
 
 #: functions/settings-page.php:992
-msgid ""
-"One field per CSP directive. Values are sanitized as plain text (no HTML, no"
-" line breaks) before being sent in the header."
-msgstr ""
-"Jedno pole na każdą dyrektywę CSP. Wartości są oczyszczane jako czysty tekst"
-" (bez HTML, bez znaków nowej linii) przed wysłaniem w nagłówku."
+msgid "One field per CSP directive. Values are sanitized as plain text (no HTML, no line breaks) before being sent in the header."
+msgstr "Jedno pole na każdą dyrektywę CSP. Wartości są oczyszczane jako czysty tekst (bez HTML, bez znaków nowej linii) przed wysłaniem w nagłówku."
 
 #: functions/settings-page.php:1007
-msgid ""
-"Referrer-Policy and Permissions-Policy are sent on every frontend response "
-"(never on wp-admin or REST requests). Set independently per site — no need "
-"to touch code to give a different customer a different policy."
-msgstr ""
-"Referrer-Policy i Permissions-Policy są wysyłane w każdej odpowiedzi front-"
-"endu (nigdy na wp-admin ani w żądaniach REST). Ustawiane niezależnie dla "
-"każdej strony — nie trzeba edytować kodu, aby dać innemu klientowi inną "
-"politykę."
+msgid "Referrer-Policy and Permissions-Policy are sent on every frontend response (never on wp-admin or REST requests). Set independently per site — no need to touch code to give a different customer a different policy."
+msgstr "Referrer-Policy i Permissions-Policy są wysyłane w każdej odpowiedzi front-endu (nigdy na wp-admin ani w żądaniach REST). Ustawiane niezależnie dla każdej strony — nie trzeba edytować kodu, aby dać innemu klientowi inną politykę."
 
 #: functions/settings-page.php:1022
-msgid ""
-"Controls how much of the current page URL is sent to other sites when a "
-"visitor follows a link away from this one. strict-origin-when-cross-origin "
-"is a balanced default."
-msgstr ""
-"Kontroluje, ile z adresu URL bieżącej strony jest wysyłane do innych witryn,"
-" gdy odwiedzający kliknie link prowadzący poza tę stronę. strict-origin-"
-"when-cross-origin to zrównoważona wartość domyślna."
+msgid "Controls how much of the current page URL is sent to other sites when a visitor follows a link away from this one. strict-origin-when-cross-origin is a balanced default."
+msgstr "Kontroluje, ile z adresu URL bieżącej strony jest wysyłane do innych witryn, gdy odwiedzający kliknie link prowadzący poza tę stronę. strict-origin-when-cross-origin to zrównoważona wartość domyślna."
 
 #: functions/settings-page.php:1033
-msgid ""
-"Full Permissions-Policy header value. Clear this field to stop sending the "
-"header entirely — it will not fall back to a default once saved empty."
-msgstr ""
-"Pełna wartość nagłówka Permissions-Policy. Wyczyść to pole, aby całkowicie "
-"zaprzestać wysyłania nagłówka — po zapisaniu jako puste nie wróci do "
-"wartości domyślnej."
+msgid "Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty."
+msgstr "Pełna wartość nagłówka Permissions-Policy. Wyczyść to pole, aby całkowicie zaprzestać wysyłania nagłówka — po zapisaniu jako puste nie wróci do wartości domyślnej."
 
 #: functions/site-identity.php:19
 #, php-format
 msgid "%s home"
 msgstr "%s strona główna"
+
+#. translators: %s: modal title
+#: functions/slider-modal-trigger.php:41
+#, php-format
+msgid "Open %s"
+msgstr "Otwórz %s"
+
+#: functions/theme-switcher.php:6
+msgid "Toggle light and dark theme"
+msgstr "Przełącz tryb jasny/ciemny"
 
 #. Template Name of the theme
 msgid "Search Page"
@@ -1306,19 +1160,19 @@ msgctxt "Pattern title"
 msgid "About Section 2"
 msgstr "Sekcja O nas 2"
 
-#: patterns/about-2.php:23 patterns/about-us.php:26
-#: patterns/cta-block-2.php:21 patterns/cta-block.php:29
-#: patterns/featured-content.php:21 patterns/featured-content.php:60
-#: patterns/featured-content.php:94 patterns/features-and-benefits.php:24
-#: patterns/highlight-features.php:20 patterns/latest-work.php:30
-#: patterns/latest-work.php:50 patterns/latest-work.php:72
-#: patterns/latest-work.php:94 patterns/mission-goal.php:32
-#: patterns/mission-goal.php:73 patterns/mission-vision.php:29
-#: patterns/mission-vision.php:81 patterns/photo-gallery.php:32
-#: patterns/pricing-tables.php:44 patterns/pricing-tables.php:106
-#: patterns/pricing-tables.php:168 patterns/service-content.php:22
-#: patterns/service-grid.php:22 patterns/services-section.php:31
-#: patterns/simple-banner.php:21 patterns/testimonial-section.php:129
+#: patterns/about-2.php:23 patterns/about-us.php:26 patterns/cta-block-2.php:21
+#: patterns/cta-block.php:29 patterns/featured-content.php:21
+#: patterns/featured-content.php:60 patterns/featured-content.php:94
+#: patterns/features-and-benefits.php:24 patterns/highlight-features.php:20
+#: patterns/latest-work.php:30 patterns/latest-work.php:50
+#: patterns/latest-work.php:72 patterns/latest-work.php:94
+#: patterns/mission-goal.php:32 patterns/mission-goal.php:73
+#: patterns/mission-vision.php:29 patterns/mission-vision.php:81
+#: patterns/photo-gallery.php:32 patterns/pricing-tables.php:44
+#: patterns/pricing-tables.php:106 patterns/pricing-tables.php:168
+#: patterns/service-content.php:22 patterns/service-grid.php:22
+#: patterns/services-section.php:31 patterns/simple-banner.php:21
+#: patterns/testimonial-section.php:129
 msgid "See My Popular Posts"
 msgstr "Zobacz moje popularne posty"
 
@@ -1327,18 +1181,8 @@ msgid "Building Smarter Solutions SaaS Experts"
 msgstr "Budowanie mądrzejszych rozwiązań, eksperci SaaS"
 
 #: patterns/about-2.php:40 patterns/about-us.php:21
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-"cillum dolore."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-"cillum dolore."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore."
 
 #: patterns/about-2.php:44 patterns/contact-page.php:28
 #: patterns/contact-with-form.php:16 patterns/cta-block-2.php:16
@@ -1349,12 +1193,8 @@ msgstr ""
 #: patterns/service-content.php:116 patterns/services-section.php:26
 #: patterns/services-section.php:53 patterns/services-section.php:71
 #: patterns/services-section.php:110 patterns/testimonial-section.php:23
-msgid ""
-"Lorem ipsum is placeholder text commonly used in the graphic, print, and "
-"publishing industries for previewing layouts and visual mockups."
-msgstr ""
-"Lorem ipsum is placeholder text commonly used in the graphic, print, and "
-"publishing industries for previewing layouts and visual mockups."
+msgid "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
+msgstr "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
 
 #: patterns/about-us.php
 msgctxt "Pattern title"
@@ -1364,11 +1204,6 @@ msgstr "Sekcja O nas"
 #: patterns/about-us.php:17 patterns/mission-goal.php:42
 msgid "Building Smarter Solutions: SaaS Experts"
 msgstr "Budowanie mądrzejszych rozwiązań: eksperci SaaS"
-
-#: patterns/article-breadcrumbs.php
-msgctxt "Pattern title"
-msgid "Article Breadcrumbs"
-msgstr "Okruszki artykułu"
 
 #: patterns/article-hero.php
 msgctxt "Pattern title"
@@ -1406,9 +1241,9 @@ msgctxt "Pattern title"
 msgid "Blog Topics Grid"
 msgstr "Siatka tematów bloga"
 
-#: patterns/blog-topics-grid.php:69 patterns/category-header.php:51
+#: patterns/blog-topics-grid.php:69 patterns/category-header.php:32
 #: patterns/popular-content.php:88 patterns/search-results.php:106
-#: patterns/tag-header.php:50
+#: patterns/tag-header.php:35
 msgid "Article"
 msgstr "Artykuł"
 
@@ -1431,7 +1266,7 @@ msgctxt "Pattern title"
 msgid "Category Header"
 msgstr "Nagłówek kategorii"
 
-#: patterns/category-header.php:66 patterns/search-form.php:105
+#: patterns/category-header.php:47 patterns/search-form.php:105
 msgid "All Topics"
 msgstr "Wszystkie tematy"
 
@@ -1498,8 +1333,7 @@ msgstr "email@example.com"
 
 #: patterns/contact-page.php:87 patterns/contact-with-form.php:61
 msgid "Please insert the contact form shortcode here to display the form."
-msgstr ""
-"Wstaw tutaj shortcode formularza kontaktowego, aby wyświetlić formularz."
+msgstr "Wstaw tutaj shortcode formularza kontaktowego, aby wyświetlić formularz."
 
 #: patterns/contact-with-form.php
 msgctxt "Pattern title"
@@ -1561,16 +1395,8 @@ msgstr "100+"
 #: patterns/number-stats.php:18 patterns/number-stats.php:37
 #: patterns/number-stats.php:55 patterns/number-stats.php:73
 #: patterns/number-stats.php:91
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
 #: patterns/counter-with-desc.php:55 patterns/number-stats.php:64
 msgid "10M+"
@@ -1614,15 +1440,8 @@ msgid "What is Full Site Editing in WordPress?"
 msgstr "Czym jest Full Site Editing w WordPress?"
 
 #: patterns/faq-accordion.php:24 patterns/faq-section.php:55
-msgid ""
-"Full Site Editing in WordPress allows users to create and edit their website"
-" more efficiently and with more control. It enables users to create unique "
-"and custom designs without needing to have advanced coding skills."
-msgstr ""
-"Full Site Editing w WordPress pozwala użytkownikom tworzyć i edytować stronę"
-" bardziej efektywnie i z większą kontrolą. Umożliwia tworzenie unikalnych, "
-"własnych projektów bez potrzeby zaawansowanych umiejętności "
-"programistycznych."
+msgid "Full Site Editing in WordPress allows users to create and edit their website more efficiently and with more control. It enables users to create unique and custom designs without needing to have advanced coding skills."
+msgstr "Full Site Editing w WordPress pozwala użytkownikom tworzyć i edytować stronę bardziej efektywnie i z większą kontrolą. Umożliwia tworzenie unikalnych, własnych projektów bez potrzeby zaawansowanych umiejętności programistycznych."
 
 #: patterns/faq-accordion.php:31 patterns/faq-accordion.php:47
 #: patterns/faq-accordion.php:71
@@ -1631,14 +1450,8 @@ msgstr "Jakie są korzyści z Full Site Editing w WordPress?"
 
 #: patterns/faq-accordion.php:32 patterns/faq-accordion.php:48
 #: patterns/faq-accordion.php:72 patterns/faq-section.php:24
-msgid ""
-"Full Site Editing in WordPress refers to a feature that allows users to "
-"create and edit their website’s entire layout, including the header, footer,"
-" and other structural elements, using a visual editor."
-msgstr ""
-"Full Site Editing w WordPress to funkcja pozwalająca użytkownikom tworzyć i "
-"edytować cały układ strony, w tym nagłówek, stopkę i inne elementy "
-"strukturalne, za pomocą edytora wizualnego."
+msgid "Full Site Editing in WordPress refers to a feature that allows users to create and edit their website’s entire layout, including the header, footer, and other structural elements, using a visual editor."
+msgstr "Full Site Editing w WordPress to funkcja pozwalająca użytkownikom tworzyć i edytować cały układ strony, w tym nagłówek, stopkę i inne elementy strukturalne, za pomocą edytora wizualnego."
 
 #: patterns/faq-accordion.php:39 patterns/faq-accordion.php:55
 msgid "How do I enable Full Site Editing in WordPress?"
@@ -1646,31 +1459,16 @@ msgstr "Jak włączyć Full Site Editing w WordPress?"
 
 #: patterns/faq-accordion.php:40 patterns/faq-accordion.php:56
 #: patterns/faq-section.php:38
-msgid ""
-"To enable Full Site Editing in WordPress, you need to ensure that you are "
-"using a compatible WordPress theme that supports Full Site Editing. You will"
-" also need to install the latest version of WordPress and enable the "
-"Gutenberg editor."
-msgstr ""
-"Aby włączyć Full Site Editing w WordPress, musisz korzystać z kompatybilnego"
-" motywu WordPress obsługującego tę funkcję. Musisz też zainstalować "
-"najnowszą wersję WordPress i włączyć edytor Gutenberg."
+msgid "To enable Full Site Editing in WordPress, you need to ensure that you are using a compatible WordPress theme that supports Full Site Editing. You will also need to install the latest version of WordPress and enable the Gutenberg editor."
+msgstr "Aby włączyć Full Site Editing w WordPress, musisz korzystać z kompatybilnego motywu WordPress obsługującego tę funkcję. Musisz też zainstalować najnowszą wersję WordPress i włączyć edytor Gutenberg."
 
 #: patterns/faq-accordion.php:63
 msgid "What are some popular WordPress themes that support Full Site Editing?"
 msgstr "Jakie popularne motywy WordPress obsługują Full Site Editing?"
 
 #: patterns/faq-accordion.php:64 patterns/faq-section.php:69
-msgid ""
-"Some popular WordPress themes that support Full Site Editing include the "
-"FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes "
-"have built-in support for Full Site Editing, allowing users to create custom"
-" designs without needing to know how to code."
-msgstr ""
-"Popularne motywy WordPress obsługujące Full Site Editing to m.in. FotaWP "
-"Theme, ReviveNews Theme i Hello Agency Theme. Motywy te mają wbudowane "
-"wsparcie dla Full Site Editing, umożliwiając tworzenie własnych projektów "
-"bez znajomości programowania."
+msgid "Some popular WordPress themes that support Full Site Editing include the FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes have built-in support for Full Site Editing, allowing users to create custom designs without needing to know how to code."
+msgstr "Popularne motywy WordPress obsługujące Full Site Editing to m.in. FotaWP Theme, ReviveNews Theme i Hello Agency Theme. Motywy te mają wbudowane wsparcie dla Full Site Editing, umożliwiając tworzenie własnych projektów bez znajomości programowania."
 
 #: patterns/faq-section.php
 msgctxt "Pattern title"
@@ -1694,20 +1492,8 @@ msgid "Social Media and Brand identity"
 msgstr "Media społecznościowe i tożsamość marki"
 
 #: patterns/featured-content-2.php:31 patterns/featured-content-2.php:54
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-"cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
-"non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-"cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
-"non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 #: patterns/featured-content.php
 msgctxt "Pattern title"
@@ -1744,27 +1530,18 @@ msgid "End-to-End Solutions to Empower Business"
 msgstr "Kompleksowe rozwiązania wspierające biznes"
 
 #: patterns/features-and-benefits.php:43
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
 
 #: patterns/features-and-benefits.php:58 patterns/features-section.php:24
 msgid "Lifetime Free Update"
 msgstr "Dożywotnia darmowa aktualizacja"
 
 #: patterns/features-and-benefits.php:62 patterns/features-and-benefits.php:80
-#: patterns/features-and-benefits.php:98
-#: patterns/features-and-benefits.php:116 patterns/latest-work.php:25
-#: patterns/photo-gallery.php:23
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua."
+#: patterns/features-and-benefits.php:98 patterns/features-and-benefits.php:116
+#: patterns/latest-work.php:25 patterns/photo-gallery.php:23
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
 #: patterns/features-and-benefits.php:76 patterns/features-section.php:42
 msgid "Native Interface"
@@ -1785,12 +1562,8 @@ msgstr "Sekcja funkcji"
 
 #: patterns/features-section.php:28 patterns/features-section.php:46
 #: patterns/features-section.php:64 patterns/features-section.php:82
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
 
 #: patterns/header-default.php
 msgctxt "Pattern title"
@@ -1829,55 +1602,32 @@ msgid "Scalable Solutions for Every Stage"
 msgstr "Skalowalne rozwiązania na każdym etapie"
 
 #: patterns/highlight-features.php:34
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
-" laboris."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
-" laboris."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco laboris."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco laboris."
 
 #: patterns/highlight-features.php:40
 msgid "Scalability &amp; Flexibility"
 msgstr "Skalowalność i elastyczność"
 
 #: patterns/highlight-features.php:46
-msgid ""
-"Ability to scale your SaaS solutions based on business growth. Whether "
-"you're a startup or an enterprise, the platform adjusts to your needs "
-"seamlessly."
-msgstr ""
-"Możliwość skalowania rozwiązań SaaS wraz z rozwojem firmy. Niezależnie od "
-"tego, czy jesteś startupem, czy dużym przedsiębiorstwem, platforma płynnie "
-"dostosowuje się do Twoich potrzeb."
+msgid "Ability to scale your SaaS solutions based on business growth. Whether you're a startup or an enterprise, the platform adjusts to your needs seamlessly."
+msgstr "Możliwość skalowania rozwiązań SaaS wraz z rozwojem firmy. Niezależnie od tego, czy jesteś startupem, czy dużym przedsiębiorstwem, platforma płynnie dostosowuje się do Twoich potrzeb."
 
 #: patterns/highlight-features.php:54
 msgid "Real-Time Analytics &amp; Reporting"
 msgstr "Analityka i raportowanie w czasie rzeczywistym"
 
 #: patterns/highlight-features.php:60
-msgid ""
-"Access to powerful, real-time data analytics and custom reporting tools that"
-" help you make informed business decisions and track performance "
-"effortlessly."
-msgstr ""
-"Dostęp do zaawansowanej analityki danych w czasie rzeczywistym oraz własnych"
-" narzędzi raportowania, które pomagają podejmować świadome decyzje biznesowe"
-" i bez wysiłku śledzić wyniki."
+msgid "Access to powerful, real-time data analytics and custom reporting tools that help you make informed business decisions and track performance effortlessly."
+msgstr "Dostęp do zaawansowanej analityki danych w czasie rzeczywistym oraz własnych narzędzi raportowania, które pomagają podejmować świadome decyzje biznesowe i bez wysiłku śledzić wyniki."
 
 #: patterns/highlight-features.php:68
 msgid "User-Centric Interface"
 msgstr "Interfejs skoncentrowany na użytkowniku"
 
 #: patterns/highlight-features.php:74
-msgid ""
-"Intuitive and easy-to-use interface, designed for non-technical users while "
-"providing advanced features for power users. Perfect for teams of all sizes."
-msgstr ""
-"Intuicyjny i łatwy w obsłudze interfejs zaprojektowany dla użytkowników "
-"nietechnicznych, oferujący jednocześnie zaawansowane funkcje dla "
-"zaawansowanych użytkowników. Idealny dla zespołów każdej wielkości."
+msgid "Intuitive and easy-to-use interface, designed for non-technical users while providing advanced features for power users. Perfect for teams of all sizes."
+msgstr "Intuicyjny i łatwy w obsłudze interfejs zaprojektowany dla użytkowników nietechnicznych, oferujący jednocześnie zaawansowane funkcje dla zaawansowanych użytkowników. Idealny dla zespołów każdej wielkości."
 
 #: patterns/home-banner.php
 msgctxt "Pattern title"
@@ -1921,38 +1671,24 @@ msgid "Mission & Goal Content"
 msgstr "Treść misji i celu"
 
 #: patterns/mission-goal.php:46
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
 
 #: patterns/mission-goal.php:51
 msgid "Streamlined Digital Transformation"
 msgstr "Usprawniona transformacja cyfrowa"
 
 #: patterns/mission-goal.php:55
-msgid ""
-"Enable businesses to streamline their processes, reduce costs, and enhance "
-"productivity with seamless and effective SaaS applications."
-msgstr ""
-"Umożliwiamy firmom usprawnienie procesów, redukcję kosztów i zwiększenie "
-"produktywności dzięki płynnym i skutecznym aplikacjom SaaS."
+msgid "Enable businesses to streamline their processes, reduce costs, and enhance productivity with seamless and effective SaaS applications."
+msgstr "Umożliwiamy firmom usprawnienie procesów, redukcję kosztów i zwiększenie produktywności dzięki płynnym i skutecznym aplikacjom SaaS."
 
 #: patterns/mission-goal.php:62
 msgid "Global Reach and Accessibility"
 msgstr "Globalny zasięg i dostępność"
 
 #: patterns/mission-goal.php:66
-msgid ""
-"Expand our reach by making SaaS solutions accessible, affordable, and "
-"adaptable for diverse industries and businesses worldwide."
-msgstr ""
-"Poszerzamy nasz zasięg, czyniąc rozwiązania SaaS dostępnymi, przystępnymi "
-"cenowo i elastycznymi dla różnych branż i firm na całym świecie."
+msgid "Expand our reach by making SaaS solutions accessible, affordable, and adaptable for diverse industries and businesses worldwide."
+msgstr "Poszerzamy nasz zasięg, czyniąc rozwiązania SaaS dostępnymi, przystępnymi cenowo i elastycznymi dla różnych branż i firm na całym świecie."
 
 #: patterns/mission-vision.php
 msgctxt "Pattern title"
@@ -2068,12 +1804,8 @@ msgstr "Podstawowy"
 
 #: patterns/pricing-tables.php:39 patterns/pricing-tables.php:101
 #: patterns/pricing-tables.php:163 patterns/service-grid.php:36
-msgid ""
-"Lorem ipsum is placeholder text commonly used in the graphic, print, and "
-"publishing industries."
-msgstr ""
-"Lorem ipsum is placeholder text commonly used in the graphic, print, and "
-"publishing industries."
+msgid "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries."
+msgstr "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries."
 
 #: patterns/pricing-tables.php:52 patterns/pricing-tables.php:114
 #: patterns/pricing-tables.php:176
@@ -2122,14 +1854,8 @@ msgid "Unlimited"
 msgstr "Nielimitowany"
 
 #: patterns/pricing-tables.php:211
-msgid ""
-"Still unsure? Every purchase comes with a 100% money-back guarantee. "
-"Experience our product risk-free, and if it’s not for you, we’ll ensure "
-"you’re fully refunded—no questions asked."
-msgstr ""
-"Nadal się wahasz? Każdy zakup objęty jest 100% gwarancją zwrotu pieniędzy. "
-"Wypróbuj nasz produkt bez ryzyka — jeśli nie będzie dla Ciebie odpowiedni, "
-"zapewnimy pełny zwrot, bez zbędnych pytań."
+msgid "Still unsure? Every purchase comes with a 100% money-back guarantee. Experience our product risk-free, and if it’s not for you, we’ll ensure you’re fully refunded—no questions asked."
+msgstr "Nadal się wahasz? Każdy zakup objęty jest 100% gwarancją zwrotu pieniędzy. Wypróbuj nasz produkt bez ryzyka — jeśli nie będzie dla Ciebie odpowiedni, zapewnimy pełny zwrot, bez zbędnych pytań."
 
 #: patterns/profile-links-card.php
 msgctxt "Pattern title"
@@ -2311,12 +2037,8 @@ msgid "Looking for something else?"
 msgstr "Szukasz czegoś innego?"
 
 #: patterns/search-results.php:208
-msgid ""
-"Try searching for a different term or explore more content using the search "
-"form below."
-msgstr ""
-"Spróbuj wyszukać inne hasło lub przejrzyj więcej treści za pomocą formularza"
-" wyszukiwania poniżej."
+msgid "Try searching for a different term or explore more content using the search form below."
+msgstr "Spróbuj wyszukać inne hasło lub przejrzyj więcej treści za pomocą formularza wyszukiwania poniżej."
 
 #: patterns/search-results.php:229
 msgid "No results found"
@@ -2392,18 +2114,8 @@ msgstr "Siatka usług"
 #: patterns/service-grid.php:53 patterns/service-grid.php:71
 #: patterns/service-grid.php:92 patterns/service-grid.php:110
 #: patterns/simple-text.php:15
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-"cillum dolore eu fugiat nulla pariatur."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
-"cillum dolore eu fugiat nulla pariatur."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
 
 #: patterns/services-section.php
 msgctxt "Pattern title"
@@ -2427,12 +2139,8 @@ msgid "Digital Marketing"
 msgstr "Marketing cyfrowy"
 
 #: patterns/services-section.php:92
-msgid ""
-"Lorem ipsum is placeholder text commonly used in the graphic, print, and "
-"publishing industries for previewing layouts and visual mockups.kotlinskidev"
-msgstr ""
-"Lorem ipsum is placeholder text commonly used in the graphic, print, and "
-"publishing industries for previewing layouts and visual mockups.kotlinskidev"
+msgid "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.kotlinskidev"
+msgstr "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.kotlinskidev"
 
 #: patterns/services-section.php:106
 msgid "Product Design"
@@ -2461,64 +2169,28 @@ msgid "Core Values – What Drives Us Forward"
 msgstr "Kluczowe wartości – co nas napędza"
 
 #: patterns/simple-text.php:19
-msgid ""
-"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia "
-"deserunt mollit anim id est laborum. Until recently, the prevailing view "
-"assumed lorem ipsum was born as a nonsense text. “It’s not Latin, though it "
-"looks like it, and it actually says nothing,” Before &amp; After magazine "
-"answered a curious reader, “Its ‘words’ loosely approximate the frequency "
-"with which letters occur in English, which is why at a glance it looks "
-"pretty real.\""
-msgstr ""
-"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia "
-"deserunt mollit anim id est laborum. Until recently, the prevailing view "
-"assumed lorem ipsum was born as a nonsense text. “It’s not Latin, though it "
-"looks like it, and it actually says nothing,” Before &amp; After magazine "
-"answered a curious reader, “Its ‘words’ loosely approximate the frequency "
-"with which letters occur in English, which is why at a glance it looks "
-"pretty real.\""
+msgid "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text. “It’s not Latin, though it looks like it, and it actually says nothing,” Before &amp; After magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.\""
+msgstr "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text. “It’s not Latin, though it looks like it, and it actually says nothing,” Before &amp; After magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.\""
 
 #: patterns/simple-text.php:23
-msgid ""
-"The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, "
-"consectetur adipiscing elit”, looks like Latin because in its youth, "
-"centuries ago, it was Latin."
-msgstr ""
-"The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, "
-"consectetur adipiscing elit”, looks like Latin because in its youth, "
-"centuries ago, it was Latin."
+msgid "The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin."
+msgstr "The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin."
 
 #: patterns/simple-text.php:27
-msgid ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
-" with discovering the source behind the ubiquitous filler text. In seeing a "
-"sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
-"albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
-"passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
-"Evil”), a first-century B.C. text from the Roman philosopher Cicero."
-msgstr ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
-" with discovering the source behind the ubiquitous filler text. In seeing a "
-"sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
-"albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
-"passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
-"Evil”), a first-century B.C. text from the Roman philosopher Cicero."
+msgid "Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur—a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and Evil”), a first-century B.C. text from the Roman philosopher Cicero."
+msgstr "Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur—a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and Evil”), a first-century B.C. text from the Roman philosopher Cicero."
 
 #: patterns/tag-header.php
 msgctxt "Pattern title"
 msgid "Tag Header"
 msgstr "Nagłówek tagu"
 
-#: patterns/tag-header.php:17
-msgid "Tag:"
-msgstr "Tag:"
-
-#: patterns/tag-header.php:39
+#: patterns/tag-header.php:24
 #, php-format
 msgid "Articles tagged with \"%s\""
 msgstr "Artykuły oznaczone tagiem \"%s\""
 
-#: patterns/tag-header.php:54
+#: patterns/tag-header.php:39
 msgid "Browse All Topics"
 msgstr "Przeglądaj wszystkie tematy"
 
@@ -2553,12 +2225,8 @@ msgid "Helpful Link"
 msgstr "Pomocny link"
 
 #: patterns/template-404.php:52
-msgid ""
-"Something went wrong! We couldn’t find the page you were looking for. But "
-"don’t worry, we’ve got some other Links that might be helpful:"
-msgstr ""
-"Coś poszło nie tak! Nie mogliśmy znaleźć szukanej strony. Bez obaw, mamy "
-"inne linki, które mogą się przydać:"
+msgid "Something went wrong! We couldn’t find the page you were looking for. But don’t worry, we’ve got some other Links that might be helpful:"
+msgstr "Coś poszło nie tak! Nie mogliśmy znaleźć szukanej strony. Bez obaw, mamy inne linki, które mogą się przydać:"
 
 #: patterns/template-404.php:63
 msgctxt "404"
@@ -2591,14 +2259,8 @@ msgstr "Posłuchaj naszych zadowolonych klientów: ich historie"
 #: patterns/testimonial-section.php:36 patterns/testimonial-section.php:68
 #: patterns/testimonial-section.php:100 patterns/testimonials-grid.php:35
 #: patterns/testimonials-grid.php:186
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
 
 #: patterns/testimonial-section.php:46 patterns/testimonials-grid.php:45
 msgid "Henry Benzamin Clark"
@@ -2632,12 +2294,8 @@ msgstr "Siatka opinii"
 
 #: patterns/testimonials-grid.php:64 patterns/testimonials-grid.php:125
 #: patterns/testimonials-grid.php:157
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 
 #: patterns/testimonials-grid.php:74
 msgid "Kristine Perrak"
@@ -2648,20 +2306,8 @@ msgid "Blogger"
 msgstr "Bloger"
 
 #: patterns/testimonials-grid.php:96
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+msgstr "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
 #: patterns/testimonials-grid.php:106
 msgid "Robert Linken"
@@ -2697,12 +2343,8 @@ msgid "Started Freelancing"
 msgstr "Rozpoczęcie freelancingu"
 
 #: patterns/vertical-timeline-layout.php:21
-msgid ""
-"Began my journey by building WordPress sites and helping small businesses "
-"get online."
-msgstr ""
-"Rozpocząłem swoją drogę od budowania stron WordPress i pomagania małym "
-"firmom wejść do internetu."
+msgid "Began my journey by building WordPress sites and helping small businesses get online."
+msgstr "Rozpocząłem swoją drogę od budowania stron WordPress i pomagania małym firmom wejść do internetu."
 
 #: patterns/vertical-timeline-layout.php:27
 msgid "View Projects"
@@ -2713,12 +2355,8 @@ msgid "Joined Agency"
 msgstr "Dołączenie do agencji"
 
 #: patterns/vertical-timeline-layout.php:57
-msgid ""
-"Worked with a team to develop Angular and Next.js projects for clients in "
-"e-commerce and tech."
-msgstr ""
-"Pracowałem w zespole tworzącym projekty Angular i Next.js dla klientów z "
-"branży e-commerce i tech."
+msgid "Worked with a team to develop Angular and Next.js projects for clients in e-commerce and tech."
+msgstr "Pracowałem w zespole tworzącym projekty Angular i Next.js dla klientów z branży e-commerce i tech."
 
 #: patterns/vertical-timeline-layout.php:63
 msgid "See What I Offer Now"
@@ -2729,16 +2367,23 @@ msgid "Specialized in Performance"
 msgstr "Specjalizacja w wydajności"
 
 #: patterns/vertical-timeline-layout.php:85
-msgid ""
-"Focused on optimizing websites for Core Web Vitals, speed, and smooth UX "
-"across all devices."
-msgstr ""
-"Skupiłem się na optymalizacji stron pod kątem Core Web Vitals, szybkości i "
-"płynnego UX na wszystkich urządzeniach."
+msgid "Focused on optimizing websites for Core Web Vitals, speed, and smooth UX across all devices."
+msgstr "Skupiłem się na optymalizacji stron pod kątem Core Web Vitals, szybkości i płynnego UX na wszystkich urządzeniach."
 
 #: patterns/vertical-timeline-layout.php:91
 msgid "Check Optimization Services"
 msgstr "Sprawdź usługi optymalizacji"
+
+#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1 build/responsive-image.js:1
+#: build/scroll-section.js:1 build/slider.js:1
+msgid "Auto"
+msgstr "Automatyczne"
+
+#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
+msgid "Slide width follows the image; the visible slide count adapts to available space."
+msgstr "Szerokość slajdu podąża za obrazem; liczba widocznych slajdów dostosowuje się do dostępnej przestrzeni."
 
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
@@ -2798,13 +2443,22 @@ msgstr "Kolor tylko przy najechaniu"
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
 msgid "Uses default colors normally; applies custom color on hover."
-msgstr ""
-"Domyślnie używa standardowych kolorów; przy najechaniu stosuje własny kolor."
+msgstr "Domyślnie używa standardowych kolorów; przy najechaniu stosuje własny kolor."
 
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
 msgid "Show Pagination"
 msgstr "Pokaż paginację"
+
+#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
+msgid "Show pagination outside carousel"
+msgstr "Pokaż paginację poza karuzelą"
+
+#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
+msgid "Renders the pagination dots below the slides instead of overlaying them."
+msgstr "Renderuje kropki paginacji pod slajdami zamiast nakładać je na nie."
 
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
@@ -2815,6 +2469,16 @@ msgstr "Pokaż pasek przewijania"
 #: build/hero-carousel.js:1
 msgid "Loop Mode"
 msgstr "Tryb zapętlenia"
+
+#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
+msgid "Draggable"
+msgstr "Przeciąganie"
+
+#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Lets users manually swipe/drag through the slides."
+msgstr "Pozwala użytkownikom ręcznie przesuwać/przeciągać slajdy."
 
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1 build/slider.js:1
@@ -2843,11 +2507,8 @@ msgstr "Śledź aktywny slajd"
 
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
-msgid ""
-"Keeps the featured image and counter in sync with the last viewed slide."
-msgstr ""
-"Utrzymuje wyróżniony obraz i licznik zsynchronizowane z ostatnio "
-"wyświetlanym slajdem."
+msgid "Keeps the featured image and counter in sync with the last viewed slide."
+msgstr "Utrzymuje wyróżniony obraz i licznik zsynchronizowane z ostatnio wyświetlanym slajdem."
 
 #: build/banner-carousel.js:1 build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1 build/slider.js:1
@@ -2868,6 +2529,14 @@ msgstr "Slajdy (tablet)"
 #: build/hero-carousel.js:1
 msgid "Slides (Desktop)"
 msgstr "Slajdy (komputer)"
+
+#: build/breadcrumbs.js:1
+msgid "Breadcrumbs Settings"
+msgstr "Ustawienia okruszków nawigacyjnych"
+
+#: build/breadcrumbs.js:1
+msgid "Show on homepage"
+msgstr "Pokaż na stronie głównej"
 
 #: build/button.js:1 build/editor.js:1 build/nav-content.js:1
 msgid "Text"
@@ -2906,12 +2575,8 @@ msgid "Border width (px)"
 msgstr "Grubość ramki (px)"
 
 #: build/button.js:1
-msgid ""
-"Applies to Border color/gradient set below. Native corner radius is "
-"available in the Border panel."
-msgstr ""
-"Dotyczy koloru/gradientu ramki ustawionego poniżej. Natywny promień "
-"zaokrąglenia dostępny jest w panelu Ramka."
+msgid "Applies to Border color/gradient set below. Native corner radius is available in the Border panel."
+msgstr "Dotyczy koloru/gradientu ramki ustawionego poniżej. Natywny promień zaokrąglenia dostępny jest w panelu Ramka."
 
 #: build/button.js:1
 msgid "Normal state"
@@ -3058,12 +2723,8 @@ msgid "Thank You Page URL"
 msgstr "Adres URL strony podziękowania"
 
 #: build/contact-form.js:1
-msgid ""
-"Enter the full URL of your thank you page. Leave empty to use WordPress "
-"default."
-msgstr ""
-"Wpisz pełny adres URL strony podziękowania. Pozostaw puste, aby użyć "
-"domyślnego ustawienia WordPress."
+msgid "Enter the full URL of your thank you page. Leave empty to use WordPress default."
+msgstr "Wpisz pełny adres URL strony podziękowania. Pozostaw puste, aby użyć domyślnego ustawienia WordPress."
 
 #: build/contact-form.js:1
 msgid "reCAPTCHA will appear here"
@@ -3073,7 +2734,7 @@ msgstr "Tutaj pojawi się reCAPTCHA"
 msgid "Cloudflare Turnstile will appear here"
 msgstr "Tutaj pojawi się Cloudflare Turnstile"
 
-#: build/content-block.js:1 build/navigation.js:1
+#: build/content-block.js:1 build/editor.js:37 build/navigation.js:1
 msgid "Loading…"
 msgstr "Ładowanie…"
 
@@ -3375,9 +3036,7 @@ msgstr "Dystans animacji"
 
 #: build/editor.js:1
 msgid "Control how far elements move during fade/slide animations."
-msgstr ""
-"Kontroluj, jak daleko poruszają się elementy podczas animacji pojawiania "
-"się/przesuwania."
+msgstr "Kontroluj, jak daleko poruszają się elementy podczas animacji pojawiania się/przesuwania."
 
 #: build/editor.js:1
 msgid "Jump"
@@ -3402,6 +3061,10 @@ msgstr "Skok z cieniem"
 #: build/editor.js:1
 msgid "Scale"
 msgstr "Skalowanie"
+
+#: build/editor.js:1
+msgid "Zoom"
+msgstr "Powiększenie"
 
 #: build/editor.js:1
 msgid "Fade"
@@ -3440,6 +3103,74 @@ msgid "Choose an animation that will trigger when hovering over the block."
 msgstr "Wybierz animację, która uruchomi się przy najechaniu na blok."
 
 #: build/editor.js:1
+msgid "Zooms only the block's own image/video on hover, keeping surrounding content still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a border radius in this block's own Border panel to keep rounded corners while zooming."
+msgstr "Powiększa tylko obraz/film bloku po najechaniu, pozostawiając resztę treści bez zmian. Działa na blokach Obraz, Film, Galeria, Media i tekst oraz Okładka. Ustaw promień zaokrąglenia w panelu Ramka tego bloku, aby zachować zaokrąglone rogi podczas powiększania."
+
+#: build/editor.js:1
+msgid "Hover background color"
+msgstr "Kolor tła po najechaniu"
+
+#: build/editor.js:1
+msgid "Hover text color"
+msgstr "Kolor tekstu po najechaniu"
+
+#: build/editor.js:1 build/editor.js:37 build/language-panel.js:1
+msgid "None"
+msgstr "Brak"
+
+#: build/editor.js:1
+msgid "Gradient Shift"
+msgstr "Przesunięcie gradientu"
+
+#: build/editor.js:1
+msgid "Aurora"
+msgstr "Aurora"
+
+#: build/editor.js:1
+msgid "Shimmer Text"
+msgstr "Migoczący tekst"
+
+#: build/editor.js:1
+msgid "Wave"
+msgstr "Fala"
+
+#: build/editor.js:1
+msgid "Glow Border"
+msgstr "Świecąca ramka"
+
+#: build/editor.js:1
+msgid "Background Effects"
+msgstr "Efekty tła"
+
+#: build/editor.js:1
+msgid "Effect"
+msgstr "Efekt"
+
+#: build/editor.js:1
+msgid "Applies an animated CSS background/border effect. Shimmer Text is meant for text blocks; the others work best on containers and Cover blocks."
+msgstr "Stosuje animowany efekt tła/ramki CSS. Migoczący tekst jest przeznaczony dla bloków tekstowych; pozostałe najlepiej sprawdzają się w kontenerach i blokach Okładka."
+
+#: build/editor.js:1
+msgid "Effect color 1"
+msgstr "Kolor efektu 1"
+
+#: build/editor.js:1
+msgid "Effect color 2"
+msgstr "Kolor efektu 2"
+
+#: build/editor.js:1
+msgid "Effect color 3"
+msgstr "Kolor efektu 3"
+
+#: build/editor.js:1
+msgid "Leave a color empty to keep the theme's default. Not every effect uses all three."
+msgstr "Pozostaw kolor pusty, aby zachować domyślny motywu. Nie każdy efekt wykorzystuje wszystkie trzy kolory."
+
+#: build/editor.js:1
+msgid "Only the color animates. Border width and radius come from this block's own Border settings; set them there."
+msgstr "Animuje się tylko kolor. Grubość i promień ramki pochodzą z ustawień Ramka tego bloku; ustaw je tam."
+
+#: build/editor.js:1
 msgid "Skip Lazy Loading"
 msgstr "Pomiń leniwe ładowanie"
 
@@ -3461,12 +3192,8 @@ msgstr "Kolejność na komputerze"
 
 #. translators: %s: breakpoint value in px
 #: build/editor.js:4
-msgid ""
-"Set the order for desktop screens (%spx+). Use negative values like -1 for "
-"higher priority."
-msgstr ""
-"Ustaw kolejność dla ekranów desktopowych (%spx+). Użyj wartości ujemnych, "
-"np. -1, dla wyższego priorytetu."
+msgid "Set the order for desktop screens (%spx+). Use negative values like -1 for higher priority."
+msgstr "Ustaw kolejność dla ekranów desktopowych (%spx+). Użyj wartości ujemnych, np. -1, dla wyższego priorytetu."
 
 #: build/editor.js:4
 msgid "Tablet Order"
@@ -3497,6 +3224,10 @@ msgstr "Blok"
 #: build/editor.js:10
 msgid "Grid"
 msgstr "Siatka"
+
+#: build/editor.js:10
+msgid "None (hidden)"
+msgstr "Brak (ukryty)"
 
 #: build/editor.js:10
 msgid "Row"
@@ -3579,8 +3310,7 @@ msgstr "Skonfiguruj responsywne właściwości wyświetlania, flex i grid"
 msgid "Settings for screens %srem and above"
 msgstr "Ustawienia dla ekranów od %srem wzwyż"
 
-#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in
-#. rem
+#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
 #: build/editor.js:16 build/editor.js:25 build/editor.js:34
 msgid "Settings for screens %1$srem - %2$srem"
 msgstr "Ustawienia dla ekranów %1$srem - %2$srem"
@@ -3608,8 +3338,7 @@ msgstr "Zaawansowane ustawienia szerokości"
 
 #: build/editor.js:19
 msgid "Configure width and max-width per breakpoint"
-msgstr ""
-"Skonfiguruj szerokość i maksymalną szerokość dla każdego punktu przełamania"
+msgstr "Skonfiguruj szerokość i maksymalną szerokość dla każdego punktu przełamania"
 
 #: build/editor.js:28
 msgid "Padding"
@@ -3653,51 +3382,31 @@ msgstr "Wyłącz efekt tła przy najechaniu"
 
 #: build/editor.js:37
 msgid "Turns off the gradient/fill hover effect on links inside this block."
-msgstr ""
-"Wyłącza efekt gradientu/wypełnienia przy najechaniu na linki w tym bloku."
+msgstr "Wyłącza efekt gradientu/wypełnienia przy najechaniu na linki w tym bloku."
 
 #: build/editor.js:37
 msgid "Disable underline hover effect"
 msgstr "Wyłącz efekt podkreślenia przy najechaniu"
 
 #: build/editor.js:37
-msgid ""
-"Turns off the sliding underline hover/focus effect on links inside this "
-"block."
-msgstr ""
-"Wyłącza efekt przesuwającego się podkreślenia przy najechaniu/fokusie na "
-"linki w tym bloku."
+msgid "Turns off the sliding underline hover/focus effect on links inside this block."
+msgstr "Wyłącza efekt przesuwającego się podkreślenia przy najechaniu/fokusie na linki w tym bloku."
 
 #: build/editor.js:37
 msgid "Disable link underline/gradient effect"
 msgstr "Wyłącz efekt podkreślenia/gradientu linku"
 
 #: build/editor.js:37
-msgid ""
-"Excludes links in this block from the sitewide header/footer hover-underline"
-" and gradient-text-on-focus effect, without affecting this block's own "
-"hover/focus styling. Enabled by default sitewide; turn this on only where it"
-" conflicts, like the Social Link block."
-msgstr ""
-"Wyklucza linki w tym bloku z ogólnowitrynowego efektu podkreślenia przy "
-"najechaniu w nagłówku/stopce oraz gradientu tekstu przy fokusie, bez wpływu "
-"na własny styl najechania/fokusu tego bloku. Domyślnie włączone w całej "
-"witrynie; włącz tę opcję tylko tam, gdzie powoduje konflikt, np. w bloku "
-"Link społecznościowy."
+msgid "Excludes links in this block from the sitewide header/footer hover-underline and gradient-text-on-focus effect, without affecting this block's own hover/focus styling. Enabled by default sitewide; turn this on only where it conflicts, like the Social Link block."
+msgstr "Wyklucza linki w tym bloku z ogólnowitrynowego efektu podkreślenia przy najechaniu w nagłówku/stopce oraz gradientu tekstu przy fokusie, bez wpływu na własny styl najechania/fokusu tego bloku. Domyślnie włączone w całej witrynie; włącz tę opcję tylko tam, gdzie powoduje konflikt, np. w bloku Link społecznościowy."
 
 #: build/editor.js:37
 msgid "Disable active-page highlight"
 msgstr "Wyłącz podświetlenie aktywnej strony"
 
 #: build/editor.js:37
-msgid ""
-"Excludes links in this block from the sitewide active-page gradient-"
-"text/underline treatment shown when a link points at the page currently "
-"being viewed. Enabled by default sitewide."
-msgstr ""
-"Wyklucza linki w tym bloku z ogólnowitrynowego stylu gradientowego "
-"tekstu/podkreślenia aktywnej strony, pokazywanego gdy link wskazuje na "
-"aktualnie przeglądaną stronę. Domyślnie włączone w całej witrynie."
+msgid "Excludes links in this block from the sitewide active-page gradient-text/underline treatment shown when a link points at the page currently being viewed. Enabled by default sitewide."
+msgstr "Wyklucza linki w tym bloku z ogólnowitrynowego stylu gradientowego tekstu/podkreślenia aktywnej strony, pokazywanego gdy link wskazuje na aktualnie przeglądaną stronę. Domyślnie włączone w całej witrynie."
 
 #: build/editor.js:37
 msgid "Default grid"
@@ -3712,15 +3421,8 @@ msgid "FAQ columns behavior"
 msgstr "Zachowanie kolumn FAQ"
 
 #: build/editor.js:37
-msgid ""
-"Default: closed items align into uniform rows, but opening one stretches its"
-" row partner. Independent columns: each column grows on its own, no "
-"stretching, but closed items no longer line up edge-to-edge."
-msgstr ""
-"Domyślnie: zamknięte elementy wyrównują się w jednolite wiersze, ale "
-"otwarcie jednego rozciąga sąsiada w wierszu. Niezależne kolumny: każda "
-"kolumna rośnie samodzielnie, bez rozciągania, ale zamknięte elementy nie są "
-"już wyrównane krawędź do krawędzi."
+msgid "Default: closed items align into uniform rows, but opening one stretches its row partner. Independent columns: each column grows on its own, no stretching, but closed items no longer line up edge-to-edge."
+msgstr "Domyślnie: zamknięte elementy wyrównują się w jednolite wiersze, ale otwarcie jednego rozciąga sąsiada w wierszu. Niezależne kolumny: każda kolumna rośnie samodzielnie, bez rozciągania, ale zamknięte elementy nie są już wyrównane krawędź do krawędzi."
 
 #: build/editor.js:37
 msgid "Independent columns count"
@@ -3735,12 +3437,8 @@ msgid "Enable Parallax Effect"
 msgstr "Włącz efekt paralaksy"
 
 #: build/editor.js:37
-msgid ""
-"Background stays fixed while content scrolls. Uses CSS background-"
-"attachment: fixed."
-msgstr ""
-"Tło pozostaje nieruchome podczas przewijania treści. Wykorzystuje CSS "
-"background-attachment: fixed."
+msgid "Background stays fixed while content scrolls. Uses CSS background-attachment: fixed."
+msgstr "Tło pozostaje nieruchome podczas przewijania treści. Wykorzystuje CSS background-attachment: fixed."
 
 #: build/editor.js:37
 msgid "Fast (1s)"
@@ -3783,25 +3481,16 @@ msgid "Enable Counter Animation"
 msgstr "Włącz animację licznika"
 
 #: build/editor.js:37
-msgid ""
-"Turn this block into an animated counter. Numbers in your text will "
-"automatically count up from 0 when the block comes into view."
-msgstr ""
-"Zamień ten blok w animowany licznik. Liczby w tekście będą automatycznie "
-"odliczane od 0, gdy blok pojawi się w widoku."
+msgid "Turn this block into an animated counter. Numbers in your text will automatically count up from 0 when the block comes into view."
+msgstr "Zamień ten blok w animowany licznik. Liczby w tekście będą automatycznie odliczane od 0, gdy blok pojawi się w widoku."
 
 #: build/editor.js:37
 msgid "💡 How it works:"
 msgstr "💡 Jak to działa:"
 
 #: build/editor.js:37
-msgid ""
-"Just type your text with numbers like \"5 years\", \"98%\", or \"$1,250\". "
-"The system will automatically detect the numbers and animate them from 0 to "
-"the detected value."
-msgstr ""
-"Po prostu wpisz tekst z liczbami, np. \"5 lat\", \"98%\" lub \"1250 zł\". "
-"System automatycznie wykryje liczby i zanimuje je od 0 do wykrytej wartości."
+msgid "Just type your text with numbers like \"5 years\", \"98%\", or \"$1,250\". The system will automatically detect the numbers and animate them from 0 to the detected value."
+msgstr "Po prostu wpisz tekst z liczbami, np. \"5 lat\", \"98%\" lub \"1250 zł\". System automatycznie wykryje liczby i zanimuje je od 0 do wykrytej wartości."
 
 #: build/editor.js:37
 msgid "Animation Duration"
@@ -3827,27 +3516,24 @@ msgstr "Styl animacji (jak szybko/wolno przyspiesza)."
 msgid "Nav Icon"
 msgstr "Ikona nawigacji"
 
-#: build/editor.js:37 build/language-panel.js:1 build/search-panel.js:1
+#: build/editor.js:37 build/icon.js:1 build/language-panel.js:1
+#: build/search-panel.js:1
 msgid "Replace icon"
 msgstr "Zamień ikonę"
 
-#: build/editor.js:37 build/language-panel.js:1 build/search-panel.js:1
-#: build/social-section.js:1
+#: build/editor.js:37 build/icon.js:1 build/language-panel.js:1
+#: build/search-panel.js:1 build/social-section.js:1
 msgid "Select SVG icon"
 msgstr "Wybierz ikonę SVG"
 
-#: build/editor.js:37 build/language-panel.js:1 build/search-panel.js:1
-#: build/social-section.js:1
+#: build/editor.js:37 build/icon.js:1 build/language-panel.js:1
+#: build/search-panel.js:1 build/social-section.js:1
 msgid "Remove icon"
 msgstr "Usuń ikonę"
 
 #: build/editor.js:37
 msgid "Gradient Outline"
 msgstr "Gradientowy kontur"
-
-#: build/editor.js:37 build/language-panel.js:1
-msgid "None"
-msgstr "Brak"
 
 #: build/editor.js:37
 msgid "Text shadow presets"
@@ -3858,29 +3544,44 @@ msgid "Text Shadow"
 msgstr "Cień tekstu"
 
 #: build/editor.js:37
-msgid ""
-"Adaptive presets follow the current text color and switch with light/dark "
-"mode. Light/Dark presets stay fixed to one mode's color regardless of the "
-"active theme."
-msgstr ""
-"Adaptacyjne presety podążają za aktualnym kolorem tekstu i przełączają się "
-"wraz z trybem jasny/ciemny. Presety Jasny/Ciemny pozostają przypisane do "
-"koloru jednego trybu niezależnie od aktywnego motywu."
+msgid "Adaptive presets follow the current text color and switch with light/dark mode. Light/Dark presets stay fixed to one mode's color regardless of the active theme."
+msgstr "Adaptacyjne presety podążają za aktualnym kolorem tekstu i przełączają się wraz z trybem jasny/ciemny. Presety Jasny/Ciemny pozostają przypisane do koloru jednego trybu niezależnie od aktywnego motywu."
 
 #: build/editor.js:37
 msgid "Load above the fold"
 msgstr "Ładuj powyżej widocznego obszaru ekranu"
 
 #: build/editor.js:37
-msgid ""
-"Enable only if this specific instance is visible without scrolling on this "
-"page. Its styles load render-blocking instead of deferred — use sparingly, "
-"since every enabled instance costs initial render time."
-msgstr ""
-"Włącz tylko, jeśli ta konkretna instancja jest widoczna bez przewijania na "
-"tej stronie. Jej style ładują się blokująco zamiast opóźnionego ładowania — "
-"używaj oszczędnie, ponieważ każda włączona instancja kosztuje czas "
-"początkowego renderowania."
+msgid "Enable only if this specific instance is visible without scrolling on this page. Its styles load render-blocking instead of deferred — use sparingly, since every enabled instance costs initial render time."
+msgstr "Włącz tylko, jeśli ta konkretna instancja jest widoczna bez przewijania na tej stronie. Jej style ładują się blokująco zamiast opóźnionego ładowania — używaj oszczędnie, ponieważ każda włączona instancja kosztuje czas początkowego renderowania."
+
+#: build/editor.js:37
+msgid "— Select modal —"
+msgstr "— Wybierz modal —"
+
+#: build/editor.js:37
+msgid "Open in a modal"
+msgstr "Otwórz w modalu"
+
+#: build/editor.js:37 build/icon.js:1
+msgid "Icon"
+msgstr "Ikona"
+
+#: build/editor.js:37
+msgid "— None (not clickable) —"
+msgstr "— Brak (nieklikalny) —"
+
+#: build/editor.js:37
+msgid "Slide Modal"
+msgstr "Modal slajdu"
+
+#: build/editor.js:37
+msgid "Open on click"
+msgstr "Otwórz po kliknięciu"
+
+#: build/editor.js:37
+msgid "Selecting a modal makes this whole slide clickable/keyboard-activatable."
+msgstr "Wybranie modala sprawia, że cały slajd staje się klikalny/aktywowalny klawiaturą."
 
 #: build/gallery-lightbox.js:1
 msgid "Media"
@@ -3903,12 +3604,8 @@ msgid "Lock height to first image"
 msgstr "Zablokuj wysokość do pierwszego obrazu"
 
 #: build/gallery-lightbox.js:1
-msgid ""
-"Keeps the block height fixed when slides change. Requires 'Track active "
-"slide' to be enabled."
-msgstr ""
-"Utrzymuje stałą wysokość bloku przy zmianie slajdów. Wymaga włączonej opcji "
-"\"Śledź aktywny slajd\"."
+msgid "Keeps the block height fixed when slides change. Requires 'Track active slide' to be enabled."
+msgstr "Utrzymuje stałą wysokość bloku przy zmianie slajdów. Wymaga włączonej opcji \"Śledź aktywny slajd\"."
 
 #: build/gallery-lightbox.js:1
 msgid "Use different media on mobile"
@@ -3967,8 +3664,7 @@ msgid "Google Maps API Key"
 msgstr "Klucz API Google Maps"
 
 #: build/google-maps.js:1
-msgid ""
-"Get your API key from https://console.cloud.google.com/apis/credentials"
+msgid "Get your API key from https://console.cloud.google.com/apis/credentials"
 msgstr "Pobierz klucz API z https://console.cloud.google.com/apis/credentials"
 
 #: build/google-maps.js:1 build/protected-content.js:1
@@ -4123,15 +3819,15 @@ msgstr "Przezroczystość nakładki"
 msgid "Set a background image in the sidebar."
 msgstr "Ustaw obraz tła w panelu bocznym."
 
-#: build/hero-carousel.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
 msgid "Previous slide"
 msgstr "Poprzedni slajd"
 
-#: build/hero-carousel.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
 msgid "Next slide"
 msgstr "Następny slajd"
 
-#: build/hero-carousel.js:1
+#: build/hero-carousel.js:1 build/slider.js:1
 msgid "Go to slide"
 msgstr "Przejdź do slajdu"
 
@@ -4163,6 +3859,46 @@ msgstr "Minimalna wysokość (vh)"
 #: build/hero-carousel.js:4
 msgid "Add slide"
 msgstr "Dodaj slajd"
+
+#: build/icon.js:1
+msgid "Appearance & Accessibility"
+msgstr "Wygląd i dostępność"
+
+#: build/icon.js:1 build/modal-settings-panel.js:1
+msgid "Size"
+msgstr "Rozmiar"
+
+#: build/icon.js:1
+msgid "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size."
+msgstr "Dowolna wartość CSS, np. 1.5rem lub 24px. Pozostaw puste dla domyślnego rozmiaru."
+
+#: build/icon.js:1
+msgid "Color"
+msgstr "Kolor"
+
+#: build/icon.js:1
+msgid "Any CSS color value. Leave empty to inherit the surrounding text color."
+msgstr "Dowolna wartość koloru CSS. Pozostaw puste, aby odziedziczyć kolor otaczającego tekstu."
+
+#: build/icon.js:1 build/model-viewer.js:1
+msgid "Accessible label"
+msgstr "Etykieta dostępności"
+
+#: build/icon.js:1
+msgid "Only set this if the icon conveys meaning on its own (e.g. a standalone social link). Leave empty for a purely decorative icon."
+msgstr "Ustaw to tylko wtedy, gdy ikona ma samodzielne znaczenie (np. samodzielny link społecznościowy). Pozostaw puste dla ikony czysto dekoracyjnej."
+
+#: build/icon.js:1
+msgid "This icon will be hidden from screen readers as decorative."
+msgstr "Ta ikona będzie ukryta przed czytnikami ekranu jako dekoracyjna."
+
+#: build/icon.js:1
+msgid "Show tooltip on hover"
+msgstr "Pokaż podpowiedź po najechaniu"
+
+#: build/icon.js:1
+msgid "Shows the accessible label above the icon on hover/focus."
+msgstr "Pokazuje dostępną etykietę nad ikoną po najechaniu/fokusie."
 
 #: build/language-panel.js:1
 msgid "Language Panel"
@@ -4219,6 +3955,134 @@ msgstr "Obrót o 180°"
 #: build/language-panel.js:1
 msgid "Rotate 180° (no transition)"
 msgstr "Obrót o 180° (bez przejścia)"
+
+#: build/modal-settings-panel.js:1
+msgid "Small"
+msgstr "Mały"
+
+#: build/modal-settings-panel.js:1
+msgid "Medium"
+msgstr "Średni"
+
+#: build/modal-settings-panel.js:1
+msgid "Large"
+msgstr "Duży"
+
+#: build/modal-settings-panel.js:1
+msgid "Full screen"
+msgstr "Pełny ekran"
+
+#: build/modal-settings-panel.js:1
+msgid "Modal Settings"
+msgstr "Ustawienia modala"
+
+#: build/model-viewer.js:1
+msgid "16:9 (widescreen)"
+msgstr "16:9 (panoramiczny)"
+
+#: build/model-viewer.js:1
+msgid "4:3 (standard)"
+msgstr "4:3 (standardowy)"
+
+#: build/model-viewer.js:1
+msgid "1:1 (square)"
+msgstr "1:1 (kwadrat)"
+
+#: build/model-viewer.js:1
+msgid "21:9 (ultra-wide)"
+msgstr "21:9 (ultra-szeroki)"
+
+#: build/model-viewer.js:1
+msgid "Model"
+msgstr "Model"
+
+#: build/model-viewer.js:1
+msgid "Replace .glb model"
+msgstr "Zamień model .glb"
+
+#: build/model-viewer.js:1
+msgid "Select .glb model"
+msgstr "Wybierz model .glb"
+
+#: build/model-viewer.js:1
+msgid "Remove model"
+msgstr "Usuń model"
+
+#: build/model-viewer.js:1
+msgid "Single-file .glb only, exported with an animation clip baked in (e.g. an \"open\" Action in Blender). .gltf (multi-file) isn't supported."
+msgstr "Tylko pojedynczy plik .glb, wyeksportowany z wbudowanym klipem animacji (np. akcją \"open\" w Blenderze). Format .gltf (wieloplikowy) nie jest obsługiwany."
+
+#: build/model-viewer.js:1
+msgid "Animation clip name"
+msgstr "Nazwa klipu animacji"
+
+#: build/model-viewer.js:1
+msgid "Must match the exact name of the baked animation clip in the .glb file — played forward on click, backward on the next click."
+msgstr "Musi dokładnie odpowiadać nazwie wbudowanego klipu animacji w pliku .glb — odtwarzanego do przodu po kliknięciu, do tyłu przy kolejnym kliknięciu."
+
+#: build/model-viewer.js:1
+msgid "Fallback Image"
+msgstr "Obraz zapasowy"
+
+#: build/model-viewer.js:1
+msgid "Replace fallback image"
+msgstr "Zamień obraz zapasowy"
+
+#: build/model-viewer.js:1
+msgid "Select fallback image"
+msgstr "Wybierz obraz zapasowy"
+
+#: build/model-viewer.js:1
+msgid "A fallback image is required — it's shown while the model loads and if WebGL isn't supported."
+msgstr "Obraz zapasowy jest wymagany — jest wyświetlany podczas ładowania modelu oraz gdy WebGL nie jest obsługiwany."
+
+#: build/model-viewer.js:1
+msgid "Accessibility & Layout"
+msgstr "Dostępność i układ"
+
+#: build/model-viewer.js:1
+msgid "Describes the interaction for screen reader users, e.g. \"Interactive 3D laptop model — click to open or close.\""
+msgstr "Opisuje interakcję dla użytkowników czytników ekranu, np. \"Interaktywny model 3D laptopa — kliknij, aby otworzyć lub zamknąć\"."
+
+#: build/model-viewer.js:1
+msgid "A default label will be used, but a specific one is recommended."
+msgstr "Zostanie użyta domyślna etykieta, ale zalecana jest własna."
+
+#: build/model-viewer.js:1
+msgid "Aspect ratio"
+msgstr "Proporcje obrazu"
+
+#: build/model-viewer.js:1
+msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
+msgstr "Dowolna wartość koloru CSS, np. #1a1a1a. Pozostaw puste dla przezroczystości."
+
+#: build/model-viewer.js:1
+msgid "Interaction"
+msgstr "Interakcja"
+
+#: build/model-viewer.js:1
+msgid "Enable drag-to-rotate"
+msgstr "Włącz obracanie przeciąganiem"
+
+#: build/model-viewer.js:1
+msgid "Lets visitors drag the model to orbit around it. Works independently of the click-to-toggle animation, so it's useful even for a model with no baked animation clip."
+msgstr "Pozwala odwiedzającym przeciągać model, aby obracać go dookoła. Działa niezależnie od animacji przełączanej kliknięciem, więc jest przydatne nawet dla modelu bez wbudowanego klipu animacji."
+
+#: build/model-viewer.js:1
+msgid "Screen text"
+msgstr "Tekst na ekranie"
+
+#: build/model-viewer.js:1
+msgid "Rendered onto the model's screen/display surface (auto-detected as its most strongly emissive material) as a texture — e.g. your email and phone number. Leave empty to keep the model's original screen image. One line per line of text."
+msgstr "Renderowane na powierzchni ekranu/wyświetlacza modelu (automatycznie wykrywanej jako jego najsilniej emitujący światło materiał) jako tekstura — np. Twój e-mail i numer telefonu. Pozostaw puste, aby zachować oryginalny obraz ekranu modelu. Jedna linia tekstu na wiersz."
+
+#: build/model-viewer.js:1
+msgid "3D Model"
+msgstr "Model 3D"
+
+#: build/model-viewer.js:1
+msgid "Model Viewer — select a .glb model"
+msgstr "Podgląd modelu 3D — wybierz model .glb"
 
 #: build/nav-content.js:1
 msgid "Content"
@@ -4297,9 +4161,7 @@ msgid "Description…"
 msgstr "Opis…"
 
 #: build/nav-content.js:1
-msgid ""
-"The description will be displayed in the menu if the current theme supports "
-"it."
+msgid "The description will be displayed in the menu if the current theme supports it."
 msgstr "Opis będzie wyświetlany w menu, jeśli aktualny motyw to obsługuje."
 
 #: build/nav-content.js:1
@@ -4372,9 +4234,7 @@ msgstr "Tryb wyświetlania"
 
 #: build/navigation.js:1
 msgid "Flat link list renders top-level links only, e.g. footer link columns."
-msgstr ""
-"Płaska lista linków renderuje tylko linki najwyższego poziomu, np. kolumny "
-"linków w stopce."
+msgstr "Płaska lista linków renderuje tylko linki najwyższego poziomu, np. kolumny linków w stopce."
 
 #: build/navigation.js:1
 msgid "Overlay mode"
@@ -4397,12 +4257,8 @@ msgid "Navigate top-level links on click"
 msgstr "Przechodź do linków najwyższego poziomu po kliknięciu"
 
 #: build/navigation.js:1
-msgid ""
-"When on, clicking a link with a real URL navigates to it. Links with '#' or "
-"no URL still toggle the panel."
-msgstr ""
-"Gdy włączone, kliknięcie linku z rzeczywistym adresem URL powoduje przejście"
-" do niego. Linki z \"#\" lub bez adresu URL nadal przełączają panel."
+msgid "When on, clicking a link with a real URL navigates to it. Links with '#' or no URL still toggle the panel."
+msgstr "Gdy włączone, kliknięcie linku z rzeczywistym adresem URL powoduje przejście do niego. Linki z \"#\" lub bez adresu URL nadal przełączają panel."
 
 #: build/popular-pages.js:1
 msgid "Popular Pages"
@@ -4521,10 +4377,8 @@ msgid "Enter your HTML content here…"
 msgstr "Wpisz tutaj treść HTML..."
 
 #: build/protected-content.js:1
-msgid ""
-"You can paste rich HTML content including links, formatting, and attributes."
-msgstr ""
-"Możesz wkleić bogatą treść HTML, w tym linki, formatowanie i atrybuty."
+msgid "You can paste rich HTML content including links, formatting, and attributes."
+msgstr "Możesz wkleić bogatą treść HTML, w tym linki, formatowanie i atrybuty."
 
 #: build/protected-content.js:1
 msgid "Preview:"
@@ -4561,10 +4415,6 @@ msgstr "Leniwe"
 #: build/responsive-image.js:1
 msgid "Eager"
 msgstr "Natychmiastowe"
-
-#: build/responsive-image.js:1 build/scroll-section.js:1
-msgid "Auto"
-msgstr "Automatyczne"
 
 #: build/responsive-image.js:1
 msgid "Choose how the image should be loaded by the browser."
@@ -4679,34 +4529,24 @@ msgid "Tablet layout"
 msgstr "Układ tabletu"
 
 #: build/simple-grid.js:1
-msgid ""
-"Applied between the mobile and desktop breakpoints on the front end. The "
-"editor canvas always shows the desktop layout."
-msgstr ""
-"Stosowany między punktami przełamania mobilnym a komputerowym na froncie. "
-"Obszar roboczy edytora zawsze pokazuje układ komputerowy."
+msgid "Applied between the mobile and desktop breakpoints on the front end. The editor canvas always shows the desktop layout."
+msgstr "Stosowany między punktami przełamania mobilnym a komputerowym na froncie. Obszar roboczy edytora zawsze pokazuje układ komputerowy."
 
 #: build/simple-grid.js:1
 msgid "Mobile layout"
 msgstr "Układ mobilny"
 
 #: build/simple-grid.js:1
-msgid ""
-"Applied below the mobile breakpoint on the front end. The editor canvas "
-"always shows the desktop layout."
-msgstr ""
-"Stosowany poniżej punktu przełamania mobilnego na froncie. Obszar roboczy "
-"edytora zawsze pokazuje układ komputerowy."
+msgid "Applied below the mobile breakpoint on the front end. The editor canvas always shows the desktop layout."
+msgstr "Stosowany poniżej punktu przełamania mobilnego na froncie. Obszar roboczy edytora zawsze pokazuje układ komputerowy."
 
 #: build/simple-grid.js:1
 msgid "Reduce columns?"
 msgstr "Zmniejszyć liczbę kolumn?"
 
 #: build/simple-grid.js:1
-msgid ""
-"Reducing columns will delete the content of the removed column(s). Continue?"
-msgstr ""
-"Zmniejszenie liczby kolumn usunie treść usuniętych kolumn. Kontynuować?"
+msgid "Reducing columns will delete the content of the removed column(s). Continue?"
+msgstr "Zmniejszenie liczby kolumn usunie treść usuniętych kolumn. Kontynuować?"
 
 #: build/simple-grid.js:1
 msgid "Cancel"
@@ -4729,81 +4569,68 @@ msgid "Settings"
 msgstr "Ustawienia"
 
 #: build/slider.js:1
-msgid ""
-"“Autoplay” will automatically advance the slides. Note: this is "
-"intentionally disabled in the editor, but will affect the front end."
-msgstr ""
-"„Autoodtwarzanie” automatycznie przełącza slajdy. Uwaga: jest to celowo "
-"wyłączone w edytorze, ale wpłynie na front."
+msgid "“Autoplay” will automatically advance the slides. Note: this is intentionally disabled in the editor, but will affect the front end."
+msgstr "„Autoodtwarzanie” automatycznie przełącza slajdy. Uwaga: jest to celowo wyłączone w edytorze, ale wpłynie na front."
 
 #: build/slider.js:1
-msgid ""
-"“Navigation” will display arrows so user can navigate forward/backward."
-msgstr ""
-"„Nawigacja” wyświetli strzałki, aby użytkownik mógł przechodzić do "
-"przodu/tyłu."
+msgid "Continuous Autoplay"
+msgstr "Ciągłe autoodtwarzanie"
+
+#: build/slider.js:1
+msgid "Scrolls continuously (like a ticker) instead of pausing between slides. Starts once the carousel scrolls into view, and pauses on hover or keyboard focus, resuming once the pointer or focus leaves."
+msgstr "Przewija w sposób ciągły (jak pasek z wiadomościami) zamiast zatrzymywać się między slajdami. Rozpoczyna się, gdy karuzela pojawi się w widoku, i zatrzymuje przy najechaniu lub fokusie klawiatury, wznawiając po opuszczeniu wskaźnika lub fokusu."
+
+#: build/slider.js:1
+msgid "Show progress circle"
+msgstr "Pokaż koło postępu"
+
+#: build/slider.js:1
+msgid "Displays a circular countdown indicator that fills up before each automatic slide change."
+msgstr "Wyświetla okrągły wskaźnik odliczania, który wypełnia się przed każdą automatyczną zmianą slajdu."
+
+#: build/slider.js:1
+msgid "“Navigation” will display arrows so user can navigate forward/backward."
+msgstr "„Nawigacja” wyświetli strzałki, aby użytkownik mógł przechodzić do przodu/tyłu."
 
 #: build/slider.js:1
 msgid "Pagination"
 msgstr "Paginacja"
 
 #: build/slider.js:1
-msgid ""
-"“Pagination” will display dots along the bottom for user to click through "
-"slides."
-msgstr ""
-"„Paginacja” wyświetli kropki na dole, umożliwiając przełączanie slajdów."
+msgid "“Pagination” will display dots along the bottom for user to click through slides."
+msgstr "„Paginacja” wyświetli kropki na dole, umożliwiając przełączanie slajdów."
 
 #: build/slider.js:1
 msgid "Smooth Transition"
 msgstr "Płynne przejście"
 
 #: build/slider.js:1
-msgid ""
-"Creates a continuous smooth scrolling effect instead of discrete slide "
-"transitions."
-msgstr ""
-"Tworzy ciągły, płynny efekt przewijania zamiast oddzielnych przejść slajdów."
+msgid "Uses a linear easing curve for a smoother feel between slides."
+msgstr "Wykorzystuje liniową krzywą wygładzania dla płynniejszego przejścia między slajdami."
 
 #: build/slider.js:1
 msgid "Autoplay Time (seconds)"
 msgstr "Czas autoodtwarzania (sekundy)"
 
 #: build/slider.js:1
-msgid "Set the smooth scrolling speed in seconds."
-msgstr "Ustaw prędkość płynnego przewijania w sekundach."
+msgid "Set how long one full continuous scroll cycle takes, in seconds."
+msgstr "Ustaw, ile sekund trwa jeden pełny cykl ciągłego przewijania."
 
 #: build/slider.js:1
 msgid "Set the autoplay interval in seconds."
 msgstr "Ustaw interwał automatycznego odtwarzania w sekundach."
 
 #: build/slider.js:1
-msgid "Set the number of slides visible at once."
-msgstr "Ustaw liczbę jednocześnie widocznych slajdów."
-
-#: build/slider.js:1
 msgid "Slides Per Mobile"
 msgstr "Slajdy na urządzeniu mobilnym"
-
-#: build/slider.js:1
-msgid "Set the number of slides visible on mobile devices."
-msgstr "Ustaw liczbę slajdów widocznych na urządzeniach mobilnych."
 
 #: build/slider.js:1
 msgid "Slides Per Tablet"
 msgstr "Slajdy na tablecie"
 
 #: build/slider.js:1
-msgid "Set the number of slides visible on tablets."
-msgstr "Ustaw liczbę slajdów widocznych na tabletach."
-
-#: build/slider.js:1
 msgid "Slides Per Desktop"
 msgstr "Slajdy na komputerze"
-
-#: build/slider.js:1
-msgid "Set the number of slides visible on desktop devices."
-msgstr "Ustaw liczbę slajdów widocznych na komputerach."
 
 #: build/slider.js:1
 msgid "Scrollbar"
@@ -4816,6 +4643,34 @@ msgstr "Włącz lub wyłącz pasek przewijania."
 #: build/slider.js:1
 msgid "Enable or disable looping of slides."
 msgstr "Włącz lub wyłącz zapętlanie slajdów."
+
+#: build/slider.js:1
+msgid "Lets users manually swipe/drag the slides. Keep this on to allow manual swiping even during Continuous Autoplay."
+msgstr "Pozwala użytkownikom ręcznie przesuwać/przeciągać slajdy. Pozostaw włączone, aby umożliwić ręczne przesuwanie nawet podczas ciągłego autoodtwarzania."
+
+#: build/slider.js:1
+msgid "Centered slides (peek effect)"
+msgstr "Wyśrodkowane slajdy (efekt podglądu)"
+
+#: build/slider.js:1
+msgid "Centers the active slide with the next/previous slides peeking in from the sides. Below tablet width, always shows a single full-width slide regardless of these settings. Use the block's own Wide/Full alignment for an edge-to-edge carousel."
+msgstr "Wyśrodkowuje aktywny slajd, a kolejne/poprzednie slajdy wyzierają z boków. Poniżej szerokości tabletu zawsze pokazuje pojedynczy slajd na pełną szerokość, niezależnie od tych ustawień. Użyj wyrównania Szeroki/Pełny bloku dla karuzeli na pełną szerokość."
+
+#: build/slider.js:1
+msgid "Side peek (%)"
+msgstr "Boczny podgląd (%)"
+
+#: build/slider.js:1
+msgid "How much of each side slide is visible, as a percentage of the carousel width, up to the max slide width below."
+msgstr "Ile widać z każdego bocznego slajdu, jako procent szerokości karuzeli, do maksymalnej szerokości slajdu poniżej."
+
+#: build/slider.js:1
+msgid "Max slide width"
+msgstr "Maksymalna szerokość slajdu"
+
+#: build/slider.js:1
+msgid "Caps how wide the active slide can grow. On wider screens the slide stays this width, so more of the side slides peek in."
+msgstr "Ogranicza maksymalną szerokość, do jakiej może urosnąć aktywny slajd. Na szerszych ekranach slajd zachowuje tę szerokość, dzięki czemu więcej bocznych slajdów jest widocznych."
 
 #: build/slider.js:1
 msgid "Space Between Slides (px)"
@@ -4878,13 +4733,8 @@ msgid "Icon class"
 msgstr "Klasa ikony"
 
 #: build/social-section.js:1
-msgid ""
-"Optional CSS class on the list item, e.g. icon-facebook. Links to known "
-"social domains get their icon automatically from the URL."
-msgstr ""
-"Opcjonalna klasa CSS elementu listy, np. icon-facebook. Linki do znanych "
-"domen społecznościowych automatycznie otrzymują ikonę na podstawie adresu "
-"URL."
+msgid "Optional CSS class on the list item."
+msgstr "Opcjonalna klasa CSS elementu listy."
 
 #: build/social-section.js:1
 msgid "Replace SVG icon"
@@ -4900,6 +4750,16 @@ msgctxt "block title"
 msgid "Banner Carousel"
 msgstr "Karuzela banerów"
 
+#: build/blocks/breadcrumbs/block.json src/blocks/breadcrumbs/block.json
+msgctxt "block title"
+msgid "Breadcrumbs"
+msgstr "Okruszki nawigacyjne"
+
+#: build/blocks/breadcrumbs/block.json src/blocks/breadcrumbs/block.json
+msgctxt "block description"
+msgid "Breadcrumb trail below the header, hidden on the homepage by default and hidden on scroll."
+msgstr "Ścieżka okruszków nawigacyjnych pod nagłówkiem, domyślnie ukryta na stronie głównej i ukrywana podczas przewijania."
+
 #: build/blocks/button/block.json src/blocks/button/block.json
 msgctxt "block title"
 msgid "Button"
@@ -4907,12 +4767,8 @@ msgstr "Przycisk"
 
 #: build/blocks/button/block.json src/blocks/button/block.json
 msgctxt "block description"
-msgid ""
-"Button with independent normal/hover control over text, background, and "
-"border colors, including gradients."
-msgstr ""
-"Przycisk z niezależną kontrolą koloru tekstu, tła i ramki w stanie "
-"normalnym/najechania, w tym gradientów."
+msgid "Button with independent normal/hover control over text, background, and border colors, including gradients."
+msgstr "Przycisk z niezależną kontrolą koloru tekstu, tła i ramki w stanie normalnym/najechania, w tym gradientów."
 
 #: build/blocks/contact-form/block.json src/blocks/contact-form/block.json
 msgctxt "block title"
@@ -4964,8 +4820,17 @@ msgstr "Uchwyt"
 #: build/blocks/holder/block.json src/blocks/holder/block.json
 msgctxt "block description"
 msgid "Content container for use inside Simple Grid. Accepts any blocks."
-msgstr ""
-"Kontener treści do użycia wewnątrz Simple Grid. Akceptuje dowolne bloki."
+msgstr "Kontener treści do użycia wewnątrz Simple Grid. Akceptuje dowolne bloki."
+
+#: build/blocks/icon/block.json src/blocks/icon/block.json
+msgctxt "block title"
+msgid "Icon"
+msgstr "Ikona"
+
+#: build/blocks/icon/block.json src/blocks/icon/block.json
+msgctxt "block description"
+msgid "An SVG icon picked from the Media Library, colored via currentColor."
+msgstr "Ikona SVG wybrana z Biblioteki mediów, kolorowana za pomocą currentColor."
 
 #: build/blocks/language-panel/block.json
 #: build/blocks/nav-language-panel/block.json
@@ -4977,12 +4842,18 @@ msgstr "Panel języka"
 
 #: build/blocks/language-panel/block.json src/blocks/language-panel/block.json
 msgctxt "block description"
-msgid ""
-"Language switcher trigger with dropdown panel. Wraps the native Polylang "
-"navigation language switcher."
-msgstr ""
-"Przycisk przełącznika języka z rozwijanym panelem. Otacza natywny "
-"przełącznik języka nawigacji Polylang."
+msgid "Language switcher trigger with dropdown panel. Wraps the native Polylang navigation language switcher."
+msgstr "Przycisk przełącznika języka z rozwijanym panelem. Otacza natywny przełącznik języka nawigacji Polylang."
+
+#: build/blocks/model-viewer/block.json src/blocks/model-viewer/block.json
+msgctxt "block title"
+msgid "Model Viewer"
+msgstr "Podgląd modelu 3D"
+
+#: build/blocks/model-viewer/block.json src/blocks/model-viewer/block.json
+msgctxt "block description"
+msgid "Interactive 3D .glb model with a click-to-toggle animation."
+msgstr "Interaktywny model 3D .glb z animacją przełączaną kliknięciem."
 
 #: build/blocks/nav-banner/block.json src/blocks/nav-banner/block.json
 msgctxt "block title"
@@ -5007,12 +4878,8 @@ msgstr "Obraz do użycia wewnątrz paneli nawigacyjnych i uchwytów."
 #: build/blocks/nav-language-panel/block.json
 #: src/blocks/nav-language-panel/block.json
 msgctxt "block description"
-msgid ""
-"Language switcher trigger with dropdown panel. Place inside a navigation "
-"block."
-msgstr ""
-"Przycisk przełącznika języka z rozwijanym panelem. Umieść wewnątrz bloku "
-"nawigacji."
+msgid "Language switcher trigger with dropdown panel. Place inside a navigation block."
+msgstr "Przycisk przełącznika języka z rozwijanym panelem. Umieść wewnątrz bloku nawigacji."
 
 #: build/blocks/nav-link/block.json src/blocks/nav-link/block.json
 msgctxt "block title"
@@ -5021,12 +4888,8 @@ msgstr "Link nawigacji"
 
 #: build/blocks/nav-link/block.json src/blocks/nav-link/block.json
 msgctxt "block description"
-msgid ""
-"Link for navigation panels and holders with full color, spacing, and "
-"typography supports."
-msgstr ""
-"Link dla paneli nawigacyjnych i uchwytów z pełnym wsparciem koloru, odstępów"
-" i typografii."
+msgid "Link for navigation panels and holders with full color, spacing, and typography supports."
+msgstr "Link dla paneli nawigacyjnych i uchwytów z pełnym wsparciem koloru, odstępów i typografii."
 
 #: build/blocks/nav-paragraph/block.json src/blocks/nav-paragraph/block.json
 msgctxt "block title"
@@ -5049,9 +4912,7 @@ msgstr "Popularne strony"
 #: src/blocks/nav-popular-pages/block.json
 msgctxt "block description"
 msgid "Compact list of most-visited pages. Place inside a navigation block."
-msgstr ""
-"Zwięzła lista najczęściej odwiedzanych stron. Umieść wewnątrz bloku "
-"nawigacji."
+msgstr "Zwięzła lista najczęściej odwiedzanych stron. Umieść wewnątrz bloku nawigacji."
 
 #: build/blocks/nav-search-panel/block.json
 #: build/blocks/search-panel/block.json src/blocks/nav-search-panel/block.json
@@ -5064,8 +4925,7 @@ msgstr "Panel wyszukiwania"
 #: src/blocks/nav-search-panel/block.json
 msgctxt "block description"
 msgid "Search trigger with dropdown panel. Place inside a navigation block."
-msgstr ""
-"Przycisk wyszukiwania z rozwijanym panelem. Umieść wewnątrz bloku nawigacji."
+msgstr "Przycisk wyszukiwania z rozwijanym panelem. Umieść wewnątrz bloku nawigacji."
 
 #: build/blocks/navigation/block.json src/blocks/navigation/block.json
 msgctxt "block title"
@@ -5074,11 +4934,8 @@ msgstr "Nawigacja"
 
 #: build/blocks/popular-pages/block.json src/blocks/popular-pages/block.json
 msgctxt "block description"
-msgid ""
-"Compact list of most-visited pages, sorted by internal page-view count."
-msgstr ""
-"Zwięzła lista najczęściej odwiedzanych stron, posortowana według liczby "
-"wyświetleń."
+msgid "Compact list of most-visited pages, sorted by internal page-view count."
+msgstr "Zwięzła lista najczęściej odwiedzanych stron, posortowana według liczby wyświetleń."
 
 #: build/blocks/protected-content/block.json
 #: src/blocks/protected-content/block.json
@@ -5111,12 +4968,8 @@ msgstr "Sekcja przewijania"
 
 #: build/blocks/scroll-section/block.json src/blocks/scroll-section/block.json
 msgctxt "block description"
-msgid ""
-"Sticky horizontal-scroll section — vertical scroll drives horizontal pan "
-"through items."
-msgstr ""
-"Przyklejona sekcja przewijania poziomego — przewijanie pionowe steruje "
-"poziomym przesuwaniem elementów."
+msgid "Sticky horizontal-scroll section — vertical scroll drives horizontal pan through items."
+msgstr "Przyklejona sekcja przewijania poziomego — przewijanie pionowe steruje poziomym przesuwaniem elementów."
 
 #: build/blocks/scroll-section/item/block.json
 #: src/blocks/scroll-section/item/block.json
@@ -5131,13 +4984,8 @@ msgstr "Przewiń do góry"
 
 #: build/blocks/search-panel/block.json src/blocks/search-panel/block.json
 msgctxt "block description"
-msgid ""
-"Search trigger with configurable panel content. Place inside a navigation "
-"for a mega-menu panel, or in the header for a standalone mobile modal."
-msgstr ""
-"Przycisk wyszukiwania z konfigurowalną treścią panelu. Umieść wewnątrz "
-"nawigacji dla panelu mega menu lub w nagłówku dla samodzielnego modalu "
-"mobilnego."
+msgid "Search trigger with configurable panel content. Place inside a navigation for a mega-menu panel, or in the header for a standalone mobile modal."
+msgstr "Przycisk wyszukiwania z konfigurowalną treścią panelu. Umieść wewnątrz nawigacji dla panelu mega menu lub w nagłówku dla samodzielnego modalu mobilnego."
 
 #: build/blocks/simple-grid/block.json src/blocks/simple-grid/block.json
 msgctxt "block title"
@@ -5147,9 +4995,7 @@ msgstr "Prosta siatka"
 #: build/blocks/simple-grid/block.json src/blocks/simple-grid/block.json
 msgctxt "block description"
 msgid "Flexible grid container. Add Holder blocks inside to create columns."
-msgstr ""
-"Elastyczny kontener siatki. Dodaj bloki Uchwyt wewnątrz, aby utworzyć "
-"kolumny."
+msgstr "Elastyczny kontener siatki. Dodaj bloki Uchwyt wewnątrz, aby utworzyć kolumny."
 
 #: build/blocks/slider/block.json src/blocks/slider/block.json
 msgctxt "block title"
@@ -5178,12 +5024,8 @@ msgstr "Sekcja społecznościowa"
 
 #: build/blocks/social-section/block.json src/blocks/social-section/block.json
 msgctxt "block description"
-msgid ""
-"Row of social links. Place inside a navigation block; optionally pinned to "
-"the bottom of the menu overlay."
-msgstr ""
-"Rząd linków społecznościowych. Umieść wewnątrz bloku nawigacji; opcjonalnie "
-"przypięty do dołu nakładki menu."
+msgid "Row of social links. Place inside a navigation block; optionally pinned to the bottom of the menu overlay."
+msgstr "Rząd linków społecznościowych. Umieść wewnątrz bloku nawigacji; opcjonalnie przypięty do dołu nakładki menu."
 
 #: build/blocks/social-section/item/block.json
 #: src/blocks/social-section/item/block.json
@@ -5194,12 +5036,8 @@ msgstr "Link społecznościowy"
 #: build/blocks/social-section/item/block.json
 #: src/blocks/social-section/item/block.json
 msgctxt "block description"
-msgid ""
-"Single social link. Icon comes from the link URL, a CSS class, or an SVG "
-"from the media library."
-msgstr ""
-"Pojedynczy link społecznościowy. Ikona pochodzi z adresu URL linku, klasy "
-"CSS lub pliku SVG z biblioteki mediów."
+msgid "Single social link. Icon comes from the link URL, a CSS class, or an SVG from the media library."
+msgstr "Pojedynczy link społecznościowy. Ikona pochodzi z adresu URL linku, klasy CSS lub pliku SVG z biblioteki mediów."
 
 #: build/blocks/theme-switcher/block.json src/blocks/theme-switcher/block.json
 msgctxt "block title"
@@ -5255,12 +5093,22 @@ msgctxt "Color name"
 msgid "Light Color"
 msgstr "Kolor jasny"
 
+#: theme.json
+msgctxt "Color name"
+msgid "Light Color RGB"
+msgstr "Jasny kolor RGB"
+
 #: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
 #: styles/emerald-forest.json styles/golden-amber.json styles/green.json
 #: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Dark Color"
 msgstr "Kolor ciemny"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Dark Color RGB"
+msgstr "Ciemny kolor RGB"
 
 #: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
 #: styles/emerald-forest.json styles/golden-amber.json styles/green.json
@@ -5572,6 +5420,34 @@ msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Pomarańcz Zachodu"
 
+#~ msgctxt "Pattern title"
+#~ msgid "Article Breadcrumbs"
+#~ msgstr "Okruszki artykułu"
+
+#~ msgid "Tag:"
+#~ msgstr "Tag:"
+
+#~ msgid "Creates a continuous smooth scrolling effect instead of discrete slide transitions."
+#~ msgstr "Tworzy ciągły, płynny efekt przewijania zamiast oddzielnych przejść slajdów."
+
+#~ msgid "Set the smooth scrolling speed in seconds."
+#~ msgstr "Ustaw prędkość płynnego przewijania w sekundach."
+
+#~ msgid "Set the number of slides visible at once."
+#~ msgstr "Ustaw liczbę jednocześnie widocznych slajdów."
+
+#~ msgid "Set the number of slides visible on mobile devices."
+#~ msgstr "Ustaw liczbę slajdów widocznych na urządzeniach mobilnych."
+
+#~ msgid "Set the number of slides visible on tablets."
+#~ msgstr "Ustaw liczbę slajdów widocznych na tabletach."
+
+#~ msgid "Set the number of slides visible on desktop devices."
+#~ msgstr "Ustaw liczbę slajdów widocznych na komputerach."
+
+#~ msgid "Optional CSS class on the list item, e.g. icon-facebook. Links to known social domains get their icon automatically from the URL."
+#~ msgstr "Opcjonalna klasa CSS elementu listy, np. icon-facebook. Linki do znanych domen społecznościowych automatycznie otrzymują ikonę na podstawie adresu URL."
+
 #~ msgid ""
 #~ "Add custom CSS to override Google Maps styles. Examples:\n"
 #~ "\n"
@@ -5618,9 +5494,6 @@ msgstr "Pomarańcz Zachodu"
 
 #~ msgid "Career"
 #~ msgstr "Kariera"
-
-#~ msgid "Close"
-#~ msgstr "Zamknij"
 
 #~ msgid "Contact address"
 #~ msgstr "Polska, 40-143 Katowice, ul.Dekerta"
@@ -5682,12 +5555,8 @@ msgstr "Pomarańcz Zachodu"
 #~ msgid "This field is required."
 #~ msgstr "To pole jest wymagane."
 
-#~ msgid ""
-#~ "This website uses cookies to ensure you get the best experience on our "
-#~ "website."
-#~ msgstr ""
-#~ "Ta strona internetowa używa plików cookie, aby zapewnić najlepsze "
-#~ "doświadczenia na naszej stronie."
+#~ msgid "This website uses cookies to ensure you get the best experience on our website."
+#~ msgstr "Ta strona internetowa używa plików cookie, aby zapewnić najlepsze doświadczenia na naszej stronie."
 
 #~ msgid "Video paused (Reduced motion mode)"
 #~ msgstr "Wideo wstrzymane (tryb ograniczonego ruchu)"

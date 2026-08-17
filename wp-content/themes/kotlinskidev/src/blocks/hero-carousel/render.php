@@ -13,6 +13,7 @@ $settings = wp_json_encode( [
 	'showArrows'      => $show_arrows,
 	'showPagination'  => $show_pagination,
 	'loop'            => (bool) ( $attributes['loop'] ?? true ),
+	'draggable'       => (bool) ( $attributes['draggable'] ?? true ),
 	'autoplay'        => (bool) ( $attributes['autoplay'] ?? false ),
 	'autoplayDelay'   => absint( $attributes['autoplayDelay'] ?? 5000 ),
 	'lazyLoad'        => (bool) ( $attributes['lazyLoad'] ?? false ),

@@ -6,6 +6,7 @@ import type { ComponentType } from "react";
 
 jest.mock("@wordpress/block-editor", () => ({
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  __experimentalColorGradientControl: ({ label }: { label: string }) => <div>{label}</div>,
 }));
 
 import "./index";
@@ -120,5 +121,80 @@ describe("hover-animation-controls — blocks.getSaveContent.extraProps filter",
     ) as { className: string };
 
     expect(result.className).toBe("existing hover-jump");
+  });
+
+  it("adds the color-transition class and CSS custom properties when a hover color is set", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverAnimation: "", hoverBackgroundColor: "#8209d3", hoverTextColor: "" }
+    ) as { className: string; style: Record<string, string> };
+
+    expect(result.className).toBe("has-hover-color-transition");
+    expect(result.style).toEqual({ "--hover-bg-color": "#8209d3" });
+  });
+
+  it("passes a gradient background value straight through as the CSS custom property", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      {
+        hoverAnimation: "",
+        hoverBackgroundColor: "linear-gradient(135deg,rgba(255,255,255,0.1) 0%,#8209d3 100%)",
+        hoverTextColor: "",
+      }
+    ) as { className: string; style: Record<string, string> };
+
+    expect(result.className).toBe("has-hover-color-transition");
+    expect(result.style).toEqual({
+      "--hover-bg-color": "linear-gradient(135deg,rgba(255,255,255,0.1) 0%,#8209d3 100%)",
+    });
+  });
+
+  it("passes an 8-digit hex (alpha) background value straight through as the CSS custom property", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverAnimation: "", hoverBackgroundColor: "#ffffff0a", hoverTextColor: "" }
+    ) as { className: string; style: Record<string, string> };
+
+    expect(result.style).toEqual({ "--hover-bg-color": "#ffffff0a" });
+  });
+
+  it("combines the animation class with the color-transition class", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      { className: "existing" },
+      {},
+      { hoverAnimation: "hover-jump", hoverBackgroundColor: "", hoverTextColor: "#ffffff" }
+    ) as { className: string; style: Record<string, string> };
+
+    expect(result.className).toBe("existing hover-jump has-hover-color-transition");
+    expect(result.style).toEqual({ "--hover-text-color": "#ffffff" });
+  });
+
+  it("passes the block's own border radius through for the zoom animation", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverAnimation: "hover-zoom-bg", style: { border: { radius: "12px" } } }
+    ) as { style: Record<string, string> };
+
+    expect(result.style).toEqual({ "--hover-zoom-radius": "12px" });
+  });
+
+  it("does not pass a border radius for animations other than zoom", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverAnimation: "hover-jump", style: { border: { radius: "12px" } } }
+    ) as { style?: Record<string, string> };
+
+    expect(result.style).toBeUndefined();
   });
 });

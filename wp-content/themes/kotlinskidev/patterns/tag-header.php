@@ -8,24 +8,9 @@ $current_tag = get_queried_object();
 $tag_name = $current_tag->name;
 $tag_description = $current_tag->description;
 $post_count = $current_tag->count;
-// Generate breadcrumbs using CMS settings
 $locale = get_locale();
 $breadcrumb_settings = kotlinskidev_get_breadcrumb_settings($locale);
-$breadcrumbs = array();
-$breadcrumbs[] = '<a href="' . esc_url(home_url('/')) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['home_text']) . '</a>';
-$breadcrumbs[] = '<a href="' . esc_url($breadcrumb_settings['topics_url']) . '" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">' . esc_html($breadcrumb_settings['topics_text']) . '</a>';
-$breadcrumbs[] = '<span style="color:var(--wp--preset--color--foreground-alt);">' . esc_html__('Tag:', 'kotlinskidev') . ' ' . esc_html($tag_name) . '</span>';
 ?>
-<!-- wp:group {"style":{"spacing":{"margin":{"bottom":"0.9375rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-bottom:0.9375rem">
-    <!-- wp:html -->
-    <nav class="kotlinskidev-breadcrumbs" style="font-size:0.875rem;color:var(--wp--preset--color--foreground-alt);">
-        <?php echo implode(' <span style="margin:0 0.5rem;color:var(--wp--preset--color--foreground-alt);">→</span> ', $breadcrumbs); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every $breadcrumbs element is esc_url()/esc_html() wrapped at construction above ?>
-    </nav>
-    <!-- /wp:html -->
-</div>
-<!-- /wp:group -->
-
 <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"1.25rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
 <div class="wp-block-group" style="margin-bottom:1.25rem">
     

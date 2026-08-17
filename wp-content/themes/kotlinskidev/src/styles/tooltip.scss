@@ -1,0 +1,86 @@
+@import "variables";
+@import "theme-colors";
+
+.kt-tooltip {
+	position: relative;
+}
+
+.kt-tooltip[data-tooltip]::after,
+.kt-tooltip[data-tooltip]::before {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	position: absolute;
+	left: 50%;
+	z-index: 10;
+	transition:
+		opacity 0.2s var(--animation-curve, ease),
+		transform 0.2s var(--animation-curve, ease),
+		visibility 0.2s var(--animation-curve, ease);
+}
+
+.kt-tooltip[data-tooltip]::after {
+	content: attr(data-tooltip);
+	bottom: calc(100% + 0.5rem);
+	transform: translate(-50%, 0.25rem);
+	white-space: nowrap;
+	padding: 0.375rem 0.625rem;
+	border-radius: 0.375rem;
+	background: var(--color-text);
+	color: var(--color-surface);
+	-webkit-text-fill-color: var(--color-surface);
+	font-size: 0.75rem;
+	font-weight: 500;
+	line-height: 1.2;
+	box-shadow: 0 0.25rem 0.75rem rgba($black, 0.18);
+}
+
+.kt-tooltip[data-tooltip]::before {
+	content: "";
+	bottom: 100%;
+	transform: translate(-50%, 0.375rem);
+	border: 0.3125rem solid transparent;
+	border-top-color: var(--color-text);
+}
+
+.kt-tooltip[data-tooltip]:hover::after,
+.kt-tooltip[data-tooltip]:hover::before,
+.kt-tooltip[data-tooltip]:focus-visible::after,
+.kt-tooltip[data-tooltip]:focus-visible::before,
+.kt-tooltip[data-tooltip]:focus-within::after,
+.kt-tooltip[data-tooltip]:focus-within::before {
+	opacity: 1;
+	visibility: visible;
+	transform: translate(-50%, 0);
+}
+
+.kt-tooltip--below[data-tooltip]::after {
+	top: calc(100% + 0.5rem);
+	bottom: auto;
+	transform: translate(-50%, -0.25rem);
+}
+
+.kt-tooltip--below[data-tooltip]::before {
+	top: 100%;
+	bottom: auto;
+	transform: translate(-50%, -0.375rem);
+	border-top-color: transparent;
+	border-bottom-color: var(--color-text);
+}
+
+.kt-tooltip--below[data-tooltip]:hover::after,
+.kt-tooltip--below[data-tooltip]:hover::before,
+.kt-tooltip--below[data-tooltip]:focus-visible::after,
+.kt-tooltip--below[data-tooltip]:focus-visible::before,
+.kt-tooltip--below[data-tooltip]:focus-within::after,
+.kt-tooltip--below[data-tooltip]:focus-within::before {
+	transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.kt-tooltip[data-tooltip]::after,
+	.kt-tooltip[data-tooltip]::before {
+		transition: none;
+	}
+}

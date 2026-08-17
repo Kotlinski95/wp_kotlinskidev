@@ -1,6 +1,6 @@
 # kotlinskidev
 
-Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 10 custom Gutenberg blocks, 56 reusable block patterns, multilingual support, and a dark/light theme switcher.
+Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 14 custom Gutenberg blocks, 56 reusable block patterns, multilingual support, and a dark/light theme switcher.
 
 ---
 
@@ -57,7 +57,7 @@ npm run test:e2e       # End-to-end tests
 ├── patterns/          56 reusable block patterns (PHP)
 ├── polylang/          Multilingual routing config
 ├── src/
-│   ├── blocks/        10 custom Gutenberg blocks (TypeScript + React)
+│   ├── blocks/        14 custom Gutenberg blocks (TypeScript + React)
 │   ├── scripts/       Frontend TypeScript modules
 │   ├── styles/        SCSS source files
 │   └── utils/         Shared TypeScript utilities (@utils alias)
@@ -78,9 +78,13 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 |---|---|
 | `animated-counter` | Number counter with scroll-triggered animation |
 | `banner-carousel` | Full-width banner slider powered by Swiper.js |
+| `breadcrumbs` | Breadcrumb trail below the header, hidden on the homepage by default and on scroll |
 | `cover-lazy-loading` | Cover block with native lazy loading |
 | `gallery-lightbox` | Image/video gallery with lightbox and mobile media variant |
 | `hover-animation-controls` | Per-block hover effect configurator |
+| `icon` | Standalone SVG icon picked from the Media Library, colored via `currentColor` |
+| `icon-extension` | Adds a leading icon to buttons and nav links |
+| `model-viewer` | Interactive 3D `.glb` model with a click-to-toggle animation |
 | `parallax` | Parallax scrolling section |
 | `protected-content` | Password-gated content block |
 | `responsive-display` | Show/hide blocks per breakpoint |

@@ -105,6 +105,10 @@
 			opacity: 0.3;
 			cursor: not-allowed;
 		}
+
+		.swiper-navigation-icon {
+			height: 50%;
+		}
 	}
 
 	&--sides {
@@ -184,4 +188,8 @@
 
 .carousel-nav:has(.swiper-button-prev[disabled]) ~ .swiper-pagination {
 	display: none;
+}
+
+.swiper:has(> .swiper-pagination.kt-pagination-outside) {
+	padding-bottom: 2.5rem;
 }

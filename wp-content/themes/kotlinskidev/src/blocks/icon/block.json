@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/icon",
+  "version": "1.0.0",
+  "title": "Icon",
+  "category": "kotlinskidev",
+  "icon": "star-filled",
+  "description": "An SVG icon picked from the Media Library, colored via currentColor.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/icon.js",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "attributes": {
+    "mediaId": { "type": "integer", "default": 0 },
+    "mediaUrl": { "type": "string", "default": "" },
+    "size": { "type": "string", "default": "" },
+    "color": { "type": "string", "default": "" },
+    "ariaLabel": { "type": "string", "default": "" },
+    "showTooltip": { "type": "boolean", "default": false }
+  }
+}

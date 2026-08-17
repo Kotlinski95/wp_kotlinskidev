@@ -31,13 +31,12 @@ it('enqueues the editor overrides style and script on enqueue_block_editor_asset
     expect(wp_script_is('kotlinskidev-editor-only', 'enqueued'))->toBeTrue();
 });
 
-it('inlines the critical css on wp_head and enqueues the icomoon preload style', function () {
+it('inlines the critical css on wp_head', function () {
     ob_start();
     do_action('wp_head');
     $html = ob_get_clean();
 
     expect($html)->toContain('<style id="critical-css">');
-    expect(wp_style_is('icomoon-style', 'enqueued'))->toBeTrue();
 });
 
 it('inlines the critical js on wp_head', function () {
@@ -61,12 +60,6 @@ it('forces the global stylesheet tag to media=print with an onload swap', functi
     expect($tag)->toContain("media='print'");
     expect($tag)->toContain('onload=');
     expect($tag)->toContain('data-no-defer="1"');
-});
-
-it('preloads the icomoon stylesheet asynchronously', function () {
-    $tag = apply_filters('style_loader_tag', "<link rel='stylesheet' href='icomoon.css'>", 'icomoon-style');
-
-    expect($tag)->toContain("rel='preload' as='style'");
 });
 
 it('leaves an unrelated stylesheet tag untouched', function () {

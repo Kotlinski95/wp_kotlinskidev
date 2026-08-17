@@ -21,10 +21,40 @@ export default function Edit({
   setAttributes: (attributes: Partial<BannerCarouselAttributes>) => void;
 }) {
   const { images = [], ...carouselSettings } = attributes;
+  const {
+    slidesPerView = 1,
+    slidesPerMobile = 1,
+    slidesPerTablet = 1,
+    slidesPerDesktop = 1,
+  } = carouselSettings;
 
   const onSelectImages = (newImages: { id: number; url: string; alt?: string }[]) => {
     setAttributes({ images: newImages.map((img) => ({ id: img.id, url: img.url, alt: img.alt })) });
   };
+
+  const previewClassName = [
+    "banner-carousel",
+    slidesPerView === "auto" ? "banner-carousel--base-auto" : "",
+    slidesPerMobile === "auto" ? "banner-carousel--mobile-auto" : "",
+    slidesPerTablet === "auto" ? "banner-carousel--tablet-auto" : "",
+    slidesPerDesktop === "auto" ? "banner-carousel--desktop-auto" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const previewStyle: Record<string, string> = {};
+  if (slidesPerView !== "auto") {
+    previewStyle["--banner-slides-base"] = String(slidesPerView);
+  }
+  if (slidesPerMobile !== "auto") {
+    previewStyle["--banner-slides-mobile"] = String(slidesPerMobile);
+  }
+  if (slidesPerTablet !== "auto") {
+    previewStyle["--banner-slides-tablet"] = String(slidesPerTablet);
+  }
+  if (slidesPerDesktop !== "auto") {
+    previewStyle["--banner-slides-desktop"] = String(slidesPerDesktop);
+  }
 
   return (
     <>
@@ -42,7 +72,12 @@ export default function Edit({
           }}
         />
       </InspectorControls>
-      <div {...useBlockProps()}>
+      <div
+        {...useBlockProps({
+          className: previewClassName,
+          style: previewStyle as React.CSSProperties,
+        })}
+      >
         <MediaUploadCheck>
           <MediaUpload
             onSelect={onSelectImages}

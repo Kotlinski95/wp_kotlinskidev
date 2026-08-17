@@ -17,6 +17,7 @@ import "./scripts/hide-nav-on-scroll";
 import "./scripts/visual-viewport-offset";
 import "./scripts/gsap-sticky";
 import "./scripts/faq-accordion";
+import "./scripts/modal-manager";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

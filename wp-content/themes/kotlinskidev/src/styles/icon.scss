@@ -1,0 +1,17 @@
+.kt-icon {
+	display: inline-flex;
+	width: var(--kt-icon-size, 1.5rem);
+	height: var(--kt-icon-size, 1.5rem);
+	flex-shrink: 0;
+
+	svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.kt-icon--inline {
+	margin-inline-end: 0.5em;
+	vertical-align: middle;
+}

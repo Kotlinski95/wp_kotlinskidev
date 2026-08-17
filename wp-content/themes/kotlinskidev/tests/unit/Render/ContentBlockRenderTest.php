@@ -30,6 +30,7 @@ it('renders the resolved reusable block content, run through do_blocks', functio
     $post = new WP_Post(101);
     $post->post_content = '<!-- wp:paragraph --><p>Reused content</p><!-- /wp:paragraph -->';
     Functions\when('get_page_by_path')->justReturn($post);
+    Functions\when('pll_get_post')->justReturn(0);
     Functions\when('do_blocks')->alias(fn ($content) => '[rendered]' . $content . '[/rendered]');
 
     $html = kotlinskidev_content_block_render(['contentSlug' => 'render-content-found']);

@@ -6,6 +6,7 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
     showPagination = true,
     showScrollbar = false,
     loop = true,
+    draggable = true,
     autoplay = false,
     autoplayDelay = 3000,
     slidesPerView = 1,
@@ -17,7 +18,9 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
   return {
     loop,
     speed: 300,
-    grabCursor: true,
+    grabCursor: draggable,
+    simulateTouch: draggable,
+    allowTouchMove: draggable,
     keyboard: { enabled: true, onlyInViewport: false },
     slidesPerView,
     breakpoints: {

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-09T13:40:12+00:00\n"
+"POT-Creation-Date: 2026-08-17T08:12:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -63,6 +63,13 @@ msgstr ""
 #: build/blocks/language-panel/render.php:61
 #: src/blocks/language-panel/render.php:61
 msgid "Language selection"
+msgstr ""
+
+#: build/blocks/model-viewer/render.php:10
+#: build/blocks/model-viewer/render.php:13
+#: src/blocks/model-viewer/render.php:10
+#: src/blocks/model-viewer/render.php:13
+msgid "Interactive 3D model — click to open or close"
 msgstr ""
 
 #: build/blocks/navigation/render.php:175
@@ -255,11 +262,12 @@ msgid "Blog Topics Page (PL)"
 msgstr ""
 
 #: functions/blog-topic-manager.php:201
+#: functions/breadcrumbs.php:56
 #: patterns/blog-topics-grid.php:69
-#: patterns/category-header.php:51
+#: patterns/category-header.php:32
 #: patterns/search-form.php:88
 #: patterns/search-results.php:64
-#: patterns/tag-header.php:50
+#: patterns/tag-header.php:35
 msgid "Articles"
 msgstr ""
 
@@ -370,6 +378,11 @@ msgstr ""
 
 #: functions/blog-topic-manager.php:704
 msgid "Polish Search Page"
+msgstr ""
+
+#: functions/breadcrumbs.php:49
+#, php-format
+msgid "Search results for \"%s\""
 msgstr ""
 
 #: functions/cache.php:235
@@ -492,6 +505,21 @@ msgstr ""
 msgid "Comments Disabled"
 msgstr ""
 
+#: functions/icon-library.php:4
+msgid "Icons (SVG)"
+msgstr ""
+
+#: functions/icon-library.php:5
+msgid "Manage Icons (SVG)"
+msgstr ""
+
+#: functions/icon-library.php:6
+#, php-format
+msgid "Icon (SVG) <span class=\"count\">(%s)</span>"
+msgid_plural "Icons (SVG) <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
 #: functions/image-link-accessibility.php:4
 msgid "View services"
 msgstr ""
@@ -514,6 +542,35 @@ msgstr ""
 
 #: functions/image-link-accessibility.php:9
 msgid "Kontakt"
+msgstr ""
+
+#: functions/modals.php:5
+msgid "Modals"
+msgstr ""
+
+#: functions/modals.php:6
+#: build/editor.js:37
+msgid "Modal"
+msgstr ""
+
+#: functions/modals.php:7
+msgid "Add New Modal"
+msgstr ""
+
+#: functions/modals.php:8
+msgid "Edit Modal"
+msgstr ""
+
+#: functions/modals.php:9
+msgid "Search Modals"
+msgstr ""
+
+#: functions/modals.php:10
+msgid "No modals found"
+msgstr ""
+
+#: functions/modals.php:129
+msgid "Close"
 msgstr ""
 
 #: functions/patterns.php:5
@@ -747,8 +804,8 @@ msgstr ""
 msgid "Too many items requested"
 msgstr ""
 
-#: functions/scroll-top-top.php:22
 #: functions/scroll-top-top.php:24
+#: functions/scroll-top-top.php:26
 msgid "Scroll to Top"
 msgstr ""
 
@@ -862,6 +919,7 @@ msgid "Logo image"
 msgstr ""
 
 #: functions/settings-page.php:366
+#: build/model-viewer.js:1
 msgid "Background color"
 msgstr ""
 
@@ -1129,6 +1187,16 @@ msgstr ""
 msgid "%s home"
 msgstr ""
 
+#. translators: %s: modal title
+#: functions/slider-modal-trigger.php:41
+#, php-format
+msgid "Open %s"
+msgstr ""
+
+#: functions/theme-switcher.php:6
+msgid "Toggle light and dark theme"
+msgstr ""
+
 #. Template Name of the theme
 msgid "Search Page"
 msgstr ""
@@ -1207,11 +1275,6 @@ msgstr ""
 msgid "Building Smarter Solutions: SaaS Experts"
 msgstr ""
 
-#: patterns/article-breadcrumbs.php
-msgctxt "Pattern title"
-msgid "Article Breadcrumbs"
-msgstr ""
-
 #: patterns/article-hero.php
 msgctxt "Pattern title"
 msgid "Article Hero Section"
@@ -1249,10 +1312,10 @@ msgid "Blog Topics Grid"
 msgstr ""
 
 #: patterns/blog-topics-grid.php:69
-#: patterns/category-header.php:51
+#: patterns/category-header.php:32
 #: patterns/popular-content.php:88
 #: patterns/search-results.php:106
-#: patterns/tag-header.php:50
+#: patterns/tag-header.php:35
 msgid "Article"
 msgstr ""
 
@@ -1276,7 +1339,7 @@ msgctxt "Pattern title"
 msgid "Category Header"
 msgstr ""
 
-#: patterns/category-header.php:66
+#: patterns/category-header.php:47
 #: patterns/search-form.php:105
 msgid "All Topics"
 msgstr ""
@@ -2265,16 +2328,12 @@ msgctxt "Pattern title"
 msgid "Tag Header"
 msgstr ""
 
-#: patterns/tag-header.php:17
-msgid "Tag:"
-msgstr ""
-
-#: patterns/tag-header.php:39
+#: patterns/tag-header.php:24
 #, php-format
 msgid "Articles tagged with \"%s\""
 msgstr ""
 
-#: patterns/tag-header.php:54
+#: patterns/tag-header.php:39
 msgid "Browse All Topics"
 msgstr ""
 
@@ -2468,6 +2527,22 @@ msgstr ""
 #: build/banner-carousel.js:1
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
+#: build/responsive-image.js:1
+#: build/scroll-section.js:1
+#: build/slider.js:1
+msgid "Auto"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+#: build/slider.js:1
+msgid "Slide width follows the image; the visible slide count adapts to available space."
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
 msgid "Carousel Settings"
 msgstr ""
 
@@ -2546,6 +2621,20 @@ msgstr ""
 #: build/banner-carousel.js:1
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
+#: build/slider.js:1
+msgid "Show pagination outside carousel"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+#: build/slider.js:1
+msgid "Renders the pagination dots below the slides instead of overlaying them."
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
 msgid "Show Scrollbar"
 msgstr ""
 
@@ -2553,6 +2642,19 @@ msgstr ""
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
 msgid "Loop Mode"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+#: build/slider.js:1
+msgid "Draggable"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Lets users manually swipe/drag through the slides."
 msgstr ""
 
 #: build/banner-carousel.js:1
@@ -2615,6 +2717,14 @@ msgstr ""
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
 msgid "Slides (Desktop)"
+msgstr ""
+
+#: build/breadcrumbs.js:1
+msgid "Breadcrumbs Settings"
+msgstr ""
+
+#: build/breadcrumbs.js:1
+msgid "Show on homepage"
 msgstr ""
 
 #: build/button.js:1
@@ -2822,6 +2932,7 @@ msgid "Cloudflare Turnstile will appear here"
 msgstr ""
 
 #: build/content-block.js:1
+#: build/editor.js:37
 #: build/navigation.js:1
 msgid "Loading…"
 msgstr ""
@@ -3154,6 +3265,10 @@ msgid "Scale"
 msgstr ""
 
 #: build/editor.js:1
+msgid "Zoom"
+msgstr ""
+
+#: build/editor.js:1
 msgid "Fade"
 msgstr ""
 
@@ -3188,6 +3303,76 @@ msgstr ""
 
 #: build/editor.js:1
 msgid "Choose an animation that will trigger when hovering over the block."
+msgstr ""
+
+#: build/editor.js:1
+msgid "Zooms only the block's own image/video on hover, keeping surrounding content still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a border radius in this block's own Border panel to keep rounded corners while zooming."
+msgstr ""
+
+#: build/editor.js:1
+msgid "Hover background color"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Hover text color"
+msgstr ""
+
+#: build/editor.js:1
+#: build/editor.js:37
+#: build/language-panel.js:1
+msgid "None"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Gradient Shift"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Aurora"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Shimmer Text"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Wave"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Glow Border"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Background Effects"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Effect"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Applies an animated CSS background/border effect. Shimmer Text is meant for text blocks; the others work best on containers and Cover blocks."
+msgstr ""
+
+#: build/editor.js:1
+msgid "Effect color 1"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Effect color 2"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Effect color 3"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Leave a color empty to keep the theme's default. Not every effect uses all three."
+msgstr ""
+
+#: build/editor.js:1
+msgid "Only the color animates. Border width and radius come from this block's own Border settings; set them there."
 msgstr ""
 
 #: build/editor.js:1
@@ -3247,6 +3432,10 @@ msgstr ""
 
 #: build/editor.js:10
 msgid "Grid"
+msgstr ""
+
+#: build/editor.js:10
+msgid "None (hidden)"
 msgstr ""
 
 #: build/editor.js:10
@@ -3548,12 +3737,14 @@ msgid "Nav Icon"
 msgstr ""
 
 #: build/editor.js:37
+#: build/icon.js:1
 #: build/language-panel.js:1
 #: build/search-panel.js:1
 msgid "Replace icon"
 msgstr ""
 
 #: build/editor.js:37
+#: build/icon.js:1
 #: build/language-panel.js:1
 #: build/search-panel.js:1
 #: build/social-section.js:1
@@ -3561,6 +3752,7 @@ msgid "Select SVG icon"
 msgstr ""
 
 #: build/editor.js:37
+#: build/icon.js:1
 #: build/language-panel.js:1
 #: build/search-panel.js:1
 #: build/social-section.js:1
@@ -3569,11 +3761,6 @@ msgstr ""
 
 #: build/editor.js:37
 msgid "Gradient Outline"
-msgstr ""
-
-#: build/editor.js:37
-#: build/language-panel.js:1
-msgid "None"
 msgstr ""
 
 #: build/editor.js:37
@@ -3594,6 +3781,35 @@ msgstr ""
 
 #: build/editor.js:37
 msgid "Enable only if this specific instance is visible without scrolling on this page. Its styles load render-blocking instead of deferred — use sparingly, since every enabled instance costs initial render time."
+msgstr ""
+
+#: build/editor.js:37
+msgid "— Select modal —"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Open in a modal"
+msgstr ""
+
+#: build/editor.js:37
+#: build/icon.js:1
+msgid "Icon"
+msgstr ""
+
+#: build/editor.js:37
+msgid "— None (not clickable) —"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Slide Modal"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Open on click"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 msgstr ""
 
 #: build/gallery-lightbox.js:1
@@ -3835,14 +4051,17 @@ msgid "Set a background image in the sidebar."
 msgstr ""
 
 #: build/hero-carousel.js:1
+#: build/slider.js:1
 msgid "Previous slide"
 msgstr ""
 
 #: build/hero-carousel.js:1
+#: build/slider.js:1
 msgid "Next slide"
 msgstr ""
 
 #: build/hero-carousel.js:1
+#: build/slider.js:1
 msgid "Go to slide"
 msgstr ""
 
@@ -3874,6 +4093,48 @@ msgstr ""
 
 #: build/hero-carousel.js:4
 msgid "Add slide"
+msgstr ""
+
+#: build/icon.js:1
+msgid "Appearance & Accessibility"
+msgstr ""
+
+#: build/icon.js:1
+#: build/modal-settings-panel.js:1
+msgid "Size"
+msgstr ""
+
+#: build/icon.js:1
+msgid "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size."
+msgstr ""
+
+#: build/icon.js:1
+msgid "Color"
+msgstr ""
+
+#: build/icon.js:1
+msgid "Any CSS color value. Leave empty to inherit the surrounding text color."
+msgstr ""
+
+#: build/icon.js:1
+#: build/model-viewer.js:1
+msgid "Accessible label"
+msgstr ""
+
+#: build/icon.js:1
+msgid "Only set this if the icon conveys meaning on its own (e.g. a standalone social link). Leave empty for a purely decorative icon."
+msgstr ""
+
+#: build/icon.js:1
+msgid "This icon will be hidden from screen readers as decorative."
+msgstr ""
+
+#: build/icon.js:1
+msgid "Show tooltip on hover"
+msgstr ""
+
+#: build/icon.js:1
+msgid "Shows the accessible label above the icon on hover/focus."
 msgstr ""
 
 #: build/language-panel.js:1
@@ -3932,6 +4193,134 @@ msgstr ""
 
 #: build/language-panel.js:1
 msgid "Rotate 180° (no transition)"
+msgstr ""
+
+#: build/modal-settings-panel.js:1
+msgid "Small"
+msgstr ""
+
+#: build/modal-settings-panel.js:1
+msgid "Medium"
+msgstr ""
+
+#: build/modal-settings-panel.js:1
+msgid "Large"
+msgstr ""
+
+#: build/modal-settings-panel.js:1
+msgid "Full screen"
+msgstr ""
+
+#: build/modal-settings-panel.js:1
+msgid "Modal Settings"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "16:9 (widescreen)"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "4:3 (standard)"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "1:1 (square)"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "21:9 (ultra-wide)"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Model"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Replace .glb model"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Select .glb model"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Remove model"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Single-file .glb only, exported with an animation clip baked in (e.g. an \"open\" Action in Blender). .gltf (multi-file) isn't supported."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Animation clip name"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Must match the exact name of the baked animation clip in the .glb file — played forward on click, backward on the next click."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Fallback Image"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Replace fallback image"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Select fallback image"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "A fallback image is required — it's shown while the model loads and if WebGL isn't supported."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Accessibility & Layout"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Describes the interaction for screen reader users, e.g. \"Interactive 3D laptop model — click to open or close.\""
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "A default label will be used, but a specific one is recommended."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Aspect ratio"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Interaction"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Enable drag-to-rotate"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Lets visitors drag the model to orbit around it. Works independently of the click-to-toggle animation, so it's useful even for a model with no baked animation clip."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Screen text"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Rendered onto the model's screen/display surface (auto-detected as its most strongly emissive material) as a texture — e.g. your email and phone number. Leave empty to keep the model's original screen image. One line per line of text."
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "3D Model"
+msgstr ""
+
+#: build/model-viewer.js:1
+msgid "Model Viewer — select a .glb model"
 msgstr ""
 
 #: build/nav-content.js:1
@@ -4269,11 +4658,6 @@ msgid "Eager"
 msgstr ""
 
 #: build/responsive-image.js:1
-#: build/scroll-section.js:1
-msgid "Auto"
-msgstr ""
-
-#: build/responsive-image.js:1
 msgid "Choose how the image should be loaded by the browser."
 msgstr ""
 
@@ -4430,6 +4814,22 @@ msgid "“Autoplay” will automatically advance the slides. Note: this is inten
 msgstr ""
 
 #: build/slider.js:1
+msgid "Continuous Autoplay"
+msgstr ""
+
+#: build/slider.js:1
+msgid "Scrolls continuously (like a ticker) instead of pausing between slides. Starts once the carousel scrolls into view, and pauses on hover or keyboard focus, resuming once the pointer or focus leaves."
+msgstr ""
+
+#: build/slider.js:1
+msgid "Show progress circle"
+msgstr ""
+
+#: build/slider.js:1
+msgid "Displays a circular countdown indicator that fills up before each automatic slide change."
+msgstr ""
+
+#: build/slider.js:1
 msgid "“Navigation” will display arrows so user can navigate forward/backward."
 msgstr ""
 
@@ -4446,7 +4846,7 @@ msgid "Smooth Transition"
 msgstr ""
 
 #: build/slider.js:1
-msgid "Creates a continuous smooth scrolling effect instead of discrete slide transitions."
+msgid "Uses a linear easing curve for a smoother feel between slides."
 msgstr ""
 
 #: build/slider.js:1
@@ -4454,7 +4854,7 @@ msgid "Autoplay Time (seconds)"
 msgstr ""
 
 #: build/slider.js:1
-msgid "Set the smooth scrolling speed in seconds."
+msgid "Set how long one full continuous scroll cycle takes, in seconds."
 msgstr ""
 
 #: build/slider.js:1
@@ -4462,15 +4862,7 @@ msgid "Set the autoplay interval in seconds."
 msgstr ""
 
 #: build/slider.js:1
-msgid "Set the number of slides visible at once."
-msgstr ""
-
-#: build/slider.js:1
 msgid "Slides Per Mobile"
-msgstr ""
-
-#: build/slider.js:1
-msgid "Set the number of slides visible on mobile devices."
 msgstr ""
 
 #: build/slider.js:1
@@ -4478,15 +4870,7 @@ msgid "Slides Per Tablet"
 msgstr ""
 
 #: build/slider.js:1
-msgid "Set the number of slides visible on tablets."
-msgstr ""
-
-#: build/slider.js:1
 msgid "Slides Per Desktop"
-msgstr ""
-
-#: build/slider.js:1
-msgid "Set the number of slides visible on desktop devices."
 msgstr ""
 
 #: build/slider.js:1
@@ -4499,6 +4883,34 @@ msgstr ""
 
 #: build/slider.js:1
 msgid "Enable or disable looping of slides."
+msgstr ""
+
+#: build/slider.js:1
+msgid "Lets users manually swipe/drag the slides. Keep this on to allow manual swiping even during Continuous Autoplay."
+msgstr ""
+
+#: build/slider.js:1
+msgid "Centered slides (peek effect)"
+msgstr ""
+
+#: build/slider.js:1
+msgid "Centers the active slide with the next/previous slides peeking in from the sides. Below tablet width, always shows a single full-width slide regardless of these settings. Use the block's own Wide/Full alignment for an edge-to-edge carousel."
+msgstr ""
+
+#: build/slider.js:1
+msgid "Side peek (%)"
+msgstr ""
+
+#: build/slider.js:1
+msgid "How much of each side slide is visible, as a percentage of the carousel width, up to the max slide width below."
+msgstr ""
+
+#: build/slider.js:1
+msgid "Max slide width"
+msgstr ""
+
+#: build/slider.js:1
+msgid "Caps how wide the active slide can grow. On wider screens the slide stays this width, so more of the side slides peek in."
 msgstr ""
 
 #: build/slider.js:1
@@ -4562,7 +4974,7 @@ msgid "Icon class"
 msgstr ""
 
 #: build/social-section.js:1
-msgid "Optional CSS class on the list item, e.g. icon-facebook. Links to known social domains get their icon automatically from the URL."
+msgid "Optional CSS class on the list item."
 msgstr ""
 
 #: build/social-section.js:1
@@ -4577,6 +4989,18 @@ msgstr ""
 #: src/blocks/banner-carousel/block.json
 msgctxt "block title"
 msgid "Banner Carousel"
+msgstr ""
+
+#: build/blocks/breadcrumbs/block.json
+#: src/blocks/breadcrumbs/block.json
+msgctxt "block title"
+msgid "Breadcrumbs"
+msgstr ""
+
+#: build/blocks/breadcrumbs/block.json
+#: src/blocks/breadcrumbs/block.json
+msgctxt "block description"
+msgid "Breadcrumb trail below the header, hidden on the homepage by default and hidden on scroll."
 msgstr ""
 
 #: build/blocks/button/block.json
@@ -4651,6 +5075,18 @@ msgctxt "block description"
 msgid "Content container for use inside Simple Grid. Accepts any blocks."
 msgstr ""
 
+#: build/blocks/icon/block.json
+#: src/blocks/icon/block.json
+msgctxt "block title"
+msgid "Icon"
+msgstr ""
+
+#: build/blocks/icon/block.json
+#: src/blocks/icon/block.json
+msgctxt "block description"
+msgid "An SVG icon picked from the Media Library, colored via currentColor."
+msgstr ""
+
 #: build/blocks/language-panel/block.json
 #: build/blocks/nav-language-panel/block.json
 #: src/blocks/language-panel/block.json
@@ -4663,6 +5099,18 @@ msgstr ""
 #: src/blocks/language-panel/block.json
 msgctxt "block description"
 msgid "Language switcher trigger with dropdown panel. Wraps the native Polylang navigation language switcher."
+msgstr ""
+
+#: build/blocks/model-viewer/block.json
+#: src/blocks/model-viewer/block.json
+msgctxt "block title"
+msgid "Model Viewer"
+msgstr ""
+
+#: build/blocks/model-viewer/block.json
+#: src/blocks/model-viewer/block.json
+msgctxt "block description"
+msgid "Interactive 3D .glb model with a click-to-toggle animation."
 msgstr ""
 
 #: build/blocks/nav-banner/block.json
@@ -4978,6 +5426,11 @@ msgid "Light Color"
 msgstr ""
 
 #: theme.json
+msgctxt "Color name"
+msgid "Light Color RGB"
+msgstr ""
+
+#: theme.json
 #: styles/blue.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
@@ -4989,6 +5442,11 @@ msgstr ""
 #: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Dark Color"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Dark Color RGB"
 msgstr ""
 
 #: theme.json

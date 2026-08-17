@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/model-viewer",
+  "version": "1.0.0",
+  "title": "Model Viewer",
+  "category": "media",
+  "icon": "block-default",
+  "description": "Interactive 3D .glb model with a click-to-toggle animation.",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/model-viewer.js",
+  "viewScript": "file:../../../build/model-viewer-init.js",
+  "style": "file:../../../build/style-model-viewer.css",
+  "supports": {
+    "align": ["wide", "full"]
+  },
+  "attributes": {
+    "modelId": { "type": "integer", "default": 0 },
+    "modelUrl": { "type": "string", "default": "" },
+    "posterId": { "type": "integer", "default": 0 },
+    "posterUrl": { "type": "string", "default": "" },
+    "ariaLabel": { "type": "string", "default": "" },
+    "clipName": { "type": "string", "default": "open" },
+    "backgroundColor": { "type": "string", "default": "" },
+    "aspectRatio": { "type": "string", "default": "16/9" },
+    "enableOrbitControls": { "type": "boolean", "default": false },
+    "screenText": { "type": "string", "default": "" }
+  }
+}

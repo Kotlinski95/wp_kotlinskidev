@@ -67,6 +67,29 @@
 	}
 }
 
+.hover-zoom-bg {
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: var(--hover-zoom-radius, inherit);
+
+	img,
+	video,
+	.wp-block-cover__image-background,
+	.wp-block-cover__video-background {
+		transition: transform 0.4s ease-in-out;
+	}
+
+	&:hover {
+
+		img,
+		video,
+		.wp-block-cover__image-background,
+		.wp-block-cover__video-background {
+			transform: scale(1.08);
+		}
+	}
+}
+
 .hover-fade {
 	transition: opacity 0.3s ease-in-out;
 	cursor: pointer;
@@ -91,6 +114,17 @@
 
 	&:hover {
 		transform: translateY(-0.5rem) scale(1.02);
+	}
+}
+
+.has-hover-color-transition {
+	transition:
+		background 0.3s ease-in-out,
+		color 0.3s ease-in-out;
+
+	&:hover {
+		background: var(--hover-bg-color, inherit);
+		color: var(--hover-text-color, inherit);
 	}
 }
 

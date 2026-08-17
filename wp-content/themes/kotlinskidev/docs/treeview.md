@@ -27,7 +27,7 @@ kotlinskidev/
 │   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 53 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 60 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
@@ -36,6 +36,7 @@ kotlinskidev/
 │   ├── blocks.php                              # registers block categories + every block.json (source of truth for blocks)
 │   ├── blog-topic-manager.php                  # category "description" field admin UI + blog topic taxonomy
 │   ├── border-gradient.php                     # applies --kt-border-gradient/--kt-border-width to any border-supporting block that picked a gradient (excludes kotlinskidev/button)
+│   ├── breadcrumbs.php                         # breadcrumb trail builder + renderer for the kotlinskidev/breadcrumbs block, also syncs Yoast's wpseo_breadcrumb_links schema to the same trail
 │   ├── breakpoints.php                         # central breakpoint values, exposed to editor + front end
 │   ├── cache.php                               # build-fingerprint/transient cache manager — must load first
 │   ├── contact-form.php                        # handles contact-form block submission end-to-end
@@ -48,16 +49,20 @@ kotlinskidev/
 │   ├── enqueue-scripts.php                     # main script/style enqueue pipeline
 │   ├── faq-layout.php                          # applies kt-faq-independent-columns-N class to core/group per its faqLayout Advanced-panel choice
 │   ├── filters.php                             # misc content/attachment filters
+│   ├── icon-extension.php                      # leading-icon render_block splice for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
+│   ├── icon-library.php                        # adds an "Icons (SVG)" entry to the Media Library's post_mime_types type filter
 │   ├── language-switcher.php                   # [language_switcher] shortcode
 │   ├── link-hover-effects.php                  # applies configurable link hover-effect classes to blocks
 │   ├── login.php                               # custom wp-login.php styling
 │   ├── main-content-focus.php                  # injects tabindex="-1" onto the <main class="main-wrapper"> core/group at render time (skip-link focus target, kept out of stored markup so block validation doesn't flag an attribute the block itself can't declare)
 │   ├── maintenance.php                         # maintenance-mode toggle + admin settings page
+│   ├── modals.php                              # kt_modal CPT + size meta, resolves/dedupes/renders modal shells for any link with opensInModal+modalId, wp_footer
+│   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
 │   ├── page-loader.php                         # renders page-loader markup on wp_body_open
 │   ├── page-view-tracking.php                  # AJAX view tracking + Popular Pages query source
 │   ├── patterns.php                            # registers 4 custom pattern categories
 │   ├── polylang-accessibility.php              # a11y fixes for Polylang language-switcher markup
-│   ├── polylang-content-resolution.php         # wp_navigation/wp_block Polylang-translatable, resolve by slug
+│   ├── polylang-content-resolution.php         # wp_navigation/wp_block/kt_modal Polylang-translatable, resolve by slug
 │   ├── protection-helpers.php                  # RSA keypair + encrypt/decrypt for protected-content block
 │   ├── responsive-display.php                  # per-breakpoint show/hide block attribute
 │   ├── responsive-font-size.php                # per-breakpoint font-size attribute
@@ -71,6 +76,8 @@ kotlinskidev/
 │   ├── seo-noindex-compat.php                  # detects active SEO plugin (Yoast/Rank Math/AIOSEO/SEOPress), returns query-args noindex exclusion
 │   ├── settings-page.php                       # main theme settings admin page
 │   ├── site-identity.php                       # minimal site logo/title setup
+│   ├── slider-modal-trigger.php                # opens a kt_modal when a wpe/slider slide (core/cover, .swiper-slide, modalId set) is clicked
+│   ├── social-link-tooltip.php                 # adds .kt-tooltip + data-tooltip to core/social-link anchors, sourced from the screen-reader-only label
 │   ├── svg-gradient-defs.php                   # injects inline SVG gradient <defs> into wp_body_open
 │   ├── svg-support.php                         # allows SVG uploads + inline SVG rendering
 │   ├── text-shadow-support.php                 # text-shadow style attribute for shadow-supporting blocks
@@ -93,11 +100,10 @@ kotlinskidev/
 │   └── pl_PL.po
 ├── parts/                                      # FSE template parts
 │   ├── footer.html                             # logo/brand content-block, nav simple-grid, copyrights, scroll-to-top
-│   └── header.html                             # site logo, kotlinskidev/navigation, theme-switcher
-├── patterns/                                   # 52 reusable block patterns
+│   └── header.html                             # site logo, kotlinskidev/navigation, theme-switcher, kotlinskidev/breadcrumbs
+├── patterns/                                   # 51 reusable block patterns
 │   ├── about-2.php                             # About Section 2
 │   ├── about-us.php                            # About Us Section
-│   ├── article-breadcrumbs.php                 # Article Breadcrumbs
 │   ├── article-hero.php                        # Article Hero Section
 │   ├── article-tags.php                        # Article Tags
 │   ├── blog-cards.php                          # Blog Cards Grid
@@ -151,12 +157,14 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 48 custom block dirs: 31 registered blocks + 17 JS-only block-extension filters
+│   ├── blocks/                                 # 55 custom block dirs: 34 registered blocks + 20 JS-only block-extension filters + 1 post-editor settings panel
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
 │   │   │   └── index.tsx
 │   │   ├── animated-counter/                   # extension: count-up-on-scroll for heading/paragraph/group/columns
+│   │   │   └── index.tsx
+│   │   ├── background-effects-controls/        # extension: curated animated CSS background/border effect classes (kt-bg-fx-*), applied via className like hover-animation-controls
 │   │   │   └── index.tsx
 │   │   ├── banner-carousel/                    # full-width Swiper banner slider
 │   │   │   ├── block.json
@@ -167,6 +175,12 @@ kotlinskidev/
 │   │   │   └── style.scss
 │   │   ├── border-gradient/                    # extension: gradient option merged into the native Border panel for any block with border support (excludes kotlinskidev/button)
 │   │   │   └── index.tsx
+│   │   ├── breadcrumbs/                        # fixed overlay breadcrumb trail below the header, hidden on homepage by default, slides in/out in sync with the header's own scroll state
+│   │   │   ├── block.json
+│   │   │   ├── edit.tsx
+│   │   │   ├── index.ts
+│   │   │   ├── render.php
+│   │   │   └── style.scss
 │   │   ├── button/                             # standalone CTA button, independent normal/hover color+gradient
 │   │   │   ├── ButtonColorControls.tsx
 │   │   │   ├── block.json
@@ -224,12 +238,20 @@ kotlinskidev/
 │   │   │   └── save.tsx
 │   │   ├── hover-animation-controls/           # extension: ~13 canned hover animation classes
 │   │   │   └── index.tsx
+│   │   ├── icon/                               # standalone SVG icon block — Media Library picker, size/color/aria-label, renders via kotlinskidev_inline_nav_icon()
+│   │   ├── icon-extension/                     # extension: leading icon for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
+│   │   │   └── index.tsx
 │   │   ├── language-panel/                     # Polylang language switcher trigger + dropdown
 │   │   │   ├── block.json
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── link-hover-effects/                 # extension: opt out of global link hover styling per block
 │   │   │   └── index.tsx
+│   │   ├── modal-settings-panel/                # PluginDocumentSettingPanel for the kt_modal post type — size (small/medium/large/full), enqueued only on kt_modal edit screens
+│   │   │   └── index.tsx
+│   │   ├── modal-trigger/                      # extension: adds opensInModal + modalId to kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
+│   │   │   └── index.tsx
+│   │   ├── model-viewer/                       # interactive .glb model, click-to-toggle via THREE.AnimationMixer + optional drag-to-rotate (OrbitControls) + auto-detected screen-text texture swap, IO-gated + WebGL-feature-detected dynamic import() of a three.js runtime chunk kept out of every other bundle
 │   │   ├── nav-banner/                         # nav-scoped: image+heading+description+CTA for mega-menu panels
 │   │   │   ├── block.json
 │   │   │   └── render.php
@@ -321,7 +343,7 @@ kotlinskidev/
 │   │   │   ├── render.php
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
-│   │   ├── slider/                             # wpe/slider — generic Swiper carousel, InnerBlocks slides
+│   │   ├── slider/                             # wpe/slider — generic Swiper carousel, InnerBlocks (core/cover) slides; centerSlides+peek for a centered-peek layout
 │   │   │   ├── assets/
 │   │   │   ├── block.json
 │   │   │   ├── constants.ts
@@ -333,6 +355,8 @@ kotlinskidev/
 │   │   │   ├── save.tsx
 │   │   │   ├── style.scss
 │   │   │   └── swiper-init.ts
+│   │   ├── slider-modal-trigger/               # extension: adds modalId to core/cover slides inside wpe/slider (className contains swiper-slide)
+│   │   │   └── index.tsx
 │   │   ├── social-section/                     # social-links row, ancestor: core/navigation
 │   │   │   ├── item/
 │   │   │   │   ├── block.json
@@ -368,6 +392,7 @@ kotlinskidev/
 │   │   ├── language-panel.ts                   # wraps initDropdownPanels for .kt-lang-panel
 │   │   ├── language.ts                         # small language-related DOM script
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
+│   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change
 │   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block
 │   │   ├── restoration.ts                      # restores scroll position / bfcache navigation handling
@@ -383,6 +408,7 @@ kotlinskidev/
 │   │   ├── accessibility.scss                  # skip-link, prefers-reduced-motion handling
 │   │   ├── admin-bar.scss                      # admin-bar-specific overrides (editor-only bundle)
 │   │   ├── animations.scss                     # hover animation class definitions
+│   │   ├── background-effects.scss             # curated animated CSS background/border/text effect classes (kt-bg-fx-*), paired with background-effects-controls
 │   │   ├── blog.scss                           # breadcrumbs + taxonomy/tag styling
 │   │   ├── border-gradient.scss                # .kt-has-gradient-border utility class (universal border-gradient extension)
 │   │   ├── button.scss                         # .kt-button component styles
@@ -402,6 +428,7 @@ kotlinskidev/
 │   │   ├── mega-menu.scss                      # desktop mega-menu structure/positioning
 │   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), etc.)
 │   │   ├── mobile-footer-menu.scss             # fixed mobile bottom-nav menu
+│   │   ├── modal.scss                          # kt-modal overlay shell — fixed, z-index 99999, size variants, always-in-DOM
 │   │   ├── nav.scss                            # main site header/nav layout, logo styling
 │   │   ├── order.scss                          # responsive block-order utility styles
 │   │   ├── page.scss                           # generic page/post layout
@@ -419,7 +446,7 @@ kotlinskidev/
 │   │   ├── submenu.scss                        # mobile/dropdown submenu tree styling
 │   │   ├── tailwind.scss                       # small text-shadow utility classes
 │   │   ├── text-justify.scss                   # .has-text-align-justify utility
-│   │   ├── theme-colors.scss                   # adaptive color vars + gradient-text/gradient-border/gradient-border-bg mixins
+│   │   ├── theme-colors.scss                   # adaptive color vars + gradient-text/gradient-border-bg mixins (gradient-border itself lives in mixins.scss)
 │   │   ├── theme.scss                          # theme-switcher component styling
 │   │   ├── timeline.scss                       # vertical career-timeline pattern styling
 │   │   └── variables.scss                      # SCSS breakpoint variables, imported by ~20 partials
@@ -471,7 +498,7 @@ kotlinskidev/
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
 │   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 66 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 74 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed
@@ -486,11 +513,13 @@ kotlinskidev/
 │   │   ├── cover-lazy-loading.spec.ts          # frontend — kotlinskidev/cover-lazy-loading block extension
 │   │   ├── gallery-lightbox.spec.ts            # frontend — kotlinskidev/gallery-lightbox block
 │   │   ├── hover-animation-controls.spec.ts    # frontend — kotlinskidev/hover-animation-controls block extension
+│   │   ├── model-viewer.spec.ts                # frontend — kotlinskidev/model-viewer block (real WebGL via headless Chromium: load, click/keyboard toggle, reduced-motion)
 │   │   ├── parallax.spec.ts                    # frontend — kotlinskidev/parallax block extension
 │   │   ├── protected-content.spec.ts           # frontend — kotlinskidev/protected-content block
 │   │   ├── responsive-display.spec.ts          # frontend — kotlinskidev/responsive-display block extension
 │   │   ├── responsive-order.spec.ts            # frontend — kotlinskidev/responsive-order block extension
 │   │   ├── scroll-animations.spec.ts           # frontend — kotlinskidev/scroll-animations block extension
+│   │   ├── slider.spec.ts                      # frontend — wpe/slider block: continuousAutoplay (start-on-visible, freeze/resume on hover-focus-click, no snap), regular autoplay, pagination, progress circle
 │   │   └── editor/                             # authenticated specs — opt in per-file via test.use({ storageState })
 │   │       ├── site-editor.spec.ts             # confirms the Site Editor loads under the test account instead of redirecting to login
 │   │       ├── patterns-validity.spec.ts       # one test per registered theme pattern — asserts none trigger Gutenberg's "Block contains unexpected or invalid content." warning
@@ -499,7 +528,7 @@ kotlinskidev/
 │       ├── Pest.php                            # integration-suite bootstrap
 │       ├── TestCase.php                        # extends WP_UnitTestCase
 │       ├── bootstrap.php                       # boots wp-phpunit against a dedicated kotlinskidev_test MySQL database
-│       └── tests/                              # 56 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
+│       └── tests/                              # 59 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
 ├── .env
 ├── .env.example
 ├── .envrc

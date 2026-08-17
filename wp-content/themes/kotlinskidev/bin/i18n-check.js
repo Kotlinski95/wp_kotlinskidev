@@ -26,6 +26,8 @@ for (const bin of ["wp", "msgmerge", "msgfmt", "msgattrib"]) {
   }
 }
 
+const wpBin = execFileSync("which", ["wp"], { encoding: "utf8" }).trim();
+
 let overallFail = false;
 
 function extractMsgids(poText, prefix) {
@@ -40,8 +42,11 @@ function checkCatalog(name, sourceDir, domain, languagesDir) {
 
   try {
     execFileSync(
-      "wp",
+      "php",
       [
+        "-d",
+        "memory_limit=512M",
+        wpBin,
         "i18n",
         "make-pot",
         path.join(wpRoot, sourceDir),
@@ -50,10 +55,12 @@ function checkCatalog(name, sourceDir, domain, languagesDir) {
         `--path=${wpRoot}`,
         "--quiet",
       ],
-      { stdio: "ignore" }
+      { stdio: ["ignore", "ignore", "pipe"] }
     );
-  } catch {
-    process.stdout.write(`[${name}] wp i18n make-pot failed — skipping\n`);
+  } catch (error) {
+    const stderr = (error.stderr || "").toString().trim();
+    const lastLine = stderr.split("\n").filter(Boolean).pop() || "unknown error";
+    process.stdout.write(`[${name}] wp i18n make-pot failed — skipping (${lastLine})\n`);
     overallFail = true;
     return;
   }

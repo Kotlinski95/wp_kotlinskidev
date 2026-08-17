@@ -54,20 +54,6 @@
 			height: calc(100% - 0.625rem);
 			justify-content: start;
 			position: relative;
-
-			&::before {
-				font-size: 1.5625rem;
-				margin-top: 0.125rem;
-			}
-
-			&:has(.kt-link-current),
-			&:focus-within {
-
-				&::before {
-
-					@include gradient-text();
-				}
-			}
 		}
 
 		a {
@@ -90,7 +76,6 @@
 			&.kt-link-current {
 
 				@include gradient-text();
-
 			}
 		}
 	}
@@ -102,12 +87,27 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		svg {
+			width: 1.2rem;
+			height: 1.2rem;
+		}
 	}
 
 	.mobile-menu-text {
 		font-size: 0.75rem;
 		font-weight: 500;
 		line-height: 1;
+	}
+}
+
+.mobile-footer-nav .mobile-footer-menu-items a:hover .mobile-menu-icon svg,
+.mobile-footer-nav .mobile-footer-menu-items a:focus-visible .mobile-menu-icon svg,
+.mobile-footer-nav .mobile-footer-menu-items a.kt-link-current .mobile-menu-icon svg {
+	fill: url(#kt-icon-gradient-dark);
+
+	.light-mode & {
+		fill: url(#kt-icon-gradient-light);
 	}
 }
 

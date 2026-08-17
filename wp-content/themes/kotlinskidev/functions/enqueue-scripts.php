@@ -58,11 +58,6 @@ function master_css_filter($html, $handle)
         
     }
     
-    // Handle non-critical style preloading
-    if ($handle === 'icomoon-style') {
-        $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
-    }
-
     $deferred_handles = array_merge(
         [
             'wp-block-navigation',
@@ -123,9 +118,6 @@ function inline_critical_css()
             echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/critical.css, not user input; escaping would corrupt the inline CSS
         }
     }
-    
-    // Non-critical styles - preload asynchronously
-    wp_enqueue_style('icomoon-style', get_template_directory_uri() . '/assets/css/icomoon.css', false, null);
 }
 add_action('wp_head', 'inline_critical_css', 1);
 
