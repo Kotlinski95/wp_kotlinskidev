@@ -98,6 +98,7 @@ module.exports = {
       ...defaults.resolve.alias,
       "@node_modules": `${__dirname}/node_modules`,
       "@utils": path.resolve(__dirname, "src/utils"),
+      "@assets": path.resolve(__dirname, "assets"),
     },
   },
 };

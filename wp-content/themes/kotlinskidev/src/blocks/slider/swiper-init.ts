@@ -285,21 +285,75 @@ function freezeAtCurrentPosition(swiper: Swiper): number {
   return currentTranslateX;
 }
 
-function computeResumeSpeed(
+interface CatchUpTarget {
+  translateX: number;
+  duration: number;
+}
+
+function computeCatchUpToIndex(
   swiper: Swiper,
   targetIndex: number,
   frozenTranslateX: number,
   fullSpeed: number
-): number {
+): CatchUpTarget | null {
   const grid = (swiper as unknown as SwiperWithTranslateControl).snapGrid;
   const targetTranslateX = grid?.[targetIndex];
   const stepDistance = Math.abs((grid?.[1] ?? 0) - (grid?.[0] ?? 0));
   if (typeof targetTranslateX !== "number" || !stepDistance) {
-    return fullSpeed;
+    return null;
   }
   const remainingDistance = Math.abs(-targetTranslateX - frozenTranslateX);
   const ratio = Math.min(remainingDistance / stepDistance, 1);
-  return Math.max(fullSpeed * ratio, 50);
+  return { translateX: -targetTranslateX, duration: Math.max(fullSpeed * ratio, 50) };
+}
+
+function computeCatchUpToNextBoundary(
+  swiper: Swiper,
+  frozenTranslateX: number,
+  fullSpeed: number
+): CatchUpTarget | null {
+  const grid = (swiper as unknown as SwiperWithTranslateControl).snapGrid;
+  const stepDistance = Math.abs((grid?.[1] ?? 0) - (grid?.[0] ?? 0));
+  if (!grid?.length || !stepDistance) {
+    return null;
+  }
+  const traveled = Math.abs(frozenTranslateX);
+  const nextBoundary = grid.find((position) => position > traveled) ?? traveled + stepDistance;
+  const remainingDistance = nextBoundary - traveled;
+  const ratio = Math.min(Math.max(remainingDistance / stepDistance, 0), 1);
+  return { translateX: -nextBoundary, duration: Math.max(fullSpeed * ratio, 50) };
+}
+
+// Finishing an interrupted leg by re-navigating via slideTo()/slideNext()
+// with an artificially short duration can trip Swiper's own loop-boundary
+// reindexing into a visible one-frame translate jump when the target is
+// close to (or exactly at) a grid line — confirmed via live-site velocity
+// sampling. Animating the raw translate directly sidesteps Swiper's index
+// bookkeeping for the catch-up entirely; a plain, full-speed slideNext()
+// only fires once that's genuinely finished, which loop mode already
+// handles cleanly since it's a real index change, not a re-navigation to
+// wherever we already are.
+function resumeWithCatchUp(swiper: Swiper, target: CatchUpTarget, fullSpeed: number): void {
+  const controllable = swiper as unknown as SwiperWithTranslateControl;
+  const wrapperEl = controllable.wrapperEl;
+  if (!wrapperEl) {
+    swiper.slideNext(fullSpeed, true, true);
+    return;
+  }
+  controllable.setTransition(target.duration);
+  controllable.setTranslate(target.translateX);
+  controllable.animating = true;
+  const onCatchUpEnd = (event: Event) => {
+    if (event.target !== wrapperEl) {
+      return;
+    }
+    wrapperEl.removeEventListener("transitionend", onCatchUpEnd);
+    if (swiper.destroyed) {
+      return;
+    }
+    swiper.slideNext(fullSpeed, true, true);
+  };
+  wrapperEl.addEventListener("transitionend", onCatchUpEnd);
 }
 
 function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: number): void {
@@ -307,14 +361,15 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
 
   let hovered = false;
   let focused = false;
-  let clicked = false;
+  let pressed = false;
   let isPaused = false;
   let resumeMidTransition = false;
   let resumeTargetIndex = -1;
   let resumeFrozenTranslateX = 0;
+  let dragEndedTranslateX: number | null = null;
 
   const evaluate = () => {
-    const shouldPause = hovered || focused || clicked;
+    const shouldPause = hovered || focused || pressed;
     if (shouldPause === isPaused) {
       return;
     }
@@ -325,14 +380,26 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
       resumeFrozenTranslateX = freezeAtCurrentPosition(swiper);
       resumeTargetIndex = swiper.activeIndex;
       swiper.autoplay.pause();
+    } else if (dragEndedTranslateX !== null) {
+      const target = computeCatchUpToNextBoundary(swiper, dragEndedTranslateX, speed);
+      dragEndedTranslateX = null;
+      if (target) {
+        resumeWithCatchUp(swiper, target, speed);
+      } else {
+        swiper.slideNext(speed, true, true);
+      }
     } else if (resumeMidTransition) {
-      const remainingSpeed = computeResumeSpeed(
+      const target = computeCatchUpToIndex(
         swiper,
         resumeTargetIndex,
         resumeFrozenTranslateX,
         speed
       );
-      swiper.slideTo(resumeTargetIndex, remainingSpeed, true, true);
+      if (target) {
+        resumeWithCatchUp(swiper, target, speed);
+      } else {
+        swiper.slideNext(speed, true, true);
+      }
     } else {
       swiper.slideNext(speed, true, true);
     }
@@ -362,16 +429,45 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
     evaluate();
   });
 
-  container.addEventListener("mousedown", () => {
-    clicked = true;
+  container.addEventListener("pointerdown", () => {
+    pressed = true;
     evaluate();
   });
 
-  document.addEventListener("click", (event) => {
-    if (clicked && !container.contains(event.target as Node)) {
-      clicked = false;
-      evaluate();
+  const releasePress = (event: Event) => {
+    if (!pressed) {
+      return;
     }
+    pressed = false;
+    const pointerEvent = event as PointerEvent;
+    if (!pointerEvent.pointerType || pointerEvent.pointerType === "mouse") {
+      const rect = container.getBoundingClientRect();
+      hovered =
+        pointerEvent.clientX >= rect.left &&
+        pointerEvent.clientX <= rect.right &&
+        pointerEvent.clientY >= rect.top &&
+        pointerEvent.clientY <= rect.bottom;
+    }
+    if (hovered || focused) {
+      // A drag held past Swiper's own internal 200ms "sliderFirstMove"
+      // threshold flips its FreeMode module into force-resuming autoplay
+      // on release (via _freeModeStaticRelease), regardless of our own
+      // hover/focus tracking — reassert our pause to override it.
+      swiper.autoplay.pause();
+    }
+    evaluate();
+  };
+  document.addEventListener("pointerup", releasePress);
+  document.addEventListener("pointercancel", releasePress);
+
+  swiper.on("touchEnd", () => {
+    if (!isPaused) {
+      return;
+    }
+    resumeMidTransition = false;
+    resumeFrozenTranslateX = freezeAtCurrentPosition(swiper);
+    resumeTargetIndex = swiper.activeIndex;
+    dragEndedTranslateX = resumeFrozenTranslateX;
   });
 
   if (typeof IntersectionObserver === "undefined") {

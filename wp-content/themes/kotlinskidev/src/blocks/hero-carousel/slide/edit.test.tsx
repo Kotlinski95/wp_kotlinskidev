@@ -22,6 +22,7 @@ jest.mock("@wordpress/block-editor", () => ({
     mockMediaUploadCalls.push(props);
     return <>{props.render({ open: mockOpens[index] })}</>;
   },
+  __experimentalGetSpacingClassesAndStyles: () => ({ style: {} }),
 }));
 
 import Edit from "./edit";

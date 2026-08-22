@@ -20,6 +20,10 @@ declare module "@wordpress/block-editor" {
   }
 
   export const __experimentalColorGradientControl: import("react").FC<ColorGradientControlProps>;
+
+  export function __experimentalGetSpacingClassesAndStyles(attributes: {
+    style?: { spacing?: Record<string, unknown> };
+  }): { style?: Record<string, string> };
 }
 
 declare module "@wordpress/server-side-render" {

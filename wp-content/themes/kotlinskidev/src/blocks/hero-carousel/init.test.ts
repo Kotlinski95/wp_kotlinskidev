@@ -31,6 +31,7 @@ interface FakeSwiper {
   activeIndex: number;
   previousIndex: number;
   on: jest.Mock;
+  autoplay?: { pause: jest.Mock; resume: jest.Mock };
 }
 
 let mockInitSwiperReturn: FakeSwiper;
@@ -228,5 +229,94 @@ describe("hero-carousel/init.ts", () => {
     onHandlers.slideChangeTransitionEnd();
 
     expect(slideB.querySelector("video")?.play).toHaveBeenCalled();
+  });
+
+  it("pauses autoplay on hover and resumes on mouse leave", () => {
+    document.body.innerHTML = "";
+    const carousel = document.createElement("div");
+    carousel.className = "hero-carousel";
+    const el = buildCarouselElement();
+    carousel.append(el);
+    document.body.append(carousel);
+    const autoplay = { pause: jest.fn(), resume: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      autoplay,
+    };
+
+    loadModule();
+    mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
+      unobserve: mockUnobserveSpy,
+    });
+
+    carousel.dispatchEvent(new Event("mouseenter"));
+    expect(autoplay.pause).toHaveBeenCalledTimes(1);
+
+    carousel.dispatchEvent(new Event("mouseleave"));
+    expect(autoplay.resume).toHaveBeenCalledTimes(1);
+  });
+
+  it("pauses autoplay while a slide has keyboard focus and resumes once focus leaves entirely", () => {
+    document.body.innerHTML = "";
+    const carousel = document.createElement("div");
+    carousel.className = "hero-carousel";
+    const el = buildCarouselElement();
+    const link = document.createElement("a");
+    carousel.append(el, link);
+    document.body.append(carousel);
+    const autoplay = { pause: jest.fn(), resume: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      autoplay,
+    };
+
+    loadModule();
+    mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
+      unobserve: mockUnobserveSpy,
+    });
+
+    link.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    expect(autoplay.pause).toHaveBeenCalledTimes(1);
+
+    carousel.dispatchEvent(
+      new FocusEvent("focusout", { bubbles: true, relatedTarget: document.body })
+    );
+    expect(autoplay.resume).toHaveBeenCalledTimes(1);
+  });
+
+  it("stays paused when focus moves between elements inside the carousel", () => {
+    document.body.innerHTML = "";
+    const carousel = document.createElement("div");
+    carousel.className = "hero-carousel";
+    const el = buildCarouselElement();
+    const linkA = document.createElement("a");
+    const linkB = document.createElement("a");
+    carousel.append(el, linkA, linkB);
+    document.body.append(carousel);
+    const autoplay = { pause: jest.fn(), resume: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      autoplay,
+    };
+
+    loadModule();
+    mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
+      unobserve: mockUnobserveSpy,
+    });
+
+    linkA.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    expect(autoplay.pause).toHaveBeenCalledTimes(1);
+
+    carousel.dispatchEvent(new FocusEvent("focusout", { bubbles: true, relatedTarget: linkB }));
+    expect(autoplay.resume).not.toHaveBeenCalled();
   });
 });

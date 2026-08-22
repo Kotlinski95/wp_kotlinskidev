@@ -1,0 +1,33 @@
+.kt-line-clamp {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: var(--kt-line-clamp-lines, 3);
+	overflow: hidden;
+
+	&--expanded {
+		display: block;
+		-webkit-line-clamp: unset;
+		overflow: visible;
+	}
+}
+
+.kt-line-clamp-toggle {
+	display: inline-block;
+	margin-top: var(--wp--preset--spacing--20, 0.5rem);
+	padding: 0;
+	border: none;
+	background: none;
+	background-image: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-size: inherit;
+	font-family: inherit;
+	cursor: pointer;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+
+	&--hidden {
+		display: none;
+	}
+}

@@ -46,9 +46,7 @@
 .kt-tooltip[data-tooltip]:hover::after,
 .kt-tooltip[data-tooltip]:hover::before,
 .kt-tooltip[data-tooltip]:focus-visible::after,
-.kt-tooltip[data-tooltip]:focus-visible::before,
-.kt-tooltip[data-tooltip]:focus-within::after,
-.kt-tooltip[data-tooltip]:focus-within::before {
+.kt-tooltip[data-tooltip]:focus-visible::before {
 	opacity: 1;
 	visibility: visible;
 	transform: translate(-50%, 0);
@@ -71,9 +69,7 @@
 .kt-tooltip--below[data-tooltip]:hover::after,
 .kt-tooltip--below[data-tooltip]:hover::before,
 .kt-tooltip--below[data-tooltip]:focus-visible::after,
-.kt-tooltip--below[data-tooltip]:focus-visible::before,
-.kt-tooltip--below[data-tooltip]:focus-within::after,
-.kt-tooltip--below[data-tooltip]:focus-within::before {
+.kt-tooltip--below[data-tooltip]:focus-visible::before {
 	transform: translate(-50%, 0);
 }
 

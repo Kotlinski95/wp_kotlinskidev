@@ -10,6 +10,10 @@ function kotlinskidev_is_current_link_url( string $url ): bool {
 		return false;
 	}
 
+	if ( str_contains( $url, '#' ) ) {
+		return false;
+	}
+
 	$link_host = wp_parse_url( $url, PHP_URL_HOST );
 	if ( $link_host !== null && $link_host !== wp_parse_url( home_url(), PHP_URL_HOST ) ) {
 		return false;

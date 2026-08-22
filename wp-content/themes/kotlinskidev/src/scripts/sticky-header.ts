@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement | null;
 
-  const stickyThreshold = 30;
+  const stickyThreshold = header.offsetHeight;
   let rafId: number | null = null;
 
   const handleScroll = () => {

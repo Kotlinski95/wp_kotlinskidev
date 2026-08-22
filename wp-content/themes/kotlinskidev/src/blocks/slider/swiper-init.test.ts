@@ -760,7 +760,7 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(3);
     });
 
-    it("a bare click event with no preceding mousedown does not pause — pausing is triggered on press (mousedown), not on the full click gesture", () => {
+    it("a bare click event never pauses — press-tracking is driven by pointerdown/pointerup, not click", () => {
       const container = buildContainer(3);
       document.body.append(container);
       SwiperInit(container, { continuousAutoplay: true, autoplay: true });
@@ -899,7 +899,7 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       document.body.innerHTML = "";
     });
 
-    it("pauses on mousedown anywhere inside the carousel — including plain non-focusable slide text, not just links/buttons", () => {
+    it("pauses on pointerdown anywhere inside the carousel — including plain non-focusable slide text, not just links/buttons", () => {
       const container = buildContainer(3);
       document.body.append(container);
       const text = document.createElement("p");
@@ -907,13 +907,27 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       container.append(text);
       SwiperInit(container, { continuousAutoplay: true, autoplay: true });
 
-      text.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
 
       expect(mockLastInstance?.autoplay.pause).toHaveBeenCalledTimes(1);
       document.body.innerHTML = "";
     });
 
-    it("resumes once the user clicks outside the carousel after a mousedown-triggered pause", () => {
+    it("resumes once pointerup fires anywhere in the document, including inside the carousel itself — press-release is location-independent, unlike the old outside-click-only design", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      text.dispatchEvent(new Event("pointerup", { bubbles: true }));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+      document.body.innerHTML = "";
+    });
+
+    it("resumes once pointerup fires outside the carousel too", () => {
       const container = buildContainer(3);
       document.body.append(container);
       const text = document.createElement("p");
@@ -922,14 +936,204 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       document.body.append(outside);
       SwiperInit(container, { continuousAutoplay: true, autoplay: true });
 
-      text.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
-      outside.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      outside.dispatchEvent(new Event("pointerup", { bubbles: true }));
 
       expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
       document.body.innerHTML = "";
     });
 
-    it("resumes by finishing the interrupted transition to its same target — reads whether Swiper's own animating flag was true at the moment of pause (a live position/state signal, never a timer), not by firing a brand-new slideNext() past it. Falls back to the full configured speed when snapGrid data isn't available", () => {
+    it("a pointercancel (e.g. an OS/browser gesture interrupting the drag) also releases a stuck press", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      document.dispatchEvent(new Event("pointercancel", { bubbles: true }));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+      document.body.innerHTML = "";
+    });
+
+    it("re-checks the real cursor position on release instead of trusting a stale hover flag — a spurious mouseleave firing mid-drag (a known browser quirk during fast pointer movement/reflow) must not resume autoplay while the mouse pointer is still genuinely over the carousel on release", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      container.getBoundingClientRect = () =>
+        ({
+          left: 0,
+          top: 0,
+          right: 200,
+          bottom: 200,
+          width: 200,
+          height: 200,
+          x: 0,
+          y: 0,
+          toJSON: () => ({}),
+        }) as DOMRect;
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+      text.dispatchEvent(
+        new MouseEvent("pointerup", { bubbles: true, clientX: 100, clientY: 100 })
+      );
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+      document.body.innerHTML = "";
+    });
+
+    it("re-asserts pause on release when still hovering — overrides Swiper's own FreeMode module, which force-resumes autoplay via _freeModeStaticRelease once a drag has lasted past its internal 200ms sliderFirstMove threshold, regardless of our own hover state", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      container.getBoundingClientRect = () =>
+        ({
+          left: 0,
+          top: 0,
+          right: 200,
+          bottom: 200,
+          width: 200,
+          height: 200,
+          x: 0,
+          y: 0,
+          toJSON: () => ({}),
+        }) as DOMRect;
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      const pauseCallsBeforeRelease = mockLastInstance!.autoplay.pause.mock.calls.length;
+
+      // Simulate Swiper's own internal FreeMode+Autoplay interaction forcing
+      // a resume the instant the drag ends, as it does for any drag lasting
+      // past its own 200ms threshold — this happens synchronously inside
+      // Swiper's core touchend handling, before our own release logic runs.
+      mockLastInstance!.autoplay.resume();
+      text.dispatchEvent(
+        new MouseEvent("pointerup", { bubbles: true, clientX: 100, clientY: 100 })
+      );
+
+      expect(mockLastInstance?.autoplay.pause.mock.calls.length).toBeGreaterThan(
+        pauseCallsBeforeRelease
+      );
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+      document.body.innerHTML = "";
+    });
+
+    it("resumes on release when the pointer's real position is genuinely outside the carousel bounds, even without an accompanying mouseleave", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      container.getBoundingClientRect = () =>
+        ({
+          left: 0,
+          top: 0,
+          right: 200,
+          bottom: 200,
+          width: 200,
+          height: 200,
+          x: 0,
+          y: 0,
+          toJSON: () => ({}),
+        }) as DOMRect;
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      text.dispatchEvent(
+        new MouseEvent("pointerup", { bubbles: true, clientX: 500, clientY: 500 })
+      );
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+      document.body.innerHTML = "";
+    });
+
+    it("ignores a stray pointerup with no preceding press — does not double-resume or throw", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      expect(() => document.dispatchEvent(new Event("pointerup", { bubbles: true }))).not.toThrow();
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+      document.body.innerHTML = "";
+    });
+
+    it("reproduces hover-in, press (pointerdown) inside, then hover-out — stays paused through both, resumes cleanly only once pointerup finally fires", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+
+      text.dispatchEvent(new Event("pointerup", { bubbles: true }));
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+      document.body.innerHTML = "";
+    });
+
+    it("stays paused for the whole duration of a drag while the pointer is still held, even if the drag crosses a slide boundary (freeMode momentum/translate changing mid-gesture)", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -450, 0)";
+
+      expect(mockLastInstance?.autoplay.pause).toHaveBeenCalledTimes(1);
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+      document.body.innerHTML = "";
+    });
+
+    it("saves the drag-end position (via Swiper's own touchEnd event) so the eventual resume starts from wherever the drag actually left off, not the pre-drag freeze point", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
+      mockLastInstance!.snapGrid = [0, 300, 600];
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -200, 0)";
+      mockOnHandlers.touchEnd?.forEach((handler) => handler());
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-300);
+      const [catchUpDuration] = mockLastInstance!.setTransition.mock.calls.at(-1) as [number];
+      expect(catchUpDuration).toBeLessThan(10000);
+      expect(catchUpDuration).toBeGreaterThanOrEqual(50);
+
+      wrapper.dispatchEvent(new Event("transitionend"));
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(10000, true, true);
+    });
+
+    it("does not treat touchEnd as a drag-end position save when the carousel was not paused", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      mockOnHandlers.touchEnd?.forEach((handler) => handler());
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(20000, true, true);
+    });
+
+    it("resumes by finishing the interrupted transition via the next full cycle — reads whether Swiper's own animating flag was true at the moment of pause (a live position/state signal, never a timer). Falls back to a synchronous full-speed slideNext() when snapGrid data isn't available to compute a catch-up target", () => {
       const container = buildContainer(3);
       SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 20 });
       mockLastInstance!.animating = true;
@@ -938,12 +1142,11 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       container.dispatchEvent(new MouseEvent("mouseenter"));
       container.dispatchEvent(new MouseEvent("mouseleave"));
 
-      expect(mockLastInstance?.slideTo).toHaveBeenCalledWith(2, 20000, true, true);
-      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(20000, true, true);
       expect(mockLastInstance?.autoplay.resume).not.toHaveBeenCalled();
     });
 
-    it("scales the resumed transition's duration to the remaining distance — finishing an interrupted transition at the full nominal speed would cover less ground in the same time, visibly slowing the ticker down until the next natural cycle restores it", () => {
+    it("scales the resumed catch-up's duration to the remaining distance — finishing an interrupted transition at the full nominal speed would cover less ground in the same time, visibly slowing the ticker down until the next natural cycle restores it", () => {
       const container = buildContainer(3);
       const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
       SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
@@ -955,10 +1158,15 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       container.dispatchEvent(new MouseEvent("mouseenter"));
       container.dispatchEvent(new MouseEvent("mouseleave"));
 
-      expect(mockLastInstance?.slideTo).toHaveBeenCalledWith(1, 5000, true, true);
+      expect(mockLastInstance?.setTransition).toHaveBeenCalledWith(5000);
+      expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-300);
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+
+      wrapper.dispatchEvent(new Event("transitionend"));
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(10000, true, true);
     });
 
-    it("never scales the resumed duration below a small floor — a near-zero duration would snap instead of transition (0-duration transitions never fire transitionend, per the animating-stuck-true lesson)", () => {
+    it("never re-navigates via slideTo()/slideNext() with a computed partial duration for the catch-up itself — even a near-zero remaining distance (frozen right at the edge of its grid target) animates the raw translate directly and only calls slideNext() once that catch-up genuinely finishes, avoiding the loop-boundary reindex jump a same-target slideTo() could trip (confirmed via real-site Playwright velocity sampling)", () => {
       const container = buildContainer(3);
       const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
       SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
@@ -970,8 +1178,49 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       container.dispatchEvent(new MouseEvent("mouseenter"));
       container.dispatchEvent(new MouseEvent("mouseleave"));
 
-      const [, resumedSpeed] = mockLastInstance!.slideTo.mock.calls[0] as [number, number];
-      expect(resumedSpeed).toBeGreaterThanOrEqual(50);
+      expect(mockLastInstance?.slideTo).not.toHaveBeenCalled();
+      expect(mockLastInstance?.setTransition).toHaveBeenCalledWith(50);
+      expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-300);
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+
+      wrapper.dispatchEvent(new Event("transitionend"));
+      expect(mockLastInstance?.slideTo).not.toHaveBeenCalled();
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(10000, true, true);
+    });
+
+    it("still scales the catch-up's duration down to a small floor for a genuinely short (but not negligible) remaining distance", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
+      mockLastInstance!.animating = true;
+      mockLastInstance!.activeIndex = 1;
+      mockLastInstance!.snapGrid = [0, 300, 600];
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -280, 0)";
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      const [catchUpDuration] = mockLastInstance!.setTransition.mock.calls.at(-1) as [number];
+      expect(catchUpDuration).toBeGreaterThanOrEqual(50);
+    });
+
+    it("does not finish the catch-up (never calls the deferred slideNext) when the transitionend fires on a different element — ignores bubbled/child transitions on the wrapper's own listener", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
+      mockLastInstance!.animating = true;
+      mockLastInstance!.activeIndex = 1;
+      mockLastInstance!.snapGrid = [0, 300, 600];
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -150, 0)";
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      const unrelated = document.createElement("div");
+      wrapper.append(unrelated);
+      unrelated.dispatchEvent(new Event("transitionend", { bubbles: true }));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
     });
 
     it("advances to a genuinely new slide on resume when paused between cycles — animating was false at pause time, so there is no in-flight transition to finish", () => {
@@ -987,7 +1236,7 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       expect(mockLastInstance?.autoplay.resume).not.toHaveBeenCalled();
     });
 
-    it("does not resume on an outside click if the pause was never triggered by a click (e.g. still hovering)", () => {
+    it("a click event (with no pointerdown/pointerup) never affects pause state — still hovering stays paused, a bare click resumes nothing", () => {
       const container = buildContainer(3);
       document.body.append(container);
       const outside = document.createElement("div");
@@ -996,21 +1245,6 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
 
       container.dispatchEvent(new MouseEvent("mouseenter"));
       outside.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-
-      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
-      expect(mockLastInstance?.slideTo).not.toHaveBeenCalled();
-      document.body.innerHTML = "";
-    });
-
-    it("a click landing inside the carousel does not resume it", () => {
-      const container = buildContainer(3);
-      document.body.append(container);
-      const text = document.createElement("p");
-      container.append(text);
-      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
-
-      text.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
-      text.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
       expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
       expect(mockLastInstance?.slideTo).not.toHaveBeenCalled();

@@ -101,3 +101,57 @@ describe("link-hover-effects — editor.BlockEdit filter", () => {
     });
   });
 });
+
+describe("link-hover-effects — editor.BlockListBlock preview filter", () => {
+  function OriginalBlockListBlock(props: { className?: string }) {
+    return <div data-testid="block-list-block" className={props.className} />;
+  }
+
+  function renderPreview(props: {
+    attributes?: {
+      linkHoverEffects?: {
+        disableBackgroundHover?: boolean;
+        disableUnderlineHover?: boolean;
+      };
+    };
+    className?: string;
+  }) {
+    const Wrapped = applyFilters("editor.BlockListBlock", OriginalBlockListBlock) as ComponentType<
+      typeof props
+    >;
+    return render(<Wrapped {...props} />);
+  }
+
+  it("leaves the className untouched when no effects are disabled", () => {
+    renderPreview({ attributes: {}, className: "existing" });
+
+    expect(screen.getByTestId("block-list-block")).toHaveClass("existing");
+    expect(screen.getByTestId("block-list-block").className).toBe("existing");
+  });
+
+  it("adds kt-hover-no-background to the live preview when disabled", () => {
+    renderPreview({ attributes: { linkHoverEffects: { disableBackgroundHover: true } } });
+
+    expect(screen.getByTestId("block-list-block")).toHaveClass("kt-hover-no-background");
+  });
+
+  it("adds kt-hover-no-underline to the live preview when disabled", () => {
+    renderPreview({ attributes: { linkHoverEffects: { disableUnderlineHover: true } } });
+
+    expect(screen.getByTestId("block-list-block")).toHaveClass("kt-hover-no-underline");
+  });
+
+  it("combines both preview classes with an existing className", () => {
+    renderPreview({
+      attributes: {
+        linkHoverEffects: { disableBackgroundHover: true, disableUnderlineHover: true },
+      },
+      className: "existing",
+    });
+
+    const el = screen.getByTestId("block-list-block");
+    expect(el).toHaveClass("existing");
+    expect(el).toHaveClass("kt-hover-no-background");
+    expect(el).toHaveClass("kt-hover-no-underline");
+  });
+});

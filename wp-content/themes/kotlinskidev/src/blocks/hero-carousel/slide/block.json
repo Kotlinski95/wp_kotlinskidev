@@ -13,7 +13,12 @@
   "supports": {
     "inserter": false,
     "reusable": false,
-    "html": false
+    "html": false,
+    "spacing": {
+      "padding": true,
+      "margin": true,
+      "__experimentalSkipSerialization": true
+    }
   },
   "attributes": {
     "bgImageUrl": { "type": "string", "default": "" },

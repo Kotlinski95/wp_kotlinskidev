@@ -134,7 +134,7 @@ describe("hero-carousel Edit", () => {
       (container.querySelector(".hero-carousel") as HTMLElement).style.getPropertyValue(
         "--hero-min-height"
       )
-    ).toBe("60svh");
+    ).toBe("calc(60svh - var(--admin-bar-offset, 0px))");
   });
 
   it("updates minHeight once the Height panel is opened", async () => {

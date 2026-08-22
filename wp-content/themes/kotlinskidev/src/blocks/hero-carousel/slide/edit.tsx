@@ -5,6 +5,7 @@ import {
   InspectorControls,
   MediaUpload,
   MediaUploadCheck,
+  __experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 } from "@wordpress/block-editor";
 import { PanelBody, RangeControl, Button } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
@@ -15,6 +16,7 @@ export interface HeroSlideAttributes {
   bgVideoUrl: string;
   bgVideoId: number;
   bgOverlay: number;
+  style?: { spacing?: Record<string, unknown> };
 }
 
 interface WPMediaItem {
@@ -36,6 +38,7 @@ export default function Edit({
   setAttributes: (attrs: Partial<HeroSlideAttributes>) => void;
 }) {
   const { bgImageUrl, bgImageId, bgVideoUrl, bgVideoId, bgOverlay = 0.4 } = attributes;
+  const contentSpacingStyle = getSpacingClassesAndStyles(attributes).style;
 
   return (
     <>
@@ -137,7 +140,7 @@ export default function Edit({
             <span>{__("Set a background image in the sidebar.", "kotlinskidev")}</span>
           </div>
         )}
-        <div className="hero-carousel__content">
+        <div className="hero-carousel__content" style={contentSpacingStyle as React.CSSProperties}>
           <InnerBlocks template={SLIDE_TEMPLATE as [string, object][]} />
         </div>
       </div>

@@ -101,7 +101,7 @@ it('applies the hover nav color css variable when hover is on', function () {
 it('reflects the configured min height as a css variable', function () {
     $html = kotlinskidev_hero_carousel_render(['minHeight' => 60]);
 
-    expect($html)->toContain('--hero-min-height: 60svh');
+    expect($html)->toContain('--hero-min-height: calc(60svh - var(--admin-bar-offset, 0px))');
 });
 
 it('renders each inner slide block with its index injected', function () {

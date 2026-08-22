@@ -109,6 +109,8 @@ export default function Edit({
     }
   };
 
+  const blockProps = useBlockProps({ className: "hero-carousel" });
+
   const effectivePlacement = arrowsPosition === "sides" ? "inside" : (navPlacement ?? "inside");
 
   let navColorStyle: React.CSSProperties | undefined;
@@ -245,11 +247,12 @@ export default function Edit({
         </PanelBody>
       </InspectorControls>
       <div
-        {...useBlockProps({ className: "hero-carousel" })}
+        {...blockProps}
         data-active-slide={activeSlide}
         style={
           {
-            "--hero-min-height": `${minHeight}svh`,
+            ...blockProps.style,
+            "--hero-min-height": `calc(${minHeight}svh - var(--admin-bar-offset, 0px))`,
             ...(navColorStyle ?? {}),
           } as React.CSSProperties
         }

@@ -4,6 +4,7 @@
 	position: relative;
 	isolation: isolate;
 	border-color: transparent !important;
+	border-width: 0 !important;
 
 	&::before {
 

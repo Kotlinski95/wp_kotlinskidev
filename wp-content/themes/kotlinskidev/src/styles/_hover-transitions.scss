@@ -1,0 +1,17 @@
+// Composable hover-transition slots. Each utility sets only the properties it
+// owns, so transform, colour, opacity, and shadow effects can coexist.
+@mixin compose {
+	transition-property: transform, background, color, opacity, box-shadow;
+	transition-duration:
+		var(--kt-hover-transform-duration, 0s),
+		var(--kt-hover-color-duration, 0s),
+		var(--kt-hover-color-duration, 0s),
+		var(--kt-hover-opacity-duration, 0s),
+		var(--kt-hover-shadow-duration, 0s);
+	transition-timing-function:
+		var(--kt-hover-transform-easing, ease),
+		var(--kt-hover-color-easing, ease),
+		var(--kt-hover-color-easing, ease),
+		var(--kt-hover-opacity-easing, ease),
+		var(--kt-hover-shadow-easing, ease);
+}

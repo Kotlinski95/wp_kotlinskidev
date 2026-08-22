@@ -19,7 +19,7 @@
 
 // Visible state mixin
 @mixin animation-visible {
-	opacity: 1;
+	opacity: var(--hover-opacity-from, 1);
 	transform: none;
 }
 

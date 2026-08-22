@@ -5,7 +5,13 @@ import {
   InspectorControls,
   __experimentalColorGradientControl as ColorGradientControl,
 } from "@wordpress/block-editor";
-import { PanelBody, SelectControl } from "@wordpress/components";
+import {
+  PanelBody,
+  SelectControl,
+  CheckboxControl,
+  ToggleControl,
+  RangeControl,
+} from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
 
@@ -27,6 +33,20 @@ const hoverAnimations = [
   { label: __("Constant Bounce Fast", "kotlinskidev"), value: "constant-bounce-fast" },
 ];
 
+const combinableTransformEffects = [
+  { label: __("Jump", "kotlinskidev"), value: "hover-jump" },
+  { label: __("Jump Subtle", "kotlinskidev"), value: "hover-jump-subtle" },
+  { label: __("Jump Smooth", "kotlinskidev"), value: "hover-jump-smooth" },
+  { label: __("Jump Strong", "kotlinskidev"), value: "hover-jump-strong" },
+  { label: __("Jump with Shadow", "kotlinskidev"), value: "hover-jump-shadow" },
+  { label: __("Scale", "kotlinskidev"), value: "hover-scale" },
+  { label: __("Rotate", "kotlinskidev"), value: "hover-rotate" },
+  { label: __("Bounce", "kotlinskidev"), value: "hover-bounce" },
+];
+
+const DEFAULT_OPACITY_FROM = 100;
+const DEFAULT_OPACITY_TO = 50;
+
 function addHoverAnimationAttribute(settings: any) {
   const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
 
@@ -41,6 +61,11 @@ function addHoverAnimationAttribute(settings: any) {
         type: "string",
         default: "",
       },
+      hoverAnimationExtra: {
+        type: "array",
+        default: [],
+        items: { type: "string" },
+      },
       hoverBackgroundColor: {
         type: "string",
         default: "",
@@ -48,6 +73,18 @@ function addHoverAnimationAttribute(settings: any) {
       hoverTextColor: {
         type: "string",
         default: "",
+      },
+      hoverOpacityEnabled: {
+        type: "boolean",
+        default: false,
+      },
+      hoverOpacityFrom: {
+        type: "number",
+        default: DEFAULT_OPACITY_FROM,
+      },
+      hoverOpacityTo: {
+        type: "number",
+        default: DEFAULT_OPACITY_TO,
       },
     };
   }
@@ -58,7 +95,24 @@ function addHoverAnimationAttribute(settings: any) {
 const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
   return (props: any) => {
     const { attributes, setAttributes, name } = props;
-    const { hoverAnimation, hoverBackgroundColor, hoverTextColor } = attributes;
+    const {
+      hoverAnimation,
+      hoverAnimationExtra,
+      hoverBackgroundColor,
+      hoverTextColor,
+      hoverOpacityEnabled,
+      hoverOpacityFrom,
+      hoverOpacityTo,
+    } = attributes;
+    const extraEffects: string[] = Array.isArray(hoverAnimationExtra) ? hoverAnimationExtra : [];
+
+    const toggleExtraEffect = (value: string, checked: boolean) => {
+      setAttributes({
+        hoverAnimationExtra: checked
+          ? [...extraEffects, value]
+          : extraEffects.filter((effect) => effect !== value),
+      });
+    };
 
     const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
 
@@ -102,6 +156,49 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
                 )}
               </p>
             )}
+            <p className="components-base-control__help">
+              {__(
+                "Combine additional movement effects with the animation above — they'll play together on hover.",
+                "kotlinskidev"
+              )}
+            </p>
+            {combinableTransformEffects
+              .filter((effect) => effect.value !== hoverAnimation)
+              .map((effect) => (
+                <CheckboxControl
+                  key={effect.value}
+                  label={effect.label}
+                  checked={extraEffects.includes(effect.value)}
+                  onChange={(checked) => toggleExtraEffect(effect.value, checked)}
+                />
+              ))}
+            <ToggleControl
+              label={__("Fade opacity on hover", "kotlinskidev")}
+              checked={Boolean(hoverOpacityEnabled)}
+              onChange={(checked) => setAttributes({ hoverOpacityEnabled: checked })}
+            />
+            {hoverOpacityEnabled && (
+              <>
+                <RangeControl
+                  label={__("Starting opacity", "kotlinskidev")}
+                  value={hoverOpacityFrom ?? DEFAULT_OPACITY_FROM}
+                  min={0}
+                  max={100}
+                  onChange={(value) =>
+                    setAttributes({ hoverOpacityFrom: value ?? DEFAULT_OPACITY_FROM })
+                  }
+                />
+                <RangeControl
+                  label={__("Opacity on hover", "kotlinskidev")}
+                  value={hoverOpacityTo ?? DEFAULT_OPACITY_TO}
+                  min={0}
+                  max={100}
+                  onChange={(value) =>
+                    setAttributes({ hoverOpacityTo: value ?? DEFAULT_OPACITY_TO })
+                  }
+                />
+              </>
+            )}
             <ColorGradientControl
               label={__("Hover background color", "kotlinskidev")}
               colorValue={hoverBackgroundColor && !isBgGradient ? hoverBackgroundColor : undefined}
@@ -132,9 +229,20 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
 }, "withHoverAnimationControls");
 
 function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: any) {
-  const { hoverAnimation, hoverBackgroundColor, hoverTextColor } = attributes;
+  const {
+    hoverAnimation,
+    hoverAnimationExtra,
+    hoverBackgroundColor,
+    hoverTextColor,
+    hoverOpacityEnabled,
+    hoverOpacityFrom,
+    hoverOpacityTo,
+  } = attributes;
 
-  const classes = [extraProps.className, hoverAnimation].filter(Boolean);
+  const extraEffects = Array.isArray(hoverAnimationExtra) ? hoverAnimationExtra : [];
+  const classes = [
+    ...new Set([extraProps.className, hoverAnimation, ...extraEffects].filter(Boolean)),
+  ];
 
   if (hoverBackgroundColor || hoverTextColor) {
     classes.push("has-hover-color-transition");
@@ -142,6 +250,15 @@ function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: a
       ...extraProps.style,
       ...(hoverBackgroundColor && { "--hover-bg-color": hoverBackgroundColor }),
       ...(hoverTextColor && { "--hover-text-color": hoverTextColor }),
+    };
+  }
+
+  if (hoverOpacityEnabled) {
+    classes.push("has-hover-opacity");
+    extraProps.style = {
+      ...extraProps.style,
+      "--hover-opacity-from": (hoverOpacityFrom ?? DEFAULT_OPACITY_FROM) / 100,
+      "--hover-opacity-to": (hoverOpacityTo ?? DEFAULT_OPACITY_TO) / 100,
     };
   }
 

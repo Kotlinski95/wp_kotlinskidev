@@ -75,7 +75,7 @@ it('builds scoped css declarations only for devices with values', function () {
         'desktop' => ['padding' => ['top' => '10px', 'left' => '5px']],
     ]);
 
-    expect($css)->toContain('.kt-rspc-test{padding-top:10px;padding-left:5px;}');
+    expect($css)->toContain('.kt-rspc-test{padding-top:10px !important;padding-left:5px !important;}');
     expect(substr_count($css, '.kt-rspc-test{'))->toBe(1);
 });
 

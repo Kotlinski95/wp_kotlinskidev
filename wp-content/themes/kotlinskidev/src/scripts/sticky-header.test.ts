@@ -10,13 +10,19 @@ function flushRaf() {
   jest.runOnlyPendingTimers();
 }
 
+function setOffsetHeight(el: HTMLElement, value: number) {
+  Object.defineProperty(el, "offsetHeight", { configurable: true, value });
+}
+
 function loadWithHeader() {
   document.body.innerHTML = "<header></header>";
+  const header = document.querySelector("header") as HTMLElement;
+  setOffsetHeight(header, 75);
   jest.resetModules();
   require("./sticky-header");
   document.dispatchEvent(new Event("DOMContentLoaded"));
   flushRaf();
-  return document.querySelector("header") as HTMLElement;
+  return header;
 }
 
 describe("sticky-header.ts", () => {
@@ -51,7 +57,7 @@ describe("sticky-header.ts", () => {
 
   it("adds header-sticky once scrolled past the threshold on desktop", () => {
     const header = loadWithHeader();
-    setScrollTop(50);
+    setScrollTop(100);
 
     window.dispatchEvent(new Event("scroll"));
     flushRaf();
@@ -69,9 +75,29 @@ describe("sticky-header.ts", () => {
     expect(header.classList.contains("header-sticky")).toBe(false);
   });
 
+  it("uses the header's own measured height as the threshold, not a hardcoded value", () => {
+    document.body.innerHTML = "<header></header>";
+    const header = document.querySelector("header") as HTMLElement;
+    setOffsetHeight(header, 120);
+    jest.resetModules();
+    require("./sticky-header");
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+    flushRaf();
+
+    setScrollTop(35);
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+    expect(header.classList.contains("header-sticky")).toBe(false);
+
+    setScrollTop(150);
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+    expect(header.classList.contains("header-sticky")).toBe(true);
+  });
+
   it("ignores rapid repeated scroll events while a frame is already pending", () => {
     const header = loadWithHeader();
-    setScrollTop(50);
+    setScrollTop(100);
 
     window.dispatchEvent(new Event("scroll"));
     window.dispatchEvent(new Event("scroll"));
@@ -84,7 +110,7 @@ describe("sticky-header.ts", () => {
   it("also adds header-sticky past the threshold on a mobile viewport", () => {
     setInnerWidth(500);
     const header = loadWithHeader();
-    setScrollTop(50);
+    setScrollTop(100);
 
     window.dispatchEvent(new Event("scroll"));
     flushRaf();
@@ -95,7 +121,7 @@ describe("sticky-header.ts", () => {
   it("stays position-based across a resize, regardless of direction or breakpoint", () => {
     setInnerWidth(500);
     const header = loadWithHeader();
-    setScrollTop(50);
+    setScrollTop(100);
     window.dispatchEvent(new Event("scroll"));
     flushRaf();
     expect(header.classList.contains("header-sticky")).toBe(true);
@@ -112,13 +138,14 @@ describe("sticky-header.ts", () => {
   it("hides the breadcrumbs past the threshold on a mobile viewport too", () => {
     setInnerWidth(500);
     document.body.innerHTML = '<header></header><nav class="kt-breadcrumbs"></nav>';
+    setOffsetHeight(document.querySelector("header") as HTMLElement, 75);
     jest.resetModules();
     require("./sticky-header");
     document.dispatchEvent(new Event("DOMContentLoaded"));
     flushRaf();
     const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement;
 
-    setScrollTop(50);
+    setScrollTop(100);
     window.dispatchEvent(new Event("scroll"));
     flushRaf();
     expect(breadcrumbs.classList.contains("kt-breadcrumbs--hidden")).toBe(true);

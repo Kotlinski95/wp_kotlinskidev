@@ -51,7 +51,11 @@ describe("buildSwiperConfig", () => {
   it("builds an autoplay config with the given delay when autoplay is enabled", () => {
     const config = buildSwiperConfig({ autoplay: true, autoplayDelay: 5000 });
 
-    expect(config.autoplay).toEqual({ delay: 5000, disableOnInteraction: false });
+    expect(config.autoplay).toEqual({
+      delay: 5000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    });
   });
 
   it("leaves autoplay disabled when not requested, regardless of autoplayDelay", () => {

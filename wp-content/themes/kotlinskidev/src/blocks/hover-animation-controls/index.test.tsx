@@ -29,6 +29,28 @@ describe("hover-animation-controls — blocks.registerBlockType filter", () => {
     expect(result.attributes.hoverAnimation).toEqual({ type: "string", default: "" });
   });
 
+  it("adds the extra-effects and opacity attributes for a supported block", () => {
+    const settings = { name: "core/group", attributes: {} };
+
+    const result = applyFilters("blocks.registerBlockType", settings) as {
+      attributes: {
+        hoverAnimationExtra: { type: string; default: string[] };
+        hoverOpacityEnabled: { type: string; default: boolean };
+        hoverOpacityFrom: { type: string; default: number };
+        hoverOpacityTo: { type: string; default: number };
+      };
+    };
+
+    expect(result.attributes.hoverAnimationExtra).toEqual({
+      type: "array",
+      default: [],
+      items: { type: "string" },
+    });
+    expect(result.attributes.hoverOpacityEnabled).toEqual({ type: "boolean", default: false });
+    expect(result.attributes.hoverOpacityFrom).toEqual({ type: "number", default: 100 });
+    expect(result.attributes.hoverOpacityTo).toEqual({ type: "number", default: 50 });
+  });
+
   it("does nothing when the block settings have no attributes object at all", () => {
     const settings = { name: "core/group" };
 
@@ -84,6 +106,80 @@ describe("hover-animation-controls — editor.BlockEdit filter", () => {
     );
 
     expect(setAttributes).toHaveBeenCalledWith({ hoverAnimation: "hover-jump" });
+  });
+
+  it("hides the primary animation from the additional-effects checkbox list", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { hoverAnimation: "hover-jump" },
+      setAttributes: jest.fn(),
+    });
+
+    await user.click(screen.getByRole("button", { name: /Hover Animations/ }));
+
+    expect(screen.queryByRole("checkbox", { name: "Jump" })).not.toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Scale" })).toBeInTheDocument();
+  });
+
+  it("adds a checked effect to hoverAnimationExtra", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({ name: "core/group", attributes: {}, setAttributes });
+
+    await user.click(screen.getByRole("button", { name: /Hover Animations/ }));
+    await user.click(screen.getByRole("checkbox", { name: "Scale" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ hoverAnimationExtra: ["hover-scale"] });
+  });
+
+  it("removes an unchecked effect from hoverAnimationExtra", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { hoverAnimationExtra: ["hover-scale", "hover-rotate"] },
+      setAttributes,
+    });
+
+    await user.click(screen.getByRole("button", { name: /Hover Animations/ }));
+    await user.click(screen.getByRole("checkbox", { name: "Scale" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ hoverAnimationExtra: ["hover-rotate"] });
+  });
+
+  it("hides the opacity range controls until the opacity toggle is on", async () => {
+    const user = userEvent.setup();
+    renderWrapped({ name: "core/group", attributes: {}, setAttributes: jest.fn() });
+
+    await user.click(screen.getByRole("button", { name: /Hover Animations/ }));
+
+    expect(screen.queryByRole("slider", { name: "Starting opacity" })).not.toBeInTheDocument();
+  });
+
+  it("shows the opacity range controls once the opacity toggle is on", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { hoverOpacityEnabled: true, hoverOpacityFrom: 100, hoverOpacityTo: 30 },
+      setAttributes: jest.fn(),
+    });
+
+    await user.click(screen.getByRole("button", { name: /Hover Animations/ }));
+
+    expect(screen.getByRole("slider", { name: "Starting opacity" })).toHaveValue("100");
+    expect(screen.getByRole("slider", { name: "Opacity on hover" })).toHaveValue("30");
+  });
+
+  it("enables the opacity effect via the toggle", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({ name: "core/group", attributes: {}, setAttributes });
+
+    await user.click(screen.getByRole("button", { name: /Hover Animations/ }));
+    await user.click(screen.getByRole("checkbox", { name: "Fade opacity on hover" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ hoverOpacityEnabled: true });
   });
 });
 
@@ -196,5 +292,69 @@ describe("hover-animation-controls — blocks.getSaveContent.extraProps filter",
     ) as { style?: Record<string, string> };
 
     expect(result.style).toBeUndefined();
+  });
+
+  it("appends additional effect classes alongside the primary animation", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      { className: "existing" },
+      {},
+      { hoverAnimation: "hover-jump", hoverAnimationExtra: ["hover-scale", "hover-rotate"] }
+    ) as { className: string };
+
+    expect(result.className).toBe("existing hover-jump hover-scale hover-rotate");
+  });
+
+  it("does not duplicate a value repeated between the primary animation and extras", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverAnimation: "hover-jump", hoverAnimationExtra: ["hover-jump"] }
+    ) as { className: string };
+
+    expect(result.className).toBe("hover-jump");
+  });
+
+  it("adds the opacity class and normalized 0-1 CSS variables when opacity is enabled", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverOpacityEnabled: true, hoverOpacityFrom: 100, hoverOpacityTo: 25 }
+    ) as { className: string; style: Record<string, number> };
+
+    expect(result.className).toBe("has-hover-opacity");
+    expect(result.style).toEqual({ "--hover-opacity-from": 1, "--hover-opacity-to": 0.25 });
+  });
+
+  it("leaves opacity untouched when the opacity toggle is off", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      { hoverOpacityEnabled: false, hoverOpacityFrom: 100, hoverOpacityTo: 25 }
+    ) as { className: string; style?: Record<string, number> };
+
+    expect(result.className).toBeUndefined();
+    expect(result.style).toBeUndefined();
+  });
+
+  it("combines an animation, additional effects, and opacity all together", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      {
+        hoverAnimation: "hover-jump",
+        hoverAnimationExtra: ["hover-scale"],
+        hoverOpacityEnabled: true,
+        hoverOpacityFrom: 100,
+        hoverOpacityTo: 50,
+      }
+    ) as { className: string; style: Record<string, number> };
+
+    expect(result.className).toBe("hover-jump hover-scale has-hover-opacity");
+    expect(result.style).toEqual({ "--hover-opacity-from": 1, "--hover-opacity-to": 0.5 });
   });
 });

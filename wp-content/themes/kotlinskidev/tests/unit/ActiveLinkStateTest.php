@@ -55,3 +55,15 @@ it('matches the home path when the request uri is the site root', function () {
 
     expect(kotlinskidev_is_current_link_url('/'))->toBeTrue();
 });
+
+it('never disables a bare same-page scroll anchor, regardless of current path', function () {
+    expect(kotlinskidev_is_current_link_url('#kotlinskidev-main-services'))->toBeFalse();
+});
+
+it('never disables a scroll anchor even when its own path matches the current page', function () {
+    expect(kotlinskidev_is_current_link_url('/current-page/#kotlinskidev-main-services'))->toBeFalse();
+});
+
+it('never disables an absolute same-host scroll anchor pointing at the current page', function () {
+    expect(kotlinskidev_is_current_link_url('https://example.test/current-page/#services'))->toBeFalse();
+});

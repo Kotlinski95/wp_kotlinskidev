@@ -13,7 +13,11 @@
   "style": "file:../../../build/style-hero-carousel.css",
   "viewStyle": "file:../../../build/hero-carousel-init.css",
   "supports": {
-    "align": ["full", "wide"]
+    "align": ["full", "wide"],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "providesContext": {
     "kotlinskidev/lazyLoad": "lazyLoad"

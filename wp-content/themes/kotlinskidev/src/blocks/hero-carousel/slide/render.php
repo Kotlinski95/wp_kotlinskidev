@@ -12,6 +12,11 @@ $is_eager = $slide_index === 0 && ! $lazy_load;
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => 'swiper-slide hero-carousel__slide',
 ] );
+
+$content_spacing_styles = wp_style_engine_get_styles( [
+	'spacing' => $attributes['style']['spacing'] ?? [],
+] );
+$content_style = ! empty( $content_spacing_styles['css'] ) ? ' style="' . esc_attr( $content_spacing_styles['css'] ) . '"' : '';
 ?>
 <?php if ( $is_eager && $poster_url ) : ?>
 <link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url( $poster_url ); ?>">
@@ -64,7 +69,7 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 			style="--overlay-opacity: <?php echo esc_attr( (string) $bg_overlay ); ?>"
 		></div>
 	</div>
-	<div class="hero-carousel__content">
+	<div class="hero-carousel__content"<?php echo $content_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on wp_style_engine_get_styles()'s own generated CSS ?>>
 		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
 	</div>
 </div>

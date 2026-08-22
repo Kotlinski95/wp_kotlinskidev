@@ -107,7 +107,7 @@ it('builds a single media-scoped rule combining padding and margin declarations'
         ],
     ]);
 
-    expect($css)->toBe('@media (min-width: 1024px){.kt-rspc-abc{padding-top:10px;margin-bottom:2rem;}}');
+    expect($css)->toBe('@media (min-width: 1024px){.kt-rspc-abc{padding-top:10px !important;margin-bottom:2rem !important;}}');
 });
 
 it('emits one media block per device with values', function () {
@@ -117,8 +117,8 @@ it('emits one media block per device with values', function () {
     ]);
 
     expect($css)->toBe(
-        '@media (min-width: 1024px){.kt-rspc-abc{padding-top:10px;}}'
-        . '@media (max-width: 781px){.kt-rspc-abc{margin-bottom:2rem;}}'
+        '@media (min-width: 1024px){.kt-rspc-abc{padding-top:10px !important;}}'
+        . '@media (max-width: 781px){.kt-rspc-abc{margin-bottom:2rem !important;}}'
     );
 });
 

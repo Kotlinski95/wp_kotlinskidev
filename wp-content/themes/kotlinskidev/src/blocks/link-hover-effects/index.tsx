@@ -87,6 +87,34 @@ const withLinkHoverEffectsControls = createHigherOrderComponent((BlockEdit) => {
   };
 }, "withLinkHoverEffectsControls");
 
+interface BlockListBlockProps {
+  attributes?: BlockAttributes;
+  className?: string;
+  [key: string]: unknown;
+}
+
+const withLinkHoverEffectsPreview = createHigherOrderComponent((BlockListBlock) => {
+  return (props: BlockListBlockProps) => {
+    const linkHoverEffects = props.attributes?.linkHoverEffects;
+
+    const classes = [
+      linkHoverEffects?.disableBackgroundHover && "kt-hover-no-background",
+      linkHoverEffects?.disableUnderlineHover && "kt-hover-no-underline",
+    ].filter(Boolean) as string[];
+
+    if (classes.length === 0) {
+      return <BlockListBlock {...props} />;
+    }
+
+    return (
+      <BlockListBlock
+        {...props}
+        className={[props.className, ...classes].filter(Boolean).join(" ")}
+      />
+    );
+  };
+}, "withLinkHoverEffectsPreview");
+
 addFilter(
   "blocks.registerBlockType",
   "kotlinskidev/link-hover-effects-attributes",
@@ -97,4 +125,10 @@ addFilter(
   "editor.BlockEdit",
   "kotlinskidev/link-hover-effects-controls",
   withLinkHoverEffectsControls
+);
+
+addFilter(
+  "editor.BlockListBlock",
+  "kotlinskidev/link-hover-effects-preview",
+  withLinkHoverEffectsPreview
 );

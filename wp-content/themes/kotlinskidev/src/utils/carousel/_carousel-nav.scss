@@ -77,12 +77,23 @@
 		}
 
 		&::after {
-			font-size: 0.75rem;
-			font-weight: 700;
+			content: "";
+			display: block;
+			width: 0.6875rem;
+			height: 1.25rem;
 			background: var(--carousel-nav-color, #{$color});
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
+			mask-image: url(@assets/icons/carousel-nav-arrow.svg);
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: contain;
+			-webkit-mask-image: url(@assets/icons/carousel-nav-arrow.svg);
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: center;
+			-webkit-mask-size: contain;
+		}
+
+		&.swiper-button-prev::after {
+			transform: rotate(180deg);
 		}
 
 		&:hover {
@@ -95,9 +106,6 @@
 
 			&::after {
 				background: var(--carousel-nav-color-hover, var(--carousel-nav-color, #{$color}));
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
 			}
 		}
 
@@ -106,8 +114,8 @@
 			cursor: not-allowed;
 		}
 
-		.swiper-navigation-icon {
-			height: 50%;
+		svg.swiper-navigation-icon {
+			display: none;
 		}
 	}
 

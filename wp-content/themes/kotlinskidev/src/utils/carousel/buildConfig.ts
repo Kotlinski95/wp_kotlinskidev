@@ -35,6 +35,8 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
       showPagination && !showScrollbar ? { el: ".swiper-pagination", clickable: true } : false,
     scrollbar:
       showScrollbar && !showPagination ? { el: ".swiper-scrollbar", draggable: true } : false,
-    autoplay: autoplay ? { delay: autoplayDelay, disableOnInteraction: false } : false,
+    autoplay: autoplay
+      ? { delay: autoplayDelay, disableOnInteraction: false, pauseOnMouseEnter: true }
+      : false,
   };
 };

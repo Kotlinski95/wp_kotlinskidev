@@ -17,7 +17,9 @@ import "./scripts/hide-nav-on-scroll";
 import "./scripts/visual-viewport-offset";
 import "./scripts/gsap-sticky";
 import "./scripts/faq-accordion";
+import "./scripts/line-clamp";
 import "./scripts/modal-manager";
+import "./scripts/group-link";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

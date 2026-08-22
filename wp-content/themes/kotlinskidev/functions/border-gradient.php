@@ -25,7 +25,11 @@ function kotlinskidev_apply_border_gradient_style( string $block_content, array 
     }
 
     $processor = new WP_HTML_Tag_Processor( $block_content );
-    if ( ! $processor->next_tag() ) {
+    if ( 'core/button' === $block_name ) {
+        if ( ! $processor->next_tag( [ 'class_name' => 'wp-block-button__link' ] ) ) {
+            return $block_content;
+        }
+    } elseif ( ! $processor->next_tag() ) {
         return $block_content;
     }
 

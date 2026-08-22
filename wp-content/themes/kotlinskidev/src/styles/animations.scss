@@ -2,56 +2,31 @@
 // HOVER ANIMATIONS
 // =============================================================================
 
-.hover-jump {
-	transition: transform 0.3s ease-in-out;
-	cursor: pointer;
-	will-change: transform;
+@use "hover-transitions" as hover;
 
-	&:hover {
-		transform: translateY(-0.625rem);
-	}
+.hover-jump {
+	--kt-hover-fx-move: translateY(-0.625rem);
 }
 
 .hover-jump-subtle {
-	transition: transform 0.25s ease-in-out;
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.3125rem);
-	}
+	--kt-hover-fx-move: translateY(-0.3125rem);
+	--kt-hover-transform-duration: 0.25s;
 }
 
 .hover-jump-smooth {
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.125rem);
-	}
+	--kt-hover-fx-move: translateY(-0.125rem);
+	--kt-hover-transform-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-jump-strong {
-	transition: transform 0.35s ease-in-out;
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.9375rem);
-	}
+	--kt-hover-fx-move: translateY(-0.9375rem);
+	--kt-hover-transform-duration: 0.35s;
 }
 
 .hover-jump-shadow {
-	transition:
-		transform 0.3s ease-in-out,
-		box-shadow 0.3s ease-in-out;
-	cursor: pointer;
-
-	&:hover {
-		transform: translateY(-0.625rem);
-		box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
-	}
+	--kt-hover-fx-move: translateY(-0.625rem);
+	--kt-hover-shadow-duration: 0.3s;
+	--kt-hover-shadow-easing: ease-in-out;
 }
 
 // =============================================================================
@@ -59,12 +34,42 @@
 // =============================================================================
 
 .hover-scale {
-	transition: transform 0.3s ease-in-out;
+	--kt-hover-fx-scale: scale(1.05);
+}
+
+.hover-rotate {
+	--kt-hover-fx-rotate: rotate(5deg);
+}
+
+.hover-bounce {
+	--kt-hover-fx-move: translateY(-0.5rem);
+	--kt-hover-fx-scale: scale(1.02);
+	--kt-hover-transform-duration: 0.4s;
+	--kt-hover-transform-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hover-jump,
+.hover-jump-subtle,
+.hover-jump-smooth,
+.hover-jump-strong,
+.hover-jump-shadow,
+.hover-scale,
+.hover-rotate,
+.hover-bounce {
+
+	@include hover.compose;
+	--kt-hover-transform-duration: 0.3s;
+	--kt-hover-transform-easing: ease-in-out;
 	cursor: pointer;
+	will-change: transform;
 
 	&:hover {
-		transform: scale(1.05);
+		transform: var(--kt-hover-fx-move, translateY(0)) var(--kt-hover-fx-scale, scale(1)) var(--kt-hover-fx-rotate, rotate(0deg));
 	}
+}
+
+.hover-jump-shadow:hover {
+	box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
 }
 
 .hover-zoom-bg {
@@ -91,7 +96,10 @@
 }
 
 .hover-fade {
-	transition: opacity 0.3s ease-in-out;
+
+	@include hover.compose;
+	--kt-hover-opacity-duration: 0.3s;
+	--kt-hover-opacity-easing: ease-in-out;
 	cursor: pointer;
 
 	&:hover {
@@ -99,28 +107,24 @@
 	}
 }
 
-.hover-rotate {
-	transition: transform 0.3s ease-in-out;
+.has-hover-opacity {
+
+	@include hover.compose;
+	--kt-hover-opacity-duration: 0.3s;
+	--kt-hover-opacity-easing: ease-in-out;
 	cursor: pointer;
+	opacity: var(--hover-opacity-from, 1);
 
 	&:hover {
-		transform: rotate(5deg);
-	}
-}
-
-.hover-bounce {
-	transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-	cursor: pointer;
-
-	&:hover {
-		transform: translateY(-0.5rem) scale(1.02);
+		opacity: var(--hover-opacity-to, 1);
 	}
 }
 
 .has-hover-color-transition {
-	transition:
-		background 0.3s ease-in-out,
-		color 0.3s ease-in-out;
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.3s;
+	--kt-hover-color-easing: ease-in-out;
 
 	&:hover {
 		background: var(--hover-bg-color, inherit);

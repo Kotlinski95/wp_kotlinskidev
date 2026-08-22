@@ -19,6 +19,26 @@ it('treats an empty or hash-only url as not current', function () {
     expect(kotlinskidev_is_current_link_url('#'))->toBeFalse();
 });
 
+it('never treats a same-page scroll anchor as current, regardless of the request path', function () {
+    $_SERVER['REQUEST_URI'] = '/pl/';
+
+    expect(kotlinskidev_is_current_link_url('#kotlinskidev-main-services'))->toBeFalse();
+    expect(kotlinskidev_is_current_link_url(home_url('/pl/#kotlinskidev-main-services')))->toBeFalse();
+});
+
+it('leaves a same-page scroll anchor button fully clickable', function () {
+    $_SERVER['REQUEST_URI'] = '/pl/';
+
+    $html = kotlinskidev_mark_active_link_state(
+        '<a href="#kotlinskidev-main-services">Dowiedz się więcej</a>',
+        ['attrs' => []]
+    );
+
+    expect($html)->not->toContain('kt-link-current');
+    expect($html)->not->toContain('pointer-events:none');
+    expect($html)->not->toContain('aria-disabled');
+});
+
 it('treats javascript, mailto, and tel links as never current', function () {
     expect(kotlinskidev_is_current_link_url('javascript:void(0)'))->toBeFalse();
     expect(kotlinskidev_is_current_link_url('mailto:test@example.com'))->toBeFalse();

@@ -23,6 +23,8 @@ require_once get_template_directory() . '/functions/slider-modal-trigger.php';
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
 
+require_once get_template_directory() . '/functions/text-line-clamp.php';
+
 require_once get_template_directory() . '/functions/deferred-block-assets.php';
 
 // Include script and style enqueue functions
@@ -74,6 +76,7 @@ require_once get_template_directory() . '/functions/responsive-width.php';
 
 // Load universal gradient-border support
 require_once get_template_directory() . '/functions/border-gradient.php';
+require_once get_template_directory() . '/functions/group-link.php';
 
 // Load responsive spacing controls
 require_once get_template_directory() . '/functions/responsive-spacing.php';

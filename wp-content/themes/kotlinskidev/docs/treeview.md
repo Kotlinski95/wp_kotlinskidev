@@ -27,7 +27,7 @@ kotlinskidev/
 │   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 60 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 61 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
@@ -49,6 +49,7 @@ kotlinskidev/
 │   ├── enqueue-scripts.php                     # main script/style enqueue pipeline
 │   ├── faq-layout.php                          # applies kt-faq-independent-columns-N class to core/group per its faqLayout Advanced-panel choice
 │   ├── filters.php                             # misc content/attachment filters
+│   ├── group-link.php                          # applies kt-group-link class + data-kt-group-link-url/target + role="link"/tabindex to a core/group with groupLinkUrl set
 │   ├── icon-extension.php                      # leading-icon render_block splice for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
 │   ├── icon-library.php                        # adds an "Icons (SVG)" entry to the Media Library's post_mime_types type filter
 │   ├── language-switcher.php                   # [language_switcher] shortcode
@@ -80,6 +81,7 @@ kotlinskidev/
 │   ├── social-link-tooltip.php                 # adds .kt-tooltip + data-tooltip to core/social-link anchors, sourced from the screen-reader-only label
 │   ├── svg-gradient-defs.php                   # injects inline SVG gradient <defs> into wp_body_open
 │   ├── svg-support.php                         # allows SVG uploads + inline SVG rendering
+│   ├── text-line-clamp.php                     # appends a Read more/Read less toggle + --kt-line-clamp-lines var to core/paragraph when kotlinskidevLineClampEnabled is set
 │   ├── text-shadow-support.php                 # text-shadow style attribute for shadow-supporting blocks
 │   ├── theme-setup.php                         # theme supports registration, deregisters jQuery
 │   ├── theme-switcher.php                      # dark/light shortcode + JS config output
@@ -157,7 +159,7 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 55 custom block dirs: 34 registered blocks + 20 JS-only block-extension filters + 1 post-editor settings panel
+│   ├── blocks/                                 # 56 custom block dirs: 34 registered blocks + 21 JS-only block-extension filters + 1 post-editor settings panel
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
@@ -218,6 +220,8 @@ kotlinskidev/
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
 │   │   │   └── render.php
+│   │   ├── group-link/                         # extension: makes a whole core/group clickable/keyboard-activatable via a picked URL, without hijacking clicks on nested links/buttons/form fields
+│   │   │   └── index.tsx
 │   │   ├── hero-carousel/                      # full-bleed hero/Swiper carousel, image or video background
 │   │   │   ├── slide/
 │   │   │   │   ├── block.json
@@ -236,7 +240,7 @@ kotlinskidev/
 │   │   │   ├── edit.tsx
 │   │   │   ├── render.php
 │   │   │   └── save.tsx
-│   │   ├── hover-animation-controls/           # extension: ~13 canned hover animation classes
+│   │   ├── hover-animation-controls/           # extension: ~13 canned hover animation classes, combinable transform effects (hoverAnimationExtra), start/end opacity fade
 │   │   │   └── index.tsx
 │   │   ├── icon/                               # standalone SVG icon block — Media Library picker, size/color/aria-label, renders via kotlinskidev_inline_nav_icon()
 │   │   ├── icon-extension/                     # extension: leading icon for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
@@ -366,6 +370,8 @@ kotlinskidev/
 │   │   │   └── render.php
 │   │   ├── text-justify-controls/              # extension: toolbar Justify align button for paragraph/heading
 │   │   │   └── index.tsx
+│   │   ├── text-line-clamp/                    # extension: "Truncate Text" line-clamp + Read more/Read less toggle for core/paragraph
+│   │   │   └── index.tsx
 │   │   ├── text-shadow-support/                # extension: text-shadow swatch picker for shadow-supporting blocks
 │   │   │   ├── TextShadowSwatches.tsx
 │   │   │   └── index.tsx
@@ -385,12 +391,14 @@ kotlinskidev/
 │   │   ├── cookie-consent.ts                   # replaces Complianz consent button with custom cookie icon
 │   │   ├── editor-theme-toggle.ts              # dark/light toggle button inside the block editor canvas
 │   │   ├── faq-accordion.ts                    # WAAPI height-animated open/close for FAQ details accordion
+│   │   ├── group-link.ts                       # click/keyboard delegation for .kt-group-link, skips nested interactive elements
 │   │   ├── gsap-sticky.ts                      # GSAP-based sticky element behavior
 │   │   ├── hamburger.ts                        # mobile nav overlay open/close, submenu collapse, scroll-lock
 │   │   ├── hide-nav-on-scroll.ts               # hides/shows nav bar based on scroll direction
 │   │   ├── image-lightbox.ts                   # lightbox open/close/context capture for gallery images
 │   │   ├── language-panel.ts                   # wraps initDropdownPanels for .kt-lang-panel
 │   │   ├── language.ts                         # small language-related DOM script
+│   │   ├── line-clamp.ts                       # ResizeObserver-driven overflow check + click toggle for .kt-line-clamp-toggle (Read more/Read less)
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
 │   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change
@@ -407,7 +415,7 @@ kotlinskidev/
 │   │   ├── above-the-fold.scss                 # critical layout-shift prevention rules
 │   │   ├── accessibility.scss                  # skip-link, prefers-reduced-motion handling
 │   │   ├── admin-bar.scss                      # admin-bar-specific overrides (editor-only bundle)
-│   │   ├── animations.scss                     # hover animation class definitions
+│   │   ├── animations.scss                     # hover animation class definitions; transform effects (jump/scale/rotate/bounce) compose via --kt-hover-fx-* custom properties so multiple can combine on one element
 │   │   ├── background-effects.scss             # curated animated CSS background/border/text effect classes (kt-bg-fx-*), paired with background-effects-controls
 │   │   ├── blog.scss                           # breadcrumbs + taxonomy/tag styling
 │   │   ├── border-gradient.scss                # .kt-has-gradient-border utility class (universal border-gradient extension)
@@ -419,10 +427,12 @@ kotlinskidev/
 │   │   ├── footer.scss                         # footer layout (top/brand/nav sections)
 │   │   ├── global.scss                         # broad utility classes, social-link overrides
 │   │   ├── gradients.scss                      # gradient background utility class
+│   │   ├── group-link.scss                     # cursor + focus-visible styling for .kt-group-link, paired with the group-link extension
 │   │   ├── kotlinskiwind.scss                  # hand-rolled Tailwind-like utility classes
 │   │   ├── language-panel.scss                 # language switcher panel styling
 │   │   ├── language.scss                       # language button styling
 │   │   ├── lazy.scss                           # contact-form success/error state + lazy-load styles
+│   │   ├── line-clamp.scss                     # .kt-line-clamp truncation + .kt-line-clamp-toggle gradient-text button, paired with the text-line-clamp extension
 │   │   ├── link-hover-effects.scss             # link hover-effect utility classes
 │   │   ├── link.scss                           # link styling, underline-hover effect + exception lists
 │   │   ├── mega-menu.scss                      # desktop mega-menu structure/positioning
@@ -496,9 +506,9 @@ kotlinskidev/
 │   ├── search.html                             # search results
 │   └── tag.html                                # tag archive
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
-│   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey (tests/TestCase.php extends this setup)
+│   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey + a minimal WP_HTML_Tag_Processor (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 74 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 75 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed

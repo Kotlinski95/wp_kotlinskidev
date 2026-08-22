@@ -45,3 +45,21 @@ it('accepts every documented hover animation name', function () {
         expect($html)->toContain($animation);
     }
 });
+
+it('combines a primary animation with additional effects into one class list', function () {
+    $html = kotlinskidev_render_block_with_hover_animation(
+        '<div>x</div>',
+        ['attrs' => ['hoverAnimation' => 'hover-jump', 'hoverAnimationExtra' => ['hover-scale', 'hover-rotate']]]
+    );
+
+    expect($html)->toBe('<div class="hover-jump hover-scale hover-rotate">x</div>');
+});
+
+it('adds the opacity class alongside an animation', function () {
+    $html = kotlinskidev_render_block_with_hover_animation(
+        '<div class="wp-block">x</div>',
+        ['attrs' => ['hoverAnimation' => 'hover-scale', 'hoverOpacityEnabled' => true]]
+    );
+
+    expect($html)->toBe('<div class="wp-block hover-scale has-hover-opacity">x</div>');
+});

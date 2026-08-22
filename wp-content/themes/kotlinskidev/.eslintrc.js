@@ -27,7 +27,10 @@ module.exports = {
       "error",
       {
         "@wordpress/components": ["__experimentalNumberControl", "__experimentalUnitControl"],
-        "@wordpress/block-editor": ["__experimentalColorGradientControl"],
+        "@wordpress/block-editor": [
+          "__experimentalColorGradientControl",
+          "__experimentalGetSpacingClassesAndStyles",
+        ],
       },
     ],
   },

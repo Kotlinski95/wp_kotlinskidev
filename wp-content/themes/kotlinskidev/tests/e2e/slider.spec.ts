@@ -200,6 +200,282 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     expect(later).not.toBe(frozenAt);
   });
 
+  test("dragging by hand and releasing the mouse while still over the carousel keeps it paused — only leaving afterward resumes it", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    const box = await slider.boundingBox();
+    expect(box).not.toBeNull();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+
+    await page.mouse.move(center.x, center.y);
+    await page.waitForTimeout(200);
+    await page.mouse.down();
+    await page.mouse.move(center.x - 60, center.y, { steps: 10 });
+    await page.mouse.move(center.x - 120, center.y, { steps: 10 });
+    await page.mouse.up();
+    await page.waitForTimeout(200);
+    const afterRelease = await getWrapperTranslateX(page);
+    await page.waitForTimeout(800);
+    const afterHold = await getWrapperTranslateX(page);
+
+    expect(afterHold).toBe(afterRelease);
+
+    await page.mouse.move(10, 10);
+    await page.waitForTimeout(800);
+    const afterLeave = await getWrapperTranslateX(page);
+    expect(afterLeave).not.toBe(afterHold);
+  });
+
+  test("a slow drag held past Swiper's own internal 200ms threshold still stays paused on release while still hovering — Swiper's FreeMode module force-resumes autoplay via _freeModeStaticRelease once a drag runs that long, regardless of our own hover tracking, unless explicitly overridden", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    const box = await slider.boundingBox();
+    expect(box).not.toBeNull();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+
+    await page.mouse.move(center.x, center.y);
+    await page.waitForTimeout(200);
+    await page.mouse.down();
+    await page.mouse.move(center.x - 40, center.y, { steps: 5 });
+    await page.waitForTimeout(150);
+    await page.mouse.move(center.x - 80, center.y, { steps: 5 });
+    await page.waitForTimeout(150);
+    await page.mouse.move(center.x - 120, center.y, { steps: 5 });
+    // Total elapsed since mousedown is now well past the 200ms threshold.
+    await page.mouse.up();
+    await page.waitForTimeout(200);
+    const afterRelease = await getWrapperTranslateX(page);
+    await page.waitForTimeout(1000);
+    const afterHold = await getWrapperTranslateX(page);
+
+    expect(afterHold).toBe(afterRelease);
+
+    await page.mouse.move(10, 10);
+    await page.waitForTimeout(800);
+    const afterLeave = await getWrapperTranslateX(page);
+    expect(afterLeave).not.toBe(afterHold);
+  });
+
+  test("after letting several full autoplay cycles complete naturally first, dragging and releasing inside still stays paused (checks for a stale transitionend-driven auto-resume left dangling from an earlier cycle)", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    // autoplayTime is 2s (2000ms speed per cycle) in this fixture — let ~3
+    // full natural cycles complete untouched before ever touching the mouse.
+    await page.waitForTimeout(6500);
+
+    const box = await slider.boundingBox();
+    expect(box).not.toBeNull();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+
+    await page.mouse.move(center.x, center.y);
+    await page.waitForTimeout(200);
+    await page.mouse.down();
+    await page.mouse.move(center.x - 60, center.y, { steps: 10 });
+    await page.mouse.move(center.x - 120, center.y, { steps: 10 });
+    await page.mouse.up();
+    await page.waitForTimeout(200);
+    const afterRelease = await getWrapperTranslateX(page);
+
+    // Hold well past a full cycle length — long enough for any dangling
+    // transitionend listener from an earlier cycle to have fired and forced
+    // a resume, if one exists.
+    await page.waitForTimeout(3000);
+    const afterHold = await getWrapperTranslateX(page);
+
+    expect(afterHold).toBe(afterRelease);
+
+    await page.mouse.move(10, 10);
+    await page.waitForTimeout(800);
+    const afterLeave = await getWrapperTranslateX(page);
+    expect(afterLeave).not.toBe(afterHold);
+  });
+
+  test("pause, resume (real mouse-out), then re-pause (real mouse-in) again while the resumed transition is still mid-flight — must stay paused, not get force-resumed once that in-flight transition eventually finishes", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    const box = await slider.boundingBox();
+    expect(box).not.toBeNull();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+    const outside = { x: 10, y: 10 };
+
+    // Cycle 1: real hover in/out with a real resumed transition each time,
+    // never dragging — pure hover pause/resume, repeated several times so
+    // any dangling transitionend-driven auto-resume from an earlier cycle
+    // has a chance to misfire against a later, still-active pause.
+    for (let i = 0; i < 4; i += 1) {
+      await page.mouse.move(center.x, center.y);
+      await page.waitForTimeout(150);
+      await page.mouse.move(outside.x, outside.y);
+      await page.waitForTimeout(150);
+    }
+
+    // Now pause and hold for a long time — long enough for several of the
+    // short resumed transitions above to have long since completed, so any
+    // dangling listener from them would have already misfired if it exists.
+    await page.mouse.move(center.x, center.y);
+    await page.waitForTimeout(300);
+    const frozenAt = await getWrapperTranslateX(page);
+    await page.waitForTimeout(3000);
+    const stillFrozenAt = await getWrapperTranslateX(page);
+
+    expect(stillFrozenAt).toBe(frozenAt);
+  });
+
+  test("dragging by hand and releasing the mouse outside the carousel resumes it, without needing a separate hover-out", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    const box = await slider.boundingBox();
+    expect(box).not.toBeNull();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+
+    await page.mouse.move(center.x, center.y);
+    await page.waitForTimeout(200);
+    await page.mouse.down();
+    await page.mouse.move(10, center.y, { steps: 10 });
+    await page.mouse.move(10, 10, { steps: 10 });
+    await page.mouse.up();
+    await page.waitForTimeout(200);
+    const afterRelease = await getWrapperTranslateX(page);
+    await page.waitForTimeout(800);
+    const afterHold = await getWrapperTranslateX(page);
+
+    expect(afterHold).not.toBe(afterRelease);
+  });
+
+  test("measures resumed-segment velocity vs baseline velocity across many different pause timings within a cycle, across a loop-boundary crossing — must never run faster than normal before self-correcting on the next cycle", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(300);
+    const box = await slider.boundingBox();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+
+    const baselineA = await getWrapperTranslateX(page);
+    await page.waitForTimeout(200);
+    const baselineB = await getWrapperTranslateX(page);
+    const baselineRate = Math.abs(baselineB - baselineA) / 200;
+
+    interface SwiperInternals {
+      activeIndex: number;
+      realIndex: number;
+      snapGrid: number[];
+      animating: boolean;
+      translate: number;
+    }
+
+    const results: Array<{
+      holdMs: number;
+      resumedRate: number;
+      ratio: number;
+      atFreeze: SwiperInternals;
+      atResumeCall: SwiperInternals;
+    }> = [];
+    const holdPattern = [50, 90, 130, 170, 210, 260, 310, 370, 430, 500, 600, 750, 950, 1250];
+
+    const getInternals = (): Promise<SwiperInternals> =>
+      page.evaluate(() => {
+        const el = document.querySelector(".wp-block-wpe-slider") as HTMLElement & {
+          swiper: {
+            activeIndex: number;
+            realIndex: number;
+            snapGrid: number[];
+            animating: boolean;
+            translate: number;
+          };
+        };
+        return {
+          activeIndex: el.swiper.activeIndex,
+          realIndex: el.swiper.realIndex,
+          snapGrid: el.swiper.snapGrid,
+          animating: el.swiper.animating,
+          translate: el.swiper.translate,
+        };
+      });
+
+    for (let cycle = 0; cycle < 20; cycle += 1) {
+      const holdMs = holdPattern[cycle % holdPattern.length];
+      await page.mouse.move(center.x, center.y);
+      await page.waitForTimeout(holdMs);
+      const atFreeze = await getInternals();
+
+      await armHighFrequencySampler(page, 250);
+      await page.mouse.move(10, 10);
+      const atResumeCall = await getInternals();
+      await page.waitForTimeout(300);
+      const samples = await readSamples(page);
+
+      const early = samples.filter((s) => s.t < 120);
+      if (early.length >= 2) {
+        const first = early[0];
+        const last = early[early.length - 1];
+        const resumedRate = Math.abs(last.x - first.x) / (last.t - first.t || 1);
+        const ratio = resumedRate / baselineRate;
+        results.push({ holdMs, resumedRate, ratio, atFreeze, atResumeCall });
+      }
+
+      await page.waitForTimeout(200 + (cycle % 5) * 70);
+    }
+
+    results.forEach(({ holdMs, resumedRate, ratio, atFreeze, atResumeCall }) => {
+      expect(
+        resumedRate,
+        `holdMs=${holdMs} ratio=${ratio} atFreeze=${JSON.stringify(atFreeze)} atResumeCall=${JSON.stringify(atResumeCall)}`
+      ).toBeLessThan(baselineRate * 1.5);
+    });
+  });
+
+  test("dragging left then right back to the exact starting position (still held), then releasing outside the carousel, never produces a visible teleport on resume — the drag-end catch-up must never re-navigate through Swiper's own index API for the leftover distance", async ({
+    page,
+  }) => {
+    const slider = page.locator(".wp-block-wpe-slider");
+    await slider.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    const box = await slider.boundingBox();
+    expect(box).not.toBeNull();
+    const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
+
+    for (let cycle = 0; cycle < 6; cycle += 1) {
+      await page.mouse.move(center.x, center.y);
+      await page.waitForTimeout(120 + cycle * 60);
+      const startX = await getWrapperTranslateX(page);
+
+      await page.mouse.down();
+      await page.mouse.move(center.x - 80, center.y, { steps: 8 });
+      await page.mouse.move(center.x, center.y, { steps: 8 });
+
+      await armHighFrequencySampler(page, 300);
+      await page.mouse.move(10, 10);
+      await page.mouse.up();
+      await page.waitForTimeout(400);
+      const samples = await readSamples(page);
+
+      for (let i = 1; i < samples.length; i += 1) {
+        const frameDelta = Math.abs(samples[i].x - samples[i - 1].x);
+        expect(
+          frameDelta,
+          `cycle=${cycle} startX=${startX} frame ${i}: ${JSON.stringify(samples[i - 1])} -> ${JSON.stringify(samples[i])}`
+        ).toBeLessThan(40);
+      }
+
+      await page.waitForTimeout(300);
+    }
+  });
+
   test("resume-on-hover-out starts from the exact frozen pixel — the saved paused position is the real starting point, not a snap elsewhere", async ({
     page,
   }) => {
@@ -359,7 +635,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     expect(activeIndexAfter).toBe(activeIndexBefore);
   });
 
-  test("clicking (mousedown) on plain non-focusable slide text also pauses it", async ({
+  test("pressing (pointerdown) on plain non-focusable slide text also pauses it", async ({
     page,
   }) => {
     const slider = page.locator(".wp-block-wpe-slider");
@@ -367,7 +643,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     await page.waitForTimeout(500);
 
     const heading = page.locator(".wp-block-wpe-slider p", { hasText: "Banner heading 0" });
-    await heading.dispatchEvent("mousedown");
+    await heading.dispatchEvent("pointerdown");
     const atPress = await getWrapperTranslateX(page);
     await page.waitForTimeout(800);
     const afterHold = await getWrapperTranslateX(page);
@@ -405,7 +681,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     await page.waitForTimeout(500);
 
     const heading = page.locator(".wp-block-wpe-slider p", { hasText: "Banner heading 0" });
-    await heading.dispatchEvent("mousedown");
+    await heading.dispatchEvent("pointerdown");
     await page.waitForTimeout(300);
     const frozenAt = await getWrapperTranslateX(page);
 

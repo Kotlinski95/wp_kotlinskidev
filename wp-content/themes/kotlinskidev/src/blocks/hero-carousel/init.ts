@@ -50,10 +50,75 @@ const pauseSlideVideo = (slide: HTMLElement): void => {
   video.currentTime = 0;
 };
 
+const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initSwiper>): void => {
+  const container = el.closest<HTMLElement>(".hero-carousel") ?? el;
+  let hovered = false;
+  let focused = false;
+  let pressed = false;
+
+  const evaluate = () => {
+    if (hovered || focused || pressed) {
+      swiper.autoplay.pause();
+    } else {
+      swiper.autoplay.resume();
+    }
+  };
+
+  container.addEventListener("mouseenter", () => {
+    hovered = true;
+    evaluate();
+  });
+
+  container.addEventListener("mouseleave", () => {
+    hovered = false;
+    evaluate();
+  });
+
+  container.addEventListener("focusin", () => {
+    focused = true;
+    evaluate();
+  });
+
+  container.addEventListener("focusout", (event) => {
+    const nextFocusedElement = event.relatedTarget;
+    if (nextFocusedElement instanceof Node && container.contains(nextFocusedElement)) {
+      return;
+    }
+    focused = false;
+    evaluate();
+  });
+
+  container.addEventListener("pointerdown", () => {
+    pressed = true;
+    evaluate();
+  });
+
+  const releasePress = (event: Event) => {
+    if (!pressed) {
+      return;
+    }
+    pressed = false;
+    const pointerEvent = event as PointerEvent;
+    if (!pointerEvent.pointerType || pointerEvent.pointerType === "mouse") {
+      const rect = container.getBoundingClientRect();
+      hovered =
+        pointerEvent.clientX >= rect.left &&
+        pointerEvent.clientX <= rect.right &&
+        pointerEvent.clientY >= rect.top &&
+        pointerEvent.clientY <= rect.bottom;
+    }
+    evaluate();
+  };
+  document.addEventListener("pointerup", releasePress);
+  document.addEventListener("pointercancel", releasePress);
+};
+
 const initHeroCarousel = (el: HTMLElement): void => {
   el.style.visibility = "hidden";
   const swiper = initSwiper(el, parseSettings(el));
   el.style.visibility = "visible";
+
+  wireAutoplayHoverPause(el, swiper);
 
   swiper.slides.forEach((slide, i) => {
     if (i !== swiper.activeIndex) {

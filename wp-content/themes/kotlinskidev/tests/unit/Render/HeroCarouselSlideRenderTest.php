@@ -18,6 +18,7 @@ beforeEach(function () {
     Functions\when('get_block_wrapper_attributes')->justReturn('class="swiper-slide hero-carousel__slide"');
     Functions\when('esc_url')->alias(fn ($t) => $t);
     Functions\when('esc_attr')->alias(fn ($t) => $t);
+    Functions\when('wp_style_engine_get_styles')->justReturn(['css' => '']);
 });
 
 it('preloads the poster image only for the first, non-lazy slide', function () {
@@ -114,4 +115,14 @@ it('renders the inner block content', function () {
 
     expect($html)->toContain('<div class="hero-carousel__content">');
     expect($html)->toContain('<h2>Heading</h2>');
+});
+
+it('applies the spacing style engine output directly on the content wrapper', function () {
+    Functions\when('wp_style_engine_get_styles')->justReturn(['css' => 'padding-top:2rem;']);
+
+    $html = kotlinskidev_hero_carousel_slide_render([
+        'style' => ['spacing' => ['padding' => ['top' => '2rem']]],
+    ]);
+
+    expect($html)->toContain('<div class="hero-carousel__content" style="padding-top:2rem;">');
 });
