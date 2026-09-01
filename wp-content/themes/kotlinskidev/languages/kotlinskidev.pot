@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-27T07:13:10+00:00\n"
+"POT-Creation-Date: 2026-09-01T12:37:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -498,6 +498,38 @@ msgstr ""
 msgid "Clear all theme cache"
 msgstr ""
 
+#: functions/contact-card.php:53
+msgid "Contact details"
+msgstr ""
+
+#: functions/contact-card.php:57
+#: functions/settings-page.php:653
+#: build/google-maps.js:1
+#: build/protected-content.js:1
+msgid "Address"
+msgstr ""
+
+#: functions/contact-card.php:63
+msgid "Hours"
+msgstr ""
+
+#: functions/contact-card.php:69
+#: functions/settings-page.php:661
+#: build/protected-content.js:1
+msgid "Phone"
+msgstr ""
+
+#: functions/contact-card.php:75
+#: functions/settings-page.php:669
+#: build/protected-content.js:1
+msgid "Email"
+msgstr ""
+
+#: functions/contact-card.php:87
+#: functions/service-locations.php:217
+msgid "Contact Card"
+msgstr ""
+
 #: functions/contact-form.php:24
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
@@ -888,28 +920,27 @@ msgstr ""
 msgid "No city pages found"
 msgstr ""
 
-#: functions/service-locations.php:85
+#: functions/service-locations.php:108
 msgid "City pages will appear here soon."
 msgstr ""
 
-#: functions/service-locations.php:121
-#: functions/service-locations.php:207
+#: functions/service-locations.php:144
+#: functions/service-locations.php:215
 msgid "City Grid"
 msgstr ""
 
-#: functions/service-locations.php:155
-#: functions/service-locations.php:209
-msgid "Service Location Content"
-msgstr ""
-
 #. translators: %s: city name
-#: functions/service-locations.php:175
+#: functions/service-locations.php:177
 #, php-format
 msgid "Map of %s"
 msgstr ""
 
-#: functions/service-locations.php:181
-#: functions/service-locations.php:208
+#: functions/service-locations.php:183
+msgid "View larger map"
+msgstr ""
+
+#: functions/service-locations.php:189
+#: functions/service-locations.php:216
 msgid "City Map"
 msgstr ""
 
@@ -926,7 +957,7 @@ msgid "General"
 msgstr ""
 
 #: functions/settings-page.php:24
-#: functions/settings-page.php:115
+#: functions/settings-page.php:120
 msgid "Theme Mode"
 msgstr ""
 
@@ -947,192 +978,224 @@ msgid "Security"
 msgstr ""
 
 #: functions/settings-page.php:49
+msgid "Contact Info"
+msgstr ""
+
+#: functions/settings-page.php:54
 msgid "Advanced"
 msgstr ""
 
-#: functions/settings-page.php:80
+#: functions/settings-page.php:85
 msgid "Comment Spam Protection"
 msgstr ""
 
-#: functions/settings-page.php:87
+#: functions/settings-page.php:92
 msgid "Disable comments"
 msgstr ""
 
-#: functions/settings-page.php:122
+#: functions/settings-page.php:127
 msgid "Light/dark switching"
 msgstr ""
 
-#: functions/settings-page.php:130
+#: functions/settings-page.php:135
 msgid "Default mode"
 msgstr ""
 
-#: functions/settings-page.php:168
+#: functions/settings-page.php:173
 msgid "Responsive Breakpoints"
 msgstr ""
 
-#: functions/settings-page.php:175
+#: functions/settings-page.php:180
 msgid "Mobile max width (px)"
 msgstr ""
 
-#: functions/settings-page.php:183
+#: functions/settings-page.php:188
 msgid "Tablet max width (px)"
 msgstr ""
 
-#: functions/settings-page.php:191
+#: functions/settings-page.php:196
 msgid "Large desktop min width (px)"
 msgstr ""
 
-#: functions/settings-page.php:219
+#: functions/settings-page.php:224
 msgid "Anchor Scroll Offset"
 msgstr ""
 
-#: functions/settings-page.php:226
+#: functions/settings-page.php:231
 msgid "Desktop offset (px)"
 msgstr ""
 
-#: functions/settings-page.php:234
+#: functions/settings-page.php:239
 msgid "Mobile offset (px)"
 msgstr ""
 
-#: functions/settings-page.php:262
+#: functions/settings-page.php:267
 msgid "Active Page Links"
 msgstr ""
 
-#: functions/settings-page.php:269
+#: functions/settings-page.php:274
 msgid "Highlight active-page links"
 msgstr ""
 
-#: functions/settings-page.php:277
+#: functions/settings-page.php:282
 msgid "Disable current-page link clicks"
 msgstr ""
 
-#: functions/settings-page.php:335
+#: functions/settings-page.php:340
 msgid "Login Page Branding"
 msgstr ""
 
-#: functions/settings-page.php:342
+#: functions/settings-page.php:347
 msgid "Enable custom login"
 msgstr ""
 
-#: functions/settings-page.php:350
+#: functions/settings-page.php:355
 msgid "Background image"
 msgstr ""
 
-#: functions/settings-page.php:358
+#: functions/settings-page.php:363
 msgid "Logo image"
 msgstr ""
 
-#: functions/settings-page.php:366
+#: functions/settings-page.php:371
 #: build/model-viewer.js:1
 msgid "Background color"
 msgstr ""
 
-#: functions/settings-page.php:374
+#: functions/settings-page.php:379
 msgid "Accent color"
 msgstr ""
 
-#: functions/settings-page.php:420
+#: functions/settings-page.php:425
 msgid "Facebook Pixel"
 msgstr ""
 
-#: functions/settings-page.php:427
+#: functions/settings-page.php:432
 msgid "Pixel ID"
 msgstr ""
 
-#: functions/settings-page.php:435
-#: functions/settings-page.php:458
+#: functions/settings-page.php:440
+#: functions/settings-page.php:463
 msgid "Custom script (overrides ID)"
 msgstr ""
 
-#: functions/settings-page.php:443
+#: functions/settings-page.php:448
 msgid "Google Analytics"
 msgstr ""
 
-#: functions/settings-page.php:450
+#: functions/settings-page.php:455
 msgid "Measurement ID"
 msgstr ""
 
-#: functions/settings-page.php:509
+#: functions/settings-page.php:514
 msgid "Content Security Policy"
 msgstr ""
 
-#: functions/settings-page.php:516
+#: functions/settings-page.php:521
 msgid "Enable CSP"
 msgstr ""
 
-#: functions/settings-page.php:524
+#: functions/settings-page.php:529
 msgid "Mode"
 msgstr ""
 
-#: functions/settings-page.php:532
+#: functions/settings-page.php:537
 msgid "Upgrade insecure requests"
 msgstr ""
 
-#: functions/settings-page.php:540
+#: functions/settings-page.php:545
 msgid "CSP Directives"
 msgstr ""
 
-#: functions/settings-page.php:578
+#: functions/settings-page.php:583
 msgid "Other Security Headers"
 msgstr ""
 
-#: functions/settings-page.php:585
+#: functions/settings-page.php:590
 msgid "Referrer-Policy"
 msgstr ""
 
-#: functions/settings-page.php:593
+#: functions/settings-page.php:598
 msgid "Permissions-Policy"
 msgstr ""
 
-#: functions/settings-page.php:622
+#: functions/settings-page.php:646
+msgid "Business Contact Details"
+msgstr ""
+
+#: functions/settings-page.php:677
+msgid "Business hours"
+msgstr ""
+
+#: functions/settings-page.php:686
+msgid "Used on the contact card shown across the site (e.g. city landing pages). Address, phone, and email are shown obfuscated on the frontend and only revealed after a click, via the same protection used by the Protected Content block."
+msgstr ""
+
+#: functions/settings-page.php:711
+msgid "Edit source text"
+msgstr ""
+
+#: functions/settings-page.php:713
+msgid "This is the source text shown until a per-language translation exists."
+msgstr ""
+
+#: functions/settings-page.php:714
+msgid "Translate per language →"
+msgstr ""
+
+#: functions/settings-page.php:751
+msgid "Shown as plain text — not sensitive, so not obfuscated."
+msgstr ""
+
+#: functions/settings-page.php:776
 msgid "This site does not use comments. Enabling this protection closes comments at the server level — spam bots that POST directly to wp-comments-post.php or call XML-RPC comment methods are rejected with a 403 before any database write or email notification occurs. WordPress Discussion settings alone do not stop this traffic."
 msgstr ""
 
-#: functions/settings-page.php:636
+#: functions/settings-page.php:790
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr ""
 
-#: functions/settings-page.php:639
+#: functions/settings-page.php:793
 msgid "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from the block editor and admin menu."
 msgstr ""
 
-#: functions/settings-page.php:646
+#: functions/settings-page.php:800
 msgid "Controls the light/dark color mode. When switching is disabled, the theme switcher button is hidden and the site stays locked to the default mode."
 msgstr ""
 
-#: functions/settings-page.php:660
+#: functions/settings-page.php:814
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr ""
 
-#: functions/settings-page.php:669
+#: functions/settings-page.php:823
 msgid "Auto (visitor system preference)"
 msgstr ""
 
-#: functions/settings-page.php:670
+#: functions/settings-page.php:824
 msgid "Light"
 msgstr ""
 
-#: functions/settings-page.php:671
+#: functions/settings-page.php:825
 msgid "Dark"
 msgstr ""
 
-#: functions/settings-page.php:682
+#: functions/settings-page.php:836
 msgid "Initial mode for visitors without a saved preference. With switching disabled, this is the only mode used."
 msgstr ""
 
-#: functions/settings-page.php:690
+#: functions/settings-page.php:844
 msgid "One source of truth for responsive ranges. These values drive the compiled theme CSS (media queries are rewritten at runtime and cached), the editor responsive controls, frontend scripts, and any plugin reading the mobile_breakpoint / tablet_breakpoint theme mods."
 msgstr ""
 
-#: functions/settings-page.php:692
+#: functions/settings-page.php:846
 msgid "Range"
 msgstr ""
 
-#: functions/settings-page.php:693
+#: functions/settings-page.php:847
 msgid "Effective values"
 msgstr ""
 
-#: functions/settings-page.php:694
+#: functions/settings-page.php:848
 #: build/content-tabs.js:1
 #: build/editor.js:16
 #: build/editor.js:25
@@ -1141,7 +1204,7 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: functions/settings-page.php:695
+#: functions/settings-page.php:849
 #: build/content-tabs.js:1
 #: build/editor.js:13
 #: build/editor.js:22
@@ -1150,7 +1213,7 @@ msgstr ""
 msgid "Tablet"
 msgstr ""
 
-#: functions/settings-page.php:696
+#: functions/settings-page.php:850
 #: build/content-tabs.js:1
 #: build/editor.js:10
 #: build/editor.js:19
@@ -1159,133 +1222,133 @@ msgstr ""
 msgid "Desktop"
 msgstr ""
 
-#: functions/settings-page.php:697
+#: functions/settings-page.php:851
 msgid "Large desktop"
 msgstr ""
 
-#: functions/settings-page.php:707
+#: functions/settings-page.php:861
 msgid "Screens up to this width are mobile. Tablet starts at this value + 1px. Theme default: 781."
 msgstr ""
 
-#: functions/settings-page.php:718
+#: functions/settings-page.php:872
 msgid "Screens up to this width are tablet. Desktop starts at this value + 1px. Theme default: 1023."
 msgstr ""
 
-#: functions/settings-page.php:729
+#: functions/settings-page.php:883
 msgid "Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200."
 msgstr ""
 
-#: functions/settings-page.php:736
+#: functions/settings-page.php:890
 msgid "Distance kept between the sticky header and the target when clicking an in-page anchor link (e.g. \"#services\"). Desktop keeps its floating header visible at all times, so it needs the full header height as clearance. Mobile hides the header while scrolling and only re-shows it near the top of the page, so it typically needs little or no offset."
 msgstr ""
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:749
+#: functions/settings-page.php:903
 #, php-format
 msgid "Applies above the desktop breakpoint, where the header stays visible while scrolling. Theme default: %d (matches the header height)."
 msgstr ""
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:767
+#: functions/settings-page.php:921
 #, php-format
 msgid "Applies below the desktop breakpoint, where the header hides on scroll. Theme default: %d, since the header is typically hidden by the time the scroll finishes."
 msgstr ""
 
-#: functions/settings-page.php:777
+#: functions/settings-page.php:931
 msgid "When a link (navigation, button, in-content) points at the page currently being viewed, it can be marked as active — the same gradient-text/underline style normally reserved for hover — and/or prevented from being clicked, since navigating to the page a visitor is already on does nothing useful. Individual blocks can still opt out from their own Advanced panel regardless of these settings."
 msgstr ""
 
-#: functions/settings-page.php:786
+#: functions/settings-page.php:940
 msgid "Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
 
-#: functions/settings-page.php:789
+#: functions/settings-page.php:943
 msgid "Adds a kt-link-current class and aria-current=\"page\" to matching links sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 msgstr ""
 
-#: functions/settings-page.php:800
+#: functions/settings-page.php:954
 msgid "Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
 
-#: functions/settings-page.php:803
+#: functions/settings-page.php:957
 msgid "Adds aria-disabled and removes the link from tab order. Menu items that also open a mega-menu panel stay fully interactive. Has no effect if highlighting above is disabled."
 msgstr ""
 
-#: functions/settings-page.php:820
+#: functions/settings-page.php:974
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr ""
 
-#: functions/settings-page.php:829
+#: functions/settings-page.php:983
 msgid "Enable custom login page styling"
 msgstr ""
 
-#: functions/settings-page.php:839
-#: functions/settings-page.php:851
+#: functions/settings-page.php:993
+#: functions/settings-page.php:1005
 msgid "Choose Image"
 msgstr ""
 
-#: functions/settings-page.php:841
+#: functions/settings-page.php:995
 msgid "Defaults to the theme background image when left empty."
 msgstr ""
 
-#: functions/settings-page.php:853
+#: functions/settings-page.php:1007
 msgid "Defaults to the theme logo when left empty."
 msgstr ""
 
-#: functions/settings-page.php:863
+#: functions/settings-page.php:1017
 msgid "Fallback background color when no image loads."
 msgstr ""
 
-#: functions/settings-page.php:872
+#: functions/settings-page.php:1026
 msgid "Color for links and hover effects."
 msgstr ""
 
-#: functions/settings-page.php:907
+#: functions/settings-page.php:1061
 msgid "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses)."
 msgstr ""
 
-#: functions/settings-page.php:923
-#: functions/settings-page.php:945
+#: functions/settings-page.php:1077
+#: functions/settings-page.php:1099
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr ""
 
-#: functions/settings-page.php:929
+#: functions/settings-page.php:1083
 msgid "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses)."
 msgstr ""
 
-#: functions/settings-page.php:951
+#: functions/settings-page.php:1105
 msgid "Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme's own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads."
 msgstr ""
 
-#: functions/settings-page.php:960
+#: functions/settings-page.php:1114
 msgid "Send a Content-Security-Policy header"
 msgstr ""
 
-#: functions/settings-page.php:971
+#: functions/settings-page.php:1125
 msgid "Enforce the policy (blocks violations)"
 msgstr ""
 
-#: functions/settings-page.php:974
+#: functions/settings-page.php:1128
 msgid "Leave unchecked to send Content-Security-Policy-Report-Only instead — the browser reports violations to the console without blocking anything. Recommended for at least a few days on a new site before enforcing."
 msgstr ""
 
-#: functions/settings-page.php:985
+#: functions/settings-page.php:1139
 msgid "Add the upgrade-insecure-requests directive"
 msgstr ""
 
-#: functions/settings-page.php:992
+#: functions/settings-page.php:1146
 msgid "One field per CSP directive. Values are sanitized as plain text (no HTML, no line breaks) before being sent in the header."
 msgstr ""
 
-#: functions/settings-page.php:1007
+#: functions/settings-page.php:1161
 msgid "Referrer-Policy and Permissions-Policy are sent on every frontend response (never on wp-admin or REST requests). Set independently per site — no need to touch code to give a different customer a different policy."
 msgstr ""
 
-#: functions/settings-page.php:1022
+#: functions/settings-page.php:1176
 msgid "Controls how much of the current page URL is sent to other sites when a visitor follows a link away from this one. strict-origin-when-cross-origin is a balanced default."
 msgstr ""
 
-#: functions/settings-page.php:1033
+#: functions/settings-page.php:1187
 msgid "Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty."
 msgstr ""
 
@@ -2503,6 +2566,7 @@ msgstr ""
 #: patterns/service-location-content.php:214
 #: patterns/service-location-content.php:306
 #: patterns/service-location-content.php:373
+#: build/service-location-panel.js:1
 msgid "City"
 msgstr ""
 
@@ -2963,6 +3027,7 @@ msgid "Manage the card's linked article, image, and text from Article Cards in t
 msgstr ""
 
 #: build/banner-carousel.js:1
+#: build/editor.js:19
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
 #: build/responsive-image.js:1
@@ -3074,6 +3139,56 @@ msgstr ""
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
 msgid "Show Scrollbar"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Transition Effect"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Default (slide)"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/content-tabs.js:1
+#: build/editor.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Fade"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Coverflow"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Cube"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Flip"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Cards"
+msgstr ""
+
+#: build/banner-carousel.js:1
+#: build/gallery-lightbox.js:1
+#: build/hero-carousel.js:1
+msgid "Fade, Cube, Flip, and Cards look best with 1 slide per view."
 msgstr ""
 
 #: build/banner-carousel.js:1
@@ -3412,11 +3527,6 @@ msgstr ""
 #: build/editor.js:37
 #: build/language-panel.js:1
 msgid "None"
-msgstr ""
-
-#: build/content-tabs.js:1
-#: build/editor.js:1
-msgid "Fade"
 msgstr ""
 
 #: build/content-tabs.js:1
@@ -3997,7 +4107,47 @@ msgid "Block"
 msgstr ""
 
 #: build/editor.js:10
+msgid "Inline"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Inline Block"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Inline Flex"
+msgstr ""
+
+#: build/editor.js:10
 msgid "Grid"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Inline Grid"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Flow Root"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Contents"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Table"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Table Row"
+msgstr ""
+
+#: build/editor.js:10
+msgid "Table Cell"
+msgstr ""
+
+#: build/editor.js:10
+msgid "List Item"
 msgstr ""
 
 #: build/editor.js:10
@@ -4037,6 +4187,7 @@ msgid "Space Evenly"
 msgstr ""
 
 #: build/editor.js:10
+#: build/editor.js:19
 msgid "Stretch"
 msgstr ""
 
@@ -4105,11 +4256,35 @@ msgid "Settings for screens below %srem"
 msgstr ""
 
 #: build/editor.js:19
+msgid "Custom value"
+msgstr ""
+
+#: build/editor.js:19
+msgid "Max Content"
+msgstr ""
+
+#: build/editor.js:19
+msgid "Min Content"
+msgstr ""
+
+#: build/editor.js:19
+msgid "Fit Content"
+msgstr ""
+
+#: build/editor.js:19
 msgid "Width"
 msgstr ""
 
 #: build/editor.js:19
+msgid "Width preset"
+msgstr ""
+
+#: build/editor.js:19
 msgid "Max Width"
+msgstr ""
+
+#: build/editor.js:19
+msgid "Max width preset"
 msgstr ""
 
 #: build/editor.js:19
@@ -4122,6 +4297,34 @@ msgstr ""
 
 #: build/editor.js:19
 msgid "Configure width and max-width per breakpoint"
+msgstr ""
+
+#: build/editor.js:28
+msgid "Load More"
+msgstr ""
+
+#: build/editor.js:28
+msgid "Enable Load More"
+msgstr ""
+
+#: build/editor.js:28
+msgid "Show only the first items on load; a button reveals the rest."
+msgstr ""
+
+#: build/editor.js:28
+msgid "Items to show initially"
+msgstr ""
+
+#: build/editor.js:28
+msgid "Button label"
+msgstr ""
+
+#: build/editor.js:28
+msgid "Load more"
+msgstr ""
+
+#: build/editor.js:28
+msgid "Leave empty to use the default label."
 msgstr ""
 
 #: build/editor.js:28
@@ -4198,6 +4401,10 @@ msgstr ""
 
 #: build/editor.js:37
 msgid "Excludes links in this block from the sitewide active-page gradient-text/underline treatment shown when a link points at the page currently being viewed. Enabled by default sitewide."
+msgstr ""
+
+#: build/editor.js:37
+msgid "Text Gradient"
 msgstr ""
 
 #: build/editor.js:37
@@ -4452,6 +4659,38 @@ msgid "Link text color"
 msgstr ""
 
 #: build/editor.js:37
+msgid "Contact Card Layout"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Gap between fields (rem)"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Lower this if long values (e.g. an email address) wrap to a second line."
+msgstr ""
+
+#: build/editor.js:37
+msgid "Equal Height"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Equal height grid items"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Equal height columns"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Stretch every grid item to match the tallest item in its row, so cards line up."
+msgstr ""
+
+#: build/editor.js:37
+msgid "Stretch every column's content to match the tallest column, so borders and backgrounds line up."
+msgstr ""
+
+#: build/editor.js:37
 msgid "— None (not clickable) —"
 msgstr ""
 
@@ -4550,11 +4789,6 @@ msgstr ""
 
 #: build/google-maps.js:1
 msgid "Get your API key from https://console.cloud.google.com/apis/credentials"
-msgstr ""
-
-#: build/google-maps.js:1
-#: build/protected-content.js:1
-msgid "Address"
 msgstr ""
 
 #: build/google-maps.js:1
@@ -4761,6 +4995,14 @@ msgstr ""
 
 #: build/icon.js:1
 msgid "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size."
+msgstr ""
+
+#: build/icon.js:1
+msgid "Use gradient fill"
+msgstr ""
+
+#: build/icon.js:1
+msgid "Fills the icon with the site's Fancy Text gradient (Styles → Colors → Gradients) instead of a flat color. Only visible on the live page — the editor canvas can't preview it."
 msgstr ""
 
 #: build/icon.js:1
@@ -5229,14 +5471,6 @@ msgid "Div"
 msgstr ""
 
 #: build/protected-content.js:1
-msgid "Email"
-msgstr ""
-
-#: build/protected-content.js:1
-msgid "Phone"
-msgstr ""
-
-#: build/protected-content.js:1
 msgid "Other"
 msgstr ""
 
@@ -5369,6 +5603,14 @@ msgid "Full"
 msgstr ""
 
 #: build/scroll-section.js:1
+msgid "Slide spacing"
+msgstr ""
+
+#: build/scroll-section.js:1
+msgid "Scales fluidly between breakpoints — smaller on mobile, larger on wide screens. Add or edit sizes in theme.json's settings.spacing.spacingSizes."
+msgstr ""
+
+#: build/scroll-section.js:1
 msgid "Show markers"
 msgstr ""
 
@@ -5450,6 +5692,14 @@ msgstr ""
 
 #: build/search-panel.js:1
 msgid "Used as aria-label when an icon is set."
+msgstr ""
+
+#: build/service-location-panel.js:1
+msgid "City Details"
+msgstr ""
+
+#: build/service-location-panel.js:1
+msgid "Every city mention on the page is bound to this field — changing it updates the whole page."
 msgstr ""
 
 #: build/simple-grid.js:1
@@ -6495,6 +6745,31 @@ msgstr ""
 #: theme.json
 msgctxt "Shadow name"
 msgid "Colored Drop"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "None"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Space size name"
+msgid "X-Large"
 msgstr ""
 
 #: theme.json

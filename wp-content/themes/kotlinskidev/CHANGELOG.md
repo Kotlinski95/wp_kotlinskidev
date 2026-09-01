@@ -234,6 +234,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - **2026-08-11 — SVG icons:** Fixed icon sizing and gradient states after migrating from IcoMoon fonts to inline SVGs.
 
+### Internationalization
+
+- **2026-09-01 — Full PL/EN translation catalog refresh:** `languages/en_US.po`/`pl_PL.po` had drifted to hundreds of fuzzy/untranslated strings behind the actual source (new blocks like `load-more`/`equal-height-columns` plus older undertranslated batches), which blocked `npm run i18n:check` in the pre-push hook. Regenerated `kotlinskidev.pot` and filled every missing/fuzzy entry in both catalogs (English via identity-fill, Polish translated by hand), then rebuilt `.mo`/`.l10n.php`/`.json` — `wp i18n make-json` was found to destructively rewrite the source `.po` files as a side effect, so `.po` content is now re-saved after that step rather than before it.
+
 ### Chore
 
 - **2026-08-12 — Icon migration:** Removed the final hardcoded SVG/icon-font dependencies and moved social icons fully to the Media Library-based system.
