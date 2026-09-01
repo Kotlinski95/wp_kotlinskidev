@@ -8,40 +8,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Enqueue hover animation controls script
- */
-function kotlinskidev_enqueue_hover_animation_controls() {
-    // Only load in admin/editor
-    if (!is_admin()) {
-        return;
-    }
-
-    wp_enqueue_script(
-        'kotlinskidev-hover-animation-controls',
-        get_template_directory_uri() . '/src/blocks/hover-animation-controls/index.tsx',
-        array(
-            'wp-blocks',
-            'wp-element',
-            'wp-editor',
-            'wp-components',
-            'wp-i18n',
-            'wp-hooks',
-            'wp-compose'
-        ),
-        filemtime(get_template_directory() . '/src/blocks/hover-animation-controls/index.tsx'),
-        true
-    );
-
-    // Make script translatable
-    wp_set_script_translations(
-        'kotlinskidev-hover-animation-controls',
-        'kotlinskidev',
-        get_template_directory() . '/languages'
-    );
-}
-add_action('enqueue_block_editor_assets', 'kotlinskidev_enqueue_hover_animation_controls');
-
 function kotlinskidev_valid_hover_animations() {
     return [
         'hover-jump',
@@ -85,6 +51,26 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
         $classes[] = 'has-hover-opacity';
     }
 
+    $hover_background_color = (string) ( $attrs['hoverBackgroundColor'] ?? '' );
+    $hover_text_color       = (string) ( $attrs['hoverTextColor'] ?? '' );
+    $declarations           = [];
+
+    if ( '' !== $hover_background_color || '' !== $hover_text_color ) {
+        $classes[] = 'has-hover-color-transition';
+
+        if ( str_contains( $hover_text_color, 'gradient' ) ) {
+            $classes[] = 'has-hover-text-gradient';
+        }
+
+        if ( '' !== $hover_background_color ) {
+            $declarations[] = '--hover-bg-color:' . $hover_background_color;
+        }
+
+        if ( '' !== $hover_text_color ) {
+            $declarations[] = '--hover-text-color:' . $hover_text_color;
+        }
+    }
+
     if ( empty( $classes ) ) {
         return $block_content;
     }
@@ -96,7 +82,13 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
 
     $existing_class = $processor->get_attribute( 'class' );
     $existing_class = is_string( $existing_class ) ? $existing_class . ' ' : '';
-    $processor->set_attribute( 'class', trim( $existing_class . implode( ' ', $classes ) ) );
+    $processor->set_attribute( 'class', trim( $existing_class . implode( ' ', array_unique( $classes ) ) ) );
+
+    if ( ! empty( $declarations ) ) {
+        $existing_style = trim( (string) ( $processor->get_attribute( 'style' ) ?? '' ) );
+        $existing_style = '' !== $existing_style ? rtrim( $existing_style, ';' ) . ';' : '';
+        $processor->set_attribute( 'style', $existing_style . implode( ';', $declarations ) . ';' );
+    }
 
     return $processor->get_updated_html();
 }

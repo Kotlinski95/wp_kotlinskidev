@@ -1,26 +1,28 @@
 <?php
-$min_height      = absint( $attributes['minHeight'] ?? 80 );
-$show_arrows     = (bool) ( $attributes['showArrows'] ?? true );
-$show_pagination = (bool) ( $attributes['showPagination'] ?? true );
-$arrows_position = sanitize_key( $attributes['arrowsPosition'] ?? 'sides' );
-$nav_color       = sanitize_text_field( $attributes['navColor'] ?? '' );
-$nav_color_hover = (bool) ( $attributes['navColorOnHover'] ?? false );
-$nav_placement   = sanitize_key( $attributes['navPlacement'] ?? 'inside' );
+$min_height         = absint( $attributes['minHeight'] ?? 80 );
+$show_arrows        = (bool) ( $attributes['showArrows'] ?? true );
+$show_pagination    = (bool) ( $attributes['showPagination'] ?? true );
+$arrows_position    = sanitize_key( $attributes['arrowsPosition'] ?? 'sides' );
+$nav_color          = sanitize_text_field( $attributes['navColor'] ?? '' );
+$nav_color_hover    = (bool) ( $attributes['navColorOnHover'] ?? false );
+$nav_placement      = sanitize_key( $attributes['navPlacement'] ?? 'inside' );
+$transition_effect  = sanitize_key( $attributes['transitionEffect'] ?? 'slide' );
 
 $effective_placement = $arrows_position === 'sides' ? 'inside' : $nav_placement;
 
 $settings = wp_json_encode( [
-	'showArrows'      => $show_arrows,
-	'showPagination'  => $show_pagination,
-	'loop'            => (bool) ( $attributes['loop'] ?? true ),
-	'draggable'       => (bool) ( $attributes['draggable'] ?? true ),
-	'autoplay'        => (bool) ( $attributes['autoplay'] ?? false ),
-	'autoplayDelay'   => absint( $attributes['autoplayDelay'] ?? 5000 ),
-	'lazyLoad'        => (bool) ( $attributes['lazyLoad'] ?? false ),
-	'arrowsPosition'  => $arrows_position,
-	'navColor'        => $nav_color,
-	'navColorOnHover' => $nav_color_hover,
-	'navPlacement'    => $nav_placement,
+	'showArrows'       => $show_arrows,
+	'showPagination'   => $show_pagination,
+	'loop'             => (bool) ( $attributes['loop'] ?? true ),
+	'draggable'        => (bool) ( $attributes['draggable'] ?? true ),
+	'autoplay'         => (bool) ( $attributes['autoplay'] ?? false ),
+	'autoplayDelay'    => absint( $attributes['autoplayDelay'] ?? 5000 ),
+	'lazyLoad'         => (bool) ( $attributes['lazyLoad'] ?? false ),
+	'arrowsPosition'   => $arrows_position,
+	'navColor'         => $nav_color,
+	'navColorOnHover'  => $nav_color_hover,
+	'navPlacement'     => $nav_placement,
+	'transitionEffect' => $transition_effect,
 ] ) ?: '{}';
 
 $slides_html = '';

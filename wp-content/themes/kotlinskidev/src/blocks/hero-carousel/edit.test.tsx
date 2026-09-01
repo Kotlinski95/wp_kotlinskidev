@@ -161,6 +161,7 @@ describe("hero-carousel Edit", () => {
       navPlacement: true,
       autoplay: true,
       lazyLoad: true,
+      transitionEffect: true,
     });
   });
 

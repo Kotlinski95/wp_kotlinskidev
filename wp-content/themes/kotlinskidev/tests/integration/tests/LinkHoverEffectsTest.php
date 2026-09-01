@@ -35,6 +35,23 @@ it('adds both wrapper classes when both effects are disabled', function () {
     expect($html)->toContain('kt-hover-no-underline');
 });
 
+it('adds the add-underline-hover class to the wrapper', function () {
+    $html = kotlinskidev_link_hover_render(['linkHoverEffects' => ['enableUnderlineHover' => true]]);
+
+    expect($html)->toContain('kt-hover-add-underline');
+});
+
+it('reaches a real dynamic (render.php-only) block the same way, e.g. kotlinskidev/scroll-to-top', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:kotlinskidev/scroll-to-top ' . wp_json_encode([
+            'variant' => 'bar',
+            'linkHoverEffects' => ['enableUnderlineHover' => true],
+        ]) . ' /-->'
+    )[0]);
+
+    expect($html)->toContain('kt-hover-add-underline');
+});
+
 it('adds the no-link-gradient class to every anchor inside the block', function () {
     $html = kotlinskidev_link_hover_render(
         ['linkHoverEffects' => ['disableLinkGradient' => true]],

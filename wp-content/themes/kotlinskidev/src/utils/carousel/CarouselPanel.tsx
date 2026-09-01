@@ -37,6 +37,7 @@ export default function CarouselPanel({
     navPlacement = "inside",
     trackActiveSlide = false,
     paginationPlacement = "inside",
+    transitionEffect = "slide",
   } = settings;
 
   const pendingNavColorRef = React.useRef<string | null>(null);
@@ -125,6 +126,28 @@ export default function CarouselPanel({
           label={__("Show Scrollbar", "kotlinskidev")}
           checked={showScrollbar}
           onChange={(value) => onChange({ showScrollbar: value })}
+        />
+      )}
+      {features.transitionEffect && (
+        <SelectControl
+          label={__("Transition Effect", "kotlinskidev")}
+          value={transitionEffect}
+          options={[
+            { label: __("Default (slide)", "kotlinskidev"), value: "slide" },
+            { label: __("Fade", "kotlinskidev"), value: "fade" },
+            { label: __("Coverflow", "kotlinskidev"), value: "coverflow" },
+            { label: __("Cube", "kotlinskidev"), value: "cube" },
+            { label: __("Flip", "kotlinskidev"), value: "flip" },
+            { label: __("Cards", "kotlinskidev"), value: "cards" },
+          ]}
+          help={
+            transitionEffect !== "slide"
+              ? __("Fade, Cube, Flip, and Cards look best with 1 slide per view.", "kotlinskidev")
+              : undefined
+          }
+          onChange={(value) =>
+            onChange({ transitionEffect: value as CarouselSettings["transitionEffect"] })
+          }
         />
       )}
       <ToggleControl

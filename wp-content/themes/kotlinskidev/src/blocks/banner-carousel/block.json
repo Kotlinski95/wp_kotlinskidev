@@ -27,6 +27,7 @@
     "slidesPerView": { "type": ["number", "string"], "default": 1 },
     "slidesPerMobile": { "type": ["number", "string"], "default": 1 },
     "slidesPerTablet": { "type": ["number", "string"], "default": 1 },
-    "slidesPerDesktop": { "type": ["number", "string"], "default": 1 }
+    "slidesPerDesktop": { "type": ["number", "string"], "default": 1 },
+    "transitionEffect": { "type": "string", "default": "slide" }
   }
 }

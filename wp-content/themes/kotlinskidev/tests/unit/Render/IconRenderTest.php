@@ -73,6 +73,27 @@ it('omits the style attribute content when size and color are both unset', funct
     expect($html)->not->toContain('color:');
 });
 
+it('adds the gradient class and omits the color style when useGradient is enabled', function () {
+    Functions\when('get_post_mime_type')->justReturn('image/svg+xml');
+    Functions\when('get_transient')->justReturn('<svg xmlns="http://www.w3.org/2000/svg"></svg>');
+
+    $html = kotlinskidev_icon_render(['mediaId' => 5, 'color' => '#ff0000', 'useGradient' => true]);
+
+    expect($html)->toContain('class="kt-icon kt-icon--gradient"');
+    expect($html)->not->toContain('color:');
+});
+
+it('keeps the plain color style and no gradient class when useGradient is disabled', function () {
+    Functions\when('get_post_mime_type')->justReturn('image/svg+xml');
+    Functions\when('get_transient')->justReturn('<svg xmlns="http://www.w3.org/2000/svg"></svg>');
+
+    $html = kotlinskidev_icon_render(['mediaId' => 5, 'color' => '#ff0000', 'useGradient' => false]);
+
+    expect($html)->toContain('class="kt-icon"');
+    expect($html)->not->toContain('kt-icon--gradient');
+    expect($html)->toContain('color: #ff0000;');
+});
+
 it('does not add the tooltip when showTooltip is enabled but there is no aria label', function () {
     Functions\when('get_post_mime_type')->justReturn('image/svg+xml');
     Functions\when('get_transient')->justReturn('<svg xmlns="http://www.w3.org/2000/svg"></svg>');

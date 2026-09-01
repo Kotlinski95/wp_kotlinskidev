@@ -14,6 +14,12 @@ it('accepts valid css length values in supported units', function () {
     }
 });
 
+it('passes through the css sizing keywords unchanged', function () {
+    foreach (['max-content', 'min-content', 'fit-content', 'stretch'] as $value) {
+        expect(kotlinskidev_sanitize_css_length($value))->toBe($value);
+    }
+});
+
 it('trims surrounding whitespace before validating', function () {
     expect(kotlinskidev_sanitize_css_length('  100px  '))->toBe('100px');
 });

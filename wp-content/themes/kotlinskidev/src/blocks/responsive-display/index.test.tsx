@@ -172,6 +172,70 @@ describe("responsive-display — editor.BlockEdit filter", () => {
     expect(desktop.queryByRole("combobox", { name: "Flex Direction" })).not.toBeInTheDocument();
   });
 
+  it("shows Flex Direction, Justify Content, and Align Items when display is inline-flex", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      attributes: {
+        responsiveDisplay: { desktop: { display: "inline-flex" }, tablet: {}, mobile: {} },
+      },
+      setAttributes: jest.fn(),
+    });
+    await openPanel(user);
+
+    const desktop = within(deviceSection("Desktop"));
+    expect(desktop.getByRole("combobox", { name: "Flex Direction" })).toBeInTheDocument();
+    expect(desktop.getByRole("combobox", { name: "Justify Content" })).toBeInTheDocument();
+    expect(desktop.getByRole("combobox", { name: "Align Items" })).toBeInTheDocument();
+  });
+
+  it("shows Justify Content and Align Items but not Flex Direction when display is inline-grid", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      attributes: {
+        responsiveDisplay: { desktop: { display: "inline-grid" }, tablet: {}, mobile: {} },
+      },
+      setAttributes: jest.fn(),
+    });
+    await openPanel(user);
+
+    const desktop = within(deviceSection("Desktop"));
+    expect(desktop.getByRole("combobox", { name: "Justify Content" })).toBeInTheDocument();
+    expect(desktop.getByRole("combobox", { name: "Align Items" })).toBeInTheDocument();
+    expect(desktop.queryByRole("combobox", { name: "Flex Direction" })).not.toBeInTheDocument();
+  });
+
+  it("offers the full set of standard CSS display values in the Display control", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      attributes: { responsiveDisplay: { desktop: {}, tablet: {}, mobile: {} } },
+      setAttributes: jest.fn(),
+    });
+    await openPanel(user);
+    await user.click(screen.getByRole("checkbox", { name: "Advanced Display Settings" }));
+
+    const desktop = within(deviceSection("Desktop"));
+    const display = desktop.getByRole("combobox", { name: "Display" }) as HTMLSelectElement;
+    const values = Array.from(display.options).map((option) => option.value);
+
+    expect(values).toEqual([
+      "",
+      "block",
+      "inline",
+      "inline-block",
+      "flex",
+      "inline-flex",
+      "grid",
+      "inline-grid",
+      "flow-root",
+      "contents",
+      "table",
+      "table-row",
+      "table-cell",
+      "list-item",
+      "none",
+    ]);
+  });
+
   it("updates the display value for one device, preserving the rest", async () => {
     const user = userEvent.setup();
     const setAttributes = jest.fn();

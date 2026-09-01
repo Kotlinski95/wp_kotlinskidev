@@ -19,6 +19,7 @@
     "mediaUrl": { "type": "string", "default": "" },
     "size": { "type": "string", "default": "" },
     "color": { "type": "string", "default": "" },
+    "useGradient": { "type": "boolean", "default": false },
     "ariaLabel": { "type": "string", "default": "" },
     "showTooltip": { "type": "boolean", "default": false }
   }

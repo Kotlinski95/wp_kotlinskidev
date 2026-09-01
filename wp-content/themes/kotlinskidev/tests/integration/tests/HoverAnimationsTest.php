@@ -63,3 +63,30 @@ it('adds the opacity class alongside an animation', function () {
 
     expect($html)->toBe('<div class="wp-block hover-scale has-hover-opacity">x</div>');
 });
+
+it('applies the hover color CSS custom properties to a real dynamic block, since it never goes through blocks.getSaveContent.extraProps', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:kotlinskidev/scroll-to-top ' . wp_json_encode([
+            'variant' => 'bar',
+            'hoverBackgroundColor' => '#8209d3',
+            'hoverTextColor' => 'linear-gradient(135deg,#8209d3 0%,#ff6b6b 100%)',
+        ]) . ' /-->'
+    )[0]);
+
+    expect($html)->toContain('has-hover-color-transition');
+    expect($html)->toContain('has-hover-text-gradient');
+    expect($html)->toContain('--hover-bg-color:#8209d3');
+    expect($html)->toContain('--hover-text-color:linear-gradient(135deg,#8209d3 0%,#ff6b6b 100%)');
+});
+
+it('does not add the text-gradient class for a flat hover text color on a real dynamic block', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:kotlinskidev/scroll-to-top ' . wp_json_encode([
+            'variant' => 'bar',
+            'hoverTextColor' => '#ffffff',
+        ]) . ' /-->'
+    )[0]);
+
+    expect($html)->toContain('has-hover-color-transition');
+    expect($html)->not->toContain('has-hover-text-gradient');
+});

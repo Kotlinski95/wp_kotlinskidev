@@ -47,6 +47,11 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/breadcrumbs' );
     register_block_type( get_template_directory() . '/src/blocks/model-viewer' );
     register_block_type( get_template_directory() . '/src/blocks/icon' );
+    register_block_type( get_template_directory() . '/src/blocks/content-tabs' );
+    register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
+    register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
+    register_block_type( get_template_directory() . '/src/blocks/article-card' );
+    register_block_type( get_template_directory() . '/src/blocks/project-card' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
 

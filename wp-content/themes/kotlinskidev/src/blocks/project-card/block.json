@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/project-card",
+  "version": "1.0.0",
+  "title": "Project Card",
+  "category": "kotlinskidev",
+  "icon": "portfolio",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/project-card.js",
+  "attributes": {
+    "cardId": { "type": "number", "default": 0 }
+  },
+  "supports": { "html": false },
+  "render": "file:./render.php"
+}

@@ -1,5 +1,10 @@
 import React from "react";
-import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
+import {
+  useBlockProps,
+  InnerBlocks,
+  InspectorControls,
+  useSettings,
+} from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
 import {
@@ -29,13 +34,23 @@ interface BlockEditorActions {
 
 type TriggerValue = "top" | "center" | "bottom";
 type SlideWidth = "auto" | "full";
+type SlideGap = string;
 
 interface ScrollSectionAttributes {
   trigger: TriggerValue;
   backgroundColor: string;
   markers: boolean;
   slideWidth: SlideWidth;
+  slideGap: SlideGap;
 }
+
+interface ThemeSpacingSize {
+  name: string;
+  slug: string;
+  size: string;
+}
+
+type ScrollSectionStyle = React.CSSProperties & { [customProperty: `--${string}`]: string };
 
 export default function Edit({
   clientId,
@@ -59,6 +74,12 @@ export default function Edit({
     "core/block-editor"
   ) as unknown as BlockEditorActions;
 
+  const [customSpacingSizes, themeSpacingSizes] = useSettings(
+    "spacing.spacingSizes.custom",
+    "spacing.spacingSizes.theme"
+  ) as [ThemeSpacingSize[] | undefined, ThemeSpacingSize[] | undefined];
+  const spacingSizes = [...(customSpacingSizes ?? []), ...(themeSpacingSizes ?? [])];
+
   const handleAddItem = () => {
     insertBlock(createBlock("kotlinskidev/scroll-section-item"), undefined, clientId);
   };
@@ -73,10 +94,16 @@ export default function Edit({
     }
   };
 
+  const style: ScrollSectionStyle = {
+    ...(attributes.backgroundColor ? { background: attributes.backgroundColor } : {}),
+    "--scroll-section-gap": `var(--wp--preset--spacing--${attributes.slideGap})`,
+  };
+
   const blockProps = useBlockProps({
     className: "scroll-section scroll-section--editor",
-    style: attributes.backgroundColor ? { background: attributes.backgroundColor } : undefined,
+    style,
     "data-slide-width": attributes.slideWidth,
+    "data-slide-gap": attributes.slideGap,
   });
 
   return (
@@ -102,6 +129,18 @@ export default function Edit({
             ]}
             onChange={(value: string) => setAttributes({ slideWidth: value as SlideWidth })}
           />
+          {attributes.slideWidth === "auto" && spacingSizes.length > 0 && (
+            <SelectControl
+              label={__("Slide spacing", "kotlinskidev")}
+              value={attributes.slideGap}
+              options={spacingSizes.map((size) => ({ label: size.name, value: size.slug }))}
+              onChange={(value: string) => setAttributes({ slideGap: value })}
+              help={__(
+                "Scales fluidly between breakpoints — smaller on mobile, larger on wide screens. Add or edit sizes in theme.json's settings.spacing.spacingSizes.",
+                "kotlinskidev"
+              )}
+            />
+          )}
           <ToggleControl
             label={__("Show markers", "kotlinskidev")}
             checked={attributes.markers}

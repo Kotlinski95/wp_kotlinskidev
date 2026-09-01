@@ -1,0 +1,19 @@
+@import "variables";
+
+.kt-city-grid {
+	display: grid;
+	grid-template-columns: repeat(var(--kt-city-grid-columns-desktop, 3), 1fr);
+	gap: 0.9375rem;
+
+	@media (min-width: $breakpoint-tablet-wp) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
+		grid-template-columns: repeat(var(--kt-city-grid-columns-tablet, 2), 1fr);
+	}
+
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: repeat(var(--kt-city-grid-columns-mobile, 1), 1fr);
+	}
+}
+
+.kt-city-grid__link-label {
+	color: var(--kt-city-grid-link-color, var(--wp--preset--color--foreground-alt));
+}

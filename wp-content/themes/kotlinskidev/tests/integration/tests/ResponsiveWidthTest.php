@@ -46,6 +46,18 @@ it('adds the responsive width class and css variables for each configured device
     expect($html)->toContain('--kt-width-mobile:100%');
 });
 
+it('applies a css sizing keyword width through the real block pipeline', function () {
+    $html = kotlinskidev_group_render([
+        'responsiveWidth' => [
+            'desktop' => ['width' => 'fit-content', 'maxWidth' => 'max-content'],
+        ],
+    ]);
+
+    expect($html)->toContain('kt-has-responsive-width');
+    expect($html)->toContain('--kt-width-desktop:fit-content');
+    expect($html)->toContain('--kt-max-width-desktop:max-content');
+});
+
 it('leaves the block untouched when every device value is invalid', function () {
     $html = kotlinskidev_group_render(['responsiveWidth' => ['desktop' => ['width' => 'not-a-length']]]);
 

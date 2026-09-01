@@ -844,6 +844,18 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-337.5);
     });
 
+    it("freezes correctly when the browser reports the wrapper transform as matrix3d() instead of matrix() — Swiper always sets translate3d(), and WebKit (Safari/iOS) preserves that as a 16-value matrix3d() with the x-translation at index 12, not 4; missing this made every mobile Safari freeze read translateX as 0 and snap the carousel back to its start on release", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      wrapper.style.transform = "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -337.5, 0, 0, 1)";
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+
+      expect(mockLastInstance?.setTransition).toHaveBeenCalledWith(0);
+      expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-337.5);
+    });
+
     it("freezes using the transform value at the exact moment of pause, not a stale/rounded one", () => {
       const container = buildContainer(3);
       const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
@@ -1030,6 +1042,31 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       document.body.innerHTML = "";
     });
 
+    it("re-asserts pause on release for a touch drag too, even though touch never sets hovered/focused — a touch release used to skip the FreeMode override entirely and let it force-resume unguarded", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      const pauseCallsBeforeRelease = mockLastInstance!.autoplay.pause.mock.calls.length;
+
+      // Simulate Swiper's own internal FreeMode+Autoplay interaction forcing
+      // a resume the instant the drag ends, exactly as it does for a mouse
+      // drag — this happens synchronously inside Swiper's core touchend
+      // handling, before our own release logic runs.
+      mockLastInstance!.autoplay.resume();
+      const touchPointerUp = new Event("pointerup", { bubbles: true }) as PointerEvent;
+      Object.defineProperty(touchPointerUp, "pointerType", { value: "touch" });
+      text.dispatchEvent(touchPointerUp);
+
+      expect(mockLastInstance?.autoplay.pause.mock.calls.length).toBeGreaterThan(
+        pauseCallsBeforeRelease
+      );
+      document.body.innerHTML = "";
+    });
+
     it("resumes on release when the pointer's real position is genuinely outside the carousel bounds, even without an accompanying mouseleave", () => {
       const container = buildContainer(3);
       document.body.append(container);
@@ -1102,16 +1139,18 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       document.body.innerHTML = "";
     });
 
-    it("saves the drag-end position (via Swiper's own touchEnd event) so the eventual resume starts from wherever the drag actually left off, not the pre-drag freeze point", () => {
+    it("saves the drag-end position at release time so the eventual resume starts from wherever the drag actually left off, not the pre-drag freeze point — regression: this used to rely on Swiper's own semantic 'touchEnd' event firing before our pointerup handler, but under real/emulated touch that ordering isn't guaranteed (confirmed via Chrome's Input.emulateTouchFromMouseEvent, the exact mechanism DevTools' device toolbar uses), so the drag-end position is now captured directly on pointerup instead", () => {
       const container = buildContainer(3);
       const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
       SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
       mockLastInstance!.snapGrid = [0, 300, 600];
 
-      container.dispatchEvent(new MouseEvent("mouseenter"));
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
       wrapper.style.transform = "matrix(1, 0, 0, 1, -200, 0)";
-      mockOnHandlers.touchEnd?.forEach((handler) => handler());
-      container.dispatchEvent(new MouseEvent("mouseleave"));
+      text.dispatchEvent(new Event("pointerup", { bubbles: true }));
 
       expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-300);
       const [catchUpDuration] = mockLastInstance!.setTransition.mock.calls.at(-1) as [number];
@@ -1120,17 +1159,27 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
 
       wrapper.dispatchEvent(new Event("transitionend"));
       expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(10000, true, true);
+      document.body.innerHTML = "";
     });
 
-    it("does not treat touchEnd as a drag-end position save when the carousel was not paused", () => {
+    it("clears a stale hovered flag on a touch-typed release — Chrome's touch-from-mouse emulation (what DevTools' device toolbar uses for a mouse-driven touch drag) fires a genuine mouseenter alongside the synthetic touch events with no matching mouseleave, which would otherwise leave hovered stuck true forever and permanently block any resume, since real touch has no hover concept at all", () => {
       const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
       SwiperInit(container, { continuousAutoplay: true, autoplay: true });
 
-      mockOnHandlers.touchEnd?.forEach((handler) => handler());
       container.dispatchEvent(new MouseEvent("mouseenter"));
-      container.dispatchEvent(new MouseEvent("mouseleave"));
+      const touchPointerDown = new Event("pointerdown", { bubbles: true }) as PointerEvent;
+      Object.defineProperty(touchPointerDown, "pointerType", { value: "touch" });
+      text.dispatchEvent(touchPointerDown);
 
-      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(20000, true, true);
+      const touchPointerUp = new Event("pointerup", { bubbles: true }) as PointerEvent;
+      Object.defineProperty(touchPointerUp, "pointerType", { value: "touch" });
+      text.dispatchEvent(touchPointerUp);
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+      document.body.innerHTML = "";
     });
 
     it("resumes by finishing the interrupted transition via the next full cycle — reads whether Swiper's own animating flag was true at the moment of pause (a live position/state signal, never a timer). Falls back to a synchronous full-speed slideNext() when snapGrid data isn't available to compute a catch-up target", () => {

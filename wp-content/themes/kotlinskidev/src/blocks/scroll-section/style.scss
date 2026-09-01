@@ -53,6 +53,10 @@
 		border-radius: 2px;
 	}
 
+	&[data-slide-width="auto"] .scroll-section__track {
+		gap: var(--scroll-section-gap, var(--wp--preset--spacing--medium));
+	}
+
 	&.full-width {
 		width: 100vw;
 		max-width: 100vw;

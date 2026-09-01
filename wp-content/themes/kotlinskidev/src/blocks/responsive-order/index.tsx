@@ -4,6 +4,7 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, __experimentalNumberControl as NumberControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { __, sprintf } from "@wordpress/i18n";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 declare global {
   interface Window {
@@ -28,6 +29,10 @@ const getBreakpoints = () => {
 };
 
 const addResponsiveOrderAttributes = (settings: any) => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name)) {
+    return settings;
+  }
+
   return {
     ...settings,
     attributes: {

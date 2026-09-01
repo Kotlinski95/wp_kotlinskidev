@@ -265,11 +265,22 @@ function getCurrentTranslateX(el: HTMLElement): number {
   if (!transform || transform === "none") {
     return 0;
   }
-  const match = transform.match(/matrix\(([^)]+)\)/);
-  if (!match) {
+  // Swiper always sets its wrapper transform via translate3d() — most
+  // browsers report that back from getComputedStyle() as a 2D matrix() when
+  // the z component is 0, but WebKit (Safari/iOS) preserves it as a 16-value
+  // matrix3d(), where the x-translation lives at index 12, not 4. Missing
+  // this made every mobile Safari freeze read translateX as 0 regardless of
+  // the real position, snapping the carousel back to its start on release.
+  const matrix3d = transform.match(/matrix3d\(([^)]+)\)/);
+  if (matrix3d) {
+    const parts = matrix3d[1].split(",").map((value) => parseFloat(value.trim()));
+    return parts[12] ?? 0;
+  }
+  const matrix2d = transform.match(/matrix\(([^)]+)\)/);
+  if (!matrix2d) {
     return 0;
   }
-  const parts = match[1].split(",").map((value) => parseFloat(value.trim()));
+  const parts = matrix2d[1].split(",").map((value) => parseFloat(value.trim()));
   return parts[4] ?? 0;
 }
 
@@ -447,28 +458,45 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
         pointerEvent.clientX <= rect.right &&
         pointerEvent.clientY >= rect.top &&
         pointerEvent.clientY <= rect.bottom;
+    } else {
+      // Real touch has no hover concept — but Chrome's own touch-from-mouse
+      // emulation (what DevTools' device toolbar uses when you drag with an
+      // actual mouse over a touch-emulated viewport) fires a genuine
+      // mouseenter on the container alongside the synthetic touch events,
+      // with no matching mouseleave to ever clear it. Left uncleared,
+      // `hovered` stays stuck true forever, permanently blocking evaluate()
+      // from ever resuming — confirmed via Input.emulateTouchFromMouseEvent,
+      // the exact CDP mechanism DevTools itself uses for this.
+      hovered = false;
     }
-    if (hovered || focused) {
-      // A drag held past Swiper's own internal 200ms "sliderFirstMove"
-      // threshold flips its FreeMode module into force-resuming autoplay
-      // on release (via _freeModeStaticRelease), regardless of our own
-      // hover/focus tracking — reassert our pause to override it.
-      swiper.autoplay.pause();
+    // A drag held past Swiper's own internal 200ms "sliderFirstMove"
+    // threshold flips its FreeMode module into force-resuming autoplay
+    // on release (via _freeModeStaticRelease), for any pointer type —
+    // touch drags trip this exactly like mouse drags do, and touch never
+    // sets `hovered`, so gating this on hover/focus left touch unguarded.
+    // Reassert our own pause unconditionally to override it; evaluate()
+    // right after still decides the real resume/catch-up from our own
+    // hover/focus/press state.
+    swiper.autoplay.pause();
+    // Re-freeze at the position the drag actually ended at, right here —
+    // not in a separate swiper.on("touchEnd", ...) handler. Swiper's own
+    // semantic "touchEnd" event does not reliably fire before this pointerup
+    // listener under real/emulated touch (confirmed via Chrome's own
+    // Input.emulateTouchFromMouseEvent, the exact mechanism DevTools' device
+    // toolbar uses to turn a mouse drag into touch input): it can fire
+    // *after*, by which point isPaused had already flipped to false below,
+    // so the old touchEnd handler's own `if (!isPaused) return;` guard
+    // silently skipped recording the drag-end position entirely — evaluate()
+    // then resumed from the stale pre-drag freeze point instead, visibly
+    // snapping backward before the next natural cycle corrected it forward.
+    if (isPaused) {
+      resumeMidTransition = false;
+      dragEndedTranslateX = freezeAtCurrentPosition(swiper);
     }
     evaluate();
   };
   document.addEventListener("pointerup", releasePress);
   document.addEventListener("pointercancel", releasePress);
-
-  swiper.on("touchEnd", () => {
-    if (!isPaused) {
-      return;
-    }
-    resumeMidTransition = false;
-    resumeFrozenTranslateX = freezeAtCurrentPosition(swiper);
-    resumeTargetIndex = swiper.activeIndex;
-    dragEndedTranslateX = resumeFrozenTranslateX;
-  });
 
   if (typeof IntersectionObserver === "undefined") {
     swiper.autoplay.start();

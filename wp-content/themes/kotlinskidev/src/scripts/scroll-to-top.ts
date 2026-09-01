@@ -1,5 +1,26 @@
 import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
 
+function handleScrollToTop(e: Event) {
+  e.preventDefault();
+  const mainEl = document.querySelector("main");
+  if (!mainEl) {
+    return;
+  }
+  mainEl.setAttribute("tabindex", "-1");
+  scrollTo(0, "smooth");
+  let lastScrollTop = -1;
+  const waitForScrollEnd = () => {
+    const currentScrollTop = getScrollTop();
+    if (currentScrollTop === 0 && lastScrollTop === 0) {
+      mainEl.focus();
+      return;
+    }
+    lastScrollTop = currentScrollTop;
+    requestAnimationFrame(waitForScrollEnd);
+  };
+  requestAnimationFrame(waitForScrollEnd);
+}
+
 (function () {
   const scrollToTopBtn = document.getElementById("scroll-to-top");
   const scrollWrapper = document.querySelector(".scroll-to-top-wrapper") as HTMLElement;
@@ -32,27 +53,6 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
 
   const throttledHandleScroll = rafThrottle(handleScroll);
   onScroll(throttledHandleScroll);
-
-  const handleScrollToTop = (e: Event) => {
-    e.preventDefault();
-    const mainEl = document.querySelector("main");
-    if (!mainEl) {
-      return;
-    }
-    mainEl.setAttribute("tabindex", "-1");
-    scrollTo(0, "smooth");
-    let lastScrollTop = -1;
-    const waitForScrollEnd = () => {
-      const currentScrollTop = getScrollTop();
-      if (currentScrollTop === 0 && lastScrollTop === 0) {
-        mainEl.focus();
-        return;
-      }
-      lastScrollTop = currentScrollTop;
-      requestAnimationFrame(waitForScrollEnd);
-    };
-    requestAnimationFrame(waitForScrollEnd);
-  };
 
   scrollToTopBtn.addEventListener("click", handleScrollToTop);
 
@@ -90,4 +90,11 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
     progressCircle.style.strokeDashoffset = `${circumference}`;
     progressCircle.dataset.circumference = circumference.toString();
   }
+})();
+
+(function () {
+  const barTriggers = document.querySelectorAll(".kt-scroll-to-top__trigger");
+  barTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", handleScrollToTop);
+  });
 })();

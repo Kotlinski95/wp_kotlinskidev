@@ -29,6 +29,9 @@ it('enqueues the editor overrides style and script on enqueue_block_editor_asset
 
     expect(wp_style_is('kotlinskidev-editor-overrides', 'enqueued'))->toBeTrue();
     expect(wp_script_is('kotlinskidev-editor-only', 'enqueued'))->toBeTrue();
+
+    global $wp_scripts;
+    expect($wp_scripts->registered['kotlinskidev-editor-only']->textdomain)->toBe('kotlinskidev');
 });
 
 it('inlines the critical css on wp_head', function () {

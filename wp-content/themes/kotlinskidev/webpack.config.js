@@ -33,6 +33,8 @@ module.exports = {
     ),
     "hero-carousel": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "index.ts"),
     "hero-carousel-init": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "init.ts"),
+    "content-tabs": path.resolve(process.cwd(), "src", "blocks", "content-tabs", "index.ts"),
+    "content-tabs-init": path.resolve(process.cwd(), "src", "blocks", "content-tabs", "init.ts"),
     "scroll-section": path.resolve(process.cwd(), "src", "blocks", "scroll-section", "index.ts"),
     "scroll-section-init": path.resolve(
       process.cwd(),
@@ -51,6 +53,17 @@ module.exports = {
     editor: path.resolve(process.cwd(), "src", "editor.ts"),
     navigation: path.resolve(process.cwd(), "src", "blocks", "navigation", "index.tsx"),
     "content-block": path.resolve(process.cwd(), "src", "blocks", "content-block", "index.tsx"),
+    "article-card": path.resolve(process.cwd(), "src", "blocks", "article-card", "index.tsx"),
+    "article-card-panel": path.resolve(process.cwd(), "src", "blocks", "article-card", "panel.tsx"),
+    "project-card": path.resolve(process.cwd(), "src", "blocks", "project-card", "index.tsx"),
+    "project-card-panel": path.resolve(process.cwd(), "src", "blocks", "project-card", "panel.tsx"),
+    "service-location-panel": path.resolve(
+      process.cwd(),
+      "src",
+      "blocks",
+      "service-location",
+      "panel.tsx"
+    ),
     "theme-switcher": path.resolve(process.cwd(), "src", "blocks", "theme-switcher", "index.tsx"),
     "search-panel": path.resolve(process.cwd(), "src", "blocks", "search-panel", "index.tsx"),
     "language-panel": path.resolve(process.cwd(), "src", "blocks", "language-panel", "index.tsx"),

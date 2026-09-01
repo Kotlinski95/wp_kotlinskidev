@@ -1,0 +1,45 @@
+@import "variables";
+
+.kt-contact-card {
+	border: 0.0625rem solid var(--wp--preset--color--divider);
+	border-radius: 0.875rem;
+	padding: var(--wp--preset--spacing--medium, 1.5rem);
+	background: var(--wp--preset--color--surface);
+}
+
+.kt-contact-card__label {
+	margin: 0 0 1rem;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--foreground-alt);
+}
+
+.kt-contact-card__grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--kt-contact-card-gap, 1.5rem);
+
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.kt-contact-card__item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.kt-contact-card__item-label {
+	font-size: 0.75rem;
+	color: var(--wp--preset--color--foreground-alt);
+}
+
+.kt-contact-card__item-value {
+	font-size: 1rem;
+	font-weight: 500;
+	color: var(--wp--preset--color--foreground);
+	word-break: break-word;
+}

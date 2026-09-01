@@ -8,9 +8,22 @@
   "icon": "arrow-up-alt",
   "textdomain": "kotlinskidev",
   "editorScript": "file:../../../build/scroll-to-top.js",
+  "style": "file:../../../build/style-scroll-to-top.css",
   "render": "file:./render.php",
+  "attributes": {
+    "variant": { "type": "string", "default": "fixed" },
+    "showArrow": { "type": "boolean", "default": false },
+    "arrowIconId": { "type": "number", "default": 0 },
+    "arrowIconUrl": { "type": "string", "default": "" },
+    "arrowSize": { "type": "number", "default": 16 }
+  },
   "supports": {
     "html": false,
-    "inserter": true
+    "inserter": true,
+    "align": ["wide", "full"],
+    "color": { "background": true, "text": true, "gradients": true },
+    "spacing": { "padding": true, "margin": true },
+    "__experimentalBorder": { "radius": true, "color": true, "width": true, "style": true },
+    "typography": { "fontSize": true }
   }
 }

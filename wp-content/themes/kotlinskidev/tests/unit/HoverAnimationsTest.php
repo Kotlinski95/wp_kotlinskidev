@@ -87,3 +87,49 @@ it('combines an animation with the opacity class', function () {
 
     expect($result)->toBe('<div class="hover-scale has-hover-opacity">Hi</div>');
 });
+
+it('adds the color-transition class and CSS custom properties for a hover background color', function () {
+    $content = '<div>Hi</div>';
+    $block = ['attrs' => ['hoverBackgroundColor' => '#8209d3']];
+
+    $result = kotlinskidev_render_block_with_hover_animation($content, $block);
+
+    expect($result)->toBe('<div class="has-hover-color-transition" style="--hover-bg-color:#8209d3;">Hi</div>');
+});
+
+it('adds the text-gradient class and passes the gradient value through for a hover text gradient', function () {
+    $content = '<div>Hi</div>';
+    $block = ['attrs' => ['hoverTextColor' => 'linear-gradient(135deg,#8209d3 0%,#ff6b6b 100%)']];
+
+    $result = kotlinskidev_render_block_with_hover_animation($content, $block);
+
+    expect($result)->toBe(
+        '<div class="has-hover-color-transition has-hover-text-gradient" style="--hover-text-color:linear-gradient(135deg,#8209d3 0%,#ff6b6b 100%);">Hi</div>'
+    );
+});
+
+it('does not add the text-gradient class for a flat hover text color', function () {
+    $content = '<div>Hi</div>';
+    $block = ['attrs' => ['hoverTextColor' => '#ffffff']];
+
+    $result = kotlinskidev_render_block_with_hover_animation($content, $block);
+
+    expect($result)->toBe('<div class="has-hover-color-transition" style="--hover-text-color:#ffffff;">Hi</div>');
+});
+
+it('combines hover background and text colors with an animation class', function () {
+    $content = '<div class="wp-block">Hi</div>';
+    $block = [
+        'attrs' => [
+            'hoverAnimation' => 'hover-jump',
+            'hoverBackgroundColor' => '#8209d3',
+            'hoverTextColor' => '#ffffff',
+        ],
+    ];
+
+    $result = kotlinskidev_render_block_with_hover_animation($content, $block);
+
+    expect($result)->toBe(
+        '<div class="wp-block hover-jump has-hover-color-transition" style="--hover-bg-color:#8209d3;--hover-text-color:#ffffff;">Hi</div>'
+    );
+});

@@ -34,6 +34,7 @@
     "arrowsPosition": { "type": "string", "default": "sides" },
     "navColor": { "type": "string", "default": "" },
     "navColorOnHover": { "type": "boolean", "default": false },
-    "navPlacement": { "type": "string", "default": "inside" }
+    "navPlacement": { "type": "string", "default": "inside" },
+    "transitionEffect": { "type": "string", "default": "slide" }
   }
 }

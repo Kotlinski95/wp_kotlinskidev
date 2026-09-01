@@ -7,6 +7,7 @@ import {
 import { PanelBody, SelectControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 const backgroundEffects = [
   { label: __("None", "kotlinskidev"), value: "" },
@@ -17,7 +18,13 @@ const backgroundEffects = [
   { label: __("Glow Border", "kotlinskidev"), value: "kt-bg-fx-glow-border" },
 ];
 
-const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+const excludedBlocks = [
+  "core/html",
+  "core/code",
+  "core/preformatted",
+  "core/verse",
+  ...DYNAMIC_PREVIEW_BLOCKS,
+];
 
 function addBackgroundEffectAttribute(settings: any) {
   if (excludedBlocks.includes(settings.name)) {

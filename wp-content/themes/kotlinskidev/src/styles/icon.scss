@@ -15,3 +15,11 @@
 	margin-inline-end: 0.5em;
 	vertical-align: middle;
 }
+
+.kt-icon--gradient svg {
+	fill: url(#kt-icon-gradient-dark) var(--wp--preset--color--primary);
+}
+
+.light-mode .kt-icon--gradient svg {
+	fill: url(#kt-icon-gradient-light) var(--wp--preset--color--primary);
+}

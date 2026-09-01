@@ -41,6 +41,10 @@
       "type": "string",
       "enum": ["auto", "full"],
       "default": "auto"
+    },
+    "slideGap": {
+      "type": "string",
+      "default": "medium"
     }
   }
 }

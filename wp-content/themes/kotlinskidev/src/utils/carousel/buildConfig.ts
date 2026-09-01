@@ -1,5 +1,15 @@
 import type { CarouselSettings } from "./types";
 
+const EFFECT_OPTIONS: Record<Exclude<CarouselSettings["transitionEffect"], "slide">, object> = {
+  fade: { fadeEffect: { crossFade: true } },
+  cube: { cubeEffect: { shadow: true, slideShadows: true, shadowOffset: 20, shadowScale: 0.94 } },
+  coverflow: {
+    coverflowEffect: { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
+  },
+  flip: { flipEffect: { slideShadows: true, limitRotation: true } },
+  cards: { cardsEffect: { slideShadows: true, perSlideOffset: 8, perSlideRotate: 2 } },
+};
+
 export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
   const {
     showArrows = true,
@@ -13,6 +23,7 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
     slidesPerMobile = 1,
     slidesPerTablet = 1,
     slidesPerDesktop = 1,
+    transitionEffect = "slide",
   } = settings;
 
   return {
@@ -38,5 +49,8 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
     autoplay: autoplay
       ? { delay: autoplayDelay, disableOnInteraction: false, pauseOnMouseEnter: true }
       : false,
+    ...(transitionEffect !== "slide"
+      ? { effect: transitionEffect, ...EFFECT_OPTIONS[transitionEffect] }
+      : {}),
   };
 };

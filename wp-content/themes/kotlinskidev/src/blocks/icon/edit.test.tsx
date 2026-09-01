@@ -33,6 +33,7 @@ describe("icon Edit", () => {
     mediaUrl: "",
     size: "",
     color: "",
+    useGradient: false,
     ariaLabel: "",
     showTooltip: false,
   };
@@ -84,6 +85,30 @@ describe("icon Edit", () => {
     await user.type(screen.getByLabelText("Color"), "X");
 
     expect(setAttributes).toHaveBeenCalledWith({ color: "X" });
+  });
+
+  it("toggles gradient fill on via the toggle control", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    render(<Edit attributes={baseAttributes} setAttributes={setAttributes} />);
+
+    await user.click(screen.getByLabelText("Use gradient fill"));
+
+    expect(setAttributes).toHaveBeenCalledWith({ useGradient: true });
+  });
+
+  it("hides the Color control once gradient fill is enabled", () => {
+    render(
+      <Edit attributes={{ ...baseAttributes, useGradient: true }} setAttributes={jest.fn()} />
+    );
+
+    expect(screen.queryByLabelText("Color")).not.toBeInTheDocument();
+  });
+
+  it("shows the Color control when gradient fill is disabled", () => {
+    render(<Edit attributes={baseAttributes} setAttributes={jest.fn()} />);
+
+    expect(screen.getByLabelText("Color")).toBeInTheDocument();
   });
 
   it("updates the accessible label via the text control", async () => {

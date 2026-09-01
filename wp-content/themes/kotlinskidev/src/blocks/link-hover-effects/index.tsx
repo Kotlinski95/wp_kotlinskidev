@@ -5,11 +5,13 @@ import { createHigherOrderComponent } from "@wordpress/compose";
 import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, ToggleControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 interface LinkHoverEffects {
   disableBackgroundHover?: boolean;
   disableUnderlineHover?: boolean;
   disableLinkGradient?: boolean;
+  enableUnderlineHover?: boolean;
 }
 
 interface BlockAttributes {
@@ -17,28 +19,40 @@ interface BlockAttributes {
 }
 
 interface BlockEditProps {
+  name?: string;
   attributes: BlockAttributes;
   setAttributes: (attrs: Partial<BlockAttributes>) => void;
 }
 
 interface BlockSettings {
+  name?: string;
   attributes?: Record<string, unknown>;
   [key: string]: unknown;
 }
 
-const addLinkHoverEffectsAttribute = (settings: BlockSettings): BlockSettings => ({
-  ...settings,
-  attributes: {
-    ...settings.attributes,
-    linkHoverEffects: {
-      type: "object",
-      default: {},
+const addLinkHoverEffectsAttribute = (settings: BlockSettings): BlockSettings => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name ?? "")) {
+    return settings;
+  }
+
+  return {
+    ...settings,
+    attributes: {
+      ...settings.attributes,
+      linkHoverEffects: {
+        type: "object",
+        default: {},
+      },
     },
-  },
-});
+  };
+};
 
 const withLinkHoverEffectsControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
+    if (DYNAMIC_PREVIEW_BLOCKS.includes(props.name ?? "")) {
+      return <BlockEdit {...props} />;
+    }
+
     const { attributes, setAttributes } = props;
     const linkHoverEffects = attributes.linkHoverEffects || {};
 
@@ -53,6 +67,15 @@ const withLinkHoverEffectsControls = createHigherOrderComponent((BlockEdit) => {
         <BlockEdit {...props} />
         <InspectorControls>
           <PanelBody title={__("Link Hover Effects", "kotlinskidev")} initialOpen={false}>
+            <ToggleControl
+              label={__("Enable underline hover effect", "kotlinskidev")}
+              help={__(
+                "Adds the same animated sliding-underline hover/focus effect used sitewide in the header and footer to links in this block, even outside those areas or on elements that aren't a native link.",
+                "kotlinskidev"
+              )}
+              checked={!!linkHoverEffects.enableUnderlineHover}
+              onChange={(value) => update("enableUnderlineHover", value)}
+            />
             <ToggleControl
               label={__("Disable background hover effect", "kotlinskidev")}
               help={__(
@@ -100,6 +123,7 @@ const withLinkHoverEffectsPreview = createHigherOrderComponent((BlockListBlock) 
     const classes = [
       linkHoverEffects?.disableBackgroundHover && "kt-hover-no-background",
       linkHoverEffects?.disableUnderlineHover && "kt-hover-no-underline",
+      linkHoverEffects?.enableUnderlineHover && "kt-hover-add-underline",
     ].filter(Boolean) as string[];
 
     if (classes.length === 0) {

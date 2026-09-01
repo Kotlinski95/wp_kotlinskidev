@@ -3,6 +3,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createReduxStore, register } from "@wordpress/data";
 
+const mockThemeSpacingSizes = [
+  { name: "None", slug: "none", size: "0" },
+  { name: "Small", slug: "small", size: "clamp(0.5rem, 1.5vw, 1rem)" },
+  { name: "Medium", slug: "medium", size: "clamp(0.75rem, 2.5vw, 1.5rem)" },
+  { name: "Large", slug: "large", size: "clamp(1rem, 4vw, 2.5rem)" },
+];
+
 jest.mock("@wordpress/block-editor", () => ({
   useBlockProps: (props: Record<string, unknown>) => props,
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
@@ -13,6 +20,7 @@ jest.mock("@wordpress/block-editor", () => ({
       data-template-length={template.length}
     />
   ),
+  useSettings: () => [[], mockThemeSpacingSizes],
 }));
 
 jest.mock("@wordpress/components", () => {
@@ -62,6 +70,7 @@ const baseAttributes = {
   backgroundColor: "",
   markers: false,
   slideWidth: "auto" as const,
+  slideGap: "medium" as const,
 };
 
 describe("scroll-section Edit", () => {
@@ -145,6 +154,39 @@ describe("scroll-section Edit", () => {
     await user.selectOptions(screen.getByRole("combobox", { name: "Slide width" }), "full");
 
     expect(setAttributes).toHaveBeenCalledWith({ slideWidth: "full" });
+  });
+
+  it("shows the slide spacing control only when slide width is auto", () => {
+    mockBlocks["1"] = { innerBlocks: [{ clientId: "a" }] };
+
+    const { rerender } = render(
+      <Edit clientId="1" attributes={baseAttributes} setAttributes={jest.fn()} />
+    );
+    expect(screen.getByRole("combobox", { name: "Slide spacing" })).toBeInTheDocument();
+
+    rerender(
+      <Edit
+        clientId="1"
+        attributes={{ ...baseAttributes, slideWidth: "full" }}
+        setAttributes={jest.fn()}
+      />
+    );
+    expect(screen.queryByRole("combobox", { name: "Slide spacing" })).not.toBeInTheDocument();
+  });
+
+  it("updates the slide gap and reflects it on the wrapper", async () => {
+    mockBlocks["1"] = { innerBlocks: [{ clientId: "a" }] };
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+
+    const { container } = render(
+      <Edit clientId="1" attributes={baseAttributes} setAttributes={setAttributes} />
+    );
+    expect(container.querySelector(".scroll-section")).toHaveAttribute("data-slide-gap", "medium");
+
+    await user.selectOptions(screen.getByRole("combobox", { name: "Slide spacing" }), "large");
+
+    expect(setAttributes).toHaveBeenCalledWith({ slideGap: "large" });
   });
 
   it("toggles the markers setting", async () => {

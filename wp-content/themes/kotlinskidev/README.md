@@ -1,6 +1,6 @@
 # kotlinskidev
 
-Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 14 custom Gutenberg blocks, 56 reusable block patterns, multilingual support, and a dark/light theme switcher.
+Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 15 custom Gutenberg blocks, 57 reusable block patterns, multilingual support, and a dark/light theme switcher.
 
 ---
 
@@ -54,10 +54,10 @@ npm run test:e2e       # End-to-end tests
 ├── includes/          Supplementary PHP (i18n, parallax, hover)
 ├── languages/         Translation files (en_US, pl_PL)
 ├── parts/             FSE template parts (header, footer)
-├── patterns/          56 reusable block patterns (PHP)
+├── patterns/          57 reusable block patterns (PHP)
 ├── polylang/          Multilingual routing config
 ├── src/
-│   ├── blocks/        14 custom Gutenberg blocks (TypeScript + React)
+│   ├── blocks/        15 custom Gutenberg blocks (TypeScript + React)
 │   ├── scripts/       Frontend TypeScript modules
 │   ├── styles/        SCSS source files
 │   └── utils/         Shared TypeScript utilities (@utils alias)
@@ -79,6 +79,7 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 | `animated-counter` | Number counter with scroll-triggered animation |
 | `banner-carousel` | Full-width banner slider powered by Swiper.js |
 | `breadcrumbs` | Breadcrumb trail below the header, hidden on the homepage by default and on scroll |
+| `content-tabs` | Nav-link strip (top/bottom/left/right) that swaps in unrestricted content panels on click |
 | `cover-lazy-loading` | Cover block with native lazy loading |
 | `gallery-lightbox` | Image/video gallery with lightbox and mobile media variant |
 | `hover-animation-controls` | Per-block hover effect configurator |

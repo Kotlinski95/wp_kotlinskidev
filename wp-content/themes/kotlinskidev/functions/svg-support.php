@@ -2,8 +2,83 @@
 add_filter( 'upload_mimes', 'kotlinskidev_allow_svg_uploads' );
 add_filter( 'wp_get_attachment_image', 'kotlinskidev_inline_svg_image', 10, 2 );
 add_filter( 'render_block_core/image', 'kotlinskidev_inline_svg_image_block', 10, 2 );
+add_filter( 'wp_generate_attachment_metadata', 'kotlinskidev_add_svg_dimensions', 10, 2 );
+add_action( 'add_attachment', 'kotlinskidev_ensure_svg_xmlns' );
 add_action( 'edit_attachment', 'kotlinskidev_clear_svg_cache' );
 add_action( 'delete_attachment', 'kotlinskidev_clear_svg_cache' );
+
+function kotlinskidev_add_svg_xmlns( string $raw ): string {
+	if ( 1 === preg_match( '/<svg\b[^>]*\sxmlns\s*=/i', $raw ) ) {
+		return $raw;
+	}
+
+	return (string) preg_replace( '/<svg\b/i', '<svg xmlns="http://www.w3.org/2000/svg"', $raw, 1 );
+}
+
+function kotlinskidev_ensure_svg_xmlns( int $attachment_id ): void {
+	if ( 'image/svg+xml' !== get_post_mime_type( $attachment_id ) ) {
+		return;
+	}
+
+	$svg_path = get_attached_file( $attachment_id );
+	if ( ! $svg_path || ! file_exists( $svg_path ) ) {
+		return;
+	}
+
+	$raw = file_get_contents( $svg_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+	if ( ! $raw ) {
+		return;
+	}
+
+	$patched = kotlinskidev_add_svg_xmlns( $raw );
+	if ( $patched !== $raw ) {
+		file_put_contents( $svg_path, $patched ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+	}
+}
+
+function kotlinskidev_get_svg_dimensions( string $svg_path ): ?array {
+	$raw = file_get_contents( $svg_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+	if ( ! $raw ) {
+		return null;
+	}
+
+	if ( preg_match( '/\swidth="([\d.]+)(?:px)?"/i', $raw, $width_match )
+		&& preg_match( '/\sheight="([\d.]+)(?:px)?"/i', $raw, $height_match ) ) {
+		return array(
+			'width'  => (int) round( (float) $width_match[1] ),
+			'height' => (int) round( (float) $height_match[1] ),
+		);
+	}
+
+	if ( preg_match( '/\sviewBox="[\d.\-]+\s+[\d.\-]+\s+([\d.]+)\s+([\d.]+)"/i', $raw, $matches ) ) {
+		return array(
+			'width'  => (int) round( (float) $matches[1] ),
+			'height' => (int) round( (float) $matches[2] ),
+		);
+	}
+
+	return null;
+}
+
+function kotlinskidev_add_svg_dimensions( array $metadata, int $attachment_id ): array {
+	if ( 'image/svg+xml' !== get_post_mime_type( $attachment_id ) ) {
+		return $metadata;
+	}
+
+	$svg_path = get_attached_file( $attachment_id );
+	if ( ! $svg_path || ! file_exists( $svg_path ) ) {
+		return $metadata;
+	}
+
+	$dimensions = kotlinskidev_get_svg_dimensions( $svg_path );
+	if ( $dimensions ) {
+		$metadata['width']  = $dimensions['width'];
+		$metadata['height'] = $dimensions['height'];
+	}
+
+	return $metadata;
+}
 
 function kotlinskidev_allow_svg_uploads( array $mimes ): array {
 	$mimes['svg']  = 'image/svg+xml';

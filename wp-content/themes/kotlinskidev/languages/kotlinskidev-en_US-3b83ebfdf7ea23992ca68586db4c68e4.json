@@ -1,1 +1,60 @@
-{"translation-revision-date":"2026-08-17 12:54+0000","generator":"WP-CLI\/2.12.0","source":"build\/scroll-section.js","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","lang":"en_US","plural-forms":"nplurals=2; plural=n != 1;"},"Auto":["Auto"],"Background":["Background"],"Behaviour":["Behaviour"],"Trigger point":["Trigger point"],"Bottom of screen":["Bottom of screen"],"Center of screen":["Center of screen"],"Top of screen":["Top of screen"],"Slide width":["Slide width"],"Full":["Full"],"Show markers":["Show markers"],"Items":["Items"],"item(s)":["item(s)"],"+ Add Item":["+ Add Item"],"Remove Last Item":["Remove Last Item"],"Add item":["Add item"]}}}
+{
+    "translation-revision-date": "2026-08-17 12:54+0000",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "build\/scroll-section.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en_US",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Auto": [
+                ""
+            ],
+            "Background": [
+                "Background image"
+            ],
+            "Behaviour": [
+                ""
+            ],
+            "Trigger point": [
+                ""
+            ],
+            "Bottom of screen": [
+                ""
+            ],
+            "Center of screen": [
+                ""
+            ],
+            "Top of screen": [
+                ""
+            ],
+            "Slide width": [
+                ""
+            ],
+            "Full": [
+                ""
+            ],
+            "Show markers": [
+                ""
+            ],
+            "Items": [
+                ""
+            ],
+            "item(s)": [
+                ""
+            ],
+            "+ Add Item": [
+                ""
+            ],
+            "Remove Last Item": [
+                ""
+            ],
+            "Add item": [
+                ""
+            ]
+        }
+    }
+}

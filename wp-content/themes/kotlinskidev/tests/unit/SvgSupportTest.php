@@ -59,3 +59,54 @@ it('preserves safe structural markup and attributes', function () {
     expect($result)->toContain('viewBox="0 0 24 24"');
     expect($result)->toContain('fill="currentColor"');
 });
+
+it('adds a default xmlns to a root svg tag that lacks one', function () {
+    $result = kotlinskidev_add_svg_xmlns('<svg viewBox="0 0 256 256" width="20" height="20"><path d="M0 0"/></svg>');
+
+    expect($result)->toBe('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="20" height="20"><path d="M0 0"/></svg>');
+});
+
+it('leaves an svg with an existing xmlns unchanged', function () {
+    $original = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0"/></svg>';
+
+    expect(kotlinskidev_add_svg_xmlns($original))->toBe($original);
+});
+
+function kotlinskidev_write_temp_svg(string $contents): string
+{
+    $path = tempnam(sys_get_temp_dir(), 'kt-svg-');
+    file_put_contents($path, $contents);
+    return $path;
+}
+
+it('reads dimensions from explicit width/height attributes', function () {
+    $path = kotlinskidev_write_temp_svg('<svg width="20" height="24" viewBox="0 0 256 256"><path d="M0 0"/></svg>');
+
+    expect(kotlinskidev_get_svg_dimensions($path))->toBe(['width' => 20, 'height' => 24]);
+
+    unlink($path);
+});
+
+it('falls back to viewBox dimensions when width/height attributes are absent', function () {
+    $path = kotlinskidev_write_temp_svg('<svg viewBox="0 0 256 128"><path d="M0 0"/></svg>');
+
+    expect(kotlinskidev_get_svg_dimensions($path))->toBe(['width' => 256, 'height' => 128]);
+
+    unlink($path);
+});
+
+it('returns null when neither width/height nor viewBox are present', function () {
+    $path = kotlinskidev_write_temp_svg('<svg><path d="M0 0"/></svg>');
+
+    expect(kotlinskidev_get_svg_dimensions($path))->toBeNull();
+
+    unlink($path);
+});
+
+it('rounds fractional width/height values', function () {
+    $path = kotlinskidev_write_temp_svg('<svg width="19.6px" height="20.4px"><path d="M0 0"/></svg>');
+
+    expect(kotlinskidev_get_svg_dimensions($path))->toBe(['width' => 20, 'height' => 20]);
+
+    unlink($path);
+});

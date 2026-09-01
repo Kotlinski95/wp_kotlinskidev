@@ -56,11 +56,14 @@ describe("link-hover-effects — editor.BlockEdit filter", () => {
     expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
   });
 
-  it("shows all three toggles unchecked by default once expanded", async () => {
+  it("shows all four toggles unchecked by default once expanded", async () => {
     const user = userEvent.setup();
     renderWrapped({ attributes: {}, setAttributes: jest.fn() });
     await openPanel(user);
 
+    expect(
+      screen.getByRole("checkbox", { name: /Enable underline hover effect/ })
+    ).not.toBeChecked();
     expect(
       screen.getByRole("checkbox", { name: /Disable background hover effect/ })
     ).not.toBeChecked();
@@ -70,6 +73,33 @@ describe("link-hover-effects — editor.BlockEdit filter", () => {
     expect(
       screen.getByRole("checkbox", { name: /Disable link underline\/gradient effect/ })
     ).not.toBeChecked();
+  });
+
+  it("checks the enable-underline toggle when enableUnderlineHover is set", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      attributes: { linkHoverEffects: { enableUnderlineHover: true } },
+      setAttributes: jest.fn(),
+    });
+    await openPanel(user);
+
+    expect(screen.getByRole("checkbox", { name: /Enable underline hover effect/ })).toBeChecked();
+  });
+
+  it("sets enableUnderlineHover when the toggle is checked, preserving other flags", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      attributes: { linkHoverEffects: { disableBackgroundHover: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.click(screen.getByRole("checkbox", { name: /Enable underline hover effect/ }));
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      linkHoverEffects: { disableBackgroundHover: true, enableUnderlineHover: true },
+    });
   });
 
   it("reflects existing linkHoverEffects values", async () => {
@@ -139,6 +169,12 @@ describe("link-hover-effects — editor.BlockListBlock preview filter", () => {
     renderPreview({ attributes: { linkHoverEffects: { disableUnderlineHover: true } } });
 
     expect(screen.getByTestId("block-list-block")).toHaveClass("kt-hover-no-underline");
+  });
+
+  it("adds kt-hover-add-underline to the live preview when enabled", () => {
+    renderPreview({ attributes: { linkHoverEffects: { enableUnderlineHover: true } } });
+
+    expect(screen.getByTestId("block-list-block")).toHaveClass("kt-hover-add-underline");
   });
 
   it("combines both preview classes with an existing className", () => {

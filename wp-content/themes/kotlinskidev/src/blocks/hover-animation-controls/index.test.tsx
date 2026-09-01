@@ -260,6 +260,24 @@ describe("hover-animation-controls — blocks.getSaveContent.extraProps filter",
     expect(result.style).toEqual({ "--hover-bg-color": "#ffffff0a" });
   });
 
+  it("adds the text-gradient class and passes a gradient text value straight through as the CSS custom property", () => {
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      {},
+      {},
+      {
+        hoverAnimation: "",
+        hoverBackgroundColor: "",
+        hoverTextColor: "linear-gradient(135deg,#8209d3 0%,#ff6b6b 100%)",
+      }
+    ) as { className: string; style: Record<string, string> };
+
+    expect(result.className).toBe("has-hover-color-transition has-hover-text-gradient");
+    expect(result.style).toEqual({
+      "--hover-text-color": "linear-gradient(135deg,#8209d3 0%,#ff6b6b 100%)",
+    });
+  });
+
   it("combines the animation class with the color-transition class", () => {
     const result = applyFilters(
       "blocks.getSaveContent.extraProps",

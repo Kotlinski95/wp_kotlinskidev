@@ -69,6 +69,7 @@ export default function Edit({
             arrowsPosition: true,
             navColor: true,
             navPlacement: true,
+            transitionEffect: true,
           }}
         />
       </InspectorControls>

@@ -6,10 +6,10 @@ beforeEach(function () {
     unset($_GET['tab']);
 });
 
-it('exposes the seven expected settings tabs', function () {
+it('exposes the eight expected settings tabs', function () {
     $tabs = kotlinskidev_settings_tabs();
 
-    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'advanced']);
+    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'contact', 'advanced']);
     expect($tabs['breakpoints']['group'])->toBe('kotlinskidev_settings_breakpoints');
     expect($tabs['breakpoints']['page'])->toBe('kotlinskidev-settings-breakpoints');
     expect($tabs['security']['group'])->toBe('kotlinskidev_settings_security');

@@ -40,6 +40,46 @@ export function createFixturePage(
   return { id: Number(id), url };
 }
 
+export function deleteFixturePostsByType(postType: string, slug: string): void {
+  const existingIds = wp([
+    "post",
+    "list",
+    `--name=${slug}`,
+    `--post_type=${postType}`,
+    "--field=ID",
+  ]);
+  for (const id of existingIds.split("\n").filter(Boolean)) {
+    wp(["post", "delete", id, "--force"]);
+  }
+}
+
+export function createFixturePost(
+  postType: string,
+  slug: string,
+  title: string,
+  meta: Record<string, string> = {}
+): { id: number; url: string } {
+  deleteFixturePostsByType(postType, slug);
+
+  const id = wp([
+    "post",
+    "create",
+    `--post_type=${postType}`,
+    "--post_status=publish",
+    `--post_title=${title}`,
+    `--post_name=${slug}`,
+    "--porcelain",
+  ]);
+
+  for (const [key, value] of Object.entries(meta)) {
+    wp(["post", "meta", "update", id, key, value]);
+  }
+
+  const url = wp(["post", "get", id, "--field=url"]);
+
+  return { id: Number(id), url };
+}
+
 export function getPostUrl(id: number): string {
   return wp(["post", "get", String(id), "--field=url"]);
 }

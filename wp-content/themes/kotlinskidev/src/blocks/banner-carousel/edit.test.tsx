@@ -133,6 +133,7 @@ describe("banner-carousel Edit", () => {
       arrowsPosition: true,
       navColor: true,
       navPlacement: true,
+      transitionEffect: true,
     });
   });
 

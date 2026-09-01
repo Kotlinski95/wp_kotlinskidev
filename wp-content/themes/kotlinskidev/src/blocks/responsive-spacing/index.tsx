@@ -9,6 +9,7 @@ import {
 } from "@wordpress/components";
 import { Fragment, useState } from "@wordpress/element";
 import { __, sprintf } from "@wordpress/i18n";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 declare global {
   interface Window {
@@ -63,11 +64,16 @@ const getBreakpoints = () => {
 };
 
 interface BlockSettings {
+  name?: string;
   attributes?: Record<string, unknown>;
   [key: string]: unknown;
 }
 
 const addResponsiveSpacingAttributes = (settings: BlockSettings): BlockSettings => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name ?? "")) {
+    return settings;
+  }
+
   const spacingAttributes: Record<string, unknown> = {};
   SPACING_DEVICES.forEach((device) => {
     SPACING_TYPES.forEach((type) => {

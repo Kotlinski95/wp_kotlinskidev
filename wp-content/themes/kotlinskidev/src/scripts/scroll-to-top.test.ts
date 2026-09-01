@@ -140,6 +140,55 @@ describe("scroll-to-top.ts — button visibility and progress", () => {
   });
 });
 
+describe("scroll-to-top.ts — bar variant trigger", () => {
+  beforeEach(() => {
+    jest.resetModules();
+    jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb: FrameRequestCallback) => {
+      cb(0);
+      return 1;
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+    setScrollTop(0);
+  });
+
+  it("scrolls to top and refocuses <main> on click, without requiring a progress ring", () => {
+    document.body.innerHTML = `
+      <main></main>
+      <button class="kt-scroll-to-top__trigger"></button>
+    `;
+    require("./scroll-to-top");
+    const trigger = document.querySelector(".kt-scroll-to-top__trigger") as HTMLElement;
+    const main = document.querySelector("main") as HTMLElement;
+    jest.spyOn(main, "focus");
+    window.scrollTo = jest.fn();
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
+    expect(main.getAttribute("tabindex")).toBe("-1");
+    expect(main.focus).toHaveBeenCalled();
+  });
+
+  it("wires up multiple bar-variant instances independently", () => {
+    document.body.innerHTML = `
+      <main></main>
+      <button class="kt-scroll-to-top__trigger" id="first"></button>
+      <button class="kt-scroll-to-top__trigger" id="second"></button>
+    `;
+    require("./scroll-to-top");
+    window.scrollTo = jest.fn();
+
+    document
+      .getElementById("second")
+      ?.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(window.scrollTo).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe("scroll-to-top.ts — progress ring sizing", () => {
   beforeEach(() => {
     jest.resetModules();

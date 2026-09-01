@@ -84,3 +84,65 @@ test.describe("Hover animation controls (kotlinskidev/hover-animation-controls b
     await expect(plain).toHaveCSS("transform", "none");
   });
 });
+
+test.describe("Hover colors on a dynamic (render.php-only) block — kotlinskidev/scroll-to-top", () => {
+  // Regression test: this block's save() returns null, so it never goes
+  // through blocks.getSaveContent.extraProps (the mechanism every static
+  // block uses to bake hoverBackgroundColor/hoverTextColor into its saved
+  // markup) — that filter only has an element to attach props to when
+  // save() actually returns one. hoverAnimation classes were already
+  // bridged onto dynamic blocks server-side (includes/hover-animations.php,
+  // render_block filter), but the hover color/gradient CSS custom
+  // properties and their has-hover-color-transition/has-hover-text-gradient
+  // classes were not — silently dropped on every dynamic block, including
+  // this one, regardless of what was picked in the editor.
+  const dynamicBlockSlug = "e2e-fixture-hover-colors-dynamic-block";
+  let fixtureUrl: string;
+
+  test.beforeAll(() => {
+    const attrs = {
+      variant: "bar",
+      hoverBackgroundColor: "#8209d3",
+      hoverTextColor: "linear-gradient(90deg,#8209d3 0%,#ff6b6b 100%)",
+    };
+    fixtureUrl = createFixturePage(
+      dynamicBlockSlug,
+      "E2E Fixture — Hover Colors Dynamic Block",
+      `<div style="height:600px">Spacer</div><!-- wp:kotlinskidev/scroll-to-top ${JSON.stringify(attrs)} /-->`
+    ).url;
+  });
+
+  test.afterAll(() => {
+    deleteFixturePage(dynamicBlockSlug);
+  });
+
+  test("the frontend markup carries the color-transition class and CSS custom properties", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const wrapper = page.locator("main .kt-scroll-to-top--bar");
+    await expect(wrapper).toHaveClass(/has-hover-color-transition/);
+    await expect(wrapper).toHaveClass(/has-hover-text-gradient/);
+    expect(
+      await wrapper.evaluate((el) => (el as HTMLElement).style.getPropertyValue("--hover-bg-color"))
+    ).toBe("#8209d3");
+  });
+
+  test("hovering renders the gradient as real text-clipped background, not a solid color", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const wrapper = page.locator("main .kt-scroll-to-top--bar");
+    const label = wrapper.locator(".kt-scroll-to-top__trigger span");
+
+    await wrapper.scrollIntoViewIfNeeded();
+    await wrapper.hover();
+
+    await expect(label).toHaveCSS("background-image", /gradient/);
+    await expect(label).toHaveCSS("-webkit-text-fill-color", "rgba(0, 0, 0, 0)");
+  });
+});

@@ -234,6 +234,7 @@ export default function Edit({
             navPlacement: true,
             autoplay: true,
             lazyLoad: true,
+            transitionEffect: true,
           }}
         />
         <PanelBody title={__("Height", "kotlinskidev")} initialOpen={false}>

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/content-tabs",
+  "version": "1.0.0",
+  "title": "Content Tabs",
+  "category": "kotlinskidev",
+  "icon": "index-card",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/content-tabs.js",
+  "viewScript": "file:../../../build/content-tabs-init.js",
+  "style": "file:../../../build/style-content-tabs.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "navPosition": { "type": "string", "default": "top" },
+    "navPositionMobile": { "type": "string", "default": "top" },
+    "navGap": {
+      "type": "object",
+      "default": { "desktop": 8 }
+    },
+    "activeTabUnderline": { "type": "boolean", "default": true },
+    "activeTabTextColorEnabled": { "type": "boolean", "default": false },
+    "activeTabColor": { "type": "string", "default": "" },
+    "activeTabBackgroundEnabled": { "type": "boolean", "default": false },
+    "activeTabBackgroundColor": { "type": "string", "default": "" },
+    "panelTransition": { "type": "string", "default": "" },
+    "cardAnimation": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "color": { "background": true, "text": true, "gradients": true },
+    "spacing": { "padding": true, "margin": true },
+    "__experimentalBorder": { "radius": true, "color": true, "width": true, "style": true }
+  }
+}

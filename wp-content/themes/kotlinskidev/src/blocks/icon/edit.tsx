@@ -9,6 +9,7 @@ export interface IconAttributes {
   mediaUrl: string;
   size: string;
   color: string;
+  useGradient: boolean;
   ariaLabel: string;
   showTooltip: boolean;
 }
@@ -19,7 +20,7 @@ interface EditProps {
 }
 
 export default function Edit({ attributes, setAttributes }: EditProps) {
-  const { mediaId, mediaUrl, size, color, ariaLabel, showTooltip } = attributes;
+  const { mediaId, mediaUrl, size, color, useGradient, ariaLabel, showTooltip } = attributes;
 
   const blockProps = useBlockProps({ className: "kt-icon-editor" });
 
@@ -44,15 +45,26 @@ export default function Edit({ attributes, setAttributes }: EditProps) {
             value={size}
             onChange={(value) => setAttributes({ size: value })}
           />
-          <TextControl
-            label={__("Color", "kotlinskidev")}
+          <ToggleControl
+            label={__("Use gradient fill", "kotlinskidev")}
             help={__(
-              "Any CSS color value. Leave empty to inherit the surrounding text color.",
+              "Fills the icon with the site's Fancy Text gradient (Styles → Colors → Gradients) instead of a flat color. Only visible on the live page — the editor canvas can't preview it.",
               "kotlinskidev"
             )}
-            value={color}
-            onChange={(value) => setAttributes({ color: value })}
+            checked={useGradient}
+            onChange={(value) => setAttributes({ useGradient: value })}
           />
+          {!useGradient && (
+            <TextControl
+              label={__("Color", "kotlinskidev")}
+              help={__(
+                "Any CSS color value. Leave empty to inherit the surrounding text color.",
+                "kotlinskidev"
+              )}
+              value={color}
+              onChange={(value) => setAttributes({ color: value })}
+            />
+          )}
           <TextControl
             label={__("Accessible label", "kotlinskidev")}
             help={__(

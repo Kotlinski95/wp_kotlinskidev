@@ -294,3 +294,12 @@ header .wp-block-navigation__responsive-container {
 .border-block-support-panel .block-editor-color-gradient-control {
 	grid-column: 1 / -1;
 }
+
+.block-editor-panel-color-gradient-settings {
+	margin-inline: 0 !important;
+	padding-inline: 0 !important;
+}
+
+.kt-breadcrumbs {
+	position: sticky !important;
+}

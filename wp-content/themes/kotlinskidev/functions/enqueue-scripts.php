@@ -141,6 +141,7 @@ function kotlinskidev_editor_scripts(): void
         $asset['version'],
         true
     );
+    wp_set_script_translations('kotlinskidev-editor-only', 'kotlinskidev', get_template_directory() . '/languages');
 }
 
 add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');

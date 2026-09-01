@@ -1,6 +1,17 @@
 import "swiper/swiper-bundle.css";
 import Swiper from "swiper";
-import { Navigation, Pagination, Keyboard, Autoplay, Scrollbar } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Keyboard,
+  Autoplay,
+  Scrollbar,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectFlip,
+  EffectCards,
+} from "swiper/modules";
 import { buildSwiperConfig } from "@utils/carousel/buildConfig";
 import type { CarouselSettings } from "@utils/carousel/types";
 
@@ -42,7 +53,18 @@ const initBannerCarousel = (el: HTMLElement): void => {
   el.style.visibility = "hidden";
 
   const swiper = new Swiper(el, {
-    modules: [Navigation, Pagination, Keyboard, Autoplay, Scrollbar],
+    modules: [
+      Navigation,
+      Pagination,
+      Keyboard,
+      Autoplay,
+      Scrollbar,
+      EffectFade,
+      EffectCube,
+      EffectCoverflow,
+      EffectFlip,
+      EffectCards,
+    ],
     ...config,
   });
 

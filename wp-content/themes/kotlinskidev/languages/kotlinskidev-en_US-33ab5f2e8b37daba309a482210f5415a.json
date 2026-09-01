@@ -1,1 +1,33 @@
-{"translation-revision-date":"2026-08-17 12:54+0000","generator":"WP-CLI\/2.12.0","source":"build\/modal-settings-panel.js","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","lang":"en_US","plural-forms":"nplurals=2; plural=n != 1;"},"Size":["Size"],"Small":["Small"],"Medium":["Medium"],"Large":["Large"],"Full screen":["Full screen"],"Modal Settings":["Modal Settings"]}}}
+{
+    "translation-revision-date": "2026-08-17 12:54+0000",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "build\/modal-settings-panel.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en_US",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Size": [
+                ""
+            ],
+            "Small": [
+                "Small"
+            ],
+            "Medium": [
+                "Medium"
+            ],
+            "Large": [
+                "Big Large"
+            ],
+            "Full screen": [
+                ""
+            ],
+            "Modal Settings": [
+                "Custom Settings"
+            ]
+        }
+    }
+}

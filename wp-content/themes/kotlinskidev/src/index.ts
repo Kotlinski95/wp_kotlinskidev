@@ -20,6 +20,8 @@ import "./scripts/faq-accordion";
 import "./scripts/line-clamp";
 import "./scripts/modal-manager";
 import "./scripts/group-link";
+import "./scripts/city-map-lightbox";
+import "./scripts/load-more";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

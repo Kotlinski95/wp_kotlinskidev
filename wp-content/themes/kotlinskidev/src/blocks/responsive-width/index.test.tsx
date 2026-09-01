@@ -199,6 +199,75 @@ describe("responsive-width — editor.BlockEdit filter", () => {
       responsiveWidth: { desktop: {}, tablet: {}, mobile: { width: "50vw" } },
     });
   });
+
+  it("shows Custom value as the width preset by default and the free-text input alongside it", async () => {
+    const user = userEvent.setup();
+    renderWrapped({ attributes: {}, setAttributes: jest.fn() });
+    await openPanel(user);
+    await user.click(screen.getByRole("checkbox", { name: "Advanced Width Settings" }));
+
+    expect(within(deviceSection("Desktop")).getByLabelText("Width preset")).toHaveValue(
+      "__custom__"
+    );
+    expect(within(deviceSection("Desktop")).getByLabelText("Width")).toBeInTheDocument();
+  });
+
+  it("picks a css sizing keyword for width and hides the free-text input", async () => {
+    const user = userEvent.setup();
+    const setAttributes = jest.fn();
+    renderWrapped({
+      attributes: { responsiveWidth: { desktop: {}, tablet: {}, mobile: {} } },
+      setAttributes,
+    });
+    await openPanel(user);
+    await user.click(screen.getByRole("checkbox", { name: "Advanced Width Settings" }));
+
+    await user.selectOptions(
+      within(deviceSection("Desktop")).getByLabelText("Width preset"),
+      "fit-content"
+    );
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      responsiveWidth: { desktop: { width: "fit-content" }, tablet: {}, mobile: {} },
+    });
+  });
+
+  it("recognizes an existing keyword value and hides the free-text input for it", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      attributes: {
+        responsiveWidth: { desktop: { maxWidth: "max-content" }, tablet: {}, mobile: {} },
+      },
+      setAttributes: jest.fn(),
+    });
+    await openPanel(user);
+
+    expect(within(deviceSection("Desktop")).getByLabelText("Max width preset")).toHaveValue(
+      "max-content"
+    );
+    expect(within(deviceSection("Desktop")).queryByLabelText("Max Width")).not.toBeInTheDocument();
+  });
+
+  it("switching the preset back to Custom value clears the stored keyword", async () => {
+    const user = userEvent.setup();
+    const setAttributes = jest.fn();
+    renderWrapped({
+      attributes: {
+        responsiveWidth: { desktop: { width: "stretch" }, tablet: {}, mobile: {} },
+      },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.selectOptions(
+      within(deviceSection("Desktop")).getByLabelText("Width preset"),
+      "Custom value"
+    );
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      responsiveWidth: { desktop: { width: "" }, tablet: {}, mobile: {} },
+    });
+  });
 });
 
 describe("responsive-width — editor.BlockListBlock filter", () => {

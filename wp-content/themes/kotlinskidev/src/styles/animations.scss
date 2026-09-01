@@ -130,6 +130,12 @@
 		background: var(--hover-bg-color, inherit);
 		color: var(--hover-text-color, inherit);
 	}
+
+	&.has-hover-text-gradient:hover {
+		color: inherit;
+
+		@include gradient-text(var(--hover-text-color));
+	}
 }
 
 // =============================================================================

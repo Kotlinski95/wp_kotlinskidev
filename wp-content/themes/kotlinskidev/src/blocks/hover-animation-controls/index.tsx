@@ -14,6 +14,7 @@ import {
 } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 const hoverAnimations = [
   { label: __("No Animation", "kotlinskidev"), value: "" },
@@ -48,7 +49,13 @@ const DEFAULT_OPACITY_FROM = 100;
 const DEFAULT_OPACITY_TO = 50;
 
 function addHoverAnimationAttribute(settings: any) {
-  const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+  const excludedBlocks = [
+    "core/html",
+    "core/code",
+    "core/preformatted",
+    "core/verse",
+    ...DYNAMIC_PREVIEW_BLOCKS,
+  ];
 
   if (excludedBlocks.includes(settings.name)) {
     return settings;
@@ -114,7 +121,13 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
       });
     };
 
-    const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+    const excludedBlocks = [
+      "core/html",
+      "core/code",
+      "core/preformatted",
+      "core/verse",
+      ...DYNAMIC_PREVIEW_BLOCKS,
+    ];
 
     const pendingBgColorRef = React.useRef<string | null>(null);
     const handleBackgroundColorChange = (value: string | undefined) => {
@@ -128,6 +141,19 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
       }
     };
     const isBgGradient = (hoverBackgroundColor || "").includes("gradient");
+
+    const pendingTextColorRef = React.useRef<string | null>(null);
+    const handleTextColorChange = (value: string | undefined) => {
+      if (value !== undefined) {
+        pendingTextColorRef.current = value;
+        setAttributes({ hoverTextColor: value });
+      } else if (pendingTextColorRef.current !== null) {
+        pendingTextColorRef.current = null;
+      } else {
+        setAttributes({ hoverTextColor: "" });
+      }
+    };
+    const isTextGradient = (hoverTextColor || "").includes("gradient");
 
     if (excludedBlocks.includes(name)) {
       return <BlockEdit {...props} />;
@@ -212,10 +238,10 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
             />
             <ColorGradientControl
               label={__("Hover text color", "kotlinskidev")}
-              colorValue={hoverTextColor || undefined}
-              onColorChange={(value: string | undefined) =>
-                setAttributes({ hoverTextColor: value || "" })
-              }
+              colorValue={hoverTextColor && !isTextGradient ? hoverTextColor : undefined}
+              gradientValue={isTextGradient ? hoverTextColor : undefined}
+              onColorChange={handleTextColorChange}
+              onGradientChange={handleTextColorChange}
               enableAlpha={true}
               clearable={true}
               __experimentalIsRenderedInSidebar={true}
@@ -246,6 +272,9 @@ function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: a
 
   if (hoverBackgroundColor || hoverTextColor) {
     classes.push("has-hover-color-transition");
+    if ((hoverTextColor || "").includes("gradient")) {
+      classes.push("has-hover-text-gradient");
+    }
     extraProps.style = {
       ...extraProps.style,
       ...(hoverBackgroundColor && { "--hover-bg-color": hoverBackgroundColor }),

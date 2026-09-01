@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-17T08:12:01+00:00\n"
+"POT-Creation-Date: 2026-08-27T07:13:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -108,6 +108,36 @@ msgstr ""
 #: footer.php:6
 #: functions/copyrights.php:9
 msgid "Proudly powered by"
+msgstr ""
+
+#: functions/article-card.php:5
+msgid "Article Cards"
+msgstr ""
+
+#: functions/article-card.php:6
+#: build/article-card.js:1
+msgid "Article Card"
+msgstr ""
+
+#: functions/article-card.php:7
+msgid "Add New Article Card"
+msgstr ""
+
+#: functions/article-card.php:8
+msgid "Edit Article Card"
+msgstr ""
+
+#: functions/article-card.php:9
+msgid "Search Article Cards"
+msgstr ""
+
+#: functions/article-card.php:10
+msgid "No article cards found"
+msgstr ""
+
+#: functions/article-card.php:81
+#: functions/project-card.php:80
+msgid "Select a card to display it here."
 msgstr ""
 
 #: functions/article-query-manager.php:31
@@ -613,6 +643,31 @@ msgstr ""
 msgid "Language option"
 msgstr ""
 
+#: functions/project-card.php:5
+msgid "Project Cards"
+msgstr ""
+
+#: functions/project-card.php:6
+#: build/project-card.js:1
+msgid "Project Card"
+msgstr ""
+
+#: functions/project-card.php:7
+msgid "Add New Project Card"
+msgstr ""
+
+#: functions/project-card.php:8
+msgid "Edit Project Card"
+msgstr ""
+
+#: functions/project-card.php:9
+msgid "Search Project Cards"
+msgstr ""
+
+#: functions/project-card.php:10
+msgid "No project cards found"
+msgstr ""
+
 #: functions/protection-helpers.php:169
 msgid "KotlinskiDev"
 msgstr ""
@@ -804,9 +859,58 @@ msgstr ""
 msgid "Too many items requested"
 msgstr ""
 
-#: functions/scroll-top-top.php:24
-#: functions/scroll-top-top.php:26
+#: functions/scroll-top-top.php:22
+#: build/scroll-to-top.js:1
 msgid "Scroll to Top"
+msgstr ""
+
+#: functions/service-locations.php:5
+msgid "Service Locations"
+msgstr ""
+
+#: functions/service-locations.php:6
+msgid "Service Location"
+msgstr ""
+
+#: functions/service-locations.php:7
+msgid "Add New City Page"
+msgstr ""
+
+#: functions/service-locations.php:8
+msgid "Edit City Page"
+msgstr ""
+
+#: functions/service-locations.php:9
+msgid "Search City Pages"
+msgstr ""
+
+#: functions/service-locations.php:10
+msgid "No city pages found"
+msgstr ""
+
+#: functions/service-locations.php:85
+msgid "City pages will appear here soon."
+msgstr ""
+
+#: functions/service-locations.php:121
+#: functions/service-locations.php:207
+msgid "City Grid"
+msgstr ""
+
+#: functions/service-locations.php:155
+#: functions/service-locations.php:209
+msgid "Service Location Content"
+msgstr ""
+
+#. translators: %s: city name
+#: functions/service-locations.php:175
+#, php-format
+msgid "Map of %s"
+msgstr ""
+
+#: functions/service-locations.php:181
+#: functions/service-locations.php:208
+msgid "City Map"
 msgstr ""
 
 #: functions/settings-page.php:7
@@ -1029,6 +1133,7 @@ msgid "Effective values"
 msgstr ""
 
 #: functions/settings-page.php:694
+#: build/content-tabs.js:1
 #: build/editor.js:16
 #: build/editor.js:25
 #: build/editor.js:34
@@ -1037,6 +1142,7 @@ msgid "Mobile"
 msgstr ""
 
 #: functions/settings-page.php:695
+#: build/content-tabs.js:1
 #: build/editor.js:13
 #: build/editor.js:22
 #: build/editor.js:31
@@ -1045,6 +1151,7 @@ msgid "Tablet"
 msgstr ""
 
 #: functions/settings-page.php:696
+#: build/content-tabs.js:1
 #: build/editor.js:10
 #: build/editor.js:19
 #: build/editor.js:28
@@ -1193,6 +1300,10 @@ msgstr ""
 msgid "Open %s"
 msgstr ""
 
+#: functions/text-line-clamp.php:23
+msgid "Read more"
+msgstr ""
+
 #: functions/theme-switcher.php:6
 msgid "Toggle light and dark theme"
 msgstr ""
@@ -1286,6 +1397,7 @@ msgid "Article Tags"
 msgstr ""
 
 #: patterns/article-tags.php:12
+#: build/project-card-panel.js:1
 msgid "Tags"
 msgstr ""
 
@@ -1316,6 +1428,7 @@ msgstr ""
 #: patterns/popular-content.php:88
 #: patterns/search-results.php:106
 #: patterns/tag-header.php:35
+#: build/article-card-panel.js:1
 msgid "Article"
 msgstr ""
 
@@ -1424,6 +1537,126 @@ msgstr ""
 #: patterns/contact-with-form.php
 msgctxt "Pattern title"
 msgid "Contact with Form"
+msgstr ""
+
+#: patterns/content-tabs-media.php
+msgctxt "Pattern title"
+msgid "Content Tabs with Media"
+msgstr ""
+
+#: patterns/content-tabs-media.php:24
+msgid "Team working on a project"
+msgstr ""
+
+#: patterns/content-tabs-media.php:34
+msgid "From a One-Person Studio to a Trusted Partner"
+msgstr ""
+
+#: patterns/content-tabs-media.php:38
+msgid "We started building WordPress sites for local businesses and grew into a full-service partner for brands that need fast, accessible, block-based experiences."
+msgstr ""
+
+#: patterns/content-tabs-media.php:42
+msgid "Since:"
+msgstr ""
+
+#: patterns/content-tabs-media.php:42
+msgid "2019 — over 40 projects shipped."
+msgstr ""
+
+#: patterns/content-tabs-media.php:60
+msgid "Recent project showcase"
+msgstr ""
+
+#: patterns/content-tabs-media.php:70
+msgid "Projects Built to Last"
+msgstr ""
+
+#: patterns/content-tabs-media.php:74
+msgid "From multilingual corporate sites to custom Gutenberg blocks, every project is built on maintainable, semantic markup."
+msgstr ""
+
+#: patterns/content-tabs-media.php:78
+msgid "Recent:"
+msgstr ""
+
+#: patterns/content-tabs-media.php:78
+msgid "A full FSE theme with 15 custom blocks and 57 patterns."
+msgstr ""
+
+#: patterns/content-tabs-media.php:96
+msgid "Service icon"
+msgstr ""
+
+#: patterns/content-tabs-media.php:106
+msgid "Design, Build, and Ongoing Support"
+msgstr ""
+
+#: patterns/content-tabs-media.php:110
+msgid "From first wireframe to launch and beyond — design, development, performance tuning, and support all under one roof."
+msgstr ""
+
+#: patterns/content-tabs-media.php:114
+msgid "Includes:"
+msgstr ""
+
+#: patterns/content-tabs-media.php:114
+msgid "Design system, custom blocks, SEO, and monthly maintenance."
+msgstr ""
+
+#: patterns/content-tabs-services.php
+msgctxt "Pattern title"
+msgid "Services with Content Tabs"
+msgstr ""
+
+#: patterns/content-tabs-services.php:16
+msgid "Custom Websites Built for Growth"
+msgstr ""
+
+#: patterns/content-tabs-services.php:20
+msgid "We design and build fast, accessible, block-based WordPress sites tailored to your business — from single-page landing sites to full multilingual platforms."
+msgstr ""
+
+#: patterns/content-tabs-services.php:28
+#: patterns/content-tabs-services.php:60
+msgid "Example:"
+msgstr ""
+
+#: patterns/content-tabs-services.php:28
+msgid "A 12-page corporate site with a custom design system."
+msgstr ""
+
+#: patterns/content-tabs-services.php:36
+#: patterns/content-tabs-services.php:80
+msgid "Case study:"
+msgstr ""
+
+#: patterns/content-tabs-services.php:36
+msgid "Reduced page build time from days to hours with reusable patterns."
+msgstr ""
+
+#: patterns/content-tabs-services.php:52
+msgid "Core Web Vitals Audits"
+msgstr ""
+
+#: patterns/content-tabs-services.php:56
+msgid "We profile your site end-to-end — server response, render-blocking assets, layout shift — and hand you a prioritized action plan."
+msgstr ""
+
+#: patterns/content-tabs-services.php:60
+msgid "Brought an LCP of 4.2s down to 1.1s on a media-heavy homepage."
+msgstr ""
+
+#: patterns/content-tabs-services.php:72
+msgid "Ongoing Optimization"
+msgstr ""
+
+#: patterns/content-tabs-services.php:76
+msgid "From image pipelines to database query tuning, we keep your site fast as content and traffic grow."
+msgstr ""
+
+#: patterns/content-tabs-services.php:80
+msgid "Cut average page weight by 60% across an e-commerce catalog."
 msgstr ""
 
 #: patterns/counter-block.php
@@ -2260,6 +2493,180 @@ msgstr ""
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
 msgstr ""
 
+#: patterns/service-location-content.php
+msgctxt "Pattern title"
+msgid "Service Location Content"
+msgstr ""
+
+#: patterns/service-location-content.php:12
+#: patterns/service-location-content.php:153
+#: patterns/service-location-content.php:214
+#: patterns/service-location-content.php:306
+#: patterns/service-location-content.php:373
+msgid "City"
+msgstr ""
+
+#: patterns/service-location-content.php:18
+msgid "We design and build fast, accessible, block-based WordPress websites — from single-page landing pages to full multilingual platforms."
+msgstr ""
+
+#: patterns/service-location-content.php:24
+msgid "Get a free quote"
+msgstr ""
+
+#: patterns/service-location-content.php:44
+msgid "years in business"
+msgstr ""
+
+#: patterns/service-location-content.php:56
+msgid "projects delivered"
+msgstr ""
+
+#: patterns/service-location-content.php:68
+msgid "remote-friendly process"
+msgstr ""
+
+#: patterns/service-location-content.php:80
+msgid "average quote response time"
+msgstr ""
+
+#: patterns/service-location-content.php:94
+msgid "Why work with us"
+msgstr ""
+
+#: patterns/service-location-content.php:103
+msgid "Modern design"
+msgstr ""
+
+#: patterns/service-location-content.php:107
+msgid "Websites built entirely with Gutenberg blocks — no template limits, fully matched to your brand."
+msgstr ""
+
+#: patterns/service-location-content.php:115
+msgid "Speed and performance"
+msgstr ""
+
+#: patterns/service-location-content.php:119
+msgid "Core Web Vitals optimization, lazy loading, and lightweight styles — your site loads instantly."
+msgstr ""
+
+#: patterns/service-location-content.php:127
+msgid "Support after launch"
+msgstr ""
+
+#: patterns/service-location-content.php:131
+msgid "We stay with you after launch — updates, fixes, and growth as your business grows."
+msgstr ""
+
+#: patterns/service-location-content.php:149
+msgid "Our services in"
+msgstr ""
+
+#: patterns/service-location-content.php:164
+msgid "Company websites"
+msgstr ""
+
+#: patterns/service-location-content.php:168
+msgid "Corporate websites and landing pages that showcase your offer and build customer trust."
+msgstr ""
+
+#: patterns/service-location-content.php:176
+msgid "Online stores"
+msgstr ""
+
+#: patterns/service-location-content.php:180
+msgid "WooCommerce stores ready to sell — from product catalogs to online payments."
+msgstr ""
+
+#: patterns/service-location-content.php:188
+msgid "SEO optimization"
+msgstr ""
+
+#: patterns/service-location-content.php:192
+msgid "Technical SEO, structured data, and page speed — better visibility in search results."
+msgstr ""
+
+#: patterns/service-location-content.php:210
+msgid "Find us in"
+msgstr ""
+
+#: patterns/service-location-content.php:235
+msgid "How we work together"
+msgstr ""
+
+#: patterns/service-location-content.php:248
+msgid "Free quote"
+msgstr ""
+
+#: patterns/service-location-content.php:252
+msgid "We learn about your needs and prepare a no-obligation quote."
+msgstr ""
+
+#: patterns/service-location-content.php:264
+msgid "Design and development"
+msgstr ""
+
+#: patterns/service-location-content.php:268
+msgid "We design and build your site, consulting with you at every step."
+msgstr ""
+
+#: patterns/service-location-content.php:280
+msgid "Launch and support"
+msgstr ""
+
+#: patterns/service-location-content.php:284
+msgid "Your site goes live, and we stay with you with ongoing support."
+msgstr ""
+
+#: patterns/service-location-content.php:298
+msgid "\"Professional approach from the first conversation through launch. The site is fast and looks exactly the way we imagined.\""
+msgstr ""
+
+#: patterns/service-location-content.php:302
+msgid "Client review from:"
+msgstr ""
+
+#: patterns/service-location-content.php:316
+msgid "Frequently asked questions"
+msgstr ""
+
+#: patterns/service-location-content.php:325
+msgid "How long does building a website take?"
+msgstr ""
+
+#: patterns/service-location-content.php:329
+msgid "Depending on the project scope — from a single-page site to a full store — delivery usually takes 2 to 6 weeks."
+msgstr ""
+
+#: patterns/service-location-content.php:337
+msgid "Do you work remotely?"
+msgstr ""
+
+#: patterns/service-location-content.php:341
+msgid "Yes, the whole process — from the quote to launch — is handled remotely, with consultations online or by phone."
+msgstr ""
+
+#: patterns/service-location-content.php:349
+msgid "What does support after launch include?"
+msgstr ""
+
+#: patterns/service-location-content.php:353
+msgid "Security updates, minor content edits, and technical help — on individually agreed terms."
+msgstr ""
+
+#: patterns/service-location-content.php:369
+msgid "We grow businesses from"
+msgstr ""
+
+#: patterns/service-location-content.php:381
+msgid "Contact us"
+msgstr ""
+
+#: patterns/service-locations-grid.php
+msgctxt "Pattern title"
+msgid "Service Locations Grid"
+msgstr ""
+
 #: patterns/services-section.php
 msgctxt "Pattern title"
 msgid "Service Section"
@@ -2524,6 +2931,37 @@ msgstr ""
 msgid "Check Optimization Services"
 msgstr ""
 
+#: build/article-card-panel.js:1
+#: build/article-card.js:1
+#: build/project-card.js:1
+msgid "(no title)"
+msgstr ""
+
+#: build/article-card-panel.js:1
+msgid "Linked Article"
+msgstr ""
+
+#: build/article-card-panel.js:1
+msgid "Picking an article fills this card's image, text, and link. Card layout, colors, and typography are edited once for every card via the Site Editor template."
+msgstr ""
+
+#: build/article-card-panel.js:1
+msgid "Card description (optional)"
+msgstr ""
+
+#: build/article-card-panel.js:1
+msgid "Leave empty to use the article's title."
+msgstr ""
+
+#: build/article-card.js:1
+#: build/project-card.js:1
+msgid "Card"
+msgstr ""
+
+#: build/article-card.js:1
+msgid "Manage the card's linked article, image, and text from Article Cards in the admin menu. Editing the shared card layout there updates every card wherever it's embedded."
+msgstr ""
+
 #: build/banner-carousel.js:1
 #: build/gallery-lightbox.js:1
 #: build/hero-carousel.js:1
@@ -2734,6 +3172,7 @@ msgid "Text"
 msgstr ""
 
 #: build/button.js:1
+#: build/content-tabs.js:1
 #: build/hero-carousel.js:1
 #: build/scroll-section.js:1
 msgid "Background"
@@ -2749,6 +3188,7 @@ msgid "Link settings"
 msgstr ""
 
 #: build/button.js:1
+#: build/editor.js:37
 #: build/nav-content.js:1
 msgid "Open in new tab"
 msgstr ""
@@ -2949,6 +3389,130 @@ msgstr ""
 msgid "Reusable block"
 msgstr ""
 
+#: build/content-tabs.js:1
+msgid "Top"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Bottom"
+msgstr ""
+
+#: build/content-tabs.js:1
+#: build/navigation.js:1
+msgid "Left"
+msgstr ""
+
+#: build/content-tabs.js:1
+#: build/navigation.js:1
+msgid "Right"
+msgstr ""
+
+#: build/content-tabs.js:1
+#: build/editor.js:1
+#: build/editor.js:37
+#: build/language-panel.js:1
+msgid "None"
+msgstr ""
+
+#: build/content-tabs.js:1
+#: build/editor.js:1
+msgid "Fade"
+msgstr ""
+
+#: build/content-tabs.js:1
+#: build/editor.js:1
+msgid "Fade Up"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Creating Websites"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Describe this service…"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Performance Analysis"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Website Optimization"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Panel content…"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Tab label…"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Content Tabs Settings"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Desktop position"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Mobile position"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Below the mobile breakpoint, the nav switches to this position and scrolls horizontally on one line instead of wrapping."
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Gap between nav links"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Active Tab Style"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Combine any of these to style the active tab."
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Underline"
+msgstr ""
+
+#: build/content-tabs.js:1
+#: build/nav-content.js:1
+msgid "Text color"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Active tab text color"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Active tab background color"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Animations"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Tab switch animation"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "How the old panel disappears and the new one appears when switching tabs."
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Card entrance animation"
+msgstr ""
+
+#: build/content-tabs.js:1
+msgid "Animates project/article cards inside the newly shown tab, one after another."
+msgstr ""
+
 #: build/editor.js:1
 msgid "Canvas theme: dark — switch to light"
 msgstr ""
@@ -3133,10 +3697,6 @@ msgid "Fade In"
 msgstr ""
 
 #: build/editor.js:1
-msgid "Fade Up"
-msgstr ""
-
-#: build/editor.js:1
 msgid "Fade Left"
 msgstr ""
 
@@ -3269,10 +3829,6 @@ msgid "Zoom"
 msgstr ""
 
 #: build/editor.js:1
-msgid "Fade"
-msgstr ""
-
-#: build/editor.js:1
 msgid "Rotate"
 msgstr ""
 
@@ -3310,17 +3866,27 @@ msgid "Zooms only the block's own image/video on hover, keeping surrounding cont
 msgstr ""
 
 #: build/editor.js:1
+msgid "Combine additional movement effects with the animation above — they'll play together on hover."
+msgstr ""
+
+#: build/editor.js:1
+msgid "Fade opacity on hover"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Starting opacity"
+msgstr ""
+
+#: build/editor.js:1
+msgid "Opacity on hover"
+msgstr ""
+
+#: build/editor.js:1
 msgid "Hover background color"
 msgstr ""
 
 #: build/editor.js:1
 msgid "Hover text color"
-msgstr ""
-
-#: build/editor.js:1
-#: build/editor.js:37
-#: build/language-panel.js:1
-msgid "None"
 msgstr ""
 
 #: build/editor.js:1
@@ -3595,6 +4161,14 @@ msgid "Link Hover Effects"
 msgstr ""
 
 #: build/editor.js:37
+msgid "Enable underline hover effect"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Adds the same animated sliding-underline hover/focus effect used sitewide in the header and footer to links in this block, even outside those areas or on elements that aren't a native link."
+msgstr ""
+
+#: build/editor.js:37
 msgid "Disable background hover effect"
 msgstr ""
 
@@ -3624,6 +4198,44 @@ msgstr ""
 
 #: build/editor.js:37
 msgid "Excludes links in this block from the sitewide active-page gradient-text/underline treatment shown when a link points at the page currently being viewed. Enabled by default sitewide."
+msgstr ""
+
+#: build/editor.js:37
+msgid "Link whole group"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Makes the whole group a real link (URL preview on hover, right-click to open in a new tab). If the group contains another link, it's kept as a clickable region instead to avoid an invalid nested link. Clicks on a button or form field inside the group still work normally either way."
+msgstr ""
+
+#: build/editor.js:37
+msgid "Hover Overlay"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Show text overlay on hover"
+msgstr ""
+
+#: build/editor.js:37
+#: build/nav-content.js:1
+msgid "Heading"
+msgstr ""
+
+#: build/editor.js:37
+#: build/nav-content.js:1
+msgid "Description"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Overlay background color"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Overlay background opacity"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Overlay text color"
 msgstr ""
 
 #: build/editor.js:37
@@ -3739,6 +4351,7 @@ msgstr ""
 #: build/editor.js:37
 #: build/icon.js:1
 #: build/language-panel.js:1
+#: build/scroll-to-top.js:1
 #: build/search-panel.js:1
 msgid "Replace icon"
 msgstr ""
@@ -3746,6 +4359,7 @@ msgstr ""
 #: build/editor.js:37
 #: build/icon.js:1
 #: build/language-panel.js:1
+#: build/scroll-to-top.js:1
 #: build/search-panel.js:1
 #: build/social-section.js:1
 msgid "Select SVG icon"
@@ -3754,6 +4368,7 @@ msgstr ""
 #: build/editor.js:37
 #: build/icon.js:1
 #: build/language-panel.js:1
+#: build/scroll-to-top.js:1
 #: build/search-panel.js:1
 #: build/social-section.js:1
 msgid "Remove icon"
@@ -3776,6 +4391,22 @@ msgid "Adaptive presets follow the current text color and switch with light/dark
 msgstr ""
 
 #: build/editor.js:37
+msgid "Truncate Text"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Limit to a number of lines"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Visible lines"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Text past this many lines is hidden behind a \"Read more\" toggle, translated automatically for each site language."
+msgstr ""
+
+#: build/editor.js:37
 msgid "Load above the fold"
 msgstr ""
 
@@ -3794,6 +4425,30 @@ msgstr ""
 #: build/editor.js:37
 #: build/icon.js:1
 msgid "Icon"
+msgstr ""
+
+#: build/editor.js:37
+msgid "City Grid Layout"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Columns (desktop)"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Columns (tablet)"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Columns (mobile)"
+msgstr ""
+
+#: build/editor.js:37
+msgid "City Link Color"
+msgstr ""
+
+#: build/editor.js:37
+msgid "Link text color"
 msgstr ""
 
 #: build/editor.js:37
@@ -4332,10 +4987,6 @@ msgid "Paragraph text"
 msgstr ""
 
 #: build/nav-content.js:1
-msgid "Text color"
-msgstr ""
-
-#: build/nav-content.js:1
 msgid "Nav paragraph — add text in the panel →"
 msgstr ""
 
@@ -4361,14 +5012,6 @@ msgstr ""
 
 #: build/nav-content.js:1
 msgid "Nav image — select an image in the panel →"
-msgstr ""
-
-#: build/nav-content.js:1
-msgid "Heading"
-msgstr ""
-
-#: build/nav-content.js:1
-msgid "Description"
 msgstr ""
 
 #: build/nav-content.js:1
@@ -4454,14 +5097,6 @@ msgid "From left"
 msgstr ""
 
 #: build/navigation.js:1
-msgid "Right"
-msgstr ""
-
-#: build/navigation.js:1
-msgid "Left"
-msgstr ""
-
-#: build/navigation.js:1
 msgid "— Select a menu —"
 msgstr ""
 
@@ -4519,6 +5154,34 @@ msgstr ""
 
 #: build/popular-pages.js:1
 msgid "more"
+msgstr ""
+
+#: build/project-card-panel.js:1
+msgid "Project Details"
+msgstr ""
+
+#: build/project-card-panel.js:1
+msgid "Description (hover overlay text)"
+msgstr ""
+
+#: build/project-card-panel.js:1
+msgid "Shown as overlay text when hovering the card image."
+msgstr ""
+
+#: build/project-card-panel.js:1
+msgid "Space-separated, e.g. \"WordPress Elementor Yoast SEO\"."
+msgstr ""
+
+#: build/project-card-panel.js:1
+msgid "Project URL"
+msgstr ""
+
+#: build/project-card-panel.js:1
+msgid "Where the arrow icon links to."
+msgstr ""
+
+#: build/project-card.js:1
+msgid "Manage the card's image, description, tags, and link from Project Cards in the admin menu. Editing the shared card layout there updates every card wherever it's embedded."
 msgstr ""
 
 #: build/protected-content.js:1
@@ -4730,11 +5393,55 @@ msgid "Add item"
 msgstr ""
 
 #: build/scroll-to-top.js:1
-msgid "Scroll To Top"
+msgid "Fixed Arrow — floating button"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Full-Width Bar — inline"
 msgstr ""
 
 #: build/scroll-to-top.js:1
 msgid "Fixed button, visible on the frontend while scrolling"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Full-width bar, always visible where placed — e.g. above the footer"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Scroll To Top Settings"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Variant"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Button Label"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Managed via Polylang → Languages → Translations, string \"Scroll To Top Button Label\"."
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Arrow Icon"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Show arrow after label"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Arrow size"
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "The arrow only applies to the Full-Width Bar variant — the Fixed Arrow variant already hides its label and shows only its own icon."
+msgstr ""
+
+#: build/scroll-to-top.js:1
+msgid "Scroll To Top"
 msgstr ""
 
 #: build/search-panel.js:1
@@ -4985,6 +5692,12 @@ msgstr ""
 msgid "Social link"
 msgstr ""
 
+#: build/blocks/article-card/block.json
+#: src/blocks/article-card/block.json
+msgctxt "block title"
+msgid "Article Card"
+msgstr ""
+
 #: build/blocks/banner-carousel/block.json
 #: src/blocks/banner-carousel/block.json
 msgctxt "block title"
@@ -5025,6 +5738,24 @@ msgstr ""
 #: src/blocks/content-block/block.json
 msgctxt "block title"
 msgid "Content Block"
+msgstr ""
+
+#: build/blocks/content-tabs/block.json
+#: src/blocks/content-tabs/block.json
+msgctxt "block title"
+msgid "Content Tabs"
+msgstr ""
+
+#: build/blocks/content-tabs/item/block.json
+#: src/blocks/content-tabs/item/block.json
+msgctxt "block title"
+msgid "Content Tab"
+msgstr ""
+
+#: build/blocks/content-tabs/nav-link/block.json
+#: src/blocks/content-tabs/nav-link/block.json
+msgctxt "block title"
+msgid "Tab Label"
 msgstr ""
 
 #: build/blocks/copyrights/block.json
@@ -5205,6 +5936,12 @@ msgstr ""
 #: src/blocks/popular-pages/block.json
 msgctxt "block description"
 msgid "Compact list of most-visited pages, sorted by internal page-view count."
+msgstr ""
+
+#: build/blocks/project-card/block.json
+#: src/blocks/project-card/block.json
+msgctxt "block title"
+msgid "Project Card"
 msgstr ""
 
 #: build/blocks/protected-content/block.json

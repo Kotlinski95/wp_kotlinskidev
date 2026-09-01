@@ -74,9 +74,14 @@ require_once get_template_directory() . '/functions/responsive-display.php';
 // Load responsive width controls
 require_once get_template_directory() . '/functions/responsive-width.php';
 
+// Load load-more (progressive reveal) controls
+require_once get_template_directory() . '/functions/load-more.php';
+
 // Load universal gradient-border support
 require_once get_template_directory() . '/functions/border-gradient.php';
+require_once get_template_directory() . '/functions/text-gradient.php';
 require_once get_template_directory() . '/functions/group-link.php';
+require_once get_template_directory() . '/functions/image-hover-overlay.php';
 
 // Load responsive spacing controls
 require_once get_template_directory() . '/functions/responsive-spacing.php';
@@ -192,6 +197,14 @@ require_once get_template_directory() . '/functions/blog-topic-manager.php';
 
 // Include page view tracking functionality
 require_once get_template_directory() . '/functions/page-view-tracking.php';
+
+// Load city-based service location landing pages
+require_once get_template_directory() . '/functions/service-locations.php';
+
+require_once get_template_directory() . '/functions/contact-card.php';
+
+require_once get_template_directory() . '/functions/article-card.php';
+require_once get_template_directory() . '/functions/project-card.php';
 
 function kotlinskidev_load_textdomain()
 {

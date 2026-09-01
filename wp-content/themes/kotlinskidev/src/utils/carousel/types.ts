@@ -17,6 +17,7 @@ export interface CarouselSettings {
   navPlacement: "inside" | "outside";
   trackActiveSlide: boolean;
   paginationPlacement: "inside" | "outside";
+  transitionEffect: "slide" | "fade" | "cube" | "coverflow" | "flip" | "cards";
 }
 
 export interface CarouselFeatures {
@@ -29,4 +30,5 @@ export interface CarouselFeatures {
   navPlacement?: boolean;
   trackActiveSlide?: boolean;
   paginationPlacement?: boolean;
+  transitionEffect?: boolean;
 }

@@ -1,5 +1,15 @@
 import Swiper from "swiper";
-import { Navigation, Pagination, Keyboard, Autoplay } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Keyboard,
+  Autoplay,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectFlip,
+  EffectCards,
+} from "swiper/modules";
 import { buildSwiperConfig } from "./buildConfig";
 import type { CarouselSettings } from "./types";
 
@@ -50,7 +60,17 @@ export const initSwiper = (
   }
 
   const swiper = new Swiper(el, {
-    modules: [Navigation, Pagination, Keyboard, Autoplay],
+    modules: [
+      Navigation,
+      Pagination,
+      Keyboard,
+      Autoplay,
+      EffectFade,
+      EffectCube,
+      EffectCoverflow,
+      EffectFlip,
+      EffectCards,
+    ],
     ...config,
     ...overrides,
   } as ConstructorParameters<typeof Swiper>[1]);

@@ -1,1 +1,171 @@
-{"translation-revision-date":"2026-08-17 12:54+0000","generator":"WP-CLI\/2.12.0","source":"build\/hero-carousel.js","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","lang":"en_US","plural-forms":"nplurals=2; plural=n != 1;"},"Auto":["Auto"],"Slide width follows the image; the visible slide count adapts to available space.":["Slide width follows the image; the visible slide count adapts to available space."],"Carousel Settings":["Carousel Settings"],"Show Arrows":["Show Arrows"],"Arrows Position":["Arrows Position"],"Default (sides)":["Default (sides)"],"Bottom left":["Bottom left"],"Bottom center":["Bottom center"],"Bottom right":["Bottom right"],"Show navigation outside carousel":["Show navigation outside carousel"],"Renders nav below the slides instead of overlaying them.":["Renders nav below the slides instead of overlaying them."],"Navigation color":["Navigation color"],"Color on hover only":["Color on hover only"],"Uses default colors normally; applies custom color on hover.":["Uses default colors normally; applies custom color on hover."],"Show Pagination":["Show Pagination"],"Show pagination outside carousel":["Show pagination outside carousel"],"Renders the pagination dots below the slides instead of overlaying them.":["Renders the pagination dots below the slides instead of overlaying them."],"Show Scrollbar":["Show Scrollbar"],"Loop Mode":["Loop Mode"],"Draggable":["Draggable"],"Lets users manually swipe\/drag through the slides.":["Lets users manually swipe\/drag through the slides."],"Autoplay":["Autoplay"],"Autoplay Delay (seconds)":["Autoplay Delay (seconds)"],"Lazy Load First Image":["Lazy Load First Image"],"Enable if this block is below the fold.":["Enable if this block is below the fold."],"Track active slide":["Track active slide"],"Keeps the featured image and counter in sync with the last viewed slide.":["Keeps the featured image and counter in sync with the last viewed slide."],"Slides Per View":["Slides Per View"],"Slides (Mobile)":["Slides (Mobile)"],"Slides (Tablet)":["Slides (Tablet)"],"Slides (Desktop)":["Slides (Desktop)"],"Background":["Background"],"Background Image":["Background Image"],"Change Image":["Change Image"],"Set Image":["Set Image"],"Remove Image":["Remove Image"],"Background Video (optional)":["Background Video (optional)"],"Change Video":["Change Video"],"Set Video":["Set Video"],"Remove Video":["Remove Video"],"Overlay Opacity":["Overlay Opacity"],"Set a background image in the sidebar.":["Set a background image in the sidebar."],"Previous slide":["Previous slide"],"Next slide":["Next slide"],"Go to slide":["Go to slide"],"Slides":["Slides"],"Slide %d":["Slide %d"],"Remove slide":["Remove slide"],"+ Add Slide":["+ Add Slide"],"Height":["Height"],"Min Height (vh)":["Min Height (vh)"],"Add slide":["Add slide"]}}}
+{
+    "translation-revision-date": "2026-08-17 12:54+0000",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "build\/hero-carousel.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en_US",
+                "plural-forms": "nplurals=2; plural=n != 1;"
+            },
+            "Carousel Settings": [
+                "Custom Settings"
+            ],
+            "Show Arrows": [
+                ""
+            ],
+            "Arrows Position": [
+                ""
+            ],
+            "Default (sides)": [
+                "Default mode"
+            ],
+            "Bottom left": [
+                ""
+            ],
+            "Bottom center": [
+                ""
+            ],
+            "Bottom right": [
+                ""
+            ],
+            "Show navigation outside carousel": [
+                ""
+            ],
+            "Renders nav below the slides instead of overlaying them.": [
+                ""
+            ],
+            "Navigation color": [
+                "Navigation"
+            ],
+            "Color on hover only": [
+                ""
+            ],
+            "Uses default colors normally; applies custom color on hover.": [
+                ""
+            ],
+            "Show Pagination": [
+                "JS translations"
+            ],
+            "Show pagination outside carousel": [
+                ""
+            ],
+            "Renders the pagination dots below the slides instead of overlaying them.": [
+                ""
+            ],
+            "Show Scrollbar": [
+                ""
+            ],
+            "Loop Mode": [
+                "Mode"
+            ],
+            "Draggable": [
+                ""
+            ],
+            "Lets users manually swipe\/drag through the slides.": [
+                ""
+            ],
+            "Autoplay": [
+                ""
+            ],
+            "Autoplay Delay (seconds)": [
+                ""
+            ],
+            "Lazy Load First Image": [
+                ""
+            ],
+            "Enable if this block is below the fold.": [
+                ""
+            ],
+            "Track active slide": [
+                ""
+            ],
+            "Keeps the featured image and counter in sync with the last viewed slide.": [
+                ""
+            ],
+            "Slides Per View": [
+                "Reset View"
+            ],
+            "Slides (Mobile)": [
+                ""
+            ],
+            "Slides (Tablet)": [
+                ""
+            ],
+            "Slides (Desktop)": [
+                "Desktop"
+            ],
+            "Auto": [
+                ""
+            ],
+            "Slide width follows the image; the visible slide count adapts to available space.": [
+                ""
+            ],
+            "Background": [
+                "Background image"
+            ],
+            "Previous slide": [
+                "Previous"
+            ],
+            "Next slide": [
+                ""
+            ],
+            "Go to slide": [
+                "How to Use"
+            ],
+            "Slides": [
+                "Slider"
+            ],
+            "Slide %d": [
+                "Slider"
+            ],
+            "Remove slide": [
+                "Hero Slide"
+            ],
+            "+ Add Slide": [
+                ""
+            ],
+            "Height": [
+                "Light"
+            ],
+            "Min Height (vh)": [
+                ""
+            ],
+            "Add slide": [
+                ""
+            ],
+            "Background Image": [
+                "Background image"
+            ],
+            "Change Image": [
+                "Choose Image"
+            ],
+            "Set Image": [
+                "Choose Image"
+            ],
+            "Remove Image": [
+                "Responsive Image"
+            ],
+            "Background Video (optional)": [
+                "Background image"
+            ],
+            "Change Video": [
+                ""
+            ],
+            "Set Video": [
+                "Videos"
+            ],
+            "Remove Video": [
+                ""
+            ],
+            "Overlay Opacity": [
+                ""
+            ],
+            "Set a background image in the sidebar.": [
+                ""
+            ]
+        }
+    }
+}

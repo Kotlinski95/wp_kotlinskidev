@@ -5,6 +5,7 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, SelectControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 const scrollAnimations = [
   { label: __("No Animation", "kotlinskidev"), value: "" },
@@ -38,7 +39,13 @@ const scrollAnimationTranslates = [
 ];
 
 function addScrollAnimationAttribute(settings: any) {
-  const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+  const excludedBlocks = [
+    "core/html",
+    "core/code",
+    "core/preformatted",
+    "core/verse",
+    ...DYNAMIC_PREVIEW_BLOCKS,
+  ];
 
   if (excludedBlocks.includes(settings.name)) {
     return settings;
@@ -70,7 +77,13 @@ const withScrollAnimationControls = createHigherOrderComponent((BlockEdit) => {
     const { attributes, setAttributes, name } = props;
     const { scrollAnimation, scrollAnimationDelay, scrollAnimationTranslate } = attributes;
 
-    const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+    const excludedBlocks = [
+      "core/html",
+      "core/code",
+      "core/preformatted",
+      "core/verse",
+      ...DYNAMIC_PREVIEW_BLOCKS,
+    ];
 
     if (excludedBlocks.includes(name)) {
       return <BlockEdit {...props} />;

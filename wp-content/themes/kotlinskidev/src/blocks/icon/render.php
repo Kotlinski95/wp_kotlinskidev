@@ -20,21 +20,30 @@ if ( '' !== $aria_label ) {
 	$svg = $processor->get_updated_html();
 }
 
-$size  = sanitize_text_field( $attributes['size'] ?? '' );
-$color = sanitize_text_field( $attributes['color'] ?? '' );
+$size         = sanitize_text_field( $attributes['size'] ?? '' );
+$color        = sanitize_text_field( $attributes['color'] ?? '' );
+$use_gradient = (bool) ( $attributes['useGradient'] ?? false );
 
 $inline_style = '';
 if ( $size ) {
 	$inline_style .= '--kt-icon-size: ' . esc_attr( $size ) . ';';
 }
-if ( $color ) {
+if ( $color && ! $use_gradient ) {
 	$inline_style .= 'color: ' . esc_attr( $color ) . ';';
 }
 
 $show_tooltip = (bool) ( $attributes['showTooltip'] ?? false ) && '' !== $aria_label;
 
+$wrapper_class = 'kt-icon';
+if ( $use_gradient ) {
+	$wrapper_class .= ' kt-icon--gradient';
+}
+if ( $show_tooltip ) {
+	$wrapper_class .= ' kt-tooltip';
+}
+
 $wrapper_args = [
-	'class' => $show_tooltip ? 'kt-icon kt-tooltip' : 'kt-icon',
+	'class' => $wrapper_class,
 	'style' => $inline_style,
 ];
 if ( $show_tooltip ) {

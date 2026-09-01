@@ -31,10 +31,23 @@ const getBreakpoints = () => {
 const displayOptions = [
   { label: __("Default", "kotlinskidev"), value: "" },
   { label: __("Block", "kotlinskidev"), value: "block" },
+  { label: __("Inline", "kotlinskidev"), value: "inline" },
+  { label: __("Inline Block", "kotlinskidev"), value: "inline-block" },
   { label: __("Flex", "kotlinskidev"), value: "flex" },
+  { label: __("Inline Flex", "kotlinskidev"), value: "inline-flex" },
   { label: __("Grid", "kotlinskidev"), value: "grid" },
+  { label: __("Inline Grid", "kotlinskidev"), value: "inline-grid" },
+  { label: __("Flow Root", "kotlinskidev"), value: "flow-root" },
+  { label: __("Contents", "kotlinskidev"), value: "contents" },
+  { label: __("Table", "kotlinskidev"), value: "table" },
+  { label: __("Table Row", "kotlinskidev"), value: "table-row" },
+  { label: __("Table Cell", "kotlinskidev"), value: "table-cell" },
+  { label: __("List Item", "kotlinskidev"), value: "list-item" },
   { label: __("None (hidden)", "kotlinskidev"), value: "none" },
 ];
+
+const FLEX_FAMILY_DISPLAYS = ["flex", "inline-flex"];
+const FLEX_OR_GRID_FAMILY_DISPLAYS = ["flex", "inline-flex", "grid", "inline-grid"];
 
 const flexDirectionOptions = [
   { label: __("Default", "kotlinskidev"), value: "" },
@@ -150,7 +163,7 @@ const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => 
             onChange={(value: string) => updateResponsiveDisplay(device, "display", value)}
           />
 
-          {deviceSettings.display === "flex" && (
+          {FLEX_FAMILY_DISPLAYS.includes(deviceSettings.display) && (
             <SelectControl
               label={__("Flex Direction", "kotlinskidev")}
               value={deviceSettings.flexDirection || ""}
@@ -159,7 +172,7 @@ const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => 
             />
           )}
 
-          {(deviceSettings.display === "flex" || deviceSettings.display === "grid") && (
+          {FLEX_OR_GRID_FAMILY_DISPLAYS.includes(deviceSettings.display) && (
             <>
               <SelectControl
                 label={__("Justify Content", "kotlinskidev")}

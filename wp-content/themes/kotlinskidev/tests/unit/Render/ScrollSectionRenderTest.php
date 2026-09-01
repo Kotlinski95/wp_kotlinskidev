@@ -16,30 +16,49 @@ beforeEach(function () {
         fn ($extra = []) => 'class="' . ($extra['class'] ?? '') . '" style="' . ($extra['style'] ?? '') . '"'
     );
     Functions\when('esc_attr')->alias(fn ($t) => $t);
+    Functions\when('sanitize_key')->alias(
+        fn ($t) => preg_replace('/[^a-z0-9_\-]/', '', strtolower((string) $t))
+    );
 });
 
-it('defaults markers to false, slide width to auto, and trigger to center', function () {
+it('defaults markers to false, slide width to auto, slide gap to medium, and trigger to center', function () {
     $html = kotlinskidev_scroll_section_render([]);
 
     expect($html)->toContain('data-markers="false"');
     expect($html)->toContain('data-slide-width="auto"');
+    expect($html)->toContain('data-slide-gap="medium"');
     expect($html)->toContain('data-trigger="center"');
 });
 
-it('reflects configured markers, slide width, and trigger', function () {
-    $html = kotlinskidev_scroll_section_render(['markers' => true, 'slideWidth' => 'full', 'trigger' => 'top']);
+it('reflects configured markers, slide width, slide gap, and trigger', function () {
+    $html = kotlinskidev_scroll_section_render([
+        'markers' => true,
+        'slideWidth' => 'full',
+        'slideGap' => 'large',
+        'trigger' => 'top',
+    ]);
 
     expect($html)->toContain('data-markers="true"');
     expect($html)->toContain('data-slide-width="full"');
+    expect($html)->toContain('data-slide-gap="large"');
     expect($html)->toContain('data-trigger="top"');
 });
 
-it('applies a background style only when a background color is set', function () {
+it('always sets the gap custom property, and appends background only when set', function () {
     $withoutBg = kotlinskidev_scroll_section_render([]);
     $withBg = kotlinskidev_scroll_section_render(['backgroundColor' => '#111111']);
 
-    expect($withoutBg)->toContain('style=""');
-    expect($withBg)->toContain('style="background: #111111;"');
+    expect($withoutBg)->toContain('style="--scroll-section-gap: var(--wp--preset--spacing--medium);"');
+    expect($withBg)->toContain(
+        'style="--scroll-section-gap: var(--wp--preset--spacing--medium); background: #111111;"'
+    );
+});
+
+it('sanitizes an arbitrary slideGap value into the custom property', function () {
+    $html = kotlinskidev_scroll_section_render(['slideGap' => 'X-Large!!']);
+
+    expect($html)->toContain('--scroll-section-gap: var(--wp--preset--spacing--x-large);');
+    expect($html)->toContain('data-slide-gap="x-large"');
 });
 
 it('renders the inner block content inside the track', function () {

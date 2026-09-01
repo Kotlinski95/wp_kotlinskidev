@@ -1,6 +1,7 @@
 **/build/**
 **/node_modules/**
 **/vendor/**
+**/artifacts/**
 
 CLAUDE.md
 src/blocks/scroll-section/CLAUDE.md
