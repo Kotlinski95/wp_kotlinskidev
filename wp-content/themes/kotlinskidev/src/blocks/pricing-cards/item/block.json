@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/pricing-card",
+  "version": "1.0.0",
+  "title": "Pricing Card",
+  "category": "layout",
+  "icon": "money-alt",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/pricing-cards"],
+  "supports": {
+    "inserter": false,
+    "reusable": false,
+    "html": false
+  },
+  "attributes": {
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "badgeFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "badgeTextColor": {
+      "type": "string",
+      "default": ""
+    },
+    "badgeGradient": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

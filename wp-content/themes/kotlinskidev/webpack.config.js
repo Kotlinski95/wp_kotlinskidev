@@ -97,6 +97,9 @@ module.exports = {
     "model-viewer": path.resolve(process.cwd(), "src", "blocks", "model-viewer", "index.ts"),
     "model-viewer-init": path.resolve(process.cwd(), "src", "blocks", "model-viewer", "init.ts"),
     icon: path.resolve(process.cwd(), "src", "blocks", "icon", "index.ts"),
+    "translated-text": path.resolve(process.cwd(), "src", "blocks", "translated-text", "index.ts"),
+    "process-steps": path.resolve(process.cwd(), "src", "blocks", "process-steps", "index.ts"),
+    "pricing-cards": path.resolve(process.cwd(), "src", "blocks", "pricing-cards", "index.ts"),
   },
 
   output: {

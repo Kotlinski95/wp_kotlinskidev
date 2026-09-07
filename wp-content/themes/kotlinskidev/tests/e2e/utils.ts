@@ -1,7 +1,7 @@
 import { expect, type Page, type Locator } from "@playwright/test";
 
 export async function acceptCookies(page: Page) {
-  const acceptButton = page.getByRole("button", { name: "Akceptuję" });
+  const acceptButton = page.getByRole("button", { name: /^(Akceptuję|Accept)$/ });
   if (await acceptButton.isVisible().catch(() => false)) {
     await acceptButton.click();
   }

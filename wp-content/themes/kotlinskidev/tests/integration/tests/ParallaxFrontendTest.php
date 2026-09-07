@@ -94,6 +94,42 @@ it('only rewrites the first wp-block-cover tag, leaving inner markup untouched',
     expect(substr_count($html, 'enable-parallax'))->toBe(1);
 });
 
+it('defaults data-parallax-intensity to 15 when parallaxIntensity is not set', function () {
+    $blocks = parse_blocks(
+        '<!-- wp:cover {"url":"https://example.com/photo.jpg","enableParallax":true} -->'
+        . '<div class="wp-block-cover"><div class="wp-block-cover__inner-container">x</div></div>'
+        . '<!-- /wp:cover -->'
+    );
+
+    $html = render_block($blocks[0]);
+
+    expect($html)->toContain('data-parallax-intensity="15"');
+});
+
+it('carries a custom parallaxIntensity through to data-parallax-intensity', function () {
+    $blocks = parse_blocks(
+        '<!-- wp:cover {"url":"https://example.com/photo.jpg","enableParallax":true,"parallaxIntensity":6} -->'
+        . '<div class="wp-block-cover"><div class="wp-block-cover__inner-container">x</div></div>'
+        . '<!-- /wp:cover -->'
+    );
+
+    $html = render_block($blocks[0]);
+
+    expect($html)->toContain('data-parallax-intensity="6"');
+});
+
+it('clamps an out-of-range parallaxIntensity to the 0-30 bounds', function () {
+    $blocks = parse_blocks(
+        '<!-- wp:cover {"url":"https://example.com/photo.jpg","enableParallax":true,"parallaxIntensity":999} -->'
+        . '<div class="wp-block-cover"><div class="wp-block-cover__inner-container">x</div></div>'
+        . '<!-- /wp:cover -->'
+    );
+
+    $html = render_block($blocks[0]);
+
+    expect($html)->toContain('data-parallax-intensity="30"');
+});
+
 it('escapes the url attribute to prevent attribute injection via a crafted block attribute', function () {
     $blocks = parse_blocks(
         '<!-- wp:cover {"url":"https://example.com/photo.jpg?x=\"><script>alert(1)</script>","enableParallax":true} -->'

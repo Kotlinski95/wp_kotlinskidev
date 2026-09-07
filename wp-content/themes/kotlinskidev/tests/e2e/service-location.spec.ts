@@ -67,6 +67,52 @@ test.describe("Service Location city page (single-service_location.html) — bou
 
     expect(src).toContain(encodeURIComponent(cityName));
   });
+
+  test("keeps the FAQ's sticky-left column visible deep into its row once the accordions on the right are opened", async ({
+    page,
+  }) => {
+    // Regression: gsap-sticky.ts (which portals `.is-kotlinskidev-sticky` out of the transformed
+    // .main-wrapper so native position:sticky works) decided visibility from its layout
+    // placeholder's own rect, which only ever matches the short natural height of the sticky
+    // column's own content (a heading + CTA). `.wp-block-columns` stretches every column to the
+    // tallest sibling's height by default, so once the accordion column on the right grows much
+    // taller, the real row stayed tall while the placeholder stayed short — hiding the sticky
+    // column while the row (and its still-visible sibling column) was still on screen.
+    const stickyColumn = page.locator(".is-kotlinskidev-sticky");
+    // gsap-sticky.ts portals the whole `.is-kotlinskidev-sticky` column out of `.wp-block-columns`
+    // and into a body-level host, leaving only an unstyled placeholder behind — so the row can no
+    // longer be found via its (now-moved) sticky child, only via its other, still-in-place child.
+    const row = page.locator(".wp-block-columns:has(.kt-faq-single-column)");
+    const placeholder = row.locator("> div[style*='visibility: hidden']");
+    const summaries = page.locator(".kt-faq-single-column .wp-block-details summary");
+
+    const summaryCount = await summaries.count();
+    for (let i = 0; i < summaryCount; i += 1) {
+      await summaries.nth(i).click();
+    }
+
+    const rowBox = await row.boundingBox();
+    const placeholderBox = await placeholder.boundingBox();
+    if (!rowBox || !placeholderBox) {
+      throw new Error("FAQ row or its layout placeholder did not render a bounding box");
+    }
+    // boundingBox() is viewport-relative, not page-absolute — anchor both to the current scroll
+    // position so the scroll target below lands on the real page coordinate, not a mismatched one.
+    const scrollYBeforeMeasuring = await page.evaluate(() => window.scrollY);
+    const rowAbsoluteTop = rowBox.y + scrollYBeforeMeasuring;
+    const placeholderAbsoluteBottom = rowAbsoluteTop + placeholderBox.height;
+    const rowAbsoluteBottom = rowAbsoluteTop + rowBox.height;
+    expect(rowAbsoluteBottom - placeholderAbsoluteBottom).toBeGreaterThan(100);
+
+    // Scroll so the viewport's own top edge sits between the placeholder's bottom and the row's
+    // real bottom: the placeholder (and its short natural height) is then fully scrolled past —
+    // invisible were visibility still keyed off it — while the row (and its still-visible sibling
+    // accordion column) has real content further down that hasn't scrolled out of view yet.
+    const scrollTarget = (placeholderAbsoluteBottom + rowAbsoluteBottom) / 2;
+    await page.evaluate((y) => window.scrollTo(0, y), scrollTarget);
+
+    await expect(stickyColumn).toBeVisible();
+  });
 });
 
 test.describe("Service Location city page — Polylang language routing", () => {

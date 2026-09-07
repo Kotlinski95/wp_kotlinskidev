@@ -353,3 +353,19 @@ it('fetches up to the requested limit of related posts from the same categories'
 
     expect($related)->toHaveCount(2);
 });
+
+it('does not suppress language filters when fetching related post candidates, so foreign-language posts are excluded', function () {
+    Functions\when('get_the_category')->justReturn([(object) ['term_id' => 3]]);
+    $capturedArgs = null;
+    Functions\when('get_posts')->alias(function ($args) use (&$capturedArgs) {
+        if (isset($args['fields']) && $args['fields'] === 'ids') {
+            $capturedArgs = $args;
+            return [10];
+        }
+        return array_map(fn ($id) => (object) ['ID' => $id], $args['post__in']);
+    });
+
+    kotlinskidev_get_related_posts(1);
+
+    expect($capturedArgs['suppress_filters'])->toBeFalse();
+});

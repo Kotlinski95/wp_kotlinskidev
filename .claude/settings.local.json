@@ -40,7 +40,11 @@
       "mcp__chrome-devtools-mcp__performance_start_trace",
       "Bash(vendor/bin/phpcs --standard=.phpcs.security.xml --report=json)",
       "Bash(npx wp-scripts *)",
-      "Bash(composer test:unit)"
+      "Bash(composer test:unit)",
+      "Bash(wp post *)",
+      "Bash(php -l tests/integration/tests/TagArchiveManagerTest.php)",
+      "Bash(php -l tests/integration/tests/SearchPageDynamicBlocksTest.php)",
+      "Bash(composer test:integration -- --filter=\"TagArchiveManager|SearchPageDynamicBlocks\")"
     ]
   }
 }

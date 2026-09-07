@@ -117,11 +117,15 @@ describe("hide-nav-on-scroll.ts", () => {
     expect(header.classList.contains("nav-hidden")).toBe(false);
   });
 
-  it("hides the mobile footer nav, scroll-to-top button, and cookie button together", () => {
+  it("hides the mobile footer nav, scroll-to-top button, cookie button, and accessibility toggle together", () => {
     buildMarkup();
     const cookieButton = document.createElement("button");
     cookieButton.className = "cmplz-btn cmplz-manage-consent";
     document.body.append(cookieButton);
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      '<div class="onetap-container-toggle"><button class="onetap-toggle"></button></div>'
+    );
     loadOnMobile();
 
     scrollAndFlush(300);
@@ -133,6 +137,9 @@ describe("hide-nav-on-scroll.ts", () => {
       document.querySelector(".kotlinskidev-scrollto-top")?.classList.contains("mobile-nav-hidden")
     ).toBe(true);
     expect(cookieButton.classList.contains("mobile-nav-hidden")).toBe(true);
+    expect(document.querySelector(".onetap-toggle")?.classList.contains("mobile-nav-hidden")).toBe(
+      true
+    );
   });
 
   it("re-shows the nav when switching from mobile to desktop", () => {

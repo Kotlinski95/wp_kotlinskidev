@@ -36,9 +36,6 @@ require_once get_template_directory() . '/functions/admin-bar-styles.php';
 // Include customizer settings and functions
 require_once get_template_directory() . '/functions/customizer.php';
 
-// Include seo customizer settings and functions
-// require_once get_template_directory() . '/functions/seo-customizer.php';
-
 // Include logo functions
 require_once get_template_directory() . '/functions/site-identity.php';
 
@@ -195,6 +192,12 @@ require_once get_template_directory() . '/functions/seo-noindex-compat.php';
 // Blog topic management system
 require_once get_template_directory() . '/functions/blog-topic-manager.php';
 
+// Tag archive dynamic blocks (tag header, tag posts grid, related tags)
+require_once get_template_directory() . '/functions/tag-archive-manager.php';
+
+// Search page dynamic blocks (search header, search form, search results, popular content)
+require_once get_template_directory() . '/functions/search-page-dynamic-blocks.php';
+
 // Include page view tracking functionality
 require_once get_template_directory() . '/functions/page-view-tracking.php';
 
@@ -205,6 +208,7 @@ require_once get_template_directory() . '/functions/contact-card.php';
 
 require_once get_template_directory() . '/functions/article-card.php';
 require_once get_template_directory() . '/functions/project-card.php';
+require_once get_template_directory() . '/functions/translated-text.php';
 
 function kotlinskidev_load_textdomain()
 {

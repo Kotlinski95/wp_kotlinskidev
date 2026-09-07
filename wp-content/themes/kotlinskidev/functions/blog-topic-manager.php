@@ -121,6 +121,8 @@ function kotlinskidev_get_related_posts($post_id = null, $limit = 3) {
         $category_ids[] = $category->term_id;
     }
 
+    $post_lang = function_exists('pll_get_post_language') ? pll_get_post_language($post_id) : '';
+
     // ORDER BY RAND() forces MySQL to sort every matching row on every request —
     // fetch matching IDs only (cheap, indexed) and randomize in PHP instead.
     $candidate_ids = get_posts(array(
@@ -130,6 +132,8 @@ function kotlinskidev_get_related_posts($post_id = null, $limit = 3) {
         'post_status' => 'publish',
         'fields' => 'ids',
         'no_found_rows' => true,
+        'suppress_filters' => false,
+        'lang' => $post_lang,
     ));
 
     if (empty($candidate_ids)) {
@@ -145,6 +149,8 @@ function kotlinskidev_get_related_posts($post_id = null, $limit = 3) {
         'posts_per_page' => $limit,
         'post_status' => 'publish',
         'no_found_rows' => true,
+        'suppress_filters' => false,
+        'lang' => $post_lang,
     ));
     
     return $related_posts;
@@ -214,7 +220,9 @@ function kotlinskidev_category_column_content($content, $column_name, $term_id) 
         $latest_post = get_posts(array(
             'category' => $term_id,
             'posts_per_page' => 1,
-            'post_status' => 'publish'
+            'post_status' => 'publish',
+            'suppress_filters' => false,
+            'lang' => function_exists('pll_get_term_language') ? pll_get_term_language($term_id) : '',
         ));
         
         if (!empty($latest_post)) {
@@ -706,3 +714,628 @@ function kotlinskidev_display_polish_search_states($post_states, $post) {
     return $post_states;
 }
 add_filter('display_post_states', 'kotlinskidev_display_polish_search_states', 10, 2);
+
+function kotlinskidev_render_blog_topics_grid_fresh_per_language() {
+    $categories = get_categories(array(
+        'hide_empty' => true,
+        'exclude' => array(1),
+        'orderby' => 'name',
+        'order' => 'ASC',
+        'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+    ));
+
+    if (empty($categories)) {
+        ob_start();
+        ?>
+        <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem"}}},"layout":{"type":"constrained"}} -->
+        <div class="wp-block-group" style="padding-top:1.25rem;padding-bottom:1.25rem">
+            <!-- wp:heading {"textAlign":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+            <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('No topics found', 'kotlinskidev'); ?></h2>
+            <!-- /wp:heading -->
+
+            <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+            <p class="has-text-align-center has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('No blog topics have been created yet. Create some categories and add posts to them!', 'kotlinskidev'); ?></p>
+            <!-- /wp:paragraph -->
+
+            <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
+            <div class="wp-block-buttons">
+                <!-- wp:button -->
+                <div class="wp-block-button">
+                    <a class="wp-block-button__link wp-element-button" href="<?php echo esc_url(admin_url('edit-tags.php?taxonomy=category')); ?>"><?php esc_html_e('Create Your First Topic', 'kotlinskidev'); ?></a>
+                </div>
+                <!-- /wp:button -->
+            </div>
+            <!-- /wp:buttons -->
+        </div>
+        <!-- /wp:group -->
+        <?php
+        return do_blocks(ob_get_clean());
+    }
+
+    ob_start();
+    ?>
+    <!-- wp:group {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="margin-top:0;margin-bottom:0">
+
+        <!-- wp:html -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(21.875rem, 1fr)); gap: 1.25rem;">
+            <?php foreach ($categories as $category) :
+                $post_count = $category->count;
+                $category_link = get_category_link($category->term_id);
+                $extended_description = kotlinskidev_get_category_description($category->term_id);
+
+                $latest_post = get_posts(array(
+                    'category' => $category->term_id,
+                    'posts_per_page' => 1,
+                    'post_status' => 'publish',
+                    'suppress_filters' => false,
+                    'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+                ));
+
+                $featured_image = '';
+                if (!empty($latest_post) && has_post_thumbnail($latest_post[0]->ID)) {
+                    $featured_image = get_the_post_thumbnail_url($latest_post[0]->ID, 'medium');
+                }
+            ?>
+
+            <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0.125rem;border-radius:1.25rem;padding:1.25rem;box-shadow:var(--wp--preset--shadow--natural);transition:transform 0.3s ease;hover:transform:translateY(-0.3125rem);display:flex;flex-direction:column;justify-content:space-between;">
+
+                <?php if ($featured_image) : ?>
+                <div style="margin-bottom:0.9375rem;">
+                    <a href="<?php echo esc_url($category_link); ?>">
+                    <img src="<?php echo esc_url($featured_image); ?>"
+                         alt="<?php echo esc_attr($category->name); ?>"
+                         style="width:100%;height:12.5rem;object-fit:contain;border-radius:1rem;" />
+                    </a>
+                </div>
+                <?php endif; ?>
+
+                <div style="text-align:center;">
+                <h2 style="margin-bottom:0.9375rem;font-size:1.5rem;font-weight:700;color:var(--wp--preset--color--foreground-alt);">
+                    <a href="<?php echo esc_url($category_link); ?>"
+                       style="color:inherit;text-decoration:none;">
+                    <?php echo esc_html($category->name); ?>
+                    </a>
+                </h2>
+
+                <?php if ($extended_description) : ?>
+                    <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.25rem;line-height:1.6;">
+                    <?php echo esc_html($extended_description); ?>
+                    </p>
+                <?php endif; ?>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5625rem;">
+                    <span class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;font-weight:600;">
+                    <?php echo absint($post_count); ?> <?php echo $post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev'); ?>
+                    </span>
+                    <span style="color:var(--wp--preset--color--foreground-alt);font-size:0.875rem;">
+                    <?php
+                    if (!empty($latest_post)) {
+                        printf(
+                            esc_html__('Updated %s ago', 'kotlinskidev'),
+                            human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp'))
+                        );
+                    }
+                    ?>
+                    </span>
+                </div>
+
+                <a href="<?php echo esc_url($category_link); ?>"
+                   class="search-link">
+                    <?php printf(esc_html__('Explore %s', 'kotlinskidev'), esc_html($category->name)); ?>
+                </a>
+                </div>
+
+            </div>
+
+            <?php endforeach; ?>
+        </div>
+        <!-- /wp:html -->
+
+    </div>
+    <!-- /wp:group -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_render_category_header_fresh_per_language() {
+    $current_category = get_queried_object();
+    $category_name = $current_category->name;
+    $category_description = kotlinskidev_get_category_description($current_category->term_id);
+    $post_count = $current_category->count;
+    $custom_content = kotlinskidev_get_category_custom_content($current_category->term_id);
+    $custom_links = kotlinskidev_get_category_custom_links($current_category->term_id);
+
+    ob_start();
+    ?>
+    <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"1.25rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group" style="margin-bottom:1.25rem">
+
+        <!-- wp:html -->
+        <div style="text-align:center;">
+            <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:0.625rem;">
+                <?php echo esc_html($category_name); ?>
+            </h1>
+
+            <?php if ($category_description) : ?>
+                <p style="color:var(--wp--preset--color--foreground-alt);font-size:1.125rem;margin-bottom:0.9375rem;">
+                    <?php echo esc_html($category_description); ?>
+                </p>
+            <?php endif; ?>
+
+            <div style="display:flex;justify-content:center;align-items:center;gap:1.25rem;margin-bottom:1.875rem;">
+                <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
+                    <?php echo absint($post_count) . ' ' . ($post_count === 1 ? esc_html__('Article', 'kotlinskidev') : esc_html__('Articles', 'kotlinskidev')); ?>
+                </span>
+                <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
+
+                <?php if (!empty($custom_links)) : ?>
+                    <?php foreach ($custom_links as $index => $link) : ?>
+                        <?php if ($index > 0) : ?>
+                            <span style="color:var(--wp--preset--color--foreground-alt);">•</span>
+                        <?php endif; ?>
+                        <a href="<?php echo esc_url($link['url']); ?>" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">
+                            <?php echo esc_html($link['text']); ?>
+                        </a>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <a href="<?php echo esc_url(home_url('/blog-topics/')); ?>" style="text-decoration:none;" class="link-dark-variant-support kt-gradient-text">
+                        ← <?php esc_html_e('All Topics', 'kotlinskidev'); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($custom_content) : ?>
+                <div style="margin-top:1.875rem;padding:1.25rem;background:var(--wp--preset--color--light-shade);border-radius:0.75rem;border:0.0625rem solid var(--wp--preset--color--border-color);">
+                    <?php echo wp_kses_post($custom_content); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <!-- /wp:html -->
+
+    </div>
+    <!-- /wp:group -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_render_category_posts_grid_fresh_per_language() {
+    $current_category = get_queried_object();
+
+    $category_posts = new WP_Query(array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => 6,
+        'cat' => $current_category->term_id,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+    ));
+
+    ob_start();
+    ?>
+    <!-- wp:query {"queryId":1,"query":{"perPage":6,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-query">
+
+        <!-- wp:html -->
+        <?php if ($category_posts->have_posts()) : ?>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 0.9375rem; margin-bottom: 1.25rem;">
+            <?php while ($category_posts->have_posts()) : $category_posts->the_post(); ?>
+            <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:0.9375rem;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+
+                <?php if (has_post_thumbnail()) : ?>
+                <div style="margin-bottom:0.9375rem;flex-shrink:0;">
+                    <a href="<?php the_permalink(); ?>">
+                    <img src="<?php the_post_thumbnail_url('medium_large'); ?>"
+                         alt="<?php the_title(); ?>"
+                         style="width:100%;height:12.5rem;object-fit:contain;border-radius:0.875rem;" />
+                    </a>
+                </div>
+                <?php endif; ?>
+
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.9375rem;font-size:0.875rem;flex-shrink:0;">
+                <span style="color:var(--wp--preset--color--foreground-alt);"><?php echo get_the_date(); ?></span>
+                <span class="link-dark-variant-support kt-gradient-text"><?php echo kotlinskidev_reading_time(); ?></span>
+                </div>
+
+                <h2 style="margin-bottom:0.9375rem;font-size:1.5rem;font-weight:600;flex-shrink:0;">
+                <a href="<?php the_permalink(); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                    <?php the_title(); ?>
+                </a>
+                </h2>
+
+                <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.5625rem;flex-grow:1;">
+                <?php echo esc_html(wp_trim_words(get_the_excerpt(), 30, '...')); ?>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">
+                <?php
+                $post_tags = get_the_tags();
+                if ($post_tags) : ?>
+                <div class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;display:flex;flex-wrap:wrap;row-gap:0.3125rem;">
+                    <?php the_tags('', ', ', ''); ?>
+                </div>
+                <?php else : ?>
+                <div></div>
+                <?php endif; ?>
+                <a href="<?php the_permalink(); ?>"
+                   class="search-link">
+                    <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
+                </a>
+                </div>
+
+            </div>
+            <?php endwhile; ?>
+        </div>
+
+        <?php if ($category_posts->max_num_pages > 1) : ?>
+        <div style="display:flex;justify-content:center;margin-top:2.5rem;">
+            <?php
+            echo paginate_links(array(
+                'total' => $category_posts->max_num_pages,
+                'prev_text' => '← ' . esc_html__('Previous', 'kotlinskidev'),
+                'next_text' => esc_html__('Next', 'kotlinskidev') . ' →',
+            ));
+            ?>
+        </div>
+        <?php endif; ?>
+
+        <?php else : ?>
+        <div style="text-align:center;padding:3.75rem 0;">
+            <h2 style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('No articles in this topic yet', 'kotlinskidev'); ?></h2>
+            <p style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('Articles for this topic are coming soon!', 'kotlinskidev'); ?></p>
+        </div>
+        <?php
+        endif;
+        wp_reset_postdata();
+        ?>
+        <!-- /wp:html -->
+    </div>
+    <!-- /wp:query -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_render_other_topics_fresh_per_language() {
+    $current_category = get_queried_object();
+    $other_categories = get_categories(array(
+        'hide_empty' => true,
+        'exclude' => array(1, $current_category->term_id),
+        'number' => 4,
+        'orderby' => 'count',
+        'order' => 'DESC',
+        'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+    ));
+
+    ob_start();
+    ?>
+    <!-- wp:group {"style":{"spacing":{"margin":{"top":"1.25rem"},"padding":{"top":"1.25rem"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group" style="margin-top:1.25rem;padding-top:1.25rem;">
+
+        <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
+        <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size"><?php esc_html_e('Other Topics', 'kotlinskidev'); ?></h3>
+        <!-- /wp:heading -->
+
+        <?php if (!empty($other_categories)) : ?>
+        <!-- wp:html -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 0.9375rem; margin-top: 1.25rem;">
+            <?php foreach ($other_categories as $category) :
+                $category_link = get_category_link($category->term_id);
+                $extended_description = kotlinskidev_get_category_description($category->term_id);
+
+                $latest_post = get_posts(array(
+                    'category' => $category->term_id,
+                    'posts_per_page' => 1,
+                    'post_status' => 'publish',
+                    'suppress_filters' => false,
+                    'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+                ));
+
+                $featured_image = '';
+                $last_updated = '';
+                if (!empty($latest_post)) {
+                    if (has_post_thumbnail($latest_post[0]->ID)) {
+                        $featured_image = get_the_post_thumbnail_url($latest_post[0]->ID, 'medium');
+                    }
+                    $last_updated = human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp')) . ' ago';
+                }
+            ?>
+            <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0.125rem;border-radius:1.25rem;padding:0.9375rem;transition:transform 0.3s ease;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+
+                <?php if ($featured_image) : ?>
+                <div style="margin-bottom:1.25rem;flex-shrink:0;">
+                    <a href="<?php echo esc_url($category_link); ?>">
+                    <img src="<?php echo esc_url($featured_image); ?>"
+                         alt="<?php echo esc_attr($category->name); ?>"
+                         style="width:100%;height:11.25rem;object-fit:contain;border-radius:1rem;" />
+                    </a>
+                </div>
+                <?php endif; ?>
+
+                <div style="text-align:center;flex-grow:1;display:flex;flex-direction:column;">
+                <h4 style="margin-bottom:0.9375rem;font-size:1.25rem;font-weight:700;flex-shrink:0;">
+                    <a href="<?php echo esc_url($category_link); ?>"
+                       style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                    <?php echo esc_html($category->name); ?>
+                    </a>
+                </h4>
+
+                <?php if ($extended_description) : ?>
+                    <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.25rem;line-height:1.5;flex-grow:1;">
+                    <?php echo esc_html($extended_description); ?>
+                    </p>
+                <?php endif; ?>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;font-size:0.875rem;flex-shrink:0;">
+                    <span class="link-dark-variant-support kt-gradient-text" style="font-weight:600;">
+                    <?php echo absint($category->count); ?> <?php echo $category->count === 1 ? esc_html__('article', 'kotlinskidev') : esc_html__('articles', 'kotlinskidev'); ?>
+                    </span>
+                    <?php if ($last_updated) : ?>
+                    <span style="color:var(--wp--preset--color--foreground-alt);">
+                        <?php printf(esc_html__('Updated %s', 'kotlinskidev'), esc_html($last_updated)); ?>
+                    </span>
+                    <?php endif; ?>
+                </div>
+
+                <div style="margin-top:auto;flex-shrink:0;">
+                    <a href="<?php echo esc_url($category_link); ?>"
+                       class="search-link">
+                    <?php printf(esc_html__('Explore %s', 'kotlinskidev'), esc_html($category->name)); ?>
+                    </a>
+                </div>
+                </div>
+
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <!-- /wp:html -->
+
+        <?php else : ?>
+        <!-- wp:group {"style":{"spacing":{"padding":{"top":"2.5rem","bottom":"2.5rem"}}},"layout":{"type":"constrained"}} -->
+        <div class="wp-block-group" style="padding-top:2.5rem;padding-bottom:2.5rem">
+            <!-- wp:paragraph {"align":"center","style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+            <p class="has-text-align-center has-foreground-alt-color has-text-color has-link-color"><?php esc_html_e('No other topics available yet.', 'kotlinskidev'); ?></p>
+            <!-- /wp:paragraph -->
+        </div>
+        <!-- /wp:group -->
+        <?php endif; ?>
+
+    </div>
+    <!-- /wp:group -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_render_article_tags_fresh_per_language() {
+    ob_start();
+    ?>
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"0.625rem","bottom":"0.625rem"},"margin":{"top":"0.625rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group" style="margin-top:0.625rem;padding-top:0.625rem;padding-bottom:0.625rem;">
+        <!-- wp:heading {"level":3,"className":"wp-block-heading has-foreground-alt-color has-text-color has-link-color has-large-font-size"} -->
+        <h3 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-large-font-size">
+            <?php esc_html_e('Tags', 'kotlinskidev'); ?>
+        </h3>
+        <!-- /wp:heading -->
+        <!-- wp:post-terms {"term":"post_tag","className":"link-dark-variant-support kt-gradient-text"} /-->
+    </div>
+    <!-- /wp:group -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_get_related_articles_candidate($post_id, array $tag_ids, array $category_ids, array $already_included, $limit) {
+    $args = array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => $limit,
+        'post__not_in' => $already_included,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+    );
+
+    if (!empty($category_ids)) {
+        $args['category__in'] = $category_ids;
+    }
+    if (!empty($tag_ids)) {
+        $args['tag__in'] = $tag_ids;
+    }
+
+    $found = array();
+    $query = new WP_Query($args);
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_obj = get_post();
+            if ($post_obj->ID !== $post_id) {
+                $found[] = $post_obj;
+            }
+        }
+        wp_reset_postdata();
+    }
+
+    return $found;
+}
+
+function kotlinskidev_get_related_articles_for_current_post($limit = 3) {
+    $current_post_id = get_the_ID();
+    $current_categories = get_the_category($current_post_id);
+    $current_tags = get_the_tags($current_post_id);
+    $category_ids = !empty($current_categories) ? array($current_categories[0]->term_id) : array();
+    $tag_ids = !empty($current_tags) ? array_map(fn ($tag) => $tag->term_id, $current_tags) : array();
+
+    $related_posts = array();
+
+    if (!empty($category_ids) && !empty($tag_ids)) {
+        $related_posts = array_merge($related_posts, kotlinskidev_get_related_articles_candidate(
+            $current_post_id,
+            $tag_ids,
+            $category_ids,
+            array_merge(array($current_post_id), array_column($related_posts, 'ID')),
+            $limit - count($related_posts)
+        ));
+    }
+
+    if (count($related_posts) < $limit && !empty($category_ids)) {
+        $related_posts = array_merge($related_posts, kotlinskidev_get_related_articles_candidate(
+            $current_post_id,
+            array(),
+            $category_ids,
+            array_merge(array($current_post_id), array_column($related_posts, 'ID')),
+            $limit - count($related_posts)
+        ));
+    }
+
+    if (count($related_posts) < $limit && !empty($tag_ids)) {
+        $related_posts = array_merge($related_posts, kotlinskidev_get_related_articles_candidate(
+            $current_post_id,
+            $tag_ids,
+            array(),
+            array_merge(array($current_post_id), array_column($related_posts, 'ID')),
+            $limit - count($related_posts)
+        ));
+    }
+
+    if (count($related_posts) < $limit) {
+        $related_posts = array_merge($related_posts, kotlinskidev_get_related_articles_candidate(
+            $current_post_id,
+            array(),
+            array(),
+            array_merge(array($current_post_id), array_column($related_posts, 'ID')),
+            $limit - count($related_posts)
+        ));
+    }
+
+    return array_values(array_filter($related_posts, fn ($post) => $post->ID !== $current_post_id));
+}
+
+function kotlinskidev_render_related_articles_fresh_per_language() {
+    $current_post_id = get_the_ID();
+    $current_categories = get_the_category($current_post_id);
+    $current_tags = get_the_tags($current_post_id);
+    $related_posts = kotlinskidev_get_related_articles_for_current_post(3);
+
+    ob_start();
+    ?>
+    <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group has-light-shade-background-color has-background" style="padding-top:1.25rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:1.25rem;padding-left:var(--wp--preset--spacing--40)">
+
+        <!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontStyle":"normal","fontWeight":"700"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
+        <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size" style="font-style:normal;font-weight:700"><?php esc_html_e('Related Articles', 'kotlinskidev') ?></h2>
+        <!-- /wp:heading -->
+
+        <!-- wp:html -->
+        <?php if (!empty($related_posts)) : ?>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 0.9375rem; margin-top: 1.25rem;">
+            <?php foreach ($related_posts as $display_post) : ?>
+            <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:0.9375rem;display:flex;flex-direction:column;height:100%;box-shadow:var(--wp--preset--shadow--natural);">
+
+                <?php if (has_post_thumbnail($display_post->ID)) : ?>
+                    <div style="margin-bottom:0.9375rem;flex-shrink:0;">
+                        <a href="<?php echo esc_url(get_permalink($display_post->ID)); ?>">
+                            <img src="<?php echo esc_url(get_the_post_thumbnail_url($display_post->ID, 'medium_large')); ?>"
+                                 alt="<?php echo esc_attr($display_post->post_title); ?>"
+                                 style="width:100%;height:11.25rem;object-fit:contain;border-radius:0.875rem;" />
+                        </a>
+                    </div>
+                <?php endif; ?>
+
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.9375rem;font-size:0.875rem;flex-shrink:0;">
+                    <span style="color:var(--wp--preset--color--foreground-alt);"><?php echo get_the_date('', $display_post->ID); ?></span>
+                    <span class="link-dark-variant-support kt-gradient-text">
+                        <?php
+                        $post_categories = get_the_category($display_post->ID);
+                        $post_tags = get_the_tags($display_post->ID);
+
+                        $same_category = !empty($current_categories) && !empty($post_categories) &&
+                                       $current_categories[0]->term_id === $post_categories[0]->term_id;
+
+                        $same_tags = false;
+                        if (!empty($current_tags) && !empty($post_tags)) {
+                            $current_tag_ids = array_column($current_tags, 'term_id');
+                            $post_tag_ids = array_column($post_tags, 'term_id');
+                            $same_tags = !empty(array_intersect($current_tag_ids, $post_tag_ids));
+                        }
+
+                        if ($same_category && $same_tags) {
+                            echo '🎯 ' . esc_html__('Highly Related', 'kotlinskidev');
+                        } elseif ($same_category) {
+                            echo '📂 ' . esc_html__('Same Topic', 'kotlinskidev');
+                        } elseif ($same_tags) {
+                            echo '🏷️ ' . esc_html__('Similar Tags', 'kotlinskidev');
+                        } else {
+                            echo kotlinskidev_reading_time($display_post->ID);
+                        }
+                        ?>
+                    </span>
+                </div>
+
+                <h3 style="margin-bottom:1.25rem;font-size:1.25rem;font-weight:600;flex-shrink:0;">
+                    <a href="<?php echo esc_url(get_permalink($display_post->ID)); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                        <?php echo esc_html($display_post->post_title); ?>
+                    </a>
+                </h3>
+
+                <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.5625rem;flex-grow:1;">
+                    <?php
+                    $excerpt = $display_post->post_excerpt;
+                    if (empty($excerpt)) {
+                        $excerpt = $display_post->post_content;
+                    }
+                    echo esc_html(wp_trim_words($excerpt, 25, '...'));
+                    ?>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;gap:0.9375rem;flex-wrap:wrap;">
+                    <div class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;display:flex;flex-wrap:wrap;row-gap:0.3125rem;">
+                        <?php
+                        $post_categories = get_the_category($display_post->ID);
+                        if (!empty($post_categories)) {
+                            echo esc_html($post_categories[0]->name);
+                        }
+                        ?>
+                    </div>
+                    <a href="<?php echo esc_url(get_permalink($display_post->ID)); ?>"
+                       class="search-link">
+                        <?php esc_html_e('Read Article', 'kotlinskidev'); ?>
+                    </a>
+                </div>
+
+            </div>
+            <?php endforeach; ?>
+        </div>
+
+        <?php else : ?>
+        <div style="text-align:center;padding:2.5rem 0;">
+            <p style="color:var(--wp--preset--color--foreground-alt);"><?php esc_html_e('No related articles found.', 'kotlinskidev'); ?></p>
+        </div>
+        <?php endif; ?>
+        <!-- /wp:html -->
+
+    </div>
+    <!-- /wp:group -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_register_blog_dynamic_blocks() {
+    register_block_type('kotlinskidev/blog-topics-grid-dynamic', array(
+        'render_callback' => 'kotlinskidev_render_blog_topics_grid_fresh_per_language',
+    ));
+    register_block_type('kotlinskidev/category-header-dynamic', array(
+        'render_callback' => 'kotlinskidev_render_category_header_fresh_per_language',
+    ));
+    register_block_type('kotlinskidev/category-posts-grid-dynamic', array(
+        'render_callback' => 'kotlinskidev_render_category_posts_grid_fresh_per_language',
+    ));
+    register_block_type('kotlinskidev/other-topics-dynamic', array(
+        'render_callback' => 'kotlinskidev_render_other_topics_fresh_per_language',
+    ));
+    register_block_type('kotlinskidev/article-tags-dynamic', array(
+        'render_callback' => 'kotlinskidev_render_article_tags_fresh_per_language',
+    ));
+    register_block_type('kotlinskidev/related-articles-dynamic', array(
+        'render_callback' => 'kotlinskidev_render_related_articles_fresh_per_language',
+    ));
+}
+add_action('init', 'kotlinskidev_register_blog_dynamic_blocks');

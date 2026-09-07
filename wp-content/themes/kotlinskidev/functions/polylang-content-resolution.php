@@ -26,6 +26,25 @@ if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
 	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_modals', 10, 2 );
 }
 
+function kotlinskidev_pll_register_project_cards( array $post_types, bool $is_settings ): array {
+	$post_types['kt_project_card'] = 'kt_project_card';
+	return $post_types;
+}
+
+if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
+	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_project_cards', 10, 2 );
+}
+
+function kotlinskidev_resolve_translatable_post_id( int $post_id ): int {
+	if ( function_exists( 'pll_get_post' ) ) {
+		$translated_id = pll_get_post( $post_id );
+		if ( $translated_id ) {
+			return $translated_id;
+		}
+	}
+	return $post_id;
+}
+
 function kotlinskidev_resolve_translatable_post( string $slug, string $post_type ): ?WP_Post {
 	static $resolved = [];
 

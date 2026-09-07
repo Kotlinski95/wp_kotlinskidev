@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/translated-text",
+  "version": "1.0.0",
+  "title": "Translated Text",
+  "category": "kotlinskidev",
+  "icon": "translation",
+  "description": "Heading or paragraph text translated via Polylang strings, shared across all languages from one template.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/translated-text.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "tagName": {
+      "type": "string",
+      "default": "p"
+    },
+    "stringName": {
+      "type": "string",
+      "default": ""
+    },
+    "fallbackText": {
+      "type": "string",
+      "default": ""
+    },
+    "href": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": {
+      "text": true,
+      "background": true,
+      "gradients": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "margin": true,
+        "padding": true
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
+    "shadow": true,
+    "border": {
+      "radius": true,
+      "width": true,
+      "color": false,
+      "style": false
+    }
+  }
+}

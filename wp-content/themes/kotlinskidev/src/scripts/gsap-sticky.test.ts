@@ -11,25 +11,13 @@ jest.mock("gsap", () => ({
 
 jest.mock("gsap/ScrollTrigger", () => ({ ScrollTrigger: {} }));
 
-type IntersectionCallback = (entries: Array<{ isIntersecting: boolean }>) => void;
 type ResizeCallback = () => void;
 
-let intersectionCallback: IntersectionCallback | null = null;
-let intersectionObserveSpy: jest.Mock;
 let resizeCallback: ResizeCallback | null = null;
 let resizeObserveSpy: jest.Mock;
 
-function mockObservers() {
-  intersectionObserveSpy = jest.fn();
+function mockResizeObserver() {
   resizeObserveSpy = jest.fn();
-
-  class MockIntersectionObserver {
-    constructor(cb: IntersectionCallback) {
-      intersectionCallback = cb;
-    }
-    observe = intersectionObserveSpy;
-    disconnect = jest.fn();
-  }
 
   class MockResizeObserver {
     constructor(cb: ResizeCallback) {
@@ -39,9 +27,19 @@ function mockObservers() {
     disconnect = jest.fn();
   }
 
-  (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver =
-    MockIntersectionObserver;
   (window as unknown as { ResizeObserver: unknown }).ResizeObserver = MockResizeObserver;
+}
+
+function mockRect(el: HTMLElement, rect: Partial<DOMRect>): void {
+  jest.spyOn(el, "getBoundingClientRect").mockReturnValue({
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: 0,
+    height: 0,
+    ...rect,
+  } as DOMRect);
 }
 
 function buildStickyColumnMarkup() {
@@ -57,13 +55,15 @@ function buildStickyColumnMarkup() {
   `;
   const el = document.querySelector(".is-kotlinskidev-sticky") as HTMLElement;
   Object.defineProperty(el, "offsetHeight", { configurable: true, value: 150 });
+  Object.defineProperty(el, "offsetWidth", { configurable: true, value: 400 });
+  const stickyParent = document.querySelector(".sticky-parent") as HTMLElement;
+  Object.defineProperty(stickyParent, "offsetHeight", { configurable: true, value: 150 });
   return el;
 }
 
 function loadModule() {
   jest.resetModules();
   tickerCallbacks.length = 0;
-  intersectionCallback = null;
   resizeCallback = null;
   jest.isolateModules(() => {
     require("./gsap-sticky");
@@ -71,9 +71,13 @@ function loadModule() {
   document.dispatchEvent(new Event("DOMContentLoaded"));
 }
 
+function tick() {
+  tickerCallbacks.forEach((cb) => cb());
+}
+
 describe("gsap-sticky.ts", () => {
   beforeEach(() => {
-    mockObservers();
+    mockResizeObserver();
     jest
       .spyOn(window, "getComputedStyle")
       .mockImplementation(
@@ -87,7 +91,6 @@ describe("gsap-sticky.ts", () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
-    delete (window as unknown as { IntersectionObserver?: unknown }).IntersectionObserver;
     delete (window as unknown as { ResizeObserver?: unknown }).ResizeObserver;
   });
 
@@ -95,7 +98,7 @@ describe("gsap-sticky.ts", () => {
     document.body.innerHTML = '<div class="scroll-section"></div>';
 
     expect(() => loadModule()).not.toThrow();
-    expect(intersectionObserveSpy).not.toHaveBeenCalled();
+    expect(tickerCallbacks).toHaveLength(0);
   });
 
   it("does nothing when there is no .scroll-section", () => {
@@ -103,7 +106,7 @@ describe("gsap-sticky.ts", () => {
 
     loadModule();
 
-    expect(intersectionObserveSpy).not.toHaveBeenCalled();
+    expect(tickerCallbacks).toHaveLength(0);
   });
 
   it("does not portal a sticky element outside of wp-block-columns", () => {
@@ -116,7 +119,7 @@ describe("gsap-sticky.ts", () => {
 
     loadModule();
 
-    expect(intersectionObserveSpy).not.toHaveBeenCalled();
+    expect(tickerCallbacks).toHaveLength(0);
   });
 
   it("moves the sticky element into a body-level portal host and applies native sticky styles", () => {
@@ -130,7 +133,7 @@ describe("gsap-sticky.ts", () => {
     expect(el.parentElement?.parentElement).toBe(document.body);
   });
 
-  it("inserts a placeholder in the original position matching the element's height", () => {
+  it("inserts a placeholder in the original position matching the element's height, falling back to a pixel width when no flex-basis is set", () => {
     const el = buildStickyColumnMarkup();
     const stickyParent = el.parentElement as HTMLElement;
 
@@ -138,40 +141,105 @@ describe("gsap-sticky.ts", () => {
 
     const placeholder = stickyParent.firstElementChild as HTMLElement;
     expect(placeholder.style.height).toBe("150px");
+    expect(placeholder.style.width).toBe("400px");
     expect(placeholder.style.visibility).toBe("hidden");
   });
 
-  it("shows and syncs the portal host once the placeholder intersects", () => {
-    buildStickyColumnMarkup();
+  it("copies the element's inline flex-basis onto the placeholder, so a percentage column width stays responsive without JS resize syncing", () => {
+    const el = buildStickyColumnMarkup();
+    const stickyParent = el.parentElement as HTMLElement;
+    el.style.flexBasis = "33.33%";
+
     loadModule();
-    const host = document.querySelector(".is-kotlinskidev-sticky")?.parentElement as HTMLElement;
 
-    intersectionCallback?.([{ isIntersecting: true }]);
-
-    expect(host.style.visibility).toBe("visible");
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
+    expect(placeholder.style.flexBasis).toBe("33.33%");
+    expect(placeholder.style.width).toBe("33.33%");
   });
 
-  it("hides the portal host when the placeholder leaves the viewport", () => {
-    buildStickyColumnMarkup();
+  it("shows and syncs the portal host on the next tick once the placeholder is within the viewport", () => {
+    const el = buildStickyColumnMarkup();
+    const stickyParent = el.parentElement as HTMLElement;
     loadModule();
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
     const host = document.querySelector(".is-kotlinskidev-sticky")?.parentElement as HTMLElement;
 
-    intersectionCallback?.([{ isIntersecting: true }]);
-    intersectionCallback?.([{ isIntersecting: false }]);
+    mockRect(placeholder, { top: 100, bottom: 250, left: 10, width: 400 });
+    tick();
+
+    expect(host.style.visibility).toBe("visible");
+    expect(host.style.top).toBe("100px");
+  });
+
+  it("hides the portal host on the next tick once the placeholder leaves the viewport, even without a transform change", () => {
+    const el = buildStickyColumnMarkup();
+    const stickyParent = el.parentElement as HTMLElement;
+    loadModule();
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
+    const host = document.querySelector(".is-kotlinskidev-sticky")?.parentElement as HTMLElement;
+
+    mockRect(placeholder, { top: 100, bottom: 250 });
+    tick();
+    expect(host.style.visibility).toBe("visible");
+
+    mockRect(placeholder, { top: -900, bottom: -800 });
+    tick();
 
     expect(host.style.visibility).toBe("hidden");
   });
 
-  it("re-syncs the host position when the page wrapper transform changes, only while visible", () => {
-    buildStickyColumnMarkup();
+  it("keeps the host visible once the placeholder's own short height has scrolled past, as long as the stretched row (a tall sibling column, e.g. open FAQ accordions) is still on screen", () => {
+    // Regression: `.wp-block-columns` stretches every column to the tallest sibling's height by
+    // default. The placeholder only ever matches the *sticky element's* short natural height
+    // (e.g. a "FAQ" heading + CTA), never the row's real rendered extent — checking the
+    // placeholder's own rect hid the sticky column ~680px too early in practice, while the
+    // actually-visible stretched row (and its still-visible sibling column) was still on screen.
+    const el = buildStickyColumnMarkup();
+    const stickyParent = el.parentElement as HTMLElement;
     loadModule();
-    const pageWrapper = document.querySelector(".main-wrapper") as HTMLElement;
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
     const host = document.querySelector(".is-kotlinskidev-sticky")?.parentElement as HTMLElement;
 
-    pageWrapper.style.transform = "translateY(10px)";
-    tickerCallbacks.forEach((cb) => cb());
+    // The row stretched tall (e.g. a sibling accordion column with 828px of open content), far
+    // taller than the placeholder's own short natural height.
+    Object.defineProperty(stickyParent, "offsetHeight", { configurable: true, value: 828 });
+    // The placeholder's own top has scrolled well past the viewport top edge, but the row's real
+    // bottom (top + 828) is still positive — the section is still visible.
+    mockRect(placeholder, { top: -600 });
+    tick();
 
-    expect(host.style.top).toBe("0px");
+    expect(host.style.visibility).toBe("visible");
+  });
+
+  it("hides the host once the row's own real extent (not just the placeholder's short height) has scrolled fully past the viewport", () => {
+    const el = buildStickyColumnMarkup();
+    const stickyParent = el.parentElement as HTMLElement;
+    loadModule();
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
+    const host = document.querySelector(".is-kotlinskidev-sticky")?.parentElement as HTMLElement;
+
+    Object.defineProperty(stickyParent, "offsetHeight", { configurable: true, value: 828 });
+    mockRect(placeholder, { top: -900 });
+    tick();
+
+    expect(host.style.visibility).toBe("hidden");
+  });
+
+  it("re-checks visibility every tick, so a page-height change from an unrelated component (accordion, load-more) can't leave the host stuck visible", () => {
+    const el = buildStickyColumnMarkup();
+    const stickyParent = el.parentElement as HTMLElement;
+    loadModule();
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
+    const host = document.querySelector(".is-kotlinskidev-sticky")?.parentElement as HTMLElement;
+
+    mockRect(placeholder, { top: 100, bottom: 250 });
+    tick();
+    mockRect(placeholder, { top: 5000, bottom: 5150 });
+    tick();
+    tick();
+    tick();
+
+    expect(host.style.visibility).toBe("hidden");
   });
 
   it("updates the placeholder height on parent resize", () => {
@@ -184,5 +252,18 @@ describe("gsap-sticky.ts", () => {
     resizeCallback?.();
 
     expect(placeholder.style.height).toBe("300px");
+  });
+
+  it("leaves the placeholder's width untouched on parent resize, avoiding a feedback loop that freezes a transient bad measurement", () => {
+    const el = buildStickyColumnMarkup();
+    el.style.flexBasis = "33.33%";
+    const stickyParent = el.parentElement as HTMLElement;
+    loadModule();
+    const placeholder = stickyParent.firstElementChild as HTMLElement;
+
+    Object.defineProperty(stickyParent, "clientWidth", { configurable: true, value: 999 });
+    resizeCallback?.();
+
+    expect(placeholder.style.width).toBe("33.33%");
   });
 });

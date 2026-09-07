@@ -76,6 +76,8 @@ function kotlinskidev_inject_project_card_overlay( string $html, string $descrip
 }
 
 function kotlinskidev_render_project_card_embed( int $card_id ): string {
+    $card_id = $card_id ? kotlinskidev_resolve_translatable_post_id( $card_id ) : $card_id;
+
     if ( ! $card_id || 'publish' !== get_post_status( $card_id ) ) {
         return '<div class="kt-project-card kt-project-card--empty"><p>' . esc_html__( 'Select a card to display it here.', 'kotlinskidev' ) . '</p></div>';
     }

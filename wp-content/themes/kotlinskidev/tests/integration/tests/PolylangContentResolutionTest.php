@@ -14,6 +14,18 @@ it('registers wp_block as a translatable post type for polylang', function () {
     expect($post_types)->toHaveKey('wp_block');
 });
 
+it('registers kt_project_card as a translatable post type for polylang', function () {
+    $post_types = kotlinskidev_pll_register_project_cards(['post' => 'post'], false);
+
+    expect($post_types)->toHaveKey('kt_project_card');
+});
+
+it('resolves a post id to itself when no polylang translation is available', function () {
+    $post_id = self::factory()->post->create(['post_type' => 'kt_project_card']);
+
+    expect(kotlinskidev_resolve_translatable_post_id($post_id))->toBe($post_id);
+});
+
 it('resolves a real published post by slug and post type', function () {
     $unique_slug = 'kt-resolve-test-' . uniqid();
     $post_id = self::factory()->post->create([

@@ -24,7 +24,6 @@
 	width: auto;
 	min-block-size: $mobile-footer-nav;
 	max-block-size: $mobile-footer-nav;
-	max-width: fit-content;
 	background: color-mix(in srgb, var(--color-surface) 40%, transparent);
 	box-shadow: 0 0.125rem 0.3125rem color-mix(in srgb, var(--color-surface) 40%, transparent);
 	backdrop-filter: blur(16px);

@@ -303,3 +303,8 @@ header .wp-block-navigation__responsive-container {
 .kt-breadcrumbs {
 	position: sticky !important;
 }
+
+.wp-block-buttons > .wp-block-button.wp-block-group {
+	width: auto !important;
+	flex: 0 0 auto !important;
+}

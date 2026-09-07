@@ -5,21 +5,11 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, ToggleControl, RangeControl, TextControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import LoadMoreStyleControls from "./style-controls";
+import { DEFAULT_LOAD_MORE, type LoadMoreAttribute } from "./types";
 
 const GROUP_BLOCK = "core/group";
 const LOAD_MORE_CLASS = "kt-has-load-more";
-
-interface LoadMoreAttribute {
-  enabled: boolean;
-  initialCount: number;
-  buttonLabel: string;
-}
-
-const DEFAULT_LOAD_MORE: LoadMoreAttribute = {
-  enabled: false,
-  initialCount: 6,
-  buttonLabel: "",
-};
 
 interface BlockSettings {
   name?: string;
@@ -91,6 +81,7 @@ const withLoadMoreControls = createHigherOrderComponent((BlockEdit) => {
                   placeholder={__("Load more", "kotlinskidev")}
                   help={__("Leave empty to use the default label.", "kotlinskidev")}
                 />
+                <LoadMoreStyleControls value={loadMore} onChange={updateLoadMore} />
               </>
             )}
           </PanelBody>

@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "../../scripts/scroll-trigger-refresh";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,6 +36,7 @@ const init = (): void => {
         pinnedContainer: pageWrapper,
         end: () => "+=" + distance(),
         pin: pageWrapper,
+        pinSpacing: false,
         scrub: true,
         invalidateOnRefresh: true,
         markers,

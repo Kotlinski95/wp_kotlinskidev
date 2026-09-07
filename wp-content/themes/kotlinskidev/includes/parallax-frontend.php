@@ -3,6 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+const KOTLINSKIDEV_PARALLAX_INTENSITY_DEFAULT = 15;
+const KOTLINSKIDEV_PARALLAX_INTENSITY_MIN     = 0;
+const KOTLINSKIDEV_PARALLAX_INTENSITY_MAX     = 30;
+
 add_filter( 'render_block', 'kotlinskidev_render_parallax_cover_block', 10, 2 );
 
 function kotlinskidev_render_parallax_cover_block( string $block_content, array $block ): string {
@@ -15,12 +19,18 @@ function kotlinskidev_render_parallax_cover_block( string $block_content, array 
 		return $block_content;
 	}
 
+	$intensity = is_numeric( $block['attrs']['parallaxIntensity'] ?? null )
+		? (float) $block['attrs']['parallaxIntensity']
+		: KOTLINSKIDEV_PARALLAX_INTENSITY_DEFAULT;
+	$intensity = max( KOTLINSKIDEV_PARALLAX_INTENSITY_MIN, min( KOTLINSKIDEV_PARALLAX_INTENSITY_MAX, $intensity ) );
+
 	return preg_replace_callback(
 		'/<(div|section)([^>]*class="[^"]*wp-block-cover[^"]*"[^>]*)>/i',
-		static function ( array $matches ) use ( $image_url ): string {
+		static function ( array $matches ) use ( $image_url, $intensity ): string {
 			$attrs = $matches[2];
 
 			$attrs = preg_replace( '/(class="[^"]*wp-block-cover)/', '$1 enable-parallax', $attrs, 1 );
+			$attrs .= ' data-parallax-intensity="' . esc_attr( (string) $intensity ) . '"';
 
 			$bg = 'background-image:url(\'' . $image_url . '\');';
 			if ( preg_match( '/\bstyle="/', $attrs ) ) {

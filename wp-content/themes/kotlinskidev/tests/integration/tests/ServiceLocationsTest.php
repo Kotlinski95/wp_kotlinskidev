@@ -2,17 +2,6 @@
 
 uses(Tests\Integration\TestCase::class);
 
-if (!function_exists('pll_current_language')) {
-    function pll_current_language()
-    {
-        return $GLOBALS['kt_test_pll_language'] ?? '';
-    }
-}
-
-beforeEach(function () {
-    unset($GLOBALS['kt_test_pll_language']);
-});
-
 it('registers editor and custom-fields support on service_location, so the block editor and the REST meta field both load', function () {
     expect(post_type_supports('service_location', 'editor'))->toBeTrue();
     expect(post_type_supports('service_location', 'custom-fields'))->toBeTrue();
@@ -33,54 +22,36 @@ it('exposes meta in the service_location REST schema', function () {
     expect($schema['properties'])->toHaveKey('meta');
 });
 
-it('leaves the single template hierarchy unchanged when polylang is not english', function () {
-    $GLOBALS['kt_test_pll_language'] = 'pl';
+it('resolves the service_location template as a real, loadable block template', function () {
+    $template = get_block_template(get_stylesheet() . '//single-service_location', 'wp_template');
 
-    $result = apply_filters('single_template_hierarchy', ['single-service_location.php', 'single.php']);
-
-    expect($result)->toBe(['single-service_location.php', 'single.php']);
+    expect($template)->not->toBeNull();
+    expect($template->content)->not->toBe('');
 });
 
-it('leaves the single template hierarchy unchanged when polylang is inactive', function () {
-    $result = apply_filters('single_template_hierarchy', ['single-service_location.php', 'single.php']);
+it('parses the service_location template as structurally valid blocks with all ten city bindings intact', function () {
+    $content = file_get_contents(get_template_directory() . '/templates/single-service_location.html');
+    $blocks = parse_blocks($content);
 
-    expect($result)->toBe(['single-service_location.php', 'single.php']);
+    expect($blocks)->not->toBeEmpty();
+    expect(substr_count($content, '"key":"city"'))->toBe(10);
 });
 
-it('prepends the english template ahead of the default when polylang language is english', function () {
-    $GLOBALS['kt_test_pll_language'] = 'en';
+it('gives exactly the two contrast-safe city bindings the gradient-text treatment, not the pill badge or the primary-background CTA', function () {
+    $content = file_get_contents(get_template_directory() . '/templates/single-service_location.html');
 
-    $result = apply_filters('single_template_hierarchy', ['single-service_location.php', 'single.php']);
-
-    expect($result)->toBe(['single-service_location-en.php', 'single-service_location.php', 'single.php']);
+    expect(substr_count($content, 'className":"kt-gradient-text"'))->toBe(2);
 });
 
-it('resolves both the pl and en service_location templates as real, loadable block templates', function () {
-    $pl = get_block_template(get_stylesheet() . '//single-service_location', 'wp_template');
-    $en = get_block_template(get_stylesheet() . '//single-service_location-en', 'wp_template');
+it('registers every kotlinskidev/translated-text string used in the service_location template with Polylang', function () {
+    $content = file_get_contents(get_template_directory() . '/templates/single-service_location.html');
 
-    expect($pl)->not->toBeNull();
-    expect($pl->content)->not->toBe('');
-    expect($en)->not->toBeNull();
-    expect($en->content)->not->toBe('');
-});
+    $strings = [];
+    kotlinskidev_translated_text_collect_strings(parse_blocks($content), $strings);
 
-it('parses both service_location templates as structurally valid blocks with all eleven city bindings intact', function () {
-    foreach (['single-service_location.html', 'single-service_location-en.html'] as $file) {
-        $content = file_get_contents(get_template_directory() . '/templates/' . $file);
-        $blocks = parse_blocks($content);
-
-        expect($blocks)->not->toBeEmpty();
-        expect(substr_count($content, '"key":"city"'))->toBe(11);
-    }
-});
-
-it('gives exactly the three contrast-safe city bindings the gradient-text treatment, not the pill badge or the primary-background CTA', function () {
-    foreach (['single-service_location.html', 'single-service_location-en.html'] as $file) {
-        $content = file_get_contents(get_template_directory() . '/templates/' . $file);
-
-        expect(substr_count($content, 'className":"kt-gradient-text"'))->toBe(3);
-    }
+    expect($strings)->not->toBeEmpty();
+    expect($strings)->toHaveKey('service-location-hero-cta-secondary-href');
+    expect($strings['service-location-hero-cta-secondary-href'])->toBe('/projekty/');
 });
 
 it('renders the city-map block through the real block pipeline for the current post\'s city', function () {
@@ -110,6 +81,38 @@ it('renders the contact-card block through the real block pipeline, protecting s
     expect($html)->toContain('protected-content--email');
     expect($html)->not->toContain('+48 608 418 911');
     expect($html)->not->toContain('kotlinskidev@gmail.com');
+});
+
+it('interpolates the current post\'s city into a core/details summary containing the %CITY% marker', function () {
+    $id = self::factory()->post->create(['post_type' => 'service_location', 'post_status' => 'publish']);
+    update_post_meta($id, 'city', 'Wrocław');
+    test()->go_to(get_permalink($id));
+
+    $html = render_block(parse_blocks(
+        '<!-- wp:details --><details class="wp-block-details"><summary>Czy spotkamy się w %CITY%?</summary></details><!-- /wp:details -->'
+    )[0]);
+
+    expect($html)->toContain('Czy spotkamy się w Wrocław?');
+    expect($html)->not->toContain('%CITY%');
+});
+
+it('leaves a core/details summary untouched when the current post has no city meta', function () {
+    $id = self::factory()->post->create(['post_type' => 'post', 'post_status' => 'publish']);
+    test()->go_to(get_permalink($id));
+
+    $html = render_block(parse_blocks(
+        '<!-- wp:details --><details class="wp-block-details"><summary>Czy spotkamy się w %CITY%?</summary></details><!-- /wp:details -->'
+    )[0]);
+
+    expect($html)->toContain('%CITY%');
+});
+
+it('does not touch a non-core/details block even if it contains a known FAQ summary string', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:paragraph --><p>Kto tworzy treści na stronę?</p><!-- /wp:paragraph -->'
+    )[0]);
+
+    expect($html)->toBe('<p class="wp-block-paragraph">Kto tworzy treści na stronę?</p>');
 });
 
 it('reflects a custom gridGap attribute set through the block editor as the CSS custom property', function () {

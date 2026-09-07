@@ -3,10 +3,24 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { applyFilters } from "@wordpress/hooks";
 import type { ComponentType } from "react";
+import { DEFAULT_LOAD_MORE, type LoadMoreAttribute } from "./types";
 
 jest.mock("@wordpress/block-editor", () => ({
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
+
+jest.mock("@wordpress/components", () => {
+  const actual = jest.requireActual("@wordpress/components");
+  return {
+    ...actual,
+    ColorPalette: ({ onChange }: { onChange: (value: string | undefined) => void }) => (
+      <div>
+        <button onClick={() => onChange("#8209d3")}>pick-color</button>
+        <button onClick={() => onChange(undefined)}>clear-color</button>
+      </div>
+    ),
+  };
+});
 
 import "./index";
 
@@ -17,14 +31,14 @@ describe("load-more — blocks.registerBlockType filter", () => {
     const result = applyFilters("blocks.registerBlockType", settings) as {
       attributes: {
         existing: unknown;
-        loadMore: { type: string; default: { enabled: boolean; initialCount: number } };
+        loadMore: { type: string; default: LoadMoreAttribute };
       };
     };
 
     expect(result.attributes.existing).toBeDefined();
     expect(result.attributes.loadMore).toEqual({
       type: "object",
-      default: { enabled: false, initialCount: 6, buttonLabel: "" },
+      default: DEFAULT_LOAD_MORE,
     });
   });
 
@@ -46,7 +60,7 @@ describe("load-more — editor.BlockEdit filter", () => {
 
   interface Props {
     name: string;
-    attributes: { loadMore?: { enabled: boolean; initialCount: number; buttonLabel: string } };
+    attributes: { loadMore?: LoadMoreAttribute };
     setAttributes: (attrs: Record<string, unknown>) => void;
   }
 
@@ -56,32 +70,34 @@ describe("load-more — editor.BlockEdit filter", () => {
   }
 
   async function openPanel(user: ReturnType<typeof userEvent.setup>) {
-    await user.click(screen.getByRole("button", { name: /Load More/ }));
+    await user.click(screen.getByRole("button", { name: /^Load More$/ }));
   }
 
   it("renders the original edit and skips the panel for other blocks", () => {
     renderWrapped({ name: "core/columns", attributes: {}, setAttributes: jest.fn() });
 
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: /Load More/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /^Load More$/ })).not.toBeInTheDocument();
   });
 
-  it("shows the toggle for core/group, unchecked by default and hides the count/label fields", async () => {
+  it("shows a single panel for core/group, unchecked by default and hides the count/label/style fields", async () => {
     const user = userEvent.setup();
     renderWrapped({ name: "core/group", attributes: {}, setAttributes: jest.fn() });
     await openPanel(user);
 
+    expect(screen.getAllByRole("button", { name: /Load More/ })).toHaveLength(1);
     expect(screen.getByRole("checkbox", { name: "Enable Load More" })).not.toBeChecked();
     expect(
       screen.queryByRole("spinbutton", { name: "Items to show initially" })
     ).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Button position")).not.toBeInTheDocument();
   });
 
-  it("reveals the count and label fields once enabled", async () => {
+  it("reveals the count, label and style fields once enabled, in the same panel", async () => {
     const user = userEvent.setup();
     renderWrapped({
       name: "core/group",
-      attributes: { loadMore: { enabled: true, initialCount: 6, buttonLabel: "" } },
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
       setAttributes: jest.fn(),
     });
     await openPanel(user);
@@ -89,6 +105,8 @@ describe("load-more — editor.BlockEdit filter", () => {
     expect(screen.getByRole("checkbox", { name: "Enable Load More" })).toBeChecked();
     expect(screen.getByRole("spinbutton", { name: "Items to show initially" })).toHaveValue(6);
     expect(screen.getByLabelText("Button label")).toHaveValue("");
+    expect(screen.getByLabelText("Button position")).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Underline text" })).toBeInTheDocument();
   });
 
   it("toggles enabled on click, preserving the rest of the object", async () => {
@@ -100,16 +118,16 @@ describe("load-more — editor.BlockEdit filter", () => {
     await user.click(screen.getByRole("checkbox", { name: "Enable Load More" }));
 
     expect(setAttributes).toHaveBeenCalledWith({
-      loadMore: { enabled: true, initialCount: 6, buttonLabel: "" },
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true },
     });
   });
 
-  it("updates the button label independently of initialCount", async () => {
+  it("updates the button label independently of the rest of the attribute", async () => {
     const setAttributes = jest.fn();
     const user = userEvent.setup();
     renderWrapped({
       name: "core/group",
-      attributes: { loadMore: { enabled: true, initialCount: 3, buttonLabel: "" } },
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, initialCount: 3 } },
       setAttributes,
     });
     await openPanel(user);
@@ -118,7 +136,77 @@ describe("load-more — editor.BlockEdit filter", () => {
     await user.type(labelField, "More");
 
     expect(setAttributes).toHaveBeenCalledWith({
-      loadMore: { enabled: true, initialCount: 3, buttonLabel: "M" },
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, initialCount: 3, buttonLabel: "M" },
+    });
+  });
+
+  it("updates buttonAlign from the style fields", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.selectOptions(screen.getByLabelText("Button position"), "center");
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, buttonAlign: "center" },
+    });
+  });
+
+  it("updates textColor from the first color picker", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.click(screen.getAllByText("pick-color")[0]);
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, textColor: "#8209d3" },
+    });
+  });
+
+  it("updates hoverBackgroundColor from its own color picker, independently of the base background", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    const pickButtons = screen.getAllByText("pick-color");
+    expect(pickButtons).toHaveLength(6);
+    await user.click(pickButtons[4]);
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, hoverBackgroundColor: "#8209d3" },
+    });
+  });
+
+  it("updates underline from the style fields", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.click(screen.getByRole("checkbox", { name: "Underline text" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, underline: true },
     });
   });
 });
@@ -126,7 +214,7 @@ describe("load-more — editor.BlockEdit filter", () => {
 describe("load-more — editor.BlockListBlock filter", () => {
   interface Props {
     name?: string;
-    attributes?: { loadMore?: { enabled: boolean; initialCount: number; buttonLabel: string } };
+    attributes?: { loadMore?: LoadMoreAttribute };
     className?: string;
   }
 
@@ -151,7 +239,7 @@ describe("load-more — editor.BlockListBlock filter", () => {
   it("adds no class for other blocks even when enabled", () => {
     renderWrapped({
       name: "core/columns",
-      attributes: { loadMore: { enabled: true, initialCount: 6, buttonLabel: "" } },
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
       className: "existing",
     });
 
@@ -161,7 +249,7 @@ describe("load-more — editor.BlockListBlock filter", () => {
   it("appends the load-more class for core/group when enabled", () => {
     renderWrapped({
       name: "core/group",
-      attributes: { loadMore: { enabled: true, initialCount: 6, buttonLabel: "" } },
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
       className: "existing",
     });
 

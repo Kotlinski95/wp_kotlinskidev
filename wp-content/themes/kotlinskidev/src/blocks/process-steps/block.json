@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/process-steps",
+  "version": "1.0.0",
+  "title": "Process Steps",
+  "category": "layout",
+  "description": "Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any other process.",
+  "icon": "editor-ol",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/process-steps.js",
+  "style": "file:../../../build/style-process-steps.css",
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "spacing": {
+      "padding": true,
+      "margin": ["top", "bottom"],
+      "blockGap": false
+    }
+  },
+  "attributes": {}
+}

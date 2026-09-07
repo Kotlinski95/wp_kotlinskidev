@@ -436,7 +436,7 @@ header:has(.kt-lang-panel.is-open) {
 		position: fixed;
 		left: 1rem;
 		right: 1rem;
-		height: calc(var(--kt-above-fold) - 1.5rem - var(--admin-bar-offset, 0px));
+		height: calc(var(--kt-above-fold) - 1.5rem);
 		border-radius: 0 0 0.875rem 0.875rem;
 	}
 
@@ -842,22 +842,24 @@ header:has(.kt-lang-panel.is-open) {
 
 $kt-gradient-outline-slugs: fancy-text-dark, fancy-text-light, gradient-one, gradient-two, gradient-block-bottom, gradient-block-top, gradient-block-left, gradient-block-right, gradient-block-top-right, gradient-block-top-left, gradient-block-bottom-left, gradient-block-bottom-right, cyber-accent;
 
+$kt-gradient-outline-width: 0.1875rem;
+
 .wp-block-button.is-style-gradient-outline {
 
 	.wp-block-button__link {
 		position: relative;
 		background: transparent !important;
 		background-image: none !important;
-		border: none !important;
+		border: $kt-gradient-outline-width solid transparent !important;
 		isolation: isolate;
 		transition: color 0.25s ease;
 
 		&::before {
 			content: "";
 			position: absolute;
-			inset: 0;
+			inset: -$kt-gradient-outline-width;
 			border-radius: inherit;
-			padding: 0.1875rem;
+			padding: $kt-gradient-outline-width;
 			background: var(--kt-text-gradient);
 			-webkit-mask:
 				linear-gradient(#fff 0 0) content-box,
@@ -870,29 +872,25 @@ $kt-gradient-outline-slugs: fancy-text-dark, fancy-text-light, gradient-one, gra
 				opacity 0.25s ease,
 				background 0.25s ease;
 		}
-
-		&:hover,
-		&:focus-visible {
-			background: var(--kt-text-gradient) !important;
-			color: var(--wp--preset--color--white, #fff) !important;
-
-			&::before {
-				opacity: 0;
-			}
-		}
 	}
 
 	@each $slug in $kt-gradient-outline-slugs {
-		&.has-#{$slug}-gradient-background .wp-block-button__link {
+		&.has-#{$slug}-gradient-background .wp-block-button__link::before {
+			background: var(--wp--preset--gradient--#{$slug});
+		}
+	}
 
-			&::before {
-				background: var(--wp--preset--gradient--#{$slug});
-			}
+	&.has-hover-color-transition .wp-block-button__link {
 
-			&:hover,
-			&:focus-visible {
-				background: var(--wp--preset--gradient--#{$slug}) !important;
-			}
+		&:hover,
+		&:focus-visible {
+			background: var(--hover-bg-color, transparent);
+			color: var(--hover-text-color, inherit);
+		}
+
+		&[style*="--hover-bg-color"]:hover::before,
+		&[style*="--hover-bg-color"]:focus-visible::before {
+			opacity: 0;
 		}
 	}
 }

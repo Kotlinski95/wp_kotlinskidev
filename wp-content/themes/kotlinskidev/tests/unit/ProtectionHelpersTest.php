@@ -11,18 +11,26 @@ beforeEach(function () {
     Functions\when('sanitize_text_field')->alias(fn ($t) => $t);
     Functions\when('wp_unslash')->alias(fn ($t) => $t);
     Functions\when('__')->alias(fn ($t) => $t);
+    Functions\when('esc_attr__')->alias(fn ($t) => $t);
 });
 
-it('formats a decrypted email as a mailto link', function () {
+it('formats a decrypted email as a mailto link with a copy button', function () {
     $result = kotlinskidev_format_decrypted_content('user@example.test', 'email');
 
-    expect($result)->toBe('<a href="mailto:user@example.test">user@example.test</a>');
+    expect($result)->toContain('<a href="mailto:user@example.test">user@example.test</a>');
+    expect($result)->toContain('class="kt-copy-btn kt-tooltip"');
+    expect($result)->toContain('data-copy-value="user@example.test"');
+    expect($result)->toContain('data-tooltip="Copy to clipboard"');
+    expect($result)->toContain('data-copy-label="Copy to clipboard"');
+    expect($result)->toContain('data-copied-label="Copied to clipboard"');
 });
 
-it('formats a decrypted phone as a tel link, stripping non-numeric characters', function () {
+it('formats a decrypted phone as a tel link with a copy button, stripping non-numeric characters', function () {
     $result = kotlinskidev_format_decrypted_content('+1 (555) 123-4567', 'phone');
 
-    expect($result)->toBe('<a href="tel:+15551234567">+1 (555) 123-4567</a>');
+    expect($result)->toContain('<a href="tel:+15551234567">+1 (555) 123-4567</a>');
+    expect($result)->toContain('class="kt-copy-btn kt-tooltip"');
+    expect($result)->toContain('data-copy-value="+1 (555) 123-4567"');
 });
 
 it('passes text, address, and other types through wp_kses_post', function () {

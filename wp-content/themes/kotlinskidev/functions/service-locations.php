@@ -36,6 +36,53 @@ function kotlinskidev_register_service_location_meta(): void {
 }
 add_action( 'init', 'kotlinskidev_register_service_location_meta' );
 
+function kotlinskidev_service_location_faq_summary_strings(): array {
+    return [
+        'Ile trwa realizacja strony internetowej?',
+        'Czy spotkamy się w %CITY%?',
+        'Co obejmuje opieka po wdrożeniu?',
+        'Czy strona będzie widoczna w Google?',
+        'Kto tworzy treści na stronę?',
+    ];
+}
+
+function kotlinskidev_register_service_location_faq_summary_strings(): void {
+    if ( ! function_exists( 'pll_register_string' ) ) {
+        return;
+    }
+    foreach ( kotlinskidev_service_location_faq_summary_strings() as $string ) {
+        pll_register_string( $string, $string, 'kotlinskidev' );
+    }
+}
+add_action( 'init', 'kotlinskidev_register_service_location_faq_summary_strings' );
+
+function kotlinskidev_apply_service_location_faq_summaries( string $block_content, array $block ): string {
+    if ( 'core/details' !== ( $block['blockName'] ?? '' ) ) {
+        return $block_content;
+    }
+
+    foreach ( kotlinskidev_service_location_faq_summary_strings() as $string ) {
+        if ( false === strpos( $block_content, $string ) ) {
+            continue;
+        }
+
+        $translated = function_exists( 'pll__' ) ? pll__( $string ) : $string;
+
+        if ( false !== strpos( $string, '%CITY%' ) ) {
+            $city = (string) get_post_meta( get_the_ID(), 'city', true );
+            if ( '' === $city ) {
+                continue;
+            }
+            $translated = str_replace( '%CITY%', esc_html( $city ), $translated );
+        }
+
+        $block_content = str_replace( $string, $translated, $block_content );
+    }
+
+    return $block_content;
+}
+add_filter( 'render_block', 'kotlinskidev_apply_service_location_faq_summaries', 10, 2 );
+
 function kotlinskidev_service_location_editor_panel_script(): void {
     $screen = get_current_screen();
 
@@ -154,17 +201,6 @@ function kotlinskidev_register_city_grid_block(): void {
     ] );
 }
 add_action( 'init', 'kotlinskidev_register_city_grid_block' );
-
-function kotlinskidev_service_location_template_hierarchy( array $templates ): array {
-    if ( 'en' !== ( function_exists( 'pll_current_language' ) ? pll_current_language() : '' ) ) {
-        return $templates;
-    }
-
-    array_unshift( $templates, 'single-service_location-en.php' );
-
-    return $templates;
-}
-add_filter( 'single_template_hierarchy', 'kotlinskidev_service_location_template_hierarchy' );
 
 function kotlinskidev_render_city_map_block(): string {
     $city = get_post_meta( get_the_ID(), 'city', true );

@@ -236,6 +236,87 @@ const decryptText = async (encryptedText: string, type: string = "text"): Promis
   return result.raw_content;
 };
 
+const COPY_FEEDBACK_MS = 1500;
+
+const copyButtonRevertTimeouts = new WeakMap<HTMLButtonElement, ReturnType<typeof setTimeout>>();
+
+const copyWithExecCommand = (value: string): boolean => {
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.append(textarea);
+  textarea.select();
+
+  let succeeded = false;
+  try {
+    succeeded = document.execCommand("copy");
+  } catch {
+    succeeded = false;
+  }
+
+  textarea.remove();
+  return succeeded;
+};
+
+const copyToClipboard = async (value: string): Promise<boolean> => {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(value);
+      return true;
+    } catch (error) {
+      console.error("navigator.clipboard.writeText failed, falling back:", error);
+    }
+  }
+
+  return copyWithExecCommand(value);
+};
+
+const handleCopyButtonClick = async (event: Event): Promise<void> => {
+  const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".kt-copy-btn");
+  if (!button) {
+    return;
+  }
+
+  const value = button.getAttribute("data-copy-value");
+  if (!value) {
+    return;
+  }
+
+  const succeeded = await copyToClipboard(value);
+  if (!succeeded) {
+    console.error("Failed to copy to clipboard");
+    return;
+  }
+
+  const copyLabel = button.getAttribute("data-copy-label") || "";
+  const copiedLabel = button.getAttribute("data-copied-label") || copyLabel;
+
+  const pendingTimeout = copyButtonRevertTimeouts.get(button);
+  if (pendingTimeout) {
+    clearTimeout(pendingTimeout);
+  }
+
+  button.classList.add("kt-copy-btn--copied", "kt-tooltip--visible");
+  button.setAttribute("aria-label", copiedLabel);
+  button.setAttribute("data-tooltip", copiedLabel);
+
+  copyButtonRevertTimeouts.set(
+    button,
+    setTimeout(() => {
+      button.classList.remove("kt-copy-btn--copied", "kt-tooltip--visible");
+      button.setAttribute("aria-label", copyLabel);
+      button.setAttribute("data-tooltip", copyLabel);
+      copyButtonRevertTimeouts.delete(button);
+    }, COPY_FEEDBACK_MS)
+  );
+};
+
+const observeCopyButtons = (): void => {
+  document.addEventListener("click", handleCopyButtonClick);
+};
+
 const initProtection = (): void => {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", processProtectedElements);
@@ -244,6 +325,7 @@ const initProtection = (): void => {
   }
 
   observeDOM();
+  observeCopyButtons();
 };
 
 const kotlinskidevProtection = {

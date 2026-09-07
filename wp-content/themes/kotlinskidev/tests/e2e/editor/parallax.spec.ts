@@ -44,6 +44,28 @@ test.describe("Parallax cover extension — Site Editor (kotlinskidev/parallax b
     expect(content).toContain('"enableParallax":true');
   });
 
+  test("changing the Parallax Intensity slider updates the saved attribute", async ({ page }) => {
+    const { editor } = await setUpEditor(page, "E2E Editor Test — Parallax Intensity");
+
+    await editor.insertBlock({ name: "core/cover", attributes: { url: IMAGE_URL } });
+    await editor.canvas.locator(".wp-block-cover").click();
+    await page.getByRole("button", { name: "Cover", exact: true }).click();
+    await editor.openDocumentSettingsSidebar();
+    await openBlockSettingsTab(page);
+
+    await page.getByRole("button", { name: /Parallax Settings/ }).click();
+    await page.getByRole("checkbox", { name: "Enable Parallax Effect" }).click();
+
+    // RangeControl renders both a slider and a spinbutton sharing one aria-label — scope to the
+    // spinbutton to fill an exact value (see .claude/rules/testing.md).
+    const intensityInput = page.getByRole("spinbutton", { name: /Parallax Intensity/ });
+    await intensityInput.fill("8");
+    await intensityInput.blur();
+
+    const content = await editor.getEditedPostContent();
+    expect(content).toContain('"parallaxIntensity":8');
+  });
+
   test("the panel is not shown for an unsupported block", async ({ page }) => {
     const { editor } = await setUpEditor(page, "E2E Editor Test — Parallax B");
 
@@ -84,6 +106,39 @@ test.describe("Parallax cover extension — Site Editor (kotlinskidev/parallax b
       } finally {
         await anonymousContext.close();
       }
+    } finally {
+      if (postId) {
+        deletePost(postId);
+      }
+    }
+  });
+
+  test("publishing a cover with a custom intensity carries it through to the frontend's data-parallax-intensity attribute", async ({
+    page,
+  }) => {
+    const { editor } = await setUpEditor(page, "E2E Editor Test — Parallax Intensity Frontend");
+
+    await editor.insertBlock({ name: "core/cover", attributes: { url: IMAGE_URL } });
+    await editor.canvas.locator(".wp-block-cover").click();
+    await page.getByRole("button", { name: "Cover", exact: true }).click();
+    await editor.openDocumentSettingsSidebar();
+    await openBlockSettingsTab(page);
+    await page.getByRole("button", { name: /Parallax Settings/ }).click();
+    await page.getByRole("checkbox", { name: "Enable Parallax Effect" }).click();
+
+    const intensityInput = page.getByRole("spinbutton", { name: /Parallax Intensity/ });
+    await intensityInput.fill("3");
+    await intensityInput.blur();
+
+    const postId = await editor.publishPost();
+    expect(postId).not.toBeNull();
+
+    try {
+      await page.goto(`/?page_id=${postId}`);
+      await acceptCookies(page);
+
+      const cover = page.locator(".wp-block-cover.enable-parallax");
+      await expect(cover).toHaveAttribute("data-parallax-intensity", "3");
     } finally {
       if (postId) {
         deletePost(postId);

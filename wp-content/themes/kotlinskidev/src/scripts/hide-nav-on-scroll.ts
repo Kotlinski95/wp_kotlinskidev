@@ -14,15 +14,18 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   const topThreshold = 100;
   const bottomThreshold = 100;
 
-  const toggleCookieButtonClass = (add: boolean) => {
-    const cookieButton = document.querySelector(".cmplz-btn.cmplz-manage-consent");
-    if (cookieButton) {
-      if (add) {
-        cookieButton.classList.add("mobile-nav-hidden");
-      } else {
-        cookieButton.classList.remove("mobile-nav-hidden");
+  const floatingIconSelectors = [
+    ".cmplz-btn.cmplz-manage-consent",
+    ".onetap-container-toggle .onetap-toggle",
+  ];
+
+  const toggleFloatingIconClass = (add: boolean) => {
+    floatingIconSelectors.forEach((selector) => {
+      const icon = document.querySelector(selector);
+      if (icon) {
+        icon.classList.toggle("mobile-nav-hidden", add);
       }
-    }
+    });
   };
 
   const showNav = () => {
@@ -35,7 +38,7 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
     if (scrollToTop) {
       scrollToTop.classList.remove("mobile-nav-hidden");
     }
-    toggleCookieButtonClass(false);
+    toggleFloatingIconClass(false);
   };
 
   const hideNav = () => {
@@ -48,7 +51,7 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
     if (scrollToTop) {
       scrollToTop.classList.add("mobile-nav-hidden");
     }
-    toggleCookieButtonClass(true);
+    toggleFloatingIconClass(true);
   };
 
   const isNearBottom = (scrollTop: number) => {

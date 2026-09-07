@@ -1,7 +1,7 @@
 <!-- wp:template-part {"slug":"header","theme":"kotlinskidev","area":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"main-wrapper","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"calc(4.6875rem + env(safe-area-inset-top))","bottom":"0","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"100%"}} -->
-<main class="wp-block-group has-background-alt-background-color has-background main-wrapper" style="margin-top:0;margin-bottom:0;padding-top:calc(4.6875rem + env(safe-area-inset-top));padding-right:var(--wp--preset--spacing--40);padding-bottom:0;padding-left:var(--wp--preset--spacing--40)">
+<!-- wp:group {"tagName":"main","className":"main-wrapper","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"top":"calc(var(--kt-header-height) + env(safe-area-inset-top))","bottom":"0","left":"var:preset|spacing|40","right":"var:preset|spacing|40"}}},"backgroundColor":"background-alt","layout":{"type":"constrained","contentSize":"100%"}} -->
+<main class="wp-block-group has-background-alt-background-color has-background main-wrapper" style="margin-top:0;margin-bottom:0;padding-top:calc(var(--kt-header-height) + env(safe-area-inset-top));padding-right:var(--wp--preset--spacing--40);padding-bottom:0;padding-left:var(--wp--preset--spacing--40)">
 
 <!-- wp:post-title {"level":1,"className":"sr-only","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} /-->
 
@@ -13,9 +13,7 @@
 <!-- wp:kotlinskidev/hero-carousel-slide -->
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">Usługi lokalne ·</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-hero-eyebrow","fallbackText":"Usługi lokalne ·","fontSize":"small"} /-->
 
 <!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} -->
 <p class="has-small-font-size">Miasto</p>
@@ -25,9 +23,7 @@
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:heading {"placeholder":"Slide Heading"} -->
-<h2 class="wp-block-heading">Tworzenie stron internetowych</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-hero-slide1-heading","fallbackText":"Tworzenie stron internetowych"} /-->
 
 <!-- wp:heading {"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} -->
 <h2 class="wp-block-heading">Miasto</h2>
@@ -35,18 +31,20 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"placeholder":"Add a description..."} -->
-<p>Projektuję i wdrażam strony oraz aplikacje internetowe dla firm z regionu i okolic — od wizytówki po rozbudowany sklep. Szybkie, mierzalne, zbudowane pod realny wynik biznesowy.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-hero-slide1-description","fallbackText":"Projektuję i wdrażam strony oraz aplikacje internetowe dla firm z regionu i okolic — od wizytówki po rozbudowany sklep. Szybkie, mierzalne, zbudowane pod realny wynik biznesowy."} /-->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
-<!-- wp:button {"backgroundColor":"primary","textColor":"background"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button">Zamów bezpłatną wycenę</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":{"topLeft":"6px","topRight":"6px","bottomLeft":"6px","bottomRight":"6px"},"width":"2px"}}} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/projekty/" style="border-width:2px;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom-left-radius:6px;border-bottom-right-radius:6px">Zobacz realizacje</a></div>
-<!-- /wp:button -->
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-hero-cta-primary","fallbackText":"Zamów bezpłatną wycenę","className":"wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"wp-block-button is-style-outline"} -->
+<div class="wp-block-group wp-block-button is-style-outline">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-hero-cta-secondary","fallbackText":"Zobacz realizacje","href":"/projekty/","className":"wp-block-button__link wp-element-button","style":{"border":{"width":"2px","radius":{"topLeft":"6px","topRight":"6px","bottomLeft":"6px","bottomRight":"6px"}}}} /-->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:buttons -->
 <!-- /wp:kotlinskidev/hero-carousel-slide -->
@@ -54,9 +52,7 @@
 <!-- wp:kotlinskidev/hero-carousel-slide -->
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">Usługi lokalne ·</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-hero-eyebrow","fallbackText":"Usługi lokalne ·","fontSize":"small"} /-->
 
 <!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} -->
 <p class="has-small-font-size">Miasto</p>
@@ -66,9 +62,7 @@
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:heading {"placeholder":"Slide Heading"} -->
-<h2 class="wp-block-heading">Sklepy internetowe</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-hero-slide2-heading","fallbackText":"Sklepy internetowe"} /-->
 
 <!-- wp:heading {"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} -->
 <h2 class="wp-block-heading">Miasto</h2>
@@ -76,18 +70,20 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"placeholder":"Add a description..."} -->
-<p>WooCommerce gotowe do sprzedaży pierwszego dnia — katalog, płatności, integracje z magazynem i wysyłką. Wdrożenie od 3 tygodni.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-hero-slide2-description","fallbackText":"WooCommerce gotowe do sprzedaży pierwszego dnia — katalog, płatności, integracje z magazynem i wysyłką. Wdrożenie od 3 tygodni."} /-->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
-<!-- wp:button {"backgroundColor":"primary","textColor":"background"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button">Zamów bezpłatną wycenę</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":{"topLeft":"6px","topRight":"6px","bottomLeft":"6px","bottomRight":"6px"},"width":"2px"}}} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/projekty/" style="border-width:2px;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom-left-radius:6px;border-bottom-right-radius:6px">Zobacz realizacje</a></div>
-<!-- /wp:button -->
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-hero-cta-primary","fallbackText":"Zamów bezpłatną wycenę","className":"wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"wp-block-button is-style-outline"} -->
+<div class="wp-block-group wp-block-button is-style-outline">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-hero-cta-secondary","fallbackText":"Zobacz realizacje","href":"/projekty/","className":"wp-block-button__link wp-element-button","style":{"border":{"width":"2px","radius":{"topLeft":"6px","topRight":"6px","bottomLeft":"6px","bottomRight":"6px"}}}} /-->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:buttons -->
 <!-- /wp:kotlinskidev/hero-carousel-slide -->
@@ -95,9 +91,7 @@
 <!-- wp:kotlinskidev/hero-carousel-slide -->
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">Usługi lokalne ·</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-hero-eyebrow","fallbackText":"Usługi lokalne ·","fontSize":"small"} /-->
 
 <!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} -->
 <p class="has-small-font-size">Miasto</p>
@@ -107,9 +101,7 @@
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:heading {"placeholder":"Slide Heading"} -->
-<h2 class="wp-block-heading">Optymalizacja i SEO</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-hero-slide3-heading","fallbackText":"Optymalizacja i SEO"} /-->
 
 <!-- wp:heading {"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}}} -->
 <h2 class="wp-block-heading">Miasto</h2>
@@ -117,18 +109,20 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"placeholder":"Add a description..."} -->
-<p>Core Web Vitals, dane strukturalne i widoczność w wynikach lokalnych. Audyt w 5 dni roboczych, wdrożenie poprawek w 2 tygodnie.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-hero-slide3-description","fallbackText":"Core Web Vitals, dane strukturalne i widoczność w wynikach lokalnych. Audyt w 5 dni roboczych, wdrożenie poprawek w 2 tygodnie."} /-->
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons">
-<!-- wp:button {"backgroundColor":"primary","textColor":"background"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button">Zamów bezpłatną wycenę</a></div>
-<!-- /wp:button -->
-<!-- wp:button {"className":"is-style-outline","style":{"border":{"radius":{"topLeft":"6px","topRight":"6px","bottomLeft":"6px","bottomRight":"6px"},"width":"2px"}}} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/projekty/" style="border-width:2px;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom-left-radius:6px;border-bottom-right-radius:6px">Zobacz realizacje</a></div>
-<!-- /wp:button -->
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-hero-cta-primary","fallbackText":"Zamów bezpłatną wycenę","className":"wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"wp-block-button is-style-outline"} -->
+<div class="wp-block-group wp-block-button is-style-outline">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-hero-cta-secondary","fallbackText":"Zobacz realizacje","href":"/projekty/","className":"wp-block-button__link wp-element-button","style":{"border":{"width":"2px","radius":{"topLeft":"6px","topRight":"6px","bottomLeft":"6px","bottomRight":"6px"}}}} /-->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:buttons -->
 <!-- /wp:kotlinskidev/hero-carousel-slide -->
@@ -137,114 +131,41 @@
 </div></div>
 <!-- /wp:cover -->
 
-<!-- wp:group {"backgroundColor":"background","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained","contentSize":"100%"}} -->
-<div class="wp-block-group has-background-background-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
-<!-- wp:columns {"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-columns">
-
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"align":"center","textColor":"primary","style":{"typography":{"fontWeight":"800","fontSize":"2rem"}}} -->
-<p class="has-text-align-center has-primary-color has-text-color" style="font-weight:800;font-size:2rem">6+</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
-<p class="has-text-align-center has-small-font-size">lat na rynku</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"align":"center","textColor":"primary","style":{"typography":{"fontWeight":"800","fontSize":"2rem"}}} -->
-<p class="has-text-align-center has-primary-color has-text-color" style="font-weight:800;font-size:2rem">40+</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
-<p class="has-text-align-center has-small-font-size">zrealizowanych projektów</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"align":"center","textColor":"primary","style":{"typography":{"fontWeight":"800","fontSize":"2rem"}}} -->
-<p class="has-text-align-center has-primary-color has-text-color" style="font-weight:800;font-size:2rem">100%</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
-<p class="has-text-align-center has-small-font-size">proces w pełni zdalny</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"align":"center","textColor":"primary","style":{"typography":{"fontWeight":"800","fontSize":"2rem"}}} -->
-<p class="has-text-align-center has-primary-color has-text-color" style="font-weight:800;font-size:2rem">24h</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
-<p class="has-text-align-center has-small-font-size">średni czas odpowiedzi na wycenę</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
-
-<!-- wp:heading {"textAlign":"center","level":2} -->
-<h2 class="wp-block-heading has-text-align-center">Dlaczego warto z nami współpracować</h2>
+<!-- wp:cover {"url":"http://kotlinskidev.local/wp-content/uploads/2026/08/background2-1024x463.webp","id":5812,"hasParallax":true,"dimRatio":50,"customOverlayColor":"#0e162c","isUserOverlayColor":false,"sizeSlug":"large","className":"full-width desktop-pt-right-1px desktop-pt-left-1px","layout":{"type":"constrained"},"desktopPadding":{"top":"0px","right":"1px","bottom":"0px","left":"1px"}} -->
+<div class="wp-block-cover has-parallax full-width desktop-pt-right-1px desktop-pt-left-1px"><div class="wp-block-cover__image-background wp-image-5812 size-large has-parallax" style="background-position:50% 50%;background-image:url(http://kotlinskidev.local/wp-content/uploads/2026/08/background2-1024x463.webp)"></div><span aria-hidden="true" class="wp-block-cover__background has-background-dim" style="background-color:#0e162c"></span><div class="wp-block-cover__inner-container"><!-- wp:kotlinskidev/scroll-section {"className":"full-width"} -->
+<!-- wp:kotlinskidev/scroll-section-item {"responsiveWidth":{"desktop":{"width":"400px"},"tablet":{},"mobile":{}},"desktopPadding":{"top":"0px","right":"30px","bottom":"","left":"30px"}} -->
+<!-- wp:heading {"style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}},"typography":{"fontSize":"6rem"},"color":{}},"textGradient":"linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%, rgb(0, 255, 240) 100%)"} -->
+<h2 class="wp-block-heading has-link-color" style="font-size:6rem">6+</h2>
 <!-- /wp:heading -->
 
-<!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"},"blockGap":{"left":"2rem"}}}} -->
-<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--50)">
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-stats-years-label","fallbackText":"lat na rynku","fontSize":"big"} /-->
+<!-- /wp:kotlinskidev/scroll-section-item -->
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Nowoczesny design</h3>
+<!-- wp:kotlinskidev/scroll-section-item {"responsiveWidth":{"desktop":{"width":"400px"},"tablet":{},"mobile":{}}} -->
+<!-- wp:heading {"style":{"typography":{"fontSize":"6rem"},"color":{}},"textGradient":"linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%, rgb(0, 255, 240) 100%)"} -->
+<h2 class="wp-block-heading" style="font-size:6rem">40+</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph -->
-<p>Strony budowane na blokach Gutenberg — bez ograniczeń szablonów, w pełni dopasowane do marki.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-stats-projects-label","fallbackText":"zrealizowanych projektów","fontSize":"big"} /-->
+<!-- /wp:kotlinskidev/scroll-section-item -->
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Szybkość i wydajność</h3>
+<!-- wp:kotlinskidev/scroll-section-item {"responsiveWidth":{"desktop":{"width":"400px"},"tablet":{},"mobile":{}},"desktopMargin":{"top":"0px","right":"30px","bottom":"0px","left":"30px"}} -->
+<!-- wp:heading {"style":{"typography":{"fontSize":"6rem"},"color":{}},"textGradient":"linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%, rgb(0, 255, 240) 100%)"} -->
+<h2 class="wp-block-heading" style="font-size:6rem">100%</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph -->
-<p>Optymalizacja Core Web Vitals, leniwe ładowanie i lekkie style — strona wczytuje się błyskawicznie.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-stats-remote-label","fallbackText":"proces w pełni zdalny","style":{"typography":{"fontSize":"1.5rem"}}} /-->
+<!-- /wp:kotlinskidev/scroll-section-item -->
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Wsparcie po wdrożeniu</h3>
+<!-- wp:kotlinskidev/scroll-section-item {"responsiveWidth":{"desktop":{"width":"400px"},"tablet":{},"mobile":{}},"desktopPadding":{"top":"0px","right":"30px","bottom":"0px","left":"30px"}} -->
+<!-- wp:heading {"style":{"typography":{"fontSize":"6rem"},"color":{}},"textGradient":"linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%, rgb(0, 255, 240) 100%)"} -->
+<h2 class="wp-block-heading" style="font-size:6rem">24h</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph -->
-<p>Zostajemy przy Tobie po starcie strony — aktualizacje, poprawki i rozwój w miarę wzrostu firmy.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:column -->
-
-</div>
-<!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-stats-response-label","fallbackText":"średni czas odpowiedzi na wycenę","fontSize":"big"} /-->
+<!-- /wp:kotlinskidev/scroll-section-item -->
+<!-- /wp:kotlinskidev/scroll-section --></div></div>
+<!-- /wp:cover -->
 
 <!-- wp:group {"backgroundColor":"background","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"100%"}} -->
 <div class="wp-block-group has-background-background-color has-background" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
@@ -255,15 +176,11 @@
 <div class="wp-block-group">
 <!-- wp:group {"layout":{"type":"constrained"}} -->
 <div class="wp-block-group">
-<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em"}},"textColor":"primary","fontSize":"small"} -->
-<p class="has-primary-color has-text-color has-small-font-size" style="letter-spacing:0.05em;text-transform:uppercase">Zakres usług</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-services-eyebrow","fallbackText":"Zakres usług","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em"}}} /-->
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Co robię dla firm z</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-services-heading","fallbackText":"Co robię dla firm z"} /-->
 
 <!-- wp:heading {"className":"kt-gradient-text","level":2,"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}},"textColor":"primary"} -->
 <h2 class="wp-block-heading has-primary-color has-text-color kt-gradient-text">Miasto</h2>
@@ -273,9 +190,7 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"align":"right","style":{"spacing":{"padding":{"top":"0.5rem"}}},"textColor":"foreground-alt"} -->
-<p class="has-text-align-right has-foreground-alt-color has-text-color" style="padding-top:0.5rem">Każdy projekt prowadzę osobiście — od pierwszej rozmowy po wdrożenie i opiekę.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-services-intro","fallbackText":"Każdy projekt prowadzę osobiście — od pierwszej rozmowy po wdrożenie i opiekę.","className":"has-text-align-right","textColor":"foreground-alt","style":{"spacing":{"padding":{"top":"0.5rem"}}}} /-->
 </div>
 <!-- /wp:group -->
 
@@ -286,23 +201,17 @@
 <div class="wp-block-column">
 <!-- wp:group {"style":{"border":{"width":"0.0625rem","radius":"0.75rem"},"spacing":{"padding":{"top":"2rem","right":"1.75rem","bottom":"2rem","left":"1.75rem"},"blockGap":"0.75rem"}},"borderColor":"border-color","backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:2rem;padding-right:1.75rem;padding-bottom:2rem;padding-left:1.75rem">
-<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"color":{"background":"rgba(130,9,211,0.12)"},"border":{"radius":"0.625rem"}}} -->
-<div class="wp-block-group has-background" style="border-radius:0.625rem;background-color:rgba(130,9,211,0.12);padding:0.75rem">
+<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"border":{"radius":"0.625rem"}}} -->
+<div class="wp-block-group has-background" style="border-radius:0.625rem;padding:0.75rem">
 <!-- wp:kotlinskidev/icon {"mediaId":6706,"mediaUrl":"http://kotlinskidev.local/wp-content/uploads/2026/09/icon-websites.svg","size":"1.5rem","color":"var(--wp--preset--color--primary)"} /-->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Strony firmowe</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-service1-heading","fallbackText":"Strony firmowe","fontSize":"medium"} /-->
 
-<!-- wp:paragraph {"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color">Wizytówki i strony korporacyjne na blokach Gutenberg — w pełni edytowalne, bez ograniczeń szablonu.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service1-description","fallbackText":"Wizytówki i strony korporacyjne na blokach Gutenberg — w pełni edytowalne, bez ograniczeń szablonu.","textColor":"foreground-alt"} /-->
 
-<!-- wp:paragraph {"fontSize":"small","textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color has-small-font-size">od 4 500 zł</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service1-price","fallbackText":"od 4 500 zł","fontSize":"small","textColor":"foreground-alt"} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -312,23 +221,17 @@
 <div class="wp-block-column">
 <!-- wp:group {"style":{"border":{"width":"0.0625rem","radius":"0.75rem"},"spacing":{"padding":{"top":"2rem","right":"1.75rem","bottom":"2rem","left":"1.75rem"},"blockGap":"0.75rem"}},"borderColor":"border-color","backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:2rem;padding-right:1.75rem;padding-bottom:2rem;padding-left:1.75rem">
-<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"color":{"background":"rgba(130,9,211,0.12)"},"border":{"radius":"0.625rem"}}} -->
-<div class="wp-block-group has-background" style="border-radius:0.625rem;background-color:rgba(130,9,211,0.12);padding:0.75rem">
+<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"border":{"radius":"0.625rem"}}} -->
+<div class="wp-block-group has-background" style="border-radius:0.625rem;padding:0.75rem">
 <!-- wp:kotlinskidev/icon {"mediaId":6711,"mediaUrl":"http://kotlinskidev.local/wp-content/uploads/2026/09/icon-ecommerce.svg","size":"1.5rem","color":"var(--wp--preset--color--primary)"} /-->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Sklepy internetowe</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-service2-heading","fallbackText":"Sklepy internetowe","fontSize":"medium"} /-->
 
-<!-- wp:paragraph {"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color">WooCommerce od katalogu po płatności online, integracje z magazynem i kurierami.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service2-description","fallbackText":"WooCommerce od katalogu po płatności online, integracje z magazynem i kurierami.","textColor":"foreground-alt"} /-->
 
-<!-- wp:paragraph {"fontSize":"small","textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color has-small-font-size">od 9 800 zł</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service2-price","fallbackText":"od 9 800 zł","fontSize":"small","textColor":"foreground-alt"} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -338,23 +241,17 @@
 <div class="wp-block-column">
 <!-- wp:group {"style":{"border":{"width":"0.0625rem","radius":"0.75rem"},"spacing":{"padding":{"top":"2rem","right":"1.75rem","bottom":"2rem","left":"1.75rem"},"blockGap":"0.75rem"}},"borderColor":"border-color","backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:2rem;padding-right:1.75rem;padding-bottom:2rem;padding-left:1.75rem">
-<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"color":{"background":"rgba(130,9,211,0.12)"},"border":{"radius":"0.625rem"}}} -->
-<div class="wp-block-group has-background" style="border-radius:0.625rem;background-color:rgba(130,9,211,0.12);padding:0.75rem">
+<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"border":{"radius":"0.625rem"}}} -->
+<div class="wp-block-group has-background" style="border-radius:0.625rem;padding:0.75rem">
 <!-- wp:kotlinskidev/icon {"mediaId":6710,"mediaUrl":"http://kotlinskidev.local/wp-content/uploads/2026/09/icon-internet-apps.svg","size":"1.5rem","color":"var(--wp--preset--color--primary)"} /-->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Aplikacje internetowe</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-service3-heading","fallbackText":"Aplikacje internetowe","fontSize":"medium"} /-->
 
-<!-- wp:paragraph {"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color">Panele, konfiguratory i integracje API — tam, gdzie strona przestaje wystarczać.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service3-description","fallbackText":"Panele, konfiguratory i integracje API — tam, gdzie strona przestaje wystarczać.","textColor":"foreground-alt"} /-->
 
-<!-- wp:paragraph {"fontSize":"small","textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color has-small-font-size">wycena indywidualna</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service3-price","fallbackText":"wycena indywidualna","fontSize":"small","textColor":"foreground-alt"} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -370,23 +267,17 @@
 <div class="wp-block-column">
 <!-- wp:group {"style":{"border":{"width":"0.0625rem","radius":"0.75rem"},"spacing":{"padding":{"top":"2rem","right":"1.75rem","bottom":"2rem","left":"1.75rem"},"blockGap":"0.75rem"}},"borderColor":"border-color","backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:2rem;padding-right:1.75rem;padding-bottom:2rem;padding-left:1.75rem">
-<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"color":{"background":"rgba(130,9,211,0.12)"},"border":{"radius":"0.625rem"}}} -->
-<div class="wp-block-group has-background" style="border-radius:0.625rem;background-color:rgba(130,9,211,0.12);padding:0.75rem">
+<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"border":{"radius":"0.625rem"}}} -->
+<div class="wp-block-group has-background" style="border-radius:0.625rem;padding:0.75rem">
 <!-- wp:kotlinskidev/icon {"mediaId":6709,"mediaUrl":"http://kotlinskidev.local/wp-content/uploads/2026/09/icon-optimization.svg","size":"1.5rem","color":"var(--wp--preset--color--primary)"} /-->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Optymalizacja wydajności</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-service4-heading","fallbackText":"Optymalizacja wydajności","fontSize":"medium"} /-->
 
-<!-- wp:paragraph {"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color">Core Web Vitals, lazy loading, lekkie style — strona wczytuje się błyskawicznie.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service4-description","fallbackText":"Core Web Vitals, lazy loading, lekkie style — strona wczytuje się błyskawicznie.","textColor":"foreground-alt"} /-->
 
-<!-- wp:paragraph {"fontSize":"small","textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color has-small-font-size">audyt 1 900 zł</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service4-price","fallbackText":"audyt 1 900 zł","fontSize":"small","textColor":"foreground-alt"} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -396,23 +287,17 @@
 <div class="wp-block-column">
 <!-- wp:group {"style":{"border":{"width":"0.0625rem","radius":"0.75rem"},"spacing":{"padding":{"top":"2rem","right":"1.75rem","bottom":"2rem","left":"1.75rem"},"blockGap":"0.75rem"}},"borderColor":"border-color","backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:2rem;padding-right:1.75rem;padding-bottom:2rem;padding-left:1.75rem">
-<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"color":{"background":"rgba(130,9,211,0.12)"},"border":{"radius":"0.625rem"}}} -->
-<div class="wp-block-group has-background" style="border-radius:0.625rem;background-color:rgba(130,9,211,0.12);padding:0.75rem">
+<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"border":{"radius":"0.625rem"}}} -->
+<div class="wp-block-group has-background" style="border-radius:0.625rem;padding:0.75rem">
 <!-- wp:kotlinskidev/icon {"mediaId":6708,"mediaUrl":"http://kotlinskidev.local/wp-content/uploads/2026/09/icon-seo.svg","size":"1.5rem","color":"var(--wp--preset--color--primary)"} /-->
 </div>
-<!-- /wp:group -->
+<!-- /wp:group --> 
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">SEO lokalne</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-service5-heading","fallbackText":"SEO lokalne","fontSize":"medium"} /-->
 
-<!-- wp:paragraph {"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color">Dane strukturalne, Profil Firmy w Google i treści pod lokalne frazy wyszukiwania.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service5-description","fallbackText":"Dane strukturalne, Profil Firmy w Google i treści pod lokalne frazy wyszukiwania.","textColor":"foreground-alt"} /-->
 
-<!-- wp:paragraph {"fontSize":"small","textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color has-small-font-size">od 1 200 zł / mies.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service5-price","fallbackText":"od 1 200 zł / mies.","fontSize":"small","textColor":"foreground-alt"} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -422,23 +307,17 @@
 <div class="wp-block-column">
 <!-- wp:group {"style":{"border":{"width":"0.0625rem","radius":"0.75rem"},"spacing":{"padding":{"top":"2rem","right":"1.75rem","bottom":"2rem","left":"1.75rem"},"blockGap":"0.75rem"}},"borderColor":"border-color","backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
 <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:2rem;padding-right:1.75rem;padding-bottom:2rem;padding-left:1.75rem">
-<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"color":{"background":"rgba(130,9,211,0.12)"},"border":{"radius":"0.625rem"}}} -->
-<div class="wp-block-group has-background" style="border-radius:0.625rem;background-color:rgba(130,9,211,0.12);padding:0.75rem">
+<!-- wp:group {"style":{"spacing":{"padding":"0.75rem"},"border":{"radius":"0.625rem"}}} -->
+<div class="wp-block-group has-background" style="border-radius:0.625rem;padding:0.75rem">
 <!-- wp:kotlinskidev/icon {"mediaId":6707,"mediaUrl":"http://kotlinskidev.local/wp-content/uploads/2026/09/icon-postdeployment-assistance.svg","size":"1.5rem","color":"var(--wp--preset--color--primary)"} /-->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Opieka powdrożeniowa</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-service6-heading","fallbackText":"Opieka powdrożeniowa","fontSize":"medium"} /-->
 
-<!-- wp:paragraph {"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color">Aktualizacje bezpieczeństwa, kopie zapasowe, drobne poprawki i rozwój strony.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service6-description","fallbackText":"Aktualizacje bezpieczeństwa, kopie zapasowe, drobne poprawki i rozwój strony.","textColor":"foreground-alt"} /-->
 
-<!-- wp:paragraph {"fontSize":"small","textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color has-small-font-size">od 290 zł / mies.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-service6-price","fallbackText":"od 290 zł / mies.","fontSize":"small","textColor":"foreground-alt"} /-->
 </div>
 <!-- /wp:group -->
 </div>
@@ -460,15 +339,11 @@
 <!-- wp:column {"verticalAlignment":"top","width":"42%"} -->
 <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:42%">
 
-<!-- wp:paragraph {"textColor":"primary","fontSize":"small"} -->
-<p class="has-primary-color has-text-color has-small-font-size" style="letter-spacing:0.05em;text-transform:uppercase">Zasięg lokalny</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-coverage-eyebrow","fallbackText":"Zasięg lokalny","textColor":"primary","fontSize":"small"} /-->
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap"}} -->
 <div class="wp-block-group">
-<!-- wp:heading {"level":2} -->
-<h2 class="wp-block-heading">Działam w</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-coverage-heading","fallbackText":"Działam w"} /-->
 
 <!-- wp:heading {"className":"kt-gradient-text","level":2,"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}},"textColor":"primary"} -->
 <h2 class="wp-block-heading has-primary-color has-text-color kt-gradient-text">Miasto</h2>
@@ -476,9 +351,7 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}},"textColor":"foreground-alt"} -->
-<p class="has-foreground-alt-color has-text-color" style="margin-top:var(--wp--preset--spacing--30)">Spotkania mogą odbywać się stacjonarnie na miejscu, a cały proces realizacji — od wyceny po wdrożenie — równie dobrze prowadzę w pełni zdalnie.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-coverage-description","fallbackText":"Spotkania mogą odbywać się stacjonarnie na miejscu, a cały proces realizacji — od wyceny po wdrożenie — równie dobrze prowadzę w pełni zdalnie.","textColor":"foreground-alt","style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}}}} /-->
 
 <!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
 <div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
@@ -507,9 +380,7 @@
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
 <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 
-<!-- wp:heading {"textAlign":"center","level":2} -->
-<h2 class="wp-block-heading has-text-align-center">Wybrane realizacje</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-projects-heading","fallbackText":"Wybrane realizacje","className":"has-text-align-center"} /-->
 
 <!-- wp:kotlinskidev/content-tabs {"activeTabUnderline":false,"activeTabTextColorEnabled":true,"activeTabColor":"linear-gradient(to left, light-dark(rgb(132, 83, 210), rgb(184, 150, 255)) 0%, light-dark(rgb(0, 71, 255), rgb(0, 246, 255)) 60%, light-dark(rgb(0, 120, 194), rgb(0, 255, 240)) 100%)","activeTabBackgroundEnabled":true,"activeTabBackgroundColor":"linear-gradient(to right, var(--wp--preset--color--primary) 0%, var(--wp--preset--color--contrast) 51%, var(--wp--preset--color--primary) 100%)","panelTransition":"fade","cardAnimation":"fade-up","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"blockGap":"1.5rem"},"border":{"width":"0px","style":"none"}},"backgroundColor":"surface"} -->
 <!-- wp:kotlinskidev/content-tabs-item {"style":{"spacing":{"padding":{"top":"1.5rem","bottom":"1.5rem","left":"1.5rem","right":"1.5rem"}},"border":{"radius":"0.5rem"}},"backgroundColor":"surface"} -->
@@ -556,132 +427,225 @@
 <!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"56.25rem"}} -->
 <div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
 
-<!-- wp:heading {"textAlign":"center","level":2} -->
-<h2 class="wp-block-heading has-text-align-center">Jak wygląda współpraca</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process-eyebrow","fallbackText":"Przebieg współpracy","className":"has-text-align-center","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"}}} /-->
 
-<!-- wp:columns {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"},"blockGap":{"left":"2rem"}}}} -->
-<div class="wp-block-columns" style="margin-top:var(--wp--preset--spacing--50)">
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-process-heading","fallbackText":"Jak wygląda współpraca","className":"has-text-align-center"} /-->
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"textColor":"primary","fontSize":"large"} -->
-<p class="has-primary-color has-text-color has-large-font-size"><strong>01</strong></p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/process-steps {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
+<!-- wp:kotlinskidev/process-step -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-process1-heading","fallbackText":"Bezpłatna wycena","fontSize":"medium"} /-->
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Bezpłatna wycena</h3>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process1-description","fallbackText":"Poznajemy Twoje potrzeby i przygotowujemy wycenę bez zobowiązań."} /-->
 
-<!-- wp:paragraph -->
-<p>Poznajemy Twoje potrzeby i przygotowujemy wycenę bez zobowiązań.</p>
-<!-- /wp:paragraph -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process1-duration","fallbackText":"1–2 dni","fontSize":"small","textColor":"foreground-alt"} /-->
+<!-- /wp:kotlinskidev/process-step -->
+
+<!-- wp:kotlinskidev/process-step -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-process2-heading","fallbackText":"Projekt i wdrożenie","fontSize":"medium"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process2-description","fallbackText":"Projektujemy i budujemy stronę, konsultując każdy etap z Tobą."} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process2-duration","fallbackText":"1–4 tygodnie","fontSize":"small","textColor":"foreground-alt"} /-->
+<!-- /wp:kotlinskidev/process-step -->
+
+<!-- wp:kotlinskidev/process-step -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-process3-heading","fallbackText":"Start i opieka","fontSize":"medium"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process3-description","fallbackText":"Strona trafia do sieci, a my zostajemy przy Tobie z bieżącym wsparciem."} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-process3-duration","fallbackText":"ciągle","fontSize":"small","textColor":"foreground-alt"} /-->
+<!-- /wp:kotlinskidev/process-step -->
+<!-- /wp:kotlinskidev/process-steps -->
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing-eyebrow","fallbackText":"Pakiety","className":"has-text-align-center","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"}}} /-->
+
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-pricing-heading","fallbackText":"Przejrzyste ceny","className":"has-text-align-center"} /-->
+
+<!-- wp:kotlinskidev/pricing-cards {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
+
+<!-- wp:kotlinskidev/pricing-card -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-name","fallbackText":"Start","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"}}} /-->
+
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-pricing1-price","fallbackText":"od 999 zł","fontSize":"x-large"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-description","fallbackText":"Idealny dla prostych stron wizytówek i landing page'y — solidna podstawa i responsywny design."} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-feature1","fallbackText":"Projekt i wdrożenie w WordPress","className":"pricing-card__feature pricing-card__feature--first"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-feature2","fallbackText":"Do 5 podstron","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-feature3","fallbackText":"Responsywny design (RWD)","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-feature4","fallbackText":"Podstawowa optymalizacja SEO","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-feature5","fallbackText":"Formularz kontaktowy","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-feature6","fallbackText":"Podstawowa optymalizacja wydajności","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing1-duration","fallbackText":"Wdrożenie: 2–3 tygodnie","fontSize":"small","textColor":"foreground-alt"} /-->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-pricing1-cta","fallbackText":"Wybierz Start","className":"wp-block-button__link wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:buttons -->
+<!-- /wp:kotlinskidev/pricing-card -->
+
+<!-- wp:kotlinskidev/pricing-card {"featured":true} -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-name","fallbackText":"Business","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"}}} /-->
+
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-pricing2-price","fallbackText":"od 2500 zł","fontSize":"x-large"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-description","fallbackText":"Dla firm potrzebujących rozbudowanej strony z dodatkowymi funkcjami i lepszą wydajnością."} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature1","fallbackText":"Wszystko z pakietu Start","className":"pricing-card__feature pricing-card__feature--first"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature2","fallbackText":"Rozbudowane podstrony i sekcje","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature3","fallbackText":"Integracja z newsletterem i formularzami","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature4","fallbackText":"Rozszerzone SEO (schema.org, sitemap XML)","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature5","fallbackText":"Google Analytics, Search Console, Pixel","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature6","fallbackText":"Zaawansowana optymalizacja wydajności","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-feature7","fallbackText":"Audyt PageSpeed Insights","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing2-duration","fallbackText":"Wdrożenie: 4–6 tygodni","fontSize":"small","textColor":"foreground-alt"} /-->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-pricing2-cta","fallbackText":"Wybierz Business","className":"wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:buttons -->
+<!-- /wp:kotlinskidev/pricing-card -->
+
+<!-- wp:kotlinskidev/pricing-card -->
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-name","fallbackText":"Premium","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"}}} /-->
+
+<!-- wp:kotlinskidev/translated-text {"tagName":"h3","stringName":"service-location-pricing3-price","fallbackText":"Wycena indywidualna","fontSize":"x-large"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-description","fallbackText":"Dla klientów potrzebujących kompleksowych rozwiązań, integracji i dedykowanych aplikacji webowych."} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature1","fallbackText":"Wszystko z pakietu Business","className":"pricing-card__feature pricing-card__feature--first"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature2","fallbackText":"Sklep WooCommerce lub aplikacja webowa","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature3","fallbackText":"Integracje z zewnętrznymi systemami (CRM, płatności)","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature4","fallbackText":"Pełna optymalizacja SEO techniczna i treściowa","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature5","fallbackText":"Audyt Core Web Vitals i WebPageTest","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature6","fallbackText":"Doradztwo UX/UI","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-feature7","fallbackText":"Opieka techniczna po wdrożeniu","className":"pricing-card__feature"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing3-duration","fallbackText":"Zależne od zakresu projektu","fontSize":"small","textColor":"foreground-alt"} /-->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons">
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-pricing3-cta","fallbackText":"Porozmawiajmy","className":"wp-block-button__link wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
+</div>
+<!-- /wp:buttons -->
+<!-- /wp:kotlinskidev/pricing-card -->
+
+<!-- /wp:kotlinskidev/pricing-cards -->
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-pricing-note","fallbackText":"Ceny netto, jednorazowe. Opieka i hosting rozliczane osobno.","className":"has-text-align-center","fontSize":"small","textColor":"foreground-alt","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} /-->
+
+</div>
+<!-- /wp:group -->
+
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--70)">
+
+<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"3rem"}}}} -->
+<div class="wp-block-columns">
+
+<!-- wp:column {"width":"33.33%","className":"is-kotlinskidev-sticky"} -->
+<div class="wp-block-column is-kotlinskidev-sticky" style="flex-basis:33.33%">
+
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq-eyebrow","fallbackText":"FAQ","textColor":"primary","fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.05em","fontWeight":"600"}}} /-->
+
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-faq-heading","fallbackText":"Najczęściej zadawane pytania"} /-->
+
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|30"}},"blockGap":"0"},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--30)">
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq-contact-prefix","fallbackText":"Nie znalazłeś odpowiedzi? Zadzwoń —","textColor":"foreground-alt"} /-->
+
+<!-- wp:kotlinskidev/protected-content {"content":"+48 608 418 911","useProtection":true,"protectionType":"phone","tagName":"span","textColor":"primary"} /-->
+
+<!-- wp:kotlinskidev/translated-text {"tagName":"span","stringName":"service-location-faq-contact-suffix","fallbackText":".","textColor":"foreground-alt"} /-->
+</div>
+<!-- /wp:group -->
+
 </div>
 <!-- /wp:column -->
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"textColor":"primary","fontSize":"large"} -->
-<p class="has-primary-color has-text-color has-large-font-size"><strong>02</strong></p>
-<!-- /wp:paragraph -->
+<!-- wp:column {"width":"66.67%"} -->
+<div class="wp-block-column" style="flex-basis:66.67%">
 
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Projekt i wdrożenie</h3>
-<!-- /wp:heading -->
+<!-- wp:group {"className":"kt-faq-single-column","layout":{"type":"constrained"}} -->
+<div class="wp-block-group kt-faq-single-column">
 
-<!-- wp:paragraph -->
-<p>Projektujemy i budujemy stronę, konsultując każdy etap z Tobą.</p>
-<!-- /wp:paragraph -->
+<!-- wp:details {"style":{"typography":{"fontSize":"1.125rem","fontWeight":"600"}}} -->
+<details class="wp-block-details" style="font-size:1.125rem;font-weight:600"><summary>Ile trwa realizacja strony internetowej?</summary>
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq1-answer","fallbackText":"W zależności od zakresu — od 2 tygodni dla wizytówki jednostronicowej do 10 tygodni dla rozbudowanego sklepu. Termin ustalamy przed startem i trzymam go w harmonogramie.","textColor":"foreground-alt"} /-->
+</details>
+<!-- /wp:details -->
+
+<!-- wp:details {"style":{"typography":{"fontSize":"1.125rem","fontWeight":"600"}}} -->
+<details class="wp-block-details" style="font-size:1.125rem;font-weight:600"><summary>Czy spotkamy się w %CITY%?</summary>
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq-city-answer","fallbackText":"Tak — spotkania stacjonarne są możliwe na terenie miasta i aglomeracji. Cały proces można też przeprowadzić w pełni zdalnie, na spotkaniach online.","textColor":"foreground-alt"} /-->
+</details>
+<!-- /wp:details -->
+
+<!-- wp:details {"style":{"typography":{"fontSize":"1.125rem","fontWeight":"600"}}} -->
+<details class="wp-block-details" style="font-size:1.125rem;font-weight:600"><summary>Co obejmuje opieka po wdrożeniu?</summary>
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq3-answer","fallbackText":"Aktualizacje bezpieczeństwa, kopie zapasowe, monitoring dostępności, drobne poprawki treści i pomoc techniczną — na zasadach ustalonych indywidualnie.","textColor":"foreground-alt"} /-->
+</details>
+<!-- /wp:details -->
+
+<!-- wp:details {"style":{"typography":{"fontSize":"1.125rem","fontWeight":"600"}}} -->
+<details class="wp-block-details" style="font-size:1.125rem;font-weight:600"><summary>Czy strona będzie widoczna w Google?</summary>
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq-seo-answer","fallbackText":"Każdy projekt dostaje techniczne SEO: dane strukturalne, mapę witryny, poprawną strukturę nagłówków i szybkość ładowania. Pozycjonowanie na frazy lokalne prowadzę jako osobną usługę.","textColor":"foreground-alt"} /-->
+</details>
+<!-- /wp:details -->
+
+<!-- wp:details {"style":{"typography":{"fontSize":"1.125rem","fontWeight":"600"}}} -->
+<details class="wp-block-details" style="font-size:1.125rem;font-weight:600"><summary>Kto tworzy treści na stronę?</summary>
+<!-- wp:kotlinskidev/translated-text {"stringName":"service-location-faq-content-answer","fallbackText":"Możesz dostarczyć własne treści lub zlecić ich przygotowanie — wtedy przygotowuję teksty pod frazy kluczowe i strukturę strony.","textColor":"foreground-alt"} /-->
+</details>
+<!-- /wp:details -->
+
 </div>
-<!-- /wp:column -->
+<!-- /wp:group -->
 
-<!-- wp:column -->
-<div class="wp-block-column">
-<!-- wp:paragraph {"textColor":"primary","fontSize":"large"} -->
-<p class="has-primary-color has-text-color has-large-font-size"><strong>03</strong></p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Start i opieka</h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Strona trafia do sieci, a my zostajemy przy Tobie z bieżącym wsparciem.</p>
-<!-- /wp:paragraph -->
 </div>
 <!-- /wp:column -->
 
 </div>
 <!-- /wp:columns -->
-</div>
-<!-- /wp:group -->
 
-<!-- wp:group {"backgroundColor":"light-shade","style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|60"}},"border":{"radius":"0.75rem"}},"layout":{"type":"constrained","contentSize":"56.25rem"}} -->
-<div class="wp-block-group has-light-shade-background-color has-background" style="border-radius:0.75rem;padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--60)">
-
-<!-- wp:paragraph {"align":"center","style":{"typography":{"fontStyle":"italic","fontSize":"1.25rem"}}} -->
-<p class="has-text-align-center" style="font-style:italic;font-size:1.25rem">„Profesjonalne podejście od pierwszej rozmowy po wdrożenie. Strona działa szybko i wygląda dokładnie tak, jak sobie wyobrażaliśmy.”</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"align":"center","fontSize":"small"} -->
-<p class="has-text-align-center has-small-font-size">Opinia klienta z:</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph {"className":"kt-gradient-text","align":"center","metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}},"textColor":"primary","fontSize":"small"} -->
-<p class="has-text-align-center has-primary-color has-text-color has-small-font-size kt-gradient-text"><strong>Miasto</strong></p>
-<!-- /wp:paragraph -->
-
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|60","bottom":"var:preset|spacing|70"}}},"layout":{"type":"constrained","contentSize":"56.25rem"}} -->
-<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--60);padding-bottom:var(--wp--preset--spacing--70)">
-
-<!-- wp:heading {"textAlign":"center","level":2} -->
-<h2 class="wp-block-heading has-text-align-center">Najczęściej zadawane pytania</h2>
-<!-- /wp:heading -->
-
-<!-- wp:group {"style":{"spacing":{"blockGap":"1.5rem","margin":{"top":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--50)">
-
-<!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Ile trwa realizacja strony internetowej?</h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>W zależności od zakresu projektu — od wizytówki jednostronicowej po rozbudowany sklep — realizacja trwa zwykle od 2 do 6 tygodni.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Czy pracujecie zdalnie?</h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Tak, cały proces — od wyceny po wdrożenie — prowadzimy zdalnie, a konsultacje odbywają się online lub telefonicznie.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-<!-- wp:heading {"level":3,"fontSize":"medium"} -->
-<h3 class="wp-block-heading has-medium-font-size">Co obejmuje wsparcie po wdrożeniu?</h3>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Aktualizacje bezpieczeństwa, drobne poprawki treści i pomoc techniczną — na zasadach ustalonych indywidualnie.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-
-</div>
-<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 
@@ -690,9 +654,7 @@
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center"}} -->
 <div class="wp-block-group">
-<!-- wp:heading {"textAlign":"center","level":2,"textColor":"background"} -->
-<h2 class="wp-block-heading has-text-align-center has-background-color has-text-color">Rozwijamy firmy z</h2>
-<!-- /wp:heading -->
+<!-- wp:kotlinskidev/translated-text {"tagName":"h2","stringName":"service-location-cta-heading","fallbackText":"Rozwijamy firmy z","className":"has-text-align-center has-background-color has-text-color","textColor":"background"} /-->
 
 <!-- wp:heading {"textAlign":"center","level":2,"metadata":{"bindings":{"content":{"source":"core/post-meta","args":{"key":"city"}}}},"textColor":"background"} -->
 <h2 class="wp-block-heading has-text-align-center has-background-color has-text-color">Miasto</h2>
@@ -702,9 +664,11 @@
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
 <div class="wp-block-buttons">
-<!-- wp:button {"backgroundColor":"background","textColor":"foreground-alt"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-foreground-alt-color has-background-background-color has-text-color has-background wp-element-button">Skontaktuj się z nami</a></div>
-<!-- /wp:button -->
+<!-- wp:group {"className":"wp-block-button"} -->
+<div class="wp-block-group wp-block-button">
+<!-- wp:kotlinskidev/translated-text {"tagName":"a","stringName":"service-location-cta-button","fallbackText":"Skontaktuj się z nami","className":"wp-block-button__link has-foreground-alt-color has-background-background-color has-text-color has-background wp-element-button"} /-->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:buttons -->
 

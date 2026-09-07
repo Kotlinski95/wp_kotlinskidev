@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/pricing-cards",
+  "version": "1.0.0",
+  "title": "Pricing Cards",
+  "category": "layout",
+  "description": "Side-by-side pricing tiers — add or remove cards to fit any number of packages, highlight one as the recommended pick.",
+  "icon": "money-alt",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/pricing-cards.js",
+  "style": "file:../../../build/style-pricing-cards.css",
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "spacing": {
+      "padding": true,
+      "margin": ["top", "bottom"],
+      "blockGap": false
+    }
+  },
+  "attributes": {}
+}

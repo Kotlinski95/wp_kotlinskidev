@@ -32,3 +32,14 @@
 		background-attachment: scroll;
 	}
 }
+
+body:has(.main-wrapper[style*="transform"]) .wp-block-cover.enable-parallax {
+	overflow: hidden;
+	background-attachment: scroll;
+
+	> .wp-block-cover__image-background {
+		display: block;
+		top: -100%;
+		height: 300%;
+	}
+}

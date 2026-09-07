@@ -52,6 +52,11 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
     register_block_type( get_template_directory() . '/src/blocks/article-card' );
     register_block_type( get_template_directory() . '/src/blocks/project-card' );
+    register_block_type( get_template_directory() . '/src/blocks/translated-text' );
+    register_block_type( get_template_directory() . '/src/blocks/process-steps' );
+    register_block_type( get_template_directory() . '/src/blocks/process-steps/item' );
+    register_block_type( get_template_directory() . '/src/blocks/pricing-cards' );
+    register_block_type( get_template_directory() . '/src/blocks/pricing-cards/item' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
 

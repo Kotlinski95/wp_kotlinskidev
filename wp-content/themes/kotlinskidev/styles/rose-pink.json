@@ -6,14 +6,29 @@
     "color": {
       "palette": [
         {
-          "slug": "primary",
+          "slug": "primary-light",
           "color": "#e11d48",
-          "name": "Primary"
+          "name": "Primary · Light Mode"
+        },
+        {
+          "slug": "primary-dark",
+          "color": "#ec6e89",
+          "name": "Primary · Dark Mode"
+        },
+        {
+          "slug": "primary",
+          "color": "light-dark(var(--wp--preset--color--primary-light), var(--wp--preset--color--primary-dark))",
+          "name": "Primary (Adaptive)"
         },
         {
           "slug": "primary-rgb",
           "color": "225, 29, 72",
           "name": "Primary RGB"
+        },
+        {
+          "slug": "primary-dark-rgb",
+          "color": "236, 110, 137",
+          "name": "Primary Dark RGB"
         },
         {
           "slug": "primary-hover",

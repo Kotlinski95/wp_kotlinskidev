@@ -9,6 +9,7 @@ interface GsapToCall {
       pinnedContainer: HTMLElement;
       end: () => string;
       pin: HTMLElement;
+      pinSpacing: boolean;
       scrub: boolean;
       invalidateOnRefresh: boolean;
       markers?: boolean;
@@ -120,6 +121,7 @@ describe("scroll-section/init.ts", () => {
     expect(call.config.scrollTrigger.trigger).toBe(track);
     expect(call.config.scrollTrigger.pin).toBe(pageWrapper);
     expect(call.config.scrollTrigger.pinnedContainer).toBe(pageWrapper);
+    expect(call.config.scrollTrigger.pinSpacing).toBe(false);
     expect(call.config.scrollTrigger.scrub).toBe(true);
     expect(call.config.scrollTrigger.invalidateOnRefresh).toBe(true);
   });

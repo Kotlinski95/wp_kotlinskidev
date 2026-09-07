@@ -280,3 +280,180 @@ it('does not add the polish-search post state for a page using a different templ
 
     expect($states)->not->toHaveKey('polish_search');
 });
+
+it('registers all six blog/category dynamic blocks used by templates/articles.html, category.html, and article.html', function () {
+    $registry = WP_Block_Type_Registry::get_instance();
+
+    foreach ([
+        'kotlinskidev/blog-topics-grid-dynamic',
+        'kotlinskidev/category-header-dynamic',
+        'kotlinskidev/category-posts-grid-dynamic',
+        'kotlinskidev/other-topics-dynamic',
+        'kotlinskidev/article-tags-dynamic',
+        'kotlinskidev/related-articles-dynamic',
+    ] as $block_name) {
+        expect($registry->is_registered($block_name))->toBeTrue();
+    }
+});
+
+it('never references the retired static blog-topics-grid pattern from templates/articles.html again', function () {
+    $content = file_get_contents(get_template_directory() . '/templates/articles.html');
+
+    expect($content)->not->toContain('wp:pattern {"slug":"kotlinskidev/blog-topics-grid"}');
+    expect($content)->toContain('wp:kotlinskidev/blog-topics-grid-dynamic');
+});
+
+it('never references the retired static category patterns from templates/category.html again', function () {
+    $content = file_get_contents(get_template_directory() . '/templates/category.html');
+
+    expect($content)->not->toContain('wp:pattern {"slug":"kotlinskidev/category-header"}');
+    expect($content)->not->toContain('wp:pattern {"slug":"kotlinskidev/category-posts-grid"}');
+    expect($content)->not->toContain('wp:pattern {"slug":"kotlinskidev/other-topics"}');
+    expect($content)->toContain('wp:kotlinskidev/category-header-dynamic');
+    expect($content)->toContain('wp:kotlinskidev/category-posts-grid-dynamic');
+    expect($content)->toContain('wp:kotlinskidev/other-topics-dynamic');
+});
+
+it('never references the retired static article patterns from templates/article.html again', function () {
+    $content = file_get_contents(get_template_directory() . '/templates/article.html');
+
+    expect($content)->not->toContain('wp:pattern {"slug":"kotlinskidev/article-tags"}');
+    expect($content)->not->toContain('wp:pattern {"slug":"kotlinskidev/related-articles"}');
+    expect($content)->toContain('wp:kotlinskidev/article-tags-dynamic');
+    expect($content)->toContain('wp:kotlinskidev/related-articles-dynamic');
+});
+
+it('renders the real category title and article count through the category-header dynamic block, not a frozen snapshot', function () {
+    $term_id = self::factory()->category->create(['name' => 'Web Development']);
+    self::factory()->post->create(['post_category' => [$term_id]]);
+    self::factory()->post->create(['post_category' => [$term_id]]);
+    test()->go_to(get_category_link($term_id));
+
+    $html = render_block(parse_blocks('<!-- wp:kotlinskidev/category-header-dynamic /-->')[0]);
+
+    expect($html)->toContain('Web Development');
+    expect($html)->toContain('2 Articles');
+});
+
+it('renders only posts belonging to the current category archive through the category-posts-grid dynamic block', function () {
+    $term_id = self::factory()->category->create();
+    $other_term_id = self::factory()->category->create();
+    self::factory()->post->create(['post_title' => 'Matching Post', 'post_category' => [$term_id], 'post_status' => 'publish']);
+    self::factory()->post->create(['post_title' => 'Other Category Post', 'post_category' => [$other_term_id], 'post_status' => 'publish']);
+    test()->go_to(get_category_link($term_id));
+
+    $html = render_block(parse_blocks('<!-- wp:kotlinskidev/category-posts-grid-dynamic /-->')[0]);
+
+    expect($html)->toContain('Matching Post');
+    expect($html)->not->toContain('Other Category Post');
+});
+
+it('scopes the category-posts-grid dynamic block\'s query to the current Polylang language', function () {
+    $term_id = self::factory()->category->create();
+    self::factory()->post->create(['post_category' => [$term_id]]);
+    test()->go_to(get_category_link($term_id));
+
+    $captured = null;
+    $capture = function ($query) use (&$captured) {
+        if ($query->get('cat')) {
+            $captured = $query;
+        }
+    };
+    add_action('pre_get_posts', $capture);
+
+    render_block(parse_blocks('<!-- wp:kotlinskidev/category-posts-grid-dynamic /-->')[0]);
+
+    remove_action('pre_get_posts', $capture);
+
+    expect($captured)->not->toBeNull();
+    expect(array_key_exists('lang', $captured->query_vars))->toBeTrue();
+});
+
+it('excludes the current category and "Uncategorized" from the other-topics dynamic block', function () {
+    $current_term_id = self::factory()->category->create(['name' => 'Current Topic']);
+    $sibling_term_id = self::factory()->category->create(['name' => 'Sibling Topic']);
+    self::factory()->post->create(['post_category' => [$current_term_id]]);
+    self::factory()->post->create(['post_category' => [$sibling_term_id]]);
+    test()->go_to(get_category_link($current_term_id));
+
+    $html = render_block(parse_blocks('<!-- wp:kotlinskidev/other-topics-dynamic /-->')[0]);
+
+    expect($html)->toContain('Sibling Topic');
+    expect($html)->not->toContain('Current Topic');
+});
+
+it('scopes the other-topics dynamic block\'s category lookup to the current Polylang language', function () {
+    $current_term_id = self::factory()->category->create();
+    self::factory()->category->create();
+    test()->go_to(get_category_link($current_term_id));
+
+    $captured_args = null;
+    $capture = function ($args, $taxonomies) use (&$captured_args) {
+        if (in_array('category', (array) $taxonomies, true) && isset($args['number']) && $args['number'] === 4) {
+            $captured_args = $args;
+        }
+        return $args;
+    };
+    add_filter('get_terms_args', $capture, 10, 2);
+
+    render_block(parse_blocks('<!-- wp:kotlinskidev/other-topics-dynamic /-->')[0]);
+
+    remove_filter('get_terms_args', $capture, 10);
+
+    expect($captured_args)->not->toBeNull();
+    expect(array_key_exists('lang', $captured_args))->toBeTrue();
+});
+
+it('renders the Tags heading through the article-tags dynamic block', function () {
+    $post_id = self::factory()->post->create(['tags_input' => ['PHP']]);
+    test()->go_to(get_permalink($post_id));
+
+    $html = render_block(parse_blocks('<!-- wp:kotlinskidev/article-tags-dynamic /-->')[0]);
+
+    expect($html)->toContain('Tags');
+});
+
+it('varies related articles per current post through the related-articles dynamic block, excluding the post itself', function () {
+    $term_id = self::factory()->category->create();
+    $post_a = self::factory()->post->create(['post_title' => 'Post A', 'post_category' => [$term_id]]);
+    $post_b = self::factory()->post->create(['post_title' => 'Post B', 'post_category' => [$term_id]]);
+    $post_c = self::factory()->post->create(['post_title' => 'Post C', 'post_category' => [$term_id]]);
+
+    test()->go_to(get_permalink($post_a));
+    $html_a = render_block(parse_blocks('<!-- wp:kotlinskidev/related-articles-dynamic /-->')[0]);
+
+    test()->go_to(get_permalink($post_b));
+    $html_b = render_block(parse_blocks('<!-- wp:kotlinskidev/related-articles-dynamic /-->')[0]);
+
+    expect($html_a)->not->toContain('Post A');
+    expect($html_a)->toContain('Post B');
+    expect($html_a)->toContain('Post C');
+
+    expect($html_b)->not->toContain('Post B');
+    expect($html_b)->toContain('Post A');
+    expect($html_b)->toContain('Post C');
+});
+
+it('scopes every related-articles priority-tier query to the current Polylang language', function () {
+    $term_id = self::factory()->category->create();
+    $post_id = self::factory()->post->create(['post_category' => [$term_id]]);
+    self::factory()->post->create(['post_category' => [$term_id]]);
+    test()->go_to(get_permalink($post_id));
+
+    $captured = [];
+    $capture = function ($query) use (&$captured) {
+        if ($query->get('post_type') === 'post' && $query->is_main_query() === false) {
+            $captured[] = $query;
+        }
+    };
+    add_action('pre_get_posts', $capture);
+
+    render_block(parse_blocks('<!-- wp:kotlinskidev/related-articles-dynamic /-->')[0]);
+
+    remove_action('pre_get_posts', $capture);
+
+    expect($captured)->not->toBeEmpty();
+    foreach ($captured as $query) {
+        expect(array_key_exists('lang', $query->query_vars))->toBeTrue();
+    }
+});

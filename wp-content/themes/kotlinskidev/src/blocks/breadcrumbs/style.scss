@@ -36,24 +36,31 @@
 
 .kt-breadcrumbs__list {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	align-items: center;
 	max-width: 73.75rem;
 	margin-inline: auto;
 	padding-inline: var(--wp--preset--spacing--40);
 	padding-block: 0.625rem;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	white-space: nowrap;
+	scrollbar-width: thin;
 }
 
 .kt-breadcrumbs__item {
+	flex-shrink: 0;
 	color: inherit;
 	text-decoration: none;
 }
 
 .kt-breadcrumbs__separator {
+	flex-shrink: 0;
 	margin: 0 0.5rem;
 	color: var(--wp--preset--color--foreground-alt);
 }
 
 .kt-breadcrumbs__current {
+	flex-shrink: 0;
 	color: var(--wp--preset--color--foreground-alt);
 }

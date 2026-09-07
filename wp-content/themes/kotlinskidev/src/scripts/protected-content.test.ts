@@ -68,11 +68,24 @@ function wait(ms: number) {
 }
 
 describe("protected-content.ts", () => {
+  let clickListeners: EventListener[];
+  const originalAddEventListener = document.addEventListener.bind(document);
+
   beforeEach(() => {
     mockIntersectionObserver();
+
+    clickListeners = [];
+    jest.spyOn(document, "addEventListener").mockImplementation((type, listener, options) => {
+      if (type === "click") {
+        clickListeners.push(listener as EventListener);
+      }
+      return originalAddEventListener(type, listener as EventListener, options);
+    });
   });
 
   afterEach(() => {
+    clickListeners.forEach((listener) => document.removeEventListener("click", listener));
+    jest.restoreAllMocks();
     delete (window as unknown as { IntersectionObserver?: unknown }).IntersectionObserver;
     delete (global as unknown as { fetch?: unknown }).fetch;
     delete (window as unknown as { kotlinskidevProtectionConfig?: unknown })
@@ -256,5 +269,128 @@ describe("protected-content.ts", () => {
     await wait(10);
 
     expect(observeSpy).toHaveBeenCalledWith(el);
+  });
+
+  describe("copy-to-clipboard button", () => {
+    let writeTextSpy: jest.Mock;
+
+    function buildCopyButton() {
+      document.body.innerHTML = `
+        <button
+          class="kt-copy-btn kt-tooltip"
+          data-copy-value="hello@example.test"
+          data-tooltip="Copy to clipboard"
+          data-copy-label="Copy to clipboard"
+          data-copied-label="Copied to clipboard"
+          aria-label="Copy to clipboard"
+        ></button>
+      `;
+      return document.querySelector<HTMLButtonElement>(".kt-copy-btn")!;
+    }
+
+    beforeEach(() => {
+      writeTextSpy = jest.fn().mockResolvedValue(undefined);
+      Object.assign(navigator, { clipboard: { writeText: writeTextSpy } });
+    });
+
+    it("copies the button's data-copy-value to the clipboard", async () => {
+      const button = buildCopyButton();
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      expect(writeTextSpy).toHaveBeenCalledWith("hello@example.test");
+    });
+
+    it("switches to the translated copied-label and shows the tooltip on success", async () => {
+      const button = buildCopyButton();
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      expect(button.classList.contains("kt-copy-btn--copied")).toBe(true);
+      expect(button.classList.contains("kt-tooltip--visible")).toBe(true);
+      expect(button.getAttribute("aria-label")).toBe("Copied to clipboard");
+      expect(button.getAttribute("data-tooltip")).toBe("Copied to clipboard");
+    });
+
+    it("reverts to the copy-label and hides the tooltip after the feedback window", async () => {
+      const button = buildCopyButton();
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(1600);
+
+      expect(button.classList.contains("kt-copy-btn--copied")).toBe(false);
+      expect(button.classList.contains("kt-tooltip--visible")).toBe(false);
+      expect(button.getAttribute("aria-label")).toBe("Copy to clipboard");
+      expect(button.getAttribute("data-tooltip")).toBe("Copy to clipboard");
+    }, 10000);
+
+    it("does not revert early when clicked again before the feedback window elapses", async () => {
+      const button = buildCopyButton();
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(1000);
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(1000);
+
+      expect(button.classList.contains("kt-copy-btn--copied")).toBe(true);
+      expect(button.getAttribute("data-tooltip")).toBe("Copied to clipboard");
+    }, 10000);
+
+    it("falls back to execCommand copy when the Clipboard API write fails, still showing success", async () => {
+      const button = buildCopyButton();
+      writeTextSpy.mockRejectedValueOnce(new Error("denied"));
+      const execCommandSpy = jest.fn().mockReturnValue(true);
+      Object.assign(document, { execCommand: execCommandSpy });
+      const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      expect(execCommandSpy).toHaveBeenCalledWith("copy");
+      expect(button.classList.contains("kt-copy-btn--copied")).toBe(true);
+      expect(button.getAttribute("data-tooltip")).toBe("Copied to clipboard");
+      errorSpy.mockRestore();
+      execCommandSpy.mockRestore();
+    });
+
+    it("falls back to execCommand copy when navigator.clipboard is unavailable", async () => {
+      const button = buildCopyButton();
+      Object.assign(navigator, { clipboard: undefined });
+      const execCommandSpy = jest.fn().mockReturnValue(true);
+      Object.assign(document, { execCommand: execCommandSpy });
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      expect(execCommandSpy).toHaveBeenCalledWith("copy");
+      expect(button.classList.contains("kt-copy-btn--copied")).toBe(true);
+      execCommandSpy.mockRestore();
+    });
+
+    it("does not show copied feedback when both the Clipboard API and execCommand fail", async () => {
+      const button = buildCopyButton();
+      writeTextSpy.mockRejectedValueOnce(new Error("denied"));
+      const execCommandSpy = jest.fn().mockReturnValue(false);
+      Object.assign(document, { execCommand: execCommandSpy });
+      const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      expect(button.classList.contains("kt-copy-btn--copied")).toBe(false);
+      expect(button.getAttribute("data-tooltip")).toBe("Copy to clipboard");
+      expect(errorSpy).toHaveBeenCalled();
+      errorSpy.mockRestore();
+      execCommandSpy.mockRestore();
+    });
   });
 });
