@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-09-07T13:26:15+00:00\n"
+"POT-Creation-Date: 2026-09-11T08:19:59+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -45,6 +45,30 @@ msgstr ""
 msgid "Adrian Kotliński"
 msgstr "Adrian Kotliński"
 
+#: build/blocks/contact-detail/render.php:16 functions/contact-card.php:57
+#: functions/settings-page.php:658 src/blocks/contact-detail/render.php:16
+#: build/js/contact-detail.js:1 build/js/google-maps.js:1
+#: build/js/protected-content.js:1
+msgid "Address"
+msgstr "Address"
+
+#: build/blocks/contact-detail/render.php:17 functions/contact-card.php:69
+#: functions/settings-page.php:666 src/blocks/contact-detail/render.php:17
+#: build/js/contact-detail.js:1 build/js/protected-content.js:1
+msgid "Phone"
+msgstr "Phone"
+
+#: build/blocks/contact-detail/render.php:18 functions/contact-card.php:75
+#: functions/settings-page.php:674 src/blocks/contact-detail/render.php:18
+#: build/js/contact-detail.js:1 build/js/protected-content.js:1
+msgid "Email"
+msgstr "Email"
+
+#: build/blocks/contact-detail/render.php:19 functions/contact-card.php:63
+#: src/blocks/contact-detail/render.php:19 build/js/contact-detail.js:1
+msgid "Hours"
+msgstr "Hours"
+
 #: build/blocks/google-maps/render.php:29 src/blocks/google-maps/render.php:29
 msgid ""
 "Please provide a Google Maps API key and address or coordinates in the block"
@@ -54,14 +78,14 @@ msgstr ""
 " settings."
 
 #: build/blocks/google-maps/render.php:39 src/blocks/google-maps/render.php:39
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Reset View"
 msgstr "Reset View"
 
 #: build/blocks/language-panel/render.php:19
 #: build/blocks/navigation/render.php:268
 #: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:268 build/language-panel.js:1
+#: src/blocks/navigation/render.php:268 build/js/language-panel.js:1
 msgid "Language"
 msgstr "Language"
 
@@ -92,7 +116,7 @@ msgstr "Menu"
 
 #: build/blocks/navigation/render.php:243
 #: build/blocks/search-panel/render.php:3 src/blocks/navigation/render.php:243
-#: src/blocks/search-panel/render.php:3 build/search-panel.js:1
+#: src/blocks/search-panel/render.php:3 build/js/search-panel.js:1
 msgid "Search"
 msgstr "Search"
 
@@ -101,7 +125,7 @@ msgid "Main navigation"
 msgstr "Main navigation"
 
 #: build/blocks/pricing-cards/item/render.php:23
-#: src/blocks/pricing-cards/item/render.php:23 build/pricing-cards.js:1
+#: src/blocks/pricing-cards/item/render.php:23 build/js/pricing-cards.js:1
 msgid "Most popular"
 msgstr "Most popular"
 
@@ -120,11 +144,35 @@ msgstr ""
 "Proudly powered by <a href=\"https://kotlinskidev.com/\">Adrian "
 "Kotlinski</a> | All rights reserved"
 
+#: functions/ai-disclosure-labels.php:5
+msgid "AI-generated video"
+msgstr "AI-generated video"
+
+#: functions/ai-disclosure-labels.php:8
+msgid "AI-generated image"
+msgstr "AI-generated image"
+
+#: functions/ai-disclosure-labels.php:33
+msgid "AI-generated"
+msgstr "AI-generated"
+
+#: functions/ai-disclosure-labels.php:35
+msgid "Show a visible disclosure label wherever this media is used"
+msgstr "Show a visible disclosure label wherever this media is used"
+
+#: functions/ai-disclosure-labels.php:36
+msgid ""
+"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies"
+" automatically to every Image or Cover block using this file."
+msgstr ""
+"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies"
+" automatically to every Image or Cover block using this file."
+
 #: functions/article-card.php:5
 msgid "Article Cards"
 msgstr "Article Cards"
 
-#: functions/article-card.php:6 build/article-card.js:1
+#: functions/article-card.php:6 build/js/article-card.js:1
 msgid "Article Card"
 msgstr "Article Card"
 
@@ -176,7 +224,7 @@ msgstr "Filter by Tags"
 msgid "Hold Ctrl/Cmd to select multiple tags"
 msgstr "Hold Ctrl/Cmd to select multiple tags"
 
-#: functions/article-query-manager.php:74 build/simple-grid.js:1
+#: functions/article-query-manager.php:74 build/js/simple-grid.js:1
 msgid "Columns"
 msgstr "Columns"
 
@@ -220,7 +268,7 @@ msgstr "Order By"
 msgid "Date"
 msgstr "Date"
 
-#: functions/article-query-manager.php:100 build/popular-pages.js:1
+#: functions/article-query-manager.php:100 build/js/popular-pages.js:1
 msgid "Title"
 msgstr "Title"
 
@@ -252,8 +300,8 @@ msgstr "How to sort the articles"
 msgid "Mark as Featured Article"
 msgstr "Mark as Featured Article"
 
-#: functions/blocks.php:7 build/navigation.js:1 build/simple-grid.js:1
-#: build/slider.js:1
+#: functions/blocks.php:7 build/js/navigation.js:1 build/js/simple-grid.js:1
+#: build/js/slider.js:1
 msgid "Navigation"
 msgstr "Navigation"
 
@@ -442,7 +490,7 @@ msgstr "Create Your First Topic"
 #: functions/blog-topic-manager.php:809 functions/blog-topic-manager.php:868
 #: functions/search-page-dynamic-blocks.php:84
 #: functions/search-page-dynamic-blocks.php:405
-#: functions/tag-archive-manager.php:32 build/article-card-panel.js:1
+#: functions/tag-archive-manager.php:32 build/js/article-card-panel.js:1
 msgid "Article"
 msgstr "Article"
 
@@ -508,7 +556,7 @@ msgstr "Updated %s"
 msgid "No other topics available yet."
 msgstr "No other topics available yet."
 
-#: functions/blog-topic-manager.php:1116 build/project-card-panel.js:1
+#: functions/blog-topic-manager.php:1116 build/js/project-card-panel.js:1
 msgid "Tags"
 msgstr "Tags"
 
@@ -537,108 +585,89 @@ msgstr "No related articles found."
 msgid "Search results for \"%s\""
 msgstr "Search results for \"%s\""
 
-#: functions/cache.php:235 functions/cache.php:236
+#: functions/cache.php:242 functions/cache.php:243
 msgid "Theme Cache"
 msgstr "Theme Cache"
 
-#: functions/cache.php:254
+#: functions/cache.php:261
 msgid "Theme cache cleared successfully."
 msgstr "Theme cache cleared successfully."
 
-#: functions/cache.php:275
+#: functions/cache.php:282
 msgid "kotlinskidev — Theme Cache"
 msgstr "kotlinskidev — Theme Cache"
 
-#: functions/cache.php:277
+#: functions/cache.php:284
 msgid "Cached entries currently stored in the database:"
 msgstr "Cached entries currently stored in the database:"
 
-#: functions/cache.php:283
+#: functions/cache.php:290
 msgid "Cache group"
 msgstr "Cache group"
 
-#: functions/cache.php:284
+#: functions/cache.php:291
 msgid "Key pattern"
 msgstr "Key pattern"
 
-#: functions/cache.php:285
+#: functions/cache.php:292
 msgid "Invalidated by"
 msgstr "Invalidated by"
 
-#: functions/cache.php:290
+#: functions/cache.php:297
 msgid "Critical CSS"
 msgstr "Critical CSS"
 
-#: functions/cache.php:292 functions/cache.php:297
+#: functions/cache.php:299 functions/cache.php:304
 msgid "Build deploy (filemtime)"
 msgstr "Build deploy (filemtime)"
 
-#: functions/cache.php:295
+#: functions/cache.php:302
 msgid "Critical JS"
 msgstr "Critical JS"
 
-#: functions/cache.php:300
+#: functions/cache.php:307
 msgid "JS translations"
 msgstr "JS translations"
 
-#: functions/cache.php:302
+#: functions/cache.php:309
 msgid "Language file update / manual flush"
 msgstr "Language file update / manual flush"
 
-#: functions/cache.php:305
+#: functions/cache.php:312
 msgid "Image dimensions"
 msgstr "Image dimensions"
 
-#: functions/cache.php:307 functions/cache.php:317
+#: functions/cache.php:314 functions/cache.php:324
 msgid "Attachment edit / delete / manual flush"
 msgstr "Attachment edit / delete / manual flush"
 
-#: functions/cache.php:310
+#: functions/cache.php:317
 msgid "Popular posts"
 msgstr "Popular posts"
 
-#: functions/cache.php:312
+#: functions/cache.php:319
 msgid "15 minute TTL / manual flush"
 msgstr "15 minute TTL / manual flush"
 
-#: functions/cache.php:315
+#: functions/cache.php:322
 msgid "Inlined SVGs"
 msgstr "Inlined SVGs"
 
-#: functions/cache.php:320
+#: functions/cache.php:327
 msgid "Build fingerprint"
 msgstr "Build fingerprint"
 
-#: functions/cache.php:322
+#: functions/cache.php:329
 msgid "Set automatically on every new build"
 msgstr "Set automatically on every new build"
 
-#: functions/cache.php:331
+#: functions/cache.php:338
 msgid "Clear all theme cache"
 msgstr "Clear all theme cache"
 
 #: functions/contact-card.php:53
 msgid "Contact details"
 msgstr "Contact details"
-
-#: functions/contact-card.php:57 functions/settings-page.php:653
-#: build/google-maps.js:1 build/protected-content.js:1
-msgid "Address"
-msgstr "Address"
-
-#: functions/contact-card.php:63
-msgid "Hours"
-msgstr "Hours"
-
-#: functions/contact-card.php:69 functions/settings-page.php:661
-#: build/protected-content.js:1
-msgid "Phone"
-msgstr "Phone"
-
-#: functions/contact-card.php:75 functions/settings-page.php:669
-#: build/protected-content.js:1
-msgid "Email"
-msgstr "Email"
 
 #: functions/contact-card.php:87 functions/service-locations.php:253
 msgid "Contact Card"
@@ -648,7 +677,7 @@ msgstr "Contact Card"
 msgid "Security check failed. Please reload the page and try again."
 msgstr "Security check failed. Please reload the page and try again."
 
-#: functions/customizer.php:6 build/editor.js:1
+#: functions/customizer.php:6 build/js/editor.js:1
 msgid "Lazy Loading Settings"
 msgstr "Lazy Loading Settings"
 
@@ -715,11 +744,19 @@ msgstr "Zobacz projekty"
 msgid "Kontakt"
 msgstr "Kontakt"
 
+#: functions/marquee.php:6 functions/modals.php:129
+msgid "Close"
+msgstr "Close"
+
+#: functions/marquee.php:11
+msgid "View documentation"
+msgstr "View documentation"
+
 #: functions/modals.php:5
 msgid "Modals"
 msgstr "Modals"
 
-#: functions/modals.php:6 build/editor.js:37
+#: functions/modals.php:6 build/js/editor.js:37
 msgid "Modal"
 msgstr "Modal"
 
@@ -738,10 +775,6 @@ msgstr "Search Modals"
 #: functions/modals.php:10
 msgid "No modals found"
 msgstr "No modals found"
-
-#: functions/modals.php:129
-msgid "Close"
-msgstr "Close"
 
 #: functions/patterns.php:5
 msgid "FAQs"
@@ -787,7 +820,7 @@ msgstr "Language option"
 msgid "Project Cards"
 msgstr "Project Cards"
 
-#: functions/project-card.php:6 build/project-card.js:1
+#: functions/project-card.php:6 build/js/project-card.js:1
 msgid "Project Card"
 msgstr "Project Card"
 
@@ -1007,7 +1040,7 @@ msgstr "Copy to clipboard"
 msgid "Copied to clipboard"
 msgstr "Copied to clipboard"
 
-#: functions/protection-helpers.php:678
+#: functions/protection-helpers.php:683
 msgid ""
 "Security token expired. This may be due to page caching. Please refresh the "
 "page and try again."
@@ -1015,15 +1048,15 @@ msgstr ""
 "Security token expired. This may be due to page caching. Please refresh the "
 "page and try again."
 
-#: functions/protection-helpers.php:687
+#: functions/protection-helpers.php:692
 msgid "No content provided"
 msgstr "No content provided"
 
-#: functions/protection-helpers.php:691
+#: functions/protection-helpers.php:696
 msgid "Too many items requested"
 msgstr "Too many items requested"
 
-#: functions/scroll-top-top.php:22 build/scroll-to-top.js:1
+#: functions/scroll-top-top.php:22 build/js/scroll-to-top.js:1
 msgid "Scroll to Top"
 msgstr "Scroll to Top"
 
@@ -1249,7 +1282,7 @@ msgstr "Kotlinski.dev"
 msgid "General"
 msgstr "General"
 
-#: functions/settings-page.php:24 functions/settings-page.php:120
+#: functions/settings-page.php:24 functions/settings-page.php:125
 msgid "Theme Mode"
 msgstr "Theme Mode"
 
@@ -1277,147 +1310,182 @@ msgstr "Contact Info"
 msgid "Advanced"
 msgstr "Advanced"
 
-#: functions/settings-page.php:85
+#: functions/settings-page.php:59
+msgid "Error Monitoring"
+msgstr "Error Monitoring"
+
+#: functions/settings-page.php:90
 msgid "Comment Spam Protection"
 msgstr "Comment Spam Protection"
 
-#: functions/settings-page.php:92
+#: functions/settings-page.php:97
 msgid "Disable comments"
 msgstr "Disable comments"
 
-#: functions/settings-page.php:127
+#: functions/settings-page.php:132
 msgid "Light/dark switching"
 msgstr "Light/dark switching"
 
-#: functions/settings-page.php:135
+#: functions/settings-page.php:140
 msgid "Default mode"
 msgstr "Default mode"
 
-#: functions/settings-page.php:173
+#: functions/settings-page.php:178
 msgid "Responsive Breakpoints"
 msgstr "Responsive Breakpoints"
 
-#: functions/settings-page.php:180
+#: functions/settings-page.php:185
 msgid "Mobile max width (px)"
 msgstr "Mobile max width (px)"
 
-#: functions/settings-page.php:188
+#: functions/settings-page.php:193
 msgid "Tablet max width (px)"
 msgstr "Tablet max width (px)"
 
-#: functions/settings-page.php:196
+#: functions/settings-page.php:201
 msgid "Large desktop min width (px)"
 msgstr "Large desktop min width (px)"
 
-#: functions/settings-page.php:224
+#: functions/settings-page.php:229
 msgid "Anchor Scroll Offset"
 msgstr "Anchor Scroll Offset"
 
-#: functions/settings-page.php:231
+#: functions/settings-page.php:236
 msgid "Desktop offset (px)"
 msgstr "Desktop offset (px)"
 
-#: functions/settings-page.php:239
+#: functions/settings-page.php:244
 msgid "Mobile offset (px)"
 msgstr "Mobile offset (px)"
 
-#: functions/settings-page.php:267
+#: functions/settings-page.php:272
 msgid "Active Page Links"
 msgstr "Active Page Links"
 
-#: functions/settings-page.php:274
+#: functions/settings-page.php:279
 msgid "Highlight active-page links"
 msgstr "Highlight active-page links"
 
-#: functions/settings-page.php:282
+#: functions/settings-page.php:287
 msgid "Disable current-page link clicks"
 msgstr "Disable current-page link clicks"
 
-#: functions/settings-page.php:340
+#: functions/settings-page.php:345
 msgid "Login Page Branding"
 msgstr "Login Page Branding"
 
-#: functions/settings-page.php:347
+#: functions/settings-page.php:352
 msgid "Enable custom login"
 msgstr "Enable custom login"
 
-#: functions/settings-page.php:355
+#: functions/settings-page.php:360
 msgid "Background image"
 msgstr "Background image"
 
-#: functions/settings-page.php:363
+#: functions/settings-page.php:368
 msgid "Logo image"
 msgstr "Logo image"
 
-#: functions/settings-page.php:371 build/editor.js:28 build/model-viewer.js:1
+#: functions/settings-page.php:376 build/js/editor.js:28
+#: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr "Background color"
 
-#: functions/settings-page.php:379
+#: functions/settings-page.php:384
 msgid "Accent color"
 msgstr "Accent color"
 
-#: functions/settings-page.php:425
+#: functions/settings-page.php:430
 msgid "Facebook Pixel"
 msgstr "Facebook Pixel"
 
-#: functions/settings-page.php:432
+#: functions/settings-page.php:437
 msgid "Pixel ID"
 msgstr "Pixel ID"
 
-#: functions/settings-page.php:440 functions/settings-page.php:463
+#: functions/settings-page.php:445 functions/settings-page.php:468
 msgid "Custom script (overrides ID)"
 msgstr "Custom script (overrides ID)"
 
-#: functions/settings-page.php:448
+#: functions/settings-page.php:453
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: functions/settings-page.php:455
+#: functions/settings-page.php:460
 msgid "Measurement ID"
 msgstr "Measurement ID"
 
-#: functions/settings-page.php:514
+#: functions/settings-page.php:519
 msgid "Content Security Policy"
 msgstr "Content Security Policy"
 
-#: functions/settings-page.php:521
+#: functions/settings-page.php:526
 msgid "Enable CSP"
 msgstr "Enable CSP"
 
-#: functions/settings-page.php:529
+#: functions/settings-page.php:534
 msgid "Mode"
 msgstr "Mode"
 
-#: functions/settings-page.php:537
+#: functions/settings-page.php:542
 msgid "Upgrade insecure requests"
 msgstr "Upgrade insecure requests"
 
-#: functions/settings-page.php:545
+#: functions/settings-page.php:550
 msgid "CSP Directives"
 msgstr "CSP Directives"
 
-#: functions/settings-page.php:583
+#: functions/settings-page.php:588
 msgid "Other Security Headers"
 msgstr "Other Security Headers"
 
-#: functions/settings-page.php:590
+#: functions/settings-page.php:595
 msgid "Referrer-Policy"
 msgstr "Referrer-Policy"
 
-#: functions/settings-page.php:598
+#: functions/settings-page.php:603
 msgid "Permissions-Policy"
 msgstr "Permissions-Policy"
 
-#: functions/settings-page.php:646
+#: functions/settings-page.php:651
 msgid "Business Contact Details"
 msgstr "Business Contact Details"
 
-#: functions/settings-page.php:677
+#: functions/settings-page.php:682
 msgid "Business hours"
 msgstr "Business hours"
 
-#: functions/settings-page.php:686
+#: functions/settings-page.php:700
+msgid "Sentry"
+msgstr "Sentry"
+
+#: functions/settings-page.php:707
+msgid "DSN"
+msgstr "DSN"
+
+#: functions/settings-page.php:716
+msgid ""
+"Reports uncaught PHP exceptions and fatal errors (the class of bug that "
+"shows visitors a broken page) to Sentry. Regular "
+"warnings/notices/deprecations are not sent — this is scoped to failures that"
+" actually break a page, to stay well inside a free-tier event quota. Only "
+"active when WP_DEBUG is off, so local development never sends events."
+msgstr ""
+"Reports uncaught PHP exceptions and fatal errors (the class of bug that "
+"shows visitors a broken page) to Sentry. Regular "
+"warnings/notices/deprecations are not sent — this is scoped to failures that"
+" actually break a page, to stay well inside a free-tier event quota. Only "
+"active when WP_DEBUG is off, so local development never sends events."
+
+#: functions/settings-page.php:725
+msgid ""
+"From your Sentry project (Settings → Client Keys). Leave empty to disable "
+"reporting."
+msgstr ""
+"From your Sentry project (Settings → Client Keys). Leave empty to disable "
+"reporting."
+
+#: functions/settings-page.php:732
 msgid ""
 "Used on the contact card shown across the site (e.g. city landing pages). "
 "Address, phone, and email are shown obfuscated on the frontend and only "
@@ -1429,24 +1497,24 @@ msgstr ""
 "revealed after a click, via the same protection used by the Protected "
 "Content block."
 
-#: functions/settings-page.php:711
+#: functions/settings-page.php:757
 msgid "Edit source text"
 msgstr "Edit source text"
 
-#: functions/settings-page.php:713
+#: functions/settings-page.php:759
 msgid "This is the source text shown until a per-language translation exists."
 msgstr ""
 "This is the source text shown until a per-language translation exists."
 
-#: functions/settings-page.php:714
+#: functions/settings-page.php:760
 msgid "Translate per language →"
 msgstr "Translate per language →"
 
-#: functions/settings-page.php:751
+#: functions/settings-page.php:797
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr "Shown as plain text — not sensitive, so not obfuscated."
 
-#: functions/settings-page.php:776
+#: functions/settings-page.php:822
 msgid ""
 "This site does not use comments. Enabling this protection closes comments at"
 " the server level — spam bots that POST directly to wp-comments-post.php or "
@@ -1460,11 +1528,11 @@ msgstr ""
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
 
-#: functions/settings-page.php:790
+#: functions/settings-page.php:836
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr "Block all comment submissions site-wide (recommended)"
 
-#: functions/settings-page.php:793
+#: functions/settings-page.php:839
 msgid ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
@@ -1472,7 +1540,7 @@ msgstr ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
 
-#: functions/settings-page.php:800
+#: functions/settings-page.php:846
 msgid ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
@@ -1480,23 +1548,23 @@ msgstr ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
 
-#: functions/settings-page.php:814
+#: functions/settings-page.php:860
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr "Show the theme switcher and let visitors toggle light/dark mode"
 
-#: functions/settings-page.php:823
+#: functions/settings-page.php:869
 msgid "Auto (visitor system preference)"
 msgstr "Auto (visitor system preference)"
 
-#: functions/settings-page.php:824
+#: functions/settings-page.php:870
 msgid "Light"
 msgstr "Light"
 
-#: functions/settings-page.php:825
+#: functions/settings-page.php:871
 msgid "Dark"
 msgstr "Dark"
 
-#: functions/settings-page.php:836
+#: functions/settings-page.php:882
 msgid ""
 "Initial mode for visitors without a saved preference. With switching "
 "disabled, this is the only mode used."
@@ -1504,7 +1572,7 @@ msgstr ""
 "Initial mode for visitors without a saved preference. With switching "
 "disabled, this is the only mode used."
 
-#: functions/settings-page.php:844
+#: functions/settings-page.php:890
 msgid ""
 "One source of truth for responsive ranges. These values drive the compiled "
 "theme CSS (media queries are rewritten at runtime and cached), the editor "
@@ -1516,34 +1584,37 @@ msgstr ""
 "responsive controls, frontend scripts, and any plugin reading the "
 "mobile_breakpoint / tablet_breakpoint theme mods."
 
-#: functions/settings-page.php:846
+#: functions/settings-page.php:892
 msgid "Range"
 msgstr "Range"
 
-#: functions/settings-page.php:847
+#: functions/settings-page.php:893
 msgid "Effective values"
 msgstr "Effective values"
 
-#: functions/settings-page.php:848 build/content-tabs.js:1 build/editor.js:16
-#: build/editor.js:25 build/editor.js:34 build/editor.js:37
+#: functions/settings-page.php:894 build/js/content-tabs.js:1
+#: build/js/editor.js:16 build/js/editor.js:25 build/js/editor.js:34
+#: build/js/editor.js:37
 msgid "Mobile"
 msgstr "Mobile"
 
-#: functions/settings-page.php:849 build/content-tabs.js:1 build/editor.js:13
-#: build/editor.js:22 build/editor.js:31 build/editor.js:37
+#: functions/settings-page.php:895 build/js/content-tabs.js:1
+#: build/js/editor.js:13 build/js/editor.js:22 build/js/editor.js:31
+#: build/js/editor.js:37
 msgid "Tablet"
 msgstr "Tablet"
 
-#: functions/settings-page.php:850 build/content-tabs.js:1 build/editor.js:10
-#: build/editor.js:19 build/editor.js:28 build/editor.js:37
+#: functions/settings-page.php:896 build/js/content-tabs.js:1
+#: build/js/editor.js:10 build/js/editor.js:19 build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Desktop"
 msgstr "Desktop"
 
-#: functions/settings-page.php:851
+#: functions/settings-page.php:897
 msgid "Large desktop"
 msgstr "Large desktop"
 
-#: functions/settings-page.php:861
+#: functions/settings-page.php:907
 msgid ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
@@ -1551,7 +1622,7 @@ msgstr ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
 
-#: functions/settings-page.php:872
+#: functions/settings-page.php:918
 msgid ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
@@ -1559,7 +1630,7 @@ msgstr ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
 
-#: functions/settings-page.php:883
+#: functions/settings-page.php:929
 msgid ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
@@ -1567,7 +1638,7 @@ msgstr ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
 
-#: functions/settings-page.php:890
+#: functions/settings-page.php:936
 msgid ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
@@ -1582,7 +1653,7 @@ msgstr ""
 " the page, so it typically needs little or no offset."
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:903
+#: functions/settings-page.php:949
 #, php-format
 msgid ""
 "Applies above the desktop breakpoint, where the header stays visible while "
@@ -1592,7 +1663,7 @@ msgstr ""
 "scrolling. Theme default: %d (matches the header height)."
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:921
+#: functions/settings-page.php:967
 #, php-format
 msgid ""
 "Applies below the desktop breakpoint, where the header hides on scroll. "
@@ -1603,7 +1674,7 @@ msgstr ""
 "Theme default: %d, since the header is typically hidden by the time the "
 "scroll finishes."
 
-#: functions/settings-page.php:931
+#: functions/settings-page.php:977
 msgid ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
@@ -1619,7 +1690,7 @@ msgstr ""
 "Individual blocks can still opt out from their own Advanced panel regardless"
 " of these settings."
 
-#: functions/settings-page.php:940
+#: functions/settings-page.php:986
 msgid ""
 "Mark links pointing at the current page with the active hover-style "
 "highlight"
@@ -1627,7 +1698,7 @@ msgstr ""
 "Mark links pointing at the current page with the active hover-style "
 "highlight"
 
-#: functions/settings-page.php:943
+#: functions/settings-page.php:989
 msgid ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
@@ -1635,7 +1706,7 @@ msgstr ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 
-#: functions/settings-page.php:954
+#: functions/settings-page.php:1000
 msgid ""
 "Prevent clicking a link/button that points at the page currently being "
 "viewed"
@@ -1643,7 +1714,7 @@ msgstr ""
 "Prevent clicking a link/button that points at the page currently being "
 "viewed"
 
-#: functions/settings-page.php:957
+#: functions/settings-page.php:1003
 msgid ""
 "Adds aria-disabled and removes the link from tab order. Menu items that also"
 " open a mega-menu panel stay fully interactive. Has no effect if "
@@ -1653,35 +1724,35 @@ msgstr ""
 " open a mega-menu panel stay fully interactive. Has no effect if "
 "highlighting above is disabled."
 
-#: functions/settings-page.php:974
+#: functions/settings-page.php:1020
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr "Customize the wp-login.php background, logo, and accent color."
 
-#: functions/settings-page.php:983
+#: functions/settings-page.php:1029
 msgid "Enable custom login page styling"
 msgstr "Enable custom login page styling"
 
-#: functions/settings-page.php:993 functions/settings-page.php:1005
+#: functions/settings-page.php:1039 functions/settings-page.php:1051
 msgid "Choose Image"
 msgstr "Choose Image"
 
-#: functions/settings-page.php:995
+#: functions/settings-page.php:1041
 msgid "Defaults to the theme background image when left empty."
 msgstr "Defaults to the theme background image when left empty."
 
-#: functions/settings-page.php:1007
+#: functions/settings-page.php:1053
 msgid "Defaults to the theme logo when left empty."
 msgstr "Defaults to the theme logo when left empty."
 
-#: functions/settings-page.php:1017
+#: functions/settings-page.php:1063
 msgid "Fallback background color when no image loads."
 msgstr "Fallback background color when no image loads."
 
-#: functions/settings-page.php:1026
+#: functions/settings-page.php:1072
 msgid "Color for links and hover effects."
 msgstr "Color for links and hover effects."
 
-#: functions/settings-page.php:1061
+#: functions/settings-page.php:1107
 msgid ""
 "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
 "responses)."
@@ -1689,11 +1760,11 @@ msgstr ""
 "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
 "responses)."
 
-#: functions/settings-page.php:1077 functions/settings-page.php:1099
+#: functions/settings-page.php:1123 functions/settings-page.php:1145
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr "Paste a full script tag here to override the ID-based snippet above."
 
-#: functions/settings-page.php:1083
+#: functions/settings-page.php:1129
 msgid ""
 "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
 "REST responses)."
@@ -1701,7 +1772,7 @@ msgstr ""
 "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
 "REST responses)."
 
-#: functions/settings-page.php:1105
+#: functions/settings-page.php:1151
 msgid ""
 "Controls the Content-Security-Policy header sent on frontend responses "
 "(never on wp-admin or REST requests). Each directive below is a space-"
@@ -1719,15 +1790,15 @@ msgstr ""
 "Analytics, Cloudflare Turnstile); edit them to match whatever a given site "
 "actually loads."
 
-#: functions/settings-page.php:1114
+#: functions/settings-page.php:1160
 msgid "Send a Content-Security-Policy header"
 msgstr "Send a Content-Security-Policy header"
 
-#: functions/settings-page.php:1125
+#: functions/settings-page.php:1171
 msgid "Enforce the policy (blocks violations)"
 msgstr "Enforce the policy (blocks violations)"
 
-#: functions/settings-page.php:1128
+#: functions/settings-page.php:1174
 msgid ""
 "Leave unchecked to send Content-Security-Policy-Report-Only instead — the "
 "browser reports violations to the console without blocking anything. "
@@ -1737,11 +1808,11 @@ msgstr ""
 "browser reports violations to the console without blocking anything. "
 "Recommended for at least a few days on a new site before enforcing."
 
-#: functions/settings-page.php:1139
+#: functions/settings-page.php:1185
 msgid "Add the upgrade-insecure-requests directive"
 msgstr "Add the upgrade-insecure-requests directive"
 
-#: functions/settings-page.php:1146
+#: functions/settings-page.php:1192
 msgid ""
 "One field per CSP directive. Values are sanitized as plain text (no HTML, no"
 " line breaks) before being sent in the header."
@@ -1749,7 +1820,7 @@ msgstr ""
 "One field per CSP directive. Values are sanitized as plain text (no HTML, no"
 " line breaks) before being sent in the header."
 
-#: functions/settings-page.php:1161
+#: functions/settings-page.php:1207
 msgid ""
 "Referrer-Policy and Permissions-Policy are sent on every frontend response "
 "(never on wp-admin or REST requests). Set independently per site — no need "
@@ -1759,7 +1830,7 @@ msgstr ""
 "(never on wp-admin or REST requests). Set independently per site — no need "
 "to touch code to give a different customer a different policy."
 
-#: functions/settings-page.php:1176
+#: functions/settings-page.php:1222
 msgid ""
 "Controls how much of the current page URL is sent to other sites when a "
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
@@ -1769,7 +1840,7 @@ msgstr ""
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
 "is a balanced default."
 
-#: functions/settings-page.php:1187
+#: functions/settings-page.php:1233
 msgid ""
 "Full Permissions-Policy header value. Clear this field to stop sending the "
 "header entirely — it will not fall back to a default once saved empty."
@@ -2761,7 +2832,8 @@ msgstr "Service Location Content"
 #: patterns/service-location-content.php:153
 #: patterns/service-location-content.php:214
 #: patterns/service-location-content.php:306
-#: patterns/service-location-content.php:373 build/service-location-panel.js:1
+#: patterns/service-location-content.php:373
+#: build/js/service-location-panel.js:1
 msgid "City"
 msgstr "City"
 
@@ -3272,16 +3344,16 @@ msgstr ""
 msgid "Check Optimization Services"
 msgstr "Check Optimization Services"
 
-#: build/article-card-panel.js:1 build/article-card.js:1
-#: build/project-card.js:1
+#: build/js/article-card-panel.js:1 build/js/article-card.js:1
+#: build/js/project-card.js:1
 msgid "(no title)"
 msgstr "(no title)"
 
-#: build/article-card-panel.js:1
+#: build/js/article-card-panel.js:1
 msgid "Linked Article"
 msgstr "Linked Article"
 
-#: build/article-card-panel.js:1
+#: build/js/article-card-panel.js:1
 msgid ""
 "Picking an article fills this card's image, text, and link. Card layout, "
 "colors, and typography are edited once for every card via the Site Editor "
@@ -3291,19 +3363,19 @@ msgstr ""
 "colors, and typography are edited once for every card via the Site Editor "
 "template."
 
-#: build/article-card-panel.js:1
+#: build/js/article-card-panel.js:1
 msgid "Card description (optional)"
 msgstr "Card description (optional)"
 
-#: build/article-card-panel.js:1
+#: build/js/article-card-panel.js:1
 msgid "Leave empty to use the article's title."
 msgstr "Leave empty to use the article's title."
 
-#: build/article-card.js:1 build/project-card.js:1
+#: build/js/article-card.js:1 build/js/project-card.js:1
 msgid "Card"
 msgstr "Card"
 
-#: build/article-card.js:1
+#: build/js/article-card.js:1
 msgid ""
 "Manage the card's linked article, image, and text from Article Cards in the "
 "admin menu. Editing the shared card layout there updates every card wherever"
@@ -3313,14 +3385,15 @@ msgstr ""
 "admin menu. Editing the shared card layout there updates every card wherever"
 " it's embedded."
 
-#: build/banner-carousel.js:1 build/editor.js:19 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/responsive-image.js:1
-#: build/scroll-section.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/editor.js:19
+#: build/js/gallery-lightbox.js:1 build/js/hero-carousel.js:1
+#: build/js/responsive-image.js:1 build/js/scroll-section.js:1
+#: build/js/slider.js:1
 msgid "Auto"
 msgstr "Auto"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid ""
 "Slide width follows the image; the visible slide count adapts to available "
 "space."
@@ -3328,241 +3401,242 @@ msgstr ""
 "Slide width follows the image; the visible slide count adapts to available "
 "space."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Carousel Settings"
 msgstr "Carousel Settings"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show Arrows"
 msgstr "Show Arrows"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Arrows Position"
 msgstr "Arrows Position"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Default (sides)"
 msgstr "Default (sides)"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Bottom left"
 msgstr "Bottom left"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Bottom center"
 msgstr "Bottom center"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Bottom right"
 msgstr "Bottom right"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show navigation outside carousel"
 msgstr "Show navigation outside carousel"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Renders nav below the slides instead of overlaying them."
 msgstr "Renders nav below the slides instead of overlaying them."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Navigation color"
 msgstr "Navigation color"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Color on hover only"
 msgstr "Color on hover only"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Uses default colors normally; applies custom color on hover."
 msgstr "Uses default colors normally; applies custom color on hover."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show Pagination"
 msgstr "Show Pagination"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Show pagination outside carousel"
 msgstr "Show pagination outside carousel"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid ""
 "Renders the pagination dots below the slides instead of overlaying them."
 msgstr ""
 "Renders the pagination dots below the slides instead of overlaying them."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show Scrollbar"
 msgstr "Show Scrollbar"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Transition Effect"
 msgstr "Transition Effect"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Default (slide)"
 msgstr "Default (slide)"
 
-#: build/banner-carousel.js:1 build/content-tabs.js:1 build/editor.js:1
-#: build/gallery-lightbox.js:1 build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/content-tabs.js:1
+#: build/js/editor.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Fade"
 msgstr "Fade"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Coverflow"
 msgstr "Coverflow"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Cube"
 msgstr "Cube"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Flip"
 msgstr "Flip"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Cards"
 msgstr "Cards"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Fade, Cube, Flip, and Cards look best with 1 slide per view."
 msgstr "Fade, Cube, Flip, and Cards look best with 1 slide per view."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Loop Mode"
 msgstr "Loop Mode"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Draggable"
 msgstr "Draggable"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Lets users manually swipe/drag through the slides."
 msgstr "Lets users manually swipe/drag through the slides."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Autoplay"
 msgstr "Autoplay"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Autoplay Delay (seconds)"
 msgstr "Autoplay Delay (seconds)"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Lazy Load First Image"
 msgstr "Lazy Load First Image"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Enable if this block is below the fold."
 msgstr "Enable if this block is below the fold."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Track active slide"
 msgstr "Track active slide"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid ""
 "Keeps the featured image and counter in sync with the last viewed slide."
 msgstr ""
 "Keeps the featured image and counter in sync with the last viewed slide."
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Slides Per View"
 msgstr "Slides Per View"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Slides (Mobile)"
 msgstr "Slides (Mobile)"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Slides (Tablet)"
 msgstr "Slides (Tablet)"
 
-#: build/banner-carousel.js:1 build/gallery-lightbox.js:1
-#: build/hero-carousel.js:1
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Slides (Desktop)"
 msgstr "Slides (Desktop)"
 
-#: build/breadcrumbs.js:1
+#: build/js/breadcrumbs.js:1
 msgid "Breadcrumbs Settings"
 msgstr "Breadcrumbs Settings"
 
-#: build/breadcrumbs.js:1
+#: build/js/breadcrumbs.js:1
 msgid "Show on homepage"
 msgstr "Show on homepage"
 
-#: build/button.js:1 build/editor.js:1 build/nav-content.js:1
+#: build/js/button.js:1 build/js/editor.js:1 build/js/nav-content.js:1
 msgid "Text"
 msgstr "Text"
 
-#: build/button.js:1 build/content-tabs.js:1 build/hero-carousel.js:1
-#: build/scroll-section.js:1
+#: build/js/button.js:1 build/js/content-tabs.js:1 build/js/hero-carousel.js:1
+#: build/js/scroll-section.js:1
 msgid "Background"
 msgstr "Background"
 
-#: build/button.js:1
+#: build/js/button.js:1
 msgid "Border"
 msgstr "Border"
 
-#: build/button.js:1 build/nav-content.js:1
+#: build/js/button.js:1 build/js/nav-content.js:1
 msgid "Link settings"
 msgstr "Link settings"
 
-#: build/button.js:1 build/editor.js:37 build/nav-content.js:1
+#: build/js/button.js:1 build/js/editor.js:37 build/js/nav-content.js:1
 msgid "Open in new tab"
 msgstr "Open in new tab"
 
-#: build/button.js:1 build/nav-content.js:1
+#: build/js/button.js:1 build/js/nav-content.js:1
 msgid "Rel attribute"
 msgstr "Rel attribute"
 
-#: build/button.js:1 build/nav-content.js:1
+#: build/js/button.js:1 build/js/nav-content.js:1
 msgid "The relationship of the linked URL as space-separated link types."
 msgstr "The relationship of the linked URL as space-separated link types."
 
-#: build/button.js:1
+#: build/js/button.js:1
 msgid "Border width"
 msgstr "Border width"
 
-#: build/button.js:1 build/editor.js:28
+#: build/js/button.js:1 build/js/editor.js:28
 msgid "Border width (px)"
 msgstr "Border width (px)"
 
-#: build/button.js:1
+#: build/js/button.js:1
 msgid ""
 "Applies to Border color/gradient set below. Native corner radius is "
 "available in the Border panel."
@@ -3570,151 +3644,183 @@ msgstr ""
 "Applies to Border color/gradient set below. Native corner radius is "
 "available in the Border panel."
 
-#: build/button.js:1
+#: build/js/button.js:1
 msgid "Normal state"
 msgstr "Normal state"
 
-#: build/button.js:1 build/editor.js:28
+#: build/js/button.js:1 build/js/editor.js:28
 msgid "Hover state"
 msgstr "Hover state"
 
-#: build/button.js:1
+#: build/js/button.js:1
 msgid "Add text…"
 msgstr "Add text…"
 
-#: build/contact-form.js:1
+#: build/js/contact-detail.js:1
+msgid "123 Example Street"
+msgstr "123 Example Street"
+
+#: build/js/contact-detail.js:1
+msgid "+1 555 123 4567"
+msgstr "+1 555 123 4567"
+
+#: build/js/contact-detail.js:1
+msgid "hello@example.com"
+msgstr "hello@example.com"
+
+#: build/js/contact-detail.js:1
+msgid "Mon–Fri, 9:00–17:00"
+msgstr "Mon–Fri, 9:00–17:00"
+
+#: build/js/contact-detail.js:1
+msgid "Contact Detail"
+msgstr "Contact Detail"
+
+#: build/js/contact-detail.js:1
+msgid "Field"
+msgstr "Field"
+
+#: build/js/contact-detail.js:1
+msgid "Value comes from Settings → Contact Card."
+msgstr "Value comes from Settings → Contact Card."
+
+#: build/js/contact-detail.js:1
+msgid "Show field label"
+msgstr "Show field label"
+
+#: build/js/contact-form.js:1
 msgid "Form Settings"
 msgstr "Form Settings"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Name Label"
 msgstr "Name Label"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Name Placeholder"
 msgstr "Name Placeholder"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Email Label"
 msgstr "Email Label"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Email Placeholder"
 msgstr "Email Placeholder"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Topic Label"
 msgstr "Topic Label"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Topic Placeholder"
 msgstr "Topic Placeholder"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Message Label"
 msgstr "Message Label"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Message Placeholder"
 msgstr "Message Placeholder"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Agree Checkbox Label"
 msgstr "Agree Checkbox Label"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Submit Button Label"
 msgstr "Submit Button Label"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Success Message"
 msgstr "Success Message"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Error Message"
 msgstr "Error Message"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "CAPTCHA Settings"
 msgstr "CAPTCHA Settings"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Enable CAPTCHA Protection"
 msgstr "Enable CAPTCHA Protection"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Enable CAPTCHA to prevent spam submissions."
 msgstr "Enable CAPTCHA to prevent spam submissions."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "CAPTCHA Provider"
 msgstr "CAPTCHA Provider"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Google reCAPTCHA v2"
 msgstr "Google reCAPTCHA v2"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Cloudflare Turnstile"
 msgstr "Cloudflare Turnstile"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Choose your preferred CAPTCHA provider."
 msgstr "Choose your preferred CAPTCHA provider."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "reCAPTCHA Site Key"
 msgstr "reCAPTCHA Site Key"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Get your site key from Google reCAPTCHA console."
 msgstr "Get your site key from Google reCAPTCHA console."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "reCAPTCHA Secret Key"
 msgstr "reCAPTCHA Secret Key"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Keep this secret! Used for server-side verification."
 msgstr "Keep this secret! Used for server-side verification."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Turnstile Site Key"
 msgstr "Turnstile Site Key"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Get your site key from Cloudflare dashboard."
 msgstr "Get your site key from Cloudflare dashboard."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Turnstile Secret Key"
 msgstr "Turnstile Secret Key"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Redirect Settings"
 msgstr "Redirect Settings"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "After Form Submission"
 msgstr "After Form Submission"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Show success message on same page"
 msgstr "Show success message on same page"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Redirect to thank you page"
 msgstr "Redirect to thank you page"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Choose what happens after a successful form submission."
 msgstr "Choose what happens after a successful form submission."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Thank You Page URL"
 msgstr "Thank You Page URL"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid ""
 "Enter the full URL of your thank you page. Leave empty to use WordPress "
 "default."
@@ -3722,92 +3828,116 @@ msgstr ""
 "Enter the full URL of your thank you page. Leave empty to use WordPress "
 "default."
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "reCAPTCHA will appear here"
 msgstr "reCAPTCHA will appear here"
 
-#: build/contact-form.js:1
+#: build/js/contact-form.js:1
 msgid "Cloudflare Turnstile will appear here"
 msgstr "Cloudflare Turnstile will appear here"
 
-#: build/content-block.js:1 build/editor.js:37 build/navigation.js:1
+#: build/js/content-block.js:1 build/js/editor.js:37 build/js/navigation.js:1
 msgid "Loading…"
 msgstr "Loading…"
 
-#: build/content-block.js:1
+#: build/js/content-block.js:1
 msgid "— Select content —"
 msgstr "— Select content —"
 
-#: build/content-block.js:1
+#: build/js/content-block.js:1
 msgid "Content Block"
 msgstr "Content Block"
 
-#: build/content-block.js:1
+#: build/js/content-block.js:1
 msgid "Reusable block"
 msgstr "Reusable block"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Top"
 msgstr "Top"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Bottom"
 msgstr "Bottom"
 
-#: build/content-tabs.js:1 build/editor.js:28 build/navigation.js:1
+#: build/js/content-tabs.js:1 build/js/editor.js:28 build/js/navigation.js:1
 msgid "Left"
 msgstr "Left"
 
-#: build/content-tabs.js:1 build/editor.js:28 build/navigation.js:1
+#: build/js/content-tabs.js:1 build/js/editor.js:28 build/js/navigation.js:1
 msgid "Right"
 msgstr "Right"
 
-#: build/content-tabs.js:1 build/editor.js:1 build/editor.js:37
-#: build/language-panel.js:1
+#: build/js/content-tabs.js:1 build/js/editor.js:1 build/js/editor.js:37
+#: build/js/language-panel.js:1
 msgid "None"
 msgstr "None"
 
-#: build/content-tabs.js:1 build/editor.js:1
+#: build/js/content-tabs.js:1 build/js/editor.js:1
 msgid "Fade Up"
 msgstr "Fade Up"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Creating Websites"
 msgstr "Creating Websites"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
+msgid ""
+"Custom-built, fast-loading sites tailored to your business, from first "
+"sketch to launch."
+msgstr ""
+"Custom-built, fast-loading sites tailored to your business, from first "
+"sketch to launch."
+
+#: build/js/content-tabs.js:1
 msgid "Describe this service…"
 msgstr "Describe this service…"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Performance Analysis"
 msgstr "Performance Analysis"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
+msgid ""
+"In-depth audits of load speed, Core Web Vitals, and rendering bottlenecks, "
+"with a clear fix list."
+msgstr ""
+"In-depth audits of load speed, Core Web Vitals, and rendering bottlenecks, "
+"with a clear fix list."
+
+#: build/js/content-tabs.js:1
 msgid "Website Optimization"
 msgstr "Website Optimization"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
+msgid ""
+"Ongoing tuning of caching, assets, and queries to keep the site fast as it "
+"grows."
+msgstr ""
+"Ongoing tuning of caching, assets, and queries to keep the site fast as it "
+"grows."
+
+#: build/js/content-tabs.js:1
 msgid "Panel content…"
 msgstr "Panel content…"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Tab label…"
 msgstr "Tab label…"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Content Tabs Settings"
 msgstr "Content Tabs Settings"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Desktop position"
 msgstr "Desktop position"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Mobile position"
 msgstr "Mobile position"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid ""
 "Below the mobile breakpoint, the nav switches to this position and scrolls "
 "horizontally on one line instead of wrapping."
@@ -3815,53 +3945,53 @@ msgstr ""
 "Below the mobile breakpoint, the nav switches to this position and scrolls "
 "horizontally on one line instead of wrapping."
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Gap between nav links"
 msgstr "Gap between nav links"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Active Tab Style"
 msgstr "Active Tab Style"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Combine any of these to style the active tab."
 msgstr "Combine any of these to style the active tab."
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Underline"
 msgstr "Underline"
 
-#: build/content-tabs.js:1 build/editor.js:28 build/nav-content.js:1
+#: build/js/content-tabs.js:1 build/js/editor.js:28 build/js/nav-content.js:1
 msgid "Text color"
 msgstr "Text color"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Active tab text color"
 msgstr "Active tab text color"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Active tab background color"
 msgstr "Active tab background color"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Animations"
 msgstr "Animations"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Tab switch animation"
 msgstr "Tab switch animation"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid ""
 "How the old panel disappears and the new one appears when switching tabs."
 msgstr ""
 "How the old panel disappears and the new one appears when switching tabs."
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid "Card entrance animation"
 msgstr "Card entrance animation"
 
-#: build/content-tabs.js:1
+#: build/js/content-tabs.js:1
 msgid ""
 "Animates project/article cards inside the newly shown tab, one after "
 "another."
@@ -3869,351 +3999,351 @@ msgstr ""
 "Animates project/article cards inside the newly shown tab, one after "
 "another."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Canvas theme: dark — switch to light"
 msgstr "Canvas theme: dark — switch to light"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Canvas theme: light — switch to dark"
 msgstr "Canvas theme: light — switch to dark"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Gradient Highlight"
 msgstr "Gradient Highlight"
 
-#: build/editor.js:1 build/nav-content.js:1
+#: build/js/editor.js:1 build/js/nav-content.js:1
 msgid "Gradient Colors"
 msgstr "Gradient Colors"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Highlight"
 msgstr "Highlight"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Highlight color"
 msgstr "Highlight color"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Text gradient"
 msgstr "Text gradient"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Gradient Text"
 msgstr "Gradient Text"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Layout"
 msgstr "Layout"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Full Width"
 msgstr "Full Width"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Breaks out to full viewport width"
 msgstr "Breaks out to full viewport width"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Full Height"
 msgstr "Full Height"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Sets min-height to 100dvh"
 msgstr "Sets min-height to 100dvh"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Above Fold"
 msgstr "Above Fold"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Fills viewport below the header — ideal for hero sections"
 msgstr "Fills viewport below the header — ideal for hero sections"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Full Container"
 msgstr "Full Container"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Sets width to 100%"
 msgstr "Sets width to 100%"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Center Block"
 msgstr "Center Block"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Centers the block with margin: auto"
 msgstr "Centers the block with margin: auto"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Container"
 msgstr "Container"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Responsive centered container with max-width"
 msgstr "Responsive centered container with max-width"
 
-#: build/editor.js:1 build/editor.js:10
+#: build/js/editor.js:1 build/js/editor.js:10
 msgid "Flex"
 msgstr "Flex"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "No Wrap"
 msgstr "No Wrap"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Keeps flex children on a single row"
 msgstr "Keeps flex children on a single row"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Wrap"
 msgstr "Wrap"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Allows flex children to wrap to next line"
 msgstr "Allows flex children to wrap to next line"
 
-#: build/editor.js:1 build/navigation.js:1
+#: build/js/editor.js:1 build/js/navigation.js:1
 msgid "Visibility"
 msgstr "Visibility"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Mobile Only"
 msgstr "Mobile Only"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Visible below 782px — do not combine with other 'Only' options"
 msgstr "Visible below 782px — do not combine with other 'Only' options"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Tablet Only"
 msgstr "Tablet Only"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Visible between 782px and 1024px"
 msgstr "Visible between 782px and 1024px"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Desktop Only"
 msgstr "Desktop Only"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Visible from 1024px up"
 msgstr "Visible from 1024px up"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Hide on Mobile"
 msgstr "Hide on Mobile"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Hide on Tablet"
 msgstr "Hide on Tablet"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Hide on Desktop"
 msgstr "Hide on Desktop"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Visible below 1024px — use instead of Mobile Only + Tablet Only"
 msgstr "Visible below 1024px — use instead of Mobile Only + Tablet Only"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Effects"
 msgstr "Effects"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Invert Colors"
 msgstr "Invert Colors"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Applies CSS invert(100%) filter"
 msgstr "Applies CSS invert(100%) filter"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Inherit Color"
 msgstr "Inherit Color"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Forces color: inherit on element and all children"
 msgstr "Forces color: inherit on element and all children"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Utility Classes"
 msgstr "Utility Classes"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "No Animation"
 msgstr "No Animation"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Fade In"
 msgstr "Fade In"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Fade Left"
 msgstr "Fade Left"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Fade Right"
 msgstr "Fade Right"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Flip Up"
 msgstr "Flip Up"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Flip Down"
 msgstr "Flip Down"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Flip Left"
 msgstr "Flip Left"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Flip Right"
 msgstr "Flip Right"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "No Delay"
 msgstr "No Delay"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "100ms"
 msgstr "100ms"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "200ms"
 msgstr "200ms"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "300ms"
 msgstr "300ms"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "500ms"
 msgstr "500ms"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "750ms"
 msgstr "750ms"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "1000ms"
 msgstr "1000ms"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Default Distance"
 msgstr "Default Distance"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Small (20px)"
 msgstr "Small (20px)"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Medium (40px)"
 msgstr "Medium (40px)"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Large (60px)"
 msgstr "Large (60px)"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Extra Large (80px)"
 msgstr "Extra Large (80px)"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "2X Large (100px)"
 msgstr "2X Large (100px)"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Scroll Animations"
 msgstr "Scroll Animations"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Animation Type"
 msgstr "Animation Type"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Choose an animation that will trigger when the block comes into view."
 msgstr "Choose an animation that will trigger when the block comes into view."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Animation Delay"
 msgstr "Animation Delay"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Set a delay before the animation starts."
 msgstr "Set a delay before the animation starts."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Animation Distance"
 msgstr "Animation Distance"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Control how far elements move during fade/slide animations."
 msgstr "Control how far elements move during fade/slide animations."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Jump"
 msgstr "Jump"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Jump Subtle"
 msgstr "Jump Subtle"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Jump Smooth"
 msgstr "Jump Smooth"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Jump Strong"
 msgstr "Jump Strong"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Jump with Shadow"
 msgstr "Jump with Shadow"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Scale"
 msgstr "Scale"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Zoom"
 msgstr "Zoom"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Rotate"
 msgstr "Rotate"
 
-#: build/editor.js:1 build/editor.js:37
+#: build/js/editor.js:1 build/js/editor.js:37
 msgid "Bounce"
 msgstr "Bounce"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Constant Bounce"
 msgstr "Constant Bounce"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Constant Bounce Subtle"
 msgstr "Constant Bounce Subtle"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Constant Bounce Strong"
 msgstr "Constant Bounce Strong"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Constant Bounce Fast"
 msgstr "Constant Bounce Fast"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Hover Animations"
 msgstr "Hover Animations"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Choose an animation that will trigger when hovering over the block."
 msgstr "Choose an animation that will trigger when hovering over the block."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid ""
 "Zooms only the block's own image/video on hover, keeping surrounding content"
 " still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set "
@@ -4225,7 +4355,7 @@ msgstr ""
 "a border radius in this block's own Border panel to keep rounded corners "
 "while zooming."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid ""
 "Combine additional movement effects with the animation above — they'll play "
 "together on hover."
@@ -4233,55 +4363,55 @@ msgstr ""
 "Combine additional movement effects with the animation above — they'll play "
 "together on hover."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Fade opacity on hover"
 msgstr "Fade opacity on hover"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Starting opacity"
 msgstr "Starting opacity"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Opacity on hover"
 msgstr "Opacity on hover"
 
-#: build/editor.js:1 build/editor.js:28
+#: build/js/editor.js:1 build/js/editor.js:28
 msgid "Hover background color"
 msgstr "Hover background color"
 
-#: build/editor.js:1 build/editor.js:28
+#: build/js/editor.js:1 build/js/editor.js:28
 msgid "Hover text color"
 msgstr "Hover text color"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Gradient Shift"
 msgstr "Gradient Shift"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Aurora"
 msgstr "Aurora"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Shimmer Text"
 msgstr "Shimmer Text"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Wave"
 msgstr "Wave"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Glow Border"
 msgstr "Glow Border"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Background Effects"
 msgstr "Background Effects"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Effect"
 msgstr "Effect"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid ""
 "Applies an animated CSS background/border effect. Shimmer Text is meant for "
 "text blocks; the others work best on containers and Cover blocks."
@@ -4289,19 +4419,19 @@ msgstr ""
 "Applies an animated CSS background/border effect. Shimmer Text is meant for "
 "text blocks; the others work best on containers and Cover blocks."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Effect color 1"
 msgstr "Effect color 1"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Effect color 2"
 msgstr "Effect color 2"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Effect color 3"
 msgstr "Effect color 3"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid ""
 "Leave a color empty to keep the theme's default. Not every effect uses all "
 "three."
@@ -4309,7 +4439,7 @@ msgstr ""
 "Leave a color empty to keep the theme's default. Not every effect uses all "
 "three."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid ""
 "Only the color animates. Border width and radius come from this block's own "
 "Border settings; set them there."
@@ -4317,28 +4447,28 @@ msgstr ""
 "Only the color animates. Border width and radius come from this block's own "
 "Border settings; set them there."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Skip Lazy Loading"
 msgstr "Skip Lazy Loading"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "This cover image will not be lazy loaded."
 msgstr "This cover image will not be lazy loaded."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "This cover image will use default lazy loading."
 msgstr "This cover image will use default lazy loading."
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Responsive Order"
 msgstr "Responsive Order"
 
-#: build/editor.js:1
+#: build/js/editor.js:1
 msgid "Desktop Order"
 msgstr "Desktop Order"
 
 #. translators: %s: breakpoint value in px
-#: build/editor.js:4
+#: build/js/editor.js:4
 msgid ""
 "Set the order for desktop screens (%spx+). Use negative values like -1 for "
 "higher priority."
@@ -4346,309 +4476,309 @@ msgstr ""
 "Set the order for desktop screens (%spx+). Use negative values like -1 for "
 "higher priority."
 
-#: build/editor.js:4
+#: build/js/editor.js:4
 msgid "Tablet Order"
 msgstr "Tablet Order"
 
 #. translators: %1$s: minimum breakpoint in px, %2$s: maximum breakpoint in px
-#: build/editor.js:7
+#: build/js/editor.js:7
 msgid "Set the order for tablet screens (%1$spx - %2$spx)."
 msgstr "Set the order for tablet screens (%1$spx - %2$spx)."
 
-#: build/editor.js:7
+#: build/js/editor.js:7
 msgid "Mobile Order"
 msgstr "Mobile Order"
 
 #. translators: %s: breakpoint value in px
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Set the order for mobile screens (below %spx)."
 msgstr "Set the order for mobile screens (below %spx)."
 
-#: build/editor.js:10 build/editor.js:37
+#: build/js/editor.js:10 build/js/editor.js:37
 msgid "Default"
 msgstr "Default"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Block"
 msgstr "Block"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Inline"
 msgstr "Inline"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Inline Block"
 msgstr "Inline Block"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Inline Flex"
 msgstr "Inline Flex"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Grid"
 msgstr "Grid"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Inline Grid"
 msgstr "Inline Grid"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Flow Root"
 msgstr "Flow Root"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Contents"
 msgstr "Contents"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Table"
 msgstr "Table"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Table Row"
 msgstr "Table Row"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Table Cell"
 msgstr "Table Cell"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "List Item"
 msgstr "List Item"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "None (hidden)"
 msgstr "None (hidden)"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Row"
 msgstr "Row"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Column"
 msgstr "Column"
 
-#: build/editor.js:10 build/editor.js:28
+#: build/js/editor.js:10 build/js/editor.js:28
 msgid "Center"
 msgstr "Center"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Start"
 msgstr "Start"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "End"
 msgstr "End"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Space Between"
 msgstr "Space Between"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Space Around"
 msgstr "Space Around"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Space Evenly"
 msgstr "Space Evenly"
 
-#: build/editor.js:10 build/editor.js:19
+#: build/js/editor.js:10 build/js/editor.js:19
 msgid "Stretch"
 msgstr "Stretch"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Baseline"
 msgstr "Baseline"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Display"
 msgstr "Display"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Flex Direction"
 msgstr "Flex Direction"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Justify Content"
 msgstr "Justify Content"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Align Items"
 msgstr "Align Items"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Justify Self"
 msgstr "Justify Self"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Align Self"
 msgstr "Align Self"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Display & Layout"
 msgstr "Display & Layout"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Advanced Display Settings"
 msgstr "Advanced Display Settings"
 
-#: build/editor.js:10
+#: build/js/editor.js:10
 msgid "Configure responsive display, flex, and grid properties"
 msgstr "Configure responsive display, flex, and grid properties"
 
 #. translators: %s: breakpoint value in rem
-#: build/editor.js:13 build/editor.js:22 build/editor.js:31
+#: build/js/editor.js:13 build/js/editor.js:22 build/js/editor.js:31
 msgid "Settings for screens %srem and above"
 msgstr "Settings for screens %srem and above"
 
 #. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in
 #. rem
-#: build/editor.js:16 build/editor.js:25 build/editor.js:34
+#: build/js/editor.js:16 build/js/editor.js:25 build/js/editor.js:34
 msgid "Settings for screens %1$srem - %2$srem"
 msgstr "Settings for screens %1$srem - %2$srem"
 
 #. translators: %s: breakpoint value in rem
-#: build/editor.js:19 build/editor.js:28 build/editor.js:37
+#: build/js/editor.js:19 build/js/editor.js:28 build/js/editor.js:37
 msgid "Settings for screens below %srem"
 msgstr "Settings for screens below %srem"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Custom value"
 msgstr "Custom value"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Max Content"
 msgstr "Max Content"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Min Content"
 msgstr "Min Content"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Fit Content"
 msgstr "Fit Content"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Width"
 msgstr "Width"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Width preset"
 msgstr "Width preset"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Max Width"
 msgstr "Max Width"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Max width preset"
 msgstr "Max width preset"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Responsive Width"
 msgstr "Responsive Width"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Advanced Width Settings"
 msgstr "Advanced Width Settings"
 
-#: build/editor.js:19
+#: build/js/editor.js:19
 msgid "Configure width and max-width per breakpoint"
 msgstr "Configure width and max-width per breakpoint"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Button position"
 msgstr "Button position"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Border color"
 msgstr "Border color"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Border radius (px)"
 msgstr "Border radius (px)"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Underline text"
 msgstr "Underline text"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Leave a hover color empty to keep the default fade effect."
 msgstr "Leave a hover color empty to keep the default fade effect."
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Hover border color"
 msgstr "Hover border color"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Load More"
 msgstr "Load More"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Enable Load More"
 msgstr "Enable Load More"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Show only the first items on load; a button reveals the rest."
 msgstr "Show only the first items on load; a button reveals the rest."
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Items to show initially"
 msgstr "Items to show initially"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Button label"
 msgstr "Button label"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Load more"
 msgstr "Load more"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Leave empty to use the default label."
 msgstr "Leave empty to use the default label."
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Padding"
 msgstr "Padding"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Margin"
 msgstr "Margin"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Responsive Spacing"
 msgstr "Responsive Spacing"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Advanced Spacing Settings"
 msgstr "Advanced Spacing Settings"
 
-#: build/editor.js:28
+#: build/js/editor.js:28
 msgid "Configure padding and margin per breakpoint"
 msgstr "Configure padding and margin per breakpoint"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Justify text"
 msgstr "Justify text"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Set custom size"
 msgstr "Set custom size"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Responsive font size"
 msgstr "Responsive font size"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Link Hover Effects"
 msgstr "Link Hover Effects"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Enable underline hover effect"
 msgstr "Enable underline hover effect"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Adds the same animated sliding-underline hover/focus effect used sitewide in"
 " the header and footer to links in this block, even outside those areas or "
@@ -4658,19 +4788,19 @@ msgstr ""
 " the header and footer to links in this block, even outside those areas or "
 "on elements that aren't a native link."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Disable background hover effect"
 msgstr "Disable background hover effect"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Turns off the gradient/fill hover effect on links inside this block."
 msgstr "Turns off the gradient/fill hover effect on links inside this block."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Disable underline hover effect"
 msgstr "Disable underline hover effect"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Turns off the sliding underline hover/focus effect on links inside this "
 "block."
@@ -4678,11 +4808,11 @@ msgstr ""
 "Turns off the sliding underline hover/focus effect on links inside this "
 "block."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Disable link underline/gradient effect"
 msgstr "Disable link underline/gradient effect"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Excludes links in this block from the sitewide header/footer hover-underline"
 " and gradient-text-on-focus effect, without affecting this block's own "
@@ -4694,11 +4824,11 @@ msgstr ""
 "hover/focus styling. Enabled by default sitewide; turn this on only where it"
 " conflicts, like the Social Link block."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Disable active-page highlight"
 msgstr "Disable active-page highlight"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Excludes links in this block from the sitewide active-page gradient-"
 "text/underline treatment shown when a link points at the page currently "
@@ -4708,15 +4838,15 @@ msgstr ""
 "text/underline treatment shown when a link points at the page currently "
 "being viewed. Enabled by default sitewide."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Text Gradient"
 msgstr "Text Gradient"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Link whole group"
 msgstr "Link whole group"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Makes the whole group a real link (URL preview on hover, right-click to open"
 " in a new tab). If the group contains another link, it's kept as a clickable"
@@ -4728,47 +4858,47 @@ msgstr ""
 " region instead to avoid an invalid nested link. Clicks on a button or form "
 "field inside the group still work normally either way."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Hover Overlay"
 msgstr "Hover Overlay"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Show text overlay on hover"
 msgstr "Show text overlay on hover"
 
-#: build/editor.js:37 build/nav-content.js:1
+#: build/js/editor.js:37 build/js/nav-content.js:1
 msgid "Heading"
 msgstr "Heading"
 
-#: build/editor.js:37 build/nav-content.js:1
+#: build/js/editor.js:37 build/js/nav-content.js:1
 msgid "Description"
 msgstr "Description"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Overlay background color"
 msgstr "Overlay background color"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Overlay background opacity"
 msgstr "Overlay background opacity"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Overlay text color"
 msgstr "Overlay text color"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Default grid"
 msgstr "Default grid"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Independent columns"
 msgstr "Independent columns"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "FAQ columns behavior"
 msgstr "FAQ columns behavior"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Default: closed items align into uniform rows, but opening one stretches its"
 " row partner. Independent columns: each column grows on its own, no "
@@ -4778,19 +4908,19 @@ msgstr ""
 " row partner. Independent columns: each column grows on its own, no "
 "stretching, but closed items no longer line up edge-to-edge."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Independent columns count"
 msgstr "Independent columns count"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Parallax Settings"
 msgstr "Parallax Settings"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Enable Parallax Effect"
 msgstr "Enable Parallax Effect"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Background stays fixed while content scrolls. Uses CSS background-"
 "attachment: fixed."
@@ -4798,11 +4928,11 @@ msgstr ""
 "Background stays fixed while content scrolls. Uses CSS background-"
 "attachment: fixed."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Parallax Intensity"
 msgstr "Parallax Intensity"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "How far the background shifts relative to the content while scrolling. Only "
 "applies on pages where a horizontal scroll section forces the fallback "
@@ -4812,47 +4942,47 @@ msgstr ""
 "applies on pages where a horizontal scroll section forces the fallback "
 "effect."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Fast (1s)"
 msgstr "Fast (1s)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Normal (2s)"
 msgstr "Normal (2s)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Slow (3s)"
 msgstr "Slow (3s)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Very Slow (4s)"
 msgstr "Very Slow (4s)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Custom"
 msgstr "Custom"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Linear"
 msgstr "Linear"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Ease Out"
 msgstr "Ease Out"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Ease In Out"
 msgstr "Ease In Out"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Animated Counter"
 msgstr "Animated Counter"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Enable Counter Animation"
 msgstr "Enable Counter Animation"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Turn this block into an animated counter. Numbers in your text will "
 "automatically count up from 0 when the block comes into view."
@@ -4860,11 +4990,11 @@ msgstr ""
 "Turn this block into an animated counter. Numbers in your text will "
 "automatically count up from 0 when the block comes into view."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "💡 How it works:"
 msgstr "💡 How it works:"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Just type your text with numbers like \"5 years\", \"98%\", or \"$1,250\". "
 "The system will automatically detect the numbers and animate them from 0 to "
@@ -4874,58 +5004,62 @@ msgstr ""
 "The system will automatically detect the numbers and animate them from 0 to "
 "the detected value."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Animation Duration"
 msgstr "Animation Duration"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "How long the counting animation should take."
 msgstr "How long the counting animation should take."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Custom Duration (ms)"
 msgstr "Custom Duration (ms)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Animation Easing"
 msgstr "Animation Easing"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "The animation style (how fast/slow it accelerates)."
 msgstr "The animation style (how fast/slow it accelerates)."
 
-#: build/editor.js:37 build/language-panel.js:1 build/search-panel.js:1
+#: build/js/editor.js:37 build/js/language-panel.js:1
+#: build/js/search-panel.js:1
 msgid "Nav Icon"
 msgstr "Nav Icon"
 
-#: build/editor.js:37 build/icon.js:1 build/language-panel.js:1
-#: build/scroll-to-top.js:1 build/search-panel.js:1
+#: build/js/editor.js:37 build/js/icon.js:1 build/js/language-panel.js:1
+#: build/js/marquee.js:1 build/js/scroll-to-top.js:1
+#: build/js/search-panel.js:1
 msgid "Replace icon"
 msgstr "Replace icon"
 
-#: build/editor.js:37 build/icon.js:1 build/language-panel.js:1
-#: build/scroll-to-top.js:1 build/search-panel.js:1 build/social-section.js:1
+#: build/js/editor.js:37 build/js/icon.js:1 build/js/language-panel.js:1
+#: build/js/scroll-to-top.js:1 build/js/search-panel.js:1
+#: build/js/social-section.js:1
 msgid "Select SVG icon"
 msgstr "Select SVG icon"
 
-#: build/editor.js:37 build/icon.js:1 build/language-panel.js:1
-#: build/scroll-to-top.js:1 build/search-panel.js:1 build/social-section.js:1
+#: build/js/editor.js:37 build/js/icon.js:1 build/js/language-panel.js:1
+#: build/js/marquee.js:1 build/js/scroll-to-top.js:1
+#: build/js/search-panel.js:1 build/js/social-section.js:1
 msgid "Remove icon"
 msgstr "Remove icon"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Gradient Outline"
 msgstr "Gradient Outline"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Text shadow presets"
 msgstr "Text shadow presets"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Text Shadow"
 msgstr "Text Shadow"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Adaptive presets follow the current text color and switch with light/dark "
 "mode. Light/Dark presets stay fixed to one mode's color regardless of the "
@@ -4935,19 +5069,19 @@ msgstr ""
 "mode. Light/Dark presets stay fixed to one mode's color regardless of the "
 "active theme."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Truncate Text"
 msgstr "Truncate Text"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Limit to a number of lines"
 msgstr "Limit to a number of lines"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Visible lines"
 msgstr "Visible lines"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Text past this many lines is hidden behind a \"Read more\" toggle, "
 "translated automatically for each site language."
@@ -4955,11 +5089,11 @@ msgstr ""
 "Text past this many lines is hidden behind a \"Read more\" toggle, "
 "translated automatically for each site language."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Load above the fold"
 msgstr "Load above the fold"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Enable only if this specific instance is visible without scrolling on this "
 "page. Its styles load render-blocking instead of deferred — use sparingly, "
@@ -4969,69 +5103,69 @@ msgstr ""
 "page. Its styles load render-blocking instead of deferred — use sparingly, "
 "since every enabled instance costs initial render time."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "— Select modal —"
 msgstr "— Select modal —"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Open in a modal"
 msgstr "Open in a modal"
 
-#: build/editor.js:37 build/icon.js:1
+#: build/js/editor.js:37 build/js/icon.js:1
 msgid "Icon"
 msgstr "Icon"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "City Grid Layout"
 msgstr "City Grid Layout"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Columns (desktop)"
 msgstr "Columns (desktop)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Columns (tablet)"
 msgstr "Columns (tablet)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Columns (mobile)"
 msgstr "Columns (mobile)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "City Link Color"
 msgstr "City Link Color"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Link text color"
 msgstr "Link text color"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Contact Card Layout"
 msgstr "Contact Card Layout"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Gap between fields (rem)"
 msgstr "Gap between fields (rem)"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Lower this if long values (e.g. an email address) wrap to a second line."
 msgstr ""
 "Lower this if long values (e.g. an email address) wrap to a second line."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Equal Height"
 msgstr "Equal Height"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Equal height grid items"
 msgstr "Equal height grid items"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Equal height columns"
 msgstr "Equal height columns"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Stretch every grid item to match the tallest item in its row, so cards line "
 "up."
@@ -5039,7 +5173,7 @@ msgstr ""
 "Stretch every grid item to match the tallest item in its row, so cards line "
 "up."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Stretch every column's content to match the tallest column, so borders and "
 "backgrounds line up."
@@ -5047,45 +5181,45 @@ msgstr ""
 "Stretch every column's content to match the tallest column, so borders and "
 "backgrounds line up."
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "— None (not clickable) —"
 msgstr "— None (not clickable) —"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Slide Modal"
 msgstr "Slide Modal"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid "Open on click"
 msgstr "Open on click"
 
-#: build/editor.js:37
+#: build/js/editor.js:37
 msgid ""
 "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 msgstr ""
 "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Media"
 msgstr "Media"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Remove"
 msgstr "Remove"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Add Images & Videos"
 msgstr "Add Images & Videos"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Add More Media"
 msgstr "Add More Media"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Lock height to first image"
 msgstr "Lock height to first image"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid ""
 "Keeps the block height fixed when slides change. Requires 'Track active "
 "slide' to be enabled."
@@ -5093,274 +5227,274 @@ msgstr ""
 "Keeps the block height fixed when slides change. Requires 'Track active "
 "slide' to be enabled."
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Use different media on mobile"
 msgstr "Use different media on mobile"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Show alternative images/videos on screens ≤768px."
 msgstr "Show alternative images/videos on screens ≤768px."
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Mobile media (≤768px)"
 msgstr "Mobile media (≤768px)"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Add Mobile Media"
 msgstr "Add Mobile Media"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Add More Mobile Media"
 msgstr "Add More Mobile Media"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Lightbox Settings"
 msgstr "Lightbox Settings"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Video Options"
 msgstr "Video Options"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Show controls"
 msgstr "Show controls"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Autoplay when slide opens"
 msgstr "Autoplay when slide opens"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Muted"
 msgstr "Muted"
 
-#: build/gallery-lightbox.js:1
+#: build/js/gallery-lightbox.js:1
 msgid "Required for autoplay in most browsers."
 msgstr "Required for autoplay in most browsers."
 
-#: build/gallery-lightbox.js:1 build/slider.js:1
+#: build/js/gallery-lightbox.js:1 build/js/slider.js:1
 msgid "Loop"
 msgstr "Loop"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Map Settings"
 msgstr "Map Settings"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Google Maps API Key"
 msgstr "Google Maps API Key"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid ""
 "Get your API key from https://console.cloud.google.com/apis/credentials"
 msgstr ""
 "Get your API key from https://console.cloud.google.com/apis/credentials"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Enter the address or leave blank to use coordinates."
 msgstr "Enter the address or leave blank to use coordinates."
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Latitude"
 msgstr "Latitude"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Longitude"
 msgstr "Longitude"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Zoom Level"
 msgstr "Zoom Level"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Map Width"
 msgstr "Map Width"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Any valid CSS width value, e.g. 100%, 37.5rem"
 msgstr "Any valid CSS width value, e.g. 100%, 37.5rem"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Map Height"
 msgstr "Map Height"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Any valid CSS height value, e.g. 25rem"
 msgstr "Any valid CSS height value, e.g. 25rem"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Map Type"
 msgstr "Map Type"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Roadmap"
 msgstr "Roadmap"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Satellite"
 msgstr "Satellite"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Hybrid"
 msgstr "Hybrid"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Terrain"
 msgstr "Terrain"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Show Zoom Control"
 msgstr "Show Zoom Control"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Show Street View Control"
 msgstr "Show Street View Control"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Show Fullscreen Control"
 msgstr "Show Fullscreen Control"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Show Map Type Control"
 msgstr "Show Map Type Control"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Marker Label"
 msgstr "Marker Label"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Short label for the marker (1–2 chars)."
 msgstr "Short label for the marker (1–2 chars)."
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Marker Tooltip"
 msgstr "Marker Tooltip"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Tooltip text shown when marker is clicked."
 msgstr "Tooltip text shown when marker is clicked."
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Show Reset View Button"
 msgstr "Show Reset View Button"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Additional CSS"
 msgstr "Additional CSS"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Custom CSS"
 msgstr "Custom CSS"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Add custom CSS to override Google Maps styles. Examples:"
 msgstr "Add custom CSS to override Google Maps styles. Examples:"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "/* Enter your custom CSS here */"
 msgstr "/* Enter your custom CSS here */"
 
-#: build/google-maps.js:1
+#: build/js/google-maps.js:1
 msgid "Google Map preview will appear here."
 msgstr "Google Map preview will appear here."
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Background Image"
 msgstr "Background Image"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Change Image"
 msgstr "Change Image"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Set Image"
 msgstr "Set Image"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Remove Image"
 msgstr "Remove Image"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Background Video (optional)"
 msgstr "Background Video (optional)"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Change Video"
 msgstr "Change Video"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Set Video"
 msgstr "Set Video"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Remove Video"
 msgstr "Remove Video"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Overlay Opacity"
 msgstr "Overlay Opacity"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Set a background image in the sidebar."
 msgstr "Set a background image in the sidebar."
 
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Previous slide"
 msgstr "Previous slide"
 
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Next slide"
 msgstr "Next slide"
 
-#: build/hero-carousel.js:1 build/slider.js:1
+#: build/js/hero-carousel.js:1 build/js/slider.js:1
 msgid "Go to slide"
 msgstr "Go to slide"
 
-#: build/hero-carousel.js:1
+#: build/js/hero-carousel.js:1
 msgid "Slides"
 msgstr "Slides"
 
 #. translators: %d: slide number
-#: build/hero-carousel.js:4
+#: build/js/hero-carousel.js:4
 msgid "Slide %d"
 msgstr "Slide %d"
 
-#: build/hero-carousel.js:4
+#: build/js/hero-carousel.js:4
 msgid "Remove slide"
 msgstr "Remove slide"
 
-#: build/hero-carousel.js:4
+#: build/js/hero-carousel.js:4
 msgid "+ Add Slide"
 msgstr "+ Add Slide"
 
-#: build/hero-carousel.js:4
+#: build/js/hero-carousel.js:4
 msgid "Height"
 msgstr "Height"
 
-#: build/hero-carousel.js:4
+#: build/js/hero-carousel.js:4
 msgid "Min Height (vh)"
 msgstr "Min Height (vh)"
 
-#: build/hero-carousel.js:4
+#: build/js/hero-carousel.js:4
 msgid "Add slide"
 msgstr "Add slide"
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "Appearance & Accessibility"
 msgstr "Appearance & Accessibility"
 
-#: build/icon.js:1 build/modal-settings-panel.js:1
+#: build/js/icon.js:1 build/js/modal-settings-panel.js:1
 msgid "Size"
 msgstr "Size"
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size."
 msgstr "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size."
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "Use gradient fill"
 msgstr "Use gradient fill"
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid ""
 "Fills the icon with the site's Fancy Text gradient (Styles → Colors → "
 "Gradients) instead of a flat color. Only visible on the live page — the "
@@ -5370,21 +5504,21 @@ msgstr ""
 "Gradients) instead of a flat color. Only visible on the live page — the "
 "editor canvas can't preview it."
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "Color"
 msgstr "Color"
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid ""
 "Any CSS color value. Leave empty to inherit the surrounding text color."
 msgstr ""
 "Any CSS color value. Leave empty to inherit the surrounding text color."
 
-#: build/icon.js:1 build/model-viewer.js:1
+#: build/js/icon.js:1 build/js/model-viewer.js:1
 msgid "Accessible label"
 msgstr "Accessible label"
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid ""
 "Only set this if the icon conveys meaning on its own (e.g. a standalone "
 "social link). Leave empty for a purely decorative icon."
@@ -5392,297 +5526,352 @@ msgstr ""
 "Only set this if the icon conveys meaning on its own (e.g. a standalone "
 "social link). Leave empty for a purely decorative icon."
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "This icon will be hidden from screen readers as decorative."
 msgstr "This icon will be hidden from screen readers as decorative."
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "Show tooltip on hover"
 msgstr "Show tooltip on hover"
 
-#: build/icon.js:1
+#: build/js/icon.js:1
 msgid "Shows the accessible label above the icon on hover/focus."
 msgstr "Shows the accessible label above the icon on hover/focus."
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Language Panel"
 msgstr "Language Panel"
 
-#: build/language-panel.js:1 build/search-panel.js:1 build/simple-grid.js:1
+#: build/js/language-panel.js:1 build/js/search-panel.js:1
+#: build/js/simple-grid.js:1
 msgid "Nav label"
 msgstr "Nav label"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Leave empty to show the current language automatically."
 msgstr "Leave empty to show the current language automatically."
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Auto label style"
 msgstr "Auto label style"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Short code (PL)"
 msgstr "Short code (PL)"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Full name (Polski)"
 msgstr "Full name (Polski)"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Used when the nav label is empty."
 msgstr "Used when the nav label is empty."
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Show current language flag"
 msgstr "Show current language flag"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Dropdown Indicator"
 msgstr "Dropdown Indicator"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Show indicator arrow"
 msgstr "Show indicator arrow"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Small arrow hinting that a dropdown will open."
 msgstr "Small arrow hinting that a dropdown will open."
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Open effect"
 msgstr "Open effect"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Rotate 180°"
 msgstr "Rotate 180°"
 
-#: build/language-panel.js:1
+#: build/js/language-panel.js:1
 msgid "Rotate 180° (no transition)"
 msgstr "Rotate 180° (no transition)"
 
-#: build/modal-settings-panel.js:1
-msgid "Small"
-msgstr "Small"
+#: build/js/marquee.js:1
+msgid "Technology"
+msgstr "Technology"
 
-#: build/modal-settings-panel.js:1
-msgid "Medium"
-msgstr "Medium"
-
-#: build/modal-settings-panel.js:1
-msgid "Large"
-msgstr "Large"
-
-#: build/modal-settings-panel.js:1
-msgid "Full screen"
-msgstr "Full screen"
-
-#: build/modal-settings-panel.js:1
-msgid "Modal Settings"
-msgstr "Modal Settings"
-
-#: build/model-viewer.js:1
-msgid "16:9 (widescreen)"
-msgstr "16:9 (widescreen)"
-
-#: build/model-viewer.js:1
-msgid "4:3 (standard)"
-msgstr "4:3 (standard)"
-
-#: build/model-viewer.js:1
-msgid "1:1 (square)"
-msgstr "1:1 (square)"
-
-#: build/model-viewer.js:1
-msgid "21:9 (ultra-wide)"
-msgstr "21:9 (ultra-wide)"
-
-#: build/model-viewer.js:1
-msgid "Model"
-msgstr "Model"
-
-#: build/model-viewer.js:1
-msgid "Replace .glb model"
-msgstr "Replace .glb model"
-
-#: build/model-viewer.js:1
-msgid "Select .glb model"
-msgstr "Select .glb model"
-
-#: build/model-viewer.js:1
-msgid "Remove model"
-msgstr "Remove model"
-
-#: build/model-viewer.js:1
-msgid ""
-"Single-file .glb only, exported with an animation clip baked in (e.g. an "
-"\"open\" Action in Blender). .gltf (multi-file) isn't supported."
-msgstr ""
-"Single-file .glb only, exported with an animation clip baked in (e.g. an "
-"\"open\" Action in Blender). .gltf (multi-file) isn't supported."
-
-#: build/model-viewer.js:1
-msgid "Animation clip name"
-msgstr "Animation clip name"
-
-#: build/model-viewer.js:1
-msgid ""
-"Must match the exact name of the baked animation clip in the .glb file — "
-"played forward on click, backward on the next click."
-msgstr ""
-"Must match the exact name of the baked animation clip in the .glb file — "
-"played forward on click, backward on the next click."
-
-#: build/model-viewer.js:1
-msgid "Fallback Image"
-msgstr "Fallback Image"
-
-#: build/model-viewer.js:1
-msgid "Replace fallback image"
-msgstr "Replace fallback image"
-
-#: build/model-viewer.js:1
-msgid "Select fallback image"
-msgstr "Select fallback image"
-
-#: build/model-viewer.js:1
-msgid ""
-"A fallback image is required — it's shown while the model loads and if WebGL"
-" isn't supported."
-msgstr ""
-"A fallback image is required — it's shown while the model loads and if WebGL"
-" isn't supported."
-
-#: build/model-viewer.js:1
-msgid "Accessibility & Layout"
-msgstr "Accessibility & Layout"
-
-#: build/model-viewer.js:1
-msgid ""
-"Describes the interaction for screen reader users, e.g. \"Interactive 3D "
-"laptop model — click to open or close.\""
-msgstr ""
-"Describes the interaction for screen reader users, e.g. \"Interactive 3D "
-"laptop model — click to open or close.\""
-
-#: build/model-viewer.js:1
-msgid "A default label will be used, but a specific one is recommended."
-msgstr "A default label will be used, but a specific one is recommended."
-
-#: build/model-viewer.js:1
-msgid "Aspect ratio"
-msgstr "Aspect ratio"
-
-#: build/model-viewer.js:1
-msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
-msgstr "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
-
-#: build/model-viewer.js:1
-msgid "Interaction"
-msgstr "Interaction"
-
-#: build/model-viewer.js:1
-msgid "Enable drag-to-rotate"
-msgstr "Enable drag-to-rotate"
-
-#: build/model-viewer.js:1
-msgid ""
-"Lets visitors drag the model to orbit around it. Works independently of the "
-"click-to-toggle animation, so it's useful even for a model with no baked "
-"animation clip."
-msgstr ""
-"Lets visitors drag the model to orbit around it. Works independently of the "
-"click-to-toggle animation, so it's useful even for a model with no baked "
-"animation clip."
-
-#: build/model-viewer.js:1
-msgid "Screen text"
-msgstr "Screen text"
-
-#: build/model-viewer.js:1
-msgid ""
-"Rendered onto the model's screen/display surface (auto-detected as its most "
-"strongly emissive material) as a texture — e.g. your email and phone number."
-" Leave empty to keep the model's original screen image. One line per line of"
-" text."
-msgstr ""
-"Rendered onto the model's screen/display surface (auto-detected as its most "
-"strongly emissive material) as a texture — e.g. your email and phone number."
-" Leave empty to keep the model's original screen image. One line per line of"
-" text."
-
-#: build/model-viewer.js:1
-msgid "3D Model"
-msgstr "3D Model"
-
-#: build/model-viewer.js:1
-msgid "Model Viewer — select a .glb model"
-msgstr "Model Viewer — select a .glb model"
-
-#: build/nav-content.js:1
-msgid "Content"
-msgstr "Content"
-
-#: build/nav-content.js:1
-msgid "Paragraph text"
-msgstr "Paragraph text"
-
-#: build/nav-content.js:1
-msgid "Nav paragraph — add text in the panel →"
-msgstr "Nav paragraph — add text in the panel →"
-
-#: build/nav-content.js:1
-msgid "Image"
-msgstr "Image"
-
-#: build/nav-content.js:1
-msgid "Replace image"
-msgstr "Replace image"
-
-#: build/nav-content.js:1
-msgid "Select image"
-msgstr "Select image"
-
-#: build/nav-content.js:1
-msgid "Alt text"
-msgstr "Alt text"
-
-#: build/nav-content.js:1 build/translated-text.js:1
-msgid "Link URL"
-msgstr "Link URL"
-
-#: build/nav-content.js:1
-msgid "Nav image — select an image in the panel →"
-msgstr "Nav image — select an image in the panel →"
-
-#: build/nav-content.js:1 build/translated-text.js:1
-msgid "Link"
-msgstr "Link"
-
-#: build/nav-content.js:1 build/social-section.js:1
-msgid "URL"
-msgstr "URL"
-
-#: build/nav-content.js:1 build/social-section.js:1
+#: build/js/marquee.js:1 build/js/nav-content.js:1
+#: build/js/social-section.js:1
 msgid "Label"
 msgstr "Label"
 
-#: build/nav-content.js:1
+#: build/js/marquee.js:1
+msgid "Select icon"
+msgstr "Select icon"
+
+#: build/js/marquee.js:1
+msgid "Modal description"
+msgstr "Modal description"
+
+#: build/js/marquee.js:1
+msgid ""
+"Text shown in the popup when this item is clicked — how this skill helps "
+"your work and your clients."
+msgstr ""
+"Text shown in the popup when this item is clicked — how this skill helps "
+"your work and your clients."
+
+#: build/js/marquee.js:1
+msgid "Documentation URL"
+msgstr "Documentation URL"
+
+#: build/js/marquee.js:1
+msgid "Optional — shown as a link in the popup. Leave empty to hide the link."
+msgstr ""
+"Optional — shown as a link in the popup. Leave empty to hide the link."
+
+#: build/js/marquee.js:1
+msgid "Marquee"
+msgstr "Marquee"
+
+#: build/js/marquee.js:1
+msgid "Scroll duration (seconds)"
+msgstr "Scroll duration (seconds)"
+
+#: build/js/marquee.js:1
+msgid "Time for one full loop — lower is faster."
+msgstr "Time for one full loop — lower is faster."
+
+#: build/js/marquee.js:1 build/js/scroll-section.js:1
+msgid "item(s)"
+msgstr "item(s)"
+
+#: build/js/marquee.js:1
+msgid "+ Add Technology"
+msgstr "+ Add Technology"
+
+#: build/js/marquee.js:1
+msgid "Remove Last Technology"
+msgstr "Remove Last Technology"
+
+#: build/js/modal-settings-panel.js:1
+msgid "Small"
+msgstr "Small"
+
+#: build/js/modal-settings-panel.js:1
+msgid "Medium"
+msgstr "Medium"
+
+#: build/js/modal-settings-panel.js:1
+msgid "Large"
+msgstr "Large"
+
+#: build/js/modal-settings-panel.js:1
+msgid "Full screen"
+msgstr "Full screen"
+
+#: build/js/modal-settings-panel.js:1
+msgid "Modal Settings"
+msgstr "Modal Settings"
+
+#: build/js/model-viewer.js:1
+msgid "16:9 (widescreen)"
+msgstr "16:9 (widescreen)"
+
+#: build/js/model-viewer.js:1
+msgid "4:3 (standard)"
+msgstr "4:3 (standard)"
+
+#: build/js/model-viewer.js:1
+msgid "1:1 (square)"
+msgstr "1:1 (square)"
+
+#: build/js/model-viewer.js:1
+msgid "21:9 (ultra-wide)"
+msgstr "21:9 (ultra-wide)"
+
+#: build/js/model-viewer.js:1
+msgid "Model"
+msgstr "Model"
+
+#: build/js/model-viewer.js:1
+msgid "Replace .glb model"
+msgstr "Replace .glb model"
+
+#: build/js/model-viewer.js:1
+msgid "Select .glb model"
+msgstr "Select .glb model"
+
+#: build/js/model-viewer.js:1
+msgid "Remove model"
+msgstr "Remove model"
+
+#: build/js/model-viewer.js:1
+msgid ""
+"Single-file .glb only, exported with an animation clip baked in (e.g. an "
+"\"open\" Action in Blender). .gltf (multi-file) isn't supported."
+msgstr ""
+"Single-file .glb only, exported with an animation clip baked in (e.g. an "
+"\"open\" Action in Blender). .gltf (multi-file) isn't supported."
+
+#: build/js/model-viewer.js:1
+msgid "Animation clip name"
+msgstr "Animation clip name"
+
+#: build/js/model-viewer.js:1
+msgid ""
+"Must match the exact name of the baked animation clip in the .glb file — "
+"played forward on click, backward on the next click."
+msgstr ""
+"Must match the exact name of the baked animation clip in the .glb file — "
+"played forward on click, backward on the next click."
+
+#: build/js/model-viewer.js:1
+msgid "Fallback Image"
+msgstr "Fallback Image"
+
+#: build/js/model-viewer.js:1
+msgid "Replace fallback image"
+msgstr "Replace fallback image"
+
+#: build/js/model-viewer.js:1
+msgid "Select fallback image"
+msgstr "Select fallback image"
+
+#: build/js/model-viewer.js:1
+msgid ""
+"A fallback image is required — it's shown while the model loads and if WebGL"
+" isn't supported."
+msgstr ""
+"A fallback image is required — it's shown while the model loads and if WebGL"
+" isn't supported."
+
+#: build/js/model-viewer.js:1
+msgid "Accessibility & Layout"
+msgstr "Accessibility & Layout"
+
+#: build/js/model-viewer.js:1
+msgid ""
+"Describes the interaction for screen reader users, e.g. \"Interactive 3D "
+"laptop model — click to open or close.\""
+msgstr ""
+"Describes the interaction for screen reader users, e.g. \"Interactive 3D "
+"laptop model — click to open or close.\""
+
+#: build/js/model-viewer.js:1
+msgid "A default label will be used, but a specific one is recommended."
+msgstr "A default label will be used, but a specific one is recommended."
+
+#: build/js/model-viewer.js:1
+msgid "Aspect ratio"
+msgstr "Aspect ratio"
+
+#: build/js/model-viewer.js:1
+msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
+msgstr "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
+
+#: build/js/model-viewer.js:1
+msgid "Interaction"
+msgstr "Interaction"
+
+#: build/js/model-viewer.js:1
+msgid "Enable drag-to-rotate"
+msgstr "Enable drag-to-rotate"
+
+#: build/js/model-viewer.js:1
+msgid ""
+"Lets visitors drag the model to orbit around it. Works independently of the "
+"click-to-toggle animation, so it's useful even for a model with no baked "
+"animation clip."
+msgstr ""
+"Lets visitors drag the model to orbit around it. Works independently of the "
+"click-to-toggle animation, so it's useful even for a model with no baked "
+"animation clip."
+
+#: build/js/model-viewer.js:1
+msgid "Screen text"
+msgstr "Screen text"
+
+#: build/js/model-viewer.js:1
+msgid ""
+"Rendered onto the model's screen/display surface (auto-detected as its most "
+"strongly emissive material) as a texture — e.g. your email and phone number."
+" Leave empty to keep the model's original screen image. One line per line of"
+" text."
+msgstr ""
+"Rendered onto the model's screen/display surface (auto-detected as its most "
+"strongly emissive material) as a texture — e.g. your email and phone number."
+" Leave empty to keep the model's original screen image. One line per line of"
+" text."
+
+#: build/js/model-viewer.js:1
+msgid "3D Model"
+msgstr "3D Model"
+
+#: build/js/model-viewer.js:1
+msgid "Model Viewer — select a .glb model"
+msgstr "Model Viewer — select a .glb model"
+
+#: build/js/nav-content.js:1
+msgid "Content"
+msgstr "Content"
+
+#: build/js/nav-content.js:1
+msgid "Paragraph text"
+msgstr "Paragraph text"
+
+#: build/js/nav-content.js:1
+msgid "Nav paragraph — add text in the panel →"
+msgstr "Nav paragraph — add text in the panel →"
+
+#: build/js/nav-content.js:1
+msgid "Image"
+msgstr "Image"
+
+#: build/js/nav-content.js:1
+msgid "Replace image"
+msgstr "Replace image"
+
+#: build/js/nav-content.js:1
+msgid "Select image"
+msgstr "Select image"
+
+#: build/js/nav-content.js:1
+msgid "Alt text"
+msgstr "Alt text"
+
+#: build/js/nav-content.js:1 build/js/translated-text.js:1
+msgid "Link URL"
+msgstr "Link URL"
+
+#: build/js/nav-content.js:1
+msgid "Nav image — select an image in the panel →"
+msgstr "Nav image — select an image in the panel →"
+
+#: build/js/nav-content.js:1 build/js/translated-text.js:1
+msgid "Link"
+msgstr "Link"
+
+#: build/js/nav-content.js:1 build/js/social-section.js:1
+msgid "URL"
+msgstr "URL"
+
+#: build/js/nav-content.js:1
 msgid "Leave empty to link the image only"
 msgstr "Leave empty to link the image only"
 
-#: build/nav-content.js:1
+#: build/js/nav-content.js:1
 msgid "Nav banner — select an image in the panel →"
 msgstr "Nav banner — select an image in the panel →"
 
-#: build/nav-content.js:1
+#: build/js/nav-content.js:1
 msgid "Heading…"
 msgstr "Heading…"
 
-#: build/nav-content.js:1
+#: build/js/nav-content.js:1
 msgid "Description…"
 msgstr "Description…"
 
-#: build/nav-content.js:1
+#: build/js/nav-content.js:1
 msgid ""
 "The description will be displayed in the menu if the current theme supports "
 "it."
@@ -5690,92 +5879,92 @@ msgstr ""
 "The description will be displayed in the menu if the current theme supports "
 "it."
 
-#: build/nav-content.js:1
+#: build/js/nav-content.js:1
 msgid "Nav link label…"
 msgstr "Nav link label…"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Never — always inline"
 msgstr "Never — always inline"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "On mobile only"
 msgstr "On mobile only"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Always — hamburger"
 msgstr "Always — hamburger"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Mega menu bar"
 msgstr "Mega menu bar"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Flat link list"
 msgstr "Flat link list"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Mobile bottom bar"
 msgstr "Mobile bottom bar"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Always visible"
 msgstr "Always visible"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Desktop only"
 msgstr "Desktop only"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Mobile & tablet only"
 msgstr "Mobile & tablet only"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "From right"
 msgstr "From right"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "From left"
 msgstr "From left"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "— Select a menu —"
 msgstr "— Select a menu —"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Navigation menu"
 msgstr "Navigation menu"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Display mode"
 msgstr "Display mode"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Flat link list renders top-level links only, e.g. footer link columns."
 msgstr ""
 "Flat link list renders top-level links only, e.g. footer link columns."
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Overlay mode"
 msgstr "Overlay mode"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Choose on which screen sizes this navigation renders."
 msgstr "Choose on which screen sizes this navigation renders."
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Overlay slide direction"
 msgstr "Overlay slide direction"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Hamburger short line alignment"
 msgstr "Hamburger short line alignment"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid "Navigate top-level links on click"
 msgstr "Navigate top-level links on click"
 
-#: build/navigation.js:1
+#: build/js/navigation.js:1
 msgid ""
 "When on, clicking a link with a real URL navigates to it. Links with '#' or "
 "no URL still toggle the panel."
@@ -5783,103 +5972,103 @@ msgstr ""
 "When on, clicking a link with a real URL navigates to it. Links with '#' or "
 "no URL still toggle the panel."
 
-#: build/popular-pages.js:1
+#: build/js/popular-pages.js:1
 msgid "Popular Pages"
 msgstr "Popular Pages"
 
-#: build/popular-pages.js:1
+#: build/js/popular-pages.js:1
 msgid "Number of pages"
 msgstr "Number of pages"
 
-#: build/popular-pages.js:1
+#: build/js/popular-pages.js:1
 msgid "Title Typography"
 msgstr "Title Typography"
 
-#: build/popular-pages.js:1
+#: build/js/popular-pages.js:1
 msgid "Page title"
 msgstr "Page title"
 
-#: build/popular-pages.js:1
+#: build/js/popular-pages.js:1
 msgid "more"
 msgstr "more"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Pricing Card"
 msgstr "Pricing Card"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Highlight as most popular"
 msgstr "Highlight as most popular"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Adds a badge and an accent border to draw attention to this tier."
 msgstr "Adds a badge and an accent border to draw attention to this tier."
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Badge font size"
 msgstr "Badge font size"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Badge text color"
 msgstr "Badge text color"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Pricing Tiers"
 msgstr "Pricing Tiers"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "tier(s)"
 msgstr "tier(s)"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "+ Add Tier"
 msgstr "+ Add Tier"
 
-#: build/pricing-cards.js:1
+#: build/js/pricing-cards.js:1
 msgid "Remove Last Tier"
 msgstr "Remove Last Tier"
 
-#: build/process-steps.js:1
+#: build/js/process-steps.js:1
 msgid "Steps"
 msgstr "Steps"
 
-#: build/process-steps.js:1
+#: build/js/process-steps.js:1
 msgid "step(s)"
 msgstr "step(s)"
 
-#: build/process-steps.js:1
+#: build/js/process-steps.js:1
 msgid "+ Add Step"
 msgstr "+ Add Step"
 
-#: build/process-steps.js:1
+#: build/js/process-steps.js:1
 msgid "Remove Last Step"
 msgstr "Remove Last Step"
 
-#: build/project-card-panel.js:1
+#: build/js/project-card-panel.js:1
 msgid "Project Details"
 msgstr "Project Details"
 
-#: build/project-card-panel.js:1
+#: build/js/project-card-panel.js:1
 msgid "Description (hover overlay text)"
 msgstr "Description (hover overlay text)"
 
-#: build/project-card-panel.js:1
+#: build/js/project-card-panel.js:1
 msgid "Shown as overlay text when hovering the card image."
 msgstr "Shown as overlay text when hovering the card image."
 
-#: build/project-card-panel.js:1
+#: build/js/project-card-panel.js:1
 msgid "Space-separated, e.g. \"WordPress Elementor Yoast SEO\"."
 msgstr "Space-separated, e.g. \"WordPress Elementor Yoast SEO\"."
 
-#: build/project-card-panel.js:1
+#: build/js/project-card-panel.js:1
 msgid "Project URL"
 msgstr "Project URL"
 
-#: build/project-card-panel.js:1
+#: build/js/project-card-panel.js:1
 msgid "Where the arrow icon links to."
 msgstr "Where the arrow icon links to."
 
-#: build/project-card.js:1
+#: build/js/project-card.js:1
 msgid ""
 "Manage the card's image, description, tags, and link from Project Cards in "
 "the admin menu. Editing the shared card layout there updates every card "
@@ -5889,189 +6078,189 @@ msgstr ""
 "the admin menu. Editing the shared card layout there updates every card "
 "wherever it's embedded."
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Protected Content"
 msgstr "Protected Content"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Content that can be protected from bots using obfuscation"
 msgstr "Content that can be protected from bots using obfuscation"
 
-#: build/protected-content.js:1 build/translated-text.js:1
+#: build/js/protected-content.js:1 build/js/translated-text.js:1
 msgid "Paragraph"
 msgstr "Paragraph"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Heading 1"
 msgstr "Heading 1"
 
-#: build/protected-content.js:1 build/translated-text.js:1
+#: build/js/protected-content.js:1 build/js/translated-text.js:1
 msgid "Heading 2"
 msgstr "Heading 2"
 
-#: build/protected-content.js:1 build/translated-text.js:1
+#: build/js/protected-content.js:1 build/js/translated-text.js:1
 msgid "Heading 3"
 msgstr "Heading 3"
 
-#: build/protected-content.js:1 build/translated-text.js:1
+#: build/js/protected-content.js:1 build/js/translated-text.js:1
 msgid "Heading 4"
 msgstr "Heading 4"
 
-#: build/protected-content.js:1 build/translated-text.js:1
+#: build/js/protected-content.js:1 build/js/translated-text.js:1
 msgid "Heading 5"
 msgstr "Heading 5"
 
-#: build/protected-content.js:1 build/translated-text.js:1
+#: build/js/protected-content.js:1 build/js/translated-text.js:1
 msgid "Heading 6"
 msgstr "Heading 6"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Span"
 msgstr "Span"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Div"
 msgstr "Div"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Other"
 msgstr "Other"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "General Text (preserves HTML)"
 msgstr "General Text (preserves HTML)"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Protection Settings"
 msgstr "Protection Settings"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Use Protection"
 msgstr "Use Protection"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Encrypt this content server-side; only revealed after a click."
 msgstr "Encrypt this content server-side; only revealed after a click."
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Protection Type"
 msgstr "Protection Type"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "HTML Mode"
 msgstr "HTML Mode"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Enable to preserve HTML structure (links, formatting, etc.)"
 msgstr "Enable to preserve HTML structure (links, formatting, etc.)"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "HTML Tag"
 msgstr "HTML Tag"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "HTML Content"
 msgstr "HTML Content"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Enter your HTML content here…"
 msgstr "Enter your HTML content here…"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid ""
 "You can paste rich HTML content including links, formatting, and attributes."
 msgstr ""
 "You can paste rich HTML content including links, formatting, and attributes."
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Preview:"
 msgstr "Preview:"
 
-#: build/protected-content.js:1
+#: build/js/protected-content.js:1
 msgid "Enter your content here…"
 msgstr "Enter your content here…"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Image Settings"
 msgstr "Image Settings"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Alt Text"
 msgstr "Alt Text"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Mobile Breakpoint (px)"
 msgstr "Mobile Breakpoint (px)"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Switch to mobile image at this screen width or below."
 msgstr "Switch to mobile image at this screen width or below."
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Image Loading"
 msgstr "Image Loading"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Lazy"
 msgstr "Lazy"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Eager"
 msgstr "Eager"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Choose how the image should be loaded by the browser."
 msgstr "Choose how the image should be loaded by the browser."
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Desktop Image"
 msgstr "Desktop Image"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Replace Image"
 msgstr "Replace Image"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Select Image"
 msgstr "Select Image"
 
-#: build/responsive-image.js:1
+#: build/js/responsive-image.js:1
 msgid "Mobile Image (optional)"
 msgstr "Mobile Image (optional)"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Behaviour"
 msgstr "Behaviour"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Trigger point"
 msgstr "Trigger point"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Bottom of screen"
 msgstr "Bottom of screen"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Center of screen"
 msgstr "Center of screen"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Top of screen"
 msgstr "Top of screen"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Slide width"
 msgstr "Slide width"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Full"
 msgstr "Full"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Slide spacing"
 msgstr "Slide spacing"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid ""
 "Scales fluidly between breakpoints — smaller on mobile, larger on wide "
 "screens. Add or edit sizes in theme.json's settings.spacing.spacingSizes."
@@ -6079,59 +6268,55 @@ msgstr ""
 "Scales fluidly between breakpoints — smaller on mobile, larger on wide "
 "screens. Add or edit sizes in theme.json's settings.spacing.spacingSizes."
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Show markers"
 msgstr "Show markers"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Items"
 msgstr "Items"
 
-#: build/scroll-section.js:1
-msgid "item(s)"
-msgstr "item(s)"
-
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "+ Add Item"
 msgstr "+ Add Item"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Remove Last Item"
 msgstr "Remove Last Item"
 
-#: build/scroll-section.js:1
+#: build/js/scroll-section.js:1
 msgid "Add item"
 msgstr "Add item"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Fixed Arrow — floating button"
 msgstr "Fixed Arrow — floating button"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Full-Width Bar — inline"
 msgstr "Full-Width Bar — inline"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Fixed button, visible on the frontend while scrolling"
 msgstr "Fixed button, visible on the frontend while scrolling"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Full-width bar, always visible where placed — e.g. above the footer"
 msgstr "Full-width bar, always visible where placed — e.g. above the footer"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Scroll To Top Settings"
 msgstr "Scroll To Top Settings"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Variant"
 msgstr "Variant"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Button Label"
 msgstr "Button Label"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid ""
 "Managed via Polylang → Languages → Translations, string \"Scroll To Top "
 "Button Label\"."
@@ -6139,19 +6324,19 @@ msgstr ""
 "Managed via Polylang → Languages → Translations, string \"Scroll To Top "
 "Button Label\"."
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Arrow Icon"
 msgstr "Arrow Icon"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Show arrow after label"
 msgstr "Show arrow after label"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Arrow size"
 msgstr "Arrow size"
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid ""
 "The arrow only applies to the Full-Width Bar variant — the Fixed Arrow "
 "variant already hides its label and shows only its own icon."
@@ -6159,23 +6344,23 @@ msgstr ""
 "The arrow only applies to the Full-Width Bar variant — the Fixed Arrow "
 "variant already hides its label and shows only its own icon."
 
-#: build/scroll-to-top.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Scroll To Top"
 msgstr "Scroll To Top"
 
-#: build/search-panel.js:1
+#: build/js/search-panel.js:1
 msgid "Search Panel"
 msgstr "Search Panel"
 
-#: build/search-panel.js:1
+#: build/js/search-panel.js:1
 msgid "Used as aria-label when an icon is set."
 msgstr "Used as aria-label when an icon is set."
 
-#: build/service-location-panel.js:1
+#: build/js/service-location-panel.js:1
 msgid "City Details"
 msgstr "City Details"
 
-#: build/service-location-panel.js:1
+#: build/js/service-location-panel.js:1
 msgid ""
 "Every city mention on the page is bound to this field — changing it updates "
 "the whole page."
@@ -6183,31 +6368,31 @@ msgstr ""
 "Every city mention on the page is bound to this field — changing it updates "
 "the whole page."
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Same as desktop"
 msgstr "Same as desktop"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "1 column"
 msgstr "1 column"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "2 columns"
 msgstr "2 columns"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "columns"
 msgstr "columns"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Label shown in the navigation bar trigger."
 msgstr "Label shown in the navigation bar trigger."
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Tablet layout"
 msgstr "Tablet layout"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid ""
 "Applied between the mobile and desktop breakpoints on the front end. The "
 "editor canvas always shows the desktop layout."
@@ -6215,11 +6400,11 @@ msgstr ""
 "Applied between the mobile and desktop breakpoints on the front end. The "
 "editor canvas always shows the desktop layout."
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Mobile layout"
 msgstr "Mobile layout"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid ""
 "Applied below the mobile breakpoint on the front end. The editor canvas "
 "always shows the desktop layout."
@@ -6227,37 +6412,37 @@ msgstr ""
 "Applied below the mobile breakpoint on the front end. The editor canvas "
 "always shows the desktop layout."
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Reduce columns?"
 msgstr "Reduce columns?"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid ""
 "Reducing columns will delete the content of the removed column(s). Continue?"
 msgstr ""
 "Reducing columns will delete the content of the removed column(s). Continue?"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Cancel"
 msgstr "Cancel"
 
-#: build/simple-grid.js:1
+#: build/js/simple-grid.js:1
 msgid "Continue"
 msgstr "Continue"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Add Slide"
 msgstr "Add Slide"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Slide title…"
 msgstr "Slide title…"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Settings"
 msgstr "Settings"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "“Autoplay” will automatically advance the slides. Note: this is "
 "intentionally disabled in the editor, but will affect the front end."
@@ -6265,11 +6450,11 @@ msgstr ""
 "“Autoplay” will automatically advance the slides. Note: this is "
 "intentionally disabled in the editor, but will affect the front end."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Continuous Autoplay"
 msgstr "Continuous Autoplay"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "Scrolls continuously (like a ticker) instead of pausing between slides. "
 "Starts once the carousel scrolls into view, and pauses on hover or keyboard "
@@ -6279,11 +6464,11 @@ msgstr ""
 "Starts once the carousel scrolls into view, and pauses on hover or keyboard "
 "focus, resuming once the pointer or focus leaves."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Show progress circle"
 msgstr "Show progress circle"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "Displays a circular countdown indicator that fills up before each automatic "
 "slide change."
@@ -6291,17 +6476,17 @@ msgstr ""
 "Displays a circular countdown indicator that fills up before each automatic "
 "slide change."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "“Navigation” will display arrows so user can navigate forward/backward."
 msgstr ""
 "“Navigation” will display arrows so user can navigate forward/backward."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Pagination"
 msgstr "Pagination"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "“Pagination” will display dots along the bottom for user to click through "
 "slides."
@@ -6309,51 +6494,51 @@ msgstr ""
 "“Pagination” will display dots along the bottom for user to click through "
 "slides."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Smooth Transition"
 msgstr "Smooth Transition"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Uses a linear easing curve for a smoother feel between slides."
 msgstr "Uses a linear easing curve for a smoother feel between slides."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Autoplay Time (seconds)"
 msgstr "Autoplay Time (seconds)"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Set how long one full continuous scroll cycle takes, in seconds."
 msgstr "Set how long one full continuous scroll cycle takes, in seconds."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Set the autoplay interval in seconds."
 msgstr "Set the autoplay interval in seconds."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Slides Per Mobile"
 msgstr "Slides Per Mobile"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Slides Per Tablet"
 msgstr "Slides Per Tablet"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Slides Per Desktop"
 msgstr "Slides Per Desktop"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Scrollbar"
 msgstr "Scrollbar"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Enable or disable the scrollbar."
 msgstr "Enable or disable the scrollbar."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Enable or disable looping of slides."
 msgstr "Enable or disable looping of slides."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "Lets users manually swipe/drag the slides. Keep this on to allow manual "
 "swiping even during Continuous Autoplay."
@@ -6361,11 +6546,11 @@ msgstr ""
 "Lets users manually swipe/drag the slides. Keep this on to allow manual "
 "swiping even during Continuous Autoplay."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Centered slides (peek effect)"
 msgstr "Centered slides (peek effect)"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "Centers the active slide with the next/previous slides peeking in from the "
 "sides. Below tablet width, always shows a single full-width slide regardless"
@@ -6377,11 +6562,11 @@ msgstr ""
 " of these settings. Use the block's own Wide/Full alignment for an edge-to-"
 "edge carousel."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Side peek (%)"
 msgstr "Side peek (%)"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "How much of each side slide is visible, as a percentage of the carousel "
 "width, up to the max slide width below."
@@ -6389,11 +6574,11 @@ msgstr ""
 "How much of each side slide is visible, as a percentage of the carousel "
 "width, up to the max slide width below."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Max slide width"
 msgstr "Max slide width"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid ""
 "Caps how wide the active slide can grow. On wider screens the slide stays "
 "this width, so more of the side slides peek in."
@@ -6401,95 +6586,95 @@ msgstr ""
 "Caps how wide the active slide can grow. On wider screens the slide stays "
 "this width, so more of the side slides peek in."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Space Between Slides (px)"
 msgstr "Space Between Slides (px)"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Set the space between slides in pixels."
 msgstr "Set the space between slides in pixels."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Mousewheel"
 msgstr "Mousewheel"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Enable navigation with mouse wheel scrolling."
 msgstr "Enable navigation with mouse wheel scrolling."
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Keyboard Navigation"
 msgstr "Keyboard Navigation"
 
-#: build/slider.js:1
+#: build/js/slider.js:1
 msgid "Enable navigation with keyboard arrow keys."
 msgstr "Enable navigation with keyboard arrow keys."
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Social Section"
 msgstr "Social Section"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Attach to bottom"
 msgstr "Attach to bottom"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Pins the section to the bottom of the menu overlay."
 msgstr "Pins the section to the bottom of the menu overlay."
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Icon Size & Spacing"
 msgstr "Icon Size & Spacing"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Icon Width"
 msgstr "Icon Width"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Icon Height"
 msgstr "Icon Height"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Gap Between Icons"
 msgstr "Gap Between Icons"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Social Link"
 msgstr "Social Link"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Icon class"
 msgstr "Icon class"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Optional CSS class on the list item."
 msgstr "Optional CSS class on the list item."
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Replace SVG icon"
 msgstr "Replace SVG icon"
 
-#: build/social-section.js:1
+#: build/js/social-section.js:1
 msgid "Social link"
 msgstr "Social link"
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid "Inline text"
 msgstr "Inline text"
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid "Translation"
 msgstr "Translation"
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid "Tag"
 msgstr "Tag"
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid "String name"
 msgstr "String name"
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid ""
 "Unique key used in Languages → Strings translations, e.g. service-location-"
 "hero-heading. Leave empty to skip translation."
@@ -6497,11 +6682,11 @@ msgstr ""
 "Unique key used in Languages → Strings translations, e.g. service-location-"
 "hero-heading. Leave empty to skip translation."
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid "Translated the same way as the text, under {stringName}-href."
 msgstr "Translated the same way as the text, under {stringName}-href."
 
-#: build/translated-text.js:1
+#: build/js/translated-text.js:1
 msgid "Enter the base text…"
 msgstr "Enter the base text…"
 
@@ -6543,6 +6728,22 @@ msgid ""
 msgstr ""
 "Button with independent normal/hover control over text, background, and "
 "border colors, including gradients."
+
+#: build/blocks/contact-detail/block.json src/blocks/contact-detail/block.json
+msgctxt "block title"
+msgid "Contact Detail"
+msgstr "Contact Detail"
+
+#: build/blocks/contact-detail/block.json src/blocks/contact-detail/block.json
+msgctxt "block description"
+msgid ""
+"Single contact field (address, phone, email or hours) from the site-wide "
+"Contact Card settings, for placing individually inside any layout such as "
+"the footer."
+msgstr ""
+"Single contact field (address, phone, email or hours) from the site-wide "
+"Contact Card settings, for placing individually inside any layout such as "
+"the footer."
 
 #: build/blocks/contact-form/block.json src/blocks/contact-form/block.json
 msgctxt "block title"
@@ -6639,6 +6840,34 @@ msgid ""
 msgstr ""
 "Language switcher trigger with dropdown panel. Wraps the native Polylang "
 "navigation language switcher."
+
+#: build/blocks/marquee/block.json src/blocks/marquee/block.json
+msgctxt "block title"
+msgid "Marquee"
+msgstr "Marquee"
+
+#: build/blocks/marquee/block.json src/blocks/marquee/block.json
+msgctxt "block description"
+msgid ""
+"Continuously scrolling row of technology/skill items — pauses on hover, "
+"focus, or touch, and opens a short impact-summary modal on click."
+msgstr ""
+"Continuously scrolling row of technology/skill items — pauses on hover, "
+"focus, or touch, and opens a short impact-summary modal on click."
+
+#: build/blocks/marquee/item/block.json src/blocks/marquee/item/block.json
+msgctxt "block title"
+msgid "Marquee Item"
+msgstr "Marquee Item"
+
+#: build/blocks/marquee/item/block.json src/blocks/marquee/item/block.json
+msgctxt "block description"
+msgid ""
+"Single technology/skill entry in a Marquee — icon, label, and a short "
+"description shown in the modal on click."
+msgstr ""
+"Single technology/skill entry in a Marquee — icon, label, and a short "
+"description shown in the modal on click."
 
 #: build/blocks/model-viewer/block.json src/blocks/model-viewer/block.json
 msgctxt "block title"

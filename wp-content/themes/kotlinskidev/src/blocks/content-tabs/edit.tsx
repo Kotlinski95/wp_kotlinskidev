@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
   useBlockProps,
   InnerBlocks,
@@ -50,6 +50,8 @@ interface BlockEditorSelectors {
 }
 
 const ALLOWED_BLOCKS = ["kotlinskidev/content-tabs-item"];
+const EMPTY_BLOCKS: TabItemBlock[] = [];
+const EMPTY_CLIENT_IDS: string[] = [];
 
 const NAV_POSITION_OPTIONS = [
   { label: __("Top", "kotlinskidev"), value: "top" },
@@ -85,7 +87,16 @@ const TABS_TEMPLATE: [string, Record<string, unknown>, unknown[]][] = [
     {},
     [
       ["kotlinskidev/content-tabs-nav-link", { label: __("Creating Websites", "kotlinskidev") }],
-      ["core/paragraph", { placeholder: __("Describe this service…", "kotlinskidev") }],
+      [
+        "core/paragraph",
+        {
+          content: __(
+            "Custom-built, fast-loading sites tailored to your business, from first sketch to launch.",
+            "kotlinskidev"
+          ),
+          placeholder: __("Describe this service…", "kotlinskidev"),
+        },
+      ],
     ],
   ],
   [
@@ -93,7 +104,16 @@ const TABS_TEMPLATE: [string, Record<string, unknown>, unknown[]][] = [
     {},
     [
       ["kotlinskidev/content-tabs-nav-link", { label: __("Performance Analysis", "kotlinskidev") }],
-      ["core/paragraph", { placeholder: __("Describe this service…", "kotlinskidev") }],
+      [
+        "core/paragraph",
+        {
+          content: __(
+            "In-depth audits of load speed, Core Web Vitals, and rendering bottlenecks, with a clear fix list.",
+            "kotlinskidev"
+          ),
+          placeholder: __("Describe this service…", "kotlinskidev"),
+        },
+      ],
     ],
   ],
   [
@@ -101,7 +121,16 @@ const TABS_TEMPLATE: [string, Record<string, unknown>, unknown[]][] = [
     {},
     [
       ["kotlinskidev/content-tabs-nav-link", { label: __("Website Optimization", "kotlinskidev") }],
-      ["core/paragraph", { placeholder: __("Describe this service…", "kotlinskidev") }],
+      [
+        "core/paragraph",
+        {
+          content: __(
+            "Ongoing tuning of caching, assets, and queries to keep the site fast as it grows.",
+            "kotlinskidev"
+          ),
+          placeholder: __("Describe this service…", "kotlinskidev"),
+        },
+      ],
     ],
   ],
 ];
@@ -151,17 +180,22 @@ export default function Edit({ attributes, setAttributes, clientId }: EditProps)
   };
   const isActiveBgGradient = (activeTabBackgroundColor || "").includes("gradient");
 
-  const { innerBlocks, selectedBlockParents } = useSelect(
+  const { innerBlocks, blockParents, selectedBlockClientId } = useSelect(
     (select) => {
       const store = select("core/block-editor") as unknown as BlockEditorSelectors;
       const selectedCid = store.getSelectedBlockClientId();
-      const parents: string[] = selectedCid ? store.getBlockParents(selectedCid) : [];
       return {
-        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? [],
-        selectedBlockParents: selectedCid ? [...parents, selectedCid] : [],
+        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? EMPTY_BLOCKS,
+        blockParents: selectedCid ? store.getBlockParents(selectedCid) : EMPTY_CLIENT_IDS,
+        selectedBlockClientId: selectedCid,
       };
     },
     [clientId]
+  );
+
+  const selectedBlockParents = useMemo(
+    () => (selectedBlockClientId ? [...blockParents, selectedBlockClientId] : EMPTY_CLIENT_IDS),
+    [blockParents, selectedBlockClientId]
   );
 
   useEffect(() => {

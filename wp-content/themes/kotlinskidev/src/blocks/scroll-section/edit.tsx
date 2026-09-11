@@ -36,7 +36,7 @@ type TriggerValue = "top" | "center" | "bottom";
 type SlideWidth = "auto" | "full";
 type SlideGap = string;
 
-interface ScrollSectionAttributes {
+export interface ScrollSectionAttributes {
   trigger: TriggerValue;
   backgroundColor: string;
   markers: boolean;

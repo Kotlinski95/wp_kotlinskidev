@@ -8,7 +8,7 @@
   "icon": "align-center",
   "description": "Banner with media image and content for navigation panels.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/nav-content.js",
+  "editorScript": "file:../../../build/js/nav-content.js",
   "render": "file:./render.php",
   "attributes": {
     "mediaId": { "type": "integer", "default": 0 },

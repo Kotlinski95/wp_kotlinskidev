@@ -76,16 +76,16 @@ define( 'KOTLINSKIDEV_CACHE_PREFIX', 'kotlinskidev_' );
 
 /**
  * Build files whose modification time is used to detect a new deployment.
- * Add any new compiled file here if it gets inlined or heavily cached.
+ * Globs every compiled CSS/JS file instead of a hardcoded list — a new block's
+ * output (e.g. build/css/style-marquee.css) must bust this fingerprint too,
+ * since WP core auto-inlines small per-block stylesheets and Asset CleanUp (if
+ * active) caches per-block scripts independently of main.css/main.js.
  */
 function kotlinskidev_tracked_build_files(): array {
-    $build = get_template_directory() . '/build/';
-    return [
-        $build . 'critical.css',
-        $build . 'critical.js',
-        $build . 'main.css',
-        $build . 'main.js',
-    ];
+    $css = glob( get_template_directory() . '/build/css/*.css' );
+    $js  = glob( get_template_directory() . '/build/js/*.js' );
+
+    return array_merge( $css ?: [], $js ?: [] );
 }
 
 // ─── 3. FINGERPRINT HELPER ───────────────────────────────────────────────────
@@ -185,6 +185,13 @@ function kotlinskidev_maybe_purge_on_new_build(): void {
 
     // New build detected — wipe stale build-file transients
     kotlinskidev_flush_build_transients();
+
+    // Asset CleanUp (if active) combines our JS/CSS into its own cached bundles,
+    // keyed by file content — those must be purged too or clients keep being
+    // served the pre-deploy bundle indefinitely, with no user-facing error.
+    if ( class_exists( '\WpAssetCleanUp\OptimiseAssets\OptimizeCommon' ) ) {
+        \WpAssetCleanUp\OptimiseAssets\OptimizeCommon::clearCache();
+    }
 
     // Persist the new fingerprint for MONTH_IN_SECONDS so this check is cheap
     set_transient( $fingerprint_key, $current, MONTH_IN_SECONDS );

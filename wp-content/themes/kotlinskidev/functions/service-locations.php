@@ -90,7 +90,7 @@ function kotlinskidev_service_location_editor_panel_script(): void {
         return;
     }
 
-    $path = get_template_directory() . '/build/service-location-panel.js';
+    $path = kotlinskidev_build_path( 'js', 'service-location-panel.js' );
 
     if ( ! file_exists( $path ) ) {
         return;
@@ -98,7 +98,7 @@ function kotlinskidev_service_location_editor_panel_script(): void {
 
     wp_enqueue_script(
         'kotlinskidev-service-location-panel',
-        get_template_directory_uri() . '/build/service-location-panel.js',
+        kotlinskidev_build_url( 'js', 'service-location-panel.js' ),
         [ 'wp-plugins', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-components', 'wp-data', 'wp-core-data', 'wp-i18n' ],
         (string) filemtime( $path ),
         true

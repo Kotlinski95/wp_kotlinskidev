@@ -1,4 +1,4 @@
-import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
+import { closeAllExcept } from "@utils/panel-coordinator";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
 
 jest.mock("@utils/panel-coordinator", () => ({
@@ -28,16 +28,36 @@ function ready(): void {
   document.dispatchEvent(new Event("DOMContentLoaded"));
 }
 
+let rafQueue: FrameRequestCallback[] = [];
+
+function flushOneFrame(): void {
+  const cb = rafQueue.shift();
+  cb?.(0);
+}
+
+function setScrollY(value: number): void {
+  Object.defineProperty(window, "scrollY", { value, configurable: true, writable: true });
+}
+
 beforeEach(() => {
   document.body.innerHTML = "";
   jest.clearAllMocks();
+  rafQueue = [];
+  jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb: FrameRequestCallback) => {
+    rafQueue.push(cb);
+    return rafQueue.length;
+  });
+  jest.spyOn(window, "scrollTo").mockImplementation(() => undefined);
+  setScrollY(0);
 });
 
 describe("modal-manager", () => {
-  it("registers itself with the panel coordinator on DOMContentLoaded", () => {
-    ready();
+  it("registers itself with the panel coordinator on init — immediately when the DOM is already ready, deferred to DOMContentLoaded otherwise", () => {
+    jest.resetModules();
+    const freshPanelCoordinator = require("@utils/panel-coordinator");
+    require("./modal-manager");
 
-    expect(registerPanel).toHaveBeenCalledWith(expect.any(Function));
+    expect(freshPanelCoordinator.registerPanel).toHaveBeenCalledWith(expect.any(Function));
   });
 
   it("opens the modal referenced by a data-kt-modal-target trigger", () => {
@@ -99,6 +119,132 @@ describe("modal-manager", () => {
     expect(sibling.hasAttribute("inert")).toBe(false);
   });
 
+  it("re-asserts scroll position for a few frames after opening — a GSAP ScrollTrigger pin sharing one wrapper across multiple pinned sections (this page's .main-wrapper) can snap scrollY back to an earlier pin-spacer on a delayed refresh triggered by the modal's own DOM changes, outside any code path we control directly", () => {
+    ready();
+    const modal = buildModal("kt-modal-3c");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-3c");
+    document.body.append(modal, trigger);
+    setScrollY(500);
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+    expect(window.scrollTo).not.toHaveBeenCalled();
+
+    flushOneFrame();
+    expect(window.scrollTo).not.toHaveBeenCalled();
+
+    setScrollY(50);
+    flushOneFrame();
+
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      left: window.scrollX,
+      top: 500,
+      behavior: "instant",
+    });
+  });
+
+  it("corrects a jump that happens synchronously during its own side effects (lockScroll/setBackgroundInert), not just one that lands later on a guard frame — the guard's target must be the scrollY from before any mutation ran, never scrollY read after", () => {
+    ready();
+    const modal = buildModal("kt-modal-3e");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-3e");
+    document.body.append(modal, trigger);
+    setScrollY(500);
+    (lockScroll as jest.Mock).mockImplementation(() => setScrollY(50));
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      left: window.scrollX,
+      top: 500,
+      behavior: "instant",
+    });
+  });
+
+  it("uses the scrollY captured at mousedown as the guard target, not scrollY read inside openModal — a disturbance between mousedown and our click listener ever running must still be caught", () => {
+    ready();
+    const modal = buildModal("kt-modal-3f");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-3f");
+    document.body.append(modal, trigger);
+    setScrollY(500);
+
+    trigger.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true }));
+    setScrollY(3715);
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(window.scrollTo).toHaveBeenCalledWith({
+      left: window.scrollX,
+      top: 500,
+      behavior: "instant",
+    });
+  });
+
+  it("prevents mousedown's default action on a trigger — blocks the browser's own native focus-and-scroll-into-view behavior, since openModal() moves focus to the modal's own close button itself instead", () => {
+    ready();
+    const modal = buildModal("kt-modal-3g");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-3g");
+    document.body.append(modal, trigger);
+
+    const event = new MouseEvent("mousedown", { bubbles: true, cancelable: true });
+    trigger.dispatchEvent(event);
+
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it("leaves mousedown's default action alone for a mousedown that isn't on a modal trigger — must not block focus/text-selection elsewhere on the page", () => {
+    ready();
+    const outside = document.createElement("button");
+    document.body.append(outside);
+
+    const event = new MouseEvent("mousedown", { bubbles: true, cancelable: true });
+    outside.dispatchEvent(event);
+
+    expect(event.defaultPrevented).toBe(false);
+  });
+
+  it("stops re-asserting scroll position once the guard window elapses, so it never fights a real subsequent user scroll", () => {
+    ready();
+    const modal = buildModal("kt-modal-3d");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-3d");
+    document.body.append(modal, trigger);
+    setScrollY(500);
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    while (rafQueue.length > 0) {
+      flushOneFrame();
+    }
+    (window.scrollTo as jest.Mock).mockClear();
+
+    setScrollY(50);
+    expect(rafQueue).toHaveLength(0);
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("moves focus into the modal before marking the background inert — inert on a focused element's ancestor forces the browser's own uncontrolled focus-clearing (no preventScroll), which still jumps the page even though our explicit focus() call is guarded", () => {
+    ready();
+    const modal = buildModal("kt-modal-3b");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-3b");
+    const sibling = document.createElement("div");
+    document.body.append(sibling, modal, trigger);
+    trigger.focus();
+
+    let activeElementWhenInertApplied: Element | null = null;
+    jest.spyOn(sibling, "setAttribute").mockImplementation((name: string) => {
+      if (name === "inert" && activeElementWhenInertApplied === null) {
+        activeElementWhenInertApplied = document.activeElement;
+      }
+    });
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(activeElementWhenInertApplied).toBe(modal.querySelector(".kt-modal__close"));
+  });
+
   it("focuses the close button on open", () => {
     ready();
     const modal = buildModal("kt-modal-4");
@@ -111,6 +257,20 @@ describe("modal-manager", () => {
     trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
 
     expect(closeButton.focus).toHaveBeenCalled();
+  });
+
+  it("focuses the close button without scrolling the page — html has scroll-behavior:smooth, so an unguarded focus() animates a visible jump", () => {
+    ready();
+    const modal = buildModal("kt-modal-4b");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-4b");
+    document.body.append(modal, trigger);
+    const closeButton = modal.querySelector<HTMLElement>(".kt-modal__close")!;
+    jest.spyOn(closeButton, "focus");
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(closeButton.focus).toHaveBeenCalledWith({ preventScroll: true });
   });
 
   it("closes on backdrop click and returns focus to the trigger", () => {
@@ -128,6 +288,20 @@ describe("modal-manager", () => {
     expect(modal.getAttribute("aria-hidden")).toBe("true");
     expect(unlockScroll).toHaveBeenCalledWith("kt-modal");
     expect(trigger.focus).toHaveBeenCalled();
+  });
+
+  it("returns focus to the trigger without scrolling the page on close — same smooth-scroll jump risk as open", () => {
+    ready();
+    const modal = buildModal("kt-modal-5b");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-5b");
+    document.body.append(modal, trigger);
+    jest.spyOn(trigger, "focus");
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+    modal.querySelector<HTMLElement>(".kt-modal__backdrop")!.click();
+
+    expect(trigger.focus).toHaveBeenCalledWith({ preventScroll: true });
   });
 
   it("does not throw and skips focus when the trigger was removed from the DOM before close", () => {

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/marquee-item",
+  "version": "1.0.0",
+  "title": "Marquee Item",
+  "category": "layout",
+  "icon": "admin-generic",
+  "description": "Single technology/skill entry in a Marquee — icon, label, and a short description shown in the modal on click.",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/marquee"],
+  "supports": {
+    "inserter": false,
+    "reusable": false,
+    "html": false
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "navIconId": {
+      "type": "integer",
+      "default": 0
+    },
+    "navIconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "docUrl": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

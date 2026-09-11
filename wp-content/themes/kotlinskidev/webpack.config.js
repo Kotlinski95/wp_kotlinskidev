@@ -1,5 +1,70 @@
+const fs = require("fs");
 const path = require("path");
 const defaults = require("@wordpress/scripts/config/webpack.config");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
+const RtlCssPlugin = require("@wordpress/scripts/plugins/rtlcss-webpack-plugin");
+const NestedRtlCssPlugin = require("./bin/webpack/nested-rtlcss-plugin");
+
+const srcDir = path.resolve(process.cwd(), "src");
+const blocksDir = path.join(srcDir, "blocks");
+
+const blockDirsBundledElsewhere = new Set();
+for (const bundleFile of ["editor.ts", "index.ts"]) {
+  const contents = fs.readFileSync(path.join(srcDir, bundleFile), "utf8");
+  const importRe = /import\s+(?:[\w{}, *]+\s+from\s+)?"\.\/blocks\/([^"]+)"/g;
+  let match;
+  while ((match = importRe.exec(contents))) {
+    blockDirsBundledElsewhere.add(match[1].replace(/\/index(\.tsx?)?$/, ""));
+  }
+}
+
+const coreEntries = {
+  main: path.join(srcDir, "index.ts"),
+  critical: path.join(srcDir, "critical.ts"),
+  editor: path.join(srcDir, "editor.ts"),
+  "admin-bar": path.join(srcDir, "admin-bar.ts"),
+};
+
+const blockEntries = {};
+for (const blockName of fs.readdirSync(blocksDir)) {
+  const blockPath = path.join(blocksDir, blockName);
+  if (!fs.statSync(blockPath).isDirectory()) {
+    continue;
+  }
+
+  const files = fs.readdirSync(blockPath);
+  let indexFile = null;
+  if (files.includes("index.tsx")) {
+    indexFile = "index.tsx";
+  } else if (files.includes("index.ts")) {
+    indexFile = "index.ts";
+  }
+
+  if (indexFile && !blockDirsBundledElsewhere.has(blockName)) {
+    blockEntries[blockName] = path.join(blockPath, indexFile);
+  }
+  if (files.includes("init.ts")) {
+    blockEntries[`${blockName}-init`] = path.join(blockPath, "init.ts");
+  }
+  if (files.includes("panel.tsx")) {
+    blockEntries[`${blockName}-panel`] = path.join(blockPath, "panel.tsx");
+  }
+}
+
+const nestedOutputPlugins = defaults.plugins
+  .filter(Boolean)
+  .filter(
+    (plugin) =>
+      !(plugin instanceof MiniCssExtractPlugin) &&
+      !(plugin instanceof RtlCssPlugin) &&
+      !(plugin instanceof DependencyExtractionWebpackPlugin)
+  )
+  .concat([
+    new MiniCssExtractPlugin({ filename: "css/[name].css" }),
+    new NestedRtlCssPlugin(),
+    new DependencyExtractionWebpackPlugin({ outputFilename: "js/[name].asset.php" }),
+  ]);
 
 module.exports = {
   ...defaults,
@@ -7,105 +72,16 @@ module.exports = {
   devtool: process.env.KOTLINSKIDEV_SOURCEMAPS ? "source-map" : defaults.devtool,
 
   entry: {
-    main: path.resolve(process.cwd(), "src", "index.ts"),
-    critical: path.resolve(process.cwd(), "src", "critical.ts"),
-    "banner-carousel": path.resolve(process.cwd(), "src", "blocks", "banner-carousel", "index.ts"),
-    "gallery-lightbox": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "gallery-lightbox",
-      "index.tsx"
-    ),
-    "gallery-lightbox-init": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "gallery-lightbox",
-      "init.ts"
-    ),
-    "banner-carousel-init": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "banner-carousel",
-      "init.ts"
-    ),
-    "hero-carousel": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "index.ts"),
-    "hero-carousel-init": path.resolve(process.cwd(), "src", "blocks", "hero-carousel", "init.ts"),
-    "content-tabs": path.resolve(process.cwd(), "src", "blocks", "content-tabs", "index.ts"),
-    "content-tabs-init": path.resolve(process.cwd(), "src", "blocks", "content-tabs", "init.ts"),
-    "scroll-section": path.resolve(process.cwd(), "src", "blocks", "scroll-section", "index.ts"),
-    "scroll-section-init": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "scroll-section",
-      "init.ts"
-    ),
-    "protected-content": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "protected-content",
-      "index.tsx"
-    ),
-    editor: path.resolve(process.cwd(), "src", "editor.ts"),
-    navigation: path.resolve(process.cwd(), "src", "blocks", "navigation", "index.tsx"),
-    "content-block": path.resolve(process.cwd(), "src", "blocks", "content-block", "index.tsx"),
-    "article-card": path.resolve(process.cwd(), "src", "blocks", "article-card", "index.tsx"),
-    "article-card-panel": path.resolve(process.cwd(), "src", "blocks", "article-card", "panel.tsx"),
-    "project-card": path.resolve(process.cwd(), "src", "blocks", "project-card", "index.tsx"),
-    "project-card-panel": path.resolve(process.cwd(), "src", "blocks", "project-card", "panel.tsx"),
-    "service-location-panel": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "service-location",
-      "panel.tsx"
-    ),
-    "theme-switcher": path.resolve(process.cwd(), "src", "blocks", "theme-switcher", "index.tsx"),
-    "search-panel": path.resolve(process.cwd(), "src", "blocks", "search-panel", "index.tsx"),
-    "language-panel": path.resolve(process.cwd(), "src", "blocks", "language-panel", "index.tsx"),
-    "popular-pages": path.resolve(process.cwd(), "src", "blocks", "popular-pages", "index.tsx"),
-    "simple-grid": path.resolve(process.cwd(), "src", "blocks", "simple-grid", "index.ts"),
-    "nav-content": path.resolve(process.cwd(), "src", "blocks", "nav-content", "index.tsx"),
-    button: path.resolve(process.cwd(), "src", "blocks", "button", "index.tsx"),
-    "social-section": path.resolve(process.cwd(), "src", "blocks", "social-section", "index.tsx"),
-    copyrights: path.resolve(process.cwd(), "src", "blocks", "copyrights", "index.tsx"),
-    "scroll-to-top": path.resolve(process.cwd(), "src", "blocks", "scroll-to-top", "index.tsx"),
-    slider: path.resolve(process.cwd(), "src", "blocks", "slider", "index.ts"),
-    "slider-init": path.resolve(process.cwd(), "src", "blocks", "slider", "init.ts"),
-    "responsive-image": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "responsive-image",
-      "index.ts"
-    ),
-    "google-maps": path.resolve(process.cwd(), "src", "blocks", "google-maps", "index.ts"),
-    "contact-form": path.resolve(process.cwd(), "src", "blocks", "contact-form", "index.tsx"),
-    "admin-bar": path.resolve(process.cwd(), "src", "admin-bar.ts"),
-    breadcrumbs: path.resolve(process.cwd(), "src", "blocks", "breadcrumbs", "index.ts"),
-    "modal-settings-panel": path.resolve(
-      process.cwd(),
-      "src",
-      "blocks",
-      "modal-settings-panel",
-      "index.tsx"
-    ),
-    "model-viewer": path.resolve(process.cwd(), "src", "blocks", "model-viewer", "index.ts"),
-    "model-viewer-init": path.resolve(process.cwd(), "src", "blocks", "model-viewer", "init.ts"),
-    icon: path.resolve(process.cwd(), "src", "blocks", "icon", "index.ts"),
-    "translated-text": path.resolve(process.cwd(), "src", "blocks", "translated-text", "index.ts"),
-    "process-steps": path.resolve(process.cwd(), "src", "blocks", "process-steps", "index.ts"),
-    "pricing-cards": path.resolve(process.cwd(), "src", "blocks", "pricing-cards", "index.ts"),
+    ...coreEntries,
+    ...blockEntries,
   },
+
+  plugins: nestedOutputPlugins,
 
   output: {
     ...defaults.output,
-    filename: "[name].js",
-    chunkFilename: "[name].js?v=[chunkhash]",
+    filename: "js/[name].js",
+    chunkFilename: "js/[name].js?v=[chunkhash]",
     path: path.resolve(process.cwd(), "build"),
   },
   resolve: {

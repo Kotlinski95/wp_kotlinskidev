@@ -4,7 +4,7 @@ import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, ToggleControl } from "@wordpress/components";
 import ServerSideRender from "@wordpress/server-side-render";
 
-interface BreadcrumbsAttributes {
+export interface BreadcrumbsAttributes {
   showOnHomepage: boolean;
 }
 

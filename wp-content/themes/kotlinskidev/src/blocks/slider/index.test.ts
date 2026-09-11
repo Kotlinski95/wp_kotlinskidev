@@ -21,7 +21,7 @@ import "./index";
 describe("wpe/slider", () => {
   it("registers the block with the Edit and save components", () => {
     expect(registerBlockType).toHaveBeenCalledWith(
-      "wpe/slider",
+      expect.objectContaining({ name: "wpe/slider" }),
       expect.objectContaining({ edit: Edit, save })
     );
   });

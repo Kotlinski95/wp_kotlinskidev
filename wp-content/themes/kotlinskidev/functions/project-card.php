@@ -122,7 +122,7 @@ function kotlinskidev_project_card_editor_panel_script(): void {
         return;
     }
 
-    $path = get_template_directory() . '/build/project-card-panel.js';
+    $path = kotlinskidev_build_path( 'js', 'project-card-panel.js' );
 
     if ( ! file_exists( $path ) ) {
         return;
@@ -130,7 +130,7 @@ function kotlinskidev_project_card_editor_panel_script(): void {
 
     wp_enqueue_script(
         'kotlinskidev-project-card-panel',
-        get_template_directory_uri() . '/build/project-card-panel.js',
+        kotlinskidev_build_url( 'js', 'project-card-panel.js' ),
         [ 'wp-plugins', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-components', 'wp-data', 'wp-core-data', 'wp-i18n' ],
         (string) filemtime( $path ),
         true

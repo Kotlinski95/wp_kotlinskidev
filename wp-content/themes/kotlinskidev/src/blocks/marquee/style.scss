@@ -1,0 +1,82 @@
+.kt-marquee {
+	overflow: hidden;
+	width: 100%;
+	padding-block: 0.5rem;
+	contain: layout paint;
+	-webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+	mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+
+	.swiper-wrapper {
+		align-items: center;
+		will-change: transform;
+	}
+
+	.swiper-slide {
+		width: auto;
+	}
+
+	&__item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--wp--preset--spacing--20, 0.5rem);
+		flex-shrink: 0;
+		background: transparent;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		cursor: pointer;
+		font: inherit;
+		color: inherit;
+		opacity: 0.7;
+		transition: opacity 0.2s ease;
+
+		&:hover,
+		&:focus-visible {
+			opacity: 1;
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--wp--preset--color--primary, currentColor);
+			outline-offset: 4px;
+		}
+	}
+
+	&__icon {
+		width: 2.5rem;
+		height: 2.5rem;
+		object-fit: contain;
+	}
+
+	&__label {
+		font-size: var(--wp--preset--font-size--small, 0.875rem);
+		white-space: nowrap;
+	}
+}
+
+.kt-marquee-editor,
+.kt-marquee-item-editor {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.kt-marquee-sidebar__count {
+	margin: 0.5rem 0;
+	font-size: 0.8125rem;
+	opacity: 0.75;
+}
+
+.kt-modal-marquee__icon {
+	width: 3rem;
+	height: 3rem;
+	object-fit: contain;
+	margin-bottom: var(--wp--preset--spacing--medium, 1rem);
+}
+
+.kt-modal-marquee__link {
+	display: inline-block;
+	margin-top: var(--wp--preset--spacing--medium, 1rem);
+	color: var(--wp--preset--color--primary, currentColor);
+	text-decoration: underline;
+}

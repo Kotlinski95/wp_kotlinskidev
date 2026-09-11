@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "layout",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/content-block.js",
+  "editorScript": "file:../../../build/js/content-block.js",
   "render": "file:./render.php",
   "attributes": {
     "contentSlug": {

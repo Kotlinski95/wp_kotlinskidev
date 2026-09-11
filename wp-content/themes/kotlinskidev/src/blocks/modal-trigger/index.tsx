@@ -44,7 +44,7 @@ const addModalTriggerAttributes = (settings: BlockSettings): BlockSettings => {
   };
 };
 
-interface BlockEditProps {
+export interface ModalTriggerBlockEditProps {
   name?: string;
   attributes: Record<string, unknown> & {
     opensInModal?: boolean;
@@ -53,8 +53,8 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
-const withModalTriggerControls = createHigherOrderComponent((BlockEdit) => {
-  return (props: BlockEditProps) => {
+export const withModalTriggerControls = createHigherOrderComponent((BlockEdit) => {
+  return (props: ModalTriggerBlockEditProps) => {
     if (!supportsModalTrigger(props.name)) {
       return <BlockEdit {...props} />;
     }

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/marquee",
+  "version": "1.0.0",
+  "title": "Marquee",
+  "category": "layout",
+  "description": "Continuously scrolling row of technology/skill items — pauses on hover, focus, or touch, and opens a short impact-summary modal on click.",
+  "icon": "images-alt2",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/marquee.js",
+  "viewScript": "file:../../../build/js/marquee-init.js",
+  "style": "file:../../../build/css/style-marquee.css",
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "spacing": {
+      "padding": true,
+      "margin": ["top", "bottom"],
+      "blockGap": false
+    }
+  },
+  "attributes": {
+    "speed": {
+      "type": "number",
+      "default": 30
+    }
+  }
+}

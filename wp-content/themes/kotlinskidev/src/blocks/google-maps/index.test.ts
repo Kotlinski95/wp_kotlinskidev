@@ -15,7 +15,7 @@ import "./index";
 describe("googlemaps/google-maps-block", () => {
   it("registers the block with its metadata name and the Edit component", () => {
     expect(registerBlockType).toHaveBeenCalledWith(
-      "googlemaps/google-maps-block",
+      expect.objectContaining({ name: "googlemaps/google-maps-block" }),
       expect.objectContaining({ edit: Edit })
     );
   });

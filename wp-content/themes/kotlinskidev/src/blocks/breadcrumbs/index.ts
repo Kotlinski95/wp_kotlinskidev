@@ -1,8 +1,8 @@
-import { registerBlockType } from "@wordpress/blocks";
-import Edit from "./edit";
+import { registerBlockType, type BlockConfiguration } from "@wordpress/blocks";
+import Edit, { type BreadcrumbsAttributes } from "./edit";
 import metadata from "./block.json";
 import "./style.scss";
 
-registerBlockType(metadata.name, {
+registerBlockType(metadata as unknown as BlockConfiguration<BreadcrumbsAttributes>, {
   edit: Edit,
 });

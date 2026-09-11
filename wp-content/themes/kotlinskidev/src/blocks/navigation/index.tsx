@@ -16,7 +16,7 @@ interface NavigationPost {
   title: { rendered: string };
 }
 
-interface NavigationAttributes {
+export interface NavigationAttributes {
   menuSlug: string;
   overlayMenu: OverlayMenu;
   displayMode: DisplayMode;
@@ -66,7 +66,7 @@ interface EditProps {
   setAttributes: (attrs: Partial<NavigationAttributes>) => void;
 }
 
-function Edit({ attributes, setAttributes }: EditProps) {
+export function Edit({ attributes, setAttributes }: EditProps) {
   const blockProps = useBlockProps({
     className: ["kt-nav-placeholder", visibilityClassMap[attributes.visibility]]
       .filter(Boolean)

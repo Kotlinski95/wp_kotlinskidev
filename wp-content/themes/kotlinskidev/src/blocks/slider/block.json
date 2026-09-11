@@ -48,9 +48,9 @@
       "margin": ["top", "bottom"]
     }
   },
-  "editorScript": "file:../../../build/slider.js",
-  "editorStyle": "file:../../../build/slider.css",
-  "style": "file:../../../build/style-slider.css",
-  "viewScript": "file:../../../build/slider-init.js",
+  "editorScript": "file:../../../build/js/slider.js",
+  "editorStyle": "file:../../../build/css/slider.css",
+  "style": "file:../../../build/css/style-slider.css",
+  "viewScript": "file:../../../build/js/slider-init.js",
   "render": "file:./render.php"
 }

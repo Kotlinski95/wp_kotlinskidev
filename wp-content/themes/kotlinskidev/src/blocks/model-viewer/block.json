@@ -9,9 +9,9 @@
   "description": "Interactive 3D .glb model with a click-to-toggle animation.",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
-  "editorScript": "file:../../../build/model-viewer.js",
-  "viewScript": "file:../../../build/model-viewer-init.js",
-  "style": "file:../../../build/style-model-viewer.css",
+  "editorScript": "file:../../../build/js/model-viewer.js",
+  "viewScript": "file:../../../build/js/model-viewer-init.js",
+  "style": "file:../../../build/css/style-model-viewer.css",
   "supports": {
     "align": ["wide", "full"]
   },

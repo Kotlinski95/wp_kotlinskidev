@@ -44,7 +44,8 @@
       "Bash(wp post *)",
       "Bash(php -l tests/integration/tests/TagArchiveManagerTest.php)",
       "Bash(php -l tests/integration/tests/SearchPageDynamicBlocksTest.php)",
-      "Bash(composer test:integration -- --filter=\"TagArchiveManager|SearchPageDynamicBlocks\")"
+      "Bash(composer test:integration -- --filter=\"TagArchiveManager|SearchPageDynamicBlocks\")",
+      "WebFetch(domain:eur-lex.europa.eu)"
     ]
   }
 }

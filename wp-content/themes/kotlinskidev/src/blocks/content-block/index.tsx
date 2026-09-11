@@ -11,7 +11,7 @@ interface ReusableBlockPost {
   title: { rendered: string };
 }
 
-interface ContentBlockAttributes {
+export interface ContentBlockAttributes {
   contentSlug: string;
   className: string;
 }
@@ -21,7 +21,7 @@ interface EditProps {
   setAttributes: (attrs: Partial<ContentBlockAttributes>) => void;
 }
 
-function Edit({ attributes, setAttributes }: EditProps) {
+export function Edit({ attributes, setAttributes }: EditProps) {
   const blockProps = useBlockProps({ className: "kt-editor-placeholder" });
 
   const reusableBlocks = useSelect((select) => {

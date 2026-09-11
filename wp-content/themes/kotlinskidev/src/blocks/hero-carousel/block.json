@@ -8,10 +8,10 @@
   "icon": "images-alt2",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
-  "editorScript": "file:../../../build/hero-carousel.js",
-  "viewScript": "file:../../../build/hero-carousel-init.js",
-  "style": "file:../../../build/style-hero-carousel.css",
-  "viewStyle": "file:../../../build/hero-carousel-init.css",
+  "editorScript": "file:../../../build/js/hero-carousel.js",
+  "viewScript": "file:../../../build/js/hero-carousel-init.js",
+  "style": "file:../../../build/css/style-hero-carousel.css",
+  "viewStyle": "file:../../../build/css/hero-carousel-init.css",
   "supports": {
     "align": ["full", "wide"],
     "spacing": {

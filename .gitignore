@@ -101,6 +101,9 @@ dist
 # Ingore build folders
 build
 
+# Ignore Storybook's static build output
+storybook-static
+
 # Test coverage reports and PHPUnit/Pest result cache
 coverage
 .phpunit.cache

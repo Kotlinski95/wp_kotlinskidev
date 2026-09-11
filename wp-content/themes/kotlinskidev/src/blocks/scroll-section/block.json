@@ -9,9 +9,9 @@
   "icon": "leftright",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
-  "editorScript": "file:../../../build/scroll-section.js",
-  "viewScript": "file:../../../build/scroll-section-init.js",
-  "style": "file:../../../build/style-scroll-section.css",
+  "editorScript": "file:../../../build/js/scroll-section.js",
+  "viewScript": "file:../../../build/js/scroll-section-init.js",
+  "style": "file:../../../build/css/style-scroll-section.css",
   "supports": {
     "align": ["full", "wide"],
     "anchor": true,

@@ -8,8 +8,8 @@
   "category": "kotlinskidev",
   "icon": "shield",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/protected-content.js",
-  "style": "file:../../../build/style-protected-content.css",
+  "editorScript": "file:../../../build/js/protected-content.js",
+  "style": "file:../../../build/css/style-protected-content.css",
   "render": "file:./render.php",
   "supports": {
     "html": false,

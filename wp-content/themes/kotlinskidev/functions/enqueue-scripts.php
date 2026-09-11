@@ -2,16 +2,16 @@
 function defer_global_css()
 {
     // Enqueue the global stylesheet with media="print" to prevent it from blocking render
-    $main_css_path = get_template_directory() . '/build/main.css';
+    $main_css_path = kotlinskidev_build_path('css', 'main.css');
     $main_css_ver  = file_exists($main_css_path) ? filemtime($main_css_path) : null;
-    wp_enqueue_style('global-style', get_template_directory_uri() . '/build/main.css', [], $main_css_ver, 'print');
+    wp_enqueue_style('global-style', kotlinskidev_build_url('css', 'main.css'), [], $main_css_ver, 'print');
 }
 add_action('wp_enqueue_scripts', 'defer_global_css');
 
 // Inline critical JavaScript for frontend
 function inline_critical_js()
 {
-    $critical_js_path = get_template_directory() . '/build/critical.js';
+    $critical_js_path = kotlinskidev_build_path('js', 'critical.js');
     if (!file_exists($critical_js_path)) {
         return;
     }
@@ -28,7 +28,7 @@ function inline_critical_js()
     }
 
     if ($critical_js) {
-        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/critical.js, not user input; escaping would corrupt the inline JS
+        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/js/critical.js, not user input; escaping would corrupt the inline JS
     }
 }
 add_action('wp_head', 'inline_critical_js', 2); // Load after critical CSS
@@ -102,7 +102,7 @@ add_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts', 10, 2);
 // Inline critical CSS and preload non-critical styles
 function inline_critical_css()
 {
-    $critical_css_path = get_template_directory() . '/build/critical.css';
+    $critical_css_path = kotlinskidev_build_path('css', 'critical.css');
     if (file_exists($critical_css_path)) {
         // Cache the file — it only changes on build deploys or breakpoint setting changes.
         $cache_key = 'kotlinskidev_critical_css_' . filemtime($critical_css_path) . '_' . kotlinskidev_breakpoints_hash();
@@ -115,7 +115,7 @@ function inline_critical_css()
             }
         }
         if ($critical_css) {
-            echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/critical.css, not user input; escaping would corrupt the inline CSS
+            echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/css/critical.css, not user input; escaping would corrupt the inline CSS
         }
     }
 }
@@ -125,7 +125,7 @@ function kotlinskidev_editor_styles(): void
 {
     wp_enqueue_style(
         'kotlinskidev-editor-overrides',
-        get_template_directory_uri() . '/build/editor.css',
+        kotlinskidev_build_url('css', 'editor.css'),
         array(),
         wp_get_theme()->get('Version')
     );
@@ -133,10 +133,10 @@ function kotlinskidev_editor_styles(): void
 
 function kotlinskidev_editor_scripts(): void
 {
-    $asset = include get_template_directory() . '/build/editor.asset.php';
+    $asset = include kotlinskidev_build_path('js', 'editor.asset.php');
     wp_enqueue_script(
         'kotlinskidev-editor-only',
-        get_template_directory_uri() . '/build/editor.js',
+        kotlinskidev_build_url('js', 'editor.js'),
         $asset['dependencies'],
         $asset['version'],
         true
@@ -149,10 +149,10 @@ add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_scripts');
 
 
 add_action('wp_enqueue_scripts', function (): void {
-    $script_args = include get_template_directory() . '/build/main.asset.php';
+    $script_args = include kotlinskidev_build_path('js', 'main.asset.php');
     wp_enqueue_script(
         'wp-typescript',
-        get_template_directory_uri() . '/build/main.js',
+        kotlinskidev_build_url('js', 'main.js'),
         $script_args['dependencies'],
         $script_args['version'],
         [

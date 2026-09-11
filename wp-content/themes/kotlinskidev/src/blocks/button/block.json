@@ -8,7 +8,7 @@
   "icon": "button",
   "description": "Button with independent normal/hover control over text, background, and border colors, including gradients.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/button.js",
+  "editorScript": "file:../../../build/js/button.js",
   "render": "file:./render.php",
   "attributes": {
     "text": {

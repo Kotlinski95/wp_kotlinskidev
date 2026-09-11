@@ -4,7 +4,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: { jsx: true },
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "no-unsanitized"],
   rules: {
     "react/jsx-no-literals": [
       "warn",

@@ -10,7 +10,10 @@ module.exports = {
   },
   collectCoverageFrom: ["src/**/*.{ts,tsx}", "!src/**/*.d.ts", "!src/types/**", "!src/**/types.ts"],
   coverageDirectory: "<rootDir>/coverage/js",
-  transformIgnorePatterns: ["node_modules/(?!.*(uuid)/)"],
+  transform: {
+    "\\.m?[jt]sx?$": require.resolve("@wordpress/scripts/config/babel-transform"),
+  },
+  transformIgnorePatterns: ["node_modules/(?!.*(uuid|@wordpress/ui|@wordpress/theme)/)"],
   setupFilesAfterEnv: [
     require.resolve("@wordpress/jest-preset-default/scripts/setup-test-framework.js"),
     require.resolve("@testing-library/jest-dom"),

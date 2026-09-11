@@ -11,11 +11,13 @@ kotlinskidev/
 │   ├── 522.md                                  # Cloudflare 522 incident runbook + root-cause notes
 │   ├── accessibility.md                        # accessibility review checklist (WCAG 2.2 POUR, ARIA, EAA/ADA/Section 508 cross-ref)
 │   ├── breakpoints.md                          # DB-driven breakpoint system
+│   ├── build.md                                # Webpack build architecture — entry-derivation logic, why build/ stays (not Astra's assets/css-minified pattern)
+│   ├── distribution.md                         # client-site theme distribution/update-check plan (packaging, GitHub Releases vs self-hosted license server)
 │   ├── env.md                                  # environment/.env variable documentation
 │   ├── footer-architecture.md                  # footer template/block architecture
 │   ├── git-instructions.md                     # branch/PR naming conventions
 │   ├── header-architecture.md                  # header template/block architecture
-│   ├── legal-compliance.md                     # legal/privacy review checklist (GDPR, cookie consent, Impressum, EAA accessibility statement)
+│   ├── legal-compliance.md                     # legal/privacy review checklist (GDPR, cookie consent, Impressum, EAA accessibility statement) + practical how-to steps for items with a concrete engineering fix (e.g. AI-generated media disclosure)
 │   ├── mcp-server-usage.md                     # MCP server usage notes
 │   ├── mcp-wordpress-setup.md                  # MCP WordPress integration setup notes
 │   ├── monitoring.md                           # EC2 CloudWatch alarms/agent setup + PHP-FPM memory cleanup
@@ -26,15 +28,18 @@ kotlinskidev/
 │   ├── security-headers.md                     # HTTP security header reference — GDPR/EU regulatory context, OWASP-sourced recommended values, CSP rollout plan, PHP-vs-Cloudflare split
 │   ├── security.md                             # security review checklist (OWASP Top 10, WP hardening, MCP attack surface, ISO 27001 cross-ref)
 │   ├── seo.md                                  # technical SEO review checklist (crawlability, schema, hreflang, Core Web Vitals overlap)
+│   ├── storybook.md                            # Storybook architecture, the @wordpress/* version-alignment requirement, mocking table (MediaUpload/ServerSideRender/theme.json tokens), known gotchas, step-by-step recipe for a new block's story — see also the `storybook` Claude skill
 │   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 71 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 75 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
+│   ├── ai-disclosure-labels.php                # adds an "AI-generated" checkbox to Media Library attachment fields (_kotlinskidev_ai_generated post meta) + a render_block filter that appends a visible "AI-generated image/video" <span> to any core/image or core/cover block whose attachment id has that meta set, EU AI Act Art. 50(4) deployer disclosure duty
 │   ├── article-card.php                        # kt_article_card CPT (title + linked_article_id/card_description meta, synced from the linked article via rest_insert_kt_article_card) + kotlinskidev_render_article_card_embed(), which renders templates/single-kt_article_card.html with explicit WP_Block context so its core/post-meta bindings resolve; PluginDocumentSettingPanel script (src/blocks/article-card/panel.tsx) enqueued only on the CPT's own edit screen
 │   ├── article-query-manager.php               # meta boxes for per-article query control
+│   ├── asset-paths.php                         # kotlinskidev_build_path()/kotlinskidev_build_url() — single source of truth for the build/js, build/css subfolder layout, required right after cache.php
 │   ├── banner-slider.php                       # enqueues/inits banner-carousel block assets
 │   ├── blocks.php                              # registers block categories + every block.json (source of truth for blocks)
 │   ├── blog-topic-manager.php                  # category "description" field admin UI + blog topic taxonomy helpers; also registers 6 PHP-only dynamic blocks (render_callback, no block.json) that re-run get_categories()/get_posts()/WP_Query fresh on every request instead of the retired patterns/{blog-topics-grid,category-header,category-posts-grid,other-topics,article-tags,related-articles}.php wp:pattern references — kotlinskidev/blog-topics-grid-dynamic (templates/articles.html), kotlinskidev/category-header-dynamic + category-posts-grid-dynamic + other-topics-dynamic (templates/category.html), kotlinskidev/article-tags-dynamic + related-articles-dynamic (templates/article.html) — so category/post listings always match the current Polylang language and current queried post/category instead of freezing at whatever content was active when the pattern cache (or a Site-Editor-detached wp_template DB override) last captured them
@@ -51,6 +56,7 @@ kotlinskidev/
 │   ├── deferred-block-assets.php               # filterable block-name→handle registry + per-page above-the-fold scan/cache for CSS defer decisions
 │   ├── disable-comments.php                    # site-wide comment disabling
 │   ├── enqueue-scripts.php                     # main script/style enqueue pipeline
+│   ├── error-monitoring.php                    # Sentry PHP SDK (vendor/sentry/sentry via Composer — the theme's first real runtime Composer dependency; production deploys must run `composer install` or vendor/ won't exist and this silently no-ops). Loaded first in functions.php, right after cache.php, so it can catch fatals from anything that follows. Only registers Sentry\ErrorHandler's exception + fatal-error handlers (not the general error handler, so warnings/notices/deprecations are never sent — keeps free-tier event quota for real page-breaking failures only), and only when a kotlinskidev_sentry_dsn option is set AND WP_DEBUG is off, so local dev never reports
 │   ├── faq-layout.php                          # applies kt-faq-independent-columns-N class to core/group per its faqLayout Advanced-panel choice
 │   ├── filters.php                             # misc content/attachment filters
 │   ├── group-link.php                          # applies kt-group-link class + data-kt-group-link-url/target + role="link"/tabindex to a core/group with groupLinkUrl set
@@ -63,6 +69,7 @@ kotlinskidev/
 │   ├── login.php                               # custom wp-login.php styling
 │   ├── main-content-focus.php                  # injects tabindex="-1" onto the <main class="main-wrapper"> core/group at render time (skip-link focus target, kept out of stored markup so block validation doesn't flag an attribute the block itself can't declare)
 │   ├── maintenance.php                         # maintenance-mode toggle + admin settings page
+│   ├── marquee.php                             # prints the single shared kt-modal-marquee shell in wp_footer for kotlinskidev/marquee (src/blocks/marquee/) — an empty title/body populated client-side per click, kept outside any transformed ancestor
 │   ├── modals.php                              # kt_modal CPT + size meta, resolves/dedupes/renders modal shells for any link with opensInModal+modalId, wp_footer
 │   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
 │   ├── page-loader.php                         # renders page-loader markup on wp_body_open
@@ -112,7 +119,7 @@ kotlinskidev/
 │   ├── pl_PL.mo
 │   └── pl_PL.po
 ├── parts/                                      # FSE template parts
-│   ├── footer.html                             # logo/brand content-block, nav simple-grid, copyrights, scroll-to-top
+│   ├── footer.html                             # logo/brand content-block, nav simple-grid, kotlinskidev-footer__contact (phone/email kotlinskidev/contact-detail blocks), copyrights, scroll-to-top
 │   └── header.html                             # site logo, kotlinskidev/navigation, theme-switcher, kotlinskidev/breadcrumbs
 ├── patterns/                                   # 41 reusable block patterns
 │   ├── about-2.php                             # About Section 2
@@ -160,7 +167,7 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 60 custom block dirs: 39 registered blocks + 22 JS-only block-extension filters + 1 post-editor settings panel
+│   ├── blocks/                                 # 61 custom block dirs: 40 registered blocks + 22 JS-only block-extension filters + 1 post-editor settings panel
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
@@ -169,6 +176,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── article-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_article_card post (functions/article-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_article_card template and propagates to every embed
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit standalone with block.json's default cardId
 │   │   │   ├── edit.tsx                        # Inspector card picker (post combobox over kt_article_card) + ServerSideRender preview
 │   │   │   ├── index.tsx
 │   │   │   ├── panel.tsx                       # PluginDocumentSettingPanel on the kt_article_card edit screen — links the card to an article, sets the optional description override
@@ -177,22 +185,26 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── banner-carousel/                    # full-width Swiper banner slider
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
-│   │   │   ├── init.ts
+│   │   │   ├── init.ts                         # exports initBannerCarousel(el) (returns the Swiper instance) so Storybook can mount/destroy a real carousel outside the site's own DOMContentLoaded bootstrap
+│   │   │   ├── save.stories.tsx                # Storybook: real Swiper (arrows/pagination/autoplay/multi-slide/fade variants) over a hand-built static markup twin of save.tsx's JSX — the real save() crashes via useBlockProps.save()'s extraPropsFromHooks pipeline reading undefined block.json supports outside a full WP admin bootstrap. Renders via createPortal(..., document.body): nesting the same markup inside the story's normal .editor-styles-wrapper/.kt-storybook-frame ancestor chain leaves every non-first slide's image decoded (canvas drawImage confirms real pixels) but never composited/painted after a slide transition — confirmed via a real DOM element move (not just a config/CSS change) that the ancestor chain itself is the cause, not the image, not React's reconciliation, not any single CSS rule found by inspection
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
 │   │   ├── border-gradient/                    # extension: gradient option merged into the native Border panel for any block with border support (excludes kotlinskidev/button)
 │   │   │   └── index.tsx
 │   │   ├── breadcrumbs/                        # fixed overlay breadcrumb trail below the header, hidden on homepage by default, slides in/out in sync with the header's own scroll state
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: real BlockEdit dispatcher via RealBlockEdit (shows the InspectorControls sidebar toggle), 3 route variants via BreadcrumbsRouteContext
 │   │   │   ├── edit.tsx
-│   │   │   ├── index.ts
+│   │   │   ├── index.ts                        # registerBlockType now passes full metadata (was metadata.name only) — the name-only form rendered blank with zero console output once stories went through the real BlockEdit dispatcher, since it skips the attributes/supports WP's PHP bootstrap normally fills in
 │   │   │   ├── render.php
 │   │   │   └── style.scss
 │   │   ├── button/                             # standalone CTA button, independent normal/hover color+gradient
 │   │   │   ├── ButtonColorControls.tsx
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
@@ -202,17 +214,26 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── contact-card/                       # extension: "Gap between fields" range control for the PHP-only kotlinskidev/contact-card dynamic block (functions/contact-card.php), applied as a --kt-contact-card-gap CSS custom property
 │   │   │   └── index.tsx
+│   │   ├── contact-detail/                     # kotlinskidev/contact-detail — dynamic block rendering one field (address/phone/email/hours) from kotlinskidev_get_contact_info() (functions/contact-card.php), for placing individually in layouts like the footer instead of the whole kt-contact-card grid; phone/email reuse kotlinskidev_render_protected_contact_field()
+│   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
+│   │   │   ├── edit.tsx
+│   │   │   ├── index.ts
+│   │   │   └── render.php
 │   │   ├── contact-form/                       # contact-form-ts/form — contact form + CAPTCHA, posts to admin-post.php
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── render.php
 │   │   │   └── style.scss
 │   │   ├── content-block/                      # resolves a wp_block reusable post by slug (Polylang-aware)
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── content-tabs/                       # nav-link strip + dynamic content-panel switcher
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes + a placeholder clientId
 │   │   │   ├── edit.tsx
 │   │   │   ├── save.tsx
 │   │   │   ├── index.ts
@@ -232,6 +253,7 @@ kotlinskidev/
 │   │   │       └── render.php
 │   │   ├── copyrights/                         # footer copyright/year text
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export (no attributes — ServerSideRender-only)
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── cover-lazy-loading/                 # extension: force-disable native lazy loading on cover/image
@@ -243,13 +265,16 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── gallery-lightbox/                   # image/video gallery with lightbox + mobile media variant
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: interactive editor placeholder (thumbnail + count badge) via useInteractiveAttributes()
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.tsx
-│   │   │   ├── init.ts
+│   │   │   ├── init.ts                         # exports initGalleryLightbox (was module-local) so save.stories.tsx can mount the real lightbox
+│   │   │   ├── save.stories.tsx                # Storybook: real click-to-open lightbox (live Swiper) via createPortal + initGalleryLightbox() — hand-built markup twin of Save, not real useBlockProps.save() (same crash class as banner-carousel)
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
 │   │   ├── google-maps/                        # googlemaps/google-maps-block — Google Maps embed
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
 │   │   │   └── render.php
@@ -262,6 +287,7 @@ kotlinskidev/
 │   │   │   │   ├── render.php
 │   │   │   │   └── save.tsx
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
 │   │   │   ├── init.ts
@@ -270,6 +296,7 @@ kotlinskidev/
 │   │   │   └── style.scss
 │   │   ├── holder/                             # single grid cell, parent-locked to simple-grid
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with no props
 │   │   │   ├── edit.tsx
 │   │   │   ├── render.php
 │   │   │   └── save.tsx
@@ -282,6 +309,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── language-panel/                     # Polylang language switcher trigger + dropdown
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders LanguagePanelEdit via buildEditProps() (full BlockEditProps shape)
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── link-hover-effects/                 # extension: opt out of global link hover styling per block
@@ -291,28 +319,49 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   ├── style-controls.tsx
 │   │   │   └── types.ts
+│   │   ├── marquee/                            # parent/item pair — continuously scrolling right-to-left row of technology/skill items, pauses on hover/focus/touch (CSS :hover/:focus-within/:active, no JS); parent's render.php duplicates $content into two inert-marked groups for the seamless loop (item block has no id of its own, so no duplicate-DOM-id risk); clicking an item populates and opens a single shared kt-modal-marquee shell (functions/marquee.php, printed once in wp_footer to stay outside any transformed ancestor — see the position:fixed-under-transform gotcha) via src/blocks/marquee/init.ts reading the clicked item's data-marquee-label/data-marquee-description
+│   │   │   ├── block.json
+│   │   │   ├── edit.test.tsx
+│   │   │   ├── edit.tsx
+│   │   │   ├── index.test.ts
+│   │   │   ├── index.ts
+│   │   │   ├── init.ts                         # viewScript: click-to-populate the shared modal shell before modal-manager.ts's own document click listener opens it (both run synchronously within the same click event, so listener order doesn't matter)
+│   │   │   ├── item/
+│   │   │   │   ├── block.json
+│   │   │   │   ├── edit.test.tsx
+│   │   │   │   ├── edit.tsx
+│   │   │   │   └── render.php
+│   │   │   ├── render.php
+│   │   │   ├── save.test.tsx
+│   │   │   ├── save.tsx
+│   │   │   └── style.scss
 │   │   ├── modal-settings-panel/                # PluginDocumentSettingPanel for the kt_modal post type — size (small/medium/large/full), enqueued only on kt_modal edit screens
 │   │   │   └── index.tsx
 │   │   ├── modal-trigger/                      # extension: adds opensInModal + modalId to kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
-│   │   │   └── index.tsx
+│   │   │   ├── index.tsx                       # withModalTriggerControls (editor.BlockEdit HOC) now exported
+│   │   │   └── index.stories.tsx               # Storybook: InspectorControls story renders the real kotlinskidev/button through RealBlockEdit, so the real editor.BlockEdit filter (this module's own addFilter) fires naturally and the Modal panel actually shows in the sidebar; Frontend story exercises real click-to-open via initModalManager() against functions/modals.php's exact modal-shell markup
 │   │   ├── model-viewer/                       # interactive .glb model, click-to-toggle via THREE.AnimationMixer + optional drag-to-rotate (OrbitControls) + auto-detected screen-text texture swap, IO-gated + WebGL-feature-detected dynamic import() of a three.js runtime chunk kept out of every other bundle
 │   │   ├── nav-banner/                         # nav-scoped: image+heading+description+CTA for mega-menu panels
 │   │   │   ├── block.json
-│   │   │   └── render.php
-│   │   ├── nav-content/                        # shared editor bundle for nav-banner/image/link/paragraph
+│   │   │   ├── render.php
+│   │   │   └── index.stories.tsx               # Storybook: Default (mock image via mock-assets.ts) + Empty (placeholder state)
+│   │   ├── nav-content/                        # shared editor bundle for nav-banner/image/link/paragraph — all 4 Edit components + attribute interfaces now exported so each block's own folder can import and story them independently
 │   │   │   └── index.tsx
 │   │   ├── nav-image/                          # nav-scoped: plain (optionally linked) image
 │   │   │   ├── block.json
-│   │   │   └── render.php
-│   │   ├── nav-language-panel/                 # nav-scoped sibling of language-panel
+│   │   │   ├── render.php
+│   │   │   └── index.stories.tsx               # Storybook: Default (mock image) + Empty (placeholder state)
+│   │   ├── nav-language-panel/                 # nav-scoped sibling of language-panel — same Edit component, registered under a second block name; Storybook coverage lives in language-panel/index.stories.tsx, no separate story needed
 │   │   │   ├── block.json
 │   │   │   └── render.php
 │   │   ├── nav-link/                           # nav-scoped styled link/menu-item, independent color/gradient
 │   │   │   ├── block.json
-│   │   │   └── render.php
+│   │   │   ├── render.php
+│   │   │   └── index.stories.tsx               # Storybook: interactive label/URL via useInteractiveAttributes()
 │   │   ├── nav-paragraph/                      # nav-scoped free-text paragraph, gradient/color-clip text
 │   │   │   ├── block.json
-│   │   │   └── render.php
+│   │   │   ├── render.php
+│   │   │   └── index.stories.tsx               # Storybook: interactive content via useInteractiveAttributes()
 │   │   ├── nav-popular-pages/                  # nav-scoped sibling of popular-pages
 │   │   │   ├── block.json
 │   │   │   └── render.php
@@ -321,6 +370,7 @@ kotlinskidev/
 │   │   │   └── render.php
 │   │   ├── navigation/                         # full replacement for core/navigation — mega-menu + mobile overlay
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── nav-icon-filter.tsx
 │   │   │   └── render.php
@@ -328,10 +378,12 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── popular-pages/                      # most-viewed pages list, Yoast-noindex-filtered
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders PopularPagesEdit via buildEditProps() (full BlockEditProps shape)
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── pricing-cards/                      # parent/item pair (mirrors process-steps/scroll-section-item) — side-by-side pricing tiers, editors add/remove via sidebar "+ Add Tier"/"Remove Last Tier"; per-card "featured" toggle adds a floating badge + accent border/glow, with its own font-size + color/gradient controls scoped to just the badge span (not native block supports, which would leak onto the card's other text); card content is unrestricted InnerBlocks (feature bullets are stacked kotlinskidev/translated-text blocks, not core/list, so each line stays per-language translatable); cards stretch equal-height with the CTA pinned to the bottom via margin-top:auto, stack vertically under $breakpoint-mobile; parent uses useInnerBlocksProps() (not <InnerBlocks/>) so the editor's 3-column row matches the frontend exactly
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with a placeholder clientId (no attributes prop)
 │   │   │   ├── edit.tsx
 │   │   │   ├── edit.test.tsx
 │   │   │   ├── index.test.ts
@@ -349,6 +401,7 @@ kotlinskidev/
 │   │   │   └── style.scss
 │   │   ├── process-steps/                      # parent/item pair (mirrors scroll-section/scroll-section-item) — numbered step timeline, editors add/remove steps via sidebar "+ Add Step"/"Remove Last Step" (1 to 5+, no code change); step numbers, connecting line and first-step highlight are pure CSS (counter-increment + :first-child), no per-step attribute; stacks into a vertical timeline under $breakpoint-mobile; parent uses useInnerBlocksProps() (not <InnerBlocks/>) so the editor's 3-column row matches the frontend exactly
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with a placeholder clientId (no attributes prop)
 │   │   │   ├── edit.tsx
 │   │   │   ├── edit.test.tsx
 │   │   │   ├── index.test.ts
@@ -366,12 +419,14 @@ kotlinskidev/
 │   │   │   └── style.scss
 │   │   ├── project-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_project_card post (functions/project-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_project_card template and propagates to every embed
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default cardId
 │   │   │   ├── edit.tsx                        # Inspector card picker (post combobox over kt_project_card) + ServerSideRender preview
 │   │   │   ├── index.tsx
 │   │   │   ├── panel.tsx                       # PluginDocumentSettingPanel on the kt_project_card edit screen — description (hover overlay text), tags, project URL
 │   │   │   └── render.php
 │   │   ├── protected-content/                  # RSA-encrypted, bot-obfuscated content (email/phone/address/other)
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── render.php
 │   │   │   └── style.scss
@@ -381,6 +436,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── responsive-image/                   # static image block, swaps desktop/mobile image at a breakpoint
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
 │   │   │   ├── save.tsx
@@ -403,6 +459,7 @@ kotlinskidev/
 │   │   │   │   └── save.tsx
 │   │   │   ├── CLAUDE.md
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
 │   │   │   ├── init.ts
@@ -411,11 +468,13 @@ kotlinskidev/
 │   │   │   └── style.scss
 │   │   ├── scroll-to-top/                      # "back to top" — fixed-arrow or full-width-bar variant
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── render.php
 │   │   │   └── style.scss                      # bar-variant layout only (fixed-arrow styling stays in styles/scroll.scss)
 │   │   ├── search-panel/                       # search trigger button opening a modal/dropdown panel
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders SearchPanelEdit via buildEditProps() (full BlockEditProps shape)
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── service-location/                   # not a block — build entry only, enqueued via enqueue_block_editor_assets (functions/service-locations.php)
@@ -425,6 +484,7 @@ kotlinskidev/
 │   │   │   └── nav-icon-picker.tsx
 │   │   ├── simple-grid/                        # CSS-grid container, column count derives from Holder children
 │   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
 │   │   │   ├── render.php
@@ -434,6 +494,7 @@ kotlinskidev/
 │   │   │   ├── assets/
 │   │   │   ├── block.json
 │   │   │   ├── constants.ts
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── editor.scss
 │   │   │   ├── index.ts
@@ -450,7 +511,9 @@ kotlinskidev/
 │   │   │   │   └── render.php
 │   │   │   ├── block.json
 │   │   │   ├── index.tsx
-│   │   │   └── render.php
+│   │   │   ├── render.php
+│   │   │   ├── social-item-edit.stories.tsx    # Storybook: renders the named SocialItemEdit export via buildEditProps() (full BlockEditProps shape), using item/block.json's defaults
+│   │   │   └── social-section-edit.stories.tsx # Storybook: renders the named SocialSectionEdit export via buildEditProps() (full BlockEditProps shape)
 │   │   ├── text-gradient/                      # extension: "Text Gradient" row in the native Color panel for any block with color-text support (core/paragraph, core/heading, etc.), rendered via core's own PanelColorGradientSettings so it looks/behaves exactly like the native Text/Background rows — see functions/text-gradient.php for the frontend/render side
 │   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
@@ -463,10 +526,12 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── theme-switcher/                     # dark/light mode toggle button
 │   │   │   ├── block.json
+│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export (no attributes — ServerSideRender-only)
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   └── translated-text/                    # heading/paragraph translated via Polylang strings (pll__()), so one template markup is shared across all languages instead of a per-language duplicate template — see functions/translated-text.php for the admin-side string registration
 │   │       ├── block.json
+│   │       ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │       ├── edit.tsx
 │   │       ├── index.ts
 │   │       └── render.php
@@ -494,7 +559,7 @@ kotlinskidev/
 │   │   ├── line-clamp.ts                       # ResizeObserver-driven overflow check + click toggle for .kt-line-clamp-toggle (Read more/Read less)
 │   │   ├── load-more.ts                        # scans [data-kt-load-more-initial], hides children past the limit, wraps a reveal-on-click button in a .kt-load-more__wrapper (alignment), applies its style data attributes as inline styles, and swaps to hover-color overrides on mouseenter/focus (reverting on mouseleave/blur) — reusable across any core/group flagged by functions/load-more.php
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
-│   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator
+│   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator; initModalManager() now exported with an immediate-run fallback (matching gallery-lightbox/init.ts) so Storybook (page already loaded) can call it directly instead of waiting on a DOMContentLoaded that already fired
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change
 │   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block
 │   │   ├── restoration.ts                      # restores scroll position / bfcache navigation handling
@@ -510,6 +575,7 @@ kotlinskidev/
 │   │   ├── above-the-fold.scss                 # critical layout-shift prevention rules
 │   │   ├── accessibility.scss                  # skip-link, prefers-reduced-motion handling
 │   │   ├── admin-bar.scss                      # admin-bar-specific overrides (editor-only bundle)
+│   │   ├── ai-disclosure.scss                  # .kt-ai-disclosure-badge — absolutely-positioned bottom-left corner label, opaque background so it reads on any image
 │   │   ├── animations.scss                     # hover animation class definitions; transform effects (jump/scale/rotate/bounce) compose via --kt-hover-fx-* custom properties so multiple can combine on one element
 │   │   ├── article-card.scss                   # .kt-article-card outer card shell (shadow, top corner radius); most per-part styling now lives as block-supports attributes on templates/single-kt_article_card.html instead
 │   │   ├── background-effects.scss             # curated animated CSS background/border/text effect classes (kt-bg-fx-*), paired with background-effects-controls
@@ -521,6 +587,7 @@ kotlinskidev/
 │   │   ├── complianz.scss                      # Complianz cookie-consent plugin dark/light overrides
 │   │   ├── components.scss                     # editor placeholder components
 │   │   ├── contact-card.scss                   # .kt-contact-card two-column address/hours/phone/email grid for the kotlinskidev/contact-card dynamic block
+│   │   ├── contact-detail.scss                 # .kt-contact-detail__label — optional field-name prefix for the kotlinskidev/contact-detail dynamic block
 │   │   ├── editor-overrides.scss               # block-editor canvas style overrides (editor-only bundle), incl. forcing .wp-block-buttons > .wp-block-button.wp-block-group (a core/group styled as a button, not a real core/button) back to auto-width — core/group's "flow" layout support stretches it full-width in the editor only
 │   │   ├── equal-height-columns.scss           # .kt-equal-height-columns: flex-column columns + flex:1 direct children for core/columns, and height:100% grid items for a core/group grid, paired with the equal-height-columns extension
 │   │   ├── faq-accordion.scss                  # FAQ details 2-col grid, +/− icon, animating-state overflow
@@ -581,7 +648,8 @@ kotlinskidev/
 │   │   ├── dropdown-panel.ts                   # generic trigger/modal dropdown-panel controller
 │   │   ├── dynamic-preview-blocks.ts           # DYNAMIC_PREVIEW_BLOCKS: PHP-only ServerSideRender blocks (city-grid, city-map) excluded from every sitewide unconditional attribute-injecting editor filter, since WP's block-renderer REST schema rejects any attribute the block's own PHP schema doesn't declare
 │   │   ├── panel-coordinator.ts                # registry: opening one panel closes all others
-│   │   └── scroll-lock.ts                      # reference-counted documentElement scroll-lock
+│   │   ├── scroll-lock.ts                      # reference-counted documentElement scroll-lock
+│   │   └── storybook-edit-props.ts             # Storybook-only helpers: getDefaultAttributes()/buildEditProps() build story args from block.json; useInteractiveAttributes() wires setAttributes to useArgs() + logs via storybook/actions; RealBlockEdit renders a block through @wordpress/block-editor's real BlockEdit dispatcher (not the bare Edit function) — required for InspectorControls.Slot to show Fill content and for editor.BlockEdit filters to fire
 │   ├── admin-bar.ts                            # entry: imports admin-bar.scss only
 │   ├── critical.scss                           # critical (above-the-fold) SCSS bundle entry
 │   ├── critical.ts                             # entry: critical bundle — theme class applied early to avoid flash
@@ -658,10 +726,13 @@ kotlinskidev/
 ├── .nvmrc
 ├── .prettierignore
 ├── .prettierrc.json
+├── .storybook/                                 # Storybook config (react-webpack5) — documents src/blocks/*/*.stories.tsx in isolation; run npm run storybook / build-storybook; mock-server-side-render.tsx aliases @wordpress/server-side-render to per-block static mock HTML (BLOCK_MOCKS map) since Storybook has no WP REST backend to call, sourcing photos from mock-assets.ts (real theme assets/images/*.webp — logo.webp blurs badly once scaled into a full-size card, so use the larger photos instead); exports BreadcrumbsRouteContext so a block whose real markup varies by page (not by any block attribute — breadcrumbs' trail depends on is_category()/is_single()/is_page(), never on an attribute) can pick a mock variant per-story instead of per-control; mock-media-upload.tsx registers a fake editor.MediaUpload filter + dispatches core/block-editor's mediaUpload setting, since @wordpress/block-editor's real MediaUpload is a `() => null` placeholder outside a full WP admin bootstrap and MediaUploadCheck hides its children without that setting; preview.tsx imports the real src/critical.scss + src/index.scss (all frontend SCSS, not just editor overrides) plus @wordpress/block-library's compiled CSS for core-block base styles, toggles html.light-mode/dark-mode (not body — theme-colors.scss's color-scheme rules target html) via a Theme toolbar, and defines custom mobile/breakpoint-edge/desktop viewport presets; frame.scss makes the Story+Inspector layout stack under the theme's own 782px breakpoint instead of staying side-by-side
 ├── 404.php                                     # classic 404 handler (no FSE templates/404.html exists yet)
 ├── 500.html                                    # static PWA offline/error fallback
 ├── CHANGELOG.md                                # Keep a Changelog + semver history
 ├── CLAUDE.md                                   # Claude Code project instructions
+├── composer.json                               # PHP runtime + dev dependencies (sentry/sentry is the only runtime one; rest is require-dev tooling)
+├── composer.lock
 ├── README.md                                   # project overview + npm commands
 ├── content.php                                 # legacy classic-theme partial
 ├── footer.php                                  # legacy classic-theme footer (superseded by parts/footer.html)

@@ -57,6 +57,9 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/process-steps/item' );
     register_block_type( get_template_directory() . '/src/blocks/pricing-cards' );
     register_block_type( get_template_directory() . '/src/blocks/pricing-cards/item' );
+    register_block_type( get_template_directory() . '/src/blocks/contact-detail' );
+    register_block_type( get_template_directory() . '/src/blocks/marquee' );
+    register_block_type( get_template_directory() . '/src/blocks/marquee/item' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
 

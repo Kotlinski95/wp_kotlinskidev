@@ -142,9 +142,9 @@ function kotlinskidev_enqueue_modal_settings_panel_assets(): void {
 
     wp_enqueue_script(
         'kotlinskidev-modal-settings-panel',
-        get_template_directory_uri() . '/build/modal-settings-panel.js',
+        kotlinskidev_build_url( 'js', 'modal-settings-panel.js' ),
         [ 'wp-plugins', 'wp-edit-post', 'wp-editor', 'wp-element', 'wp-components', 'wp-i18n', 'wp-data', 'wp-core-data' ],
-        filemtime( get_template_directory() . '/build/modal-settings-panel.js' ),
+        filemtime( kotlinskidev_build_path( 'js', 'modal-settings-panel.js' ) ),
         true
     );
 

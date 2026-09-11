@@ -23,7 +23,7 @@ const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   }
 };
 
-const initBannerCarousel = (el: HTMLElement): void => {
+export const initBannerCarousel = (el: HTMLElement): Swiper => {
   const settings = parseSettings(el);
   const config = buildSwiperConfig(settings);
 
@@ -84,6 +84,8 @@ const initBannerCarousel = (el: HTMLElement): void => {
   }
 
   el.style.visibility = "visible";
+
+  return swiper;
 };
 
 const init = (): void => {

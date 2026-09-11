@@ -1,5 +1,5 @@
 import React from "react";
-import { registerBlockType } from "@wordpress/blocks";
+import { registerBlockType, type BlockConfiguration } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 import {
@@ -13,7 +13,7 @@ import {
 import metadata from "./block.json";
 import "./style.scss";
 
-interface ContactFormAttributes {
+export interface ContactFormAttributes {
   nameLabel: string;
   namePlaceholder: string;
   emailLabel: string;
@@ -41,7 +41,7 @@ interface EditProps {
   setAttributes: (attrs: Partial<ContactFormAttributes>) => void;
 }
 
-function Edit({ attributes, setAttributes }: EditProps) {
+export function Edit({ attributes, setAttributes }: EditProps) {
   const blockProps = useBlockProps({ className: "contact-form-block" });
 
   return (
@@ -286,7 +286,7 @@ function Edit({ attributes, setAttributes }: EditProps) {
   );
 }
 
-registerBlockType<ContactFormAttributes>(metadata.name, {
+registerBlockType(metadata as unknown as BlockConfiguration<ContactFormAttributes>, {
   edit: Edit,
   save() {
     return null;

@@ -21,7 +21,7 @@ import "./index";
 describe("kotlinskidev/responsive-image", () => {
   it("registers the block with the Edit and save components", () => {
     expect(registerBlockType).toHaveBeenCalledWith(
-      "kotlinskidev/responsive-image",
+      expect.objectContaining({ name: "kotlinskidev/responsive-image" }),
       expect.objectContaining({ edit: Edit, save })
     );
   });

@@ -6,3 +6,6 @@ vendor
 # generated test coverage reports and e2e output (gitignored, but present on disk once tests run)
 coverage
 artifacts
+
+# Storybook's static build output (gitignored, minified bundles hang the parser)
+storybook-static

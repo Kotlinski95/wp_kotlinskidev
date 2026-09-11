@@ -32,9 +32,18 @@
     "nanoid": "^3.3.18",
     "fast-uri": "^4.1.4",
     "adm-zip": "^0.6.0",
+    "js-yaml": "^3.15.2",
+    "svgo": "^3.3.5",
+    "eslint": {
+      "js-yaml": "^4.3.2"
+    },
+    "@eslint/eslintrc": {
+      "js-yaml": "^4.3.2"
+    },
     "@wordpress/scripts": {
       "markdownlint-cli": {
         "minimatch": "^3.1.5",
+        "js-yaml": "^4.3.2",
         "markdownlint": {
           "markdown-it": {
             ".": "^14.2.0",
@@ -44,6 +53,11 @@
       },
       "copy-webpack-plugin": {
         "serialize-javascript": "^7.0.5"
+      },
+      "npm-package-json-lint": {
+        "cosmiconfig": {
+          "js-yaml": "^4.3.2"
+        }
       },
       "@wordpress/eslint-plugin": {
         "@typescript-eslint/parser": {
@@ -56,6 +70,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.3",
+    "@storybook/react-webpack5": "^10.6.0",
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.3",
@@ -64,21 +81,33 @@
     "@types/react-dom": "^18.0.0",
     "@types/three": "^0.185.4",
     "@types/wordpress__block-editor": "^11.5.16",
-    "@wordpress/block-editor": "^14.18.0",
+    "@wordpress/block-editor": "^17.0.0",
+    "@wordpress/block-library": "^10.5.0",
+    "@wordpress/blocks": "^15.27.0",
+    "@wordpress/components": "^40.0.0",
+    "@wordpress/core-data": "^7.54.0",
+    "@wordpress/data": "^10.54.0",
     "@wordpress/env": "^11.13.0",
+    "@wordpress/i18n": "^6.27.0",
     "@wordpress/icons": "^10.23.0",
     "@wordpress/scripts": "^30.6.0",
+    "@wordpress/server-side-render": "^6.30.0",
     "better-npm-audit": "^3.11.0",
     "eslint-plugin-no-unsanitized": "^4.0.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-security": "^4.0.1",
     "husky": "^9.1.7",
+    "mini-css-extract-plugin": "^2.9.2",
     "prettier": "^3.2.5",
-    "typescript": "^5.8.3"
+    "rtlcss": "^4.3.0",
+    "storybook": "^10.6.0",
+    "typescript": "^5.8.3",
+    "webpack": "^5.109.2"
   },
   "scripts": {
     "prepare": "node bin/setup-husky.js",
     "build": "wp-scripts build",
+    "composer": "composer install --no-dev",
     "build:debug": "KOTLINSKIDEV_SOURCEMAPS=1 wp-scripts build",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
@@ -97,12 +126,14 @@
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
     "security:audit": "better-npm-audit audit --production --level high",
-    "security:audit:full": "better-npm-audit audit --level high -x 1139346",
+    "security:audit:full": "better-npm-audit audit --level high -x 1139346,1193685",
     "security:audit:php": "composer audit",
     "security:sast": "eslint --no-eslintrc --config .eslintrc.security.js --ext .ts,.tsx src/",
     "security:php": "vendor/bin/phpcs --standard=.phpcs.security.xml",
     "security:secrets": "gitleaks detect --source . --log-opts=\"-- .\" --config .gitleaks.toml -v",
     "start": "wp-scripts start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "test": "npm run test:unit && npm run test:php",
     "test:coverage": "npm run test:unit:coverage && npm run test:php:coverage",
     "test:e2e": "wp-scripts test-playwright; e=$?; npm run --silent test:e2e:purge-drafts; exit $e",
@@ -112,6 +143,7 @@
     "test:unit:watch": "wp-scripts test-unit-js --watch",
     "test:php": "composer test:unit",
     "test:php:coverage": "composer test:unit:coverage",
-    "test:php:integration": "composer test:integration"
+    "test:php:integration": "composer test:integration",
+    "verify": "npm run check-version-sync && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build"
   }
 }

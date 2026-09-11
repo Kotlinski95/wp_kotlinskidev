@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "id-alt",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/article-card.js",
+  "editorScript": "file:../../../build/js/article-card.js",
   "attributes": {
     "cardId": { "type": "number", "default": 0 }
   },

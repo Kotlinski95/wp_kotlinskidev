@@ -239,7 +239,7 @@ const openModal = (
   );
 };
 
-const initGalleryLightbox = (gallery: HTMLElement): void => {
+export const initGalleryLightbox = (gallery: HTMLElement): void => {
   const images = parseImages(gallery);
   if (!images.length) {
     return;

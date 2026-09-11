@@ -44,11 +44,11 @@ describe("search-panel registration", () => {
     const { edit, save } = getDefinition();
 
     expect(registerBlockType).toHaveBeenCalledWith(
-      "kotlinskidev/search-panel",
+      expect.objectContaining({ name: "kotlinskidev/search-panel" }),
       expect.objectContaining({ edit, save })
     );
     expect(registerBlockType).toHaveBeenCalledWith(
-      "kotlinskidev/nav-search-panel",
+      expect.objectContaining({ name: "kotlinskidev/nav-search-panel" }),
       expect.objectContaining({ edit, save })
     );
   });

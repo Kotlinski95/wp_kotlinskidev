@@ -1,12 +1,19 @@
 import React from "react";
 import { useState } from "@wordpress/element";
-import { registerBlockType, TemplateArray, type BlockEditProps } from "@wordpress/blocks";
+import {
+  registerBlockType,
+  TemplateArray,
+  type BlockEditProps,
+  type BlockConfiguration,
+} from "@wordpress/blocks";
 import { InspectorControls, useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import { PanelBody, TextControl, ToggleControl, SelectControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import { NavIconPicker } from "../shared/nav-icon-picker";
+import metadata from "./block.json";
+import navMetadata from "../nav-language-panel/block.json";
 
-interface LanguagePanelAttributes {
+export interface LanguagePanelAttributes {
   label: string;
   labelStyle: string;
   showFlag: boolean;
@@ -73,7 +80,10 @@ const GlobeIcon = () => (
   </svg>
 );
 
-function LanguagePanelEdit({ attributes, setAttributes }: BlockEditProps<LanguagePanelAttributes>) {
+export function LanguagePanelEdit({
+  attributes,
+  setAttributes,
+}: BlockEditProps<LanguagePanelAttributes>) {
   const blockProps = useBlockProps({ className: "kt-search-panel-editor kt-lang-panel-editor" });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -194,7 +204,8 @@ function LanguagePanelSave() {
 
 const definition = { edit: LanguagePanelEdit, save: LanguagePanelSave };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-registerBlockType("kotlinskidev/language-panel", definition as any);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-registerBlockType("kotlinskidev/nav-language-panel", definition as any);
+registerBlockType(metadata as unknown as BlockConfiguration<LanguagePanelAttributes>, definition);
+registerBlockType(
+  navMetadata as unknown as BlockConfiguration<LanguagePanelAttributes>,
+  definition
+);

@@ -1,22 +1,5 @@
 @import "variables";
 
-.kotlinskidev-footer__top {
-	display: flex;
-	align-items: flex-start;
-	gap: var(--wp--preset--spacing--50, 2rem);
-
-	> .kotlinskidev-footer__brand,
-	> .kotlinskidev-footer__nav {
-		margin-left: 0 !important;
-		margin-right: 0 !important;
-	}
-
-	@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
-		flex-direction: column;
-		align-items: stretch;
-	}
-}
-
 .kotlinskidev-footer__brand {
 	flex: 0 1 23.75rem;
 	min-width: 0;
@@ -29,6 +12,29 @@
 .kotlinskidev-footer__nav {
 	flex: 1;
 	min-width: 0;
+}
+
+.kotlinskidev-footer__contact {
+	flex: 0 1 auto;
+	min-width: 0;
+}
+
+.kotlinskidev-footer__top {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--wp--preset--spacing--50, 2rem);
+
+	> .kotlinskidev-footer__brand,
+	> .kotlinskidev-footer__nav,
+	> .kotlinskidev-footer__contact {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
+		flex-direction: column;
+		align-items: stretch;
+	}
 }
 
 footer,

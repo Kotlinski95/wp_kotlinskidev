@@ -62,11 +62,11 @@ describe("language-panel registration", () => {
     const { edit, save } = getDefinition();
 
     expect(registerBlockType).toHaveBeenCalledWith(
-      "kotlinskidev/language-panel",
+      expect.objectContaining({ name: "kotlinskidev/language-panel" }),
       expect.objectContaining({ edit, save })
     );
     expect(registerBlockType).toHaveBeenCalledWith(
-      "kotlinskidev/nav-language-panel",
+      expect.objectContaining({ name: "kotlinskidev/nav-language-panel" }),
       expect.objectContaining({ edit, save })
     );
   });

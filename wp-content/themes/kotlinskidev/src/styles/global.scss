@@ -43,7 +43,6 @@ body {
 	overscroll-behavior: none;
 
 	.has-modal-open & {
-		overflow: hidden;
 		touch-action: none;
 	}
 
@@ -341,11 +340,11 @@ span:empty {
 .dark-mode,
 .light-mode {
 
-	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.kt-nav-cta *) {
+	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.kt-nav-cta *):not(.kt-button__link) {
 		display: inline-block;
 	}
 
-	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):not(.kt-nav-cta *):hover {
+	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):not(.kt-nav-cta *):not(.kt-button__link):hover {
 		background: var(--color-link-hover-override, var(--kt-text-gradient));
 		-webkit-background-clip: text;
 		background-clip: text;

@@ -32,14 +32,14 @@ const ICON_SIZE_UNITS = [
   { value: "%", label: "%" },
 ];
 
-interface SocialSectionAttributes {
+export interface SocialSectionAttributes {
   attachToBottom: boolean;
   iconWidth: ResponsiveValue;
   iconHeight: ResponsiveValue;
   itemGap: ResponsiveValue;
 }
 
-interface SocialItemAttributes {
+export interface SocialItemAttributes {
   label: string;
   url: string;
   iconClass: string;
@@ -54,7 +54,7 @@ interface NavIconMedia {
 
 const ITEM_TEMPLATE: TemplateArray = [["kotlinskidev/social-item", {}]];
 
-const SocialSectionEdit = ({
+export const SocialSectionEdit = ({
   attributes,
   setAttributes,
 }: BlockEditProps<SocialSectionAttributes>) => {
@@ -141,7 +141,10 @@ const SocialSectionEdit = ({
 
 const SocialSectionSave = () => <InnerBlocks.Content />;
 
-const SocialItemEdit = ({ attributes, setAttributes }: BlockEditProps<SocialItemAttributes>) => {
+export const SocialItemEdit = ({
+  attributes,
+  setAttributes,
+}: BlockEditProps<SocialItemAttributes>) => {
   const blockProps = useBlockProps({ className: "kt-social-item-editor" });
 
   return (

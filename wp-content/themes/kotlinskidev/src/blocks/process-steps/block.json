@@ -9,8 +9,8 @@
   "icon": "editor-ol",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
-  "editorScript": "file:../../../build/process-steps.js",
-  "style": "file:../../../build/style-process-steps.css",
+  "editorScript": "file:../../../build/js/process-steps.js",
+  "style": "file:../../../build/css/style-process-steps.css",
   "supports": {
     "align": ["wide", "full"],
     "anchor": true,

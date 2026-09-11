@@ -21,20 +21,20 @@ interface MediaObject {
   alt: string;
 }
 
-interface NavParagraphAttributes {
+export interface NavParagraphAttributes {
   content: string;
   textColor: string;
   textGradient: string;
 }
 
-interface NavImageAttributes {
+export interface NavImageAttributes {
   mediaId: number;
   mediaUrl: string;
   altText: string;
   linkUrl: string;
 }
 
-interface NavLinkAttributes {
+export interface NavLinkAttributes {
   label: string;
   url: string;
   opensInNewTab: boolean;
@@ -76,7 +76,7 @@ const {
   __experimentalColorGradientControl: ComponentType<ColorGradientControlProps>;
 };
 
-interface NavBannerAttributes {
+export interface NavBannerAttributes {
   mediaId: number;
   mediaUrl: string;
   altText: string;
@@ -100,7 +100,10 @@ const placeholderStyle: CSSProperties = {
   margin: 0,
 };
 
-function NavParagraphEdit({ attributes, setAttributes }: BlockEditProps<NavParagraphAttributes>) {
+export function NavParagraphEdit({
+  attributes,
+  setAttributes,
+}: BlockEditProps<NavParagraphAttributes>) {
   const blockProps = useBlockProps();
   const { content, textColor, textGradient } = attributes;
 
@@ -153,7 +156,7 @@ function NavParagraphEdit({ attributes, setAttributes }: BlockEditProps<NavParag
   );
 }
 
-function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttributes>) {
+export function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttributes>) {
   const blockProps = useBlockProps();
   const { mediaId, mediaUrl, altText, linkUrl } = attributes;
 
@@ -211,7 +214,7 @@ function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttr
   );
 }
 
-function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
+export function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
   const blockProps = useBlockProps();
   const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel } = attributes;
 
@@ -312,7 +315,7 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
   );
 }
 
-function NavLinkEdit({ attributes, setAttributes }: BlockEditProps<NavLinkAttributes>) {
+export function NavLinkEdit({ attributes, setAttributes }: BlockEditProps<NavLinkAttributes>) {
   const blockProps = useBlockProps({ className: "kt-nav-link" });
   const { label, url, opensInNewTab, description, rel, textColor, textGradient } = attributes;
 

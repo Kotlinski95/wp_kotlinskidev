@@ -7,9 +7,9 @@
   "category": "kotlinskidev",
   "icon": "index-card",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/content-tabs.js",
-  "viewScript": "file:../../../build/content-tabs-init.js",
-  "style": "file:../../../build/style-content-tabs.css",
+  "editorScript": "file:../../../build/js/content-tabs.js",
+  "viewScript": "file:../../../build/js/content-tabs-init.js",
+  "style": "file:../../../build/css/style-content-tabs.css",
   "render": "file:./render.php",
   "attributes": {
     "navPosition": { "type": "string", "default": "top" },

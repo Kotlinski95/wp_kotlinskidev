@@ -656,8 +656,13 @@ if (!function_exists('kotlinskidev_format_decrypted_content')) {
                     esc_html($decrypted_content),
                     kotlinskidev_get_copy_button_markup($decrypted_content)
                 );
-            case 'text':
             case 'address':
+                return sprintf(
+                    '<span class="kt-protected-value"><a href="%1$s" target="_blank" rel="noopener noreferrer">%2$s</a></span>',
+                    esc_url('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($decrypted_content)),
+                    esc_html($decrypted_content)
+                );
+            case 'text':
             case 'other':
                 return wp_kses_post($decrypted_content);
             default:

@@ -7,7 +7,7 @@ function kotlinskidev_enqueue_admin_bar_styles(): void
 
     wp_enqueue_style(
         'kotlinskidev-admin-bar',
-        get_template_directory_uri() . '/build/admin-bar.css',
+        kotlinskidev_build_url( 'css', 'admin-bar.css' ),
         [],
         wp_get_theme()->get( 'Version' )
     );

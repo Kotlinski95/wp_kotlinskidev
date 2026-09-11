@@ -7,10 +7,10 @@
   "category": "media",
   "icon": "format-gallery",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/gallery-lightbox.js",
-  "viewScript": "file:../../../build/gallery-lightbox-init.js",
-  "style": "file:../../../build/style-gallery-lightbox.css",
-  "viewStyle": "file:../../../build/gallery-lightbox-init.css",
+  "editorScript": "file:../../../build/js/gallery-lightbox.js",
+  "viewScript": "file:../../../build/js/gallery-lightbox-init.js",
+  "style": "file:../../../build/css/style-gallery-lightbox.css",
+  "viewStyle": "file:../../../build/css/gallery-lightbox-init.css",
   "supports": {
     "align": true,
     "__experimentalBorder": {

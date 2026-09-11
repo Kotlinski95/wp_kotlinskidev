@@ -8,7 +8,7 @@
   "icon": "translation",
   "description": "Heading or paragraph text translated via Polylang strings, shared across all languages from one template.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/translated-text.js",
+  "editorScript": "file:../../../build/js/translated-text.js",
   "render": "file:./render.php",
   "attributes": {
     "tagName": {

@@ -1,16 +1,21 @@
 import React from "react";
-import { registerBlockType, type BlockEditProps } from "@wordpress/blocks";
+import { registerBlockType, type BlockEditProps, type BlockConfiguration } from "@wordpress/blocks";
 import { InspectorControls, useBlockProps, useSettings } from "@wordpress/block-editor";
 import { PanelBody, TextControl, RangeControl, FontSizePicker } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+import metadata from "./block.json";
+import navMetadata from "../nav-popular-pages/block.json";
 
-interface PopularPagesAttributes {
+export interface PopularPagesAttributes {
   title: string;
   count: number;
   titleFontSize?: string;
 }
 
-function PopularPagesEdit({ attributes, setAttributes }: BlockEditProps<PopularPagesAttributes>) {
+export function PopularPagesEdit({
+  attributes,
+  setAttributes,
+}: BlockEditProps<PopularPagesAttributes>) {
   const blockProps = useBlockProps({ className: "kt-popular-pages" });
   const previewCount = Math.min(attributes.count, 5);
   const remainder = attributes.count - previewCount;
@@ -91,7 +96,5 @@ function PopularPagesEdit({ attributes, setAttributes }: BlockEditProps<PopularP
 
 const definition = { edit: PopularPagesEdit, save: () => null };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-registerBlockType("kotlinskidev/popular-pages", definition as any);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-registerBlockType("kotlinskidev/nav-popular-pages", definition as any);
+registerBlockType(metadata as unknown as BlockConfiguration<PopularPagesAttributes>, definition);
+registerBlockType(navMetadata as unknown as BlockConfiguration<PopularPagesAttributes>, definition);

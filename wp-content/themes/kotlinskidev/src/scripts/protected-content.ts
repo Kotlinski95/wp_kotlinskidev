@@ -24,13 +24,15 @@ const BATCH_DEBOUNCE_MS = 50;
 const OBSERVER_ROOT_MARGIN = "200px 0px";
 
 const getConfig = (): ProtectionConfig => {
-  return (
-    (window as any).kotlinskidevProtectionConfig || {
+  if (!(window as any).kotlinskidevProtectionConfig) {
+    (window as any).kotlinskidevProtectionConfig = {
       ajaxUrl: "/wp-admin/admin-ajax.php",
       nonce: "",
       errorText: "Failed to load protected content",
-    }
-  );
+    };
+  }
+
+  return (window as any).kotlinskidevProtectionConfig;
 };
 
 const refreshNonce = async (): Promise<boolean> => {

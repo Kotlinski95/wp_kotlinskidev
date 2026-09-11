@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { createReduxStore, register } from "@wordpress/data";
+import { createReduxStore, createSelector, register } from "@wordpress/data";
 
 jest.mock("./assets/image1.webp", () => "image1.webp", { virtual: true });
 jest.mock("./assets/image2.webp", () => "image2.webp", { virtual: true });
@@ -28,8 +28,11 @@ register(
     },
     selectors: {
       getBlock: (_state: unknown, clientId: string) => mockBlocks[clientId],
-      getBlockOrder: (_state: unknown, clientId: string) =>
-        (mockBlocks[clientId]?.innerBlocks ?? []).map((block) => block.clientId),
+      getBlockOrder: createSelector(
+        (_state: unknown, clientId: string) =>
+          (mockBlocks[clientId]?.innerBlocks ?? []).map((block) => block.clientId),
+        (_state: unknown, clientId: string) => [mockBlocks[clientId]?.innerBlocks]
+      ),
       getSelectedBlockClientId: () => mockSelectedBlockClientId,
       getBlockParents: () => [],
     },

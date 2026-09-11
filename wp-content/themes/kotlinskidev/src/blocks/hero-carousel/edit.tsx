@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
@@ -37,6 +37,9 @@ interface BlockEditorActions {
   selectBlock: (clientId: string) => void;
 }
 
+const EMPTY_SLIDES: SlideBlock[] = [];
+const EMPTY_CLIENT_IDS: string[] = [];
+
 export default function Edit({
   attributes,
   setAttributes,
@@ -57,17 +60,22 @@ export default function Edit({
   } = carouselSettings;
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const { innerBlocks, selectedBlockParents } = useSelect(
+  const { innerBlocks, blockParents, selectedBlockClientId } = useSelect(
     (select) => {
       const store = select("core/block-editor") as unknown as BlockEditorSelectors;
       const selectedCid = store.getSelectedBlockClientId();
-      const parents: string[] = selectedCid ? store.getBlockParents(selectedCid) : [];
       return {
-        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? [],
-        selectedBlockParents: selectedCid ? [...parents, selectedCid] : [],
+        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? EMPTY_SLIDES,
+        blockParents: selectedCid ? store.getBlockParents(selectedCid) : EMPTY_CLIENT_IDS,
+        selectedBlockClientId: selectedCid,
       };
     },
     [clientId]
+  );
+
+  const selectedBlockParents = useMemo(
+    () => (selectedBlockClientId ? [...blockParents, selectedBlockClientId] : EMPTY_CLIENT_IDS),
+    [blockParents, selectedBlockClientId]
   );
 
   const { insertBlock, removeBlock, selectBlock } = useDispatch(

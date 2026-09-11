@@ -8,7 +8,7 @@
   "icon": "editor-paragraph",
   "description": "Text paragraph for use inside navigation panels and holders.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/nav-content.js",
+  "editorScript": "file:../../../build/js/nav-content.js",
   "render": "file:./render.php",
   "attributes": {
     "content": {

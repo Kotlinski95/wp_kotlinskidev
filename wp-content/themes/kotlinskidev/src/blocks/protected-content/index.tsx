@@ -8,7 +8,7 @@ import "./style.scss";
 
 type ProtectionType = "email" | "phone" | "address" | "other" | "text";
 
-interface Attributes {
+export interface ProtectedContentAttributes {
   content: string;
   useProtection: boolean;
   protectionType: ProtectionType;
@@ -17,11 +17,11 @@ interface Attributes {
 }
 
 interface EditProps {
-  attributes: Attributes;
-  setAttributes: (attributes: Partial<Attributes>) => void;
+  attributes: ProtectedContentAttributes;
+  setAttributes: (attributes: Partial<ProtectedContentAttributes>) => void;
 }
 
-const Edit = ({ attributes, setAttributes }: EditProps) => {
+export const Edit = ({ attributes, setAttributes }: EditProps) => {
   const { content, useProtection, protectionType, tagName, isHtmlMode } = attributes;
 
   const blockProps = useBlockProps();

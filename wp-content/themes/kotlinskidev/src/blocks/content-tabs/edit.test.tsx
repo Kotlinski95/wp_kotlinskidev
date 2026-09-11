@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { createReduxStore, register } from "@wordpress/data";
+import { createReduxStore, createSelector, register } from "@wordpress/data";
 
 interface ColorGradientControlProps {
   label: string;
@@ -60,7 +60,10 @@ register(
     selectors: {
       getBlock: (_state: unknown, clientId: string) => mockBlocks[clientId],
       getSelectedBlockClientId: () => mockSelectedBlockClientId.current,
-      getBlockParents: (_state: unknown, id: string) => mockBlockParents.current(id),
+      getBlockParents: createSelector(
+        (_state: unknown, id: string) => mockBlockParents.current(id),
+        (_state: unknown, id: string) => [mockBlockParents.current, id]
+      ),
     },
   })
 );

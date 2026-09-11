@@ -55,6 +55,11 @@ function kotlinskidev_settings_tabs(): array
             'group' => 'kotlinskidev_settings_advanced',
             'page'  => 'kotlinskidev-settings-advanced',
         ],
+        'monitoring' => [
+            'label' => esc_html__('Error Monitoring', 'kotlinskidev'),
+            'group' => 'kotlinskidev_settings_monitoring',
+            'page'  => 'kotlinskidev-settings-monitoring',
+        ],
     ];
 }
 
@@ -679,6 +684,47 @@ function kotlinskidev_register_settings(): void
         'kotlinskidev-settings-contact',
         'kotlinskidev_section_contact'
     );
+
+    register_setting(
+        'kotlinskidev_settings_monitoring',
+        'kotlinskidev_sentry_dsn',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'default'           => '',
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_monitoring',
+        esc_html__('Sentry', 'kotlinskidev'),
+        'kotlinskidev_render_monitoring_section',
+        'kotlinskidev-settings-monitoring'
+    );
+
+    add_settings_field(
+        'kotlinskidev_sentry_dsn',
+        esc_html__('DSN', 'kotlinskidev'),
+        'kotlinskidev_render_sentry_dsn_field',
+        'kotlinskidev-settings-monitoring',
+        'kotlinskidev_section_monitoring'
+    );
+}
+
+function kotlinskidev_render_monitoring_section(): void
+{
+    echo '<p>' . esc_html__('Reports uncaught PHP exceptions and fatal errors (the class of bug that shows visitors a broken page) to Sentry. Regular warnings/notices/deprecations are not sent — this is scoped to failures that actually break a page, to stay well inside a free-tier event quota. Only active when WP_DEBUG is off, so local development never sends events.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_sentry_dsn_field(): void
+{
+    $value = get_option('kotlinskidev_sentry_dsn', '');
+    ?>
+    <input type="url" name="kotlinskidev_sentry_dsn" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://examplePublicKey@o0.ingest.sentry.io/0" />
+    <p class="description">
+        <?php esc_html_e('From your Sentry project (Settings → Client Keys). Leave empty to disable reporting.', 'kotlinskidev'); ?>
+    </p>
+    <?php
 }
 
 function kotlinskidev_render_contact_section(): void

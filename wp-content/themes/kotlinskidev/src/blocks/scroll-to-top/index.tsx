@@ -37,7 +37,7 @@ const VARIANT_HINTS: Record<ScrollToTopAttributes["variant"], string> = {
   bar: __("Full-width bar, always visible where placed — e.g. above the footer", "kotlinskidev"),
 };
 
-function Edit({ attributes, setAttributes }: EditProps) {
+export function Edit({ attributes, setAttributes }: EditProps) {
   const { variant, showArrow, arrowIconId, arrowIconUrl, arrowSize } = attributes;
   const blockProps = useBlockProps({ className: "kt-editor-placeholder" });
 

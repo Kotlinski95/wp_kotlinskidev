@@ -49,7 +49,10 @@ describe("contact-form registration", () => {
   it("registers under the block.json name with a null save", () => {
     const definition = getDefinition();
 
-    expect(registerBlockType).toHaveBeenCalledWith(metadata.name, expect.any(Object));
+    expect(registerBlockType).toHaveBeenCalledWith(
+      expect.objectContaining({ name: metadata.name }),
+      expect.any(Object)
+    );
     expect(definition.save()).toBeNull();
   });
 });

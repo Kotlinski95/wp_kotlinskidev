@@ -10,7 +10,7 @@ import { Button, PanelBody, TextControl, RangeControl, SelectControl } from "@wo
 
 type LoadingStrategy = "lazy" | "eager" | "auto";
 
-interface ResponsiveImageAttributes {
+export interface ResponsiveImageAttributes {
   desktopImageUrl?: string;
   desktopImageId?: number;
   mobileImageUrl?: string;

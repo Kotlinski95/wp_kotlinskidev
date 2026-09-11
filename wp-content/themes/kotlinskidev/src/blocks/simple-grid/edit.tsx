@@ -28,7 +28,7 @@ interface BlockEditorDispatch {
   removeBlocks: (clientIds: string[]) => void;
 }
 
-interface SimpleGridAttributes {
+export interface SimpleGridAttributes {
   label: string;
   mobileColumns?: number;
   tabletColumns?: number;

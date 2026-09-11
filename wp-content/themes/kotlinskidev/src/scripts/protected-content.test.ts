@@ -235,6 +235,30 @@ describe("protected-content.ts", () => {
     expect(el.innerHTML).toBe("<p>Ok</p>");
   });
 
+  it("recovers via nonce refresh when config is still undefined at first flush (e.g. an async script-loading optimizer runs this module before wp_localize_script's inline data)", async () => {
+    const el = buildProtectedElement();
+    delete (window as unknown as { kotlinskidevProtectionConfig?: unknown })
+      .kotlinskidevProtectionConfig;
+    mockFetchSequence([
+      { ok: true, json: { success: false, data: { error_code: "nonce_expired" } } },
+      { ok: true, json: { success: true, data: { nonce: "fresh-nonce" } } },
+      {
+        ok: true,
+        json: {
+          success: true,
+          data: { results: { 0: { content: "<p>Ok</p>", raw_content: "Ok" } } },
+        },
+      },
+    ]);
+    loadModule();
+
+    intersectionCallback?.([{ isIntersecting: true, target: el }], { unobserve: unobserveSpy });
+    await wait(80);
+
+    expect(el.innerHTML).toBe("<p>Ok</p>");
+    expect(el.className).not.toContain("protection-error");
+  });
+
   it("decryptText resolves the raw content for a single item", async () => {
     mockFetchSequence([
       {

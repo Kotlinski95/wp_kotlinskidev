@@ -8,8 +8,8 @@
   "icon": "layout",
   "description": "Flexible grid container. Add Holder blocks inside to create columns.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/simple-grid.js",
-  "style": "file:../../../build/style-simple-grid.css",
+  "editorScript": "file:../../../build/js/simple-grid.js",
+  "style": "file:../../../build/css/style-simple-grid.css",
   "render": "file:./render.php",
   "attributes": {
     "label": {

@@ -8,7 +8,7 @@
   "icon": "star-filled",
   "description": "An SVG icon picked from the Media Library, colored via currentColor.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/icon.js",
+  "editorScript": "file:../../../build/js/icon.js",
   "render": "file:./render.php",
   "supports": {
     "html": false,

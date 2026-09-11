@@ -5,6 +5,12 @@ require_once get_template_directory() . '/functions/theme-setup.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+// Sentry error monitoring — loaded early so it can catch fatals from anything that follows
+require_once get_template_directory() . '/functions/error-monitoring.php';
+
+// Build-output path/URL helpers (build/js, build/css) — used by any module that enqueues or reads compiled assets
+require_once get_template_directory() . '/functions/asset-paths.php';
+
 // HTTP security response headers (CSP, Referrer-Policy, Permissions-Policy)
 require_once get_template_directory() . '/functions/security-headers.php';
 
@@ -159,6 +165,9 @@ require_once get_template_directory() . '/functions/polylang-content-resolution.
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';
 
+// Visible "AI-generated" disclosure label for any image/cover block using an attachment marked AI-generated in the Media Library
+require_once get_template_directory() . '/functions/ai-disclosure-labels.php';
+
 // .glb upload support for the model-viewer block
 require_once get_template_directory() . '/functions/model-viewer-mime.php';
 
@@ -209,6 +218,7 @@ require_once get_template_directory() . '/functions/contact-card.php';
 require_once get_template_directory() . '/functions/article-card.php';
 require_once get_template_directory() . '/functions/project-card.php';
 require_once get_template_directory() . '/functions/translated-text.php';
+require_once get_template_directory() . '/functions/marquee.php';
 
 function kotlinskidev_load_textdomain()
 {

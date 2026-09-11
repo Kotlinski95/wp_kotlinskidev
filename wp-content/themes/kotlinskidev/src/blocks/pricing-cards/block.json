@@ -9,8 +9,8 @@
   "icon": "money-alt",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
-  "editorScript": "file:../../../build/pricing-cards.js",
-  "style": "file:../../../build/style-pricing-cards.css",
+  "editorScript": "file:../../../build/js/pricing-cards.js",
+  "style": "file:../../../build/css/style-pricing-cards.css",
   "supports": {
     "align": ["wide", "full"],
     "anchor": true,

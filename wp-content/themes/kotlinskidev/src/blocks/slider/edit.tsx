@@ -19,7 +19,7 @@ import {
   __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 import { useSelect, useDispatch } from "@wordpress/data";
-import { memo, useEffect, useRef, useState } from "@wordpress/element";
+import { memo, useEffect, useMemo, useRef, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import { onActivationKey } from "@utils/keyboardActivation";
 import SlidesPerViewControl from "@utils/carousel/SlidesPerViewControl";
@@ -37,7 +37,7 @@ import PLACEHOLDER_IMG_1 from "./assets/image1.webp";
 import PLACEHOLDER_IMG_2 from "./assets/image2.webp";
 import PLACEHOLDER_IMG_3 from "./assets/image3.webp";
 
-interface SliderAttributes {
+export interface SliderAttributes {
   autoplay: boolean;
   autoplayTime: number;
   smoothTransition: boolean;
@@ -152,23 +152,30 @@ interface BlockEditorSelectors {
   getBlockParents: (id: string) => string[];
 }
 
+const EMPTY_CLIENT_IDS: string[] = [];
+
 const Slider = memo(
   ({ clientId, innerBlocksProps, attributes }: SliderProps): React.ReactElement => {
     const [activeSlide, setActiveSlide] = useState(0);
     const { selectBlock } = useDispatch(blockEditorStore);
     const swiperRef = useRef<HTMLDivElement>(null);
 
-    const { slideOrder, selectedBlockParents } = useSelect(
+    const { slideOrder, blockParents, selectedBlockClientId } = useSelect(
       (selectFn) => {
         const store = selectFn(blockEditorStore) as unknown as BlockEditorSelectors;
         const selectedCid = store.getSelectedBlockClientId();
-        const parents: string[] = selectedCid ? store.getBlockParents(selectedCid) : [];
         return {
           slideOrder: store.getBlockOrder(clientId),
-          selectedBlockParents: selectedCid ? [...parents, selectedCid] : [],
+          blockParents: selectedCid ? store.getBlockParents(selectedCid) : EMPTY_CLIENT_IDS,
+          selectedBlockClientId: selectedCid,
         };
       },
       [clientId]
+    );
+
+    const selectedBlockParents = useMemo(
+      () => (selectedBlockClientId ? [...blockParents, selectedBlockClientId] : EMPTY_CLIENT_IDS),
+      [blockParents, selectedBlockClientId]
     );
 
     useEffect(() => {

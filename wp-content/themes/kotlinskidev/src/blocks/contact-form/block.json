@@ -38,7 +38,7 @@
     "align": ["wide", "full"],
     "customClassName": true
   },
-  "editorScript": "file:../../../build/contact-form.js",
-  "style": "file:../../../build/style-contact-form.css",
+  "editorScript": "file:../../../build/js/contact-form.js",
+  "style": "file:../../../build/css/style-contact-form.css",
   "render": "file:./render.php"
 }

@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "button",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/theme-switcher.js",
+  "editorScript": "file:../../../build/js/theme-switcher.js",
   "render": "file:./render.php",
   "supports": {
     "html": false,

@@ -47,7 +47,7 @@ interface GoogleGeocoderInstance {
   ) => void;
 }
 
-interface GoogleMapsBlockAttributes {
+export interface GoogleMapsBlockAttributes {
   apiKey: string;
   address: string;
   lat: string;

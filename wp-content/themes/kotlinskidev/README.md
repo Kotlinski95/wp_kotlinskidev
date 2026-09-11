@@ -9,6 +9,7 @@ Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](ht
 - WordPress 6.4+
 - PHP 8.0+
 - Node.js (see `.nvmrc` for pinned version)
+- Composer (run `composer install` — required in production for Sentry error monitoring to activate; the theme degrades gracefully without it, just with monitoring off)
 - Local WordPress environment (e.g. [LocalWP](https://localwp.com/))
 
 ---
@@ -40,6 +41,8 @@ npm run lint:js        # ESLint
 npm run lint:css       # Stylelint
 npm run test:unit      # Jest unit tests
 npm run test:e2e       # End-to-end tests
+npm run storybook      # Browse every block in isolation at localhost:6006
+npm run build-storybook # Static Storybook build (storybook-static/, not committed)
 ```
 
 ---
@@ -48,6 +51,7 @@ npm run test:e2e       # End-to-end tests
 
 ```text
 ├── .claude/           Claude Code project rules
+├── .storybook/        Storybook config (react-webpack5) — isolated block previews
 ├── assets/            Fonts, icons, static images (WebP)
 ├── build/             Compiled output — do not edit manually, not committed
 ├── functions/         PHP feature modules (one concern per file)

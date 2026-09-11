@@ -7,7 +7,7 @@ add_action('wp_enqueue_scripts', function () {
 
         wp_enqueue_script(
             'kotlinskidev-banner-carousel',
-            get_template_directory_uri() . '/build/banner-carousel.js',
+            kotlinskidev_build_url('js', 'banner-carousel.js'),
             // ['wp-blocks', 'wp-element'], // Only necessary dependencies for frontend
             [], // Only necessary dependencies for frontend
             null,
@@ -15,13 +15,13 @@ add_action('wp_enqueue_scripts', function () {
         );
         wp_enqueue_style(
             'kotlinskidev-banner-carousel-style',
-            get_template_directory_uri() . '/build/banner-carousel.css',
+            kotlinskidev_build_url('css', 'banner-carousel.css'),
             [],
             null
         );
         wp_enqueue_style(
             'kotlinskidev-style-banner-carousel-style',
-            get_template_directory_uri() . '/build/style-banner-carousel.css',
+            kotlinskidev_build_url('css', 'style-banner-carousel.css'),
             [],
             null
         );
@@ -30,28 +30,27 @@ add_action('wp_enqueue_scripts', function () {
 
 // Enqueue editor assets
 add_action('enqueue_block_editor_assets', function () {
-    $theme_dir = get_template_directory_uri();
-    $banner_carousel_asset_path = get_template_directory() . '/build/banner-carousel.asset.php';
+    $banner_carousel_asset_path = kotlinskidev_build_path('js', 'banner-carousel.asset.php');
     $banner_carousel_asset = file_exists($banner_carousel_asset_path)
         ? include $banner_carousel_asset_path
         : ['dependencies' => [], 'version' => null];
 
     wp_enqueue_script(
         'kotlinskidev-banner-carousel-editor',
-        $theme_dir . '/build/banner-carousel.js',
+        kotlinskidev_build_url('js', 'banner-carousel.js'),
         $banner_carousel_asset['dependencies'],
         $banner_carousel_asset['version'],
         true
     );
     wp_enqueue_style(
         'kotlinskidev-banner-carousel-editor-style',
-        $theme_dir . '/build/banner-carousel.css',
+        kotlinskidev_build_url('css', 'banner-carousel.css'),
         [],
         null
     );
     wp_enqueue_style(
         'kotlinskidev-style-banner-carousel-editor-style',
-        $theme_dir . '/build/style-banner-carousel.css',
+        kotlinskidev_build_url('css', 'style-banner-carousel.css'),
         [],
         null
     );

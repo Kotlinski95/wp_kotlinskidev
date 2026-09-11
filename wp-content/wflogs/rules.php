@@ -7050,6 +7050,40 @@ $this->rules[937] = wfWAFRule::create($this, 937, NULL, 'rce', '100', 'WAF-RULE-
 wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'action'), array (
 )))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/\\baction_hook\\b/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'args', 'layout'), array (
 ))))));
+$this->rules[939] = wfWAFRule::create($this, 939, NULL, 'auth-bypass', '100', 'WAF-RULE-939', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '5.0.0', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'wpmudev-updates'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'keyExists', 'wpmudev-hub', array(wfWAFRuleComparisonSubject::create($this, 'request.queryString', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'Wdp-Auth'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[940] = wfWAFRule::create($this, 940, NULL, 'priv-esc', '100', 'WAF-RULE-940', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'versionLessThanEqualTo', '6.2.0', array(wfWAFRuleComparisonSubject::create($this, array('wordpress.plugins', 'kirki'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparisonGroup(new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]KirkiComponentLibrary[\\/]+v1[\\/]+kirki-forgot-password/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/KirkiComponentLibrary[\\/]+v1[\\/]+kirki-forgot-password/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/reset_link/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'emailBody'), array (
+))))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparisonGroup(new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/wp-json[\\/]kirki[\\/]+v1[\\/]+frontend[\\/]+collection/i', array(wfWAFRuleComparisonSubject::create($this, 'request.path', array (
+)))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '/kirki[\\/]+v1[\\/]+frontend[\\/]+collection/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'rest_route'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.queryString', 'rest_route'), array (
+))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/kirki-forgot-password/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'kirki_data'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/emailBody/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'kirki_data'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/reset_link/i', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'kirki_data'), array (
+)))))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'currentUserIsNot', 'administrator', array(wfWAFRuleComparisonSubject::create($this, 'server.empty', array (
+))))));
+$this->rules[943] = wfWAFRule::create($this, 943, NULL, 'xss', '100', 'WordPress Core < 7.0.3 - Pre-auth reflected XSS', 0, 'blockXSS', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'match', '/\\/wp\\-login\\.php/i', array(wfWAFRuleComparisonSubject::create($this, 'server.script_filename', array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'contains', '<', array(wfWAFRuleComparisonSubject::create($this, array('request.body', 'log'), array (
+)),
+wfWAFRuleComparisonSubject::create($this, array('request.body', 'user_login'), array (
+))))));
+$this->rules[944] = wfWAFRule::create($this, 944, NULL, 'auth-bypass', '100', 'emer-run.php Malware Auth Bypass', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'lengthGreaterThan', '0', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', '_wplogin'), array (
+)))), new wfWAFRuleLogicalOperator('AND'), new wfWAFRuleComparison($this, 'match', '/^[A-Za-z0-9_-]{24}$/', array(wfWAFRuleComparisonSubject::create($this, array('request.queryString', '_wplogin'), array (
+  0 => 
+  array (
+    0 => 'pregReplace',
+    1 => '/[^A-Za-z0-9_-]/',
+    2 => '',
+  ),
+))))));
 $this->rules[307] = wfWAFRule::create($this, 307, NULL, 'brute-force', '100', 'Known malicious User-Agents', 0, 'block', new wfWAFRuleComparisonGroup(new wfWAFRuleComparison($this, 'equals', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'User-Agent'), array (
 )))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'match', '#mozlila#i', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'User-Agent'), array (
 )))), new wfWAFRuleLogicalOperator('OR'), new wfWAFRuleComparison($this, 'equals', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:62.0) Gecko/20100101 Firefox/62.0', array(wfWAFRuleComparisonSubject::create($this, array('request.headers', 'User-Agent'), array (

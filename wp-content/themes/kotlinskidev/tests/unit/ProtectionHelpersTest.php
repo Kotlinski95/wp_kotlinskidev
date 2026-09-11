@@ -12,6 +12,7 @@ beforeEach(function () {
     Functions\when('wp_unslash')->alias(fn ($t) => $t);
     Functions\when('__')->alias(fn ($t) => $t);
     Functions\when('esc_attr__')->alias(fn ($t) => $t);
+    Functions\when('esc_url')->alias(fn ($t) => $t);
 });
 
 it('formats a decrypted email as a mailto link with a copy button', function () {
@@ -33,10 +34,18 @@ it('formats a decrypted phone as a tel link with a copy button, stripping non-nu
     expect($result)->toContain('data-copy-value="+1 (555) 123-4567"');
 });
 
-it('passes text, address, and other types through wp_kses_post', function () {
-    foreach (['text', 'address', 'other'] as $type) {
+it('passes text and other types through wp_kses_post', function () {
+    foreach (['text', 'other'] as $type) {
         expect(kotlinskidev_format_decrypted_content('<b>Hi</b>', $type))->toBe('<b>Hi</b>');
     }
+});
+
+it('formats a decrypted address as a Google Maps search link', function () {
+    $result = kotlinskidev_format_decrypted_content('123 Example Street', 'address');
+
+    expect($result)->toContain(
+        '<a href="https://www.google.com/maps/search/?api=1&query=123%20Example%20Street" target="_blank" rel="noopener noreferrer">123 Example Street</a>'
+    );
 });
 
 it('escapes unknown protection types as plain html', function () {

@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "portfolio",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/project-card.js",
+  "editorScript": "file:../../../build/js/project-card.js",
   "attributes": {
     "cardId": { "type": "number", "default": 0 }
   },
