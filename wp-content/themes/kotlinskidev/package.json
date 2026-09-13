@@ -29,6 +29,7 @@
     "three": "^0.185.1"
   },
   "overrides": {
+    "tmp": "^0.2.5",
     "nanoid": "^3.3.18",
     "fast-uri": "^4.1.4",
     "adm-zip": "^0.6.0",
@@ -69,6 +70,7 @@
     }
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.0",
     "@playwright/test": "^1.62.1",
     "@storybook/addon-docs": "^10.6.0",
     "@storybook/addon-webpack5-compiler-swc": "^4.0.3",
@@ -98,6 +100,7 @@
     "eslint-plugin-security": "^4.0.1",
     "husky": "^9.1.7",
     "mini-css-extract-plugin": "^2.9.2",
+    "pa11y-ci": "^4.1.1",
     "prettier": "^3.2.5",
     "rtlcss": "^4.3.0",
     "storybook": "^10.6.0",
@@ -131,6 +134,13 @@
     "security:sast": "eslint --no-eslintrc --config .eslintrc.security.js --ext .ts,.tsx src/",
     "security:php": "vendor/bin/phpcs --standard=.phpcs.security.xml",
     "security:secrets": "gitleaks detect --source . --log-opts=\"-- .\" --config .gitleaks.toml -v",
+    "audit:lighthouse": "lhci autorun --config=./audit/lighthouserc.js",
+    "audit:a11y": "pa11y-ci --config ./audit/pa11yci.js --json > ./audit/results/pa11y.json",
+    "audit:seo": "node ./audit/scripts/check-schema.js",
+    "audit:security": "node ./audit/scripts/check-security-headers.js",
+    "audit:report": "node ./audit/scripts/merge-report.js",
+    "audit:regression": "node ./audit/scripts/regression-diff.js",
+    "audit": "mkdir -p ./audit/results && npm run audit:seo && npm run audit:security && npm run audit:lighthouse && npm run audit:a11y && npm run audit:report",
     "start": "wp-scripts start",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

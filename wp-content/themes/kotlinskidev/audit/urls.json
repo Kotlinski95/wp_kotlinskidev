@@ -1,0 +1,10 @@
+{
+  "baseUrl": "https://kotlinski.dev",
+  "pages": [
+    { "id": "home-en", "path": "/" },
+    { "id": "home-pl", "path": "/pl/" },
+    { "id": "articles-en", "path": "/articles/" },
+    { "id": "article-en", "path": "/articles/example-article/" },
+    { "id": "contact-en", "path": "/contact/" }
+  ]
+}

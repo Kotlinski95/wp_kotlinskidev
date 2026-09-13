@@ -101,6 +101,9 @@ dist
 # Ingore build folders
 build
 
+# Ignore generated site-audit reports (regenerated per run, baseline lives on audit-history branch)
+wp-content/themes/kotlinskidev/audit/results
+
 # Ignore Storybook's static build output
 storybook-static
 
