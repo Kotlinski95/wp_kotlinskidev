@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-09-11T08:19:59+00:00\n"
+"POT-Creation-Date: 2026-09-13T09:10:53+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -32,13 +32,13 @@ msgstr "https://kotlinskidev.com"
 msgid ""
 "A custom WordPress theme built by Adrian Kotliński. Features dark/light "
 "mode, scroll animations, parallax effects, PWA support, and a fully custom "
-"block-based layout. Focused on clean code, performance and efficiency, and a"
-" great user experience."
+"block-based layout. Focused on clean code, performance and efficiency, and a "
+"great user experience."
 msgstr ""
 "A custom WordPress theme built by Adrian Kotliński. Features dark/light "
 "mode, scroll animations, parallax effects, PWA support, and a fully custom "
-"block-based layout. Focused on clean code, performance and efficiency, and a"
-" great user experience."
+"block-based layout. Focused on clean code, performance and efficiency, and a "
+"great user experience."
 
 #. Author of the theme
 #: style.css
@@ -46,20 +46,20 @@ msgid "Adrian Kotliński"
 msgstr "Adrian Kotliński"
 
 #: build/blocks/contact-detail/render.php:16 functions/contact-card.php:57
-#: functions/settings-page.php:658 src/blocks/contact-detail/render.php:16
+#: functions/settings-page.php:683 src/blocks/contact-detail/render.php:16
 #: build/js/contact-detail.js:1 build/js/google-maps.js:1
 #: build/js/protected-content.js:1
 msgid "Address"
 msgstr "Address"
 
 #: build/blocks/contact-detail/render.php:17 functions/contact-card.php:69
-#: functions/settings-page.php:666 src/blocks/contact-detail/render.php:17
+#: functions/settings-page.php:691 src/blocks/contact-detail/render.php:17
 #: build/js/contact-detail.js:1 build/js/protected-content.js:1
 msgid "Phone"
 msgstr "Phone"
 
 #: build/blocks/contact-detail/render.php:18 functions/contact-card.php:75
-#: functions/settings-page.php:674 src/blocks/contact-detail/render.php:18
+#: functions/settings-page.php:699 src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1 build/js/protected-content.js:1
 msgid "Email"
 msgstr "Email"
@@ -71,11 +71,11 @@ msgstr "Hours"
 
 #: build/blocks/google-maps/render.php:29 src/blocks/google-maps/render.php:29
 msgid ""
-"Please provide a Google Maps API key and address or coordinates in the block"
-" settings."
+"Please provide a Google Maps API key and address or coordinates in the block "
+"settings."
 msgstr ""
-"Please provide a Google Maps API key and address or coordinates in the block"
-" settings."
+"Please provide a Google Maps API key and address or coordinates in the block "
+"settings."
 
 #: build/blocks/google-maps/render.php:39 src/blocks/google-maps/render.php:39
 #: build/js/google-maps.js:1
@@ -84,8 +84,8 @@ msgstr "Reset View"
 
 #: build/blocks/language-panel/render.php:19
 #: build/blocks/navigation/render.php:268
-#: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:268 build/js/language-panel.js:1
+#: src/blocks/language-panel/render.php:19 src/blocks/navigation/render.php:268
+#: build/js/language-panel.js:1
 msgid "Language"
 msgstr "Language"
 
@@ -99,6 +99,13 @@ msgstr "Select language, current: %s"
 #: src/blocks/language-panel/render.php:61
 msgid "Language selection"
 msgstr "Language selection"
+
+#. translators: %s: modal title
+#: build/blocks/marquee/item/render.php:19
+#: functions/slider-modal-trigger.php:41 src/blocks/marquee/item/render.php:19
+#, php-format
+msgid "Open %s"
+msgstr "Open %s"
 
 #: build/blocks/model-viewer/render.php:10
 #: build/blocks/model-viewer/render.php:13
@@ -141,8 +148,8 @@ msgstr " Kotlinskidev | Web Development"
 #: footer.php:6 functions/copyrights.php:9
 msgid "Proudly powered by"
 msgstr ""
-"Proudly powered by <a href=\"https://kotlinskidev.com/\">Adrian "
-"Kotlinski</a> | All rights reserved"
+"Proudly powered by <a href=\"https://kotlinskidev.com/\">Adrian Kotlinski</"
+"a> | All rights reserved"
 
 #: functions/ai-disclosure-labels.php:5
 msgid "AI-generated video"
@@ -162,11 +169,87 @@ msgstr "Show a visible disclosure label wherever this media is used"
 
 #: functions/ai-disclosure-labels.php:36
 msgid ""
-"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies"
-" automatically to every Image or Cover block using this file."
+"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies "
+"automatically to every Image or Cover block using this file."
 msgstr ""
-"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies"
-" automatically to every Image or Cover block using this file."
+"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies "
+"automatically to every Image or Cover block using this file."
+
+#: functions/analytics-events.php:5
+msgid "CTA clicks"
+msgstr "CTA clicks"
+
+#: functions/analytics-events.php:6
+msgid "Project card views"
+msgstr "Project card views"
+
+#: functions/analytics-events.php:7
+msgid "Language switch"
+msgstr "Language switch"
+
+#: functions/analytics-events.php:8
+msgid "Contact form started"
+msgstr "Contact form started"
+
+#: functions/analytics-events.php:9
+msgid "Contact form completed"
+msgstr "Contact form completed"
+
+#: functions/analytics-events.php:10
+msgid "Contact form error"
+msgstr "Contact form error"
+
+#: functions/analytics-events.php:11
+msgid "Lightbox opened"
+msgstr "Lightbox opened"
+
+#: functions/analytics-events.php:12
+msgid "Lightbox slide navigation"
+msgstr "Lightbox slide navigation"
+
+#: functions/analytics-events.php:13
+msgid "404 page views"
+msgstr "404 page views"
+
+#: functions/analytics-events.php:14
+msgid "Read more/less toggled"
+msgstr "Read more/less toggled"
+
+#: functions/analytics-events.php:15
+msgid "FAQ accordion expanded"
+msgstr "FAQ accordion expanded"
+
+#: functions/analytics-events.php:16
+msgid "Scroll-to-top clicked"
+msgstr "Scroll-to-top clicked"
+
+#: functions/analytics-events.php:17
+msgid "Cookie consent icon clicked"
+msgstr "Cookie consent icon clicked"
+
+#: functions/analytics-events.php:18
+msgid "Accessibility toolbar toggled"
+msgstr "Accessibility toolbar toggled"
+
+#: functions/analytics-events.php:19
+msgid "Search panel opened"
+msgstr "Search panel opened"
+
+#: functions/analytics-events.php:20
+msgid "Content modal opened"
+msgstr "Content modal opened"
+
+#: functions/analytics-events.php:21
+msgid "Load more clicked"
+msgstr "Load more clicked"
+
+#: functions/analytics-events.php:22
+msgid "Dark/light mode toggled"
+msgstr "Dark/light mode toggled"
+
+#: functions/analytics-events.php:23
+msgid "Protected content revealed"
+msgstr "Protected content revealed"
 
 #: functions/article-card.php:5
 msgid "Article Cards"
@@ -756,7 +839,7 @@ msgstr "View documentation"
 msgid "Modals"
 msgstr "Modals"
 
-#: functions/modals.php:6 build/js/editor.js:37
+#: functions/modals.php:6 build/js/editor.js:37 build/js/marquee.js:1
 msgid "Modal"
 msgstr "Modal"
 
@@ -966,11 +1049,9 @@ msgstr "wp-config.php Setup Instructions"
 
 #: functions/protection-helpers.php:525
 msgid ""
-"To use wp-config.php storage, add these constants to your wp-config.php "
-"file:"
+"To use wp-config.php storage, add these constants to your wp-config.php file:"
 msgstr ""
-"To use wp-config.php storage, add these constants to your wp-config.php "
-"file:"
+"To use wp-config.php storage, add these constants to your wp-config.php file:"
 
 #: functions/protection-helpers.php:527
 msgid "Generate & Show wp-config.php Constants"
@@ -1415,124 +1496,131 @@ msgstr "Google Analytics"
 msgid "Measurement ID"
 msgstr "Measurement ID"
 
-#: functions/settings-page.php:519
+#: functions/settings-page.php:486
+msgid "Custom Event Tracking"
+msgstr "Custom Event Tracking"
+
+#: functions/settings-page.php:493
+msgid "Enabled events"
+msgstr "Enabled events"
+
+#: functions/settings-page.php:544
 msgid "Content Security Policy"
 msgstr "Content Security Policy"
 
-#: functions/settings-page.php:526
+#: functions/settings-page.php:551
 msgid "Enable CSP"
 msgstr "Enable CSP"
 
-#: functions/settings-page.php:534
+#: functions/settings-page.php:559
 msgid "Mode"
 msgstr "Mode"
 
-#: functions/settings-page.php:542
+#: functions/settings-page.php:567
 msgid "Upgrade insecure requests"
 msgstr "Upgrade insecure requests"
 
-#: functions/settings-page.php:550
+#: functions/settings-page.php:575
 msgid "CSP Directives"
 msgstr "CSP Directives"
 
-#: functions/settings-page.php:588
+#: functions/settings-page.php:613
 msgid "Other Security Headers"
 msgstr "Other Security Headers"
 
-#: functions/settings-page.php:595
+#: functions/settings-page.php:620
 msgid "Referrer-Policy"
 msgstr "Referrer-Policy"
 
-#: functions/settings-page.php:603
+#: functions/settings-page.php:628
 msgid "Permissions-Policy"
 msgstr "Permissions-Policy"
 
-#: functions/settings-page.php:651
+#: functions/settings-page.php:676
 msgid "Business Contact Details"
 msgstr "Business Contact Details"
 
-#: functions/settings-page.php:682
+#: functions/settings-page.php:707
 msgid "Business hours"
 msgstr "Business hours"
 
-#: functions/settings-page.php:700
+#: functions/settings-page.php:725
 msgid "Sentry"
 msgstr "Sentry"
 
-#: functions/settings-page.php:707
+#: functions/settings-page.php:732
 msgid "DSN"
 msgstr "DSN"
 
-#: functions/settings-page.php:716
+#: functions/settings-page.php:741
 msgid ""
 "Reports uncaught PHP exceptions and fatal errors (the class of bug that "
-"shows visitors a broken page) to Sentry. Regular "
-"warnings/notices/deprecations are not sent — this is scoped to failures that"
-" actually break a page, to stay well inside a free-tier event quota. Only "
-"active when WP_DEBUG is off, so local development never sends events."
+"shows visitors a broken page) to Sentry. Regular warnings/notices/"
+"deprecations are not sent — this is scoped to failures that actually break a "
+"page, to stay well inside a free-tier event quota. Only active when WP_DEBUG "
+"is off, so local development never sends events."
 msgstr ""
 "Reports uncaught PHP exceptions and fatal errors (the class of bug that "
-"shows visitors a broken page) to Sentry. Regular "
-"warnings/notices/deprecations are not sent — this is scoped to failures that"
-" actually break a page, to stay well inside a free-tier event quota. Only "
-"active when WP_DEBUG is off, so local development never sends events."
+"shows visitors a broken page) to Sentry. Regular warnings/notices/"
+"deprecations are not sent — this is scoped to failures that actually break a "
+"page, to stay well inside a free-tier event quota. Only active when WP_DEBUG "
+"is off, so local development never sends events."
 
-#: functions/settings-page.php:725
+#: functions/settings-page.php:750
 msgid ""
 "From your Sentry project (Settings → Client Keys). Leave empty to disable "
 "reporting."
 msgstr ""
 "From your Sentry project (Settings → Client Keys). Leave empty to disable "
 "reporting."
-
-#: functions/settings-page.php:732
-msgid ""
-"Used on the contact card shown across the site (e.g. city landing pages). "
-"Address, phone, and email are shown obfuscated on the frontend and only "
-"revealed after a click, via the same protection used by the Protected "
-"Content block."
-msgstr ""
-"Used on the contact card shown across the site (e.g. city landing pages). "
-"Address, phone, and email are shown obfuscated on the frontend and only "
-"revealed after a click, via the same protection used by the Protected "
-"Content block."
 
 #: functions/settings-page.php:757
+msgid ""
+"Used on the contact card shown across the site (e.g. city landing pages). "
+"Address, phone, and email are shown obfuscated on the frontend and only "
+"revealed after a click, via the same protection used by the Protected "
+"Content block."
+msgstr ""
+"Used on the contact card shown across the site (e.g. city landing pages). "
+"Address, phone, and email are shown obfuscated on the frontend and only "
+"revealed after a click, via the same protection used by the Protected "
+"Content block."
+
+#: functions/settings-page.php:782
 msgid "Edit source text"
 msgstr "Edit source text"
 
-#: functions/settings-page.php:759
+#: functions/settings-page.php:784
 msgid "This is the source text shown until a per-language translation exists."
-msgstr ""
-"This is the source text shown until a per-language translation exists."
+msgstr "This is the source text shown until a per-language translation exists."
 
-#: functions/settings-page.php:760
+#: functions/settings-page.php:785
 msgid "Translate per language →"
 msgstr "Translate per language →"
 
-#: functions/settings-page.php:797
+#: functions/settings-page.php:822
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr "Shown as plain text — not sensitive, so not obfuscated."
 
-#: functions/settings-page.php:822
+#: functions/settings-page.php:847
 msgid ""
-"This site does not use comments. Enabling this protection closes comments at"
-" the server level — spam bots that POST directly to wp-comments-post.php or "
+"This site does not use comments. Enabling this protection closes comments at "
+"the server level — spam bots that POST directly to wp-comments-post.php or "
 "call XML-RPC comment methods are rejected with a 403 before any database "
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
 msgstr ""
-"This site does not use comments. Enabling this protection closes comments at"
-" the server level — spam bots that POST directly to wp-comments-post.php or "
+"This site does not use comments. Enabling this protection closes comments at "
+"the server level — spam bots that POST directly to wp-comments-post.php or "
 "call XML-RPC comment methods are rejected with a 403 before any database "
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
 
-#: functions/settings-page.php:836
+#: functions/settings-page.php:861
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr "Block all comment submissions site-wide (recommended)"
 
-#: functions/settings-page.php:839
+#: functions/settings-page.php:864
 msgid ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
@@ -1540,7 +1628,7 @@ msgstr ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
 
-#: functions/settings-page.php:846
+#: functions/settings-page.php:871
 msgid ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
@@ -1548,23 +1636,23 @@ msgstr ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
 
-#: functions/settings-page.php:860
+#: functions/settings-page.php:885
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr "Show the theme switcher and let visitors toggle light/dark mode"
 
-#: functions/settings-page.php:869
+#: functions/settings-page.php:894
 msgid "Auto (visitor system preference)"
 msgstr "Auto (visitor system preference)"
 
-#: functions/settings-page.php:870
+#: functions/settings-page.php:895
 msgid "Light"
 msgstr "Light"
 
-#: functions/settings-page.php:871
+#: functions/settings-page.php:896
 msgid "Dark"
 msgstr "Dark"
 
-#: functions/settings-page.php:882
+#: functions/settings-page.php:907
 msgid ""
 "Initial mode for visitors without a saved preference. With switching "
 "disabled, this is the only mode used."
@@ -1572,7 +1660,7 @@ msgstr ""
 "Initial mode for visitors without a saved preference. With switching "
 "disabled, this is the only mode used."
 
-#: functions/settings-page.php:890
+#: functions/settings-page.php:915
 msgid ""
 "One source of truth for responsive ranges. These values drive the compiled "
 "theme CSS (media queries are rewritten at runtime and cached), the editor "
@@ -1584,37 +1672,37 @@ msgstr ""
 "responsive controls, frontend scripts, and any plugin reading the "
 "mobile_breakpoint / tablet_breakpoint theme mods."
 
-#: functions/settings-page.php:892
+#: functions/settings-page.php:917
 msgid "Range"
 msgstr "Range"
 
-#: functions/settings-page.php:893
+#: functions/settings-page.php:918
 msgid "Effective values"
 msgstr "Effective values"
 
-#: functions/settings-page.php:894 build/js/content-tabs.js:1
+#: functions/settings-page.php:919 build/js/content-tabs.js:1
 #: build/js/editor.js:16 build/js/editor.js:25 build/js/editor.js:34
 #: build/js/editor.js:37
 msgid "Mobile"
 msgstr "Mobile"
 
-#: functions/settings-page.php:895 build/js/content-tabs.js:1
+#: functions/settings-page.php:920 build/js/content-tabs.js:1
 #: build/js/editor.js:13 build/js/editor.js:22 build/js/editor.js:31
 #: build/js/editor.js:37
 msgid "Tablet"
 msgstr "Tablet"
 
-#: functions/settings-page.php:896 build/js/content-tabs.js:1
+#: functions/settings-page.php:921 build/js/content-tabs.js:1
 #: build/js/editor.js:10 build/js/editor.js:19 build/js/editor.js:28
 #: build/js/editor.js:37
 msgid "Desktop"
 msgstr "Desktop"
 
-#: functions/settings-page.php:897
+#: functions/settings-page.php:922
 msgid "Large desktop"
 msgstr "Large desktop"
 
-#: functions/settings-page.php:907
+#: functions/settings-page.php:932
 msgid ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
@@ -1622,7 +1710,7 @@ msgstr ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
 
-#: functions/settings-page.php:918
+#: functions/settings-page.php:943
 msgid ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
@@ -1630,7 +1718,7 @@ msgstr ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
 
-#: functions/settings-page.php:929
+#: functions/settings-page.php:954
 msgid ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
@@ -1638,22 +1726,22 @@ msgstr ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
 
-#: functions/settings-page.php:936
+#: functions/settings-page.php:961
 msgid ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
 "visible at all times, so it needs the full header height as clearance. "
-"Mobile hides the header while scrolling and only re-shows it near the top of"
-" the page, so it typically needs little or no offset."
+"Mobile hides the header while scrolling and only re-shows it near the top of "
+"the page, so it typically needs little or no offset."
 msgstr ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
 "visible at all times, so it needs the full header height as clearance. "
-"Mobile hides the header while scrolling and only re-shows it near the top of"
-" the page, so it typically needs little or no offset."
+"Mobile hides the header while scrolling and only re-shows it near the top of "
+"the page, so it typically needs little or no offset."
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:949
+#: functions/settings-page.php:974
 #, php-format
 msgid ""
 "Applies above the desktop breakpoint, where the header stays visible while "
@@ -1663,7 +1751,7 @@ msgstr ""
 "scrolling. Theme default: %d (matches the header height)."
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:967
+#: functions/settings-page.php:992
 #, php-format
 msgid ""
 "Applies below the desktop breakpoint, where the header hides on scroll. "
@@ -1674,31 +1762,29 @@ msgstr ""
 "Theme default: %d, since the header is typically hidden by the time the "
 "scroll finishes."
 
-#: functions/settings-page.php:977
+#: functions/settings-page.php:1002
 msgid ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
 "style normally reserved for hover — and/or prevented from being clicked, "
 "since navigating to the page a visitor is already on does nothing useful. "
-"Individual blocks can still opt out from their own Advanced panel regardless"
-" of these settings."
+"Individual blocks can still opt out from their own Advanced panel regardless "
+"of these settings."
 msgstr ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
 "style normally reserved for hover — and/or prevented from being clicked, "
 "since navigating to the page a visitor is already on does nothing useful. "
-"Individual blocks can still opt out from their own Advanced panel regardless"
-" of these settings."
+"Individual blocks can still opt out from their own Advanced panel regardless "
+"of these settings."
 
-#: functions/settings-page.php:986
+#: functions/settings-page.php:1011
 msgid ""
-"Mark links pointing at the current page with the active hover-style "
-"highlight"
+"Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
-"Mark links pointing at the current page with the active hover-style "
-"highlight"
+"Mark links pointing at the current page with the active hover-style highlight"
 
-#: functions/settings-page.php:989
+#: functions/settings-page.php:1014
 msgid ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
@@ -1706,73 +1792,80 @@ msgstr ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 
-#: functions/settings-page.php:1000
+#: functions/settings-page.php:1025
 msgid ""
-"Prevent clicking a link/button that points at the page currently being "
-"viewed"
+"Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
-"Prevent clicking a link/button that points at the page currently being "
-"viewed"
+"Prevent clicking a link/button that points at the page currently being viewed"
 
-#: functions/settings-page.php:1003
+#: functions/settings-page.php:1028
 msgid ""
-"Adds aria-disabled and removes the link from tab order. Menu items that also"
-" open a mega-menu panel stay fully interactive. Has no effect if "
-"highlighting above is disabled."
+"Adds aria-disabled and removes the link from tab order. Menu items that also "
+"open a mega-menu panel stay fully interactive. Has no effect if highlighting "
+"above is disabled."
 msgstr ""
-"Adds aria-disabled and removes the link from tab order. Menu items that also"
-" open a mega-menu panel stay fully interactive. Has no effect if "
-"highlighting above is disabled."
+"Adds aria-disabled and removes the link from tab order. Menu items that also "
+"open a mega-menu panel stay fully interactive. Has no effect if highlighting "
+"above is disabled."
 
-#: functions/settings-page.php:1020
+#: functions/settings-page.php:1045
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr "Customize the wp-login.php background, logo, and accent color."
 
-#: functions/settings-page.php:1029
+#: functions/settings-page.php:1054
 msgid "Enable custom login page styling"
 msgstr "Enable custom login page styling"
 
-#: functions/settings-page.php:1039 functions/settings-page.php:1051
+#: functions/settings-page.php:1064 functions/settings-page.php:1076
 msgid "Choose Image"
 msgstr "Choose Image"
 
-#: functions/settings-page.php:1041
+#: functions/settings-page.php:1066
 msgid "Defaults to the theme background image when left empty."
 msgstr "Defaults to the theme background image when left empty."
 
-#: functions/settings-page.php:1053
+#: functions/settings-page.php:1078
 msgid "Defaults to the theme logo when left empty."
 msgstr "Defaults to the theme logo when left empty."
 
-#: functions/settings-page.php:1063
+#: functions/settings-page.php:1088
 msgid "Fallback background color when no image loads."
 msgstr "Fallback background color when no image loads."
 
-#: functions/settings-page.php:1072
+#: functions/settings-page.php:1097
 msgid "Color for links and hover effects."
 msgstr "Color for links and hover effects."
 
-#: functions/settings-page.php:1107
+#: functions/settings-page.php:1132
 msgid ""
 "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
-"responses)."
-msgstr ""
-"Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
-"responses)."
+"responses), gated behind Complianz's \"marketing\" consent category — it "
+"only executes once a visitor accepts marketing cookies. A pasted custom "
+"script is output as-is and is not consent-gated automatically."
+msgstr "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"marketing\" consent category — it only executes once a visitor accepts marketing cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 
-#: functions/settings-page.php:1123 functions/settings-page.php:1145
+#: functions/settings-page.php:1148 functions/settings-page.php:1170
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr "Paste a full script tag here to override the ID-based snippet above."
 
-#: functions/settings-page.php:1129
+#: functions/settings-page.php:1154
 msgid ""
 "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
-"REST responses)."
-msgstr ""
-"Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
-"REST responses)."
+"REST responses), gated behind Complianz's \"statistics\" consent category — "
+"it only executes once a visitor accepts statistics cookies. A pasted custom "
+"script is output as-is and is not consent-gated automatically."
+msgstr "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"statistics\" consent category — it only executes once a visitor accepts statistics cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 
-#: functions/settings-page.php:1151
+#: functions/settings-page.php:1176
+msgid ""
+"Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, "
+"form completions, lightbox opens, etc.). Unchecking one stops it going to "
+"every connected platform at once — for per-platform routing (e.g. an event "
+"reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
+"See docs/tracking-spec.md for what each event tracks."
+msgstr "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, form completions, lightbox opens, etc.). Unchecking one stops it going to every connected platform at once — for per-platform routing (e.g. an event reaching GA4 but not Meta), that stays a code-level decision in routing.ts. See docs/tracking-spec.md for what each event tracks."
+
+#: functions/settings-page.php:1201
 msgid ""
 "Controls the Content-Security-Policy header sent on frontend responses "
 "(never on wp-admin or REST requests). Each directive below is a space-"
@@ -1790,15 +1883,15 @@ msgstr ""
 "Analytics, Cloudflare Turnstile); edit them to match whatever a given site "
 "actually loads."
 
-#: functions/settings-page.php:1160
+#: functions/settings-page.php:1210
 msgid "Send a Content-Security-Policy header"
 msgstr "Send a Content-Security-Policy header"
 
-#: functions/settings-page.php:1171
+#: functions/settings-page.php:1221
 msgid "Enforce the policy (blocks violations)"
 msgstr "Enforce the policy (blocks violations)"
 
-#: functions/settings-page.php:1174
+#: functions/settings-page.php:1224
 msgid ""
 "Leave unchecked to send Content-Security-Policy-Report-Only instead — the "
 "browser reports violations to the console without blocking anything. "
@@ -1808,19 +1901,19 @@ msgstr ""
 "browser reports violations to the console without blocking anything. "
 "Recommended for at least a few days on a new site before enforcing."
 
-#: functions/settings-page.php:1185
+#: functions/settings-page.php:1235
 msgid "Add the upgrade-insecure-requests directive"
 msgstr "Add the upgrade-insecure-requests directive"
 
-#: functions/settings-page.php:1192
+#: functions/settings-page.php:1242
 msgid ""
-"One field per CSP directive. Values are sanitized as plain text (no HTML, no"
-" line breaks) before being sent in the header."
+"One field per CSP directive. Values are sanitized as plain text (no HTML, no "
+"line breaks) before being sent in the header."
 msgstr ""
-"One field per CSP directive. Values are sanitized as plain text (no HTML, no"
-" line breaks) before being sent in the header."
+"One field per CSP directive. Values are sanitized as plain text (no HTML, no "
+"line breaks) before being sent in the header."
 
-#: functions/settings-page.php:1207
+#: functions/settings-page.php:1257
 msgid ""
 "Referrer-Policy and Permissions-Policy are sent on every frontend response "
 "(never on wp-admin or REST requests). Set independently per site — no need "
@@ -1830,7 +1923,7 @@ msgstr ""
 "(never on wp-admin or REST requests). Set independently per site — no need "
 "to touch code to give a different customer a different policy."
 
-#: functions/settings-page.php:1222
+#: functions/settings-page.php:1272
 msgid ""
 "Controls how much of the current page URL is sent to other sites when a "
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
@@ -1840,7 +1933,7 @@ msgstr ""
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
 "is a balanced default."
 
-#: functions/settings-page.php:1233
+#: functions/settings-page.php:1283
 msgid ""
 "Full Permissions-Policy header value. Clear this field to stop sending the "
 "header entirely — it will not fall back to a default once saved empty."
@@ -1852,12 +1945,6 @@ msgstr ""
 #, php-format
 msgid "%s home"
 msgstr "%s home"
-
-#. translators: %s: modal title
-#: functions/slider-modal-trigger.php:41
-#, php-format
-msgid "Open %s"
-msgstr "Open %s"
 
 #: functions/tag-archive-manager.php:21
 #, php-format
@@ -1905,19 +1992,19 @@ msgctxt "Pattern title"
 msgid "About Section 2"
 msgstr "About Section 2"
 
-#: patterns/about-2.php:23 patterns/about-us.php:26
-#: patterns/cta-block-2.php:21 patterns/cta-block.php:29
-#: patterns/featured-content.php:21 patterns/featured-content.php:60
-#: patterns/featured-content.php:94 patterns/features-and-benefits.php:24
-#: patterns/highlight-features.php:20 patterns/latest-work.php:30
-#: patterns/latest-work.php:50 patterns/latest-work.php:72
-#: patterns/latest-work.php:94 patterns/mission-goal.php:32
-#: patterns/mission-goal.php:73 patterns/mission-vision.php:29
-#: patterns/mission-vision.php:81 patterns/photo-gallery.php:32
-#: patterns/pricing-tables.php:44 patterns/pricing-tables.php:106
-#: patterns/pricing-tables.php:168 patterns/service-content.php:22
-#: patterns/service-grid.php:22 patterns/services-section.php:31
-#: patterns/simple-banner.php:21 patterns/testimonial-section.php:129
+#: patterns/about-2.php:23 patterns/about-us.php:26 patterns/cta-block-2.php:21
+#: patterns/cta-block.php:29 patterns/featured-content.php:21
+#: patterns/featured-content.php:60 patterns/featured-content.php:94
+#: patterns/features-and-benefits.php:24 patterns/highlight-features.php:20
+#: patterns/latest-work.php:30 patterns/latest-work.php:50
+#: patterns/latest-work.php:72 patterns/latest-work.php:94
+#: patterns/mission-goal.php:32 patterns/mission-goal.php:73
+#: patterns/mission-vision.php:29 patterns/mission-vision.php:81
+#: patterns/photo-gallery.php:32 patterns/pricing-tables.php:44
+#: patterns/pricing-tables.php:106 patterns/pricing-tables.php:168
+#: patterns/service-content.php:22 patterns/service-grid.php:22
+#: patterns/services-section.php:31 patterns/simple-banner.php:21
+#: patterns/testimonial-section.php:129
 msgid "See My Popular Posts"
 msgstr "See My Popular Posts"
 
@@ -1928,14 +2015,14 @@ msgstr "Building Smarter Solutions SaaS Experts"
 #: patterns/about-2.php:40 patterns/about-us.php:21
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore."
 
@@ -2093,11 +2180,11 @@ msgstr "Design, Build, and Ongoing Support"
 
 #: patterns/content-tabs-media.php:110
 msgid ""
-"From first wireframe to launch and beyond — design, development, performance"
-" tuning, and support all under one roof."
+"From first wireframe to launch and beyond — design, development, performance "
+"tuning, and support all under one roof."
 msgstr ""
-"From first wireframe to launch and beyond — design, development, performance"
-" tuning, and support all under one roof."
+"From first wireframe to launch and beyond — design, development, performance "
+"tuning, and support all under one roof."
 
 #: patterns/content-tabs-media.php:114
 msgid "Includes:"
@@ -2231,13 +2318,13 @@ msgstr "100+"
 #: patterns/number-stats.php:91
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat."
 
 #: patterns/counter-with-desc.php:55 patterns/number-stats.php:64
@@ -2283,12 +2370,12 @@ msgstr "What is Full Site Editing in WordPress?"
 
 #: patterns/faq-accordion.php:24 patterns/faq-section.php:55
 msgid ""
-"Full Site Editing in WordPress allows users to create and edit their website"
-" more efficiently and with more control. It enables users to create unique "
+"Full Site Editing in WordPress allows users to create and edit their website "
+"more efficiently and with more control. It enables users to create unique "
 "and custom designs without needing to have advanced coding skills."
 msgstr ""
-"Full Site Editing in WordPress allows users to create and edit their website"
-" more efficiently and with more control. It enables users to create unique "
+"Full Site Editing in WordPress allows users to create and edit their website "
+"more efficiently and with more control. It enables users to create unique "
 "and custom designs without needing to have advanced coding skills."
 
 #: patterns/faq-accordion.php:31 patterns/faq-accordion.php:47
@@ -2300,12 +2387,12 @@ msgstr "What are the benefits of Full Site Editing in WordPress?"
 #: patterns/faq-accordion.php:72 patterns/faq-section.php:24
 msgid ""
 "Full Site Editing in WordPress refers to a feature that allows users to "
-"create and edit their website’s entire layout, including the header, footer,"
-" and other structural elements, using a visual editor."
+"create and edit their website’s entire layout, including the header, footer, "
+"and other structural elements, using a visual editor."
 msgstr ""
 "Full Site Editing in WordPress refers to a feature that allows users to "
-"create and edit their website’s entire layout, including the header, footer,"
-" and other structural elements, using a visual editor."
+"create and edit their website’s entire layout, including the header, footer, "
+"and other structural elements, using a visual editor."
 
 #: patterns/faq-accordion.php:39 patterns/faq-accordion.php:55
 msgid "How do I enable Full Site Editing in WordPress?"
@@ -2315,31 +2402,30 @@ msgstr "How do I enable Full Site Editing in WordPress?"
 #: patterns/faq-section.php:38
 msgid ""
 "To enable Full Site Editing in WordPress, you need to ensure that you are "
-"using a compatible WordPress theme that supports Full Site Editing. You will"
-" also need to install the latest version of WordPress and enable the "
+"using a compatible WordPress theme that supports Full Site Editing. You will "
+"also need to install the latest version of WordPress and enable the "
 "Gutenberg editor."
 msgstr ""
 "To enable Full Site Editing in WordPress, you need to ensure that you are "
-"using a compatible WordPress theme that supports Full Site Editing. You will"
-" also need to install the latest version of WordPress and enable the "
+"using a compatible WordPress theme that supports Full Site Editing. You will "
+"also need to install the latest version of WordPress and enable the "
 "Gutenberg editor."
 
 #: patterns/faq-accordion.php:63
 msgid "What are some popular WordPress themes that support Full Site Editing?"
-msgstr ""
-"What are some popular WordPress themes that support Full Site Editing?"
+msgstr "What are some popular WordPress themes that support Full Site Editing?"
 
 #: patterns/faq-accordion.php:64 patterns/faq-section.php:69
 msgid ""
 "Some popular WordPress themes that support Full Site Editing include the "
 "FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes "
-"have built-in support for Full Site Editing, allowing users to create custom"
-" designs without needing to know how to code."
+"have built-in support for Full Site Editing, allowing users to create custom "
+"designs without needing to know how to code."
 msgstr ""
 "Some popular WordPress themes that support Full Site Editing include the "
 "FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes "
-"have built-in support for Full Site Editing, allowing users to create custom"
-" designs without needing to know how to code."
+"have built-in support for Full Site Editing, allowing users to create custom "
+"designs without needing to know how to code."
 
 #: patterns/faq-section.php
 msgctxt "Pattern title"
@@ -2365,15 +2451,15 @@ msgstr "Social Media and Brand identity"
 #: patterns/featured-content-2.php:31 patterns/featured-content-2.php:54
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
 "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
 "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -2425,9 +2511,8 @@ msgid "Lifetime Free Update"
 msgstr "Lifetime Free Update"
 
 #: patterns/features-and-benefits.php:62 patterns/features-and-benefits.php:80
-#: patterns/features-and-benefits.php:98
-#: patterns/features-and-benefits.php:116 patterns/latest-work.php:25
-#: patterns/photo-gallery.php:23
+#: patterns/features-and-benefits.php:98 patterns/features-and-benefits.php:116
+#: patterns/latest-work.php:25 patterns/photo-gallery.php:23
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua."
@@ -2500,12 +2585,12 @@ msgstr "Scalable Solutions for Every Stage"
 #: patterns/highlight-features.php:34
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
-" laboris."
+"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco "
+"laboris."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
-" laboris."
+"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco "
+"laboris."
 
 #: patterns/highlight-features.php:40
 msgid "Scalability &amp; Flexibility"
@@ -2527,13 +2612,11 @@ msgstr "Real-Time Analytics &amp; Reporting"
 
 #: patterns/highlight-features.php:60
 msgid ""
-"Access to powerful, real-time data analytics and custom reporting tools that"
-" help you make informed business decisions and track performance "
-"effortlessly."
+"Access to powerful, real-time data analytics and custom reporting tools that "
+"help you make informed business decisions and track performance effortlessly."
 msgstr ""
-"Access to powerful, real-time data analytics and custom reporting tools that"
-" help you make informed business decisions and track performance "
-"effortlessly."
+"Access to powerful, real-time data analytics and custom reporting tools that "
+"help you make informed business decisions and track performance effortlessly."
 
 #: patterns/highlight-features.php:68
 msgid "User-Centric Interface"
@@ -2591,12 +2674,12 @@ msgstr "Mission & Goal Content"
 #: patterns/mission-goal.php:46
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris."
 
 #: patterns/mission-goal.php:51
 msgid "Streamlined Digital Transformation"
@@ -2812,14 +2895,14 @@ msgstr "Service Grid"
 #: patterns/simple-text.php:15
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur."
 
@@ -2937,11 +3020,11 @@ msgstr "SEO optimization"
 
 #: patterns/service-location-content.php:192
 msgid ""
-"Technical SEO, structured data, and page speed — better visibility in search"
-" results."
+"Technical SEO, structured data, and page speed — better visibility in search "
+"results."
 msgstr ""
-"Technical SEO, structured data, and page speed — better visibility in search"
-" results."
+"Technical SEO, structured data, and page speed — better visibility in search "
+"results."
 
 #: patterns/service-location-content.php:210
 msgid "Find us in"
@@ -2977,11 +3060,11 @@ msgstr "Your site goes live, and we stay with you with ongoing support."
 
 #: patterns/service-location-content.php:298
 msgid ""
-"\"Professional approach from the first conversation through launch. The site"
-" is fast and looks exactly the way we imagined.\""
+"\"Professional approach from the first conversation through launch. The site "
+"is fast and looks exactly the way we imagined.\""
 msgstr ""
-"\"Professional approach from the first conversation through launch. The site"
-" is fast and looks exactly the way we imagined.\""
+"\"Professional approach from the first conversation through launch. The site "
+"is fast and looks exactly the way we imagined.\""
 
 #: patterns/service-location-content.php:302
 msgid "Client review from:"
@@ -3125,15 +3208,15 @@ msgstr ""
 
 #: patterns/simple-text.php:27
 msgid ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
-" with discovering the source behind the ubiquitous filler text. In seeing a "
+"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited "
+"with discovering the source behind the ubiquitous filler text. In seeing a "
 "sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
 "albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
 "passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
 "Evil”), a first-century B.C. text from the Roman philosopher Cicero."
 msgstr ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
-" with discovering the source behind the ubiquitous filler text. In seeing a "
+"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited "
+"with discovering the source behind the ubiquitous filler text. In seeing a "
 "sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
 "albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
 "passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
@@ -3197,12 +3280,12 @@ msgstr "Hear From Our Happy Clients: Their Stories"
 #: patterns/testimonials-grid.php:186
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco."
 
 #: patterns/testimonial-section.php:46 patterns/testimonials-grid.php:45
 msgid "Henry Benzamin Clark"
@@ -3254,18 +3337,16 @@ msgstr "Blogger"
 #: patterns/testimonials-grid.php:96
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
+"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
+"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
 #: patterns/testimonials-grid.php:106
 msgid "Robert Linken"
@@ -3318,11 +3399,11 @@ msgstr "Joined Agency"
 
 #: patterns/vertical-timeline-layout.php:57
 msgid ""
-"Worked with a team to develop Angular and Next.js projects for clients in "
-"e-commerce and tech."
+"Worked with a team to develop Angular and Next.js projects for clients in e-"
+"commerce and tech."
 msgstr ""
-"Worked with a team to develop Angular and Next.js projects for clients in "
-"e-commerce and tech."
+"Worked with a team to develop Angular and Next.js projects for clients in e-"
+"commerce and tech."
 
 #: patterns/vertical-timeline-layout.php:63
 msgid "See What I Offer Now"
@@ -3378,12 +3459,12 @@ msgstr "Card"
 #: build/js/article-card.js:1
 msgid ""
 "Manage the card's linked article, image, and text from Article Cards in the "
-"admin menu. Editing the shared card layout there updates every card wherever"
-" it's embedded."
+"admin menu. Editing the shared card layout there updates every card wherever "
+"it's embedded."
 msgstr ""
 "Manage the card's linked article, image, and text from Article Cards in the "
-"admin menu. Editing the shared card layout there updates every card wherever"
-" it's embedded."
+"admin menu. Editing the shared card layout there updates every card wherever "
+"it's embedded."
 
 #: build/js/banner-carousel.js:1 build/js/editor.js:19
 #: build/js/gallery-lightbox.js:1 build/js/hero-carousel.js:1
@@ -3836,7 +3917,8 @@ msgstr "reCAPTCHA will appear here"
 msgid "Cloudflare Turnstile will appear here"
 msgstr "Cloudflare Turnstile will appear here"
 
-#: build/js/content-block.js:1 build/js/editor.js:37 build/js/navigation.js:1
+#: build/js/content-block.js:1 build/js/editor.js:37 build/js/marquee.js:1
+#: build/js/navigation.js:1
 msgid "Loading…"
 msgstr "Loading…"
 
@@ -3993,11 +4075,9 @@ msgstr "Card entrance animation"
 
 #: build/js/content-tabs.js:1
 msgid ""
-"Animates project/article cards inside the newly shown tab, one after "
-"another."
+"Animates project/article cards inside the newly shown tab, one after another."
 msgstr ""
-"Animates project/article cards inside the newly shown tab, one after "
-"another."
+"Animates project/article cards inside the newly shown tab, one after another."
 
 #: build/js/editor.js:1
 msgid "Canvas theme: dark — switch to light"
@@ -4345,15 +4425,15 @@ msgstr "Choose an animation that will trigger when hovering over the block."
 
 #: build/js/editor.js:1
 msgid ""
-"Zooms only the block's own image/video on hover, keeping surrounding content"
-" still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set "
-"a border radius in this block's own Border panel to keep rounded corners "
-"while zooming."
+"Zooms only the block's own image/video on hover, keeping surrounding content "
+"still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a "
+"border radius in this block's own Border panel to keep rounded corners while "
+"zooming."
 msgstr ""
-"Zooms only the block's own image/video on hover, keeping surrounding content"
-" still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set "
-"a border radius in this block's own Border panel to keep rounded corners "
-"while zooming."
+"Zooms only the block's own image/video on hover, keeping surrounding content "
+"still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a "
+"border radius in this block's own Border panel to keep rounded corners while "
+"zooming."
 
 #: build/js/editor.js:1
 msgid ""
@@ -4631,8 +4711,7 @@ msgstr "Configure responsive display, flex, and grid properties"
 msgid "Settings for screens %srem and above"
 msgstr "Settings for screens %srem and above"
 
-#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in
-#. rem
+#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
 #: build/js/editor.js:16 build/js/editor.js:25 build/js/editor.js:34
 msgid "Settings for screens %1$srem - %2$srem"
 msgstr "Settings for screens %1$srem - %2$srem"
@@ -4780,13 +4859,13 @@ msgstr "Enable underline hover effect"
 
 #: build/js/editor.js:37
 msgid ""
-"Adds the same animated sliding-underline hover/focus effect used sitewide in"
-" the header and footer to links in this block, even outside those areas or "
-"on elements that aren't a native link."
+"Adds the same animated sliding-underline hover/focus effect used sitewide in "
+"the header and footer to links in this block, even outside those areas or on "
+"elements that aren't a native link."
 msgstr ""
-"Adds the same animated sliding-underline hover/focus effect used sitewide in"
-" the header and footer to links in this block, even outside those areas or "
-"on elements that aren't a native link."
+"Adds the same animated sliding-underline hover/focus effect used sitewide in "
+"the header and footer to links in this block, even outside those areas or on "
+"elements that aren't a native link."
 
 #: build/js/editor.js:37
 msgid "Disable background hover effect"
@@ -4814,15 +4893,15 @@ msgstr "Disable link underline/gradient effect"
 
 #: build/js/editor.js:37
 msgid ""
-"Excludes links in this block from the sitewide header/footer hover-underline"
-" and gradient-text-on-focus effect, without affecting this block's own "
-"hover/focus styling. Enabled by default sitewide; turn this on only where it"
-" conflicts, like the Social Link block."
+"Excludes links in this block from the sitewide header/footer hover-underline "
+"and gradient-text-on-focus effect, without affecting this block's own hover/"
+"focus styling. Enabled by default sitewide; turn this on only where it "
+"conflicts, like the Social Link block."
 msgstr ""
-"Excludes links in this block from the sitewide header/footer hover-underline"
-" and gradient-text-on-focus effect, without affecting this block's own "
-"hover/focus styling. Enabled by default sitewide; turn this on only where it"
-" conflicts, like the Social Link block."
+"Excludes links in this block from the sitewide header/footer hover-underline "
+"and gradient-text-on-focus effect, without affecting this block's own hover/"
+"focus styling. Enabled by default sitewide; turn this on only where it "
+"conflicts, like the Social Link block."
 
 #: build/js/editor.js:37
 msgid "Disable active-page highlight"
@@ -4830,13 +4909,13 @@ msgstr "Disable active-page highlight"
 
 #: build/js/editor.js:37
 msgid ""
-"Excludes links in this block from the sitewide active-page gradient-"
-"text/underline treatment shown when a link points at the page currently "
-"being viewed. Enabled by default sitewide."
+"Excludes links in this block from the sitewide active-page gradient-text/"
+"underline treatment shown when a link points at the page currently being "
+"viewed. Enabled by default sitewide."
 msgstr ""
-"Excludes links in this block from the sitewide active-page gradient-"
-"text/underline treatment shown when a link points at the page currently "
-"being viewed. Enabled by default sitewide."
+"Excludes links in this block from the sitewide active-page gradient-text/"
+"underline treatment shown when a link points at the page currently being "
+"viewed. Enabled by default sitewide."
 
 #: build/js/editor.js:37
 msgid "Text Gradient"
@@ -4848,14 +4927,14 @@ msgstr "Link whole group"
 
 #: build/js/editor.js:37
 msgid ""
-"Makes the whole group a real link (URL preview on hover, right-click to open"
-" in a new tab). If the group contains another link, it's kept as a clickable"
-" region instead to avoid an invalid nested link. Clicks on a button or form "
+"Makes the whole group a real link (URL preview on hover, right-click to open "
+"in a new tab). If the group contains another link, it's kept as a clickable "
+"region instead to avoid an invalid nested link. Clicks on a button or form "
 "field inside the group still work normally either way."
 msgstr ""
-"Makes the whole group a real link (URL preview on hover, right-click to open"
-" in a new tab). If the group contains another link, it's kept as a clickable"
-" region instead to avoid an invalid nested link. Clicks on a button or form "
+"Makes the whole group a real link (URL preview on hover, right-click to open "
+"in a new tab). If the group contains another link, it's kept as a clickable "
+"region instead to avoid an invalid nested link. Clicks on a button or form "
 "field inside the group still work normally either way."
 
 #: build/js/editor.js:37
@@ -4900,12 +4979,12 @@ msgstr "FAQ columns behavior"
 
 #: build/js/editor.js:37
 msgid ""
-"Default: closed items align into uniform rows, but opening one stretches its"
-" row partner. Independent columns: each column grows on its own, no "
+"Default: closed items align into uniform rows, but opening one stretches its "
+"row partner. Independent columns: each column grows on its own, no "
 "stretching, but closed items no longer line up edge-to-edge."
 msgstr ""
-"Default: closed items align into uniform rows, but opening one stretches its"
-" row partner. Independent columns: each column grows on its own, no "
+"Default: closed items align into uniform rows, but opening one stretches its "
+"row partner. Independent columns: each column grows on its own, no "
 "stretching, but closed items no longer line up edge-to-edge."
 
 #: build/js/editor.js:37
@@ -5030,8 +5109,7 @@ msgid "Nav Icon"
 msgstr "Nav Icon"
 
 #: build/js/editor.js:37 build/js/icon.js:1 build/js/language-panel.js:1
-#: build/js/marquee.js:1 build/js/scroll-to-top.js:1
-#: build/js/search-panel.js:1
+#: build/js/scroll-to-top.js:1 build/js/search-panel.js:1
 msgid "Replace icon"
 msgstr "Replace icon"
 
@@ -5042,8 +5120,8 @@ msgid "Select SVG icon"
 msgstr "Select SVG icon"
 
 #: build/js/editor.js:37 build/js/icon.js:1 build/js/language-panel.js:1
-#: build/js/marquee.js:1 build/js/scroll-to-top.js:1
-#: build/js/search-panel.js:1 build/js/social-section.js:1
+#: build/js/scroll-to-top.js:1 build/js/search-panel.js:1
+#: build/js/social-section.js:1
 msgid "Remove icon"
 msgstr "Remove icon"
 
@@ -5181,7 +5259,7 @@ msgstr ""
 "Stretch every column's content to match the tallest column, so borders and "
 "backgrounds line up."
 
-#: build/js/editor.js:37
+#: build/js/editor.js:37 build/js/marquee.js:1
 msgid "— None (not clickable) —"
 msgstr "— None (not clickable) —"
 
@@ -5189,7 +5267,7 @@ msgstr "— None (not clickable) —"
 msgid "Slide Modal"
 msgstr "Slide Modal"
 
-#: build/js/editor.js:37
+#: build/js/editor.js:37 build/js/marquee.js:1
 msgid "Open on click"
 msgstr "Open on click"
 
@@ -5284,8 +5362,7 @@ msgid "Google Maps API Key"
 msgstr "Google Maps API Key"
 
 #: build/js/google-maps.js:1
-msgid ""
-"Get your API key from https://console.cloud.google.com/apis/credentials"
+msgid "Get your API key from https://console.cloud.google.com/apis/credentials"
 msgstr ""
 "Get your API key from https://console.cloud.google.com/apis/credentials"
 
@@ -5509,8 +5586,7 @@ msgid "Color"
 msgstr "Color"
 
 #: build/js/icon.js:1
-msgid ""
-"Any CSS color value. Leave empty to inherit the surrounding text color."
+msgid "Any CSS color value. Leave empty to inherit the surrounding text color."
 msgstr ""
 "Any CSS color value. Leave empty to inherit the surrounding text color."
 
@@ -5596,38 +5672,12 @@ msgid "Rotate 180° (no transition)"
 msgstr "Rotate 180° (no transition)"
 
 #: build/js/marquee.js:1
-msgid "Technology"
-msgstr "Technology"
-
-#: build/js/marquee.js:1 build/js/nav-content.js:1
-#: build/js/social-section.js:1
-msgid "Label"
-msgstr "Label"
+msgid "Technology name…"
+msgstr "Technology name…"
 
 #: build/js/marquee.js:1
-msgid "Select icon"
-msgstr "Select icon"
-
-#: build/js/marquee.js:1
-msgid "Modal description"
-msgstr "Modal description"
-
-#: build/js/marquee.js:1
-msgid ""
-"Text shown in the popup when this item is clicked — how this skill helps "
-"your work and your clients."
-msgstr ""
-"Text shown in the popup when this item is clicked — how this skill helps "
-"your work and your clients."
-
-#: build/js/marquee.js:1
-msgid "Documentation URL"
-msgstr "Documentation URL"
-
-#: build/js/marquee.js:1
-msgid "Optional — shown as a link in the popup. Leave empty to hide the link."
-msgstr ""
-"Optional — shown as a link in the popup. Leave empty to hide the link."
+msgid "Selecting a modal makes this item clickable/keyboard-activatable."
+msgstr "Selecting a modal makes this item clickable/keyboard-activatable."
 
 #: build/js/marquee.js:1
 msgid "Marquee"
@@ -5739,11 +5789,11 @@ msgstr "Select fallback image"
 
 #: build/js/model-viewer.js:1
 msgid ""
-"A fallback image is required — it's shown while the model loads and if WebGL"
-" isn't supported."
+"A fallback image is required — it's shown while the model loads and if WebGL "
+"isn't supported."
 msgstr ""
-"A fallback image is required — it's shown while the model loads and if WebGL"
-" isn't supported."
+"A fallback image is required — it's shown while the model loads and if WebGL "
+"isn't supported."
 
 #: build/js/model-viewer.js:1
 msgid "Accessibility & Layout"
@@ -5794,14 +5844,14 @@ msgstr "Screen text"
 #: build/js/model-viewer.js:1
 msgid ""
 "Rendered onto the model's screen/display surface (auto-detected as its most "
-"strongly emissive material) as a texture — e.g. your email and phone number."
-" Leave empty to keep the model's original screen image. One line per line of"
-" text."
+"strongly emissive material) as a texture — e.g. your email and phone number. "
+"Leave empty to keep the model's original screen image. One line per line of "
+"text."
 msgstr ""
 "Rendered onto the model's screen/display surface (auto-detected as its most "
-"strongly emissive material) as a texture — e.g. your email and phone number."
-" Leave empty to keep the model's original screen image. One line per line of"
-" text."
+"strongly emissive material) as a texture — e.g. your email and phone number. "
+"Leave empty to keep the model's original screen image. One line per line of "
+"text."
 
 #: build/js/model-viewer.js:1
 msgid "3D Model"
@@ -5854,6 +5904,10 @@ msgstr "Link"
 #: build/js/nav-content.js:1 build/js/social-section.js:1
 msgid "URL"
 msgstr "URL"
+
+#: build/js/nav-content.js:1 build/js/social-section.js:1
+msgid "Label"
+msgstr "Label"
 
 #: build/js/nav-content.js:1
 msgid "Leave empty to link the image only"
@@ -5941,8 +5995,7 @@ msgstr "Display mode"
 
 #: build/js/navigation.js:1
 msgid "Flat link list renders top-level links only, e.g. footer link columns."
-msgstr ""
-"Flat link list renders top-level links only, e.g. footer link columns."
+msgstr "Flat link list renders top-level links only, e.g. footer link columns."
 
 #: build/js/navigation.js:1
 msgid "Overlay mode"
@@ -6477,8 +6530,7 @@ msgstr ""
 "slide change."
 
 #: build/js/slider.js:1
-msgid ""
-"“Navigation” will display arrows so user can navigate forward/backward."
+msgid "“Navigation” will display arrows so user can navigate forward/backward."
 msgstr ""
 "“Navigation” will display arrows so user can navigate forward/backward."
 
@@ -6553,13 +6605,13 @@ msgstr "Centered slides (peek effect)"
 #: build/js/slider.js:1
 msgid ""
 "Centers the active slide with the next/previous slides peeking in from the "
-"sides. Below tablet width, always shows a single full-width slide regardless"
-" of these settings. Use the block's own Wide/Full alignment for an edge-to-"
+"sides. Below tablet width, always shows a single full-width slide regardless "
+"of these settings. Use the block's own Wide/Full alignment for an edge-to-"
 "edge carousel."
 msgstr ""
 "Centers the active slide with the next/previous slides peeking in from the "
-"sides. Below tablet width, always shows a single full-width slide regardless"
-" of these settings. Use the block's own Wide/Full alignment for an edge-to-"
+"sides. Below tablet width, always shows a single full-width slide regardless "
+"of these settings. Use the block's own Wide/Full alignment for an edge-to-"
 "edge carousel."
 
 #: build/js/slider.js:1
@@ -6863,11 +6915,11 @@ msgstr "Marquee Item"
 #: build/blocks/marquee/item/block.json src/blocks/marquee/item/block.json
 msgctxt "block description"
 msgid ""
-"Single technology/skill entry in a Marquee — icon, label, and a short "
-"description shown in the modal on click."
+"Single technology/skill entry in a Marquee — holds any block content and "
+"optionally opens a Modal post on click."
 msgstr ""
-"Single technology/skill entry in a Marquee — icon, label, and a short "
-"description shown in the modal on click."
+"Single technology/skill entry in a Marquee — holds any block content and "
+"optionally opens a Modal post on click."
 
 #: build/blocks/model-viewer/block.json src/blocks/model-viewer/block.json
 msgctxt "block title"
@@ -6966,8 +7018,7 @@ msgstr "Navigation"
 
 #: build/blocks/popular-pages/block.json src/blocks/popular-pages/block.json
 msgctxt "block description"
-msgid ""
-"Compact list of most-visited pages, sorted by internal page-view count."
+msgid "Compact list of most-visited pages, sorted by internal page-view count."
 msgstr ""
 "Compact list of most-visited pages, sorted by internal page-view count."
 
@@ -6999,11 +7050,11 @@ msgstr "Process Steps"
 #: build/blocks/process-steps/block.json src/blocks/process-steps/block.json
 msgctxt "block description"
 msgid ""
-"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any"
-" other process."
+"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any "
+"other process."
 msgstr ""
-"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any"
-" other process."
+"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any "
+"other process."
 
 #: build/blocks/process-steps/item/block.json
 #: src/blocks/process-steps/item/block.json
@@ -7149,11 +7200,11 @@ msgstr "Translated Text"
 #: src/blocks/translated-text/block.json
 msgctxt "block description"
 msgid ""
-"Heading or paragraph text translated via Polylang strings, shared across all"
-" languages from one template."
+"Heading or paragraph text translated via Polylang strings, shared across all "
+"languages from one template."
 msgstr ""
-"Heading or paragraph text translated via Polylang strings, shared across all"
-" languages from one template."
+"Heading or paragraph text translated via Polylang strings, shared across all "
+"languages from one template."
 
 #: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
 #: styles/emerald-forest.json styles/golden-amber.json styles/green.json
@@ -7577,8 +7628,48 @@ msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Sunset Orange"
 
-#~ msgid "Custom Settings"
-#~ msgstr "Custom Settings"
+#~ msgid ""
+#~ "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
+#~ "responses)."
+#~ msgstr ""
+#~ "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
+#~ "responses)."
+
+#~ msgid ""
+#~ "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
+#~ "REST responses)."
+#~ msgstr ""
+#~ "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
+#~ "REST responses)."
+
+#~ msgid "Select icon"
+#~ msgstr "Select icon"
+
+#~ msgid "Modal description"
+#~ msgstr "Modal description"
+
+#~ msgid ""
+#~ "Text shown in the popup when this item is clicked — how this skill helps "
+#~ "your work and your clients."
+#~ msgstr ""
+#~ "Text shown in the popup when this item is clicked — how this skill helps "
+#~ "your work and your clients."
+
+#~ msgid "Documentation URL"
+#~ msgstr "Documentation URL"
+
+#~ msgid ""
+#~ "Optional — shown as a link in the popup. Leave empty to hide the link."
+#~ msgstr ""
+#~ "Optional — shown as a link in the popup. Leave empty to hide the link."
+
+#~ msgctxt "block description"
+#~ msgid ""
+#~ "Single technology/skill entry in a Marquee — icon, label, and a short "
+#~ "description shown in the modal on click."
+#~ msgstr ""
+#~ "Single technology/skill entry in a Marquee — icon, label, and a short "
+#~ "description shown in the modal on click."
 
 #~ msgid "Enable Image Lightbox"
 #~ msgstr "Enable Image Lightbox"
@@ -7650,11 +7741,11 @@ msgstr "Sunset Orange"
 #~ msgstr "Website development — choose your city"
 
 #~ msgid ""
-#~ "We design and build websites for businesses across the region. Choose a city"
-#~ " to see an offer tailored to your location."
+#~ "We design and build websites for businesses across the region. Choose a "
+#~ "city to see an offer tailored to your location."
 #~ msgstr ""
-#~ "We design and build websites for businesses across the region. Choose a city"
-#~ " to see an offer tailored to your location."
+#~ "We design and build websites for businesses across the region. Choose a "
+#~ "city to see an offer tailored to your location."
 
 #~ msgid "Style"
 #~ msgstr "Style"
