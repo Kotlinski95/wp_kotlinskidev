@@ -1,11 +1,11 @@
-const { pages, baseUrl } = require("./urls.json");
+const { loadPages } = require("./lib/load-pages");
 
-const base = (process.env.AUDIT_BASE_URL || baseUrl).replace(/\/$/, "");
+const { baseUrl, pages } = loadPages();
 
 module.exports = {
   ci: {
     collect: {
-      url: pages.map((page) => `${base}${page.path}`),
+      url: pages.map((page) => `${baseUrl}${page.path}`),
       numberOfRuns: 1,
       settings: {
         preset: "desktop",

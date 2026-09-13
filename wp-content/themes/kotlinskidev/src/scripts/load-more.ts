@@ -1,3 +1,5 @@
+import { trackEvent } from "./track-event";
+
 const DEFAULT_BUTTON_LABEL = "Load more";
 const HIDDEN_CLASS = "kt-load-more-hidden";
 const WRAPPER_CLASS = "kt-load-more__wrapper";
@@ -101,6 +103,7 @@ function initLoadMore(container: HTMLElement): void {
   button.addEventListener("click", () => {
     hiddenChildren.forEach((child) => child.classList.remove(HIDDEN_CLASS));
     wrapper.remove();
+    trackEvent("load_more_click", { items_revealed: hiddenChildren.length });
   });
 
   container.insertAdjacentElement("afterend", wrapper);

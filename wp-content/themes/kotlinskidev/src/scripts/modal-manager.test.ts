@@ -9,8 +9,10 @@ jest.mock("@utils/scroll-lock", () => ({
   lockScroll: jest.fn(),
   unlockScroll: jest.fn(),
 }));
+jest.mock("./track-event", () => ({ trackEvent: jest.fn() }));
 
 import "./modal-manager";
+import { trackEvent } from "./track-event";
 
 function buildModal(id: string): HTMLElement {
   const modal = document.createElement("div");
@@ -76,6 +78,7 @@ describe("modal-manager", () => {
     expect(modal.getAttribute("aria-hidden")).toBe("false");
     expect(lockScroll).toHaveBeenCalledWith("kt-modal");
     expect(closeAllExcept).toHaveBeenCalled();
+    expect(trackEvent).toHaveBeenCalledWith("modal_open", { modal_id: "kt-modal-1" });
   });
 
   it("opens the modal referenced by a plain #kt-modal-{id} href when no data attribute is present", () => {
@@ -444,5 +447,48 @@ describe("modal-manager", () => {
     expect(() =>
       standaloneClose.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }))
     ).not.toThrow();
+  });
+
+  it("dispatches kt-modal:open with the modal and trigger on open", () => {
+    ready();
+    const modal = buildModal("kt-modal-open-event");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-open-event");
+    document.body.append(modal, trigger);
+    const listener = jest.fn();
+    document.addEventListener("kt-modal:open", listener);
+
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(listener).toHaveBeenCalled();
+    const event = listener.mock.calls[0][0] as CustomEvent<{
+      modal: HTMLElement;
+      trigger: HTMLElement;
+    }>;
+    expect(event.detail.modal).toBe(modal);
+    expect(event.detail.trigger).toBe(trigger);
+    document.removeEventListener("kt-modal:open", listener);
+  });
+
+  it("dispatches kt-modal:close with the modal and trigger on close", () => {
+    ready();
+    const modal = buildModal("kt-modal-close-event");
+    const trigger = document.createElement("a");
+    trigger.setAttribute("data-kt-modal-target", "kt-modal-close-event");
+    document.body.append(modal, trigger);
+    trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+    const listener = jest.fn();
+    document.addEventListener("kt-modal:close", listener);
+
+    modal.querySelector<HTMLElement>("[data-kt-modal-close]")!.click();
+
+    expect(listener).toHaveBeenCalled();
+    const event = listener.mock.calls[0][0] as CustomEvent<{
+      modal: HTMLElement;
+      trigger: HTMLElement;
+    }>;
+    expect(event.detail.modal).toBe(modal);
+    expect(event.detail.trigger).toBe(trigger);
+    document.removeEventListener("kt-modal:close", listener);
   });
 });

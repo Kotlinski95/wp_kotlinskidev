@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const { pages, baseUrl } = require("../urls.json");
+const { loadPages } = require("../lib/load-pages");
 
-const base = (process.env.AUDIT_BASE_URL || baseUrl).replace(/\/$/, "");
+const { baseUrl, pages } = loadPages();
 const outputPath = path.join(__dirname, "..", "results", "security.json");
 
 const EXPECTED = [
@@ -54,7 +54,7 @@ function gradeFor(issueCount) {
 }
 
 async function checkPage(page) {
-  const url = `${base}${page.path}`;
+  const url = `${baseUrl}${page.path}`;
   const result = { id: page.id, url };
 
   try {

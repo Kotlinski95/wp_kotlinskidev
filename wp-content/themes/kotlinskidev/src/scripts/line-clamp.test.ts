@@ -1,3 +1,7 @@
+jest.mock("./track-event", () => ({
+  trackEvent: jest.fn(),
+}));
+
 function loadScript() {
   jest.resetModules();
   require("./line-clamp");
@@ -57,6 +61,33 @@ describe("line-clamp.ts", () => {
     expect(document.querySelector("p")).toHaveClass("kt-line-clamp--expanded");
     expect(toggle.getAttribute("aria-expanded")).toBe("true");
     expect(toggle.textContent).toBe("Read less");
+  });
+
+  it("tracks read_more_click with action expand on the first click", () => {
+    document.body.innerHTML =
+      '<p class="kt-line-clamp">Long text</p><button type="button" class="kt-line-clamp-toggle" aria-expanded="false">Read more</button>';
+    setDimensions(document.querySelector("p")!, 120, 60);
+
+    loadScript();
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    const toggle = document.querySelector(".kt-line-clamp-toggle") as HTMLButtonElement;
+    toggle.click();
+
+    expect(trackEvent).toHaveBeenCalledWith("read_more_click", { action: "expand" });
+  });
+
+  it("tracks read_more_click with action collapse on a second click", () => {
+    document.body.innerHTML =
+      '<p class="kt-line-clamp">Long text</p><button type="button" class="kt-line-clamp-toggle" aria-expanded="false">Read more</button>';
+    setDimensions(document.querySelector("p")!, 120, 60);
+
+    loadScript();
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    const toggle = document.querySelector(".kt-line-clamp-toggle") as HTMLButtonElement;
+    toggle.click();
+    toggle.click();
+
+    expect(trackEvent).toHaveBeenLastCalledWith("read_more_click", { action: "collapse" });
   });
 
   it("collapses the paragraph and restores the label on a second click", () => {

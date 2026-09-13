@@ -373,6 +373,7 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
   let hovered = false;
   let focused = false;
   let pressed = false;
+  let modalOpen = false;
   let isPaused = false;
   let resumeMidTransition = false;
   let resumeTargetIndex = -1;
@@ -380,7 +381,7 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
   let dragEndedTranslateX: number | null = null;
 
   const evaluate = () => {
-    const shouldPause = hovered || focused || pressed;
+    const shouldPause = hovered || focused || pressed || modalOpen;
     if (shouldPause === isPaused) {
       return;
     }
@@ -437,6 +438,24 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
       return;
     }
     focused = false;
+    evaluate();
+  });
+
+  document.addEventListener("kt-modal:open", (event) => {
+    const trigger = (event as CustomEvent<{ trigger?: HTMLElement }>).detail?.trigger;
+    if (!trigger || !container.contains(trigger)) {
+      return;
+    }
+    modalOpen = true;
+    evaluate();
+  });
+
+  document.addEventListener("kt-modal:close", (event) => {
+    const trigger = (event as CustomEvent<{ trigger?: HTMLElement }>).detail?.trigger;
+    if (!trigger || !container.contains(trigger)) {
+      return;
+    }
+    modalOpen = false;
     evaluate();
   });
 

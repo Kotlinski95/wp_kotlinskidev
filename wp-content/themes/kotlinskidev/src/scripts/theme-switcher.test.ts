@@ -1,3 +1,5 @@
+jest.mock("./track-event", () => ({ trackEvent: jest.fn() }));
+
 function buildMarkup() {
   document.body.innerHTML = `
     <input type="checkbox" id="theme-toggle" />
@@ -124,6 +126,8 @@ describe("theme-switcher.ts", () => {
 
     expect(document.body.classList.contains("light-mode")).toBe(true);
     expect(localStorage.getItem("theme")).toBe("light");
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("theme_mode_toggle", { mode: "light" });
   });
 
   it("switches to dark and persists it when the toggle is unchecked", () => {
@@ -136,6 +140,8 @@ describe("theme-switcher.ts", () => {
 
     expect(document.body.classList.contains("dark-mode")).toBe(true);
     expect(localStorage.getItem("theme")).toBe("dark");
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("theme_mode_toggle", { mode: "dark" });
   });
 
   it("updates icon titles for light and dark mode", () => {

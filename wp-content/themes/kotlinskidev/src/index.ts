@@ -24,6 +24,7 @@ import "./scripts/modal-manager";
 import "./scripts/group-link";
 import "./scripts/city-map-lightbox";
 import "./scripts/load-more";
+import "./scripts/analytics";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

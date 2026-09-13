@@ -25,11 +25,14 @@
 		border: 0;
 		margin: 0;
 		padding: 0;
-		cursor: pointer;
 		font: inherit;
 		color: inherit;
 		opacity: 0.7;
 		transition: opacity 0.2s ease;
+
+		&[data-kt-modal-target] {
+			cursor: pointer;
+		}
 
 		&:hover,
 		&:focus-visible {
@@ -41,17 +44,6 @@
 			outline-offset: 4px;
 		}
 	}
-
-	&__icon {
-		width: 2.5rem;
-		height: 2.5rem;
-		object-fit: contain;
-	}
-
-	&__label {
-		font-size: var(--wp--preset--font-size--small, 0.875rem);
-		white-space: nowrap;
-	}
 }
 
 .kt-marquee-editor,
@@ -61,22 +53,29 @@
 	gap: 0.5rem;
 }
 
-.kt-marquee-sidebar__count {
-	margin: 0.5rem 0;
-	font-size: 0.8125rem;
-	opacity: 0.75;
+.kt-marquee-icon img,
+.kt-marquee-icon svg {
+	width: 2.5rem;
+	height: 2.5rem;
+	object-fit: contain;
 }
 
-.kt-modal-marquee__icon {
+.kt-marquee-label {
+	font-size: var(--wp--preset--font-size--small, 0.875rem);
+	white-space: nowrap;
+	margin: 0;
+}
+
+.kt-modal-marquee__icon img,
+.kt-modal-marquee__icon svg {
 	width: 3rem;
 	height: 3rem;
 	object-fit: contain;
 	margin-bottom: var(--wp--preset--spacing--medium, 1rem);
 }
 
-.kt-modal-marquee__link {
-	display: inline-block;
-	margin-top: var(--wp--preset--spacing--medium, 1rem);
-	color: var(--wp--preset--color--primary, currentColor);
-	text-decoration: underline;
+.kt-marquee-sidebar__count {
+	margin: 0.5rem 0;
+	font-size: 0.8125rem;
+	opacity: 0.75;
 }

@@ -6,6 +6,19 @@ Keep this in sync with `CHANGELOG.md`: when a change adds/removes/renames a bloc
 
 ```text
 kotlinskidev/
+├── audit/                                      # site-audit pipeline (perf/a11y/SEO/security), run via npm run audit + .github/workflows/site-audit.yml
+│   ├── urls.json                               # baseUrl + sitemapPath + excludePatterns — config only, page list is discovered dynamically each run
+│   ├── lighthouserc.js                         # LHCI collect+upload config (no assert — regression-diff.js is the pass/fail gate, not fixed score thresholds)
+│   ├── pa11yci.js                              # pa11y-ci config (WCAG2AA), page list from lib/load-pages.js
+│   ├── lib/
+│   │   └── load-pages.js                       # reads audit/results/urls.generated.json, throws if audit:discover hasn't run yet
+│   ├── scripts/
+│   │   ├── discover-urls.js                    # fetches urls.json's sitemapPath (recursing into nested sitemapindex files), applies excludePatterns, writes urls.generated.json
+│   │   ├── check-schema.js                     # SEO check: title/meta description length, canonical, JSON-LD validity, hreflang presence
+│   │   ├── check-security-headers.js           # verifies response headers against docs/security-headers.md's target values
+│   │   ├── merge-report.js                     # merges LHCI/pa11y/seo/security outputs into one per-URL JSON (audit/results/latest.json), connector-ready shape
+│   │   └── regression-diff.js                  # diffs latest.json against the audit-history branch baseline, fails the run on regression past threshold
+│   └── results/                                # gitignored — generated per run (incl. urls.generated.json), baseline persisted on the orphan audit-history branch instead
 ├── assets/                                     # static: css/ fonts/ icons/ images/ videos/
 ├── docs/                                       # architecture reference, workflow, and tooling docs (current state only)
 │   ├── 522.md                                  # Cloudflare 522 incident runbook + root-cause notes
@@ -31,10 +44,12 @@ kotlinskidev/
 │   ├── storybook.md                            # Storybook architecture, the @wordpress/* version-alignment requirement, mocking table (MediaUpload/ServerSideRender/theme.json tokens), known gotchas, step-by-step recipe for a new block's story — see also the `storybook` Claude skill
 │   ├── testing.md                              # JS/PHP unit, PHP integration, and e2e test setup + coverage baseline
 │   ├── theme-colors.md                         # adaptive color token system
+│   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 75 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 76 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
+│   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
 │   ├── ai-disclosure-labels.php                # adds an "AI-generated" checkbox to Media Library attachment fields (_kotlinskidev_ai_generated post meta) + a render_block filter that appends a visible "AI-generated image/video" <span> to any core/image or core/cover block whose attachment id has that meta set, EU AI Act Art. 50(4) deployer disclosure duty
 │   ├── article-card.php                        # kt_article_card CPT (title + linked_article_id/card_description meta, synced from the linked article via rest_insert_kt_article_card) + kotlinskidev_render_article_card_embed(), which renders templates/single-kt_article_card.html with explicit WP_Block context so its core/post-meta bindings resolve; PluginDocumentSettingPanel script (src/blocks/article-card/panel.tsx) enqueued only on the CPT's own edit screen
@@ -84,6 +99,7 @@ kotlinskidev/
 │   ├── responsive-order.php                    # per-breakpoint block reorder attribute
 │   ├── responsive-spacing.php                  # per-breakpoint spacing attribute
 │   ├── responsive-width.php                    # per-breakpoint width attribute
+│   ├── scroll-restoration.php                  # sets history.scrollRestoration = 'manual' inline in <head> (wp_head priority 1) so the browser never auto-jumps to a saved scroll position before layout/marquee/ScrollTrigger settle — src/scripts/restoration.ts then does the actual restore
 │   ├── scroll-top-top.php                      # scroll-to-top markup (fixed-arrow/bar variants) + [scroll_to_top] shortcode
 │   ├── search-page-styles.php                  # conditional style fixes on search results pages
 │   ├── service-locations.php                   # service_location CPT (editor+custom-fields support, no archive — the "choose your city" hub is two real Pages, see below) + single "city" post-meta field, sanitized on write and exposed to REST/block editor via custom-fields support. City page body is one real, fully block-editable FSE template — templates/single-service_location.html — shared by every language: text nodes are kotlinskidev/translated-text blocks resolved via pll__() (functions/translated-text.php) instead of a per-language duplicate template, replacing an earlier single opaque PHP-rendered dynamic block that traded editability for dodging a WP core bug (a plain wp:pattern reference caches its content once, at whatever locale was active when WP_Theme::get_pattern_cache() last populated, freezing translated text in one language for every visitor). Three of the five city-bound headings/paragraphs carry a kt-gradient-text className, since Block Bindings disables inline RichText controls (bold/italic/gradient) for a bound element — gives them the same sitewide gradient without needing the toolbar. Enqueues src/blocks/service-location/panel.tsx (PluginDocumentSettingPanel for the "city" field) on the CPT's own edit screen. Also registers 2 PHP-only dynamic blocks (render_callback, no block.json/build step): kotlinskidev/city-grid (columnsDesktop/columnsTablet/columnsMobile + linkTextColor attributes, controls in src/blocks/city-grid/index.tsx) and kotlinskidev/city-map (embed iframe + an expand button wired to src/scripts/city-map-lightbox.ts's fullsize overlay), both rendered fresh every request, plus a third — kotlinskidev/contact-card (functions/contact-card.php) — also listed in the same SSR-preview registration below. Both "Find us in {city}" section templates now use a two-column layout: an eyebrow + city heading + SEO paragraph + kotlinskidev/contact-card on the left, kotlinskidev/city-map on the right — see functions/contact-card.php. A small inline-JS `registerBlockType()` (enqueued on `enqueue_block_editor_assets`, no build step) using `ServerSideRender` so the block editor shows their real rendered output — and a `pre_determine_locale` filter + a `kotlinskidevLang` REST field (registered for `page`/`service_location`) so that preview also renders in the *edited post's* Polylang language. Also a lang→slug map + rewrite rule + post_type_link filter so each city's own URL translates automatically (adding a language is one array entry)
@@ -102,7 +118,7 @@ kotlinskidev/
 │   ├── text-shadow-support.php                 # text-shadow style attribute for shadow-supporting blocks
 │   ├── theme-setup.php                         # theme supports registration, deregisters jQuery
 │   ├── theme-switcher.php                      # dark/light shortcode + JS config output
-│   ├── tracking-scripts.php                    # Facebook Pixel + Google Analytics snippets
+│   ├── tracking-scripts.php                    # Facebook Pixel + Google Analytics snippets, consent-gated via Complianz's type="text/plain" data-category="marketing"/"statistics" manual-blocking convention
 │   ├── translated-text.php                     # registers kotlinskidev/translated-text block strings (incl. optional href) with Polylang on admin_init by scanning templates/*.html + parts/*.html for the block plus kotlinskidev/content-tabs-nav-link's "label" and any core/group's loadMore.buttonLabel attribute, calling pll_register_string() per string found — must run in a classic admin request since pll_register_string() no-ops on frontend/REST
 │   └── video-poster.php                        # poster image attribute for cover-video blocks
 ├── includes/                                   # 3 misc PHP modules (i18n, parallax, hover animations)
@@ -224,7 +240,8 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
-│   │   │   ├── render.php
+│   │   │   ├── init.ts                         # viewScript: fires form_start (GA4) on first focusin into .contact-form-ts, once
+│   │   │   ├── render.php                      # also fires generate_lead/form_error (GA4) inline via window.kotlinskiAnalytics on the contact-success/contact-error redirect
 │   │   │   └── style.scss
 │   │   ├── content-block/                      # resolves a wp_block reusable post by slug (Polylang-aware)
 │   │   │   ├── block.json
@@ -268,7 +285,7 @@ kotlinskidev/
 │   │   │   ├── edit.stories.tsx                # Storybook: interactive editor placeholder (thumbnail + count badge) via useInteractiveAttributes()
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.tsx
-│   │   │   ├── init.ts                         # exports initGalleryLightbox (was module-local) so save.stories.tsx can mount the real lightbox
+│   │   │   ├── init.ts                         # exports initGalleryLightbox (was module-local) so save.stories.tsx can mount the real lightbox; fires lightbox_open/lightbox_navigate (GA4) via scripts/track-event.ts
 │   │   │   ├── save.stories.tsx                # Storybook: real click-to-open lightbox (live Swiper) via createPortal + initGalleryLightbox() — hand-built markup twin of Save, not real useBlockProps.save() (same crash class as banner-carousel)
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
@@ -542,34 +559,44 @@ kotlinskidev/
 │   │       └── style.scss                      # frontend + editor shared styling for the rendered span
 │   ├── scripts/                                # frontend TS modules, bundled via src/index.ts / src/critical.ts
 │   │   ├── accessibility.ts                    # DOM/motion/video a11y helpers, reduced-motion checks
+│   │   ├── analytics-providers/                # multi-vendor analytics dispatch — add a new tracking system here, call sites (track-event.ts's trackEvent()) never change
+│   │   │   ├── types.ts                        # AnalyticsProvider interface ({ id, isReady(), send() }) + shared AnalyticsEventParams type
+│   │   │   ├── gtag-provider.ts                 # sends event name/params through to window.gtag('event', ...) verbatim
+│   │   │   ├── gtag-provider.test.ts
+│   │   │   ├── meta-pixel-provider.ts           # maps our event names to Meta's own standard events where one exists (generate_lead → Lead, etc. via STANDARD_EVENT_NAMES) and falls back to fbq('trackCustom', ...) otherwise
+│   │   │   ├── meta-pixel-provider.test.ts
+│   │   │   ├── routing.ts                       # EVENT_PROVIDER_IDS: which provider(s) each event name reaches, defaulting to gtag-only — the one place to add a provider to (or remove one from) a specific event
+│   │   │   └── routing.test.ts
+│   │   ├── analytics.ts                        # sitewide side effects — via main.js only (never import into a per-block bundle, duplicates the listener): delegated document click listener firing cta_click/select_content(content_type:"project")/language_switch from existing markup conventions (.wp-block-button__link/.kt-button__link, .kt-project-card, .kt-lang-panel__list a[hreflang]) or an explicit data-ga-event/data-ga-* attribute, plus cookie_consent_click/accessibility_toggle_click for two third-party plugin trigger buttons we don't render ourselves (Complianz's .cmplz-btn.cmplz-manage-consent, OneTap's .onetap-toggle — delegation here instead of editing plugin files, brittle if either plugin renames its class); page_not_found fires once on load via the error404 body class; exposes window.kotlinskiAnalytics.trackEvent for PHP-rendered inline scripts (e.g. contact-form/render.php); re-exports track-event.ts's trackEvent
 │   │   ├── animated-counter.ts                 # counts up numeric values on scroll into view
 │   │   ├── common.ts                           # shared small helpers
 │   │   ├── cookie-consent.ts                   # replaces Complianz consent button with custom cookie icon
 │   │   ├── editor-theme-toggle.ts              # dark/light toggle button inside the block editor canvas
-│   │   ├── faq-accordion.ts                    # WAAPI height-animated open/close for FAQ details accordion
+│   │   ├── faq-accordion.ts                    # WAAPI height-animated open/close for FAQ details accordion; fires faq_expand (GA4) via track-event.ts on open only, not close
 │   │   ├── group-link.ts                       # click/keyboard delegation for .kt-group-link, skips nested interactive elements
 │   │   ├── gsap-footer-transform-sync.ts       # mirrors .main-wrapper's scroll-linked transform (see gsap-sticky.ts) onto .kotlinskidev-footer (the footer's inner content wrapper — NOT the outer <footer> tag), since footer is a template-part sibling that never receives it otherwise; without this, .main-wrapper's later content visually overlaps the footer once page height changes (e.g. an accordion opens) on a page with a pinned .scroll-section. Deliberately targets the inner wrapper, not <footer> itself: any non-"none" transform on an ancestor creates a new containing block for position:fixed descendants, and .mobile-footer-nav (parts/footer.html) lives inside footer — transforming <footer> directly broke it, rendering it relative to footer's own (GSAP-inflated, very tall) box instead of the viewport
 │   │   ├── gsap-parallax-fallback.ts           # restores a real parallax effect for .wp-block-cover.enable-parallax on any page with a .scroll-section, where .main-wrapper's persistent GSAP transform breaks background-attachment:fixed the same way it breaks position:fixed/sticky elsewhere; scrubs a GPU-cheap transform (not paint-triggering background-position) on the cover's own normally-hidden .wp-block-cover__image-background layer, gated behind prefers-reduced-motion/touch same as the CSS-only fallback it complements. Deliberately NOT GSAP ScrollTrigger's own trigger/start/end (those cache the cover's document-pixel position at the last refresh() call, which goes stale — and produces an already-maxed-out transform while the cover is still off-screen — once other scroll-section pins above it reflow document height mid-scroll); instead recomputes progress from a live getBoundingClientRect() on every gsap.ticker frame AND on every window scroll event (either alone can stall: rAF is throttled when a tab loses focus mid-scroll, a scroll listener alone misses the initial rest position), same resync-over-cache technique gsap-sticky.ts already uses for the identical class of problem. Movement range (yPercent +/-) comes from each cover's own data-parallax-intensity attribute (0-30, default 15, set via the block's "Parallax Intensity" RangeControl) rather than a fixed constant, clamped defensively client-side too
 │   │   ├── gsap-sticky.ts                      # portals each .is-kotlinskidev-sticky element (inside a core/columns layout) to a body-level host and re-applies native position:sticky there, since GSAP's scroll-section pin applies a persistent transform to .main-wrapper that breaks CSS sticky under any transformed ancestor; a placeholder (copying the element's own flex-basis) preserves the original column layout. Host visibility/position resyncs every gsap.ticker frame via a direct getBoundingClientRect() check against the *row's* real extent (placeholder top + stickyParent.offsetHeight, not the placeholder's own short height — .wp-block-columns stretches every column to its tallest sibling by default, e.g. an opened accordion column, so the placeholder's own bottom hides the sticky column far too early). Exports watchForTransformChange, reused by gsap-footer-transform-sync.ts
 │   │   ├── hamburger.ts                        # mobile nav overlay open/close, submenu collapse, scroll-lock
 │   │   ├── hide-nav-on-scroll.ts               # hides/shows nav bar based on scroll direction
-│   │   ├── image-lightbox.ts                   # lightbox open/close/context capture for gallery images
+│   │   ├── image-lightbox.ts                   # lightbox open/close/context capture for gallery images; fires lightbox_open (GA4) via track-event.ts on activation
 │   │   ├── language-panel.ts                   # wraps initDropdownPanels for .kt-lang-panel
 │   │   ├── language.ts                         # small language-related DOM script
-│   │   ├── line-clamp.ts                       # ResizeObserver-driven overflow check + click toggle for .kt-line-clamp-toggle (Read more/Read less)
-│   │   ├── load-more.ts                        # scans [data-kt-load-more-initial], hides children past the limit, wraps a reveal-on-click button in a .kt-load-more__wrapper (alignment), applies its style data attributes as inline styles, and swaps to hover-color overrides on mouseenter/focus (reverting on mouseleave/blur) — reusable across any core/group flagged by functions/load-more.php
+│   │   ├── line-clamp.ts                       # ResizeObserver-driven overflow check + click toggle for .kt-line-clamp-toggle (Read more/Read less); fires read_more_click (GA4) via track-event.ts on every toggle, action param distinguishes expand/collapse
+│   │   ├── load-more.ts                        # scans [data-kt-load-more-initial], hides children past the limit, wraps a reveal-on-click button in a .kt-load-more__wrapper (alignment), applies its style data attributes as inline styles, and swaps to hover-color overrides on mouseenter/focus (reverting on mouseleave/blur) — reusable across any core/group flagged by functions/load-more.php; fires load_more_click (GA4) via track-event.ts on reveal, with an items_revealed count
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
-│   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator; initModalManager() now exported with an immediate-run fallback (matching gallery-lightbox/init.ts) so Storybook (page already loaded) can call it directly instead of waiting on a DOMContentLoaded that already fired
+│   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator; initModalManager() now exported with an immediate-run fallback (matching gallery-lightbox/init.ts) so Storybook (page already loaded) can call it directly instead of waiting on a DOMContentLoaded that already fired; fires modal_open (GA4) via track-event.ts on every open, with the opened modal's id — separate from gallery-lightbox's own lightbox_open
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change
-│   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block
-│   │   ├── restoration.ts                      # restores scroll position / bfcache navigation handling
+│   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block; fires protected_content_reveal (GA4) via track-event.ts on a successful reveal only, not on a failed decrypt
+│   │   ├── restoration.ts                      # stores scrollY on pagehide (localStorage), restores it on pageshow for back_forward and reload navigations only (not a plain navigate) — pageshow fires after window's load event, so the restore always happens after marquee/ScrollTrigger have already settled, pairing with functions/scroll-restoration.php's history.scrollRestoration = 'manual' to stop the browser's own earlier, unsynced auto-restore. Restoring retries scrollTo() every animation frame (bounded by a stable-frame count + hard frame cap) rather than a single call, since a pinSpacing:false scroll-section only grows the document's real scrollHeight in response to scroll events — a one-shot scrollTo() gets silently clamped to the still-small, ungrown height and never catches up
 │   │   ├── scroll-animations.ts                # IntersectionObserver entrance-animation trigger
-│   │   ├── scroll-to-top.ts                    # fixed-arrow visibility/progress ring + bar-variant click wiring
+│   │   ├── scroll-to-top.ts                    # fixed-arrow visibility/progress ring + bar-variant click wiring; fires scroll_to_top_click (GA4) via track-event.ts with a fixed/bar variant param, from the one shared handler both variants (and keyboard activation) call
 │   │   ├── scroll-trigger-refresh.ts           # imported from scroll-section/init.ts (not src/index.ts) so it shares that bundle's real ScrollTrigger instance; ResizeObserver on .main-wrapper's direct children + a scroll-driven check (which also restarts on any scroll while pin-fixed, not just on a scrollHeight/size change — entering a pin alone triggers neither) start a requestAnimationFrame loop that, while .main-wrapper is NOT currently position:fixed, remeasures + applies its and .pin-spacer's true natural height every frame, settling with one ScrollTrigger.refresh(); while .main-wrapper IS pin-fixed (unsafe to mutate directly — destabilizes GSAP's cross-trigger bookkeeping on a page with 2+ pins sharing it, confirmed live), instead only grows .pin-spacer — to match real scrollHeight growth, and to keep its document bottom clearing every pinned trigger's own `end` plus .main-wrapper's current frozen on-screen bottom (the footer climbs the screen while a pin holds .main-wrapper still, so the worst moment for overlap is scrollY === trigger.end, not just "is there enough room to eventually get past it") — discarding that provisional inflation for a fresh remeasurement once unpinned
-│   │   ├── search-panel.ts                     # wraps initDropdownPanels for .kt-search-panel, autofocuses input
+│   │   ├── search-panel.ts                     # wraps initDropdownPanels for .kt-search-panel, autofocuses input; fires search_panel_open (GA4) via track-event.ts on open
 │   │   ├── smooth-scroll-offset.ts             # smooth-scrolls anchor links with header-height offset
+│   │   ├── track-event.ts                      # trackEvent(name, params) — first checks window.kotlinskiAnalyticsConfig.disabledEvents (localized by functions/analytics-events.php from the wp-admin Tracking settings, no-ops for every provider if listed), then looks up analytics-providers/routing.ts for which provider(s) this event reaches and calls send() on each that's isReady(); stateless dispatcher, no direct vendor calls of its own, safe to import into any per-block bundle without duplicating anything — analytics.ts re-exports it and adds the sitewide side-effecting delegation on top
 │   │   ├── sticky-header.ts                    # enables/disables sticky header based on scroll threshold
-│   │   ├── theme-switcher.ts                   # dark/light theme apply + OS prefers-color-scheme listener
+│   │   ├── theme-switcher.ts                   # dark/light theme apply + OS prefers-color-scheme listener; fires theme_mode_toggle (GA4) via track-event.ts only on a real user toggle, not the initial stored/OS-default apply
 │   │   └── utils.ts                            # shared debounce/getBreakpoints/getScrollTop/isMobile helpers
 │   ├── styles/                                 # SCSS source partials
 │   │   ├── above-the-fold.scss                 # critical layout-shift prevention rules
@@ -727,7 +754,7 @@ kotlinskidev/
 ├── .prettierignore
 ├── .prettierrc.json
 ├── .storybook/                                 # Storybook config (react-webpack5) — documents src/blocks/*/*.stories.tsx in isolation; run npm run storybook / build-storybook; mock-server-side-render.tsx aliases @wordpress/server-side-render to per-block static mock HTML (BLOCK_MOCKS map) since Storybook has no WP REST backend to call, sourcing photos from mock-assets.ts (real theme assets/images/*.webp — logo.webp blurs badly once scaled into a full-size card, so use the larger photos instead); exports BreadcrumbsRouteContext so a block whose real markup varies by page (not by any block attribute — breadcrumbs' trail depends on is_category()/is_single()/is_page(), never on an attribute) can pick a mock variant per-story instead of per-control; mock-media-upload.tsx registers a fake editor.MediaUpload filter + dispatches core/block-editor's mediaUpload setting, since @wordpress/block-editor's real MediaUpload is a `() => null` placeholder outside a full WP admin bootstrap and MediaUploadCheck hides its children without that setting; preview.tsx imports the real src/critical.scss + src/index.scss (all frontend SCSS, not just editor overrides) plus @wordpress/block-library's compiled CSS for core-block base styles, toggles html.light-mode/dark-mode (not body — theme-colors.scss's color-scheme rules target html) via a Theme toolbar, and defines custom mobile/breakpoint-edge/desktop viewport presets; frame.scss makes the Story+Inspector layout stack under the theme's own 782px breakpoint instead of staying side-by-side
-├── 404.php                                     # classic 404 handler (no FSE templates/404.html exists yet)
+├── 404.php                                     # classic 404 handler (no FSE templates/404.html exists yet); closes </body></html> after wp_footer() — header.php now opens <body>, this and page-search.php now close it
 ├── 500.html                                    # static PWA offline/error fallback
 ├── CHANGELOG.md                                # Keep a Changelog + semver history
 ├── CLAUDE.md                                   # Claude Code project instructions
@@ -737,12 +764,12 @@ kotlinskidev/
 ├── content.php                                 # legacy classic-theme partial
 ├── footer.php                                  # legacy classic-theme footer (superseded by parts/footer.html)
 ├── functions.php                               # thin require_once loader for functions/
-├── header.php                                  # legacy classic-theme header (superseded by parts/header.html)
+├── header.php                                  # doctype/head/wp_head() + <body <?php body_class(); ?>>/wp_body_open() — required by 404.php and page-search.php, the theme's two live classic template overrides
 ├── index.php                                   # classic-theme fallback (WP resolves templates/*.html first)
 ├── offline.html                                # PWA offline fallback page
 ├── package-lock.json                           # npm lockfile
 ├── package.json                                # npm scripts + dependencies, theme version
-├── page-search.php                             # custom page template backing the Search/Szukaj pages
+├── page-search.php                             # custom page template backing the Search/Szukaj pages; now also calls wp_footer() and closes </body></html> (previously called neither)
 ├── page.php                                    # legacy classic-theme page template
 ├── screenshot.png                              # theme directory screenshot
 ├── single.php                                  # legacy classic-theme single-post template
@@ -764,4 +791,4 @@ Found while compiling this reference — not fixed, just flagged:
 4. **README claims `npm run build` runs a two-step "Webpack + Tailwind minification" build**; the actual `build` script is plain `wp-scripts build` with no visible Tailwind step. Either stale README or a step that moved elsewhere.
 5. **`src/styles/shortcodes.scss` is an empty placeholder file.**
 6. **`functions/search-page-styles.php` has a stray leftover code fragment** (`function to`) worth a cleanup pass.
-7. **Classic template files at the theme root** (`index.php`, `page.php`, `single.php`, `content.php`, `header.php`, `footer.php`) are superseded by `templates/*.html` and `parts/*.html` — WordPress resolves block templates first when present, so these are believed dead but haven't been verified/removed.
+7. **`index.php`, `page.php`, `single.php`, `content.php` are dead** — superseded by `templates/*.html`, and each references template parts (`get_template_part('nav')`, `content-page.php`) that don't exist in this theme, confirming they're unreachable leftovers rather than live fallbacks. **`header.php`/`footer.php` are not dead**: `header.php` (doctype/`<head>`/`wp_head()`/`<body>` open) is required by both `404.php` and `page-search.php`, the theme's two genuinely-live classic template overrides (`page-search.php` is assigned to the published "Search"/"Szukaj" pages) — confirmed via `wp post list --meta_key=_wp_page_template`. `footer.php` itself is still unused (both call sites build their own footer output inline instead of `get_footer()`).

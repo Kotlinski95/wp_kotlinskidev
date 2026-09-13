@@ -1,3 +1,5 @@
+import { trackEvent } from "./track-event";
+
 declare global {
   interface Window {
     i18n?: {
@@ -43,6 +45,7 @@ declare global {
         toggle.textContent = expanded
           ? getLabel("read_less", "Read less")
           : getLabel("read_more", "Read more");
+        trackEvent("read_more_click", { action: expanded ? "expand" : "collapse" });
       });
 
       if (typeof ResizeObserver === "function") {

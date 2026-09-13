@@ -1,27 +1,29 @@
 <?php
-$label       = sanitize_text_field( $attributes['label'] ?? '' );
-$icon_url    = esc_url( $attributes['navIconUrl'] ?? '' );
-$description = sanitize_textarea_field( $attributes['description'] ?? '' );
-$doc_url     = esc_url( $attributes['docUrl'] ?? '' );
-
-if ( '' === $label ) {
+if ( '' === trim( (string) $content ) ) {
 	return;
 }
 
-$wrapper_attributes = get_block_wrapper_attributes( [
-	'class' => 'kt-marquee__item swiper-slide',
-] );
+$modal_id = absint( $attributes['modalId'] ?? 0 );
+$modal    = $modal_id ? kotlinskidev_resolve_modal_by_id( $modal_id ) : null;
+
+if ( $modal instanceof WP_Post ) {
+	kotlinskidev_register_modal_for_footer( $modal->ID );
+
+	$wrapper_attributes = get_block_wrapper_attributes( [
+		'class'                => 'kt-marquee__item swiper-slide',
+		'data-kt-modal-target' => 'kt-modal-' . $modal->ID,
+		'role'                 => 'button',
+		'tabindex'             => '0',
+		'aria-label'           => sprintf(
+			/* translators: %s: modal title */
+			__( 'Open %s', 'kotlinskidev' ),
+			$modal->post_title
+		),
+	] );
+} else {
+	$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'kt-marquee__item swiper-slide' ] );
+}
 ?>
-<button
-	type="button"
-	<?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>
-	data-kt-modal-target="kt-modal-marquee"
-	data-marquee-label="<?php echo esc_attr( $label ); ?>"
-	data-marquee-description="<?php echo esc_attr( $description ); ?>"
-	data-marquee-doc-url="<?php echo esc_attr( $doc_url ); ?>"
->
-	<?php if ( '' !== $icon_url ) : ?>
-		<img src="<?php echo esc_url( $icon_url ); ?>" alt="" class="kt-marquee__icon" loading="lazy" />
-	<?php endif; ?>
-	<span class="kt-marquee__label"><?php echo esc_html( $label ); ?></span>
-</button>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
+	<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is this block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
+</div>

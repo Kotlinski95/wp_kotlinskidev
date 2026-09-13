@@ -1,3 +1,5 @@
+import { trackEvent } from "./track-event";
+
 type ThemeSwitcherConfig = {
   enabled: boolean;
   defaultMode: string;
@@ -73,9 +75,11 @@ type ThemeSwitcherConfig = {
       if (this.checked) {
         applyLightTheme();
         localStorage.setItem("theme", "light");
+        trackEvent("theme_mode_toggle", { mode: "light" });
       } else {
         applyDarkTheme();
         localStorage.setItem("theme", "dark");
+        trackEvent("theme_mode_toggle", { mode: "dark" });
       }
     });
 

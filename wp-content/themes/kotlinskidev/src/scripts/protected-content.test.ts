@@ -1,3 +1,5 @@
+jest.mock("./track-event", () => ({ trackEvent: jest.fn() }));
+
 interface MockedApi {
   decryptText: (text: string, type?: string) => Promise<string>;
   processProtectedElements: () => void;
@@ -155,6 +157,8 @@ describe("protected-content.ts", () => {
     expect(el.innerHTML).toBe("<p>Hi</p>");
     expect(el.classList.contains("protection-loaded")).toBe(true);
     expect(el.hasAttribute("data-original-content")).toBe(false);
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("protected_content_reveal", { type: "text" });
   });
 
   it("shows an error state when the batch fetch fails", async () => {
@@ -168,6 +172,8 @@ describe("protected-content.ts", () => {
 
     expect(el.classList.contains("protection-error")).toBe(true);
     expect(el.getAttribute("aria-label")).toBe("Failed to load protected text content");
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).not.toHaveBeenCalled();
     errorSpy.mockRestore();
   });
 

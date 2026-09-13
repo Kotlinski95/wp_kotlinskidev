@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const { pages, baseUrl } = require("../urls.json");
+const { loadPages } = require("../lib/load-pages");
 
-const base = (process.env.AUDIT_BASE_URL || baseUrl).replace(/\/$/, "");
+const { baseUrl, pages } = loadPages();
 const resultsDir = path.join(__dirname, "..", "results");
 
 function readJson(file, fallback) {
@@ -56,7 +56,7 @@ function run() {
 
   const timestamp = new Date().toISOString();
   const report = pages.map((page) => {
-    const url = `${base}${page.path}`;
+    const url = `${baseUrl}${page.path}`;
     return {
       id: page.id,
       url,

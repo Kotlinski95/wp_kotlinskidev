@@ -6,7 +6,7 @@
   "title": "Marquee Item",
   "category": "layout",
   "icon": "admin-generic",
-  "description": "Single technology/skill entry in a Marquee — icon, label, and a short description shown in the modal on click.",
+  "description": "Single technology/skill entry in a Marquee — holds any block content and optionally opens a Modal post on click.",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
   "parent": ["kotlinskidev/marquee"],
@@ -16,25 +16,9 @@
     "html": false
   },
   "attributes": {
-    "label": {
-      "type": "string",
-      "default": ""
-    },
-    "navIconId": {
-      "type": "integer",
+    "modalId": {
+      "type": "number",
       "default": 0
-    },
-    "navIconUrl": {
-      "type": "string",
-      "default": ""
-    },
-    "description": {
-      "type": "string",
-      "default": ""
-    },
-    "docUrl": {
-      "type": "string",
-      "default": ""
     }
   }
 }

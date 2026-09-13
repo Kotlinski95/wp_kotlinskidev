@@ -1,4 +1,5 @@
 import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
+import { trackEvent } from "./track-event";
 
 function handleScrollToTop(e: Event) {
   e.preventDefault();
@@ -6,6 +7,10 @@ function handleScrollToTop(e: Event) {
   if (!mainEl) {
     return;
   }
+  const trigger = e.currentTarget as HTMLElement | null;
+  trackEvent("scroll_to_top_click", {
+    variant: trigger?.classList.contains("kt-scroll-to-top__trigger") ? "bar" : "fixed",
+  });
   mainEl.setAttribute("tabindex", "-1");
   scrollTo(0, "smooth");
   let lastScrollTop = -1;

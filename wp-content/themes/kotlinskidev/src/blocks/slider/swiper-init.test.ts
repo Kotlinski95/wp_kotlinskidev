@@ -1301,6 +1301,71 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
     });
   });
 
+  describe("continuousAutoplay — pause/resume on a kt-modal opened from inside the carousel", () => {
+    beforeEach(() => {
+      mockIntersectionObserver();
+    });
+
+    afterEach(() => {
+      document.body.innerHTML = "";
+    });
+
+    function dispatchModal(type: "kt-modal:open" | "kt-modal:close", trigger: HTMLElement) {
+      document.dispatchEvent(new CustomEvent(type, { detail: { trigger } }));
+    }
+
+    it("pauses when a modal opens from a trigger inside the carousel", () => {
+      const container = buildContainer(3);
+      const trigger = container.querySelector(".swiper-slide") as HTMLElement;
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      dispatchModal("kt-modal:open", trigger);
+
+      expect(mockLastInstance?.autoplay.pause).toHaveBeenCalledTimes(1);
+    });
+
+    it("ignores a modal opened from a trigger outside the carousel", () => {
+      const container = buildContainer(3);
+      const outsideTrigger = document.createElement("button");
+      document.body.append(container, outsideTrigger);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      dispatchModal("kt-modal:open", outsideTrigger);
+
+      expect(mockLastInstance?.autoplay.pause).not.toHaveBeenCalled();
+    });
+
+    it("stays paused across the modal closing even once hover/focus have already cleared", () => {
+      const container = buildContainer(3);
+      const trigger = container.querySelector(".swiper-slide") as HTMLElement;
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      dispatchModal("kt-modal:open", trigger);
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+
+      dispatchModal("kt-modal:close", trigger);
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+
+    it("resumes once the modal closes if hover/focus already cleared while it was open", () => {
+      const container = buildContainer(3);
+      const trigger = container.querySelector(".swiper-slide") as HTMLElement;
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      dispatchModal("kt-modal:open", trigger);
+      dispatchModal("kt-modal:close", trigger);
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("progress circle — discrete autoplay only", () => {
     function buildProgressCircle(radius = 16) {
       const svgNS = "http://www.w3.org/2000/svg";

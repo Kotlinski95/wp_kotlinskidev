@@ -1,3 +1,7 @@
+jest.mock("./track-event", () => ({
+  trackEvent: jest.fn(),
+}));
+
 function setScrollTop(value: number) {
   Object.defineProperty(window, "scrollY", { writable: true, configurable: true, value });
 }
@@ -101,6 +105,9 @@ describe("scroll-to-top.ts — button visibility and progress", () => {
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
     expect(main.getAttribute("tabindex")).toBe("-1");
     expect(main.focus).toHaveBeenCalled();
+
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("scroll_to_top_click", { variant: "fixed" });
   });
 
   it("triggers scroll-to-top on Enter and Space keydown", () => {
@@ -137,6 +144,8 @@ describe("scroll-to-top.ts — button visibility and progress", () => {
       button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }))
     ).not.toThrow();
     expect(window.scrollTo).not.toHaveBeenCalled();
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).not.toHaveBeenCalled();
   });
 });
 
@@ -170,6 +179,9 @@ describe("scroll-to-top.ts — bar variant trigger", () => {
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "smooth" });
     expect(main.getAttribute("tabindex")).toBe("-1");
     expect(main.focus).toHaveBeenCalled();
+
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("scroll_to_top_click", { variant: "bar" });
   });
 
   it("wires up multiple bar-variant instances independently", () => {

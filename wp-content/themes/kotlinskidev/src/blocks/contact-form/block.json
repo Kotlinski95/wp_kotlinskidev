@@ -39,6 +39,7 @@
     "customClassName": true
   },
   "editorScript": "file:../../../build/js/contact-form.js",
+  "viewScript": "file:../../../build/js/contact-form-init.js",
   "style": "file:../../../build/css/style-contact-form.css",
   "render": "file:./render.php"
 }

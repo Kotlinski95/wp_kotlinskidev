@@ -8,10 +8,17 @@ import "./style.scss";
 
 const ITEM_BLOCK = "kotlinskidev/marquee-item";
 const ALLOWED_BLOCKS = [ITEM_BLOCK];
-const ITEMS_TEMPLATE: [string, Record<string, unknown>][] = [
-  [ITEM_BLOCK, { label: "WordPress" }],
-  [ITEM_BLOCK, { label: "GitHub" }],
-  [ITEM_BLOCK, { label: "Next.js" }],
+type InnerTemplate = [string, Record<string, unknown>, InnerTemplate[]?];
+const itemGroupTemplate = (label: string): InnerTemplate => [
+  ITEM_BLOCK,
+  {},
+  [["core/group", {}, [["core/paragraph", { className: "kt-marquee-label", content: label }]]]],
+];
+
+const ITEMS_TEMPLATE: InnerTemplate[] = [
+  itemGroupTemplate("WordPress"),
+  itemGroupTemplate("GitHub"),
+  itemGroupTemplate("Next.js"),
 ];
 
 export interface MarqueeAttributes {
@@ -56,7 +63,16 @@ export default function Edit({ attributes, setAttributes, clientId }: MarqueeEdi
   ) as unknown as BlockEditorActions;
 
   const handleAddItem = () => {
-    insertBlock(createBlock(ITEM_BLOCK), undefined, clientId);
+    insertBlock(
+      createBlock(ITEM_BLOCK, {}, [
+        createBlock("core/group", {}, [
+          createBlock("core/image", { className: "kt-marquee-icon" }),
+          createBlock("core/paragraph", { className: "kt-marquee-label" }),
+        ]),
+      ]),
+      undefined,
+      clientId
+    );
   };
 
   const handleRemoveLast = () => {

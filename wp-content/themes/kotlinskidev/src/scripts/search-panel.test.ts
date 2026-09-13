@@ -1,6 +1,8 @@
 import { initDropdownPanels } from "@utils/dropdown-panel";
+import { trackEvent } from "./track-event";
 
 jest.mock("@utils/dropdown-panel", () => ({ initDropdownPanels: jest.fn() }));
+jest.mock("./track-event", () => ({ trackEvent: jest.fn() }));
 
 import "./search-panel";
 
@@ -30,6 +32,7 @@ describe("search-panel", () => {
     onOpen(modal);
 
     expect(input.focus).toHaveBeenCalled();
+    expect(trackEvent).toHaveBeenCalledWith("search_panel_open");
   });
 
   it("does nothing when the modal has no search input", () => {

@@ -21,6 +21,7 @@ if ( isset( $_GET['contact-success'] ) ) { // phpcs:ignore WordPress.Security.No
         if (form) {
             form.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
+        window.kotlinskiAnalytics && window.kotlinskiAnalytics.trackEvent('generate_lead', { form_name: 'contact_form' });
     });
     </script>
     <?php
@@ -44,6 +45,7 @@ if ( isset( $_GET['contact-error'] ) ) { // phpcs:ignore WordPress.Security.Nonc
         if (form) {
             form.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
+        window.kotlinskiAnalytics && window.kotlinskiAnalytics.trackEvent('form_error', { form_name: 'contact_form', error_type: '<?php echo esc_js( $error_type ); ?>' });
     });
     </script>
     <?php

@@ -1,19 +1,11 @@
 import React from "react";
-import {
-  useBlockProps,
-  InspectorControls,
-  MediaUpload,
-  MediaUploadCheck,
-} from "@wordpress/block-editor";
-import { PanelBody, TextControl, TextareaControl, Button } from "@wordpress/components";
+import { useBlockProps, useInnerBlocksProps, InspectorControls } from "@wordpress/block-editor";
+import { PanelBody, SelectControl } from "@wordpress/components";
+import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 
 export interface MarqueeItemAttributes {
-  label: string;
-  navIconId: number;
-  navIconUrl: string;
-  description: string;
-  docUrl: string;
+  modalId: number;
 }
 
 interface MarqueeItemEditProps {
@@ -21,87 +13,76 @@ interface MarqueeItemEditProps {
   setAttributes: (attrs: Partial<MarqueeItemAttributes>) => void;
 }
 
-interface NavIconMedia {
+interface ModalPost {
   id: number;
-  url: string;
+  title: { rendered: string };
 }
 
+type InnerTemplate = [string, Record<string, unknown>, InnerTemplate[]?];
+
+const ITEM_TEMPLATE: InnerTemplate[] = [
+  [
+    "core/group",
+    {},
+    [
+      ["core/image", { className: "kt-marquee-icon", sizeSlug: "thumbnail" }],
+      [
+        "core/paragraph",
+        {
+          className: "kt-marquee-label",
+          placeholder: __("Technology name…", "kotlinskidev"),
+        },
+      ],
+    ],
+  ],
+];
+
 export default function Edit({ attributes, setAttributes }: MarqueeItemEditProps) {
-  const { label, navIconId, navIconUrl, description, docUrl } = attributes;
+  const { modalId } = attributes;
   const blockProps = useBlockProps({ className: "kt-marquee-item-editor" });
+  const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    template: ITEM_TEMPLATE,
+  });
+
+  const modals = useSelect((select) => {
+    return (select("core") as any).getEntityRecords("postType", "kt_modal", {
+      per_page: 100,
+      status: "publish",
+    }) as ModalPost[] | null;
+  }, []);
+
+  const modalOptions = [
+    {
+      label:
+        modals === null
+          ? __("Loading…", "kotlinskidev")
+          : __("— None (not clickable) —", "kotlinskidev"),
+      value: 0,
+    },
+    ...(modals ?? []).map((post) => ({
+      label: post.title.rendered || String(post.id),
+      value: post.id,
+    })),
+  ];
 
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Technology", "kotlinskidev")} initialOpen>
-          <TextControl
-            label={__("Label", "kotlinskidev")}
-            value={label}
-            onChange={(value) => setAttributes({ label: value })}
-          />
-          <MediaUploadCheck>
-            <MediaUpload
-              onSelect={(media: NavIconMedia) =>
-                setAttributes({ navIconId: media.id, navIconUrl: media.url })
-              }
-              allowedTypes={["image"]}
-              value={navIconId}
-              render={({ open }: { open: () => void }) => (
-                <>
-                  <Button
-                    variant={navIconId ? "secondary" : "primary"}
-                    onClick={open}
-                    style={{ width: "100%", justifyContent: "center" }}
-                  >
-                    {navIconId
-                      ? __("Replace icon", "kotlinskidev")
-                      : __("Select icon", "kotlinskidev")}
-                  </Button>
-                  {navIconId ? (
-                    <Button
-                      variant="link"
-                      isDestructive
-                      onClick={() => setAttributes({ navIconId: 0, navIconUrl: "" })}
-                    >
-                      {__("Remove icon", "kotlinskidev")}
-                    </Button>
-                  ) : null}
-                </>
-              )}
-            />
-          </MediaUploadCheck>
-          <TextareaControl
-            label={__("Modal description", "kotlinskidev")}
+        <PanelBody title={__("Modal", "kotlinskidev")} initialOpen>
+          <SelectControl
+            label={__("Open on click", "kotlinskidev")}
             help={__(
-              "Text shown in the popup when this item is clicked — how this skill helps your work and your clients.",
+              "Selecting a modal makes this item clickable/keyboard-activatable.",
               "kotlinskidev"
             )}
-            value={description}
-            onChange={(value) => setAttributes({ description: value })}
-          />
-          <TextControl
-            label={__("Documentation URL", "kotlinskidev")}
-            help={__(
-              "Optional — shown as a link in the popup. Leave empty to hide the link.",
-              "kotlinskidev"
-            )}
-            type="url"
-            value={docUrl}
-            onChange={(value) => setAttributes({ docUrl: value })}
+            value={modalId}
+            options={modalOptions}
+            onChange={(value) => setAttributes({ modalId: Number(value) })}
           />
         </PanelBody>
       </InspectorControls>
 
-      <div {...blockProps}>
-        {navIconUrl ? (
-          <img
-            src={navIconUrl}
-            alt=""
-            style={{ width: 40, height: 40, display: "block", objectFit: "contain" }}
-          />
-        ) : null}
-        <span>{label || __("Technology", "kotlinskidev")}</span>
-      </div>
+      <div {...innerBlocksProps} />
     </>
   );
 }

@@ -4,6 +4,10 @@ jest.mock("@wordpress/blocks", () => ({
   registerBlockType: jest.fn(),
 }));
 
+jest.mock("@wordpress/block-editor", () => ({
+  InnerBlocks: { Content: () => null },
+}));
+
 jest.mock("./edit", () => ({ __esModule: true, default: () => null }));
 jest.mock("./save", () => ({ __esModule: true, default: () => null }));
 jest.mock("./item/edit", () => ({ __esModule: true, default: () => null }));

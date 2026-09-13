@@ -1,3 +1,7 @@
+jest.mock("./track-event", () => ({
+  trackEvent: jest.fn(),
+}));
+
 function flushMicrotasks() {
   return new Promise((resolve) => queueMicrotask(() => resolve(undefined)));
 }
@@ -60,6 +64,16 @@ describe("image-lightbox.ts", () => {
 
     const [thumb] = document.querySelectorAll(".lightbox-image-container");
     expect((thumb as HTMLElement).style.display).toBe("none");
+  });
+
+  it("tracks lightbox_open with the enlarged image's alt text", () => {
+    buildLightboxMarkup({ active: true });
+    document.querySelectorAll(".lightbox-image-container img")[1]!.setAttribute("alt", "A photo");
+
+    loadModule();
+
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("lightbox_open", { item_name: "A photo" });
   });
 
   it("applies touch-action none on a touch device", () => {

@@ -1,4 +1,5 @@
 import { attachImageZoom } from "@utils/zoom/attachImageZoom";
+import { trackEvent } from "./track-event";
 
 (() => {
   const isTouchDevice = () => window.matchMedia("(hover: none) and (pointer: coarse)").matches;
@@ -102,6 +103,9 @@ import { attachImageZoom } from "@utils/zoom/attachImageZoom";
     }
 
     pendingContext = null;
+    trackEvent("lightbox_open", {
+      item_name: enlargedContainer?.querySelector("img")?.alt ?? "",
+    });
   };
 
   const teardownLightbox = (overlay: HTMLElement) => {

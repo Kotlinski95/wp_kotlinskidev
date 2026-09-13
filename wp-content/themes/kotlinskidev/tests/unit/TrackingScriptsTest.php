@@ -52,7 +52,7 @@ it('outputs the default facebook pixel snippet when only the pixel id is configu
     $output = ob_get_clean();
 
     expect($output)->toContain("fbq('init', '123456')");
-    expect($output)->toContain('id=123456');
+    expect($output)->toContain('type="text/plain" data-category="marketing"');
 });
 
 it('outputs the custom google analytics script verbatim when configured', function () {
@@ -88,4 +88,5 @@ it('outputs the default gtag snippet when only the measurement id is configured'
 
     expect($output)->toContain("gtag('config', 'G-ABC123')");
     expect($output)->toContain('gtag/js?id=G-ABC123');
+    expect($output)->toContain('type="text/plain" data-category="statistics"');
 });

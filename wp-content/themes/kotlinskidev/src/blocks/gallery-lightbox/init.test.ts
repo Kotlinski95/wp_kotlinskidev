@@ -32,6 +32,10 @@ jest.mock("@utils/zoom/attachImageZoom", () => ({
   attachImageZoom: jest.fn(() => mockZoomTeardown),
 }));
 
+jest.mock("../../scripts/track-event", () => ({
+  trackEvent: jest.fn(),
+}));
+
 function mockMatchMedia(isMobile: boolean) {
   (window.matchMedia as jest.Mock).mockImplementation((query: string) => ({
     matches: query.includes("max-width") ? isMobile : false,
@@ -308,6 +312,30 @@ describe("gallery-lightbox/init.ts", () => {
 
     expect(mockZoomTeardown).toHaveBeenCalled();
     expect(attachSpy).toHaveBeenCalled();
+  });
+
+  it("tracks lightbox_open with the active image's alt text and index", () => {
+    buildGallery({ images: [imageItem({ alt: "First" }), imageItem({ alt: "Second" })] });
+    loadModule();
+    const trackEvent = require("../../scripts/track-event").trackEvent as jest.Mock;
+    trackEvent.mockClear();
+
+    document.querySelector(".gallery-lightbox-trigger")?.dispatchEvent(new MouseEvent("click"));
+
+    expect(trackEvent).toHaveBeenCalledWith("lightbox_open", { item_name: "First", item_index: 0 });
+  });
+
+  it("tracks lightbox_navigate with the new active index on slideChange", () => {
+    buildGallery({ images: [imageItem(), imageItem()] });
+    loadModule();
+    document.querySelector(".gallery-lightbox-trigger")?.dispatchEvent(new MouseEvent("click"));
+    const trackEvent = require("../../scripts/track-event").trackEvent as jest.Mock;
+    trackEvent.mockClear();
+    mockLastSwiper!.activeIndex = 1;
+
+    mockSlideChangeHandlers.forEach((handler) => handler());
+
+    expect(trackEvent).toHaveBeenCalledWith("lightbox_navigate", { item_index: 1 });
   });
 
   it("syncs the trigger thumbnail to the first mobile image on a mobile viewport", () => {

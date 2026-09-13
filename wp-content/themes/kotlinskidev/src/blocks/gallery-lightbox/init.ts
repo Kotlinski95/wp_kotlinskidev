@@ -2,6 +2,7 @@ import DOMPurify from "dompurify";
 import "swiper/swiper-bundle.css";
 import { initSwiper } from "@utils/carousel/initSwiper";
 import { attachImageZoom } from "@utils/zoom/attachImageZoom";
+import { trackEvent } from "../../scripts/track-event";
 
 const MODAL_ID = "gallery-lightbox-modal";
 
@@ -185,6 +186,7 @@ const openModal = (
   attachZoomToActiveSlide();
   swiper.on("slideChange", () => {
     pauseActiveVideo();
+    trackEvent("lightbox_navigate", { item_index: swiper.activeIndex });
     requestAnimationFrame(() => {
       attachZoomToActiveSlide();
       playActiveVideoIfEnabled();
@@ -192,6 +194,10 @@ const openModal = (
   });
 
   playActiveVideoIfEnabled();
+  trackEvent("lightbox_open", {
+    item_name: images[startIndex]?.alt ?? "",
+    item_index: startIndex,
+  });
 
   requestAnimationFrame(() => {
     modal.classList.add("is-open");

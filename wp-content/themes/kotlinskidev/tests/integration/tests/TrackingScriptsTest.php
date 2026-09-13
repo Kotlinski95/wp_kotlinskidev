@@ -25,7 +25,17 @@ it('outputs the facebook pixel init script for a configured pixel id', function 
     $html = ob_get_clean();
 
     expect($html)->toContain("fbq('init', '123456789')");
-    expect($html)->toContain('id=123456789');
+});
+
+it('gates the default facebook pixel script behind the marketing consent category', function () {
+    update_option('custom_fb_pixel_loader_pixel_id', '123456789');
+
+    ob_start();
+    kotlinskidev_output_facebook_pixel();
+    $html = ob_get_clean();
+
+    expect($html)->toContain('type="text/plain" data-category="marketing"');
+    expect($html)->not->toContain('<script>');
 });
 
 it('escapes a facebook pixel id containing a quote in the js context', function () {
@@ -66,6 +76,18 @@ it('outputs the gtag script for a configured GA id', function () {
 
     expect($html)->toContain('gtag/js?id=G-ABC123');
     expect($html)->toContain("gtag('config', 'G-ABC123')");
+});
+
+it('gates the default gtag script behind the statistics consent category', function () {
+    update_option('custom_ga_loader_ga_id', 'G-ABC123');
+
+    ob_start();
+    kotlinskidev_output_google_analytics();
+    $html = ob_get_clean();
+
+    expect($html)->toContain('type="text/plain" data-category="statistics" data-src="https://www.googletagmanager.com/gtag/js?id=G-ABC123"');
+    expect($html)->toContain('type="text/plain" data-category="statistics">');
+    expect($html)->not->toContain('<script defer src="https://www.googletagmanager.com');
 });
 
 it('outputs a custom GA script verbatim instead of the default snippet', function () {

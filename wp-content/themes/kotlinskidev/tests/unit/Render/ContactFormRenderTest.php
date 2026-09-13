@@ -15,6 +15,7 @@ beforeEach(function () {
     Functions\when('esc_html')->alias(fn ($t) => $t);
     Functions\when('esc_attr')->alias(fn ($t) => $t);
     Functions\when('esc_url')->alias(fn ($t) => $t);
+    Functions\when('esc_js')->alias(fn ($t) => $t);
     Functions\when('admin_url')->justReturn('https://example.test/wp-admin/admin-post.php');
     Functions\when('wp_nonce_field')->justReturn('');
     Functions\when('sanitize_key')->alias(fn ($t) => $t);
@@ -103,6 +104,22 @@ it('renders no captcha widget when enabled but no site key is configured', funct
     $html = kotlinskidev_contact_form_render(['enableCaptcha' => true, 'captchaProvider' => 'recaptcha']);
 
     expect($html)->not->toContain('g-recaptcha');
+});
+
+it('fires a generate_lead analytics event on success', function () {
+    $_GET['contact-success'] = '1';
+
+    $html = kotlinskidev_contact_form_render([]);
+
+    expect($html)->toContain("kotlinskiAnalytics.trackEvent('generate_lead', { form_name: 'contact_form' })");
+});
+
+it('fires a form_error analytics event with the error type on error', function () {
+    $_GET['contact-error'] = 'captcha';
+
+    $html = kotlinskidev_contact_form_render([]);
+
+    expect($html)->toContain("kotlinskiAnalytics.trackEvent('form_error', { form_name: 'contact_form', error_type: 'captcha' })");
 });
 
 it('uses the configured field labels', function () {

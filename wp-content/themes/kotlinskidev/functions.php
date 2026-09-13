@@ -2,6 +2,9 @@
 // Include theme setup functions
 require_once get_template_directory() . '/functions/theme-setup.php';
 
+// Disable native browser scroll restoration before first paint, so our own controlled restore in restoration.ts is the only thing that moves scrollY on load/reload
+require_once get_template_directory() . '/functions/scroll-restoration.php';
+
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
@@ -108,6 +111,9 @@ require_once get_template_directory() . '/functions/faq-layout.php';
 
 // Load Facebook Pixel / Google Analytics tracking scripts
 require_once get_template_directory() . '/functions/tracking-scripts.php';
+
+// Load custom GA4/Meta event tracking toggles (Settings -> Tracking)
+require_once get_template_directory() . '/functions/analytics-events.php';
 
 // Load parallax frontend support
 require_once get_template_directory() . '/includes/parallax-frontend.php';

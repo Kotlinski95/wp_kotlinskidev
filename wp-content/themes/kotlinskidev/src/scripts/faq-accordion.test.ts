@@ -1,3 +1,7 @@
+jest.mock("./track-event", () => ({
+  trackEvent: jest.fn(),
+}));
+
 function mockMatchMedia(reducedMotion: boolean) {
   (window.matchMedia as jest.Mock).mockImplementation((query: string) => ({
     matches: query.includes("reduced-motion") ? reducedMotion : false,
@@ -83,6 +87,27 @@ describe("faq-accordion.ts — animation", () => {
     expect(details.open).toBe(true);
     expect(details.classList.contains("kt-details-animating")).toBe(false);
     expect(details.style.height).toBe("");
+  });
+
+  it("tracks faq_expand with the question text when opening a closed item", () => {
+    const { summary } = buildFaqItem();
+    loadModule();
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+
+    summary.click();
+
+    expect(trackEvent).toHaveBeenCalledWith("faq_expand", { question: "Question" });
+  });
+
+  it("does not track faq_expand when closing an already-open item", () => {
+    const { details, summary } = buildFaqItem();
+    details.open = true;
+    loadModule();
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+
+    summary.click();
+
+    expect(trackEvent).not.toHaveBeenCalled();
   });
 
   it("closes an open details element once the animation finishes", () => {

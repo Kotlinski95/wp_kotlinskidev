@@ -7,7 +7,6 @@ import {
   useInteractiveAttributes,
   RealBlockEdit,
 } from "@utils/storybook-edit-props";
-import { MOCK_ICON } from "../../../.storybook/mock-assets";
 import "./index";
 
 function MarqueeItemStory() {
@@ -26,6 +25,14 @@ const meta: Meta<typeof Edit> = {
   title: "Blocks/Marquee Item",
   component: Edit,
   render: MarqueeItemStory,
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "The modal picker's dropdown stays on \"Loading…\" here — same known gap as `modal-trigger`/`content-block`/`navigation` (`core`'s real `getEntityRecords('postType', 'kt_modal', ...)` has no live WP backend to resolve in Storybook).",
+      },
+    },
+  },
 };
 
 export default meta;
@@ -33,20 +40,6 @@ export default meta;
 type Story = StoryObj<typeof Edit>;
 
 export const Default: Story = {
-  args: {
-    attributes: {
-      ...getDefaultAttributes<MarqueeItemAttributes>(metadata.attributes),
-      label: "React",
-      navIconId: 1,
-      navIconUrl: MOCK_ICON,
-      description:
-        "My default for anything interactive — component-driven UIs that stay easy to extend when a client's product grows past the first version.",
-      docUrl: "https://react.dev",
-    },
-  },
-};
-
-export const Empty: Story = {
   args: {
     attributes: getDefaultAttributes<MarqueeItemAttributes>(metadata.attributes),
   },

@@ -1,3 +1,5 @@
+jest.mock("./track-event", () => ({ trackEvent: jest.fn() }));
+
 function loadScript() {
   jest.resetModules();
   require("./load-more");
@@ -60,6 +62,9 @@ describe("load-more.ts", () => {
     const hidden = document.querySelectorAll(".kt-load-more-hidden");
     expect(hidden).toHaveLength(0);
     expect(document.querySelector(".kt-load-more__wrapper")).not.toBeInTheDocument();
+
+    const trackEvent = require("./track-event").trackEvent as jest.Mock;
+    expect(trackEvent).toHaveBeenCalledWith("load_more_click", { items_revealed: 2 });
   });
 
   it("ignores an invalid or missing initial count", () => {

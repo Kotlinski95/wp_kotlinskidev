@@ -472,6 +472,31 @@ function kotlinskidev_register_settings(): void
     );
 
     register_setting(
+        'kotlinskidev_settings_tracking',
+        'kotlinskidev_enabled_analytics_events',
+        [
+            'type'              => 'array',
+            'sanitize_callback' => 'kotlinskidev_sanitize_enabled_analytics_events',
+            'default'           => array_keys(kotlinskidev_tracked_event_names()),
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_tracking_events',
+        esc_html__('Custom Event Tracking', 'kotlinskidev'),
+        'kotlinskidev_render_tracking_events_section',
+        'kotlinskidev-settings-tracking'
+    );
+
+    add_settings_field(
+        'kotlinskidev_enabled_analytics_events',
+        esc_html__('Enabled events', 'kotlinskidev'),
+        'kotlinskidev_render_tracking_events_field',
+        'kotlinskidev-settings-tracking',
+        'kotlinskidev_section_tracking_events'
+    );
+
+    register_setting(
         'kotlinskidev_settings_security',
         'kotlinskidev_csp_enabled',
         [
@@ -1104,7 +1129,7 @@ add_action('admin_enqueue_scripts', 'kotlinskidev_enqueue_login_settings_media')
 
 function kotlinskidev_render_tracking_fb_section(): void
 {
-    echo '<p>' . esc_html__('Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses).', 'kotlinskidev') . '</p>';
+    echo '<p>' . esc_html__('Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses), gated behind Complianz\'s "marketing" consent category — it only executes once a visitor accepts marketing cookies. A pasted custom script is output as-is and is not consent-gated automatically.', 'kotlinskidev') . '</p>';
 }
 
 function kotlinskidev_render_fb_pixel_id_field(): void
@@ -1126,7 +1151,7 @@ function kotlinskidev_render_fb_pixel_script_field(): void
 
 function kotlinskidev_render_tracking_ga_section(): void
 {
-    echo '<p>' . esc_html__('Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses).', 'kotlinskidev') . '</p>';
+    echo '<p>' . esc_html__('Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses), gated behind Complianz\'s "statistics" consent category — it only executes once a visitor accepts statistics cookies. A pasted custom script is output as-is and is not consent-gated automatically.', 'kotlinskidev') . '</p>';
 }
 
 function kotlinskidev_render_ga_id_field(): void
@@ -1143,6 +1168,31 @@ function kotlinskidev_render_ga_script_field(): void
     ?>
     <textarea name="custom_ga_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
     <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
+    <?php
+}
+
+function kotlinskidev_render_tracking_events_section(): void
+{
+    echo '<p>' . esc_html__('Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, form completions, lightbox opens, etc.). Unchecking one stops it going to every connected platform at once — for per-platform routing (e.g. an event reaching GA4 but not Meta), that stays a code-level decision in routing.ts. See docs/tracking-spec.md for what each event tracks.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_tracking_events_field(): void
+{
+    $enabled = kotlinskidev_get_enabled_analytics_events();
+    ?>
+    <input type="hidden" name="kotlinskidev_enabled_analytics_events[]" value="" />
+    <?php foreach (kotlinskidev_tracked_event_names() as $event_name => $label) : ?>
+        <label style="display:block;margin-bottom:0.25rem;">
+            <input
+                type="checkbox"
+                name="kotlinskidev_enabled_analytics_events[]"
+                value="<?php echo esc_attr($event_name); ?>"
+                <?php checked(in_array($event_name, $enabled, true)); ?>
+            />
+            <?php echo esc_html($label); ?>
+            <code><?php echo esc_html($event_name); ?></code>
+        </label>
+    <?php endforeach; ?>
     <?php
 }
 

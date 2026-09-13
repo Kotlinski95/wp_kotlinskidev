@@ -1,5 +1,6 @@
 import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
+import { trackEvent } from "./track-event";
 
 const OWNER = "kt-modal";
 const FOCUSABLE_SELECTOR =
@@ -75,6 +76,8 @@ function closeModal(): void {
     return;
   }
   const scrollYBeforeClose = window.scrollY;
+  const modal = activeModal;
+  const trigger = activeTrigger;
   setBackgroundInert(activeModal, false);
   activeModal.classList.remove("is-open");
   activeModal.setAttribute("aria-hidden", "true");
@@ -85,6 +88,7 @@ function closeModal(): void {
   activeModal = null;
   activeTrigger = null;
   guardScrollPosition(scrollYBeforeClose, SCROLL_GUARD_FRAMES);
+  document.dispatchEvent(new CustomEvent("kt-modal:close", { detail: { modal, trigger } }));
 }
 
 function openModal(modal: HTMLElement, trigger: HTMLElement): void {
@@ -99,6 +103,8 @@ function openModal(modal: HTMLElement, trigger: HTMLElement): void {
   setBackgroundInert(modal, true);
   lockScroll(OWNER);
   guardScrollPosition(scrollYBeforeOpen, SCROLL_GUARD_FRAMES);
+  document.dispatchEvent(new CustomEvent("kt-modal:open", { detail: { modal, trigger } }));
+  trackEvent("modal_open", { modal_id: modal.id });
 }
 
 export function initModalManager(): void {

@@ -3,6 +3,7 @@
  */
 
 import DOMPurify from "dompurify";
+import { trackEvent } from "./track-event";
 
 interface ProtectionConfig {
   ajaxUrl: string;
@@ -97,6 +98,7 @@ const revealContent = (element: HTMLElement, content: string, type: string): voi
   element.classList.add("protection-loaded");
   element.removeAttribute("data-original-content");
   element.setAttribute("aria-label", `Protected ${type} content revealed`);
+  trackEvent("protected_content_reveal", { type });
 };
 
 const showError = (element: HTMLElement, type: string): void => {

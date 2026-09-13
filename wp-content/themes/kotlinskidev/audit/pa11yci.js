@@ -1,6 +1,6 @@
-const { pages, baseUrl } = require("./urls.json");
+const { loadPages } = require("./lib/load-pages");
 
-const base = (process.env.AUDIT_BASE_URL || baseUrl).replace(/\/$/, "");
+const { baseUrl, pages } = loadPages();
 
 module.exports = {
   defaults: {
@@ -11,5 +11,5 @@ module.exports = {
       args: ["--no-sandbox"],
     },
   },
-  urls: pages.map((page) => `${base}${page.path}`),
+  urls: pages.map((page) => `${baseUrl}${page.path}`),
 };
