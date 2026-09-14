@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-09-13T09:10:53+00:00\n"
+"POT-Creation-Date: 2026-09-14T07:12:55+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -59,7 +59,9 @@ msgstr "Adres"
 msgid "Phone"
 msgstr "Telefon"
 
-#: build/blocks/contact-detail/render.php:18 functions/contact-card.php:75
+#: build/blocks/contact-detail/render.php:18
+#: functions/class-contact-submissions-list-table.php:25
+#: functions/contact-card.php:75 functions/contact-form-submissions.php:172
 #: functions/settings-page.php:699 src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1 build/js/protected-content.js:1
 msgid "Email"
@@ -250,8 +252,8 @@ msgid "Dark/light mode toggled"
 msgstr "Przełączenie trybu ciemnego/jasnego"
 
 #: functions/analytics-events.php:23
-msgid "Protected content revealed"
-msgstr "Odsłonięcie chronionej treści"
+msgid "Protected content copied/clicked"
+msgstr "Skopiowano/kliknięto chronioną treść"
 
 #: functions/article-card.php:5
 msgid "Article Cards"
@@ -350,6 +352,8 @@ msgid "Order By"
 msgstr "Sortuj według"
 
 #: functions/article-query-manager.php:99
+#: functions/class-contact-submissions-list-table.php:28
+#: functions/contact-form-submissions.php:164
 msgid "Date"
 msgstr "Data"
 
@@ -755,6 +759,54 @@ msgstr "Ustawiane automatycznie przy każdym nowym buildzie"
 msgid "Clear all theme cache"
 msgstr "Wyczyść całą pamięć podręczną motywu"
 
+#: functions/class-contact-submissions-list-table.php:23
+msgid "Status"
+msgstr "Status"
+
+#: functions/class-contact-submissions-list-table.php:24
+#: functions/contact-form-submissions.php:168
+msgid "Name"
+msgstr "Imię"
+
+#: functions/class-contact-submissions-list-table.php:26
+#: functions/contact-form-submissions.php:176
+msgid "Topic"
+msgstr "Temat"
+
+#: functions/class-contact-submissions-list-table.php:27
+#: functions/contact-form-submissions.php:180
+msgid "Message"
+msgstr "Wiadomość"
+
+#: functions/class-contact-submissions-list-table.php:42
+#: functions/class-contact-submissions-list-table.php:82
+#: functions/contact-form-submissions.php:200
+msgid "Delete"
+msgstr "Usuń"
+
+#: functions/class-contact-submissions-list-table.php:54
+#: functions/contact-form-submissions.php:222
+msgid "Unread"
+msgstr "Nieprzeczytane"
+
+#: functions/class-contact-submissions-list-table.php:57
+msgid "Emailed successfully"
+msgstr "E-mail wysłany pomyślnie"
+
+#: functions/class-contact-submissions-list-table.php:58
+msgid "Email delivery failed"
+msgstr "Nie udało się dostarczyć e-maila"
+
+#: functions/class-contact-submissions-list-table.php:77
+#: functions/search-page-dynamic-blocks.php:103
+msgid "View"
+msgstr "Zobacz"
+
+#: functions/class-contact-submissions-list-table.php:81
+#: functions/contact-form-submissions.php:199
+msgid "Delete this submission permanently?"
+msgstr "Trwale usunąć to zgłoszenie?"
+
 #: functions/contact-card.php:53
 msgid "Contact details"
 msgstr "Dane kontaktowe"
@@ -762,6 +814,72 @@ msgstr "Dane kontaktowe"
 #: functions/contact-card.php:87 functions/service-locations.php:253
 msgid "Contact Card"
 msgstr "Karta kontaktowa"
+
+#: functions/contact-form-submissions.php:92
+msgid "Submissions"
+msgstr "Zgłoszenia"
+
+#: functions/contact-form-submissions.php:103
+msgid "Contact Submissions"
+msgstr "Zgłoszenia kontaktowe"
+
+#: functions/contact-form-submissions.php:117
+msgid "You do not have permission to access this page."
+msgstr "Nie masz uprawnień, aby uzyskać dostęp do tej strony."
+
+#: functions/contact-form-submissions.php:148
+msgid "Submission not found."
+msgstr "Nie znaleziono zgłoszenia."
+
+#: functions/contact-form-submissions.php:160
+msgid "Submission Details"
+msgstr "Szczegóły zgłoszenia"
+
+#: functions/contact-form-submissions.php:161
+msgid "Back to all submissions"
+msgstr "Powrót do wszystkich zgłoszeń"
+
+#: functions/contact-form-submissions.php:184
+msgid "Agreed to be contacted"
+msgstr "Zgoda na kontakt"
+
+#: functions/contact-form-submissions.php:185
+msgid "Yes"
+msgstr "Tak"
+
+#: functions/contact-form-submissions.php:185
+msgid "No"
+msgstr "Nie"
+
+#: functions/contact-form-submissions.php:188
+msgid "Email delivery"
+msgstr "Dostarczenie e-maila"
+
+#: functions/contact-form-submissions.php:189
+#: functions/contact-form-submissions.php:223
+msgid "Sent"
+msgstr "Wysłano"
+
+#: functions/contact-form-submissions.php:189
+#: functions/contact-form-submissions.php:224
+msgid "Failed"
+msgstr "Niepowodzenie"
+
+#: functions/contact-form-submissions.php:193
+msgid "Submitted from"
+msgstr "Wysłano z"
+
+#: functions/contact-form-submissions.php:221
+msgid "All"
+msgstr "Wszystkie"
+
+#: functions/contact-form-submissions.php:228
+msgid "Contact Form Submissions"
+msgstr "Zgłoszenia z formularza kontaktowego"
+
+#: functions/contact-form-submissions.php:253
+msgid "You do not have permission to perform this action."
+msgstr "Nie masz uprawnień, aby wykonać tę czynność."
 
 #: functions/contact-form.php:24
 msgid "Security check failed. Please reload the page and try again."
@@ -1166,10 +1284,6 @@ msgstr "Strona"
 #: functions/search-page-dynamic-blocks.php:100
 msgid "Updated"
 msgstr "Zaktualizowano"
-
-#: functions/search-page-dynamic-blocks.php:103
-msgid "View"
-msgstr "Zobacz"
 
 #: functions/search-page-dynamic-blocks.php:103
 msgid "Read"
@@ -1866,7 +1980,12 @@ msgid ""
 "responses), gated behind Complianz's \"marketing\" consent category — it "
 "only executes once a visitor accepts marketing cookies. A pasted custom "
 "script is output as-is and is not consent-gated automatically."
-msgstr "Ładuje Facebook Pixel wyłącznie na stronie frontowej (nie w wp-admin ani w odpowiedziach REST), pod warunkiem zgody z kategorii „marketingowe” w Complianz — uruchamia się dopiero, gdy odwiedzający zaakceptuje pliki cookie marketingowe. Wklejony własny skrypt jest wyświetlany bez zmian i nie jest automatycznie objęty bramką zgody."
+msgstr ""
+"Ładuje Facebook Pixel wyłącznie na stronie frontowej (nie w wp-admin ani w "
+"odpowiedziach REST), pod warunkiem zgody z kategorii „marketingowe” w "
+"Complianz — uruchamia się dopiero, gdy odwiedzający zaakceptuje pliki cookie "
+"marketingowe. Wklejony własny skrypt jest wyświetlany bez zmian i nie jest "
+"automatycznie objęty bramką zgody."
 
 #: functions/settings-page.php:1148 functions/settings-page.php:1170
 msgid "Paste a full script tag here to override the ID-based snippet above."
@@ -1879,7 +1998,12 @@ msgid ""
 "REST responses), gated behind Complianz's \"statistics\" consent category — "
 "it only executes once a visitor accepts statistics cookies. A pasted custom "
 "script is output as-is and is not consent-gated automatically."
-msgstr "Ładuje Google Analytics (gtag.js) wyłącznie na stronie frontowej (nie w wp-admin ani w odpowiedziach REST), pod warunkiem zgody z kategorii „statystyczne” w Complianz — uruchamia się dopiero, gdy odwiedzający zaakceptuje pliki cookie statystyczne. Wklejony własny skrypt jest wyświetlany bez zmian i nie jest automatycznie objęty bramką zgody."
+msgstr ""
+"Ładuje Google Analytics (gtag.js) wyłącznie na stronie frontowej (nie w wp-"
+"admin ani w odpowiedziach REST), pod warunkiem zgody z kategorii "
+"„statystyczne” w Complianz — uruchamia się dopiero, gdy odwiedzający "
+"zaakceptuje pliki cookie statystyczne. Wklejony własny skrypt jest "
+"wyświetlany bez zmian i nie jest automatycznie objęty bramką zgody."
 
 #: functions/settings-page.php:1176
 msgid ""
@@ -1888,7 +2012,14 @@ msgid ""
 "every connected platform at once — for per-platform routing (e.g. an event "
 "reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
 "See docs/tracking-spec.md for what each event tracks."
-msgstr "Niestandardowe zdarzenia GA4/Meta, które ten motyw wysyła oprócz zwykłego wyświetlenia strony (kliknięcia CTA, ukończenia formularzy, otwarcia lightboxa itd.). Odznaczenie danego zdarzenia zatrzymuje jego wysyłkę do wszystkich podłączonych platform naraz — kierowanie per-platforma (np. zdarzenie trafiające do GA4, ale nie do Meta) pozostaje decyzją na poziomie kodu w routing.ts. Pełną listę zdarzeń i ich parametrów opisuje docs/tracking-spec.md."
+msgstr ""
+"Niestandardowe zdarzenia GA4/Meta, które ten motyw wysyła oprócz zwykłego "
+"wyświetlenia strony (kliknięcia CTA, ukończenia formularzy, otwarcia "
+"lightboxa itd.). Odznaczenie danego zdarzenia zatrzymuje jego wysyłkę do "
+"wszystkich podłączonych platform naraz — kierowanie per-platforma (np. "
+"zdarzenie trafiające do GA4, ale nie do Meta) pozostaje decyzją na poziomie "
+"kodu w routing.ts. Pełną listę zdarzeń i ich parametrów opisuje docs/"
+"tracking-spec.md."
 
 #: functions/settings-page.php:1201
 msgid ""

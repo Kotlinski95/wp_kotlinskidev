@@ -78,16 +78,31 @@ it('outputs the gtag script for a configured GA id', function () {
     expect($html)->toContain("gtag('config', 'G-ABC123')");
 });
 
-it('gates the default gtag script behind the statistics consent category', function () {
+it('loads gtag.js unconditionally with Consent Mode v2 default-denied signals', function () {
     update_option('custom_ga_loader_ga_id', 'G-ABC123');
 
     ob_start();
     kotlinskidev_output_google_analytics();
     $html = ob_get_clean();
 
-    expect($html)->toContain('type="text/plain" data-category="statistics" data-src="https://www.googletagmanager.com/gtag/js?id=G-ABC123"');
-    expect($html)->toContain('type="text/plain" data-category="statistics">');
-    expect($html)->not->toContain('<script defer src="https://www.googletagmanager.com');
+    expect($html)->toContain('<script async src="https://www.googletagmanager.com/gtag/js?id=G-ABC123"></script>');
+    expect($html)->not->toContain('type="text/plain"');
+    expect($html)->not->toContain('data-category="statistics"');
+    expect($html)->toContain("gtag('consent', 'default', {");
+    expect($html)->toContain("'analytics_storage': 'denied'");
+});
+
+it('updates gtag consent live from cmplz_fire_categories, mapping statistics/marketing independently', function () {
+    update_option('custom_ga_loader_ga_id', 'G-ABC123');
+
+    ob_start();
+    kotlinskidev_output_google_analytics();
+    $html = ob_get_clean();
+
+    expect($html)->toContain("document.addEventListener('cmplz_fire_categories'");
+    expect($html)->toContain("categories.indexOf('statistics') !== -1");
+    expect($html)->toContain("categories.indexOf('marketing') !== -1");
+    expect($html)->toContain("document.addEventListener('cmplz_revoke'");
 });
 
 it('outputs a custom GA script verbatim instead of the default snippet', function () {

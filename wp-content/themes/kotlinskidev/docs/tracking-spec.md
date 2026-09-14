@@ -81,7 +81,7 @@ vendor automatically for whichever events you routed to it.
 | `modal_open` | gtag | `modal-manager.ts` | `modal_id` | Any generic `kt-modal` opening (marquee items, anything else using `[data-kt-modal-target]`) — separate from `lightbox_open`, which is the gallery/image lightbox specifically. |
 | `load_more_click` | gtag | `load-more.ts` | `items_revealed` | Click on a `.kt-load-more__button`. |
 | `theme_mode_toggle` | gtag | `theme-switcher.ts` | `mode` (`light`/`dark`) | User-initiated dark/light toggle — not the initial load-time mode apply (stored preference or OS default), only an actual click/keypress on the switch. |
-| `protected_content_reveal` | gtag | `protected-content.ts` | `type` | A password/scraper-gated field (`kt-contact-card`, `contact-detail`, etc.) successfully decrypting and revealing — not on a failed reveal. |
+| `protected_content_reveal` | gtag | `protected-content.ts` | `type`, `action` (`copy`/`click`) | Real engagement with an already-revealed password/scraper-gated field (`kt-contact-card`, `contact-detail`, etc.) — copying its value via `.kt-copy-btn`, or clicking a revealed `tel:`/`mailto:` link. Deliberately **not** fired on the passive decrypt-and-reveal itself (an `IntersectionObserver` firing for every visitor who scrolls past the block was near-100% noise, not a real signal). |
 
 "Providers" is the default from `routing.ts`'s `EVENT_PROVIDER_IDS` — edit that file to change which
 platform(s) any event reaches, nothing else in this table needs code changes to match.

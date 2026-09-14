@@ -46,7 +46,7 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 76 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 78 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -63,7 +63,9 @@ kotlinskidev/
 │   ├── breakpoints.php                         # central breakpoint values, exposed to editor + front end
 │   ├── cache.php                               # build-fingerprint/transient cache manager — must load first
 │   ├── contact-card.php                        # kotlinskidev_get_contact_info() reads the 4 global "Contact Info" settings (address/phone/email/hours); registers the kotlinskidev/contact-card dynamic block, wrapping address/phone/email in the same protected-content encrypted-span markup the Protected Content block uses (auto-revealed by src/scripts/protected-content.ts); also emits a ProfessionalService JSON-LD schema on singular service_location pages via wp_head, with the post's "city" meta as areaServed
-│   ├── contact-form.php                        # handles contact-form block submission end-to-end
+│   ├── contact-form.php                        # handles contact-form block submission end-to-end; persists every submission via contact-form-submissions.php before attempting wp_mail(), so a failed send never means total data loss
+│   ├── contact-form-submissions.php            # private wp-admin "Submissions" screen (dashicons-email-alt, manage_options): custom wp_kotlinskidev_contact_submissions table (dbDelta, versioned via admin_init self-heal), unread-count menu badge, single-submission detail view (marks read_at on first view), nonce-gated single/bulk delete — the audit trail for "I submitted the form but never got the email"
+│   ├── class-contact-submissions-list-table.php # Kotlinskidev_Contact_Submissions_List_Table extends core WP_List_Table — status/name/email/topic/message/date columns, All/Unread/Sent/Failed filter links, sortable date/name, bulk delete
 │   ├── copyrights.php                          # [copyrights] shortcode
 │   ├── cover-image-classes.php                 # lazy-loading behavior control for cover blocks
 │   ├── cover-video-preload.php                 # injects <link rel=preload> for cover-block video posters
@@ -720,6 +722,7 @@ kotlinskidev/
 │   │   ├── homepage.spec.ts                    # smoke test — homepage loads
 │   │   ├── header.spec.ts                      # 31 tests — parts/header.html (mega-nav, search/language dropdowns, hamburger overlay, sticky header)
 │   │   ├── footer.spec.ts                      # 9 tests — parts/footer.html (nav grid, brand block, copyrights, scroll-to-top, mobile bottom nav)
+│   │   ├── consent-mode.spec.ts                # 5 tests — functions/tracking-scripts.php's GA4 Consent Mode v2: gtag.js loads with every signal denied by default, accept-all/deny-all/statistics-only/marketing-only each drive the real Complianz banner and assert the resulting gtag consent update — regression guard for a Complianz plugin update silently breaking consent gating
 │   │   ├── animated-counter.spec.ts            # frontend — kotlinskidev/animated-counter block extension
 │   │   ├── banner-carousel.spec.ts             # frontend — kotlinskidev/banner-carousel block
 │   │   ├── cover-lazy-loading.spec.ts          # frontend — kotlinskidev/cover-lazy-loading block extension
@@ -745,7 +748,7 @@ kotlinskidev/
 │       ├── Pest.php                            # integration-suite bootstrap
 │       ├── TestCase.php                        # extends WP_UnitTestCase
 │       ├── bootstrap.php                       # boots wp-phpunit against a dedicated kotlinskidev_test MySQL database
-│       └── tests/                              # 67 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
+│       └── tests/                              # 68 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
 ├── .env
 ├── .env.example
 ├── .envrc

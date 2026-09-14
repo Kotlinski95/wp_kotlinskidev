@@ -33,9 +33,12 @@
 	object-fit: contain;
 	opacity: 0;
 	pointer-events: none;
+	z-index: 1;
 
 	.model-viewer__trigger.is-loaded & {
 		opacity: 1;
+		pointer-events: auto;
+		z-index: 2;
 	}
 }
 

@@ -97,6 +97,7 @@ require_once get_template_directory() . '/functions/responsive-font-size.php';
 
 // Load contact form submission handler
 require_once get_template_directory() . '/functions/contact-form.php';
+require_once get_template_directory() . '/functions/contact-form-submissions.php';
 
 // Load link hover effects controls
 require_once get_template_directory() . '/functions/link-hover-effects.php';

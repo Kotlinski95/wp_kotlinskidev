@@ -98,7 +98,6 @@ const revealContent = (element: HTMLElement, content: string, type: string): voi
   element.classList.add("protection-loaded");
   element.removeAttribute("data-original-content");
   element.setAttribute("aria-label", `Protected ${type} content revealed`);
-  trackEvent("protected_content_reveal", { type });
 };
 
 const showError = (element: HTMLElement, type: string): void => {
@@ -277,6 +276,26 @@ const copyToClipboard = async (value: string): Promise<boolean> => {
   return copyWithExecCommand(value);
 };
 
+const trackProtectedInteraction = (element: HTMLElement, action: "copy" | "click"): void => {
+  const type = element
+    .closest<HTMLElement>("[data-protection-type]")
+    ?.getAttribute("data-protection-type");
+  if (!type) {
+    return;
+  }
+  trackEvent("protected_content_reveal", { type, action });
+};
+
+const handleProtectedLinkClick = (event: Event): void => {
+  const link = (event.target as HTMLElement).closest<HTMLAnchorElement>(
+    'a[href^="tel:"], a[href^="mailto:"]'
+  );
+  if (!link) {
+    return;
+  }
+  trackProtectedInteraction(link, "click");
+};
+
 const handleCopyButtonClick = async (event: Event): Promise<void> => {
   const button = (event.target as HTMLElement).closest<HTMLButtonElement>(".kt-copy-btn");
   if (!button) {
@@ -293,6 +312,8 @@ const handleCopyButtonClick = async (event: Event): Promise<void> => {
     console.error("Failed to copy to clipboard");
     return;
   }
+
+  trackProtectedInteraction(button, "copy");
 
   const copyLabel = button.getAttribute("data-copy-label") || "";
   const copiedLabel = button.getAttribute("data-copied-label") || copyLabel;
@@ -319,6 +340,7 @@ const handleCopyButtonClick = async (event: Event): Promise<void> => {
 
 const observeCopyButtons = (): void => {
   document.addEventListener("click", handleCopyButtonClick);
+  document.addEventListener("click", handleProtectedLinkClick);
 };
 
 const initProtection = (): void => {

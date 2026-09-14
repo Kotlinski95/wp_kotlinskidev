@@ -54,12 +54,39 @@ function kotlinskidev_output_google_analytics(): void
     }
     ?>
     <!-- Google tag (gtag.js) -->
-    <script type="text/plain" data-category="statistics" data-src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( $ga_id ); ?>"></script>
-    <script type="text/plain" data-category="statistics">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( $ga_id ); ?>"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+      });
       gtag('js', new Date());
       gtag('config', '<?php echo esc_js( $ga_id ); ?>');
+
+      document.addEventListener('cmplz_fire_categories', function (event) {
+        var categories = event.detail.categories;
+        var statisticsGranted = categories.indexOf('statistics') !== -1;
+        var marketingGranted = categories.indexOf('marketing') !== -1;
+        gtag('consent', 'update', {
+          'analytics_storage': statisticsGranted ? 'granted' : 'denied',
+          'ad_storage': marketingGranted ? 'granted' : 'denied',
+          'ad_user_data': marketingGranted ? 'granted' : 'denied',
+          'ad_personalization': marketingGranted ? 'granted' : 'denied',
+        });
+      });
+
+      document.addEventListener('cmplz_revoke', function () {
+        gtag('consent', 'update', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied',
+        });
+      });
     </script>
     <?php
 }

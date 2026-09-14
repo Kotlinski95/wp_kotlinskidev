@@ -88,5 +88,6 @@ it('outputs the default gtag snippet when only the measurement id is configured'
 
     expect($output)->toContain("gtag('config', 'G-ABC123')");
     expect($output)->toContain('gtag/js?id=G-ABC123');
-    expect($output)->toContain('type="text/plain" data-category="statistics"');
+    expect($output)->toContain("gtag('consent', 'default', {");
+    expect($output)->not->toContain('type="text/plain"');
 });

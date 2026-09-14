@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-09-13T09:10:53+00:00\n"
+"POT-Creation-Date: 2026-09-14T07:12:55+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -58,7 +58,9 @@ msgstr "Address"
 msgid "Phone"
 msgstr "Phone"
 
-#: build/blocks/contact-detail/render.php:18 functions/contact-card.php:75
+#: build/blocks/contact-detail/render.php:18
+#: functions/class-contact-submissions-list-table.php:25
+#: functions/contact-card.php:75 functions/contact-form-submissions.php:172
 #: functions/settings-page.php:699 src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1 build/js/protected-content.js:1
 msgid "Email"
@@ -248,8 +250,8 @@ msgid "Dark/light mode toggled"
 msgstr "Dark/light mode toggled"
 
 #: functions/analytics-events.php:23
-msgid "Protected content revealed"
-msgstr "Protected content revealed"
+msgid "Protected content copied/clicked"
+msgstr "Protected content copied/clicked"
 
 #: functions/article-card.php:5
 msgid "Article Cards"
@@ -348,6 +350,8 @@ msgid "Order By"
 msgstr "Order By"
 
 #: functions/article-query-manager.php:99
+#: functions/class-contact-submissions-list-table.php:28
+#: functions/contact-form-submissions.php:164
 msgid "Date"
 msgstr "Date"
 
@@ -748,6 +752,54 @@ msgstr "Set automatically on every new build"
 msgid "Clear all theme cache"
 msgstr "Clear all theme cache"
 
+#: functions/class-contact-submissions-list-table.php:23
+msgid "Status"
+msgstr "Status"
+
+#: functions/class-contact-submissions-list-table.php:24
+#: functions/contact-form-submissions.php:168
+msgid "Name"
+msgstr "Name"
+
+#: functions/class-contact-submissions-list-table.php:26
+#: functions/contact-form-submissions.php:176
+msgid "Topic"
+msgstr "Topic"
+
+#: functions/class-contact-submissions-list-table.php:27
+#: functions/contact-form-submissions.php:180
+msgid "Message"
+msgstr "Message"
+
+#: functions/class-contact-submissions-list-table.php:42
+#: functions/class-contact-submissions-list-table.php:82
+#: functions/contact-form-submissions.php:200
+msgid "Delete"
+msgstr "Delete"
+
+#: functions/class-contact-submissions-list-table.php:54
+#: functions/contact-form-submissions.php:222
+msgid "Unread"
+msgstr "Unread"
+
+#: functions/class-contact-submissions-list-table.php:57
+msgid "Emailed successfully"
+msgstr "Emailed successfully"
+
+#: functions/class-contact-submissions-list-table.php:58
+msgid "Email delivery failed"
+msgstr "Email delivery failed"
+
+#: functions/class-contact-submissions-list-table.php:77
+#: functions/search-page-dynamic-blocks.php:103
+msgid "View"
+msgstr "View"
+
+#: functions/class-contact-submissions-list-table.php:81
+#: functions/contact-form-submissions.php:199
+msgid "Delete this submission permanently?"
+msgstr "Delete this submission permanently?"
+
 #: functions/contact-card.php:53
 msgid "Contact details"
 msgstr "Contact details"
@@ -755,6 +807,72 @@ msgstr "Contact details"
 #: functions/contact-card.php:87 functions/service-locations.php:253
 msgid "Contact Card"
 msgstr "Contact Card"
+
+#: functions/contact-form-submissions.php:92
+msgid "Submissions"
+msgstr "Submissions"
+
+#: functions/contact-form-submissions.php:103
+msgid "Contact Submissions"
+msgstr "Contact Submissions"
+
+#: functions/contact-form-submissions.php:117
+msgid "You do not have permission to access this page."
+msgstr "You do not have permission to access this page."
+
+#: functions/contact-form-submissions.php:148
+msgid "Submission not found."
+msgstr "Submission not found."
+
+#: functions/contact-form-submissions.php:160
+msgid "Submission Details"
+msgstr "Submission Details"
+
+#: functions/contact-form-submissions.php:161
+msgid "Back to all submissions"
+msgstr "Back to all submissions"
+
+#: functions/contact-form-submissions.php:184
+msgid "Agreed to be contacted"
+msgstr "Agreed to be contacted"
+
+#: functions/contact-form-submissions.php:185
+msgid "Yes"
+msgstr "Yes"
+
+#: functions/contact-form-submissions.php:185
+msgid "No"
+msgstr "No"
+
+#: functions/contact-form-submissions.php:188
+msgid "Email delivery"
+msgstr "Email delivery"
+
+#: functions/contact-form-submissions.php:189
+#: functions/contact-form-submissions.php:223
+msgid "Sent"
+msgstr "Sent"
+
+#: functions/contact-form-submissions.php:189
+#: functions/contact-form-submissions.php:224
+msgid "Failed"
+msgstr "Failed"
+
+#: functions/contact-form-submissions.php:193
+msgid "Submitted from"
+msgstr "Submitted from"
+
+#: functions/contact-form-submissions.php:221
+msgid "All"
+msgstr "All"
+
+#: functions/contact-form-submissions.php:228
+msgid "Contact Form Submissions"
+msgstr "Contact Form Submissions"
+
+#: functions/contact-form-submissions.php:253
+msgid "You do not have permission to perform this action."
+msgstr "You do not have permission to perform this action."
 
 #: functions/contact-form.php:24
 msgid "Security check failed. Please reload the page and try again."
@@ -1153,10 +1271,6 @@ msgstr "Page"
 #: functions/search-page-dynamic-blocks.php:100
 msgid "Updated"
 msgstr "Updated"
-
-#: functions/search-page-dynamic-blocks.php:103
-msgid "View"
-msgstr "View"
 
 #: functions/search-page-dynamic-blocks.php:103
 msgid "Read"
@@ -1842,7 +1956,11 @@ msgid ""
 "responses), gated behind Complianz's \"marketing\" consent category — it "
 "only executes once a visitor accepts marketing cookies. A pasted custom "
 "script is output as-is and is not consent-gated automatically."
-msgstr "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"marketing\" consent category — it only executes once a visitor accepts marketing cookies. A pasted custom script is output as-is and is not consent-gated automatically."
+msgstr ""
+"Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
+"responses), gated behind Complianz's \"marketing\" consent category — it "
+"only executes once a visitor accepts marketing cookies. A pasted custom "
+"script is output as-is and is not consent-gated automatically."
 
 #: functions/settings-page.php:1148 functions/settings-page.php:1170
 msgid "Paste a full script tag here to override the ID-based snippet above."
@@ -1854,7 +1972,11 @@ msgid ""
 "REST responses), gated behind Complianz's \"statistics\" consent category — "
 "it only executes once a visitor accepts statistics cookies. A pasted custom "
 "script is output as-is and is not consent-gated automatically."
-msgstr "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"statistics\" consent category — it only executes once a visitor accepts statistics cookies. A pasted custom script is output as-is and is not consent-gated automatically."
+msgstr ""
+"Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
+"REST responses), gated behind Complianz's \"statistics\" consent category — "
+"it only executes once a visitor accepts statistics cookies. A pasted custom "
+"script is output as-is and is not consent-gated automatically."
 
 #: functions/settings-page.php:1176
 msgid ""
@@ -1863,7 +1985,12 @@ msgid ""
 "every connected platform at once — for per-platform routing (e.g. an event "
 "reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
 "See docs/tracking-spec.md for what each event tracks."
-msgstr "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, form completions, lightbox opens, etc.). Unchecking one stops it going to every connected platform at once — for per-platform routing (e.g. an event reaching GA4 but not Meta), that stays a code-level decision in routing.ts. See docs/tracking-spec.md for what each event tracks."
+msgstr ""
+"Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, "
+"form completions, lightbox opens, etc.). Unchecking one stops it going to "
+"every connected platform at once — for per-platform routing (e.g. an event "
+"reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
+"See docs/tracking-spec.md for what each event tracks."
 
 #: functions/settings-page.php:1201
 msgid ""

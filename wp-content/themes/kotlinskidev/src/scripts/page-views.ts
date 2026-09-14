@@ -30,7 +30,7 @@
     return;
   }
 
-  const trackPageView = () => {
+  const sendPageView = () => {
     const storageKey = `pv_${postId}_${new Date().toDateString()}`;
 
     if (localStorage.getItem(storageKey)) {
@@ -61,6 +61,27 @@
 
     xhr.send(formData.toString());
   };
+
+  let statisticsConsentGranted = false;
+  let trackPending = false;
+
+  const trackPageView = () => {
+    if (!statisticsConsentGranted) {
+      trackPending = true;
+      return;
+    }
+    sendPageView();
+  };
+
+  document.addEventListener("cmplz_fire_categories", (event) => {
+    const categories = (event as CustomEvent<{ categories?: string[] }>).detail?.categories ?? [];
+    statisticsConsentGranted = categories.includes("statistics");
+
+    if (statisticsConsentGranted && trackPending) {
+      trackPending = false;
+      sendPageView();
+    }
+  });
 
   let hasScrolled = false;
   let timeSpent = 0;

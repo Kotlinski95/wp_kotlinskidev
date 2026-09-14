@@ -45,6 +45,12 @@ function loadWithPostId(postId: number) {
   require("./page-views");
 }
 
+function grantStatisticsConsent() {
+  document.dispatchEvent(
+    new CustomEvent("cmplz_fire_categories", { detail: { categories: ["statistics"] } })
+  );
+}
+
 describe("page-views.ts", () => {
   beforeEach(() => {
     jest.useFakeTimers();
@@ -88,6 +94,7 @@ describe("page-views.ts", () => {
     jest.resetModules();
 
     require("./page-views");
+    grantStatisticsConsent();
     jest.advanceTimersByTime(10000);
 
     expect(MockXHR.instances[0].sentBody).toContain("post_id=42");
@@ -100,6 +107,7 @@ describe("page-views.ts", () => {
     jest.resetModules();
 
     require("./page-views");
+    grantStatisticsConsent();
     jest.advanceTimersByTime(10000);
 
     expect(MockXHR.instances[0].sentBody).toContain("post_id=7");
@@ -108,6 +116,7 @@ describe("page-views.ts", () => {
   it("tracks the view once the user scrolls past 100px", () => {
     setAjaxGlobal();
     loadWithPostId(9);
+    grantStatisticsConsent();
 
     window.dispatchEvent(new Event("scroll"));
     expect(MockXHR.instances).toHaveLength(0);
@@ -121,6 +130,7 @@ describe("page-views.ts", () => {
   it("tracks the view when the page becomes hidden after the minimum dwell time", () => {
     setAjaxGlobal();
     loadWithPostId(9);
+    grantStatisticsConsent();
     jest.advanceTimersByTime(3000);
 
     Object.defineProperty(document, "hidden", { writable: true, configurable: true, value: true });
@@ -132,6 +142,7 @@ describe("page-views.ts", () => {
   it("does not track on visibilitychange before the minimum dwell time unless scrolled", () => {
     setAjaxGlobal();
     loadWithPostId(9);
+    grantStatisticsConsent();
 
     Object.defineProperty(document, "hidden", { writable: true, configurable: true, value: true });
     document.dispatchEvent(new Event("visibilitychange"));
@@ -142,6 +153,7 @@ describe("page-views.ts", () => {
   it("tracks the view after 10 seconds regardless of scroll or visibility", () => {
     setAjaxGlobal();
     loadWithPostId(9);
+    grantStatisticsConsent();
 
     jest.advanceTimersByTime(10000);
 
@@ -151,6 +163,7 @@ describe("page-views.ts", () => {
   it("does not send a second tracking request the same day for the same post", () => {
     setAjaxGlobal();
     loadWithPostId(9);
+    grantStatisticsConsent();
 
     jest.advanceTimersByTime(10000);
     expect(MockXHR.instances).toHaveLength(1);
@@ -164,6 +177,7 @@ describe("page-views.ts", () => {
   it("sends the expected AJAX action, post id, and nonce", () => {
     setAjaxGlobal();
     loadWithPostId(13);
+    grantStatisticsConsent();
 
     jest.advanceTimersByTime(10000);
 
@@ -176,6 +190,7 @@ describe("page-views.ts", () => {
   it("logs an error when the AJAX response is not valid JSON", () => {
     setAjaxGlobal();
     loadWithPostId(21);
+    grantStatisticsConsent();
     const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
     jest.advanceTimersByTime(10000);
@@ -183,5 +198,41 @@ describe("page-views.ts", () => {
 
     expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("21"));
     errorSpy.mockRestore();
+  });
+
+  it("does not write to localStorage or send anything without statistics consent", () => {
+    setAjaxGlobal();
+    loadWithPostId(9);
+
+    jest.advanceTimersByTime(10000);
+
+    expect(MockXHR.instances).toHaveLength(0);
+    expect(localStorage.getItem(`pv_9_${new Date().toDateString()}`)).toBeNull();
+  });
+
+  it("sends the queued view once statistics consent is granted after the dwell threshold already passed", () => {
+    setAjaxGlobal();
+    loadWithPostId(9);
+
+    jest.advanceTimersByTime(10000);
+    expect(MockXHR.instances).toHaveLength(0);
+
+    grantStatisticsConsent();
+
+    expect(MockXHR.instances).toHaveLength(1);
+  });
+
+  it("does not track when cmplz_fire_categories reports every category except statistics", () => {
+    setAjaxGlobal();
+    loadWithPostId(9);
+
+    document.dispatchEvent(
+      new CustomEvent("cmplz_fire_categories", {
+        detail: { categories: ["functional", "marketing", "preferences"] },
+      })
+    );
+    jest.advanceTimersByTime(10000);
+
+    expect(MockXHR.instances).toHaveLength(0);
   });
 });

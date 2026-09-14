@@ -20,7 +20,7 @@ function kotlinskidev_tracked_event_names(): array
         'modal_open'                  => __('Content modal opened', 'kotlinskidev'),
         'load_more_click'             => __('Load more clicked', 'kotlinskidev'),
         'theme_mode_toggle'           => __('Dark/light mode toggled', 'kotlinskidev'),
-        'protected_content_reveal'    => __('Protected content revealed', 'kotlinskidev'),
+        'protected_content_reveal'    => __('Protected content copied/clicked', 'kotlinskidev'),
     ];
 }
 

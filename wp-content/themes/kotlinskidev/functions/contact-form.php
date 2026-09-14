@@ -182,7 +182,21 @@ function kotlinskidev_contact_form_handle_submit() {
         'Reply-To: ' . $email,
     ];
 
-    if ( ! wp_mail( $admin_email, $subject, $body, $headers ) ) {
+    $submission_id = kotlinskidev_save_contact_submission(
+        [
+            'post_id' => $post_id,
+            'name'    => $name,
+            'email'   => $email,
+            'topic'   => $topic,
+            'message' => $message,
+            'agree'   => 'Yes' === $agree,
+        ]
+    );
+
+    $email_sent = wp_mail( $admin_email, $subject, $body, $headers );
+    kotlinskidev_mark_contact_submission_email_status( $submission_id, $email_sent );
+
+    if ( ! $email_sent ) {
         error_log( 'Contact form email sending failed.' );
     }
 

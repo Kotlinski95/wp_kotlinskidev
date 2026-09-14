@@ -158,7 +158,7 @@ describe("protected-content.ts", () => {
     expect(el.classList.contains("protection-loaded")).toBe(true);
     expect(el.hasAttribute("data-original-content")).toBe(false);
     const trackEvent = require("./track-event").trackEvent as jest.Mock;
-    expect(trackEvent).toHaveBeenCalledWith("protected_content_reveal", { type: "text" });
+    expect(trackEvent).not.toHaveBeenCalled();
   });
 
   it("shows an error state when the batch fetch fails", async () => {
@@ -306,14 +306,17 @@ describe("protected-content.ts", () => {
 
     function buildCopyButton() {
       document.body.innerHTML = `
-        <button
-          class="kt-copy-btn kt-tooltip"
-          data-copy-value="hello@example.test"
-          data-tooltip="Copy to clipboard"
-          data-copy-label="Copy to clipboard"
-          data-copied-label="Copied to clipboard"
-          aria-label="Copy to clipboard"
-        ></button>
+        <div data-protected="true" data-protection-type="email">
+          <a href="mailto:hello@example.test">hello@example.test</a>
+          <button
+            class="kt-copy-btn kt-tooltip"
+            data-copy-value="hello@example.test"
+            data-tooltip="Copy to clipboard"
+            data-copy-label="Copy to clipboard"
+            data-copied-label="Copied to clipboard"
+            aria-label="Copy to clipboard"
+          ></button>
+        </div>
       `;
       return document.querySelector<HTMLButtonElement>(".kt-copy-btn")!;
     }
@@ -331,6 +334,37 @@ describe("protected-content.ts", () => {
       await wait(10);
 
       expect(writeTextSpy).toHaveBeenCalledWith("hello@example.test");
+    });
+
+    it("tracks protected_content_reveal with the enclosing protection type on a successful copy", async () => {
+      const button = buildCopyButton();
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      const trackEvent = require("./track-event").trackEvent as jest.Mock;
+      expect(trackEvent).toHaveBeenCalledWith("protected_content_reveal", {
+        type: "email",
+        action: "copy",
+      });
+    });
+
+    it("does not track when the copy itself fails", async () => {
+      const button = buildCopyButton();
+      writeTextSpy.mockRejectedValueOnce(new Error("denied"));
+      const execCommandSpy = jest.fn().mockReturnValue(false);
+      Object.assign(document, { execCommand: execCommandSpy });
+      const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+      loadModule();
+
+      button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      await wait(10);
+
+      const trackEvent = require("./track-event").trackEvent as jest.Mock;
+      expect(trackEvent).not.toHaveBeenCalled();
+      errorSpy.mockRestore();
+      execCommandSpy.mockRestore();
     });
 
     it("switches to the translated copied-label and shows the tooltip on success", async () => {
@@ -421,6 +455,70 @@ describe("protected-content.ts", () => {
       expect(errorSpy).toHaveBeenCalled();
       errorSpy.mockRestore();
       execCommandSpy.mockRestore();
+    });
+  });
+
+  describe("revealed tel:/mailto: link clicks", () => {
+    it("tracks protected_content_reveal when a revealed mailto: link is clicked", () => {
+      document.body.innerHTML = `
+        <div data-protected="true" data-protection-type="email">
+          <a href="mailto:hello@example.test">hello@example.test</a>
+        </div>
+      `;
+      loadModule();
+      const link = document.querySelector("a")!;
+
+      link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+      const trackEvent = require("./track-event").trackEvent as jest.Mock;
+      expect(trackEvent).toHaveBeenCalledWith("protected_content_reveal", {
+        type: "email",
+        action: "click",
+      });
+    });
+
+    it("tracks protected_content_reveal when a revealed tel: link is clicked", () => {
+      document.body.innerHTML = `
+        <div data-protected="true" data-protection-type="phone">
+          <a href="tel:+15551234567">+1 555 123 4567</a>
+        </div>
+      `;
+      loadModule();
+      const link = document.querySelector("a")!;
+
+      link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+      const trackEvent = require("./track-event").trackEvent as jest.Mock;
+      expect(trackEvent).toHaveBeenCalledWith("protected_content_reveal", {
+        type: "phone",
+        action: "click",
+      });
+    });
+
+    it("does not track a tel:/mailto: link click outside any protected-content wrapper", () => {
+      document.body.innerHTML = `<a href="mailto:someone@example.test">someone@example.test</a>`;
+      loadModule();
+      const link = document.querySelector("a")!;
+
+      link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+      const trackEvent = require("./track-event").trackEvent as jest.Mock;
+      expect(trackEvent).not.toHaveBeenCalled();
+    });
+
+    it("does not track a click on an unrelated link inside a protected-content wrapper", () => {
+      document.body.innerHTML = `
+        <div data-protected="true" data-protection-type="text">
+          <a href="https://example.test">Regular link</a>
+        </div>
+      `;
+      loadModule();
+      const link = document.querySelector("a")!;
+
+      link.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+
+      const trackEvent = require("./track-event").trackEvent as jest.Mock;
+      expect(trackEvent).not.toHaveBeenCalled();
     });
   });
 });
