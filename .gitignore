@@ -104,6 +104,9 @@ build
 # Ignore generated site-audit reports (regenerated per run, baseline lives on audit-history branch)
 wp-content/themes/kotlinskidev/audit/results
 
+# Lighthouse CI's own raw report cache (regenerated per run)
+wp-content/themes/kotlinskidev/.lighthouseci
+
 # Ignore Storybook's static build output
 storybook-static
 

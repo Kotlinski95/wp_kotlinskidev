@@ -2,14 +2,14 @@
 
 uses(Tests\Integration\TestCase::class);
 
-it('outputs the font preload and preconnect tags on wp_head', function () {
+it('outputs the font preload tag on wp_head', function () {
     ob_start();
     do_action('wp_head');
     $html = ob_get_clean();
 
     expect($html)->toContain('<link rel="preload" as="font" type="font/woff2"');
     expect($html)->toContain('Sora-VariableFont_wght.woff2');
-    expect($html)->toContain('<link rel="preconnect" href="https://kotlinskidev.com" crossorigin>');
+    expect($html)->not->toContain('preconnect');
 });
 
 it('strips duplicate viewport meta tags and injects a single custom one after the opening head tag', function () {

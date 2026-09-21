@@ -23,7 +23,6 @@ add_action('wp_head', function () {
 add_action('wp_head', function () {
 ?>
     <link rel="preload" as="font" type="font/woff2" href="<?php echo esc_url(get_theme_file_uri('assets/fonts/sora/Sora-VariableFont_wght.woff2')); ?>" crossorigin>
-    <link rel="preconnect" href="https://kotlinskidev.com" crossorigin>
 
 <?php
 }, 1);

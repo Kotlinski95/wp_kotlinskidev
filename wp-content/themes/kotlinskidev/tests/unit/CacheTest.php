@@ -8,59 +8,38 @@ if (!defined('ABSPATH')) {
 
 require_once __DIR__ . '/../../functions/cache.php';
 
-it('globs every css/js file under the split build/css and build/js directories', function () {
+it('returns the "no-build" sentinel when build/build-id.php does not exist', function () {
+    Functions\when('get_template_directory')->justReturn('/definitely/does/not/exist');
+
+    expect(kotlinskidev_build_fingerprint())->toBe('no-build');
+});
+
+it('returns the value written to build/build-id.php', function () {
     $dir = sys_get_temp_dir() . '/kt-cache-test-' . uniqid();
-    mkdir($dir . '/build/css', 0777, true);
-    mkdir($dir . '/build/js', 0777, true);
-    file_put_contents("{$dir}/build/css/main.css", 'x');
-    file_put_contents("{$dir}/build/css/critical.css", 'x');
-    file_put_contents("{$dir}/build/js/main.js", 'x');
-    file_put_contents("{$dir}/build/js/marquee-init.js", 'x');
+    mkdir($dir . '/build', 0777, true);
+    file_put_contents("{$dir}/build/build-id.php", "<?php return '1234567890';\n");
 
     Functions\when('get_template_directory')->justReturn($dir);
 
-    expect(kotlinskidev_tracked_build_files())->toEqualCanonicalizing([
-        "{$dir}/build/css/main.css",
-        "{$dir}/build/css/critical.css",
-        "{$dir}/build/js/main.js",
-        "{$dir}/build/js/marquee-init.js",
-    ]);
+    expect(kotlinskidev_build_fingerprint())->toBe('1234567890');
 
-    unlink("{$dir}/build/css/main.css");
-    unlink("{$dir}/build/css/critical.css");
-    unlink("{$dir}/build/js/main.js");
-    unlink("{$dir}/build/js/marquee-init.js");
-    rmdir($dir . '/build/css');
-    rmdir($dir . '/build/js');
+    unlink("{$dir}/build/build-id.php");
     rmdir($dir . '/build');
     rmdir($dir);
 });
 
-it('fingerprints as the empty-string hash when none of the tracked build files exist', function () {
-    Functions\when('get_template_directory')->justReturn('/definitely/does/not/exist');
-
-    expect(kotlinskidev_build_fingerprint())->toBe(md5(''));
-});
-
-it('changes the fingerprint when a tracked build file is modified', function () {
+it('changes the fingerprint when build-id.php is rewritten by a new build', function () {
     $dir = sys_get_temp_dir() . '/kt-cache-test-' . uniqid();
-    mkdir($dir . '/build/css', 0777, true);
-    mkdir($dir . '/build/js', 0777, true);
-    file_put_contents("{$dir}/build/css/critical.css", 'x');
-    touch("{$dir}/build/css/critical.css", 1000);
-    file_put_contents("{$dir}/build/js/main.js", 'x');
-    touch("{$dir}/build/js/main.js", 1000);
+    mkdir($dir . '/build', 0777, true);
+    file_put_contents("{$dir}/build/build-id.php", "<?php return 'first-build';\n");
 
     Functions\when('get_template_directory')->justReturn($dir);
     $before = kotlinskidev_build_fingerprint();
 
-    touch("{$dir}/build/js/main.js", 2000);
+    file_put_contents("{$dir}/build/build-id.php", "<?php return 'second-build';\n");
     $after = kotlinskidev_build_fingerprint();
 
-    unlink("{$dir}/build/css/critical.css");
-    unlink("{$dir}/build/js/main.js");
-    rmdir($dir . '/build/css');
-    rmdir($dir . '/build/js');
+    unlink("{$dir}/build/build-id.php");
     rmdir($dir . '/build');
     rmdir($dir);
 

@@ -12,6 +12,7 @@
       "custom": true,
       "customGradient": true,
       "customDuotone": true,
+      "defaultPalette": false,
       "link": true,
       "palette": [
         {

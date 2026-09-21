@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-09-21T08:46:14+00:00\n"
+"POT-Creation-Date: 2026-09-21T13:02:03+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -633,83 +633,83 @@ msgstr "Nie znaleziono powiązanych artykułów."
 msgid "Search results for \"%s\""
 msgstr "Wyniki wyszukiwania dla \"%s\""
 
-#: functions/cache.php:242 functions/cache.php:243
+#: functions/cache.php:232 functions/cache.php:233
 msgid "Theme Cache"
 msgstr "Pamięć podręczna motywu"
 
-#: functions/cache.php:261
+#: functions/cache.php:251
 msgid "Theme cache cleared successfully."
 msgstr "Pamięć podręczna motywu została wyczyszczona."
 
-#: functions/cache.php:282
+#: functions/cache.php:272
 msgid "kotlinskidev — Theme Cache"
 msgstr "kotlinskidev — pamięć podręczna motywu"
 
-#: functions/cache.php:284
+#: functions/cache.php:274
 msgid "Cached entries currently stored in the database:"
 msgstr "Wpisy pamięci podręcznej aktualnie przechowywane w bazie danych:"
 
-#: functions/cache.php:290
+#: functions/cache.php:280
 msgid "Cache group"
 msgstr "Grupa pamięci podręcznej"
 
-#: functions/cache.php:291
+#: functions/cache.php:281
 msgid "Key pattern"
 msgstr "Wzorzec klucza"
 
-#: functions/cache.php:292
+#: functions/cache.php:282
 msgid "Invalidated by"
 msgstr "Unieważniane przez"
 
-#: functions/cache.php:297
+#: functions/cache.php:287
 msgid "Critical CSS"
 msgstr "Krytyczny CSS"
 
-#: functions/cache.php:299 functions/cache.php:304
+#: functions/cache.php:289 functions/cache.php:294
 msgid "Build deploy (filemtime)"
 msgstr "Wdrożenie builda (filemtime)"
 
-#: functions/cache.php:302
+#: functions/cache.php:292
 msgid "Critical JS"
 msgstr "Krytyczny JS"
 
-#: functions/cache.php:307
+#: functions/cache.php:297
 msgid "JS translations"
 msgstr "Tłumaczenia JS"
 
-#: functions/cache.php:309
+#: functions/cache.php:299
 msgid "Language file update / manual flush"
 msgstr "Aktualizacja pliku językowego / ręczne czyszczenie"
 
-#: functions/cache.php:312
+#: functions/cache.php:302
 msgid "Image dimensions"
 msgstr "Wymiary obrazów"
 
-#: functions/cache.php:314 functions/cache.php:324
+#: functions/cache.php:304 functions/cache.php:314
 msgid "Attachment edit / delete / manual flush"
 msgstr "Edycja/usunięcie załącznika / ręczne czyszczenie"
 
-#: functions/cache.php:317
+#: functions/cache.php:307
 msgid "Popular posts"
 msgstr "Popularne posty"
 
-#: functions/cache.php:319
+#: functions/cache.php:309
 msgid "15 minute TTL / manual flush"
 msgstr "15-minutowy TTL / ręczne czyszczenie"
 
-#: functions/cache.php:322
+#: functions/cache.php:312
 msgid "Inlined SVGs"
 msgstr "Osadzone pliki SVG"
 
-#: functions/cache.php:327
+#: functions/cache.php:317
 msgid "Build fingerprint"
 msgstr "Odcisk builda"
 
-#: functions/cache.php:329
+#: functions/cache.php:319
 msgid "Set automatically on every new build"
 msgstr "Ustawiane automatycznie przy każdym nowym buildzie"
 
-#: functions/cache.php:338
+#: functions/cache.php:328
 msgid "Clear all theme cache"
 msgstr "Wyczyść całą pamięć podręczną motywu"
 
@@ -904,6 +904,15 @@ msgstr "Zobacz projekty"
 msgid "Kontakt"
 msgstr "Kontakt"
 
+#: functions/image-link-accessibility.php:33
+msgid "View full-size image"
+msgstr "Zobacz obraz w pełnym rozmiarze"
+
+#: functions/image-link-accessibility.php:37
+#, php-format
+msgid "View full-size image: %s"
+msgstr "Zobacz obraz w pełnym rozmiarze: %s"
+
 #: functions/marquee.php:6 functions/modals.php:129
 msgid "Close"
 msgstr "Zamknij"
@@ -953,7 +962,7 @@ msgid "Sections"
 msgstr "Sekcje"
 
 #: functions/polylang-accessibility.php:8
-#: functions/polylang-accessibility.php:126
+#: functions/polylang-accessibility.php:137
 msgid "Language Switcher"
 msgstr "Przełącznik języka"
 
@@ -967,12 +976,12 @@ msgstr "Flaga języka"
 
 #. translators: %s: language name (from the flag image's alt text)
 #: functions/polylang-accessibility.php:11
-#: functions/polylang-accessibility.php:96
+#: functions/polylang-accessibility.php:107
 #, php-format
 msgid "Switch to %s"
 msgstr "Przełącz na %s"
 
-#: functions/polylang-accessibility.php:99
+#: functions/polylang-accessibility.php:110
 msgid "Language option"
 msgstr "Opcja języka"
 

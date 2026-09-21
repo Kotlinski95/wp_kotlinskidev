@@ -58,3 +58,20 @@ it('leaves content without a pll_switcher link unchanged', function () {
 
     expect(fix_pll_switcher_links($content))->toBe($content);
 });
+
+it('appends a matching id="pll_switcher" target before </body> so the fragment link resolves', function () {
+    $content = '<html><body><a href="#pll_switcher"></a></body></html>';
+
+    $result = fix_pll_switcher_links($content);
+
+    expect($result)->toContain('id="pll_switcher"');
+    expect(strpos($result, 'id="pll_switcher"'))->toBeGreaterThan(strpos($result, 'href="#pll_switcher"'));
+});
+
+it('does not duplicate the pll_switcher target when one already exists', function () {
+    $content = '<html><body><a href="#pll_switcher"></a><span id="pll_switcher"></span></body></html>';
+
+    $result = fix_pll_switcher_links($content);
+
+    expect(substr_count($result, 'id="pll_switcher"'))->toBe(1);
+});

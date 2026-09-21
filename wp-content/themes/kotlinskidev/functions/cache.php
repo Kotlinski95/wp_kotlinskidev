@@ -46,8 +46,9 @@
  *                                           and image-block SVGs. WEEK_IN_SECONDS.
  *                                           Invalidated on edit_/delete_attachment.
  *
- *   kotlinskidev_build_fingerprint          Combined filemtime hash of all tracked
- *                                           build files. Used to detect new deploys.
+ *   kotlinskidev_build_fingerprint          Last-seen build ID (see build/build-id.php,
+ *                                           written by bin/write-build-id.js on every
+ *                                           `npm run build`). Used to detect new deploys.
  *
  *  Object-cache (wp_cache_get / wp_cache_set — ephemeral, per-request only when
  *  no persistent backend like Redis is active):
@@ -72,37 +73,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** All theme transient names must start with this prefix. */
 define( 'KOTLINSKIDEV_CACHE_PREFIX', 'kotlinskidev_' );
 
-// ─── 2. BUILD FILES TRACKED FOR FINGERPRINTING ───────────────────────────────
+// ─── 2. FINGERPRINT HELPER ───────────────────────────────────────────────────
 
 /**
- * Build files whose modification time is used to detect a new deployment.
- * Globs every compiled CSS/JS file instead of a hardcoded list — a new block's
- * output (e.g. build/css/style-marquee.css) must bust this fingerprint too,
- * since WP core auto-inlines small per-block stylesheets and Asset CleanUp (if
- * active) caches per-block scripts independently of main.css/main.js.
- */
-function kotlinskidev_tracked_build_files(): array {
-    $css = glob( get_template_directory() . '/build/css/*.css' );
-    $js  = glob( get_template_directory() . '/build/js/*.js' );
-
-    return array_merge( $css ?: [], $js ?: [] );
-}
-
-// ─── 3. FINGERPRINT HELPER ───────────────────────────────────────────────────
-
-/**
- * Return a hash that uniquely represents the current build output.
- * Changes whenever any tracked build file is replaced on disk.
+ * Return a value that uniquely represents the current build output.
+ * Changes whenever `npm run build` runs — bin/write-build-id.js writes a
+ * fresh timestamp to build/build-id.php on every build, so detecting a new
+ * deploy is one opcache-backed `include` instead of glob()-ing and
+ * filemtime()-stat'ing 100+ compiled CSS/JS files on every page load.
  */
 function kotlinskidev_build_fingerprint(): string {
-    $raw = '';
-    foreach ( kotlinskidev_tracked_build_files() as $path ) {
-        $raw .= file_exists( $path ) ? filemtime( $path ) : '0';
+    $build_id_file = get_template_directory() . '/build/build-id.php';
+
+    if ( ! file_exists( $build_id_file ) ) {
+        return 'no-build';
     }
-    return md5( $raw );
+
+    return (string) include $build_id_file;
 }
 
-// ─── 4. FLUSH HELPERS ────────────────────────────────────────────────────────
+// ─── 3. FLUSH HELPERS ────────────────────────────────────────────────────────
 
 /**
  * Delete every theme transient whose name starts with KOTLINSKIDEV_CACHE_PREFIX.
@@ -165,7 +155,7 @@ function kotlinskidev_flush_build_transients(): void {
     }
 }
 
-// ─── 5. AUTO-DETECTION OF NEW DEPLOYS ────────────────────────────────────────
+// ─── 4. AUTO-DETECTION OF NEW DEPLOYS ────────────────────────────────────────
 
 /**
  * Run once per new build: compare the current fingerprint against the stored one.
@@ -198,7 +188,7 @@ function kotlinskidev_maybe_purge_on_new_build(): void {
 }
 add_action( 'wp_head', 'kotlinskidev_maybe_purge_on_new_build', 0 );
 
-// ─── 6. LIFECYCLE HOOKS — flush on theme events ───────────────────────────────
+// ─── 5. LIFECYCLE HOOKS — flush on theme events ───────────────────────────────
 
 /**
  * Full flush when the theme is deactivated or switched away.
@@ -232,7 +222,7 @@ add_action( 'upgrader_process_complete', function ( $upgrader, $hook_extra ) {
     }
 }, 10, 2 );
 
-// ─── 7. ADMIN UI — manual "Clear Cache" button ───────────────────────────────
+// ─── 6. ADMIN UI — manual "Clear Cache" button ───────────────────────────────
 
 /**
  * Register a minimal admin page under Tools > Theme Cache.
@@ -343,7 +333,7 @@ function kotlinskidev_cache_admin_page(): void {
     <?php
 }
 
-// ─── 8. WP-CLI COMMAND ───────────────────────────────────────────────────────
+// ─── 7. WP-CLI COMMAND ───────────────────────────────────────────────────────
 
 /**
  * WP-CLI usage:

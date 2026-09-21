@@ -25,6 +25,7 @@ import "./scripts/group-link";
 import "./scripts/city-map-lightbox";
 import "./scripts/load-more";
 import "./scripts/analytics";
+import "./scripts/active-link-state";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

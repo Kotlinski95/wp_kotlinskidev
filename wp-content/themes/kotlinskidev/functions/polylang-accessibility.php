@@ -38,7 +38,18 @@ function fix_polylang_accessibility() {
                     link.appendChild(span);
                 }
             });
-            
+
+            // href="#pll_switcher" is a fragment link with no matching id anywhere on
+            // the page (Polylang's own markup, not ours) — WCAG 2.4.1 flags any
+            // fragment link whose target doesn't exist, regardless of accessible name.
+            if (pllLinks.length > 0 && !document.getElementById('pll_switcher')) {
+                const target = document.createElement('span');
+                target.id = 'pll_switcher';
+                target.setAttribute('aria-hidden', 'true');
+                target.style.cssText = 'position: absolute !important; clip: rect(0.0625rem, 0.0625rem, 0.0625rem, 0.0625rem) !important; padding: 0 !important; border: 0 !important; height: 0.0625rem !important; width: 0.0625rem !important; overflow: hidden !important;';
+                document.body.appendChild(target);
+            }
+
             // Fix language flag images - remove alt text if there's a span with language text
             const langImages = document.querySelectorAll('.pll-parent-menu-item img, .lang-item img');
             langImages.forEach(function(img) {
@@ -129,6 +140,11 @@ function fix_pll_switcher_links($content) {
         '<a$1href="#pll_switcher"$2 aria-label="' . esc_attr($language_switcher_label) . '" role="button">$3<span class="screen-reader-text">' . esc_html($language_switcher_label) . '</span></a>',
         $content
     );
+
+    if (strpos($content, 'href="#pll_switcher"') !== false && strpos($content, 'id="pll_switcher"') === false) {
+        $target = '<span id="pll_switcher" aria-hidden="true" style="position:absolute!important;clip:rect(0.0625rem,0.0625rem,0.0625rem,0.0625rem)!important;padding:0!important;border:0!important;height:0.0625rem!important;width:0.0625rem!important;overflow:hidden!important;"></span>';
+        $content = preg_replace('/<\/body>/', $target . '</body>', $content, 1);
+    }
 
     return $content;
 }

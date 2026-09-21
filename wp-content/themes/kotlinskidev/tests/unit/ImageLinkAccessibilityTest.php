@@ -51,3 +51,27 @@ it('leaves content unchanged when the link href does not match any known page', 
 
     expect(kotlinskidev_add_image_link_aria_label($content))->toBe($content);
 });
+
+it('labels a media-file link using the image alt text', function () {
+    $content = '<figure class="wp-block-image"><a href="https://example.test/wp-content/uploads/2025/07/smartshopping-lighthouse.jpg" target="_blank" rel="noreferrer noopener"><img src="x.jpg" alt="Smart Shopping Lighthouse report"></a></figure>';
+
+    $result = kotlinskidev_add_image_link_aria_label($content);
+
+    expect($result)->toContain('aria-label="View full-size image: Smart Shopping Lighthouse report"');
+});
+
+it('falls back to a generic label for a media-file link with no alt text', function () {
+    $content = '<figure class="wp-block-image"><a href="https://example.test/wp-content/uploads/2025/07/photo.jpg"><img src="x.jpg" alt=""></a></figure>';
+
+    $result = kotlinskidev_add_image_link_aria_label($content);
+
+    expect($result)->toContain('aria-label="View full-size image"');
+});
+
+it('decodes HTML entities in the alt text before building the label', function () {
+    $content = '<figure class="wp-block-image"><a href="https://example.test/wp-content/uploads/2025/07/photo.jpg"><img src="x.jpg" alt="Before &amp; after"></a></figure>';
+
+    $result = kotlinskidev_add_image_link_aria_label($content);
+
+    expect($result)->toContain('aria-label="View full-size image: Before & after"');
+});

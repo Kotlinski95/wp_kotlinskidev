@@ -47,7 +47,7 @@ kotlinskidev/
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
 ├── functions/                                  # 78 PHP modules, require_once'd from functions.php (cache.php must load first)
-│   ├── active-link-state.php                   # marks links pointing at the current page with kt-link-current/aria-current and disables their click, gated by Advanced settings + per-block opt-out
+│   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
@@ -590,6 +590,7 @@ kotlinskidev/
 │   │       └── style.scss                      # frontend + editor shared styling for the rendered span
 │   ├── scripts/                                # frontend TS modules, bundled via src/index.ts / src/critical.ts
 │   │   ├── accessibility.ts                    # DOM/motion/video a11y helpers, reduced-motion checks
+│   │   ├── active-link-state.ts                 # single-pass DOM scan on load: marks <a href> pointing at location.pathname with kt-link-current/aria-current and blocks its click (unless a data-link-navigates ancestor + aria-haspopup panel trigger); reads window.kotlinskidevActiveLinkState (enabled/blockClicks) localized by functions/active-link-state.php — replaced a render_block PHP filter that cost ~104ms/page (redundant per-anchor URL parsing + ancestor re-scanning of already-processed block content)
 │   │   ├── analytics-providers/                # multi-vendor analytics dispatch — add a new tracking system here, call sites (track-event.ts's trackEvent()) never change
 │   │   │   ├── types.ts                        # AnalyticsProvider interface ({ id, isReady(), send() }) + shared AnalyticsEventParams type
 │   │   │   ├── gtag-provider.ts                 # sends event name/params through to window.gtag('event', ...) verbatim
@@ -741,7 +742,7 @@ kotlinskidev/
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
 │   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey + a minimal WP_HTML_Tag_Processor (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 76 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 54 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed
@@ -777,7 +778,7 @@ kotlinskidev/
 │       ├── Pest.php                            # integration-suite bootstrap
 │       ├── TestCase.php                        # extends WP_UnitTestCase
 │       ├── bootstrap.php                       # boots wp-phpunit against a dedicated kotlinskidev_test MySQL database
-│       └── tests/                              # 68 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
+│       └── tests/                              # 74 test files, one per functions/*.php|includes/*.php module needing real WP_Query/DOM/admin-page coverage
 ├── .env
 ├── .env.example
 ├── .envrc

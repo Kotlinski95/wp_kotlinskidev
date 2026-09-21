@@ -109,9 +109,9 @@
   },
   "scripts": {
     "prepare": "node bin/setup-husky.js",
-    "build": "wp-scripts build",
+    "build": "wp-scripts build && node bin/write-build-id.js",
     "composer": "composer install --no-dev",
-    "build:debug": "KOTLINSKIDEV_SOURCEMAPS=1 wp-scripts build",
+    "build:debug": "KOTLINSKIDEV_SOURCEMAPS=1 wp-scripts build && node bin/write-build-id.js",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
     "check-version-sync": "node bin/check-version-sync.js",
