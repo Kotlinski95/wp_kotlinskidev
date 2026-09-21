@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-14T07:26:49+00:00\n"
+"POT-Creation-Date: 2026-09-21T08:46:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -32,6 +32,9 @@ msgstr ""
 
 #. Author of the theme
 #: style.css
+#: patterns/about-me-editorial.php:18
+#: patterns/cv-centered-facts.php:11
+#: patterns/cv-profile-card.php:29
 msgid "Adrian Kotliński"
 msgstr ""
 
@@ -447,6 +450,7 @@ msgstr ""
 #: functions/search-page-dynamic-blocks.php:233
 #: functions/search-page-dynamic-blocks.php:367
 #: functions/tag-archive-manager.php:32
+#: patterns/cv-centered-facts.php:79
 msgid "Articles"
 msgstr ""
 
@@ -936,6 +940,8 @@ msgid "View projects"
 msgstr ""
 
 #: functions/image-link-accessibility.php:6
+#: patterns/cv-centered-facts.php:83
+#: patterns/cv-profile-card.php:52
 msgid "Contact me"
 msgstr ""
 
@@ -2010,6 +2016,47 @@ msgstr ""
 msgid "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
 msgstr ""
 
+#: patterns/about-me-editorial.php
+msgctxt "Pattern title"
+msgid "About Me Editorial"
+msgstr ""
+
+#: patterns/about-me-editorial.php:22
+msgid "Senior Software Engineer · EPAM"
+msgstr ""
+
+#: patterns/about-me-editorial.php:26
+msgid "Modern, fast, responsive websites and the applications behind them — built to stay easy to change long after launch."
+msgstr ""
+
+#: patterns/about-me-editorial.php:32
+msgid "Focus"
+msgstr ""
+
+#: patterns/about-me-editorial.php:36
+msgid "Frontend architecture, performance"
+msgstr ""
+
+#: patterns/about-me-editorial.php:43
+msgid "Stack"
+msgstr ""
+
+#: patterns/about-me-editorial.php:47
+msgid "React, TypeScript, Node, WordPress"
+msgstr ""
+
+#: patterns/about-me-editorial.php:54
+msgid "Based in"
+msgstr ""
+
+#: patterns/about-me-editorial.php:58
+msgid "Warsaw, working remotely"
+msgstr ""
+
+#: patterns/about-me-editorial.php:67
+msgid "Contact"
+msgstr ""
+
 #: patterns/about-us.php
 msgctxt "Pattern title"
 msgid "About Us Section"
@@ -2040,6 +2087,269 @@ msgstr ""
 
 #: patterns/blog-cards.php:60
 msgid "View All Articles"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php
+msgctxt "Pattern title"
+msgid "Certificates Badge Grid"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:75
+#: patterns/certificates-feature-cards.php:96
+msgid "GPT-4 API Developer"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:76
+#: patterns/certificates-compact-strip.php:77
+#: patterns/certificates-feature-cards.php:95
+msgid "OpenAI"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:77
+#: patterns/certificates-badge-grid.php:83
+msgid "Issued 2025"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:77
+#: patterns/certificates-badge-grid.php:83
+#: patterns/certificates-badge-grid.php:89
+#: patterns/certificates-badge-grid.php:95
+msgid "Verify"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:81
+#: patterns/certificates-feature-cards.php:110
+msgid "Claude Builder"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:82
+#: patterns/certificates-compact-strip.php:78
+#: patterns/certificates-feature-cards.php:109
+msgid "Anthropic"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:87
+msgid "Gemini for Developers"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:88
+#: patterns/certificates-compact-strip.php:79
+msgid "Google"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:89
+#: patterns/certificates-badge-grid.php:95
+msgid "Issued 2024"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:93
+#: patterns/certificates-feature-cards.php:124
+msgid "Next.js App Router"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:94
+#: patterns/certificates-compact-strip.php:80
+#: patterns/certificates-feature-cards.php:123
+msgid "Vercel"
+msgstr ""
+
+#: patterns/certificates-compact-strip.php
+msgctxt "Pattern title"
+msgid "Certificates Compact Strip"
+msgstr ""
+
+#: patterns/certificates-compact-strip.php:76
+msgid "Certified in"
+msgstr ""
+
+#: patterns/certificates-compact-strip.php:82
+msgid "All credentials →"
+msgstr ""
+
+#: patterns/certificates-feature-cards.php
+msgctxt "Pattern title"
+msgid "Certificates Feature Cards"
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:99
+msgid "Production use of function calling, structured outputs and streaming in customer-facing apps."
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:101
+msgid "Issued Mar 2025"
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:102
+#: patterns/certificates-feature-cards.php:116
+#: patterns/certificates-feature-cards.php:130
+msgid "View credential →"
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:113
+msgid "Tool use, long-context retrieval and evaluation workflows for agentic products."
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:115
+msgid "Issued Jan 2025"
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:127
+msgid "Server components, streaming routes and edge caching on production storefronts."
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:129
+msgid "Issued Sep 2024"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php
+msgctxt "Pattern title"
+msgid "Collaborations Described Cards"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:13
+msgid "E-commerce · 2025"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:14
+msgid "Headless storefront migration"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:15
+msgid "Moved a Shopify theme onto Next.js; checkout time halved."
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:18
+msgid "SaaS · 2024"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:19
+msgid "Dashboard performance work"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:20
+msgid "Cut initial bundle by 62% and made the table view usable on mobile."
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:23
+msgid "Agency · 2024"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:24
+msgid "Frontend for six client sites"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:25
+msgid "A shared component library the agency’s team still builds on."
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:28
+msgid "Publisher · 2023"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:29
+msgid "Core Web Vitals rescue"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:30
+msgid "All three metrics into the green across 40k article pages."
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:33
+msgid "Marketplace · 2023"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:34
+msgid "Angular to Next.js rewrite"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:35
+msgid "Incremental migration with no downtime and no feature freeze."
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:38
+msgid "Startup · 2022"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:39
+msgid "Marketing site from scratch"
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:40
+msgid "Design, build and CMS in five weeks, launched on time."
+msgstr ""
+
+#: patterns/collaborations-described-cards.php:118
+msgid "Read more →"
+msgstr ""
+
+#: patterns/collaborations-hairline-grid.php
+msgctxt "Pattern title"
+msgid "Collaborations Hairline Grid"
+msgstr ""
+
+#. translators: %d: collaborator/logo position number.
+#: patterns/collaborations-hairline-grid.php:47
+#: patterns/collaborations-separate-tiles.php:52
+#: patterns/collaborations-split.php:77
+#, php-format
+msgid "Collaborator logo %d"
+msgstr ""
+
+#: patterns/collaborations-separate-tiles.php
+msgctxt "Pattern title"
+msgid "Collaborations Separate Tiles"
+msgstr ""
+
+#: patterns/collaborations-split.php
+msgctxt "Pattern title"
+msgid "Collaborations Split"
+msgstr ""
+
+#: patterns/collaborations-split.php:29
+msgid "Teams I’ve built with"
+msgstr ""
+
+#: patterns/collaborations-split.php:33
+msgid "Agencies, in-house product teams and founders — from single landing pages to multi-year platform work."
+msgstr ""
+
+#: patterns/collaborations-split.php:37
+msgid "See the case studies →"
+msgstr ""
+
+#: patterns/compact-service-pair.php
+msgctxt "Pattern title"
+msgid "Compact Service Pair"
+msgstr ""
+
+#: patterns/compact-service-pair.php:26
+msgid "Optimization of existing pages"
+msgstr ""
+
+#: patterns/compact-service-pair.php:30
+msgid "Performance, SEO and accessibility passes on sites already in production — measured before and after."
+msgstr ""
+
+#: patterns/compact-service-pair.php:34
+#: patterns/compact-service-pair.php:56
+#: patterns/compact-service-pair.php:78
+msgid "Check more →"
+msgstr ""
+
+#: patterns/compact-service-pair.php:48
+msgid "Performance analysis"
+msgstr ""
+
+#: patterns/compact-service-pair.php:52
+msgid "A full audit of scripts, payloads and render path, with a prioritised list of what to fix first."
+msgstr ""
+
+#: patterns/compact-service-pair.php:70
+msgid "Applications"
+msgstr ""
+
+#: patterns/compact-service-pair.php:74
+msgid "Next.js and Angular applications, from first commit to deployment pipeline."
 msgstr ""
 
 #: patterns/contact-page.php
@@ -2307,6 +2617,213 @@ msgctxt "Pattern title"
 msgid "Call to Action"
 msgstr ""
 
+#: patterns/cv-centered-facts.php
+msgctxt "Pattern title"
+msgid "CV Centered Facts"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:15
+msgid "Web Developer"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:21
+msgid "8+"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:25
+msgid "Years"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:32
+msgid "40+"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:36
+msgid "Projects"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:43
+msgid "React"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:47
+msgid "Main stack"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:54
+msgid "Remote"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:58
+msgid "CET hours"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:66
+msgid "Want the detail? Download the one-page CV, or browse the career timeline and project write-ups."
+msgstr ""
+
+#: patterns/cv-centered-facts.php:71
+#: patterns/cv-slim-bar.php:43
+msgid "Download CV"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:75
+msgid "Career"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:89
+msgid "PDF · 380 KB · updated September 2026 ·"
+msgstr ""
+
+#: patterns/cv-centered-facts.php:89
+msgid "without photo"
+msgstr ""
+
+#: patterns/cv-document-preview.php
+msgctxt "Pattern title"
+msgid "CV Document Preview"
+msgstr ""
+
+#: patterns/cv-document-preview.php:24
+msgid "Curriculum vitae"
+msgstr ""
+
+#: patterns/cv-document-preview.php:28
+msgid "Everything on one page"
+msgstr ""
+
+#: patterns/cv-document-preview.php:32
+msgid "Role history, stack and selected projects — no filler. Two versions: with a photo for Polish and German applications, without one for the UK and US."
+msgstr ""
+
+#: patterns/cv-document-preview.php:38
+msgid "CV with photo"
+msgstr ""
+
+#: patterns/cv-document-preview.php:42
+msgid "PDF · 380 KB ↓"
+msgstr ""
+
+#: patterns/cv-document-preview.php:49
+msgid "CV without photo"
+msgstr ""
+
+#: patterns/cv-document-preview.php:53
+msgid "PDF · 340 KB ↓"
+msgstr ""
+
+#: patterns/cv-document-preview.php:61
+msgid "Updated 19 September 2026 · also on"
+msgstr ""
+
+#: patterns/cv-document-preview.php:61
+#: patterns/cv-profile-card.php:52
+msgid "LinkedIn"
+msgstr ""
+
+#: patterns/cv-profile-card.php
+msgctxt "Pattern title"
+msgid "CV Profile Card"
+msgstr ""
+
+#: patterns/cv-profile-card.php:25
+msgid "Open to work · Remote, CET"
+msgstr ""
+
+#: patterns/cv-profile-card.php:33
+msgid "Web Developer · React, Next.js, commerce"
+msgstr ""
+
+#: patterns/cv-profile-card.php:37
+msgid "Eight years building storefronts and content sites. The CV is one page, PDF, updated September 2026."
+msgstr ""
+
+#: patterns/cv-profile-card.php:42
+msgid "Download CV — PDF · 380 KB"
+msgstr ""
+
+#: patterns/cv-profile-card.php:46
+msgid "Career history"
+msgstr ""
+
+#: patterns/cv-profile-card.php:52
+msgid "Version without photo"
+msgstr ""
+
+#: patterns/cv-profile-card.php:52
+msgid "GitHub"
+msgstr ""
+
+#: patterns/cv-slim-bar.php
+msgctxt "Pattern title"
+msgid "CV Slim Bar"
+msgstr ""
+
+#: patterns/cv-slim-bar.php:25
+msgid "Adrian Kotliński — Web Developer"
+msgstr ""
+
+#: patterns/cv-slim-bar.php:29
+msgid "One-page CV, PDF, updated September 2026"
+msgstr ""
+
+#: patterns/cv-slim-bar.php:38
+msgid "Without photo"
+msgstr ""
+
+#: patterns/deploy-pipeline.php
+msgctxt "Pattern title"
+msgid "Deploy Pipeline"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:14
+msgid "Delivery"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:18
+msgid "From commit to live in minutes"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:22
+msgid "Automated checks, preview builds and zero-downtime deploys — so releasing a change is routine rather than an event."
+msgstr ""
+
+#: patterns/deploy-pipeline.php:27
+msgid "Check more"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:145
+msgid "Deployment · main"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:146
+msgid "Ready"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:151
+msgid "Install dependencies"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:156
+msgid "Lint & type-check"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:161
+msgid "Build static pages"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:166
+msgid "Deploy to production"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:167
+msgid "running"
+msgstr ""
+
+#: patterns/deploy-pipeline.php:172
+msgid "Invalidate CDN cache"
+msgstr ""
+
 #: patterns/faq-accordion.php
 msgctxt "Pattern title"
 msgid "FAQ Accordion"
@@ -2551,6 +3068,295 @@ msgstr ""
 msgid "Home Banner cta"
 msgstr ""
 
+#: patterns/how-to-prepare-checklist.php
+msgctxt "Pattern title"
+msgid "How To Prepare Checklist"
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:8
+msgid "What the site must achieve"
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:9
+msgid "Deadline and budget range"
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:10
+msgid "Who writes the content"
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:11
+msgid "Where the site is hosted today"
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:20
+msgid "Bring these to the first call"
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:24
+msgid "Four answers are enough for me to quote. Anything missing, we work it out together."
+msgstr ""
+
+#: patterns/how-to-prepare-checklist.php:32
+#: patterns/work-with-me-split.php:67
+msgid "Book a 20-min call"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php
+msgctxt "Pattern title"
+msgid "How To Prepare Phase Cards"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:9
+msgid "Before we start · your side"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:10
+msgid "What to have ready"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:12
+msgid "A one-line goal and a deadline that isn’t “as soon as possible”"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:13
+msgid "Logo in SVG or high-res PNG, brand colours, fonts you own a licence for"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:14
+msgid "Page-by-page text, or a note that you want help writing it"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:15
+msgid "Photos and product data — originals, not screenshots"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:16
+msgid "Two or three sites you like, and one line on why"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:17
+msgid "Hosting, domain and CMS access — shared through a password manager"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:18
+msgid "One decision-maker who signs off feedback"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:22
+msgid "During the project · my side"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:23
+msgid "What you get from me"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:25
+msgid "A written scope with a fixed quote or a capped estimate"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:26
+msgid "A staging URL from the first week, open to you at any time"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:27
+msgid "Short written updates at each milestone, no status meetings"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:28
+msgid "Device, performance, SEO and accessibility testing before launch"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:29
+msgid "A fix round after your review, then re-test and sign-off"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:30
+msgid "Full ownership: repository, accounts and documentation in your name"
+msgstr ""
+
+#: patterns/how-to-prepare-phase-cards.php:31
+msgid "30 days of bug cover after go-live"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php
+msgctxt "Pattern title"
+msgid "How To Prepare Step Strip"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:9
+msgid "Step 1"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:10
+msgid "Prepare"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:11
+msgid "Goal, budget, content and brand files in one folder."
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:14
+msgid "Step 2"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:15
+msgid "Talk"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:16
+msgid "A 20-minute call, then a written scope and quote."
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:19
+msgid "Step 3"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:20
+msgid "Choose"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:21
+msgid "Templates and design direction, one feedback round."
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:24
+msgid "Step 4"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:25
+msgid "Build & test"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:26
+msgid "Staging link, device testing, one consolidated fix list."
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:29
+msgid "Step 5"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:30
+msgid "Launch"
+msgstr ""
+
+#: patterns/how-to-prepare-step-strip.php:31
+msgid "Go-live, handover, docs and 30 days of bug cover."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php
+msgctxt "Pattern title"
+msgid "How To Prepare Timeline"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:9
+msgid "Define the goal"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:10
+msgid "Before anything else: what should the site actually do? Sell a product, book appointments, publish articles, replace a broken WordPress install. One sentence is enough to start."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:11
+msgid "You bring: the goal, the deadline, the budget range"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:14
+msgid "Gather your materials"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:15
+msgid "The single biggest cause of delay is missing content. Collect logo files, brand colours and fonts, photos, product data, legal pages and the text for each page — or tell me you need help writing it."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:16
+msgid "You bring: logo, copy, images, 2–3 reference sites"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:19
+msgid "Contact me or book a call"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:20
+msgid "Send the brief by email or book a 20-minute call. I reply within a day with first questions and a rough feasibility answer — including an honest “this isn’t for me” when that’s the case."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:21
+msgid "I deliver: reply in 24 h, first questions"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:24
+msgid "Discuss ideas and agree the scope"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:25
+msgid "We turn the brief into a written scope: page list, features, integrations, who writes the content, what is explicitly out of scope. You get a fixed quote or an hourly estimate with a cap, plus a timeline and payment schedule."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:26
+msgid "I deliver: written scope, quote, timeline"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:29
+msgid "Pick a direction — templates and design"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:30
+msgid "You review layout templates and a design direction: typography, colour, section styles, and how it behaves on mobile. Choosing from a system is faster and cheaper than a blank-page design, and you can still customise every section."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:31
+msgid "You bring: one round of consolidated feedback"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:34
+msgid "Access and setup"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:35
+msgid "Hosting, domain and DNS, repository, CMS accounts, analytics, payment or mailing providers. Send credentials through a password manager, never by email — and give me a staging environment rather than the live site."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:36
+msgid "You bring: hosting, domain, CMS and analytics access"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:39
+msgid "Build, with a demo you can watch"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:40
+msgid "Development happens on a staging URL you can open any time. You get a short written update at each milestone, so nothing arrives as a surprise at the end."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:41
+msgid "I deliver: staging link, milestone updates"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:44
+msgid "Testing and the fix round"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:45
+msgid "Cross-browser and real-device checks, Core Web Vitals, accessibility, forms, redirects and SEO metadata. You review on staging and send one consolidated list; I fix and re-test until it’s signed off."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:46
+msgid "I deliver: test report, fixes, re-test"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:49
+msgid "Launch, handover and aftercare"
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:50
+msgid "Go-live with backups and redirects in place, then you get the repository, all accounts in your name, a short walkthrough of how to edit content, and 30 days of bug cover. Optional monthly support continues from there."
+msgstr ""
+
+#: patterns/how-to-prepare-timeline.php:51
+msgid "I deliver: launch, docs, ownership, 30-day cover"
+msgstr ""
+
 #: patterns/latest-work.php
 msgctxt "Pattern title"
 msgid "Latest Works Section"
@@ -2564,6 +3370,170 @@ msgstr ""
 #: patterns/latest-work.php:67
 #: patterns/latest-work.php:89
 msgid "Portfolio Title"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php
+msgctxt "Pattern title"
+msgid "Link Cards Feature Stack"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:14
+msgid "All services"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:15
+msgid "Audits, builds, optimization and ongoing maintenance."
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:16
+msgid "Browse services →"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:20
+msgid "Free performance check"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:21
+msgid "Send a URL and get the three biggest wins back."
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:22
+msgid "Request a check →"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:26
+msgid "Blog & notes"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:27
+msgid "Practices I use, written up as I go."
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:28
+msgid "Read the blog →"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:173
+msgid "Featured project"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:174
+msgid "Shopify storefront rebuilt on Next.js"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:175
+msgid "Checkout time cut in half and a 41-point Lighthouse gain — the full write-up covers the architecture and the trade-offs."
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:177
+msgid "Next.js"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:178
+#: patterns/tech-stack-grouped-cards.php:23
+#: patterns/tech-stack-icon-tiles.php:14
+msgid "Shopify"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:179
+msgid "Edge caching"
+msgstr ""
+
+#: patterns/link-cards-feature-stack.php:181
+msgid "Read the case study →"
+msgstr ""
+
+#: patterns/link-cards-icon-led.php
+msgctxt "Pattern title"
+msgid "Link Cards Icon Led"
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:11
+#: patterns/link-cards-image-band.php:12
+#: patterns/link-cards-typographic.php:9
+msgid "Core Web Vitals optimization"
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:12
+msgid "LCP, INP and CLS brought into the green and kept there."
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:16
+#: patterns/link-cards-image-band.php:18
+#: patterns/link-cards-typographic.php:14
+msgid "Mobile-first frontend overhaul"
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:17
+msgid "One component system that holds together at every width."
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:21
+#: patterns/link-cards-image-band.php:24
+#: patterns/link-cards-typographic.php:19
+msgid "Performance audit & report"
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:22
+msgid "Everything measured, prioritised and written down."
+msgstr ""
+
+#: patterns/link-cards-icon-led.php:109
+#: patterns/link-cards-image-band.php:107
+#: patterns/link-cards-typographic.php:104
+msgid "See more →"
+msgstr ""
+
+#: patterns/link-cards-image-band.php
+msgctxt "Pattern title"
+msgid "Link Cards Image Band"
+msgstr ""
+
+#: patterns/link-cards-image-band.php:11
+#: patterns/link-cards-image-band.php:17
+#: patterns/link-cards-image-band.php:23
+msgid "Service"
+msgstr ""
+
+#: patterns/link-cards-image-band.php:13
+msgid "LCP, INP and CLS brought into the green, with before-and-after field data."
+msgstr ""
+
+#: patterns/link-cards-image-band.php:19
+msgid "Rebuilt from the smallest breakpoint up, so the phone experience stops being an afterthought."
+msgstr ""
+
+#: patterns/link-cards-image-band.php:25
+msgid "A prioritised list of what to fix first, with the measured cost of each problem."
+msgstr ""
+
+#: patterns/link-cards-typographic.php
+msgctxt "Pattern title"
+msgid "Link Cards Typographic"
+msgstr ""
+
+#: patterns/link-cards-typographic.php:10
+msgid "LCP, INP and CLS into the green, verified against real field data."
+msgstr ""
+
+#: patterns/link-cards-typographic.php:11
+msgid "4–6 weeks"
+msgstr ""
+
+#: patterns/link-cards-typographic.php:15
+msgid "Rebuilt from the smallest breakpoint up, one component system across widths."
+msgstr ""
+
+#: patterns/link-cards-typographic.php:16
+msgid "6–10 weeks"
+msgstr ""
+
+#: patterns/link-cards-typographic.php:20
+msgid "A prioritised fix list with the measured cost of each problem."
+msgstr ""
+
+#: patterns/link-cards-typographic.php:21
+msgid "3–5 days"
 msgstr ""
 
 #: patterns/logo-showcase.php
@@ -2754,6 +3724,19 @@ msgstr ""
 msgid "Support and Donation Link"
 msgstr ""
 
+#: patterns/project-carousel-bottom-peek.php
+msgctxt "Pattern title"
+msgid "Project Carousel Bottom Peek"
+msgstr ""
+
+#: patterns/project-carousel-bottom-peek.php:73
+msgid "Observe"
+msgstr ""
+
+#: patterns/project-carousel-bottom-peek.php:74
+msgid "One line of project copy, set in mono for contrast against the display heading."
+msgstr ""
+
 #: patterns/service-content.php
 msgctxt "Pattern title"
 msgid "Service Section with big Image"
@@ -2793,6 +3776,43 @@ msgstr ""
 #: patterns/service-grid.php:110
 #: patterns/simple-text.php:15
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+msgstr ""
+
+#: patterns/service-icons-grid.php
+msgctxt "Pattern title"
+msgid "Service Icons Grid"
+msgstr ""
+
+#: patterns/service-icons-grid.php:23
+msgid "Websites"
+msgstr ""
+
+#: patterns/service-icons-grid.php:27
+msgid "Design and build sites that hold together at every breakpoint, from first commit to launch."
+msgstr ""
+
+#: patterns/service-icons-grid.php:38
+msgid "Page optimization"
+msgstr ""
+
+#: patterns/service-icons-grid.php:42
+msgid "LCP, INP and CLS brought into the green, with before-and-after field data to prove it."
+msgstr ""
+
+#: patterns/service-icons-grid.php:53
+msgid "Internet applications"
+msgstr ""
+
+#: patterns/service-icons-grid.php:57
+msgid "Composable, component-based applications built with React, Next.js and Node."
+msgstr ""
+
+#: patterns/service-icons-grid.php:68
+msgid "Analysis and reporting"
+msgstr ""
+
+#: patterns/service-icons-grid.php:72
+msgid "A prioritised, measured list of what to fix first, with the cost of every problem attached."
 msgstr ""
 
 #: patterns/service-location-content.php
@@ -3033,6 +4053,228 @@ msgstr ""
 msgid "Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur—a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and Evil”), a first-century B.C. text from the Roman philosopher Cicero."
 msgstr ""
 
+#: patterns/tech-stack-chip-clusters.php
+msgctxt "Pattern title"
+msgid "Tech Stack Chip Clusters"
+msgstr ""
+
+#: patterns/tech-stack-chip-clusters.php:9
+msgid "Frameworks"
+msgstr ""
+
+#: patterns/tech-stack-chip-clusters.php:13
+msgid "Commerce"
+msgstr ""
+
+#: patterns/tech-stack-chip-clusters.php:17
+msgid "Languages"
+msgstr ""
+
+#: patterns/tech-stack-chip-clusters.php:21
+msgid "Tooling"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php
+msgctxt "Pattern title"
+msgid "Tech Stack Grouped Cards"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:11
+msgid "Frameworks & libraries"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:13
+#: patterns/tech-stack-icon-tiles.php:10
+msgid "React / Next.js"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:13
+msgid "Component-based, fast rendering"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:14
+msgid "Spartacus"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:14
+#: patterns/tech-stack-icon-tiles.php:11
+msgid "SAP Commerce storefronts"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:15
+msgid "Tailwind CSS"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:15
+msgid "Utility-first styling"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:16
+#: patterns/tech-stack-icon-tiles.php:21
+msgid "Jest / Testing Library"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:16
+#: patterns/tech-stack-icon-tiles.php:21
+msgid "Unit and integration tests"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:21
+msgid "E-commerce platforms"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:23
+msgid "Liquid themes and Hydrogen"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:24
+#: patterns/tech-stack-icon-tiles.php:15
+msgid "WooCommerce"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:24
+msgid "WordPress-based commerce"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:25
+#: patterns/tech-stack-icon-tiles.php:16
+msgid "SAP Hybris"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:25
+msgid "Enterprise commerce stack"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:30
+msgid "Languages & styling"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:32
+#: patterns/tech-stack-icon-tiles.php:12
+msgid "TypeScript"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:32
+msgid "Strict, scalable JavaScript"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:33
+msgid "JavaScript ES6+"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:33
+msgid "Core language"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:34
+msgid "HTML5"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:34
+msgid "Semantic, accessible markup"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:35
+msgid "SCSS / CSS3"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:35
+msgid "Modular, maintainable styling"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:40
+msgid "Dev tools & workflow"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:42
+msgid "Git / GitHub / GitLab"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:42
+msgid "Version control"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:43
+#: patterns/tech-stack-icon-tiles.php:18
+msgid "Vite / Webpack"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:43
+msgid "Modern build tooling"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:44
+#: patterns/tech-stack-icon-tiles.php:19
+msgid "Storybook"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:44
+#: patterns/tech-stack-icon-tiles.php:19
+msgid "Component documentation"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:45
+#: patterns/tech-stack-icon-tiles.php:20
+msgid "ESLint / Prettier"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:45
+msgid "Code quality and formatting"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php
+msgctxt "Pattern title"
+msgid "Tech Stack Icon Tiles"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:10
+msgid "Component UI, SSR"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:11
+msgid "Angular / Spartacus"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:12
+msgid "Strict mode by default"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:13
+msgid "Core Web Vitals"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:13
+msgid "Field data, budgets"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:14
+msgid "Liquid and Hydrogen"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:15
+msgid "WordPress commerce"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:16
+msgid "Enterprise integrations"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:17
+msgid "Git / GitHub"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:17
+msgid "Version control, reviews"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:18
+msgid "Builds and bundle budgets"
+msgstr ""
+
+#: patterns/tech-stack-icon-tiles.php:20
+msgid "Quality and formatting"
+msgstr ""
+
 #: patterns/template-404.php
 msgctxt "Pattern title"
 msgid "404 Template"
@@ -3205,6 +4447,197 @@ msgstr ""
 
 #: patterns/vertical-timeline-layout.php:91
 msgid "Check Optimization Services"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php
+msgctxt "Pattern title"
+msgid "Work With Me Option Cards"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:13
+msgid "Full-time"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:14
+msgid "Hire me"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:15
+msgid "Permanent or contract frontend role — React, Next.js and commerce storefronts. Remote, EU hours."
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:16
+msgid "See my CV →"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:20
+msgid "Retainer"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:21
+#: patterns/work-with-me-split.php:19
+msgid "Ongoing support"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:22
+msgid "A monthly block of hours for updates, releases and the things that break at the wrong moment."
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:23
+msgid "Check availability →"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:27
+msgid "Project"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:28
+#: patterns/work-with-me-split.php:25
+msgid "Help with my website"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:29
+msgid "A build, a redesign or a rescue — WordPress, Shopify or a custom Next.js front end."
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:30
+msgid "Describe the project →"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:34
+msgid "Fixed fee"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:35
+#: patterns/work-with-me-split.php:31
+msgid "Ask for an analysis"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:36
+msgid "Performance, SEO and accessibility audit with a written, prioritised list of what to fix first."
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:37
+msgid "Request an audit →"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:41
+msgid "Part-time"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:42
+#: patterns/work-with-me-split.php:37
+msgid "Part-time engagement"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:43
+msgid "Two or three days a week alongside your team, with elastic hours and async handover."
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:44
+msgid "Talk about scope →"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:48
+msgid "Evenings"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:49
+#: patterns/work-with-me-split.php:43
+msgid "Small freelance jobs"
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:50
+msgid "Short tasks picked up after hours — a landing page, a tricky bug, a block that needs building."
+msgstr ""
+
+#: patterns/work-with-me-option-cards.php:51
+msgid "Send the task →"
+msgstr ""
+
+#: patterns/work-with-me-split.php
+msgctxt "Pattern title"
+msgid "Work With Me Split"
+msgstr ""
+
+#: patterns/work-with-me-split.php:13
+msgid "Hire me full-time"
+msgstr ""
+
+#: patterns/work-with-me-split.php:14
+msgid "Permanent or B2B contract"
+msgstr ""
+
+#: patterns/work-with-me-split.php:15
+msgid "CV →"
+msgstr ""
+
+#: patterns/work-with-me-split.php:20
+msgid "From 10 h / month"
+msgstr ""
+
+#: patterns/work-with-me-split.php:21
+msgid "Plans →"
+msgstr ""
+
+#: patterns/work-with-me-split.php:26
+msgid "Build, redesign or rescue"
+msgstr ""
+
+#: patterns/work-with-me-split.php:27
+msgid "Brief →"
+msgstr ""
+
+#: patterns/work-with-me-split.php:32
+msgid "Speed, SEO, accessibility"
+msgstr ""
+
+#: patterns/work-with-me-split.php:33
+msgid "Audit →"
+msgstr ""
+
+#: patterns/work-with-me-split.php:38
+msgid "2–3 days a week"
+msgstr ""
+
+#: patterns/work-with-me-split.php:39
+msgid "Scope →"
+msgstr ""
+
+#: patterns/work-with-me-split.php:44
+msgid "Evenings and weekends"
+msgstr ""
+
+#: patterns/work-with-me-split.php:45
+msgid "Send →"
+msgstr ""
+
+#: patterns/work-with-me-split.php:54
+msgid "Currently available"
+msgstr ""
+
+#: patterns/work-with-me-split.php:58
+msgid "Pick the smallest thing that solves your problem."
+msgstr ""
+
+#: patterns/work-with-me-split.php:62
+msgid "Most people need an hour of diagnosis before they need a contract. Start with an audit or a single task — scale up from there if it works."
+msgstr ""
+
+#: patterns/work-with-me-split.php:71
+msgid "Email me"
+msgstr ""
+
+#: patterns/work-with-me-split.php:78
+msgid "Remote · CET"
+msgstr ""
+
+#: patterns/work-with-me-split.php:82
+msgid "Elastic hours"
+msgstr ""
+
+#: patterns/work-with-me-split.php:86
+msgid "Replies in 24 h"
 msgstr ""
 
 #: build/js/article-card-panel.js:1

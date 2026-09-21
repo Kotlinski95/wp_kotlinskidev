@@ -139,11 +139,20 @@ kotlinskidev/
 ├── parts/                                      # FSE template parts
 │   ├── footer.html                             # logo/brand content-block, nav simple-grid, kotlinskidev-footer__contact (phone/email kotlinskidev/contact-detail blocks), copyrights, scroll-to-top
 │   └── header.html                             # site logo, kotlinskidev/navigation, theme-switcher, kotlinskidev/breadcrumbs
-├── patterns/                                   # 41 reusable block patterns
+├── patterns/                                   # 71 reusable block patterns
 │   ├── about-2.php                             # About Section 2
+│   ├── about-me-editorial.php                  # About Me Editorial — portrait right, credentials meta rows (design system "About me" slot me-b)
 │   ├── about-us.php                            # About Us Section
 │   ├── article-hero.php                        # Article Hero Section
 │   ├── blog-cards.php                          # Blog Cards Grid
+│   ├── certificates-badge-grid.php             # Certificates Badge Grid — art-forward badge wall for a dedicated credentials page (design system "Certificates & badges" slot A)
+│   ├── certificates-compact-strip.php          # Certificates Compact Strip — one-line issuer pill row for a footer or under a hero (design system "Certificates & badges" slot D)
+│   ├── certificates-feature-cards.php          # Certificates Feature Cards — logo + context line per credential, for a homepage block (design system "Certificates & badges" slot C)
+│   ├── collaborations-described-cards.php      # Collaborations Described Cards — 6 client-work cards with category/year, title, one-line result and Read more link (design system "Collaborations" slot B)
+│   ├── collaborations-hairline-grid.php        # Collaborations Hairline Grid — no card fill, 1px-rule-divided logo cells, auto-fit 5-up/2-up (design system "Collaborations" slot E)
+│   ├── collaborations-separate-tiles.php       # Collaborations Separate Tiles — bordered logo tiles with hover lift + accent edge (design system "Collaborations" slot F)
+│   ├── collaborations-split.php                # Collaborations Split — copy left, logo wall right, stacks and centres on mobile (design system "Collaborations" slot H)
+│   ├── compact-service-pair.php                # Compact Service Pair — icon/heading/copy card trio in a responsive auto-fit grid (design system "Banner templates" slot D)
 │   ├── contact-page.php                        # Contact Us
 │   ├── contact-with-form.php                   # Contact with Form
 │   ├── content-tabs-media.php                  # Content Tabs with Media (kotlinskidev/content-tabs example, image + heading + copy per tab)
@@ -152,6 +161,11 @@ kotlinskidev/
 │   ├── counter-with-desc.php                   # Counter Block with Description
 │   ├── cta-block-2.php                         # Call to Action 2
 │   ├── cta-block.php                           # Call to Action
+│   ├── cv-centered-facts.php                   # CV Centered Facts — centred name/role, 4-stat proof row, multi-button CTA row (design system "CV / resume" slot C)
+│   ├── cv-document-preview.php                 # CV Document Preview — page-1 thumbnail beside two labelled PDF download rows (design system "CV / resume" slot B)
+│   ├── cv-profile-card.php                     # CV Profile Card — circular photo, one primary gradient download + secondary link row (design system "CV / resume" slot A)
+│   ├── cv-slim-bar.php                         # CV Slim Bar — one-line photo/name/download bar for an article end or footer (design system "CV / resume" slot D)
+│   ├── deploy-pipeline.php                     # Deploy Pipeline — CI/CD status-card mockup with a CSS `@keyframes` spinner + progress sweep, `prefers-reduced-motion` guarded (design system "Banner templates" slot G)
 │   ├── faq-accordion.php                       # FAQ Accordion
 │   ├── faq-section.php                         # FAQ Section
 │   ├── featured-content-2.php                  # Featured Content 2
@@ -163,7 +177,15 @@ kotlinskidev/
 │   ├── hero-banner.php                         # Hero Banner
 │   ├── highlight-features.php                  # Highlight Features
 │   ├── home-banner.php                         # Home Banner
+│   ├── how-to-prepare-checklist.php            # How To Prepare Checklist — heading/CTA row above a 4-item pre-call checklist grid (design system "How to prepare" slot D)
+│   ├── how-to-prepare-phase-cards.php          # How To Prepare Phase Cards — your-side/my-side responsibility split, 7 bullets each (design system "How to prepare" slot C)
+│   ├── how-to-prepare-step-strip.php           # How To Prepare Step Strip — 5-phase condensed card grid for a homepage block (design system "How to prepare" slot B)
+│   ├── how-to-prepare-timeline.php             # How To Prepare Timeline — 9-step numbered rail with connector lines and you-bring/I-deliver chips (design system "How to prepare" slot A)
 │   ├── latest-work.php                         # Latest Works Section
+│   ├── link-cards-feature-stack.php            # Link Cards Feature Stack — one large featured project card + 3-row icon link stack (design system "Link cards" slot D, uses assets/icons/services/*)
+│   ├── link-cards-icon-led.php                 # Link Cards Icon Led — textured icon head overlapping a text plate, uses assets/icons/services/*.svg (design system "Link cards" slot C)
+│   ├── link-cards-image-band.php               # Link Cards Image Band — image band + text plate, whole-card link (design system "Link cards" slot A)
+│   ├── link-cards-typographic.php              # Link Cards Typographic — no imagery, big faded index number + gradient edge accent (design system "Link cards" slot B)
 │   ├── logo-showcase.php                       # Logos Showcase
 │   ├── mission-goal.php                        # Mission & Goal Content
 │   ├── mission-vision.php                      # Mission & Vision Section
@@ -171,16 +193,23 @@ kotlinskidev/
 │   ├── photo-gallery.php                       # Photo Gallery
 │   ├── pricing-tables.php                      # Pricing Tables
 │   ├── profile-links-card.php                  # Profile Links Card
+│   ├── project-carousel-bottom-peek.php        # Project Carousel Bottom Peek — always-dark spotlight card, huge headline over a device screenshot cropped by the section's own bottom edge (design system "Project carousel banners" slot D)
 │   ├── service-content.php                     # Service Section with big Image (slug: services-content)
 │   ├── service-grid.php                        # Service Grid (slug: services-grid)
+│   ├── service-icons-grid.php                  # Service Icons Grid — 4 native icon/heading/copy cards using assets/icons/services/*.svg, native `layout:grid` auto-fit (design system "Service Card Icons")
 │   ├── service-locations-grid.php              # Service Locations Grid — thin wrapper around the kotlinskidev/city-grid dynamic block (functions/service-locations.php); previously baked a WP_Query directly into the pattern, which only ran once at pattern-cache time and went stale
 │   ├── services-section.php                    # Service Section
 │   ├── simple-banner.php                       # Simple Banner
 │   ├── simple-text.php                         # Simple Text Section
+│   ├── tech-stack-chip-clusters.php            # Tech Stack Chip Clusters — scannable category-label + pill-cluster rows, good for an About page (design system "Technology stack" slot B)
+│   ├── tech-stack-grouped-cards.php            # Tech Stack Grouped Cards — 4 bordered cards, each an icon head + name/note definition rows, full detail for a dedicated stack page (design system "Technology stack" slot A)
+│   ├── tech-stack-icon-tiles.php               # Tech Stack Icon Tiles — 12 original monoline glyphs (assets/icons/tech-stack/*.svg, not vendor logos) in a hover-accented tile grid (design system "Technology stack" slot D)
 │   ├── template-404.php                        # 404 Template
 │   ├── testimonial-section.php                 # Testimonial Section
 │   ├── testimonials-grid.php                   # Testimonials Grid (slug: testimonial-grid)
-│   └── vertical-timeline-layout.php            # Vertical Timeline Layout
+│   ├── vertical-timeline-layout.php            # Vertical Timeline Layout
+│   ├── work-with-me-option-cards.php           # Work With Me Option Cards — 6-card full menu of ways to collaborate, best as its own page (design system "Work with me" slot A)
+│   └── work-with-me-split.php                  # Work With Me Split — pitch card left, condensed 6-row option list right, good for a homepage block (design system "Work with me" slot B)
 ├── polylang/                                   # language flag icons
 │   ├── en_US.png
 │   └── pl_PL.png

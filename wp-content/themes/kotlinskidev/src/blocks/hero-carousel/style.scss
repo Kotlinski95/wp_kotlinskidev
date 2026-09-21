@@ -107,7 +107,7 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 0.875rem 2rem;
-		background: var(--wp--preset--color--primary, #8209d3);
+		background: var(--wp--preset--color--primary, #0078c2);
 		color: #fff;
 		font-weight: 600;
 		text-decoration: none;
@@ -222,7 +222,7 @@
 	height: 2rem;
 	border: none;
 	border-radius: 50%;
-	background: var(--wp--preset--color--primary, #8209d3);
+	background: var(--wp--preset--color--primary, #0078c2);
 	color: #fff;
 	font-size: 1.25rem;
 	line-height: 1;
@@ -262,7 +262,7 @@
 	}
 
 	&--active {
-		border-color: var(--wp--preset--color--primary, #8209d3);
+		border-color: var(--wp--preset--color--primary, #0078c2);
 	}
 
 	&--empty {

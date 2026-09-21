@@ -79,6 +79,147 @@ Dropped as near-duplicates of an included pattern: `about-2`/`about-us`,
   guidance ("omitting the sidecar is the honest choice"). Every future sync
   of this repo re-verifies from scratch; that's expected, not a bug.
 
+## Follow-up pass (same day) — naming fix, dark mode, blue primary, real icons
+
+- **Fixed a real bug**: every component file was named `index.{html,jsx,d.ts,
+  prompt.md}` instead of `<Name>.{ext}` as the base skill's layout spec
+  requires — the claude.ai/design app apparently titles cards from the file
+  basename, so every card showed "index". Renamed all 20 components' files
+  and fixed the two generator scripts (`build-components.mjs`,
+  `build-tokens.mjs`) so a future regen doesn't reintroduce this.
+- **Dark mode is now the default** for every preview (`body.dark-mode` /
+  `.editor-styles-wrapper.dark-mode` wrapper, `styles.css` body background
+  switched from `surface-light` to `surface-dark`), per user request.
+- **Primary color changed from purple to blue** — a real `theme.json` edit,
+  not just a design-sync preference: `primary-light` `#8209d3` → `#0078c2`,
+  `primary-dark` `#ae41f7` → `#00f6ff` (user-specified exact hex values,
+  which happen to match colors already used in the live
+  `templates/single-service_location.html` hero-carousel's `navColor`
+  gradient — so this is a return to an already-established accent, not a
+  new one). Cascaded to `primary-rgb`, `primary-dark-rgb`, `primary-hover`
+  (computed as a darkened `#005a91`), `primary-shade-1`/`-2`. Also fixed the
+  matching SCSS fallback values in `src/blocks/hero-carousel/style.scss`
+  (`var(--wp--preset--color--primary, #8209d3)` → `, #0078c2)`).
+  **Gotcha hit again**: [[wp-global-styles-palette-freeze]] — theme.json
+  alone wasn't enough, the site had a frozen `wp_global_styles` post (ID 100,
+  found via `WP_Theme_JSON_Resolver::get_user_global_styles_post_id()`)
+  overriding it. Patched that post's `settings.color.palette.theme` array
+  in place (7 matching slugs), left everything else untouched, then
+  `wp cache flush`.
+- **Added a Gradients token card** (14 entries from
+  `theme.json settings.color.gradients`) — most reference
+  `var(--wp--preset--color--primary)` directly so they follow the new blue
+  automatically; a few needed their `var()` refs resolved to literal values
+  for the static preview swatch (see `build-tokens.mjs`).
+- **Marquee now uses real images**: swapped the generic logo placeholder for
+  10 real tech-stack SVG icons already in the local media library
+  (attachment IDs 6930–6939: React, Next.js, TypeScript, JavaScript, NestJS,
+  WordPress, GitHub, Figma, Tailwind, Material UI) — matches Marquee's own
+  block description ("technology/skill items") better than generic logos
+  did, and is real content rather than a fallback. LogoShowcase was left
+  as-is (still placeholder) — its real client-logo attachments (IDs
+  4565–4569) genuinely don't exist in this local dev DB, and the live
+  production site (kotlinski.dev) wasn't reachable from this environment
+  (DNS resolution failed) to pull them from there instead. Whoever picks
+  this up next: either restore those attachments locally, or fetch the
+  images from production and re-render.
+
+## Follow-up pass 2 (same day) — broken images, and the real Marquee/HeroCarousel bug
+
+- **Every image was broken in the actual claude.ai/design environment**, even
+  though it looked fine every time I checked locally. Root cause: every
+  `<img src>`/`srcset` pointed at `http://kotlinskidev.local/...` —
+  confirmed via `dscacheutil -q host` that this domain resolves only through
+  this Mac's `/etc/hosts` (LocalWP entry), nowhere else. My own verification
+  loop (local `npx serve` + this machine's Chrome) couldn't catch it because
+  this machine CAN resolve that domain. Fix: copied the 21 real image files
+  into `_vendor/images/` and rewrote every `src`/`srcset` in the source
+  fragments (`out/*.html`) to the relative bundle path, before wrapping into
+  cards. **Lesson for next time: verify uploaded-bundle images from an
+  environment that can't reach any `*.local` domain, not just visually in a
+  local browser** — a passing local check here is not evidence the upload
+  works.
+- **Retracted an earlier wrong claim**: I'd written that HeroCarousel/Marquee
+  "need runtime JS for their final look" (horizontal Swiper layout). That
+  was wrong — the user caught Marquee rendering vertically with oversized
+  icons and pushed for a real fix, which surfaced two real, fixable bugs:
+  1. **Missing vendor CSS file.** Swiper's own base layout CSS
+     (`.swiper-wrapper{display:flex}`, `.swiper-slide{...}`) isn't inside
+     each block's `style-<block>.css` — webpack emits it into the separate
+     `<block>-init.css` bundle (from the `import 'swiper/css'` side-effect
+     inside `init.ts`, per this repo's per-entry webpack split). I'd only
+     ever copied `style-hero-carousel.css`/`style-marquee.css` and missed
+     `hero-carousel-init.css`/`marquee-init.css` entirely — nothing in this
+     theme is actually JS-only here, it's pure CSS I forgot to bundle.
+  2. **CSS import order matters, and got it backwards.** Once both files
+     were copied, `.kt-marquee__item{display:flex}` (in `style-marquee.css`)
+     and `.swiper-slide{display:block}` (in `marquee-init.css`) are equal
+     specificity (single class each) — whichever imports LAST in
+     `styles.css` wins a tie. I'd put `marquee-init.css` after
+     `style-marquee.css`, so Swiper's base `display:block` silently beat the
+     block's own override. Real WordPress enqueue order is base-library-then
+     component-override; `styles.css`'s `@import` order must match that
+     (base `*-init.css` before the component's own `style-*.css`) or any
+     future block added the same way will hit this same silent override.
+     Diagnosed via `getComputedStyle` + `fetch()`-ing each vendor CSS file
+     directly from the running preview — guessing from the rendered result
+     alone did not find this, had to compare actual matched rules.
+  - **Also found (and worked around, not fixed): a real latent bug in
+    `kotlinskidev/marquee`'s own CSS.** `.kt-marquee-icon` fixes the icon
+    column to `2.5rem` (40px), but `.kt-marquee-label` sets
+    `white-space:nowrap` with no `min-width` on `.kt-marquee__item` to
+    accommodate it — any label longer than ~4-5 characters overflows
+    sideways past its own column into neighboring items (confirmed via
+    `getBoundingClientRect()`: label positioned correctly under its own
+    icon, but width exceeds the 40px column and isn't clipped). This has
+    never been hit in production because Marquee has no real page usage yet
+    (still true as of this pass). Worked around in the sync preview by using
+    short labels (React/Next/TS/JS/Nest/WP/Git/Figma/Tail/MUI) rather than
+    full names — **the real theme SCSS itself still has this bug** and
+    should get a `min-width: max-content` (or similar) on `.kt-marquee__item`
+    before Marquee ships with any real, longer label text.
+  - Also rebuilt Marquee's source markup to use the real
+    `kotlinskidev/marquee-item` block (icon as `core/image.kt-marquee-icon`
+    + `core/paragraph.kt-marquee-label`, per `marquee/item/edit.tsx`'s own
+    `ITEM_TEMPLATE`) instead of bare `wp:image` blocks directly inside
+    `kotlinskidev/marquee` — the earlier version skipped the real item
+    wrapper entirely, which is *why* the icon-sizing CSS never matched.
+
+## Follow-up pass 3 (same day) — the real reason icons/logo were oversized
+
+User reported the footer logo, footer social/contact icons, and header logo
+all rendering way too big. Root cause was **not** the Marquee/HeroCarousel
+bug from pass 2 — a third, broader instance of the same underlying class of
+mistake (bundling too few of the theme's own compiled CSS files):
+
+- `build/css/critical.css` (the theme's separately-extracted above-the-fold
+  critical CSS, normally inlined in `<head>` for performance) has the global
+  rule constraining every `<svg>` site-wide: `svg{height:4rem;max-height:
+  4rem;max-width:6.25rem;width:auto}`. I had never bundled `critical.css` at
+  all — only `main.css`. Without it, any inline SVG (this theme inlines SVG
+  media as raw `<svg>` markup rather than `<img src>`, so WP core's
+  `img{max-width:100%}` responsive-image rule never applies to them) renders
+  at its own literal size: the footer's logo `wp:image` block had been
+  manually resized to 200×200px in the editor (`is-resized` class, inline
+  `style="width:12.5rem"`) and nothing was there to cap it back down.
+- Also missing: `style-breadcrumbs.css`, `style-protected-content.css`,
+  `style-scroll-to-top.css`, `style-simple-grid.css` — four more per-block
+  stylesheets used by Header/Footer that I'd never checked for. Found them
+  by grepping every `wp-block-kotlinskidev-*` class actually present across
+  ALL 17 rendered `out/*.html` fragments and cross-checking each against
+  `build/css/style-<block>.css` existence, rather than continuing to
+  discover missing files one bug report at a time.
+- Verified the fix against the REAL live footer (scrolled to it in the
+  actual browser) before and after, to confirm 200×200 unconstrained really
+  is wrong and not just how production also looks.
+- **For any future component added to this sync**: grep its rendered
+  fragment for `wp-block-kotlinskidev-*` classes, and for each one confirm
+  BOTH `_vendor/blocks/style-<block>.css` AND `_vendor/blocks/<block>-init.css`
+  (if it exists in `build/css/`) are bundled — don't assume `main.css`
+  alone covers it. Also always bundle `critical.css` from the start; it is
+  not optional above-the-fold-only CSS for this purpose, it carries global
+  resets (like the svg size cap) that nothing else provides.
+
 ## Regenerating
 
 The render pipeline is not currently a committed script (it was written and

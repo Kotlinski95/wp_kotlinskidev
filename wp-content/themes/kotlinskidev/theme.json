@@ -16,12 +16,12 @@
       "palette": [
         {
           "slug": "primary-light",
-          "color": "#8209d3",
+          "color": "#0078c2",
           "name": "Primary · Light Mode"
         },
         {
           "slug": "primary-dark",
-          "color": "#ae41f7",
+          "color": "#00f6ff",
           "name": "Primary · Dark Mode"
         },
         {
@@ -31,27 +31,27 @@
         },
         {
           "slug": "primary-rgb",
-          "color": "130, 9, 211",
+          "color": "0, 120, 194",
           "name": "Primary RGB"
         },
         {
           "slug": "primary-dark-rgb",
-          "color": "174, 65, 247",
+          "color": "0, 246, 255",
           "name": "Primary Dark RGB"
         },
         {
           "slug": "primary-hover",
-          "color": "#6a11cb",
+          "color": "#005a91",
           "name": "Primary Hover"
         },
         {
           "slug": "primary-shade-1",
-          "color": "#8209d3",
+          "color": "#0078c2",
           "name": "Primary Shade 1"
         },
         {
           "slug": "primary-shade-2",
-          "color": "#8209d3",
+          "color": "#0078c2",
           "name": "Primary Shade 2"
         },
         {

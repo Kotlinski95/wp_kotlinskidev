@@ -193,6 +193,24 @@ describe("hamburger.ts", () => {
     expect(closeBtn.focus).toHaveBeenCalled();
   });
 
+  it("force-collapses submenu toggles left expanded by WP core's Interactivity state when the overlay opens", async () => {
+    buildNav();
+    loadModule();
+    const container = document.querySelector(
+      ".wp-block-navigation__responsive-container"
+    ) as HTMLElement;
+    const toggle = document.querySelector(".wp-block-navigation-submenu__toggle") as HTMLElement;
+    const link = document.querySelector(".wp-block-navigation-item__content") as HTMLElement;
+    toggle.setAttribute("aria-expanded", "true");
+    link.setAttribute("tabindex", "0");
+
+    container.classList.add("is-menu-open");
+    await flushMicrotasks();
+
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    expect(link.getAttribute("tabindex")).toBe("-1");
+  });
+
   it("unlocks scroll when the menu closes via a class mutation", async () => {
     buildNav({ open: true });
     loadModule();

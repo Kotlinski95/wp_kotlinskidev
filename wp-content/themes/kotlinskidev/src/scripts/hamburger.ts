@@ -77,6 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isOpen && !wasOpen) {
           lockScroll(LOCK_OWNER);
           container.classList.add("kt-nav-panel-animating");
+          container
+            .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
+            .forEach((t) => {
+              t.setAttribute("aria-expanded", "false");
+              setSubmenuTabbable(t, false);
+            });
           const closeBtn = container
             .closest(".wp-block-navigation")
             ?.querySelector<HTMLButtonElement>(".wp-block-navigation__responsive-container-close");
