@@ -95,16 +95,7 @@ describe("restoration.ts", () => {
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
-  // Regression: a kotlinskidev/scroll-section pin (pinSpacing: false) only grows the document's
-  // real scrollHeight in response to `scroll` events, as the user actually passes through it
-  // (scroll-trigger-refresh.ts's growSpacerForHiddenOverflow()) — confirmed live on a real
-  // multi-scroll-section page, scrollHeight more than doubled between a fresh load and the true
-  // bottom. A single scrollTo(0, target) call used to get silently clamped to whatever the
-  // still-small, ungrown scrollHeight was at that instant, and nothing ever re-issued it, so a
-  // reload landed the page stuck partway down instead of at the saved position (confirmed live:
-  // landed at scrollY 8453 against a saved target of 16495). This mock reproduces that exact
-  // clamp-then-grow shape: each scrollTo() call is clamped to the current max, and the max only
-  // grows by a fixed amount per call — matching one scroll-driven growth tick each frame.
+  // Mocks the exact clamp-then-grow shape of the real scrollHeight bug: each call clamped to current max, which only grows by a fixed amount per call to match one settling tick.
   it("keeps retrying scrollTo across frames until scrollY reaches a target that only becomes reachable as the document grows", () => {
     jest.useFakeTimers();
     Object.defineProperty(performance, "getEntriesByType", {

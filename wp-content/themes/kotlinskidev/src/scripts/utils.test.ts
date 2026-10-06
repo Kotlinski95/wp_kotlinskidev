@@ -10,6 +10,9 @@ import {
   rafThrottle,
   onScroll,
   setScrollBehavior,
+  beginProgrammaticScroll,
+  endProgrammaticScroll,
+  isProgrammaticScrollActive,
 } from "./utils";
 
 function setInnerWidth(width: number) {
@@ -218,6 +221,33 @@ describe("scrollTo", () => {
     scrollTo(0, "auto");
 
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: "auto" });
+  });
+});
+
+describe("programmatic scroll flag", () => {
+  afterEach(() => {
+    delete window.kotlinskidevProgrammaticScrollActive;
+  });
+
+  it("is false before beginProgrammaticScroll() is ever called", () => {
+    expect(isProgrammaticScrollActive()).toBe(false);
+  });
+
+  it("becomes true after beginProgrammaticScroll() and false again after endProgrammaticScroll()", () => {
+    beginProgrammaticScroll();
+    expect(isProgrammaticScrollActive()).toBe(true);
+    expect(window.kotlinskidevProgrammaticScrollActive).toBe(true);
+
+    endProgrammaticScroll();
+    expect(isProgrammaticScrollActive()).toBe(false);
+    expect(window.kotlinskidevProgrammaticScrollActive).toBe(false);
+  });
+
+  it("stores the flag on window, not module-scoped state — readable by a separate copy of this module", () => {
+    // Separate webpack bundles share no module scope, so this reads the flag off `window` directly rather than this test's own imported isProgrammaticScrollActive().
+    beginProgrammaticScroll();
+
+    expect(window.kotlinskidevProgrammaticScrollActive).toBe(true);
   });
 });
 

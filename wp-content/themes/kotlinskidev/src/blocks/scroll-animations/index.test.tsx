@@ -104,6 +104,19 @@ describe("scroll-animations — editor.BlockEdit filter", () => {
     expect(screen.queryByRole("combobox", { name: "Animation Distance" })).not.toBeInTheDocument();
   });
 
+  it("offers the opacity-only Appear option and hides the distance control for it", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { scrollAnimation: "appear-on-scroll" },
+      setAttributes: jest.fn(),
+    });
+    await openPanel(user);
+
+    expect(screen.getByRole("option", { name: "Appear" })).toBeInTheDocument();
+    expect(screen.queryByRole("combobox", { name: "Animation Distance" })).not.toBeInTheDocument();
+  });
+
   it("updates the animation type", async () => {
     const setAttributes = jest.fn();
     const user = userEvent.setup();

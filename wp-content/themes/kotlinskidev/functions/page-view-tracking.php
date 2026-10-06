@@ -93,9 +93,7 @@ function kotlinskidev_get_popular_posts($limit = 6, $post_types = array('post', 
         return new WP_Query(array('post__in' => array(0), 'lang' => ''));
     }
 
-    // 'lang' => '' skips Polylang's per-post language re-validation here — the IDs
-    // are already language-resolved by the cached query above, so re-checking each
-    // one again on every request (cache hit or not) would be redundant DB work.
+    // 'lang' => '' skips Polylang's re-validation — IDs are already language-resolved by the cached query above.
     return new WP_Query(array(
         'post__in' => $post_ids,
         'orderby' => 'post__in',

@@ -56,7 +56,13 @@ describe("marquee Edit", () => {
   });
 
   it("renders InnerBlocks restricted to marquee-item with a 3-item default template", () => {
-    render(<Edit attributes={{ speed: 30 }} setAttributes={jest.fn()} clientId="parent" />);
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={jest.fn()}
+        clientId="parent"
+      />
+    );
 
     const innerBlocks = screen.getByTestId("inner-blocks");
     expect(innerBlocks.dataset.allowed).toBe("kotlinskidev/marquee-item");
@@ -64,14 +70,26 @@ describe("marquee Edit", () => {
   });
 
   it("shows the current item count", () => {
-    render(<Edit attributes={{ speed: 30 }} setAttributes={jest.fn()} clientId="parent" />);
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={jest.fn()}
+        clientId="parent"
+      />
+    );
 
     expect(screen.getByText("3 item(s)")).toBeInTheDocument();
   });
 
   it("inserts a new marquee-item block on Add Technology", async () => {
     const user = userEvent.setup();
-    render(<Edit attributes={{ speed: 30 }} setAttributes={jest.fn()} clientId="parent" />);
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={jest.fn()}
+        clientId="parent"
+      />
+    );
 
     await user.click(screen.getByRole("button", { name: "+ Add Technology" }));
 
@@ -84,7 +102,13 @@ describe("marquee Edit", () => {
 
   it("removes the last item on Remove Last Technology", async () => {
     const user = userEvent.setup();
-    render(<Edit attributes={{ speed: 30 }} setAttributes={jest.fn()} clientId="parent" />);
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={jest.fn()}
+        clientId="parent"
+      />
+    );
 
     await user.click(screen.getByRole("button", { name: "Remove Last Technology" }));
 
@@ -93,7 +117,13 @@ describe("marquee Edit", () => {
 
   it("hides Remove Last Technology when only one item remains", () => {
     mockBlocks = { parent: { innerBlocks: [{ clientId: "a" }] } };
-    render(<Edit attributes={{ speed: 30 }} setAttributes={jest.fn()} clientId="parent" />);
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={jest.fn()}
+        clientId="parent"
+      />
+    );
 
     expect(
       screen.queryByRole("button", { name: "Remove Last Technology" })
@@ -102,12 +132,51 @@ describe("marquee Edit", () => {
 
   it("updates speed via the range control", async () => {
     const setAttributes = jest.fn();
-    render(<Edit attributes={{ speed: 30 }} setAttributes={setAttributes} clientId="parent" />);
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={setAttributes}
+        clientId="parent"
+      />
+    );
 
     const input = screen.getByRole("spinbutton", { name: "Scroll duration (seconds)" });
     input.focus();
     await userEvent.keyboard("{ArrowUp}");
 
     expect(setAttributes).toHaveBeenCalledWith({ speed: 31 });
+  });
+
+  it("updates direction via the select control", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={setAttributes}
+        clientId="parent"
+      />
+    );
+
+    await user.selectOptions(screen.getByRole("combobox", { name: "Direction" }), "reverse");
+
+    expect(setAttributes).toHaveBeenCalledWith({ direction: "reverse" });
+  });
+
+  it("updates gap via the range control", async () => {
+    const setAttributes = jest.fn();
+    render(
+      <Edit
+        attributes={{ speed: 30, direction: "normal", gap: 40 }}
+        setAttributes={setAttributes}
+        clientId="parent"
+      />
+    );
+
+    const input = screen.getByRole("spinbutton", { name: "Spacing between items (px)" });
+    input.focus();
+    await userEvent.keyboard("{ArrowUp}");
+
+    expect(setAttributes).toHaveBeenCalledWith({ gap: 41 });
   });
 });

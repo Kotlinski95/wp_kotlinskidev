@@ -21,20 +21,14 @@ export async function clickAndExpectNavigation(page: Page, link: Locator) {
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(targetPath);
 }
 
-// A link/trigger pointing at the page currently being viewed is intentionally
-// non-interactive on this theme (`kt-link-current` / `aria-disabled="true"`,
-// see functions/active-link-state.php) — excluded so "pick any live link" helpers
-// never happen to land on one.
+// A link to the current page is intentionally non-interactive on this theme (kt-link-current/aria-disabled, see functions/active-link-state.php) — excluded so "pick any live link" helpers never land on one.
 export const NOT_CURRENT_PAGE = ':not(.kt-link-current):not([aria-disabled="true"])';
 
 export function getFirstLiveLink(container: Locator): Locator {
   return container.locator(`a[href]${NOT_CURRENT_PAGE}`).first();
 }
 
-// Some core blocks (image, cover, ...) split their Inspector into "content"
-// (shown by default) and "Settings" sub-tabs; a plain InspectorControls panel
-// (no "group" prop) only renders once the Settings tab is active. Other blocks
-// have no such split and render their panels directly — safe to call unconditionally.
+// Some core blocks split their Inspector into "content"/"Settings" sub-tabs, where a plain InspectorControls panel only renders once Settings is active — safe to call unconditionally for blocks with no such split.
 export async function openBlockSettingsTab(page: Page): Promise<void> {
   const settingsTab = page.getByRole("tab", { name: "Settings" });
   if (await settingsTab.count()) {

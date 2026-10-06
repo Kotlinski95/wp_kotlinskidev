@@ -6,10 +6,8 @@ interface GsapToCall {
     scrollTrigger: {
       trigger: HTMLElement;
       start: string;
-      pinnedContainer: HTMLElement;
       end: () => string;
       pin: HTMLElement;
-      pinSpacing: boolean;
       scrub: boolean;
       invalidateOnRefresh: boolean;
       markers?: boolean;
@@ -42,10 +40,12 @@ function buildSection({
   itemCount = 2,
   trigger,
   markers,
-}: { itemCount?: number; trigger?: string; markers?: string } = {}) {
+}: {
+  itemCount?: number;
+  trigger?: string;
+  markers?: string;
+} = {}) {
   document.body.innerHTML = "";
-  const pageWrapper = document.createElement("div");
-  pageWrapper.className = "main-wrapper";
   const section = document.createElement("div");
   section.setAttribute("data-scroll-section", "");
   if (trigger) {
@@ -62,9 +62,8 @@ function buildSection({
     track.append(item);
   }
   section.append(track);
-  pageWrapper.append(section);
-  document.body.append(pageWrapper);
-  return { pageWrapper, section, track };
+  document.body.append(section);
+  return { section, track };
 }
 
 function loadModule() {
@@ -87,30 +86,22 @@ describe("scroll-section/init.ts", () => {
     expect(mockScrollTriggerConfig).toHaveBeenCalledWith({ ignoreMobileResize: true });
   });
 
-  it("does nothing when there is no .main-wrapper", () => {
-    document.body.innerHTML = '<div class="scroll-section__track"></div>';
-
-    loadModule();
-
-    expect(mockToCalls).toHaveLength(0);
-  });
-
   it("does nothing for a track with no items", () => {
     document.body.innerHTML = "";
-    const pageWrapper = document.createElement("div");
-    pageWrapper.className = "main-wrapper";
+    const section = document.createElement("div");
+    section.setAttribute("data-scroll-section", "");
     const track = document.createElement("div");
     track.className = "scroll-section__track";
-    pageWrapper.append(track);
-    document.body.append(pageWrapper);
+    section.append(track);
+    document.body.append(section);
 
     loadModule();
 
     expect(mockToCalls).toHaveLength(0);
   });
 
-  it("animates the track with a pinned ScrollTrigger tied to the page wrapper", () => {
-    const { pageWrapper, track } = buildSection();
+  it("pins the section itself, trigger included, with no legacy pinnedContainer/pinSpacing options", () => {
+    const { section, track } = buildSection();
 
     loadModule();
 
@@ -118,12 +109,28 @@ describe("scroll-section/init.ts", () => {
     const [call] = mockToCalls;
     expect(call.target).toBe(track);
     expect(call.config.ease).toBe("none");
-    expect(call.config.scrollTrigger.trigger).toBe(track);
-    expect(call.config.scrollTrigger.pin).toBe(pageWrapper);
-    expect(call.config.scrollTrigger.pinnedContainer).toBe(pageWrapper);
-    expect(call.config.scrollTrigger.pinSpacing).toBe(false);
+    expect(call.config.scrollTrigger.trigger).toBe(section);
+    expect(call.config.scrollTrigger.pin).toBe(section);
     expect(call.config.scrollTrigger.scrub).toBe(true);
     expect(call.config.scrollTrigger.invalidateOnRefresh).toBe(true);
+    expect("pinnedContainer" in call.config.scrollTrigger).toBe(false);
+    expect("pinSpacing" in call.config.scrollTrigger).toBe(false);
+    expect("pinType" in call.config.scrollTrigger).toBe(false);
+  });
+
+  it("pins the nearest .scroll-section-pin-boundary ancestor instead of the bare section when one wraps it, keeping the trigger on the section itself", () => {
+    const { section } = buildSection();
+    const boundary = document.createElement("div");
+    boundary.className = "scroll-section-pin-boundary";
+    section.replaceWith(boundary);
+    boundary.append(section);
+
+    loadModule();
+
+    expect(mockToCalls).toHaveLength(1);
+    const [call] = mockToCalls;
+    expect(call.config.scrollTrigger.trigger).toBe(section);
+    expect(call.config.scrollTrigger.pin).toBe(boundary);
   });
 
   it("defaults the trigger start point to center", () => {
@@ -131,7 +138,7 @@ describe("scroll-section/init.ts", () => {
 
     loadModule();
 
-    expect(mockToCalls[0].config.scrollTrigger.start).toBe("top center");
+    expect(mockToCalls[0].config.scrollTrigger.start).toBe("center center");
   });
 
   it("uses a custom trigger point from data-trigger", () => {
@@ -140,6 +147,14 @@ describe("scroll-section/init.ts", () => {
     loadModule();
 
     expect(mockToCalls[0].config.scrollTrigger.start).toBe("top top");
+  });
+
+  it("anchors the bottom trigger point to the bottom of both track and viewport", () => {
+    buildSection({ trigger: "bottom" });
+
+    loadModule();
+
+    expect(mockToCalls[0].config.scrollTrigger.start).toBe("bottom bottom");
   });
 
   it("enables markers only when data-markers is exactly the string true", () => {
@@ -176,8 +191,6 @@ describe("scroll-section/init.ts", () => {
 
   it("animates every track when a page has more than one scroll section", () => {
     document.body.innerHTML = "";
-    const pageWrapper = document.createElement("div");
-    pageWrapper.className = "main-wrapper";
     for (let i = 0; i < 2; i += 1) {
       const section = document.createElement("div");
       section.setAttribute("data-scroll-section", "");
@@ -187,9 +200,8 @@ describe("scroll-section/init.ts", () => {
       item.className = "scroll-section__item";
       track.append(item);
       section.append(track);
-      pageWrapper.append(section);
+      document.body.append(section);
     }
-    document.body.append(pageWrapper);
 
     loadModule();
 

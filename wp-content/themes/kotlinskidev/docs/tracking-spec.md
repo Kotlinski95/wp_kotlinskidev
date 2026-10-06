@@ -62,7 +62,7 @@ vendor automatically for whichever events you routed to it.
 ## Events
 
 | Event | Providers | Fired from | Parameters | Trigger |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | `cta_click` | gtag | `analytics.ts` (delegated click) | `link_text`, `link_url` | Click on any `.wp-block-button__link`, `.kt-button__link`, or `.wp-element-button` not inside a `.kt-project-card` — covers every editor-authored CTA (Hire Me, Download CV, etc.) with zero per-page setup. |
 | `select_content` | gtag | `analytics.ts` (delegated click) | `content_type` (`"project"`), `item_name` | Click anywhere inside a `.kt-project-card` (the project-card block template) — takes priority over `cta_click` for the card's own "View project" button. Uses GA4's reserved `select_content` name (not an invented one) so it's understood natively by GA4's own reports/templates. |
 | `language_switch` | gtag | `analytics.ts` (delegated click) | `language` (hreflang), `link_url` | Click on a Polylang language-switcher link inside `.kt-lang-panel__list` or `.wp-block-polylang-language-switcher`. |

@@ -24,6 +24,12 @@ $kotlinskidev_lang_flag = ( $attributes['showFlag'] ?? true )
 	: '';
 
 $kotlinskidev_lang_panel_id = 'kt-lang-modal-' . wp_unique_id();
+$kotlinskidev_reveal        = kotlinskidev_nav_reveal_class_and_style( $attributes );
+$kotlinskidev_staggered_content = kotlinskidev_stagger_reveal_items(
+	$content,
+	$attributes['navRevealAnimation'] ?? '',
+	[ 'wp-block-kotlinskidev-nav-paragraph', 'wp-block-navigation-item' ]
+);
 
 $kotlinskidev_show_indicator   = $attributes['showIndicator'] ?? true;
 $kotlinskidev_indicator_effect = $attributes['indicatorEffect'] ?? 'rotate';
@@ -54,15 +60,16 @@ if ( $kotlinskidev_indicator_effect !== 'none' ) {
 		<?php endif; ?>
 	</button>
 	<div
-		class="kt-lang-panel__modal"
+		class="kt-lang-panel__modal<?php echo '' !== $kotlinskidev_reveal['class'] ? ' ' . esc_attr( $kotlinskidev_reveal['class'] ) : ''; ?>"
 		id="<?php echo esc_attr( $kotlinskidev_lang_panel_id ); ?>"
 		aria-hidden="true"
 		role="dialog"
 		aria-label="<?php echo esc_attr__( 'Language selection', 'kotlinskidev' ); ?>"
+		<?php if ( '' !== $kotlinskidev_reveal['style'] ) : ?>style="<?php echo esc_attr( $kotlinskidev_reveal['style'] ); ?>"<?php endif; ?>
 	>
 		<div class="kt-lang-panel__modal-inner">
 			<ul class="kt-lang-panel__list" role="list">
-				<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
+				<?php echo $kotlinskidev_staggered_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- derived from $content, the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline, passed through WP_HTML_Tag_Processor only ?>
 			</ul>
 		</div>
 	</div>

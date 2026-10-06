@@ -1,9 +1,5 @@
 import { getBreakpoints } from "./utils";
 
-// =============================================================================
-// GLOBAL TRANSLATION INTERFACES
-// =============================================================================
-
 export interface NavigationTranslations {
   menu: {
     toggle: string;
@@ -94,10 +90,6 @@ export interface KotlinskiDevTranslations {
   scrollAnimations: ScrollAnimationsTranslations;
 }
 
-// =============================================================================
-// GLOBAL WINDOW INTERFACE EXTENSIONS
-// =============================================================================
-
 declare global {
   interface Window {
     kotlinskiDevL10n?: KotlinskiDevTranslations;
@@ -117,10 +109,6 @@ declare global {
   }
 }
 
-// =============================================================================
-// UTILITY TYPES
-// =============================================================================
-
 export type EventCallback = (event: Event) => void;
 export type VoidCallback = () => void;
 export type AsyncVoidCallback = () => Promise<void>;
@@ -139,10 +127,6 @@ export interface Rect extends Point, Dimensions {}
 
 export type DeviceType = "mobile" | "tablet" | "desktop";
 export type ThemeMode = "light" | "dark" | "auto";
-
-// =============================================================================
-// UTILITY FUNCTIONS
-// =============================================================================
 
 export const getTranslations = (): KotlinskiDevTranslations => {
   return (

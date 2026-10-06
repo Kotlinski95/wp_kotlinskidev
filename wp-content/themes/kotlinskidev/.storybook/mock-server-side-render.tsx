@@ -11,7 +11,10 @@ export type BreadcrumbsRoute = "post" | "category" | "page";
 
 export const BreadcrumbsRouteContext = createContext<BreadcrumbsRoute>("post");
 
-type BlockMockRenderer = (attributes: Record<string, unknown>, breadcrumbsRoute: BreadcrumbsRoute) => string;
+type BlockMockRenderer = (
+  attributes: Record<string, unknown>,
+  breadcrumbsRoute: BreadcrumbsRoute
+) => string;
 
 const GRADIENT_BORDER =
   "linear-gradient(to left, rgb(132, 83, 210) 0%, rgb(0, 71, 255) 60%, rgb(0, 120, 194) 100%)";
@@ -59,12 +62,14 @@ export const PROJECT_CARD_MOCK_CARDS: Record<number, MockProjectCard> = {
   },
   2: {
     title: "Smart Shopping",
-    description: "A mobile shopping-list app designed to eliminate wasted time and forgotten items.",
+    description:
+      "A mobile shopping-list app designed to eliminate wasted time and forgotten items.",
     tags: "Mobile App UX",
   },
   3: {
     title: "Hollister",
-    description: "Built Hollister's global e-commerce platform from the ground up with Next.js and a headless CMS.",
+    description:
+      "Built Hollister's global e-commerce platform from the ground up with Next.js and a headless CMS.",
     tags: "Next.js Headless CMS",
   },
 };
@@ -134,11 +139,7 @@ const BREADCRUMBS_TRAILS: Record<BreadcrumbsRoute, BreadcrumbsCrumb[]> = {
     { label: "Topics", url: "#" },
     { label: "AI in website development" },
   ],
-  page: [
-    { label: "Home", url: "#" },
-    { label: "Contact", url: "#" },
-    { label: "Thank you page" },
-  ],
+  page: [{ label: "Home", url: "#" }, { label: "Contact", url: "#" }, { label: "Thank you page" }],
 };
 
 function renderBreadcrumbs(_attributes: Record<string, unknown>, route: BreadcrumbsRoute): string {
@@ -167,13 +168,20 @@ const BLOCK_MOCKS: Record<string, BlockMockRenderer> = {
   "kotlinskidev/theme-switcher": renderThemeSwitcher,
 };
 
-export default function MockServerSideRender({ block, attributes, className }: MockServerSideRenderProps) {
+export default function MockServerSideRender({
+  block,
+  attributes,
+  className,
+}: MockServerSideRenderProps) {
   const renderMock = BLOCK_MOCKS[block];
   const breadcrumbsRoute = useContext(BreadcrumbsRouteContext);
 
   if (!renderMock) {
     return (
-      <div className={className} style={{ padding: "1rem", border: "1px dashed currentColor", opacity: 0.6 }}>
+      <div
+        className={className}
+        style={{ padding: "1rem", border: "1px dashed currentColor", opacity: 0.6 }}
+      >
         No Storybook mock configured yet for &quot;{block}&quot;.
       </div>
     );

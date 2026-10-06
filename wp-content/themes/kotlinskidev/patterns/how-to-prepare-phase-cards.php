@@ -34,68 +34,31 @@ $kotlinskidev_phases = array(
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/how-to-prepare-phase-cards","name":"How To Prepare Phase Cards"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        .kotlinskidev-htp-phases {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-            gap: 1.25rem;
-        }
-        .kotlinskidev-htp-phases__card {
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 1.375rem;
-            padding: 1.875rem 1.75rem;
-        }
-        .kotlinskidev-htp-phases__eyebrow {
-            font-size: 0.71875rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--wp--preset--color--foreground-alt);
-            margin-bottom: 0.875rem;
-        }
-        .kotlinskidev-htp-phases__title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: var(--wp--preset--color--foreground);
-            margin: 0 0 1rem;
-        }
-        .kotlinskidev-htp-phases__list {
-            display: grid;
-            gap: 0.6875rem;
-            font-size: 0.90625rem;
-            line-height: 1.6;
-            color: var(--wp--preset--color--foreground-alt);
-        }
-        .kotlinskidev-htp-phases__item {
-            display: flex;
-            align-items: baseline;
-            gap: 0.6875rem;
-        }
-        .kotlinskidev-htp-phases__item::before {
-            content: "";
-            flex: none;
-            width: 0.34375rem;
-            height: 0.34375rem;
-            border-radius: 50%;
-            background: var(--wp--preset--color--primary);
-        }
-    </style>
-    <div class="kotlinskidev-htp-phases">
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"blockGap":"1.25rem"}},"layout":{"type":"grid","minimumColumnWidth":"20rem"}} -->
+    <div class="wp-block-group">
         <?php foreach ($kotlinskidev_phases as $kotlinskidev_phase) : ?>
-        <div class="kotlinskidev-htp-phases__card">
-            <div class="kotlinskidev-htp-phases__eyebrow"><?php echo esc_html($kotlinskidev_phase['eyebrow']) ?></div>
-            <div class="kotlinskidev-htp-phases__title"><?php echo esc_html($kotlinskidev_phase['title']) ?></div>
-            <div class="kotlinskidev-htp-phases__list">
+        <!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.75rem","right":"1.75rem"},"blockGap":"0.875rem"}},"backgroundColor":"background-alt","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+        <div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:1.875rem;padding-right:1.75rem;padding-bottom:1.875rem;padding-left:1.75rem"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"700","letterSpacing":"0.14em"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
+            <p class="has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;letter-spacing:0.14em;text-transform:uppercase"><?php echo esc_html($kotlinskidev_phase['eyebrow']) ?></p>
+            <!-- /wp:paragraph -->
+
+            <!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
+            <h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_phase['title']) ?></h3>
+            <!-- /wp:heading -->
+
+            <!-- wp:list {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"small"} -->
+            <ul class="has-foreground-alt-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0">
                 <?php foreach ($kotlinskidev_phase['items'] as $kotlinskidev_item) : ?>
-                <div class="kotlinskidev-htp-phases__item"><span><?php echo esc_html($kotlinskidev_item) ?></span></div>
+                <!-- wp:list-item -->
+                <li><?php echo esc_html($kotlinskidev_item) ?></li>
+                <!-- /wp:list-item -->
                 <?php endforeach; ?>
-            </div>
+            </ul>
+            <!-- /wp:list -->
         </div>
+        <!-- /wp:group -->
         <?php endforeach; ?>
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:group -->
 </div>
 <!-- /wp:group -->

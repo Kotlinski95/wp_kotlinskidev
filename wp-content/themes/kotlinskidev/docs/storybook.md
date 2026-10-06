@@ -14,7 +14,7 @@ npm run build-storybook    # static build → storybook-static/ (gitignored, not
 A block theme's blocks are built to run inside a full WordPress admin bootstrap: real REST endpoints, a real Media Library, a real `core/block-editor` registry populated by the real editor's own JS. Storybook provides none of that. Every piece of this setup exists to paper over one specific missing piece of that bootstrap. If you're about to fight a new "works in wp-admin, breaks in Storybook" bug, check the table below first — there's a decent chance it's already solved.
 
 | Missing WP runtime piece | Symptom without a fix | Fix | Where |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `@wordpress/data` registry, one instance | `useBlockProps()` throws `Cannot destructure property 'getBlockType' of undefined` | Align `@wordpress/*` devDependencies to one mutually-compatible version set | `package.json` |
 | `core-data` store never registered | `select('core').getEntityRecords()` returns `undefined` and crashes | `import "@wordpress/core-data"` (side-effect registration) | `preview.tsx` |
 | `wp.media` (Media Library modal) | Block always renders empty, no "Add" button at all | Fake `editor.MediaUpload` filter + `mediaUpload` block-editor setting | `mock-media-upload.tsx` |

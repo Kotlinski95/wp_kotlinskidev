@@ -123,8 +123,7 @@ function kotlinskidev_get_related_posts($post_id = null, $limit = 3) {
 
     $post_lang = function_exists('pll_get_post_language') ? pll_get_post_language($post_id) : '';
 
-    // ORDER BY RAND() forces MySQL to sort every matching row on every request —
-    // fetch matching IDs only (cheap, indexed) and randomize in PHP instead.
+    // ORDER BY RAND() would force MySQL to sort every matching row — fetch IDs only and randomize in PHP instead.
     $candidate_ids = get_posts(array(
         'category__in' => $category_ids,
         'post__not_in' => array($post_id),
@@ -474,8 +473,7 @@ function kotlinskidev_breadcrumb_settings_page() {
 
 // Get breadcrumb settings with fallbacks
 function kotlinskidev_get_breadcrumb_settings($locale = null) {
-    // Cache per locale — get_option() and home_url() would otherwise be called
-    // on every breadcrumb render within a request.
+    // Cache per locale — avoids calling get_option()/home_url() on every breadcrumb render.
     static $cache = [];
 
     if (!$locale) {
@@ -650,8 +648,6 @@ function kotlinskidev_search_form_shortcode($atts) {
 }
 add_shortcode('kotlinskidev_search', 'kotlinskidev_search_form_shortcode');
 
-// Polish Search Page Integration
-// Handle Polish search functionality for pages using search_pl.html template
 function kotlinskidev_handle_polish_search_integration() {
     // Check if current page is using the Polish search template
     $template = get_page_template_slug();
@@ -665,9 +661,6 @@ function kotlinskidev_handle_polish_search_integration() {
             $wp_query->is_page = false;
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search query filtering, no state change
             $wp_query->set('s', sanitize_text_field(wp_unslash($_GET['s'])));
-            
-            // Use the same enhanced search functionality we already have
-            // The kotlinskidev_enhance_search function will handle the rest
         }
     }
 }
@@ -678,8 +671,7 @@ function kotlinskidev_redirect_to_polish_search($url) {
     $locale = get_locale();
     
     if ($locale == 'pl_PL' && strpos($url, '/?s=') !== false) {
-        // Cache the Polish search page lookup — get_pages() with a meta_query is an
-        // extra DB query that would fire on every search link rendered on the page.
+        // Cache the lookup — get_pages() with a meta_query would otherwise fire for every search link on the page.
         $cache_key = 'kotlinskidev_polish_search_page_id';
         $polish_page_id = wp_cache_get($cache_key);
         

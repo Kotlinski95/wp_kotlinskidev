@@ -1,5 +1,6 @@
 import { registerPanel, closeAllExcept } from "./panel-coordinator";
 import { lockScroll, unlockScroll } from "./scroll-lock";
+import { dispatchNavPanelOpen, dispatchNavPanelClose } from "./nav-reveal-events";
 
 interface DropdownPanelConfig {
   rootSelector: string;
@@ -16,11 +17,16 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
 
   const closeAll = () => {
     panels.forEach((panel) => {
+      const wasOpen = panel.classList.contains("is-open");
       panel.classList.remove("is-open");
       panel
         .querySelector<HTMLButtonElement>(config.triggerSelector)
         ?.setAttribute("aria-expanded", "false");
-      panel.querySelector<HTMLElement>(config.modalSelector)?.setAttribute("aria-hidden", "true");
+      const modal = panel.querySelector<HTMLElement>(config.modalSelector);
+      modal?.setAttribute("aria-hidden", "true");
+      if (wasOpen && modal) {
+        dispatchNavPanelClose(modal);
+      }
     });
     unlockScroll(config.rootSelector);
   };
@@ -42,6 +48,7 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
         modal?.setAttribute("aria-hidden", "false");
         lockScroll(config.rootSelector);
         if (modal) {
+          dispatchNavPanelOpen(modal);
           config.onOpen?.(modal);
         }
       }

@@ -13,19 +13,7 @@ function wpEval(script: string): string {
   }).trim();
 }
 
-// Regression: opening any kt-modal (not GSAP/marquee-specific — confirmed by reproducing with
-// a bare `document.body.style.overflow = "hidden"` toggle, no modal or GSAP involved at all)
-// clamped scrollY down once enough real content had been scrolled through, because
-// scroll-lock.ts's .has-modal-open class set `overflow: hidden` on <body> in addition to
-// <html>. <html> alone (the actual root scrolling element) already blocks scrolling correctly
-// and is harmless; <body>'s overflow: hidden was redundant *and* the actual cause — it clips
-// body's own rendered box, shrinking what <html> considers its scrollable height, which forces
-// scrollY down to fit. Removing body's overflow: hidden from global.scss (keeping only
-// touch-action: none there) fixes it directly. Only reproduces after reaching the marquee via
-// real, continuous wheel scrolling through the page's pinned scroll-section blocks first — a
-// scrollTo()-based jump straight to the marquee's position never left enough real scrollHeight
-// for the clamp to have room to matter, exactly like scroll-section-multi-pin.spec's own
-// documented "must be real wheel scroll" finding for a different bug in the same page shape.
+// Regression: scroll-lock.ts's .has-modal-open set overflow:hidden on <body> too, which clipped body's own box and clamped scrollY down on any tall, wheel-scrolled page (not marquee/GSAP-specific) — fixed by removing it from global.scss. 2+ scroll-section blocks here is just a content-agnostic proxy for "tall enough to wheel-scroll through".
 function findMarqueeAfterScrollSectionsPageUrl(): string | null {
   const result = wpEval(`
     $posts = get_posts(['post_type' => 'any', 'post_status' => 'publish', 'numberposts' => -1, 'fields' => 'ids']);
@@ -86,14 +74,7 @@ test.describe("kotlinskidev/marquee modal — scroll position after opening", ()
     await page.waitForTimeout(300);
     const scrollYBeforeClick = await page.evaluate(() => window.scrollY);
 
-    // .first() alone can pick a marquee item that's currently panned outside the track's own
-    // clipped viewport (the marquee scrolls continuously) — Playwright's own pre-click
-    // actionability check then scrolls the *document* to bring it fully into view before
-    // clicking, a Playwright-side scroll unrelated to anything the site's own code does, which
-    // would masquerade as a real regression here. Pick whichever item is currently horizontally
-    // visible inside the track instead, matching what a real user could actually click, and
-    // force the click to skip Playwright's own pre-click scroll as a second guard against the
-    // same false signal.
+    // .first() can pick an item currently panned outside the track's clipped viewport, triggering Playwright's own pre-click document scroll — a false signal unrelated to the site's code. Pick a currently-visible item instead, and force-click as a second guard.
     const marqueeBox = (await marquee.boundingBox())!;
     const items = await marquee.locator(".kt-marquee__item:not([aria-hidden='true'])").all();
     let clickableItem = items[0];
@@ -112,14 +93,7 @@ test.describe("kotlinskidev/marquee modal — scroll position after opening", ()
     await page.waitForTimeout(500);
     const scrollYAfterSettling = await page.evaluate(() => window.scrollY);
 
-    // Known open residual (tracked, not silently loosened away): a real repro here still shows
-    // scrollY landing ~38px off (was ~3200px before scroll-lock.ts stopped setting `overflow:
-    // hidden` on <body>, the fix that resolved this test's original failure — see global.scss).
-    // Traced live to scroll-trigger-refresh.ts's own natural-height reconciliation loop
-    // (confirmed via MutationObserver: .main-wrapper/.pin-spacer inline height mutating at the
-    // exact ms scrollY moves) rewriting .main-wrapper's locked height ~76ms after the click,
-    // most likely legitimate content-driven scroll anchoring rather than a real visible jump —
-    // but not yet proven either way, so the threshold stays strict rather than papering over it.
+    // Strict threshold deliberate — was ~3200px off before the body overflow:hidden fix; don't loosen to paper over a regression.
     expect(Math.abs(scrollYRightAfterOpen - scrollYBeforeClick)).toBeLessThan(5);
     expect(Math.abs(scrollYAfterSettling - scrollYBeforeClick)).toBeLessThan(5);
   });

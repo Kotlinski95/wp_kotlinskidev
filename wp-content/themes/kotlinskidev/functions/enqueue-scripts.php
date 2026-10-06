@@ -16,8 +16,7 @@ function inline_critical_js()
         return;
     }
 
-    // Cache the file contents — it only changes on build deploys.
-    // filemtime() in the cache key auto-invalidates whenever the file changes.
+        // Cached by filemtime()-keyed transient so it auto-invalidates on each deploy.
     $cache_key  = 'kotlinskidev_critical_js_' . filemtime($critical_js_path);
     $critical_js = get_transient($cache_key);
     if ($critical_js === false) {
@@ -171,8 +170,5 @@ add_action('wp_enqueue_scripts', function (): void {
         'scrollOffsets' => kotlinskidev_get_scroll_offsets(),
     ]);
     
-    // When used in a WordPress plugin
-    //$script_args = include( plugin_dir_path( __FILE__ ) . 'assets/public/scripts.asset.php');
-    //wp_enqueue_script('wp-typescript', plugins_url('assets/public/scripts.js', __FILE__), $script_args['dependencies'], $script_args['version']);
 });
 

@@ -80,7 +80,7 @@ npm run audit          # Performance/accessibility/SEO/security audit against au
 All blocks are registered under the `kotlinskidev/` namespace and live in `src/blocks/`.
 
 | Block | Description |
-|---|---|
+| --- | --- |
 | `animated-counter` | Number counter with scroll-triggered animation |
 | `banner-carousel` | Full-width banner slider powered by Swiper.js |
 | `breadcrumbs` | Breadcrumb trail below the header, hidden on the homepage by default and on scroll |
@@ -108,7 +108,7 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 ## FSE Templates
 
 | Template | Slug |
-|---|---|
+| --- | --- |
 | Homepage | `index` |
 | Page | `page` |
 | Single Article | `article` |

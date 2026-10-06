@@ -18,7 +18,7 @@ that cap entirely rather than fighting it.
 ## Tools evaluated
 
 | Tool | Push/pull between two live sites | Cost | Notes |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Local's native "Connect" | Yes, one-click, with a pre-push confirmation step | Free | **Only** works for WP Engine and Flywheel — needs your login on the client's actual hosting account, not just wp-admin. Not usable for generic/shared hosting. |
 | WP Migrate (Pro) | Yes, selective table push/pull, handles serialized data + URL rewrite automatically | $49/yr+ | Works over plain HTTP via a plugin installed on each site — no SSH/SFTP needed, works on locked-down shared hosting. Best option if this becomes frequent enough to justify the cost. |
 | WP Migrate Lite (free) | No — export only | Free | Not useful for the push/pull workflow described here. |

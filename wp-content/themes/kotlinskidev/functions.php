@@ -80,12 +80,21 @@ require_once get_template_directory() . '/functions/responsive-display.php';
 // Load responsive width controls
 require_once get_template_directory() . '/functions/responsive-width.php';
 
+// Load responsive min-height controls
+require_once get_template_directory() . '/functions/responsive-height.php';
+
+// Load per-block custom CSS custom-property controls (icon/image SVG theming)
+require_once get_template_directory() . '/functions/custom-css-vars.php';
+
 // Load load-more (progressive reveal) controls
 require_once get_template_directory() . '/functions/load-more.php';
 
 // Load universal gradient-border support
 require_once get_template_directory() . '/functions/border-gradient.php';
 require_once get_template_directory() . '/functions/text-gradient.php';
+require_once get_template_directory() . '/functions/nav-reveal-render.php';
+require_once get_template_directory() . '/functions/scroll-animation-render.php';
+require_once get_template_directory() . '/functions/scroll-section-pin-boundary-render.php';
 require_once get_template_directory() . '/functions/group-link.php';
 require_once get_template_directory() . '/functions/image-hover-overlay.php';
 

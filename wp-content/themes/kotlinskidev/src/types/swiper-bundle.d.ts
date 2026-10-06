@@ -1,5 +1,4 @@
-// Type shim for swiper/bundle — enables IDE type resolution with moduleResolution: node.
-// Webpack v5 resolves the actual bundle at build time via the package.json exports field.
+// IDE-only type shim — webpack resolves the real bundle via package.json exports at build time.
 declare module "swiper/bundle" {
   export { default } from "swiper";
   export { Swiper } from "swiper";

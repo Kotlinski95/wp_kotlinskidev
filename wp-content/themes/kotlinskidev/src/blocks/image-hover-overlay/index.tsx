@@ -80,9 +80,7 @@ const withImageOverlayControls = createHigherOrderComponent((BlockEdit) => {
     const textColor = attributes.kotlinskidevOverlayTextColor ?? "";
     const isBgGradient = backgroundColor.includes("gradient");
 
-    // ColorGradientControl fires onColorChange(value) and onGradientChange(undefined)
-    // back-to-back when picking a flat color (it clears the "other" representation) —
-    // without this guard the immediate clear call wipes out the color we just set.
+    // ColorGradientControl fires onColorChange then onGradientChange(undefined) back-to-back when picking a flat color — without this guard the clear call wipes out the color just set.
     const pendingBgColorRef = React.useRef<string | null>(null);
     const handleBackgroundColorChange = (value: string | undefined) => {
       if (value !== undefined) {

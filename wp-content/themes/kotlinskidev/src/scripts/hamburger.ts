@@ -1,5 +1,6 @@
 import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
+import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
 
 const LOCK_OWNER = "hamburger";
 
@@ -76,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isOpen = container.classList.contains("is-menu-open");
         if (isOpen && !wasOpen) {
           lockScroll(LOCK_OWNER);
+          dispatchNavPanelOpen(container);
           container.classList.add("kt-nav-panel-animating");
           container
             .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
@@ -96,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
           container.addEventListener("focusin", redirectInitialFocus);
         } else if (!isOpen && wasOpen) {
           unlockScroll(LOCK_OWNER);
+          dispatchNavPanelClose(container);
           container.classList.add("kt-nav-panel-animating");
         }
         wasOpen = isOpen;

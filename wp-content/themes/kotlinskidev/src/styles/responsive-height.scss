@@ -1,0 +1,22 @@
+@import "variables";
+
+.kt-has-responsive-height-desktop.kt-has-responsive-height-desktop {
+
+	@media (min-width: #{$breakpoint-desktop}) {
+		min-height: var(--kt-min-height-desktop);
+	}
+}
+
+.kt-has-responsive-height-tablet.kt-has-responsive-height-tablet {
+
+	@media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
+		min-height: var(--kt-min-height-tablet, var(--kt-min-height-desktop));
+	}
+}
+
+.kt-has-responsive-height-mobile.kt-has-responsive-height-mobile {
+
+	@media (max-width: #{$breakpoint-mobile}) {
+		min-height: var(--kt-min-height-mobile, var(--kt-min-height-tablet, var(--kt-min-height-desktop)));
+	}
+}

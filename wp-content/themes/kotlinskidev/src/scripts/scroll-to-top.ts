@@ -1,4 +1,11 @@
-import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
+import {
+  beginProgrammaticScroll,
+  endProgrammaticScroll,
+  getScrollTop,
+  onScroll,
+  rafThrottle,
+  scrollTo,
+} from "./utils";
 import { trackEvent } from "./track-event";
 
 function handleScrollToTop(e: Event) {
@@ -12,11 +19,14 @@ function handleScrollToTop(e: Event) {
     variant: trigger?.classList.contains("kt-scroll-to-top__trigger") ? "bar" : "fixed",
   });
   mainEl.setAttribute("tabindex", "-1");
+  // Tells other scroll-reactive listeners (e.g. hide-nav-on-scroll.ts) that the resulting native "scroll" events aren't real user input.
+  beginProgrammaticScroll();
   scrollTo(0, "smooth");
   let lastScrollTop = -1;
   const waitForScrollEnd = () => {
     const currentScrollTop = getScrollTop();
     if (currentScrollTop === 0 && lastScrollTop === 0) {
+      endProgrammaticScroll();
       mainEl.focus();
       return;
     }

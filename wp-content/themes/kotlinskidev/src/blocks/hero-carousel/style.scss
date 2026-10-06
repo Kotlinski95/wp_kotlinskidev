@@ -1,18 +1,28 @@
 @use "../../utils/carousel/carousel-nav" as *;
 @import "../../styles/variables";
 
+$hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height));
+
 .hero-carousel {
 	position: relative;
 	overflow: hidden;
+
+	&.above-fold {
+		height: auto;
+		max-height: none;
+		min-height: $hero-above-fold-height;
+	}
 
 	&__swiper {
 		position: relative;
 
 		&.swiper {
 			visibility: visible;
-			max-height: 100%;
-			height: 100%;
 		}
+	}
+
+	&.above-fold &__swiper.swiper {
+		min-height: $hero-above-fold-height;
 	}
 
 	&__slide {
@@ -211,6 +221,19 @@
 			}
 		}
 	}
+}
+
+.hero-carousel.above-fold .hero-carousel__swiper.swiper .swiper-wrapper {
+	min-height: $hero-above-fold-height;
+}
+
+.hero-carousel.above-fold .hero-carousel__slide,
+.hero-carousel.above-fold .hero-carousel__content {
+	min-height: $hero-above-fold-height;
+}
+
+.hero-carousel.above-fold .hero-carousel__slide.swiper-slide {
+	height: auto;
 }
 
 .hero-carousel-editor__add {

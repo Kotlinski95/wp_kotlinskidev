@@ -53,93 +53,39 @@ $kotlinskidev_options = array(
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/work-with-me-option-cards","name":"Work With Me Option Cards"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        .kotlinskidev-wwm-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-            gap: 1.25rem;
-        }
-        .kotlinskidev-wwm-cards__card {
-            display: block;
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 1.375rem;
-            padding: 1.875rem 1.75rem;
-            text-decoration: none;
-            color: inherit;
-            transition: border-color 0.25s ease, transform 0.25s ease;
-        }
-        .kotlinskidev-wwm-cards__card:hover {
-            border-color: var(--wp--preset--color--primary);
-            transform: translateY(-0.1875rem);
-        }
-        .kotlinskidev-wwm-cards__head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.75rem;
-            margin-bottom: 1.25rem;
-        }
-        .kotlinskidev-wwm-cards__icon {
-            width: 3rem;
-            height: 3rem;
-            flex: none;
-            border-radius: 0.875rem;
-            background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
-            border: 1px solid var(--wp--preset--color--divider);
-            display: grid;
-            place-items: center;
-        }
-        .kotlinskidev-wwm-cards__icon img {
-            width: 1.625rem;
-            height: 1.625rem;
-        }
-        .kotlinskidev-wwm-cards__chip {
-            font-size: 0.71875rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--wp--preset--color--primary);
-            background: color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
-            border-radius: 999px;
-            padding: 0.375rem 0.75rem;
-            white-space: nowrap;
-        }
-        .kotlinskidev-wwm-cards__title {
-            font-size: 1.3125rem;
-            font-weight: 700;
-            line-height: 1.3;
-            margin: 0 0 0.625rem;
-            color: var(--wp--preset--color--foreground);
-        }
-        .kotlinskidev-wwm-cards__desc {
-            font-size: 0.90625rem;
-            line-height: 1.65;
-            color: var(--wp--preset--color--foreground-alt);
-            margin: 0 0 1.125rem;
-        }
-        .kotlinskidev-wwm-cards__link {
-            font-size: 0.84375rem;
-            font-weight: 600;
-            color: var(--wp--preset--color--primary);
-        }
-    </style>
-    <div class="kotlinskidev-wwm-cards">
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"blockGap":"1.25rem"}},"layout":{"type":"grid","minimumColumnWidth":"20rem"}} -->
+    <div class="wp-block-group">
         <?php foreach ($kotlinskidev_options as $kotlinskidev_option) : ?>
-        <a href="#" class="kotlinskidev-wwm-cards__card">
-            <div class="kotlinskidev-wwm-cards__head">
-                <div class="kotlinskidev-wwm-cards__icon">
-                    <img src="<?php echo esc_url($kotlinskidev_option['icon']) ?>" alt="" loading="lazy" />
+        <!-- wp:group {"groupLinkUrl":"#","className":"kt-link-card kt-link-card--lift","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.75rem","right":"1.75rem"},"blockGap":"0.625rem"}},"backgroundColor":"background-alt","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+        <div class="wp-block-group kt-link-card kt-link-card--lift has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:1.875rem;padding-right:1.75rem;padding-bottom:1.875rem;padding-left:1.75rem"><!-- wp:group {"style":{"spacing":{"blockGap":"0.75rem"},"margin":{"bottom":"1.25rem"}},"layout":{"type":"flex","justifyContent":"space-between","verticalAlignment":"center"}} -->
+            <div class="wp-block-group" style="margin-bottom:1.25rem"><!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"0.875rem"}},"backgroundColor":"divider","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+                <div class="wp-block-group has-border-color has-divider-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:0.875rem"><!-- wp:image {"width":"1.625rem","height":"1.625rem","sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_option['icon']) ?>" alt="" style="width:1.625rem;height:1.625rem" /></figure>
+                    <!-- /wp:image -->
                 </div>
-                <span class="kotlinskidev-wwm-cards__chip"><?php echo esc_html($kotlinskidev_option['chip']) ?></span>
+                <!-- /wp:group -->
+
+                <!-- wp:paragraph {"style":{"border":{"radius":"999px"},"spacing":{"padding":{"top":"0.375rem","bottom":"0.375rem","left":"0.75rem","right":"0.75rem"},"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700","letterSpacing":"0.14em"}},"backgroundColor":"divider","textColor":"primary","fontSize":"x-small"} -->
+                <p class="has-primary-color has-divider-background-color has-text-color has-background has-x-small-font-size" style="border-radius:999px;margin-top:0;margin-bottom:0;padding-top:0.375rem;padding-right:0.75rem;padding-bottom:0.375rem;padding-left:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase"><?php echo esc_html($kotlinskidev_option['chip']) ?></p>
+                <!-- /wp:paragraph -->
             </div>
-            <h3 class="kotlinskidev-wwm-cards__title"><?php echo esc_html($kotlinskidev_option['title']) ?></h3>
-            <p class="kotlinskidev-wwm-cards__desc"><?php echo esc_html($kotlinskidev_option['desc']) ?></p>
-            <span class="kotlinskidev-wwm-cards__link"><?php echo esc_html($kotlinskidev_option['link']) ?></span>
-        </a>
+            <!-- /wp:group -->
+
+            <!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
+            <h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_option['title']) ?></h3>
+            <!-- /wp:heading -->
+
+            <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"small"} -->
+            <p class="has-foreground-alt-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_option['desc']) ?></p>
+            <!-- /wp:paragraph -->
+
+            <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"small"} -->
+            <p class="has-primary-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html($kotlinskidev_option['link']) ?></p>
+            <!-- /wp:paragraph -->
+        </div>
+        <!-- /wp:group -->
         <?php endforeach; ?>
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:group -->
 </div>
 <!-- /wp:group -->

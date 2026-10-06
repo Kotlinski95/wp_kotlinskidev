@@ -138,11 +138,7 @@ describe("pricing-cards/item Edit", () => {
       />
     );
 
-    // jsdom's CSSOM doesn't parse linear-gradient() as a valid background-image value at all
-    // (confirmed directly: even the simplest two-color gradient is silently rejected), so
-    // backgroundImage can't be asserted here — checking the other gradient-text properties
-    // (which jsdom does apply correctly) is enough to prove the gradient branch, not the plain
-    // color branch, is what set the badge's style.
+    // jsdom's CSSOM rejects linear-gradient() as a background-image value, so backgroundImage can't be asserted — the other gradient-text properties prove the gradient branch instead.
     const badge = container.querySelector(".pricing-card__badge") as HTMLElement;
     expect(badge.style.backgroundClip).toBe("text");
     expect(badge.style.WebkitTextFillColor).toBe("transparent");

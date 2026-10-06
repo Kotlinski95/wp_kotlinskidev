@@ -54,6 +54,28 @@ describe("initSwiper", () => {
     expect(swiper.params.modules).toEqual(["Navigation", "Pagination", "Keyboard", "Autoplay"]);
   });
 
+  it("strips the native pauseOnMouseEnter when disableNativeHoverPause is set, to avoid racing a caller's own hover wiring", () => {
+    const el = buildCarousel(3);
+
+    const swiper = initSwiper(
+      el,
+      { autoplay: true },
+      { disableNativeHoverPause: true }
+    ) as unknown as MockSwiper;
+
+    expect((swiper.params.autoplay as { pauseOnMouseEnter: boolean }).pauseOnMouseEnter).toBe(
+      false
+    );
+  });
+
+  it("keeps the native pauseOnMouseEnter by default", () => {
+    const el = buildCarousel(3);
+
+    const swiper = initSwiper(el, { autoplay: true }) as unknown as MockSwiper;
+
+    expect((swiper.params.autoplay as { pauseOnMouseEnter: boolean }).pauseOnMouseEnter).toBe(true);
+  });
+
   it("wires prev/next elements found inside a sibling .carousel-nav container", () => {
     const wrapper = document.createElement("div");
     const el = buildCarousel(3);

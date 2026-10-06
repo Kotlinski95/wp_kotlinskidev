@@ -10,7 +10,7 @@ if ( $modal instanceof WP_Post ) {
 	kotlinskidev_register_modal_for_footer( $modal->ID );
 
 	$wrapper_attributes = get_block_wrapper_attributes( [
-		'class'                => 'kt-marquee__item swiper-slide',
+		'class'                => 'kt-marquee__item',
 		'data-kt-modal-target' => 'kt-modal-' . $modal->ID,
 		'role'                 => 'button',
 		'tabindex'             => '0',
@@ -21,7 +21,7 @@ if ( $modal instanceof WP_Post ) {
 		),
 	] );
 } else {
-	$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'kt-marquee__item swiper-slide' ] );
+	$wrapper_attributes = get_block_wrapper_attributes( [ 'class' => 'kt-marquee__item' ] );
 }
 ?>
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>

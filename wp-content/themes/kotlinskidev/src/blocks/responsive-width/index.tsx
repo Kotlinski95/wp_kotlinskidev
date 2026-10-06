@@ -43,10 +43,10 @@ const DEFAULT_RESPONSIVE_WIDTH: ResponsiveWidthAttribute = {
 };
 
 const WIDTH_UNITS = [
-  { value: "px", label: "px", default: 0 },
-  { value: "%", label: "%", default: 0 },
-  { value: "rem", label: "rem", default: 0 },
-  { value: "vw", label: "vw", default: 0 },
+  { value: "px", label: "px", default: 0, step: 1 },
+  { value: "%", label: "%", default: 0, step: 0.1 },
+  { value: "rem", label: "rem", default: 0, step: 0.01 },
+  { value: "vw", label: "vw", default: 0, step: 0.1 },
 ];
 
 const CUSTOM_VALUE = "__custom__";

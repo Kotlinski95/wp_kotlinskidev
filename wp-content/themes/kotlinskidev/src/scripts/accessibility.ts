@@ -80,10 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// =============================================================================
-// REDUCED MOTION VIDEO CONTROL
-// =============================================================================
-
 type VideoState = {
   autoplay: boolean;
   muted: boolean;
@@ -383,10 +379,6 @@ const videoController =
       })()
     : initializeVideoController();
 
-// =============================================================================
-// GENERAL MOTION PREFERENCE HANDLING
-// =============================================================================
-
 const DOMOperations = {
   addBodyClass: (className: string) => document.body.classList.add(className),
   removeBodyClass: (className: string) => document.body.classList.remove(className),
@@ -429,10 +421,6 @@ const createMotionPreferenceListener = () => {
 };
 
 createMotionPreferenceListener();
-
-// =============================================================================
-// UTILITY FUNCTIONS
-// =============================================================================
 
 const MotionUtils = {
   prefersReducedMotion: () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,

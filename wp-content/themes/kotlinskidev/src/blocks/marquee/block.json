@@ -25,6 +25,15 @@
     "speed": {
       "type": "number",
       "default": 30
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["normal", "reverse"],
+      "default": "normal"
+    },
+    "gap": {
+      "type": "number",
+      "default": 40
     }
   }
 }

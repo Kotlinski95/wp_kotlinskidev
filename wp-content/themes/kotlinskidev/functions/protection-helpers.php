@@ -183,8 +183,7 @@ if (!function_exists('kotlinskidev_enqueue_protection_scripts')) {
      */
     function kotlinskidev_enqueue_protection_scripts()
     {
-        // Since the protection script is bundled in main.js, we don't need to check for specific blocks
-        // The script will automatically detect and process protected content on any page
+        // No block-presence check needed — the bundled script in main.js detects protected content on any page itself.
 
         $theme_version = wp_get_theme()->get('Version');
 

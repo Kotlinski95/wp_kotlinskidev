@@ -1,0 +1,69 @@
+@import "mixins";
+
+$nav-reveal-duration: 0.4s;
+
+.appear-on-reveal {
+
+	@include reveal-opacity-only($nav-reveal-duration);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.fade-in-on-reveal {
+
+	@include reveal-animation-base($nav-reveal-duration);
+	transition-delay: var(--reveal-delay, 0ms);
+
+	&.visible {
+
+		@include reveal-animation-visible;
+	}
+}
+
+.fade-up-on-reveal {
+
+	@include reveal-fade-direction("up", 1.875rem, $nav-reveal-duration);
+	@include reveal-generate-translate-distances("up");
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.fade-left-on-reveal {
+
+	@include reveal-fade-direction("left", 1.875rem, $nav-reveal-duration);
+	@include reveal-generate-translate-distances("left");
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.fade-right-on-reveal {
+
+	@include reveal-fade-direction("right", 1.875rem, $nav-reveal-duration);
+	@include reveal-generate-translate-distances("right");
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.flip-up-on-reveal {
+
+	@include reveal-flip-animation("up", 90deg, $nav-reveal-duration);
+	@include reveal-generate-flip-rotations("up");
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.flip-down-on-reveal {
+
+	@include reveal-flip-animation("down", 90deg, $nav-reveal-duration);
+	@include reveal-generate-flip-rotations("down");
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.flip-left-on-reveal {
+
+	@include reveal-flip-animation("left", 90deg, $nav-reveal-duration);
+	@include reveal-generate-flip-rotations("left");
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+.flip-right-on-reveal {
+
+	@include reveal-flip-animation("right", 90deg, $nav-reveal-duration);
+	@include reveal-generate-flip-rotations("right");
+	transition-delay: var(--reveal-delay, 0ms);
+}

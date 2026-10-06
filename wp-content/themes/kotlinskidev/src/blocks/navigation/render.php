@@ -219,6 +219,26 @@ if ( ! function_exists( 'kotlinskidev_nav_link_styles' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kotlinskidev_nav_reveal_attrs' ) ) {
+	function kotlinskidev_nav_reveal_attrs( array $attrs ): array {
+		$animation = $attrs['navRevealAnimation'] ?? '';
+		if ( $animation === '' ) {
+			return [ 'class' => '', 'style' => '' ];
+		}
+
+		$classes = [ sanitize_html_class( $animation ) ];
+		$translate = $attrs['navRevealTranslate'] ?? '';
+		if ( $translate !== '' ) {
+			$classes[] = sanitize_html_class( $translate );
+		}
+
+		$delay = (int) ( $attrs['navRevealDelay'] ?? 0 );
+		$style = $delay > 0 ? '--reveal-delay:' . $delay . 'ms;' : '';
+
+		return [ 'class' => implode( ' ', $classes ), 'style' => $style ];
+	}
+}
+
 if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 	function kotlinskidev_parse_nav_blocks( array $blocks ): array {
 		$items = [];
@@ -237,6 +257,11 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 			if ( in_array( $block['blockName'], [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel' ], true ) ) {
 				$attrs         = $block['attrs'];
 				$inner_content = implode( '', array_map( 'render_block', $block['innerBlocks'] ?? [] ) );
+				$inner_content = kotlinskidev_stagger_reveal_items(
+					$inner_content,
+					$attrs['navRevealAnimation'] ?? '',
+					[ 'wp-block-search', 'kt-popular-pages__title', 'kt-popular-pages__item' ]
+				);
 				$sp_fs         = kotlinskidev_nav_link_styles( $attrs );
 				$items[]       = [
 					'label'           => $attrs['label'] ?? '',
@@ -256,6 +281,11 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 				if ( $inner_content === '' ) {
 					continue;
 				}
+				$inner_content = kotlinskidev_stagger_reveal_items(
+					$inner_content,
+					$attrs['navRevealAnimation'] ?? '',
+					[ 'wp-block-navigation-item' ]
+				);
 				$lp_fs    = kotlinskidev_nav_link_styles( $attrs );
 				$lp_lang  = kotlinskidev_pll_current_language_data();
 				$lp_label = $attrs['label'] ?? '';
@@ -301,14 +331,17 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 					$panel_blocks[] = $inner;
 				}
 			}
-			$nl_fs = kotlinskidev_nav_link_styles( $attrs );
-			$item  = [
+			$nl_fs     = kotlinskidev_nav_link_styles( $attrs );
+			$nl_reveal = kotlinskidev_nav_reveal_attrs( $attrs );
+			$item      = [
 				'label'           => $attrs['label'] ?? '',
 				'url'             => $attrs['url'] ?? '#',
 				'children'        => kotlinskidev_parse_nav_blocks( $nav_children ),
 				'nav_icon_id'     => (int) ( $attrs['navIconId'] ?? 0 ),
 				'font_size_style' => $nl_fs['style'],
 				'font_size_class' => $nl_fs['class'],
+				'reveal_class'    => $nl_reveal['class'],
+				'reveal_style'    => $nl_reveal['style'],
 			];
 			if ( ! empty( $panel_blocks ) ) {
 				$item['panel_content'] = implode( '', array_map( 'render_block', $panel_blocks ) );
@@ -432,6 +465,7 @@ ob_start();
 			</li>
 			<?php endforeach; ?>
 		</ul>
+		<span class="kt-mega-nav__glider" aria-hidden="true"></span>
 		<?php if ( $extras ) : ?>
 		<div class="kt-mega-nav__extras"><?php echo $extras; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $extras is built exclusively from render_block() output via kotlinskidev_render_nav_extras(), WP core's own self-escaping block render pipeline ?></div>
 		<?php endif; ?>
@@ -462,14 +496,16 @@ ob_start();
 				<div class="kt-mega-nav__panel-links" style="--col-count: <?php echo count( $item['children'] ); ?>">
 					<?php foreach ( $item['children'] as $child ) : ?>
 					<div class="kt-mega-nav__l2">
-						<a class="kt-mega-nav__l2-link" href="<?php echo esc_url( $child['url'] ); ?>">
+						<a class="kt-mega-nav__l2-link<?php echo ( $child['reveal_class'] ?? '' ) !== '' ? ' ' . esc_attr( $child['reveal_class'] ) : ''; ?>" href="<?php echo esc_url( $child['url'] ); ?>"
+							<?php if ( ( $child['reveal_style'] ?? '' ) !== '' ) : ?>style="<?php echo esc_attr( $child['reveal_style'] ); ?>"<?php endif; ?>>
 							<?php echo esc_html( $child['label'] ); ?>
 						</a>
 						<?php if ( ! empty( $child['children'] ) ) : ?>
 						<ul class="kt-mega-nav__l3-list" role="list">
 							<?php foreach ( $child['children'] as $grandchild ) : ?>
 							<li>
-								<a class="kt-mega-nav__l3-link" href="<?php echo esc_url( $grandchild['url'] ); ?>">
+								<a class="kt-mega-nav__l3-link<?php echo ( $grandchild['reveal_class'] ?? '' ) !== '' ? ' ' . esc_attr( $grandchild['reveal_class'] ) : ''; ?>" href="<?php echo esc_url( $grandchild['url'] ); ?>"
+									<?php if ( ( $grandchild['reveal_style'] ?? '' ) !== '' ) : ?>style="<?php echo esc_attr( $grandchild['reveal_style'] ); ?>"<?php endif; ?>>
 									<?php echo esc_html( $grandchild['label'] ); ?>
 								</a>
 							</li>

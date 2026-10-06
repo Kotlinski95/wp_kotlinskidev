@@ -1,0 +1,24 @@
+.kt-logo-dim {
+
+	img {
+		filter: grayscale(1) opacity(0.5);
+		transition: filter 0.3s ease;
+	}
+
+	&:hover img,
+	&:focus-within img {
+		filter: grayscale(0) opacity(1);
+	}
+
+	&--cell {
+		min-height: 7rem;
+	}
+
+	&--tile {
+		min-height: 7.5rem;
+	}
+
+	&--tile-small {
+		min-height: 5.25rem;
+	}
+}

@@ -105,6 +105,25 @@ export function scrollTo(top: number, behavior: ScrollBehavior = "smooth") {
   window.scrollTo({ top, behavior });
 }
 
+// Uses `window`, not a module-scoped variable — separate bundles/chunks have no guaranteed shared module scope, confirmed live with a closure-variable version having zero effect.
+declare global {
+  interface Window {
+    kotlinskidevProgrammaticScrollActive?: boolean;
+  }
+}
+
+export function beginProgrammaticScroll(): void {
+  window.kotlinskidevProgrammaticScrollActive = true;
+}
+
+export function endProgrammaticScroll(): void {
+  window.kotlinskidevProgrammaticScrollActive = false;
+}
+
+export function isProgrammaticScrollActive(): boolean {
+  return window.kotlinskidevProgrammaticScrollActive === true;
+}
+
 export function rafThrottle<A extends unknown[]>(func: (...args: A) => void): (...args: A) => void {
   let ticking = false;
   return (...args: A) => {

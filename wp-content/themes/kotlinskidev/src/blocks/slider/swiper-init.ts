@@ -19,6 +19,7 @@ export interface SliderOptions {
   autoplayTime?: number;
   smoothTransition?: boolean;
   continuousAutoplay?: boolean;
+  direction?: "normal" | "reverse";
   navigation?: boolean;
   pagination?: boolean;
   showProgress?: boolean;
@@ -44,6 +45,7 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
   const loopThreshold = typeof slidesPerView === "number" ? slidesPerView : 1;
   const canLoop = centerSlides ? slideCount > 2 : slideCount > loopThreshold * 2;
   const continuousAutoplay = Boolean(options.continuousAutoplay);
+  const reverse = options.direction === "reverse";
   const draggable = options.draggable ?? true;
 
   const parameters: Record<string, unknown> = {
@@ -135,7 +137,7 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
   }
 
   if (options.autoplay && continuousAutoplay) {
-    wireContinuousAutoplay(container, swiper, computeSpeed(options, continuousAutoplay));
+    wireContinuousAutoplay(container, swiper, computeSpeed(options, continuousAutoplay), reverse);
   } else if (options.autoplay) {
     resyncActiveIndexOnAutoplayResume(swiper);
     wireClickPauseResume(container, swiper);
@@ -265,12 +267,7 @@ function getCurrentTranslateX(el: HTMLElement): number {
   if (!transform || transform === "none") {
     return 0;
   }
-  // Swiper always sets its wrapper transform via translate3d() — most
-  // browsers report that back from getComputedStyle() as a 2D matrix() when
-  // the z component is 0, but WebKit (Safari/iOS) preserves it as a 16-value
-  // matrix3d(), where the x-translation lives at index 12, not 4. Missing
-  // this made every mobile Safari freeze read translateX as 0 regardless of
-  // the real position, snapping the carousel back to its start on release.
+  // WebKit (Safari/iOS) reports translate3d() as matrix3d() with x at index 12, not 4 — missing this snapped the carousel back to its start on release.
   const matrix3d = transform.match(/matrix3d\(([^)]+)\)/);
   if (matrix3d) {
     const parts = matrix3d[1].split(",").map((value) => parseFloat(value.trim()));
@@ -294,6 +291,41 @@ function freezeAtCurrentPosition(swiper: Swiper): number {
   controllable.setTranslate(currentTranslateX);
   controllable.animating = false;
   return currentTranslateX;
+}
+
+// isEnd/isBeginning can go permanently (or just transiently) true under continuousAutoplay + loop — only trust a real slideNext()/slidePrev() failure (=== false, loopFix() doesn't help), then wrap to the nearest matching position rather than index 0, which caused a highly visible full-track reverse every crossing.
+function findNearestSnapIndex(swiper: Swiper, translateX: number): number {
+  const grid = (swiper as unknown as SwiperWithTranslateControl).snapGrid;
+  if (!grid?.length) {
+    return 0;
+  }
+  const target = -translateX;
+  let closestIndex = -1;
+  let closestDistance = Infinity;
+  grid.forEach((position, index) => {
+    if (index === swiper.activeIndex) {
+      return;
+    }
+    const distance = Math.abs(position - target);
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestIndex = index;
+    }
+  });
+  return closestIndex === -1 ? 0 : closestIndex;
+}
+
+function advance(swiper: Swiper, speed: number, reverse: boolean): boolean {
+  const moved = reverse ? swiper.slidePrev(speed, true, true) : swiper.slideNext(speed, true, true);
+  if (moved !== false) {
+    return moved;
+  }
+  const controllable = swiper as unknown as SwiperWithTranslateControl;
+  const currentTranslateX = controllable.wrapperEl
+    ? getCurrentTranslateX(controllable.wrapperEl)
+    : 0;
+  swiper.slideTo(findNearestSnapIndex(swiper, currentTranslateX), 0, true, true);
+  return reverse ? swiper.slidePrev(speed, true, true) : swiper.slideNext(speed, true, true);
 }
 
 interface CatchUpTarget {
@@ -321,7 +353,8 @@ function computeCatchUpToIndex(
 function computeCatchUpToNextBoundary(
   swiper: Swiper,
   frozenTranslateX: number,
-  fullSpeed: number
+  fullSpeed: number,
+  reverse: boolean
 ): CatchUpTarget | null {
   const grid = (swiper as unknown as SwiperWithTranslateControl).snapGrid;
   const stepDistance = Math.abs((grid?.[1] ?? 0) - (grid?.[0] ?? 0));
@@ -329,26 +362,26 @@ function computeCatchUpToNextBoundary(
     return null;
   }
   const traveled = Math.abs(frozenTranslateX);
-  const nextBoundary = grid.find((position) => position > traveled) ?? traveled + stepDistance;
-  const remainingDistance = nextBoundary - traveled;
+  const nextBoundary = reverse
+    ? ([...grid].reverse().find((position) => position < traveled) ??
+      Math.max(traveled - stepDistance, 0))
+    : (grid.find((position) => position > traveled) ?? traveled + stepDistance);
+  const remainingDistance = Math.abs(nextBoundary - traveled);
   const ratio = Math.min(Math.max(remainingDistance / stepDistance, 0), 1);
   return { translateX: -nextBoundary, duration: Math.max(fullSpeed * ratio, 50) };
 }
 
-// Finishing an interrupted leg by re-navigating via slideTo()/slideNext()
-// with an artificially short duration can trip Swiper's own loop-boundary
-// reindexing into a visible one-frame translate jump when the target is
-// close to (or exactly at) a grid line — confirmed via live-site velocity
-// sampling. Animating the raw translate directly sidesteps Swiper's index
-// bookkeeping for the catch-up entirely; a plain, full-speed slideNext()
-// only fires once that's genuinely finished, which loop mode already
-// handles cleanly since it's a real index change, not a re-navigation to
-// wherever we already are.
-function resumeWithCatchUp(swiper: Swiper, target: CatchUpTarget, fullSpeed: number): void {
+// Animates the raw translate directly rather than slideTo()/slideNext() with a short duration, which can trip a visible one-frame reindex jump near a grid line — the real slideNext() only fires once this finishes.
+function resumeWithCatchUp(
+  swiper: Swiper,
+  target: CatchUpTarget,
+  fullSpeed: number,
+  reverse: boolean
+): void {
   const controllable = swiper as unknown as SwiperWithTranslateControl;
   const wrapperEl = controllable.wrapperEl;
   if (!wrapperEl) {
-    swiper.slideNext(fullSpeed, true, true);
+    advance(swiper, fullSpeed, reverse);
     return;
   }
   controllable.setTransition(target.duration);
@@ -362,12 +395,60 @@ function resumeWithCatchUp(swiper: Swiper, target: CatchUpTarget, fullSpeed: num
     if (swiper.destroyed) {
       return;
     }
-    swiper.slideNext(fullSpeed, true, true);
+    advance(swiper, fullSpeed, reverse);
   };
   wrapperEl.addEventListener("transitionend", onCatchUpEnd);
 }
 
-function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: number): void {
+// Fixed, speed-independent grace period: lastProgressAt only starts once translate is already motionless, so waiting out a full `speed` again (the old formula) produced a multi-second visible freeze at every loop-boundary snap.
+const STALL_GRACE_MS = 300;
+const STALL_CHECK_INTERVAL_MS = 100;
+
+// FreeMode drives its own translate/transition state outside Swiper's normal slide-transition machinery, so `animating`/`autoplay.paused` can get stuck true forever (transitionend never fires) — freeze-and-restart via advance() recovers both that transient stall and the permanent isEnd deadlock.
+function startStallWatchdog(
+  swiper: Swiper,
+  speed: number,
+  isPausedByUs: () => boolean,
+  reverse: boolean
+): () => void {
+  let lastObservedTranslateX: number | null = null;
+  let lastProgressAt = Date.now();
+
+  const intervalId = setInterval(() => {
+    if (swiper.destroyed || isPausedByUs()) {
+      return;
+    }
+    const controllable = swiper as unknown as SwiperWithTranslateControl;
+    if (!controllable.wrapperEl) {
+      return;
+    }
+    const currentTranslateX = getCurrentTranslateX(controllable.wrapperEl);
+    const now = Date.now();
+    if (
+      lastObservedTranslateX === null ||
+      Math.abs(currentTranslateX - lastObservedTranslateX) > 0.5
+    ) {
+      lastObservedTranslateX = currentTranslateX;
+      lastProgressAt = now;
+      return;
+    }
+    if (now - lastProgressAt > STALL_GRACE_MS) {
+      freezeAtCurrentPosition(swiper);
+      advance(swiper, speed, reverse);
+      lastObservedTranslateX = null;
+      lastProgressAt = now;
+    }
+  }, STALL_CHECK_INTERVAL_MS);
+
+  return () => clearInterval(intervalId);
+}
+
+function wireContinuousAutoplay(
+  container: HTMLElement,
+  swiper: Swiper,
+  speed: number,
+  reverse: boolean
+): void {
   resyncActiveIndexOnAutoplayResume(swiper);
 
   let hovered = false;
@@ -393,12 +474,12 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
       resumeTargetIndex = swiper.activeIndex;
       swiper.autoplay.pause();
     } else if (dragEndedTranslateX !== null) {
-      const target = computeCatchUpToNextBoundary(swiper, dragEndedTranslateX, speed);
+      const target = computeCatchUpToNextBoundary(swiper, dragEndedTranslateX, speed, reverse);
       dragEndedTranslateX = null;
       if (target) {
-        resumeWithCatchUp(swiper, target, speed);
+        resumeWithCatchUp(swiper, target, speed, reverse);
       } else {
-        swiper.slideNext(speed, true, true);
+        advance(swiper, speed, reverse);
       }
     } else if (resumeMidTransition) {
       const target = computeCatchUpToIndex(
@@ -408,12 +489,12 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
         speed
       );
       if (target) {
-        resumeWithCatchUp(swiper, target, speed);
+        resumeWithCatchUp(swiper, target, speed, reverse);
       } else {
-        swiper.slideNext(speed, true, true);
+        advance(swiper, speed, reverse);
       }
     } else {
-      swiper.slideNext(speed, true, true);
+      advance(swiper, speed, reverse);
     }
   };
 
@@ -456,8 +537,22 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
       return;
     }
     modalOpen = false;
+    // modal-manager.ts refocuses the trigger before dispatching this event, which would otherwise leave `focused` stuck true forever (no focusout ever comes) and permanently block the resume below.
+    focused = false;
     evaluate();
   });
+
+  // Defense-in-depth: resume on scroll if paused with no genuine reason left — doesn't override a real ongoing hover or press.
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (isPaused && !hovered && !pressed && !modalOpen) {
+        focused = false;
+        evaluate();
+      }
+    },
+    { passive: true }
+  );
 
   container.addEventListener("pointerdown", () => {
     pressed = true;
@@ -478,36 +573,12 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
         pointerEvent.clientY >= rect.top &&
         pointerEvent.clientY <= rect.bottom;
     } else {
-      // Real touch has no hover concept — but Chrome's own touch-from-mouse
-      // emulation (what DevTools' device toolbar uses when you drag with an
-      // actual mouse over a touch-emulated viewport) fires a genuine
-      // mouseenter on the container alongside the synthetic touch events,
-      // with no matching mouseleave to ever clear it. Left uncleared,
-      // `hovered` stays stuck true forever, permanently blocking evaluate()
-      // from ever resuming — confirmed via Input.emulateTouchFromMouseEvent,
-      // the exact CDP mechanism DevTools itself uses for this.
+      // Chrome's touch-from-mouse emulation fires a genuine mouseenter with no matching mouseleave — real touch has no hover concept, so clear it here instead of leaving it stuck true.
       hovered = false;
     }
-    // A drag held past Swiper's own internal 200ms "sliderFirstMove"
-    // threshold flips its FreeMode module into force-resuming autoplay
-    // on release (via _freeModeStaticRelease), for any pointer type —
-    // touch drags trip this exactly like mouse drags do, and touch never
-    // sets `hovered`, so gating this on hover/focus left touch unguarded.
-    // Reassert our own pause unconditionally to override it; evaluate()
-    // right after still decides the real resume/catch-up from our own
-    // hover/focus/press state.
+    // A drag past Swiper's own 200ms sliderFirstMove threshold force-resumes autoplay via FreeMode's _freeModeStaticRelease regardless of pointer type — reassert our own pause to override it.
     swiper.autoplay.pause();
-    // Re-freeze at the position the drag actually ended at, right here —
-    // not in a separate swiper.on("touchEnd", ...) handler. Swiper's own
-    // semantic "touchEnd" event does not reliably fire before this pointerup
-    // listener under real/emulated touch (confirmed via Chrome's own
-    // Input.emulateTouchFromMouseEvent, the exact mechanism DevTools' device
-    // toolbar uses to turn a mouse drag into touch input): it can fire
-    // *after*, by which point isPaused had already flipped to false below,
-    // so the old touchEnd handler's own `if (!isPaused) return;` guard
-    // silently skipped recording the drag-end position entirely — evaluate()
-    // then resumed from the stale pre-drag freeze point instead, visibly
-    // snapping backward before the next natural cycle corrected it forward.
+    // Swiper's own "touchEnd" doesn't reliably fire before this pointerup listener under real/emulated touch, so the drag-end position is captured here directly instead of in a separate touchEnd handler.
     if (isPaused) {
       resumeMidTransition = false;
       dragEndedTranslateX = freezeAtCurrentPosition(swiper);
@@ -519,6 +590,10 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
 
   if (typeof IntersectionObserver === "undefined") {
     swiper.autoplay.start();
+    swiper.on(
+      "destroy",
+      startStallWatchdog(swiper, speed, () => isPaused, reverse)
+    );
     return;
   }
 
@@ -528,6 +603,10 @@ function wireContinuousAutoplay(container: HTMLElement, swiper: Swiper, speed: n
         return;
       }
       swiper.autoplay.start();
+      swiper.on(
+        "destroy",
+        startStallWatchdog(swiper, speed, () => isPaused, reverse)
+      );
       obs.unobserve(entry.target);
     });
   });

@@ -91,20 +91,7 @@ test.describe("Content Tabs — Site Editor live preview (kotlinskidev/content-t
   test("shows both a gradient text color and a gradient background on the active tab at once, without either clobbering the other", async ({
     page,
   }) => {
-    // Regression test: both rules originally set the `background` CSS
-    // property on the same editor element (the gradient-text technique needs
-    // `background: <gradient>; background-clip: text;` on the label itself),
-    // so whichever modifier class came later in the stylesheet silently won
-    // and the other effect vanished. A first fix moved the background paint
-    // to an absolutely positioned ::before — but a child pseudo-element
-    // always paints on top of its own parent's background regardless of
-    // z-index, so the opaque ::before fully hid the gradient-clipped text
-    // glyphs underneath it (confirmed visually via screenshot, not just
-    // computed style — getComputedStyle reported the correct values on both
-    // elements even while the text was invisible on screen). The real fix
-    // composites both gradients as two layers of the *same* `background`
-    // property on the label itself (`background-clip: text, border-box`),
-    // so there's no child element able to paint over anything.
+    // Regression: text-gradient and background-gradient both targeted the same `background` property, so one silently won. A ::before overlay hid the gradient-clipped text instead (confirmed visually, getComputedStyle looked fine). Fix composites both as two layers of one `background` with `background-clip: text, border-box`.
     const { editor } = await setUpEditor(page, "E2E Editor Test — Content Tabs D", {
       activeTabUnderline: false,
       activeTabTextColorEnabled: true,
@@ -210,10 +197,7 @@ test.describe("Content Tabs — Site Editor live preview (kotlinskidev/content-t
     const navLinkBox = await navLink.boundingBox();
     expect(toolbarBox).not.toBeNull();
     expect(navLinkBox).not.toBeNull();
-    // The toolbar floats just above/around the selected block's own real
-    // rendered position — if portaling had broken Gutenberg's own selection
-    // measurement, this would land far away from the nav-link (e.g. at the
-    // original, now-empty item position instead).
+    // If portaling broke Gutenberg's selection measurement, the toolbar would land far from the nav-link instead of hugging it.
     expect(Math.abs(toolbarBox!.x - navLinkBox!.x)).toBeLessThan(200);
   });
 
@@ -236,14 +220,7 @@ test.describe("Content Tabs — Site Editor live preview (kotlinskidev/content-t
   test("applies a Content Tab item's own padding and border to its portaled panel content in the editor, matching the frontend", async ({
     page,
   }) => {
-    // Regression test: the item's own <div {...blockProps}> (which carries
-    // its padding/border/color block-supports styles) used to stay behind
-    // in its now-invisible original InnerBlocks position, since only its
-    // *children* were portaled into the panels slot — so any padding/border
-    // set on the "Content Tab" item itself had no visible effect in the
-    // editor even though render.php wraps the exact same panel content in
-    // that same styled wrapper on the frontend. The item now portals its
-    // own wrapper (not just its children), carrying those styles with it.
+    // Regression: only the item's children were portaled into the panel slot, leaving its own styled <div {...blockProps}> (padding/border) behind in its invisible original position. The item now portals its own wrapper too.
     const content = `<!-- wp:kotlinskidev/content-tabs {"navPosition":"left"} -->
 <!-- wp:kotlinskidev/content-tabs-item {"style":{"spacing":{"padding":{"top":"40px","right":"40px","bottom":"40px","left":"40px"}},"border":{"width":"3px","color":"#ff0000"}}} -->
 <!-- wp:kotlinskidev/content-tabs-nav-link {"label":"Creating Websites"} /-->

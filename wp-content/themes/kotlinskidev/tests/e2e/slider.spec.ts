@@ -5,9 +5,7 @@ import { createFixturePage, deleteFixturePage } from "./wp-cli";
 function buildSlides(count: number, withLink = false): string {
   const slides = [];
   for (let i = 0; i < count; i += 1) {
-    // A ticker's slides continuously scroll out of view, so a link on only
-    // one slide can't reliably be targeted by position — put it on every
-    // slide instead, and the test picks whichever instance is on-screen.
+    // A ticker's slides continuously scroll out of view — put the link on every slide so the test can pick whichever is on-screen.
     const inner = withLink
       ? `<div class="wp-block-cover__inner-container"><p>Banner heading ${i}</p><a href="#slide-${i}">Read more</a></div>`
       : `<div class="wp-block-cover__inner-container"><p>Banner heading ${i}</p></div>`;
@@ -38,10 +36,7 @@ async function getWrapperTranslateX(page: Page): Promise<number> {
   });
 }
 
-// Arms a requestAnimationFrame sampler that records { t, x } from the moment
-// it's called. Must be armed *before* the leave/blur action so the very
-// first frames of the resumed transition are captured — a plain
-// before/after poll can miss a fast, small discontinuity entirely.
+// Must be armed before the leave/blur action — a plain before/after poll can miss a fast, small discontinuity.
 async function armHighFrequencySampler(page: Page, durationMs = 500): Promise<void> {
   await page.evaluate((duration) => {
     const wrapper = document.querySelector(".wp-block-wpe-slider .swiper-wrapper") as HTMLElement;
@@ -167,10 +162,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     await slider.scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
 
-    // The link lives inside the continuously-translating .swiper-wrapper, so
-    // Playwright's own .hover() can never see it as "stable", and any single
-    // slide's link cycles in and out of view as the ticker scrolls — move
-    // the real cursor to whichever link instance is currently on-screen.
+    // .hover() can never see a continuously-translating link as "stable" — move the real cursor to whichever instance is on-screen instead.
     const center = await getOnScreenLinkCenter(page);
     await page.mouse.move(center.x, center.y);
 
@@ -267,8 +259,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
   }) => {
     const slider = page.locator(".wp-block-wpe-slider");
     await slider.scrollIntoViewIfNeeded();
-    // autoplayTime is 2s (2000ms speed per cycle) in this fixture — let ~3
-    // full natural cycles complete untouched before ever touching the mouse.
+    // autoplayTime is 2s here — let ~3 full natural cycles complete before touching the mouse.
     await page.waitForTimeout(6500);
 
     const box = await slider.boundingBox();
@@ -284,9 +275,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     await page.waitForTimeout(200);
     const afterRelease = await getWrapperTranslateX(page);
 
-    // Hold well past a full cycle length — long enough for any dangling
-    // transitionend listener from an earlier cycle to have fired and forced
-    // a resume, if one exists.
+    // Hold well past a full cycle — long enough for any dangling transitionend listener to have misfired, if one exists.
     await page.waitForTimeout(3000);
     const afterHold = await getWrapperTranslateX(page);
 
@@ -309,10 +298,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
     const outside = { x: 10, y: 10 };
 
-    // Cycle 1: real hover in/out with a real resumed transition each time,
-    // never dragging — pure hover pause/resume, repeated several times so
-    // any dangling transitionend-driven auto-resume from an earlier cycle
-    // has a chance to misfire against a later, still-active pause.
+    // Repeated real hover in/out so any dangling transitionend-driven auto-resume has a chance to misfire against a later pause.
     for (let i = 0; i < 4; i += 1) {
       await page.mouse.move(center.x, center.y);
       await page.waitForTimeout(150);
@@ -320,9 +306,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
       await page.waitForTimeout(150);
     }
 
-    // Now pause and hold for a long time — long enough for several of the
-    // short resumed transitions above to have long since completed, so any
-    // dangling listener from them would have already misfired if it exists.
+    // Hold long enough for the short transitions above to have long since completed.
     await page.mouse.move(center.x, center.y);
     await page.waitForTimeout(300);
     const frozenAt = await getWrapperTranslateX(page);
@@ -494,19 +478,12 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     await page.waitForTimeout(500);
     const samples = await readSamples(page);
 
-    // Every sample taken in the first 20ms after leaving must sit within one
-    // animation frame's distance of the frozen value (a real OS-level mouse
-    // event has a few ms of its own CDP round-trip jitter that a
-    // programmatic .focus() doesn't — the equivalent focus-out test below
-    // asserts an exact match). A genuine "jump to start" is nowhere close to
-    // this small: it lands near translateX:0 or a full slide-width away.
+    // Within one frame of the frozen value (real mouse events have a few ms of CDP jitter a programmatic .focus() doesn't); a real "jump to start" is nowhere near this small.
     const earlySamples = samples.filter((s) => s.t < 20);
     expect(earlySamples.length).toBeGreaterThan(0);
     earlySamples.forEach((s) => expect(Math.abs(s.x - frozenAt)).toBeLessThan(10));
 
-    // From there on, motion must be monotonic in one direction and never
-    // jump more than a few px between consecutive ~8-16ms frames — a real
-    // "jump to start" shows up as one enormous single-frame delta.
+    // A real "jump to start" shows up as one enormous single-frame delta.
     for (let i = 1; i < samples.length; i += 1) {
       const frameDelta = Math.abs(samples[i].x - samples[i - 1].x);
       expect(frameDelta).toBeLessThan(30);
@@ -522,17 +499,14 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
 
     const center = await getOnScreenLinkCenter(page);
     await page.mouse.move(center.x, center.y);
-    // A real click focuses the link too; use .focus() via a fresh locator at
-    // this exact point isn't available, so approximate real usage with a
-    // direct move+down+up which both hovers and focuses the link.
+    // Approximates a real click (which both hovers and focuses the link) via move+down+up.
     await page.mouse.down();
     await page.mouse.up();
     await page.waitForTimeout(400);
     const frozenAt = await getWrapperTranslateX(page);
 
     await armHighFrequencySampler(page, 400);
-    // Move the mouse away (clearing hover) and Tab focus elsewhere (clearing
-    // focus) — both pause reasons must clear for resume to fire.
+    // Both pause reasons (hover + focus) must clear for resume to fire.
     await page.mouse.move(10, 10);
     await page.keyboard.press("Tab");
     await page.waitForTimeout(500);
@@ -783,12 +757,7 @@ test.describe("Slider (wpe/slider) — continuousAutoplay", () => {
     const box = await slider.boundingBox();
     const center = { x: box!.x + box!.width / 2, y: box!.y + box!.height / 2 };
 
-    // A real jump (the originally reported bug) was on the order of
-    // 700-1700px. Normal transition-start timing variance tops out around
-    // 60-70px. This threshold sits well between the two, and running many
-    // cycles at varying intervals guarantees at least one pause lands near
-    // Swiper's internal loop-wrap boundary, which is exactly where the
-    // original bug only showed up (never on the first couple of cycles).
+    // The original bug jumped 700-1700px vs ~60-70px normal variance; 12 cycles guarantees one pause lands near Swiper's loop-wrap boundary, where it only showed up.
     const JUMP_THRESHOLD = 150;
 
     for (let cycle = 0; cycle < 12; cycle += 1) {
@@ -1077,9 +1046,7 @@ test.describe("Slider (wpe/slider) — regular autoplay full lifecycle scenario 
     page,
   }) => {
     await page.locator(".wp-block-wpe-slider").scrollIntoViewIfNeeded();
-    // Autoplay starts eagerly and advances every 1s — read the active index
-    // only *after* the click, not before, so a race between reading and
-    // clicking can't be mistaken for a pause failure.
+    // Autoplay advances every 1s — read the active index after the click, not before, so the read/click race can't look like a pause failure.
     await page.locator(".wp-block-wpe-slider").click();
     const activeAfterClick = await page
       .locator(".swiper-slide-active")

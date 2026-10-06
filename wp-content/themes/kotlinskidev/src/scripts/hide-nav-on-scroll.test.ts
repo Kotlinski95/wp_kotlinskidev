@@ -41,6 +41,8 @@ describe("hide-nav-on-scroll.ts", () => {
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
     setInnerWidth(1024);
+    delete (window as unknown as { kotlinskidevProgrammaticScrollActive?: boolean })
+      .kotlinskidevProgrammaticScrollActive;
   });
 
   it("does nothing when neither header nor mobile footer nav is present", () => {
@@ -167,6 +169,48 @@ describe("hide-nav-on-scroll.ts", () => {
 
     scrollAndFlush(150);
     expect(breadcrumbs.classList.contains("kt-breadcrumbs--hidden")).toBe(false);
+  });
+
+  it("ignores a scroll event fired while a programmatic scroll is flagged in flight, so a corrective jump (e.g. scroll-to-top.ts's own settle-time scrollTo) can't flip nav state", () => {
+    // A programmatic scrollTo() correction fires a real native scroll event indistinguishable from user input unless flagged — confirmed live, it could flash the nav mid-animation.
+    buildMarkup();
+    loadOnMobile();
+    const header = document.querySelector("header") as HTMLElement;
+
+    scrollAndFlush(300);
+    expect(header.classList.contains("nav-hidden")).toBe(true);
+
+    (
+      window as unknown as { kotlinskidevProgrammaticScrollActive?: boolean }
+    ).kotlinskidevProgrammaticScrollActive = true;
+    scrollAndFlush(150);
+
+    expect(header.classList.contains("nav-hidden")).toBe(true);
+  });
+
+  it("resumes reacting to real scroll input, using the position reached during the ignored programmatic scroll as its new baseline, once the flag clears", () => {
+    buildMarkup();
+    loadOnMobile();
+    const header = document.querySelector("header") as HTMLElement;
+
+    scrollAndFlush(300);
+    expect(header.classList.contains("nav-hidden")).toBe(true);
+
+    (
+      window as unknown as { kotlinskidevProgrammaticScrollActive?: boolean }
+    ).kotlinskidevProgrammaticScrollActive = true;
+    scrollAndFlush(150);
+    expect(header.classList.contains("nav-hidden")).toBe(true);
+
+    (
+      window as unknown as { kotlinskidevProgrammaticScrollActive?: boolean }
+    ).kotlinskidevProgrammaticScrollActive = false;
+    // 200 is only "down" relative to the ignored scroll's 150, not the stale pre-jump 300 — proves lastScrollTop tracked 150 while the scroll was ignored.
+    scrollAndFlush(200);
+    expect(header.classList.contains("nav-hidden")).toBe(true);
+
+    scrollAndFlush(50);
+    expect(header.classList.contains("nav-hidden")).toBe(false);
   });
 
   it("re-enables scroll hiding when switching back to mobile", () => {

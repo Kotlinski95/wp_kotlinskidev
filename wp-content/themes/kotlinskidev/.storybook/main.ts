@@ -22,25 +22,28 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: "react-docgen-typescript",
   },
-  webpackFinal: async (config) => {
-    config.resolve = config.resolve ?? {};
-    config.resolve.alias = {
-      ...config.resolve.alias,
+  webpackFinal: async (webpackConfig) => {
+    webpackConfig.resolve = webpackConfig.resolve ?? {};
+    webpackConfig.resolve.alias = {
+      ...webpackConfig.resolve.alias,
       ...dedupedWordpressPackageAliases(),
       "@node_modules": path.resolve(process.cwd(), "node_modules"),
       "@utils": path.resolve(process.cwd(), "src/utils"),
       "@assets": path.resolve(process.cwd(), "assets"),
-      "@wordpress/server-side-render$": path.resolve(process.cwd(), ".storybook/mock-server-side-render.tsx"),
+      "@wordpress/server-side-render$": path.resolve(
+        process.cwd(),
+        ".storybook/mock-server-side-render.tsx"
+      ),
     };
 
-    config.module = config.module ?? { rules: [] };
-    config.module.rules = config.module.rules ?? [];
-    config.module.rules.push({
+    webpackConfig.module = webpackConfig.module ?? { rules: [] };
+    webpackConfig.module.rules = webpackConfig.module.rules ?? [];
+    webpackConfig.module.rules.push({
       test: /\.scss$/,
       use: ["style-loader", "css-loader", "sass-loader"],
     });
 
-    return config;
+    return webpackConfig;
   },
 };
 

@@ -153,12 +153,7 @@ test.describe("Image hover overlay (core/image + kotlinskidevOverlayEnabled) —
   test("text too tall to fit is clipped only at the bottom, never spills above the top edge", async ({
     page,
   }) => {
-    // Regression test: justify-content: center on an overflowing flex column
-    // centers the overflow across BOTH edges by default, meaning long text
-    // could render starting above the image's own top edge. `safe center`
-    // (src/styles/image-hover-overlay.scss) anchors overflow to the top
-    // instead, so the worst case is bottom clipping (still fully contained,
-    // since the figure has overflow:hidden), never a top spillover.
+    // Regression: justify-content: center overflows both edges by default; `safe center` (image-hover-overlay.scss) anchors to the top so only bottom clipping can occur.
     const figure = page.locator(".kt-image-hover-overlay");
     await figure.scrollIntoViewIfNeeded();
     await figure.hover();
@@ -191,11 +186,7 @@ test.describe("Image hover overlay (core/image + kotlinskidevOverlayEnabled) —
       kotlinskidevOverlayHeading: "Our Work",
       kotlinskidevOverlayDescription: SHORT_DESCRIPTION,
     };
-    // The --kt-overlay-bg custom property is normally baked into the figure's
-    // saved markup by the editor-side blocks.getSaveContent.extraProps filter
-    // (src/blocks/image-hover-overlay/index.tsx) when a color is picked — a
-    // hand-written fixture has to set it directly to simulate that, same as
-    // the content-tabs fixtures do for their own style attrs.
+    // --kt-overlay-bg is normally baked in by the editor-side extraProps filter (image-hover-overlay/index.tsx); set directly here to simulate that.
     const content =
       `<div style="height:600px">Spacer</div>` +
       `<!-- wp:image ${JSON.stringify(attrs)} -->` +
@@ -220,24 +211,11 @@ test.describe("Image hover overlay (core/image + kotlinskidevOverlayEnabled) —
   test("the background tint is actually painted, and stays painted well after the reveal transition settles", async ({
     page,
   }) => {
-    // Regression test: `.kt-image-hover-overlay__content` had no explicit
-    // z-index, so it only formed a stacking context while its opacity
-    // transition was mid-flight (opacity < 1 is a stacking-context trigger).
-    // Once the transition settled at opacity: 1, that context dissolved and
-    // the background layer's `z-index: -1` escaped to the nearest ANCESTOR
-    // stacking context instead of staying scoped under its own parent —
-    // rendering behind the image instead of over it. Caught by sampling real
-    // painted pixels (getComputedStyle never showed any difference — this
-    // class of bug is invisible to CSSOM inspection, only visible in the
-    // actual compositor output). Fixed with an explicit `z-index: 0` on
-    // `.kt-image-hover-overlay__content`, unconditionally creating a stacking
-    // context (position:absolute + explicit z-index, regardless of opacity).
+    // Regression: without an explicit z-index, the stacking context only existed mid-opacity-transition; once settled at opacity:1 it dissolved and the background's z-index:-1 escaped behind the image. Only visible via real painted pixels, not getComputedStyle. Fixed with explicit z-index:0.
     const figure = page.locator(".kt-image-hover-overlay");
     await figure.scrollIntoViewIfNeeded();
     const box = (await figure.boundingBox())!;
-    // Sample near the top-left corner, inside the padding, away from the
-    // centered text — this point should only ever show the tint or the raw
-    // image, never any text glyph.
+    // Sample inside the padding, away from centered text — must show only the tint or raw image.
     const sampleX = Math.round(box.x + 8);
     const sampleY = Math.round(box.y + 8);
 

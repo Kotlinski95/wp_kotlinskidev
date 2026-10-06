@@ -39,12 +39,12 @@ const DEFAULT_SIDE_VALUES: SpacingSideValues = {
 };
 
 const SPACING_UNITS = [
-  { value: "px", label: "px" },
-  { value: "%", label: "%" },
-  { value: "rem", label: "rem" },
-  { value: "em", label: "em" },
-  { value: "vw", label: "vw" },
-  { value: "vh", label: "vh" },
+  { value: "px", label: "px", step: 1 },
+  { value: "%", label: "%", step: 0.1 },
+  { value: "rem", label: "rem", step: 0.01 },
+  { value: "em", label: "em", step: 0.01 },
+  { value: "vw", label: "vw", step: 0.1 },
+  { value: "vh", label: "vh", step: 0.1 },
 ];
 
 type ResponsiveSpacingAttributes = Record<

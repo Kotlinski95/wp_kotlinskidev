@@ -1,6 +1,7 @@
 import "./index.scss";
 import "./scripts/hamburger";
 import "./scripts/mega-menu";
+import "./scripts/nav-reveal";
 import "./scripts/search-panel";
 import "./scripts/language-panel";
 import "./scripts/scroll-to-top";
@@ -15,9 +16,6 @@ import "./scripts/animated-counter";
 import "./scripts/page-views";
 import "./scripts/hide-nav-on-scroll";
 import "./scripts/visual-viewport-offset";
-import "./scripts/gsap-sticky";
-import "./scripts/gsap-footer-transform-sync";
-import "./scripts/gsap-parallax-fallback";
 import "./scripts/faq-accordion";
 import "./scripts/line-clamp";
 import "./scripts/modal-manager";

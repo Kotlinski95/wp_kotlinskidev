@@ -13,16 +13,7 @@ function wpEval(script: string): string {
   }).trim();
 }
 
-// Regression: gsap-footer-transform-sync.ts mirrors .main-wrapper's GSAP pin-compensation
-// transform onto <footer> so footer content stays visually in sync with a pinned scroll-section.
-// But .mobile-footer-nav (position: fixed) used to live *inside* that same <footer> element — any
-// non-"none" transform on an ancestor (even the identity translate(0px, 0px) GSAP applies while
-// unpinned) creates a new containing block for position:fixed descendants per the CSS spec, so the
-// nav stopped being positioned relative to the viewport and instead rendered relative to <footer>'s
-// own (very tall, GSAP-inflated) box — only scrolling into view at the very bottom of the page.
-// Fixed by syncing the transform onto .kotlinskidev-footer (the footer's inner content wrapper)
-// instead, and moving the mobile-footer navigation block to be a sibling of that wrapper rather
-// than a descendant of it.
+// Any transformed ancestor becomes position:fixed's containing block per spec — kept generic to catch this class of bug from any future cause, not just the original one.
 function findScrollSectionPageUrl(): string | null {
   const result = wpEval(`
     $posts = get_posts(['post_type' => 'any', 'post_status' => 'publish', 'numberposts' => -1, 'fields' => 'ids']);

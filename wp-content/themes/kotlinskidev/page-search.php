@@ -43,17 +43,6 @@ echo do_blocks('<!-- wp:template-part {"slug":"header","theme":"kotlinskidev","a
 </main>
 
 <?php
-// Set up footer shortcodes for this page
-// global $kotlinskidev_force_footer_shortcodes;
-// global $kotlinskidev_footer_shortcodes;
-
-// $kotlinskidev_force_footer_shortcodes = true;
-// $kotlinskidev_footer_shortcodes = array(
-//     'copyrights' => '[copyrights]',
-//     'scroll_to_top' => '[scroll_to_top]',
-// );
-
-// Dynamic footer selection based on locale
 $locale = get_locale();
 if ($locale === 'pl_PL') {
     // Use Polish footer

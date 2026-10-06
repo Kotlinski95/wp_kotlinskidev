@@ -79,7 +79,7 @@ li {
 svg.custom-logo {
 	color: var(--wp--preset--color--white);
 
-	path {
+	path:not([fill]):not(.logo-icon path) {
 		fill: currentcolor;
 	}
 }
@@ -350,4 +350,8 @@ span:empty {
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
+}
+
+figure:has(svg) {
+	margin-block-end: 0;
 }

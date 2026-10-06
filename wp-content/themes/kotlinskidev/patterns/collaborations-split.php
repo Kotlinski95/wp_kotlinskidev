@@ -5,23 +5,10 @@
  * Categories: sections, kotlinskidev/sections, themeslug/custom
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
-$kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/service_icon.webp',
-);
+$kotlinskidev_icon = $kotlinskidev_url . 'assets/images/service_icon.webp';
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/collaborations-split","name":"Collaborations Split"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        @media (max-width: 48rem) {
-            .kotlinskidev-collab-split-heading,
-            .kotlinskidev-collab-split-copy {
-                text-align: center;
-            }
-        }
-    </style>
-    <!-- /wp:html -->
-
-    <!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"2.5rem","bottom":"2.5rem","left":"2.5rem","right":"2.5rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"2.5rem","bottom":"2.5rem","left":"2.5rem","right":"2.5rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
     <div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:2.5rem;padding-right:2.5rem;padding-bottom:2.5rem;padding-left:2.5rem"><!-- wp:columns {"verticalAlignment":"center","style":{"spacing":{"blockGap":{"left":"2.75rem"},"margin":{"top":"0","bottom":"0"}}}} -->
         <div class="wp-block-columns are-vertically-aligned-center" style="margin-top:0;margin-bottom:0"><!-- wp:column {"verticalAlignment":"center"} -->
             <div class="wp-block-column is-vertically-aligned-center">
@@ -40,47 +27,22 @@ $kotlinskidev_images = array(
             <!-- /wp:column -->
 
             <!-- wp:column {"verticalAlignment":"center"} -->
-            <div class="wp-block-column is-vertically-aligned-center">
-                <!-- wp:html -->
-                <style>
-                    .kotlinskidev-collab-split-wall {
-                        display: grid;
-                        grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
-                        gap: 0.75rem;
-                    }
-                    .kotlinskidev-collab-split-wall__tile {
-                        height: 5.25rem;
-                        padding: 1rem;
-                        background: var(--wp--preset--color--surface);
-                        border: 1px solid var(--wp--preset--color--divider);
-                        border-radius: 0.75rem;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                    .kotlinskidev-collab-split-wall__tile img {
-                        max-width: 100%;
-                        max-height: 100%;
-                        object-fit: contain;
-                        filter: grayscale(1) opacity(0.5);
-                        transition: filter 0.3s ease;
-                    }
-                    .kotlinskidev-collab-split-wall__tile:hover img {
-                        filter: grayscale(0) opacity(1);
-                    }
-                </style>
-                <div class="kotlinskidev-collab-split-wall">
+            <div class="wp-block-column is-vertically-aligned-center"><!-- wp:group {"style":{"spacing":{"blockGap":"0.75rem"}},"layout":{"type":"grid","minimumColumnWidth":"7.5rem"}} -->
+                <div class="wp-block-group">
                     <?php for ($i = 1; $i <= 6; $i++) : ?>
-                    <div class="kotlinskidev-collab-split-wall__tile">
-                        <img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="<?php echo esc_attr(sprintf(
+                    <!-- wp:group {"className":"kt-logo-dim kt-logo-dim--tile-small","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"0.75rem"}},"backgroundColor":"surface","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+                    <div class="wp-block-group kt-logo-dim kt-logo-dim--tile-small has-border-color has-surface-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:0.75rem"><!-- wp:image {"width":"2.5rem","height":"2.5rem","sizeSlug":"full","linkDestination":"none"} -->
+                        <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_icon) ?>" alt="<?php echo esc_attr(sprintf(
                             /* translators: %d: collaborator/logo position number. */
                             __('Collaborator logo %d', 'kotlinskidev'),
                             $i
-                        )) ?>" loading="lazy" />
+                        )) ?>" style="width:2.5rem;height:2.5rem" /></figure>
+                        <!-- /wp:image -->
                     </div>
+                    <!-- /wp:group -->
                     <?php endfor; ?>
                 </div>
-                <!-- /wp:html -->
+                <!-- /wp:group -->
             </div>
             <!-- /wp:column -->
         </div>

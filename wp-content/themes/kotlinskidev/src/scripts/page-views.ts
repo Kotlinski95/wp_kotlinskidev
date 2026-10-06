@@ -53,7 +53,7 @@
       if (xhr.readyState === 4 && xhr.status === 200) {
         try {
           JSON.parse(xhr.responseText);
-        } catch (e) {
+        } catch {
           console.error(`Something went wrong during increasing page view for page: ${postId}`);
         }
       }

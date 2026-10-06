@@ -176,9 +176,7 @@ function kotlinskidev_maybe_purge_on_new_build(): void {
     // New build detected — wipe stale build-file transients
     kotlinskidev_flush_build_transients();
 
-    // Asset CleanUp (if active) combines our JS/CSS into its own cached bundles,
-    // keyed by file content — those must be purged too or clients keep being
-    // served the pre-deploy bundle indefinitely, with no user-facing error.
+    // Asset CleanUp's own combined bundles are keyed by file content and must be purged too, or clients silently keep the pre-deploy bundle.
     if ( class_exists( '\WpAssetCleanUp\OptimiseAssets\OptimizeCommon' ) ) {
         \WpAssetCleanUp\OptimiseAssets\OptimizeCommon::clearCache();
     }

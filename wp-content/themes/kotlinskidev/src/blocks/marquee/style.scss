@@ -6,13 +6,24 @@
 	-webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 	mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
 
-	.swiper-wrapper {
+	&__track {
+		display: flex;
 		align-items: center;
+		gap: var(--kt-marquee-gap, 2.5rem);
+		width: max-content;
 		will-change: transform;
+		animation: kt-marquee-scroll var(--kt-marquee-duration, 30s) linear infinite;
+
+		&.is-paused {
+			animation-play-state: paused;
+		}
 	}
 
-	.swiper-slide {
-		width: auto;
+	&[data-marquee-direction="reverse"] {
+
+		.kt-marquee__track {
+			animation-direction: reverse;
+		}
 	}
 
 	&__item {
@@ -78,4 +89,22 @@
 	margin: 0.5rem 0;
 	font-size: 0.8125rem;
 	opacity: 0.75;
+}
+
+@keyframes kt-marquee-scroll {
+
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(var(--kt-marquee-shift, -50%));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.kt-marquee__track {
+		animation: none;
+	}
 }

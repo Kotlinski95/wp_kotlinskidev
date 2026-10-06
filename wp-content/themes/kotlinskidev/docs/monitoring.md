@@ -7,7 +7,7 @@ Companion to `docs/522.md`. Goal: get memory/disk visibility and auto-recovery f
 Everything below is designed to stay inside CloudWatch's Always-Free tier:
 
 | Resource | Used by this setup | Free tier limit |
-|---|---|---|
+| --- | --- | --- |
 | CloudWatch alarms | 5 | 10/month |
 | CloudWatch custom metrics | 4 | 10/month |
 | CloudWatch Logs ingestion | `syslog` only | 5GB/month |

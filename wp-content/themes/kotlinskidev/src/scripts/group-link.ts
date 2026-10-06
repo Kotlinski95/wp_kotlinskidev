@@ -37,7 +37,7 @@
       if (group.dataset.ktGroupLinkTarget === "_blank") {
         window.open(url, "_blank", "noopener");
       } else {
-        window.location.href = url;
+        window.open(url, "_self");
       }
     };
 

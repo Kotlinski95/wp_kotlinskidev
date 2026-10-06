@@ -79,7 +79,7 @@ Covered by the existing Complianz integration (consent banner, cookie categoriza
 Source: [OWASP Secure Headers Project](https://github.com/OWASP/www-project-secure-headers) (`mainsite/01_headers.md`, fetched directly — the landing pages at owasp.org just redirect there, don't trust a page that hasn't actually loaded the reference table).
 
 | Header | Recommended value (this site) | Why |
-|---|---|---|
+| --- | --- | --- |
 | `Strict-Transport-Security` | `max-age=63072000` — `includeSubDomains` **only if every subdomain is confirmed proxied through Cloudflare and serving HTTPS**. If `cp.`/`ssh.`/similar subdomains exist and aren't, leave it off: unlike a certificate warning, HSTS `includeSubDomains` gives the browser no bypass — it hard-blocks any subdomain that can't do HTTPS, no "proceed anyway" option. | Forces HTTPS for 2 years once first seen over a valid HTTPS connection. **No `preload` directive** — OWASP explicitly advises against it by default (hstspreload.org's own guidance: removal from the browser preload list is slow and painful if any subdomain can't support HTTPS; opt in deliberately later, not by default). |
 | `X-Frame-Options` | `deny` | Clickjacking defense. Technically superseded by CSP's `frame-ancestors`, but keep both — cheap, and covers browsers/edge cases where `frame-ancestors` isn't honored. |
 | `X-Content-Type-Options` | `nosniff` | Stops MIME-type sniffing (e.g. a served `text/plain` being executed as `text/css`/script). |
@@ -105,7 +105,7 @@ Core, Gutenberg, and most plugins inject inline `<script>`/`<style>` with no non
 Confirmed by grepping the live theme source and active plugins for real outbound domains (not documentation/comment noise):
 
 | Source | Domains | Directive |
-|---|---|---|
+| --- | --- | --- |
 | Google Fonts | `fonts.googleapis.com`, `fonts.gstatic.com` | `style-src`, `font-src` |
 | Google Maps (`google-maps-block` plugin) | `maps.googleapis.com`, `maps.gstatic.com` | `script-src`, `img-src`, `connect-src` |
 | Facebook Pixel (`custom-facebook-pixel-loader`) | `connect.facebook.net`, `www.facebook.com` | `script-src`, `connect-src`, `img-src` (pixel uses a 1×1 image beacon too) |
@@ -127,7 +127,7 @@ Ship as `Content-Security-Policy-Report-Only` (same syntax, different header nam
 Three possible layers; this site uses two of them, deliberately split by what each is actually good at.
 
 | Layer | Good for | Bad for |
-|---|---|---|
+| --- | --- | --- |
 | **Cloudflare edge** (Transform Rules / SSL-TLS panel) | Connection-level security (TLS mode, HSTS) and the 2 truly static, never-customized-per-site headers: `X-Content-Type-Options`, `X-Frame-Options`. The *only* layer guaranteed to apply even if a page is ever served from a full-page cache without WordPress/PHP executing at all. | Anything conditional, anything that needs to differ per customer/site, and — critically — **anything WordPress already sets**. Cloudflare's Transform Rule "Set" operation runs after the origin responds and unconditionally *overwrites* an existing header of the same name — there's no "only if missing." Point it at a header WordPress also sets and Cloudflare silently wins every time, making the WordPress-side admin field pointless. **Skip the one-click "Add security headers" Managed Transform entirely** — confirmed it ships the deprecated `X-XSS-Protection: 1; mode=block` and `Expect-CT`. |
 | **WordPress PHP** (`wp_headers` filter, `functions/security-headers.php`) | `Content-Security-Policy`(-Report-Only), `Referrer-Policy`, `Permissions-Policy` — all admin-configurable (§ above), all portable with the theme code to any WordPress site regardless of what CDN/host that site uses, and the only layer that can ever support per-request CSP nonces later (§3 defers this, but only PHP can do it — a nonce has to land in both the header and the matching inline `<script>` tag in the same response). | **Only fires when PHP actually executes.** No full-page HTML cache is active on this site today (Asset CleanUp is a JS/CSS bundler, not a page cache — PHP runs on every request) — reconfirm this before relying on it if that ever changes. |
 | **A dedicated plugin** (`HTTP Headers`, `Headers Security Advanced & HSTS WP`, etc.) | Non-developers, GUI-driven changes without touching code. | Sits outside this repo's git history/PR review; one more plugin dependency/update surface for something the theme's own Security settings tab already does. Not used here. |

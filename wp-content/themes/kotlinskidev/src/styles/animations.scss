@@ -1,7 +1,3 @@
-// =============================================================================
-// HOVER ANIMATIONS
-// =============================================================================
-
 @use "hover-transitions" as hover;
 
 .hover-jump {
@@ -28,10 +24,6 @@
 	--kt-hover-shadow-duration: 0.3s;
 	--kt-hover-shadow-easing: ease-in-out;
 }
-
-// =============================================================================
-// ADDITIONAL HOVER EFFECTS
-// =============================================================================
 
 .hover-scale {
 	--kt-hover-fx-scale: scale(1.05);
@@ -138,10 +130,6 @@
 	}
 }
 
-// =============================================================================
-// CONSTANT ANIMATIONS (ALWAYS ACTIVE)
-// =============================================================================
-
 .constant-bounce {
 	animation: constant-bounce 2s ease-in-out infinite;
 	cursor: pointer;
@@ -161,10 +149,6 @@
 	animation: constant-bounce-fast 1.2s ease-in-out infinite;
 	cursor: pointer;
 }
-
-// =============================================================================
-// KEYFRAMES FOR CONSTANT ANIMATIONS
-// =============================================================================
 
 @keyframes constant-bounce {
 

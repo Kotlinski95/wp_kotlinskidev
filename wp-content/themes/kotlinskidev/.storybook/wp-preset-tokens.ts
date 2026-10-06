@@ -11,12 +11,17 @@ function presetDeclarations(prefix: string, entries: PresetEntry[] | undefined):
   if (!entries) {
     return [];
   }
-  return entries.map((entry) => `--wp--preset--${prefix}--${entry.slug}: ${entry.color ?? entry.size ?? entry.gradient};`);
+  return entries.map(
+    (entry) =>
+      `--wp--preset--${prefix}--${entry.slug}: ${entry.color ?? entry.size ?? entry.gradient};`
+  );
 }
 
 export function buildWpPresetStylesheet(): string {
   const settings = (themeJson as { settings?: Record<string, unknown> }).settings ?? {};
-  const color = settings.color as { palette?: PresetEntry[]; gradients?: PresetEntry[] } | undefined;
+  const color = settings.color as
+    | { palette?: PresetEntry[]; gradients?: PresetEntry[] }
+    | undefined;
   const spacing = settings.spacing as { spacingSizes?: PresetEntry[] } | undefined;
   const typography = settings.typography as { fontSizes?: PresetEntry[] } | undefined;
 

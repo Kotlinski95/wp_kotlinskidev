@@ -86,16 +86,7 @@ test.describe("Hover animation controls (kotlinskidev/hover-animation-controls b
 });
 
 test.describe("Hover colors on a dynamic (render.php-only) block — kotlinskidev/scroll-to-top", () => {
-  // Regression test: this block's save() returns null, so it never goes
-  // through blocks.getSaveContent.extraProps (the mechanism every static
-  // block uses to bake hoverBackgroundColor/hoverTextColor into its saved
-  // markup) — that filter only has an element to attach props to when
-  // save() actually returns one. hoverAnimation classes were already
-  // bridged onto dynamic blocks server-side (includes/hover-animations.php,
-  // render_block filter), but the hover color/gradient CSS custom
-  // properties and their has-hover-color-transition/has-hover-text-gradient
-  // classes were not — silently dropped on every dynamic block, including
-  // this one, regardless of what was picked in the editor.
+  // Regression: a null-save() block never goes through blocks.getSaveContent.extraProps, so hover color/gradient CSS vars and classes were silently dropped on dynamic blocks (hoverAnimation classes were already bridged server-side, these weren't).
   const dynamicBlockSlug = "e2e-fixture-hover-colors-dynamic-block";
   let fixtureUrl: string;
 

@@ -38,40 +38,22 @@ $kotlinskidev_checklist = array(
         </div>
         <!-- /wp:columns -->
 
-        <!-- wp:html -->
-        <style>
-            .kotlinskidev-htp-checklist {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));
-                gap: 0.875rem;
-            }
-            .kotlinskidev-htp-checklist__item {
-                border: 1px solid var(--wp--preset--color--divider);
-                border-radius: 1rem;
-                padding: 1.125rem 1.25rem;
-            }
-            .kotlinskidev-htp-checklist__num {
-                font-size: 0.8125rem;
-                font-weight: 700;
-                color: var(--wp--preset--color--primary);
-                margin-bottom: 0.375rem;
-            }
-            .kotlinskidev-htp-checklist__label {
-                font-size: 0.9375rem;
-                font-weight: 600;
-                line-height: 1.4;
-                color: var(--wp--preset--color--foreground);
-            }
-        </style>
-        <div class="kotlinskidev-htp-checklist">
+        <!-- wp:group {"style":{"spacing":{"blockGap":"0.875rem"}},"layout":{"type":"grid","minimumColumnWidth":"13.75rem"}} -->
+        <div class="wp-block-group">
             <?php foreach ($kotlinskidev_checklist as $kotlinskidev_i => $kotlinskidev_label) : ?>
-            <div class="kotlinskidev-htp-checklist__item">
-                <div class="kotlinskidev-htp-checklist__num"><?php echo esc_html(sprintf('%02d', $kotlinskidev_i + 1)) ?></div>
-                <div class="kotlinskidev-htp-checklist__label"><?php echo esc_html($kotlinskidev_label) ?></div>
+            <!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1rem"},"spacing":{"padding":{"top":"1.125rem","bottom":"1.125rem","left":"1.25rem","right":"1.25rem"},"blockGap":"0.375rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+            <div class="wp-block-group has-border-color" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1rem;padding-top:1.125rem;padding-right:1.25rem;padding-bottom:1.125rem;padding-left:1.25rem"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"small"} -->
+                <p class="has-primary-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700"><?php echo esc_html(sprintf('%02d', $kotlinskidev_i + 1)) ?></p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+                <p style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html($kotlinskidev_label) ?></p>
+                <!-- /wp:paragraph -->
             </div>
+            <!-- /wp:group -->
             <?php endforeach; ?>
         </div>
-        <!-- /wp:html -->
+        <!-- /wp:group -->
     </div>
     <!-- /wp:group -->
 </div>

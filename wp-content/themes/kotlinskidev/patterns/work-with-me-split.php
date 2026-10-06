@@ -93,65 +93,33 @@ $kotlinskidev_rows = array(
         <!-- /wp:column -->
 
         <!-- wp:column {"verticalAlignment":"top"} -->
-        <div class="wp-block-column is-vertically-aligned-top">
-            <!-- wp:html -->
-            <style>
-                .kotlinskidev-wwm-split-list {
-                    background: var(--wp--preset--color--background-alt);
-                    border: 1px solid var(--wp--preset--color--divider);
-                    border-radius: 1.375rem;
-                    padding: 0.375rem 1.625rem;
-                }
-                .kotlinskidev-wwm-split-list__row {
-                    display: flex;
-                    align-items: center;
-                    gap: 1rem;
-                    padding: 1.1875rem 0;
-                    border-top: 1px solid var(--wp--preset--color--divider);
-                }
-                .kotlinskidev-wwm-split-list__row:first-child {
-                    border-top: none;
-                }
-                .kotlinskidev-wwm-split-list__icon {
-                    flex: none;
-                    width: 1.5rem;
-                    height: 1.5rem;
-                }
-                .kotlinskidev-wwm-split-list__body {
-                    flex: 1;
-                    min-width: 0;
-                }
-                .kotlinskidev-wwm-split-list__title {
-                    font-size: 0.96875rem;
-                    font-weight: 700;
-                    color: var(--wp--preset--color--foreground);
-                }
-                .kotlinskidev-wwm-split-list__sub {
-                    font-size: 0.8125rem;
-                    color: var(--wp--preset--color--foreground-alt);
-                    margin-top: 0.125rem;
-                }
-                .kotlinskidev-wwm-split-list__link {
-                    flex: none;
-                    font-size: 0.8125rem;
-                    font-weight: 600;
-                    color: var(--wp--preset--color--primary);
-                    white-space: nowrap;
-                }
-            </style>
-            <div class="kotlinskidev-wwm-split-list">
-                <?php foreach ($kotlinskidev_rows as $kotlinskidev_row) : ?>
-                <div class="kotlinskidev-wwm-split-list__row">
-                    <img class="kotlinskidev-wwm-split-list__icon" src="<?php echo esc_url($kotlinskidev_row['icon']) ?>" alt="" loading="lazy" />
-                    <div class="kotlinskidev-wwm-split-list__body">
-                        <div class="kotlinskidev-wwm-split-list__title"><?php echo esc_html($kotlinskidev_row['title']) ?></div>
-                        <div class="kotlinskidev-wwm-split-list__sub"><?php echo esc_html($kotlinskidev_row['sub']) ?></div>
+        <div class="wp-block-column is-vertically-aligned-top"><!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"0.375rem","bottom":"0.375rem","left":"1.625rem","right":"1.625rem"}}},"backgroundColor":"background-alt","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+            <div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:0.375rem;padding-right:1.625rem;padding-bottom:0.375rem;padding-left:1.625rem">
+                <?php foreach ($kotlinskidev_rows as $kotlinskidev_i => $kotlinskidev_row) : ?>
+                <!-- wp:group <?php echo $kotlinskidev_i > 0 ? '{"style":{"border":{"top":{"width":"1px","color":"var:preset|color|divider"}},"spacing":{"padding":{"top":"1.1875rem","bottom":"1.1875rem"},"blockGap":"1rem"}},"layout":{"type":"flex","verticalAlignment":"center"}}' : '{"style":{"spacing":{"padding":{"top":"1.1875rem","bottom":"1.1875rem"},"blockGap":"1rem"}},"layout":{"type":"flex","verticalAlignment":"center"}}'; ?> -->
+                <div class="wp-block-group has-border-color" style="<?php echo $kotlinskidev_i > 0 ? 'border-top-color:var(--wp--preset--color--divider);border-top-width:1px;' : ''; ?>padding-top:1.1875rem;padding-bottom:1.1875rem"><!-- wp:image {"width":"1.5rem","height":"1.5rem","sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_row['icon']) ?>" alt="" style="width:1.5rem;height:1.5rem" /></figure>
+                    <!-- /wp:image -->
+
+                    <!-- wp:group {"style":{"spacing":{"blockGap":"0.125rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+                    <div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"700"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
+                        <p class="has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700"><?php echo esc_html($kotlinskidev_row['title']) ?></p>
+                        <!-- /wp:paragraph -->
+
+                        <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
+                        <p class="has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_row['sub']) ?></p>
+                        <!-- /wp:paragraph -->
                     </div>
-                    <a href="#" class="kotlinskidev-wwm-split-list__link"><?php echo esc_html($kotlinskidev_row['link']) ?></a>
+                    <!-- /wp:group -->
+
+                    <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"x-small"} -->
+                    <p class="has-primary-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html($kotlinskidev_row['link']) ?></p>
+                    <!-- /wp:paragraph -->
                 </div>
+                <!-- /wp:group -->
                 <?php endforeach; ?>
             </div>
-            <!-- /wp:html -->
+            <!-- /wp:group -->
         </div>
         <!-- /wp:column -->
     </div>

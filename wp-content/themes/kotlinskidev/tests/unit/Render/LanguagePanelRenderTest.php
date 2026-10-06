@@ -9,12 +9,14 @@ it('renders nothing when polylang is not active', function () {
     expect($html)->toBe('');
 });
 
-function kotlinskidev_run_language_panel_subprocess(array $attributes): string
+function kotlinskidev_run_language_panel_subprocess(array $attributes, string $content = '<li>Item</li>'): string
 {
     $renderFile = __DIR__ . '/../../../src/blocks/language-panel/render.php';
     $blocksFile = __DIR__ . '/../../../functions/blocks.php';
     $svgFile = __DIR__ . '/../../../functions/svg-support.php';
+    $navRevealFile = __DIR__ . '/../../../functions/nav-reveal-render.php';
     $attrsExport = var_export($attributes, true);
+    $contentExport = var_export($content, true);
 
     $script = <<<PHP
 <?php
@@ -31,10 +33,62 @@ function wp_unique_id(\$prefix = '') { return \$prefix . '7'; }
 function pll_the_languages(\$args = []) {
     return [['slug' => 'pl', 'name' => 'Polski', 'flag' => 'https://example.test/pl.png', 'current_lang' => true]];
 }
+class WP_HTML_Tag_Processor {
+    private \$html;
+    private \$cursor = 0;
+    private \$current = null;
+    private \$edits = [];
+    public function __construct(\$html) { \$this->html = \$html; }
+    private function commitCurrent() {
+        if (\$this->current !== null) {
+            \$this->edits[] = \$this->current;
+            \$this->current = null;
+        }
+    }
+    public function next_tag() {
+        \$this->commitCurrent();
+        if (!preg_match('/<([a-zA-Z0-9-]+)((?:\\\\s+[a-zA-Z-]+(?:="[^"]*")?)*)\\\\s*\\\\/?>/', \$this->html, \$matches, PREG_OFFSET_CAPTURE, \$this->cursor)) {
+            return false;
+        }
+        \$attrs = [];
+        preg_match_all('/([a-zA-Z-]+)="([^"]*)"/', \$matches[2][0], \$attrMatches, PREG_SET_ORDER);
+        foreach (\$attrMatches as \$attrMatch) {
+            \$attrs[\$attrMatch[1]] = \$attrMatch[2];
+        }
+        \$start = \$matches[0][1];
+        \$length = strlen(\$matches[0][0]);
+        \$this->cursor = \$start + \$length;
+        \$this->current = ['tagName' => \$matches[1][0], 'attrs' => \$attrs, 'start' => \$start, 'length' => \$length];
+        return true;
+    }
+    public function get_attribute(\$name) { return \$this->current['attrs'][\$name] ?? null; }
+    public function set_attribute(\$name, \$value) {
+        if (\$this->current !== null) {
+            \$this->current['attrs'][\$name] = \$value;
+        }
+    }
+    public function get_updated_html() {
+        \$this->commitCurrent();
+        \$result = \$this->html;
+        \$offsetShift = 0;
+        foreach (\$this->edits as \$edit) {
+            \$attrString = '';
+            foreach (\$edit['attrs'] as \$name => \$value) {
+                \$attrString .= ' ' . \$name . '="' . htmlspecialchars(\$value, ENT_QUOTES) . '"';
+            }
+            \$replacement = '<' . \$edit['tagName'] . \$attrString . '>';
+            \$start = \$edit['start'] + \$offsetShift;
+            \$result = substr_replace(\$result, \$replacement, \$start, \$edit['length']);
+            \$offsetShift += strlen(\$replacement) - \$edit['length'];
+        }
+        return \$result;
+    }
+}
 require '{$svgFile}';
 require '{$blocksFile}';
+require '{$navRevealFile}';
 \$attributes = {$attrsExport};
-\$content = '<li>Item</li>';
+\$content = {$contentExport};
 ob_start();
 include '{$renderFile}';
 echo json_encode(ob_get_clean());
@@ -88,4 +142,51 @@ it('renders the inner list content inside the modal', function () {
     $html = kotlinskidev_run_language_panel_subprocess(['label' => '']);
 
     expect($html)->toContain('<li>Item</li>');
+});
+
+it('leaves the modal class untouched when no reveal animation is configured', function () {
+    $html = kotlinskidev_run_language_panel_subprocess(['label' => '']);
+
+    expect($html)->toContain('class="kt-lang-panel__modal"');
+});
+
+it('adds the reveal animation class directly onto the modal element', function () {
+    $html = kotlinskidev_run_language_panel_subprocess([
+        'label' => '',
+        'navRevealAnimation' => 'appear-on-reveal',
+    ]);
+
+    expect($html)->toContain('class="kt-lang-panel__modal appear-on-reveal"');
+});
+
+it('adds the --reveal-delay style onto the modal element when a delay is configured', function () {
+    $html = kotlinskidev_run_language_panel_subprocess([
+        'label' => '',
+        'navRevealAnimation' => 'appear-on-reveal',
+        'navRevealDelay' => 150,
+    ]);
+
+    expect($html)->toContain('style="--reveal-delay:150ms;"');
+});
+
+it('staggers each language switcher item with an increasing delay when a reveal animation is configured', function () {
+    $html = kotlinskidev_run_language_panel_subprocess(
+        ['label' => '', 'navRevealAnimation' => 'appear-on-reveal'],
+        '<li class="wp-block-navigation-item">PL</li><li class="wp-block-navigation-item">EN</li>'
+    );
+
+    expect($html)->toContain('class="wp-block-navigation-item appear-on-reveal">PL');
+    expect($html)->toContain('class="wp-block-navigation-item appear-on-reveal" style="--reveal-delay:60ms;">EN');
+});
+
+it('staggers the label paragraph in the same sequence as the language items', function () {
+    $html = kotlinskidev_run_language_panel_subprocess(
+        ['label' => '', 'navRevealAnimation' => 'appear-on-reveal'],
+        '<p class="wp-block-kotlinskidev-nav-paragraph">Select language:</p>'
+        . '<li class="wp-block-navigation-item">PL</li><li class="wp-block-navigation-item">EN</li>'
+    );
+
+    expect($html)->toContain('class="wp-block-kotlinskidev-nav-paragraph appear-on-reveal">Select');
+    expect($html)->toContain('class="wp-block-navigation-item appear-on-reveal" style="--reveal-delay:60ms;">PL');
+    expect($html)->toContain('class="wp-block-navigation-item appear-on-reveal" style="--reveal-delay:120ms;">EN');
 });

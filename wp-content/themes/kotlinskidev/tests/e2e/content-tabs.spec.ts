@@ -543,10 +543,7 @@ test.describe("Content Tabs (kotlinskidev/content-tabs) — active tab text colo
       .locator(".wp-block-kotlinskidev-content-tabs-nav-link");
 
     await expect(activeLabel).toHaveCSS("background-image", /gradient/);
-    // Chromium reports the computed -webkit-text-fill-color for the
-    // `transparent` keyword using the element's own underlying color
-    // channels with alpha forced to 0 (not a fixed rgba(0,0,0,0)) — assert
-    // on the alpha channel only, regardless of which color it's tinted by.
+    // Chromium reports -webkit-text-fill-color for `transparent` via the element's own color channels with alpha forced to 0, not a fixed rgba(0,0,0,0) — assert on alpha only.
     await expect(activeLabel).toHaveCSS("-webkit-text-fill-color", /rgba\(\d+, \d+, \d+, 0\)/);
   });
 });

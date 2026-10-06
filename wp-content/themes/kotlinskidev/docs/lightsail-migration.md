@@ -8,7 +8,7 @@
 The site was running on a t3.micro EC2 instance costing ~$20/month, most of which was infrastructure overhead unrelated to actual load — the instance averaged ~1.6% CPU with a single 92% spike over a 14-day sample. An audit of AWS Cost Explorer found the real breakdown:
 
 | Item | Cost/month |
-|---|---|
+| --- | --- |
 | EC2 compute (t3.micro) | ~$7.75 |
 | EC2-Other (EBS, snapshots) | ~$1.22 |
 | Elastic IP (in-use) | ~$3.60 |

@@ -46,7 +46,7 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 78 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 83 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -69,6 +69,7 @@ kotlinskidev/
 │   ├── copyrights.php                          # [copyrights] shortcode
 │   ├── cover-image-classes.php                 # lazy-loading behavior control for cover blocks
 │   ├── cover-video-preload.php                 # injects <link rel=preload> for cover-block video posters
+│   ├── custom-css-vars.php                     # render_block filter: injects an editor-defined list of arbitrary CSS custom properties (name/value pairs) as inline style on kotlinskidev/icon and core/image, for theming multi-color SVGs via var(--x) in their own fill/stroke attributes
 │   ├── customizer.php                          # Customizer panel registration
 │   ├── deferred-block-assets.php               # filterable block-name→handle registry + per-page above-the-fold scan/cache for CSS defer decisions
 │   ├── disable-comments.php                    # site-wide comment disabling
@@ -89,6 +90,7 @@ kotlinskidev/
 │   ├── marquee.php                             # prints the single shared kt-modal-marquee shell in wp_footer for kotlinskidev/marquee (src/blocks/marquee/) — an empty title/body populated client-side per click, kept outside any transformed ancestor
 │   ├── modals.php                              # kt_modal CPT + size meta, resolves/dedupes/renders modal shells for any link with opensInModal+modalId, wp_footer
 │   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
+│   ├── nav-reveal-render.php                   # render_block filter for core/navigation-link/-submenu, kotlinskidev/nav-*, kotlinskidev/button, kotlinskidev/social-section — reads navRevealAnimation/navRevealDelay/navRevealTranslate off $block['attrs'] and injects the class + --reveal-delay inline style via WP_HTML_Tag_Processor onto the block's own root tag (these are dynamic PHP-rendered blocks, so the editor-side blocks.getSaveContent.extraProps filter never reaches their frontend output). search-panel/language-panel are deliberately excluded here — they need the class on their *inner* .kt-search-panel__modal/.kt-lang-panel__modal div, not their outer wrapper, so they call the exported kotlinskidev_nav_reveal_class_and_style() helper directly from their own render.php instead. Also exports kotlinskidev_stagger_reveal_items(\$html, \$animation, \$class_markers, \$step=60) — walks every tag via WP_HTML_Tag_Processor and auto-staggers, in one continuous document-order sequence, every tag whose class list contains an EXACT token match for ANY of \$class_markers (not substring — "wp-block-navigation-item" must not also match the BEM child "wp-block-navigation-item__content"); used by search-panel/language-panel render.php to stagger their whole auto-generated content (search form, "Frequently visited pages" title, each popular-pages link / each language option) in one pass, no per-item editor config needed
 │   ├── page-loader.php                         # renders page-loader markup on wp_body_open
 │   ├── page-view-tracking.php                  # AJAX view tracking + Popular Pages query source
 │   ├── patterns.php                            # registers 4 custom pattern categories
@@ -98,10 +100,13 @@ kotlinskidev/
 │   ├── protection-helpers.php                  # RSA keypair + encrypt/decrypt for protected-content block
 │   ├── responsive-display.php                  # per-breakpoint show/hide block attribute
 │   ├── responsive-font-size.php                # per-breakpoint font-size attribute
+│   ├── responsive-height.php                   # per-breakpoint min-height attribute (reuses responsive-width.php's kotlinskidev_sanitize_css_length())
 │   ├── responsive-order.php                    # per-breakpoint block reorder attribute
 │   ├── responsive-spacing.php                  # per-breakpoint spacing attribute
 │   ├── responsive-width.php                    # per-breakpoint width attribute
+│   ├── scroll-animation-render.php             # render_block filter: injects scrollAnimation/scrollAnimationDelay/scrollAnimationTranslate as classes onto the actual rendered root tag of EVERY dynamic (render.php) block — the scroll-animations editor extension (src/blocks/scroll-animations/index.tsx) only applies via blocks.getSaveContent.extraProps, which only affects the saved static markup; a dynamic block's render_callback rebuilds that markup fresh and discards it. Idempotent (skips if the class is already present) so it is a safe no-op for the static blocks where extraProps already worked
 │   ├── scroll-restoration.php                  # sets history.scrollRestoration = 'manual' inline in <head> (wp_head priority 1) so the browser never auto-jumps to a saved scroll position before layout/marquee/ScrollTrigger settle — src/scripts/restoration.ts then does the actual restore
+│   ├── scroll-section-pin-boundary-render.php  # render_block companion to src/blocks/scroll-section-pin-boundary/index.tsx's editor.BlockEdit toggle — applies the scroll-section-pin-boundary class onto a dynamic (render.php) block's real rendered root tag the same way scroll-animation-render.php does; idempotent, no-op for static blocks already covered by that extension's own blocks.getSaveContent.extraProps filter
 │   ├── scroll-top-top.php                      # scroll-to-top markup (fixed-arrow/bar variants) + [scroll_to_top] shortcode
 │   ├── search-page-styles.php                  # conditional style fixes on search results pages
 │   ├── service-locations.php                   # service_location CPT (editor+custom-fields support, no archive — the "choose your city" hub is two real Pages, see below) + single "city" post-meta field, sanitized on write and exposed to REST/block editor via custom-fields support. City page body is one real, fully block-editable FSE template — templates/single-service_location.html — shared by every language: text nodes are kotlinskidev/translated-text blocks resolved via pll__() (functions/translated-text.php) instead of a per-language duplicate template, replacing an earlier single opaque PHP-rendered dynamic block that traded editability for dodging a WP core bug (a plain wp:pattern reference caches its content once, at whatever locale was active when WP_Theme::get_pattern_cache() last populated, freezing translated text in one language for every visitor). Three of the five city-bound headings/paragraphs carry a kt-gradient-text className, since Block Bindings disables inline RichText controls (bold/italic/gradient) for a bound element — gives them the same sitewide gradient without needing the toolbar. Enqueues src/blocks/service-location/panel.tsx (PluginDocumentSettingPanel for the "city" field) on the CPT's own edit screen. Also registers 2 PHP-only dynamic blocks (render_callback, no block.json/build step): kotlinskidev/city-grid (columnsDesktop/columnsTablet/columnsMobile + linkTextColor attributes, controls in src/blocks/city-grid/index.tsx) and kotlinskidev/city-map (embed iframe + an expand button wired to src/scripts/city-map-lightbox.ts's fullsize overlay), both rendered fresh every request, plus a third — kotlinskidev/contact-card (functions/contact-card.php) — also listed in the same SSR-preview registration below. Both "Find us in {city}" section templates now use a two-column layout: an eyebrow + city heading + SEO paragraph + kotlinskidev/contact-card on the left, kotlinskidev/city-map on the right — see functions/contact-card.php. A small inline-JS `registerBlockType()` (enqueued on `enqueue_block_editor_assets`, no build step) using `ServerSideRender` so the block editor shows their real rendered output — and a `pre_determine_locale` filter + a `kotlinskidevLang` REST field (registered for `page`/`service_location`) so that preview also renders in the *edited post's* Polylang language. Also a lang→slug map + rewrite rule + post_type_link filter so each city's own URL translates automatically (adding a language is one array entry)
@@ -214,7 +219,7 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 61 custom block dirs: 40 registered blocks + 22 JS-only block-extension filters + 1 post-editor settings panel
+│   ├── blocks/                                 # 63 custom block dirs: 40 registered blocks + 24 JS-only block-extension filters + 1 post-editor settings panel
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
@@ -306,6 +311,8 @@ kotlinskidev/
 │   │   │   └── render.php
 │   │   ├── cover-lazy-loading/                 # extension: force-disable native lazy loading on cover/image
 │   │   │   └── index.tsx
+│   │   ├── custom-css-vars/                    # extension: dynamic name/value CSS-custom-property repeater, scoped to kotlinskidev/icon + core/image (SVG theming, e.g. a multi-color logo referencing var(--logo-icon-bg) etc. in its own fill/stroke attributes)
+│   │   │   └── index.tsx
 │   │   ├── equal-height-columns/               # extension: "Equal height" toggle — core/columns stretches each column's direct child to fill the tallest column; a core/group with a grid layout stretches each grid item to fill its row (class baked into saved static HTML via blocks.getSaveContent.extraProps)
 │   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
@@ -355,7 +362,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── image-hover-overlay/                # extension: adds a heading/description hover-reveal overlay + color pickers to core/image
 │   │   │   └── index.tsx
-│   │   ├── language-panel/                     # Polylang language switcher trigger + dropdown
+│   │   ├── language-panel/                     # Polylang language switcher trigger + dropdown — render.php applies kotlinskidev_nav_reveal_class_and_style() directly onto .kt-lang-panel__modal, and kotlinskidev_stagger_reveal_items() onto the "Wybierz język:" label + each Polylang-rendered li (markers wp-block-kotlinskidev-nav-paragraph, wp-block-navigation-item) so the label and every language option stagger-fade in as one sequence (functions/nav-reveal-render.php)
 │   │   │   ├── block.json
 │   │   │   ├── index.stories.tsx               # Storybook: renders LanguagePanelEdit via buildEditProps() (full BlockEditProps shape)
 │   │   │   ├── index.tsx
@@ -367,7 +374,7 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   ├── style-controls.tsx
 │   │   │   └── types.ts
-│   │   ├── marquee/                            # parent/item pair — continuously scrolling right-to-left row of technology/skill items, pauses on hover/focus/touch (CSS :hover/:focus-within/:active, no JS); parent's render.php duplicates $content into two inert-marked groups for the seamless loop (item block has no id of its own, so no duplicate-DOM-id risk); clicking an item populates and opens a single shared kt-modal-marquee shell (functions/marquee.php, printed once in wp_footer to stay outside any transformed ancestor — see the position:fixed-under-transform gotcha) via src/blocks/marquee/init.ts reading the clicked item's data-marquee-label/data-marquee-description
+│   │   ├── marquee/                            # parent/item pair — continuously scrolling row of technology/skill items, direction configurable (normal/reverse); pure CSS @keyframes animation on .kt-marquee__track (translateX 0 to var(--kt-marquee-shift), speed via --kt-marquee-duration), not a carousel library — a Swiper-based continuousAutoplay implementation was tried first and replaced after repeated loop-boundary/stall bugs proved structural to forcing a slide library into a continuous-ticker role. render.php renders $content once; init.ts clones that single real set at runtime (cloneNode, not innerHTML) until the track is wide enough that one repeat unit alone covers the container — a fixed "duplicate once, shift -50%" technique (tried first) only stays seamless when one unit ≥ container width, confirmed broken live on a short item list in a near-full-width section (and cross-checked against wolanski-web.pl's own reference marquee, which repeats its 11-item set 5× for the same reason) — capped by a lifetime MAX_CLONE_ITERATIONS budget shared across the initial measurement and every later ResizeObserver-triggered top-up; every clone beyond the first real set is marked aria-hidden/non-tabbable, and every image (real + cloned) forced to loading="eager" so a late lazy-load can't desync one repeat's width from another (the icons' own fixed CSS size already prevents this too — belt-and-suspenders). Hover/focus/press/kt-modal-open toggle an .is-paused class (animation-play-state) via JS event listeners, not CSS :hover/:focus-within — needed so a kt-modal's own close-time refocus of the trigger (modal-manager.ts) can be explicitly overridden rather than leaving the marquee stuck paused, with a scroll-triggered fallback resume as a second line of defense; clicking an item with a configured modal opens that item's own kt_modal CPT post via data-kt-modal-target (functions/modals.php's generic system, not functions/marquee.php's older #kt-modal-marquee shell, which nothing currently targets)
 │   │   │   ├── block.json
 │   │   │   ├── edit.test.tsx
 │   │   │   ├── edit.tsx
@@ -413,6 +420,9 @@ kotlinskidev/
 │   │   ├── nav-popular-pages/                  # nav-scoped sibling of popular-pages
 │   │   │   ├── block.json
 │   │   │   └── render.php
+│   │   ├── nav-reveal-animation/               # extension: "Reveal on Menu Open" Inspector panel (fade/flip/appear type, free-ms delay, distance). core/navigation-link/-submenu, kotlinskidev/nav-*, social-section, search-panel + language-panel are name-scoped (architecturally/by-design nav-or-dropdown-only); the general-purpose kotlinskidev/button is additionally gated on having a core/navigation ancestor (getBlockParentsByBlockName) so the panel never shows on an unrelated page. Triggers off the kt:nav-panel-open/-close custom events (dispatched by hamburger.ts/mega-menu.ts/dropdown-panel.ts) instead of IntersectionObserver
+│   │   │   ├── index.test.tsx
+│   │   │   └── index.tsx
 │   │   ├── nav-search-panel/                   # nav-scoped sibling of search-panel
 │   │   │   ├── block.json
 │   │   │   └── render.php
@@ -482,6 +492,8 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── responsive-font-size/               # extension: per-breakpoint font-size override
 │   │   │   └── index.tsx
+│   │   ├── responsive-height/                  # extension: per-breakpoint min-height override (e.g. overrides core Cover block's 430px default on mobile)
+│   │   │   └── index.tsx
 │   │   ├── responsive-image/                   # static image block, swaps desktop/mobile image at a breakpoint
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
@@ -497,7 +509,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── scroll-animations/                  # extension: scroll-triggered entrance animation + delay
 │   │   │   └── index.tsx
-│   │   ├── scroll-section/                     # sticky horizontal-scroll section (GSAP ScrollTrigger)
+│   │   ├── scroll-section/                     # horizontal-pan-on-vertical-scroll section (GSAP ScrollTrigger) — pins .scroll-section itself with GSAP's own pinSpacing:true (spacer sized once, no per-frame reconciliation). The nearest ancestor with the scroll-section-pin-boundary class (toggled via the scroll-section-pin-boundary extension below) gets pinned instead of the bare section, letting neighboring content peek above/below during the scrub; style.scss strips the kt-full-bleed-breakout mixin's static transform from any .full-width ancestor so GSAP's own pinType auto-detection stays on native, compositor-driven "fixed"
 │   │   │   ├── docs/
 │   │   │   │   └── SKILL.md
 │   │   │   ├── item/
@@ -514,13 +526,15 @@ kotlinskidev/
 │   │   │   ├── render.php
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
+│   │   ├── scroll-section-pin-boundary/        # extension: "Scroll Section Pinning (GSAP)" toggle on every block (minus a small dynamic-preview/raw-markup exclusion list) — applies the scroll-section-pin-boundary class scroll-section/init.ts looks for, same blocks.registerBlockType/editor.BlockEdit/blocks.getSaveContent.extraProps pattern as scroll-animations
+│   │   │   └── index.tsx
 │   │   ├── scroll-to-top/                      # "back to top" — fixed-arrow or full-width-bar variant
 │   │   │   ├── block.json
 │   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── render.php
 │   │   │   └── style.scss                      # bar-variant layout only (fixed-arrow styling stays in styles/scroll.scss)
-│   │   ├── search-panel/                       # search trigger button opening a modal/dropdown panel
+│   │   ├── search-panel/                       # search trigger button opening a modal/dropdown panel — render.php applies kotlinskidev_nav_reveal_class_and_style() directly onto .kt-search-panel__modal, and kotlinskidev_stagger_reveal_items() onto the search form, the popular-pages title, and each kt-popular-pages__item (markers wp-block-search, kt-popular-pages__title, kt-popular-pages__item) so the whole dropdown's content stagger-fades in as one sequence (functions/nav-reveal-render.php)
 │   │   │   ├── block.json
 │   │   │   ├── index.stories.tsx               # Storybook: renders SearchPanelEdit via buildEditProps() (full BlockEditProps shape)
 │   │   │   ├── index.tsx
@@ -606,9 +620,6 @@ kotlinskidev/
 │   │   ├── editor-theme-toggle.ts              # dark/light toggle button inside the block editor canvas
 │   │   ├── faq-accordion.ts                    # WAAPI height-animated open/close for FAQ details accordion; fires faq_expand (GA4) via track-event.ts on open only, not close
 │   │   ├── group-link.ts                       # click/keyboard delegation for .kt-group-link, skips nested interactive elements
-│   │   ├── gsap-footer-transform-sync.ts       # mirrors .main-wrapper's scroll-linked transform (see gsap-sticky.ts) onto .kotlinskidev-footer (the footer's inner content wrapper — NOT the outer <footer> tag), since footer is a template-part sibling that never receives it otherwise; without this, .main-wrapper's later content visually overlaps the footer once page height changes (e.g. an accordion opens) on a page with a pinned .scroll-section. Deliberately targets the inner wrapper, not <footer> itself: any non-"none" transform on an ancestor creates a new containing block for position:fixed descendants, and .mobile-footer-nav (parts/footer.html) lives inside footer — transforming <footer> directly broke it, rendering it relative to footer's own (GSAP-inflated, very tall) box instead of the viewport
-│   │   ├── gsap-parallax-fallback.ts           # restores a real parallax effect for .wp-block-cover.enable-parallax on any page with a .scroll-section, where .main-wrapper's persistent GSAP transform breaks background-attachment:fixed the same way it breaks position:fixed/sticky elsewhere; scrubs a GPU-cheap transform (not paint-triggering background-position) on the cover's own normally-hidden .wp-block-cover__image-background layer, gated behind prefers-reduced-motion/touch same as the CSS-only fallback it complements. Deliberately NOT GSAP ScrollTrigger's own trigger/start/end (those cache the cover's document-pixel position at the last refresh() call, which goes stale — and produces an already-maxed-out transform while the cover is still off-screen — once other scroll-section pins above it reflow document height mid-scroll); instead recomputes progress from a live getBoundingClientRect() on every gsap.ticker frame AND on every window scroll event (either alone can stall: rAF is throttled when a tab loses focus mid-scroll, a scroll listener alone misses the initial rest position), same resync-over-cache technique gsap-sticky.ts already uses for the identical class of problem. Movement range (yPercent +/-) comes from each cover's own data-parallax-intensity attribute (0-30, default 15, set via the block's "Parallax Intensity" RangeControl) rather than a fixed constant, clamped defensively client-side too
-│   │   ├── gsap-sticky.ts                      # portals each .is-kotlinskidev-sticky element (inside a core/columns layout) to a body-level host and re-applies native position:sticky there, since GSAP's scroll-section pin applies a persistent transform to .main-wrapper that breaks CSS sticky under any transformed ancestor; a placeholder (copying the element's own flex-basis) preserves the original column layout. Host visibility/position resyncs every gsap.ticker frame via a direct getBoundingClientRect() check against the *row's* real extent (placeholder top + stickyParent.offsetHeight, not the placeholder's own short height — .wp-block-columns stretches every column to its tallest sibling by default, e.g. an opened accordion column, so the placeholder's own bottom hides the sticky column far too early). Exports watchForTransformChange, reused by gsap-footer-transform-sync.ts
 │   │   ├── hamburger.ts                        # mobile nav overlay open/close, submenu collapse, scroll-lock
 │   │   ├── hide-nav-on-scroll.ts               # hides/shows nav bar based on scroll direction
 │   │   ├── image-lightbox.ts                   # lightbox open/close/context capture for gallery images; fires lightbox_open (GA4) via track-event.ts on activation
@@ -617,13 +628,13 @@ kotlinskidev/
 │   │   ├── line-clamp.ts                       # ResizeObserver-driven overflow check + click toggle for .kt-line-clamp-toggle (Read more/Read less); fires read_more_click (GA4) via track-event.ts on every toggle, action param distinguishes expand/collapse
 │   │   ├── load-more.ts                        # scans [data-kt-load-more-initial], hides children past the limit, wraps a reveal-on-click button in a .kt-load-more__wrapper (alignment), applies its style data attributes as inline styles, and swaps to hover-color overrides on mouseenter/focus (reverting on mouseleave/blur) — reusable across any core/group flagged by functions/load-more.php; fires load_more_click (GA4) via track-event.ts on reveal, with an items_revealed count
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
+│   │   ├── nav-reveal.ts                   # listens for kt:nav-panel-open/-close (dispatched by hamburger.ts/mega-menu.ts/dropdown-panel.ts), toggles .visible on *-on-reveal elements — both descendants of the dispatched container AND the container itself, since search/language-panel put the class directly on the dispatched modal — so content stagger/fades in via --reveal-delay instead of on scroll
 │   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator; initModalManager() now exported with an immediate-run fallback (matching gallery-lightbox/init.ts) so Storybook (page already loaded) can call it directly instead of waiting on a DOMContentLoaded that already fired; fires modal_open (GA4) via track-event.ts on every open, with the opened modal's id — separate from gallery-lightbox's own lightbox_open
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change
 │   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block; fires protected_content_reveal (GA4) via track-event.ts on a successful reveal only, not on a failed decrypt
 │   │   ├── restoration.ts                      # stores scrollY on pagehide (localStorage), restores it on pageshow for back_forward and reload navigations only (not a plain navigate) — pageshow fires after window's load event, so the restore always happens after marquee/ScrollTrigger have already settled, pairing with functions/scroll-restoration.php's history.scrollRestoration = 'manual' to stop the browser's own earlier, unsynced auto-restore. Restoring retries scrollTo() every animation frame (bounded by a stable-frame count + hard frame cap) rather than a single call, since a pinSpacing:false scroll-section only grows the document's real scrollHeight in response to scroll events — a one-shot scrollTo() gets silently clamped to the still-small, ungrown height and never catches up
 │   │   ├── scroll-animations.ts                # IntersectionObserver entrance-animation trigger
 │   │   ├── scroll-to-top.ts                    # fixed-arrow visibility/progress ring + bar-variant click wiring; fires scroll_to_top_click (GA4) via track-event.ts with a fixed/bar variant param, from the one shared handler both variants (and keyboard activation) call
-│   │   ├── scroll-trigger-refresh.ts           # imported from scroll-section/init.ts (not src/index.ts) so it shares that bundle's real ScrollTrigger instance; ResizeObserver on .main-wrapper's direct children + a scroll-driven check (which also restarts on any scroll while pin-fixed, not just on a scrollHeight/size change — entering a pin alone triggers neither) start a requestAnimationFrame loop that, while .main-wrapper is NOT currently position:fixed, remeasures + applies its and .pin-spacer's true natural height every frame, settling with one ScrollTrigger.refresh(); while .main-wrapper IS pin-fixed (unsafe to mutate directly — destabilizes GSAP's cross-trigger bookkeeping on a page with 2+ pins sharing it, confirmed live), instead only grows .pin-spacer — to match real scrollHeight growth, and to keep its document bottom clearing every pinned trigger's own `end` plus .main-wrapper's current frozen on-screen bottom (the footer climbs the screen while a pin holds .main-wrapper still, so the worst moment for overlap is scrollY === trigger.end, not just "is there enough room to eventually get past it") — discarding that provisional inflation for a fresh remeasurement once unpinned
 │   │   ├── search-panel.ts                     # wraps initDropdownPanels for .kt-search-panel, autofocuses input; fires search_panel_open (GA4) via track-event.ts on open
 │   │   ├── smooth-scroll-offset.ts             # smooth-scrolls anchor links with header-height offset
 │   │   ├── track-event.ts                      # trackEvent(name, params) — first checks window.kotlinskiAnalyticsConfig.disabledEvents (localized by functions/analytics-events.php from the wp-admin Tracking settings, no-ops for every provider if listed), then looks up analytics-providers/routing.ts for which provider(s) this event reaches and calls send() on each that's isReady(); stateless dispatcher, no direct vendor calls of its own, safe to import into any per-block bundle without duplicating anything — analytics.ts re-exports it and adds the sitewide side-effecting delegation on top
@@ -643,10 +654,12 @@ kotlinskidev/
 │   │   ├── button.scss                         # .kt-button component styles
 │   │   ├── city-grid.scss                      # .kt-city-grid responsive column-count + link text color custom properties, paired with the city-grid extension
 │   │   ├── city-map.scss                       # .kt-city-map embed wrapper + expand button, and the .kt-city-map-lightbox fullsize overlay (paired with src/scripts/city-map-lightbox.ts), for the kotlinskidev/city-map dynamic block
+│   │   ├── collab-split.scss                   # mobile text-align override for .kotlinskidev-collab-split-heading/-copy, paired with patterns/collaborations-split.php
 │   │   ├── complianz.scss                      # Complianz cookie-consent plugin dark/light overrides
 │   │   ├── components.scss                     # editor placeholder components
 │   │   ├── contact-card.scss                   # .kt-contact-card two-column address/hours/phone/email grid for the kotlinskidev/contact-card dynamic block
 │   │   ├── contact-detail.scss                 # .kt-contact-detail__label — optional field-name prefix for the kotlinskidev/contact-detail dynamic block
+│   │   ├── device-mockup.scss                  # .kt-device-mockup bezel/glow decorative wrapper for patterns/project-carousel-bottom-peek.php's screenshot frame
 │   │   ├── editor-overrides.scss               # block-editor canvas style overrides (editor-only bundle), incl. forcing .wp-block-buttons > .wp-block-button.wp-block-group (a core/group styled as a button, not a real core/button) back to auto-width — core/group's "flow" layout support stretches it full-width in the editor only
 │   │   ├── equal-height-columns.scss           # .kt-equal-height-columns: flex-column columns + flex:1 direct children for core/columns, and height:100% grid items for a core/group grid, paired with the equal-height-columns extension
 │   │   ├── faq-accordion.scss                  # FAQ details 2-col grid, +/− icon, animating-state overflow
@@ -660,20 +673,24 @@ kotlinskidev/
 │   │   ├── language.scss                       # language button styling
 │   │   ├── lazy.scss                           # contact-form success/error state + lazy-load styles
 │   │   ├── line-clamp.scss                     # .kt-line-clamp truncation + .kt-line-clamp-toggle gradient-text button, paired with the text-line-clamp extension
+│   │   ├── link-card.scss                      # .kt-link-card hover/overflow treatment (+ --lift/--hover-surface modifiers) and .kt-pill-link hover, shared by the native-block link-card/pill patterns
 │   │   ├── link-hover-effects.scss             # link hover-effect utility classes
 │   │   ├── link.scss                           # link styling, underline-hover effect + exception lists
 │   │   ├── load-more.scss                      # .kt-load-more-hidden + .kt-load-more__wrapper + .kt-load-more__button (incl. hover state), paired with the load-more extension
+│   │   ├── logo-dim.scss                       # .kt-logo-dim grayscale-until-hover treatment for collaborator/logo-wall image tiles
 │   │   ├── mega-menu.scss                      # desktop mega-menu structure/positioning
-│   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), etc.)
+│   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), reveal-animation-base/reveal-opacity-only/reveal-fade-direction/reveal-flip-animation/reveal-generate-translate-distances/reveal-generate-flip-rotations shared by scroll-animations.scss + nav-reveal-animations.scss, etc.)
 │   │   ├── mobile-footer-menu.scss             # fixed mobile bottom-nav menu
 │   │   ├── modal.scss                          # kt-modal overlay shell — fixed, z-index 99999, size variants, always-in-DOM
 │   │   ├── nav.scss                            # main site header/nav layout, logo styling
+│   │   ├── nav-reveal-animations.scss     # fade/flip -on-reveal classes (critical, header is always above the fold) sharing mixins.scss's reveal-* mixins with scroll-animations.scss; transition-delay reads the --reveal-delay custom property set per-block
 │   │   ├── order.scss                          # responsive block-order utility styles
 │   │   ├── page.scss                           # generic page/post layout
 │   │   ├── parallax-critical.scss              # parallax cover-block styling (critical split)
 │   │   ├── parallax.scss                       # parallax cover-block styling (deferred split)
 │   │   ├── plugins.scss                        # third-party plugin overrides
 │   │   ├── project-card.scss                   # .kt-project-card outer shell + circular arrow-link button + tags line; image/title/button styling itself lives as block-supports attributes on templates/single-kt_project_card.html
+│   │   ├── responsive-height.scss              # .kt-has-responsive-height-{desktop,tablet,mobile} utility classes
 │   │   ├── responsive-width.scss               # .kt-has-responsive-width utility class
 │   │   ├── scroll-animations-critical.scss     # scroll entrance animation mixins (critical split)
 │   │   ├── scroll-animations.scss              # scroll entrance animation mixins (deferred split)
@@ -682,6 +699,7 @@ kotlinskidev/
 │   │   ├── search.scss                         # search form/input/results styling
 │   │   ├── shortcodes.scss                     # empty placeholder file
 │   │   ├── social.scss                         # social nav/menu block styling
+│   │   ├── step-timeline.scss                  # .kt-timeline-rail/-badge/-connector rail layout for patterns/how-to-prepare-timeline.php
 │   │   ├── submenu.scss                        # mobile/dropdown submenu tree styling
 │   │   ├── tailwind.scss                       # small text-shadow utility classes
 │   │   ├── text-justify.scss                   # .has-text-align-justify utility
@@ -704,8 +722,10 @@ kotlinskidev/
 │   │   │   └── style.scss                      # styling for the class-picker inspector panel
 │   │   ├── zoom/
 │   │   │   └── attachImageZoom.ts              # pinch-to-zoom/pan gesture handler for image lightbox
-│   │   ├── dropdown-panel.ts                   # generic trigger/modal dropdown-panel controller
+│   │   ├── animation-options.ts            # ANIMATION_TRANSLATE_OPTIONS + buildAnimationTypeOptions()/supportsDistanceControl() shared by scroll-animations/index.tsx + nav-reveal-animation/index.tsx so neither duplicates the animation type/distance option lists
+│   │   ├── dropdown-panel.ts                   # generic trigger/modal dropdown-panel controller (used by language-panel.ts + search-panel.ts); dispatches kt:nav-panel-open/-close on the modal element so nav-reveal.ts can stagger its contents in, same mechanism as the mega-menu/hamburger
 │   │   ├── dynamic-preview-blocks.ts           # DYNAMIC_PREVIEW_BLOCKS: PHP-only ServerSideRender blocks (city-grid, city-map) excluded from every sitewide unconditional attribute-injecting editor filter, since WP's block-renderer REST schema rejects any attribute the block's own PHP schema doesn't declare
+│   │   ├── nav-reveal-events.ts           # NAV_PANEL_OPEN_EVENT/NAV_PANEL_CLOSE_EVENT constants + dispatchNavPanelOpen()/dispatchNavPanelClose() CustomEvent helpers shared by hamburger.ts, mega-menu.ts, and scripts/nav-reveal.ts
 │   │   ├── panel-coordinator.ts                # registry: opening one panel closes all others
 │   │   ├── scroll-lock.ts                      # reference-counted documentElement scroll-lock
 │   │   └── storybook-edit-props.ts             # Storybook-only helpers: getDefaultAttributes()/buildEditProps() build story args from block.json; useInteractiveAttributes() wires setAttributes to useArgs() + logs via storybook/actions; RealBlockEdit renders a block through @wordpress/block-editor's real BlockEdit dispatcher (not the bare Edit function) — required for InspectorControls.Slot to show Fill content and for editor.BlockEdit filters to fire
@@ -766,9 +786,8 @@ kotlinskidev/
 │   │   ├── responsive-display.spec.ts          # frontend — kotlinskidev/responsive-display block extension
 │   │   ├── responsive-order.spec.ts            # frontend — kotlinskidev/responsive-order block extension
 │   │   ├── scroll-animations.spec.ts           # frontend — kotlinskidev/scroll-animations block extension
-│   │   ├── scroll-section-multi-pin.spec.ts    # frontend — regression guard: a page with 2+ scroll-section blocks (several GSAP ScrollTriggers pinning one .main-wrapper) stays scrollable to its real bottom with no backward scrollY jump, and the footer doesn't overlap content there; searches live content for a qualifying page, skips if none currently published
 │   │   ├── slider.spec.ts                      # frontend — wpe/slider block: continuousAutoplay (start-on-visible, freeze/resume on hover-focus-click, no snap), regular autoplay, pagination, progress circle
-│   │   ├── service-location.spec.ts            # frontend — city post-meta binding resolves to real text (not the raw placeholder), gradient-text applied to exactly the 3 contrast-safe city mentions, per-city map iframe, PL/EN Polylang pair (skips if none currently published); FAQ sticky-left column stays visible once scrolled deep into its row after opening every accordion (regression guard for gsap-sticky.ts's row-vs-placeholder viewport check)
+│   │   ├── service-location.spec.ts            # frontend — city post-meta binding resolves to real text (not the raw placeholder), gradient-text applied to exactly the 3 contrast-safe city mentions, per-city map iframe, PL/EN Polylang pair (skips if none currently published); FAQ sticky-left column stays visible once scrolled deep into its row after opening every accordion (native position:sticky regression guard)
 │   │   └── editor/                             # authenticated specs — opt in per-file via test.use({ storageState })
 │   │       ├── site-editor.spec.ts             # confirms the Site Editor loads under the test account instead of redirecting to login
 │   │       ├── patterns-validity.spec.ts       # one test per registered theme pattern — asserts none trigger Gutenberg's "Block contains unexpected or invalid content." warning

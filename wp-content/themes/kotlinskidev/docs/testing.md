@@ -5,7 +5,7 @@ Four layers, each with a different scope and a different runtime cost. All four 
 This file is the narrative — what exists, why it's built this way, and the discoveries behind each decision. `.claude/rules/testing.md` is the distilled, strict checklist version, auto-loaded whenever a test file is touched — go there for "what must I do," come here for "why."
 
 | Layer | Tooling | Scope | Needs |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | JS/TS unit | Jest + Testing Library | `src/**/*.{ts,tsx}` — utils, block components | nothing external |
 | PHP unit | Pest 5 + Brain Monkey | `functions/`, `includes/`, `src/blocks/**/render.php` | nothing external |
 | PHP integration | Pest 5 + `wp-phpunit` + `WP_UnitTestCase` | same PHP surface, but against a real loaded WordPress + DB | nothing external — no Docker, self-contained `tests/integration/` sub-project |
@@ -224,7 +224,7 @@ With this, all ten custom blocks listed in the theme's own README have frontend 
 ## npm scripts reference
 
 | Script | Runs |
-|---|---|
+| --- | --- |
 | `npm run test` | `test:unit` + `test:php` |
 | `npm run test:coverage` | `test:unit:coverage` + `test:php:coverage` |
 | `npm run test:unit` / `test:unit:watch` / `test:unit:coverage` | Jest |

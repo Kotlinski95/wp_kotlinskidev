@@ -1,5 +1,6 @@
 (function () {
   const selectors = [
+    ".appear-on-scroll",
     ".fade-in-on-scroll",
     ".fade-up-on-scroll",
     ".fade-left-on-scroll",

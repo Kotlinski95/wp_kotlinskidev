@@ -1,4 +1,11 @@
-import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "./utils";
+import {
+  debounce,
+  getScrollTop,
+  isMobile,
+  isProgrammaticScrollActive,
+  onScroll,
+  onScreenSizeChange,
+} from "./utils";
 
 (function () {
   const header = document.querySelector("header") as HTMLElement;
@@ -62,6 +69,13 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
 
   const handleScroll = () => {
     const scrollTop = getScrollTop();
+
+    // A programmatic scroll fires real "scroll" events indistinguishable from user input — still update lastScrollTop so the next real scroll diffs correctly.
+    if (isProgrammaticScrollActive()) {
+      lastScrollTop = scrollTop;
+      return;
+    }
+
     const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
     const scrollDiff = Math.abs(scrollTop - lastScrollTop);
 

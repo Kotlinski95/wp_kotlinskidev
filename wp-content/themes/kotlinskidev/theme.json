@@ -136,6 +136,16 @@
           "name": "Divider · Dark Mode"
         },
         {
+          "slug": "background-alt-light",
+          "color": "#e8e8e8",
+          "name": "Background Alt · Light Mode"
+        },
+        {
+          "slug": "background-alt-dark",
+          "color": "#212120",
+          "name": "Background Alt · Dark Mode"
+        },
+        {
           "slug": "surface",
           "color": "light-dark(var(--wp--preset--color--surface-light), var(--wp--preset--color--surface-dark))",
           "name": "Surface (Adaptive)"
@@ -159,6 +169,11 @@
           "slug": "divider",
           "color": "light-dark(var(--wp--preset--color--divider-light), var(--wp--preset--color--divider-dark))",
           "name": "Divider (Adaptive)"
+        },
+        {
+          "slug": "background-alt",
+          "color": "light-dark(var(--wp--preset--color--background-alt-light), var(--wp--preset--color--background-alt-dark))",
+          "name": "Background Alt (Adaptive)"
         }
       ],
       "duotone": [],

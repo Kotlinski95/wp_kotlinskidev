@@ -26,10 +26,6 @@ add_action('wp_head', function () {
 
 <?php
 }, 1);
-// use this if need to skip the core block styles .css generation in body.
-// add_action('wp_footer', function () {
-//     wp_dequeue_style('core-block-supports');
-// });
 
 // Remove all viewport meta tags except our custom one using output buffering
 add_action('template_redirect', function() {

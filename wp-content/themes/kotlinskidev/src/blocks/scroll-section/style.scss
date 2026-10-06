@@ -108,6 +108,13 @@
 	}
 }
 
+.full-width:has(.scroll-section) {
+	position: relative !important;
+	left: auto !important;
+	transform: none !important;
+	margin-left: calc(50% - 50vw) !important;
+}
+
 .scroll-section-editor__add {
 	position: absolute;
 	bottom: 12px;

@@ -4,21 +4,7 @@ function loadScript() {
 }
 
 describe("group-link.ts", () => {
-  let hrefSetter: jest.Mock;
-
   beforeEach(() => {
-    hrefSetter = jest.fn();
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: {
-        get href() {
-          return "";
-        },
-        set href(value: string) {
-          hrefSetter(value);
-        },
-      },
-    });
     jest.spyOn(window, "open").mockImplementation(() => null);
   });
 
@@ -39,7 +25,7 @@ describe("group-link.ts", () => {
 
     document.querySelector("p")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
-    expect(hrefSetter).toHaveBeenCalledWith("/contact/");
+    expect(window.open).toHaveBeenCalledWith("/contact/", "_self");
   });
 
   it("opens in a new tab when the target attribute is set", () => {
@@ -50,7 +36,7 @@ describe("group-link.ts", () => {
     document.querySelector("p")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
     expect(window.open).toHaveBeenCalledWith("/contact/", "_blank", "noopener");
-    expect(hrefSetter).not.toHaveBeenCalled();
+    expect(window.open).toHaveBeenCalledTimes(1);
   });
 
   it("does not navigate when clicking a nested link", () => {
@@ -60,7 +46,7 @@ describe("group-link.ts", () => {
 
     document.querySelector("a")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
-    expect(hrefSetter).not.toHaveBeenCalled();
+    expect(window.open).not.toHaveBeenCalled();
   });
 
   it("does not navigate when clicking a nested button", () => {
@@ -70,7 +56,7 @@ describe("group-link.ts", () => {
 
     document.querySelector("button")?.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 
-    expect(hrefSetter).not.toHaveBeenCalled();
+    expect(window.open).not.toHaveBeenCalled();
   });
 
   it("navigates on Enter when the group itself is focused", () => {
@@ -81,7 +67,7 @@ describe("group-link.ts", () => {
     const group = document.querySelector(".kt-group-link") as HTMLElement;
     group.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
 
-    expect(hrefSetter).toHaveBeenCalledWith("/contact/");
+    expect(window.open).toHaveBeenCalledWith("/contact/", "_self");
   });
 
   it("does not navigate on Enter bubbling up from a nested element", () => {
@@ -93,7 +79,7 @@ describe("group-link.ts", () => {
       .querySelector("p")
       ?.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
 
-    expect(hrefSetter).not.toHaveBeenCalled();
+    expect(window.open).not.toHaveBeenCalled();
   });
 
   it("lets a real anchor's own default click behavior handle navigation, no preventDefault", () => {
@@ -104,7 +90,7 @@ describe("group-link.ts", () => {
     document.querySelector("p")?.dispatchEvent(event);
 
     expect(event.defaultPrevented).toBe(false);
-    expect(hrefSetter).not.toHaveBeenCalled();
+    expect(window.open).not.toHaveBeenCalled();
   });
 
   it("prevents the real anchor's default navigation when clicking a nested interactive element", () => {

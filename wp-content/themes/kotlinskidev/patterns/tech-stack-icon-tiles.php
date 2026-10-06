@@ -22,67 +22,31 @@ $kotlinskidev_tiles = array(
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/tech-stack-icon-tiles","name":"Tech Stack Icon Tiles"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        .kotlinskidev-tech-tiles {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(13.125rem, 1fr));
-            gap: 0.875rem;
-        }
-        .kotlinskidev-tech-tiles__tile {
-            display: flex;
-            gap: 0.875rem;
-            align-items: flex-start;
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 1rem;
-            padding: 1.25rem;
-            transition: border-color 0.25s ease, background 0.25s ease;
-        }
-        .kotlinskidev-tech-tiles__tile:hover {
-            border-color: var(--wp--preset--color--primary);
-            background: var(--wp--preset--color--surface);
-        }
-        .kotlinskidev-tech-tiles__icon {
-            flex: none;
-            width: 2.375rem;
-            height: 2.375rem;
-            border-radius: 0.6875rem;
-            background: var(--wp--preset--color--surface);
-            border: 1px solid var(--wp--preset--color--divider);
-            display: grid;
-            place-items: center;
-        }
-        .kotlinskidev-tech-tiles__icon img {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-        .kotlinskidev-tech-tiles__name {
-            font-size: 0.9375rem;
-            font-weight: 600;
-            line-height: 1.3;
-            color: var(--wp--preset--color--foreground);
-        }
-        .kotlinskidev-tech-tiles__note {
-            font-size: 0.8125rem;
-            color: var(--wp--preset--color--foreground-alt);
-            margin-top: 0.1875rem;
-            line-height: 1.45;
-        }
-    </style>
-    <div class="kotlinskidev-tech-tiles">
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"blockGap":"0.875rem"}},"layout":{"type":"grid","minimumColumnWidth":"13.125rem"}} -->
+    <div class="wp-block-group">
         <?php foreach ($kotlinskidev_tiles as $kotlinskidev_tile) : ?>
-        <div class="kotlinskidev-tech-tiles__tile">
-            <div class="kotlinskidev-tech-tiles__icon">
-                <img src="<?php echo esc_url($kotlinskidev_icons_dir . $kotlinskidev_tile['icon']) ?>" alt="" loading="lazy" />
+        <!-- wp:group {"className":"kt-link-card kt-link-card--hover-surface","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1rem"},"spacing":{"padding":{"top":"1.25rem","bottom":"1.25rem","left":"1.25rem","right":"1.25rem"},"blockGap":"0.875rem"}},"backgroundColor":"background-alt","layout":{"type":"flex","verticalAlignment":"top"}} -->
+        <div class="wp-block-group kt-link-card kt-link-card--hover-surface has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1rem;padding-top:1.25rem;padding-right:1.25rem;padding-bottom:1.25rem;padding-left:1.25rem"><!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"0.6875rem"}},"backgroundColor":"surface","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+            <div class="wp-block-group has-border-color has-surface-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:0.6875rem"><!-- wp:image {"width":"1.25rem","height":"1.25rem","sizeSlug":"full","linkDestination":"none"} -->
+                <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_icons_dir . $kotlinskidev_tile['icon']) ?>" alt="" style="width:1.25rem;height:1.25rem" /></figure>
+                <!-- /wp:image -->
             </div>
-            <div>
-                <div class="kotlinskidev-tech-tiles__name"><?php echo esc_html($kotlinskidev_tile['name']) ?></div>
-                <div class="kotlinskidev-tech-tiles__note"><?php echo esc_html($kotlinskidev_tile['note']) ?></div>
+            <!-- /wp:group -->
+
+            <!-- wp:group {"style":{"spacing":{"blockGap":"0.1875rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+            <div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"small"} -->
+                <p style="margin-top:0;margin-bottom:0;font-weight:600" class="has-small-font-size"><?php echo esc_html($kotlinskidev_tile['name']) ?></p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
+                <p class="has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_tile['note']) ?></p>
+                <!-- /wp:paragraph -->
             </div>
+            <!-- /wp:group -->
         </div>
+        <!-- /wp:group -->
         <?php endforeach; ?>
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:group -->
 </div>
 <!-- /wp:group -->

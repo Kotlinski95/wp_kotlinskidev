@@ -19,6 +19,36 @@
 .kt-mega-nav__bar {
 	display: flex;
 	align-items: stretch;
+
+	@supports (anchor-name: --kt-nav-probe) {
+		position: relative;
+	}
+}
+
+.kt-mega-nav__glider {
+	display: none;
+
+	@supports (anchor-name: --kt-nav-probe) {
+		display: block;
+		position: absolute;
+		position-anchor: --kt-nav-glide;
+		left: anchor(left);
+		width: anchor-size(width);
+		bottom: 0;
+		height: 0.125rem;
+		border-radius: 999px;
+		background: var(--kt-text-gradient, #{$kt-gradient-fallback});
+		pointer-events: none;
+		opacity: 0;
+		transition:
+			left 0.3s var(--animation-curve, ease),
+			width 0.3s var(--animation-curve, ease),
+			opacity 0.2s ease;
+
+		.kt-mega-nav__bar:has(.kt-mega-nav__item:hover, .kt-mega-nav__item.is-active) & {
+			opacity: 1;
+		}
+	}
 }
 
 .kt-mega-nav__list {
@@ -75,6 +105,15 @@
 	white-space: nowrap;
 	cursor: pointer;
 
+	@supports (anchor-name: --kt-nav-probe) {
+		anchor-name: none;
+
+		.kt-mega-nav__item:hover &,
+		.kt-mega-nav__item.is-active & {
+			anchor-name: --kt-nav-glide;
+		}
+	}
+
 	&:hover .kt-mega-nav__link-label,
 	&.kt-link-current .kt-mega-nav__link-label,
 	.kt-mega-nav__item.is-active & .kt-mega-nav__link-label {
@@ -87,6 +126,13 @@
 
 		&::after {
 			width: 100% !important;
+		}
+	}
+
+	@supports (anchor-name: --kt-nav-probe) {
+
+		&::after {
+			display: none;
 		}
 	}
 

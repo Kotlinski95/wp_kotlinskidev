@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: kotlinskidev 1.1.0\n"
+"Project-Id-Version: kotlinskidev 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-21T13:02:03+00:00\n"
+"POT-Creation-Date: 2026-10-06T12:29:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -87,21 +87,21 @@ msgid "Reset View"
 msgstr ""
 
 #: build/blocks/language-panel/render.php:19
-#: build/blocks/navigation/render.php:268
+#: build/blocks/navigation/render.php:298
 #: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:268
+#: src/blocks/navigation/render.php:298
 #: build/js/language-panel.js:1
 msgid "Language"
 msgstr ""
 
-#: build/blocks/language-panel/render.php:42
-#: src/blocks/language-panel/render.php:42
+#: build/blocks/language-panel/render.php:48
+#: src/blocks/language-panel/render.php:48
 #, php-format
 msgid "Select language, current: %s"
 msgstr ""
 
-#: build/blocks/language-panel/render.php:61
-#: src/blocks/language-panel/render.php:61
+#: build/blocks/language-panel/render.php:67
+#: src/blocks/language-panel/render.php:67
 msgid "Language selection"
 msgstr ""
 
@@ -125,21 +125,21 @@ msgstr ""
 msgid "Mobile navigation"
 msgstr ""
 
-#: build/blocks/navigation/render.php:230
-#: src/blocks/navigation/render.php:230
+#: build/blocks/navigation/render.php:250
+#: src/blocks/navigation/render.php:250
 msgid "Menu"
 msgstr ""
 
-#: build/blocks/navigation/render.php:243
+#: build/blocks/navigation/render.php:268
 #: build/blocks/search-panel/render.php:3
-#: src/blocks/navigation/render.php:243
+#: src/blocks/navigation/render.php:268
 #: src/blocks/search-panel/render.php:3
 #: build/js/search-panel.js:1
 msgid "Search"
 msgstr ""
 
-#: build/blocks/navigation/render.php:394
-#: src/blocks/navigation/render.php:394
+#: build/blocks/navigation/render.php:427
+#: src/blocks/navigation/render.php:427
 msgid "Main navigation"
 msgstr ""
 
@@ -416,8 +416,8 @@ msgid "This description will be shown on the category archive page."
 msgstr ""
 
 #: functions/blog-topic-manager.php:65
-#: functions/blog-topic-manager.php:494
-#: functions/blog-topic-manager.php:495
+#: functions/blog-topic-manager.php:492
+#: functions/blog-topic-manager.php:493
 msgid "Home"
 msgstr ""
 
@@ -426,8 +426,8 @@ msgid "Blog"
 msgstr ""
 
 #: functions/blog-topic-manager.php:67
-#: functions/blog-topic-manager.php:498
-#: functions/blog-topic-manager.php:499
+#: functions/blog-topic-manager.php:496
+#: functions/blog-topic-manager.php:497
 msgid "Topics"
 msgstr ""
 
@@ -435,17 +435,17 @@ msgstr ""
 msgid "min read"
 msgstr ""
 
-#: functions/blog-topic-manager.php:196
+#: functions/blog-topic-manager.php:195
 msgid "Blog Topics Page"
 msgstr ""
 
-#: functions/blog-topic-manager.php:199
+#: functions/blog-topic-manager.php:198
 msgid "Blog Topics Page (PL)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:207
-#: functions/blog-topic-manager.php:809
-#: functions/blog-topic-manager.php:868
+#: functions/blog-topic-manager.php:206
+#: functions/blog-topic-manager.php:801
+#: functions/blog-topic-manager.php:860
 #: functions/breadcrumbs.php:56
 #: functions/search-page-dynamic-blocks.php:233
 #: functions/search-page-dynamic-blocks.php:367
@@ -454,129 +454,129 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
-#: functions/blog-topic-manager.php:208
+#: functions/blog-topic-manager.php:207
 msgid "Last Updated"
 msgstr ""
 
-#: functions/blog-topic-manager.php:246
-#: functions/blog-topic-manager.php:273
+#: functions/blog-topic-manager.php:245
+#: functions/blog-topic-manager.php:272
 msgid "Custom Banner/Content"
 msgstr ""
 
-#: functions/blog-topic-manager.php:250
+#: functions/blog-topic-manager.php:249
 msgid "Custom HTML content that will appear below the category header. You can add banners, special announcements, or custom links here."
 msgstr ""
 
-#: functions/blog-topic-manager.php:256
-#: functions/blog-topic-manager.php:279
+#: functions/blog-topic-manager.php:255
+#: functions/blog-topic-manager.php:278
 msgid "Custom Navigation Links"
 msgstr ""
 
-#: functions/blog-topic-manager.php:262
+#: functions/blog-topic-manager.php:261
 msgid "Custom navigation links in format: \"Link Text|URL\" (one per line). This will replace the default \"← All Topics\" link."
 msgstr ""
 
-#: functions/blog-topic-manager.php:275
+#: functions/blog-topic-manager.php:274
 msgid "Custom HTML content that will appear below the category header."
 msgstr ""
 
-#: functions/blog-topic-manager.php:282
+#: functions/blog-topic-manager.php:281
 msgid "Custom navigation links in format: \"Link Text|URL\" (one per line)."
 msgstr ""
 
+#: functions/blog-topic-manager.php:352
 #: functions/blog-topic-manager.php:353
-#: functions/blog-topic-manager.php:354
 msgid "Breadcrumb Settings"
 msgstr ""
 
-#: functions/blog-topic-manager.php:367
+#: functions/blog-topic-manager.php:366
 msgid "Breadcrumb Navigation Settings"
 msgstr ""
 
-#: functions/blog-topic-manager.php:375
+#: functions/blog-topic-manager.php:374
 msgid "Home Text (English)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:384
+#: functions/blog-topic-manager.php:383
 msgid "Topics Text (English)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:393
+#: functions/blog-topic-manager.php:392
 msgid "Topics Page URL (English)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:403
+#: functions/blog-topic-manager.php:402
 msgid "Home Text (Polish)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:412
+#: functions/blog-topic-manager.php:411
 msgid "Topics Text (Polish)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:421
+#: functions/blog-topic-manager.php:420
 msgid "Topics Page URL (Polish)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:431
+#: functions/blog-topic-manager.php:430
 msgid "Configure breadcrumb navigation texts and URLs for both English and Polish versions of your site."
 msgstr ""
 
-#: functions/blog-topic-manager.php:446
+#: functions/blog-topic-manager.php:445
 msgid "Enter a relative path (e.g., /articles, /blog-topics) or full URL (e.g., https://yoursite.com/topics/)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:458
+#: functions/blog-topic-manager.php:457
 msgid "Save Breadcrumb Settings"
 msgstr ""
 
-#: functions/blog-topic-manager.php:463
+#: functions/blog-topic-manager.php:462
 msgid "How to Use"
 msgstr ""
 
-#: functions/blog-topic-manager.php:465
+#: functions/blog-topic-manager.php:464
 msgid "Set custom text for \"Home\" and \"Topics\" links in both languages"
 msgstr ""
 
-#: functions/blog-topic-manager.php:466
+#: functions/blog-topic-manager.php:465
 msgid "Configure URLs for your topics pages (can be relative paths or full URLs)"
 msgstr ""
 
-#: functions/blog-topic-manager.php:467
+#: functions/blog-topic-manager.php:466
 msgid "Leave fields empty to use default values"
 msgstr ""
 
-#: functions/blog-topic-manager.php:468
+#: functions/blog-topic-manager.php:467
 msgid "Changes will apply immediately to all category and article pages"
 msgstr ""
 
-#: functions/blog-topic-manager.php:623
+#: functions/blog-topic-manager.php:621
 #: functions/search-page-dynamic-blocks.php:207
 msgid "Search for content"
 msgstr ""
 
-#: functions/blog-topic-manager.php:624
+#: functions/blog-topic-manager.php:622
 #: functions/search-page-dynamic-blocks.php:267
 msgid "Search Content"
 msgstr ""
 
-#: functions/blog-topic-manager.php:712
+#: functions/blog-topic-manager.php:704
 msgid "Polish Search Page"
 msgstr ""
 
-#: functions/blog-topic-manager.php:733
+#: functions/blog-topic-manager.php:725
 msgid "No topics found"
 msgstr ""
 
-#: functions/blog-topic-manager.php:737
+#: functions/blog-topic-manager.php:729
 msgid "No blog topics have been created yet. Create some categories and add posts to them!"
 msgstr ""
 
-#: functions/blog-topic-manager.php:744
+#: functions/blog-topic-manager.php:736
 msgid "Create Your First Topic"
 msgstr ""
 
-#: functions/blog-topic-manager.php:809
-#: functions/blog-topic-manager.php:868
+#: functions/blog-topic-manager.php:801
+#: functions/blog-topic-manager.php:860
 #: functions/search-page-dynamic-blocks.php:84
 #: functions/search-page-dynamic-blocks.php:405
 #: functions/tag-archive-manager.php:32
@@ -584,95 +584,95 @@ msgstr ""
 msgid "Article"
 msgstr ""
 
-#: functions/blog-topic-manager.php:815
+#: functions/blog-topic-manager.php:807
 #, php-format
 msgid "Updated %s ago"
 msgstr ""
 
-#: functions/blog-topic-manager.php:825
-#: functions/blog-topic-manager.php:1083
+#: functions/blog-topic-manager.php:817
+#: functions/blog-topic-manager.php:1075
 #, php-format
 msgid "Explore %s"
 msgstr ""
 
-#: functions/blog-topic-manager.php:883
+#: functions/blog-topic-manager.php:875
 #: functions/search-page-dynamic-blocks.php:249
 msgid "All Topics"
 msgstr ""
 
-#: functions/blog-topic-manager.php:963
-#: functions/blog-topic-manager.php:1300
+#: functions/blog-topic-manager.php:955
+#: functions/blog-topic-manager.php:1292
 #: functions/search-page-dynamic-blocks.php:450
 #: functions/tag-archive-manager.php:125
 msgid "Read Article"
 msgstr ""
 
-#: functions/blog-topic-manager.php:976
+#: functions/blog-topic-manager.php:968
 #: functions/search-page-dynamic-blocks.php:467
 #: functions/tag-archive-manager.php:138
 msgid "Previous"
 msgstr ""
 
-#: functions/blog-topic-manager.php:977
+#: functions/blog-topic-manager.php:969
 #: functions/search-page-dynamic-blocks.php:468
 #: functions/tag-archive-manager.php:139
 msgid "Next"
 msgstr ""
 
-#: functions/blog-topic-manager.php:985
+#: functions/blog-topic-manager.php:977
 msgid "No articles in this topic yet"
 msgstr ""
 
-#: functions/blog-topic-manager.php:986
+#: functions/blog-topic-manager.php:978
 msgid "Articles for this topic are coming soon!"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1016
+#: functions/blog-topic-manager.php:1008
 msgid "Other Topics"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1071
+#: functions/blog-topic-manager.php:1063
 #: functions/tag-archive-manager.php:208
 msgid "article"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1071
+#: functions/blog-topic-manager.php:1063
 #: functions/tag-archive-manager.php:208
 msgid "articles"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1075
+#: functions/blog-topic-manager.php:1067
 #: functions/tag-archive-manager.php:213
 #, php-format
 msgid "Updated %s"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1097
+#: functions/blog-topic-manager.php:1089
 msgid "No other topics available yet."
 msgstr ""
 
-#: functions/blog-topic-manager.php:1116
+#: functions/blog-topic-manager.php:1108
 #: build/js/project-card-panel.js:1
 msgid "Tags"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1224
+#: functions/blog-topic-manager.php:1216
 msgid "Related Articles"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1261
+#: functions/blog-topic-manager.php:1253
 msgid "Highly Related"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1263
+#: functions/blog-topic-manager.php:1255
 msgid "Same Topic"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1265
+#: functions/blog-topic-manager.php:1257
 msgid "Similar Tags"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1310
+#: functions/blog-topic-manager.php:1302
 msgid "No related articles found."
 msgstr ""
 
@@ -681,86 +681,86 @@ msgstr ""
 msgid "Search results for \"%s\""
 msgstr ""
 
-#: functions/cache.php:232
-#: functions/cache.php:233
+#: functions/cache.php:230
+#: functions/cache.php:231
 msgid "Theme Cache"
 msgstr ""
 
-#: functions/cache.php:251
+#: functions/cache.php:249
 msgid "Theme cache cleared successfully."
 msgstr ""
 
-#: functions/cache.php:272
+#: functions/cache.php:270
 msgid "kotlinskidev — Theme Cache"
 msgstr ""
 
-#: functions/cache.php:274
+#: functions/cache.php:272
 msgid "Cached entries currently stored in the database:"
 msgstr ""
 
-#: functions/cache.php:280
+#: functions/cache.php:278
 msgid "Cache group"
 msgstr ""
 
-#: functions/cache.php:281
+#: functions/cache.php:279
 msgid "Key pattern"
 msgstr ""
 
-#: functions/cache.php:282
+#: functions/cache.php:280
 msgid "Invalidated by"
 msgstr ""
 
-#: functions/cache.php:287
+#: functions/cache.php:285
 msgid "Critical CSS"
 msgstr ""
 
-#: functions/cache.php:289
-#: functions/cache.php:294
+#: functions/cache.php:287
+#: functions/cache.php:292
 msgid "Build deploy (filemtime)"
 msgstr ""
 
-#: functions/cache.php:292
+#: functions/cache.php:290
 msgid "Critical JS"
 msgstr ""
 
-#: functions/cache.php:297
+#: functions/cache.php:295
 msgid "JS translations"
 msgstr ""
 
-#: functions/cache.php:299
+#: functions/cache.php:297
 msgid "Language file update / manual flush"
 msgstr ""
 
-#: functions/cache.php:302
+#: functions/cache.php:300
 msgid "Image dimensions"
 msgstr ""
 
-#: functions/cache.php:304
-#: functions/cache.php:314
+#: functions/cache.php:302
+#: functions/cache.php:312
 msgid "Attachment edit / delete / manual flush"
 msgstr ""
 
-#: functions/cache.php:307
+#: functions/cache.php:305
 msgid "Popular posts"
 msgstr ""
 
-#: functions/cache.php:309
+#: functions/cache.php:307
 msgid "15 minute TTL / manual flush"
 msgstr ""
 
-#: functions/cache.php:312
+#: functions/cache.php:310
 msgid "Inlined SVGs"
 msgstr ""
 
-#: functions/cache.php:317
+#: functions/cache.php:315
 msgid "Build fingerprint"
 msgstr ""
 
-#: functions/cache.php:319
+#: functions/cache.php:317
 msgid "Set automatically on every new build"
 msgstr ""
 
-#: functions/cache.php:328
+#: functions/cache.php:326
 msgid "Clear all theme cache"
 msgstr ""
 
@@ -770,6 +770,7 @@ msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:24
 #: functions/contact-form-submissions.php:168
+#: build/js/editor.js:37
 msgid "Name"
 msgstr ""
 
@@ -980,7 +981,7 @@ msgid "Modals"
 msgstr ""
 
 #: functions/modals.php:6
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/marquee.js:1
 msgid "Modal"
 msgstr ""
@@ -1018,7 +1019,7 @@ msgid "Sections"
 msgstr ""
 
 #: functions/polylang-accessibility.php:8
-#: functions/polylang-accessibility.php:137
+#: functions/polylang-accessibility.php:135
 msgid "Language Switcher"
 msgstr ""
 
@@ -1032,12 +1033,12 @@ msgstr ""
 
 #. translators: %s: language name (from the flag image's alt text)
 #: functions/polylang-accessibility.php:11
-#: functions/polylang-accessibility.php:107
+#: functions/polylang-accessibility.php:105
 #, php-format
 msgid "Switch to %s"
 msgstr ""
 
-#: functions/polylang-accessibility.php:110
+#: functions/polylang-accessibility.php:108
 msgid "Language option"
 msgstr ""
 
@@ -1070,198 +1071,198 @@ msgstr ""
 msgid "KotlinskiDev"
 msgstr ""
 
-#: functions/protection-helpers.php:195
+#: functions/protection-helpers.php:194
 msgid "Failed to load protected content"
 msgstr ""
 
+#: functions/protection-helpers.php:408
 #: functions/protection-helpers.php:409
-#: functions/protection-helpers.php:410
 msgid "Content Protection"
 msgstr ""
 
-#: functions/protection-helpers.php:428
+#: functions/protection-helpers.php:427
 msgid "Security check failed"
 msgstr ""
 
-#: functions/protection-helpers.php:432
+#: functions/protection-helpers.php:431
 msgid "You do not have permission to change these settings"
 msgstr ""
 
-#: functions/protection-helpers.php:438
+#: functions/protection-helpers.php:437
 msgid "Settings saved!"
 msgstr ""
 
-#: functions/protection-helpers.php:449
+#: functions/protection-helpers.php:448
 msgid "Content Protection Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:453
+#: functions/protection-helpers.php:452
 msgid "Auto-Protection Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:456
+#: functions/protection-helpers.php:455
 msgid "Auto-protect Emails"
 msgstr ""
 
-#: functions/protection-helpers.php:459
+#: functions/protection-helpers.php:458
 msgid "Automatically protect all email addresses in content"
 msgstr ""
 
-#: functions/protection-helpers.php:463
+#: functions/protection-helpers.php:462
 msgid "Auto-protect Phone Numbers"
 msgstr ""
 
-#: functions/protection-helpers.php:466
+#: functions/protection-helpers.php:465
 msgid "Automatically protect all phone numbers in content"
 msgstr ""
 
-#: functions/protection-helpers.php:471
+#: functions/protection-helpers.php:470
 msgid "Encryption Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:474
+#: functions/protection-helpers.php:473
 msgid "Encryption Status"
 msgstr ""
 
-#: functions/protection-helpers.php:477
+#: functions/protection-helpers.php:476
 msgid "RSA-2048 encryption is active"
 msgstr ""
 
-#: functions/protection-helpers.php:479
+#: functions/protection-helpers.php:478
 msgid "Keys are stored securely in wp-config.php"
 msgstr ""
 
-#: functions/protection-helpers.php:481
+#: functions/protection-helpers.php:480
 msgid "Keys are stored in database (less secure)"
 msgstr ""
 
-#: functions/protection-helpers.php:484
+#: functions/protection-helpers.php:483
 msgid "No encryption keys found"
 msgstr ""
 
-#: functions/protection-helpers.php:486
+#: functions/protection-helpers.php:485
 msgid "Content is encrypted using RSA-2048 encryption for maximum security."
 msgstr ""
 
-#: functions/protection-helpers.php:490
+#: functions/protection-helpers.php:489
 msgid "Key Storage Method"
 msgstr ""
 
-#: functions/protection-helpers.php:493
+#: functions/protection-helpers.php:492
 msgid "Currently using wp-config.php (Recommended)"
 msgstr ""
 
-#: functions/protection-helpers.php:494
+#: functions/protection-helpers.php:493
 msgid "Keys are securely stored in wp-config.php constants."
 msgstr ""
 
-#: functions/protection-helpers.php:497
+#: functions/protection-helpers.php:496
 msgid "Database (Default)"
 msgstr ""
 
-#: functions/protection-helpers.php:498
+#: functions/protection-helpers.php:497
 msgid "wp-config.php (More Secure)"
 msgstr ""
 
-#: functions/protection-helpers.php:501
+#: functions/protection-helpers.php:500
 msgid "Database storage is convenient but less secure. wp-config.php storage requires manual setup but is more secure."
 msgstr ""
 
-#: functions/protection-helpers.php:507
+#: functions/protection-helpers.php:506
 msgid "Generate New Keys"
 msgstr ""
 
-#: functions/protection-helpers.php:510
+#: functions/protection-helpers.php:509
 msgid "Generate New Encryption Keys"
 msgstr ""
 
-#: functions/protection-helpers.php:513
+#: functions/protection-helpers.php:512
 msgid "Warning: Regenerating keys will make all existing protected content unreadable until re-protected."
 msgstr ""
 
-#: functions/protection-helpers.php:524
+#: functions/protection-helpers.php:523
 msgid "wp-config.php Setup Instructions"
 msgstr ""
 
-#: functions/protection-helpers.php:525
+#: functions/protection-helpers.php:524
 msgid "To use wp-config.php storage, add these constants to your wp-config.php file:"
 msgstr ""
 
-#: functions/protection-helpers.php:527
+#: functions/protection-helpers.php:526
 msgid "Generate & Show wp-config.php Constants"
 msgstr ""
 
-#: functions/protection-helpers.php:531
+#: functions/protection-helpers.php:530
 msgid "Instructions:"
 msgstr ""
 
-#: functions/protection-helpers.php:533
+#: functions/protection-helpers.php:532
 msgid "Copy the constants above"
 msgstr ""
 
-#: functions/protection-helpers.php:534
+#: functions/protection-helpers.php:533
 msgid "Add them to your wp-config.php file before the line that says \"/* That's all, stop editing! */\""
 msgstr ""
 
-#: functions/protection-helpers.php:535
+#: functions/protection-helpers.php:534
 msgid "Save the file and reload this page"
 msgstr ""
 
-#: functions/protection-helpers.php:543
+#: functions/protection-helpers.php:542
 msgid "Are you sure? This will invalidate all existing protected content."
 msgstr ""
 
-#: functions/protection-helpers.php:558
+#: functions/protection-helpers.php:557
 msgid "Keys regenerated successfully!"
 msgstr ""
 
-#: functions/protection-helpers.php:561
-#: functions/protection-helpers.php:587
+#: functions/protection-helpers.php:560
+#: functions/protection-helpers.php:586
 msgid "Error: "
 msgstr ""
 
-#: functions/protection-helpers.php:565
-#: functions/protection-helpers.php:591
+#: functions/protection-helpers.php:564
+#: functions/protection-helpers.php:590
 msgid "Network error occurred"
 msgstr ""
 
-#: functions/protection-helpers.php:584
+#: functions/protection-helpers.php:583
 msgid "Constants Generated"
 msgstr ""
 
-#: functions/protection-helpers.php:597
+#: functions/protection-helpers.php:596
 msgid "Usage Examples"
 msgstr ""
 
-#: functions/protection-helpers.php:598
+#: functions/protection-helpers.php:597
 msgid "Block Editor"
 msgstr ""
 
-#: functions/protection-helpers.php:599
+#: functions/protection-helpers.php:598
 msgid "Use the \"Protected Content\" block from the KotlinskiDev category."
 msgstr ""
 
-#: functions/protection-helpers.php:601
+#: functions/protection-helpers.php:600
 msgid "Shortcode"
 msgstr ""
 
-#: functions/protection-helpers.php:634
+#: functions/protection-helpers.php:633
 msgid "Copy to clipboard"
 msgstr ""
 
-#: functions/protection-helpers.php:635
+#: functions/protection-helpers.php:634
 msgid "Copied to clipboard"
 msgstr ""
 
-#: functions/protection-helpers.php:683
+#: functions/protection-helpers.php:682
 msgid "Security token expired. This may be due to page caching. Please refresh the page and try again."
 msgstr ""
 
-#: functions/protection-helpers.php:692
+#: functions/protection-helpers.php:691
 msgid "No content provided"
 msgstr ""
 
-#: functions/protection-helpers.php:696
+#: functions/protection-helpers.php:695
 msgid "Too many items requested"
 msgstr ""
 
@@ -1592,7 +1593,7 @@ msgid "Logo image"
 msgstr ""
 
 #: functions/settings-page.php:376
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 #: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr ""
@@ -1759,7 +1760,8 @@ msgstr ""
 #: build/js/editor.js:16
 #: build/js/editor.js:25
 #: build/js/editor.js:34
-#: build/js/editor.js:37
+#: build/js/editor.js:43
+#: build/js/editor.js:46
 msgid "Mobile"
 msgstr ""
 
@@ -1768,7 +1770,8 @@ msgstr ""
 #: build/js/editor.js:13
 #: build/js/editor.js:22
 #: build/js/editor.js:31
-#: build/js/editor.js:37
+#: build/js/editor.js:40
+#: build/js/editor.js:46
 msgid "Tablet"
 msgstr ""
 
@@ -1778,6 +1781,7 @@ msgstr ""
 #: build/js/editor.js:19
 #: build/js/editor.js:28
 #: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Desktop"
 msgstr ""
 
@@ -2103,63 +2107,60 @@ msgctxt "Pattern title"
 msgid "Certificates Badge Grid"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:75
-#: patterns/certificates-feature-cards.php:96
+#: patterns/certificates-badge-grid.php:11
+#: patterns/certificates-feature-cards.php:12
 msgid "GPT-4 API Developer"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:76
-#: patterns/certificates-compact-strip.php:77
-#: patterns/certificates-feature-cards.php:95
+#: patterns/certificates-badge-grid.php:12
+#: patterns/certificates-compact-strip.php:10
+#: patterns/certificates-feature-cards.php:11
 msgid "OpenAI"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:77
-#: patterns/certificates-badge-grid.php:83
+#: patterns/certificates-badge-grid.php:13
+#: patterns/certificates-badge-grid.php:18
 msgid "Issued 2025"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:77
-#: patterns/certificates-badge-grid.php:83
-#: patterns/certificates-badge-grid.php:89
-#: patterns/certificates-badge-grid.php:95
-msgid "Verify"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:81
-#: patterns/certificates-feature-cards.php:110
+#: patterns/certificates-badge-grid.php:16
+#: patterns/certificates-feature-cards.php:18
 msgid "Claude Builder"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:82
-#: patterns/certificates-compact-strip.php:78
-#: patterns/certificates-feature-cards.php:109
+#: patterns/certificates-badge-grid.php:17
+#: patterns/certificates-compact-strip.php:11
+#: patterns/certificates-feature-cards.php:17
 msgid "Anthropic"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:87
+#: patterns/certificates-badge-grid.php:21
 msgid "Gemini for Developers"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:88
-#: patterns/certificates-compact-strip.php:79
+#: patterns/certificates-badge-grid.php:22
+#: patterns/certificates-compact-strip.php:12
 msgid "Google"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:89
-#: patterns/certificates-badge-grid.php:95
+#: patterns/certificates-badge-grid.php:23
+#: patterns/certificates-badge-grid.php:28
 msgid "Issued 2024"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:93
-#: patterns/certificates-feature-cards.php:124
+#: patterns/certificates-badge-grid.php:26
+#: patterns/certificates-feature-cards.php:24
 msgid "Next.js App Router"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:94
-#: patterns/certificates-compact-strip.php:80
-#: patterns/certificates-feature-cards.php:123
+#: patterns/certificates-badge-grid.php:27
+#: patterns/certificates-compact-strip.php:13
+#: patterns/certificates-feature-cards.php:23
 msgid "Vercel"
+msgstr ""
+
+#: patterns/certificates-badge-grid.php:50
+msgid "Verify"
 msgstr ""
 
 #: patterns/certificates-compact-strip.php
@@ -2167,11 +2168,11 @@ msgctxt "Pattern title"
 msgid "Certificates Compact Strip"
 msgstr ""
 
-#: patterns/certificates-compact-strip.php:76
+#: patterns/certificates-compact-strip.php:20
 msgid "Certified in"
 msgstr ""
 
-#: patterns/certificates-compact-strip.php:82
+#: patterns/certificates-compact-strip.php:39
 msgid "All credentials →"
 msgstr ""
 
@@ -2180,34 +2181,32 @@ msgctxt "Pattern title"
 msgid "Certificates Feature Cards"
 msgstr ""
 
-#: patterns/certificates-feature-cards.php:99
+#: patterns/certificates-feature-cards.php:13
 msgid "Production use of function calling, structured outputs and streaming in customer-facing apps."
 msgstr ""
 
-#: patterns/certificates-feature-cards.php:101
+#: patterns/certificates-feature-cards.php:14
 msgid "Issued Mar 2025"
 msgstr ""
 
-#: patterns/certificates-feature-cards.php:102
-#: patterns/certificates-feature-cards.php:116
-#: patterns/certificates-feature-cards.php:130
-msgid "View credential →"
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:113
+#: patterns/certificates-feature-cards.php:19
 msgid "Tool use, long-context retrieval and evaluation workflows for agentic products."
 msgstr ""
 
-#: patterns/certificates-feature-cards.php:115
+#: patterns/certificates-feature-cards.php:20
 msgid "Issued Jan 2025"
 msgstr ""
 
-#: patterns/certificates-feature-cards.php:127
+#: patterns/certificates-feature-cards.php:25
 msgid "Server components, streaming routes and edge caching on production storefronts."
 msgstr ""
 
-#: patterns/certificates-feature-cards.php:129
+#: patterns/certificates-feature-cards.php:26
 msgid "Issued Sep 2024"
+msgstr ""
+
+#: patterns/certificates-feature-cards.php:63
+msgid "View credential →"
 msgstr ""
 
 #: patterns/collaborations-described-cards.php
@@ -2215,79 +2214,79 @@ msgctxt "Pattern title"
 msgid "Collaborations Described Cards"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:13
+#: patterns/collaborations-described-cards.php:11
 msgid "E-commerce · 2025"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:14
+#: patterns/collaborations-described-cards.php:12
 msgid "Headless storefront migration"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:15
+#: patterns/collaborations-described-cards.php:13
 msgid "Moved a Shopify theme onto Next.js; checkout time halved."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:18
+#: patterns/collaborations-described-cards.php:16
 msgid "SaaS · 2024"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:19
+#: patterns/collaborations-described-cards.php:17
 msgid "Dashboard performance work"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:20
+#: patterns/collaborations-described-cards.php:18
 msgid "Cut initial bundle by 62% and made the table view usable on mobile."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:23
+#: patterns/collaborations-described-cards.php:21
 msgid "Agency · 2024"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:24
+#: patterns/collaborations-described-cards.php:22
 msgid "Frontend for six client sites"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:25
+#: patterns/collaborations-described-cards.php:23
 msgid "A shared component library the agency’s team still builds on."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:28
+#: patterns/collaborations-described-cards.php:26
 msgid "Publisher · 2023"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:29
+#: patterns/collaborations-described-cards.php:27
 msgid "Core Web Vitals rescue"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:30
+#: patterns/collaborations-described-cards.php:28
 msgid "All three metrics into the green across 40k article pages."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:33
+#: patterns/collaborations-described-cards.php:31
 msgid "Marketplace · 2023"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:34
+#: patterns/collaborations-described-cards.php:32
 msgid "Angular to Next.js rewrite"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:35
+#: patterns/collaborations-described-cards.php:33
 msgid "Incremental migration with no downtime and no feature freeze."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:38
+#: patterns/collaborations-described-cards.php:36
 msgid "Startup · 2022"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:39
+#: patterns/collaborations-described-cards.php:37
 msgid "Marketing site from scratch"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:40
+#: patterns/collaborations-described-cards.php:38
 msgid "Design, build and CMS in five weeks, launched on time."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:118
+#: patterns/collaborations-described-cards.php:67
 msgid "Read more →"
 msgstr ""
 
@@ -2297,9 +2296,9 @@ msgid "Collaborations Hairline Grid"
 msgstr ""
 
 #. translators: %d: collaborator/logo position number.
-#: patterns/collaborations-hairline-grid.php:47
-#: patterns/collaborations-separate-tiles.php:52
-#: patterns/collaborations-split.php:77
+#: patterns/collaborations-hairline-grid.php:18
+#: patterns/collaborations-separate-tiles.php:18
+#: patterns/collaborations-split.php:37
 #, php-format
 msgid "Collaborator logo %d"
 msgstr ""
@@ -2314,15 +2313,15 @@ msgctxt "Pattern title"
 msgid "Collaborations Split"
 msgstr ""
 
-#: patterns/collaborations-split.php:29
+#: patterns/collaborations-split.php:16
 msgid "Teams I’ve built with"
 msgstr ""
 
-#: patterns/collaborations-split.php:33
+#: patterns/collaborations-split.php:20
 msgid "Agencies, in-house product teams and founders — from single landing pages to multi-year platform work."
 msgstr ""
 
-#: patterns/collaborations-split.php:37
+#: patterns/collaborations-split.php:24
 msgid "See the case studies →"
 msgstr ""
 
@@ -3386,69 +3385,55 @@ msgctxt "Pattern title"
 msgid "Link Cards Feature Stack"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:14
+#: patterns/link-cards-feature-stack.php:12
 msgid "All services"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:15
+#: patterns/link-cards-feature-stack.php:13
 msgid "Audits, builds, optimization and ongoing maintenance."
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:16
+#: patterns/link-cards-feature-stack.php:14
 msgid "Browse services →"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:20
+#: patterns/link-cards-feature-stack.php:18
 msgid "Free performance check"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:21
+#: patterns/link-cards-feature-stack.php:19
 msgid "Send a URL and get the three biggest wins back."
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:22
+#: patterns/link-cards-feature-stack.php:20
 msgid "Request a check →"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:26
+#: patterns/link-cards-feature-stack.php:24
 msgid "Blog & notes"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:27
+#: patterns/link-cards-feature-stack.php:25
 msgid "Practices I use, written up as I go."
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:28
+#: patterns/link-cards-feature-stack.php:26
 msgid "Read the blog →"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:173
+#: patterns/link-cards-feature-stack.php:39
 msgid "Featured project"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:174
+#: patterns/link-cards-feature-stack.php:43
 msgid "Shopify storefront rebuilt on Next.js"
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:175
+#: patterns/link-cards-feature-stack.php:47
 msgid "Checkout time cut in half and a 41-point Lighthouse gain — the full write-up covers the architecture and the trade-offs."
 msgstr ""
 
-#: patterns/link-cards-feature-stack.php:177
-msgid "Next.js"
-msgstr ""
-
-#: patterns/link-cards-feature-stack.php:178
-#: patterns/tech-stack-grouped-cards.php:23
-#: patterns/tech-stack-icon-tiles.php:14
-msgid "Shopify"
-msgstr ""
-
-#: patterns/link-cards-feature-stack.php:179
-msgid "Edge caching"
-msgstr ""
-
-#: patterns/link-cards-feature-stack.php:181
+#: patterns/link-cards-feature-stack.php:61
 msgid "Read the case study →"
 msgstr ""
 
@@ -3487,9 +3472,9 @@ msgstr ""
 msgid "Everything measured, prioritised and written down."
 msgstr ""
 
-#: patterns/link-cards-icon-led.php:109
-#: patterns/link-cards-image-band.php:107
-#: patterns/link-cards-typographic.php:104
+#: patterns/link-cards-icon-led.php:51
+#: patterns/link-cards-image-band.php:53
+#: patterns/link-cards-typographic.php:48
 msgid "See more →"
 msgstr ""
 
@@ -3738,11 +3723,11 @@ msgctxt "Pattern title"
 msgid "Project Carousel Bottom Peek"
 msgstr ""
 
-#: patterns/project-carousel-bottom-peek.php:73
+#: patterns/project-carousel-bottom-peek.php:13
 msgid "Observe"
 msgstr ""
 
-#: patterns/project-carousel-bottom-peek.php:74
+#: patterns/project-carousel-bottom-peek.php:17
 msgid "One line of project copy, set in mono for contrast against the display heading."
 msgstr ""
 
@@ -4133,6 +4118,11 @@ msgid "E-commerce platforms"
 msgstr ""
 
 #: patterns/tech-stack-grouped-cards.php:23
+#: patterns/tech-stack-icon-tiles.php:14
+msgid "Shopify"
+msgstr ""
+
+#: patterns/tech-stack-grouped-cards.php:23
 msgid "Liquid themes and Hydrogen"
 msgstr ""
 
@@ -4289,39 +4279,35 @@ msgctxt "Pattern title"
 msgid "404 Template"
 msgstr ""
 
-#: patterns/template-404.php:19
+#: patterns/template-404.php:17
 msgid "OOPS! Page Not Found!"
 msgstr ""
 
-#: patterns/template-404.php:37
+#: patterns/template-404.php:23
 msgid "Go to Homepage"
 msgstr ""
 
-#: patterns/template-404.php:48
+#: patterns/template-404.php:34
 msgid "Helpful Link"
 msgstr ""
 
-#: patterns/template-404.php:52
+#: patterns/template-404.php:38
 msgid "Something went wrong! We couldn’t find the page you were looking for. But don’t worry, we’ve got some other Links that might be helpful:"
 msgstr ""
 
-#: patterns/template-404.php:63
+#: patterns/template-404.php:49
 msgctxt "404"
 msgid "Pages"
 msgstr ""
 
-#: patterns/template-404.php:72
+#: patterns/template-404.php:58
 msgctxt "404"
 msgid "Categories"
 msgstr ""
 
-#: patterns/template-404.php:82
+#: patterns/template-404.php:68
 msgctxt "404"
 msgid "Posts"
-msgstr ""
-
-#: patterns/template-404.php:98
-msgid "No posts found."
 msgstr ""
 
 #: patterns/testimonial-section.php
@@ -4957,7 +4943,7 @@ msgid "Link settings"
 msgstr ""
 
 #: build/js/button.js:1
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/nav-content.js:1
 msgid "Open in new tab"
 msgstr ""
@@ -4977,7 +4963,7 @@ msgid "Border width"
 msgstr ""
 
 #: build/js/button.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Border width (px)"
 msgstr ""
 
@@ -4990,7 +4976,7 @@ msgid "Normal state"
 msgstr ""
 
 #: build/js/button.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Hover state"
 msgstr ""
 
@@ -5175,7 +5161,7 @@ msgid "Cloudflare Turnstile will appear here"
 msgstr ""
 
 #: build/js/content-block.js:1
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/marquee.js:1
 #: build/js/navigation.js:1
 msgid "Loading…"
@@ -5202,20 +5188,21 @@ msgid "Bottom"
 msgstr ""
 
 #: build/js/content-tabs.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 #: build/js/navigation.js:1
 msgid "Left"
 msgstr ""
 
 #: build/js/content-tabs.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 #: build/js/navigation.js:1
 msgid "Right"
 msgstr ""
 
 #: build/js/content-tabs.js:1
 #: build/js/editor.js:1
-#: build/js/editor.js:37
+#: build/js/editor.js:28
+#: build/js/editor.js:46
 #: build/js/language-panel.js:1
 msgid "None"
 msgstr ""
@@ -5294,7 +5281,7 @@ msgid "Underline"
 msgstr ""
 
 #: build/js/content-tabs.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 #: build/js/nav-content.js:1
 msgid "Text color"
 msgstr ""
@@ -5507,6 +5494,10 @@ msgid "No Animation"
 msgstr ""
 
 #: build/js/editor.js:1
+msgid "Appear"
+msgstr ""
+
+#: build/js/editor.js:1
 msgid "Fade In"
 msgstr ""
 
@@ -5532,6 +5523,30 @@ msgstr ""
 
 #: build/js/editor.js:1
 msgid "Flip Right"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Default Distance"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Small (20px)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Medium (40px)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Large (60px)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Extra Large (80px)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "2X Large (100px)"
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5563,30 +5578,6 @@ msgid "1000ms"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Default Distance"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Small (20px)"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Medium (40px)"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Large (60px)"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Extra Large (80px)"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "2X Large (100px)"
-msgstr ""
-
-#: build/js/editor.js:1
 msgid "Scroll Animations"
 msgstr ""
 
@@ -5612,6 +5603,34 @@ msgstr ""
 
 #: build/js/editor.js:1
 msgid "Control how far elements move during fade/slide animations."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Scroll Section Pinning (GSAP)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Use as scroll-section pin boundary"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "For a kotlinskidev/scroll-section set to the “Natural” pinning strategy, nested anywhere inside this block: pins this whole block instead of just the section, so content before/after it (within this block) stays visible, frozen, for the whole horizontal scroll — matching how the legacy strategy always looked. Has no effect without a natural-strategy scroll-section inside."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Reveal on Menu Open"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Choose an animation that will trigger when the enclosing nav panel, hamburger menu, or dropdown opens."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Reveal Delay (ms)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Stagger links by setting an increasing delay on each one, e.g. 50, 100, 150."
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5647,7 +5666,7 @@ msgid "Rotate"
 msgstr ""
 
 #: build/js/editor.js:1
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Bounce"
 msgstr ""
 
@@ -5696,12 +5715,12 @@ msgid "Opacity on hover"
 msgstr ""
 
 #: build/js/editor.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Hover background color"
 msgstr ""
 
 #: build/js/editor.js:1
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Hover text color"
 msgstr ""
 
@@ -5804,7 +5823,7 @@ msgid "Set the order for mobile screens (below %spx)."
 msgstr ""
 
 #: build/js/editor.js:10
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Default"
 msgstr ""
 
@@ -5869,7 +5888,7 @@ msgid "Column"
 msgstr ""
 
 #: build/js/editor.js:10
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Center"
 msgstr ""
 
@@ -5942,6 +5961,7 @@ msgstr ""
 #: build/js/editor.js:13
 #: build/js/editor.js:22
 #: build/js/editor.js:31
+#: build/js/editor.js:40
 #, js-format
 msgid "Settings for screens %srem and above"
 msgstr ""
@@ -5950,6 +5970,7 @@ msgstr ""
 #: build/js/editor.js:16
 #: build/js/editor.js:25
 #: build/js/editor.js:34
+#: build/js/editor.js:43
 #, js-format
 msgid "Settings for screens %1$srem - %2$srem"
 msgstr ""
@@ -5958,11 +5979,13 @@ msgstr ""
 #: build/js/editor.js:19
 #: build/js/editor.js:28
 #: build/js/editor.js:37
+#: build/js/editor.js:46
 #, js-format
 msgid "Settings for screens below %srem"
 msgstr ""
 
 #: build/js/editor.js:19
+#: build/js/editor.js:28
 msgid "Custom value"
 msgstr ""
 
@@ -6007,294 +6030,326 @@ msgid "Configure width and max-width per breakpoint"
 msgstr ""
 
 #: build/js/editor.js:28
+msgid "Min Height"
+msgstr ""
+
+#: build/js/editor.js:28
+msgid "Min height preset"
+msgstr ""
+
+#: build/js/editor.js:28
+msgid "Responsive Min Height"
+msgstr ""
+
+#: build/js/editor.js:28
+msgid "Advanced Min Height Settings"
+msgstr ""
+
+#: build/js/editor.js:28
+msgid "Configure min-height per breakpoint"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Custom CSS Variables"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Applied as inline style on this block, e.g. --logo-icon-bg: #1c1d18. Reference them from the SVG's own fill/stroke attributes."
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Value"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Remove variable"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Add Variable"
+msgstr ""
+
+#: build/js/editor.js:37
 msgid "Button position"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Border color"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Border radius (px)"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Underline text"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Leave a hover color empty to keep the default fade effect."
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Hover border color"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Load More"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Enable Load More"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Show only the first items on load; a button reveals the rest."
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Items to show initially"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Button label"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Load more"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Leave empty to use the default label."
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Padding"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Margin"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Responsive Spacing"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Advanced Spacing Settings"
 msgstr ""
 
-#: build/js/editor.js:28
+#: build/js/editor.js:37
 msgid "Configure padding and margin per breakpoint"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Justify text"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Set custom size"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Responsive font size"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Link Hover Effects"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Enable underline hover effect"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Adds the same animated sliding-underline hover/focus effect used sitewide in the header and footer to links in this block, even outside those areas or on elements that aren't a native link."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Disable background hover effect"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Turns off the gradient/fill hover effect on links inside this block."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Disable underline hover effect"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Turns off the sliding underline hover/focus effect on links inside this block."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Disable link underline/gradient effect"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Excludes links in this block from the sitewide header/footer hover-underline and gradient-text-on-focus effect, without affecting this block's own hover/focus styling. Enabled by default sitewide; turn this on only where it conflicts, like the Social Link block."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Disable active-page highlight"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Excludes links in this block from the sitewide active-page gradient-text/underline treatment shown when a link points at the page currently being viewed. Enabled by default sitewide."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Text Gradient"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Link whole group"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Makes the whole group a real link (URL preview on hover, right-click to open in a new tab). If the group contains another link, it's kept as a clickable region instead to avoid an invalid nested link. Clicks on a button or form field inside the group still work normally either way."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Hover Overlay"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Show text overlay on hover"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/nav-content.js:1
 msgid "Heading"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/nav-content.js:1
 msgid "Description"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Overlay background color"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Overlay background opacity"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Overlay text color"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Default grid"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Independent columns"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "FAQ columns behavior"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Default: closed items align into uniform rows, but opening one stretches its row partner. Independent columns: each column grows on its own, no stretching, but closed items no longer line up edge-to-edge."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Independent columns count"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Parallax Settings"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Enable Parallax Effect"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Background stays fixed while content scrolls. Uses CSS background-attachment: fixed."
 msgstr ""
 
-#: build/js/editor.js:37
-msgid "Parallax Intensity"
-msgstr ""
-
-#: build/js/editor.js:37
-msgid "How far the background shifts relative to the content while scrolling. Only applies on pages where a horizontal scroll section forces the fallback effect."
-msgstr ""
-
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Fast (1s)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Normal (2s)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Slow (3s)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Very Slow (4s)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Custom"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Linear"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Ease Out"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Ease In Out"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Animated Counter"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Enable Counter Animation"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Turn this block into an animated counter. Numbers in your text will automatically count up from 0 when the block comes into view."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "💡 How it works:"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Just type your text with numbers like \"5 years\", \"98%\", or \"$1,250\". The system will automatically detect the numbers and animate them from 0 to the detected value."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Animation Duration"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "How long the counting animation should take."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Custom Duration (ms)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Animation Easing"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "The animation style (how fast/slow it accelerates)."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/language-panel.js:1
 #: build/js/search-panel.js:1
 msgid "Nav Icon"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/icon.js:1
 #: build/js/language-panel.js:1
 #: build/js/scroll-to-top.js:1
@@ -6302,7 +6357,7 @@ msgstr ""
 msgid "Replace icon"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/icon.js:1
 #: build/js/language-panel.js:1
 #: build/js/scroll-to-top.js:1
@@ -6311,7 +6366,7 @@ msgstr ""
 msgid "Select SVG icon"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/icon.js:1
 #: build/js/language-panel.js:1
 #: build/js/scroll-to-top.js:1
@@ -6320,130 +6375,130 @@ msgstr ""
 msgid "Remove icon"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Gradient Outline"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Text shadow presets"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Text Shadow"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Adaptive presets follow the current text color and switch with light/dark mode. Light/Dark presets stay fixed to one mode's color regardless of the active theme."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Truncate Text"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Limit to a number of lines"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Visible lines"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Text past this many lines is hidden behind a \"Read more\" toggle, translated automatically for each site language."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Load above the fold"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Enable only if this specific instance is visible without scrolling on this page. Its styles load render-blocking instead of deferred — use sparingly, since every enabled instance costs initial render time."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "— Select modal —"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Open in a modal"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/icon.js:1
 msgid "Icon"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "City Grid Layout"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Columns (desktop)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Columns (tablet)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Columns (mobile)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "City Link Color"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Link text color"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Contact Card Layout"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Gap between fields (rem)"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Lower this if long values (e.g. an email address) wrap to a second line."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Equal Height"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Equal height grid items"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Equal height columns"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Stretch every grid item to match the tallest item in its row, so cards line up."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Stretch every column's content to match the tallest column, so borders and backgrounds line up."
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/marquee.js:1
 msgid "— None (not clickable) —"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Slide Modal"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 #: build/js/marquee.js:1
 msgid "Open on click"
 msgstr ""
 
-#: build/js/editor.js:37
+#: build/js/editor.js:46
 msgid "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 msgstr ""
 
@@ -6851,6 +6906,22 @@ msgstr ""
 
 #: build/js/marquee.js:1
 msgid "Time for one full loop — lower is faster."
+msgstr ""
+
+#: build/js/marquee.js:1
+msgid "Direction"
+msgstr ""
+
+#: build/js/marquee.js:1
+msgid "Left (normal)"
+msgstr ""
+
+#: build/js/marquee.js:1
+msgid "Right (reverse)"
+msgstr ""
+
+#: build/js/marquee.js:1
+msgid "Spacing between items (px)"
 msgstr ""
 
 #: build/js/marquee.js:1
@@ -8575,6 +8646,16 @@ msgid "Divider · Dark Mode"
 msgstr ""
 
 #: theme.json
+msgctxt "Color name"
+msgid "Background Alt · Light Mode"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Background Alt · Dark Mode"
+msgstr ""
+
+#: theme.json
 #: styles/blue.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
@@ -8633,6 +8714,11 @@ msgstr ""
 #: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Divider (Adaptive)"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Background Alt (Adaptive)"
 msgstr ""
 
 #: theme.json

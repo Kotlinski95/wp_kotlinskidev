@@ -5,9 +5,7 @@
  * Categories: sections, kotlinskidev/sections, themeslug/custom
  */
 $kotlinskidev_url = trailingslashit(get_template_directory_uri());
-$kotlinskidev_images = array(
-    $kotlinskidev_url . 'assets/images/link-cards/img-project.svg',
-);
+$kotlinskidev_feature_image = $kotlinskidev_url . 'assets/images/link-cards/img-project.svg';
 $kotlinskidev_stack = array(
     array(
         'icon'  => $kotlinskidev_url . 'assets/icons/services/icon-applications.svg',
@@ -30,172 +28,74 @@ $kotlinskidev_stack = array(
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/link-cards-feature-stack","name":"Link Cards Feature Stack"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        .kotlinskidev-linkcards-fs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
-            gap: 1.5rem;
-            align-items: stretch;
-        }
-        .kotlinskidev-linkcards-fs__feature {
-            display: flex;
-            flex-direction: column;
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 1.375rem;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: border-color 0.25s ease;
-        }
-        .kotlinskidev-linkcards-fs__feature:hover {
-            border-color: var(--wp--preset--color--primary);
-        }
-        .kotlinskidev-linkcards-fs__image {
-            position: relative;
-            aspect-ratio: 16/9;
-            background: var(--wp--preset--color--surface);
-        }
-        .kotlinskidev-linkcards-fs__image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .kotlinskidev-linkcards-fs__body {
-            padding: 1.875rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.875rem;
-            flex: 1;
-        }
-        .kotlinskidev-linkcards-fs__eyebrow {
-            font-size: 0.71875rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--wp--preset--color--primary);
-        }
-        .kotlinskidev-linkcards-fs__title {
-            font-size: 1.6875rem;
-            line-height: 1.2;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: -0.015em;
-            color: var(--wp--preset--color--foreground);
-        }
-        .kotlinskidev-linkcards-fs__desc {
-            font-size: 0.9375rem;
-            line-height: 1.65;
-            color: var(--wp--preset--color--foreground-alt);
-            margin: 0;
-            max-width: 52ch;
-        }
-        .kotlinskidev-linkcards-fs__tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.25rem;
-        }
-        .kotlinskidev-linkcards-fs__tag {
-            font-size: 0.78125rem;
-            color: var(--wp--preset--color--foreground-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 999px;
-            padding: 0.3125rem 0.75rem;
-        }
-        .kotlinskidev-linkcards-fs__link {
-            margin-top: auto;
-            padding-top: 1rem;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            color: var(--wp--preset--color--primary);
-        }
-        .kotlinskidev-linkcards-fs__stack {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .kotlinskidev-linkcards-fs__row {
-            flex: 1;
-            display: flex;
-            gap: 1.125rem;
-            align-items: flex-start;
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 1.25rem;
-            padding: 1.625rem;
-            text-decoration: none;
-            color: inherit;
-            transition: background 0.25s ease;
-        }
-        .kotlinskidev-linkcards-fs__row:hover {
-            background: var(--wp--preset--color--surface);
-        }
-        .kotlinskidev-linkcards-fs__row-icon {
-            flex: none;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 0.875rem;
-            background: color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent);
-            border: 1px solid var(--wp--preset--color--divider);
-            display: grid;
-            place-items: center;
-        }
-        .kotlinskidev-linkcards-fs__row-icon img {
-            width: 1.625rem;
-            height: 1.625rem;
-        }
-        .kotlinskidev-linkcards-fs__row-title {
-            font-size: 1.1875rem;
-            line-height: 1.28;
-            font-weight: 700;
-            margin: 0 0 0.5rem;
-            color: var(--wp--preset--color--foreground);
-        }
-        .kotlinskidev-linkcards-fs__row-desc {
-            font-size: 0.875rem;
-            line-height: 1.6;
-            color: var(--wp--preset--color--foreground-alt);
-            margin: 0 0 0.5rem;
-        }
-        .kotlinskidev-linkcards-fs__row-link {
-            font-size: 0.84375rem;
-            font-weight: 600;
-            color: var(--wp--preset--color--primary);
-        }
-    </style>
-    <div class="kotlinskidev-linkcards-fs">
-        <a href="#" class="kotlinskidev-linkcards-fs__feature">
-            <div class="kotlinskidev-linkcards-fs__image">
-                <img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" loading="lazy" />
-            </div>
-            <div class="kotlinskidev-linkcards-fs__body">
-                <div class="kotlinskidev-linkcards-fs__eyebrow"><?php esc_html_e('Featured project', 'kotlinskidev') ?></div>
-                <h3 class="kotlinskidev-linkcards-fs__title"><?php esc_html_e('Shopify storefront rebuilt on Next.js', 'kotlinskidev') ?></h3>
-                <p class="kotlinskidev-linkcards-fs__desc"><?php esc_html_e('Checkout time cut in half and a 41-point Lighthouse gain — the full write-up covers the architecture and the trade-offs.', 'kotlinskidev') ?></p>
-                <div class="kotlinskidev-linkcards-fs__tags">
-                    <span class="kotlinskidev-linkcards-fs__tag"><?php esc_html_e('Next.js', 'kotlinskidev') ?></span>
-                    <span class="kotlinskidev-linkcards-fs__tag"><?php esc_html_e('Shopify', 'kotlinskidev') ?></span>
-                    <span class="kotlinskidev-linkcards-fs__tag"><?php esc_html_e('Edge caching', 'kotlinskidev') ?></span>
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"blockGap":"1.5rem"}},"layout":{"type":"grid","minimumColumnWidth":"18.75rem"}} -->
+    <div class="wp-block-group"><!-- wp:group {"groupLinkUrl":"#","className":"kt-link-card","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"blockGap":"0"}},"backgroundColor":"background-alt","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+        <div class="wp-block-group kt-link-card has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:image {"aspectRatio":"16/9","scale":"cover","sizeSlug":"full","linkDestination":"none"} -->
+            <figure class="wp-block-image size-full"><img src="<?php echo esc_url($kotlinskidev_feature_image) ?>" alt="" style="aspect-ratio:16/9;object-fit:cover" /></figure>
+            <!-- /wp:image -->
+
+            <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"},"blockGap":"0.875rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+            <div class="wp-block-group" style="padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.2em"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"x-small"} -->
+                <p class="has-primary-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;letter-spacing:0.2em;text-transform:uppercase"><?php esc_html_e('Featured project', 'kotlinskidev') ?></p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"big"} -->
+                <h3 class="wp-block-heading has-big-font-size" style="margin-top:0;margin-bottom:0"><?php esc_html_e('Shopify storefront rebuilt on Next.js', 'kotlinskidev') ?></h3>
+                <!-- /wp:heading -->
+
+                <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+                <p class="has-foreground-alt-color has-text-color has-link-color" style="margin-top:0;margin-bottom:0"><?php esc_html_e('Checkout time cut in half and a 41-point Lighthouse gain — the full write-up covers the architecture and the trade-offs.', 'kotlinskidev') ?></p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"flex","flexWrap":"wrap"}} -->
+                <div class="wp-block-group">
+                    <?php foreach (array('Next.js', 'Shopify', 'Edge caching') as $kotlinskidev_tag) : ?>
+                    <!-- wp:paragraph {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"999px"},"spacing":{"padding":{"top":"0.3125rem","bottom":"0.3125rem","left":"0.75rem","right":"0.75rem"},"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
+                    <p class="has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:999px;margin-top:0;margin-bottom:0;padding-top:0.3125rem;padding-right:0.75rem;padding-bottom:0.3125rem;padding-left:0.75rem"><?php echo esc_html($kotlinskidev_tag) ?></p>
+                    <!-- /wp:paragraph -->
+                    <?php endforeach; ?>
                 </div>
-                <span class="kotlinskidev-linkcards-fs__link"><?php esc_html_e('Read the case study →', 'kotlinskidev') ?></span>
+                <!-- /wp:group -->
+
+                <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary"} -->
+                <p class="has-primary-color has-text-color has-link-color" style="margin-top:auto;margin-bottom:0;font-weight:600"><?php esc_html_e('Read the case study →', 'kotlinskidev') ?></p>
+                <!-- /wp:paragraph -->
             </div>
-        </a>
-        <div class="kotlinskidev-linkcards-fs__stack">
+            <!-- /wp:group -->
+        </div>
+        <!-- /wp:group -->
+
+        <!-- wp:group {"style":{"spacing":{"blockGap":"1.5rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+        <div class="wp-block-group">
             <?php foreach ($kotlinskidev_stack as $kotlinskidev_row) : ?>
-            <a href="#" class="kotlinskidev-linkcards-fs__row">
-                <div class="kotlinskidev-linkcards-fs__row-icon">
-                    <img src="<?php echo esc_url($kotlinskidev_row['icon']) ?>" alt="" loading="lazy" />
+            <!-- wp:group {"groupLinkUrl":"#","className":"kt-link-card kt-link-card--hover-surface","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.25rem"},"spacing":{"padding":{"top":"1.625rem","bottom":"1.625rem","left":"1.625rem","right":"1.625rem"},"blockGap":"1.125rem"}},"backgroundColor":"background-alt","layout":{"type":"flex","verticalAlignment":"top"}} -->
+            <div class="wp-block-group kt-link-card kt-link-card--hover-surface has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.25rem;padding-top:1.625rem;padding-right:1.625rem;padding-bottom:1.625rem;padding-left:1.625rem"><!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"0.875rem"}},"backgroundColor":"divider","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+                <div class="wp-block-group has-border-color has-divider-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:0.875rem"><!-- wp:image {"width":"1.625rem","height":"1.625rem","sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_row['icon']) ?>" alt="" style="width:1.625rem;height:1.625rem" /></figure>
+                    <!-- /wp:image -->
                 </div>
-                <div>
-                    <h3 class="kotlinskidev-linkcards-fs__row-title"><?php echo esc_html($kotlinskidev_row['title']) ?></h3>
-                    <p class="kotlinskidev-linkcards-fs__row-desc"><?php echo esc_html($kotlinskidev_row['desc']) ?></p>
-                    <span class="kotlinskidev-linkcards-fs__row-link"><?php echo esc_html($kotlinskidev_row['link']) ?></span>
+                <!-- /wp:group -->
+
+                <!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+                <div class="wp-block-group"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
+                    <h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_row['title']) ?></h3>
+                    <!-- /wp:heading -->
+
+                    <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"small"} -->
+                    <p class="has-foreground-alt-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_row['desc']) ?></p>
+                    <!-- /wp:paragraph -->
+
+                    <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"small"} -->
+                    <p class="has-primary-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html($kotlinskidev_row['link']) ?></p>
+                    <!-- /wp:paragraph -->
                 </div>
-            </a>
+                <!-- /wp:group -->
+            </div>
+            <!-- /wp:group -->
             <?php endforeach; ?>
         </div>
+        <!-- /wp:group -->
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:group -->
 </div>
 <!-- /wp:group -->

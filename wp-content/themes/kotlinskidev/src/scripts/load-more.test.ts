@@ -114,7 +114,7 @@ describe("load-more.ts", () => {
     const button = document.querySelector<HTMLButtonElement>(".kt-load-more__button")!;
     expect(button.style.color).toBe("rgb(255, 255, 255)");
     expect(button.style.background).toBe("rgb(17, 17, 17)");
-    expect(button.style.borderColor).toBe("#8209d3");
+    expect(button.style.borderColor).toBe("rgb(130, 9, 211)");
     expect(button.style.borderWidth).toBe("2px");
     expect(button.style.borderRadius).toBe("20px");
     expect(button.style.textDecoration).toBe("underline");

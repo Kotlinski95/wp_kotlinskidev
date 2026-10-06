@@ -91,12 +91,7 @@ function getTopLevelLinksWithDropdown(hamburger: Locator): Locator {
   );
 }
 
-// Playwright locator chaining (`.locator(a).locator(':scope > b:has(...)')`) does not
-// reliably combine `:scope` with a `:has()` in the *chained* fragment — confirmed
-// empirically (a single combined selector string works, splitting it across two
-// `.locator()` calls silently returns 0 matches). So every level below is built as
-// one fully self-contained selector string, always rooted at `hamburger`, rather
-// than chained off a previously-captured locator.
+// Chaining .locator(a).locator(':scope > b:has(...)') silently returns 0 matches — every selector below is one self-contained string rooted at `hamburger` instead.
 const TOP_ITEM_EXPANDED =
   '.wp-block-navigation__container > .wp-block-navigation-item:has(> .wp-block-navigation-submenu__toggle[aria-expanded="true"])';
 
@@ -431,11 +426,7 @@ test.describe("Header", () => {
     test("clicking a plain top-level link (no dropdown) in the mobile menu navigates directly", async ({
       page,
     }) => {
-      // The homepage is usually the only "plain, no-dropdown" top-level item, and
-      // beforeEach already starts on the homepage — where it's the current page and
-      // therefore intentionally non-interactive (see NOT_CURRENT_PAGE). Navigate away
-      // first, using a link the menu itself provides, so the test is self-bootstrapping
-      // instead of assuming any specific other page exists.
+      // Homepage is the current (non-interactive) page at test start, so navigate away first via a menu-provided link rather than assuming another page exists.
       const hamburger = getMobileHamburger(page);
       await getOpenButton(hamburger).click();
 

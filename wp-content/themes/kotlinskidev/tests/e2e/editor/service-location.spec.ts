@@ -41,18 +41,13 @@ test.describe("Service Location — Site Editor template is real, separately-edi
 
     const canvas = page.frameLocator('iframe[name="editor-canvas"]');
 
-    // Several distinct native blocks are present in the canvas at once — proves
-    // this is real block markup, not one opaque ServerSideRender wrapper. Each
-    // block wrapper in the canvas carries role="document" (not "heading"/"group"
-    // — see .claude/rules/testing.md), so target that role with its block-type name.
+    // Each block wrapper carries role="document" with its block-type name (not "heading"/"group") — see .claude/rules/testing.md.
     await expect(canvas.getByRole("document", { name: "Block: Heading" }).first()).toBeVisible({
       timeout: 15000,
     });
     await expect(canvas.getByRole("document", { name: "Block: Group" }).first()).toBeVisible();
     await expect(canvas.getByRole("textbox", { name: "Button text" }).first()).toBeVisible();
 
-    // Selecting one of them individually switches the sidebar to that block's
-    // own settings — proves each is independently selectable/editable.
     const buttonText = canvas.getByRole("textbox", { name: "Button text" }).first();
     await buttonText.click();
 

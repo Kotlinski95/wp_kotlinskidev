@@ -153,7 +153,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 Full ISO 27001 certification is an organizational-management-system exercise beyond a single theme's codebase, but the Annex A control families map cleanly onto sections above — useful if this ever needs to be presented against a formal framework:
 
 | Annex A theme | Relevant sections above |
-|---|---|
+| --- | --- |
 | A.5 Organizational controls (policies, roles, supplier relationships) | §6 (component/vendor management), §15 (MCP key governance), §17 process notes |
 | A.6 People controls (screening, awareness, disciplinary) | §7 (auth), §15 (key handling discipline) — process, not code |
 | A.7 Physical controls | Out of scope (managed AWS infra) |

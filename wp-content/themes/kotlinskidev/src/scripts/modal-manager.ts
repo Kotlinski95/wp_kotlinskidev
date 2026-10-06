@@ -5,32 +5,17 @@ import { trackEvent } from "./track-event";
 const OWNER = "kt-modal";
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
-// 12 frames (~200ms) was not enough — confirmed live via a real Playwright wheel-scroll-then-click
-// repro sampling window.scrollY every frame: the actual drift lands as a single, one-time step at
-// ~290ms after the click (not a gradual animation, and it never recurs after that one step), which
-// lines up with modal.scss's own --nav-reveal-duration (500ms, see nav.scss) fade-in most likely
-// finishing enough of its visual settling to trigger a layout/ResizeObserver reaction around then.
-// 40 frames (~650ms at 60fps) covers that with margin without guarding indefinitely.
+// Confirmed live: scrollY drift from the fade-in's layout reaction lands as a single ~290ms step, so 40 frames covers it with margin.
 const SCROLL_GUARD_FRAMES = 40;
 
 let activeModal: HTMLElement | null = null;
 let activeTrigger: HTMLElement | null = null;
 let scrollYAtPointerDown: number | null = null;
 
-// A page with several GSAP ScrollTrigger pinned sections sharing one .main-wrapper (this
-// theme's own scroll-trigger-refresh.ts documents this exact setup as fragile against any
-// refresh) can snap scrollY back to an earlier pin-spacer on a refresh triggered by something
-// outside our own code path — GSAP's built-in resize-triggered auto-refresh, a third-party
-// script reacting to the modal's DOM changes, etc. Re-asserting the target scrollY for a few
-// frames after opening/closing catches that regardless of what actually triggers it, the same
-// save-and-restore-if-changed pattern scroll-trigger-refresh.ts already uses around its own
-// refresh() call — just extended across a short window since the disturbance isn't guaranteed
-// to land on the very next frame.
+// Re-asserts target scrollY for a few frames since an external reaction (GSAP auto-refresh, etc.) can shift it unpredictably after open/close.
 function guardScrollPosition(targetY: number, framesRemaining: number): void {
   if (window.scrollY !== targetY) {
-    // html has scroll-behavior:smooth theme-wide — the 2-arg window.scrollTo() form inherits
-    // that and animates instead of snapping, leaving a real (if much smaller) residual gap on
-    // the very next read. behavior:"instant" forces an immediate jump regardless.
+    // behavior:"instant" avoids the 2-arg scrollTo()'s inherited theme-wide smooth-scroll animation, which would leave a residual gap.
     window.scrollTo({ left: window.scrollX, top: targetY, behavior: "instant" });
   }
   if (framesRemaining <= 0) {
@@ -110,20 +95,7 @@ function openModal(modal: HTMLElement, trigger: HTMLElement): void {
 export function initModalManager(): void {
   registerPanel(closeModal);
 
-  // preventDefault() on mousedown blocks the browser's own native focus-assignment default
-  // action for the clicked trigger — the standard technique for a control that manages its own
-  // focus target, used here because that native action includes "scroll the about-to-be-focused
-  // element into view", and a trigger sitting inside a GSAP ScrollTrigger pin (position: fixed,
-  // .main-wrapper) can have that native scroll land somewhere real content genuinely extends to
-  // but the user never asked to see. click still fires normally afterward (preventDefault on
-  // mousedown never suppresses the following click) and openModal() moves focus to the modal's
-  // own close button itself, so the trigger never needs native focus at all. Confirmed live via
-  // a real Playwright wheel-scroll-then-click repro that this was still measurably happening
-  // (a variable, non-zero scrollY drift) even after capturing scrollY as early as possible and
-  // restoring it — jsdom/scrollTo-based reproductions never caught this, same "must be real
-  // wheel scroll" gotcha documented in scroll-section-multi-pin.spec.ts for a different bug on
-  // this same page shape. scrollYAtPointerDown is kept as a defense-in-depth snapshot for any
-  // other disturbance guardScrollPosition() might still need to correct.
+  // preventDefault() on mousedown blocks native focus-scroll (which can land inside a GSAP-pinned trigger) since openModal() focuses the modal's own close button instead; click still fires normally after.
   document.addEventListener(
     "mousedown",
     (e) => {

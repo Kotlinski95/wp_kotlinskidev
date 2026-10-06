@@ -115,7 +115,7 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initS
 
 const initHeroCarousel = (el: HTMLElement): void => {
   el.style.visibility = "hidden";
-  const swiper = initSwiper(el, parseSettings(el));
+  const swiper = initSwiper(el, parseSettings(el), { disableNativeHoverPause: true });
   el.style.visibility = "visible";
 
   wireAutoplayHoverPause(el, swiper);

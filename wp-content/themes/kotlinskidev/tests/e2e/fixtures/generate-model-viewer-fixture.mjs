@@ -38,7 +38,6 @@ exporter.parse(
     console.log(`Wrote ${outPath} (${buffer.byteLength} bytes)`);
   },
   (error) => {
-    // eslint-disable-next-line no-console
     console.error("GLTFExporter failed", error);
     process.exitCode = 1;
   },

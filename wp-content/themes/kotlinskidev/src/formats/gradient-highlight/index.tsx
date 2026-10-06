@@ -116,8 +116,7 @@ function GradientPickerButton({
   const highlightIsGradient = highlightCurrentValue?.includes("gradient") ?? false;
   const textIsGradient = textCurrentValue?.includes("gradient") ?? false;
 
-  // Freeze the anchor when the popover is open so clicking color swatches
-  // (which shift browser focus/selection) doesn't cause the popover to drift.
+  // Freeze the anchor while open — clicking color swatches shifts focus/selection and would otherwise drift the popover.
   const liveAnchor = useAnchor({
     editableContentElement: contentRef.current,
     settings: HIGHLIGHT_ANCHOR_SETTINGS,
@@ -186,8 +185,7 @@ function GradientPickerButton({
     const targetValue = capturedValueRef.current ?? value;
     if (color !== undefined) {
       textJustAppliedRef.current = true;
-      // Solid colors must be wrapped in a gradient so they can be stored as
-      // background-image (which doesn't reset background-clip unlike background shorthand).
+      // Wrapped as a gradient so it stores as background-image, which doesn't reset background-clip unlike the background shorthand.
       const imageValue = `linear-gradient(${color}, ${color})`;
       const newValue = applyFormat(targetValue, {
         type: TEXT_FORMAT,

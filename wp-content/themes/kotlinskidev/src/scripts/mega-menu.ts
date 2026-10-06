@@ -1,4 +1,5 @@
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
+import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
 
 const OPEN_DELAY = 500;
 const SWITCH_DELAY = 500;
@@ -39,9 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
       t.classList.remove("is-active");
       t.querySelector(".kt-mega-nav__link")?.setAttribute("aria-expanded", "false");
     });
-    nav
-      .querySelectorAll<HTMLElement>(".kt-mega-nav__panel.is-open")
-      .forEach((p) => p.classList.remove("is-open"));
+    nav.querySelectorAll<HTMLElement>(".kt-mega-nav__panel.is-open").forEach((p) => {
+      p.classList.remove("is-open");
+      dispatchNavPanelClose(p);
+    });
     nav.classList.remove("has-open-panel");
     unlockScroll(LOCK_OWNER);
     requestAnimationFrame(() => header?.classList.remove("no-transition"));
@@ -63,9 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = nav.querySelector<HTMLElement>(`.kt-mega-nav__item[data-panel="${panelId}"]`);
     item?.classList.add("is-active");
     item?.querySelector(".kt-mega-nav__link")?.setAttribute("aria-expanded", "true");
-    nav.querySelector(`.kt-mega-nav__panel[data-panel="${panelId}"]`)?.classList.add("is-open");
+    const panel = nav.querySelector<HTMLElement>(`.kt-mega-nav__panel[data-panel="${panelId}"]`);
+    panel?.classList.add("is-open");
     nav.classList.add("has-open-panel");
     lockScroll(LOCK_OWNER);
+    if (panel) {
+      dispatchNavPanelOpen(panel);
+    }
   };
 
   const hasOpenPanel = () => nav.classList.contains("has-open-panel");

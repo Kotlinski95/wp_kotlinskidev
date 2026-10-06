@@ -39,9 +39,7 @@ function fix_polylang_accessibility() {
                 }
             });
 
-            // href="#pll_switcher" is a fragment link with no matching id anywhere on
-            // the page (Polylang's own markup, not ours) — WCAG 2.4.1 flags any
-            // fragment link whose target doesn't exist, regardless of accessible name.
+            // Polylang's own href="#pll_switcher" has no matching id — WCAG 2.4.1 flags any fragment link whose target doesn't exist.
             if (pllLinks.length > 0 && !document.getElementById('pll_switcher')) {
                 const target = document.createElement('span');
                 target.id = 'pll_switcher';

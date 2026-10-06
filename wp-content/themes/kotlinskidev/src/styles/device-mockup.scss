@@ -1,0 +1,36 @@
+.kt-device-mockup {
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: -16%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 62%;
+		height: 56%;
+		background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, transparent 68%);
+		pointer-events: none;
+	}
+
+	&__copy {
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	}
+
+	&__frame {
+		position: relative;
+		max-width: 82%;
+		margin: 0 auto;
+		background: linear-gradient(#41454b, #26282c);
+		border-radius: 1.25rem 1.25rem 0 0;
+		padding: 0.75rem 0.75rem 0;
+		box-shadow: 0 -0.625rem 4.375rem -1.25rem rgba(255, 255, 255, 0.12);
+	}
+
+	&__screen {
+		border-radius: 0.75rem 0.75rem 0 0;
+		overflow: hidden;
+		background: #0d0d0d;
+	}
+}

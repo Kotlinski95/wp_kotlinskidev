@@ -135,7 +135,7 @@
 
 	.sub-menu {
 		grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
-		grid-gap: 0.625rem;
+		gap: 0.625rem;
 		position: relative;
 		right: 0;
 		left: 0;

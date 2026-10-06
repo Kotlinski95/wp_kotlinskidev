@@ -13,8 +13,12 @@ class MockSwiper {
   slideTo = jest.fn();
   slideToLoop = jest.fn();
   slideNext = jest.fn();
+  slidePrev = jest.fn();
   animating = false;
   activeIndex = 0;
+  isEnd = false;
+  isBeginning = false;
+  slides: unknown[] = [];
   snapGrid: number[] = [];
   destroyed = false;
   update = jest.fn();
@@ -644,6 +648,222 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
     });
   });
 
+  describe("continuousAutoplay — stall watchdog", () => {
+    // Regression: FreeMode leaves animating/autoplay.paused stuck true forever (transitionend never fires), so the swiper can go genuinely motionless for seconds with no sign of it beyond real translate never changing.
+    beforeEach(() => {
+      mockIntersectionObserver();
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it("force-recovers a swiper stuck mid-transition with no real progress, once a full cycle plus grace period has passed with zero movement", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+
+      jest.advanceTimersByTime(6000);
+
+      expect(swiper.setTransition).toHaveBeenCalledWith(0);
+      expect(swiper.animating).toBe(false);
+      expect(swiper.slideNext).toHaveBeenCalledWith(3000, true, true);
+    });
+
+    it("does not intervene while the translate value keeps genuinely changing", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      const originalGetComputedStyle = window.getComputedStyle;
+      let x = 0;
+      jest.spyOn(window, "getComputedStyle").mockImplementation((el: Element) => {
+        if (el === wrapper) {
+          return { transform: `matrix(1, 0, 0, 1, ${x}, 0)` } as CSSStyleDeclaration;
+        }
+        return originalGetComputedStyle(el);
+      });
+
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+      swiper.slideNext.mockClear();
+
+      for (let i = 0; i < 60; i += 1) {
+        x -= 10;
+        jest.advanceTimersByTime(100);
+      }
+
+      expect(swiper.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("does not run the recovery while genuinely paused by hover/focus/press/modal", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      swiper.slideNext.mockClear();
+      swiper.setTransition.mockClear();
+
+      jest.advanceTimersByTime(6000);
+
+      expect(swiper.slideNext).not.toHaveBeenCalled();
+      expect(swiper.setTransition).not.toHaveBeenCalled();
+    });
+
+    it("does not run while IntersectionObserver is unsupported and autoplay starts immediately", () => {
+      delete (globalThis as unknown as { IntersectionObserver?: unknown }).IntersectionObserver;
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+
+      jest.advanceTimersByTime(6000);
+
+      expect(swiper.setTransition).toHaveBeenCalledWith(0);
+      expect(swiper.slideNext).toHaveBeenCalledWith(3000, true, true);
+    });
+  });
+
+  describe("continuousAutoplay — loop-boundary deadlock recovery", () => {
+    // Regression: at the true end of the loop, slideNext() can silently no-op forever (returns false); only trust that real `false`, never pre-emptively branch on isEnd/isBeginning (transiently true during normal bookkeeping too), and wrap instantly (duration 0) to the nearest matching position, not a full-speed animated reset to index 0.
+    beforeEach(() => {
+      mockIntersectionObserver();
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it("wraps via an instant slideTo() to the nearest matching position (excluding the current stuck index), then retries slideNext() at full speed", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+      swiper.isEnd = true;
+      swiper.activeIndex = 3;
+      swiper.snapGrid = [0, 100, 200, 300];
+      swiper.slideNext.mockReturnValueOnce(false).mockReturnValue(true);
+
+      jest.advanceTimersByTime(6000);
+
+      // frozen translateX reads 0 (unmocked getComputedStyle) — nearest snapGrid position excluding the stuck activeIndex (3, position 300) is index 0 itself.
+      expect(swiper.slideTo).toHaveBeenCalledWith(0, 0, true, true);
+      expect(swiper.slideNext).toHaveBeenNthCalledWith(2, 3000, true, true);
+    });
+
+    it("wraps via an instant slideTo() to the nearest matching position when reversed and slidePrev() genuinely declines, then retries slidePrev() at full speed", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, {
+        continuousAutoplay: true,
+        autoplay: true,
+        autoplayTime: 3,
+        direction: "reverse",
+      });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+      swiper.isBeginning = true;
+      swiper.activeIndex = 0;
+      swiper.snapGrid = [0, 100, 200, 300, 400, 500];
+      swiper.slidePrev.mockReturnValueOnce(false).mockReturnValue(true);
+
+      jest.advanceTimersByTime(6000);
+
+      // frozen translateX reads 0 — nearest snapGrid position excluding the stuck activeIndex (0, position 0) is index 1 (position 100).
+      expect(swiper.slideTo).toHaveBeenCalledWith(1, 0, true, true);
+      expect(swiper.slidePrev).toHaveBeenNthCalledWith(2, 3000, true, true);
+    });
+
+    it("falls back to index 0 when snapGrid data isn't available to compute a nearest position", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+      swiper.isEnd = true;
+      swiper.snapGrid = [];
+      swiper.slideNext.mockReturnValueOnce(false).mockReturnValue(true);
+
+      jest.advanceTimersByTime(6000);
+
+      expect(swiper.slideTo).toHaveBeenCalledWith(0, 0, true, true);
+    });
+
+    it("does not fall back to slideTo() when isEnd is transiently true but slideNext() still succeeds — the real regression: a forced full-track reverse while genuinely still moving forward", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 3 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+      swiper.animating = true;
+      swiper.isEnd = true;
+      swiper.slideNext.mockReturnValue(true);
+
+      jest.advanceTimersByTime(6000);
+
+      expect(swiper.slideNext).toHaveBeenCalledWith(3000, true, true);
+      expect(swiper.slideTo).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("continuousAutoplay — direction", () => {
+    beforeEach(() => {
+      mockIntersectionObserver();
+    });
+
+    it("advances backward via slidePrev when direction is reverse", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, {
+        continuousAutoplay: true,
+        autoplay: true,
+        autoplayTime: 5,
+        direction: "reverse",
+      });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(swiper.slidePrev).toHaveBeenCalledWith(5000, true, true);
+      expect(swiper.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("advances forward via slideNext by default", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 5 });
+      fireIntersection(container, true);
+      const swiper = mockLastInstance!;
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(swiper.slideNext).toHaveBeenCalledWith(5000, true, true);
+      expect(swiper.slidePrev).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("continuousAutoplay — watchdog cleanup", () => {
+    beforeEach(() => {
+      mockIntersectionObserver();
+    });
+
+    it("registers the stall watchdog's own cleanup against the swiper's destroy event", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+      fireIntersection(container, true);
+
+      expect(mockOnHandlers.destroy).toBeDefined();
+      expect(mockOnHandlers.destroy?.length).toBeGreaterThan(0);
+    });
+  });
+
   describe("continuousAutoplay — pause/resume on hover and focus, at any time", () => {
     beforeEach(() => {
       mockIntersectionObserver();
@@ -1026,10 +1246,7 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
       const pauseCallsBeforeRelease = mockLastInstance!.autoplay.pause.mock.calls.length;
 
-      // Simulate Swiper's own internal FreeMode+Autoplay interaction forcing
-      // a resume the instant the drag ends, as it does for any drag lasting
-      // past its own 200ms threshold — this happens synchronously inside
-      // Swiper's core touchend handling, before our own release logic runs.
+      // Simulates Swiper's own FreeMode+Autoplay forcing a resume synchronously as the drag ends, before our own release logic runs.
       mockLastInstance!.autoplay.resume();
       text.dispatchEvent(
         new MouseEvent("pointerup", { bubbles: true, clientX: 100, clientY: 100 })
@@ -1052,10 +1269,7 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
       const pauseCallsBeforeRelease = mockLastInstance!.autoplay.pause.mock.calls.length;
 
-      // Simulate Swiper's own internal FreeMode+Autoplay interaction forcing
-      // a resume the instant the drag ends, exactly as it does for a mouse
-      // drag — this happens synchronously inside Swiper's core touchend
-      // handling, before our own release logic runs.
+      // Simulates Swiper's own FreeMode+Autoplay forcing a resume synchronously as the drag ends, before our own release logic runs.
       mockLastInstance!.autoplay.resume();
       const touchPointerUp = new Event("pointerup", { bubbles: true }) as PointerEvent;
       Object.defineProperty(touchPointerUp, "pointerType", { value: "touch" });
@@ -1363,6 +1577,68 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       dispatchModal("kt-modal:close", trigger);
 
       expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+
+    it("still resumes on close even though modal-manager.ts returns focus to the trigger first — that native focusin would otherwise leave `focused` stuck true forever with no focusout ever coming to clear it", () => {
+      const container = buildContainer(3);
+      const trigger = container.querySelector(".swiper-slide") as HTMLElement;
+      trigger.tabIndex = 0;
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      dispatchModal("kt-modal:open", trigger);
+      // modal-manager.ts's closeModal() calls trigger.focus() before dispatching kt-modal:close — reproduced here as the same two real, ordered events.
+      trigger.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+      dispatchModal("kt-modal:close", trigger);
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("continuousAutoplay — scroll resumes a stuck pause with no genuine reason left", () => {
+    beforeEach(() => {
+      mockIntersectionObserver();
+    });
+
+    afterEach(() => {
+      document.body.innerHTML = "";
+    });
+
+    it("resumes on scroll when paused with focus stuck true but no real hover/press/modal reason remaining", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+      expect(mockLastInstance?.setTransition).toHaveBeenCalledWith(0);
+      mockLastInstance?.slideNext.mockClear();
+
+      window.dispatchEvent(new Event("scroll"));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not override a genuine, ongoing hover just because the page scrolled", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      mockLastInstance?.slideNext.mockClear();
+
+      window.dispatchEvent(new Event("scroll"));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("does nothing on scroll while not paused at all", () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+
+      window.dispatchEvent(new Event("scroll"));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
     });
   });
 

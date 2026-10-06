@@ -7,7 +7,7 @@ How secrets are provided to Claude Code in this theme, and — the part that tri
 All of these live in the **theme root** (`wp-content/themes/kotlinskidev/`):
 
 | File | Committed | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `.env` | No (gitignored) | The actual secrets: `WP_MCP_API_KEY` (local site) and `WP_MCP_API_KEY_PROD` (production, once set up). |
 | `.env.example` | Yes | Template listing the required variables with placeholder values. |
 | `.envrc` | Yes | direnv config — a single `dotenv` directive that auto-loads `.env`. |

@@ -133,3 +133,128 @@
 	box-shadow: $box-shadow1, $box-shadow2 !important;
 	border: none !important;
 }
+
+@function px-to-rem($px) {
+
+	@return ($px / 16) * 1rem;
+}
+
+@mixin reveal-animation-base($duration: 1.5s) {
+	opacity: 0;
+	transition:
+		opacity $duration cubic-bezier(0.4, 0, 0.2, 1),
+		transform $duration cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: opacity, transform;
+}
+
+@mixin reveal-opacity-only($duration: 1.5s) {
+	opacity: 0;
+	transition: opacity $duration cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: opacity;
+
+	&.visible {
+		opacity: var(--hover-opacity-from, 1);
+	}
+}
+
+@mixin reveal-animation-visible {
+	opacity: var(--hover-opacity-from, 1);
+	transform: none;
+}
+
+@mixin reveal-fade-direction($direction, $distance: 1.875rem, $duration: 1.5s) {
+
+	@include reveal-animation-base($duration);
+
+	@if $direction == "up" {
+		transform: translateY($distance);
+	} @else if $direction == "left" {
+		transform: translateX(-$distance);
+	} @else if $direction == "right" {
+		transform: translateX($distance);
+	}
+
+	&.visible {
+
+		@include reveal-animation-visible;
+	}
+}
+
+@mixin reveal-flip-animation($direction, $rotation: 90deg, $duration: 1.5s) {
+
+	@include reveal-animation-base($duration);
+	transform-origin: center center;
+
+	@if $direction == "up" {
+		transform: perspective(1000px) rotateX($rotation);
+	} @else if $direction == "down" {
+		transform: perspective(1000px) rotateX(-$rotation);
+	} @else if $direction == "left" {
+		transform: perspective(1000px) rotateY($rotation);
+	} @else if $direction == "right" {
+		transform: perspective(1000px) rotateY(-$rotation);
+	}
+
+	&.visible {
+		opacity: 1;
+		transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+	}
+}
+
+@mixin reveal-generate-translate-distances($direction) {
+	$distances: (
+		"sm": px-to-rem(20),
+		"md": px-to-rem(40),
+		"lg": px-to-rem(60),
+		"xl": px-to-rem(80),
+		"2xl": px-to-rem(100),
+	);
+
+	@each $size, $distance in $distances {
+		&.translate-#{$size} {
+
+			@if $direction == "up" {
+				transform: translateY($distance);
+			} @else if $direction == "left" {
+				transform: translateX(-$distance);
+			} @else if $direction == "right" {
+				transform: translateX($distance);
+			}
+
+			&.visible {
+
+				@include reveal-animation-visible;
+			}
+		}
+	}
+}
+
+@mixin reveal-generate-flip-rotations($direction) {
+	$rotations: (
+		"sm": 45deg,
+		"md": 90deg,
+		"lg": 120deg,
+		"xl": 150deg,
+		"2xl": 180deg,
+	);
+
+	@each $size, $rotation in $rotations {
+		&.translate-#{$size} {
+
+			@if $direction == "up" {
+				transform: perspective(1000px) rotateX($rotation);
+			} @else if $direction == "down" {
+				transform: perspective(1000px) rotateX(-$rotation);
+			} @else if $direction == "left" {
+				transform: perspective(1000px) rotateY($rotation);
+			} @else if $direction == "right" {
+				transform: perspective(1000px) rotateY(-$rotation);
+			}
+
+			&.visible {
+				opacity: 1;
+				transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+			}
+		}
+	}
+}

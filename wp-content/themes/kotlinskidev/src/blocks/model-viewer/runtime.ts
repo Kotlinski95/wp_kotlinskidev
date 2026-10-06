@@ -240,7 +240,6 @@ export function mountModelViewer(button: HTMLButtonElement, canvas: HTMLCanvasEl
         action.loop = THREE.LoopOnce;
         clipDurationMs = clip.duration * 1000;
       } else if (process.env.NODE_ENV !== "production") {
-        // eslint-disable-next-line no-console
         console.warn(`model-viewer: no animation clip named "${clipName}" found in ${modelUrl}`);
       }
 
@@ -263,7 +262,6 @@ export function mountModelViewer(button: HTMLButtonElement, canvas: HTMLCanvasEl
     },
     undefined,
     (error: unknown) => {
-      // eslint-disable-next-line no-console
       console.error("model-viewer: failed to load model", modelUrl, error);
     }
   );

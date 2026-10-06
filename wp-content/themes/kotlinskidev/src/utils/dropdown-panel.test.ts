@@ -1,6 +1,7 @@
 import { initDropdownPanels } from "./dropdown-panel";
 import { registerPanel, closeAllExcept } from "./panel-coordinator";
 import { lockScroll, unlockScroll } from "./scroll-lock";
+import { NAV_PANEL_OPEN_EVENT, NAV_PANEL_CLOSE_EVENT } from "./nav-reveal-events";
 
 jest.mock("./panel-coordinator", () => ({
   registerPanel: jest.fn(),
@@ -33,8 +34,23 @@ const config = {
 };
 
 describe("initDropdownPanels", () => {
+  let documentListeners: Array<{ type: string; listener: EventListener }>;
+  const originalAddEventListener = document.addEventListener.bind(document);
+
+  beforeEach(() => {
+    documentListeners = [];
+    jest.spyOn(document, "addEventListener").mockImplementation((type, listener, options) => {
+      if (type === "click" || type === "keydown") {
+        documentListeners.push({ type, listener: listener as EventListener });
+      }
+      return originalAddEventListener(type, listener as EventListener, options);
+    });
+  });
+
   afterEach(() => {
+    documentListeners.forEach(({ type, listener }) => document.removeEventListener(type, listener));
     document.body.innerHTML = "";
+    jest.restoreAllMocks();
     jest.clearAllMocks();
   });
 
@@ -78,6 +94,45 @@ describe("initDropdownPanels", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     expect(modal.getAttribute("aria-hidden")).toBe("true");
     expect(unlockScroll).toHaveBeenCalledWith(config.rootSelector);
+  });
+
+  it("dispatches kt:nav-panel-open with the modal element when opened", () => {
+    const { trigger, modal } = buildPanel();
+    const handler = jest.fn();
+    document.addEventListener(NAV_PANEL_OPEN_EVENT, handler);
+    initDropdownPanels(config);
+
+    trigger.click();
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect((handler.mock.calls[0][0] as CustomEvent).detail).toEqual({ container: modal });
+    document.removeEventListener(NAV_PANEL_OPEN_EVENT, handler);
+  });
+
+  it("dispatches kt:nav-panel-close with the modal element when closed", () => {
+    const { trigger, modal } = buildPanel();
+    const handler = jest.fn();
+    document.addEventListener(NAV_PANEL_CLOSE_EVENT, handler);
+    initDropdownPanels(config);
+    trigger.click();
+
+    trigger.click();
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect((handler.mock.calls[0][0] as CustomEvent).detail).toEqual({ container: modal });
+    document.removeEventListener(NAV_PANEL_CLOSE_EVENT, handler);
+  });
+
+  it("does not dispatch kt:nav-panel-close when closeAll runs but the panel was never open", () => {
+    buildPanel();
+    const handler = jest.fn();
+    document.addEventListener(NAV_PANEL_CLOSE_EVENT, handler);
+    initDropdownPanels(config);
+
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+
+    expect(handler).not.toHaveBeenCalled();
+    document.removeEventListener(NAV_PANEL_CLOSE_EVENT, handler);
   });
 
   it("calls onOpen with the modal element when opened", () => {

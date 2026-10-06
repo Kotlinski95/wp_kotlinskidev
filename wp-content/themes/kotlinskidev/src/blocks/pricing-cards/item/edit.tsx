@@ -45,10 +45,7 @@ export default function Edit({ attributes, setAttributes }: PricingCardEditProps
   ) as [ThemeFontSize[] | undefined, ThemeFontSize[] | undefined];
   const fontSizes = [...(customFontSizes ?? []), ...(themeFontSizes ?? [])];
 
-  // The color/gradient duo control fires the *other* value's onChange(undefined) in the same
-  // tick as the one the user picked, and both callbacks close over the same pre-click
-  // attributes — refs let each handler read/write the freshest value synchronously instead of a
-  // stale one, so picking a gradient can't be undone by the color callback firing right after.
+  // The color/gradient duo control fires the other value's onChange(undefined) in the same tick — refs keep each handler reading the freshest value instead of a stale one.
   const badgeTextColorRef = useRef(badgeTextColor);
   badgeTextColorRef.current = badgeTextColor;
   const badgeGradientRef = useRef(badgeGradient);

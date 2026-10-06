@@ -37,8 +37,7 @@ function lastConsentUpdate(page: Page) {
   });
 }
 
-// This suite deliberately does not call the shared acceptCookies() beforeEach hook —
-// each test drives the Complianz consent banner itself to assert the resulting gtag state.
+// Deliberately skips the shared acceptCookies() hook — each test drives the Complianz banner itself to assert the resulting gtag state.
 test.describe("GA4 Consent Mode v2 (functions/tracking-scripts.php)", () => {
   test("loads gtag.js unconditionally with every consent signal denied by default", async ({
     page,

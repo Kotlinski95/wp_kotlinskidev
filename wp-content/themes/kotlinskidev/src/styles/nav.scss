@@ -125,14 +125,14 @@ header::before {
 }
 
 .logo,
-.custom-logo-link {
+:where(.kt-header-logo) .custom-logo-link {
 	margin-left: 1.25rem;
 	z-index: 1001;
 	position: relative;
 }
 
 .logo a,
-.custom-logo-link a {
+:where(.kt-header-logo) .custom-logo-link a {
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -140,8 +140,8 @@ header::before {
 
 .logo img,
 .logo svg,
-.custom-logo-link img,
-.custom-logo-link svg {
+:where(.kt-header-logo) .custom-logo-link img,
+:where(.kt-header-logo) .custom-logo-link svg {
 	max-height: 4rem;
 	max-width: 6.25rem;
 	width: auto;

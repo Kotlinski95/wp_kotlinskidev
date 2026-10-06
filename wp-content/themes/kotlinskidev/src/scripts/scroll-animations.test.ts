@@ -42,6 +42,17 @@ describe("scroll-animations.ts — with IntersectionObserver", () => {
     expect(observeSpy).toHaveBeenCalledWith(el);
   });
 
+  it("observes the opacity-only .appear-on-scroll element too", () => {
+    document.body.innerHTML = "";
+    const el = document.createElement("div");
+    el.className = "appear-on-scroll";
+    document.body.append(el);
+
+    require("./scroll-animations");
+
+    expect(observeSpy).toHaveBeenCalledWith(el);
+  });
+
   it("adds the visible class and stops observing once an element intersects", () => {
     const el = buildTargets();
     require("./scroll-animations");

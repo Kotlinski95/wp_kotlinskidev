@@ -33,6 +33,7 @@ describe("scroll-to-top.ts — button visibility and progress", () => {
   afterEach(() => {
     jest.restoreAllMocks();
     setScrollTop(0);
+    delete window.kotlinskidevProgrammaticScrollActive;
   });
 
   it("does nothing when the required markup is missing", () => {
@@ -131,6 +132,29 @@ describe("scroll-to-top.ts — button visibility and progress", () => {
     button.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", cancelable: true }));
 
     expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("flags a programmatic scroll in flight for the duration of the scroll-to-top animation, then clears it once settled", () => {
+    // Other scroll-reactive listeners read this window flag to ignore this animation's own scroll events — must stay true for the whole duration, not just at the start.
+    buildScrollToTopMarkup();
+    setScrollTop(0);
+    require("./scroll-to-top");
+    const button = document.getElementById("scroll-to-top") as HTMLElement;
+    const main = document.querySelector("main") as HTMLElement;
+
+    expect(window.kotlinskidevProgrammaticScrollActive).not.toBe(true);
+
+    let flagDuringScrollTo: boolean | undefined;
+    window.scrollTo = jest.fn(() => {
+      flagDuringScrollTo = window.kotlinskidevProgrammaticScrollActive;
+    });
+
+    button.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+
+    expect(flagDuringScrollTo).toBe(true);
+    // Mocked requestAnimationFrame runs waitForScrollEnd synchronously, so settling already happened by the time dispatchEvent returns.
+    expect(main.getAttribute("tabindex")).toBe("-1");
+    expect(window.kotlinskidevProgrammaticScrollActive).toBe(false);
   });
 
   it("does nothing on scroll-to-top click when <main> is missing", () => {

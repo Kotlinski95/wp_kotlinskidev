@@ -18,6 +18,7 @@ export interface InitSwiperOptions {
   forceLoop?: boolean;
   slideCount?: number;
   onSlideChange?: (index: number) => void;
+  disableNativeHoverPause?: boolean;
 }
 
 export const initSwiper = (
@@ -25,8 +26,15 @@ export const initSwiper = (
   settings: Partial<CarouselSettings>,
   options: InitSwiperOptions = {}
 ): Swiper => {
-  const { initialSlide, forceLoop, slideCount, onSlideChange } = options;
+  const { initialSlide, forceLoop, slideCount, onSlideChange, disableNativeHoverPause } = options;
   const config = buildSwiperConfig(settings);
+
+  if (disableNativeHoverPause && config.autoplay) {
+    (config as Record<string, unknown>).autoplay = {
+      ...(config.autoplay as object),
+      pauseOnMouseEnter: false,
+    };
+  }
 
   const navContainer =
     el.querySelector<HTMLElement>(".carousel-nav") ??

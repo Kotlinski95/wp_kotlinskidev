@@ -24,93 +24,38 @@ $kotlinskidev_cards = array(
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/link-cards-icon-led","name":"Link Cards Icon Led"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        .kotlinskidev-linkcards-icon {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(18.125rem, 1fr));
-            gap: 1.5rem;
-        }
-        .kotlinskidev-linkcards-icon__card {
-            display: flex;
-            flex-direction: column;
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            border-radius: 1.25rem;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: border-color 0.25s ease;
-        }
-        .kotlinskidev-linkcards-icon__card:hover {
-            border-color: var(--wp--preset--color--primary);
-        }
-        .kotlinskidev-linkcards-icon__head {
-            height: 6.5rem;
-            background: radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--wp--preset--color--primary) 10%, transparent), transparent 70%), var(--wp--preset--color--surface);
-            display: flex;
-            align-items: flex-end;
-            padding: 0 1.5rem;
-        }
-        .kotlinskidev-linkcards-icon__badge {
-            width: 3.5rem;
-            height: 3.5rem;
-            margin-bottom: -1.75rem;
-            border-radius: 1rem;
-            background: var(--wp--preset--color--background-alt);
-            border: 1px solid var(--wp--preset--color--divider);
-            display: grid;
-            place-items: center;
-        }
-        .kotlinskidev-linkcards-icon__badge img {
-            width: 1.75rem;
-            height: 1.75rem;
-        }
-        .kotlinskidev-linkcards-icon__body {
-            padding: 2.625rem 1.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            flex: 1;
-        }
-        .kotlinskidev-linkcards-icon__title {
-            font-size: 1.3125rem;
-            line-height: 1.25;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: -0.01em;
-            color: var(--wp--preset--color--foreground);
-        }
-        .kotlinskidev-linkcards-icon__desc {
-            font-size: 0.90625rem;
-            line-height: 1.6;
-            color: var(--wp--preset--color--foreground-alt);
-            margin: 0;
-        }
-        .kotlinskidev-linkcards-icon__link {
-            margin-top: auto;
-            padding-top: 0.875rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--wp--preset--color--primary);
-        }
-    </style>
-    <div class="kotlinskidev-linkcards-icon">
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"blockGap":"1.5rem"}},"layout":{"type":"grid","minimumColumnWidth":"18.125rem"}} -->
+    <div class="wp-block-group">
         <?php foreach ($kotlinskidev_cards as $kotlinskidev_card) : ?>
-        <a href="#" class="kotlinskidev-linkcards-icon__card">
-            <div class="kotlinskidev-linkcards-icon__head">
-                <div class="kotlinskidev-linkcards-icon__badge">
-                    <img src="<?php echo esc_url($kotlinskidev_card['icon']) ?>" alt="" loading="lazy" />
+        <!-- wp:group {"groupLinkUrl":"#","className":"kt-link-card","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.25rem"},"spacing":{"padding":{"top":"0","bottom":"0","left":"0","right":"0"},"blockGap":"0"}},"backgroundColor":"background-alt","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+        <div class="wp-block-group kt-link-card has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.25rem;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","bottom":"1.5rem","left":"1.5rem","right":"1.5rem"}}},"backgroundColor":"surface","layout":{"type":"flex","justifyContent":"left","verticalAlignment":"center"}} -->
+            <div class="wp-block-group has-surface-background-color has-background" style="padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1rem"}},"backgroundColor":"background-alt","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
+                <div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1rem"><!-- wp:image {"width":"1.75rem","height":"1.75rem","sizeSlug":"full","linkDestination":"none"} -->
+                    <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_card['icon']) ?>" alt="" style="width:1.75rem;height:1.75rem" /></figure>
+                    <!-- /wp:image -->
                 </div>
+                <!-- /wp:group -->
             </div>
-            <div class="kotlinskidev-linkcards-icon__body">
-                <h3 class="kotlinskidev-linkcards-icon__title"><?php echo esc_html($kotlinskidev_card['title']) ?></h3>
-                <p class="kotlinskidev-linkcards-icon__desc"><?php echo esc_html($kotlinskidev_card['desc']) ?></p>
-                <span class="kotlinskidev-linkcards-icon__link"><?php esc_html_e('See more →', 'kotlinskidev') ?></span>
+            <!-- /wp:group -->
+
+            <!-- wp:group {"style":{"spacing":{"padding":{"top":"1.5rem","bottom":"1.5rem","left":"1.5rem","right":"1.5rem"},"blockGap":"0.75rem"}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+            <div class="wp-block-group" style="padding-top:1.5rem;padding-right:1.5rem;padding-bottom:1.5rem;padding-left:1.5rem"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
+                <h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_card['title']) ?></h3>
+                <!-- /wp:heading -->
+
+                <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"small"} -->
+                <p class="has-foreground-alt-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_card['desc']) ?></p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"auto","bottom":"0"}},"typography":{"fontWeight":"600"},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"small"} -->
+                <p class="has-primary-color has-text-color has-link-color has-small-font-size" style="margin-top:auto;margin-bottom:0;font-weight:600"><?php esc_html_e('See more →', 'kotlinskidev') ?></p>
+                <!-- /wp:paragraph -->
             </div>
-        </a>
+            <!-- /wp:group -->
+        </div>
+        <!-- /wp:group -->
         <?php endforeach; ?>
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:group -->
 </div>
 <!-- /wp:group -->

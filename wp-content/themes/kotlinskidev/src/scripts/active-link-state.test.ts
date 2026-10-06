@@ -4,14 +4,7 @@ function loadScript() {
 }
 
 function setLocation(pathname: string) {
-  Object.defineProperty(window, "location", {
-    configurable: true,
-    value: {
-      pathname,
-      origin: "http://example.test",
-      href: `http://example.test${pathname}`,
-    },
-  });
+  window.history.pushState({}, "", `http://example.test${pathname}`);
 }
 
 describe("active-link-state.ts", () => {

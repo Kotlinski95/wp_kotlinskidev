@@ -53,83 +53,41 @@ $kotlinskidev_timeline_steps = array(
 );
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/how-to-prepare-timeline","name":"How To Prepare Timeline"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"53.75rem"}} -->
-<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:html -->
-    <style>
-        .kotlinskidev-htp-timeline__row {
-            display: flex;
-            gap: 1.625rem;
-        }
-        .kotlinskidev-htp-timeline__rail {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: none;
-            width: 2.75rem;
-        }
-        .kotlinskidev-htp-timeline__badge {
-            width: 2.75rem;
-            height: 2.75rem;
-            border-radius: 50%;
-            border: 1px solid var(--wp--preset--color--divider);
-            background: var(--wp--preset--color--surface);
-            display: grid;
-            place-items: center;
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--wp--preset--color--primary);
-            flex: none;
-        }
-        .kotlinskidev-htp-timeline__connector {
-            flex: 1;
-            width: 1px;
-            background: var(--wp--preset--color--divider);
-            margin: 0.5rem 0;
-        }
-        .kotlinskidev-htp-timeline__content {
-            flex: 1;
-            min-width: 0;
-            padding-bottom: 2.25rem;
-        }
-        .kotlinskidev-htp-timeline__title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: var(--wp--preset--color--foreground);
-            margin: 0 0 0.375rem;
-        }
-        .kotlinskidev-htp-timeline__desc {
-            font-size: 0.9375rem;
-            line-height: 1.7;
-            color: var(--wp--preset--color--foreground-alt);
-            margin: 0 0 0.875rem;
-        }
-        .kotlinskidev-htp-timeline__chip {
-            display: inline-block;
-            font-size: 0.78125rem;
-            font-weight: 600;
-            color: var(--wp--preset--color--primary);
-            background: color-mix(in srgb, var(--wp--preset--color--primary) 12%, transparent);
-            border-radius: 999px;
-            padding: 0.375rem 0.75rem;
-        }
-    </style>
-    <div class="kotlinskidev-htp-timeline">
+<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+    <div class="wp-block-group">
         <?php foreach ($kotlinskidev_timeline_steps as $kotlinskidev_i => $kotlinskidev_step) : ?>
-        <div class="kotlinskidev-htp-timeline__row">
-            <div class="kotlinskidev-htp-timeline__rail">
-                <span class="kotlinskidev-htp-timeline__badge"><?php echo esc_html(sprintf('%02d', $kotlinskidev_i + 1)) ?></span>
+        <!-- wp:group {"className":"kt-timeline-row","style":{"spacing":{"blockGap":"1.625rem"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+        <div class="wp-block-group kt-timeline-row"><!-- wp:group {"className":"kt-timeline-rail","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch","verticalAlignment":"center"}} -->
+            <div class="wp-block-group kt-timeline-rail"><!-- wp:paragraph {"align":"center","className":"kt-timeline-badge","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"50%"},"spacing":{"padding":{"top":"0.75rem","bottom":"0.75rem","left":"0.75rem","right":"0.75rem"},"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"700"}},"backgroundColor":"surface","textColor":"primary","fontSize":"small"} -->
+                <p class="kt-timeline-badge has-primary-color has-surface-background-color has-text-color has-background has-text-align-center has-small-font-size" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:50%;margin-top:0;margin-bottom:0;padding-top:0.75rem;padding-right:0.75rem;padding-bottom:0.75rem;padding-left:0.75rem;font-weight:700"><?php echo esc_html(sprintf('%02d', $kotlinskidev_i + 1)) ?></p>
+                <!-- /wp:paragraph -->
+
                 <?php if ($kotlinskidev_i < count($kotlinskidev_timeline_steps) - 1) : ?>
-                <span class="kotlinskidev-htp-timeline__connector"></span>
+                <!-- wp:group {"className":"kt-timeline-connector","backgroundColor":"divider","layout":{"type":"default"}} -->
+                <div class="wp-block-group kt-timeline-connector has-divider-background-color has-background"></div>
+                <!-- /wp:group -->
                 <?php endif; ?>
             </div>
-            <div class="kotlinskidev-htp-timeline__content">
-                <div class="kotlinskidev-htp-timeline__title"><?php echo esc_html($kotlinskidev_step['title']) ?></div>
-                <p class="kotlinskidev-htp-timeline__desc"><?php echo esc_html($kotlinskidev_step['desc']) ?></p>
-                <span class="kotlinskidev-htp-timeline__chip"><?php echo esc_html($kotlinskidev_step['chip']) ?></span>
+            <!-- /wp:group -->
+
+            <!-- wp:group {"className":"kt-timeline-content","style":{"spacing":{"blockGap":"0.875rem","padding":{"bottom":"2.25rem"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+            <div class="wp-block-group kt-timeline-content" style="padding-bottom:2.25rem"><!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
+                <h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_step['title']) ?></h3>
+                <!-- /wp:heading -->
+
+                <!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
+                <p class="has-foreground-alt-color has-text-color has-link-color" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_step['desc']) ?></p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:paragraph {"style":{"border":{"radius":"999px"},"spacing":{"padding":{"top":"0.375rem","bottom":"0.375rem","left":"0.75rem","right":"0.75rem"},"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":"600"}},"backgroundColor":"divider","textColor":"primary","fontSize":"small"} -->
+                <p class="has-primary-color has-divider-background-color has-text-color has-background has-small-font-size" style="border-radius:999px;margin-top:0;margin-bottom:0;padding-top:0.375rem;padding-right:0.75rem;padding-bottom:0.375rem;padding-left:0.75rem;font-weight:600"><?php echo esc_html($kotlinskidev_step['chip']) ?></p>
+                <!-- /wp:paragraph -->
             </div>
+            <!-- /wp:group -->
         </div>
+        <!-- /wp:group -->
         <?php endforeach; ?>
     </div>
-    <!-- /wp:html -->
+    <!-- /wp:group -->
 </div>
 <!-- /wp:group -->

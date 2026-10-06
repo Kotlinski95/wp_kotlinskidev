@@ -2,7 +2,7 @@ import React from "react";
 import { useBlockProps, useInnerBlocksProps, InspectorControls } from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
-import { PanelBody, Button, RangeControl } from "@wordpress/components";
+import { PanelBody, Button, RangeControl, SelectControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import "./style.scss";
 
@@ -23,6 +23,8 @@ const ITEMS_TEMPLATE: InnerTemplate[] = [
 
 export interface MarqueeAttributes {
   speed: number;
+  direction: "normal" | "reverse";
+  gap: number;
 }
 
 interface BlockEditorSelectors {
@@ -96,6 +98,24 @@ export default function Edit({ attributes, setAttributes, clientId }: MarqueeEdi
             max={120}
             value={attributes.speed}
             onChange={(value) => setAttributes({ speed: value ?? 30 })}
+          />
+          <SelectControl
+            label={__("Direction", "kotlinskidev")}
+            value={attributes.direction}
+            options={[
+              { label: __("Left (normal)", "kotlinskidev"), value: "normal" },
+              { label: __("Right (reverse)", "kotlinskidev"), value: "reverse" },
+            ]}
+            onChange={(value) =>
+              setAttributes({ direction: value === "reverse" ? "reverse" : "normal" })
+            }
+          />
+          <RangeControl
+            label={__("Spacing between items (px)", "kotlinskidev")}
+            min={0}
+            max={160}
+            value={attributes.gap}
+            onChange={(value) => setAttributes({ gap: value ?? 40 })}
           />
           <p className="kt-marquee-sidebar__count">
             {innerBlocks.length} {__("item(s)", "kotlinskidev")}

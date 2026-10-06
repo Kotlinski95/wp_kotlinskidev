@@ -1,17 +1,12 @@
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import { InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, RangeControl, ToggleControl } from "@wordpress/components";
+import { PanelBody, ToggleControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 
-export const PARALLAX_INTENSITY_DEFAULT = 15;
-export const PARALLAX_INTENSITY_MIN = 0;
-export const PARALLAX_INTENSITY_MAX = 30;
-
 interface ParallaxAttributes {
   enableParallax?: boolean;
-  parallaxIntensity?: number;
 }
 
 interface CoverBlockAttributes extends ParallaxAttributes {
@@ -41,10 +36,6 @@ addFilter(
           type: "boolean",
           default: false,
         },
-        parallaxIntensity: {
-          type: "number",
-          default: PARALLAX_INTENSITY_DEFAULT,
-        },
       },
     };
   }
@@ -58,7 +49,7 @@ const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
       return <BlockEdit {...props} />;
     }
 
-    const { enableParallax = false, parallaxIntensity = PARALLAX_INTENSITY_DEFAULT } = attributes;
+    const { enableParallax = false } = attributes;
 
     return (
       <Fragment>
@@ -78,21 +69,6 @@ const withParallaxControls = createHigherOrderComponent((BlockEdit) => {
               checked={enableParallax}
               onChange={(value: boolean) => setAttributes({ enableParallax: value })}
             />
-            {enableParallax && (
-              <RangeControl
-                label={__("Parallax Intensity", "kotlinskidev")}
-                help={__(
-                  "How far the background shifts relative to the content while scrolling. Only applies on pages where a horizontal scroll section forces the fallback effect.",
-                  "kotlinskidev"
-                )}
-                value={parallaxIntensity}
-                min={PARALLAX_INTENSITY_MIN}
-                max={PARALLAX_INTENSITY_MAX}
-                onChange={(value?: number) =>
-                  setAttributes({ parallaxIntensity: value ?? PARALLAX_INTENSITY_DEFAULT })
-                }
-              />
-            )}
           </PanelBody>
         </InspectorControls>
       </Fragment>

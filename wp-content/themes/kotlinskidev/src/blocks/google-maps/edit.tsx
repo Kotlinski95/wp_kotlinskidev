@@ -186,7 +186,6 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
         }
       }
     }
-    // eslint-disable-next-line
   }, [
     apiKey,
     address,

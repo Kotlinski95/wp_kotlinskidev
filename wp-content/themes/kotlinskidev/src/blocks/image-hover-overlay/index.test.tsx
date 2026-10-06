@@ -30,9 +30,7 @@ jest.mock("@wordpress/block-editor", () => ({
             </button>
             <button
               onClick={() => {
-                // Real ColorGradientControl behavior when picking a flat swatch: it fires
-                // onColorChange(value) immediately followed by onGradientChange(undefined)
-                // to clear the "other" representation, in the same click.
+                // Real ColorGradientControl behavior: fires onColorChange then onGradientChange(undefined) in the same click.
                 props.onColorChange("#123456");
                 props.onGradientChange?.(undefined);
               }}
