@@ -53,9 +53,9 @@
 	--kt-hover-transform-duration: 0.3s;
 	--kt-hover-transform-easing: ease-in-out;
 	cursor: pointer;
-	will-change: transform;
 
 	&:hover {
+		will-change: transform;
 		transform: var(--kt-hover-fx-move, translateY(0)) var(--kt-hover-fx-scale, scale(1)) var(--kt-hover-fx-rotate, rotate(0deg));
 	}
 }
@@ -82,6 +82,7 @@
 		video,
 		.wp-block-cover__image-background,
 		.wp-block-cover__video-background {
+			will-change: transform;
 			transform: scale(1.08);
 		}
 	}
@@ -95,6 +96,7 @@
 	cursor: pointer;
 
 	&:hover {
+		will-change: opacity;
 		opacity: 0.8;
 	}
 }
@@ -108,6 +110,7 @@
 	opacity: var(--hover-opacity-from, 1);
 
 	&:hover {
+		will-change: opacity;
 		opacity: var(--hover-opacity-to, 1);
 	}
 }
@@ -117,37 +120,55 @@
 	@include hover.compose;
 	--kt-hover-color-duration: 0.3s;
 	--kt-hover-color-easing: ease-in-out;
+}
 
-	&:hover {
-		background: var(--hover-bg-color, inherit);
-		color: var(--hover-text-color, inherit);
-	}
+.has-hover-bg-color:not(.wp-block-button):hover {
+	background: var(--hover-bg-color) !important;
+}
 
-	&.has-hover-text-gradient:hover {
-		color: inherit;
+.has-hover-text-color:hover {
+	color: var(--hover-text-color) !important;
+
+	&.has-hover-text-gradient {
+		color: inherit !important;
 
 		@include gradient-text(var(--hover-text-color));
+	}
+}
+
+.has-hover-border {
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.3s;
+	--kt-hover-color-easing: ease-in-out;
+
+	&:hover {
+		border-color: var(--hover-border-color) !important;
 	}
 }
 
 .constant-bounce {
 	animation: constant-bounce 2s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 .constant-bounce-subtle {
 	animation: constant-bounce-subtle 2.5s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 .constant-bounce-strong {
 	animation: constant-bounce-strong 1.8s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 .constant-bounce-fast {
 	animation: constant-bounce-fast 1.2s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 @keyframes constant-bounce {

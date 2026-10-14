@@ -1,10 +1,20 @@
 import React, { type ComponentType, type CSSProperties } from "react";
-import { InspectorControls, RichText, useBlockProps } from "@wordpress/block-editor";
+import { InnerBlocks, InspectorControls, RichText, useBlockProps } from "@wordpress/block-editor";
 import * as blockEditor from "@wordpress/block-editor";
-import { PanelBody, RangeControl, TextControl } from "@wordpress/components";
+import { PanelBody, RangeControl, TextControl, ToggleControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import type { BlockEditProps } from "@wordpress/blocks";
 import { ButtonColorPanel } from "./ButtonColorControls";
+
+export const BUTTON_ALLOWED_BLOCKS = [
+  "core/paragraph",
+  "kotlinskidev/protected-content",
+  "kotlinskidev/icon",
+];
+
+const BUTTON_CONTENT_TEMPLATE: [string, Record<string, unknown>][] = [
+  ["core/paragraph", { placeholder: __("Add text…", "kotlinskidev") }],
+];
 
 export interface ButtonAttributes {
   text: string;
@@ -24,6 +34,8 @@ export interface ButtonAttributes {
   hoverBackgroundGradient: string;
   hoverBorderColor: string;
   hoverBorderGradient: string;
+  hoverEnhancedGlow: boolean;
+  useInnerBlocks: boolean;
 }
 
 interface LinkControlValue {
@@ -69,6 +81,8 @@ export default function ButtonEdit({
     hoverBackgroundGradient,
     hoverBorderColor,
     hoverBorderGradient,
+    hoverEnhancedGlow,
+    useInnerBlocks,
   } = attributes;
 
   const linkStyle = {
@@ -107,6 +121,17 @@ export default function ButtonEdit({
             )}
             value={rel}
             onChange={(value) => setAttributes({ rel: value })}
+          />
+        </PanelBody>
+        <PanelBody title={__("Content", "kotlinskidev")} initialOpen={false}>
+          <ToggleControl
+            label={__("Allow nested blocks", "kotlinskidev")}
+            help={__(
+              "Switch the label to a block area so you can add Paragraph, Protected Content, Icon, etc. instead of plain text.",
+              "kotlinskidev"
+            )}
+            checked={useInnerBlocks}
+            onChange={(value) => setAttributes({ useInnerBlocks: value })}
           />
         </PanelBody>
         <PanelBody title={__("Border width", "kotlinskidev")} initialOpen={false}>
@@ -165,16 +190,41 @@ export default function ButtonEdit({
             onGradientChange: (gradient) => setAttributes({ hoverBorderGradient: gradient }),
           }}
         />
+        <PanelBody title={__("Enhanced hover effect", "kotlinskidev")} initialOpen={false}>
+          <ToggleControl
+            label={__("Cursor glow", "kotlinskidev")}
+            help={__(
+              "A soft glow in the Hover text color above that follows the cursor. Set a Hover text color above for this to be visible — while this is on, that color only drives the glow and no longer recolors the whole button text on hover.",
+              "kotlinskidev"
+            )}
+            checked={hoverEnhancedGlow}
+            onChange={(value) => setAttributes({ hoverEnhancedGlow: value })}
+          />
+        </PanelBody>
       </InspectorControls>
-      <a className="kt-button__link" style={linkStyle} href={url || undefined}>
-        <RichText
-          tagName="span"
-          className="kt-button__label"
-          style={labelStyle}
-          value={text}
-          onChange={(value) => setAttributes({ text: value })}
-          placeholder={__("Add text…", "kotlinskidev")}
-        />
+      <a
+        className={`kt-button__link${hoverEnhancedGlow ? " has-enhanced-hover-glow" : ""}`}
+        style={linkStyle}
+        href={url || undefined}
+      >
+        {useInnerBlocks ? (
+          <span className="kt-button__label" style={labelStyle}>
+            <InnerBlocks
+              allowedBlocks={BUTTON_ALLOWED_BLOCKS}
+              template={BUTTON_CONTENT_TEMPLATE}
+              templateLock={false}
+            />
+          </span>
+        ) : (
+          <RichText
+            tagName="span"
+            className="kt-button__label"
+            style={labelStyle}
+            value={text}
+            onChange={(value) => setAttributes({ text: value })}
+            placeholder={__("Add text…", "kotlinskidev")}
+          />
+        )}
       </a>
     </div>
   );

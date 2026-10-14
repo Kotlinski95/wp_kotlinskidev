@@ -1,16 +1,20 @@
+@use "hover-transitions" as hover;
+
 .kt-link-card {
 	overflow: hidden;
-	transition: border-color 0.25s ease;
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.25s;
+	--kt-hover-color-easing: ease;
 
 	&:hover,
 	&:focus-visible {
-		border-color: var(--wp--preset--color--primary) !important;
+		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
 	}
 
 	&--lift {
-		transition:
-			border-color 0.25s ease,
-			transform 0.25s ease;
+		--kt-hover-transform-duration: 0.25s;
+		--kt-hover-transform-easing: ease;
 
 		&:hover,
 		&:focus-visible {
@@ -19,20 +23,22 @@
 	}
 
 	&--hover-surface {
-		transition: background-color 0.25s ease;
 
 		&:hover,
 		&:focus-visible {
-			background-color: var(--wp--preset--color--surface) !important;
+			background-color: var(--hover-bg-color, var(--wp--preset--color--surface)) !important;
 		}
 	}
 }
 
 .kt-pill-link {
-	transition: border-color 0.25s ease;
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.25s;
+	--kt-hover-color-easing: ease;
 
 	&:hover,
 	&:focus-visible {
-		border-color: var(--wp--preset--color--primary) !important;
+		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
 	}
 }

@@ -2,11 +2,12 @@
 
 use Brain\Monkey\Functions;
 
-function kotlinskidev_button_render(array $attributes): string
+function kotlinskidev_button_render(array $attributes, string $content = ''): string
 {
     return kotlinskidev_render_block_file(
         __DIR__ . '/../../../src/blocks/button/render.php',
-        $attributes
+        $attributes,
+        $content
     );
 }
 
@@ -120,6 +121,35 @@ it('applies the text color to the label as a css custom property', function () {
     expect($html)->toContain('--kt-btn-color:#ffffff;');
 });
 
+it('renders a span (not an anchor) when useInnerBlocks is on and no url is set, to avoid nesting an anchor inside an anchor', function () {
+    $html = kotlinskidev_button_render(
+        ['url' => '', 'useInnerBlocks' => true],
+        '<span class="kt-protected-value"><a href="tel:+15551234567">Call me</a></span>'
+    );
+
+    expect(substr_count($html, '<a '))->toBe(1);
+    expect($html)->toContain('<span');
+    expect($html)->toContain('class="kt-button__link"');
+    expect($html)->toContain('<a href="tel:+15551234567">Call me</a>');
+});
+
+it('still renders a real anchor when useInnerBlocks is on and a url is set', function () {
+    $html = kotlinskidev_button_render(
+        ['url' => 'https://example.test', 'useInnerBlocks' => true],
+        '<p>Some content</p>'
+    );
+
+    expect($html)->toContain('<a');
+    expect($html)->toContain('class="kt-button__link"');
+    expect($html)->toContain('href="https://example.test"');
+    expect($html)->toContain('<p>Some content</p>');
+});
+
+it('renders nothing when useInnerBlocks is on and there is no inner content', function () {
+    expect(kotlinskidev_button_render(['url' => 'https://example.test', 'useInnerBlocks' => true], ''))
+        ->toBe('');
+});
+
 it('escapes the button text through wp_kses_post', function () {
     Functions\when('wp_kses_post')->alias(fn ($t) => str_replace('<script>', '', $t));
 
@@ -130,4 +160,62 @@ it('escapes the button text through wp_kses_post', function () {
 
     expect($html)->not->toContain('<script>');
     expect($html)->toContain('Click');
+});
+
+it('adds the has-enhanced-hover-glow class to the link when hoverEnhancedGlow is on', function () {
+    $html = kotlinskidev_button_render([
+        'text' => 'Click me',
+        'url' => 'https://example.test',
+        'hoverEnhancedGlow' => true,
+    ]);
+
+    expect($html)->toContain('class="kt-button__link has-enhanced-hover-glow"');
+});
+
+it('sets --kt-glow-spotlight-color from a flat hover text color', function () {
+    $html = kotlinskidev_button_render([
+        'text' => 'Click me',
+        'url' => 'https://example.test',
+        'hoverTextColor' => '#ffffff',
+        'hoverEnhancedGlow' => true,
+    ]);
+
+    expect($html)->toContain('--kt-glow-spotlight-color:#ffffff;');
+});
+
+it('does not set --kt-glow-spotlight-color when only a hover text gradient is set, since embedding a gradient string as a radial-gradient color-stop is invalid CSS', function () {
+    $html = kotlinskidev_button_render([
+        'text' => 'Click me',
+        'url' => 'https://example.test',
+        'hoverTextGradient' => 'linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%)',
+        'hoverEnhancedGlow' => true,
+    ]);
+
+    expect($html)->not->toContain('--kt-glow-spotlight-color');
+    expect($html)->toContain('--kt-btn-hover-color:linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%);');
+});
+
+it('adds has-kt-btn-hover-gradient to the link when a hover text gradient is set, so hover-glow.scss can pick its gradient-safe branch', function () {
+    $html = kotlinskidev_button_render([
+        'text' => 'Click me',
+        'url' => 'https://example.test',
+        'hoverTextGradient' => 'linear-gradient(to left, rgb(184, 150, 255) 0%, rgb(0, 246, 255) 60%)',
+        'hoverEnhancedGlow' => true,
+    ]);
+
+    expect($html)->toContain('class="kt-button__link has-enhanced-hover-glow has-kt-btn-hover-gradient"');
+});
+
+it('does not add has-kt-btn-hover-gradient when only a flat hover text color is set, even an adaptive light-dark() one', function () {
+    $html = kotlinskidev_button_render([
+        'text' => 'Click me',
+        'url' => 'https://example.test',
+        'hoverTextColor' => 'light-dark(var(--wp--preset--color--primary-light), var(--wp--preset--color--primary-dark))',
+        'hoverEnhancedGlow' => true,
+    ]);
+
+    expect($html)->not->toContain('has-kt-btn-hover-gradient');
+    expect($html)->toContain(
+        '--kt-glow-spotlight-color:light-dark(var(--wp--preset--color--primary-light), var(--wp--preset--color--primary-dark));'
+    );
 });

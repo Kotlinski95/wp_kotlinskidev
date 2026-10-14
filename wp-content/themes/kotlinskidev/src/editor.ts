@@ -1,6 +1,7 @@
 import "./styles/editor-overrides.scss";
 import "./scripts/editor-theme-toggle";
 import "./formats/gradient-highlight/index";
+import "./formats/glow-text/index";
 import "./utils/class-picker/index";
 import "./blocks/scroll-animations/index";
 import "./blocks/scroll-section-pin-boundary/index";
@@ -27,7 +28,6 @@ import "./blocks/faq-layout/index.tsx";
 import "./blocks/parallax/index.tsx";
 import "./blocks/animated-counter/index.tsx";
 import "./blocks/navigation/nav-icon-filter.tsx";
-import "./blocks/button-styles/index";
 import "./blocks/text-shadow-support/index";
 import "./blocks/text-line-clamp/index";
 import "./blocks/above-fold/index.tsx";

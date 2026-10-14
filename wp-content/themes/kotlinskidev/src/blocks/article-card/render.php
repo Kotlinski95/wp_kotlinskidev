@@ -1,2 +1,2 @@
 <?php
-echo kotlinskidev_render_article_card_embed( absint( $attributes['cardId'] ?? 0 ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_article_card_embed() renders trusted, already-escaped block template output
+echo kotlinskidev_merge_article_card_block_supports( kotlinskidev_render_article_card_embed( absint( $attributes['cardId'] ?? 0 ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_article_card_embed() renders trusted, already-escaped block template output; kotlinskidev_merge_article_card_block_supports() only merges WP_Block_Supports' own self-escaped class/style values onto the root tag

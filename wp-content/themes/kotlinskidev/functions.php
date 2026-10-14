@@ -8,6 +8,9 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+// Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
+require_once get_template_directory() . '/functions/feature-toggles.php';
+
 // Sentry error monitoring — loaded early so it can catch fatals from anything that follows
 require_once get_template_directory() . '/functions/error-monitoring.php';
 
@@ -22,6 +25,9 @@ require_once get_template_directory() . '/includes/i18n.php';
 
 // Register custom blocks via block.json
 require_once get_template_directory() . '/functions/blocks.php';
+
+// Register core/button style variants (Fill/Outline/Gradient Outline x light/dark/adaptive/adaptive-contrast)
+require_once get_template_directory() . '/functions/button-style-variants.php';
 
 // Manageable modal content system: kt_modal CPT, link triggers, footer render
 require_once get_template_directory() . '/functions/modals.php';
@@ -233,6 +239,8 @@ require_once get_template_directory() . '/functions/contact-card.php';
 
 require_once get_template_directory() . '/functions/article-card.php';
 require_once get_template_directory() . '/functions/project-card.php';
+require_once get_template_directory() . '/functions/certificate.php';
+require_once get_template_directory() . '/functions/certificate-badge-fetch.php';
 require_once get_template_directory() . '/functions/translated-text.php';
 require_once get_template_directory() . '/functions/marquee.php';
 

@@ -18,9 +18,19 @@ interface RichTextProps {
 
 let lastRichTextProps: RichTextProps | null = null;
 
+interface InnerBlocksProps {
+  allowedBlocks: string[];
+}
+
+let lastInnerBlocksProps: InnerBlocksProps | null = null;
+
 jest.mock("@wordpress/block-editor", () => ({
   useBlockProps: (props: Record<string, unknown>) => props,
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  InnerBlocks: (props: InnerBlocksProps) => {
+    lastInnerBlocksProps = props;
+    return <div data-testid="inner-blocks" />;
+  },
   RichText: (props: RichTextProps) => {
     lastRichTextProps = props;
     return <span data-testid="rich-text">{props.value}</span>;
@@ -75,6 +85,8 @@ function baseAttributes() {
     hoverBackgroundGradient: "",
     hoverBorderColor: "",
     hoverBorderGradient: "",
+    hoverEnhancedGlow: false,
+    useInnerBlocks: false,
   };
 }
 
@@ -82,6 +94,39 @@ describe("button Edit", () => {
   beforeEach(() => {
     lastLinkControlProps = null;
     lastRichTextProps = null;
+    lastInnerBlocksProps = null;
+  });
+
+  it("renders RichText, not InnerBlocks, when useInnerBlocks is off", () => {
+    render(<Edit attributes={baseAttributes()} setAttributes={jest.fn()} />);
+
+    expect(screen.getByTestId("rich-text")).toBeInTheDocument();
+    expect(screen.queryByTestId("inner-blocks")).not.toBeInTheDocument();
+  });
+
+  it("renders InnerBlocks with the curated allowed-blocks list when useInnerBlocks is on", () => {
+    render(
+      <Edit attributes={{ ...baseAttributes(), useInnerBlocks: true }} setAttributes={jest.fn()} />
+    );
+
+    expect(screen.getByTestId("inner-blocks")).toBeInTheDocument();
+    expect(screen.queryByTestId("rich-text")).not.toBeInTheDocument();
+    expect(lastInnerBlocksProps?.allowedBlocks).toEqual([
+      "core/paragraph",
+      "kotlinskidev/protected-content",
+      "kotlinskidev/icon",
+    ]);
+  });
+
+  it("toggles useInnerBlocks from the Content panel", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    render(<Edit attributes={baseAttributes()} setAttributes={setAttributes} />);
+
+    await user.click(screen.getByRole("button", { name: /^Content$/ }));
+    await user.click(screen.getByRole("checkbox", { name: "Allow nested blocks" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ useInnerBlocks: true });
   });
 
   it("has no href on the link when url is empty", () => {
@@ -242,5 +287,35 @@ describe("button Edit", () => {
     expect(setAttributes).toHaveBeenCalledWith({
       hoverBorderGradient: "linear-gradient(green, yellow)",
     });
+  });
+
+  it("toggles hoverEnhancedGlow via the Cursor glow control", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    render(<Edit attributes={baseAttributes()} setAttributes={setAttributes} />);
+
+    await user.click(screen.getByRole("button", { name: /Enhanced hover effect/ }));
+    await user.click(screen.getByRole("checkbox", { name: /Cursor glow/ }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ hoverEnhancedGlow: true });
+  });
+
+  it("does not add has-enhanced-hover-glow to the link when hoverEnhancedGlow is off", () => {
+    render(<Edit attributes={baseAttributes()} setAttributes={jest.fn()} />);
+
+    expect(document.querySelector(".kt-button__link")?.className).toBe("kt-button__link");
+  });
+
+  it("adds has-enhanced-hover-glow to the link when hoverEnhancedGlow is on", () => {
+    render(
+      <Edit
+        attributes={{ ...baseAttributes(), hoverEnhancedGlow: true }}
+        setAttributes={jest.fn()}
+      />
+    );
+
+    expect(document.querySelector(".kt-button__link")?.className).toBe(
+      "kt-button__link has-enhanced-hover-glow"
+    );
   });
 });

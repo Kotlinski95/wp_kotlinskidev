@@ -1,5 +1,9 @@
 <?php
 function kotlinskidev_register_article_card_post_type(): void {
+    if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        return;
+    }
+
     register_post_type( 'kt_article_card', [
         'labels' => [
             'name'          => __( 'Article Cards', 'kotlinskidev' ),
@@ -36,6 +40,10 @@ function kotlinskidev_article_card_meta_fields(): array {
 }
 
 function kotlinskidev_register_article_card_meta(): void {
+    if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        return;
+    }
+
     foreach ( kotlinskidev_article_card_meta_fields() as $key => $type ) {
         register_post_meta( 'kt_article_card', $key, [
             'type'              => $type,
@@ -72,9 +80,39 @@ function kotlinskidev_sync_article_card_meta( int $card_id ): void {
 }
 
 function kotlinskidev_sync_article_card_on_rest_insert( WP_Post $post ): void {
+    if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        return;
+    }
+
     kotlinskidev_sync_article_card_meta( $post->ID );
 }
 add_action( 'rest_insert_kt_article_card', 'kotlinskidev_sync_article_card_on_rest_insert' );
+
+function kotlinskidev_merge_article_card_block_supports( string $html ): string {
+    $supports = WP_Block_Supports::get_instance()->apply_block_supports();
+
+    if ( empty( $supports ) ) {
+        return $html;
+    }
+
+    $processor = new WP_HTML_Tag_Processor( $html );
+    if ( ! $processor->next_tag() ) {
+        return $html;
+    }
+
+    if ( ! empty( $supports['class'] ) ) {
+        $existing_class = (string) $processor->get_attribute( 'class' );
+        $processor->set_attribute( 'class', trim( $existing_class . ' ' . $supports['class'] ) );
+    }
+
+    if ( ! empty( $supports['style'] ) ) {
+        $existing_style = (string) $processor->get_attribute( 'style' );
+        $merged_style   = $existing_style ? rtrim( $existing_style, ';' ) . ';' . $supports['style'] : $supports['style'];
+        $processor->set_attribute( 'style', $merged_style );
+    }
+
+    return $processor->get_updated_html();
+}
 
 function kotlinskidev_render_article_card_embed( int $card_id ): string {
     if ( ! $card_id || 'publish' !== get_post_status( $card_id ) ) {
@@ -107,6 +145,10 @@ function kotlinskidev_render_article_card_embed( int $card_id ): string {
 }
 
 function kotlinskidev_article_card_editor_panel_script(): void {
+    if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        return;
+    }
+
     $screen = get_current_screen();
 
     if ( ! $screen || 'kt_article_card' !== $screen->post_type ) {

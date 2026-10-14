@@ -50,6 +50,12 @@
  *                                           written by bin/write-build-id.js on every
  *                                           `npm run build`). Used to detect new deploys.
  *
+ *   kotlinskidev_badge_fetch_{md5(url)}     Parsed Open Graph data from a fetched
+ *                                           Credly/Accredible badge URL (functions/
+ *                                           certificate-badge-fetch.php). DAY_IN_SECONDS —
+ *                                           avoids re-fetching the same badge on every
+ *                                           click of "Fetch details" while editing.
+ *
  *  Object-cache (wp_cache_get / wp_cache_set — ephemeral, per-request only when
  *  no persistent backend like Redis is active):
  *
@@ -315,6 +321,11 @@ function kotlinskidev_cache_admin_page(): void {
                     <td><?php esc_html_e( 'Build fingerprint', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_build_fingerprint</code></td>
                     <td><?php esc_html_e( 'Set automatically on every new build', 'kotlinskidev' ); ?></td>
+                </tr>
+                <tr>
+                    <td><?php esc_html_e( 'Certificate badge fetch', 'kotlinskidev' ); ?></td>
+                    <td><code>kotlinskidev_badge_fetch_{md5}</code></td>
+                    <td><?php esc_html_e( '1 day TTL / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
             </tbody>
         </table>

@@ -4,6 +4,10 @@
 	-webkit-line-clamp: var(--kt-line-clamp-lines, 3);
 	overflow: hidden;
 
+	a {
+		display: inline !important;
+	}
+
 	&--expanded {
 		display: block;
 		-webkit-line-clamp: unset;

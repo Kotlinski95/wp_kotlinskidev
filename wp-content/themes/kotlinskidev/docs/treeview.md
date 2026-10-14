@@ -46,22 +46,25 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 83 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 88 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
 │   ├── admin-bar-styles.php                    # enqueues admin-bar style overrides, only when the bar is visible
 │   ├── ai-disclosure-labels.php                # adds an "AI-generated" checkbox to Media Library attachment fields (_kotlinskidev_ai_generated post meta) + a render_block filter that appends a visible "AI-generated image/video" <span> to any core/image or core/cover block whose attachment id has that meta set, EU AI Act Art. 50(4) deployer disclosure duty
-│   ├── article-card.php                        # kt_article_card CPT (title + linked_article_id/card_description meta, synced from the linked article via rest_insert_kt_article_card) + kotlinskidev_render_article_card_embed(), which renders templates/single-kt_article_card.html with explicit WP_Block context so its core/post-meta bindings resolve; PluginDocumentSettingPanel script (src/blocks/article-card/panel.tsx) enqueued only on the CPT's own edit screen
+│   ├── article-card.php                        # kt_article_card CPT (title + linked_article_id/card_description meta, synced from the linked article via rest_insert_kt_article_card) + kotlinskidev_render_article_card_embed(), which renders templates/single-kt_article_card.html with explicit WP_Block context so its core/post-meta bindings resolve; kotlinskidev_merge_article_card_block_supports() (WP_HTML_Tag_Processor) merges the block's own color/spacing/border/typography Styles-panel overrides onto the template's existing root tag, called from src/blocks/article-card/render.php; PluginDocumentSettingPanel script (src/blocks/article-card/panel.tsx) enqueued only on the CPT's own edit screen
 │   ├── article-query-manager.php               # meta boxes for per-article query control
 │   ├── asset-paths.php                         # kotlinskidev_build_path()/kotlinskidev_build_url() — single source of truth for the build/js, build/css subfolder layout, required right after cache.php
 │   ├── banner-slider.php                       # enqueues/inits banner-carousel block assets
 │   ├── blocks.php                              # registers block categories + every block.json (source of truth for blocks)
-│   ├── blog-topic-manager.php                  # category "description" field admin UI + blog topic taxonomy helpers; also registers 6 PHP-only dynamic blocks (render_callback, no block.json) that re-run get_categories()/get_posts()/WP_Query fresh on every request instead of the retired patterns/{blog-topics-grid,category-header,category-posts-grid,other-topics,article-tags,related-articles}.php wp:pattern references — kotlinskidev/blog-topics-grid-dynamic (templates/articles.html), kotlinskidev/category-header-dynamic + category-posts-grid-dynamic + other-topics-dynamic (templates/category.html), kotlinskidev/article-tags-dynamic + related-articles-dynamic (templates/article.html) — so category/post listings always match the current Polylang language and current queried post/category instead of freezing at whatever content was active when the pattern cache (or a Site-Editor-detached wp_template DB override) last captured them
+│   ├── blog-topic-manager.php                  # category "description" field admin UI + blog topic taxonomy helpers; also hosts the 6 render functions (kotlinskidev_render_{blog_topics_grid,category_header,category_posts_grid,other_topics,article_tags,related_articles}_fresh_per_language()) that re-run get_categories()/get_posts()/WP_Query fresh on every request instead of the retired patterns/{blog-topics-grid,category-header,category-posts-grid,other-topics,article-tags,related-articles}.php wp:pattern references — called from each render.php of the 6 src/blocks/*-dynamic/ folders (registered in functions/blocks.php, see src/blocks/blog-topics-grid-dynamic/ for why), so category/post listings always match the current Polylang language and current queried post/category instead of freezing at whatever content was active when the pattern cache (or a Site-Editor-detached wp_template DB override) last captured them
 │   ├── border-gradient.php                     # applies --kt-border-gradient/--kt-border-width to any border-supporting block that picked a gradient (excludes kotlinskidev/button)
 │   ├── breadcrumbs.php                         # breadcrumb trail builder + renderer for the kotlinskidev/breadcrumbs block, also syncs Yoast's wpseo_breadcrumb_links schema to the same trail
+│   ├── button-style-variants.php               # register_block_style()s core/button's 21 Style variants — reads theme.json's own styles.blocks.core/button.variations keys directly off disk (json_decode(file_get_contents(theme.json)), bypassing WP_Theme_JSON entirely) and auto-registers one per key with an auto-generated label, so a new Fill/Primary/Outline/Outline Primary color variant needs only a theme.json edit, no PHP change; the 5 gradient-outline* names stay a small fixed array here since their border comes from SCSS, not theme.json's color/border schema, so they have no variations key to discover. PHP registration (not JS) is required full stop — WP_Theme_JSON_Resolver's sanitize() strips any theme.json variations entry whose name isn't already server-registered
 │   ├── breakpoints.php                         # central breakpoint values, exposed to editor + front end
 │   ├── cache.php                               # build-fingerprint/transient cache manager — must load first
+│   ├── certificate-badge-fetch.php             # admin-ajax handler (kotlinskidev_fetch_certificate_badge) for the "Fetch details" button in certificate/panel.tsx — SSRF-guarded wp_remote_get() against an allowlisted Credly/Accredible host, parses Open Graph tags, sideloads the badge image via media_sideload_image(), caches the parsed result in a kotlinskidev_badge_fetch_{md5} transient (see cache.php registry)
+│   ├── certificate.php                         # kt_certificate CPT (title + native featured image + cert_issuer/cert_issued_date/cert_description/cert_credential_id/cert_verify_url/cert_source_url meta); kotlinskidev_map_certificate_post() maps one WP_Post to the shared certificate array, consumed by kotlinskidev_get_certificates() (all published) and kotlinskidev_render_certificate_embed() (one, by ID); three per-card renderers (kotlinskidev_render_certificate_{badge_card,feature_card,compact_pill}(), each taking an optional $wrapper_attrs string from get_block_wrapper_attributes() that swaps their hardcoded root-tag class/style for the block-supports-generated one) each have a grid-wrapping sibling (_badge_grid/_feature_cards/_compact_strip, used by src/blocks/certificates-grid-dynamic/, which always call the per-card renderer with no override) — kotlinskidev_render_certificate_embed()'s layout param picks the bare per-card renderer directly (no template/WP_Block involved) so src/blocks/certificate/ embeds compose freely inside any editor-built grid/carousel; PluginDocumentSettingPanel script (src/blocks/certificate/panel.tsx) enqueued only on the CPT's own edit screen
 │   ├── contact-card.php                        # kotlinskidev_get_contact_info() reads the 4 global "Contact Info" settings (address/phone/email/hours); registers the kotlinskidev/contact-card dynamic block, wrapping address/phone/email in the same protected-content encrypted-span markup the Protected Content block uses (auto-revealed by src/scripts/protected-content.ts); also emits a ProfessionalService JSON-LD schema on singular service_location pages via wp_head, with the post's "city" meta as areaServed
 │   ├── contact-form.php                        # handles contact-form block submission end-to-end; persists every submission via contact-form-submissions.php before attempting wp_mail(), so a failed send never means total data loss
 │   ├── contact-form-submissions.php            # private wp-admin "Submissions" screen (dashicons-email-alt, manage_options): custom wp_kotlinskidev_contact_submissions table (dbDelta, versioned via admin_init self-heal), unread-count menu badge, single-submission detail view (marks read_at on first view), nonce-gated single/bulk delete — the audit trail for "I submitted the form but never got the email"
@@ -76,6 +79,7 @@ kotlinskidev/
 │   ├── enqueue-scripts.php                     # main script/style enqueue pipeline
 │   ├── error-monitoring.php                    # Sentry PHP SDK (vendor/sentry/sentry via Composer — the theme's first real runtime Composer dependency; production deploys must run `composer install` or vendor/ won't exist and this silently no-ops). Loaded first in functions.php, right after cache.php, so it can catch fatals from anything that follows. Only registers Sentry\ErrorHandler's exception + fatal-error handlers (not the general error handler, so warnings/notices/deprecations are never sent — keeps free-tier event quota for real page-breaking failures only), and only when a kotlinskidev_sentry_dsn option is set AND WP_DEBUG is off, so local dev never reports
 │   ├── faq-layout.php                          # applies kt-faq-independent-columns-N class to core/group per its faqLayout Advanced-panel choice
+│   ├── feature-toggles.php                     # kotlinskidev_feature_enabled()/kotlinskidev_toggleable_features() — single source of truth for the Settings → Customization on/off switches (project cards, article cards, service locations, certificates); loaded right after cache.php so every feature module below can gate its own CPT/meta/block registration on it
 │   ├── filters.php                             # misc content/attachment filters
 │   ├── group-link.php                          # applies kt-group-link class + data-kt-group-link-url/target + role="link"/tabindex to a core/group with groupLinkUrl set
 │   ├── icon-extension.php                      # leading-icon render_block splice for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
@@ -95,9 +99,9 @@ kotlinskidev/
 │   ├── page-view-tracking.php                  # AJAX view tracking + Popular Pages query source
 │   ├── patterns.php                            # registers 4 custom pattern categories
 │   ├── polylang-accessibility.php              # a11y fixes for Polylang language-switcher markup
-│   ├── polylang-content-resolution.php         # wp_navigation/wp_block/kt_modal/kt_project_card Polylang-translatable; kotlinskidev_resolve_translatable_post() resolves by slug (wp_navigation/wp_block), kotlinskidev_resolve_translatable_post_id() resolves by post ID (kt_project_card, called from functions/project-card.php so a fixed cardId embed shows the current language's translation)
-│   ├── project-card.php                        # kt_project_card CPT (title + native featured image + project_description/project_tags/project_url meta) + kotlinskidev_render_project_card_embed(), which resolves the passed cardId to the current language's translation via kotlinskidev_resolve_translatable_post_id() (functions/polylang-content-resolution.php) before rendering templates/single-kt_project_card.html with explicit WP_Block context AND setup_postdata() (core/post-title's render callback reads the global $post, not block context) so core/post-title, core/post-featured-image, and its core/post-meta bindings all resolve; injects the kt-image-hover-overlay markup (image-hover-overlay.php) around the featured image server-side using project_description; PluginDocumentSettingPanel script (src/blocks/project-card/panel.tsx) enqueued only on the CPT's own edit screen
-│   ├── protection-helpers.php                  # RSA keypair + encrypt/decrypt for protected-content block
+│   ├── polylang-content-resolution.php         # wp_navigation/wp_block/kt_modal/kt_project_card/kt_certificate Polylang-translatable; kotlinskidev_resolve_translatable_post() resolves by slug (wp_navigation/wp_block), kotlinskidev_resolve_translatable_post_id() resolves by post ID (kt_project_card, kt_certificate — called from functions/project-card.php and functions/certificate.php so a fixed embed shows the current language's translation)
+│   ├── project-card.php                        # kt_project_card CPT (title + native featured image + project_description/project_tags/project_url meta) + kotlinskidev_render_project_card_embed(), which resolves the passed cardId to the current language's translation via kotlinskidev_resolve_translatable_post_id() (functions/polylang-content-resolution.php) before rendering templates/single-kt_project_card.html with explicit WP_Block context AND setup_postdata() (core/post-title's render callback reads the global $post, not block context) so core/post-title, core/post-featured-image, and its core/post-meta bindings all resolve; injects the kt-image-hover-overlay markup (image-hover-overlay.php) around the featured image server-side using project_description; kotlinskidev_merge_project_card_block_supports() (WP_HTML_Tag_Processor) merges the block's own color/spacing/border/typography Styles-panel overrides onto the template's existing root tag instead of adding an extra wrapper div, which would've broken kt-equal-height-columns' `> *` direct-child selector on single-service_location.html; PluginDocumentSettingPanel script (src/blocks/project-card/panel.tsx) enqueued only on the CPT's own edit screen
+│   ├── protection-helpers.php                  # RSA keypair + encrypt/decrypt for protected-content block; kotlinskidev_format_decrypted_content()'s optional $link_label/$button_style params let email/phone reveal a fixed label (e.g. "Call me") instead of the raw value, and reuse the global .kt-button__link/.kt-button__label classes (same gradient-border recipe as the nav Contact CTA) so a protected phone/email can look like a site button with no new CSS
 │   ├── responsive-display.php                  # per-breakpoint show/hide block attribute
 │   ├── responsive-font-size.php                # per-breakpoint font-size attribute
 │   ├── responsive-height.php                   # per-breakpoint min-height attribute (reuses responsive-width.php's kotlinskidev_sanitize_css_length())
@@ -113,7 +117,7 @@ kotlinskidev/
 │   ├── security-headers.php                    # Referrer-Policy/Permissions-Policy/CSP-Report-Only via the wp_headers filter, skips wp-admin/REST — see docs/security-headers.md
 │   ├── seo-noindex-compat.php                  # detects active SEO plugin (Yoast/Rank Math/AIOSEO/SEOPress), returns query-args noindex exclusion
 │   ├── search-page-dynamic-blocks.php          # registers 4 PHP-only dynamic blocks (render_callback, no block.json) replacing the retired patterns/{search-header,search-form,search-results,popular-content}.php wp:pattern references on templates/search.html — kotlinskidev/search-header-dynamic, -search-form-dynamic (get_categories() lang-scoped), -search-results-dynamic (WP_Query lang-scoped, embeds -popular-content-dynamic when the query is empty), -popular-content-dynamic (WP_Query lang-scoped) — so search results, the category filter dropdown, and the pre-filled query always match the real current request instead of a frozen snapshot
-│   ├── settings-page.php                       # main theme settings admin page
+│   ├── settings-page.php                       # main theme settings admin page — 10 tabs incl. Customization (feature-toggles.php's on/off switches)
 │   ├── site-identity.php                       # minimal site logo/title setup
 │   ├── slider-modal-trigger.php                # opens a kt_modal when a wpe/slider slide (core/cover, .swiper-slide, modalId set) is clicked
 │   ├── social-link-tooltip.php                 # adds .kt-tooltip + data-tooltip to core/social-link anchors, sourced from the screen-reader-only label
@@ -150,9 +154,9 @@ kotlinskidev/
 │   ├── about-us.php                            # About Us Section
 │   ├── article-hero.php                        # Article Hero Section
 │   ├── blog-cards.php                          # Blog Cards Grid
-│   ├── certificates-badge-grid.php             # Certificates Badge Grid — art-forward badge wall for a dedicated credentials page (design system "Certificates & badges" slot A)
-│   ├── certificates-compact-strip.php          # Certificates Compact Strip — one-line issuer pill row for a footer or under a hero (design system "Certificates & badges" slot D)
-│   ├── certificates-feature-cards.php          # Certificates Feature Cards — logo + context line per credential, for a homepage block (design system "Certificates & badges" slot C)
+│   ├── certificates-badge-grid.php             # CSS-grid wp:group scaffold of individual kotlinskidev/certificate {certificateId:0} picker blocks (3 empty slots) instead of the single auto-querying certificates-grid-dynamic block — so editors can pick which certificates to show and in what order, add/remove/reorder them like kotlinskidev/project-card; empty (not real) IDs per .claude/rules/php-patterns.md's "avoid hardcoding post IDs in patterns" rule
+│   ├── certificates-compact-strip.php          # single kotlinskidev/certificates-grid-dynamic {"layout":"compact-strip"} — one-line issuer pill row for a footer or under a hero
+│   ├── certificates-feature-cards.php          # single kotlinskidev/certificates-grid-dynamic {"layout":"feature-cards"} — logo + context line per credential, for a homepage block
 │   ├── collaborations-described-cards.php      # Collaborations Described Cards — 6 client-work cards with category/year, title, one-line result and Read more link (design system "Collaborations" slot B)
 │   ├── collaborations-hairline-grid.php        # Collaborations Hairline Grid — no card fill, 1px-rule-divided logo cells, auto-fit 5-up/2-up (design system "Collaborations" slot E)
 │   ├── collaborations-separate-tiles.php       # Collaborations Separate Tiles — bordered logo tiles with hover lift + accent edge (design system "Collaborations" slot F)
@@ -219,19 +223,23 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 63 custom block dirs: 40 registered blocks + 24 JS-only block-extension filters + 1 post-editor settings panel
+│   ├── blocks/                                 # 71 custom block dirs: 48 registered blocks + 24 JS-only block-extension filters + 1 post-editor settings panel (service-location)
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
 │   │   │   └── index.tsx
 │   │   ├── animated-counter/                   # extension: count-up-on-scroll for heading/paragraph/group/columns
 │   │   │   └── index.tsx
-│   │   ├── article-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_article_card post (functions/article-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_article_card template and propagates to every embed
+│   │   ├── article-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_article_card post (functions/article-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_article_card template and propagates to every embed; full color/spacing/border/typography supports (both "border" and legacy "__experimentalBorder" keys) let an individual embed also be restyled per-instance
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit standalone with block.json's default cardId
 │   │   │   ├── edit.tsx                        # Inspector card picker (post combobox over kt_article_card) + ServerSideRender preview
 │   │   │   ├── index.tsx
 │   │   │   ├── panel.tsx                       # PluginDocumentSettingPanel on the kt_article_card edit screen — links the card to an article, sets the optional description override
+│   │   │   └── render.php
+│   │   ├── article-tags-dynamic/               # dynamic block (render.php, ServerSideRender preview, no attributes) wrapping kotlinskidev_render_article_tags_fresh_per_language() (functions/blog-topic-manager.php), placed in templates/article.html — see blog-topics-grid-dynamic/ below for why this folder-based form replaced a bare PHP-only register_block_type()
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── background-effects-controls/        # extension: curated animated CSS background/border effect classes (kt-bg-fx-*), applied via className like hover-animation-controls
 │   │   │   └── index.tsx
@@ -244,6 +252,10 @@ kotlinskidev/
 │   │   │   ├── save.stories.tsx                # Storybook: real Swiper (arrows/pagination/autoplay/multi-slide/fade variants) over a hand-built static markup twin of save.tsx's JSX — the real save() crashes via useBlockProps.save()'s extraPropsFromHooks pipeline reading undefined block.json supports outside a full WP admin bootstrap. Renders via createPortal(..., document.body): nesting the same markup inside the story's normal .editor-styles-wrapper/.kt-storybook-frame ancestor chain leaves every non-first slide's image decoded (canvas drawImage confirms real pixels) but never composited/painted after a slide transition — confirmed via a real DOM element move (not just a config/CSS change) that the ancestor chain itself is the cause, not the image, not React's reconciliation, not any single CSS rule found by inspection
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
+│   │   ├── blog-topics-grid-dynamic/           # dynamic block (render.php, ServerSideRender preview, no attributes) wrapping kotlinskidev_render_blog_topics_grid_fresh_per_language() (functions/blog-topic-manager.php) in get_block_wrapper_attributes() — placed in templates/articles.html. Folder-based register_block_type() (functions/blocks.php) + block.json (apiVersion 3 auto-injects the style attribute from supports.spacing) replaced this block's old bare register_block_type('kotlinskidev/blog-topics-grid-dynamic', ['render_callback' => ...]) in functions/blog-topic-manager.php, which had no client-side registration and so couldn't be added/removed/reordered in the Site Editor or given margin/padding — same fix applied to its 5 siblings (article-tags-dynamic, category-header-dynamic, category-posts-grid-dynamic, other-topics-dynamic, related-articles-dynamic)
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
+│   │   │   └── render.php
 │   │   ├── border-gradient/                    # extension: gradient option merged into the native Border panel for any block with border support (excludes kotlinskidev/button)
 │   │   │   └── index.tsx
 │   │   ├── breadcrumbs/                        # fixed overlay breadcrumb trail below the header, hidden on homepage by default, slides in/out in sync with the header's own scroll state
@@ -253,15 +265,31 @@ kotlinskidev/
 │   │   │   ├── index.ts                        # registerBlockType now passes full metadata (was metadata.name only) — the name-only form rendered blank with zero console output once stories went through the real BlockEdit dispatcher, since it skips the attributes/supports WP's PHP bootstrap normally fills in
 │   │   │   ├── render.php
 │   │   │   └── style.scss
-│   │   ├── button/                             # standalone CTA button, independent normal/hover color+gradient
+│   │   ├── button/                             # standalone CTA button, independent normal/hover color+gradient; useInnerBlocks toggle (default off, so all existing instances are unaffected) swaps the plain-text RichText label for an InnerBlocks area allowing core/paragraph, kotlinskidev/protected-content, kotlinskidev/icon — core/button has no InnerBlocks support at all, so this is the only way to nest e.g. a protected phone number inside a button; render.php renders the wrapper as a bare `<span class="kt-button__link">` instead of `<a>` whenever useInnerBlocks is on AND its own url is empty, since a nested child with its own real link (protected-content's revealed tel:/mailto: anchor) would otherwise end up inside this block's own `<a>`, nesting anchors
 │   │   │   ├── ButtonColorControls.tsx
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
-│   │   ├── button-styles/                      # extension: registers a "Gradient Outline" style for core/button
-│   │   │   └── index.ts
+│   │   ├── category-header-dynamic/            # dynamic block (render.php, ServerSideRender preview, no attributes) wrapping kotlinskidev_render_category_header_fresh_per_language() (functions/blog-topic-manager.php), placed in templates/category.html — see blog-topics-grid-dynamic/ above for why this folder-based form replaced a bare PHP-only register_block_type()
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
+│   │   │   └── render.php
+│   │   ├── category-posts-grid-dynamic/        # dynamic block (render.php, ServerSideRender preview, no attributes) wrapping kotlinskidev_render_category_posts_grid_fresh_per_language() (functions/blog-topic-manager.php), placed in templates/category.html — see blog-topics-grid-dynamic/ above for why this folder-based form replaced a bare PHP-only register_block_type()
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
+│   │   │   └── render.php
+│   │   ├── certificate/                        # dynamic block (render.php, ServerSideRender preview) — certificateId (post combobox over kt_certificate) + layout (badge-grid/feature-cards/compact-strip, same 3 options as certificates-grid-dynamic) attributes; embeds one certificate's badge/issuer/link, edited once on the certificate post and propagated to every embed; full color/spacing/border/typography supports (declared under both "border" and the legacy "__experimentalBorder" key — this site's installed WP 7.1 core only reads the latter for server-side render, confirmed by probing wp_has_border_feature_support() directly) so editors can restyle the card from the native Styles panel; also the one ServerSideRender/dynamic-preview block hover-animation-controls is enabled on — block.json declares its hoverAnimation/hoverBackgroundColor/hoverTextColor/hoverBorderColor/etc. attributes explicitly, since the REST block-renderer schema used by ServerSideRender 400s on any attribute the block's own block.json doesn't declare. Other ServerSideRender/dynamic-preview blocks (article-card, project-card, city-grid, city-map, the *-dynamic blocks) stay excluded from this and several other cross-cutting filters (responsive-width/height/spacing/order, link-hover-effects, scroll-animations, background-effects-controls, active-link-state, scroll-section-pin-boundary) for the same reason — each would need the same block.json schema treatment before its filter could be re-enabled
+│   │   │   ├── block.json
+│   │   │   ├── edit.tsx                        # Inspector certificate picker + Layout select + ServerSideRender preview
+│   │   │   ├── index.tsx
+│   │   │   ├── panel.tsx                       # PluginDocumentSettingPanel on the kt_certificate edit screen — "Fetch details" button posts to admin-ajax (kotlinskidev_fetch_certificate_badge) for a pasted Credly/Accredible URL, pre-fills title/featured image/meta; all fields stay editable for a manual PDF-sourced certificate
+│   │   │   └── render.php
+│   │   ├── certificates-grid-dynamic/          # dynamic block (render.php, ServerSideRender preview) — layout attribute (badge-grid/feature-cards/compact-strip) + viewAllUrl (compact-strip only), wraps kotlinskidev_render_certificates_grid() (functions/certificate.php) which queries every published kt_certificate post; replaces the 3 certificates-*.php patterns' old hardcoded PHP arrays
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
+│   │   │   └── render.php
 │   │   ├── city-grid/                          # extension: per-breakpoint column count + link text color controls for the PHP-only kotlinskidev/city-grid dynamic block (functions/service-locations.php)
 │   │   │   └── index.tsx
 │   │   ├── contact-card/                       # extension: "Gap between fields" range control for the PHP-only kotlinskidev/contact-card dynamic block (functions/contact-card.php), applied as a --kt-contact-card-gap CSS custom property
@@ -355,7 +383,7 @@ kotlinskidev/
 │   │   │   ├── edit.tsx
 │   │   │   ├── render.php
 │   │   │   └── save.tsx
-│   │   ├── hover-animation-controls/           # extension: ~13 canned hover animation classes, combinable transform effects (hoverAnimationExtra), start/end opacity fade
+│   │   ├── hover-animation-controls/           # extension "Hover Effects": ~13 canned hover animation classes, combinable transform effects (hoverAnimationExtra), start/end opacity fade, background/text/border hover color (alpha-capable); also enabled for kotlinskidev/certificate (block.json declares the attributes so the REST block-renderer schema accepts them)
 │   │   │   └── index.tsx
 │   │   ├── icon/                               # standalone SVG icon block — Media Library picker, size/color/aria-label, renders via kotlinskidev_inline_nav_icon()
 │   │   ├── icon-extension/                     # extension: leading icon for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
@@ -432,6 +460,10 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   ├── nav-icon-filter.tsx
 │   │   │   └── render.php
+│   │   ├── other-topics-dynamic/               # dynamic block (render.php, ServerSideRender preview, no attributes) wrapping kotlinskidev_render_other_topics_fresh_per_language() (functions/blog-topic-manager.php), placed in templates/category.html — see blog-topics-grid-dynamic/ above for why this folder-based form replaced a bare PHP-only register_block_type()
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
+│   │   │   └── render.php
 │   │   ├── parallax/                           # extension: parallax background-scroll toggle + Intensity slider (0-30, default 15) for core/cover
 │   │   │   └── index.tsx
 │   │   ├── popular-pages/                      # most-viewed pages list, Yoast-noindex-filtered
@@ -475,19 +507,23 @@ kotlinskidev/
 │   │   │   ├── save.tsx
 │   │   │   ├── save.test.tsx
 │   │   │   └── style.scss
-│   │   ├── project-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_project_card post (functions/project-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_project_card template and propagates to every embed
+│   │   ├── project-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_project_card post (functions/project-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_project_card template and propagates to every embed; full color/spacing/border/typography supports (both "border" and legacy "__experimentalBorder" keys) let an individual embed also be restyled per-instance
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default cardId
 │   │   │   ├── edit.tsx                        # Inspector card picker (post combobox over kt_project_card) + ServerSideRender preview
 │   │   │   ├── index.tsx
 │   │   │   ├── panel.tsx                       # PluginDocumentSettingPanel on the kt_project_card edit screen — description (hover overlay text), tags, project URL
 │   │   │   └── render.php
-│   │   ├── protected-content/                  # RSA-encrypted, bot-obfuscated content (email/phone/address/other)
+│   │   ├── protected-content/                  # RSA-encrypted, bot-obfuscated content (email/phone/address/other); linkLabel + buttonStyle attributes let phone/email reveal a fixed label styled as a site button instead of the raw value — core/button can't be a workaround (no InnerBlocks support, so nothing can nest inside it)
 │   │   │   ├── block.json
 │   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── render.php
 │   │   │   └── style.scss
+│   │   ├── related-articles-dynamic/           # dynamic block (render.php, ServerSideRender preview, no attributes) wrapping kotlinskidev_render_related_articles_fresh_per_language() (functions/blog-topic-manager.php), placed in templates/article.html — see blog-topics-grid-dynamic/ above for why this folder-based form replaced a bare PHP-only register_block_type()
+│   │   │   ├── block.json
+│   │   │   ├── index.tsx
+│   │   │   └── render.php
 │   │   ├── responsive-display/                 # extension: per-breakpoint show/hide
 │   │   │   └── index.tsx
 │   │   ├── responsive-font-size/               # extension: per-breakpoint font-size override
@@ -598,6 +634,8 @@ kotlinskidev/
 │   │       ├── index.ts
 │   │       └── render.php
 │   ├── formats/                                # custom RichText format types
+│   │   ├── glow-text/
+│   │   │   └── index.tsx                       # registers the kotlinskidev/glow-text RichText format — wraps the selection in <span class="has-enhanced-hover-glow" style="--hover-text-spotlight-color:...">, reusing hover-glow.scss/hover-glow.ts entirely as-is (same class the block-level Hover Effects panel's toggle uses, so no new CSS/JS needed); popover UI mirrors gradient-highlight's (solid color only, no gradient — matches the block-level glow's own gradient-text exclusion)
 │   │   └── gradient-highlight/
 │   │       ├── editor.scss                     # editor-only styling for the format's popover UI
 │   │       ├── index.tsx                       # registers the gradient-highlight RichText format
@@ -622,6 +660,8 @@ kotlinskidev/
 │   │   ├── group-link.ts                       # click/keyboard delegation for .kt-group-link, skips nested interactive elements
 │   │   ├── hamburger.ts                        # mobile nav overlay open/close, submenu collapse, scroll-lock
 │   │   ├── hide-nav-on-scroll.ts               # hides/shows nav bar based on scroll direction
+│   │   ├── hover-glow.ts                       # cursor-following glow for any block with "Enhanced Glow" enabled in the Hover Effects panel — not button-only: kotlinskidev/button, core/button, and any other block (paragraph, heading, group, etc.) — rAF-throttled pointermove sets --kt-glow-x/y relative to the painted text element itself (.kt-button__label, .wp-block-button__link, or the element itself for the generic case), gated behind (hover: hover) and (pointer: fine) and skipped under prefers-reduced-motion
+│   │   ├── hover-glow.test.ts
 │   │   ├── image-lightbox.ts                   # lightbox open/close/context capture for gallery images; fires lightbox_open (GA4) via track-event.ts on activation
 │   │   ├── language-panel.ts                   # wraps initDropdownPanels for .kt-lang-panel
 │   │   ├── language.ts                         # small language-related DOM script
@@ -652,6 +692,8 @@ kotlinskidev/
 │   │   ├── blog.scss                           # breadcrumbs + taxonomy/tag styling
 │   │   ├── border-gradient.scss                # .kt-has-gradient-border utility class (universal border-gradient extension)
 │   │   ├── button.scss                         # .kt-button component styles
+│   │   ├── button-style-variants.scss          # default ::before border gradient for the 4 core/button .is-style-gradient-outline-{light,dark,adaptive,adaptive-contrast} variants registered in functions/button-style-variants.php; builds on nav.scss's generalized [class*="is-style-gradient-outline"] block (background/mask/hover already handled there) — the fill-*/outline-* variants need no SCSS at all, their color/border comes straight from theme.json's styles.blocks.core/button.variations
+│   │   ├── certificate.scss                    # .kt-certificate-{badge-card,feature-card,compact-pill} — default visual styling (border/background/padding/layout) for the kotlinskidev/certificate block's 3 layouts, overridden in the cascade by get_block_wrapper_attributes()'s own inline style/classes whenever an editor sets a color/spacing/border/typography value in the Styles panel; .kt-certificate__verify-link — sliding-underline-hover mixin (gradient underline on hover/focus) for the Verify/View-credential links in functions/certificate.php's badge-card and feature-card renderers
 │   │   ├── city-grid.scss                      # .kt-city-grid responsive column-count + link text color custom properties, paired with the city-grid extension
 │   │   ├── city-map.scss                       # .kt-city-map embed wrapper + expand button, and the .kt-city-map-lightbox fullsize overlay (paired with src/scripts/city-map-lightbox.ts), for the kotlinskidev/city-map dynamic block
 │   │   ├── collab-split.scss                   # mobile text-align override for .kotlinskidev-collab-split-heading/-copy, paired with patterns/collaborations-split.php
@@ -667,6 +709,7 @@ kotlinskidev/
 │   │   ├── global.scss                         # broad utility classes, social-link overrides
 │   │   ├── gradients.scss                      # gradient background utility class
 │   │   ├── group-link.scss                     # cursor + focus-visible styling for .kt-group-link, paired with the group-link extension
+│   │   ├── hover-glow.scss                      # .has-enhanced-hover-glow cursor glow as a text-clipped radial-gradient background-image (background-clip: text) on the hover color — kotlinskidev/button's .kt-button__label, core/button's .wp-block-button__link directly, and (new) any other block directly, same fixed 5rem radius everywhere (root-relative, deliberately not scaled to the element's own font-size — an em-based radius looked oversized/washed-out on large headings in practice); can't bleed onto a background since it's clipped to text glyphs, not blended; scoped to (hover: hover)/(pointer: fine), disabled under prefers-reduced-motion; spotlight-gradient/text-clip/reduced-motion-reset boilerplate shared via mixins.scss's kt-glow-* mixins
 │   │   ├── image-hover-overlay.scss            # hover/focus-within reveal + editor preview for .kt-image-hover-overlay, paired with the image-hover-overlay extension
 │   │   ├── kotlinskiwind.scss                  # hand-rolled Tailwind-like utility classes
 │   │   ├── language-panel.scss                 # language switcher panel styling
@@ -679,7 +722,7 @@ kotlinskidev/
 │   │   ├── load-more.scss                      # .kt-load-more-hidden + .kt-load-more__wrapper + .kt-load-more__button (incl. hover state), paired with the load-more extension
 │   │   ├── logo-dim.scss                       # .kt-logo-dim grayscale-until-hover treatment for collaborator/logo-wall image tiles
 │   │   ├── mega-menu.scss                      # desktop mega-menu structure/positioning
-│   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), reveal-animation-base/reveal-opacity-only/reveal-fade-direction/reveal-flip-animation/reveal-generate-translate-distances/reveal-generate-flip-rotations shared by scroll-animations.scss + nav-reveal-animations.scss, etc.)
+│   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), reveal-animation-base/reveal-opacity-only/reveal-fade-direction/reveal-flip-animation/reveal-generate-translate-distances/reveal-generate-flip-rotations shared by scroll-animations.scss + nav-reveal-animations.scss, kt-glow-spotlight/kt-glow-text-clip/kt-glow-reduced-motion-text-reset shared by hover-glow.scss, etc.)
 │   │   ├── mobile-footer-menu.scss             # fixed mobile bottom-nav menu
 │   │   ├── modal.scss                          # kt-modal overlay shell — fixed, z-index 99999, size variants, always-in-DOM
 │   │   ├── nav.scss                            # main site header/nav layout, logo styling
@@ -746,7 +789,7 @@ kotlinskidev/
 │   ├── ocean-teal.json                         # colour scheme variation
 │   ├── rose-pink.json                          # colour scheme variation
 │   └── sunset-orange.json                      # colour scheme variation
-├── templates/                                  # 12 FSE block templates (no 404.html — see Known Issues)
+├── templates/                                  # 13 FSE block templates (no 404.html — see Known Issues)
 │   ├── article.html                            # single blog post
 │   ├── articles.html                           # blog archive/hub
 │   ├── blank-with-header-footer.html           # canvas with header/footer, empty content area
@@ -756,6 +799,7 @@ kotlinskidev/
 │   ├── page.html                               # generic page
 │   ├── search.html                             # search results
 │   ├── single-kt_article_card.html             # shared article-card layout — image/paragraph/button bound to per-card post-meta via core/post-meta bindings; edited once here, propagates to every kotlinskidev/article-card embed (rendered via kotlinskidev_render_article_card_embed(), functions/article-card.php, not the default single-post template flow)
+│   ├── single-kt_certificate.html              # layout for the kt_certificate CPT's own direct single-post view (/kt_certificate/{slug}/) — core/post-featured-image + core/post-title plus core/post-meta-bound issuer/issued-date paragraphs and a verify-link button (cert_verify_url); NOT used by kotlinskidev/certificate embeds, which render via plain PHP string builders in functions/certificate.php instead
 │   ├── single-kt_project_card.html             # shared project-card layout — core/post-featured-image + core/post-title (context-aware, no meta duplication) plus a core/post-meta-bound arrow-link button (project_url) and tags paragraph (project_tags); edited once here, propagates to every kotlinskidev/project-card embed (rendered via kotlinskidev_render_project_card_embed(), functions/project-card.php)
 │   ├── single-service_location.html            # shared city landing page for every language — fully editable in the Site Editor (reorder, Style panel, insert blocks); language-varying text/links use kotlinskidev/translated-text (resolved via pll__()) instead of a per-language duplicate template; city mentions bound to the "city" post-meta so one edit updates every city page
 │   └── tag.html                                # tag archive

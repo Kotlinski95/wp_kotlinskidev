@@ -27,7 +27,8 @@
       "__experimentalTextDecoration": true,
       "__experimentalLetterSpacing": true
     },
-    "border": { "color": true, "radius": true, "style": true, "width": true }
+    "border": { "color": true, "radius": true, "style": true, "width": true },
+    "__experimentalBorder": { "color": true, "radius": true, "style": true, "width": true }
   },
   "attributes": {
     "content": { "type": "string", "default": "" },

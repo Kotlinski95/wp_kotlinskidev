@@ -24,6 +24,7 @@ import "./scripts/city-map-lightbox";
 import "./scripts/load-more";
 import "./scripts/analytics";
 import "./scripts/active-link-state";
+import "./scripts/hover-glow";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

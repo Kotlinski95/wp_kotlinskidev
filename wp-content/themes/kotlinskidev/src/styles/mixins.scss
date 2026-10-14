@@ -124,7 +124,7 @@
 	animation: kt-bg-fx-pan $duration ease infinite;
 }
 
-@mixin custom-button-style($bg-gradient-angle: 135deg, $bg-gradient-start: var(--wp--preset--color--primary), $bg-gradient-end: rgba(var(--wp--preset--color--primary-rgb), 0.8), $box-shadow1: rgba(var(--wp--preset--color--primary-rgb), 0.3) 0 0.375rem 1.25rem 0, $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0) {
+@mixin custom-button-style($bg-gradient-angle: 135deg, $bg-gradient-start: var(--wp--preset--color--primary), $bg-gradient-end: color-mix(in srgb, var(--wp--preset--color--primary) 80%, transparent), $box-shadow1: color-mix(in srgb, var(--wp--preset--color--primary) 30%, transparent) 0 0.375rem 1.25rem 0, $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0) {
 	$gradient: linear-gradient($bg-gradient-angle, $bg-gradient-start 0, $bg-gradient-end 100%);
 
 	background-clip: border-box !important;
@@ -257,4 +257,34 @@
 			}
 		}
 	}
+}
+
+@mixin kt-glow-spotlight($radius, $spotlight-var, $base: null) {
+
+	@if $base {
+		background-image:
+			radial-gradient(#{$radius} circle at var(--kt-glow-x, -9999px) var(--kt-glow-y, -9999px), var(#{$spotlight-var}, transparent) 0%, transparent 100%),
+			#{$base};
+	} @else {
+		background-image: radial-gradient(#{$radius} circle at var(--kt-glow-x, -9999px) var(--kt-glow-y, -9999px), var(#{$spotlight-var}, transparent) 0%, transparent 100%);
+	}
+}
+
+@mixin kt-glow-text-clip-base {
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+@mixin kt-glow-text-clip {
+
+	@include kt-glow-text-clip-base;
+	-webkit-text-fill-color: transparent;
+}
+
+@mixin kt-glow-reduced-motion-text-reset {
+	background-color: initial;
+	background-image: none;
+	-webkit-text-fill-color: unset;
 }

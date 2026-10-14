@@ -5,6 +5,7 @@
 	--color-surface: var(--wp--preset--color--surface);
 	--color-text: var(--wp--preset--color--foreground);
 	--kt-text-gradient: var(--wp--preset--gradient--fancy-text-dark);
+	--kt-text-gradient-contrast: var(--wp--preset--gradient--fancy-text-light);
 	--kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-dark);
 	--kt-gradient-start: rgb(184, 150, 255);
 	--kt-gradient-end: rgb(0, 255, 240);
@@ -28,6 +29,7 @@ html.dark-mode {
 
 body.light-mode {
 	--kt-text-gradient: var(--wp--preset--gradient--fancy-text-light);
+	--kt-text-gradient-contrast: var(--wp--preset--gradient--fancy-text-dark);
 	--kt-highlight-gradient: var(--wp--preset--gradient--fancy-text-light);
 	--kt-gradient-start: rgb(132, 83, 210);
 	--kt-gradient-end: rgb(0, 120, 194);

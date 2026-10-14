@@ -1310,24 +1310,3 @@ function kotlinskidev_render_related_articles_fresh_per_language() {
     return do_blocks(ob_get_clean());
 }
 
-function kotlinskidev_register_blog_dynamic_blocks() {
-    register_block_type('kotlinskidev/blog-topics-grid-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_blog_topics_grid_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/category-header-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_category_header_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/category-posts-grid-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_category_posts_grid_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/other-topics-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_other_topics_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/article-tags-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_article_tags_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/related-articles-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_related_articles_fresh_per_language',
-    ));
-}
-add_action('init', 'kotlinskidev_register_blog_dynamic_blocks');

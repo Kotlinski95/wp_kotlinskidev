@@ -60,6 +60,11 @@ function kotlinskidev_settings_tabs(): array
             'group' => 'kotlinskidev_settings_monitoring',
             'page'  => 'kotlinskidev-settings-monitoring',
         ],
+        'customization' => [
+            'label' => esc_html__('Customization', 'kotlinskidev'),
+            'group' => 'kotlinskidev_settings_customization',
+            'page'  => 'kotlinskidev-settings-customization',
+        ],
     ];
 }
 
@@ -494,6 +499,31 @@ function kotlinskidev_register_settings(): void
         'kotlinskidev_render_tracking_events_field',
         'kotlinskidev-settings-tracking',
         'kotlinskidev_section_tracking_events'
+    );
+
+    register_setting(
+        'kotlinskidev_settings_customization',
+        'kotlinskidev_enabled_features',
+        [
+            'type'              => 'array',
+            'sanitize_callback' => 'kotlinskidev_sanitize_enabled_features',
+            'default'           => array_keys(kotlinskidev_toggleable_features()),
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_feature_toggles',
+        esc_html__('Theme Features', 'kotlinskidev'),
+        'kotlinskidev_render_feature_toggles_section',
+        'kotlinskidev-settings-customization'
+    );
+
+    add_settings_field(
+        'kotlinskidev_enabled_features',
+        esc_html__('Enabled features', 'kotlinskidev'),
+        'kotlinskidev_render_feature_toggles_field',
+        'kotlinskidev-settings-customization',
+        'kotlinskidev_section_feature_toggles'
     );
 
     register_setting(
@@ -1193,6 +1223,32 @@ function kotlinskidev_render_tracking_events_field(): void
             <code><?php echo esc_html($event_name); ?></code>
         </label>
     <?php endforeach; ?>
+    <?php
+}
+
+function kotlinskidev_render_feature_toggles_section(): void
+{
+    echo '<p>' . esc_html__('Each of these registers its own custom post type, blocks, and admin screens. If this theme is reused for a project that doesn\'t need one, switching it off here skips that registration entirely instead of just hiding it — fewer blocks for the editor to discover, no unused admin menu items.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_feature_toggles_field(): void
+{
+    $enabled = kotlinskidev_get_enabled_features();
+    ?>
+    <input type="hidden" name="kotlinskidev_enabled_features[]" value="" />
+    <?php foreach (kotlinskidev_toggleable_features() as $feature_key => $label) : ?>
+        <label style="display:block;margin-bottom:0.25rem;">
+            <input
+                type="checkbox"
+                name="kotlinskidev_enabled_features[]"
+                value="<?php echo esc_attr($feature_key); ?>"
+                <?php checked(in_array($feature_key, $enabled, true)); ?>
+            />
+            <?php echo esc_html($label); ?>
+            <code><?php echo esc_html($feature_key); ?></code>
+        </label>
+    <?php endforeach; ?>
+    <p class="description"><?php esc_html_e('Changes take effect on the next page load — WordPress re-registers post types and blocks on every request, nothing to rebuild.', 'kotlinskidev'); ?></p>
     <?php
 }
 

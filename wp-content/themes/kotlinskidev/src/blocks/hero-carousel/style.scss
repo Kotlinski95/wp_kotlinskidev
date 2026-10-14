@@ -77,7 +77,7 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 		h6,
 		p,
 		li,
-		a {
+		a:not(.wp-block-button__link):not(.kt-button__link) {
 			color: inherit;
 		}
 

@@ -78,6 +78,14 @@
     "hoverBorderGradient": {
       "type": "string",
       "default": ""
+    },
+    "hoverEnhancedGlow": {
+      "type": "boolean",
+      "default": false
+    },
+    "useInnerBlocks": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

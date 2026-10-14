@@ -50,6 +50,16 @@ describe("responsive-display — blocks.registerBlockType filter", () => {
       default: { desktop: {}, tablet: {}, mobile: {} },
     });
   });
+
+  it("does not add the responsiveDisplay attribute to a ServerSideRender dynamic-preview block, since its REST schema would 400 on an undeclared attribute", () => {
+    const settings = { name: "kotlinskidev/certificate", attributes: { existing: {} } };
+
+    const result = applyFilters("blocks.registerBlockType", settings) as {
+      attributes: { responsiveDisplay?: unknown };
+    };
+
+    expect(result.attributes.responsiveDisplay).toBeUndefined();
+  });
 });
 
 describe("responsive-display — editor.BlockEdit filter", () => {

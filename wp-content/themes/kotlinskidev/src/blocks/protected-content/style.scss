@@ -111,13 +111,13 @@
 	padding: 0;
 	border: none;
 	background: transparent;
-	color: var(--wp--preset--color--foreground-alt);
+	color: inherit;
 	cursor: pointer;
 	transition: color 0.2s ease;
 
 	&:hover,
 	&:focus-visible {
-		color: var(--wp--preset--color--foreground);
+		color: var(--hover-text-color, var(--wp--preset--color--foreground)) !important;
 	}
 
 	&--copied {

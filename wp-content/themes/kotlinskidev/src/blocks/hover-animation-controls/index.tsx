@@ -16,6 +16,11 @@ import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
+const HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS = ["kotlinskidev/certificate"];
+const excludedDynamicPreviewBlocks = DYNAMIC_PREVIEW_BLOCKS.filter(
+  (name) => !HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS.includes(name)
+);
+
 const hoverAnimations = [
   { label: __("No Animation", "kotlinskidev"), value: "" },
   { label: __("Jump", "kotlinskidev"), value: "hover-jump" },
@@ -54,7 +59,7 @@ function addHoverAnimationAttribute(settings: any) {
     "core/code",
     "core/preformatted",
     "core/verse",
-    ...DYNAMIC_PREVIEW_BLOCKS,
+    ...excludedDynamicPreviewBlocks,
   ];
 
   if (excludedBlocks.includes(settings.name)) {
@@ -93,6 +98,14 @@ function addHoverAnimationAttribute(settings: any) {
         type: "number",
         default: DEFAULT_OPACITY_TO,
       },
+      hoverBorderColor: {
+        type: "string",
+        default: "",
+      },
+      hoverEnhancedGlow: {
+        type: "boolean",
+        default: false,
+      },
     };
   }
 
@@ -110,6 +123,8 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
       hoverOpacityEnabled,
       hoverOpacityFrom,
       hoverOpacityTo,
+      hoverBorderColor,
+      hoverEnhancedGlow,
     } = attributes;
     const extraEffects: string[] = Array.isArray(hoverAnimationExtra) ? hoverAnimationExtra : [];
 
@@ -126,7 +141,7 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
       "core/code",
       "core/preformatted",
       "core/verse",
-      ...DYNAMIC_PREVIEW_BLOCKS,
+      ...excludedDynamicPreviewBlocks,
     ];
 
     const pendingBgColorRef = React.useRef<string | null>(null);
@@ -163,7 +178,7 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Hover Animations", "kotlinskidev")} icon="art" initialOpen={false}>
+          <PanelBody title={__("Hover Effects", "kotlinskidev")} icon="art" initialOpen={false}>
             <SelectControl
               label={__("Animation Type", "kotlinskidev")}
               value={hoverAnimation || ""}
@@ -236,6 +251,12 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
               __experimentalIsRenderedInSidebar={true}
               __nextHasNoMarginBottom
             />
+            <p className="components-base-control__help">
+              {__(
+                "Drag the color's alpha slider for a translucent hover background — e.g. white at 20% opacity.",
+                "kotlinskidev"
+              )}
+            </p>
             <ColorGradientControl
               label={__("Hover text color", "kotlinskidev")}
               colorValue={hoverTextColor && !isTextGradient ? hoverTextColor : undefined}
@@ -247,6 +268,40 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
               __experimentalIsRenderedInSidebar={true}
               __nextHasNoMarginBottom
             />
+            <ColorGradientControl
+              label={__("Hover border color", "kotlinskidev")}
+              colorValue={hoverBorderColor || undefined}
+              onColorChange={(value: string | undefined) =>
+                setAttributes({ hoverBorderColor: value || "" })
+              }
+              gradients={[]}
+              disableCustomGradients
+              enableAlpha={true}
+              clearable={true}
+              __experimentalIsRenderedInSidebar={true}
+              __nextHasNoMarginBottom
+            />
+            <p className="components-base-control__help">
+              {__(
+                "Set a border width and style in this block's own Border panel first — this only changes the border's color on hover.",
+                "kotlinskidev"
+              )}
+            </p>
+            {name !== "kotlinskidev/button" && (
+              <>
+                <ToggleControl
+                  label={__("Enhanced hover effect (cursor glow)", "kotlinskidev")}
+                  checked={Boolean(hoverEnhancedGlow)}
+                  onChange={(checked) => setAttributes({ hoverEnhancedGlow: checked })}
+                />
+                <p className="components-base-control__help">
+                  {__(
+                    "A soft glow in the Hover text color above that follows the cursor, same size as the button glow effect. Set a Hover text color above for this to be visible — while this is on, that color only drives the glow and no longer recolors the whole text on hover.",
+                    "kotlinskidev"
+                  )}
+                </p>
+              </>
+            )}
           </PanelBody>
         </InspectorControls>
       </Fragment>
@@ -263,6 +318,8 @@ function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: a
     hoverOpacityEnabled,
     hoverOpacityFrom,
     hoverOpacityTo,
+    hoverBorderColor,
+    hoverEnhancedGlow,
   } = attributes;
 
   const extraEffects = Array.isArray(hoverAnimationExtra) ? hoverAnimationExtra : [];
@@ -272,13 +329,29 @@ function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: a
 
   if (hoverBackgroundColor || hoverTextColor) {
     classes.push("has-hover-color-transition");
-    if ((hoverTextColor || "").includes("gradient")) {
+  }
+
+  if (hoverBackgroundColor) {
+    classes.push("has-hover-bg-color");
+    extraProps.style = {
+      ...extraProps.style,
+      "--hover-bg-color": hoverBackgroundColor,
+    };
+  }
+
+  if (hoverTextColor) {
+    const isTextGradient = hoverTextColor.includes("gradient");
+    if (!hoverEnhancedGlow) {
+      classes.push("has-hover-text-color");
+    }
+    if (isTextGradient) {
       classes.push("has-hover-text-gradient");
     }
     extraProps.style = {
       ...extraProps.style,
-      ...(hoverBackgroundColor && { "--hover-bg-color": hoverBackgroundColor }),
-      ...(hoverTextColor && { "--hover-text-color": hoverTextColor }),
+      "--hover-text-color": hoverTextColor,
+      ...(hoverEnhancedGlow &&
+        !isTextGradient && { "--hover-text-spotlight-color": hoverTextColor }),
     };
   }
 
@@ -289,6 +362,18 @@ function applyHoverAnimationClass(extraProps: any, blockType: any, attributes: a
       "--hover-opacity-from": (hoverOpacityFrom ?? DEFAULT_OPACITY_FROM) / 100,
       "--hover-opacity-to": (hoverOpacityTo ?? DEFAULT_OPACITY_TO) / 100,
     };
+  }
+
+  if (hoverBorderColor) {
+    classes.push("has-hover-border");
+    extraProps.style = {
+      ...extraProps.style,
+      "--hover-border-color": hoverBorderColor,
+    };
+  }
+
+  if (hoverEnhancedGlow) {
+    classes.push("has-enhanced-hover-glow");
   }
 
   const borderRadius = attributes?.style?.border?.radius;

@@ -63,6 +63,12 @@
       "width": true,
       "color": false,
       "style": false
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "width": true,
+      "color": false,
+      "style": false
     }
   }
 }

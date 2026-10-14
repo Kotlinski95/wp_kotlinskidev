@@ -842,9 +842,16 @@ header:has(.kt-lang-panel.is-open) {
 
 $kt-gradient-outline-slugs: fancy-text-dark, fancy-text-light, gradient-one, gradient-two, gradient-block-bottom, gradient-block-top, gradient-block-left, gradient-block-right, gradient-block-top-right, gradient-block-top-left, gradient-block-bottom-left, gradient-block-bottom-right, cyber-accent;
 
-$kt-gradient-outline-width: 0.1875rem;
+.wp-block-button.has-hover-bg-color .wp-block-button__link {
+	transition: background var(--kt-hover-color-duration, 0.3s) var(--kt-hover-color-easing, ease-in-out);
 
-.wp-block-button.is-style-gradient-outline {
+	&:hover,
+	&:focus-visible {
+		background: var(--hover-bg-color) !important;
+	}
+}
+
+.wp-block-button[class*="is-style-gradient-outline"] {
 
 	.wp-block-button__link {
 		position: relative;
@@ -880,17 +887,19 @@ $kt-gradient-outline-width: 0.1875rem;
 		}
 	}
 
-	&.has-hover-color-transition .wp-block-button__link {
+	&.has-hover-bg-color .wp-block-button__link {
+
+		&:hover::before,
+		&:focus-visible::before {
+			opacity: 0;
+		}
+	}
+
+	&.has-hover-text-color .wp-block-button__link {
 
 		&:hover,
 		&:focus-visible {
-			background: var(--hover-bg-color, transparent);
-			color: var(--hover-text-color, inherit);
-		}
-
-		&[style*="--hover-bg-color"]:hover::before,
-		&[style*="--hover-bg-color"]:focus-visible::before {
-			opacity: 0;
+			color: var(--hover-text-color);
 		}
 	}
 }

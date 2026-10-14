@@ -53,22 +53,44 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
 
     $hover_background_color = (string) ( $attrs['hoverBackgroundColor'] ?? '' );
     $hover_text_color       = (string) ( $attrs['hoverTextColor'] ?? '' );
+    $hover_border_color     = (string) ( $attrs['hoverBorderColor'] ?? '' );
+    $hover_enhanced_glow    = ! empty( $attrs['hoverEnhancedGlow'] );
     $declarations           = [];
 
     if ( '' !== $hover_background_color || '' !== $hover_text_color ) {
         $classes[] = 'has-hover-color-transition';
+    }
 
-        if ( str_contains( $hover_text_color, 'gradient' ) ) {
+    if ( '' !== $hover_background_color ) {
+        $classes[] = 'has-hover-bg-color';
+        $declarations[] = '--hover-bg-color:' . $hover_background_color;
+    }
+
+    if ( '' !== $hover_text_color ) {
+        $is_text_gradient = str_contains( $hover_text_color, 'gradient' );
+
+        if ( ! $hover_enhanced_glow ) {
+            $classes[] = 'has-hover-text-color';
+        }
+
+        if ( $is_text_gradient ) {
             $classes[] = 'has-hover-text-gradient';
         }
 
-        if ( '' !== $hover_background_color ) {
-            $declarations[] = '--hover-bg-color:' . $hover_background_color;
-        }
+        $declarations[] = '--hover-text-color:' . $hover_text_color;
 
-        if ( '' !== $hover_text_color ) {
-            $declarations[] = '--hover-text-color:' . $hover_text_color;
+        if ( $hover_enhanced_glow && ! $is_text_gradient ) {
+            $declarations[] = '--hover-text-spotlight-color:' . $hover_text_color;
         }
+    }
+
+    if ( '' !== $hover_border_color ) {
+        $classes[] = 'has-hover-border';
+        $declarations[] = '--hover-border-color:' . $hover_border_color;
+    }
+
+    if ( $hover_enhanced_glow ) {
+        $classes[] = 'has-enhanced-hover-glow';
     }
 
     if ( empty( $classes ) ) {
@@ -90,6 +112,21 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
         $processor->set_attribute( 'style', $existing_style . implode( ';', $declarations ) . ';' );
     }
 
-    return $processor->get_updated_html();
+    $content = $processor->get_updated_html();
+
+    if ( $hover_enhanced_glow && 'core/button' === ( $block['blockName'] ?? '' ) ) {
+        $content = kotlinskidev_wrap_button_glow_label( $content );
+    }
+
+    return $content;
+}
+
+function kotlinskidev_wrap_button_glow_label( string $content ): string
+{
+    return (string) preg_replace_callback(
+        '/(<a\b[^>]*\bclass="[^"]*\bwp-block-button__link\b[^"]*"[^>]*>)(.*?)(<\/a>)/s',
+        fn( array $matches ): string => $matches[1] . '<span class="kt-btn-glow-text">' . $matches[2] . '</span>' . $matches[3],
+        $content
+    );
 }
 add_filter('render_block', 'kotlinskidev_render_block_with_hover_animation', 10, 2);

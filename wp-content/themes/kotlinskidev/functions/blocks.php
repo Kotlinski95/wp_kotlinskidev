@@ -50,8 +50,12 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/content-tabs' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
-    register_block_type( get_template_directory() . '/src/blocks/article-card' );
-    register_block_type( get_template_directory() . '/src/blocks/project-card' );
+    if ( kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/article-card' );
+    }
+    if ( kotlinskidev_feature_enabled( 'project_cards' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/project-card' );
+    }
     register_block_type( get_template_directory() . '/src/blocks/translated-text' );
     register_block_type( get_template_directory() . '/src/blocks/process-steps' );
     register_block_type( get_template_directory() . '/src/blocks/process-steps/item' );
@@ -60,6 +64,16 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/contact-detail' );
     register_block_type( get_template_directory() . '/src/blocks/marquee' );
     register_block_type( get_template_directory() . '/src/blocks/marquee/item' );
+    register_block_type( get_template_directory() . '/src/blocks/blog-topics-grid-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/category-header-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/category-posts-grid-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/other-topics-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/article-tags-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/related-articles-dynamic' );
+    if ( kotlinskidev_feature_enabled( 'certificates' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/certificates-grid-dynamic' );
+        register_block_type( get_template_directory() . '/src/blocks/certificate' );
+    }
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
 

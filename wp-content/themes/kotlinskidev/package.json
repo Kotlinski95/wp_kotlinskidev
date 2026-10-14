@@ -127,6 +127,7 @@
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
     "check-version-sync": "node bin/check-version-sync.js",
+    "check-palette-consistency": "node bin/check-palette-consistency.js",
     "format": "wp-scripts format",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",
@@ -160,6 +161,7 @@
     "test": "npm run test:unit && npm run test:php",
     "test:coverage": "npm run test:unit:coverage && npm run test:php:coverage",
     "test:e2e": "wp-scripts test-playwright; e=$?; npm run --silent test:e2e:purge-drafts; exit $e",
+    "test:patterns": "wp-scripts test-playwright tests/e2e/editor/patterns-validity.spec.ts; e=$?; npm run --silent test:e2e:purge-drafts; exit $e",
     "test:e2e:purge-drafts": "wp post list --post_status=auto-draft --post_type=any --field=ID --path=../../.. | xargs -I {} wp post delete {} --force --path=../../..",
     "test:unit": "wp-scripts test-unit-jest",
     "test:unit:coverage": "wp-scripts test-unit-jest --coverage",
@@ -167,6 +169,6 @@
     "test:php": "composer test:unit",
     "test:php:coverage": "composer test:unit:coverage",
     "test:php:integration": "composer test:integration",
-    "verify": "npm run check-version-sync && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build"
+    "verify": "npm run check-version-sync && npm run check-palette-consistency && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build"
   }
 }

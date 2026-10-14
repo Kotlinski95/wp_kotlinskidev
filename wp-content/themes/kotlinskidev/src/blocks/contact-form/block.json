@@ -35,6 +35,7 @@
     "color": { "background": true, "text": true, "link": true },
     "typography": { "fontSize": true, "lineHeight": true, "fontFamily": true },
     "border": { "radius": true, "color": true, "width": true, "style": true },
+    "__experimentalBorder": { "radius": true, "color": true, "width": true, "style": true },
     "align": ["wide", "full"],
     "customClassName": true
   },

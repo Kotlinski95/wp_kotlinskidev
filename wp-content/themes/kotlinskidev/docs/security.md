@@ -96,7 +96,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 ## 10. Server-Side Request Forgery (OWASP A10)
 
 - [x] Every `wp_remote_get`/`wp_remote_post` call (reCAPTCHA/Turnstile verification in `contact-form.php`, any image/URL fetchers) targets a fixed, hardcoded host — never a user-supplied URL passed through unchecked. Confirmed: the only two calls in the theme (`functions/contact-form.php:66,93`) hit hardcoded `google.com`/`cloudflare.com` verification endpoints; the secret/response values go in the POST body, not the URL.
-- [x] If any feature ever accepts a user-supplied URL to fetch server-side (oEmbed-style embeds, remote image import), it validates against a host allowlist and blocks internal/private IP ranges (`127.0.0.1`, `169.254.169.254` EC2 metadata endpoint, RFC1918 ranges) to prevent SSRF into the EC2 instance's own metadata service. N/A — no such feature exists in the theme (no other `wp_remote_*` calls found).
+- [x] If any feature ever accepts a user-supplied URL to fetch server-side (oEmbed-style embeds, remote image import), it validates against a host allowlist and blocks internal/private IP ranges (`127.0.0.1`, `169.254.169.254` EC2 metadata endpoint, RFC1918 ranges) to prevent SSRF into the EC2 instance's own metadata service. Implemented in `functions/certificate-badge-fetch.php` for the certificate badge-URL fetch: `kotlinskidev_certificate_badge_host_allowed()` restricts the host to `credly.com`/`accredible.com` (+ subdomains), and `kotlinskidev_certificate_badge_host_is_safe()` resolves the host and rejects it via `FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE` before `wp_remote_get()` is ever called.
 
 ## 11. CSRF & Nonce Coverage
 

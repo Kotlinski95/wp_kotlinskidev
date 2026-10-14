@@ -1,5 +1,9 @@
 <?php
 function kotlinskidev_register_project_card_post_type(): void {
+    if ( ! kotlinskidev_feature_enabled( 'project_cards' ) ) {
+        return;
+    }
+
     register_post_type( 'kt_project_card', [
         'labels' => [
             'name'          => __( 'Project Cards', 'kotlinskidev' ),
@@ -32,6 +36,10 @@ function kotlinskidev_project_card_meta_fields(): array {
 }
 
 function kotlinskidev_register_project_card_meta(): void {
+    if ( ! kotlinskidev_feature_enabled( 'project_cards' ) ) {
+        return;
+    }
+
     foreach ( kotlinskidev_project_card_meta_fields() as $key => $sanitize_callback ) {
         register_post_meta( 'kt_project_card', $key, [
             'type'              => 'string',
@@ -75,6 +83,32 @@ function kotlinskidev_inject_project_card_overlay( string $html, string $descrip
     );
 }
 
+function kotlinskidev_merge_project_card_block_supports( string $html ): string {
+    $supports = WP_Block_Supports::get_instance()->apply_block_supports();
+
+    if ( empty( $supports ) ) {
+        return $html;
+    }
+
+    $processor = new WP_HTML_Tag_Processor( $html );
+    if ( ! $processor->next_tag() ) {
+        return $html;
+    }
+
+    if ( ! empty( $supports['class'] ) ) {
+        $existing_class = (string) $processor->get_attribute( 'class' );
+        $processor->set_attribute( 'class', trim( $existing_class . ' ' . $supports['class'] ) );
+    }
+
+    if ( ! empty( $supports['style'] ) ) {
+        $existing_style = (string) $processor->get_attribute( 'style' );
+        $merged_style   = $existing_style ? rtrim( $existing_style, ';' ) . ';' . $supports['style'] : $supports['style'];
+        $processor->set_attribute( 'style', $merged_style );
+    }
+
+    return $processor->get_updated_html();
+}
+
 function kotlinskidev_render_project_card_embed( int $card_id ): string {
     $card_id = $card_id ? kotlinskidev_resolve_translatable_post_id( $card_id ) : $card_id;
 
@@ -116,6 +150,10 @@ function kotlinskidev_render_project_card_embed( int $card_id ): string {
 }
 
 function kotlinskidev_project_card_editor_panel_script(): void {
+    if ( ! kotlinskidev_feature_enabled( 'project_cards' ) ) {
+        return;
+    }
+
     $screen = get_current_screen();
 
     if ( ! $screen || 'kt_project_card' !== $screen->post_type ) {

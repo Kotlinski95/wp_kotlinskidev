@@ -1,0 +1,66 @@
+@media (hover: hover) and (pointer: fine) {
+
+	.has-enhanced-hover-glow .wp-block-button__link .kt-btn-glow-text,
+	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.has-hover-text-gradient) {
+
+		@include kt-glow-text-clip-base;
+		transition-property: transform, color, border-color, opacity, box-shadow;
+	}
+
+	.kt-button__link.has-enhanced-hover-glow.has-kt-btn-hover-gradient:hover .kt-button__label,
+	.kt-button__link.has-enhanced-hover-glow.has-kt-btn-hover-gradient:focus-visible .kt-button__label {
+
+		@include kt-glow-spotlight(5rem, --kt-glow-spotlight-color, var(--kt-btn-hover-color, var(--kt-btn-color, currentColor)));
+	}
+
+	.kt-button__link.has-enhanced-hover-glow:not(.has-kt-btn-hover-gradient):hover .kt-button__label,
+	.kt-button__link.has-enhanced-hover-glow:not(.has-kt-btn-hover-gradient):focus-visible .kt-button__label {
+		background-color: var(--kt-btn-color, currentColor);
+
+		@include kt-glow-spotlight(5rem, --kt-glow-spotlight-color);
+	}
+
+	.has-enhanced-hover-glow.has-hover-text-gradient .wp-block-button__link:hover .kt-btn-glow-text,
+	.has-enhanced-hover-glow.has-hover-text-gradient .wp-block-button__link:focus-visible .kt-btn-glow-text {
+
+		@include kt-glow-spotlight(5rem, --hover-text-spotlight-color, var(--hover-text-color, currentcolor));
+		@include kt-glow-text-clip;
+	}
+
+	.has-enhanced-hover-glow:not(.has-hover-text-gradient) .wp-block-button__link:hover .kt-btn-glow-text,
+	.has-enhanced-hover-glow:not(.has-hover-text-gradient) .wp-block-button__link:focus-visible .kt-btn-glow-text {
+		background-color: currentcolor;
+
+		@include kt-glow-spotlight(5rem, --hover-text-spotlight-color);
+		@include kt-glow-text-clip;
+	}
+
+	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.has-hover-text-gradient):hover,
+	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.has-hover-text-gradient):focus-visible {
+		background-color: currentcolor;
+
+		@include kt-glow-spotlight(5rem, --hover-text-spotlight-color);
+		@include kt-glow-text-clip;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.kt-button__link.has-enhanced-hover-glow:hover .kt-button__label,
+	.kt-button__link.has-enhanced-hover-glow:focus-visible .kt-button__label {
+		background-color: initial;
+		background-image: var(--kt-btn-color, currentColor);
+	}
+
+	.has-enhanced-hover-glow .wp-block-button__link:hover .kt-btn-glow-text,
+	.has-enhanced-hover-glow .wp-block-button__link:focus-visible .kt-btn-glow-text {
+
+		@include kt-glow-reduced-motion-text-reset;
+	}
+
+	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):hover,
+	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):focus-visible {
+
+		@include kt-glow-reduced-motion-text-reset;
+	}
+}

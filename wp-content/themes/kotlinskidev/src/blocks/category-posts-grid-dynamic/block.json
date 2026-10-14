@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/category-posts-grid-dynamic",
+  "version": "1.0.0",
+  "title": "Category Posts Grid (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered grid of posts within the current category archive.",
+  "icon": "list-view",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/category-posts-grid-dynamic.js",
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

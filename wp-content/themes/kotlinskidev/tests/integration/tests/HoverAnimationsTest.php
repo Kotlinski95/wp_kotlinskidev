@@ -90,3 +90,65 @@ it('does not add the text-gradient class for a flat hover text color on a real d
     expect($html)->toContain('has-hover-color-transition');
     expect($html)->not->toContain('has-hover-text-gradient');
 });
+
+it('does not add the has-hover-bg-color class or declaration when only a hover text color is set on a real dynamic block, so it cannot override an unrelated background', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:kotlinskidev/scroll-to-top ' . wp_json_encode([
+            'variant' => 'bar',
+            'hoverTextColor' => '#ffffff',
+        ]) . ' /-->'
+    )[0]);
+
+    expect($html)->toContain('has-hover-text-color');
+    expect($html)->not->toContain('has-hover-bg-color');
+    expect($html)->not->toContain('--hover-bg-color');
+});
+
+it('does not add the has-hover-text-color class or declaration when only a hover background color is set on a real dynamic block, so it cannot override an unrelated text color', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:kotlinskidev/scroll-to-top ' . wp_json_encode([
+            'variant' => 'bar',
+            'hoverBackgroundColor' => '#8209d3',
+        ]) . ' /-->'
+    )[0]);
+
+    expect($html)->toContain('has-hover-bg-color');
+    expect($html)->not->toContain('has-hover-text-color');
+    expect($html)->not->toContain('--hover-text-color');
+});
+
+it('applies the hover border color CSS custom property to a real dynamic block', function () {
+    $html = render_block(parse_blocks(
+        '<!-- wp:kotlinskidev/scroll-to-top ' . wp_json_encode([
+            'variant' => 'bar',
+            'hoverBorderColor' => '#8209d3',
+        ]) . ' /-->'
+    )[0]);
+
+    expect($html)->toContain('has-hover-border');
+    expect($html)->toContain('--hover-border-color:#8209d3');
+});
+
+it('applies the has-enhanced-hover-glow class to a real core/button block', function () {
+    $attrs = ['hoverTextColor' => '#8209d3', 'hoverEnhancedGlow' => true];
+    $html = render_block(parse_blocks(
+        '<!-- wp:button ' . wp_json_encode($attrs) . ' -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Click me</a></div>
+<!-- /wp:button -->'
+    )[0]);
+
+    expect($html)->toContain('has-enhanced-hover-glow');
+    expect($html)->toContain('--hover-text-color:#8209d3');
+    expect($html)->not->toContain('has-hover-text-color');
+});
+
+it('does not apply the has-enhanced-hover-glow class to a real core/button block when the toggle is off', function () {
+    $attrs = ['hoverTextColor' => '#8209d3'];
+    $html = render_block(parse_blocks(
+        '<!-- wp:button ' . wp_json_encode($attrs) . ' -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button">Click me</a></div>
+<!-- /wp:button -->'
+    )[0]);
+
+    expect($html)->not->toContain('has-enhanced-hover-glow');
+});

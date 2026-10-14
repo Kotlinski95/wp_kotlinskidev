@@ -76,6 +76,19 @@ describe("scroll-animations.ts — with IntersectionObserver", () => {
     expect(el.classList.contains("visible")).toBe(false);
     expect(unobserveSpy).not.toHaveBeenCalled();
   });
+
+  it("releases will-change once the reveal transition ends", () => {
+    const el = buildTargets();
+    require("./scroll-animations");
+
+    capturedCallback?.([{ isIntersecting: true, target: el } as IntersectionObserverEntry], {
+      unobserve: unobserveSpy,
+    } as unknown as IntersectionObserver);
+
+    el.dispatchEvent(new Event("transitionend"));
+
+    expect(el.style.willChange).toBe("auto");
+  });
 });
 
 describe("scroll-animations.ts — fallback without IntersectionObserver", () => {

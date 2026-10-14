@@ -5,6 +5,7 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 import { Fragment, useState } from "@wordpress/element";
 import { __, sprintf } from "@wordpress/i18n";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 declare global {
   interface Window {
@@ -90,6 +91,10 @@ const alignSelfOptions = [
 ];
 
 const addResponsiveDisplayAttributes = (settings: any) => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name)) {
+    return settings;
+  }
+
   return {
     ...settings,
     attributes: {
@@ -108,8 +113,12 @@ const addResponsiveDisplayAttributes = (settings: any) => {
 
 const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => {
   return (props: any) => {
-    const { attributes, setAttributes } = props;
+    const { attributes, setAttributes, name } = props;
     const { responsiveDisplay = { desktop: {}, tablet: {}, mobile: {} } } = attributes;
+
+    if (DYNAMIC_PREVIEW_BLOCKS.includes(name)) {
+      return <BlockEdit {...props} />;
+    }
 
     const hasResponsiveSettings = () => {
       const checkDevice = (device: any) => {

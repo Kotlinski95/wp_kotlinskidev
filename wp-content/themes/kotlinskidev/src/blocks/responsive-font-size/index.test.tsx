@@ -69,6 +69,20 @@ describe("responsive-font-size — blocks.registerBlockType filter", () => {
     expect(result.attributes.existing).toBeDefined();
     expect(result.attributes.responsiveFontSize).toEqual({ type: "object", default: {} });
   });
+
+  it("does not add the responsiveFontSize attribute to a ServerSideRender dynamic-preview block even with typography support, since its REST schema would 400 on an undeclared attribute", () => {
+    const settings = {
+      name: "kotlinskidev/certificate",
+      supports: { typography: true },
+      attributes: {},
+    };
+
+    const result = applyFilters("blocks.registerBlockType", settings) as {
+      attributes: { responsiveFontSize?: unknown };
+    };
+
+    expect(result.attributes.responsiveFontSize).toBeUndefined();
+  });
 });
 
 describe("responsive-font-size — editor.BlockEdit filter", () => {
@@ -94,6 +108,14 @@ describe("responsive-font-size — editor.BlockEdit filter", () => {
   it("renders only the original edit when the block has no typography support", () => {
     mockHasBlockSupport.mockReturnValue(false);
     renderWrapped({ name: "core/code", attributes: {}, setAttributes: jest.fn() });
+
+    expect(screen.getByTestId("original-edit")).toBeInTheDocument();
+    expect(screen.queryByText(/Responsive font size/)).not.toBeInTheDocument();
+  });
+
+  it("renders only the original edit for a ServerSideRender dynamic-preview block, even with typography support", () => {
+    mockHasBlockSupport.mockReturnValue(true);
+    renderWrapped({ name: "kotlinskidev/certificate", attributes: {}, setAttributes: jest.fn() });
 
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
     expect(screen.queryByText(/Responsive font size/)).not.toBeInTheDocument();

@@ -137,3 +137,100 @@ test.describe("Hover colors on a dynamic (render.php-only) block — kotlinskide
     await expect(label).toHaveCSS("-webkit-text-fill-color", "rgba(0, 0, 0, 0)");
   });
 });
+
+test.describe("core/button with a solid hover background AND the enhanced glow effect together", () => {
+  // Regression: has-enhanced-hover-glow used to clip the <a>'s own background to text, exposing the
+  // unstyled wrapping div (no border-radius, a slow color-transition) behind it — a visible flash and
+  // square corners on hover. The label is now wrapped server-side in a .kt-btn-glow-text span so the
+  // glow clips that span only, leaving the <a>'s own solid background and border-radius untouched.
+  const glowHoverBgSlug = "e2e-fixture-button-glow-hover-bg";
+  let fixtureUrl: string;
+
+  test.beforeAll(() => {
+    const attrs = {
+      hoverBackgroundColor: "#f2f2f2",
+      hoverTextColor: "#8209d3",
+      hoverEnhancedGlow: true,
+      className: "is-style-fill-light",
+    };
+    fixtureUrl = createFixturePage(
+      glowHoverBgSlug,
+      "E2E Fixture — Button Glow + Hover Background",
+      `<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button ${JSON.stringify(attrs)} -->
+<div class="wp-block-button is-style-fill-light"><a class="wp-block-button__link wp-element-button" href="#" style="border-top-left-radius:6px;border-top-right-radius:6px;border-bottom-left-radius:6px;border-bottom-right-radius:6px">Glow target</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->`
+    ).url;
+  });
+
+  test.afterAll(() => {
+    deleteFixturePage(glowHoverBgSlug);
+  });
+
+  test("the label is wrapped in a glow-text span, not left as bare text in the link", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+    await expect(link.locator(".kt-btn-glow-text")).toHaveText("Glow target");
+  });
+
+  test("hovering keeps the link's own background solid and never transitions it", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+
+    await expect(link).toHaveCSS("transition-duration", /^(0s|1e-05s)$/);
+
+    await link.hover();
+
+    await expect(link).toHaveCSS("background-color", "rgb(242, 242, 242)");
+    await expect(link).toHaveCSS("background-clip", "border-box");
+  });
+
+  test("hovering never resets the link's border-radius", async ({ page }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+
+    await expect(link).toHaveCSS("border-top-left-radius", "6px");
+
+    await link.hover();
+
+    await expect(link).toHaveCSS("border-top-left-radius", "6px");
+  });
+
+  test("hovering never paints the square-cornered wrapping div behind the rounded link", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+    const wrapper = page.locator(".wp-block-button", { has: link });
+
+    await link.hover();
+
+    await expect(wrapper).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  });
+
+  test("hovering still clips the glow-text span's background to the text", async ({ page }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+    const glowText = link.locator(".kt-btn-glow-text");
+
+    await link.hover();
+
+    await expect(glowText).toHaveCSS("background-clip", "text");
+    await expect(glowText).toHaveCSS("-webkit-text-fill-color", /^rgba\(\d+, \d+, \d+, 0\)$/);
+  });
+});

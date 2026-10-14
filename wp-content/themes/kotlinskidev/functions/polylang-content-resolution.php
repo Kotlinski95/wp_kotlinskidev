@@ -35,6 +35,15 @@ if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
 	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_project_cards', 10, 2 );
 }
 
+function kotlinskidev_pll_register_certificates( array $post_types, bool $is_settings ): array {
+	$post_types['kt_certificate'] = 'kt_certificate';
+	return $post_types;
+}
+
+if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
+	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_certificates', 10, 2 );
+}
+
 function kotlinskidev_resolve_translatable_post_id( int $post_id ): int {
 	if ( function_exists( 'pll_get_post' ) ) {
 		$translated_id = pll_get_post( $post_id );

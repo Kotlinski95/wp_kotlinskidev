@@ -46,6 +46,7 @@
 	overscroll-behavior-x: contain;
 	white-space: nowrap;
 	scrollbar-width: thin;
+	max-height: var(--kt-breadcrumbs-height);
 }
 
 .kt-breadcrumbs__item {

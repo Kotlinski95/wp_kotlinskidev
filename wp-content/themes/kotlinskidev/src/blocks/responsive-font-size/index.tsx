@@ -7,6 +7,7 @@ import { InspectorControls, store as blockEditorStore } from "@wordpress/block-e
 import { SelectControl, Button, RangeControl } from "@wordpress/components";
 import { hasBlockSupport } from "@wordpress/blocks";
 import { useSelect } from "@wordpress/data";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 declare global {
   interface Window {
@@ -64,7 +65,7 @@ interface BlockSettings {
 }
 
 const addResponsiveFontSizeAttribute = (settings: BlockSettings): BlockSettings => {
-  if (!settings.supports?.typography) {
+  if (!settings.supports?.typography || DYNAMIC_PREVIEW_BLOCKS.includes(settings.name ?? "")) {
     return settings;
   }
 
@@ -389,7 +390,7 @@ const withResponsiveFontSizeControls = createHigherOrderComponent((BlockEdit) =>
   return (props: BlockEditProps) => {
     const { attributes, setAttributes, name } = props;
 
-    if (!hasBlockSupport(name, "typography")) {
+    if (!hasBlockSupport(name, "typography") || DYNAMIC_PREVIEW_BLOCKS.includes(name)) {
       return <BlockEdit {...props} />;
     }
 

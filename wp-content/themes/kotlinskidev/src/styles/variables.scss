@@ -13,6 +13,7 @@ $black: #191919;
 $white: #f2f2f2;
 $color-error: #dc3545;
 $kt-gradient-fallback: linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast));
+$kt-gradient-outline-width: 0.1875rem;
 
 // Breakpoints
 $desktop: 64rem; // 1024px -> 64rem
@@ -21,7 +22,7 @@ $mobile: 48.875rem; // 782px -> 48.875rem
 // Sizes
 $header: 4.6875rem; // 75px -> 4.6875rem
 $header-width: 77.5rem; // 1240px
-$breadcrumbs-height: 2.75rem; // 44px -> 2.75rem
+$breadcrumbs-height: 2.5625rem; // 41px -> 2.5625rem
 $mobile-footer-nav: 4rem; // 64px -> 4rem;
 $admin-bar-desktop: 32px;
 $admin-bar-mobile: 46px;

@@ -60,15 +60,15 @@ $kotlinskidev_groups = array(
                 </div>
                 <!-- /wp:group -->
 
-                <!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"700","letterSpacing":"0.14em"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
+                <!-- wp:heading {"level":3,"style":{"typography":{"fontWeight":"700","letterSpacing":"0.14em","textTransform":"uppercase"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
                 <h3 class="wp-block-heading has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;letter-spacing:0.14em;text-transform:uppercase"><?php echo esc_html($kotlinskidev_group['title']) ?></h3>
                 <!-- /wp:heading -->
             </div>
             <!-- /wp:group -->
 
             <?php foreach ($kotlinskidev_group['items'] as $kotlinskidev_i => $kotlinskidev_item) : ?>
-            <!-- wp:group <?php echo $kotlinskidev_i > 0 ? '{"style":{"border":{"top":{"width":"1px","color":"var:preset|color|divider"}},"spacing":{"padding":{"top":"0.8125rem","bottom":"0.8125rem"}},"blockGap":"0.625rem"},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"baseline"}}' : '{"style":{"spacing":{"padding":{"top":"0.8125rem","bottom":"0.8125rem"}},"blockGap":"0.625rem"},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"baseline"}}'; ?> -->
-            <div class="wp-block-group has-border-color" style="<?php echo $kotlinskidev_i > 0 ? 'border-top-color:var(--wp--preset--color--divider);border-top-width:1px;' : ''; ?>padding-top:0.8125rem;padding-bottom:0.8125rem"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+            <!-- wp:group <?php echo $kotlinskidev_i > 0 ? '{"style":{"border":{"width":"0","top":{"width":"1px","color":"var:preset|color|divider"}},"spacing":{"padding":{"top":"0.8125rem","bottom":"0.8125rem"}},"blockGap":"0.625rem"},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"baseline"}}' : '{"style":{"spacing":{"padding":{"top":"0.8125rem","bottom":"0.8125rem"}},"blockGap":"0.625rem"},"layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"baseline"}}'; ?> -->
+            <div class="wp-block-group<?php echo $kotlinskidev_i > 0 ? ' has-border-color' : ''; ?>" style="<?php echo $kotlinskidev_i > 0 ? 'border-width:0;border-top-color:var(--wp--preset--color--divider);border-top-width:1px;' : ''; ?>padding-top:0.8125rem;padding-bottom:0.8125rem"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
                 <p style="margin-top:0;margin-bottom:0;font-weight:600"><?php echo esc_html($kotlinskidev_item['name']) ?></p>
                 <!-- /wp:paragraph -->
 
