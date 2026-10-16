@@ -57,11 +57,12 @@ export function createFixturePost(
   postType: string,
   slug: string,
   title: string,
-  meta: Record<string, string> = {}
+  meta: Record<string, string> = {},
+  content = ""
 ): { id: number; url: string } {
   deleteFixturePostsByType(postType, slug);
 
-  const id = wp([
+  const args = [
     "post",
     "create",
     `--post_type=${postType}`,
@@ -69,7 +70,12 @@ export function createFixturePost(
     `--post_title=${title}`,
     `--post_name=${slug}`,
     "--porcelain",
-  ]);
+  ];
+  if (content) {
+    args.push(`--post_content=${content}`);
+  }
+
+  const id = wp(args);
 
   for (const [key, value] of Object.entries(meta)) {
     wp(["post", "meta", "update", id, key, value]);

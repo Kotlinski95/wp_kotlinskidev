@@ -9,4 +9,10 @@ $layout_classes = [
 
 $wrapper_attrs = get_block_wrapper_attributes( [ 'class' => $layout_classes[ $layout ] ] );
 
-echo kotlinskidev_render_certificate_embed( absint( $attributes['certificateId'] ?? 0 ), $layout, $wrapper_attrs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_certificate_embed() renders trusted, already-escaped output; $wrapper_attrs comes from get_block_wrapper_attributes(), already esc_attr()'d internally
+echo kotlinskidev_render_certificate_embed(
+    absint( $attributes['certificateId'] ?? 0 ),
+    $layout,
+    $wrapper_attrs,
+    (string) ( $attributes['secondaryTextColor'] ?? '' ),
+    (string) ( $attributes['accentColor'] ?? '' )
+); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_certificate_embed() renders trusted, already-escaped output; $wrapper_attrs comes from get_block_wrapper_attributes(), already esc_attr()'d internally

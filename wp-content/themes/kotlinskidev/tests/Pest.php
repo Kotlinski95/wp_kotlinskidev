@@ -77,6 +77,18 @@ if (!class_exists('WP_HTML_Tag_Processor')) {
             }
         }
 
+        public function add_class(string $class): void
+        {
+            if ($this->current === null) {
+                return;
+            }
+            $existing = array_filter(explode(' ', $this->current['attrs']['class'] ?? ''));
+            if (!in_array($class, $existing, true)) {
+                $existing[] = $class;
+            }
+            $this->current['attrs']['class'] = implode(' ', $existing);
+        }
+
         public function get_updated_html(): string
         {
             $this->commitCurrent();

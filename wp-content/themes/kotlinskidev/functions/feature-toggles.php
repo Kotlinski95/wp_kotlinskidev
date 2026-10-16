@@ -1,10 +1,11 @@
 <?php
 function kotlinskidev_toggleable_features(): array {
     return [
-        'project_cards'     => __( 'Project Cards', 'kotlinskidev' ),
-        'article_cards'     => __( 'Article Cards', 'kotlinskidev' ),
-        'service_locations' => __( 'Service Locations', 'kotlinskidev' ),
-        'certificates'      => __( 'Certificates', 'kotlinskidev' ),
+        'project_cards'      => __( 'Project Cards', 'kotlinskidev' ),
+        'article_cards'      => __( 'Article Cards', 'kotlinskidev' ),
+        'service_locations'  => __( 'Service Locations', 'kotlinskidev' ),
+        'certificates'       => __( 'Certificates', 'kotlinskidev' ),
+        'canvas_backgrounds' => __( 'Canvas Backgrounds', 'kotlinskidev' ),
     ];
 }
 

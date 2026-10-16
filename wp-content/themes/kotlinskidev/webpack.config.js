@@ -24,6 +24,7 @@ const coreEntries = {
   critical: path.join(srcDir, "critical.ts"),
   editor: path.join(srcDir, "editor.ts"),
   "admin-bar": path.join(srcDir, "admin-bar.ts"),
+  "canvas-background-init": path.join(srcDir, "scripts/canvas-background/init.ts"),
 };
 
 const blockEntries = {};

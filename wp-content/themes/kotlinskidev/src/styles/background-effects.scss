@@ -28,7 +28,7 @@
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	color: transparent;
-	animation: kt-bg-fx-shimmer 6s linear infinite;
+	animation: kt-bg-fx-shimmer var(--kt-bg-fx-duration, 6s) linear infinite;
 }
 
 .kt-bg-fx-wave {
@@ -47,7 +47,7 @@
 
 		@include gradient-border(var(--kt-bg-fx-border-width, 0.125rem), $glow-border-gradient);
 		background-size: 300% 100%;
-		animation: kt-bg-fx-shimmer 6s linear infinite;
+		animation: kt-bg-fx-shimmer var(--kt-bg-fx-duration, 6s) linear infinite;
 	}
 }
 

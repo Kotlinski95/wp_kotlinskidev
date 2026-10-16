@@ -2,12 +2,29 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { applyFilters } from "@wordpress/hooks";
+import { createReduxStore, register } from "@wordpress/data";
 import type { ComponentType } from "react";
 
 jest.mock("@wordpress/block-editor", () => ({
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   __experimentalColorGradientControl: ({ label }: { label: string }) => <div>{label}</div>,
 }));
+
+interface BgEffectPresetRecord {
+  id: number;
+  title: { rendered: string };
+}
+
+const mockPresets: { current: BgEffectPresetRecord[] | null } = { current: null };
+
+register(
+  createReduxStore("core", {
+    reducer: (state = {}) => state,
+    selectors: {
+      getEntityRecords: () => mockPresets.current,
+    },
+  })
+);
 
 import "./index";
 
@@ -63,7 +80,7 @@ describe("background-effects-controls — editor.BlockEdit filter", () => {
 
   interface Props {
     name: string;
-    attributes: { backgroundEffect?: string };
+    attributes: { backgroundEffect?: string; backgroundEffectPresetId?: number };
     setAttributes: (attrs: Record<string, unknown>) => void;
   }
 
@@ -121,6 +138,41 @@ describe("background-effects-controls — editor.BlockEdit filter", () => {
     expect(screen.getByText("Effect color 1")).toBeInTheDocument();
     expect(screen.getByText("Effect color 2")).toBeInTheDocument();
     expect(screen.getByText("Effect color 3")).toBeInTheDocument();
+  });
+
+  it("shows the preset combobox once expanded", async () => {
+    const user = userEvent.setup();
+    renderWrapped({ name: "core/group", attributes: {}, setAttributes: jest.fn() });
+
+    await user.click(screen.getByRole("button", { name: /Background Effects/ }));
+
+    expect(screen.getByRole("combobox", { name: "Effect Preset" })).toBeInTheDocument();
+  });
+
+  it("disables the manual Effect select once a preset is chosen", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { backgroundEffectPresetId: 5 },
+      setAttributes: jest.fn(),
+    });
+
+    await user.click(screen.getByRole("button", { name: /Background Effects/ }));
+
+    expect(screen.getByRole("combobox", { name: "Effect" })).toBeDisabled();
+  });
+
+  it("does not show the manual color pickers once a preset is chosen", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { backgroundEffect: "kt-bg-fx-wave", backgroundEffectPresetId: 5 },
+      setAttributes: jest.fn(),
+    });
+
+    await user.click(screen.getByRole("button", { name: /Background Effects/ }));
+
+    expect(screen.queryByText("Effect color 1")).not.toBeInTheDocument();
   });
 });
 
@@ -232,5 +284,32 @@ describe("background-effects-controls — blocks.getSaveContent.extraProps filte
     ) as { style: Record<string, string> };
 
     expect(result.style).toEqual({ "--kt-bg-fx-color-1": "#8209d3" });
+  });
+});
+
+describe("background-effects-controls — backgroundEffectPresetId attribute", () => {
+  it("adds the backgroundEffectPresetId attribute for a supported block", () => {
+    const settings = { name: "core/group", attributes: {} };
+
+    const result = applyFilters("blocks.registerBlockType", settings) as {
+      attributes: { backgroundEffectPresetId: { type: string; default: number } };
+    };
+
+    expect(result.attributes.backgroundEffectPresetId).toEqual({ type: "number", default: 0 });
+  });
+});
+
+describe("background-effects-controls — extraProps filter skips presets", () => {
+  it("leaves extraProps unchanged when a preset id is set, deferring to server-side rendering", () => {
+    const extraProps = { className: "existing" };
+
+    const result = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      extraProps,
+      {},
+      { backgroundEffect: "kt-bg-fx-wave", backgroundEffectPresetId: 5 }
+    ) as { className: string };
+
+    expect(result.className).toBe("existing");
   });
 });

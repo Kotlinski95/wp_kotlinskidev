@@ -25,7 +25,15 @@
     "hoverOpacityFrom": { "type": "number", "default": 100 },
     "hoverOpacityTo": { "type": "number", "default": 50 },
     "hoverBorderColor": { "type": "string", "default": "" },
-    "hoverEnhancedGlow": { "type": "boolean", "default": false }
+    "hoverEnhancedGlow": { "type": "boolean", "default": false },
+    "canvasSceneId": { "type": "number", "default": 0 },
+    "canvasScrim": { "type": "boolean", "default": false },
+    "canvasScrimColor": { "type": "string", "default": "#000000" },
+    "canvasScrimOpacity": { "type": "number", "default": 0.5 },
+    "secondaryTextColor": { "type": "string", "default": "" },
+    "accentColor": { "type": "string", "default": "" },
+    "kotlinskidevPosition": { "type": "string", "default": "" },
+    "kotlinskidevZIndex": { "type": "string", "default": "" }
   },
   "supports": {
     "html": false,

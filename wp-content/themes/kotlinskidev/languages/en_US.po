@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-14T06:17:37+00:00\n"
+"POT-Creation-Date: 2026-10-16T11:14:27+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -388,6 +388,30 @@ msgstr "How to sort the articles"
 msgid "Mark as Featured Article"
 msgstr "Mark as Featured Article"
 
+#: functions/background-effects/preset.php:5
+msgid "Background Effect Presets"
+msgstr "Background Effect Presets"
+
+#: functions/background-effects/preset.php:6
+msgid "Background Effect Preset"
+msgstr "Background Effect Preset"
+
+#: functions/background-effects/preset.php:7
+msgid "Add New Background Effect Preset"
+msgstr "Add New Background Effect Preset"
+
+#: functions/background-effects/preset.php:8
+msgid "Edit Background Effect Preset"
+msgstr "Edit Background Effect Preset"
+
+#: functions/background-effects/preset.php:9
+msgid "Search Background Effect Presets"
+msgstr "Search Background Effect Presets"
+
+#: functions/background-effects/preset.php:10
+msgid "No background effect presets found"
+msgstr "No background effect presets found"
+
 #: functions/blocks.php:7 build/js/navigation.js:1 build/js/simple-grid.js:1
 #: build/js/slider.js:1
 msgid "Navigation"
@@ -673,93 +697,117 @@ msgstr "No related articles found."
 msgid "Search results for \"%s\""
 msgstr "Search results for \"%s\""
 
-#: functions/cache.php:236 functions/cache.php:237
+#: functions/cache.php:241 functions/cache.php:242
 msgid "Theme Cache"
 msgstr "Theme Cache"
 
-#: functions/cache.php:255
+#: functions/cache.php:260
 msgid "Theme cache cleared successfully."
 msgstr "Theme cache cleared successfully."
 
-#: functions/cache.php:276
+#: functions/cache.php:281
 msgid "kotlinskidev — Theme Cache"
 msgstr "kotlinskidev — Theme Cache"
 
-#: functions/cache.php:278
+#: functions/cache.php:283
 msgid "Cached entries currently stored in the database:"
 msgstr "Cached entries currently stored in the database:"
 
-#: functions/cache.php:284
+#: functions/cache.php:289
 msgid "Cache group"
 msgstr "Cache group"
 
-#: functions/cache.php:285
+#: functions/cache.php:290
 msgid "Key pattern"
 msgstr "Key pattern"
 
-#: functions/cache.php:286
+#: functions/cache.php:291
 msgid "Invalidated by"
 msgstr "Invalidated by"
 
-#: functions/cache.php:291
+#: functions/cache.php:296
 msgid "Critical CSS"
 msgstr "Critical CSS"
 
-#: functions/cache.php:293 functions/cache.php:298
+#: functions/cache.php:298 functions/cache.php:303
 msgid "Build deploy (filemtime)"
 msgstr "Build deploy (filemtime)"
 
-#: functions/cache.php:296
+#: functions/cache.php:301
 msgid "Critical JS"
 msgstr "Critical JS"
 
-#: functions/cache.php:301
+#: functions/cache.php:306
 msgid "JS translations"
 msgstr "JS translations"
 
-#: functions/cache.php:303
+#: functions/cache.php:308
 msgid "Language file update / manual flush"
 msgstr "Language file update / manual flush"
 
-#: functions/cache.php:306
+#: functions/cache.php:311
 msgid "Image dimensions"
 msgstr "Image dimensions"
 
-#: functions/cache.php:308 functions/cache.php:318
+#: functions/cache.php:313 functions/cache.php:323
 msgid "Attachment edit / delete / manual flush"
 msgstr "Attachment edit / delete / manual flush"
 
-#: functions/cache.php:311
+#: functions/cache.php:316
 msgid "Popular posts"
 msgstr "Popular posts"
 
-#: functions/cache.php:313
+#: functions/cache.php:318
 msgid "15 minute TTL / manual flush"
 msgstr "15 minute TTL / manual flush"
 
-#: functions/cache.php:316
+#: functions/cache.php:321
 msgid "Inlined SVGs"
 msgstr "Inlined SVGs"
 
-#: functions/cache.php:321
+#: functions/cache.php:326
 msgid "Build fingerprint"
 msgstr "Build fingerprint"
 
-#: functions/cache.php:323
+#: functions/cache.php:328
 msgid "Set automatically on every new build"
 msgstr "Set automatically on every new build"
 
-#: functions/cache.php:326
+#: functions/cache.php:331
 msgid "Certificate badge fetch"
 msgstr "Certificate badge fetch"
 
-#: functions/cache.php:328
+#: functions/cache.php:333
 msgid "1 day TTL / manual flush"
 msgstr "1 day TTL / manual flush"
 
-#: functions/cache.php:337
+#: functions/cache.php:342
 msgid "Clear all theme cache"
 msgstr "Clear all theme cache"
+
+#: functions/canvas/scene.php:9
+msgid "Canvas Scenes"
+msgstr "Canvas Scenes"
+
+#: functions/canvas/scene.php:10 build/js/editor.js:1
+msgid "Canvas Scene"
+msgstr "Canvas Scene"
+
+#: functions/canvas/scene.php:11
+msgid "Add New Canvas Scene"
+msgstr "Add New Canvas Scene"
+
+#: functions/canvas/scene.php:12
+msgid "Edit Canvas Scene"
+msgstr "Edit Canvas Scene"
+
+#: functions/canvas/scene.php:13
+msgid "Search Canvas Scenes"
+msgstr "Search Canvas Scenes"
+
+#: functions/canvas/scene.php:14
+msgid "No canvas scenes found"
+msgstr "No canvas scenes found"
 
 #: functions/certificate-badge-fetch.php:119
 msgid "Certificates are disabled on this site."
@@ -823,29 +871,29 @@ msgstr "No certificates found"
 msgid "Issued %s"
 msgstr "Issued %s"
 
-#: functions/certificate.php:113
+#: functions/certificate.php:126
 msgid "Verify"
 msgstr "Verify"
 
 #. translators: %s: credential ID
-#: functions/certificate.php:144
+#: functions/certificate.php:160
 #, php-format
 msgid "Credential ID: %s"
 msgstr "Credential ID: %s"
 
-#: functions/certificate.php:150 functions/certificate.php:151
+#: functions/certificate.php:166 functions/certificate.php:167
 msgid "View credential →"
 msgstr "View credential →"
 
-#: functions/certificate.php:200
+#: functions/certificate.php:216
 msgid "Certified in"
 msgstr "Certified in"
 
-#: functions/certificate.php:209
+#: functions/certificate.php:225
 msgid "All credentials →"
 msgstr "All credentials →"
 
-#: functions/certificate.php:221
+#: functions/certificate.php:237
 msgid "Select a certificate to display it here."
 msgstr "Select a certificate to display it here."
 
@@ -1010,6 +1058,10 @@ msgstr "Project Cards"
 #: functions/feature-toggles.php:6 functions/service-locations.php:9
 msgid "Service Locations"
 msgstr "Service Locations"
+
+#: functions/feature-toggles.php:8
+msgid "Canvas Backgrounds"
+msgstr "Canvas Backgrounds"
 
 #: functions/icon-library.php:4
 msgid "Icons (SVG)"
@@ -1699,7 +1751,7 @@ msgstr "Logo image"
 msgid "Background color"
 msgstr "Background color"
 
-#: functions/settings-page.php:389
+#: functions/settings-page.php:389 build/js/certificate.js:1
 msgid "Accent color"
 msgstr "Accent color"
 
@@ -5173,7 +5225,7 @@ msgid "Replies in 24 h"
 msgstr "Replies in 24 h"
 
 #: build/js/article-card-panel.js:1 build/js/article-card.js:1
-#: build/js/certificate.js:1 build/js/project-card.js:1
+#: build/js/certificate.js:1 build/js/editor.js:1 build/js/project-card.js:1
 msgid "(no title)"
 msgstr "(no title)"
 
@@ -5419,6 +5471,58 @@ msgstr "Slides (Tablet)"
 msgid "Slides (Desktop)"
 msgstr "Slides (Desktop)"
 
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Gradient Shift"
+msgstr "Gradient Shift"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Aurora"
+msgstr "Aurora"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Wave"
+msgstr "Wave"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Shimmer Text"
+msgstr "Shimmer Text"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Glow Border"
+msgstr "Glow Border"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Preset Settings"
+msgstr "Preset Settings"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Effect"
+msgstr "Effect"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Duration (seconds)"
+msgstr "Duration (seconds)"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 1"
+msgstr "Color 1"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 2"
+msgstr "Color 2"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 3"
+msgstr "Color 3"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Leave a color empty to keep the theme's default."
+msgstr "Leave a color empty to keep the theme's default."
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Background Effect Preset Settings"
+msgstr "Background Effect Preset Settings"
+
 #: build/js/breadcrumbs.js:1
 msgid "Breadcrumbs Settings"
 msgstr "Breadcrumbs Settings"
@@ -5609,6 +5713,24 @@ msgstr "Feature cards"
 #: build/js/certificate.js:1 build/js/certificates-grid-dynamic.js:1
 msgid "Compact strip"
 msgstr "Compact strip"
+
+#: build/js/certificate.js:1
+msgid "Card Colors"
+msgstr "Card Colors"
+
+#: build/js/certificate.js:1
+msgid "Secondary text color"
+msgstr "Secondary text color"
+
+#: build/js/certificate.js:1
+msgid ""
+"Secondary text color applies to the issuer and issued-date text. Accent "
+"color applies to the verify link (and the date pill in the Feature cards "
+"layout). Leave empty to keep the theme's default."
+msgstr ""
+"Secondary text color applies to the issuer and issued-date text. Accent "
+"color applies to the verify link (and the date pill in the Feature cards "
+"layout). Leave empty to keep the theme's default."
 
 #: build/js/certificates-grid-dynamic.js:1
 msgid "Certificates Grid"
@@ -6455,32 +6577,22 @@ msgstr ""
 "recolors the whole text on hover."
 
 #: build/js/editor.js:1
-msgid "Gradient Shift"
-msgstr "Gradient Shift"
-
-#: build/js/editor.js:1
-msgid "Aurora"
-msgstr "Aurora"
-
-#: build/js/editor.js:1
-msgid "Shimmer Text"
-msgstr "Shimmer Text"
-
-#: build/js/editor.js:1
-msgid "Wave"
-msgstr "Wave"
-
-#: build/js/editor.js:1
-msgid "Glow Border"
-msgstr "Glow Border"
-
-#: build/js/editor.js:1
 msgid "Background Effects"
 msgstr "Background Effects"
 
 #: build/js/editor.js:1
-msgid "Effect"
-msgstr "Effect"
+msgid "Effect Preset"
+msgstr "Effect Preset"
+
+#: build/js/editor.js:1
+msgid ""
+"Manage presets from Background Effect Presets in the admin menu. Editing a "
+"preset there updates every block using it, with no code changes needed. "
+"Overrides the manual effect below when set."
+msgstr ""
+"Manage presets from Background Effect Presets in the admin menu. Editing a "
+"preset there updates every block using it, with no code changes needed. "
+"Overrides the manual effect below when set."
 
 #: build/js/editor.js:1
 msgid ""
@@ -6517,6 +6629,170 @@ msgid ""
 msgstr ""
 "Only the color animates. Border width and radius come from this block's own "
 "Border settings; set them there."
+
+#: build/js/editor.js:1
+msgid "Canvas Background"
+msgstr "Canvas Background"
+
+#: build/js/editor.js:1
+msgid ""
+"Manage scenes from Canvas Scenes in the admin menu. Editing a scene there "
+"updates every block using it, with no code changes needed."
+msgstr ""
+"Manage scenes from Canvas Scenes in the admin menu. Editing a scene there "
+"updates every block using it, with no code changes needed."
+
+#: build/js/editor.js:1
+msgid "Text backdrop"
+msgstr "Text backdrop"
+
+#: build/js/editor.js:1
+msgid ""
+"Adds a semi-transparent overlay between the animation and the content, to "
+"keep text readable."
+msgstr ""
+"Adds a semi-transparent overlay between the animation and the content, to "
+"keep text readable."
+
+#: build/js/editor.js:1
+msgid "Backdrop opacity"
+msgstr "Backdrop opacity"
+
+#: build/js/editor.js:1
+msgid "Backdrop color"
+msgstr "Backdrop color"
+
+#: build/js/editor.js:1
+msgid "Gradient Layer"
+msgstr "Gradient Layer"
+
+#: build/js/editor.js:1
+msgid "Start color"
+msgstr "Start color"
+
+#: build/js/editor.js:1
+msgid "End color"
+msgstr "End color"
+
+#: build/js/editor.js:1
+msgid "Angle (deg)"
+msgstr "Angle (deg)"
+
+#: build/js/editor.js:1
+msgid "Speed"
+msgstr "Speed"
+
+#: build/js/editor.js:1
+msgid "Noise Layer"
+msgstr "Noise Layer"
+
+#: build/js/editor.js:1
+msgid "Opacity"
+msgstr "Opacity"
+
+#: build/js/editor.js:1
+msgid "Jitter amount (px)"
+msgstr "Jitter amount (px)"
+
+#: build/js/editor.js:1
+msgid "Grain size"
+msgstr "Grain size"
+
+#: build/js/editor.js:1
+msgid "Grid Lines Layer"
+msgstr "Grid Lines Layer"
+
+#: build/js/editor.js:1
+msgid "Line count"
+msgstr "Line count"
+
+#: build/js/editor.js:1
+msgid "Line color"
+msgstr "Line color"
+
+#: build/js/editor.js:1
+msgid "Blob Layer"
+msgstr "Blob Layer"
+
+#: build/js/editor.js:1
+msgid "Blob count"
+msgstr "Blob count"
+
+#: build/js/editor.js:1 build/js/icon.js:1
+msgid "Color"
+msgstr "Color"
+
+#: build/js/editor.js:1
+msgid "Radius (% of canvas)"
+msgstr "Radius (% of canvas)"
+
+#: build/js/editor.js:1
+msgid "Sweep Layer"
+msgstr "Sweep Layer"
+
+#: build/js/editor.js:1
+msgid "Width (fraction of diagonal)"
+msgstr "Width (fraction of diagonal)"
+
+#: build/js/editor.js:1
+msgid "Light Rays Layer"
+msgstr "Light Rays Layer"
+
+#: build/js/editor.js:1
+msgid "Ray count"
+msgstr "Ray count"
+
+#: build/js/editor.js:1
+msgid "Curved Rays Layer"
+msgstr "Curved Rays Layer"
+
+#: build/js/editor.js:1
+msgid "Pulse speed"
+msgstr "Pulse speed"
+
+#: build/js/editor.js:1
+msgid "Star Field Layer"
+msgstr "Star Field Layer"
+
+#: build/js/editor.js:1
+msgid "Depth layers"
+msgstr "Depth layers"
+
+#: build/js/editor.js:1
+msgid "Orbit Trails Layer"
+msgstr "Orbit Trails Layer"
+
+#: build/js/editor.js:1
+msgid "Trail length"
+msgstr "Trail length"
+
+#: build/js/editor.js:1
+msgid "Warp Field Layer"
+msgstr "Warp Field Layer"
+
+#: build/js/editor.js:1
+msgid "Star density"
+msgstr "Star density"
+
+#: build/js/editor.js:1
+msgid "Nebula Layer"
+msgstr "Nebula Layer"
+
+#: build/js/editor.js:1
+msgid "Tint"
+msgstr "Tint"
+
+#: build/js/editor.js:1
+msgid "Aurora Layer"
+msgstr "Aurora Layer"
+
+#: build/js/editor.js:1
+msgid "Neon Waves Layer"
+msgstr "Neon Waves Layer"
+
+#: build/js/editor.js:1
+msgid "Intensity"
+msgstr "Intensity"
 
 #: build/js/editor.js:1
 msgid "Skip Lazy Loading"
@@ -6951,6 +7227,74 @@ msgstr ""
 "Excludes links in this block from the sitewide active-page gradient-"
 "text/underline treatment shown when a link points at the page currently "
 "being viewed. Enabled by default sitewide."
+
+#: build/js/editor.js:46
+msgid "Static"
+msgstr "Static"
+
+#: build/js/editor.js:46
+msgid "Relative"
+msgstr "Relative"
+
+#: build/js/editor.js:46
+msgid "Absolute"
+msgstr "Absolute"
+
+#: build/js/editor.js:46
+msgid "Sticky"
+msgstr "Sticky"
+
+#: build/js/editor.js:46
+msgid "Below content (-1)"
+msgstr "Below content (-1)"
+
+#: build/js/editor.js:46
+msgid "0"
+msgstr "0"
+
+#: build/js/editor.js:46
+msgid "1"
+msgstr "1"
+
+#: build/js/editor.js:46
+msgid "2"
+msgstr "2"
+
+#: build/js/editor.js:46
+msgid "3"
+msgstr "3"
+
+#: build/js/editor.js:46
+msgid "4"
+msgstr "4"
+
+#: build/js/editor.js:46
+msgid "5"
+msgstr "5"
+
+#: build/js/editor.js:46
+msgid "Position"
+msgstr "Position"
+
+#: build/js/editor.js:46
+msgid ""
+"Needed on a block's own container before a child can be absolutely "
+"positioned inside it (e.g. a canvas background layer)."
+msgstr ""
+"Needed on a block's own container before a child can be absolutely "
+"positioned inside it (e.g. a canvas background layer)."
+
+#: build/js/editor.js:46
+msgid "Stacking order (z-index)"
+msgstr "Stacking order (z-index)"
+
+#: build/js/editor.js:46
+msgid ""
+"Controls which block paints on top when blocks overlap. Only takes effect "
+"once Position above is not Default."
+msgstr ""
+"Controls which block paints on top when blocks overlap. Only takes effect "
+"once Position above is not Default."
 
 #: build/js/editor.js:46
 msgid "Text Gradient"
@@ -7594,10 +7938,6 @@ msgstr ""
 "Fills the icon with the site's Fancy Text gradient (Styles → Colors → "
 "Gradients) instead of a flat color. Only visible on the live page — the "
 "editor canvas can't preview it."
-
-#: build/js/icon.js:1
-msgid "Color"
-msgstr "Color"
 
 #: build/js/icon.js:1
 msgid ""
@@ -8794,6 +9134,18 @@ msgctxt "block title"
 msgid "Banner Carousel"
 msgstr "Banner Carousel"
 
+#: build/blocks/bg-effect-preset-settings/block.json
+#: src/blocks/bg-effect-preset-settings/block.json
+msgctxt "block title"
+msgid "Background Effect Preset Settings"
+msgstr "Background Effect Preset Settings"
+
+#: build/blocks/bg-effect-preset-settings/block.json
+#: src/blocks/bg-effect-preset-settings/block.json
+msgctxt "block description"
+msgid "Effect type, colors, and duration for a Background Effect Preset."
+msgstr "Effect type, colors, and duration for a Background Effect Preset."
+
 #: build/blocks/blog-topics-grid-dynamic/block.json
 #: src/blocks/blog-topics-grid-dynamic/block.json
 msgctxt "block title"
@@ -8833,6 +9185,180 @@ msgid ""
 msgstr ""
 "Button with independent normal/hover control over text, background, and "
 "border colors, including gradients."
+
+#: build/blocks/canvas-background/layer-aurora/block.json
+#: src/blocks/canvas-background/layer-aurora/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Aurora"
+msgstr "Canvas Layer: Aurora"
+
+#: build/blocks/canvas-background/layer-aurora/block.json
+#: src/blocks/canvas-background/layer-aurora/block.json
+msgctxt "block description"
+msgid ""
+"A drifting, simplex-noise aurora glow rising from the bottom edge of a "
+"Canvas Scene."
+msgstr ""
+"A drifting, simplex-noise aurora glow rising from the bottom edge of a "
+"Canvas Scene."
+
+#: build/blocks/canvas-background/layer-blob/block.json
+#: src/blocks/canvas-background/layer-blob/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Blob"
+msgstr "Canvas Layer: Blob"
+
+#: build/blocks/canvas-background/layer-blob/block.json
+#: src/blocks/canvas-background/layer-blob/block.json
+msgctxt "block description"
+msgid "A soft moving glow-blob layer for a Canvas Scene."
+msgstr "A soft moving glow-blob layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-curved-rays/block.json
+#: src/blocks/canvas-background/layer-curved-rays/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Curved Rays"
+msgstr "Canvas Layer: Curved Rays"
+
+#: build/blocks/canvas-background/layer-curved-rays/block.json
+#: src/blocks/canvas-background/layer-curved-rays/block.json
+msgctxt "block description"
+msgid "A bezier-curved, pulsing light-ray layer for a Canvas Scene."
+msgstr "A bezier-curved, pulsing light-ray layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-gradient/block.json
+#: src/blocks/canvas-background/layer-gradient/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Gradient"
+msgstr "Canvas Layer: Gradient"
+
+#: build/blocks/canvas-background/layer-gradient/block.json
+#: src/blocks/canvas-background/layer-gradient/block.json
+msgctxt "block description"
+msgid "A background-gradient layer for a Canvas Scene."
+msgstr "A background-gradient layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-grid-lines/block.json
+#: src/blocks/canvas-background/layer-grid-lines/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Grid Lines"
+msgstr "Canvas Layer: Grid Lines"
+
+#: build/blocks/canvas-background/layer-grid-lines/block.json
+#: src/blocks/canvas-background/layer-grid-lines/block.json
+msgctxt "block description"
+msgid "A faint grid-line layer for a Canvas Scene."
+msgstr "A faint grid-line layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-light-rays/block.json
+#: src/blocks/canvas-background/layer-light-rays/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Light Rays"
+msgstr "Canvas Layer: Light Rays"
+
+#: build/blocks/canvas-background/layer-light-rays/block.json
+#: src/blocks/canvas-background/layer-light-rays/block.json
+msgctxt "block description"
+msgid "A rotating sunburst/light-rays layer for a Canvas Scene."
+msgstr "A rotating sunburst/light-rays layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-nebula/block.json
+#: src/blocks/canvas-background/layer-nebula/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Nebula"
+msgstr "Canvas Layer: Nebula"
+
+#: build/blocks/canvas-background/layer-nebula/block.json
+#: src/blocks/canvas-background/layer-nebula/block.json
+msgctxt "block description"
+msgid ""
+"A procedural, slowly-rotating nebula sky with blackbody-tinted star points "
+"for a Canvas Scene."
+msgstr ""
+"A procedural, slowly-rotating nebula sky with blackbody-tinted star points "
+"for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-neon-waves/block.json
+#: src/blocks/canvas-background/layer-neon-waves/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Neon Waves"
+msgstr "Canvas Layer: Neon Waves"
+
+#: build/blocks/canvas-background/layer-neon-waves/block.json
+#: src/blocks/canvas-background/layer-neon-waves/block.json
+msgctxt "block description"
+msgid ""
+"A raymarched field of glowing, grayscale neon wave lines for a Canvas Scene."
+msgstr ""
+"A raymarched field of glowing, grayscale neon wave lines for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-noise/block.json
+#: src/blocks/canvas-background/layer-noise/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Noise"
+msgstr "Canvas Layer: Noise"
+
+#: build/blocks/canvas-background/layer-noise/block.json
+#: src/blocks/canvas-background/layer-noise/block.json
+msgctxt "block description"
+msgid "A grain/noise texture layer for a Canvas Scene."
+msgstr "A grain/noise texture layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-orbit-trails/block.json
+#: src/blocks/canvas-background/layer-orbit-trails/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Orbit Trails"
+msgstr "Canvas Layer: Orbit Trails"
+
+#: build/blocks/canvas-background/layer-orbit-trails/block.json
+#: src/blocks/canvas-background/layer-orbit-trails/block.json
+msgctxt "block description"
+msgid ""
+"A pulsing, color-cycling orbit with fading feedback trails for a Canvas "
+"Scene."
+msgstr ""
+"A pulsing, color-cycling orbit with fading feedback trails for a Canvas "
+"Scene."
+
+#: build/blocks/canvas-background/layer-star-field/block.json
+#: src/blocks/canvas-background/layer-star-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Star Field"
+msgstr "Canvas Layer: Star Field"
+
+#: build/blocks/canvas-background/layer-star-field/block.json
+#: src/blocks/canvas-background/layer-star-field/block.json
+msgctxt "block description"
+msgid "A parallax, depth-scrolling star field layer for a Canvas Scene."
+msgstr "A parallax, depth-scrolling star field layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-sweep/block.json
+#: src/blocks/canvas-background/layer-sweep/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Sweep"
+msgstr "Canvas Layer: Sweep"
+
+#: build/blocks/canvas-background/layer-sweep/block.json
+#: src/blocks/canvas-background/layer-sweep/block.json
+msgctxt "block description"
+msgid "A diagonal light-sweep layer for a Canvas Scene."
+msgstr "A diagonal light-sweep layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-warp-field/block.json
+#: src/blocks/canvas-background/layer-warp-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Warp Field"
+msgstr "Canvas Layer: Warp Field"
+
+#: build/blocks/canvas-background/layer-warp-field/block.json
+#: src/blocks/canvas-background/layer-warp-field/block.json
+msgctxt "block description"
+msgid ""
+"A procedural, slowly-rotating 3D star field with a breathing zoom for a "
+"Canvas Scene."
+msgstr ""
+"A procedural, slowly-rotating 3D star field with a breathing zoom for a "
+"Canvas Scene."
 
 #: build/blocks/category-header-dynamic/block.json
 #: src/blocks/category-header-dynamic/block.json
@@ -9984,9 +10510,6 @@ msgstr "Sunset Orange"
 
 #~ msgid "No posts found."
 #~ msgstr "No posts found."
-
-#~ msgid "Parallax Intensity"
-#~ msgstr "Parallax Intensity"
 
 #~ msgid ""
 #~ "How far the background shifts relative to the content while scrolling. Only "

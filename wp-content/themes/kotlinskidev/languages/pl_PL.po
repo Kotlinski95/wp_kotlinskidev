@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-14T06:17:37+00:00\n"
+"POT-Creation-Date: 2026-10-16T11:14:27+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -389,6 +389,30 @@ msgstr "Jak sortować artykuły"
 msgid "Mark as Featured Article"
 msgstr "Oznacz jako wyróżniony artykuł"
 
+#: functions/background-effects/preset.php:5
+msgid "Background Effect Presets"
+msgstr "Presety efektów tła"
+
+#: functions/background-effects/preset.php:6
+msgid "Background Effect Preset"
+msgstr "Preset efektu tła"
+
+#: functions/background-effects/preset.php:7
+msgid "Add New Background Effect Preset"
+msgstr "Dodaj nowy preset efektu tła"
+
+#: functions/background-effects/preset.php:8
+msgid "Edit Background Effect Preset"
+msgstr "Edytuj preset efektu tła"
+
+#: functions/background-effects/preset.php:9
+msgid "Search Background Effect Presets"
+msgstr "Szukaj presetów efektów tła"
+
+#: functions/background-effects/preset.php:10
+msgid "No background effect presets found"
+msgstr "Nie znaleziono presetów efektów tła"
+
 #: functions/blocks.php:7 build/js/navigation.js:1 build/js/simple-grid.js:1
 #: build/js/slider.js:1
 msgid "Navigation"
@@ -678,93 +702,117 @@ msgstr "Nie znaleziono powiązanych artykułów."
 msgid "Search results for \"%s\""
 msgstr "Wyniki wyszukiwania dla \"%s\""
 
-#: functions/cache.php:236 functions/cache.php:237
+#: functions/cache.php:241 functions/cache.php:242
 msgid "Theme Cache"
 msgstr "Pamięć podręczna motywu"
 
-#: functions/cache.php:255
+#: functions/cache.php:260
 msgid "Theme cache cleared successfully."
 msgstr "Pamięć podręczna motywu została wyczyszczona."
 
-#: functions/cache.php:276
+#: functions/cache.php:281
 msgid "kotlinskidev — Theme Cache"
 msgstr "kotlinskidev — pamięć podręczna motywu"
 
-#: functions/cache.php:278
+#: functions/cache.php:283
 msgid "Cached entries currently stored in the database:"
 msgstr "Wpisy pamięci podręcznej aktualnie przechowywane w bazie danych:"
 
-#: functions/cache.php:284
+#: functions/cache.php:289
 msgid "Cache group"
 msgstr "Grupa pamięci podręcznej"
 
-#: functions/cache.php:285
+#: functions/cache.php:290
 msgid "Key pattern"
 msgstr "Wzorzec klucza"
 
-#: functions/cache.php:286
+#: functions/cache.php:291
 msgid "Invalidated by"
 msgstr "Unieważniane przez"
 
-#: functions/cache.php:291
+#: functions/cache.php:296
 msgid "Critical CSS"
 msgstr "Krytyczny CSS"
 
-#: functions/cache.php:293 functions/cache.php:298
+#: functions/cache.php:298 functions/cache.php:303
 msgid "Build deploy (filemtime)"
 msgstr "Wdrożenie builda (filemtime)"
 
-#: functions/cache.php:296
+#: functions/cache.php:301
 msgid "Critical JS"
 msgstr "Krytyczny JS"
 
-#: functions/cache.php:301
+#: functions/cache.php:306
 msgid "JS translations"
 msgstr "Tłumaczenia JS"
 
-#: functions/cache.php:303
+#: functions/cache.php:308
 msgid "Language file update / manual flush"
 msgstr "Aktualizacja pliku językowego / ręczne czyszczenie"
 
-#: functions/cache.php:306
+#: functions/cache.php:311
 msgid "Image dimensions"
 msgstr "Wymiary obrazów"
 
-#: functions/cache.php:308 functions/cache.php:318
+#: functions/cache.php:313 functions/cache.php:323
 msgid "Attachment edit / delete / manual flush"
 msgstr "Edycja/usunięcie załącznika / ręczne czyszczenie"
 
-#: functions/cache.php:311
+#: functions/cache.php:316
 msgid "Popular posts"
 msgstr "Popularne posty"
 
-#: functions/cache.php:313
+#: functions/cache.php:318
 msgid "15 minute TTL / manual flush"
 msgstr "15-minutowy TTL / ręczne czyszczenie"
 
-#: functions/cache.php:316
+#: functions/cache.php:321
 msgid "Inlined SVGs"
 msgstr "Osadzone pliki SVG"
 
-#: functions/cache.php:321
+#: functions/cache.php:326
 msgid "Build fingerprint"
 msgstr "Odcisk builda"
 
-#: functions/cache.php:323
+#: functions/cache.php:328
 msgid "Set automatically on every new build"
 msgstr "Ustawiane automatycznie przy każdym nowym buildzie"
 
-#: functions/cache.php:326
+#: functions/cache.php:331
 msgid "Certificate badge fetch"
 msgstr "Pobieranie odznaki certyfikatu"
 
-#: functions/cache.php:328
+#: functions/cache.php:333
 msgid "1 day TTL / manual flush"
 msgstr "1-dniowy TTL / ręczne czyszczenie"
 
-#: functions/cache.php:337
+#: functions/cache.php:342
 msgid "Clear all theme cache"
 msgstr "Wyczyść całą pamięć podręczną motywu"
+
+#: functions/canvas/scene.php:9
+msgid "Canvas Scenes"
+msgstr "Sceny płótna"
+
+#: functions/canvas/scene.php:10 build/js/editor.js:1
+msgid "Canvas Scene"
+msgstr "Scena płótna"
+
+#: functions/canvas/scene.php:11
+msgid "Add New Canvas Scene"
+msgstr "Dodaj nową scenę płótna"
+
+#: functions/canvas/scene.php:12
+msgid "Edit Canvas Scene"
+msgstr "Edytuj scenę płótna"
+
+#: functions/canvas/scene.php:13
+msgid "Search Canvas Scenes"
+msgstr "Szukaj scen płótna"
+
+#: functions/canvas/scene.php:14
+msgid "No canvas scenes found"
+msgstr "Nie znaleziono scen płótna"
 
 #: functions/certificate-badge-fetch.php:119
 msgid "Certificates are disabled on this site."
@@ -828,29 +876,29 @@ msgstr "Nie znaleziono certyfikatów"
 msgid "Issued %s"
 msgstr "Wydano %s"
 
-#: functions/certificate.php:113
+#: functions/certificate.php:126
 msgid "Verify"
 msgstr "Zweryfikuj"
 
 #. translators: %s: credential ID
-#: functions/certificate.php:144
+#: functions/certificate.php:160
 #, php-format
 msgid "Credential ID: %s"
 msgstr "ID uwierzytelnienia: %s"
 
-#: functions/certificate.php:150 functions/certificate.php:151
+#: functions/certificate.php:166 functions/certificate.php:167
 msgid "View credential →"
 msgstr "Zobacz certyfikat →"
 
-#: functions/certificate.php:200
+#: functions/certificate.php:216
 msgid "Certified in"
 msgstr "Certyfikat w zakresie"
 
-#: functions/certificate.php:209
+#: functions/certificate.php:225
 msgid "All credentials →"
 msgstr "Wszystkie certyfikaty →"
 
-#: functions/certificate.php:221
+#: functions/certificate.php:237
 msgid "Select a certificate to display it here."
 msgstr "Wybierz certyfikat, aby wyświetlić go tutaj."
 
@@ -1017,6 +1065,10 @@ msgstr "Karty projektów"
 #: functions/feature-toggles.php:6 functions/service-locations.php:9
 msgid "Service Locations"
 msgstr "Strony miast"
+
+#: functions/feature-toggles.php:8
+msgid "Canvas Backgrounds"
+msgstr "Tła płótna"
 
 #: functions/icon-library.php:4
 msgid "Icons (SVG)"
@@ -1709,7 +1761,7 @@ msgstr "Obraz logo"
 msgid "Background color"
 msgstr "Kolor tła"
 
-#: functions/settings-page.php:389
+#: functions/settings-page.php:389 build/js/certificate.js:1
 msgid "Accent color"
 msgstr "Kolor akcentu"
 
@@ -5228,7 +5280,7 @@ msgid "Replies in 24 h"
 msgstr "Odpowiedź w 24 h"
 
 #: build/js/article-card-panel.js:1 build/js/article-card.js:1
-#: build/js/certificate.js:1 build/js/project-card.js:1
+#: build/js/certificate.js:1 build/js/editor.js:1 build/js/project-card.js:1
 msgid "(no title)"
 msgstr "(brak tytułu)"
 
@@ -5475,6 +5527,58 @@ msgstr "Slajdy (tablet)"
 msgid "Slides (Desktop)"
 msgstr "Slajdy (komputer)"
 
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Gradient Shift"
+msgstr "Zmiana gradientu"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Aurora"
+msgstr "Zorza polarna"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Wave"
+msgstr "Fala"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Shimmer Text"
+msgstr "Migoczący tekst"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Glow Border"
+msgstr "Świecąca ramka"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Preset Settings"
+msgstr "Ustawienia presetu"
+
+#: build/js/bg-effect-preset-settings.js:1 build/js/editor.js:1
+msgid "Effect"
+msgstr "Efekt"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Duration (seconds)"
+msgstr "Czas trwania (sekundy)"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 1"
+msgstr "Kolor 1"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 2"
+msgstr "Kolor 2"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 3"
+msgstr "Kolor 3"
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Leave a color empty to keep the theme's default."
+msgstr "Pozostaw kolor pusty, aby zachować domyślny motywu."
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Background Effect Preset Settings"
+msgstr "Ustawienia presetu efektu tła"
+
 #: build/js/breadcrumbs.js:1
 msgid "Breadcrumbs Settings"
 msgstr "Ustawienia okruszków"
@@ -5668,6 +5772,24 @@ msgstr "Karty wyróżnione"
 #: build/js/certificate.js:1 build/js/certificates-grid-dynamic.js:1
 msgid "Compact strip"
 msgstr "Pasek kompaktowy"
+
+#: build/js/certificate.js:1
+msgid "Card Colors"
+msgstr "Kolory karty"
+
+#: build/js/certificate.js:1
+msgid "Secondary text color"
+msgstr "Kolor tekstu dodatkowego"
+
+#: build/js/certificate.js:1
+msgid ""
+"Secondary text color applies to the issuer and issued-date text. Accent "
+"color applies to the verify link (and the date pill in the Feature cards "
+"layout). Leave empty to keep the theme's default."
+msgstr ""
+"Kolor tekstu dodatkowego dotyczy wydawcy i daty wydania. Kolor akcentu "
+"dotyczy linku weryfikacyjnego (oraz plakietki daty w układzie Kart funkcji)."
+" Pozostaw puste, aby zachować domyślny kolor motywu."
 
 #: build/js/certificates-grid-dynamic.js:1
 msgid "Certificates Grid"
@@ -6519,32 +6641,22 @@ msgstr ""
 "tekstu po najechaniu."
 
 #: build/js/editor.js:1
-msgid "Gradient Shift"
-msgstr "Zmiana gradientu"
-
-#: build/js/editor.js:1
-msgid "Aurora"
-msgstr "Zorza polarna"
-
-#: build/js/editor.js:1
-msgid "Shimmer Text"
-msgstr "Migoczący tekst"
-
-#: build/js/editor.js:1
-msgid "Wave"
-msgstr "Fala"
-
-#: build/js/editor.js:1
-msgid "Glow Border"
-msgstr "Świecąca ramka"
-
-#: build/js/editor.js:1
 msgid "Background Effects"
 msgstr "Efekty tła"
 
 #: build/js/editor.js:1
-msgid "Effect"
-msgstr "Efekt"
+msgid "Effect Preset"
+msgstr "Preset efektu"
+
+#: build/js/editor.js:1
+msgid ""
+"Manage presets from Background Effect Presets in the admin menu. Editing a "
+"preset there updates every block using it, with no code changes needed. "
+"Overrides the manual effect below when set."
+msgstr ""
+"Zarządzaj presetami w sekcji Presety efektów tła w menu administracyjnym. "
+"Edycja presetu tam aktualizuje każdy blok, który go używa — bez konieczności"
+" zmian w kodzie. Gdy ustawiony, zastępuje ręczny efekt poniżej."
 
 #: build/js/editor.js:1
 msgid ""
@@ -6582,6 +6694,171 @@ msgid ""
 msgstr ""
 "Animuje się tylko kolor. Grubość i promień obramowania pochodzą z własnych "
 "ustawień Obramowania tego bloku — ustaw je tam."
+
+#: build/js/editor.js:1
+msgid "Canvas Background"
+msgstr "Tło płótna"
+
+#: build/js/editor.js:1
+msgid ""
+"Manage scenes from Canvas Scenes in the admin menu. Editing a scene there "
+"updates every block using it, with no code changes needed."
+msgstr ""
+"Zarządzaj scenami w sekcji Sceny płótna w menu administracyjnym. Edycja "
+"sceny tam aktualizuje każdy blok, który jej używa — bez konieczności zmian w"
+" kodzie."
+
+#: build/js/editor.js:1
+msgid "Text backdrop"
+msgstr "Podkład pod tekst"
+
+#: build/js/editor.js:1
+msgid ""
+"Adds a semi-transparent overlay between the animation and the content, to "
+"keep text readable."
+msgstr ""
+"Dodaje półprzezroczystą nakładkę między animacją a treścią, aby zachować "
+"czytelność tekstu."
+
+#: build/js/editor.js:1
+msgid "Backdrop opacity"
+msgstr "Krycie podkładu"
+
+#: build/js/editor.js:1
+msgid "Backdrop color"
+msgstr "Kolor podkładu"
+
+#: build/js/editor.js:1
+msgid "Gradient Layer"
+msgstr "Warstwa gradientu"
+
+#: build/js/editor.js:1
+msgid "Start color"
+msgstr "Kolor początkowy"
+
+#: build/js/editor.js:1
+msgid "End color"
+msgstr "Kolor końcowy"
+
+#: build/js/editor.js:1
+msgid "Angle (deg)"
+msgstr "Kąt (°)"
+
+#: build/js/editor.js:1
+msgid "Speed"
+msgstr "Szybkość"
+
+#: build/js/editor.js:1
+msgid "Noise Layer"
+msgstr "Warstwa szumu"
+
+#: build/js/editor.js:1
+msgid "Opacity"
+msgstr "Krycie"
+
+#: build/js/editor.js:1
+msgid "Jitter amount (px)"
+msgstr "Siła drgań (px)"
+
+#: build/js/editor.js:1
+msgid "Grain size"
+msgstr "Rozmiar ziarna"
+
+#: build/js/editor.js:1
+msgid "Grid Lines Layer"
+msgstr "Warstwa linii siatki"
+
+#: build/js/editor.js:1
+msgid "Line count"
+msgstr "Liczba linii"
+
+#: build/js/editor.js:1
+msgid "Line color"
+msgstr "Kolor linii"
+
+#: build/js/editor.js:1
+msgid "Blob Layer"
+msgstr "Warstwa plamy"
+
+#: build/js/editor.js:1
+msgid "Blob count"
+msgstr "Liczba plam"
+
+#: build/js/editor.js:1 build/js/icon.js:1
+msgid "Color"
+msgstr "Kolor"
+
+#: build/js/editor.js:1
+msgid "Radius (% of canvas)"
+msgstr "Promień (% płótna)"
+
+#: build/js/editor.js:1
+msgid "Sweep Layer"
+msgstr "Warstwa przemiatania"
+
+#: build/js/editor.js:1
+msgid "Width (fraction of diagonal)"
+msgstr "Szerokość (część przekątnej)"
+
+#: build/js/editor.js:1
+msgid "Light Rays Layer"
+msgstr "Warstwa promieni świetlnych"
+
+#: build/js/editor.js:1
+msgid "Ray count"
+msgstr "Liczba promieni"
+
+#: build/js/editor.js:1
+msgid "Curved Rays Layer"
+msgstr "Warstwa zakrzywionych promieni"
+
+#: build/js/editor.js:1
+msgid "Pulse speed"
+msgstr "Szybkość pulsowania"
+
+#: build/js/editor.js:1
+msgid "Star Field Layer"
+msgstr "Warstwa pola gwiazd"
+
+#: build/js/editor.js:1
+msgid "Depth layers"
+msgstr "Warstwy głębi"
+
+#: build/js/editor.js:1
+msgid "Orbit Trails Layer"
+msgstr "Warstwa śladów orbity"
+
+#: build/js/editor.js:1
+msgid "Trail length"
+msgstr "Długość śladu"
+
+#: build/js/editor.js:1
+msgid "Warp Field Layer"
+msgstr "Warstwa pola warp"
+
+#: build/js/editor.js:1
+msgid "Star density"
+msgstr "Gęstość gwiazd"
+
+#: build/js/editor.js:1
+msgid "Nebula Layer"
+msgstr "Warstwa mgławicy"
+
+#: build/js/editor.js:1
+msgid "Tint"
+msgstr "Zabarwienie"
+
+#: build/js/editor.js:1
+msgid "Aurora Layer"
+msgstr "Warstwa zorzy"
+
+#: build/js/editor.js:1
+msgid "Neon Waves Layer"
+msgstr "Warstwa neonowych fal"
+
+#: build/js/editor.js:1
+msgid "Intensity"
+msgstr "Intensywność"
 
 #: build/js/editor.js:1
 msgid "Skip Lazy Loading"
@@ -7026,6 +7303,74 @@ msgstr ""
 "Wyklucza linki w tym bloku z ogólnowitrynowego efektu gradientowego "
 "tekstu/podkreślenia pokazywanego, gdy link wskazuje aktualnie przeglądaną "
 "stronę. Domyślnie włączone w całej witrynie."
+
+#: build/js/editor.js:46
+msgid "Static"
+msgstr "Statyczna"
+
+#: build/js/editor.js:46
+msgid "Relative"
+msgstr "Względna"
+
+#: build/js/editor.js:46
+msgid "Absolute"
+msgstr "Bezwzględna"
+
+#: build/js/editor.js:46
+msgid "Sticky"
+msgstr "Przyklejona"
+
+#: build/js/editor.js:46
+msgid "Below content (-1)"
+msgstr "Pod treścią (-1)"
+
+#: build/js/editor.js:46
+msgid "0"
+msgstr "0"
+
+#: build/js/editor.js:46
+msgid "1"
+msgstr "1"
+
+#: build/js/editor.js:46
+msgid "2"
+msgstr "2"
+
+#: build/js/editor.js:46
+msgid "3"
+msgstr "3"
+
+#: build/js/editor.js:46
+msgid "4"
+msgstr "4"
+
+#: build/js/editor.js:46
+msgid "5"
+msgstr "5"
+
+#: build/js/editor.js:46
+msgid "Position"
+msgstr "Pozycja"
+
+#: build/js/editor.js:46
+msgid ""
+"Needed on a block's own container before a child can be absolutely "
+"positioned inside it (e.g. a canvas background layer)."
+msgstr ""
+"Wymagane na kontenerze bloku, zanim element potomny będzie mógł zostać "
+"ustawiony w pozycji bezwzględnej wewnątrz niego (np. warstwa tła canvas)."
+
+#: build/js/editor.js:46
+msgid "Stacking order (z-index)"
+msgstr "Kolejność w warstwach (z-index)"
+
+#: build/js/editor.js:46
+msgid ""
+"Controls which block paints on top when blocks overlap. Only takes effect "
+"once Position above is not Default."
+msgstr ""
+"Określa, który blok wyświetla się na wierzchu, gdy bloki się nakładają. "
+"Działa tylko wtedy, gdy powyższa pozycja nie jest ustawiona na Domyślna."
 
 #: build/js/editor.js:46
 msgid "Text Gradient"
@@ -7674,10 +8019,6 @@ msgstr ""
 "Wypełnia ikonę gradientem Fancy Text z motywu (Style → Kolory → Gradienty) "
 "zamiast jednolitym kolorem. Widoczne tylko na opublikowanej stronie — płótno"
 " edytora nie może tego wyświetlić w podglądzie."
-
-#: build/js/icon.js:1
-msgid "Color"
-msgstr "Kolor"
 
 #: build/js/icon.js:1
 msgid ""
@@ -8887,6 +9228,18 @@ msgctxt "block title"
 msgid "Banner Carousel"
 msgstr "Karuzela banerów"
 
+#: build/blocks/bg-effect-preset-settings/block.json
+#: src/blocks/bg-effect-preset-settings/block.json
+msgctxt "block title"
+msgid "Background Effect Preset Settings"
+msgstr "Ustawienia presetu efektu tła"
+
+#: build/blocks/bg-effect-preset-settings/block.json
+#: src/blocks/bg-effect-preset-settings/block.json
+msgctxt "block description"
+msgid "Effect type, colors, and duration for a Background Effect Preset."
+msgstr "Typ efektu, kolory i czas trwania dla presetu efektu tła."
+
 #: build/blocks/blog-topics-grid-dynamic/block.json
 #: src/blocks/blog-topics-grid-dynamic/block.json
 msgctxt "block title"
@@ -8928,6 +9281,184 @@ msgid ""
 msgstr ""
 "Przycisk z niezależną kontrolą koloru tekstu, tła i ramki w stanie "
 "normalnym/najechania, w tym gradientów."
+
+#: build/blocks/canvas-background/layer-aurora/block.json
+#: src/blocks/canvas-background/layer-aurora/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Aurora"
+msgstr "Warstwa płótna: Zorza"
+
+#: build/blocks/canvas-background/layer-aurora/block.json
+#: src/blocks/canvas-background/layer-aurora/block.json
+msgctxt "block description"
+msgid ""
+"A drifting, simplex-noise aurora glow rising from the bottom edge of a "
+"Canvas Scene."
+msgstr ""
+"Dryfująca poświata zorzy oparta na szumie simplex, unosząca się od dolnej "
+"krawędzi sceny płótna."
+
+#: build/blocks/canvas-background/layer-blob/block.json
+#: src/blocks/canvas-background/layer-blob/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Blob"
+msgstr "Warstwa płótna: Plama"
+
+#: build/blocks/canvas-background/layer-blob/block.json
+#: src/blocks/canvas-background/layer-blob/block.json
+msgctxt "block description"
+msgid "A soft moving glow-blob layer for a Canvas Scene."
+msgstr "Miękka, ruchoma warstwa świetlistej plamy do scen płótna."
+
+#: build/blocks/canvas-background/layer-curved-rays/block.json
+#: src/blocks/canvas-background/layer-curved-rays/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Curved Rays"
+msgstr "Warstwa płótna: Zakrzywione promienie"
+
+#: build/blocks/canvas-background/layer-curved-rays/block.json
+#: src/blocks/canvas-background/layer-curved-rays/block.json
+msgctxt "block description"
+msgid "A bezier-curved, pulsing light-ray layer for a Canvas Scene."
+msgstr ""
+"Zakrzywiona (krzywa Beziera), pulsująca warstwa promieni świetlnych dla "
+"sceny płótna."
+
+#: build/blocks/canvas-background/layer-gradient/block.json
+#: src/blocks/canvas-background/layer-gradient/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Gradient"
+msgstr "Warstwa płótna: Gradient"
+
+#: build/blocks/canvas-background/layer-gradient/block.json
+#: src/blocks/canvas-background/layer-gradient/block.json
+msgctxt "block description"
+msgid "A background-gradient layer for a Canvas Scene."
+msgstr "Warstwa gradientu tła do scen płótna."
+
+#: build/blocks/canvas-background/layer-grid-lines/block.json
+#: src/blocks/canvas-background/layer-grid-lines/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Grid Lines"
+msgstr "Warstwa płótna: Linie siatki"
+
+#: build/blocks/canvas-background/layer-grid-lines/block.json
+#: src/blocks/canvas-background/layer-grid-lines/block.json
+msgctxt "block description"
+msgid "A faint grid-line layer for a Canvas Scene."
+msgstr "Delikatna warstwa linii siatki do scen płótna."
+
+#: build/blocks/canvas-background/layer-light-rays/block.json
+#: src/blocks/canvas-background/layer-light-rays/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Light Rays"
+msgstr "Warstwa płótna: Promienie świetlne"
+
+#: build/blocks/canvas-background/layer-light-rays/block.json
+#: src/blocks/canvas-background/layer-light-rays/block.json
+msgctxt "block description"
+msgid "A rotating sunburst/light-rays layer for a Canvas Scene."
+msgstr "Obracająca się warstwa promieni słonecznych dla sceny płótna."
+
+#: build/blocks/canvas-background/layer-nebula/block.json
+#: src/blocks/canvas-background/layer-nebula/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Nebula"
+msgstr "Warstwa płótna: Mgławica"
+
+#: build/blocks/canvas-background/layer-nebula/block.json
+#: src/blocks/canvas-background/layer-nebula/block.json
+msgctxt "block description"
+msgid ""
+"A procedural, slowly-rotating nebula sky with blackbody-tinted star points "
+"for a Canvas Scene."
+msgstr ""
+"Proceduralne, powoli obracające się niebo z mgławicą i punktami gwiazd "
+"zabarwionymi według temperatury barwowej dla sceny płótna."
+
+#: build/blocks/canvas-background/layer-neon-waves/block.json
+#: src/blocks/canvas-background/layer-neon-waves/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Neon Waves"
+msgstr "Warstwa płótna: Neonowe fale"
+
+#: build/blocks/canvas-background/layer-neon-waves/block.json
+#: src/blocks/canvas-background/layer-neon-waves/block.json
+msgctxt "block description"
+msgid ""
+"A raymarched field of glowing, grayscale neon wave lines for a Canvas Scene."
+msgstr ""
+"Pole świecących, szarych neonowych linii falowych renderowanych metodą "
+"raymarchingu dla sceny płótna."
+
+#: build/blocks/canvas-background/layer-noise/block.json
+#: src/blocks/canvas-background/layer-noise/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Noise"
+msgstr "Warstwa płótna: Szum"
+
+#: build/blocks/canvas-background/layer-noise/block.json
+#: src/blocks/canvas-background/layer-noise/block.json
+msgctxt "block description"
+msgid "A grain/noise texture layer for a Canvas Scene."
+msgstr "Warstwa tekstury szumu/ziarna do scen płótna."
+
+#: build/blocks/canvas-background/layer-orbit-trails/block.json
+#: src/blocks/canvas-background/layer-orbit-trails/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Orbit Trails"
+msgstr "Warstwa płótna: Ślady orbity"
+
+#: build/blocks/canvas-background/layer-orbit-trails/block.json
+#: src/blocks/canvas-background/layer-orbit-trails/block.json
+msgctxt "block description"
+msgid ""
+"A pulsing, color-cycling orbit with fading feedback trails for a Canvas "
+"Scene."
+msgstr ""
+"Pulsująca, zmieniająca kolor orbita z zanikającymi śladami dla sceny płótna."
+
+#: build/blocks/canvas-background/layer-star-field/block.json
+#: src/blocks/canvas-background/layer-star-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Star Field"
+msgstr "Warstwa płótna: Pole gwiazd"
+
+#: build/blocks/canvas-background/layer-star-field/block.json
+#: src/blocks/canvas-background/layer-star-field/block.json
+msgctxt "block description"
+msgid "A parallax, depth-scrolling star field layer for a Canvas Scene."
+msgstr ""
+"Warstwa pola gwiazd z efektem paralaksy i przewijaniem w głąb dla sceny "
+"płótna."
+
+#: build/blocks/canvas-background/layer-sweep/block.json
+#: src/blocks/canvas-background/layer-sweep/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Sweep"
+msgstr "Warstwa płótna: Przemiatanie"
+
+#: build/blocks/canvas-background/layer-sweep/block.json
+#: src/blocks/canvas-background/layer-sweep/block.json
+msgctxt "block description"
+msgid "A diagonal light-sweep layer for a Canvas Scene."
+msgstr "Ukośna warstwa przemiatania światłem do scen płótna."
+
+#: build/blocks/canvas-background/layer-warp-field/block.json
+#: src/blocks/canvas-background/layer-warp-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Warp Field"
+msgstr "Warstwa płótna: Pole warp"
+
+#: build/blocks/canvas-background/layer-warp-field/block.json
+#: src/blocks/canvas-background/layer-warp-field/block.json
+msgctxt "block description"
+msgid ""
+"A procedural, slowly-rotating 3D star field with a breathing zoom for a "
+"Canvas Scene."
+msgstr ""
+"Proceduralne, powoli obracające się trójwymiarowe pole gwiazd z pulsującym "
+"przybliżeniem dla sceny płótna."
 
 #: build/blocks/category-header-dynamic/block.json
 #: src/blocks/category-header-dynamic/block.json
@@ -10096,9 +10627,6 @@ msgstr "Pomarańcz Zachodu"
 #~ msgid "No posts found."
 #~ msgstr "Nie znaleziono postów."
 
-#~ msgid "Parallax Intensity"
-#~ msgstr "Intensywność paralaksy"
-
 #~ msgid ""
 #~ "How far the background shifts relative to the content while scrolling. Only "
 #~ "applies on pages where a horizontal scroll section forces the fallback "
@@ -10205,6 +10733,5 @@ msgstr "Pomarańcz Zachodu"
 #~ msgid "Style"
 #~ msgstr "Styl"
 
-#, fuzzy
 #~ msgid "Navigation Position"
-#~ msgstr "Kolor nawigacji"
+#~ msgstr "Pozycja nawigacji"

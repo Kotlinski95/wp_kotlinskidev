@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-nebula",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Nebula",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A procedural, slowly-rotating nebula sky with blackbody-tinted star points for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "speed": { "type": "number", "default": 1 },
+    "zoom": { "type": "number", "default": 1 },
+    "color": { "type": "string", "default": "#ffffff" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

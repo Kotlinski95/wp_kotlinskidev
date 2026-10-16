@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-blob",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Blob",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A soft moving glow-blob layer for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "count": { "type": "number", "default": 3 },
+    "speed": { "type": "number", "default": 0.3 },
+    "color": { "type": "string", "default": "var(--wp--preset--color--primary-10)" },
+    "radiusPct": { "type": "number", "default": 25 }
+  }
+}

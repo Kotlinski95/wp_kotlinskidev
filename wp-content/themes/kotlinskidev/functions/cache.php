@@ -56,6 +56,11 @@
  *                                           avoids re-fetching the same badge on every
  *                                           click of "Fetch details" while editing.
  *
+ *   kotlinskidev_canvas_recipe_{scene_id}   Clamped/validated layer recipe parsed from
+ *                                           a kt_canvas_scene post's content (functions/
+ *                                           canvas/scene.php). WEEK_IN_SECONDS. Invalidated
+ *                                           on save_post_kt_canvas_scene/delete_post.
+ *
  *  Object-cache (wp_cache_get / wp_cache_set — ephemeral, per-request only when
  *  no persistent backend like Redis is active):
  *

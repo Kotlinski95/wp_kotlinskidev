@@ -121,7 +121,7 @@
 @mixin kt-bg-fx-pan($gradient, $size: 400% 400%, $duration: 15s) {
 	background: $gradient;
 	background-size: $size;
-	animation: kt-bg-fx-pan $duration ease infinite;
+	animation: kt-bg-fx-pan var(--kt-bg-fx-duration, #{$duration}) ease infinite;
 }
 
 @mixin custom-button-style($bg-gradient-angle: 135deg, $bg-gradient-start: var(--wp--preset--color--primary), $bg-gradient-end: color-mix(in srgb, var(--wp--preset--color--primary) 80%, transparent), $box-shadow1: color-mix(in srgb, var(--wp--preset--color--primary) 30%, transparent) 0 0.375rem 1.25rem 0, $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0) {

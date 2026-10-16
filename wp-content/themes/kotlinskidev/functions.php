@@ -165,6 +165,9 @@ require_once get_template_directory() . '/functions/search-page-styles.php';
 
 // Hover animations
 require_once get_template_directory() . '/includes/hover-animations.php';
+require_once get_template_directory() . '/functions/canvas/render.php';
+require_once get_template_directory() . '/functions/background-effects/render.php';
+require_once get_template_directory() . '/functions/position-z-index.php';
 
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
@@ -241,6 +244,9 @@ require_once get_template_directory() . '/functions/article-card.php';
 require_once get_template_directory() . '/functions/project-card.php';
 require_once get_template_directory() . '/functions/certificate.php';
 require_once get_template_directory() . '/functions/certificate-badge-fetch.php';
+require_once get_template_directory() . '/functions/canvas/scene.php';
+require_once get_template_directory() . '/functions/canvas/enqueue.php';
+require_once get_template_directory() . '/functions/background-effects/preset.php';
 require_once get_template_directory() . '/functions/translated-text.php';
 require_once get_template_directory() . '/functions/marquee.php';
 

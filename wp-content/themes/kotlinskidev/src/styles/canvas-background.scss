@@ -1,0 +1,29 @@
+.kt-has-canvas-bg {
+	position: relative;
+	isolation: isolate;
+}
+
+.kt-canvas-bg {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	border-radius: inherit;
+	overflow: hidden;
+	background: linear-gradient(135deg, var(--wp--preset--color--surface), var(--wp--preset--color--background-alt));
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border-radius: inherit;
+	}
+}
+
+.kt-canvas-scrim {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+	border-radius: inherit;
+}

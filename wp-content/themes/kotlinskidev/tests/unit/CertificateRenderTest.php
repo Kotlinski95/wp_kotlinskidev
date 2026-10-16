@@ -78,3 +78,40 @@ it('shows the compact-strip "all credentials" link when a view-all url is set', 
     expect($html)->toContain('All credentials');
     expect($html)->toContain('https://example.com/certificates');
 });
+
+it('does not add a color style when secondaryTextColor/accentColor are empty (badge-grid layout)', function () {
+    $html = kotlinskidev_render_certificate_badge_card(kotlinskidevTestCertificate());
+
+    expect($html)->not->toContain('!important');
+});
+
+it('applies secondaryTextColor and accentColor via inline !important styles (badge-grid layout)', function () {
+    $html = kotlinskidev_render_certificate_badge_card(
+        kotlinskidevTestCertificate(),
+        '',
+        '#112233',
+        '#445566'
+    );
+
+    expect(substr_count($html, 'style="color:#112233 !important;"'))->toBe(2);
+    expect($html)->toContain('style="color:#445566 !important;"');
+});
+
+it('does not add a color override when secondaryTextColor/accentColor are empty (feature-cards layout)', function () {
+    $html = kotlinskidev_render_certificate_feature_card(kotlinskidevTestCertificate(['credential_id' => 'ABC-123']));
+
+    expect($html)->not->toContain('!important');
+});
+
+it('applies secondaryTextColor and accentColor via inline !important styles (feature-cards layout)', function () {
+    $html = kotlinskidev_render_certificate_feature_card(
+        kotlinskidevTestCertificate(['credential_id' => 'ABC-123']),
+        '',
+        '#112233',
+        '#445566'
+    );
+
+    expect(substr_count($html, 'color:#112233 !important;'))->toBe(3);
+    expect(substr_count($html, 'color:#445566 !important;'))->toBe(3);
+    expect($html)->toContain('style="color:#445566 !important;"');
+});

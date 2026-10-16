@@ -106,11 +106,24 @@ function kotlinskidev_get_certificates(): array {
     return array_map( 'kotlinskidev_map_certificate_post', $posts );
 }
 
-function kotlinskidev_render_certificate_badge_card( array $certificate, string $wrapper_attrs = '' ): string {
+function kotlinskidev_certificate_color_declaration( string $color ): string {
+    if ( '' === $color ) {
+        return '';
+    }
+
+    return 'color:' . esc_attr( $color ) . ' !important;';
+}
+
+function kotlinskidev_render_certificate_badge_card( array $certificate, string $wrapper_attrs = '', string $secondary_text_color = '', string $accent_color = '' ): string {
+    $secondary_decl = kotlinskidev_certificate_color_declaration( $secondary_text_color );
+    $accent_decl    = kotlinskidev_certificate_color_declaration( $accent_color );
+    $secondary_attr = $secondary_decl ? ' style="' . $secondary_decl . '"' : '';
+    $accent_attr    = $accent_decl ? ' style="' . $accent_decl . '"' : '';
+
     $verify_link = '';
     if ( $certificate['link_url'] ) {
         $separator   = $certificate['issued_label'] ? ' · ' : '';
-        $verify_link = $separator . '<a class="kt-certificate__verify-link has-primary-color has-text-color" href="' . esc_url( $certificate['link_url'] ) . '" target="_blank" rel="noopener">' . esc_html__( 'Verify', 'kotlinskidev' ) . '</a>';
+        $verify_link = $separator . '<a class="kt-certificate__verify-link has-primary-color has-text-color"' . $accent_attr . ' href="' . esc_url( $certificate['link_url'] ) . '" target="_blank" rel="noopener">' . esc_html__( 'Verify', 'kotlinskidev' ) . '</a>';
     }
 
     $html  = $wrapper_attrs
@@ -118,8 +131,8 @@ function kotlinskidev_render_certificate_badge_card( array $certificate, string 
         : '<div class="wp-block-group kt-link-card kt-link-card--lift has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.25rem;padding-top:1.625rem;padding-right:1.5rem;padding-bottom:1.375rem;padding-left:1.5rem;display:flex;flex-direction:column;align-items:center;text-align:center">';
     $html .= '<img src="' . esc_url( $certificate['image_url'] ) . '" alt="" class="has-border-color" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:50%;width:6rem;height:6rem;object-fit:cover" />';
     $html .= '<h3 class="wp-block-heading has-text-align-center has-normal-font-size" style="margin-top:0.75rem;margin-bottom:0">' . esc_html( $certificate['name'] ) . '</h3>';
-    $html .= '<p class="has-text-align-center has-foreground-alt-color has-text-color has-small-font-size">' . esc_html( $certificate['issuer'] ) . '</p>';
-    $html .= '<p class="has-text-align-center has-foreground-alt-color has-text-color has-x-small-font-size">' . esc_html( $certificate['issued_label'] ) . $verify_link . '</p>';
+    $html .= '<p class="has-text-align-center has-foreground-alt-color has-text-color has-small-font-size"' . $secondary_attr . '>' . esc_html( $certificate['issuer'] ) . '</p>';
+    $html .= '<p class="has-text-align-center has-foreground-alt-color has-text-color has-x-small-font-size"' . $secondary_attr . '>' . esc_html( $certificate['issued_label'] ) . $verify_link . '</p>';
     $html .= '</div>';
 
     return $html;
@@ -137,9 +150,12 @@ function kotlinskidev_render_certificate_badge_grid( array $certificates ): stri
     return $html;
 }
 
-function kotlinskidev_render_certificate_feature_card( array $certificate, string $wrapper_attrs = '' ): string {
+function kotlinskidev_render_certificate_feature_card( array $certificate, string $wrapper_attrs = '', string $secondary_text_color = '', string $accent_color = '' ): string {
+    $secondary_decl = kotlinskidev_certificate_color_declaration( $secondary_text_color );
+    $accent_decl    = kotlinskidev_certificate_color_declaration( $accent_color );
+
     $credential_id = $certificate['credential_id']
-        ? '<p class="has-foreground-alt-color has-text-color has-x-small-font-size" style="margin-top:0;margin-bottom:0">' . sprintf(
+        ? '<p class="has-foreground-alt-color has-text-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;' . $secondary_decl . '">' . sprintf(
             /* translators: %s: credential ID */
             esc_html__( 'Credential ID: %s', 'kotlinskidev' ),
             esc_html( $certificate['credential_id'] )
@@ -147,7 +163,7 @@ function kotlinskidev_render_certificate_feature_card( array $certificate, strin
         : '';
 
     $verify_link = $certificate['link_url']
-        ? '<a class="kt-certificate__verify-link has-primary-color has-text-color" href="' . esc_url( $certificate['link_url'] ) . '" target="_blank" rel="noopener">' . esc_html__( 'View credential →', 'kotlinskidev' ) . '</a>'
+        ? '<a class="kt-certificate__verify-link has-primary-color has-text-color" style="' . $accent_decl . '" href="' . esc_url( $certificate['link_url'] ) . '" target="_blank" rel="noopener">' . esc_html__( 'View credential →', 'kotlinskidev' ) . '</a>'
         : esc_html__( 'View credential →', 'kotlinskidev' );
 
     $html  = $wrapper_attrs
@@ -156,14 +172,14 @@ function kotlinskidev_render_certificate_feature_card( array $certificate, strin
     $html .= '<div class="wp-block-group" style="display:flex;align-items:center;gap:1rem">';
     $html .= '<img src="' . esc_url( $certificate['image_url'] ) . '" alt="" class="has-border-color" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1rem;width:3.5rem;height:3.5rem;object-fit:cover" />';
     $html .= '<div class="wp-block-group" style="display:flex;flex-direction:column;gap:0.25rem">';
-    $html .= '<p class="has-foreground-alt-color has-text-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;letter-spacing:0.14em;text-transform:uppercase">' . esc_html( $certificate['issuer'] ) . '</p>';
+    $html .= '<p class="has-foreground-alt-color has-text-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;' . $secondary_decl . '">' . esc_html( $certificate['issuer'] ) . '</p>';
     $html .= '<h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0">' . esc_html( $certificate['name'] ) . '</h3>';
     $html .= '</div></div>';
-    $html .= '<p class="has-foreground-alt-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0">' . esc_html( $certificate['description'] ) . '</p>';
+    $html .= '<p class="has-foreground-alt-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;' . $secondary_decl . '">' . esc_html( $certificate['description'] ) . '</p>';
     $html .= $credential_id;
     $html .= '<div class="wp-block-group" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.625rem">';
-    $html .= '<p class="has-primary-color has-divider-background-color has-text-color has-background has-x-small-font-size" style="border-radius:999px;margin-top:0;margin-bottom:0;padding-top:0.375rem;padding-right:0.75rem;padding-bottom:0.375rem;padding-left:0.75rem;font-weight:600">' . esc_html( $certificate['issued_label'] ) . '</p>';
-    $html .= '<p class="has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600">' . $verify_link . '</p>';
+    $html .= '<p class="has-primary-color has-divider-background-color has-text-color has-background has-x-small-font-size" style="border-radius:999px;margin-top:0;margin-bottom:0;padding-top:0.375rem;padding-right:0.75rem;padding-bottom:0.375rem;padding-left:0.75rem;font-weight:600;' . $accent_decl . '">' . esc_html( $certificate['issued_label'] ) . '</p>';
+    $html .= '<p class="has-primary-color has-text-color has-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:600;' . $accent_decl . '">' . $verify_link . '</p>';
     $html .= '</div></div>';
 
     return $html;
@@ -214,7 +230,7 @@ function kotlinskidev_render_certificate_compact_strip( array $certificates, str
     return $html;
 }
 
-function kotlinskidev_render_certificate_embed( int $certificate_id, string $layout = 'badge-grid', string $wrapper_attrs = '' ): string {
+function kotlinskidev_render_certificate_embed( int $certificate_id, string $layout = 'badge-grid', string $wrapper_attrs = '', string $secondary_text_color = '', string $accent_color = '' ): string {
     $certificate_id = $certificate_id ? kotlinskidev_resolve_translatable_post_id( $certificate_id ) : $certificate_id;
 
     if ( ! $certificate_id || 'publish' !== get_post_status( $certificate_id ) ) {
@@ -231,11 +247,11 @@ function kotlinskidev_render_certificate_embed( int $certificate_id, string $lay
 
     switch ( $layout ) {
         case 'feature-cards':
-            return kotlinskidev_render_certificate_feature_card( $certificate, $wrapper_attrs );
+            return kotlinskidev_render_certificate_feature_card( $certificate, $wrapper_attrs, $secondary_text_color, $accent_color );
         case 'compact-strip':
             return kotlinskidev_render_certificate_compact_pill( $certificate, $wrapper_attrs );
         default:
-            return kotlinskidev_render_certificate_badge_card( $certificate, $wrapper_attrs );
+            return kotlinskidev_render_certificate_badge_card( $certificate, $wrapper_attrs, $secondary_text_color, $accent_color );
     }
 }
 

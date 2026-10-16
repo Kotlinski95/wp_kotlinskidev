@@ -4,10 +4,16 @@ import {
   InspectorControls,
   __experimentalColorGradientControl as ColorGradientControl,
 } from "@wordpress/block-editor";
-import { PanelBody, SelectControl } from "@wordpress/components";
+import { PanelBody, SelectControl, ComboboxControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
+import { useSelect } from "@wordpress/data";
 import React from "react";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+
+interface BgEffectPresetRecord {
+  id: number;
+  title: { rendered: string };
+}
 
 const backgroundEffects = [
   { label: __("None", "kotlinskidev"), value: "" },
@@ -50,6 +56,10 @@ function addBackgroundEffectAttribute(settings: any) {
         type: "string",
         default: "",
       },
+      backgroundEffectPresetId: {
+        type: "number",
+        default: 0,
+      },
     };
   }
 
@@ -64,11 +74,38 @@ const withBackgroundEffectControls = createHigherOrderComponent((BlockEdit) => {
       backgroundEffectColor1,
       backgroundEffectColor2,
       backgroundEffectColor3,
+      backgroundEffectPresetId,
     } = attributes;
+    const presetId = backgroundEffectPresetId ?? 0;
+
+    const presets = useSelect<BgEffectPresetRecord[]>(
+      (select) =>
+        (
+          select("core") as {
+            getEntityRecords: (
+              kind: string,
+              type: string,
+              query: Record<string, unknown>
+            ) => BgEffectPresetRecord[] | null;
+          }
+        ).getEntityRecords("postType", "kt_bg_effect_preset", {
+          per_page: -1,
+          status: "publish",
+          orderby: "title",
+          order: "asc",
+          _fields: ["id", "title"],
+        }) ?? [],
+      []
+    );
 
     if (excludedBlocks.includes(name)) {
       return <BlockEdit {...props} />;
     }
+
+    const presetOptions = presets.map((preset) => ({
+      value: String(preset.id),
+      label: preset.title.rendered || __("(no title)", "kotlinskidev"),
+    }));
 
     return (
       <>
@@ -79,17 +116,32 @@ const withBackgroundEffectControls = createHigherOrderComponent((BlockEdit) => {
             icon="art"
             initialOpen={false}
           >
+            <ComboboxControl
+              key={`${presetId}-${presetOptions.length}`}
+              label={__("Effect Preset", "kotlinskidev")}
+              value={presetId ? String(presetId) : ""}
+              options={presetOptions}
+              onChange={(value) =>
+                setAttributes({ backgroundEffectPresetId: value ? Number(value) : 0 })
+              }
+              allowReset
+              help={__(
+                "Manage presets from Background Effect Presets in the admin menu. Editing a preset there updates every block using it, with no code changes needed. Overrides the manual effect below when set.",
+                "kotlinskidev"
+              )}
+            />
             <SelectControl
               label={__("Effect", "kotlinskidev")}
               value={backgroundEffect || ""}
               options={backgroundEffects}
               onChange={(value: string) => setAttributes({ backgroundEffect: value })}
+              disabled={presetId > 0}
               help={__(
                 "Applies an animated CSS background/border effect. Shimmer Text is meant for text blocks; the others work best on containers and Cover blocks.",
                 "kotlinskidev"
               )}
             />
-            {backgroundEffect && (
+            {backgroundEffect && presetId === 0 && (
               <>
                 <ColorGradientControl
                   label={__("Effect color 1", "kotlinskidev")}
@@ -153,7 +205,12 @@ function applyBackgroundEffectClass(extraProps: any, blockType: any, attributes:
     backgroundEffectColor1,
     backgroundEffectColor2,
     backgroundEffectColor3,
+    backgroundEffectPresetId,
   } = attributes;
+
+  if (backgroundEffectPresetId) {
+    return extraProps;
+  }
 
   const classes = [extraProps.className, backgroundEffect].filter(Boolean);
 

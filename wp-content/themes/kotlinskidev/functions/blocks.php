@@ -74,8 +74,38 @@ function kotlinskidev_register_blocks(): void {
         register_block_type( get_template_directory() . '/src/blocks/certificates-grid-dynamic' );
         register_block_type( get_template_directory() . '/src/blocks/certificate' );
     }
+    if ( kotlinskidev_feature_enabled( 'canvas_backgrounds' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-gradient' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-noise' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-grid-lines' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-blob' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-sweep' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-light-rays' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-curved-rays' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-star-field' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-orbit-trails' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-warp-field' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-nebula' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-aurora' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-neon-waves' );
+    }
+    register_block_type( get_template_directory() . '/src/blocks/bg-effect-preset-settings' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
+
+function kotlinskidev_restrict_canvas_layer_blocks_to_scene_editor( $allowed_block_types, $editor_context ) {
+    $post = $editor_context->post ?? null;
+
+    if ( $post instanceof WP_Post && 'kt_canvas_scene' === $post->post_type ) {
+        return $allowed_block_types;
+    }
+
+    $registered = array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() );
+    $allowed    = true === $allowed_block_types ? $registered : $allowed_block_types;
+
+    return array_values( array_diff( $allowed, kotlinskidev_canvas_scene_layer_allowlist() ) );
+}
+add_filter( 'allowed_block_types_all', 'kotlinskidev_restrict_canvas_layer_blocks_to_scene_editor', 10, 2 );
 
 function kotlinskidev_navigation_listable_blocks( array $blocks ): array {
     $blocks[] = 'kotlinskidev/social-section';

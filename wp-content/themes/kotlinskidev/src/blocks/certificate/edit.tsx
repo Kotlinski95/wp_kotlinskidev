@@ -1,6 +1,10 @@
 import React from "react";
 import ServerSideRender from "@wordpress/server-side-render";
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
+import {
+  InspectorControls,
+  useBlockProps,
+  __experimentalColorGradientControl as ColorGradientControl,
+} from "@wordpress/block-editor";
 import { PanelBody, ComboboxControl, SelectControl } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
@@ -15,6 +19,8 @@ export type CertificateLayout = "badge-grid" | "feature-cards" | "compact-strip"
 export interface CertificateAttributes {
   certificateId?: number;
   layout?: CertificateLayout;
+  secondaryTextColor?: string;
+  accentColor?: string;
 }
 
 export interface CertificateEditProps {
@@ -26,6 +32,8 @@ export default function CertificateEdit(props: CertificateEditProps) {
   const { attributes, setAttributes } = props;
   const certificateId = attributes.certificateId ?? 0;
   const layout = attributes.layout ?? "badge-grid";
+  const secondaryTextColor = attributes.secondaryTextColor ?? "";
+  const accentColor = attributes.accentColor ?? "";
 
   const certificates = useSelect<CertificateRecord[]>(
     (select) =>
@@ -82,6 +90,40 @@ export default function CertificateEdit(props: CertificateEditProps) {
               setAttributes({ layout: value as CertificateAttributes["layout"] })
             }
           />
+        </PanelBody>
+        <PanelBody title={__("Card Colors", "kotlinskidev")} initialOpen={false}>
+          <ColorGradientControl
+            label={__("Secondary text color", "kotlinskidev")}
+            colorValue={secondaryTextColor || undefined}
+            onColorChange={(value: string | undefined) =>
+              setAttributes({ secondaryTextColor: value || "" })
+            }
+            gradients={[]}
+            disableCustomGradients
+            enableAlpha
+            clearable
+            __experimentalIsRenderedInSidebar
+            __nextHasNoMarginBottom
+          />
+          <ColorGradientControl
+            label={__("Accent color", "kotlinskidev")}
+            colorValue={accentColor || undefined}
+            onColorChange={(value: string | undefined) =>
+              setAttributes({ accentColor: value || "" })
+            }
+            gradients={[]}
+            disableCustomGradients
+            enableAlpha
+            clearable
+            __experimentalIsRenderedInSidebar
+            __nextHasNoMarginBottom
+          />
+          <p className="components-base-control__help">
+            {__(
+              "Secondary text color applies to the issuer and issued-date text. Accent color applies to the verify link (and the date pill in the Feature cards layout). Leave empty to keep the theme's default.",
+              "kotlinskidev"
+            )}
+          </p>
         </PanelBody>
       </InspectorControls>
       <ServerSideRender block="kotlinskidev/certificate" attributes={attributes} />
