@@ -93,8 +93,19 @@ it('applies secondaryTextColor and accentColor via inline !important styles (bad
         '#445566'
     );
 
-    expect(substr_count($html, 'style="color:#112233 !important;"'))->toBe(2);
-    expect($html)->toContain('style="color:#445566 !important;"');
+    expect(substr_count($html, 'style="color:#112233 !important;--kt-underline-color:#112233;"'))->toBe(2);
+    expect($html)->toContain('style="color:#445566 !important;--kt-underline-color:#445566;"');
+});
+
+it('sets --kt-underline-color on the verify link so its sliding-underline bar follows the forced accentColor (badge-grid layout)', function () {
+    $html = kotlinskidev_render_certificate_badge_card(
+        kotlinskidevTestCertificate(),
+        '',
+        '',
+        '#445566'
+    );
+
+    expect($html)->toContain('<a class="kt-certificate__verify-link has-primary-color has-text-color" style="color:#445566 !important;--kt-underline-color:#445566;"');
 });
 
 it('does not add a color override when secondaryTextColor/accentColor are empty (feature-cards layout)', function () {
@@ -113,5 +124,16 @@ it('applies secondaryTextColor and accentColor via inline !important styles (fea
 
     expect(substr_count($html, 'color:#112233 !important;'))->toBe(3);
     expect(substr_count($html, 'color:#445566 !important;'))->toBe(3);
-    expect($html)->toContain('style="color:#445566 !important;"');
+    expect($html)->toContain('style="color:#445566 !important;--kt-underline-color:#445566;"');
+});
+
+it('sets --kt-underline-color on the verify link so its sliding-underline bar follows the forced accentColor (feature-cards layout)', function () {
+    $html = kotlinskidev_render_certificate_feature_card(
+        kotlinskidevTestCertificate(),
+        '',
+        '',
+        '#445566'
+    );
+
+    expect($html)->toContain('<a class="kt-certificate__verify-link has-primary-color has-text-color" style="color:#445566 !important;--kt-underline-color:#445566;"');
 });

@@ -28,13 +28,16 @@ const resolveColorValue = (host: HTMLElement, rawValue: string): string => {
     return rawValue;
   }
 
-  const probe = document.createElement("span");
+  const ownerDocument = host.ownerDocument;
+  const ownerWindow = ownerDocument.defaultView ?? window;
+
+  const probe = ownerDocument.createElement("span");
   probe.style.position = "absolute";
   probe.style.visibility = "hidden";
   probe.style.pointerEvents = "none";
   probe.style.color = rawValue;
   host.appendChild(probe);
-  const resolved = getComputedStyle(probe).color;
+  const resolved = ownerWindow.getComputedStyle(probe).color;
   host.removeChild(probe);
 
   return resolved || "#000000";
@@ -54,7 +57,8 @@ const makeResolveColor = (instance: Instance): ((value: string) => string) => {
 
 const applySize = (instance: Instance): void => {
   const rect = instance.host.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+  const ownerWindow = instance.host.ownerDocument.defaultView ?? window;
+  const dpr = Math.min(ownerWindow.devicePixelRatio || 1, MAX_DPR);
   const width = Math.max(1, Math.round(rect.width));
   const height = Math.max(1, Math.round(rect.height));
 
@@ -118,7 +122,7 @@ const ensureLoopRunning = (): void => {
 
 const cleanupDetachedInstances = (): void => {
   instances.forEach((instance, host) => {
-    if (document.contains(host)) {
+    if (host.isConnected) {
       return;
     }
     instance.resizeObserver.disconnect();
@@ -159,7 +163,10 @@ export const mount = (host: HTMLElement, recipe: CanvasRecipe, reducedMotion: bo
     return;
   }
 
-  const canvas = document.createElement("canvas");
+  const ownerDocument = host.ownerDocument;
+  const ownerWindow = ownerDocument.defaultView ?? window;
+
+  const canvas = ownerDocument.createElement("canvas");
   canvas.setAttribute("aria-hidden", "true");
   host.appendChild(canvas);
 
@@ -180,7 +187,7 @@ export const mount = (host: HTMLElement, recipe: CanvasRecipe, reducedMotion: bo
     height: 0,
     colorCache: new Map(),
     layerCaches: new Map(),
-    resizeObserver: new ResizeObserver(() => {
+    resizeObserver: new ownerWindow.ResizeObserver(() => {
       const current = instances.get(host);
       if (!current) {
         return;

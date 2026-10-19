@@ -12,6 +12,10 @@ import warpFieldDraw from "./layers/warp-field";
 import nebulaDraw from "./layers/nebula";
 import auroraDraw from "./layers/aurora";
 import neonWavesDraw from "./layers/neon-waves";
+import hexTilesDraw from "./layers/hex-tiles";
+import deepFieldDraw from "./layers/deep-field";
+import floatingPanelsDraw from "./layers/floating-panels";
+import pleiadesDraw from "./layers/pleiades";
 
 export const layerRegistry: Record<string, CanvasLayerDraw> = {
   gradient: gradientDraw,
@@ -27,4 +31,8 @@ export const layerRegistry: Record<string, CanvasLayerDraw> = {
   nebula: nebulaDraw,
   aurora: auroraDraw,
   "neon-waves": neonWavesDraw,
+  "hex-tiles": hexTilesDraw,
+  "deep-field": deepFieldDraw,
+  "floating-panels": floatingPanelsDraw,
+  pleiades: pleiadesDraw,
 };

@@ -42,6 +42,54 @@ it('inlines the critical css on wp_head', function () {
     expect($html)->toContain('<style id="critical-css">');
 });
 
+it('inlines the certificate critical css fragment on wp_head only for a page containing the block', function () {
+    $with_block = test()->factory()->post->create([
+        'post_type' => 'page',
+        'post_content' => '<!-- wp:kotlinskidev/certificate {"certificateId":1} /-->',
+    ]);
+    test()->go_to(get_permalink($with_block));
+
+    ob_start();
+    do_action('wp_head');
+    $html = ob_get_clean();
+
+    expect($html)->toContain('<style id="critical-css-critical-certificate">');
+});
+
+it('does not inline the certificate critical css fragment on a page without the block', function () {
+    $without_block = test()->factory()->post->create([
+        'post_type' => 'page',
+        'post_content' => '<!-- wp:paragraph --><p>Hello</p><!-- /wp:paragraph -->',
+    ]);
+    test()->go_to(get_permalink($without_block));
+
+    ob_start();
+    do_action('wp_head');
+    $html = ob_get_clean();
+
+    expect($html)->not->toContain('critical-css-critical-certificate');
+});
+
+it('inlines the search critical css fragment on wp_head for the search results page', function () {
+    test()->go_to(home_url('/?s=test'));
+
+    ob_start();
+    do_action('wp_head');
+    $html = ob_get_clean();
+
+    expect($html)->toContain('<style id="critical-css-critical-search">');
+});
+
+it('does not inline the search critical css fragment on a non-search page', function () {
+    test()->go_to(home_url('/'));
+
+    ob_start();
+    do_action('wp_head');
+    $html = ob_get_clean();
+
+    expect($html)->not->toContain('critical-css-critical-search');
+});
+
 it('inlines the critical js on wp_head', function () {
     ob_start();
     do_action('wp_head');

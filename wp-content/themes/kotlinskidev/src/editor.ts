@@ -9,6 +9,7 @@ import "./blocks/nav-reveal-animation/index";
 import "./blocks/hover-animation-controls/index";
 import "./blocks/background-effects-controls/index";
 import "./blocks/canvas-background/index";
+import "./scripts/canvas-background/init";
 import "./blocks/cover-lazy-loading/index";
 import "./blocks/responsive-order/index.tsx";
 import "./blocks/responsive-display/index.tsx";

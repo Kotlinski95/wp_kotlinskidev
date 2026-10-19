@@ -22,6 +22,8 @@ for (const bundleFile of ["editor.ts", "index.ts"]) {
 const coreEntries = {
   main: path.join(srcDir, "index.ts"),
   critical: path.join(srcDir, "critical.ts"),
+  "critical-certificate": path.join(srcDir, "critical-certificate.ts"),
+  "critical-search": path.join(srcDir, "critical-search.ts"),
   editor: path.join(srcDir, "editor.ts"),
   "admin-bar": path.join(srcDir, "admin-bar.ts"),
   "canvas-background-init": path.join(srcDir, "scripts/canvas-background/init.ts"),

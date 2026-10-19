@@ -170,7 +170,6 @@ function kotlinskidev_navigation_item_blocks(): array {
         'kotlinskidev/simple-grid',
         'kotlinskidev/social-section',
         'kotlinskidev/nav-popular-pages',
-        'kotlinskidev/button',
         'polylang/navigation-language-switcher',
     ];
 }

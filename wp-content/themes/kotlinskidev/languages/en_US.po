@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-16T11:14:27+00:00\n"
+"POT-Creation-Date: 2026-10-19T12:30:07+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -1746,7 +1746,7 @@ msgstr "Background image"
 msgid "Logo image"
 msgstr "Logo image"
 
-#: functions/settings-page.php:381 build/js/editor.js:37
+#: functions/settings-page.php:381 build/js/editor.js:1 build/js/editor.js:37
 #: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr "Background color"
@@ -6643,6 +6643,10 @@ msgstr ""
 "updates every block using it, with no code changes needed."
 
 #: build/js/editor.js:1
+msgid "Browse scenes by preview"
+msgstr "Browse scenes by preview"
+
+#: build/js/editor.js:1
 msgid "Text backdrop"
 msgstr "Text backdrop"
 
@@ -6793,6 +6797,30 @@ msgstr "Neon Waves Layer"
 #: build/js/editor.js:1
 msgid "Intensity"
 msgstr "Intensity"
+
+#: build/js/editor.js:1
+msgid "Hex Tiles Layer"
+msgstr "Hex Tiles Layer"
+
+#: build/js/editor.js:1
+msgid "Deep Field Layer"
+msgstr "Deep Field Layer"
+
+#: build/js/editor.js:1
+msgid "Floating Panels Layer"
+msgstr "Floating Panels Layer"
+
+#: build/js/editor.js:1
+msgid "Panel color"
+msgstr "Panel color"
+
+#: build/js/editor.js:1
+msgid "Pleiades Layer"
+msgstr "Pleiades Layer"
+
+#: build/js/editor.js:1
+msgid "Exposure"
+msgstr "Exposure"
 
 #: build/js/editor.js:1
 msgid "Skip Lazy Loading"
@@ -9226,6 +9254,38 @@ msgctxt "block description"
 msgid "A bezier-curved, pulsing light-ray layer for a Canvas Scene."
 msgstr "A bezier-curved, pulsing light-ray layer for a Canvas Scene."
 
+#: build/blocks/canvas-background/layer-deep-field/block.json
+#: src/blocks/canvas-background/layer-deep-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Deep Field"
+msgstr "Canvas Layer: Deep Field"
+
+#: build/blocks/canvas-background/layer-deep-field/block.json
+#: src/blocks/canvas-background/layer-deep-field/block.json
+msgctxt "block description"
+msgid ""
+"A looping, parallax-popping star field over a drifting red/green/blue nebula"
+" backdrop for a Canvas Scene."
+msgstr ""
+"A looping, parallax-popping star field over a drifting red/green/blue nebula"
+" backdrop for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-floating-panels/block.json
+#: src/blocks/canvas-background/layer-floating-panels/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Floating Panels"
+msgstr "Canvas Layer: Floating Panels"
+
+#: build/blocks/canvas-background/layer-floating-panels/block.json
+#: src/blocks/canvas-background/layer-floating-panels/block.json
+msgctxt "block description"
+msgid ""
+"A deep, glowing noise backdrop with small rotating glass-like rectangles "
+"drifting and tumbling across it for a Canvas Scene."
+msgstr ""
+"A deep, glowing noise backdrop with small rotating glass-like rectangles "
+"drifting and tumbling across it for a Canvas Scene."
+
 #: build/blocks/canvas-background/layer-gradient/block.json
 #: src/blocks/canvas-background/layer-gradient/block.json
 msgctxt "block title"
@@ -9249,6 +9309,22 @@ msgstr "Canvas Layer: Grid Lines"
 msgctxt "block description"
 msgid "A faint grid-line layer for a Canvas Scene."
 msgstr "A faint grid-line layer for a Canvas Scene."
+
+#: build/blocks/canvas-background/layer-hex-tiles/block.json
+#: src/blocks/canvas-background/layer-hex-tiles/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Hex Tiles"
+msgstr "Canvas Layer: Hex Tiles"
+
+#: build/blocks/canvas-background/layer-hex-tiles/block.json
+#: src/blocks/canvas-background/layer-hex-tiles/block.json
+msgctxt "block description"
+msgid ""
+"A procedural, slowly-drifting floor of raised hexagon tiles with faked soft "
+"shadows for a Canvas Scene."
+msgstr ""
+"A procedural, slowly-drifting floor of raised hexagon tiles with faked soft "
+"shadows for a Canvas Scene."
 
 #: build/blocks/canvas-background/layer-light-rays/block.json
 #: src/blocks/canvas-background/layer-light-rays/block.json
@@ -9319,6 +9395,24 @@ msgid ""
 msgstr ""
 "A pulsing, color-cycling orbit with fading feedback trails for a Canvas "
 "Scene."
+
+#: build/blocks/canvas-background/layer-pleiades/block.json
+#: src/blocks/canvas-background/layer-pleiades/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Pleiades"
+msgstr "Canvas Layer: Pleiades"
+
+#: build/blocks/canvas-background/layer-pleiades/block.json
+#: src/blocks/canvas-background/layer-pleiades/block.json
+msgctxt "block description"
+msgid ""
+"A slowly-orbiting 3D view of the real Pleiades star cluster (M45) with a "
+"raymarched reflection nebula, Milky Way band, and parallax background star "
+"shells for a Canvas Scene."
+msgstr ""
+"A slowly-orbiting 3D view of the real Pleiades star cluster (M45) with a "
+"raymarched reflection nebula, Milky Way band, and parallax background star "
+"shells for a Canvas Scene."
 
 #: build/blocks/canvas-background/layer-star-field/block.json
 #: src/blocks/canvas-background/layer-star-field/block.json

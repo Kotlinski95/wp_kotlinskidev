@@ -42,6 +42,8 @@ require_once get_template_directory() . '/functions/text-line-clamp.php';
 
 require_once get_template_directory() . '/functions/deferred-block-assets.php';
 
+require_once get_template_directory() . '/functions/critical-css-fragments.php';
+
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 

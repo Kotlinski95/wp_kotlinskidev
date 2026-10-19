@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-hex-tiles",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Hex Tiles",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A procedural, slowly-drifting floor of raised hexagon tiles with faked soft shadows for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "speed": { "type": "number", "default": 1 },
+    "zoom": { "type": "number", "default": 1 },
+    "color": { "type": "string", "default": "#2b3a66" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

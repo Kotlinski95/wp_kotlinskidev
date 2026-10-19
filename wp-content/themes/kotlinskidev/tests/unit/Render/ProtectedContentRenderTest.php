@@ -73,3 +73,41 @@ it('strips html tags before encrypting email/phone content', function () {
 
     expect(kotlinskidev_decrypt_content($matches[1]))->toBe('555-1234');
 });
+
+it('applies a custom text color that core\'s own style engine would otherwise silently drop, e.g. light-dark()', function () {
+    $html = kotlinskidev_protected_content_render([
+        'content' => 'Hello',
+        'style' => ['color' => ['text' => 'light-dark(var(--wp--preset--color--foreground-dark), var(--wp--preset--color--foreground-light))']],
+    ]);
+
+    expect($html)->toBe(
+        '<p class="protected-content" style="color:light-dark(var(--wp--preset--color--foreground-dark), var(--wp--preset--color--foreground-light));">Hello</p>'
+    );
+});
+
+it('applies a custom text color on protected (AJAX-revealed) content too', function () {
+    $html = kotlinskidev_protected_content_render([
+        'content' => 'secret@example.test',
+        'useProtection' => true,
+        'protectionType' => 'email',
+        'tagName' => 'span',
+        'style' => ['color' => ['text' => 'light-dark(red, blue)']],
+    ]);
+
+    expect($html)->toContain('style="color:light-dark(red, blue);"');
+});
+
+it('appends a custom background color alongside the text color with a semicolon separator', function () {
+    $html = kotlinskidev_protected_content_render([
+        'content' => 'Hello',
+        'style' => ['color' => ['text' => '#111111', 'background' => '#eeeeee']],
+    ]);
+
+    expect($html)->toContain('style="color:#111111;background-color:#eeeeee;"');
+});
+
+it('does not add a style attribute at all when no custom color is set', function () {
+    $html = kotlinskidev_protected_content_render(['content' => 'Hello']);
+
+    expect($html)->not->toContain('style=');
+});

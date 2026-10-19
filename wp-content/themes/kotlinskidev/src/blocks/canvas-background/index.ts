@@ -25,6 +25,16 @@ import auroraMetadata from "./layer-aurora/block.json";
 import AuroraEdit, { type CanvasLayerAuroraAttributes } from "./layer-aurora/edit";
 import neonWavesMetadata from "./layer-neon-waves/block.json";
 import NeonWavesEdit, { type CanvasLayerNeonWavesAttributes } from "./layer-neon-waves/edit";
+import hexTilesMetadata from "./layer-hex-tiles/block.json";
+import HexTilesEdit, { type CanvasLayerHexTilesAttributes } from "./layer-hex-tiles/edit";
+import deepFieldMetadata from "./layer-deep-field/block.json";
+import DeepFieldEdit, { type CanvasLayerDeepFieldAttributes } from "./layer-deep-field/edit";
+import floatingPanelsMetadata from "./layer-floating-panels/block.json";
+import FloatingPanelsEdit, {
+  type CanvasLayerFloatingPanelsAttributes,
+} from "./layer-floating-panels/edit";
+import pleiadesMetadata from "./layer-pleiades/block.json";
+import PleiadesEdit, { type CanvasLayerPleiadesAttributes } from "./layer-pleiades/edit";
 import "./controls/index";
 
 function Save() {
@@ -116,6 +126,38 @@ registerBlockType(
   neonWavesMetadata as unknown as BlockConfiguration<CanvasLayerNeonWavesAttributes>,
   {
     edit: NeonWavesEdit,
+    save: Save,
+  }
+);
+
+registerBlockType(
+  hexTilesMetadata as unknown as BlockConfiguration<CanvasLayerHexTilesAttributes>,
+  {
+    edit: HexTilesEdit,
+    save: Save,
+  }
+);
+
+registerBlockType(
+  deepFieldMetadata as unknown as BlockConfiguration<CanvasLayerDeepFieldAttributes>,
+  {
+    edit: DeepFieldEdit,
+    save: Save,
+  }
+);
+
+registerBlockType(
+  floatingPanelsMetadata as unknown as BlockConfiguration<CanvasLayerFloatingPanelsAttributes>,
+  {
+    edit: FloatingPanelsEdit,
+    save: Save,
+  }
+);
+
+registerBlockType(
+  pleiadesMetadata as unknown as BlockConfiguration<CanvasLayerPleiadesAttributes>,
+  {
+    edit: PleiadesEdit,
     save: Save,
   }
 );

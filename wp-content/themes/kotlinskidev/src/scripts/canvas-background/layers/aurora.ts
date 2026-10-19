@@ -1,4 +1,5 @@
 import type { CanvasLayerDraw } from "../types";
+import { parseColorToRgb01 } from "../color";
 
 const VERTEX_SHADER = `
 attribute vec2 a_position;
@@ -231,22 +232,6 @@ const createAuroraGL = (): AuroraGL | null => {
   );
 
   return state;
-};
-
-const colorProbe = document.createElement("canvas");
-colorProbe.width = 1;
-colorProbe.height = 1;
-const colorProbeCtx = colorProbe.getContext("2d");
-
-const parseColorToRgb01 = (cssColor: string): [number, number, number] => {
-  if (!colorProbeCtx) {
-    return [1, 1, 1];
-  }
-  colorProbeCtx.clearRect(0, 0, 1, 1);
-  colorProbeCtx.fillStyle = cssColor;
-  colorProbeCtx.fillRect(0, 0, 1, 1);
-  const [r, g, b] = colorProbeCtx.getImageData(0, 0, 1, 1).data;
-  return [r / 255, g / 255, b / 255];
 };
 
 const draw: CanvasLayerDraw = (ctx, { width, height, time, params, resolveColor, cache }) => {

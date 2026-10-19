@@ -60,6 +60,7 @@ it('returns null for the current polylang language when none is marked current',
 it('lists the real container and item block names used for navigation parenting', function () {
     expect(kotlinskidev_navigation_container_blocks())->toContain('kotlinskidev/holder');
     expect(kotlinskidev_navigation_item_blocks())->toContain('kotlinskidev/nav-link');
+    expect(kotlinskidev_navigation_item_blocks())->not->toContain('kotlinskidev/button');
 });
 
 it('assigns the navigation container blocks as valid parents for a navigation item block', function () {
@@ -72,4 +73,11 @@ it('leaves the block registration args untouched for a non-navigation-item block
     $args = kotlinskidev_assign_navigation_item_parents(['category' => 'text'], 'core/paragraph');
 
     expect($args)->toBe(['category' => 'text']);
+});
+
+it('registers kotlinskidev/button without a parent restriction, so it stays insertable anywhere on a page, not just inside navigation menus', function () {
+    $registered = WP_Block_Type_Registry::get_instance()->get_registered('kotlinskidev/button');
+
+    expect($registered)->not->toBeNull();
+    expect($registered->parent ?? null)->toBeNull();
 });

@@ -89,8 +89,11 @@ it('lists the fixed navigation container block types', function () {
 });
 
 it('lists the fixed navigation item block types', function () {
-    expect(kotlinskidev_navigation_item_blocks())->toContain('kotlinskidev/button');
     expect(kotlinskidev_navigation_item_blocks())->toContain('polylang/navigation-language-switcher');
+});
+
+it('does not treat kotlinskidev/button as a navigation-only item block, so it stays insertable anywhere on a page', function () {
+    expect(kotlinskidev_navigation_item_blocks())->not->toContain('kotlinskidev/button');
 });
 
 it('assigns the navigation container parents to a navigation item block type', function () {
@@ -103,4 +106,10 @@ it('leaves args untouched for a block type that is not a navigation item', funct
     $args = ['existing' => true];
 
     expect(kotlinskidev_assign_navigation_item_parents($args, 'core/paragraph'))->toBe($args);
+});
+
+it('leaves args untouched for kotlinskidev/button so it stays insertable anywhere', function () {
+    $args = ['existing' => true];
+
+    expect(kotlinskidev_assign_navigation_item_parents($args, 'kotlinskidev/button'))->toBe($args);
 });

@@ -1,4 +1,5 @@
 import React from "react";
+import CanvasRecipePreview from "../shared/CanvasRecipePreview";
 import {
   useBlockProps,
   InspectorControls,
@@ -67,7 +68,32 @@ export default function Edit({ attributes, setAttributes }: EditProps) {
           />
         </PanelBody>
       </InspectorControls>
-      <div {...blockProps}>{__("Neon Waves Layer", "kotlinskidev")}</div>
+      <div
+        {...blockProps}
+        style={{ ...blockProps.style, position: "relative", overflow: "hidden" }}
+      >
+        <CanvasRecipePreview
+          recipe={{
+            layers: [{ type: "neon-waves", params: { speed, intensity, color, opacity } }],
+          }}
+          height={140}
+        />
+        <span
+          style={{
+            position: "absolute",
+            insetInlineStart: 0,
+            insetBlockEnd: 0,
+            padding: "2px 6px",
+            fontSize: "11px",
+            lineHeight: 1.4,
+            color: "#fff",
+            background: "rgba(0, 0, 0, 0.55)",
+            pointerEvents: "none",
+          }}
+        >
+          {__("Neon Waves Layer", "kotlinskidev")}
+        </span>
+      </div>
     </>
   );
 }

@@ -4,17 +4,29 @@ import {
   InspectorControls,
   __experimentalColorGradientControl as ColorGradientControl,
 } from "@wordpress/block-editor";
-import { PanelBody, ComboboxControl, ToggleControl, RangeControl } from "@wordpress/components";
+import {
+  PanelBody,
+  ComboboxControl,
+  ToggleControl,
+  RangeControl,
+  Dropdown,
+  Button,
+} from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import { useSelect } from "@wordpress/data";
 import { Fragment } from "@wordpress/element";
 import React from "react";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import type { CanvasRecipe } from "../../../scripts/canvas-background/types";
+import CanvasRecipePreview from "../shared/CanvasRecipePreview";
 
 interface CanvasSceneRecord {
   id: number;
   title: { rendered: string };
+  canvas_recipe: CanvasRecipe;
 }
+
+const EMPTY_RECIPE: CanvasRecipe = { layers: [] };
 
 interface BlockSettings {
   name: string;
@@ -117,7 +129,7 @@ const withCanvasBackgroundControls = createHigherOrderComponent((BlockEdit) => {
           status: "publish",
           orderby: "title",
           order: "asc",
-          _fields: ["id", "title"],
+          _fields: ["id", "title", "canvas_recipe"],
         }) ?? [],
       []
     );
@@ -130,6 +142,8 @@ const withCanvasBackgroundControls = createHigherOrderComponent((BlockEdit) => {
       value: String(scene.id),
       label: scene.title.rendered || __("(no title)", "kotlinskidev"),
     }));
+
+    const selectedScene = scenes.find((scene) => scene.id === canvasSceneId);
 
     return (
       <Fragment>
@@ -148,6 +162,73 @@ const withCanvasBackgroundControls = createHigherOrderComponent((BlockEdit) => {
                 "kotlinskidev"
               )}
             />
+            <Dropdown
+              contentClassName="kotlinskidev-canvas-scene-browser"
+              renderToggle={({ isOpen, onToggle }) => (
+                <Button variant="link" onClick={onToggle} aria-expanded={isOpen}>
+                  {__("Browse scenes by preview", "kotlinskidev")}
+                </Button>
+              )}
+              renderContent={() => (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gap: "8px",
+                    width: "280px",
+                    maxHeight: "320px",
+                    overflowY: "auto",
+                    padding: "4px",
+                  }}
+                >
+                  {scenes.map((scene) => (
+                    <Button
+                      key={scene.id}
+                      onClick={() => setAttributes({ canvasSceneId: scene.id })}
+                      style={{
+                        display: "block",
+                        height: "auto",
+                        padding: 0,
+                        border:
+                          scene.id === canvasSceneId
+                            ? "2px solid var(--wp-admin-theme-color, #3858e9)"
+                            : "1px solid rgba(0, 0, 0, 0.1)",
+                        borderRadius: "4px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <CanvasRecipePreview
+                        recipe={scene.canvas_recipe ?? EMPTY_RECIPE}
+                        height={64}
+                        animate={false}
+                      />
+                      <span
+                        style={{
+                          display: "block",
+                          fontSize: "11px",
+                          padding: "2px 4px",
+                          textAlign: "center",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {scene.title.rendered || __("(no title)", "kotlinskidev")}
+                      </span>
+                    </Button>
+                  ))}
+                </div>
+              )}
+            />
+            {selectedScene && (
+              <div style={{ marginTop: "8px", marginBottom: "20px" }}>
+                <CanvasRecipePreview
+                  recipe={selectedScene.canvas_recipe ?? EMPTY_RECIPE}
+                  height={120}
+                  animate
+                />
+              </div>
+            )}
             {canvasSceneId > 0 && (
               <>
                 <ToggleControl

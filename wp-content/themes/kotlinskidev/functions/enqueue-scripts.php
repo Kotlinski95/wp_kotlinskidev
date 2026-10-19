@@ -98,23 +98,38 @@ add_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts', 10, 2);
 
 
 
+function kotlinskidev_read_cached_critical_css(string $relative_filename): string
+{
+    $css_path = kotlinskidev_build_path('css', $relative_filename);
+    if (!file_exists($css_path)) {
+        return '';
+    }
+
+    $cache_key = 'kotlinskidev_critical_css_' . sanitize_key($relative_filename) . '_' . filemtime($css_path) . '_' . kotlinskidev_breakpoints_hash();
+    $css = get_transient($cache_key);
+    if ($css === false) {
+        $css = file_get_contents($css_path);
+        if ($css) {
+            $css = kotlinskidev_transform_breakpoint_css($css);
+            set_transient($cache_key, $css, WEEK_IN_SECONDS);
+        }
+    }
+
+    return $css ?: '';
+}
+
 // Inline critical CSS and preload non-critical styles
 function inline_critical_css()
 {
-    $critical_css_path = kotlinskidev_build_path('css', 'critical.css');
-    if (file_exists($critical_css_path)) {
-        // Cache the file — it only changes on build deploys or breakpoint setting changes.
-        $cache_key = 'kotlinskidev_critical_css_' . filemtime($critical_css_path) . '_' . kotlinskidev_breakpoints_hash();
-        $critical_css = get_transient($cache_key);
-        if ($critical_css === false) {
-            $critical_css = file_get_contents($critical_css_path);
-            if ($critical_css) {
-                $critical_css = kotlinskidev_transform_breakpoint_css($critical_css);
-                set_transient($cache_key, $critical_css, WEEK_IN_SECONDS);
-            }
-        }
-        if ($critical_css) {
-            echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/css/critical.css, not user input; escaping would corrupt the inline CSS
+    $critical_css = kotlinskidev_read_cached_critical_css('critical.css');
+    if ($critical_css) {
+        echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/css/critical.css, not user input; escaping would corrupt the inline CSS
+    }
+
+    foreach (kotlinskidev_get_active_critical_css_fragments() as $fragment_filename) {
+        $fragment_css = kotlinskidev_read_cached_critical_css($fragment_filename);
+        if ($fragment_css) {
+            echo '<style id="critical-css-' . esc_attr(sanitize_key(basename($fragment_filename, '.css'))) . '">' . $fragment_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/css/*.css, not user input; escaping would corrupt the inline CSS
         }
     }
 }

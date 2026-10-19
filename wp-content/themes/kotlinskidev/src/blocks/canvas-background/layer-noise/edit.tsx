@@ -2,6 +2,7 @@ import React from "react";
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, RangeControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+import CanvasRecipePreview from "../shared/CanvasRecipePreview";
 
 export interface CanvasLayerNoiseAttributes {
   opacity: number;
@@ -51,7 +52,30 @@ export default function Edit({ attributes, setAttributes }: EditProps) {
           />
         </PanelBody>
       </InspectorControls>
-      <div {...blockProps}>{__("Noise Layer", "kotlinskidev")}</div>
+      <div
+        {...blockProps}
+        style={{ ...blockProps.style, position: "relative", overflow: "hidden" }}
+      >
+        <CanvasRecipePreview
+          recipe={{ layers: [{ type: "noise", params: { opacity, jitterAmount, grainSize } }] }}
+          height={140}
+        />
+        <span
+          style={{
+            position: "absolute",
+            insetInlineStart: 0,
+            insetBlockEnd: 0,
+            padding: "2px 6px",
+            fontSize: "11px",
+            lineHeight: 1.4,
+            color: "#fff",
+            background: "rgba(0, 0, 0, 0.55)",
+            pointerEvents: "none",
+          }}
+        >
+          {__("Noise Layer", "kotlinskidev")}
+        </span>
+      </div>
     </>
   );
 }

@@ -25,6 +25,23 @@ function kotlinskidev_register_canvas_scene_post_type(): void {
 }
 add_action( 'init', 'kotlinskidev_register_canvas_scene_post_type' );
 
+function kotlinskidev_register_canvas_scene_recipe_rest_field(): void {
+    if ( ! kotlinskidev_feature_enabled( 'canvas_backgrounds' ) ) {
+        return;
+    }
+
+    register_rest_field( 'kt_canvas_scene', 'canvas_recipe', [
+        'get_callback' => function ( array $post ): array {
+            return kotlinskidev_build_canvas_recipe( (int) $post['id'] );
+        },
+        'schema'       => [
+            'type'    => 'object',
+            'context' => [ 'view', 'edit' ],
+        ],
+    ] );
+}
+add_action( 'rest_api_init', 'kotlinskidev_register_canvas_scene_recipe_rest_field' );
+
 function kotlinskidev_canvas_scene_layer_allowlist(): array {
     return [
         'kotlinskidev/canvas-layer-gradient',
@@ -40,6 +57,10 @@ function kotlinskidev_canvas_scene_layer_allowlist(): array {
         'kotlinskidev/canvas-layer-nebula',
         'kotlinskidev/canvas-layer-aurora',
         'kotlinskidev/canvas-layer-neon-waves',
+        'kotlinskidev/canvas-layer-hex-tiles',
+        'kotlinskidev/canvas-layer-deep-field',
+        'kotlinskidev/canvas-layer-floating-panels',
+        'kotlinskidev/canvas-layer-pleiades',
     ];
 }
 
@@ -172,6 +193,34 @@ function kotlinskidev_sanitize_canvas_layer_params( string $layer_type, array $a
             return [
                 'speed'     => kotlinskidev_sanitize_canvas_number( $attrs['speed'] ?? null, 0, 2, 0.6 ),
                 'intensity' => kotlinskidev_sanitize_canvas_number( $attrs['intensity'] ?? null, 1, 6, 3 ),
+                'color'     => kotlinskidev_sanitize_canvas_color( $attrs['color'] ?? null, '#ffffff' ),
+                'opacity'   => kotlinskidev_sanitize_canvas_number( $attrs['opacity'] ?? null, 0, 1, 1 ),
+            ];
+        case 'hex-tiles':
+            return [
+                'speed'   => kotlinskidev_sanitize_canvas_number( $attrs['speed'] ?? null, 0, 2, 1 ),
+                'zoom'    => kotlinskidev_sanitize_canvas_number( $attrs['zoom'] ?? null, 0.5, 2, 1 ),
+                'color'   => kotlinskidev_sanitize_canvas_color( $attrs['color'] ?? null, '#2b3a66' ),
+                'opacity' => kotlinskidev_sanitize_canvas_number( $attrs['opacity'] ?? null, 0, 1, 1 ),
+            ];
+        case 'deep-field':
+            return [
+                'speed'     => kotlinskidev_sanitize_canvas_number( $attrs['speed'] ?? null, 0, 2, 1 ),
+                'intensity' => kotlinskidev_sanitize_canvas_number( $attrs['intensity'] ?? null, 1, 6, 3 ),
+                'color'     => kotlinskidev_sanitize_canvas_color( $attrs['color'] ?? null, '#ffffff' ),
+                'opacity'   => kotlinskidev_sanitize_canvas_number( $attrs['opacity'] ?? null, 0, 1, 1 ),
+            ];
+        case 'floating-panels':
+            return [
+                'speed'      => kotlinskidev_sanitize_canvas_number( $attrs['speed'] ?? null, 0, 2, 1 ),
+                'colorStart' => kotlinskidev_sanitize_canvas_color( $attrs['colorStart'] ?? null, '#03296b' ),
+                'colorEnd'   => kotlinskidev_sanitize_canvas_color( $attrs['colorEnd'] ?? null, '#034291' ),
+                'opacity'    => kotlinskidev_sanitize_canvas_number( $attrs['opacity'] ?? null, 0, 1, 1 ),
+            ];
+        case 'pleiades':
+            return [
+                'speed'     => kotlinskidev_sanitize_canvas_number( $attrs['speed'] ?? null, 0, 2, 1 ),
+                'intensity' => kotlinskidev_sanitize_canvas_number( $attrs['intensity'] ?? null, 1, 4, 2.2 ),
                 'color'     => kotlinskidev_sanitize_canvas_color( $attrs['color'] ?? null, '#ffffff' ),
                 'opacity'   => kotlinskidev_sanitize_canvas_number( $attrs['opacity'] ?? null, 0, 1, 1 ),
             ];

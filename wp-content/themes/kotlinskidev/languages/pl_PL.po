@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-16T11:14:27+00:00\n"
+"POT-Creation-Date: 2026-10-19T12:30:07+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -1756,7 +1756,7 @@ msgstr "Obraz tła"
 msgid "Logo image"
 msgstr "Obraz logo"
 
-#: functions/settings-page.php:381 build/js/editor.js:37
+#: functions/settings-page.php:381 build/js/editor.js:1 build/js/editor.js:37
 #: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr "Kolor tła"
@@ -6709,6 +6709,10 @@ msgstr ""
 " kodzie."
 
 #: build/js/editor.js:1
+msgid "Browse scenes by preview"
+msgstr "Przeglądaj scenerie na podglądzie"
+
+#: build/js/editor.js:1
 msgid "Text backdrop"
 msgstr "Podkład pod tekst"
 
@@ -6859,6 +6863,30 @@ msgstr "Warstwa neonowych fal"
 #: build/js/editor.js:1
 msgid "Intensity"
 msgstr "Intensywność"
+
+#: build/js/editor.js:1
+msgid "Hex Tiles Layer"
+msgstr "Warstwa kafelków hex"
+
+#: build/js/editor.js:1
+msgid "Deep Field Layer"
+msgstr "Warstwa głębokiego pola"
+
+#: build/js/editor.js:1
+msgid "Floating Panels Layer"
+msgstr "Warstwa unoszących się paneli"
+
+#: build/js/editor.js:1
+msgid "Panel color"
+msgstr "Kolor panelu"
+
+#: build/js/editor.js:1
+msgid "Pleiades Layer"
+msgstr "Warstwa Plejad"
+
+#: build/js/editor.js:1
+msgid "Exposure"
+msgstr "Ekspozycja"
 
 #: build/js/editor.js:1
 msgid "Skip Lazy Loading"
@@ -9324,6 +9352,38 @@ msgstr ""
 "Zakrzywiona (krzywa Beziera), pulsująca warstwa promieni świetlnych dla "
 "sceny płótna."
 
+#: build/blocks/canvas-background/layer-deep-field/block.json
+#: src/blocks/canvas-background/layer-deep-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Deep Field"
+msgstr "Warstwa płótna: Głębokie pole"
+
+#: build/blocks/canvas-background/layer-deep-field/block.json
+#: src/blocks/canvas-background/layer-deep-field/block.json
+msgctxt "block description"
+msgid ""
+"A looping, parallax-popping star field over a drifting red/green/blue nebula"
+" backdrop for a Canvas Scene."
+msgstr ""
+"Zapętlone pole gwiazd z efektem paralaksy na tle dryfującej czerwono-"
+"zielono-niebieskiej mgławicy dla Sceny Canvas."
+
+#: build/blocks/canvas-background/layer-floating-panels/block.json
+#: src/blocks/canvas-background/layer-floating-panels/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Floating Panels"
+msgstr "Warstwa płótna: Unoszące się panele"
+
+#: build/blocks/canvas-background/layer-floating-panels/block.json
+#: src/blocks/canvas-background/layer-floating-panels/block.json
+msgctxt "block description"
+msgid ""
+"A deep, glowing noise backdrop with small rotating glass-like rectangles "
+"drifting and tumbling across it for a Canvas Scene."
+msgstr ""
+"Głębokie, świecące tło z szumem, po którym dryfują i obracają się małe, "
+"szklane prostokąty, dla Sceny Canvas."
+
 #: build/blocks/canvas-background/layer-gradient/block.json
 #: src/blocks/canvas-background/layer-gradient/block.json
 msgctxt "block title"
@@ -9347,6 +9407,22 @@ msgstr "Warstwa płótna: Linie siatki"
 msgctxt "block description"
 msgid "A faint grid-line layer for a Canvas Scene."
 msgstr "Delikatna warstwa linii siatki do scen płótna."
+
+#: build/blocks/canvas-background/layer-hex-tiles/block.json
+#: src/blocks/canvas-background/layer-hex-tiles/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Hex Tiles"
+msgstr "Warstwa płótna: Kafelki hex"
+
+#: build/blocks/canvas-background/layer-hex-tiles/block.json
+#: src/blocks/canvas-background/layer-hex-tiles/block.json
+msgctxt "block description"
+msgid ""
+"A procedural, slowly-drifting floor of raised hexagon tiles with faked soft "
+"shadows for a Canvas Scene."
+msgstr ""
+"Proceduralna, wolno dryfująca podłoga z wypukłych kafelków hex z "
+"symulowanymi miękkimi cieniami dla Sceny Canvas."
 
 #: build/blocks/canvas-background/layer-light-rays/block.json
 #: src/blocks/canvas-background/layer-light-rays/block.json
@@ -9417,6 +9493,24 @@ msgid ""
 "Scene."
 msgstr ""
 "Pulsująca, zmieniająca kolor orbita z zanikającymi śladami dla sceny płótna."
+
+#: build/blocks/canvas-background/layer-pleiades/block.json
+#: src/blocks/canvas-background/layer-pleiades/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Pleiades"
+msgstr "Warstwa płótna: Plejady"
+
+#: build/blocks/canvas-background/layer-pleiades/block.json
+#: src/blocks/canvas-background/layer-pleiades/block.json
+msgctxt "block description"
+msgid ""
+"A slowly-orbiting 3D view of the real Pleiades star cluster (M45) with a "
+"raymarched reflection nebula, Milky Way band, and parallax background star "
+"shells for a Canvas Scene."
+msgstr ""
+"Wolno okrążający widok 3D rzeczywistej gromady gwiazd Plejad (M45) z "
+"mgławicą refleksyjną renderowaną raymarchingiem, pasmem Drogi Mlecznej i "
+"warstwami gwiazd tła w paralaksie dla Sceny Canvas."
 
 #: build/blocks/canvas-background/layer-star-field/block.json
 #: src/blocks/canvas-background/layer-star-field/block.json

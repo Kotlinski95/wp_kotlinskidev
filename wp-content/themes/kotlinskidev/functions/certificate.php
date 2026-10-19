@@ -13,8 +13,8 @@ function kotlinskidev_register_certificate_post_type(): void {
             'search_items'  => __( 'Search Certificates', 'kotlinskidev' ),
             'not_found'     => __( 'No certificates found', 'kotlinskidev' ),
         ],
-        'public'              => true,
-        'publicly_queryable'  => true,
+        'public'              => false,
+        'publicly_queryable'  => false,
         'exclude_from_search' => true,
         'show_ui'             => true,
         'show_in_menu'        => true,
@@ -111,7 +111,7 @@ function kotlinskidev_certificate_color_declaration( string $color ): string {
         return '';
     }
 
-    return 'color:' . esc_attr( $color ) . ' !important;';
+    return 'color:' . esc_attr( $color ) . ' !important;--kt-underline-color:' . esc_attr( $color ) . ';';
 }
 
 function kotlinskidev_render_certificate_badge_card( array $certificate, string $wrapper_attrs = '', string $secondary_text_color = '', string $accent_color = '' ): string {
