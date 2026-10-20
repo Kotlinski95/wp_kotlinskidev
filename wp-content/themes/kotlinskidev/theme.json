@@ -419,6 +419,29 @@
         "primary-glow": "0 0 0.75rem rgba(130, 9, 211, 0.6)",
         "strong": "0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.45)",
         "outline-pop": "0.0625rem 0.0625rem 0 rgba(0, 0, 0, 0.85)"
+      },
+      "gridHoverBlur": {
+        "whisper": "0.03125rem",
+        "hairline": "0.0625rem",
+        "faint": "0.09375rem",
+        "subtle": "0.125rem",
+        "medium": "0.25rem",
+        "strong": "0.5rem",
+        "heavy": "0.75rem"
+      },
+      "imageFilterColors": {
+        "black": {
+          "light": "brightness(0)",
+          "dark": "brightness(0)"
+        },
+        "white": {
+          "light": "brightness(0) invert(1)",
+          "dark": "brightness(0) invert(1)"
+        },
+        "adaptive": {
+          "light": "brightness(0)",
+          "dark": "brightness(0) invert(1)"
+        }
       }
     },
     "spacing": {

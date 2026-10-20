@@ -27,16 +27,16 @@ $kotlinskidev_icon = $kotlinskidev_url . 'assets/images/service_icon.webp';
             <!-- /wp:column -->
 
             <!-- wp:column {"verticalAlignment":"center"} -->
-            <div class="wp-block-column is-vertically-aligned-center"><!-- wp:group {"style":{"spacing":{"blockGap":"0.75rem"}},"layout":{"type":"grid","minimumColumnWidth":"7.5rem"}} -->
-                <div class="wp-block-group">
+            <div class="wp-block-column is-vertically-aligned-center"><!-- wp:group {"style":{"spacing":{"blockGap":"0.75rem"}},"layout":{"type":"grid","minimumColumnWidth":"7.5rem"},"kotlinskidevBlurSiblings":true} -->
+                <div class="wp-block-group has-blur-siblings">
                     <?php for ($i = 1; $i <= 6; $i++) : ?>
                     <!-- wp:group {"className":"kt-logo-dim kt-logo-dim--tile-small","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"0.75rem"}},"backgroundColor":"surface","layout":{"type":"flex","justifyContent":"center","verticalAlignment":"center"}} -->
-                    <div class="wp-block-group kt-logo-dim kt-logo-dim--tile-small has-border-color has-surface-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:0.75rem"><!-- wp:image {"width":"2.5rem","height":"2.5rem","sizeSlug":"full","linkDestination":"none"} -->
-                        <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_icon) ?>" alt="<?php echo esc_attr(sprintf(
+                    <div class="wp-block-group kt-logo-dim kt-logo-dim--tile-small has-border-color has-surface-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:0.75rem"><!-- wp:image {"width":"2.5rem","sizeSlug":"full","linkDestination":"none","kotlinskidevFilterColor":"adaptive","kotlinskidevRevealOnHover":true} -->
+                        <figure class="wp-block-image size-full is-resized has-filter-color has-reveal-color-on-hover" style="--kt-filter-color-light:var(--wp--custom--image-filter-colors--adaptive--light);--kt-filter-color-dark:var(--wp--custom--image-filter-colors--adaptive--dark)"><img src="<?php echo esc_url($kotlinskidev_icon) ?>" alt="<?php echo esc_attr(sprintf(
                             /* translators: %d: collaborator/logo position number. */
                             __('Collaborator logo %d', 'kotlinskidev'),
                             $i
-                        )) ?>" style="width:2.5rem;height:2.5rem" /></figure>
+                        )) ?>" style="width:2.5rem" /></figure>
                         <!-- /wp:image -->
                     </div>
                     <!-- /wp:group -->

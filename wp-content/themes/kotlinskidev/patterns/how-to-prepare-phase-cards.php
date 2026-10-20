@@ -38,16 +38,16 @@ $kotlinskidev_phases = array(
     <div class="wp-block-group">
         <?php foreach ($kotlinskidev_phases as $kotlinskidev_phase) : ?>
         <!-- wp:group {"style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.375rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.75rem","right":"1.75rem"},"blockGap":"0.875rem"}},"backgroundColor":"background-alt","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
-        <div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:1.875rem;padding-right:1.75rem;padding-bottom:1.875rem;padding-left:1.75rem"><!-- wp:paragraph {"style":{"typography":{"fontWeight":"700","letterSpacing":"0.14em"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-small"} -->
-            <p class="has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;letter-spacing:0.14em;text-transform:uppercase"><?php echo esc_html($kotlinskidev_phase['eyebrow']) ?></p>
+        <div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.375rem;padding-top:1.875rem;padding-right:1.75rem;padding-bottom:1.875rem;padding-left:1.75rem"><!-- wp:paragraph {"className":"kt-prep-card__eyebrow","style":{"typography":{"fontWeight":"700","letterSpacing":"0.14em"},"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|primary"}}}},"textColor":"primary","fontSize":"x-small"} -->
+            <p class="kt-prep-card__eyebrow has-primary-color has-text-color has-link-color has-x-small-font-size" style="margin-top:0;margin-bottom:0;font-weight:700;letter-spacing:0.14em;text-transform:uppercase"><?php echo esc_html($kotlinskidev_phase['eyebrow']) ?></p>
             <!-- /wp:paragraph -->
 
             <!-- wp:heading {"level":3,"style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"fontSize":"medium"} -->
             <h3 class="wp-block-heading has-medium-font-size" style="margin-top:0;margin-bottom:0"><?php echo esc_html($kotlinskidev_phase['title']) ?></h3>
             <!-- /wp:heading -->
 
-            <!-- wp:list {"style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"small"} -->
-            <ul class="has-foreground-alt-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0">
+            <!-- wp:list {"className":"is-style-checkmark","style":{"spacing":{"margin":{"top":"0","bottom":"0"}},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"small"} -->
+            <ul class="is-style-checkmark has-foreground-alt-color has-text-color has-link-color has-small-font-size" style="margin-top:0;margin-bottom:0">
                 <?php foreach ($kotlinskidev_phase['items'] as $kotlinskidev_item) : ?>
                 <!-- wp:list-item -->
                 <li><?php echo esc_html($kotlinskidev_item) ?></li>

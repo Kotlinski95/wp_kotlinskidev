@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-19T12:30:07+00:00\n"
+"POT-Creation-Date: 2026-10-20T10:55:46+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -1111,6 +1111,10 @@ msgstr "View full-size image"
 #, php-format
 msgid "View full-size image: %s"
 msgstr "View full-size image: %s"
+
+#: functions/list-style-variants.php:7
+msgid "Checkmark"
+msgstr "Checkmark"
 
 #: functions/marquee.php:6 functions/modals.php:129
 msgid "Close"
@@ -7643,6 +7647,68 @@ msgid ""
 msgstr ""
 "Stretch every column's content to match the tallest column, so borders and "
 "backgrounds line up."
+
+#: build/js/editor.js:46
+msgid "Filter Color"
+msgstr "Filter Color"
+
+#: build/js/editor.js:46
+msgid "Filter"
+msgstr "Filter"
+
+#: build/js/editor.js:46
+msgid ""
+"Presets come from theme.json's settings.custom.imageFilterColors — add more "
+"there to offer them here."
+msgstr ""
+"Presets come from theme.json's settings.custom.imageFilterColors — add more "
+"there to offer them here."
+
+#: build/js/editor.js:46
+msgid "Reveal original color on hover"
+msgstr "Reveal original color on hover"
+
+#: build/js/editor.js:46
+msgid "On: the filter lifts on hover/focus. Off: the filter is permanent."
+msgstr "On: the filter lifts on hover/focus. Off: the filter is permanent."
+
+#: build/js/editor.js:46
+msgid "Blur intensity"
+msgstr "Blur intensity"
+
+#: build/js/editor.js:46
+msgid "Default (0.25rem)"
+msgstr "Default (0.25rem)"
+
+#: build/js/editor.js:46
+msgid ""
+"Presets come from theme.json's settings.custom.gridHoverBlur — add more "
+"there to offer them here."
+msgstr ""
+"Presets come from theme.json's settings.custom.gridHoverBlur — add more "
+"there to offer them here."
+
+#: build/js/editor.js:46
+msgid "Custom blur amount"
+msgstr "Custom blur amount"
+
+#: build/js/editor.js:46
+msgid "Any CSS length, e.g. 0.5rem or 8px."
+msgstr "Any CSS length, e.g. 0.5rem or 8px."
+
+#: build/js/editor.js:46
+msgid "Grid Hover Effect"
+msgstr "Grid Hover Effect"
+
+#: build/js/editor.js:46
+msgid "Blur inactive items on hover"
+msgstr "Blur inactive items on hover"
+
+#: build/js/editor.js:46
+msgid ""
+"Hovering or focusing one direct child of this group dims and blurs the rest."
+msgstr ""
+"Hovering or focusing one direct child of this group dims and blurs the rest."
 
 #: build/js/editor.js:46 build/js/marquee.js:1
 msgid "— None (not clickable) —"

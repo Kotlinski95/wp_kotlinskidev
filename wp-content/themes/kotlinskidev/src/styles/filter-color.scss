@@ -1,0 +1,27 @@
+.has-filter-color img {
+	transition: filter 0.3s ease;
+}
+
+.light-mode .has-filter-color img {
+	filter: var(--kt-filter-color-light);
+}
+
+.dark-mode .has-filter-color img {
+	filter: var(--kt-filter-color-dark, var(--kt-filter-color-light));
+}
+
+.has-reveal-color-on-hover {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+.has-reveal-color-on-hover:hover img,
+.has-reveal-color-on-hover:focus-within img {
+	filter: none;
+}

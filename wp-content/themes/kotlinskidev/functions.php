@@ -29,6 +29,9 @@ require_once get_template_directory() . '/functions/blocks.php';
 // Register core/button style variants (Fill/Outline/Gradient Outline x light/dark/adaptive/adaptive-contrast)
 require_once get_template_directory() . '/functions/button-style-variants.php';
 
+// Register core/list style variants (Checkmark)
+require_once get_template_directory() . '/functions/list-style-variants.php';
+
 // Manageable modal content system: kt_modal CPT, link triggers, footer render
 require_once get_template_directory() . '/functions/modals.php';
 

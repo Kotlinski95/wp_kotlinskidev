@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-19T12:30:07+00:00\n"
+"POT-Creation-Date: 2026-10-20T10:55:46+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -1119,6 +1119,10 @@ msgstr "Zobacz obraz w pełnym rozmiarze"
 #, php-format
 msgid "View full-size image: %s"
 msgstr "Zobacz obraz w pełnym rozmiarze: %s"
+
+#: functions/list-style-variants.php:7
+msgid "Checkmark"
+msgstr "Ptaszek"
 
 #: functions/marquee.php:6 functions/modals.php:129
 msgid "Close"
@@ -7722,6 +7726,70 @@ msgid ""
 msgstr ""
 "Rozciągnij zawartość każdej kolumny do wysokości najwyższej kolumny, aby "
 "obramowania i tła się równały."
+
+#: build/js/editor.js:46
+msgid "Filter Color"
+msgstr "Kolor filtra"
+
+#: build/js/editor.js:46
+msgid "Filter"
+msgstr "Filtr"
+
+#: build/js/editor.js:46
+msgid ""
+"Presets come from theme.json's settings.custom.imageFilterColors — add more "
+"there to offer them here."
+msgstr ""
+"Presety pochodzą z ustawienia settings.custom.imageFilterColors w pliku "
+"theme.json — dodaj tam więcej, aby były dostępne tutaj."
+
+#: build/js/editor.js:46
+msgid "Reveal original color on hover"
+msgstr "Pokaż oryginalny kolor po najechaniu"
+
+#: build/js/editor.js:46
+msgid "On: the filter lifts on hover/focus. Off: the filter is permanent."
+msgstr ""
+"Włączone: filtr znika po najechaniu/fokusie. Wyłączone: filtr jest stały."
+
+#: build/js/editor.js:46
+msgid "Blur intensity"
+msgstr "Intensywność rozmycia"
+
+#: build/js/editor.js:46
+msgid "Default (0.25rem)"
+msgstr "Domyślna (0.25rem)"
+
+#: build/js/editor.js:46
+msgid ""
+"Presets come from theme.json's settings.custom.gridHoverBlur — add more "
+"there to offer them here."
+msgstr ""
+"Presety pochodzą z ustawienia settings.custom.gridHoverBlur w pliku "
+"theme.json — dodaj tam więcej, aby były dostępne tutaj."
+
+#: build/js/editor.js:46
+msgid "Custom blur amount"
+msgstr "Niestandardowa wartość rozmycia"
+
+#: build/js/editor.js:46
+msgid "Any CSS length, e.g. 0.5rem or 8px."
+msgstr "Dowolna wartość długości CSS, np. 0.5rem lub 8px."
+
+#: build/js/editor.js:46
+msgid "Grid Hover Effect"
+msgstr "Efekt najechania na siatkę"
+
+#: build/js/editor.js:46
+msgid "Blur inactive items on hover"
+msgstr "Rozmyj nieaktywne elementy po najechaniu"
+
+#: build/js/editor.js:46
+msgid ""
+"Hovering or focusing one direct child of this group dims and blurs the rest."
+msgstr ""
+"Najechanie lub fokus na jednym bezpośrednim elemencie tej grupy przyciemnia "
+"i rozmywa pozostałe."
 
 #: build/js/editor.js:46 build/js/marquee.js:1
 msgid "— None (not clickable) —"

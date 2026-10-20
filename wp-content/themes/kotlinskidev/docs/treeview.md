@@ -46,7 +46,7 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 94 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 95 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -95,6 +95,7 @@ kotlinskidev/
 │   ├── image-hover-overlay.php                 # inserts a heading/description overlay div into core/image when kotlinskidevOverlayEnabled is set
 │   ├── language-switcher.php                   # [language_switcher] shortcode
 │   ├── link-hover-effects.php                  # applies configurable link hover-effect classes to blocks
+│   ├── list-style-variants.php                 # register_block_style('core/list', 'checkmark') — a native WP Style variation, selectable from any core/list's Styles panel on any page/pattern, no JS/custom attribute involved; applies is-style-checkmark, styled in src/styles/list-checkmark.scss (checkmark-chip rows via a single ::before layering background-color + a light/dark-swapped background-image checkmark, hairline dividers, flex align so the chip stays level with the first text line regardless of wrapping)
 │   ├── load-more.php                           # render_block filter: adds kt-has-load-more class + data-kt-load-more-initial/-label/-align/-text-color/-bg-color/-border-color/-border-width/-border-radius/-hover-text-color/-hover-bg-color/-hover-border-color/-underline attributes to a core/group with loadMore.enabled set, read by src/scripts/load-more.ts to progressively reveal children and style the button (incl. hover)
 │   ├── login.php                               # custom wp-login.php styling
 │   ├── main-content-focus.php                  # injects tabindex="-1" onto the <main class="main-wrapper"> core/group at render time (skip-link focus target, kept out of stored markup so block validation doesn't flag an attribute the block itself can't declare)
@@ -196,7 +197,7 @@ kotlinskidev/
 │   ├── highlight-features.php                  # Highlight Features
 │   ├── home-banner.php                         # Home Banner
 │   ├── how-to-prepare-checklist.php            # How To Prepare Checklist — heading/CTA row above a 4-item pre-call checklist grid (design system "How to prepare" slot D)
-│   ├── how-to-prepare-phase-cards.php          # How To Prepare Phase Cards — your-side/my-side responsibility split, 7 bullets each (design system "How to prepare" slot C)
+│   ├── how-to-prepare-phase-cards.php          # How To Prepare Phase Cards — your-side/my-side responsibility split, 7 bullets each as a core/list with the native "Checkmark" Style (is-style-checkmark, functions/list-style-variants.php + src/styles/list-checkmark.scss — reusable on any list anywhere, not pattern-specific) under a kt-prep-card__eyebrow pill (src/styles/prep-eyebrow.scss, this pattern only) (design system "How to prepare" slot C)
 │   ├── how-to-prepare-step-strip.php           # How To Prepare Step Strip — 5-phase condensed card grid for a homepage block (design system "How to prepare" slot B)
 │   ├── how-to-prepare-timeline.php             # How To Prepare Timeline — 9-step numbered rail with connector lines and you-bring/I-deliver chips (design system "How to prepare" slot A)
 │   ├── latest-work.php                         # Latest Works Section
@@ -232,7 +233,7 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 72 top-level dirs (64 registered blocks + 26 JS-only block-extension filters + 1 post-editor settings panel (service-location) across them — canvas-background/ nests 17 blocks + 1 extension in one dir, so block/extension counts exceed the top-level dir count)
+│   ├── blocks/                                 # 75 top-level dirs (64 registered blocks + 29 JS-only block-extension filters + 1 post-editor settings panel (service-location) across them — canvas-background/ nests 17 blocks + 1 extension in one dir, so block/extension counts exceed the top-level dir count)
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
@@ -269,6 +270,8 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
+│   │   ├── blur-siblings/                      # extension: "Blur inactive items on hover" toggle on core/group, adding has-blur-siblings — blurs/dims the group's other direct children on hover/focus-within (NestJS-style "used by" grid effect), resolved purely in CSS (src/styles/blur-siblings.scss)
+│   │   │   └── index.tsx
 │   │   ├── border-gradient/                    # extension: gradient option merged into the native Border panel for any block with border support (excludes kotlinskidev/button)
 │   │   │   └── index.tsx
 │   │   ├── breadcrumbs/                        # fixed overlay breadcrumb trail below the header, hidden on homepage by default, slides in/out in sync with the header's own scroll state
@@ -456,6 +459,10 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── icon/                               # standalone SVG icon block — Media Library picker, size/color/aria-label, renders via kotlinskidev_inline_nav_icon()
 │   │   ├── icon-extension/                     # extension: leading icon for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
+│   │   │   └── index.tsx
+│   │   ├── image-filter-color/                 # extension: Filter Color dropdown (options sourced from theme.json's settings.custom.imageFilterColors, e.g. Black/White/Adaptive) + "reveal original color on hover" toggle on core/image; resolves per-instance via --kt-filter-color-light/-dark inline custom properties (src/styles/filter-color.scss), so a new theme.json preset needs no SCSS change
+│   │   │   └── index.tsx
+│   │   ├── image-grow-fill/                    # extension: bridges a native WP gap — core/image's Layout panel Fit/Grow/Fixed options (style.layout.selfStretch/flexSize) only resize the figure's flex-item slot, never the <img> itself, since these are two unrelated WP mechanisms. Reads those same native attributes at save time and adds has-self-stretch-fill ("Grow") or has-self-stretch-fixed + --kt-self-stretch-width ("Fixed"), which image-grow-fill.scss uses to force the img's own width !important (needed since core's own width-attribute inline style otherwise always wins) — no new attribute/UI of our own, purely reacts to the existing native control
 │   │   │   └── index.tsx
 │   │   ├── image-hover-overlay/                # extension: adds a heading/description hover-reveal overlay + color pickers to core/image
 │   │   │   └── index.tsx
@@ -768,6 +775,7 @@ kotlinskidev/
 │   │   ├── article-card.scss                   # .kt-article-card outer card shell (shadow, top corner radius); most per-part styling now lives as block-supports attributes on templates/single-kt_article_card.html instead
 │   │   ├── background-effects.scss             # curated animated CSS background/border/text effect classes (kt-bg-fx-*), paired with background-effects-controls
 │   │   ├── blog.scss                           # breadcrumbs + taxonomy/tag styling
+│   │   ├── blur-siblings.scss                  # .has-blur-siblings — blurs/dims a group's other direct children on hover/focus-within, paired with the blur-siblings extension
 │   │   ├── border-gradient.scss                # .kt-has-gradient-border utility class (universal border-gradient extension)
 │   │   ├── button.scss                         # .kt-button component styles
 │   │   ├── button-style-variants.scss          # default ::before border gradient for the 4 core/button .is-style-gradient-outline-{light,dark,adaptive,adaptive-contrast} variants registered in functions/button-style-variants.php; builds on nav.scss's generalized [class*="is-style-gradient-outline"] block (background/mask/hover already handled there) — the fill-*/outline-* variants need no SCSS at all, their color/border comes straight from theme.json's styles.blocks.core/button.variations
@@ -784,11 +792,13 @@ kotlinskidev/
 │   │   ├── editor-overrides.scss               # block-editor canvas style overrides (editor-only bundle), incl. forcing .wp-block-buttons > .wp-block-button.wp-block-group (a core/group styled as a button, not a real core/button) back to auto-width — core/group's "flow" layout support stretches it full-width in the editor only
 │   │   ├── equal-height-columns.scss           # .kt-equal-height-columns: flex-column columns + flex:1 direct children for core/columns, and height:100% grid items for a core/group grid, paired with the equal-height-columns extension
 │   │   ├── faq-accordion.scss                  # FAQ details 2-col grid, +/− icon, animating-state overflow
+│   │   ├── filter-color.scss                   # .has-filter-color reads --kt-filter-color-light/-dark (set per-instance from theme.json's settings.custom.imageFilterColors); .has-reveal-color-on-hover only centers the img within the figure (flex + align/justify-center), deliberately NOT forcing figure width/height:100% — that would override core/image's own native Layout (Fit/Fill/Fixed) flex-child sizing, so the hover/filter hit-area is whatever size the editor's native Layout panel gives the figure — paired with the image-filter-color extension
 │   │   ├── footer.scss                         # footer layout (top/brand/nav sections)
 │   │   ├── global.scss                         # broad utility classes, social-link overrides
 │   │   ├── gradients.scss                      # gradient background utility class
 │   │   ├── group-link.scss                     # cursor + focus-visible styling for .kt-group-link, paired with the group-link extension
 │   │   ├── hover-glow.scss                      # .has-enhanced-hover-glow cursor glow as a text-clipped radial-gradient background-image (background-clip: text) on the hover color — kotlinskidev/button's .kt-button__label, core/button's .wp-block-button__link directly, and (new) any other block directly, same fixed 5rem radius everywhere (root-relative, deliberately not scaled to the element's own font-size — an em-based radius looked oversized/washed-out on large headings in practice); can't bleed onto a background since it's clipped to text glyphs, not blended; scoped to (hover: hover)/(pointer: fine), disabled under prefers-reduced-motion; spotlight-gradient/text-clip/reduced-motion-reset boilerplate shared via mixins.scss's kt-glow-* mixins
+│   │   ├── image-grow-fill.scss                 # .has-self-stretch-fill/.has-self-stretch-fixed img { width:100% / var(--kt-self-stretch-width) !important } — makes core/image's native Layout Grow/Fixed options actually resize the image, not just its flex slot; paired with the image-grow-fill extension
 │   │   ├── image-hover-overlay.scss            # hover/focus-within reveal + editor preview for .kt-image-hover-overlay, paired with the image-hover-overlay extension
 │   │   ├── kotlinskiwind.scss                  # hand-rolled Tailwind-like utility classes
 │   │   ├── language-panel.scss                 # language switcher panel styling
@@ -798,8 +808,9 @@ kotlinskidev/
 │   │   ├── link-card.scss                      # .kt-link-card hover/overflow treatment (+ --lift/--hover-surface modifiers) and .kt-pill-link hover, shared by the native-block link-card/pill patterns
 │   │   ├── link-hover-effects.scss             # link hover-effect utility classes
 │   │   ├── link.scss                           # link styling, underline-hover effect + exception lists
+│   │   ├── list-checkmark.scss                 # .is-style-checkmark — the native core/list "Checkmark" Style (functions/list-style-variants.php): li::before layers background-color (chip) with a background-image checkmark (hardcoded per-mode hex, swapped via .light-mode/.dark-mode since a background-image can't read CSS custom properties), flex li so the chip stays top-aligned with the first line regardless of text wrapping
 │   │   ├── load-more.scss                      # .kt-load-more-hidden + .kt-load-more__wrapper + .kt-load-more__button (incl. hover state), paired with the load-more extension
-│   │   ├── logo-dim.scss                       # .kt-logo-dim grayscale-until-hover treatment for collaborator/logo-wall image tiles
+│   │   ├── logo-dim.scss                       # .kt-logo-dim--{cell,tile,tile-small} min-height sizing modifiers for collaborator/logo-wall grid cells; `&:hover`/`&:focus-within` also widens the image-filter-color extension's reveal trigger to the whole cell (plain ancestor :hover bubbling to `.has-reveal-color-on-hover img`, not figure-resizing) regardless of the image's own Fit/Grow/Fixed size (color treatment itself moved to the image-filter-color extension)
 │   │   ├── mega-menu.scss                      # desktop mega-menu structure/positioning
 │   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), reveal-animation-base/reveal-opacity-only/reveal-fade-direction/reveal-flip-animation/reveal-generate-translate-distances/reveal-generate-flip-rotations shared by scroll-animations.scss + nav-reveal-animations.scss, kt-glow-spotlight/kt-glow-text-clip/kt-glow-reduced-motion-text-reset shared by hover-glow.scss, etc.)
 │   │   ├── mobile-footer-menu.scss             # fixed mobile bottom-nav menu
@@ -811,6 +822,7 @@ kotlinskidev/
 │   │   ├── parallax-critical.scss              # parallax cover-block styling (critical split)
 │   │   ├── parallax.scss                       # parallax cover-block styling (deferred split)
 │   │   ├── plugins.scss                        # third-party plugin overrides
+│   │   ├── prep-eyebrow.scss                   # .kt-prep-card__eyebrow pill (dot + tinted background/border) — paired with patterns/how-to-prepare-phase-cards.php only (the checkmark list itself moved to the generic list-checkmark.scss)
 │   │   ├── project-card.scss                   # .kt-project-card outer shell + circular arrow-link button + tags line; image/title/button styling itself lives as block-supports attributes on templates/single-kt_project_card.html
 │   │   ├── responsive-height.scss              # .kt-has-responsive-height-{desktop,tablet,mobile} utility classes
 │   │   ├── responsive-width.scss               # .kt-has-responsive-width utility class

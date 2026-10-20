@@ -1,0 +1,14 @@
+.has-blur-siblings {
+
+	> * {
+		transition:
+			filter 0.3s ease,
+			opacity 0.3s ease;
+	}
+
+	&:hover > *:not(:hover),
+	&:focus-within > *:not(:focus-within) {
+		filter: blur(var(--kt-blur-amount, 0.25rem));
+		opacity: 0.6;
+	}
+}

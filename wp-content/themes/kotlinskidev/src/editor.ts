@@ -39,4 +39,7 @@ import "./blocks/icon-extension/index.tsx";
 import "./blocks/city-grid/index.tsx";
 import "./blocks/contact-card/index.tsx";
 import "./blocks/equal-height-columns/index.tsx";
+import "./blocks/image-filter-color/index.tsx";
+import "./blocks/image-grow-fill/index.tsx";
+import "./blocks/blur-siblings/index.tsx";
 import "./blocks/slider-modal-trigger/index.tsx";
