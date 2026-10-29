@@ -7,7 +7,7 @@ Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](ht
 ## Requirements
 
 - WordPress 6.4+
-- PHP 8.0+
+- PHP 8.4+ (dev dependencies in `composer.lock` require it; see `.nvmrc`/`composer.json`'s `config.platform.php` for the exact versions CI and local dev are expected to match)
 - Node.js (see `.nvmrc` for pinned version)
 - Composer (run `composer install` — required in production for Sentry error monitoring to activate; the theme degrades gracefully without it, just with monitoring off)
 - Local WordPress environment (e.g. [LocalWP](https://localwp.com/))

@@ -1,6 +1,7 @@
 set -e
 cd "$(dirname "$0")/.."
 
+npm run check-engines
 npm run check-version-sync
 npm run check-palette-consistency
 npm run prettier:check

@@ -22,9 +22,13 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "pestphp/pest-plugin": true
+    },
+    "platform": {
+      "php": "8.5"
     }
   },
   "require": {
+    "php": "^8.4",
     "sentry/sentry": "^4.31"
   }
 }

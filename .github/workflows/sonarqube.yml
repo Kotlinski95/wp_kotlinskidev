@@ -38,17 +38,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
-
-      - name: Pin npm to latest
-        run: npm install -g npm@latest
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.5'
           coverage: pcov
 
       - name: Install JS dependencies

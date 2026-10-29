@@ -25,15 +25,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
 
-      - name: Pin npm to latest
-        run: npm install -g npm@latest
-
       - run: npm ci
 
+      - run: npm run check-engines
       - run: npm run check-version-sync
       - run: npm run check-palette-consistency
       - run: npm run prettier:check
@@ -52,17 +50,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
-
-      - name: Pin npm to latest
-        run: npm install -g npm@latest
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.5'
 
       - name: Install gettext
         run: sudo apt-get update && sudo apt-get install -y gettext
@@ -85,17 +80,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
-
-      - name: Pin npm to latest
-        run: npm install -g npm@latest
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.5'
 
       - name: Cache Composer vendor
         uses: actions/cache@v4
@@ -125,12 +117,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
-
-      - name: Pin npm to latest
-        run: npm install -g npm@latest
 
       - run: npm ci
       - run: npm run test:unit
@@ -144,7 +133,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.5'
 
       - name: Cache Composer vendor
         uses: actions/cache@v4
@@ -164,12 +153,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
-
-      - name: Pin npm to latest
-        run: npm install -g npm@latest
 
       - run: npm ci
       - run: npm run build
