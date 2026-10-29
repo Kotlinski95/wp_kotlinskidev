@@ -1,126 +1,175 @@
-// =============================================================================
-// HOVER ANIMATIONS
-// =============================================================================
+@use "hover-transitions" as hover;
 
 .hover-jump {
-	transition: transform 0.3s ease-in-out;
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.625rem);
-	}
+	--kt-hover-fx-move: translateY(-0.625rem);
 }
 
 .hover-jump-subtle {
-	transition: transform 0.25s ease-in-out;
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.3125rem);
-	}
+	--kt-hover-fx-move: translateY(-0.3125rem);
+	--kt-hover-transform-duration: 0.25s;
 }
 
 .hover-jump-smooth {
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.125rem);
-	}
+	--kt-hover-fx-move: translateY(-0.125rem);
+	--kt-hover-transform-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-jump-strong {
-	transition: transform 0.35s ease-in-out;
-	cursor: pointer;
-	will-change: transform;
-
-	&:hover {
-		transform: translateY(-0.9375rem);
-	}
+	--kt-hover-fx-move: translateY(-0.9375rem);
+	--kt-hover-transform-duration: 0.35s;
 }
 
 .hover-jump-shadow {
-	transition:
-		transform 0.3s ease-in-out,
-		box-shadow 0.3s ease-in-out;
+	--kt-hover-fx-move: translateY(-0.625rem);
+	--kt-hover-shadow-duration: 0.3s;
+	--kt-hover-shadow-easing: ease-in-out;
+}
+
+.hover-scale {
+	--kt-hover-fx-scale: scale(1.05);
+}
+
+.hover-rotate {
+	--kt-hover-fx-rotate: rotate(5deg);
+}
+
+.hover-bounce {
+	--kt-hover-fx-move: translateY(-0.5rem);
+	--kt-hover-fx-scale: scale(1.02);
+	--kt-hover-transform-duration: 0.4s;
+	--kt-hover-transform-easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hover-jump,
+.hover-jump-subtle,
+.hover-jump-smooth,
+.hover-jump-strong,
+.hover-jump-shadow,
+.hover-scale,
+.hover-rotate,
+.hover-bounce {
+
+	@include hover.compose;
+	--kt-hover-transform-duration: 0.3s;
+	--kt-hover-transform-easing: ease-in-out;
 	cursor: pointer;
 
 	&:hover {
-		transform: translateY(-0.625rem);
-		box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+		will-change: transform;
+		transform: var(--kt-hover-fx-move, translateY(0)) var(--kt-hover-fx-scale, scale(1)) var(--kt-hover-fx-rotate, rotate(0deg));
 	}
 }
 
-// =============================================================================
-// ADDITIONAL HOVER EFFECTS
-// =============================================================================
+.hover-jump-shadow:hover {
+	box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+}
 
-.hover-scale {
-	transition: transform 0.3s ease-in-out;
+.hover-zoom-bg {
 	cursor: pointer;
+	overflow: hidden;
+	border-radius: var(--hover-zoom-radius, inherit);
+
+	img,
+	video,
+	.wp-block-cover__image-background,
+	.wp-block-cover__video-background {
+		transition: transform 0.4s ease-in-out;
+	}
 
 	&:hover {
-		transform: scale(1.05);
+
+		img,
+		video,
+		.wp-block-cover__image-background,
+		.wp-block-cover__video-background {
+			will-change: transform;
+			transform: scale(1.08);
+		}
 	}
 }
 
 .hover-fade {
-	transition: opacity 0.3s ease-in-out;
+
+	@include hover.compose;
+	--kt-hover-opacity-duration: 0.3s;
+	--kt-hover-opacity-easing: ease-in-out;
 	cursor: pointer;
 
 	&:hover {
+		will-change: opacity;
 		opacity: 0.8;
 	}
 }
 
-.hover-rotate {
-	transition: transform 0.3s ease-in-out;
+.has-hover-opacity {
+
+	@include hover.compose;
+	--kt-hover-opacity-duration: 0.3s;
+	--kt-hover-opacity-easing: ease-in-out;
 	cursor: pointer;
+	opacity: var(--hover-opacity-from, 1);
 
 	&:hover {
-		transform: rotate(5deg);
+		will-change: opacity;
+		opacity: var(--hover-opacity-to, 1);
 	}
 }
 
-.hover-bounce {
-	transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-	cursor: pointer;
+.has-hover-color-transition {
 
-	&:hover {
-		transform: translateY(-0.5rem) scale(1.02);
+	@include hover.compose;
+	--kt-hover-color-duration: 0.3s;
+	--kt-hover-color-easing: ease-in-out;
+}
+
+.has-hover-bg-color:not(.wp-block-button):hover {
+	background: var(--hover-bg-color) !important;
+}
+
+.has-hover-text-color:hover {
+	color: var(--hover-text-color) !important;
+
+	&.has-hover-text-gradient {
+		color: inherit !important;
+
+		@include gradient-text(var(--hover-text-color));
 	}
 }
 
-// =============================================================================
-// CONSTANT ANIMATIONS (ALWAYS ACTIVE)
-// =============================================================================
+.has-hover-border {
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.3s;
+	--kt-hover-color-easing: ease-in-out;
+
+	&:hover {
+		border-color: var(--hover-border-color) !important;
+	}
+}
 
 .constant-bounce {
 	animation: constant-bounce 2s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 .constant-bounce-subtle {
 	animation: constant-bounce-subtle 2.5s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 .constant-bounce-strong {
 	animation: constant-bounce-strong 1.8s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
 
 .constant-bounce-fast {
 	animation: constant-bounce-fast 1.2s ease-in-out infinite;
 	cursor: pointer;
+	will-change: transform;
 }
-
-// =============================================================================
-// KEYFRAMES FOR CONSTANT ANIMATIONS
-// =============================================================================
 
 @keyframes constant-bounce {
 

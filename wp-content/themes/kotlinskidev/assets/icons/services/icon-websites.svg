@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Websites" fill="none">
+<title>Websites</title>
+<defs><linearGradient id="gw" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0091d6"></stop><stop offset=".5" stop-color="#00c2d4"></stop><stop offset="1" stop-color="#9166e0"></stop></linearGradient></defs>
+<g stroke="url(#gw)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="5" y="8" width="38" height="32" rx="5"></rect>
+<path d="M5 17h38"></path>
+<path d="M13 26h13M13 32h20"></path>
+<path d="M33 24l5 5-5 5"></path>
+</g><g fill="url(#gw)"><circle cx="10.5" cy="12.5" r="1.4"></circle><circle cx="15.5" cy="12.5" r="1.4"></circle><circle cx="20.5" cy="12.5" r="1.4"></circle></g></svg>

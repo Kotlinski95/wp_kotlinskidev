@@ -44,8 +44,73 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/responsive-image' );
     register_block_type( get_template_directory() . '/src/blocks/google-maps' );
     register_block_type( get_template_directory() . '/src/blocks/contact-form' );
+    register_block_type( get_template_directory() . '/src/blocks/breadcrumbs' );
+    register_block_type( get_template_directory() . '/src/blocks/model-viewer' );
+    register_block_type( get_template_directory() . '/src/blocks/icon' );
+    register_block_type( get_template_directory() . '/src/blocks/content-tabs' );
+    register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
+    register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
+    register_block_type( get_template_directory() . '/src/blocks/device-frame' );
+    if ( kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/article-card' );
+    }
+    if ( kotlinskidev_feature_enabled( 'project_cards' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/project-card' );
+    }
+    register_block_type( get_template_directory() . '/src/blocks/translated-text' );
+    register_block_type( get_template_directory() . '/src/blocks/process-steps' );
+    register_block_type( get_template_directory() . '/src/blocks/process-steps/item' );
+    register_block_type( get_template_directory() . '/src/blocks/pricing-cards' );
+    register_block_type( get_template_directory() . '/src/blocks/pricing-cards/item' );
+    register_block_type( get_template_directory() . '/src/blocks/contact-detail' );
+    register_block_type( get_template_directory() . '/src/blocks/marquee' );
+    register_block_type( get_template_directory() . '/src/blocks/marquee/item' );
+    register_block_type( get_template_directory() . '/src/blocks/blog-topics-grid-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/category-header-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/category-posts-grid-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/other-topics-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/article-tags-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/related-articles-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/popular-content-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/search-header-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/search-form-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/search-results-dynamic' );
+    if ( kotlinskidev_feature_enabled( 'certificates' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/certificates-grid-dynamic' );
+        register_block_type( get_template_directory() . '/src/blocks/certificate' );
+    }
+    if ( kotlinskidev_feature_enabled( 'canvas_backgrounds' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-gradient' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-noise' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-grid-lines' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-blob' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-sweep' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-light-rays' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-curved-rays' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-star-field' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-orbit-trails' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-warp-field' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-nebula' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-aurora' );
+        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-neon-waves' );
+    }
+    register_block_type( get_template_directory() . '/src/blocks/bg-effect-preset-settings' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
+
+function kotlinskidev_restrict_canvas_layer_blocks_to_scene_editor( $allowed_block_types, $editor_context ) {
+    $post = $editor_context->post ?? null;
+
+    if ( $post instanceof WP_Post && 'kt_canvas_scene' === $post->post_type ) {
+        return $allowed_block_types;
+    }
+
+    $registered = array_keys( WP_Block_Type_Registry::get_instance()->get_all_registered() );
+    $allowed    = true === $allowed_block_types ? $registered : $allowed_block_types;
+
+    return array_values( array_diff( $allowed, kotlinskidev_canvas_scene_layer_allowlist() ) );
+}
+add_filter( 'allowed_block_types_all', 'kotlinskidev_restrict_canvas_layer_blocks_to_scene_editor', 10, 2 );
 
 function kotlinskidev_navigation_listable_blocks( array $blocks ): array {
     $blocks[] = 'kotlinskidev/social-section';
@@ -110,7 +175,6 @@ function kotlinskidev_navigation_item_blocks(): array {
         'kotlinskidev/simple-grid',
         'kotlinskidev/social-section',
         'kotlinskidev/nav-popular-pages',
-        'kotlinskidev/button',
         'polylang/navigation-language-switcher',
     ];
 }

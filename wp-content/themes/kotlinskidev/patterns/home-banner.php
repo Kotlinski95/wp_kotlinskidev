@@ -5,8 +5,8 @@
  * Categories: banner, kotlinskidev/banners
  */
 ?>
-<!-- wp:cover {"url":"<?php echo esc_url(get_theme_file_uri('assets/images/hero-background.webp')) ?>","id":3838,"dimRatio":50,"overlayColor":"dark","textColor":"light-color","align":"full"} -->
-<div class="wp-block-cover alignfull has-text-color"><span aria-hidden="true" class="wp-block-cover__background has-dark-background-color has-background-dim"></span>
+<!-- wp:cover {"url":"<?php echo esc_url(get_theme_file_uri('assets/images/hero-background.webp')) ?>","id":3838,"dimRatio":50,"overlayColor":"contrast","textColor":"light-color","align":"full"} -->
+<div class="wp-block-cover alignfull has-text-color"><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim"></span>
     <img class="wp-block-cover__image-background wp-image-3838" alt="" src="<?php echo esc_url(get_theme_file_uri('assets/images/hero-background.webp')) ?>" data-object-fit="cover" />
     <div class="wp-block-cover__inner-container"><!-- wp:group {"style":{"spacing":{"blockGap":"2.5rem"}},"layout":{"type":"constrained","wideSize":"%","contentSize":"75%"}} -->
         <div class="wp-block-group"><!-- wp:heading {"textAlign":"center","textColor":"light-color","style":{"elements":{"link":{"color":{"text":"var:preset|color|light-color"}}}}} -->

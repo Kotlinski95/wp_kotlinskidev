@@ -14,6 +14,9 @@ function kotlinskidev_apply_link_hover_effects( string $block_content, array $bl
     if ( ! empty( $effects['disableUnderlineHover'] ) ) {
         $wrapper_classes[] = 'kt-hover-no-underline';
     }
+    if ( ! empty( $effects['enableUnderlineHover'] ) ) {
+        $wrapper_classes[] = 'kt-hover-add-underline';
+    }
 
     if ( ! empty( $wrapper_classes ) ) {
         $processor = new WP_HTML_Tag_Processor( $block_content );

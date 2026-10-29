@@ -1,0 +1,8 @@
+node_modules/
+vendor/
+.git/
+wp-content/uploads
+*.min.js
+*.map
+cache/
+logs/

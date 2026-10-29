@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Analysis and reporting" fill="none">
+<title>Analysis and reporting</title>
+<defs><linearGradient id="gn" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0091d6"></stop><stop offset=".5" stop-color="#00c2d4"></stop><stop offset="1" stop-color="#9166e0"></stop></linearGradient></defs>
+<g stroke="url(#gn)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M7 6v36h34"></path>
+<rect x="13" y="27" width="7" height="11" rx="2"></rect>
+<rect x="30" y="14" width="7" height="24" rx="2"></rect>
+<path d="M13 21l9-7 6 4 10-9"></path>
+</g><g fill="url(#gn)"><rect x="21.5" y="21" width="7" height="17" rx="2"></rect><circle cx="38" cy="8" r="2.6"></circle></g></svg>

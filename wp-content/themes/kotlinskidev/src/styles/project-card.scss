@@ -1,0 +1,50 @@
+@import "variables";
+
+.kt-project-grid {
+
+	@media (min-width: $breakpoint-tablet-wp) and (max-width: $breakpoint-desktop - 0.0625rem) {
+		grid-template-columns: repeat(2, 1fr) !important;
+	}
+
+	@media (max-width: $breakpoint-mobile) {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+.kt-project-card {
+	overflow: hidden;
+
+	> .wp-block-post-featured-image {
+		display: block !important;
+	}
+
+	> .wp-block-post-featured-image img {
+		display: block;
+		width: 100%;
+		object-fit: cover;
+	}
+
+	.wp-block-post-title {
+		display: block !important;
+	}
+
+	&__link {
+		width: 3rem;
+		height: 3rem;
+		flex-shrink: 0;
+
+		> .wp-block-button__link {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 3rem;
+			height: 3rem;
+			font-size: 1.25rem;
+			line-height: 1;
+		}
+	}
+
+	&__tags {
+		color: var(--wp--preset--color--foreground-alt);
+	}
+}

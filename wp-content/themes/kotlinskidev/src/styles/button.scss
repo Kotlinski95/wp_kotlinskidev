@@ -41,7 +41,7 @@
 	@include gradient-text(var(--kt-btn-color, currentColor));
 }
 
-.kt-button__link:hover .kt-button__label,
-.kt-button__link:focus-visible .kt-button__label {
+.kt-button__link:not(.has-enhanced-hover-glow):hover .kt-button__label,
+.kt-button__link:not(.has-enhanced-hover-glow):focus-visible .kt-button__label {
 	background-image: var(--kt-btn-hover-color, var(--kt-btn-color, currentColor));
 }

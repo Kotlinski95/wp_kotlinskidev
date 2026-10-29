@@ -19,7 +19,9 @@ declare global {
         Map: new (el: HTMLElement, options: Record<string, unknown>) => GoogleMapInstance;
         Marker: new (options: Record<string, unknown>) => GoogleMarkerInstance;
         Geocoder: new () => GoogleGeocoderInstance;
-        InfoWindow: new (options: Record<string, unknown>) => { open: (map: unknown, marker: unknown) => void };
+        InfoWindow: new (options: Record<string, unknown>) => {
+          open: (map: unknown, marker: unknown) => void;
+        };
         SymbolPath: { CIRCLE: unknown };
       };
     };
@@ -38,11 +40,14 @@ interface GoogleMarkerInstance {
 interface GoogleGeocoderInstance {
   geocode: (
     request: { address: string },
-    callback: (results: Array<{ geometry: { location: { lat: number; lng: number } } }>, status: string) => void
+    callback: (
+      results: Array<{ geometry: { location: { lat: number; lng: number } } }>,
+      status: string
+    ) => void
   ) => void;
 }
 
-interface GoogleMapsBlockAttributes {
+export interface GoogleMapsBlockAttributes {
   apiKey: string;
   address: string;
   lat: string;
@@ -67,6 +72,18 @@ interface EditProps {
   setAttributes: (attrs: Partial<GoogleMapsBlockAttributes>) => void;
 }
 
+const CUSTOM_CSS_EXAMPLE = `/* Hide Google Maps controls */
+.gm-style-cc { display: none !important; }
+
+/* Custom marker label styling */
+.marker-position { margin-top: 3.4375rem; color: red; font-weight: bold; }
+
+/* Hide "Map data" text */
+.gm-style .gm-style-cc { display: none; }
+
+/* Custom map container styling */
+.gm-style { border-radius: 0.625rem; }`;
+
 const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.ReactElement => {
   const blockProps = useBlockProps();
   const {
@@ -90,12 +107,15 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
 
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<GoogleMapInstance | null>(null);
-  const initialCenter = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+  const initialCenter =
+    lat && lng ? { lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) } : undefined;
   const initialZoom = zoom;
   const [mapLoaded, setMapLoaded] = useState(false);
 
   useEffect(() => {
-    if (!apiKey || !(address || (lat && lng)) || !mapRef.current) return;
+    if (!apiKey || !(address || (lat && lng)) || !mapRef.current) {
+      return;
+    }
 
     const scriptId = "google-maps-js";
     if (!document.getElementById(scriptId)) {
@@ -110,8 +130,11 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
     }
 
     function renderMap() {
-      if (!window.google || !window.google.maps || !mapRef.current) return;
-      const center = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+      if (!window.google || !window.google.maps || !mapRef.current) {
+        return;
+      }
+      const center =
+        lat && lng ? { lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) } : undefined;
       const geocoder = new window.google.maps.Geocoder();
       const map = new window.google.maps.Map(mapRef.current, {
         center: center || { lat: 0, lng: 0 },
@@ -137,7 +160,9 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
       }
 
       function addMarker(position: { lat: number; lng: number }) {
-        if (!window.google) return;
+        if (!window.google) {
+          return;
+        }
         const marker = new window.google.maps.Marker({
           position,
           map,
@@ -163,8 +188,21 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
         }
       }
     }
-    // eslint-disable-next-line
-  }, [apiKey, address, lat, lng, zoom, mapType, showZoomControl, showStreetViewControl, showFullscreenControl, showMapTypeControl, markerLabel, markerTooltip, markerColor]);
+  }, [
+    apiKey,
+    address,
+    lat,
+    lng,
+    zoom,
+    mapType,
+    showZoomControl,
+    showStreetViewControl,
+    showFullscreenControl,
+    showMapTypeControl,
+    markerLabel,
+    markerTooltip,
+    markerColor,
+  ]);
 
   return (
     <div {...blockProps}>
@@ -174,7 +212,10 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
             label={__("Google Maps API Key", "kotlinskidev")}
             value={apiKey}
             onChange={(value) => setAttributes({ apiKey: value })}
-            help={__("Get your API key from https://console.cloud.google.com/apis/credentials", "kotlinskidev")}
+            help={__(
+              "Get your API key from https://console.cloud.google.com/apis/credentials",
+              "kotlinskidev"
+            )}
           />
           <TextControl
             label={__("Address", "kotlinskidev")}
@@ -182,8 +223,16 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
             onChange={(value) => setAttributes({ address: value })}
             help={__("Enter the address or leave blank to use coordinates.", "kotlinskidev")}
           />
-          <TextControl label={__("Latitude", "kotlinskidev")} value={lat} onChange={(value) => setAttributes({ lat: value })} />
-          <TextControl label={__("Longitude", "kotlinskidev")} value={lng} onChange={(value) => setAttributes({ lng: value })} />
+          <TextControl
+            label={__("Latitude", "kotlinskidev")}
+            value={lat}
+            onChange={(value) => setAttributes({ lat: value })}
+          />
+          <TextControl
+            label={__("Longitude", "kotlinskidev")}
+            value={lng}
+            onChange={(value) => setAttributes({ lng: value })}
+          />
           <RangeControl
             label={__("Zoom Level", "kotlinskidev")}
             value={zoom}
@@ -238,7 +287,7 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
             label={__("Marker Label", "kotlinskidev")}
             value={markerLabel}
             onChange={(value) => setAttributes({ markerLabel: value })}
-            help={__("Short label for the marker (1-2 chars).", "kotlinskidev")}
+            help={__("Short label for the marker (1–2 chars).", "kotlinskidev")}
           />
           <TextControl
             label={__("Marker Tooltip", "kotlinskidev")}
@@ -269,18 +318,14 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
             label={__("Custom CSS", "kotlinskidev")}
             value={customCSS}
             onChange={(value) => setAttributes({ customCSS: value })}
-            help={__(
-              "Add custom CSS to override Google Maps styles. Examples:\n\n" +
-                "/* Hide Google Maps controls */\n" +
-                ".gm-style-cc { display: none !important; }\n\n" +
-                "/* Custom marker label styling */\n" +
-                ".marker-position { margin-top: 3.4375rem; color: red; font-weight: bold; }\n\n" +
-                '/* Hide "Map data" text */\n' +
-                ".gm-style .gm-style-cc { display: none; }\n\n" +
-                "/* Custom map container styling */\n" +
-                ".gm-style { border-radius: 0.625rem; }",
-              "kotlinskidev"
-            )}
+            help={
+              <>
+                {__("Add custom CSS to override Google Maps styles. Examples:", "kotlinskidev")}
+                <pre style={{ whiteSpace: "pre-wrap", fontSize: "0.75rem" }}>
+                  {CUSTOM_CSS_EXAMPLE}
+                </pre>
+              </>
+            }
             rows={8}
             placeholder={__("/* Enter your custom CSS here */", "kotlinskidev")}
           />

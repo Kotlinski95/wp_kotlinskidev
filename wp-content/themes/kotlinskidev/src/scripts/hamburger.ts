@@ -1,5 +1,6 @@
 import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
+import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
 
 const LOCK_OWNER = "hamburger";
 
@@ -19,7 +20,9 @@ const collapseSubmenuTree = (submenu: HTMLElement) => {
 
 const setSubmenuTabbable = (toggle: HTMLButtonElement, expanded: boolean) => {
   const submenu = getSubmenuContainer(toggle);
-  if (!submenu) return;
+  if (!submenu) {
+    return;
+  }
   if (expanded) {
     submenu
       .querySelectorAll<HTMLElement>(
@@ -31,6 +34,22 @@ const setSubmenuTabbable = (toggle: HTMLButtonElement, expanded: boolean) => {
   }
 };
 
+const hideCoveredParentLinks = () => {
+  document
+    .querySelectorAll<HTMLElement>(
+      ".wp-block-navigation__responsive-container-content .wp-block-navigation-item.has-child"
+    )
+    .forEach((item) => {
+      const link = item.querySelector<HTMLElement>(":scope > .wp-block-navigation-item__content");
+      const toggle = item.querySelector(":scope > .wp-block-navigation-submenu__toggle");
+      if (!link || !toggle) {
+        return;
+      }
+      link.setAttribute("tabindex", "-1");
+      link.setAttribute("aria-hidden", "true");
+    });
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
@@ -38,11 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
       setSubmenuTabbable(toggle, toggle.getAttribute("aria-expanded") === "true");
     });
 
+  hideCoveredParentLinks();
+
   document
     .querySelectorAll<HTMLElement>(".wp-block-navigation__responsive-container")
     .forEach((container) => {
       let wasOpen = container.classList.contains("is-menu-open");
-      if (wasOpen) lockScroll(LOCK_OWNER);
+      if (wasOpen) {
+        lockScroll(LOCK_OWNER);
+      }
 
       container.addEventListener("transitionend", (e) => {
         if (e.target === container && e.propertyName === "max-width") {
@@ -54,18 +77,28 @@ document.addEventListener("DOMContentLoaded", () => {
         const isOpen = container.classList.contains("is-menu-open");
         if (isOpen && !wasOpen) {
           lockScroll(LOCK_OWNER);
+          dispatchNavPanelOpen(container);
           container.classList.add("kt-nav-panel-animating");
+          container
+            .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
+            .forEach((t) => {
+              t.setAttribute("aria-expanded", "false");
+              setSubmenuTabbable(t, false);
+            });
           const closeBtn = container
             .closest(".wp-block-navigation")
             ?.querySelector<HTMLButtonElement>(".wp-block-navigation__responsive-container-close");
           closeBtn?.focus();
           const redirectInitialFocus = (e: FocusEvent) => {
             container.removeEventListener("focusin", redirectInitialFocus);
-            if (e.target !== closeBtn) closeBtn?.focus();
+            if (e.target !== closeBtn) {
+              closeBtn?.focus();
+            }
           };
           container.addEventListener("focusin", redirectInitialFocus);
         } else if (!isOpen && wasOpen) {
           unlockScroll(LOCK_OWNER);
+          dispatchNavPanelClose(container);
           container.classList.add("kt-nav-panel-animating");
         }
         wasOpen = isOpen;
@@ -87,6 +120,26 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   registerPanel(closeHamburger);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeHamburger();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    const openNavs = document.querySelectorAll<HTMLElement>(
+      ".wp-block-navigation:has(.wp-block-navigation__responsive-container.is-menu-open)"
+    );
+    if (!openNavs.length) {
+      return;
+    }
+    const target = e.target as Element;
+    const clickedInsideOpenNav = [...openNavs].some((nav) => nav.contains(target));
+    if (!clickedInsideOpenNav) {
+      closeHamburger();
+    }
+  });
 
   document
     .querySelectorAll<HTMLButtonElement>(".wp-block-navigation__responsive-container-open")
@@ -116,7 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const toggle = (e.target as Element).closest<HTMLButtonElement>(
         ".wp-block-navigation-submenu__toggle"
       );
-      if (!toggle) return;
+      if (!toggle) {
+        return;
+      }
       e.stopImmediatePropagation();
       const parentContainer = toggle.closest(
         ".wp-block-navigation__submenu-container, .wp-block-navigation__container"

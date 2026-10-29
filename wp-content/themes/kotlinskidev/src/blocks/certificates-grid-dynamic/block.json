@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/certificates-grid-dynamic",
+  "version": "1.0.0",
+  "title": "Certificates Grid (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered grid of published certificates, in one of three layouts.",
+  "icon": "awards",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/certificates-grid-dynamic.js",
+  "attributes": {
+    "layout": { "type": "string", "default": "badge-grid" },
+    "viewAllUrl": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

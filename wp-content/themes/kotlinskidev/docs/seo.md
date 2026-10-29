@@ -4,7 +4,7 @@ A comprehensive technical SEO checklist for kotlinskidev.dev. Not a legal requir
 
 **Ownership note**: Yoast SEO is active and owns most of the core plumbing by default — XML sitemap, virtual `robots.txt`, canonical tags, meta title/description templating, Open Graph/Twitter Card output, and basic Article/Person schema. Most items below are about *verifying Yoast is configured correctly for this site*, not building these features from scratch in the theme. Where the theme has its own competing/legacy code, that's flagged explicitly.
 
-Scope: `functions/seo-customizer.php`, `functions/blog-topic-manager.php`, Polylang PL/EN routing, `docs/theme-colors.md`/`docs/breakpoints.md` (responsive/CWV overlap with `docs/performance.md`), and the 9 custom patterns/templates.
+Scope: `functions/seo-customizer.php`, `functions/blog-topic-manager.php`, `functions/modals.php`, Polylang PL/EN routing, `docs/theme-colors.md`/`docs/breakpoints.md` (responsive/CWV overlap with `docs/performance.md`), and the 9 custom patterns/templates.
 
 ---
 
@@ -61,6 +61,7 @@ Scope: `functions/seo-customizer.php`, `functions/blog-topic-manager.php`, Polyl
 - [ ] Category/taxonomy structure (`functions/blog-topic-manager.php`'s blog-topic taxonomy) is shallow and logical — avoid deeply nested categories that dilute link equity and confuse both users and crawlers.
 - [ ] Articles link contextually to relevant service/project pages (and vice versa) where it's editorially natural — the Main Nav's Articles mega-menu column already surfaces category-grouped posts; verify in-body content does similar cross-linking, not just the nav.
 - [ ] Pagination (article archives) uses proper `rel="next"/"prev"` equivalent handling or is otherwise crawlable end-to-end, not JS-infinite-scroll-only with no fallback.
+- [x] **Fixed 2026-08-11 — modal triggers (`functions/modals.php`'s `kotlinskidev_apply_modal_trigger()`) preserve a link's real destination `href`.** A 2026-08-11 review found the `render_block` filter was unconditionally overwriting a trigger's real `href` with a `#kt-modal-{id}` fragment, which meant Googlebot never saw the actual destination URL — no crawl discovery, no link equity, for any page whose only internal link was such a trigger. Fixed: the real `href` is now left untouched (JS intercepts the click via a `data-kt-modal-target` attribute instead), and only a trigger with no real destination (empty or `#`) falls back to the `#kt-modal-{id}` placeholder. Covered by `tests/integration/tests/ModalsTest.php`.
 
 ## 8. Content Quality & E-E-A-T
 

@@ -8,7 +8,7 @@
   "icon": "translation",
   "description": "Language switcher trigger with dropdown panel. Wraps the native Polylang navigation language switcher.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/language-panel.js",
+  "editorScript": "file:../../../build/js/language-panel.js",
   "render": "file:./render.php",
   "attributes": {
     "label": {

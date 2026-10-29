@@ -15,10 +15,19 @@
         return n1 * (t -= 1.5 / d1) * t + 0.75;
       } else if (t < 2.5 / d1) {
         return n1 * (t -= 2.25 / d1) * t + 0.9375;
-      } else {
-        return n1 * (t -= 2.625 / d1) * t + 0.984375;
       }
+      return n1 * (t -= 2.625 / d1) * t + 0.984375;
     },
+  };
+
+  const insertThousandsSeparators = (integerPart: string): string => {
+    const isNegative = integerPart.startsWith("-");
+    const digits = isNegative ? integerPart.slice(1) : integerPart;
+    const chunks: string[] = [];
+    for (let end = digits.length; end > 0; end -= 3) {
+      chunks.push(digits.slice(Math.max(0, end - 3), end));
+    }
+    return (isNegative ? "-" : "") + chunks.reverse().join(",");
   };
 
   const formatNumber = (
@@ -30,7 +39,7 @@
 
     if (useSeparator) {
       const parts = formatted.split(".");
-      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      parts[0] = insertThousandsSeparators(parts[0]);
       return parts.join(".");
     }
 
@@ -45,12 +54,12 @@
       const prefix = match[1] || "";
       const numberStr = match[2].replace(/,/g, "");
       const suffix = match[3] || "";
-      const number = parseFloat(numberStr);
+      const number = Number.parseFloat(numberStr);
       const hasCommas = match[2].includes(",");
       const decimals = (match[2].split(".")[1] || "").length;
 
       const result = {
-        number: isNaN(number) ? 100 : number,
+        number: Number.isNaN(number) ? 100 : number,
         prefix: prefix.trim(),
         suffix: suffix.trim(),
         decimals,
@@ -77,7 +86,7 @@
 
     const startValue = 0;
     const endValue = numberInfo.number;
-    const duration = parseInt(element.getAttribute("data-counter-duration") || "2000");
+    const duration = Number.parseInt(element.getAttribute("data-counter-duration") || "2000");
     const easingType = element.getAttribute("data-counter-easing") || "easeOut";
 
     const easingFunction =
@@ -159,12 +168,10 @@
               if (!element.hasAttribute("data-counter-animated")) {
                 if (getReducedMotionPreference()) {
                   showFinalValue(element);
+                } else if ("requestIdleCallback" in window) {
+                  requestIdleCallback(() => animateCounter(element));
                 } else {
-                  if ("requestIdleCallback" in window) {
-                    requestIdleCallback(() => animateCounter(element));
-                  } else {
-                    animateCounter(element);
-                  }
+                  animateCounter(element);
                 }
               }
 
@@ -283,16 +290,14 @@
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
+  } else if ("requestIdleCallback" in window) {
+    requestIdleCallback(init);
   } else {
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(init);
-    } else {
-      init();
-    }
+    init();
   }
 
   window.addEventListener("beforeunload", () => {
-    activeAnimations.forEach((animationId, element) => {
+    activeAnimations.forEach((animationId) => {
       cancelAnimationFrame(animationId);
     });
     activeAnimations.clear();

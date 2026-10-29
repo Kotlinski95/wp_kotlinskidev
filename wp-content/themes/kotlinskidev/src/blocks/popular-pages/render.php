@@ -13,7 +13,7 @@ $title_style = $title_font_size !== '' ? ' style="font-size:' . esc_attr( $title
 ?>
 <div <?php echo get_block_wrapper_attributes( [ 'class' => 'kt-popular-pages' ] ); ?>>
 	<?php if ( $title !== '' ) : ?>
-		<p class="kt-popular-pages__title"<?php echo $title_style; ?>><?php echo esc_html( $title ); ?></p>
+		<p class="kt-popular-pages__title"<?php echo $title_style; ?>><?php echo esc_html( $title ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $title_style is built exclusively from an esc_attr() wrapped value at construction above ?></p>
 	<?php endif; ?>
 	<ul class="kt-popular-pages__list">
 		<?php

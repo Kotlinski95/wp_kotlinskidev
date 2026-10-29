@@ -2,9 +2,14 @@ import React from "react";
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import { InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, ToggleControl, __experimentalUnitControl as UnitControl } from "@wordpress/components";
+import {
+  PanelBody,
+  ToggleControl,
+  __experimentalUnitControl as UnitControl,
+} from "@wordpress/components";
 import { Fragment, useState } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 declare global {
   interface Window {
@@ -34,15 +39,18 @@ const DEFAULT_SIDE_VALUES: SpacingSideValues = {
 };
 
 const SPACING_UNITS = [
-  { value: "px", label: "px" },
-  { value: "%", label: "%" },
-  { value: "rem", label: "rem" },
-  { value: "em", label: "em" },
-  { value: "vw", label: "vw" },
-  { value: "vh", label: "vh" },
+  { value: "px", label: "px", step: 1 },
+  { value: "%", label: "%", step: 0.1 },
+  { value: "rem", label: "rem", step: 0.01 },
+  { value: "em", label: "em", step: 0.01 },
+  { value: "vw", label: "vw", step: 0.1 },
+  { value: "vh", label: "vh", step: 0.1 },
 ];
 
-type ResponsiveSpacingAttributes = Record<`${ResponsiveSpacingDevice}${SpacingType}`, SpacingSideValues>;
+type ResponsiveSpacingAttributes = Record<
+  `${ResponsiveSpacingDevice}${SpacingType}`,
+  SpacingSideValues
+>;
 
 const getBreakpoints = () => {
   return (
@@ -56,11 +64,16 @@ const getBreakpoints = () => {
 };
 
 interface BlockSettings {
+  name?: string;
   attributes?: Record<string, unknown>;
   [key: string]: unknown;
 }
 
 const addResponsiveSpacingAttributes = (settings: BlockSettings): BlockSettings => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name ?? "")) {
+    return settings;
+  }
+
   const spacingAttributes: Record<string, unknown> = {};
   SPACING_DEVICES.forEach((device) => {
     SPACING_TYPES.forEach((type) => {
@@ -80,7 +93,9 @@ const addResponsiveSpacingAttributes = (settings: BlockSettings): BlockSettings 
   };
 };
 
-const hasAnyResponsiveSpacingValue = (attributes: Partial<ResponsiveSpacingAttributes>): boolean => {
+const hasAnyResponsiveSpacingValue = (
+  attributes: Partial<ResponsiveSpacingAttributes>
+): boolean => {
   return SPACING_DEVICES.some((device) =>
     SPACING_TYPES.some((type) => {
       const values = attributes[`${device}${type}`];
@@ -147,7 +162,11 @@ const withResponsiveSpacingControls = createHigherOrderComponent((BlockEdit) => 
       );
     };
 
-    const renderDeviceControls = (device: ResponsiveSpacingDevice, label: string, helpText: string) => {
+    const renderDeviceControls = (
+      device: ResponsiveSpacingDevice,
+      label: string,
+      helpText: string
+    ) => {
       return (
         <div
           key={device}
@@ -188,31 +207,31 @@ const withResponsiveSpacingControls = createHigherOrderComponent((BlockEdit) => 
                 {renderDeviceControls(
                   "desktop",
                   __("Desktop", "kotlinskidev"),
-                  __(
-                    "Settings for screens " + breakpoints.desktop_min / 16 + "rem and above",
-                    "kotlinskidev"
+                  sprintf(
+                    // translators: %s: breakpoint value in rem
+                    __("Settings for screens %srem and above", "kotlinskidev"),
+                    breakpoints.desktop_min / 16
                   )
                 )}
 
                 {renderDeviceControls(
                   "tablet",
                   __("Tablet", "kotlinskidev"),
-                  __(
-                    "Settings for screens " +
-                      breakpoints.tablet_min / 16 +
-                      "rem - " +
-                      breakpoints.tablet_max / 16 +
-                      "rem",
-                    "kotlinskidev"
+                  sprintf(
+                    // translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
+                    __("Settings for screens %1$srem - %2$srem", "kotlinskidev"),
+                    breakpoints.tablet_min / 16,
+                    breakpoints.tablet_max / 16
                   )
                 )}
 
                 {renderDeviceControls(
                   "mobile",
                   __("Mobile", "kotlinskidev"),
-                  __(
-                    "Settings for screens below " + (breakpoints.mobile_max + 1) / 16 + "rem",
-                    "kotlinskidev"
+                  sprintf(
+                    // translators: %s: breakpoint value in rem
+                    __("Settings for screens below %srem", "kotlinskidev"),
+                    (breakpoints.mobile_max + 1) / 16
                   )
                 )}
               </>

@@ -8,12 +8,16 @@
   "icon": "images-alt2",
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
-  "editorScript": "file:../../../build/hero-carousel.js",
-  "viewScript": "file:../../../build/hero-carousel-init.js",
-  "style": "file:../../../build/style-hero-carousel.css",
-  "viewStyle": "file:../../../build/hero-carousel-init.css",
+  "editorScript": "file:../../../build/js/hero-carousel.js",
+  "viewScript": "file:../../../build/js/hero-carousel-init.js",
+  "style": "file:../../../build/css/style-hero-carousel.css",
+  "viewStyle": "file:../../../build/css/hero-carousel-init.css",
   "supports": {
-    "align": ["full", "wide"]
+    "align": ["full", "wide"],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
   },
   "providesContext": {
     "kotlinskidev/lazyLoad": "lazyLoad"
@@ -23,12 +27,15 @@
     "showArrows": { "type": "boolean", "default": true },
     "showPagination": { "type": "boolean", "default": true },
     "loop": { "type": "boolean", "default": true },
+    "draggable": { "type": "boolean", "default": true },
     "autoplay": { "type": "boolean", "default": false },
     "autoplayDelay": { "type": "number", "default": 5000 },
     "lazyLoad": { "type": "boolean", "default": false },
     "arrowsPosition": { "type": "string", "default": "sides" },
     "navColor": { "type": "string", "default": "" },
     "navColorOnHover": { "type": "boolean", "default": false },
-    "navPlacement": { "type": "string", "default": "inside" }
+    "navPlacement": { "type": "string", "default": "inside" },
+    "transitionEffect": { "type": "string", "default": "slide" },
+    "autoHeight": { "type": "boolean", "default": false }
   }
 }

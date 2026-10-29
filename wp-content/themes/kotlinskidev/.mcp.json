@@ -17,18 +17,13 @@
     "lighthouse": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "lighthouse-mcp"
-      ],
+      "args": ["lighthouse-mcp"],
       "env": {}
     },
     "chrome-devtools-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp"
-      ],
+      "args": ["-y", "chrome-devtools-mcp"],
       "env": {}
     },
     "github": {

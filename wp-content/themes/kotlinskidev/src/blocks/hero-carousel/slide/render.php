@@ -12,11 +12,23 @@ $is_eager = $slide_index === 0 && ! $lazy_load;
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => 'swiper-slide hero-carousel__slide',
 ] );
+
+$content_spacing_styles = wp_style_engine_get_styles( [
+	'spacing' => $attributes['style']['spacing'] ?? [],
+] );
+$content_css = $content_spacing_styles['css'] ?? '';
+
+$block_gap = $attributes['style']['spacing']['blockGap'] ?? null;
+if ( is_string( $block_gap ) && '' !== $block_gap ) {
+	$gap_value = preg_match( '/^var:preset\|spacing\|(.+)$/', $block_gap, $preset_match )
+		? 'var(--wp--preset--spacing--' . $preset_match[1] . ')'
+		: $block_gap;
+	$content_css .= 'gap:' . $gap_value . ';';
+}
+
+$content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '"' : '';
 ?>
-<?php if ( $is_eager && $poster_url ) : ?>
-<link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url( $poster_url ); ?>">
-<?php endif; ?>
-<div <?php echo $wrapper_attributes; ?>>
+<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<div class="hero-carousel__bg">
 		<?php if ( $bg_video_url ) : ?>
 			<video
@@ -64,7 +76,10 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 			style="--overlay-opacity: <?php echo esc_attr( (string) $bg_overlay ); ?>"
 		></div>
 	</div>
-	<div class="hero-carousel__content">
-		<?php echo $content; ?>
+	<div class="hero-carousel__content"<?php echo $content_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on wp_style_engine_get_styles()'s own generated CSS ?>>
+		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
 	</div>
 </div>
+<?php if ( $is_eager && $poster_url ) : ?>
+<link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url( $poster_url ); ?>">
+<?php endif; ?>

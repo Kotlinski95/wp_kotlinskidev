@@ -1,0 +1,48 @@
+@use "hover-transitions" as hover;
+
+.kt-link-card {
+	overflow: hidden;
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.25s;
+	--kt-hover-color-easing: ease;
+
+	&:hover,
+	&:focus-visible {
+		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
+
+		*:not(.has-text-color) {
+			color: var(--hover-text-color, inherit) !important;
+		}
+	}
+
+	&--lift {
+		--kt-hover-transform-duration: 0.25s;
+		--kt-hover-transform-easing: ease;
+
+		&:hover,
+		&:focus-visible {
+			transform: translateY(-0.1875rem);
+		}
+	}
+
+	&--hover-surface {
+
+		&:hover,
+		&:focus-visible {
+			background-color: var(--hover-bg-color, var(--wp--preset--color--surface)) !important;
+		}
+	}
+}
+
+.kt-pill-link {
+
+	@include hover.compose;
+	--kt-hover-color-duration: 0.25s;
+	--kt-hover-color-easing: ease;
+
+	&:hover,
+	&:focus-visible {
+		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
+	}
+}

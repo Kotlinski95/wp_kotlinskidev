@@ -1,0 +1,45 @@
+.kt-storybook-frame {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+
+  &__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  &__sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    padding-left: 2rem;
+    border-left: 1px solid color-mix(in srgb, var(--color-text) 15%, var(--color-surface));
+  }
+
+  @media (max-width: 48.875rem) {
+    flex-direction: column;
+
+    &__sidebar {
+      width: 100%;
+    }
+  }
+
+  &.dark-mode &__sidebar {
+    --wp-components-color-background: #1e1e1e;
+    --wp-components-color-foreground: #f2f2f2;
+    --wp-components-color-foreground-inverted: #1e1e1e;
+    --wp-components-color-gray-100: #2f2f2f;
+    --wp-components-color-gray-300: #3d3d3d;
+    --wp-components-color-gray-400: #4a4a4a;
+    --wp-components-color-gray-600: #a7a7a7;
+    --wp-components-color-gray-700: #cfcfcf;
+    color-scheme: dark;
+
+    .components-panel__body-toggle.components-button {
+      color: #f2f2f2;
+
+      .components-panel__arrow {
+        color: #f2f2f2;
+      }
+    }
+  }
+}

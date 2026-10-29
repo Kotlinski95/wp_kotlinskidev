@@ -1,5 +1,15 @@
 import Swiper from "swiper";
-import { Navigation, Pagination, Keyboard, Autoplay } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Keyboard,
+  Autoplay,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectFlip,
+  EffectCards,
+} from "swiper/modules";
 import { buildSwiperConfig } from "./buildConfig";
 import type { CarouselSettings } from "./types";
 
@@ -8,6 +18,7 @@ export interface InitSwiperOptions {
   forceLoop?: boolean;
   slideCount?: number;
   onSlideChange?: (index: number) => void;
+  disableNativeHoverPause?: boolean;
 }
 
 export const initSwiper = (
@@ -15,8 +26,15 @@ export const initSwiper = (
   settings: Partial<CarouselSettings>,
   options: InitSwiperOptions = {}
 ): Swiper => {
-  const { initialSlide, forceLoop, slideCount, onSlideChange } = options;
+  const { initialSlide, forceLoop, slideCount, onSlideChange, disableNativeHoverPause } = options;
   const config = buildSwiperConfig(settings);
+
+  if (disableNativeHoverPause && config.autoplay) {
+    (config as Record<string, unknown>).autoplay = {
+      ...(config.autoplay as object),
+      pauseOnMouseEnter: false,
+    };
+  }
 
   const navContainer =
     el.querySelector<HTMLElement>(".carousel-nav") ??
@@ -42,11 +60,25 @@ export const initSwiper = (
   }
 
   const overrides: Record<string, unknown> = {};
-  if (initialSlide !== undefined) overrides.initialSlide = initialSlide;
-  if (forceLoop !== undefined) overrides.loop = forceLoop;
+  if (initialSlide !== undefined) {
+    overrides.initialSlide = initialSlide;
+  }
+  if (forceLoop !== undefined) {
+    overrides.loop = forceLoop;
+  }
 
   const swiper = new Swiper(el, {
-    modules: [Navigation, Pagination, Keyboard, Autoplay],
+    modules: [
+      Navigation,
+      Pagination,
+      Keyboard,
+      Autoplay,
+      EffectFade,
+      EffectCube,
+      EffectCoverflow,
+      EffectFlip,
+      EffectCards,
+    ],
     ...config,
     ...overrides,
   } as ConstructorParameters<typeof Swiper>[1]);
@@ -61,10 +93,17 @@ export const initSwiper = (
   }
 
   if (counterEl || onSlideChange) {
+    let currentSpan: HTMLSpanElement | null = null;
+    if (counterEl) {
+      currentSpan = document.createElement("span");
+      currentSpan.className = "carousel-nav__current";
+      counterEl.textContent = "";
+      counterEl.append(currentSpan, ` / ${String(total).padStart(2, "0")}`);
+    }
     const updateCounter = () => {
       const index = swiper.realIndex ?? 0;
-      if (counterEl) {
-        counterEl.innerHTML = `<span class="carousel-nav__current">${String(index + 1).padStart(2, "0")}</span> / ${String(total).padStart(2, "0")}`;
+      if (currentSpan) {
+        currentSpan.textContent = String(index + 1).padStart(2, "0");
       }
       onSlideChange?.(index);
     };

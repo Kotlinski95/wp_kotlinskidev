@@ -6,7 +6,7 @@
  */
 $background_url = esc_url(get_theme_file_uri('assets/images/hero-background.webp'));
 ?>
-<!-- wp:cover {"url":"<?php echo $background_url; ?>","id":3838,"dimRatio":50,"overlayColor":"contrast","textColor":"light-color","align":"full"} -->
+<!-- wp:cover {"url":"<?php echo $background_url; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- already esc_url() wrapped at assignment above ?>","id":3838,"dimRatio":50,"overlayColor":"contrast","textColor":"light-color","align":"full"} -->
 <div class="pattern-hero-banner wp-block-cover alignfull has-text-color"><span aria-hidden="true" class="wp-block-cover__background has-contrast-background-color has-background-dim"></span>
     <img class="wp-block-cover__image-background wp-image-3838" alt="" src="<?php echo esc_url(get_theme_file_uri('assets/images/hero-background.webp')) ?>" data-object-fit="cover" />
     <div class="wp-block-cover__inner-container"><!-- wp:group {"style":{"spacing":{"blockGap":"2.5rem"}},"layout":{"type":"constrained","wideSize":"%","contentSize":"75%"}} -->

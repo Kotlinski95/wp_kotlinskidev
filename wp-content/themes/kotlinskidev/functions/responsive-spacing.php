@@ -60,7 +60,7 @@ function kotlinskidev_build_responsive_spacing_css( string $class, array $values
                 continue;
             }
             foreach ( $values[ $device ][ $property ] as $side => $value ) {
-                $declarations .= "{$property}-{$side}:{$value};";
+                $declarations .= "{$property}-{$side}:{$value} !important;";
             }
         }
 

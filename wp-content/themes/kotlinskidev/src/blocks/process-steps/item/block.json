@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/process-step",
+  "version": "1.0.0",
+  "title": "Process Step",
+  "category": "layout",
+  "icon": "marker",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/process-steps"],
+  "supports": {
+    "inserter": false,
+    "reusable": false,
+    "html": false
+  },
+  "attributes": {}
+}

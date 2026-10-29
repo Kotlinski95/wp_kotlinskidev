@@ -1,3 +1,5 @@
+import { trackEvent } from "./track-event";
+
 type ThemeSwitcherConfig = {
   enabled: boolean;
   defaultMode: string;
@@ -13,7 +15,9 @@ type ThemeSwitcherConfig = {
     const lightIcon = document.querySelector(".icon.light") as HTMLElement;
     const darkIcon = document.querySelector(".icon.dark") as HTMLElement;
 
-    if (!themeToggleButton) return;
+    if (!themeToggleButton) {
+      return;
+    }
 
     const translations = (window as any).i18n?.themeSwitcher || {
       lightMode: "Switch between dark and light mode (currently light mode)",
@@ -71,9 +75,11 @@ type ThemeSwitcherConfig = {
       if (this.checked) {
         applyLightTheme();
         localStorage.setItem("theme", "light");
+        trackEvent("theme_mode_toggle", { mode: "light" });
       } else {
         applyDarkTheme();
         localStorage.setItem("theme", "dark");
+        trackEvent("theme_mode_toggle", { mode: "dark" });
       }
     });
 

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/other-topics-dynamic",
+  "version": "1.0.0",
+  "title": "Other Topics (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered grid of other blog category topics.",
+  "icon": "layout",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/other-topics-dynamic.js",
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

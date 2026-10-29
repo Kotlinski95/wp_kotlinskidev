@@ -36,10 +36,14 @@ interface FormatEditProps {
 }
 
 function extractStyleProp(styleStr: string | undefined, prop: string): string | undefined {
-  if (!styleStr) return undefined;
+  if (!styleStr) {
+    return undefined;
+  }
   const prefix = `${prop}:`;
   const idx = styleStr.indexOf(prefix);
-  if (idx === -1) return undefined;
+  if (idx === -1) {
+    return undefined;
+  }
   const raw = styleStr.slice(idx + prefix.length);
   const end = raw.indexOf(";");
   return (end === -1 ? raw : raw.slice(0, end)).trim() || undefined;
@@ -83,7 +87,9 @@ function GradientPickerButton({
   onChangeRef.current = onChange;
 
   useEffect(() => {
-    if (isOpen) return;
+    if (isOpen) {
+      return;
+    }
     if (value.start !== undefined && value.end !== undefined && value.start !== value.end) {
       capturedValueRef.current = value;
     }
@@ -110,8 +116,7 @@ function GradientPickerButton({
   const highlightIsGradient = highlightCurrentValue?.includes("gradient") ?? false;
   const textIsGradient = textCurrentValue?.includes("gradient") ?? false;
 
-  // Freeze the anchor when the popover is open so clicking color swatches
-  // (which shift browser focus/selection) doesn't cause the popover to drift.
+  // Freeze the anchor while open — clicking color swatches shifts focus/selection and would otherwise drift the popover.
   const liveAnchor = useAnchor({
     editableContentElement: contentRef.current,
     settings: HIGHLIGHT_ANCHOR_SETTINGS,
@@ -123,7 +128,9 @@ function GradientPickerButton({
   const popoverAnchor = isOpen ? (frozenAnchorRef.current ?? liveAnchor) : liveAnchor;
 
   useEffect(() => {
-    if (!isEitherActive) setIsOpen(false);
+    if (!isEitherActive) {
+      setIsOpen(false);
+    }
   }, [isEitherActive]);
 
   const preventEditorBlur = (e: React.MouseEvent) => {
@@ -178,8 +185,7 @@ function GradientPickerButton({
     const targetValue = capturedValueRef.current ?? value;
     if (color !== undefined) {
       textJustAppliedRef.current = true;
-      // Solid colors must be wrapped in a gradient so they can be stored as
-      // background-image (which doesn't reset background-clip unlike background shorthand).
+      // Wrapped as a gradient so it stores as background-image, which doesn't reset background-clip unlike the background shorthand.
       const imageValue = `linear-gradient(${color}, ${color})`;
       const newValue = applyFormat(targetValue, {
         type: TEXT_FORMAT,

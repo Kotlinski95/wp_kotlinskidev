@@ -14,14 +14,14 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] Every value echoed into HTML is escaped with the context-correct function (`esc_html`, `esc_attr`, `esc_url`, `esc_js`, `wp_kses_post`) — current repo has only ~20 files using `esc_*`/`sanitize_*` helpers; audit every `render.php` and `functions/*.php` that echoes dynamic/user-influenced data to confirm full coverage, not just the files already doing it.
 - [ ] **`functions/svg-support.php` — confirmed finding, not hypothetical:** uploaded SVGs are inlined directly into page output (`kotlinskidev_inline_svg_image`, `kotlinskidev_inline_svg_image_block`) with only the XML prolog/DOCTYPE stripped. No `<script>`/`<foreignObject>` removal, no `on*` event-handler attribute stripping, no `javascript:`/`data:` URI filtering on `xlink:href`/`href`. Any account able to upload media (Author role and up, or lower via a misconfigured capability) can achieve **stored XSS** that executes for every visitor. Fix: sanitize with a dedicated SVG sanitizer (strip `<script>`, `on*` attrs, external refs) before inlining, or drop the inline-render path and serve SVGs as normal `<img>` (browser-sandboxed, no inline execution).
 - [ ] Block editor attributes (block.json `style`/`className`/URL-type attributes across `nav-link`, `nav-banner`, `simple-grid`, etc.) are validated/escaped on the render side, not trusted as pre-sanitized just because they came from the block editor.
-- [ ] No `eval()`, `create_function()`, or dynamic `include`/`require` built from request input anywhere in `functions/`.
+- [x] No `eval()`, `create_function()`, or dynamic `include`/`require` built from request input anywhere in `functions/`.
 - [ ] REST/AJAX handlers (if any beyond `admin-ajax` contact form) validate and type-check every input parameter server-side, not just client-side.
-- [ ] DOM-based XSS: any frontend script that writes user- or URL-influenced strings into `innerHTML`/`insertAdjacentHTML` (search results, popular-pages, language-panel) escapes them first — audit `src/scripts/search-panel.ts`, `src/scripts/language-panel.ts`, `src/scripts/language.ts`.
+- [x] DOM-based XSS: any frontend script that writes user- or URL-influenced strings into `innerHTML`/`insertAdjacentHTML` (search results, popular-pages, language-panel) escapes them first — audit `src/scripts/search-panel.ts`, `src/scripts/language-panel.ts`, `src/scripts/language.ts`. **Verified 2026-08-04: none of these three files write to `innerHTML`/`insertAdjacentHTML` at all — no sink present.** Note: a real DOM-XSS sink *was* found and fixed elsewhere this pass — see `src/blocks/gallery-lightbox/init.ts` (unescaped attachment `alt`/`src`/`poster` interpolated into `insertAdjacentHTML`).
 
 ## 2. Broken Access Control (OWASP A01)
 
-- [ ] Every admin-only action (settings page, protected-content key management, contact-form config) checks `current_user_can()` with the correct, least-privileged capability before acting.
-- [ ] `functions/settings-page.php` and any options-writing handler verify a nonce **and** a capability check together — nonce alone isn't access control.
+- [x] Every admin-only action (settings page, protected-content key management, contact-form config) checks `current_user_can()` with the correct, least-privileged capability before acting. Verified: `kotlinskidev_ajax_regenerate_keys`/`kotlinskidev_ajax_get_wp_config_constants` (`functions/protection-helpers.php:686,719`) both gate on `manage_options`; all `add_options_page()`/`add_submenu_page()` registrations reviewed (`settings-page.php`, `maintenance.php`, `blog-topic-manager.php`, `protection-helpers.php`) use `manage_options`.
+- [x] `functions/settings-page.php` and any options-writing handler verify a nonce **and** a capability check together — nonce alone isn't access control. All settings pages reviewed use the WordPress Settings API (`settings_fields()` + `options.php`), which enforces both the option-group nonce and the `manage_options` capability before any `update_option()` call.
 - [ ] WordPress REST API user enumeration is blocked or rate-limited (`/wp-json/wp/v2/users` shouldn't leak usernames/IDs) — verify default behavior hasn't been left open.
 - [ ] `?author=1` style user-ID enumeration via author archive redirects is disabled if not needed.
 - [ ] Protected-content block (`functions/protection-helpers.php`, RSA-based) is tested for bypass: direct asset URL access, cached/rendered HTML leaking plaintext before decryption, replay of a captured decrypted payload.
@@ -31,12 +31,12 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 ## 3. Cryptographic Failures (OWASP A02)
 
 - [ ] HTTPS is enforced site-wide (HTTP→HTTPS redirect at Cloudflare and/or origin), including all internal links, asset URLs, and the contact-form POST target.
-- [ ] HSTS is enabled (`Strict-Transport-Security` header) at Cloudflare or origin, with a sensible `max-age` and `includeSubDomains`.
+- [ ] HSTS is enabled (`Strict-Transport-Security` header) at Cloudflare or origin, with a sensible `max-age` and `includeSubDomains` — see `docs/security-headers.md` §2/§4 for the exact value and layer.
 - [ ] Protected-content RSA keys (`kotlinskidev_get_or_create_keys`) are sourced from `wp-config.php` constants (`KOTLINSKIDEV_PRIVATE_KEY`/`PUBLIC_KEY`) in production, not the DB-options fallback — private key in `wp_options` is readable by any code with DB access (including a compromised plugin).
-- [ ] Private key material is never logged, echoed, or included in error messages/debug output.
+- [x] Private key material is never logged, echoed, or included in error messages/debug output. Verified via grep across `functions/*.php` — no `error_log`/`print_r`/`var_dump` call touches key/secret material.
 - [ ] WordPress secret keys/salts (`AUTH_KEY`, `NONCE_KEY`, etc.) are unique, high-entropy, and not left at placeholder/default values — rotate if there's any chance they were ever committed or shared.
 - [ ] `WP_MCP_API_KEY` / `WP_MCP_API_KEY_PROD` are strong, unique per environment, never committed (`.env` is gitignored — confirmed), and not reused between local and prod.
-- [ ] Password hashing uses WordPress core defaults (phpass/bcrypt via `wp_hash_password`) — no custom/weaker hashing introduced anywhere.
+- [x] Password hashing uses WordPress core defaults (phpass/bcrypt via `wp_hash_password`) — no custom/weaker hashing introduced anywhere. No custom auth/hashing code exists in the theme.
 - [ ] No sensitive data (API keys, form submissions, personal data) is logged in plaintext to `error_log`/`WP_DEBUG_LOG` in production.
 
 ## 4. Insecure Design (OWASP A04)
@@ -45,7 +45,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] Rate limiting exists for the contact form and any other public POST endpoint, independent of captcha (captcha alone doesn't stop slow/distributed abuse).
 - [ ] Protected-content password gate has a threat model documented: what it protects against (casual access) vs. what it doesn't (a determined attacker with page source access) — make sure usage matches that reality.
 - [ ] Page-view tracking (`functions/page-view-tracking.php`) can't be trivially spammed to pollute "popular pages" data (nonce + reasonable rate limit / dedup per session).
-- [ ] Account-recovery/login flows haven't been weakened by any custom `login.php` styling changes (styling-only — confirm no logic changes were introduced alongside it).
+- [x] Account-recovery/login flows haven't been weakened by any custom `login.php` styling changes (styling-only — confirm no logic changes were introduced alongside it). `functions/login.php` only echoes `<style>` blocks hooked to `login_head`; no authentication logic touched.
 
 ## 5. Security Misconfiguration (OWASP A05)
 
@@ -53,7 +53,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] `DISALLOW_FILE_EDIT` and ideally `DISALLOW_FILE_MODS` are set in production `wp-config.php` to block the theme/plugin editor and in-dashboard plugin installs.
 - [ ] Directory listing is disabled at the webserver level (`Options -Indexes` or nginx equivalent) for `wp-content/uploads/`, `wp-content/themes/`, etc.
 - [ ] `.env`, `.git/`, `.envrc`, `composer.json`/`lock`, and any other dev-only files are not web-accessible on the production origin (test directly: `curl -I https://kotlinskidev.com/.env`, `/.git/config`).
-- [ ] Security response headers are set (currently none found in `functions/`): `X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN` (or CSP `frame-ancestors`), `Referrer-Policy`, `Permissions-Policy`, and a `Content-Security-Policy` scoped to the actual script/style/font/image sources in use (self, Cloudflare, Google reCAPTCHA/Turnstile, fonts). Set at Cloudflare edge and/or via `send_headers` in PHP.
+- [ ] Security response headers are set (currently none found anywhere — confirmed 2026-08-09, see `docs/security-headers.md` for the full investigation): `Strict-Transport-Security`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and a `Content-Security-Policy` scoped to this site's actual third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile). `docs/security-headers.md` has the exact recommended values, the GDPR Art. 32 rationale, the PHP-vs-Cloudflare split, and the CSP Report-Only rollout plan — implement from there, not from this line alone.
 - [ ] WordPress version number isn't exposed in `<meta name="generator">`, readme.html, or asset query strings.
 - [ ] Default/guessable admin username (`admin`) is not in use; confirm via `wp user list` there's no obviously-named super-admin account.
 - [ ] File permissions on the origin follow WordPress hardening guidance (directories 755, files 644, `wp-config.php` 600/640) — verify on the EC2 host, ties to `docs/monitoring.md`.
@@ -64,6 +64,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] Every **active** plugin (Polylang, Complianz, CSS/JS Manager, FileBird, Loco Translate, MCP Adapter, Novamira, Enable Abilities for MCP, Smush, WordPress PWA Manager, WP Mail SMTP, WPS Hide Login, Yoast SEO) is on a current, non-EOL version with no known CVEs (cross-check against WPScan's vulnerability DB).
 - [ ] **Inactive plugins are removed, not just deactivated** — the current inventory includes several inactive-but-installed plugins (Akismet, All-in-One WP Migration, Contact Form TS, Custom Facebook/Google Loaders, Google Maps Block, KotlinskiDev Login Page, Responsive Font/Image/Spacing/Justify Controls, Slider Block, WP Downgrade). Deactivated code still ships on disk and is a real attack-surface/audit liability if a vulnerability is found in it later; delete anything not actually planned for reactivation.
 - [ ] `npm audit` (or equivalent) is run on the theme's JS dependencies (`gsap`, `react`, `swiper`, `@wordpress/*`) with no unresolved high/critical advisories.
+  - **Accepted exception:** advisory 1139346 (`extract-zip`, GHSA-jmr9-qjv8-65gv, high) is excluded from `npm run security:audit:full` via `-x 1139346`. Confirmed unpatched upstream — the advisory range covers every published version including the latest (`<=2.0.1`), so no version bump resolves it. Only reachable through dev-only tooling (`@wordpress/scripts`'s e2e/lighthouse Puppeteer chain), never shipped to the theme's production bundle. Re-review once a patched `extract-zip` release exists.
 - [ ] WordPress core itself is current — confirm the version matches the latest stable release (env info reported WP 7.0 during this session; recheck at review time since core ships frequent point releases).
 - [ ] A defined update cadence exists for core/plugins (auto-update for minor/security releases at minimum), not purely manual/ad-hoc.
 
@@ -94,8 +95,8 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 
 ## 10. Server-Side Request Forgery (OWASP A10)
 
-- [ ] Every `wp_remote_get`/`wp_remote_post` call (reCAPTCHA/Turnstile verification in `contact-form.php`, any image/URL fetchers) targets a fixed, hardcoded host — never a user-supplied URL passed through unchecked.
-- [ ] If any feature ever accepts a user-supplied URL to fetch server-side (oEmbed-style embeds, remote image import), it validates against a host allowlist and blocks internal/private IP ranges (`127.0.0.1`, `169.254.169.254` EC2 metadata endpoint, RFC1918 ranges) to prevent SSRF into the EC2 instance's own metadata service.
+- [x] Every `wp_remote_get`/`wp_remote_post` call (reCAPTCHA/Turnstile verification in `contact-form.php`, any image/URL fetchers) targets a fixed, hardcoded host — never a user-supplied URL passed through unchecked. Confirmed: the only two calls in the theme (`functions/contact-form.php:66,93`) hit hardcoded `google.com`/`cloudflare.com` verification endpoints; the secret/response values go in the POST body, not the URL.
+- [x] If any feature ever accepts a user-supplied URL to fetch server-side (oEmbed-style embeds, remote image import), it validates against a host allowlist and blocks internal/private IP ranges (`127.0.0.1`, `169.254.169.254` EC2 metadata endpoint, RFC1918 ranges) to prevent SSRF into the EC2 instance's own metadata service. Implemented in `functions/certificate-badge-fetch.php` for the certificate badge-URL fetch: `kotlinskidev_certificate_badge_host_allowed()` restricts the host to `credly.com`/`accredible.com` (+ subdomains), and `kotlinskidev_certificate_badge_host_is_safe()` resolves the host and rejects it via `FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE` before `wp_remote_get()` is ever called.
 
 ## 11. CSRF & Nonce Coverage
 
@@ -116,7 +117,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] XML-RPC is disabled or restricted if not actively used (reduces brute-force and amplification-attack surface via `system.multicall`).
 - [ ] `wlwmanifest.php` and other legacy discovery endpoints are removed/blocked if unused.
 - [ ] `readme.html`, `license.txt`, and other version-revealing files are blocked from direct access.
-- [ ] Comments are confirmed fully disabled at the input/storage layer too (`functions/disable-comments.php` exists — verify it blocks the REST `/wp/v2/comments` endpoint and XML-RPC comment posting, not just the UI).
+- [x] Comments are confirmed fully disabled at the input/storage layer too (`functions/disable-comments.php` exists — verify it blocks the REST `/wp/v2/comments` endpoint and XML-RPC comment posting, not just the UI). `preprocess_comment` (`disable-comments.php:12`) is applied inside WordPress core's `wp_filter_comment()`, which both `wp-comments-post.php` and `WP_REST_Comments_Controller::create_item()` (via `wp_new_comment()`) call — so the REST endpoint is covered by the same filter, not just the UI. `xmlrpc_methods` additionally strips the XML-RPC comment methods as defense in depth.
 - [ ] `security.txt` (`/.well-known/security.txt`) exists so a researcher has a defined disclosure channel, given this is a public personal/business site.
 
 ## 14. Privacy, Cookies & GDPR (ISO/IEC 27701-adjacent)
@@ -152,7 +153,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 Full ISO 27001 certification is an organizational-management-system exercise beyond a single theme's codebase, but the Annex A control families map cleanly onto sections above — useful if this ever needs to be presented against a formal framework:
 
 | Annex A theme | Relevant sections above |
-|---|---|
+| --- | --- |
 | A.5 Organizational controls (policies, roles, supplier relationships) | §6 (component/vendor management), §15 (MCP key governance), §17 process notes |
 | A.6 People controls (screening, awareness, disciplinary) | §7 (auth), §15 (key handling discipline) — process, not code |
 | A.7 Physical controls | Out of scope (managed AWS infra) |

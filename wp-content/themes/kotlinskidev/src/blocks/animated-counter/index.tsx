@@ -111,7 +111,7 @@ const withCounterAnimationControls = createHigherOrderComponent((BlockEdit) => {
                   <p
                     style={{
                       margin: "0 0 8px 0",
-                      fontSize: "13px",
+                      fontSize: "0.8125rem",
                       fontWeight: "600",
                       color: "#0073aa",
                     }}
@@ -121,7 +121,7 @@ const withCounterAnimationControls = createHigherOrderComponent((BlockEdit) => {
                   <p
                     style={{
                       margin: "0",
-                      fontSize: "12px",
+                      fontSize: "0.75rem",
                       color: "#555",
                       lineHeight: "1.4",
                     }}

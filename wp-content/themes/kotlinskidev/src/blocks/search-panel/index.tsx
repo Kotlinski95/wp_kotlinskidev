@@ -1,12 +1,19 @@
 import React from "react";
 import { useState } from "@wordpress/element";
-import { registerBlockType, TemplateArray, type BlockEditProps } from "@wordpress/blocks";
+import {
+  registerBlockType,
+  TemplateArray,
+  type BlockEditProps,
+  type BlockConfiguration,
+} from "@wordpress/blocks";
 import { InspectorControls, useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import { PanelBody, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import { NavIconPicker } from "../shared/nav-icon-picker";
+import metadata from "./block.json";
+import navMetadata from "../nav-search-panel/block.json";
 
-interface SearchPanelAttributes {
+export interface SearchPanelAttributes {
   label: string;
   visibility: string;
   navIconId: number;
@@ -45,7 +52,10 @@ const SearchIcon = () => (
   </svg>
 );
 
-function SearchPanelEdit({ attributes, setAttributes }: BlockEditProps<SearchPanelAttributes>) {
+export function SearchPanelEdit({
+  attributes,
+  setAttributes,
+}: BlockEditProps<SearchPanelAttributes>) {
   const blockProps = useBlockProps({ className: "kt-search-panel-editor" });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -96,7 +106,5 @@ function SearchPanelSave() {
 
 const definition = { edit: SearchPanelEdit, save: SearchPanelSave };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-registerBlockType("kotlinskidev/search-panel", definition as any);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-registerBlockType("kotlinskidev/nav-search-panel", definition as any);
+registerBlockType(metadata as unknown as BlockConfiguration<SearchPanelAttributes>, definition);
+registerBlockType(navMetadata as unknown as BlockConfiguration<SearchPanelAttributes>, definition);

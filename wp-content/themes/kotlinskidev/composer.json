@@ -1,0 +1,34 @@
+{
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.13.6",
+    "wp-coding-standards/wpcs": "^3.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "pestphp/pest": "^5.0",
+    "brain/monkey": "^2.7",
+    "wp-phpunit/wp-phpunit": "^7.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test:unit": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit",
+    "test:unit:coverage": "php -d pcov.directory=. vendor/bin/pest --testsuite=Unit --coverage --coverage-html=coverage/php --coverage-clover=coverage/php/clover.xml",
+    "test:integration": "cd tests/integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml",
+    "test:integration:coverage": "cd tests/integration && php -d pcov.directory=../../. vendor/bin/pest --configuration=../../phpunit-integration.xml --coverage --coverage-html=../../coverage/php-integration --coverage-clover=../../coverage/php-integration/clover.xml"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "pestphp/pest-plugin": true
+    },
+    "platform": {
+      "php": "8.5"
+    }
+  },
+  "require": {
+    "php": "^8.4",
+    "sentry/sentry": "^4.31"
+  }
+}

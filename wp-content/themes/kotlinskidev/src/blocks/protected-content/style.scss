@@ -7,7 +7,7 @@
 		top: -1.5625rem;
 		left: 0;
 		background: #007cba;
-		color: white;
+		color: var(--wp--preset--color--white);
 		padding: 0.125rem 0.5rem;
 		border-radius: 0.1875rem;
 		font-size: 0.6875rem;
@@ -94,6 +94,39 @@
 .protection-loading-spinner {
 	width: 1em;
 	height: 1em;
+}
+
+.kt-protected-value {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.375rem;
+
+	a {
+		color: inherit !important;
+	}
+}
+
+.kt-copy-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0;
+	border: none;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	transition: color 0.2s ease;
+
+	&:hover,
+	&:focus-visible {
+		color: var(--hover-text-color, var(--wp--preset--color--foreground)) !important;
+	}
+
+	&--copied {
+		color: var(--wp--preset--color--primary);
+	}
 }
 
 .dark-mode {

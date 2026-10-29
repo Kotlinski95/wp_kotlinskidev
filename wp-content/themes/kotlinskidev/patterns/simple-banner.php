@@ -9,11 +9,11 @@
 <div class="wp-block-cover alignfull has-text-color"><span aria-hidden="true" class="wp-block-cover__background has-white-background-color has-background-dim-100 has-background-dim"></span>
     <div class="wp-block-cover__inner-container"><!-- wp:group {"style":{"spacing":{"blockGap":"2.5rem"}},"layout":{"type":"constrained","wideSize":"%","contentSize":"75%"}} -->
         <div class="wp-block-group"><!-- wp:heading {"textAlign":"center","level":2} -->
-            <h2 class="has-text-align-center">Simple banner</h2>
+            <h2 class="has-text-align-center"><?php esc_html_e('Simple banner', 'kotlinskidev') ?></h2>
             <!-- /wp:heading -->
 
             <!-- wp:paragraph {"align":"center"} -->
-            <p class="has-text-align-center">Simple banner description</p>
+            <p class="has-text-align-center"><?php esc_html_e('Simple banner description', 'kotlinskidev') ?></p>
             <!-- /wp:paragraph -->
 
             <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->

@@ -1,43 +1,182 @@
 {
   "name": "kotlinskidev",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "Kotlinskidev Theme for WordPress, built with React, TypeScript, and GSAP.",
+  "author": "Adrian Kotlinski",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "WordPress",
+    "React",
+    "TypeScript",
+    "GSAP",
+    "Theme"
+  ],
+  "homepage": "https://github.com/Kotlinski95/wp_kotlinskidev#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kotlinski95/wp_kotlinskidev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kotlinski95/wp_kotlinskidev/issues"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  },
   "main": "index.js",
-  "scripts": {
-    "build": "wp-scripts build",
-    "check-engines": "wp-scripts check-engines",
-    "check-licenses": "wp-scripts check-licenses",
-    "format": "wp-scripts format",
-    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss,css,json}\"",
-    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,scss,css,json}\"",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:pkg-json": "wp-scripts lint-pkg-json",
-    "packages-update": "wp-scripts packages-update",
-    "plugin-zip": "wp-scripts plugin-zip",
-    "start": "wp-scripts start",
-    "test:e2e": "wp-scripts test-e2e",
-    "test:unit": "wp-scripts test-unit-js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/wordpress__block-editor": "^11.5.16",
-    "@wordpress/block-editor": "^14.18.0",
-    "@wordpress/icons": "^10.23.0",
-    "@wordpress/scripts": "^30.6.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.8.3"
-  },
   "dependencies": {
+    "dompurify": "^3.4.13",
     "gsap": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "swiper": "^11.2.6"
+    "swiper": "^14.0.7",
+    "three": "^0.185.1"
+  },
+  "overrides": {
+    "tmp": "^0.2.5",
+    "nanoid": "^3.3.18",
+    "fast-uri": "^4.1.4",
+    "adm-zip": "^0.6.1",
+    "js-yaml": "^3.15.2",
+    "svgo": "^3.3.5",
+    "eslint": {
+      "js-yaml": "^4.3.2"
+    },
+    "@eslint/eslintrc": {
+      "js-yaml": "^4.3.2"
+    },
+    "@wordpress/scripts": {
+      "markdownlint-cli": {
+        "js-yaml": "^4.3.2",
+        "markdownlint": {
+          "markdown-it": {
+            ".": "^14.2.0",
+            "linkify-it": "^5.0.2"
+          }
+        }
+      },
+      "copy-webpack-plugin": {
+        "serialize-javascript": "^7.0.5"
+      },
+      "npm-package-json-lint": {
+        "cosmiconfig": {
+          "js-yaml": "^4.3.2"
+        }
+      },
+      "@wordpress/eslint-plugin": {
+        "@typescript-eslint/parser": {
+          "@typescript-eslint/typescript-estree": {
+            "minimatch": "^9.0.9"
+          }
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.15.0",
+    "@playwright/test": "^1.62.1",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.3",
+    "@storybook/react-webpack5": "^10.6.0",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.3",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/three": "^0.185.4",
+    "@types/wordpress__block-editor": "^11.5.16",
+    "@typescript-eslint/parser": "^8.71.1",
+    "@wordpress/babel-preset-default": "^8.56.0",
+    "@wordpress/block-editor": "^17.0.0",
+    "@wordpress/block-library": "^10.5.0",
+    "@wordpress/blocks": "^15.27.0",
+    "@wordpress/components": "^40.0.0",
+    "@wordpress/compose": "^8.9.0",
+    "@wordpress/core-data": "^7.54.0",
+    "@wordpress/data": "^10.54.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.56.0",
+    "@wordpress/dom-ready": "^4.54.0",
+    "@wordpress/e2e-test-utils-playwright": "^2.1.0",
+    "@wordpress/element": "^5.35.0",
+    "@wordpress/eslint-plugin": "^27.0.0",
+    "@wordpress/hooks": "^4.56.0",
+    "@wordpress/i18n": "^6.27.0",
+    "@wordpress/icons": "^10.23.0",
+    "@wordpress/jest-preset-default": "^14.2.0",
+    "@wordpress/rich-text": "^7.54.0",
+    "@wordpress/scripts": "^36.0.0",
+    "@wordpress/server-side-render": "^6.30.0",
+    "better-npm-audit": "^3.11.0",
+    "eslint-plugin-no-unsanitized": "^4.1.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-security": "^4.0.1",
+    "globals": "^17.13.0",
+    "husky": "^9.1.7",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
+    "mini-css-extract-plugin": "^2.9.2",
+    "pa11y-ci": "^4.1.1",
+    "prettier": "^3.2.5",
+    "rtlcss": "^4.3.0",
+    "storybook": "^10.6.0",
+    "typescript": "^5.8.3",
+    "webpack": "^5.109.2"
+  },
+  "scripts": {
+    "prepare": "node bin/setup-husky.js",
+    "build": "wp-scripts build && node bin/write-build-id.js",
+    "composer": "composer install --no-dev",
+    "build:debug": "KOTLINSKIDEV_SOURCEMAPS=1 wp-scripts build && node bin/write-build-id.js",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "check-version-sync": "node bin/check-version-sync.js",
+    "check-palette-consistency": "node bin/check-palette-consistency.js",
+    "format": "wp-scripts format",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
+    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",
+    "lint:css": "wp-scripts lint-style",
+    "lint:css:fix": "wp-scripts lint-style --fix",
+    "lint:js": "wp-scripts lint-js",
+    "lint:js:fix": "wp-scripts lint-js --fix",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "lint:i18n:js": "eslint --config eslint.i18n.config.js \"src/**/*.tsx\"",
+    "i18n:check": "node bin/i18n-check.js",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "security:audit": "better-npm-audit audit --production --level high",
+    "security:audit:full": "better-npm-audit audit --level high -x 1139346,1193685,1240853,1240992,1240027,1243066,1243073,1242672,1243114,1243476,1243479",
+    "security:audit:php": "composer audit",
+    "security:sast": "eslint --config eslint.security.config.js \"src/**/*.{ts,tsx}\"",
+    "security:php": "vendor/bin/phpcs --standard=.phpcs.security.xml",
+    "security:secrets": "gitleaks detect --source . --log-opts=\"-- .\" --config .gitleaks.toml -v",
+    "sonar:up": "docker compose -f docker-compose.sonar.yml up -d",
+    "sonar:down": "docker compose -f docker-compose.sonar.yml down",
+    "sonar:logs": "docker compose -f docker-compose.sonar.yml logs -f sonarqube",
+    "sonar:scan": "sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.token=$SONAR_LOCAL_TOKEN",
+    "audit:discover": "node ./audit/scripts/discover-urls.js",
+    "audit:lighthouse": "lhci autorun --config=./audit/lighthouserc.js",
+    "audit:a11y": "pa11y-ci --config ./audit/pa11yci.js --json > ./audit/results/pa11y.json",
+    "audit:seo": "node ./audit/scripts/check-schema.js",
+    "audit:security": "node ./audit/scripts/check-security-headers.js",
+    "audit:report": "node ./audit/scripts/merge-report.js",
+    "audit:regression": "node ./audit/scripts/regression-diff.js",
+    "audit": "mkdir -p ./audit/results && npm run audit:discover && npm run audit:seo && npm run audit:security && npm run audit:lighthouse && npm run audit:a11y && npm run audit:report",
+    "start": "wp-scripts start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "npm run test:unit && npm run test:php",
+    "test:coverage": "npm run test:unit:coverage && npm run test:php:coverage",
+    "test:e2e": "wp-scripts test-playwright; e=$?; npm run --silent test:e2e:purge-drafts; exit $e",
+    "test:patterns": "wp-scripts test-playwright tests/e2e/editor/patterns-validity.spec.ts; e=$?; npm run --silent test:e2e:purge-drafts; exit $e",
+    "test:e2e:purge-drafts": "wp post list --post_status=auto-draft --post_type=any --field=ID --path=../../.. | xargs -I {} wp post delete {} --force --path=../../..",
+    "test:unit": "wp-scripts test-unit-jest",
+    "test:unit:coverage": "wp-scripts test-unit-jest --coverage",
+    "test:unit:watch": "wp-scripts test-unit-jest --watch",
+    "test:php": "composer test:unit",
+    "test:php:coverage": "composer test:unit:coverage",
+    "test:php:integration": "composer test:integration",
+    "verify": "npm run check-version-sync && npm run check-palette-consistency && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build"
   }
 }

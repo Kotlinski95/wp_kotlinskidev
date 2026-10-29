@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/certificate",
+  "version": "1.0.0",
+  "title": "Certificate",
+  "category": "kotlinskidev",
+  "icon": "awards",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/js/certificate.js",
+  "attributes": {
+    "certificateId": { "type": "number", "default": 0 },
+    "layout": { "type": "string", "default": "badge-grid" },
+    "borderGradient": { "type": "string", "default": "" },
+    "textGradient": { "type": "string", "default": "" },
+    "hoverAnimation": { "type": "string", "default": "" },
+    "hoverAnimationExtra": {
+      "type": "array",
+      "default": [],
+      "items": { "type": "string" }
+    },
+    "hoverBackgroundColor": { "type": "string", "default": "" },
+    "hoverTextColor": { "type": "string", "default": "" },
+    "hoverOpacityEnabled": { "type": "boolean", "default": false },
+    "hoverOpacityFrom": { "type": "number", "default": 100 },
+    "hoverOpacityTo": { "type": "number", "default": 50 },
+    "hoverBorderColor": { "type": "string", "default": "" },
+    "hoverEnhancedGlow": { "type": "boolean", "default": false },
+    "canvasSceneId": { "type": "number", "default": 0 },
+    "canvasScrim": { "type": "boolean", "default": false },
+    "canvasScrimColor": { "type": "string", "default": "#000000" },
+    "canvasScrimOpacity": { "type": "number", "default": 0.5 },
+    "secondaryTextColor": { "type": "string", "default": "" },
+    "accentColor": { "type": "string", "default": "" },
+    "kotlinskidevPosition": { "type": "string", "default": "" },
+    "kotlinskidevZIndex": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "border": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true
+    }
+  },
+  "render": "file:./render.php"
+}

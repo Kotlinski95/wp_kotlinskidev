@@ -18,7 +18,7 @@ function kotlinskidev_output_facebook_pixel(): void
     }
     ?>
     <!-- Facebook Pixel Code -->
-    <script>
+    <script type="text/plain" data-category="marketing">
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -30,7 +30,6 @@ function kotlinskidev_output_facebook_pixel(): void
       fbq('init', '<?php echo esc_js( $pixel_id ); ?>');
       fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=<?php echo esc_attr( $pixel_id ); ?>&ev=PageView&noscript=1"/></noscript>
     <!-- End Facebook Pixel Code -->
     <?php
 }
@@ -55,12 +54,39 @@ function kotlinskidev_output_google_analytics(): void
     }
     ?>
     <!-- Google tag (gtag.js) -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( $ga_id ); ?>"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr( $ga_id ); ?>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+      });
       gtag('js', new Date());
       gtag('config', '<?php echo esc_js( $ga_id ); ?>');
+
+      document.addEventListener('cmplz_fire_categories', function (event) {
+        var categories = event.detail.categories;
+        var statisticsGranted = categories.indexOf('statistics') !== -1;
+        var marketingGranted = categories.indexOf('marketing') !== -1;
+        gtag('consent', 'update', {
+          'analytics_storage': statisticsGranted ? 'granted' : 'denied',
+          'ad_storage': marketingGranted ? 'granted' : 'denied',
+          'ad_user_data': marketingGranted ? 'granted' : 'denied',
+          'ad_personalization': marketingGranted ? 'granted' : 'denied',
+        });
+      });
+
+      document.addEventListener('cmplz_revoke', function () {
+        gtag('consent', 'update', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied',
+        });
+      });
     </script>
     <?php
 }

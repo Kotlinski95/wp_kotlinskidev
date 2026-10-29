@@ -74,13 +74,15 @@ const withBorderGradientControl = createHigherOrderComponent((BlockEdit) => {
     const nativeColor = attributes.style?.border?.color || attributes.borderColor;
     const borderGradient = attributes.borderGradient || "";
     const prevNativeColorRef = useRef(nativeColor);
+    const borderGradientRef = useRef(borderGradient);
+    borderGradientRef.current = borderGradient;
 
     useEffect(() => {
-      if (nativeColor && nativeColor !== prevNativeColorRef.current && borderGradient) {
+      if (nativeColor && nativeColor !== prevNativeColorRef.current && borderGradientRef.current) {
         setAttributes({ borderGradient: "" });
       }
       prevNativeColorRef.current = nativeColor;
-    }, [nativeColor]);
+    }, [nativeColor, setAttributes]);
 
     const setBorderColor = (value?: string) => {
       setAttributes({

@@ -3,7 +3,7 @@ function kotlinskidev_theme_switcher_shortcode()
 {
     ob_start();
 ?>
-    <button class="theme-switcher" tabindex="0" aria-label="Toggle light and dark theme">
+    <button class="theme-switcher kt-tooltip kt-tooltip--below" tabindex="0" aria-label="<?php echo esc_attr__( 'Toggle light and dark theme', 'kotlinskidev' ); ?>" data-tooltip="<?php echo esc_attr__( 'Toggle light and dark theme', 'kotlinskidev' ); ?>">
         <input type="checkbox" name="check" id="theme-toggle">
         <label for="theme-toggle">
             <span class="wrapper">
@@ -11,7 +11,7 @@ function kotlinskidev_theme_switcher_shortcode()
                     <?php
                     $svg_path = get_template_directory() . '/assets/icons/light.svg';
                     if (file_exists($svg_path)) {
-                        echo file_get_contents($svg_path);
+                        echo file_get_contents($svg_path); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static theme-bundled icon asset under version control, not user-uploaded content; unrelated to the media-upload SVG path in functions/svg-support.php
                     }
                     ?>
                 </span>
@@ -19,7 +19,7 @@ function kotlinskidev_theme_switcher_shortcode()
                     <?php
                     $svg_path = get_template_directory() . '/assets/icons/dark.svg';
                     if (file_exists($svg_path)) {
-                        echo file_get_contents($svg_path);
+                        echo file_get_contents($svg_path); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static theme-bundled icon asset under version control, not user-uploaded content; unrelated to the media-upload SVG path in functions/svg-support.php
                     }
                     ?>
                 </span>

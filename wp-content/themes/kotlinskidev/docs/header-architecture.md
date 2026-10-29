@@ -11,7 +11,7 @@ Adding a new language means creating a Polylang translation of the existing `wp_
 ## Navigation posts in the current header
 
 | Slug | Used with | Role |
-|---|---|---|
+| --- | --- | --- |
 | `desktop-menu` | `overlayMenu: "never"`, `visibility: "desktop"` | Primary nav, rendered as the desktop mega-menu bar (`displayMode: "mega"`, the block's default) |
 | `mobile-menu` | `overlayMenu: "always"`, `visibility: "mobile"` | Hamburger overlay drawer on mobile |
 | `mobile-menu` | `overlayMenu: "always"`, `visibility: "desktop"`, `overlaySlide: "left"` | A second hamburger trigger, desktop-visible, opening the same overlay drawer from the left |

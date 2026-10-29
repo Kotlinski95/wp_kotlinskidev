@@ -14,12 +14,19 @@ declare module "@wordpress/block-editor" {
     gradientValue?: string;
     onColorChange?: (value: string | undefined) => void;
     onGradientChange?: (value: string | undefined) => void;
+    gradients?: unknown[];
+    disableCustomGradients?: boolean;
+    enableAlpha?: boolean;
     clearable?: boolean;
     __experimentalIsRenderedInSidebar?: boolean;
     __nextHasNoMarginBottom?: boolean;
   }
 
   export const __experimentalColorGradientControl: import("react").FC<ColorGradientControlProps>;
+
+  export function __experimentalGetSpacingClassesAndStyles(attributes: {
+    style?: { spacing?: Record<string, unknown> };
+  }): { style?: Record<string, string> };
 }
 
 declare module "@wordpress/server-side-render" {

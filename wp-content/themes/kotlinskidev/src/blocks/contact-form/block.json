@@ -35,10 +35,12 @@
     "color": { "background": true, "text": true, "link": true },
     "typography": { "fontSize": true, "lineHeight": true, "fontFamily": true },
     "border": { "radius": true, "color": true, "width": true, "style": true },
+    "__experimentalBorder": { "radius": true, "color": true, "width": true, "style": true },
     "align": ["wide", "full"],
     "customClassName": true
   },
-  "editorScript": "file:../../../build/contact-form.js",
-  "style": "file:../../../build/style-contact-form.css",
+  "editorScript": "file:../../../build/js/contact-form.js",
+  "viewScript": "file:../../../build/js/contact-form-init.js",
+  "style": "file:../../../build/css/style-contact-form.css",
   "render": "file:./render.php"
 }

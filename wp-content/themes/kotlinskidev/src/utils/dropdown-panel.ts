@@ -1,5 +1,6 @@
 import { registerPanel, closeAllExcept } from "./panel-coordinator";
 import { lockScroll, unlockScroll } from "./scroll-lock";
+import { dispatchNavPanelOpen, dispatchNavPanelClose } from "./nav-reveal-events";
 
 interface DropdownPanelConfig {
   rootSelector: string;
@@ -10,15 +11,22 @@ interface DropdownPanelConfig {
 
 export function initDropdownPanels(config: DropdownPanelConfig): void {
   const panels = document.querySelectorAll<HTMLElement>(config.rootSelector);
-  if (!panels.length) return;
+  if (!panels.length) {
+    return;
+  }
 
   const closeAll = () => {
     panels.forEach((panel) => {
+      const wasOpen = panel.classList.contains("is-open");
       panel.classList.remove("is-open");
       panel
         .querySelector<HTMLButtonElement>(config.triggerSelector)
         ?.setAttribute("aria-expanded", "false");
-      panel.querySelector<HTMLElement>(config.modalSelector)?.setAttribute("aria-hidden", "true");
+      const modal = panel.querySelector<HTMLElement>(config.modalSelector);
+      modal?.setAttribute("aria-hidden", "true");
+      if (wasOpen && modal) {
+        dispatchNavPanelClose(modal);
+      }
     });
     unlockScroll(config.rootSelector);
   };
@@ -39,7 +47,10 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
         trigger.setAttribute("aria-expanded", "true");
         modal?.setAttribute("aria-hidden", "false");
         lockScroll(config.rootSelector);
-        if (modal) config.onOpen?.(modal);
+        if (modal) {
+          dispatchNavPanelOpen(modal);
+          config.onOpen?.(modal);
+        }
       }
     });
 
@@ -49,11 +60,15 @@ export function initDropdownPanels(config: DropdownPanelConfig): void {
   });
 
   document.addEventListener("click", () => {
-    if ([...panels].some((p) => p.contains(document.activeElement))) return;
+    if ([...panels].some((p) => p.contains(document.activeElement))) {
+      return;
+    }
     closeAll();
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeAll();
+    if (e.key === "Escape") {
+      closeAll();
+    }
   });
 }

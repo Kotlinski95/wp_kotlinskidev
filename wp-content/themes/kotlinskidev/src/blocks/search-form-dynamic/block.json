@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/search-form-dynamic",
+  "version": "1.0.0",
+  "title": "Search Form (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered search input form, translated per the current Polylang language.",
+  "icon": "editor-expand",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/search-form-dynamic.js",
+  "editorStyle": "file:../../../build/css/critical-search.css",
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "wrapperBackgroundColor": { "type": "string", "default": "" },
+    "inputBorderColor": { "type": "string", "default": "" },
+    "labelColor": { "type": "string", "default": "" }
+  }
+}

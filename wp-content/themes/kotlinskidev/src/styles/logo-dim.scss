@@ -1,0 +1,19 @@
+.kt-logo-dim {
+
+	&:hover .has-reveal-color-on-hover img,
+	&:focus-within .has-reveal-color-on-hover img {
+		filter: none;
+	}
+
+	&--cell {
+		min-height: 7rem;
+	}
+
+	&--tile {
+		min-height: 7.5rem;
+	}
+
+	&--tile-small {
+		min-height: 5.25rem;
+	}
+}

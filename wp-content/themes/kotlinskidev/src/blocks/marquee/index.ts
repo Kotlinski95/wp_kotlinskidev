@@ -1,0 +1,18 @@
+import { createElement } from "react";
+import { registerBlockType, type BlockConfiguration } from "@wordpress/blocks";
+import { InnerBlocks } from "@wordpress/block-editor";
+import metadata from "./block.json";
+import itemMetadata from "./item/block.json";
+import Edit from "./edit";
+import Save from "./save";
+import ItemEdit from "./item/edit";
+
+registerBlockType(itemMetadata as unknown as BlockConfiguration<Record<string, never>>, {
+  edit: ItemEdit,
+  save: () => createElement(InnerBlocks.Content),
+});
+
+registerBlockType(metadata as unknown as BlockConfiguration<Record<string, never>>, {
+  edit: Edit,
+  save: Save,
+});

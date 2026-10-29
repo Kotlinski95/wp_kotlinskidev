@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "menu",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/navigation.js",
+  "editorScript": "file:../../../build/js/navigation.js",
   "render": "file:./render.php",
   "attributes": {
     "menuSlug": {

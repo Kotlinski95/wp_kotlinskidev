@@ -1,0 +1,18 @@
+@import "variables";
+@import "theme-colors";
+
+.wp-block-button.is-style-gradient-outline-light .wp-block-button__link::before {
+	background: var(--wp--preset--gradient--fancy-text-light);
+}
+
+.wp-block-button.is-style-gradient-outline-dark .wp-block-button__link::before {
+	background: var(--wp--preset--gradient--fancy-text-dark);
+}
+
+.wp-block-button.is-style-gradient-outline-adaptive .wp-block-button__link::before {
+	background: var(--kt-text-gradient);
+}
+
+.wp-block-button.is-style-gradient-outline-adaptive-contrast .wp-block-button__link::before {
+	background: var(--kt-text-gradient-contrast);
+}

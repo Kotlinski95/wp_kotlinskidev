@@ -1,3 +1,5 @@
+import { trackEvent } from "./track-event";
+
 (function () {
   const ANIMATION_DURATION = 350;
   const ANIMATION_EASING = "ease-in-out";
@@ -25,6 +27,10 @@
     }
 
     const isOpen = details.hasAttribute("open");
+
+    if (!isOpen) {
+      trackEvent("faq_expand", { question: summary.textContent?.trim() ?? "" });
+    }
 
     if (prefersReducedMotion()) {
       details.open = !isOpen;

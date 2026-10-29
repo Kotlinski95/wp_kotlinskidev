@@ -1,11 +1,49 @@
-import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
+import {
+  beginProgrammaticScroll,
+  endProgrammaticScroll,
+  getScrollTop,
+  onScroll,
+  rafThrottle,
+  scrollTo,
+} from "./utils";
+import { trackEvent } from "./track-event";
+
+function handleScrollToTop(e: Event) {
+  e.preventDefault();
+  const mainEl = document.querySelector("main");
+  if (!mainEl) {
+    return;
+  }
+  const trigger = e.currentTarget as HTMLElement | null;
+  trackEvent("scroll_to_top_click", {
+    variant: trigger?.classList.contains("kt-scroll-to-top__trigger") ? "bar" : "fixed",
+  });
+  mainEl.setAttribute("tabindex", "-1");
+  // Tells other scroll-reactive listeners (e.g. hide-nav-on-scroll.ts) that the resulting native "scroll" events aren't real user input.
+  beginProgrammaticScroll();
+  scrollTo(0, "smooth");
+  let lastScrollTop = -1;
+  const waitForScrollEnd = () => {
+    const currentScrollTop = getScrollTop();
+    if (currentScrollTop === 0 && lastScrollTop === 0) {
+      endProgrammaticScroll();
+      mainEl.focus();
+      return;
+    }
+    lastScrollTop = currentScrollTop;
+    requestAnimationFrame(waitForScrollEnd);
+  };
+  requestAnimationFrame(waitForScrollEnd);
+}
 
 (function () {
   const scrollToTopBtn = document.getElementById("scroll-to-top");
   const scrollWrapper = document.querySelector(".scroll-to-top-wrapper") as HTMLElement;
   const progressRing = document.querySelector(".progress-ring__progress") as SVGCircleElement;
 
-  if (!scrollToTopBtn || !scrollWrapper || !progressRing) return;
+  if (!scrollToTopBtn || !scrollWrapper || !progressRing) {
+    return;
+  }
 
   const handleScroll = () => {
     const scrollTop = getScrollTop();
@@ -16,7 +54,7 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
       scrollWrapper.classList.add("show");
 
       const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
-      const circumference = parseFloat(progressRing.dataset.circumference || "0");
+      const circumference = Number.parseFloat(progressRing.dataset.circumference || "0");
       const offset = circumference - scrollProgress * circumference;
 
       progressRing.style.strokeDashoffset = `${offset}`;
@@ -30,25 +68,6 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
 
   const throttledHandleScroll = rafThrottle(handleScroll);
   onScroll(throttledHandleScroll);
-
-  const handleScrollToTop = (e: Event) => {
-    e.preventDefault();
-    const mainEl = document.querySelector("main");
-    if (!mainEl) return;
-    mainEl.setAttribute("tabindex", "-1");
-    scrollTo(0, "smooth");
-    let lastScrollTop = -1;
-    const waitForScrollEnd = () => {
-      const currentScrollTop = getScrollTop();
-      if (currentScrollTop === 0 && lastScrollTop === 0) {
-        mainEl.focus();
-        return;
-      }
-      lastScrollTop = currentScrollTop;
-      requestAnimationFrame(waitForScrollEnd);
-    };
-    requestAnimationFrame(waitForScrollEnd);
-  };
 
   scrollToTopBtn.addEventListener("click", handleScrollToTop);
 
@@ -67,7 +86,7 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
     progressRing.setAttribute("aria-label", "Scroll progress");
     progressRing.setAttribute("focusable", "false");
     progressRing.setAttribute("tabindex", "-1");
-    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const rem = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
     const sizeRem = 2.5;
     const sizePx = sizeRem * rem;
     const strokeWidth = 3;
@@ -86,4 +105,11 @@ import { getScrollTop, onScroll, rafThrottle, scrollTo } from "./utils";
     progressCircle.style.strokeDashoffset = `${circumference}`;
     progressCircle.dataset.circumference = circumference.toString();
   }
+})();
+
+(function () {
+  const barTriggers = document.querySelectorAll(".kt-scroll-to-top__trigger");
+  barTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", handleScrollToTop);
+  });
 })();

@@ -138,7 +138,7 @@ function kotlinskidev_enqueue_responsive_display_assets() {
 
     wp_enqueue_script(
         'kotlinskidev-responsive-display-controls',
-        get_template_directory_uri() . '/build/responsive-display.js',
+        kotlinskidev_build_url('js', 'responsive-display.js'),
         array(
             'wp-blocks',
             'wp-element',
@@ -148,7 +148,7 @@ function kotlinskidev_enqueue_responsive_display_assets() {
             'wp-hooks',
             'wp-compose'
         ),
-        filemtime(get_template_directory() . '/build/responsive-display.js'),
+        filemtime(kotlinskidev_build_path('js', 'responsive-display.js')),
         true
     );
 

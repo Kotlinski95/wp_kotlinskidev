@@ -1,0 +1,16 @@
+set -e
+cd "$(dirname "$0")/.."
+
+npm run check-engines
+npm run check-version-sync
+npm run check-palette-consistency
+npm run prettier:check
+npm run lint:css
+npm run lint:js
+npm run lint:pkg-json
+npm run lint:md:docs
+npm run i18n:check
+npm run security:secrets
+npm run test:unit
+npm run test:php
+npm run build

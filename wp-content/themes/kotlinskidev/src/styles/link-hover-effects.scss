@@ -1,4 +1,5 @@
 @import "theme-colors";
+@import "mixins";
 
 .kt-hover-no-underline,
 .kt-hover-no-underline a {
@@ -46,4 +47,10 @@
 	&:focus-visible svg {
 		fill: currentcolor !important;
 	}
+}
+
+.kt-hover-add-underline,
+.kt-hover-add-underline a {
+
+	@include sliding-underline-hover;
 }

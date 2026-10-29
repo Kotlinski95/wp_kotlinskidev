@@ -22,6 +22,25 @@ function kotlinskidev_add_image_link_aria_label( string $block_content ): string
 		}
 	}
 
-	return $block_content;
+	return kotlinskidev_add_media_file_link_aria_label( $block_content );
+}
+
+function kotlinskidev_add_media_file_link_aria_label( string $block_content ): string {
+	if ( ! preg_match( '/<a\s[^>]*href="[^"]*\/wp-content\/uploads\/[^"]*"[^>]*>/', $block_content, $anchor_match ) ) {
+		return $block_content;
+	}
+
+	$label = __( 'View full-size image', 'kotlinskidev' );
+	if ( preg_match( '/<img[^>]*\salt="([^"]*)"/', $block_content, $alt_match ) ) {
+		$alt = html_entity_decode( $alt_match[1], ENT_QUOTES );
+		if ( '' !== trim( $alt ) ) {
+			$label = sprintf( __( 'View full-size image: %s', 'kotlinskidev' ), $alt );
+		}
+	}
+
+	$anchor      = $anchor_match[0];
+	$new_anchor  = substr( $anchor, 0, -1 ) . ' aria-label="' . esc_attr( $label ) . '">';
+
+	return str_replace( $anchor, $new_anchor, $block_content );
 }
 add_filter( 'render_block_core/image', 'kotlinskidev_add_image_link_aria_label' );

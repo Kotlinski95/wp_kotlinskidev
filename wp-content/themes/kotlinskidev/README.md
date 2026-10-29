@@ -1,14 +1,15 @@
 # kotlinskidev
 
-Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 10 custom Gutenberg blocks, 56 reusable block patterns, multilingual support, and a dark/light theme switcher.
+Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 15 custom Gutenberg blocks, 57 reusable block patterns, multilingual support, and a dark/light theme switcher.
 
 ---
 
 ## Requirements
 
 - WordPress 6.4+
-- PHP 8.0+
+- PHP 8.4+ (dev dependencies in `composer.lock` require it; see `.nvmrc`/`composer.json`'s `config.platform.php` for the exact versions CI and local dev are expected to match)
 - Node.js (see `.nvmrc` for pinned version)
+- Composer (run `composer install` — required in production for Sentry error monitoring to activate; the theme degrades gracefully without it, just with monitoring off)
 - Local WordPress environment (e.g. [LocalWP](https://localwp.com/))
 
 ---
@@ -40,24 +41,49 @@ npm run lint:js        # ESLint
 npm run lint:css       # Stylelint
 npm run test:unit      # Jest unit tests
 npm run test:e2e       # End-to-end tests
+npm run storybook      # Browse every block in isolation at localhost:6006
+npm run build-storybook # Static Storybook build (storybook-static/, not committed)
+npm run audit          # Performance/accessibility/SEO/security audit against audit/urls.json (see audit/)
 ```
+
+---
+
+## Local SonarQube (optional)
+
+CI runs SonarQube Community Edition as a throwaway ephemeral container per job — no persisted dashboard. For a real, persistent local dashboard with full issue/hotspot browsing, one-time setup:
+
+```bash
+npm run sonar:up                          # starts a persistent local SonarQube at http://localhost:9000
+#  Open http://localhost:9000, log in with admin/admin, set a real password when prompted
+#  Create a project with key "kotlinskidev", then My Account > Security > generate a token
+export SONAR_LOCAL_TOKEN=<paste the token>  # add to your shell profile to persist across sessions
+```
+
+```bash
+npm run sonar:scan   # run anytime afterward — scans and pushes to your local dashboard
+npm run sonar:logs   # tail the container's logs
+npm run sonar:down   # stop it (data survives in Docker volumes until you `docker volume rm`)
+```
+
+Requires the `sonar-scanner` CLI (`brew install sonar-scanner` on macOS). This is a convenience tool for local visibility — it is not wired into any git hook and does not replace CI's own ephemeral scan, which stays the authoritative gate for every push/PR.
 
 ---
 
 ## Project Structure
 
-```
+```text
 ├── .claude/           Claude Code project rules
+├── .storybook/        Storybook config (react-webpack5) — isolated block previews
 ├── assets/            Fonts, icons, static images (WebP)
 ├── build/             Compiled output — do not edit manually, not committed
 ├── functions/         PHP feature modules (one concern per file)
 ├── includes/          Supplementary PHP (i18n, parallax, hover)
 ├── languages/         Translation files (en_US, pl_PL)
 ├── parts/             FSE template parts (header, footer)
-├── patterns/          56 reusable block patterns (PHP)
+├── patterns/          57 reusable block patterns (PHP)
 ├── polylang/          Multilingual routing config
 ├── src/
-│   ├── blocks/        10 custom Gutenberg blocks (TypeScript + React)
+│   ├── blocks/        15 custom Gutenberg blocks (TypeScript + React)
 │   ├── scripts/       Frontend TypeScript modules
 │   ├── styles/        SCSS source files
 │   └── utils/         Shared TypeScript utilities (@utils alias)
@@ -75,12 +101,17 @@ npm run test:e2e       # End-to-end tests
 All blocks are registered under the `kotlinskidev/` namespace and live in `src/blocks/`.
 
 | Block | Description |
-|---|---|
+| --- | --- |
 | `animated-counter` | Number counter with scroll-triggered animation |
 | `banner-carousel` | Full-width banner slider powered by Swiper.js |
+| `breadcrumbs` | Breadcrumb trail below the header, hidden on the homepage by default and on scroll |
+| `content-tabs` | Nav-link strip (top/bottom/left/right) that swaps in unrestricted content panels on click |
 | `cover-lazy-loading` | Cover block with native lazy loading |
 | `gallery-lightbox` | Image/video gallery with lightbox and mobile media variant |
 | `hover-animation-controls` | Per-block hover effect configurator |
+| `icon` | Standalone SVG icon picked from the Media Library, colored via `currentColor` |
+| `icon-extension` | Adds a leading icon to buttons and nav links |
+| `model-viewer` | Interactive 3D `.glb` model with a click-to-toggle animation |
 | `parallax` | Parallax scrolling section |
 | `protected-content` | Password-gated content block |
 | `responsive-display` | Show/hide blocks per breakpoint |
@@ -98,7 +129,7 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 ## FSE Templates
 
 | Template | Slug |
-|---|---|
+| --- | --- |
 | Homepage | `index` |
 | Page | `page` |
 | Single Article | `article` |

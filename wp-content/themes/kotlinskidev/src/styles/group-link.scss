@@ -1,0 +1,8 @@
+.kt-group-link {
+	cursor: pointer;
+
+	&:focus-visible {
+		outline: 0.125rem solid var(--wp--preset--color--primary);
+		outline-offset: 0.125rem;
+	}
+}

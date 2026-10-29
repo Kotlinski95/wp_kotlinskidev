@@ -46,8 +46,20 @@
  *                                           and image-block SVGs. WEEK_IN_SECONDS.
  *                                           Invalidated on edit_/delete_attachment.
  *
- *   kotlinskidev_build_fingerprint          Combined filemtime hash of all tracked
- *                                           build files. Used to detect new deploys.
+ *   kotlinskidev_build_fingerprint          Last-seen build ID (see build/build-id.php,
+ *                                           written by bin/write-build-id.js on every
+ *                                           `npm run build`). Used to detect new deploys.
+ *
+ *   kotlinskidev_badge_fetch_{md5(url)}     Parsed Open Graph data from a fetched
+ *                                           Credly/Accredible badge URL (functions/
+ *                                           certificate-badge-fetch.php). DAY_IN_SECONDS —
+ *                                           avoids re-fetching the same badge on every
+ *                                           click of "Fetch details" while editing.
+ *
+ *   kotlinskidev_canvas_recipe_{scene_id}   Clamped/validated layer recipe parsed from
+ *                                           a kt_canvas_scene post's content (functions/
+ *                                           canvas/scene.php). WEEK_IN_SECONDS. Invalidated
+ *                                           on save_post_kt_canvas_scene/delete_post.
  *
  *  Object-cache (wp_cache_get / wp_cache_set — ephemeral, per-request only when
  *  no persistent backend like Redis is active):
@@ -72,37 +84,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** All theme transient names must start with this prefix. */
 define( 'KOTLINSKIDEV_CACHE_PREFIX', 'kotlinskidev_' );
 
-// ─── 2. BUILD FILES TRACKED FOR FINGERPRINTING ───────────────────────────────
+// ─── 2. FINGERPRINT HELPER ───────────────────────────────────────────────────
 
 /**
- * Build files whose modification time is used to detect a new deployment.
- * Add any new compiled file here if it gets inlined or heavily cached.
- */
-function kotlinskidev_tracked_build_files(): array {
-    $build = get_template_directory() . '/build/';
-    return [
-        $build . 'critical.css',
-        $build . 'critical.js',
-        $build . 'main.css',
-        $build . 'main.js',
-    ];
-}
-
-// ─── 3. FINGERPRINT HELPER ───────────────────────────────────────────────────
-
-/**
- * Return a hash that uniquely represents the current build output.
- * Changes whenever any tracked build file is replaced on disk.
+ * Return a value that uniquely represents the current build output.
+ * Changes whenever `npm run build` runs — bin/write-build-id.js writes a
+ * fresh timestamp to build/build-id.php on every build, so detecting a new
+ * deploy is one opcache-backed `include` instead of glob()-ing and
+ * filemtime()-stat'ing 100+ compiled CSS/JS files on every page load.
  */
 function kotlinskidev_build_fingerprint(): string {
-    $raw = '';
-    foreach ( kotlinskidev_tracked_build_files() as $path ) {
-        $raw .= file_exists( $path ) ? filemtime( $path ) : '0';
+    $build_id_file = get_template_directory() . '/build/build-id.php';
+
+    if ( ! file_exists( $build_id_file ) ) {
+        return 'no-build';
     }
-    return md5( $raw );
+
+    return (string) include $build_id_file;
 }
 
-// ─── 4. FLUSH HELPERS ────────────────────────────────────────────────────────
+// ─── 3. FLUSH HELPERS ────────────────────────────────────────────────────────
 
 /**
  * Delete every theme transient whose name starts with KOTLINSKIDEV_CACHE_PREFIX.
@@ -165,7 +166,7 @@ function kotlinskidev_flush_build_transients(): void {
     }
 }
 
-// ─── 5. AUTO-DETECTION OF NEW DEPLOYS ────────────────────────────────────────
+// ─── 4. AUTO-DETECTION OF NEW DEPLOYS ────────────────────────────────────────
 
 /**
  * Run once per new build: compare the current fingerprint against the stored one.
@@ -186,12 +187,17 @@ function kotlinskidev_maybe_purge_on_new_build(): void {
     // New build detected — wipe stale build-file transients
     kotlinskidev_flush_build_transients();
 
+    // Asset CleanUp's own combined bundles are keyed by file content and must be purged too, or clients silently keep the pre-deploy bundle.
+    if ( class_exists( '\WpAssetCleanUp\OptimiseAssets\OptimizeCommon' ) ) {
+        \WpAssetCleanUp\OptimiseAssets\OptimizeCommon::clearCache();
+    }
+
     // Persist the new fingerprint for MONTH_IN_SECONDS so this check is cheap
     set_transient( $fingerprint_key, $current, MONTH_IN_SECONDS );
 }
 add_action( 'wp_head', 'kotlinskidev_maybe_purge_on_new_build', 0 );
 
-// ─── 6. LIFECYCLE HOOKS — flush on theme events ───────────────────────────────
+// ─── 5. LIFECYCLE HOOKS — flush on theme events ───────────────────────────────
 
 /**
  * Full flush when the theme is deactivated or switched away.
@@ -225,7 +231,7 @@ add_action( 'upgrader_process_complete', function ( $upgrader, $hook_extra ) {
     }
 }, 10, 2 );
 
-// ─── 7. ADMIN UI — manual "Clear Cache" button ───────────────────────────────
+// ─── 6. ADMIN UI — manual "Clear Cache" button ───────────────────────────────
 
 /**
  * Register a minimal admin page under Tools > Theme Cache.
@@ -287,39 +293,44 @@ function kotlinskidev_cache_admin_page(): void {
             </thead>
             <tbody>
                 <tr>
-                    <td>Critical CSS</td>
+                    <td><?php esc_html_e( 'Critical CSS', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_critical_css_*</code></td>
-                    <td>Build deploy (filemtime)</td>
+                    <td><?php esc_html_e( 'Build deploy (filemtime)', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Critical JS</td>
+                    <td><?php esc_html_e( 'Critical JS', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_critical_js_*</code></td>
-                    <td>Build deploy (filemtime)</td>
+                    <td><?php esc_html_e( 'Build deploy (filemtime)', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>JS translations</td>
+                    <td><?php esc_html_e( 'JS translations', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_i18n_{locale}</code></td>
-                    <td>Language file update / manual flush</td>
+                    <td><?php esc_html_e( 'Language file update / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Image dimensions</td>
+                    <td><?php esc_html_e( 'Image dimensions', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_img_sizes</code></td>
-                    <td>Attachment edit / delete / manual flush</td>
+                    <td><?php esc_html_e( 'Attachment edit / delete / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Popular posts</td>
+                    <td><?php esc_html_e( 'Popular posts', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_popular_posts_{md5}</code></td>
-                    <td>15 minute TTL / manual flush</td>
+                    <td><?php esc_html_e( '15 minute TTL / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Inlined SVGs</td>
+                    <td><?php esc_html_e( 'Inlined SVGs', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_svg_{attachment_id}</code></td>
-                    <td>Attachment edit / delete / manual flush</td>
+                    <td><?php esc_html_e( 'Attachment edit / delete / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
                 <tr>
-                    <td>Build fingerprint</td>
+                    <td><?php esc_html_e( 'Build fingerprint', 'kotlinskidev' ); ?></td>
                     <td><code>kotlinskidev_build_fingerprint</code></td>
-                    <td>Set automatically on every new build</td>
+                    <td><?php esc_html_e( 'Set automatically on every new build', 'kotlinskidev' ); ?></td>
+                </tr>
+                <tr>
+                    <td><?php esc_html_e( 'Certificate badge fetch', 'kotlinskidev' ); ?></td>
+                    <td><code>kotlinskidev_badge_fetch_{md5}</code></td>
+                    <td><?php esc_html_e( '1 day TTL / manual flush', 'kotlinskidev' ); ?></td>
                 </tr>
             </tbody>
         </table>
@@ -336,7 +347,7 @@ function kotlinskidev_cache_admin_page(): void {
     <?php
 }
 
-// ─── 8. WP-CLI COMMAND ───────────────────────────────────────────────────────
+// ─── 7. WP-CLI COMMAND ───────────────────────────────────────────────────────
 
 /**
  * WP-CLI usage:

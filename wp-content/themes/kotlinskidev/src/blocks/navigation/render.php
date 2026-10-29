@@ -112,7 +112,7 @@ if ( $display_mode === 'list' ) {
 			if ( $grid_heading !== '' ) {
 				echo '<h3 class="kt-nav-list__title">' . esc_html( $grid_heading ) . '</h3>';
 			}
-			echo $grid_content;
+			echo $grid_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $grid_content is render_block() output, WP core's own self-escaping block render pipeline
 			echo '</div>';
 			$columns[] = ob_get_clean();
 			continue;
@@ -133,33 +133,15 @@ if ( $display_mode === 'list' ) {
 		'class' => trim( 'kt-nav-list ' . implode( ' ', $nav_classes ) ),
 	] );
 
-	echo '<div ' . $list_wrapper_attrs . '>';
+	echo '<div ' . $list_wrapper_attrs . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $list_wrapper_attrs is the return value of get_block_wrapper_attributes(), already esc_attr()'d internally
 	if ( ! empty( $columns ) ) {
-		echo '<div class="kt-nav-list__columns" style="--kt-nav-list-cols:' . count( $columns ) . '">' . implode( '', $columns ) . '</div>';
+		echo '<div class="kt-nav-list__columns" style="--kt-nav-list-cols:' . count( $columns ) . '">' . implode( '', $columns ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $columns entries are built exclusively from kotlinskidev_render_nav_list_group() (esc_html/esc_url) or render_block() output
 	}
 	if ( ! empty( $extras ) ) {
-		echo '<div class="kt-nav-list__extras">' . implode( '', $extras ) . '</div>';
+		echo '<div class="kt-nav-list__extras">' . implode( '', $extras ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $extras entries are render_block() output, WP core's own self-escaping block render pipeline
 	}
 	echo '</div>';
 	return;
-}
-
-if ( ! function_exists( 'kotlinskidev_inline_nav_icon' ) ) {
-	function kotlinskidev_inline_nav_icon( int $id ): string {
-		if ( ! $id ) {
-			return '';
-		}
-		$file = get_attached_file( $id );
-		if ( ! $file || 'svg' !== strtolower( pathinfo( $file, PATHINFO_EXTENSION ) ) ) {
-			return '';
-		}
-		$svg = file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		if ( ! $svg ) {
-			return '';
-		}
-		$svg = preg_replace( '/ fill="[^"]*"/i', '', $svg );
-		return preg_replace( '/<svg(\s)/i', '<svg aria-hidden="true" focusable="false" fill="currentColor"$1', $svg, 1 );
-	}
 }
 
 if ( $display_mode === 'bar' ) {
@@ -198,13 +180,13 @@ if ( $display_mode === 'bar' ) {
 		array_unshift( $bar_classes, 'menu-item' );
 		echo '<li class="' . esc_attr( implode( ' ', $bar_classes ) ) . '"><a href="' . esc_url( $bar_item['url'] ) . '">';
 		if ( $bar_icon !== '' ) {
-			echo '<span class="mobile-menu-icon">' . $bar_icon . '</span>';
+			echo '<span class="mobile-menu-icon">' . $bar_icon . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $bar_icon comes from kotlinskidev_inline_nav_icon(), which reuses the sanitized functions/blocks.php implementation (kotlinskidev_load_svg_content()/kotlinskidev_sanitize_svg())
 		}
 		echo '<span class="mobile-menu-text">' . esc_html( $bar_item['label'] ) . '</span>';
 		echo '</a></li>';
 	}
 	foreach ( $bar_extras as $bar_extra ) {
-		echo '<li class="menu-item menu-item--extra">' . $bar_extra . '</li>';
+		echo '<li class="menu-item menu-item--extra">' . $bar_extra . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $bar_extra is render_block() output, WP core's own self-escaping block render pipeline
 	}
 	echo '</ul></div></nav>';
 	return;
@@ -237,6 +219,26 @@ if ( ! function_exists( 'kotlinskidev_nav_link_styles' ) ) {
 	}
 }
 
+if ( ! function_exists( 'kotlinskidev_nav_reveal_attrs' ) ) {
+	function kotlinskidev_nav_reveal_attrs( array $attrs ): array {
+		$animation = $attrs['navRevealAnimation'] ?? '';
+		if ( $animation === '' ) {
+			return [ 'class' => '', 'style' => '' ];
+		}
+
+		$classes = [ sanitize_html_class( $animation ) ];
+		$translate = $attrs['navRevealTranslate'] ?? '';
+		if ( $translate !== '' ) {
+			$classes[] = sanitize_html_class( $translate );
+		}
+
+		$delay = (int) ( $attrs['navRevealDelay'] ?? 0 );
+		$style = $delay > 0 ? '--reveal-delay:' . $delay . 'ms;' : '';
+
+		return [ 'class' => implode( ' ', $classes ), 'style' => $style ];
+	}
+}
+
 if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 	function kotlinskidev_parse_nav_blocks( array $blocks ): array {
 		$items = [];
@@ -255,6 +257,11 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 			if ( in_array( $block['blockName'], [ 'kotlinskidev/search-panel', 'kotlinskidev/nav-search-panel' ], true ) ) {
 				$attrs         = $block['attrs'];
 				$inner_content = implode( '', array_map( 'render_block', $block['innerBlocks'] ?? [] ) );
+				$inner_content = kotlinskidev_stagger_reveal_items(
+					$inner_content,
+					$attrs['navRevealAnimation'] ?? '',
+					[ 'wp-block-search', 'kt-popular-pages__title', 'kt-popular-pages__item' ]
+				);
 				$sp_fs         = kotlinskidev_nav_link_styles( $attrs );
 				$items[]       = [
 					'label'           => $attrs['label'] ?? '',
@@ -274,6 +281,11 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 				if ( $inner_content === '' ) {
 					continue;
 				}
+				$inner_content = kotlinskidev_stagger_reveal_items(
+					$inner_content,
+					$attrs['navRevealAnimation'] ?? '',
+					[ 'wp-block-navigation-item' ]
+				);
 				$lp_fs    = kotlinskidev_nav_link_styles( $attrs );
 				$lp_lang  = kotlinskidev_pll_current_language_data();
 				$lp_label = $attrs['label'] ?? '';
@@ -319,14 +331,17 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 					$panel_blocks[] = $inner;
 				}
 			}
-			$nl_fs = kotlinskidev_nav_link_styles( $attrs );
-			$item  = [
+			$nl_fs     = kotlinskidev_nav_link_styles( $attrs );
+			$nl_reveal = kotlinskidev_nav_reveal_attrs( $attrs );
+			$item      = [
 				'label'           => $attrs['label'] ?? '',
 				'url'             => $attrs['url'] ?? '#',
 				'children'        => kotlinskidev_parse_nav_blocks( $nav_children ),
 				'nav_icon_id'     => (int) ( $attrs['navIconId'] ?? 0 ),
 				'font_size_style' => $nl_fs['style'],
 				'font_size_class' => $nl_fs['class'],
+				'reveal_class'    => $nl_reveal['class'],
+				'reveal_style'    => $nl_reveal['style'],
 			];
 			if ( ! empty( $panel_blocks ) ) {
 				$item['panel_content'] = implode( '', array_map( 'render_block', $panel_blocks ) );
@@ -408,7 +423,7 @@ if ( ! $kt_nav_icon_grads ) {
 
 ob_start();
 ?>
-<div <?php echo $wrapper_attrs; ?>>
+<div <?php echo $wrapper_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<nav class="kt-mega-nav__bar" aria-label="<?php esc_attr_e( 'Main navigation', 'kotlinskidev' ); ?>">
 		<ul class="kt-mega-nav__list" role="list">
 			<?php foreach ( $items as $item ) : ?>
@@ -418,7 +433,7 @@ ob_start();
 				$nav_icon_svg = kotlinskidev_inline_nav_icon( (int) ( $item['nav_icon_id'] ?? 0 ) );
 				$nav_label    = $item['label'] ?? '';
 				?>
-				<a class="kt-mega-nav__link<?php echo $nav_icon_svg ? ' kt-mega-nav__link--icon' : ''; ?><?php echo $item['font_size_class'] ?? ''; ?> custom-color"
+				<a class="kt-mega-nav__link<?php echo $nav_icon_svg ? ' kt-mega-nav__link--icon' : ''; ?><?php echo $item['font_size_class'] ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- font_size_class is built exclusively via sanitize_html_class() in kotlinskidev_nav_link_styles() ?> custom-color"
 					href="<?php echo esc_url( $item['url'] ); ?>"
 					<?php if ( ! empty( $item['font_size_style'] ) ) : ?>style="<?php echo esc_attr( $item['font_size_style'] ); ?>"<?php endif; ?>
 					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['aria_label'] ?? $item['label'] ); ?>"<?php endif; ?>
@@ -430,7 +445,7 @@ ob_start();
 					<span class="kt-mega-nav__link-label"><?php echo esc_html( $nav_label ); ?></span>
 					<?php endif; ?>
 					<?php if ( $nav_icon_svg ) : ?>
-					<?php echo $nav_icon_svg; ?>
+					<?php echo $nav_icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $nav_icon_svg comes from kotlinskidev_inline_nav_icon(), which reuses the sanitized functions/blocks.php implementation ?>
 					<?php endif; ?>
 					<?php
 					$indicator = $item['indicator'] ?? [];
@@ -443,15 +458,16 @@ ob_start();
 						}
 					?>
 					<span class="<?php echo esc_attr( $indicator_class ); ?>" aria-hidden="true">
-						<?php echo $indicator_svg !== '' ? $indicator_svg : '<svg class="kt-indicator-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>'; ?>
+						<?php echo $indicator_svg !== '' ? $indicator_svg : '<svg class="kt-indicator-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $indicator_svg comes from kotlinskidev_inline_nav_icon(), which reuses the sanitized functions/blocks.php implementation; fallback branch is a static SVG literal ?>
 					</span>
 					<?php endif; ?>
 				</a>
 			</li>
 			<?php endforeach; ?>
 		</ul>
+		<span class="kt-mega-nav__glider" aria-hidden="true"></span>
 		<?php if ( $extras ) : ?>
-		<div class="kt-mega-nav__extras"><?php echo $extras; ?></div>
+		<div class="kt-mega-nav__extras"><?php echo $extras; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $extras is built exclusively from render_block() output via kotlinskidev_render_nav_extras(), WP core's own self-escaping block render pipeline ?></div>
 		<?php endif; ?>
 	</nav>
 
@@ -469,25 +485,27 @@ ob_start();
 			<div class="kt-mega-nav__panel-inner">
 				<?php if ( $panel_content ) : ?>
 				<div class="kt-mega-nav__panel-hero kt-mega-nav__panel-hero--full">
-					<?php echo $panel_content; ?>
+					<?php echo $panel_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $panel_content is built exclusively from render_block() output and esc_html()-wrapped labels ?>
 				</div>
 				<?php elseif ( $hero ) : ?>
 				<div class="kt-mega-nav__panel-hero<?php echo ! $has_children ? ' kt-mega-nav__panel-hero--full' : ''; ?>">
-					<?php echo $hero; ?>
+					<?php echo $hero; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $hero comes from kotlinskidev_mega_panel_template_part(), which returns do_blocks() output, WP core's own self-escaping block render pipeline ?>
 				</div>
 				<?php endif; ?>
 				<?php if ( $has_children ) : ?>
 				<div class="kt-mega-nav__panel-links" style="--col-count: <?php echo count( $item['children'] ); ?>">
 					<?php foreach ( $item['children'] as $child ) : ?>
 					<div class="kt-mega-nav__l2">
-						<a class="kt-mega-nav__l2-link" href="<?php echo esc_url( $child['url'] ); ?>">
+						<a class="kt-mega-nav__l2-link<?php echo ( $child['reveal_class'] ?? '' ) !== '' ? ' ' . esc_attr( $child['reveal_class'] ) : ''; ?>" href="<?php echo esc_url( $child['url'] ); ?>"
+							<?php if ( ( $child['reveal_style'] ?? '' ) !== '' ) : ?>style="<?php echo esc_attr( $child['reveal_style'] ); ?>"<?php endif; ?>>
 							<?php echo esc_html( $child['label'] ); ?>
 						</a>
 						<?php if ( ! empty( $child['children'] ) ) : ?>
 						<ul class="kt-mega-nav__l3-list" role="list">
 							<?php foreach ( $child['children'] as $grandchild ) : ?>
 							<li>
-								<a class="kt-mega-nav__l3-link" href="<?php echo esc_url( $grandchild['url'] ); ?>">
+								<a class="kt-mega-nav__l3-link<?php echo ( $grandchild['reveal_class'] ?? '' ) !== '' ? ' ' . esc_attr( $grandchild['reveal_class'] ) : ''; ?>" href="<?php echo esc_url( $grandchild['url'] ); ?>"
+									<?php if ( ( $grandchild['reveal_style'] ?? '' ) !== '' ) : ?>style="<?php echo esc_attr( $grandchild['reveal_style'] ); ?>"<?php endif; ?>>
 									<?php echo esc_html( $grandchild['label'] ); ?>
 								</a>
 							</li>
@@ -506,4 +524,4 @@ ob_start();
 	<div class="kt-mega-nav__backdrop" aria-hidden="true"></div>
 </div>
 <?php
-echo ob_get_clean();
+echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- buffer contains only the already-escaped/self-escaping fragments echoed above in this file

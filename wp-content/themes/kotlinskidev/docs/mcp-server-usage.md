@@ -7,7 +7,7 @@ Related docs: [`mcp-wordpress-setup.md`](mcp-wordpress-setup.md) (how the connec
 ## Endpoints
 
 | Endpoint | Status |
-|---|---|
+| --- | --- |
 | `/wp-json/mcp/novamira` | **Preferred.** The actual server (Novamira plugin). |
 | `/wp-json/mcp/mcp-adapter-default-server` | Legacy alias for the same server. Still works; currently used by our client configs. |
 
@@ -38,7 +38,7 @@ These abilities cannot touch code, files, options, or the database — that limi
 From the **Novamira** plugin. Use when `ewpa/*` cannot do it:
 
 | Task | Ability |
-|---|---|
+| --- | --- |
 | Read/write options, query the DB, anything programmatic | `execute-php` |
 | Inspect or edit files on the server | `read-file`, `write-file`, `edit-file`, `delete-file`, `list-directory` |
 | Run WP-CLI remotely | `run-wp-cli` (+ `get-wp-cli-job` for async) |
@@ -66,7 +66,7 @@ Choose **per environment**, not per plugin:
 MCP server names carry an environment suffix so chats always show which site is being touched: `wordpress-local` (LocalWP) and `wordpress-prod` (kotlinskidev.com). Tool calls are prefixed accordingly, e.g. `mcp__wordpress-local__mcp-adapter-execute-ability`.
 
 | Client | Config | Auth |
-|---|---|---|
+| --- | --- | --- |
 | Claude Code CLI | `.mcp.json` in the theme root | `${WP_MCP_API_KEY}` / `${WP_MCP_API_KEY_PROD}` from `.env` via direnv — see [`env.md`](env.md) |
 | Claude Desktop | `~/Library/Application Support/Claude/claude_desktop_config.json` → `mcp-remote` proxy (`--allow-http` needed for the local site only) | Same keys, pasted into `env.AUTH_HEADER` in that file |
 

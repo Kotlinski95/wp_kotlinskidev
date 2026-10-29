@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "info",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/copyrights.js",
+  "editorScript": "file:../../../build/js/copyrights.js",
   "render": "file:./render.php",
   "supports": {
     "html": false,

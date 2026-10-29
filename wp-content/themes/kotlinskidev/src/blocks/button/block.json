@@ -8,7 +8,7 @@
   "icon": "button",
   "description": "Button with independent normal/hover control over text, background, and border colors, including gradients.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/button.js",
+  "editorScript": "file:../../../build/js/button.js",
   "render": "file:./render.php",
   "attributes": {
     "text": {
@@ -78,6 +78,14 @@
     "hoverBorderGradient": {
       "type": "string",
       "default": ""
+    },
+    "hoverEnhancedGlow": {
+      "type": "boolean",
+      "default": false
+    },
+    "useInnerBlocks": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

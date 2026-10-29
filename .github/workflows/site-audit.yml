@@ -1,0 +1,93 @@
+name: Site Audit
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Base URL to audit (overrides audit/urls.json)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: wp-content/themes/kotlinskidev
+
+env:
+  AUDIT_BASE_URL: ${{ inputs.base_url }}
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
+
+      - name: Resolve system Chrome (pa11y-ci + Lighthouse CI)
+        run: |
+          CHROME_BIN="$(which google-chrome-stable || which google-chrome || which chromium-browser)"
+          echo "PUPPETEER_EXECUTABLE_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+          echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+
+      - name: Fetch previous baseline
+        continue-on-error: true
+        run: |
+          mkdir -p audit/history
+          git fetch origin audit-history:refs/remotes/origin/audit-history
+          git show origin/audit-history:latest.json > audit/history/latest.json
+
+      - name: Run audit
+        run: npm run audit
+
+      - name: Check for regressions
+        run: npm run audit:regression
+
+      - name: Update baseline (audit-history branch)
+        if: always()
+        run: |
+          NEW_REPORT="$(pwd)/audit/results/latest.json"
+
+          rm -rf /tmp/audit-history-checkout
+          mkdir -p /tmp/audit-history-checkout
+          cd /tmp/audit-history-checkout
+          git init -q
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          if git ls-remote --exit-code --heads origin audit-history > /dev/null 2>&1; then
+            git fetch -q origin audit-history
+            git checkout -q -b audit-history origin/audit-history
+          else
+            git checkout -q --orphan audit-history
+          fi
+
+          cp "$NEW_REPORT" latest.json
+          git add latest.json
+          git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "chore: update site-audit baseline ($(date -u +%Y-%m-%dT%H:%M:%SZ))" || echo "No changes to commit"
+          git push -q origin audit-history
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload full report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-audit-report
+          path: wp-content/themes/kotlinskidev/audit/results/
+          retention-days: 90
