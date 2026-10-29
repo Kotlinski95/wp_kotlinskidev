@@ -990,6 +990,7 @@ kotlinskidev/
 ├── page.php                                    # legacy classic-theme page template
 ├── screenshot.png                              # theme directory screenshot
 ├── single.php                                  # legacy classic-theme single-post template
+├── sonar-project.properties                    # SonarQube Community Edition config, scanned by the root `.github/workflows/sonarqube.yml` ephemeral-service-container job (ports 9000, generated one-shot token — no persisted Sonar server/history)
 ├── style.css                                   # WP theme header (Name/Version/Description) + minimal CSS
 ├── tailwind.config.js                          # Tailwind JIT config (see Known Issues — build step unclear)
 ├── tailwind.css                                # Tailwind entry (base import commented out)

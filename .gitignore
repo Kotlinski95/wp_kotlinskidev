@@ -115,6 +115,9 @@ coverage
 .phpunit.cache
 .phpunit.result.cache
 
+# SonarQube scanner working directory
+.scannerwork
+
 # Playwright e2e test output (screenshots, traces, browser binaries cache)
 artifacts
 

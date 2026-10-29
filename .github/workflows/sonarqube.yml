@@ -1,0 +1,105 @@
+name: SonarQube (ephemeral)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: wp-content/themes/kotlinskidev
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+
+    services:
+      sonarqube:
+        image: sonarqube:community
+        ports:
+          - 9000:9000
+        env:
+          SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+        options: >-
+          --health-cmd="curl -fsS http://localhost:9000/api/system/status || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=30
+          --health-start-period=60s
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: pcov
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Generate JS coverage
+        run: npm run test:unit:coverage
+        continue-on-error: true
+
+      - name: Generate PHP coverage
+        run: composer test:unit:coverage
+        continue-on-error: true
+
+      - name: Wait for SonarQube to be ready
+        run: |
+          for i in $(seq 1 30); do
+            status="$(curl -fsS http://localhost:9000/api/system/status | grep -o '"status":"[A-Z]*"' | cut -d'"' -f4 || echo "")"
+            echo "SonarQube status: ${status:-unknown} (attempt $i/30)"
+            if [ "$status" = "UP" ]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "SonarQube did not reach UP status in time" >&2
+          exit 1
+
+      - name: Generate analysis token
+        id: sonar_token
+        run: |
+          TOKEN_JSON="$(curl -fsS -u admin:admin -X POST "http://localhost:9000/api/user_tokens/generate?name=ci-$(date +%s)")"
+          TOKEN="$(echo "$TOKEN_JSON" | grep -o '"token":"[^"]*"' | cut -d'"' -f4)"
+          if [ -z "$TOKEN" ]; then
+            echo "Token generation failed, response was:" >&2
+            echo "$TOKEN_JSON" >&2
+            exit 1
+          fi
+          echo "::add-mask::$TOKEN"
+          echo "token=$TOKEN" >> "$GITHUB_OUTPUT"
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v3
+        with:
+          projectBaseDir: wp-content/themes/kotlinskidev
+        env:
+          SONAR_HOST_URL: http://localhost:9000
+          SONAR_TOKEN: ${{ steps.sonar_token.outputs.token }}
+
+      - name: Upload Sonar report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonarqube-report
+          path: wp-content/themes/kotlinskidev/.scannerwork/
+          retention-days: 7
