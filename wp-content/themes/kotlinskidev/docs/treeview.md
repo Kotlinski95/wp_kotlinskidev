@@ -977,6 +977,7 @@ kotlinskidev/
 ├── CLAUDE.md                                   # Claude Code project instructions
 ├── composer.json                               # PHP runtime + dev dependencies (sentry/sentry is the only runtime one; rest is require-dev tooling)
 ├── composer.lock
+├── docker-compose.sonar.yml                    # optional, not used by CI — persistent local SonarQube (named volumes, so data survives `docker compose down`) for a real dashboard; run via npm run sonar:up/scan/logs/down (README's "Local SonarQube" section), separate from .github/workflows/sonarqube.yml's throwaway ephemeral container
 ├── README.md                                   # project overview + npm commands
 ├── content.php                                 # legacy classic-theme partial
 ├── footer.php                                  # legacy classic-theme footer (superseded by parts/footer.html)

@@ -48,6 +48,27 @@ npm run audit          # Performance/accessibility/SEO/security audit against au
 
 ---
 
+## Local SonarQube (optional)
+
+CI runs SonarQube Community Edition as a throwaway ephemeral container per job — no persisted dashboard. For a real, persistent local dashboard with full issue/hotspot browsing, one-time setup:
+
+```bash
+npm run sonar:up                          # starts a persistent local SonarQube at http://localhost:9000
+#  Open http://localhost:9000, log in with admin/admin, set a real password when prompted
+#  Create a project with key "kotlinskidev", then My Account > Security > generate a token
+export SONAR_LOCAL_TOKEN=<paste the token>  # add to your shell profile to persist across sessions
+```
+
+```bash
+npm run sonar:scan   # run anytime afterward — scans and pushes to your local dashboard
+npm run sonar:logs   # tail the container's logs
+npm run sonar:down   # stop it (data survives in Docker volumes until you `docker volume rm`)
+```
+
+Requires the `sonar-scanner` CLI (`brew install sonar-scanner` on macOS). This is a convenience tool for local visibility — it is not wired into any git hook and does not replace CI's own ephemeral scan, which stays the authoritative gate for every push/PR.
+
+---
+
 ## Project Structure
 
 ```text
