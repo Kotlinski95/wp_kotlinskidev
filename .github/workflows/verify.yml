@@ -165,6 +165,9 @@ jobs:
     needs: [ lint, i18n, security, test-js, test-php, build ]
     runs-on: ubuntu-latest
     if: always()
+    defaults:
+      run:
+        working-directory: .
     steps:
       - name: Check all jobs succeeded
         run: |

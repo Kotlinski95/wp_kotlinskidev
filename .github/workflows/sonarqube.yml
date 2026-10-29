@@ -93,7 +93,7 @@ jobs:
         with:
           projectBaseDir: wp-content/themes/kotlinskidev
         env:
-          SONAR_HOST_URL: http://localhost:9000
+          SONAR_HOST_URL: http://sonarqube:9000
           SONAR_TOKEN: ${{ steps.sonar_token.outputs.token }}
 
       - name: Upload Sonar report
