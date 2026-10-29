@@ -203,7 +203,8 @@ function setup_maintenance_mode_settings()
         'Background Image',
         'maintenance_mode_background_image_field',
         'maintenance-mode',
-        'maintenance_mode_customization'
+        'maintenance_mode_customization',
+        ['label_for' => 'maintenance_mode_background_image']
     );
 
     add_settings_field(
@@ -211,7 +212,8 @@ function setup_maintenance_mode_settings()
         'Logo',
         'maintenance_mode_logo_field',
         'maintenance-mode',
-        'maintenance_mode_customization'
+        'maintenance_mode_customization',
+        ['label_for' => 'maintenance_mode_logo']
     );
 
     add_settings_field(

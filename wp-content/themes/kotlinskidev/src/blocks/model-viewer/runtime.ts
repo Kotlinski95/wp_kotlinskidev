@@ -246,15 +246,17 @@ export function mountModelViewer(button: HTMLButtonElement, canvas: HTMLCanvasEl
       if (enableOrbit) {
         import(
           /* webpackChunkName: "model-viewer-runtime" */ "three/examples/jsm/controls/OrbitControls.js"
-        ).then(({ OrbitControls }) => {
-          const controls = new OrbitControls(camera, canvas);
-          controls.enableDamping = false;
-          if (center) {
-            controls.target.copy(center);
-          }
-          controls.update();
-          controls.addEventListener("change", renderOnce);
-        });
+        )
+          .then(({ OrbitControls }) => {
+            const controls = new OrbitControls(camera, canvas);
+            controls.enableDamping = false;
+            if (center) {
+              controls.target.copy(center);
+            }
+            controls.update();
+            controls.addEventListener("change", renderOnce);
+          })
+          .catch((error) => console.error("model-viewer: failed to load OrbitControls", error));
       }
 
       renderOnce();

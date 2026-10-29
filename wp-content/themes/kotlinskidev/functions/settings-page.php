@@ -145,7 +145,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Default mode', 'kotlinskidev'),
         'kotlinskidev_render_theme_default_mode_field',
         'kotlinskidev-settings-theme-mode',
-        'kotlinskidev_section_theme_mode'
+        'kotlinskidev_section_theme_mode',
+        ['label_for' => 'kotlinskidev_theme_default_mode']
     );
 
     register_setting(
@@ -190,7 +191,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Mobile max width (px)', 'kotlinskidev'),
         'kotlinskidev_render_breakpoint_mobile_field',
         'kotlinskidev-settings-breakpoints',
-        'kotlinskidev_section_breakpoints'
+        'kotlinskidev_section_breakpoints',
+        ['label_for' => 'kotlinskidev_breakpoint_mobile_max']
     );
 
     add_settings_field(
@@ -198,7 +200,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Tablet max width (px)', 'kotlinskidev'),
         'kotlinskidev_render_breakpoint_tablet_field',
         'kotlinskidev-settings-breakpoints',
-        'kotlinskidev_section_breakpoints'
+        'kotlinskidev_section_breakpoints',
+        ['label_for' => 'kotlinskidev_breakpoint_tablet_max']
     );
 
     add_settings_field(
@@ -206,7 +209,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Large desktop min width (px)', 'kotlinskidev'),
         'kotlinskidev_render_breakpoint_large_field',
         'kotlinskidev-settings-breakpoints',
-        'kotlinskidev_section_breakpoints'
+        'kotlinskidev_section_breakpoints',
+        ['label_for' => 'kotlinskidev_breakpoint_large']
     );
 
     register_setting(
@@ -241,7 +245,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Desktop offset (px)', 'kotlinskidev'),
         'kotlinskidev_render_scroll_offset_desktop_field',
         'kotlinskidev-settings-advanced',
-        'kotlinskidev_section_scroll_offset'
+        'kotlinskidev_section_scroll_offset',
+        ['label_for' => 'kotlinskidev_scroll_offset_desktop']
     );
 
     add_settings_field(
@@ -249,7 +254,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Mobile offset (px)', 'kotlinskidev'),
         'kotlinskidev_render_scroll_offset_mobile_field',
         'kotlinskidev-settings-advanced',
-        'kotlinskidev_section_scroll_offset'
+        'kotlinskidev_section_scroll_offset',
+        ['label_for' => 'kotlinskidev_scroll_offset_mobile']
     );
 
     register_setting(
@@ -365,7 +371,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Background image', 'kotlinskidev'),
         'kotlinskidev_render_login_bg_image_field',
         'kotlinskidev-settings-login',
-        'kotlinskidev_section_login'
+        'kotlinskidev_section_login',
+        ['label_for' => 'kotlinskidev_login_bg_image']
     );
 
     add_settings_field(
@@ -373,7 +380,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Logo image', 'kotlinskidev'),
         'kotlinskidev_render_login_logo_image_field',
         'kotlinskidev-settings-login',
-        'kotlinskidev_section_login'
+        'kotlinskidev_section_login',
+        ['label_for' => 'kotlinskidev_login_logo_image']
     );
 
     add_settings_field(
@@ -381,7 +389,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Background color', 'kotlinskidev'),
         'kotlinskidev_render_login_bg_color_field',
         'kotlinskidev-settings-login',
-        'kotlinskidev_section_login'
+        'kotlinskidev_section_login',
+        ['label_for' => 'kotlinskidev_login_bg_color']
     );
 
     add_settings_field(
@@ -389,7 +398,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Accent color', 'kotlinskidev'),
         'kotlinskidev_render_login_accent_color_field',
         'kotlinskidev-settings-login',
-        'kotlinskidev_section_login'
+        'kotlinskidev_section_login',
+        ['label_for' => 'kotlinskidev_login_accent_color']
     );
 
     register_setting(
@@ -442,7 +452,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Pixel ID', 'kotlinskidev'),
         'kotlinskidev_render_fb_pixel_id_field',
         'kotlinskidev-settings-tracking',
-        'kotlinskidev_section_tracking_fb'
+        'kotlinskidev_section_tracking_fb',
+        ['label_for' => 'custom_fb_pixel_loader_pixel_id']
     );
 
     add_settings_field(
@@ -450,7 +461,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Custom script (overrides ID)', 'kotlinskidev'),
         'kotlinskidev_render_fb_pixel_script_field',
         'kotlinskidev-settings-tracking',
-        'kotlinskidev_section_tracking_fb'
+        'kotlinskidev_section_tracking_fb',
+        ['label_for' => 'custom_fb_pixel_loader_custom_script']
     );
 
     add_settings_section(
@@ -465,7 +477,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Measurement ID', 'kotlinskidev'),
         'kotlinskidev_render_ga_id_field',
         'kotlinskidev-settings-tracking',
-        'kotlinskidev_section_tracking_ga'
+        'kotlinskidev_section_tracking_ga',
+        ['label_for' => 'custom_ga_loader_ga_id']
     );
 
     add_settings_field(
@@ -473,7 +486,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Custom script (overrides ID)', 'kotlinskidev'),
         'kotlinskidev_render_ga_script_field',
         'kotlinskidev-settings-tracking',
-        'kotlinskidev_section_tracking_ga'
+        'kotlinskidev_section_tracking_ga',
+        ['label_for' => 'custom_ga_loader_custom_script']
     );
 
     register_setting(
@@ -614,7 +628,7 @@ function kotlinskidev_register_settings(): void
             'kotlinskidev_render_csp_directive_field',
             'kotlinskidev-settings-security',
             'kotlinskidev_section_csp_directives',
-            ['option' => $csp_option_key]
+            ['option' => $csp_option_key, 'label_for' => $csp_option_key]
         );
     }
 
@@ -650,7 +664,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Referrer-Policy', 'kotlinskidev'),
         'kotlinskidev_render_referrer_policy_field',
         'kotlinskidev-settings-security',
-        'kotlinskidev_section_other_headers'
+        'kotlinskidev_section_other_headers',
+        ['label_for' => 'kotlinskidev_referrer_policy']
     );
 
     add_settings_field(
@@ -658,7 +673,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Permissions-Policy', 'kotlinskidev'),
         'kotlinskidev_render_permissions_policy_field',
         'kotlinskidev-settings-security',
-        'kotlinskidev_section_other_headers'
+        'kotlinskidev_section_other_headers',
+        ['label_for' => 'kotlinskidev_permissions_policy']
     );
 
     register_setting(
@@ -721,7 +737,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Phone', 'kotlinskidev'),
         'kotlinskidev_render_contact_phone_field',
         'kotlinskidev-settings-contact',
-        'kotlinskidev_section_contact'
+        'kotlinskidev_section_contact',
+        ['label_for' => 'kotlinskidev_contact_phone']
     );
 
     add_settings_field(
@@ -729,7 +746,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('Email', 'kotlinskidev'),
         'kotlinskidev_render_contact_email_field',
         'kotlinskidev-settings-contact',
-        'kotlinskidev_section_contact'
+        'kotlinskidev_section_contact',
+        ['label_for' => 'kotlinskidev_contact_email']
     );
 
     add_settings_field(
@@ -762,7 +780,8 @@ function kotlinskidev_register_settings(): void
         esc_html__('DSN', 'kotlinskidev'),
         'kotlinskidev_render_sentry_dsn_field',
         'kotlinskidev-settings-monitoring',
-        'kotlinskidev_section_monitoring'
+        'kotlinskidev_section_monitoring',
+        ['label_for' => 'kotlinskidev_sentry_dsn']
     );
 }
 
@@ -775,7 +794,7 @@ function kotlinskidev_render_sentry_dsn_field(): void
 {
     $value = get_option('kotlinskidev_sentry_dsn', '');
     ?>
-    <input type="url" name="kotlinskidev_sentry_dsn" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://examplePublicKey@o0.ingest.sentry.io/0" />
+    <input type="url" id="kotlinskidev_sentry_dsn" name="kotlinskidev_sentry_dsn" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://examplePublicKey@o0.ingest.sentry.io/0" />
     <p class="description">
         <?php esc_html_e('From your Sentry project (Settings → Client Keys). Leave empty to disable reporting.', 'kotlinskidev'); ?>
     </p>
@@ -830,7 +849,7 @@ function kotlinskidev_render_contact_phone_field(): void
 {
     $value = get_option('kotlinskidev_contact_phone', '');
     ?>
-    <input type="text" name="kotlinskidev_contact_phone" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="+48 608 418 911" />
+    <input type="text" id="kotlinskidev_contact_phone" name="kotlinskidev_contact_phone" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="+48 608 418 911" />
     <?php
 }
 
@@ -838,7 +857,7 @@ function kotlinskidev_render_contact_email_field(): void
 {
     $value = get_option('kotlinskidev_contact_email', '');
     ?>
-    <input type="email" name="kotlinskidev_contact_email" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="contact@example.com" />
+    <input type="email" id="kotlinskidev_contact_email" name="kotlinskidev_contact_email" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="contact@example.com" />
     <?php
 }
 
@@ -926,7 +945,7 @@ function kotlinskidev_render_theme_default_mode_field(): void
         'dark'  => esc_html__('Dark', 'kotlinskidev'),
     ];
     ?>
-    <select name="kotlinskidev_theme_default_mode">
+    <select id="kotlinskidev_theme_default_mode" name="kotlinskidev_theme_default_mode">
         <?php foreach ($options as $value => $label) : ?>
             <option value="<?php echo esc_attr($value); ?>" <?php selected($mode, $value); ?>>
                 <?php echo esc_html($label); ?>
@@ -957,7 +976,7 @@ function kotlinskidev_render_breakpoint_mobile_field(): void
 {
     $value = (int) get_option('kotlinskidev_breakpoint_mobile_max', 781);
     ?>
-    <input type="number" name="kotlinskidev_breakpoint_mobile_max" value="<?php echo esc_attr((string) $value); ?>" min="320" max="1023" step="1" />
+    <input type="number" id="kotlinskidev_breakpoint_mobile_max" name="kotlinskidev_breakpoint_mobile_max" value="<?php echo esc_attr((string) $value); ?>" min="320" max="1023" step="1" />
     <p class="description">
         <?php esc_html_e('Screens up to this width are mobile. Tablet starts at this value + 1px. Theme default: 781.', 'kotlinskidev'); ?>
     </p>
@@ -968,7 +987,7 @@ function kotlinskidev_render_breakpoint_tablet_field(): void
 {
     $value = (int) get_option('kotlinskidev_breakpoint_tablet_max', 1023);
     ?>
-    <input type="number" name="kotlinskidev_breakpoint_tablet_max" value="<?php echo esc_attr((string) $value); ?>" min="768" max="1399" step="1" />
+    <input type="number" id="kotlinskidev_breakpoint_tablet_max" name="kotlinskidev_breakpoint_tablet_max" value="<?php echo esc_attr((string) $value); ?>" min="768" max="1399" step="1" />
     <p class="description">
         <?php esc_html_e('Screens up to this width are tablet. Desktop starts at this value + 1px. Theme default: 1023.', 'kotlinskidev'); ?>
     </p>
@@ -979,7 +998,7 @@ function kotlinskidev_render_breakpoint_large_field(): void
 {
     $value = (int) get_option('kotlinskidev_breakpoint_large', 1200);
     ?>
-    <input type="number" name="kotlinskidev_breakpoint_large" value="<?php echo esc_attr((string) $value); ?>" min="1024" max="1920" step="1" />
+    <input type="number" id="kotlinskidev_breakpoint_large" name="kotlinskidev_breakpoint_large" value="<?php echo esc_attr((string) $value); ?>" min="1024" max="1920" step="1" />
     <p class="description">
         <?php esc_html_e('Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200.', 'kotlinskidev'); ?>
     </p>
@@ -996,7 +1015,7 @@ function kotlinskidev_render_scroll_offset_desktop_field(): void
     $default = KOTLINSKIDEV_SCROLL_OFFSET_DEFAULTS['desktop'];
     $value   = (int) get_option('kotlinskidev_scroll_offset_desktop', $default);
     ?>
-    <input type="number" name="kotlinskidev_scroll_offset_desktop" value="<?php echo esc_attr((string) $value); ?>" min="0" max="400" step="1" />
+    <input type="number" id="kotlinskidev_scroll_offset_desktop" name="kotlinskidev_scroll_offset_desktop" value="<?php echo esc_attr((string) $value); ?>" min="0" max="400" step="1" />
     <p class="description">
         <?php
         printf(
@@ -1014,7 +1033,7 @@ function kotlinskidev_render_scroll_offset_mobile_field(): void
     $default = KOTLINSKIDEV_SCROLL_OFFSET_DEFAULTS['mobile'];
     $value   = (int) get_option('kotlinskidev_scroll_offset_mobile', $default);
     ?>
-    <input type="number" name="kotlinskidev_scroll_offset_mobile" value="<?php echo esc_attr((string) $value); ?>" min="0" max="400" step="1" />
+    <input type="number" id="kotlinskidev_scroll_offset_mobile" name="kotlinskidev_scroll_offset_mobile" value="<?php echo esc_attr((string) $value); ?>" min="0" max="400" step="1" />
     <p class="description">
         <?php
         printf(
@@ -1090,7 +1109,7 @@ function kotlinskidev_render_login_bg_image_field(): void
 {
     $value = get_option('kotlinskidev_login_bg_image', '');
     ?>
-    <input type="url" name="kotlinskidev_login_bg_image" value="<?php echo esc_attr($value); ?>" class="regular-text kotlinskidev-login-media-field" />
+    <input type="url" id="kotlinskidev_login_bg_image" name="kotlinskidev_login_bg_image" value="<?php echo esc_attr($value); ?>" class="regular-text kotlinskidev-login-media-field" />
     <button type="button" class="button kotlinskidev-login-media-button" data-target="kotlinskidev_login_bg_image"><?php esc_html_e('Choose Image', 'kotlinskidev'); ?></button>
     <p class="description">
         <?php esc_html_e('Defaults to the theme background image when left empty.', 'kotlinskidev'); ?>
@@ -1102,7 +1121,7 @@ function kotlinskidev_render_login_logo_image_field(): void
 {
     $value = get_option('kotlinskidev_login_logo_image', '');
     ?>
-    <input type="url" name="kotlinskidev_login_logo_image" value="<?php echo esc_attr($value); ?>" class="regular-text kotlinskidev-login-media-field" />
+    <input type="url" id="kotlinskidev_login_logo_image" name="kotlinskidev_login_logo_image" value="<?php echo esc_attr($value); ?>" class="regular-text kotlinskidev-login-media-field" />
     <button type="button" class="button kotlinskidev-login-media-button" data-target="kotlinskidev_login_logo_image"><?php esc_html_e('Choose Image', 'kotlinskidev'); ?></button>
     <p class="description">
         <?php esc_html_e('Defaults to the theme logo when left empty.', 'kotlinskidev'); ?>
@@ -1114,7 +1133,7 @@ function kotlinskidev_render_login_bg_color_field(): void
 {
     $value = get_option('kotlinskidev_login_bg_color', '#191919');
     ?>
-    <input type="color" name="kotlinskidev_login_bg_color" value="<?php echo esc_attr($value); ?>" />
+    <input type="color" id="kotlinskidev_login_bg_color" name="kotlinskidev_login_bg_color" value="<?php echo esc_attr($value); ?>" />
     <p class="description"><?php esc_html_e('Fallback background color when no image loads.', 'kotlinskidev'); ?></p>
     <?php
 }
@@ -1123,7 +1142,7 @@ function kotlinskidev_render_login_accent_color_field(): void
 {
     $value = get_option('kotlinskidev_login_accent_color', '#8209d3');
     ?>
-    <input type="color" name="kotlinskidev_login_accent_color" value="<?php echo esc_attr($value); ?>" />
+    <input type="color" id="kotlinskidev_login_accent_color" name="kotlinskidev_login_accent_color" value="<?php echo esc_attr($value); ?>" />
     <p class="description"><?php esc_html_e('Color for links and hover effects.', 'kotlinskidev'); ?></p>
     <?php
 }
@@ -1166,7 +1185,7 @@ function kotlinskidev_render_fb_pixel_id_field(): void
 {
     $value = get_option('custom_fb_pixel_loader_pixel_id', '');
     ?>
-    <input type="text" name="custom_fb_pixel_loader_pixel_id" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="123456789012345" />
+    <input type="text" id="custom_fb_pixel_loader_pixel_id" name="custom_fb_pixel_loader_pixel_id" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="123456789012345" />
     <?php
 }
 
@@ -1174,7 +1193,7 @@ function kotlinskidev_render_fb_pixel_script_field(): void
 {
     $value = get_option('custom_fb_pixel_loader_custom_script', '');
     ?>
-    <textarea name="custom_fb_pixel_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
+    <textarea id="custom_fb_pixel_loader_custom_script" name="custom_fb_pixel_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
     <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
     <?php
 }
@@ -1188,7 +1207,7 @@ function kotlinskidev_render_ga_id_field(): void
 {
     $value = get_option('custom_ga_loader_ga_id', '');
     ?>
-    <input type="text" name="custom_ga_loader_ga_id" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="G-XXXXXXXXXX" />
+    <input type="text" id="custom_ga_loader_ga_id" name="custom_ga_loader_ga_id" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="G-XXXXXXXXXX" />
     <?php
 }
 
@@ -1196,7 +1215,7 @@ function kotlinskidev_render_ga_script_field(): void
 {
     $value = get_option('custom_ga_loader_custom_script', '');
     ?>
-    <textarea name="custom_ga_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
+    <textarea id="custom_ga_loader_custom_script" name="custom_ga_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
     <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
     <?php
 }
@@ -1304,7 +1323,7 @@ function kotlinskidev_render_csp_directive_field(array $args): void
     $default = kotlinskidev_csp_directive_defaults()[$option];
     $value   = (string) get_option($option, $default);
     ?>
-    <input type="text" name="<?php echo esc_attr($option); ?>" value="<?php echo esc_attr($value); ?>" class="large-text code" placeholder="<?php echo esc_attr($default); ?>" />
+    <input type="text" id="<?php echo esc_attr($option); ?>" name="<?php echo esc_attr($option); ?>" value="<?php echo esc_attr($value); ?>" class="large-text code" placeholder="<?php echo esc_attr($default); ?>" />
     <?php
 }
 
@@ -1317,7 +1336,7 @@ function kotlinskidev_render_referrer_policy_field(): void
 {
     $value = kotlinskidev_sanitize_referrer_policy((string) get_option('kotlinskidev_referrer_policy', 'strict-origin-when-cross-origin'));
     ?>
-    <select name="kotlinskidev_referrer_policy">
+    <select id="kotlinskidev_referrer_policy" name="kotlinskidev_referrer_policy">
         <?php foreach (kotlinskidev_referrer_policy_choices() as $choice) : ?>
             <option value="<?php echo esc_attr($choice); ?>" <?php selected($value, $choice); ?>>
                 <?php echo esc_html($choice); ?>
@@ -1334,7 +1353,7 @@ function kotlinskidev_render_permissions_policy_field(): void
 {
     $value = get_option('kotlinskidev_permissions_policy', kotlinskidev_permissions_policy_default());
     ?>
-    <textarea name="kotlinskidev_permissions_policy" rows="4" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
+    <textarea id="kotlinskidev_permissions_policy" name="kotlinskidev_permissions_policy" rows="4" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
     <p class="description">
         <?php esc_html_e('Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty.', 'kotlinskidev'); ?>
     </p>

@@ -159,38 +159,38 @@ function kotlinskidev_render_contact_submission_detail( int $submission_id ): vo
     <div class="wrap">
         <h1><?php esc_html_e( 'Submission Details', 'kotlinskidev' ); ?></h1>
         <p><a href="<?php echo esc_url( $list_url ); ?>">&larr; <?php esc_html_e( 'Back to all submissions', 'kotlinskidev' ); ?></a></p>
-        <table class="form-table" role="presentation">
+        <table class="form-table">
             <tr>
-                <th><?php esc_html_e( 'Date', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Date', 'kotlinskidev' ); ?></th>
                 <td><?php echo esc_html( mysql2date( 'Y-m-d H:i', $submission->submitted_at ) ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Name', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Name', 'kotlinskidev' ); ?></th>
                 <td><?php echo esc_html( $submission->name ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Email', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Email', 'kotlinskidev' ); ?></th>
                 <td><a href="<?php echo esc_url( 'mailto:' . $submission->email ); ?>"><?php echo esc_html( $submission->email ); ?></a></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Topic', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Topic', 'kotlinskidev' ); ?></th>
                 <td><?php echo esc_html( $submission->topic ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Message', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Message', 'kotlinskidev' ); ?></th>
                 <td style="white-space:pre-line;"><?php echo esc_html( $submission->message ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Agreed to be contacted', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Agreed to be contacted', 'kotlinskidev' ); ?></th>
                 <td><?php echo $submission->agree ? esc_html__( 'Yes', 'kotlinskidev' ) : esc_html__( 'No', 'kotlinskidev' ); ?></td>
             </tr>
             <tr>
-                <th><?php esc_html_e( 'Email delivery', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Email delivery', 'kotlinskidev' ); ?></th>
                 <td><?php echo $submission->email_sent ? '✅ ' . esc_html__( 'Sent', 'kotlinskidev' ) : '⚠️ ' . esc_html__( 'Failed', 'kotlinskidev' ); ?></td>
             </tr>
             <?php if ( $submission->post_id ) : ?>
             <tr>
-                <th><?php esc_html_e( 'Submitted from', 'kotlinskidev' ); ?></th>
+                <th scope="row"><?php esc_html_e( 'Submitted from', 'kotlinskidev' ); ?></th>
                 <td><a href="<?php echo esc_url( (string) get_permalink( (int) $submission->post_id ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( get_the_title( (int) $submission->post_id ) ); ?></a></td>
             </tr>
             <?php endif; ?>

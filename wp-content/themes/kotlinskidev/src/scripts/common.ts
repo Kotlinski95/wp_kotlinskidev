@@ -303,7 +303,7 @@ export const getThemePreference = (): ThemeMode => {
 
 export const formatString = (str: string, ...args: (string | number)[]): string => {
   return str.replace(/%(\d+)\$?[sd]/g, (match, index) => {
-    const argIndex = parseInt(index) - 1;
+    const argIndex = Number.parseInt(index) - 1;
     return args[argIndex]?.toString() || match;
   });
 };

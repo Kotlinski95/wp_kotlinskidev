@@ -107,7 +107,8 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
 
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<GoogleMapInstance | null>(null);
-  const initialCenter = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+  const initialCenter =
+    lat && lng ? { lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) } : undefined;
   const initialZoom = zoom;
   const [mapLoaded, setMapLoaded] = useState(false);
 
@@ -132,7 +133,8 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
       if (!window.google || !window.google.maps || !mapRef.current) {
         return;
       }
-      const center = lat && lng ? { lat: parseFloat(lat), lng: parseFloat(lng) } : undefined;
+      const center =
+        lat && lng ? { lat: Number.parseFloat(lat), lng: Number.parseFloat(lng) } : undefined;
       const geocoder = new window.google.maps.Geocoder();
       const map = new window.google.maps.Map(mapRef.current, {
         center: center || { lat: 0, lng: 0 },

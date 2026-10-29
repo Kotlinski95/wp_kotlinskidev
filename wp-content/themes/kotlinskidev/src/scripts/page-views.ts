@@ -6,8 +6,8 @@
   const getPostId = (): number | null => {
     const metaTag = document.querySelector('meta[name="post-id"]') as HTMLMetaElement;
     if (metaTag && metaTag.content) {
-      const id = parseInt(metaTag.content, 10);
-      if (!isNaN(id)) {
+      const id = Number.parseInt(metaTag.content, 10);
+      if (!Number.isNaN(id)) {
         return id;
       }
     }
@@ -15,8 +15,8 @@
     const bodyClasses = document.body.className.split(" ");
     for (const className of bodyClasses) {
       if (className.startsWith("postid-") || className.startsWith("page-id-")) {
-        const id = parseInt(className.replace(/^(postid-|page-id-)/, ""), 10);
-        if (!isNaN(id)) {
+        const id = Number.parseInt(className.replace(/^(postid-|page-id-)/, ""), 10);
+        if (!Number.isNaN(id)) {
           return id;
         }
       }

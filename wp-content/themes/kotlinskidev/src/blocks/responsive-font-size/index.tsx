@@ -135,7 +135,7 @@ const BreakpointControl: React.FC<BreakpointControlProps> = ({
       return 1;
     }
     const match = val.match(/(\d+(?:\.\d+)?)/);
-    return match ? parseFloat(match[1]) : 1;
+    return match ? Number.parseFloat(match[1]) : 1;
   };
 
   const getDisplayValue = () =>

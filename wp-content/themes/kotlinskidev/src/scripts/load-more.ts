@@ -6,8 +6,8 @@ const WRAPPER_CLASS = "kt-load-more__wrapper";
 
 function applyButtonStyle(button: HTMLButtonElement, dataset: DOMStringMap): void {
   const { ktLoadMoreTextColor, ktLoadMoreBgColor, ktLoadMoreBorderColor } = dataset;
-  const borderWidth = parseInt(dataset.ktLoadMoreBorderWidth ?? "", 10);
-  const borderRadius = parseInt(dataset.ktLoadMoreBorderRadius ?? "", 10);
+  const borderWidth = Number.parseInt(dataset.ktLoadMoreBorderWidth ?? "", 10);
+  const borderRadius = Number.parseInt(dataset.ktLoadMoreBorderRadius ?? "", 10);
 
   if (ktLoadMoreTextColor) {
     button.style.color = ktLoadMoreTextColor;
@@ -74,7 +74,7 @@ function createButtonWrapper(dataset: DOMStringMap): HTMLDivElement {
 }
 
 function initLoadMore(container: HTMLElement): void {
-  const initialCount = parseInt(container.dataset.ktLoadMoreInitial ?? "", 10);
+  const initialCount = Number.parseInt(container.dataset.ktLoadMoreInitial ?? "", 10);
   if (!Number.isFinite(initialCount) || initialCount < 1) {
     return;
   }

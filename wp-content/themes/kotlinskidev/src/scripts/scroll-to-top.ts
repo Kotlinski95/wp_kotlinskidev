@@ -54,7 +54,7 @@ function handleScrollToTop(e: Event) {
       scrollWrapper.classList.add("show");
 
       const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
-      const circumference = parseFloat(progressRing.dataset.circumference || "0");
+      const circumference = Number.parseFloat(progressRing.dataset.circumference || "0");
       const offset = circumference - scrollProgress * circumference;
 
       progressRing.style.strokeDashoffset = `${offset}`;
@@ -86,7 +86,7 @@ function handleScrollToTop(e: Event) {
     progressRing.setAttribute("aria-label", "Scroll progress");
     progressRing.setAttribute("focusable", "false");
     progressRing.setAttribute("tabindex", "-1");
-    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const rem = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
     const sizeRem = 2.5;
     const sizePx = sizeRem * rem;
     const strokeWidth = 3;

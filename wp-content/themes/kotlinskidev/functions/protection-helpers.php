@@ -455,16 +455,16 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
                 <h2><?php esc_html_e('Auto-Protection Settings', 'kotlinskidev'); ?></h2>
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><?php esc_html_e('Auto-protect Emails', 'kotlinskidev'); ?></th>
+                        <th scope="row"><label for="auto_protect_emails"><?php esc_html_e('Auto-protect Emails', 'kotlinskidev'); ?></label></th>
                         <td>
-                            <input type="checkbox" name="auto_protect_emails" <?php checked($auto_protect_emails); ?> />
+                            <input type="checkbox" id="auto_protect_emails" name="auto_protect_emails" <?php checked($auto_protect_emails); ?> />
                             <p class="description"><?php esc_html_e('Automatically protect all email addresses in content', 'kotlinskidev'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php esc_html_e('Auto-protect Phone Numbers', 'kotlinskidev'); ?></th>
+                        <th scope="row"><label for="auto_protect_phones"><?php esc_html_e('Auto-protect Phone Numbers', 'kotlinskidev'); ?></label></th>
                         <td>
-                            <input type="checkbox" name="auto_protect_phones" <?php checked($auto_protect_phones); ?> />
+                            <input type="checkbox" id="auto_protect_phones" name="auto_protect_phones" <?php checked($auto_protect_phones); ?> />
                             <p class="description"><?php esc_html_e('Automatically protect all phone numbers in content', 'kotlinskidev'); ?></p>
                         </td>
                     </tr>
@@ -489,13 +489,13 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php esc_html_e('Key Storage Method', 'kotlinskidev'); ?></th>
+                        <th scope="row"><label for="key_storage_method"><?php esc_html_e('Key Storage Method', 'kotlinskidev'); ?></label></th>
                         <td>
                             <?php if ($using_wp_config): ?>
                                 <p><strong><?php esc_html_e('Currently using wp-config.php (Recommended)', 'kotlinskidev'); ?></strong></p>
                                 <p class="description"><?php esc_html_e('Keys are securely stored in wp-config.php constants.', 'kotlinskidev'); ?></p>
                             <?php else: ?>
-                                <select name="key_storage_method">
+                                <select id="key_storage_method" name="key_storage_method">
                                     <option value="database" <?php selected($key_storage_method, 'database'); ?>><?php esc_html_e('Database (Default)', 'kotlinskidev'); ?></option>
                                     <option value="wp_config" <?php selected($key_storage_method, 'wp_config'); ?>><?php esc_html_e('wp-config.php (More Secure)', 'kotlinskidev'); ?></option>
                                 </select>
@@ -529,6 +529,7 @@ if (!function_exists('kotlinskidev_protection_settings_page')) {
                         <?php esc_html_e('Generate & Show wp-config.php Constants', 'kotlinskidev'); ?>
                     </button>
                     <div id="wp-config-instructions" style="display: none; margin-top: 0.9375rem;">
+                        <label for="wp-config-constants" class="screen-reader-text"><?php esc_html_e('Generated wp-config.php constants', 'kotlinskidev'); ?></label>
                         <textarea readonly style="width: 100%; height: 9.375rem; font-family: monospace; font-size: 0.75rem;" id="wp-config-constants"></textarea>
                         <p><strong><?php esc_html_e('Instructions:', 'kotlinskidev'); ?></strong></p>
                         <ol>

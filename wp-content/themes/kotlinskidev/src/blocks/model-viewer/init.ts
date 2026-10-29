@@ -9,9 +9,9 @@ const initModelViewer = (button: HTMLButtonElement): void => {
     return;
   }
 
-  import(/* webpackChunkName: "model-viewer-runtime" */ "./runtime").then(({ mountModelViewer }) =>
-    mountModelViewer(button, canvas)
-  );
+  import(/* webpackChunkName: "model-viewer-runtime" */ "./runtime")
+    .then(({ mountModelViewer }) => mountModelViewer(button, canvas))
+    .catch((error) => console.error("model-viewer: failed to load runtime", error));
 };
 
 const init = (): void => {

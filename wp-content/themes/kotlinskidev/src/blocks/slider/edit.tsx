@@ -127,8 +127,8 @@ const SliderToolbar = ({ clientId }: { clientId: string }): React.ReactElement =
       url: `${PLACEHOLDER_IMG_3}`,
       ...DEFAULT_BLOCK_ATTRIBUTES,
     });
-    insertBlock(block, innerBlocks.length, clientId, false);
-    selectBlock(block.clientId);
+    void insertBlock(block, innerBlocks.length, clientId, false);
+    void selectBlock(block.clientId);
   };
 
   return (
@@ -203,7 +203,7 @@ const Slider = memo(
       setActiveSlide(index);
       const targetClientId = slideOrder[index];
       if (targetClientId) {
-        selectBlock(targetClientId);
+        void selectBlock(targetClientId);
       }
     };
 

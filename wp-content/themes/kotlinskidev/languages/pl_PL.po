@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-29T10:06:08+00:00\n"
+"POT-Creation-Date: 2026-10-29T16:18:15+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -47,14 +47,14 @@ msgid "Adrian Kotliński"
 msgstr "Adrian Kotliński"
 
 #: build/blocks/contact-detail/render.php:16 functions/contact-card.php:57
-#: functions/settings-page.php:713 src/blocks/contact-detail/render.php:16
+#: functions/settings-page.php:729 src/blocks/contact-detail/render.php:16
 #: build/js/contact-detail.js:1 build/js/google-maps.js:1
 #: build/js/protected-content.js:1
 msgid "Address"
 msgstr "Adres"
 
 #: build/blocks/contact-detail/render.php:17 functions/contact-card.php:69
-#: functions/settings-page.php:721 src/blocks/contact-detail/render.php:17
+#: functions/settings-page.php:737 src/blocks/contact-detail/render.php:17
 #: build/js/contact-detail.js:1 build/js/device-frame.js:1
 #: build/js/protected-content.js:1
 msgid "Phone"
@@ -63,7 +63,7 @@ msgstr "Telefon"
 #: build/blocks/contact-detail/render.php:18
 #: functions/class-contact-submissions-list-table.php:25
 #: functions/contact-card.php:75 functions/contact-form-submissions.php:172
-#: functions/settings-page.php:729 src/blocks/contact-detail/render.php:18
+#: functions/settings-page.php:746 src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1 build/js/protected-content.js:1
 msgid "Email"
 msgstr "E-mail"
@@ -374,19 +374,23 @@ msgstr "Losowo"
 msgid "Most Commented"
 msgstr "Najczęściej komentowane"
 
-#: functions/article-query-manager.php:107
+#: functions/article-query-manager.php:106
+msgid "Order"
+msgstr "Kolejność"
+
+#: functions/article-query-manager.php:108
 msgid "Descending"
 msgstr "Malejąco"
 
-#: functions/article-query-manager.php:108
+#: functions/article-query-manager.php:109
 msgid "Ascending"
 msgstr "Rosnąco"
 
-#: functions/article-query-manager.php:110
+#: functions/article-query-manager.php:111
 msgid "How to sort the articles"
 msgstr "Jak sortować artykuły"
 
-#: functions/article-query-manager.php:193
+#: functions/article-query-manager.php:194
 msgid "Mark as Featured Article"
 msgstr "Oznacz jako wyróżniony artykuł"
 
@@ -453,8 +457,8 @@ msgstr "Strona tematów bloga"
 msgid "Blog Topics Page (PL)"
 msgstr "Strona tematów bloga (PL)"
 
-#: functions/blog-topic-manager.php:206 functions/blog-topic-manager.php:801
-#: functions/blog-topic-manager.php:860 functions/breadcrumbs.php:56
+#: functions/blog-topic-manager.php:206 functions/blog-topic-manager.php:804
+#: functions/blog-topic-manager.php:863 functions/breadcrumbs.php:56
 #: functions/search-page-dynamic-blocks.php:237
 #: functions/search-page-dynamic-blocks.php:371
 #: functions/tag-archive-manager.php:32 patterns/cv-centered-facts.php:79
@@ -585,15 +589,15 @@ msgstr "Wyszukaj treści"
 msgid "Search Content"
 msgstr "Wyszukaj treści"
 
-#: functions/blog-topic-manager.php:704
+#: functions/blog-topic-manager.php:707
 msgid "Polish Search Page"
 msgstr "Polska strona wyszukiwania"
 
-#: functions/blog-topic-manager.php:725
+#: functions/blog-topic-manager.php:728
 msgid "No topics found"
 msgstr "Nie znaleziono tematów"
 
-#: functions/blog-topic-manager.php:729
+#: functions/blog-topic-manager.php:732
 msgid ""
 "No blog topics have been created yet. Create some categories and add posts "
 "to them!"
@@ -601,100 +605,100 @@ msgstr ""
 "Nie utworzono jeszcze żadnych tematów bloga. Utwórz kategorie i dodaj do "
 "nich wpisy!"
 
-#: functions/blog-topic-manager.php:736
+#: functions/blog-topic-manager.php:739
 msgid "Create Your First Topic"
 msgstr "Utwórz swój pierwszy temat"
 
-#: functions/blog-topic-manager.php:801 functions/blog-topic-manager.php:860
+#: functions/blog-topic-manager.php:804 functions/blog-topic-manager.php:863
 #: functions/search-page-dynamic-blocks.php:84
 #: functions/search-page-dynamic-blocks.php:409
 #: functions/tag-archive-manager.php:32 build/js/article-card-panel.js:1
 msgid "Article"
 msgstr "Artykuł"
 
-#: functions/blog-topic-manager.php:807
+#: functions/blog-topic-manager.php:810
 #, php-format
 msgid "Updated %s ago"
 msgstr "Zaktualizowano %s temu"
 
-#: functions/blog-topic-manager.php:817 functions/blog-topic-manager.php:1075
+#: functions/blog-topic-manager.php:820 functions/blog-topic-manager.php:1078
 #, php-format
 msgid "Explore %s"
 msgstr "Odkryj %s"
 
-#: functions/blog-topic-manager.php:875
+#: functions/blog-topic-manager.php:878
 #: functions/search-page-dynamic-blocks.php:253
 msgid "All Topics"
 msgstr "Wszystkie tematy"
 
-#: functions/blog-topic-manager.php:955 functions/blog-topic-manager.php:1292
+#: functions/blog-topic-manager.php:958 functions/blog-topic-manager.php:1295
 #: functions/search-page-dynamic-blocks.php:454
 #: functions/tag-archive-manager.php:125
 msgid "Read Article"
 msgstr "Czytaj artykuł"
 
-#: functions/blog-topic-manager.php:968
+#: functions/blog-topic-manager.php:971
 #: functions/search-page-dynamic-blocks.php:471
 #: functions/tag-archive-manager.php:138
 msgid "Previous"
 msgstr "Wstecz"
 
-#: functions/blog-topic-manager.php:969
+#: functions/blog-topic-manager.php:972
 #: functions/search-page-dynamic-blocks.php:472
 #: functions/tag-archive-manager.php:139
 msgid "Next"
 msgstr "Dalej"
 
-#: functions/blog-topic-manager.php:977
+#: functions/blog-topic-manager.php:980
 msgid "No articles in this topic yet"
 msgstr "Jeszcze nie ma artykułów w tym temacie"
 
-#: functions/blog-topic-manager.php:978
+#: functions/blog-topic-manager.php:981
 msgid "Articles for this topic are coming soon!"
 msgstr "Artykuły na ten temat już wkrótce!"
 
-#: functions/blog-topic-manager.php:1008
+#: functions/blog-topic-manager.php:1011
 msgid "Other Topics"
 msgstr "Inne tematy"
 
-#: functions/blog-topic-manager.php:1063 functions/tag-archive-manager.php:208
+#: functions/blog-topic-manager.php:1066 functions/tag-archive-manager.php:208
 msgid "article"
 msgstr "artykuł"
 
-#: functions/blog-topic-manager.php:1063 functions/tag-archive-manager.php:208
+#: functions/blog-topic-manager.php:1066 functions/tag-archive-manager.php:208
 msgid "articles"
 msgstr "artykuły"
 
-#: functions/blog-topic-manager.php:1067 functions/tag-archive-manager.php:213
+#: functions/blog-topic-manager.php:1070 functions/tag-archive-manager.php:213
 #, php-format
 msgid "Updated %s"
 msgstr "Zaktualizowano %s"
 
-#: functions/blog-topic-manager.php:1089
+#: functions/blog-topic-manager.php:1092
 msgid "No other topics available yet."
 msgstr "Nie ma jeszcze innych dostępnych tematów."
 
-#: functions/blog-topic-manager.php:1108 build/js/project-card-panel.js:1
+#: functions/blog-topic-manager.php:1111 build/js/project-card-panel.js:1
 msgid "Tags"
 msgstr "Tagii"
 
-#: functions/blog-topic-manager.php:1216
+#: functions/blog-topic-manager.php:1219
 msgid "Related Articles"
 msgstr "Powiązane artykuły"
 
-#: functions/blog-topic-manager.php:1253
+#: functions/blog-topic-manager.php:1256
 msgid "Highly Related"
 msgstr "Silnie powiązane"
 
-#: functions/blog-topic-manager.php:1255
+#: functions/blog-topic-manager.php:1258
 msgid "Same Topic"
 msgstr "Ten sam temat"
 
-#: functions/blog-topic-manager.php:1257
+#: functions/blog-topic-manager.php:1260
 msgid "Similar Tags"
 msgstr "Podobne tagi"
 
-#: functions/blog-topic-manager.php:1302
+#: functions/blog-topic-manager.php:1305
 msgid "No related articles found."
 msgstr "Nie znaleziono powiązanych artykułów."
 
@@ -1217,104 +1221,104 @@ msgstr "Szukaj kart projektów"
 msgid "No project cards found"
 msgstr "Nie znaleziono kart projektów"
 
-#: functions/protection-helpers.php:169
+#: functions/protection-helpers.php:172
 msgid "KotlinskiDev"
 msgstr "KotlinskiDev"
 
-#: functions/protection-helpers.php:194
+#: functions/protection-helpers.php:197
 msgid "Failed to load protected content"
 msgstr "Nie udało się załadować chronionej treści"
 
-#: functions/protection-helpers.php:408 functions/protection-helpers.php:409
+#: functions/protection-helpers.php:411 functions/protection-helpers.php:412
 msgid "Content Protection"
 msgstr "Ochrona treści"
 
-#: functions/protection-helpers.php:427
+#: functions/protection-helpers.php:430
 msgid "Security check failed"
 msgstr "Weryfikacja bezpieczeństwa nie powiodła się"
 
-#: functions/protection-helpers.php:431
+#: functions/protection-helpers.php:434
 msgid "You do not have permission to change these settings"
 msgstr "Nie masz uprawnień do zmiany tych ustawień"
 
-#: functions/protection-helpers.php:437
+#: functions/protection-helpers.php:440
 msgid "Settings saved!"
 msgstr "Ustawienia zapisane!"
 
-#: functions/protection-helpers.php:448
+#: functions/protection-helpers.php:451
 msgid "Content Protection Settings"
 msgstr "Ustawienia ochrony treści"
 
-#: functions/protection-helpers.php:452
+#: functions/protection-helpers.php:455
 msgid "Auto-Protection Settings"
 msgstr "Ustawienia automatycznej ochrony"
 
-#: functions/protection-helpers.php:455
+#: functions/protection-helpers.php:458
 msgid "Auto-protect Emails"
 msgstr "Automatycznie chroń adresy e-mail"
 
-#: functions/protection-helpers.php:458
+#: functions/protection-helpers.php:461
 msgid "Automatically protect all email addresses in content"
 msgstr "Automatycznie chroń wszystkie adresy e-mail w treści"
 
-#: functions/protection-helpers.php:462
+#: functions/protection-helpers.php:465
 msgid "Auto-protect Phone Numbers"
 msgstr "Automatycznie chroń numery telefonów"
 
-#: functions/protection-helpers.php:465
+#: functions/protection-helpers.php:468
 msgid "Automatically protect all phone numbers in content"
 msgstr "Automatycznie chroń wszystkie numery telefonów w treści"
 
-#: functions/protection-helpers.php:470
+#: functions/protection-helpers.php:473
 msgid "Encryption Settings"
 msgstr "Ustawienia szyfrowania"
 
-#: functions/protection-helpers.php:473
+#: functions/protection-helpers.php:476
 msgid "Encryption Status"
 msgstr "Status szyfrowania"
 
-#: functions/protection-helpers.php:476
+#: functions/protection-helpers.php:479
 msgid "RSA-2048 encryption is active"
 msgstr "Szyfrowanie RSA-2048 jest aktywne"
 
-#: functions/protection-helpers.php:478
+#: functions/protection-helpers.php:481
 msgid "Keys are stored securely in wp-config.php"
 msgstr "Klucze są bezpiecznie przechowywane w pliku wp-config.php"
 
-#: functions/protection-helpers.php:480
+#: functions/protection-helpers.php:483
 msgid "Keys are stored in database (less secure)"
 msgstr "Klucze są przechowywane w bazie danych (mniej bezpieczne)"
 
-#: functions/protection-helpers.php:483
+#: functions/protection-helpers.php:486
 msgid "No encryption keys found"
 msgstr "Nie znaleziono kluczy szyfrujących"
 
-#: functions/protection-helpers.php:485
+#: functions/protection-helpers.php:488
 msgid "Content is encrypted using RSA-2048 encryption for maximum security."
 msgstr ""
 "Treść jest szyfrowana algorytmem RSA-2048 dla maksymalnego bezpieczeństwa."
 
-#: functions/protection-helpers.php:489
+#: functions/protection-helpers.php:492
 msgid "Key Storage Method"
 msgstr "Metoda przechowywania kluczy"
 
-#: functions/protection-helpers.php:492
+#: functions/protection-helpers.php:495
 msgid "Currently using wp-config.php (Recommended)"
 msgstr "Obecnie używany jest wp-config.php (Zalecane)"
 
-#: functions/protection-helpers.php:493
+#: functions/protection-helpers.php:496
 msgid "Keys are securely stored in wp-config.php constants."
 msgstr "Klucze są bezpiecznie przechowywane w stałych pliku wp-config.php."
 
-#: functions/protection-helpers.php:496
+#: functions/protection-helpers.php:499
 msgid "Database (Default)"
 msgstr "Baza danych (Domyślnie)"
 
-#: functions/protection-helpers.php:497
+#: functions/protection-helpers.php:500
 msgid "wp-config.php (More Secure)"
 msgstr "wp-config.php (Bezpieczniejsze)"
 
-#: functions/protection-helpers.php:500
+#: functions/protection-helpers.php:503
 msgid ""
 "Database storage is convenient but less secure. wp-config.php storage "
 "requires manual setup but is more secure."
@@ -1323,15 +1327,15 @@ msgstr ""
 "Przechowywanie w wp-config.php wymaga ręcznej konfiguracji, ale jest "
 "bezpieczniejsze."
 
-#: functions/protection-helpers.php:506
+#: functions/protection-helpers.php:509
 msgid "Generate New Keys"
 msgstr "Wygeneruj nowe klucze"
 
-#: functions/protection-helpers.php:509
+#: functions/protection-helpers.php:512
 msgid "Generate New Encryption Keys"
 msgstr "Wygeneruj nowe klucze szyfrujące"
 
-#: functions/protection-helpers.php:512
+#: functions/protection-helpers.php:515
 msgid ""
 "Warning: Regenerating keys will make all existing protected content "
 "unreadable until re-protected."
@@ -1339,11 +1343,11 @@ msgstr ""
 "Uwaga: ponowne wygenerowanie kluczy sprawi, że cała istniejąca chroniona "
 "treść stanie się nieczytelna do czasu ponownego zabezpieczenia."
 
-#: functions/protection-helpers.php:523
+#: functions/protection-helpers.php:526
 msgid "wp-config.php Setup Instructions"
 msgstr "Instrukcje konfiguracji wp-config.php"
 
-#: functions/protection-helpers.php:524
+#: functions/protection-helpers.php:527
 msgid ""
 "To use wp-config.php storage, add these constants to your wp-config.php "
 "file:"
@@ -1351,19 +1355,23 @@ msgstr ""
 "Aby korzystać z przechowywania w wp-config.php, dodaj te stałe do pliku wp-"
 "config.php:"
 
-#: functions/protection-helpers.php:526
+#: functions/protection-helpers.php:529
 msgid "Generate & Show wp-config.php Constants"
 msgstr "Wygeneruj i pokaż stałe wp-config.php"
 
-#: functions/protection-helpers.php:530
+#: functions/protection-helpers.php:532
+msgid "Generated wp-config.php constants"
+msgstr "Wygenerowane stałe wp-config.php"
+
+#: functions/protection-helpers.php:534
 msgid "Instructions:"
 msgstr "Instrukcje:"
 
-#: functions/protection-helpers.php:532
+#: functions/protection-helpers.php:536
 msgid "Copy the constants above"
 msgstr "Skopiuj powyższe stałe"
 
-#: functions/protection-helpers.php:533
+#: functions/protection-helpers.php:537
 msgid ""
 "Add them to your wp-config.php file before the line that says \"/* That's "
 "all, stop editing! */\""
@@ -1371,55 +1379,55 @@ msgstr ""
 "Dodaj je do pliku wp-config.php przed linią \"/* That's all, stop editing! "
 "*/\""
 
-#: functions/protection-helpers.php:534
+#: functions/protection-helpers.php:538
 msgid "Save the file and reload this page"
 msgstr "Zapisz plik i odśwież tę stronę"
 
-#: functions/protection-helpers.php:542
+#: functions/protection-helpers.php:546
 msgid "Are you sure? This will invalidate all existing protected content."
 msgstr "Czy na pewno? To unieważni całą istniejącą chronioną treść."
 
-#: functions/protection-helpers.php:557
+#: functions/protection-helpers.php:561
 msgid "Keys regenerated successfully!"
 msgstr "Klucze zostały pomyślnie wygenerowane ponownie!"
 
-#: functions/protection-helpers.php:560 functions/protection-helpers.php:586
+#: functions/protection-helpers.php:564 functions/protection-helpers.php:590
 msgid "Error: "
 msgstr "Błąd: "
 
-#: functions/protection-helpers.php:564 functions/protection-helpers.php:590
+#: functions/protection-helpers.php:568 functions/protection-helpers.php:594
 msgid "Network error occurred"
 msgstr "Wystąpił błąd sieci"
 
-#: functions/protection-helpers.php:583
+#: functions/protection-helpers.php:587
 msgid "Constants Generated"
 msgstr "Stałe wygenerowane"
 
-#: functions/protection-helpers.php:596
+#: functions/protection-helpers.php:600
 msgid "Usage Examples"
 msgstr "Przykłady użycia"
 
-#: functions/protection-helpers.php:597
+#: functions/protection-helpers.php:601
 msgid "Block Editor"
 msgstr "Edytor bloków"
 
-#: functions/protection-helpers.php:598
+#: functions/protection-helpers.php:602
 msgid "Use the \"Protected Content\" block from the KotlinskiDev category."
 msgstr "Użyj bloku \"Chroniona treść\" z kategorii KotlinskiDev."
 
-#: functions/protection-helpers.php:600
+#: functions/protection-helpers.php:604
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: functions/protection-helpers.php:633
+#: functions/protection-helpers.php:637
 msgid "Copy to clipboard"
 msgstr "Kopiuj do schowka"
 
-#: functions/protection-helpers.php:634
+#: functions/protection-helpers.php:638
 msgid "Copied to clipboard"
 msgstr "Skopiowano do schowka"
 
-#: functions/protection-helpers.php:682
+#: functions/protection-helpers.php:686
 msgid ""
 "Security token expired. This may be due to page caching. Please refresh the "
 "page and try again."
@@ -1427,11 +1435,11 @@ msgstr ""
 "Token bezpieczeństwa wygasł. Może to być spowodowane buforowaniem strony. "
 "Odśwież stronę i spróbuj ponownie."
 
-#: functions/protection-helpers.php:691
+#: functions/protection-helpers.php:695
 msgid "No content provided"
 msgstr "Nie podano treści"
 
-#: functions/protection-helpers.php:695
+#: functions/protection-helpers.php:699
 msgid "Too many items requested"
 msgstr "Zażądano zbyt wielu elementów"
 
@@ -1705,156 +1713,156 @@ msgstr "Przełączanie jasny/ciemny"
 msgid "Default mode"
 msgstr "Tryb domyślny"
 
-#: functions/settings-page.php:183
+#: functions/settings-page.php:184
 msgid "Responsive Breakpoints"
 msgstr "Responsywne punkty przełamania"
 
-#: functions/settings-page.php:190
+#: functions/settings-page.php:191
 msgid "Mobile max width (px)"
 msgstr "Maks. szerokość mobilna (px)"
 
-#: functions/settings-page.php:198
+#: functions/settings-page.php:200
 msgid "Tablet max width (px)"
 msgstr "Maks. szerokość tabletu (px)"
 
-#: functions/settings-page.php:206
+#: functions/settings-page.php:209
 msgid "Large desktop min width (px)"
 msgstr "Min. szerokość dużego ekranu (px)"
 
-#: functions/settings-page.php:234
+#: functions/settings-page.php:238
 msgid "Anchor Scroll Offset"
 msgstr "Przesunięcie przewijania do kotwicy"
 
-#: functions/settings-page.php:241
+#: functions/settings-page.php:245
 msgid "Desktop offset (px)"
 msgstr "Przesunięcie na komputerze (px)"
 
-#: functions/settings-page.php:249
+#: functions/settings-page.php:254
 msgid "Mobile offset (px)"
 msgstr "Przesunięcie na urządzeniu mobilnym (px)"
 
-#: functions/settings-page.php:277
+#: functions/settings-page.php:283
 msgid "Active Page Links"
 msgstr "Linki aktywnej strony"
 
-#: functions/settings-page.php:284
+#: functions/settings-page.php:290
 msgid "Highlight active-page links"
 msgstr "Podświetl linki aktywnej strony"
 
-#: functions/settings-page.php:292
+#: functions/settings-page.php:298
 msgid "Disable current-page link clicks"
 msgstr "Wyłącz klikanie linku aktualnej strony"
 
-#: functions/settings-page.php:350
+#: functions/settings-page.php:356
 msgid "Login Page Branding"
 msgstr "Branding strony logowania"
 
-#: functions/settings-page.php:357
+#: functions/settings-page.php:363
 msgid "Enable custom login"
 msgstr "Włącz własne logowanie"
 
-#: functions/settings-page.php:365
+#: functions/settings-page.php:371
 msgid "Background image"
 msgstr "Obraz tła"
 
-#: functions/settings-page.php:373
+#: functions/settings-page.php:380
 msgid "Logo image"
 msgstr "Obraz logo"
 
-#: functions/settings-page.php:381 build/js/editor.js:1 build/js/editor.js:37
+#: functions/settings-page.php:389 build/js/editor.js:1 build/js/editor.js:37
 #: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr "Kolor tła"
 
-#: functions/settings-page.php:389 build/js/certificate.js:1
+#: functions/settings-page.php:398 build/js/certificate.js:1
 msgid "Accent color"
 msgstr "Kolor akcentu"
 
-#: functions/settings-page.php:435
+#: functions/settings-page.php:445
 msgid "Facebook Pixel"
 msgstr "Piksel Facebooka"
 
-#: functions/settings-page.php:442
+#: functions/settings-page.php:452
 msgid "Pixel ID"
 msgstr "ID piksela"
 
-#: functions/settings-page.php:450 functions/settings-page.php:473
+#: functions/settings-page.php:461 functions/settings-page.php:486
 msgid "Custom script (overrides ID)"
 msgstr "Własny skrypt (nadpisuje ID)"
 
-#: functions/settings-page.php:458
+#: functions/settings-page.php:470
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: functions/settings-page.php:465
+#: functions/settings-page.php:477
 msgid "Measurement ID"
 msgstr "Identyfikator pomiaru"
 
-#: functions/settings-page.php:491
+#: functions/settings-page.php:505
 msgid "Custom Event Tracking"
 msgstr "Śledzenie zdarzeń niestandardowych"
 
-#: functions/settings-page.php:498
+#: functions/settings-page.php:512
 msgid "Enabled events"
 msgstr "Włączone zdarzenia"
 
-#: functions/settings-page.php:516
+#: functions/settings-page.php:530
 msgid "Theme Features"
 msgstr "Funkcje motywu"
 
-#: functions/settings-page.php:523
+#: functions/settings-page.php:537
 msgid "Enabled features"
 msgstr "Włączone funkcje"
 
-#: functions/settings-page.php:574
+#: functions/settings-page.php:588
 msgid "Content Security Policy"
 msgstr "Content Security Policy"
 
-#: functions/settings-page.php:581
+#: functions/settings-page.php:595
 msgid "Enable CSP"
 msgstr "Włącz CSP"
 
-#: functions/settings-page.php:589
+#: functions/settings-page.php:603
 msgid "Mode"
 msgstr "Tryb"
 
-#: functions/settings-page.php:597
+#: functions/settings-page.php:611
 msgid "Upgrade insecure requests"
 msgstr "Upgrade insecure requests"
 
-#: functions/settings-page.php:605
+#: functions/settings-page.php:619
 msgid "CSP Directives"
 msgstr "Dyrektywy CSP"
 
-#: functions/settings-page.php:643
+#: functions/settings-page.php:657
 msgid "Other Security Headers"
 msgstr "Inne nagłówki bezpieczeństwa"
 
-#: functions/settings-page.php:650
+#: functions/settings-page.php:664
 msgid "Referrer-Policy"
 msgstr "Referrer-Policy"
 
-#: functions/settings-page.php:658
+#: functions/settings-page.php:673
 msgid "Permissions-Policy"
 msgstr "Permissions-Policy"
 
-#: functions/settings-page.php:706
+#: functions/settings-page.php:722
 msgid "Business Contact Details"
 msgstr "Dane kontaktowe firmy"
 
-#: functions/settings-page.php:737
+#: functions/settings-page.php:755
 msgid "Business hours"
 msgstr "Godziny otwarcia"
 
-#: functions/settings-page.php:755
+#: functions/settings-page.php:773
 msgid "Sentry"
 msgstr "Sentry"
 
-#: functions/settings-page.php:762
+#: functions/settings-page.php:780
 msgid "DSN"
 msgstr "DSN"
 
-#: functions/settings-page.php:771
+#: functions/settings-page.php:790
 msgid ""
 "Reports uncaught PHP exceptions and fatal errors (the class of bug that "
 "shows visitors a broken page) to Sentry. Regular "
@@ -1868,7 +1876,7 @@ msgstr ""
 "stronę, aby zmieścić się w darmowym limicie zdarzeń. Aktywne tylko, gdy "
 "WP_DEBUG jest wyłączony, więc środowisko lokalne nigdy nie wysyła zdarzeń."
 
-#: functions/settings-page.php:780
+#: functions/settings-page.php:799
 msgid ""
 "From your Sentry project (Settings → Client Keys). Leave empty to disable "
 "reporting."
@@ -1876,7 +1884,7 @@ msgstr ""
 "Z projektu Sentry (Ustawienia → Client Keys). Pozostaw puste, aby wyłączyć "
 "raportowanie."
 
-#: functions/settings-page.php:787
+#: functions/settings-page.php:806
 msgid ""
 "Used on the contact card shown across the site (e.g. city landing pages). "
 "Address, phone, and email are shown obfuscated on the frontend and only "
@@ -1887,26 +1895,26 @@ msgstr ""
 " miast). Adres, telefon i e-mail są na stronie ukryte i odsłaniane dopiero "
 "po kliknięciu, tym samym mechanizmem co blok Chronionej treści."
 
-#: functions/settings-page.php:812
+#: functions/settings-page.php:831
 msgid "Edit source text"
 msgstr "Edytuj tekst źródłowy"
 
-#: functions/settings-page.php:814
+#: functions/settings-page.php:833
 msgid "This is the source text shown until a per-language translation exists."
 msgstr ""
 "To jest tekst źródłowy wyświetlany do czasu utworzenia tłumaczenia dla "
 "danego języka."
 
-#: functions/settings-page.php:815
+#: functions/settings-page.php:834
 msgid "Translate per language →"
 msgstr "Przetłumacz dla każdego języka →"
 
-#: functions/settings-page.php:852
+#: functions/settings-page.php:871
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr ""
 "Wyświetlane jako zwykły tekst — dane nieukrywane, ponieważ nie są wrażliwe."
 
-#: functions/settings-page.php:877
+#: functions/settings-page.php:896
 msgid ""
 "This site does not use comments. Enabling this protection closes comments at"
 " the server level — spam bots that POST directly to wp-comments-post.php or "
@@ -1921,11 +1929,11 @@ msgstr ""
 "powiadomienia e-mail. Same ustawienia dyskusji WordPress nie zatrzymują tego"
 " ruchu."
 
-#: functions/settings-page.php:891
+#: functions/settings-page.php:910
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr "Blokuj wszystkie zgłoszenia komentarzy w całej witrynie (zalecane)"
 
-#: functions/settings-page.php:894
+#: functions/settings-page.php:913
 msgid ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
@@ -1933,7 +1941,7 @@ msgstr ""
 "Podłącza się do preprocess_comment i xmlrpc_methods. Usuwa interfejs "
 "komentarzy z edytora bloków i menu administracyjnego."
 
-#: functions/settings-page.php:901
+#: functions/settings-page.php:920
 msgid ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
@@ -1942,24 +1950,24 @@ msgstr ""
 "przełącznika motywu jest ukryty, a strona pozostaje zablokowana w trybie "
 "domyślnym."
 
-#: functions/settings-page.php:915
+#: functions/settings-page.php:934
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr ""
 "Pokaż przełącznik motywu i pozwól odwiedzającym przełączać tryb jasny/ciemny"
 
-#: functions/settings-page.php:924
+#: functions/settings-page.php:943
 msgid "Auto (visitor system preference)"
 msgstr "Automatyczny (preferencja systemowa odwiedzającego)"
 
-#: functions/settings-page.php:925
+#: functions/settings-page.php:944
 msgid "Light"
 msgstr "Jasny"
 
-#: functions/settings-page.php:926
+#: functions/settings-page.php:945
 msgid "Dark"
 msgstr "Ciemny"
 
-#: functions/settings-page.php:937
+#: functions/settings-page.php:956
 msgid ""
 "Initial mode for visitors without a saved preference. With switching "
 "disabled, this is the only mode used."
@@ -1967,7 +1975,7 @@ msgstr ""
 "Początkowy tryb dla odwiedzających bez zapisanej preferencji. Przy "
 "wyłączonym przełączaniu jest to jedyny używany tryb."
 
-#: functions/settings-page.php:945
+#: functions/settings-page.php:964
 msgid ""
 "One source of truth for responsive ranges. These values drive the compiled "
 "theme CSS (media queries are rewritten at runtime and cached), the editor "
@@ -1980,37 +1988,37 @@ msgstr ""
 "oraz każdą wtyczką odczytującą modyfikacje motywu mobile_breakpoint / "
 "tablet_breakpoint."
 
-#: functions/settings-page.php:947
+#: functions/settings-page.php:966
 msgid "Range"
 msgstr "Zakres"
 
-#: functions/settings-page.php:948
+#: functions/settings-page.php:967
 msgid "Effective values"
 msgstr "Wartości efektywne"
 
-#: functions/settings-page.php:949 build/js/content-tabs.js:1
+#: functions/settings-page.php:968 build/js/content-tabs.js:1
 #: build/js/editor.js:16 build/js/editor.js:25 build/js/editor.js:34
 #: build/js/editor.js:43 build/js/editor.js:46
 msgid "Mobile"
 msgstr "Mobilny"
 
-#: functions/settings-page.php:950 build/js/content-tabs.js:1
+#: functions/settings-page.php:969 build/js/content-tabs.js:1
 #: build/js/device-frame.js:1 build/js/editor.js:13 build/js/editor.js:22
 #: build/js/editor.js:31 build/js/editor.js:40 build/js/editor.js:46
 msgid "Tablet"
 msgstr "Tablet"
 
-#: functions/settings-page.php:951 build/js/content-tabs.js:1
+#: functions/settings-page.php:970 build/js/content-tabs.js:1
 #: build/js/device-frame.js:1 build/js/editor.js:10 build/js/editor.js:19
 #: build/js/editor.js:28 build/js/editor.js:37 build/js/editor.js:46
 msgid "Desktop"
 msgstr "Komputer"
 
-#: functions/settings-page.php:952
+#: functions/settings-page.php:971
 msgid "Large desktop"
 msgstr "Duży ekran"
 
-#: functions/settings-page.php:962
+#: functions/settings-page.php:981
 msgid ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
@@ -2018,7 +2026,7 @@ msgstr ""
 "Ekrany do tej szerokości są mobilne. Tablet zaczyna się od tej wartości + "
 "1px. Wartość domyślna motywu: 781."
 
-#: functions/settings-page.php:973
+#: functions/settings-page.php:992
 msgid ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
@@ -2026,7 +2034,7 @@ msgstr ""
 "Ekrany do tej szerokości są tabletowe. Komputer zaczyna się od tej wartości "
 "+ 1px. Wartość domyślna motywu: 1023."
 
-#: functions/settings-page.php:984
+#: functions/settings-page.php:1003
 msgid ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
@@ -2034,7 +2042,7 @@ msgstr ""
 "Od tej wartości zaczynają się udoskonalenia dla szerokich ekranów (np. "
 "szerszy kontener treści). Wartość domyślna motywu: 1200."
 
-#: functions/settings-page.php:991
+#: functions/settings-page.php:1010
 msgid ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
@@ -2050,7 +2058,7 @@ msgstr ""
 "wymaga małego lub żadnego przesunięcia."
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:1004
+#: functions/settings-page.php:1023
 #, php-format
 msgid ""
 "Applies above the desktop breakpoint, where the header stays visible while "
@@ -2061,7 +2069,7 @@ msgstr ""
 "(odpowiada wysokości nagłówka)."
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:1022
+#: functions/settings-page.php:1041
 #, php-format
 msgid ""
 "Applies below the desktop breakpoint, where the header hides on scroll. "
@@ -2072,7 +2080,7 @@ msgstr ""
 "się podczas przewijania. Wartość domyślna motywu: %d, ponieważ nagłówek jest"
 " zwykle ukryty do momentu zakończenia przewijania."
 
-#: functions/settings-page.php:1032
+#: functions/settings-page.php:1051
 msgid ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
@@ -2088,7 +2096,7 @@ msgstr ""
 " się znajduje, nic nie daje. Poszczególne bloki mogą nadal wyłączyć tę "
 "funkcję we własnym panelu zaawansowanym, niezależnie od tych ustawień."
 
-#: functions/settings-page.php:1041
+#: functions/settings-page.php:1060
 msgid ""
 "Mark links pointing at the current page with the active hover-style "
 "highlight"
@@ -2096,7 +2104,7 @@ msgstr ""
 "Oznacz linki wskazujące na bieżącą stronę aktywnym stylem podświetlenia jak "
 "przy najechaniu"
 
-#: functions/settings-page.php:1044
+#: functions/settings-page.php:1063
 msgid ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
@@ -2105,7 +2113,7 @@ msgstr ""
 "całej witrynie (nawigacja, stopka, menu hamburger, mega menu, popularne "
 "strony)."
 
-#: functions/settings-page.php:1055
+#: functions/settings-page.php:1074
 msgid ""
 "Prevent clicking a link/button that points at the page currently being "
 "viewed"
@@ -2113,7 +2121,7 @@ msgstr ""
 "Zablokuj klikanie linku/przycisku wskazującego na aktualnie przeglądaną "
 "stronę"
 
-#: functions/settings-page.php:1058
+#: functions/settings-page.php:1077
 msgid ""
 "Adds aria-disabled and removes the link from tab order. Menu items that also"
 " open a mega-menu panel stay fully interactive. Has no effect if "
@@ -2123,35 +2131,35 @@ msgstr ""
 "które otwierają również panel mega menu, pozostają w pełni interaktywne. Nie"
 " ma efektu, jeśli powyższe podświetlenie jest wyłączone."
 
-#: functions/settings-page.php:1075
+#: functions/settings-page.php:1094
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr "Dostosuj tło, logo i kolor akcentu strony wp-login.php."
 
-#: functions/settings-page.php:1084
+#: functions/settings-page.php:1103
 msgid "Enable custom login page styling"
 msgstr "Włącz własny styl strony logowania"
 
-#: functions/settings-page.php:1094 functions/settings-page.php:1106
+#: functions/settings-page.php:1113 functions/settings-page.php:1125
 msgid "Choose Image"
 msgstr "Wybierz obraz"
 
-#: functions/settings-page.php:1096
+#: functions/settings-page.php:1115
 msgid "Defaults to the theme background image when left empty."
 msgstr "Domyślnie obraz tła motywu, jeśli pozostawione puste."
 
-#: functions/settings-page.php:1108
+#: functions/settings-page.php:1127
 msgid "Defaults to the theme logo when left empty."
 msgstr "Domyślnie logo motywu, jeśli pozostawione puste."
 
-#: functions/settings-page.php:1118
+#: functions/settings-page.php:1137
 msgid "Fallback background color when no image loads."
 msgstr "Zapasowy kolor tła, gdy obraz się nie załaduje."
 
-#: functions/settings-page.php:1127
+#: functions/settings-page.php:1146
 msgid "Color for links and hover effects."
 msgstr "Kolor linków i efektów najechania."
 
-#: functions/settings-page.php:1162
+#: functions/settings-page.php:1181
 msgid ""
 "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
 "responses), gated behind Complianz's \"marketing\" consent category — it "
@@ -2164,12 +2172,12 @@ msgstr ""
 " marketingowe. Wklejony własny skrypt jest wyświetlany bez zmian i nie jest "
 "automatycznie objęty bramką zgody."
 
-#: functions/settings-page.php:1178 functions/settings-page.php:1200
+#: functions/settings-page.php:1197 functions/settings-page.php:1219
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr ""
 "Wklej tutaj pełny tag skryptu, aby nadpisać powyższy fragment oparty na ID."
 
-#: functions/settings-page.php:1184
+#: functions/settings-page.php:1203
 msgid ""
 "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
 "REST responses), gated behind Complianz's \"statistics\" consent category — "
@@ -2182,7 +2190,7 @@ msgstr ""
 "zaakceptuje pliki cookie statystyczne. Wklejony własny skrypt jest "
 "wyświetlany bez zmian i nie jest automatycznie objęty bramką zgody."
 
-#: functions/settings-page.php:1206
+#: functions/settings-page.php:1225
 msgid ""
 "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks,"
 " form completions, lightbox opens, etc.). Unchecking one stops it going to "
@@ -2198,7 +2206,7 @@ msgstr ""
 "kodu w routing.ts. Pełną listę zdarzeń i ich parametrów opisuje "
 "docs/tracking-spec.md."
 
-#: functions/settings-page.php:1231
+#: functions/settings-page.php:1250
 msgid ""
 "Each of these registers its own custom post type, blocks, and admin screens."
 " If this theme is reused for a project that doesn't need one, switching it "
@@ -2211,7 +2219,7 @@ msgstr ""
 "rejestrację, a nie tylko ją ukrywa — mniej bloków do odkrycia w edytorze, "
 "brak nieużywanych pozycji w menu administracyjnym."
 
-#: functions/settings-page.php:1251
+#: functions/settings-page.php:1270
 msgid ""
 "Changes take effect on the next page load — WordPress re-registers post "
 "types and blocks on every request, nothing to rebuild."
@@ -2219,7 +2227,7 @@ msgstr ""
 "Zmiany są widoczne po następnym wczytaniu strony — WordPress rejestruje typy"
 " wpisów i bloki na nowo przy każdym żądaniu, nic nie trzeba przebudowywać."
 
-#: functions/settings-page.php:1257
+#: functions/settings-page.php:1276
 msgid ""
 "Controls the Content-Security-Policy header sent on frontend responses "
 "(never on wp-admin or REST requests). Each directive below is a space-"
@@ -2237,15 +2245,15 @@ msgstr ""
 "Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); "
 "dostosuj je do tego, co faktycznie ładuje dana strona."
 
-#: functions/settings-page.php:1266
+#: functions/settings-page.php:1285
 msgid "Send a Content-Security-Policy header"
 msgstr "Wysyłaj nagłówek Content-Security-Policy"
 
-#: functions/settings-page.php:1277
+#: functions/settings-page.php:1296
 msgid "Enforce the policy (blocks violations)"
 msgstr "Wymuszaj politykę (blokuje naruszenia)"
 
-#: functions/settings-page.php:1280
+#: functions/settings-page.php:1299
 msgid ""
 "Leave unchecked to send Content-Security-Policy-Report-Only instead — the "
 "browser reports violations to the console without blocking anything. "
@@ -2256,11 +2264,11 @@ msgstr ""
 "blokując. Zalecane przez co najmniej kilka dni na nowej stronie przed "
 "włączeniem wymuszania."
 
-#: functions/settings-page.php:1291
+#: functions/settings-page.php:1310
 msgid "Add the upgrade-insecure-requests directive"
 msgstr "Dodaj dyrektywę upgrade-insecure-requests"
 
-#: functions/settings-page.php:1298
+#: functions/settings-page.php:1317
 msgid ""
 "One field per CSP directive. Values are sanitized as plain text (no HTML, no"
 " line breaks) before being sent in the header."
@@ -2268,7 +2276,7 @@ msgstr ""
 "Jedno pole na każdą dyrektywę CSP. Wartości są oczyszczane jako czysty tekst"
 " (bez HTML, bez znaków nowej linii) przed wysłaniem w nagłówku."
 
-#: functions/settings-page.php:1313
+#: functions/settings-page.php:1332
 msgid ""
 "Referrer-Policy and Permissions-Policy are sent on every frontend response "
 "(never on wp-admin or REST requests). Set independently per site — no need "
@@ -2279,7 +2287,7 @@ msgstr ""
 "każdej strony — nie trzeba edytować kodu, aby dać innemu klientowi inną "
 "politykę."
 
-#: functions/settings-page.php:1328
+#: functions/settings-page.php:1347
 msgid ""
 "Controls how much of the current page URL is sent to other sites when a "
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
@@ -2289,7 +2297,7 @@ msgstr ""
 " gdy odwiedzający kliknie link prowadzący poza tę stronę. strict-origin-"
 "when-cross-origin to zrównoważona wartość domyślna."
 
-#: functions/settings-page.php:1339
+#: functions/settings-page.php:1358
 msgid ""
 "Full Permissions-Policy header value. Clear this field to stop sending the "
 "header entirely — it will not fall back to a default once saved empty."

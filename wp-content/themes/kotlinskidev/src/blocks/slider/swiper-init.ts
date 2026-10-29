@@ -270,14 +270,14 @@ function getCurrentTranslateX(el: HTMLElement): number {
   // WebKit (Safari/iOS) reports translate3d() as matrix3d() with x at index 12, not 4 — missing this snapped the carousel back to its start on release.
   const matrix3d = transform.match(/matrix3d\(([^)]+)\)/);
   if (matrix3d) {
-    const parts = matrix3d[1].split(",").map((value) => parseFloat(value.trim()));
+    const parts = matrix3d[1].split(",").map((value) => Number.parseFloat(value.trim()));
     return parts[12] ?? 0;
   }
   const matrix2d = transform.match(/matrix\(([^)]+)\)/);
   if (!matrix2d) {
     return 0;
   }
-  const parts = matrix2d[1].split(",").map((value) => parseFloat(value.trim()));
+  const parts = matrix2d[1].split(",").map((value) => Number.parseFloat(value.trim()));
   return parts[4] ?? 0;
 }
 
@@ -621,7 +621,7 @@ function wireProgressCircle(container: HTMLElement, swiper: Swiper): void {
     return;
   }
 
-  const radius = parseFloat(progressCircle.getAttribute("r") || "16");
+  const radius = Number.parseFloat(progressCircle.getAttribute("r") || "16");
   const circumference = 2 * Math.PI * radius;
   progressCircle.style.strokeDasharray = `${circumference}`;
   progressCircle.style.strokeDashoffset = `${circumference}`;

@@ -66,13 +66,17 @@ const watchDocument = (doc: Document): void => {
 
         if (!entry.isIntersecting) {
           if (mounted.has(host)) {
-            loadRuntime().then((runtime) => runtime.setActive(host, false));
+            loadRuntime()
+              .then((runtime) => runtime.setActive(host, false))
+              .catch((error) => console.error("canvas-background: failed to load runtime", error));
           }
           return;
         }
 
         if (mounted.has(host)) {
-          loadRuntime().then((runtime) => runtime.setActive(host, true));
+          loadRuntime()
+            .then((runtime) => runtime.setActive(host, true))
+            .catch((error) => console.error("canvas-background: failed to load runtime", error));
           return;
         }
 
@@ -82,7 +86,9 @@ const watchDocument = (doc: Document): void => {
         }
 
         mounted.add(host);
-        loadRuntime().then((runtime) => runtime.mount(host, recipe, reducedMotion));
+        loadRuntime()
+          .then((runtime) => runtime.mount(host, recipe, reducedMotion))
+          .catch((error) => console.error("canvas-background: failed to load runtime", error));
       });
     },
     { rootMargin: "200px 0px" }

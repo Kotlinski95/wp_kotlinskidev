@@ -103,6 +103,7 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                     <option value="comment_count" <?php selected($order_by, 'comment_count'); ?>><?php esc_html_e('Most Commented', 'kotlinskidev'); ?></option>
                 </select>
 
+                <label for="order" class="screen-reader-text"><?php esc_html_e('Order', 'kotlinskidev'); ?></label>
                 <select name="order" id="order" style="margin-left: 0.625rem;">
                     <option value="DESC" <?php selected($order, 'DESC'); ?>><?php esc_html_e('Descending', 'kotlinskidev'); ?></option>
                     <option value="ASC" <?php selected($order, 'ASC'); ?>><?php esc_html_e('Ascending', 'kotlinskidev'); ?></option>

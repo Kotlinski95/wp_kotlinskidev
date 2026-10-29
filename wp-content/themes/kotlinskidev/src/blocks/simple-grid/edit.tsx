@@ -70,7 +70,7 @@ export default function Edit({
     }));
 
   const onColumnsChange = (value: string) => {
-    const target = parseInt(value, 10);
+    const target = Number.parseInt(value, 10);
     if (!Number.isFinite(target) || target < 1 || target === innerBlocks.length) {
       return;
     }
@@ -97,7 +97,7 @@ export default function Edit({
   ];
 
   const onMobileColumnsChange = (value: string) => {
-    const mobileColumns = parseInt(value, 10);
+    const mobileColumns = Number.parseInt(value, 10);
     setAttributes({ mobileColumns: mobileColumns > 0 ? mobileColumns : undefined });
   };
 
@@ -111,7 +111,7 @@ export default function Edit({
   ];
 
   const onTabletColumnsChange = (value: string) => {
-    const tabletColumns = parseInt(value, 10);
+    const tabletColumns = Number.parseInt(value, 10);
     setAttributes({ tabletColumns: tabletColumns > 0 ? tabletColumns : undefined });
   };
 
