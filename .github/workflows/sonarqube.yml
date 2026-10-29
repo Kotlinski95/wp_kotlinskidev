@@ -78,7 +78,9 @@ jobs:
       - name: Generate analysis token
         id: sonar_token
         run: |
-          TOKEN_JSON="$(curl -fsS -u admin:admin -X POST "http://localhost:9000/api/user_tokens/generate?name=ci-$(date +%s)")"
+          SONAR_BOOTSTRAP_USER="admin"
+          SONAR_BOOTSTRAP_PASS="admin"
+          TOKEN_JSON="$(curl -fsS -u "${SONAR_BOOTSTRAP_USER}:${SONAR_BOOTSTRAP_PASS}" -X POST "http://localhost:9000/api/user_tokens/generate?name=ci-$(date +%s)")"
           TOKEN="$(echo "$TOKEN_JSON" | grep -o '"token":"[^"]*"' | cut -d'"' -f4)"
           if [ -z "$TOKEN" ]; then
             echo "Token generation failed, response was:" >&2

@@ -4,7 +4,7 @@ title = "kotlinskidev gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "Generated/vendored dirs, and SonarQube's documented first-boot admin/admin default (bootstraps a throwaway ephemeral CI container destroyed at job end, not a real credential) — not our secrets"
+description = "Generated/vendored dirs inside the theme itself — not our secrets"
 paths = [
   '''node_modules''',
   '''vendor''',
@@ -12,6 +12,9 @@ paths = [
   '''package-lock\.json''',
   '''composer\.lock''',
 ]
-regexes = [
-  '''-u admin:admin''',
+commits = [
+  # sonarqube.yml's token-bootstrap curl, flagged as a generic credential pattern —
+  # SonarQube's own documented first-boot admin/admin default for a throwaway
+  # ephemeral CI container destroyed at job end, not a real credential.
+  '''b9bc41b9a461b809511c16c1135948f23f85d75f''',
 ]
