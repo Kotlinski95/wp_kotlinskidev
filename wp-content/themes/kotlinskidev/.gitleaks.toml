@@ -4,11 +4,14 @@ title = "kotlinskidev gitleaks config"
 useDefault = true
 
 [allowlist]
-description = "Generated/vendored dirs inside the theme itself — not our secrets"
+description = "Generated/vendored dirs, and SonarQube's documented first-boot admin/admin default (bootstraps a throwaway ephemeral CI container destroyed at job end, not a real credential) — not our secrets"
 paths = [
   '''node_modules''',
   '''vendor''',
   '''build''',
   '''package-lock\.json''',
   '''composer\.lock''',
+]
+regexes = [
+  '''-u admin:admin''',
 ]
