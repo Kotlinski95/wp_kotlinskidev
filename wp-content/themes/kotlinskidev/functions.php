@@ -94,6 +94,12 @@ require_once get_template_directory() . '/functions/responsive-width.php';
 // Load responsive min-height controls
 require_once get_template_directory() . '/functions/responsive-height.php';
 
+// Load per-breakpoint Grid column-count overrides
+require_once get_template_directory() . '/functions/responsive-grid-columns.php';
+
+// Precise per-breakpoint Grid divider-line edge exclusion (needs the real child count, computed server-side)
+require_once get_template_directory() . '/functions/group-divider.php';
+
 // Load per-block custom CSS custom-property controls (icon/image SVG theming)
 require_once get_template_directory() . '/functions/custom-css-vars.php';
 
@@ -254,6 +260,7 @@ require_once get_template_directory() . '/functions/canvas/enqueue.php';
 require_once get_template_directory() . '/functions/background-effects/preset.php';
 require_once get_template_directory() . '/functions/translated-text.php';
 require_once get_template_directory() . '/functions/marquee.php';
+require_once get_template_directory() . '/functions/block-attribute-escaping-guard.php';
 
 function kotlinskidev_load_textdomain()
 {

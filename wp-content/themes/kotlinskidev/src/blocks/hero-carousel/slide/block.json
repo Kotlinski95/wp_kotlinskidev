@@ -17,6 +17,7 @@
     "spacing": {
       "padding": true,
       "margin": true,
+      "blockGap": true,
       "__experimentalSkipSerialization": true
     }
   },

@@ -10,6 +10,10 @@
 	&:hover,
 	&:focus-visible {
 		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
+
+		*:not(.has-text-color) {
+			color: var(--hover-text-color, inherit) !important;
+		}
 	}
 
 	&--lift {

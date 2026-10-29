@@ -344,12 +344,16 @@ span:empty {
 		display: inline-block;
 	}
 
-	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):not(.kt-nav-cta *):not(.kt-button__link):not(.wp-block-button__link):not(.has-enhanced-hover-glow):not(.has-enhanced-hover-glow *):hover {
+	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.social-menu-items *):not(.kt-nav-cta *):not(.kt-button__link):not(.wp-block-button__link):not(.has-enhanced-hover-glow):not(.has-enhanced-hover-glow *):not(.kt-link-card):not(.kt-link-card *):not(.kt-pill-link):not(.kt-pill-link *):hover {
 		background: var(--color-link-hover-override, var(--kt-text-gradient));
 		-webkit-background-clip: text;
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
+}
+
+.is-kotlinskidev-nowrap figcaption a {
+	--color-link-hover-override: var(--wp--preset--color--white);
 }
 
 figure:has(svg) {

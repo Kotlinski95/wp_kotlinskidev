@@ -14,8 +14,7 @@
 	}
 
 	&:hover::after,
-	&:focus-visible::after,
-	&.kt-link-current::after {
+	&:focus-visible::after {
 		width: 100%;
 	}
 
@@ -26,6 +25,14 @@
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
+
+	&.kt-link-current {
+		font-weight: 600;
+	}
+}
+
+@mixin frame-shadow($blur: 2.125rem, $spread: -1.875rem, $alpha: 0.4) {
+	box-shadow: 0 $blur $blur $spread rgba(0, 0, 0, $alpha);
 }
 
 @function kt-not($selectors) {

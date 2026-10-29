@@ -16,7 +16,17 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 $content_spacing_styles = wp_style_engine_get_styles( [
 	'spacing' => $attributes['style']['spacing'] ?? [],
 ] );
-$content_style = ! empty( $content_spacing_styles['css'] ) ? ' style="' . esc_attr( $content_spacing_styles['css'] ) . '"' : '';
+$content_css = $content_spacing_styles['css'] ?? '';
+
+$block_gap = $attributes['style']['spacing']['blockGap'] ?? null;
+if ( is_string( $block_gap ) && '' !== $block_gap ) {
+	$gap_value = preg_match( '/^var:preset\|spacing\|(.+)$/', $block_gap, $preset_match )
+		? 'var(--wp--preset--spacing--' . $preset_match[1] . ')'
+		: $block_gap;
+	$content_css .= 'gap:' . $gap_value . ';';
+}
+
+$content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '"' : '';
 ?>
 <div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<div class="hero-carousel__bg">

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/device-frame",
+  "version": "1.0.0",
+  "title": "Device Frame",
+  "category": "media",
+  "icon": "format-image",
+  "description": "A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an image in to showcase a project.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/js/device-frame.js",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "attributes": {
+    "device": { "type": "string", "default": "desktop" },
+    "aspectRatio": { "type": "string", "default": "" },
+    "imageId": { "type": "integer", "default": 0 },
+    "imageUrl": { "type": "string", "default": "" },
+    "alt": { "type": "string", "default": "" },
+    "positionStyle": { "type": "string", "default": "" },
+    "keepEffectOnMobile": { "type": "boolean", "default": false }
+  }
+}

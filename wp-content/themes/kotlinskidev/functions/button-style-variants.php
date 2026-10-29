@@ -16,14 +16,18 @@ function kotlinskidev_register_button_style_variants(): void {
 
     $names = array_unique( array_merge( $gradient_outline_variants, kotlinskidev_theme_json_button_style_variant_names() ) );
 
-    foreach ( $names as $name ) {
-        register_block_style(
-            'core/button',
-            [
-                'name'  => $name,
-                'label' => ucwords( str_replace( '-', ' ', $name ) ),
-            ]
-        );
+    $block_names = [ 'core/button', 'kotlinskidev/content-tabs-nav-link' ];
+
+    foreach ( $block_names as $block_name ) {
+        foreach ( $names as $name ) {
+            register_block_style(
+                $block_name,
+                [
+                    'name'  => $name,
+                    'label' => ucwords( str_replace( '-', ' ', $name ) ),
+                ]
+            );
+        }
     }
 }
 add_action( 'init', 'kotlinskidev_register_button_style_variants' );

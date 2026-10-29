@@ -38,6 +38,7 @@ export default function CarouselPanel({
     trackActiveSlide = false,
     paginationPlacement = "inside",
     transitionEffect = "slide",
+    autoHeight = false,
   } = settings;
 
   const pendingNavColorRef = React.useRef<string | null>(null);
@@ -119,6 +120,17 @@ export default function CarouselPanel({
           )}
           checked={paginationPlacement === "outside"}
           onChange={(value) => onChange({ paginationPlacement: value ? "outside" : "inside" })}
+        />
+      )}
+      {features.autoHeight && (
+        <ToggleControl
+          label={__("Auto Height", "kotlinskidev")}
+          help={__(
+            "Sizes the carousel to each slide's own content instead of a fixed height. Any Min Height setting still applies as a floor.",
+            "kotlinskidev"
+          )}
+          checked={autoHeight}
+          onChange={(value) => onChange({ autoHeight: value })}
         />
       )}
       {features.scrollbar && (

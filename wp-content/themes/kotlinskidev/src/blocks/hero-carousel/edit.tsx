@@ -243,14 +243,23 @@ export default function Edit({
             autoplay: true,
             lazyLoad: true,
             transitionEffect: true,
+            autoHeight: true,
           }}
         />
         <PanelBody title={__("Height", "kotlinskidev")} initialOpen={false}>
           <RangeControl
             label={__("Min Height (vh)", "kotlinskidev")}
+            help={
+              carouselSettings.autoHeight
+                ? __(
+                    "Auto Height is on (in Carousel Settings above) — this is now just a floor so slides never collapse below it.",
+                    "kotlinskidev"
+                  )
+                : undefined
+            }
             value={minHeight}
             onChange={(value) => setAttributes({ minHeight: value ?? 80 })}
-            min={40}
+            min={0}
             max={100}
           />
         </PanelBody>

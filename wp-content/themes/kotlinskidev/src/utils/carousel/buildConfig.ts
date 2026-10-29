@@ -24,10 +24,12 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
     slidesPerTablet = 1,
     slidesPerDesktop = 1,
     transitionEffect = "slide",
+    autoHeight = false,
   } = settings;
 
   return {
     loop,
+    autoHeight,
     speed: 300,
     grabCursor: draggable,
     simulateTouch: draggable,

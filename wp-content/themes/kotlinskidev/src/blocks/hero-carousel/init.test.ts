@@ -31,6 +31,7 @@ interface FakeSwiper {
   activeIndex: number;
   previousIndex: number;
   on: jest.Mock;
+  update?: jest.Mock;
   autoplay?: { pause: jest.Mock; resume: jest.Mock };
 }
 
@@ -118,7 +119,13 @@ describe("hero-carousel/init.ts", () => {
 
   it("does not initialize the carousel before it intersects", () => {
     const el = buildCarouselElement();
-    mockInitSwiperReturn = { slides: [], activeIndex: 0, previousIndex: 0, on: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      update: jest.fn(),
+    };
     loadModule();
 
     mockIntersectionCallback?.([{ isIntersecting: false, target: el }], {
@@ -130,7 +137,13 @@ describe("hero-carousel/init.ts", () => {
 
   it("initializes the swiper and toggles visibility once the carousel intersects", () => {
     const el = buildCarouselElement();
-    mockInitSwiperReturn = { slides: [], activeIndex: 0, previousIndex: 0, on: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      update: jest.fn(),
+    };
 
     loadModule();
     mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
@@ -153,6 +166,7 @@ describe("hero-carousel/init.ts", () => {
       activeIndex: 0,
       previousIndex: 0,
       on: jest.fn(),
+      update: jest.fn(),
     };
 
     loadModule();
@@ -175,6 +189,7 @@ describe("hero-carousel/init.ts", () => {
       activeIndex: 0,
       previousIndex: 0,
       on: jest.fn(),
+      update: jest.fn(),
     };
 
     loadModule();
@@ -197,6 +212,7 @@ describe("hero-carousel/init.ts", () => {
       on: jest.fn((event: string, handler: () => void) => {
         onHandlers[event] = handler;
       }),
+      update: jest.fn(),
     };
 
     loadModule();
@@ -220,6 +236,7 @@ describe("hero-carousel/init.ts", () => {
       on: jest.fn((event: string, handler: () => void) => {
         onHandlers[event] = handler;
       }),
+      update: jest.fn(),
     };
 
     loadModule();
@@ -244,6 +261,7 @@ describe("hero-carousel/init.ts", () => {
       activeIndex: 0,
       previousIndex: 0,
       on: jest.fn(),
+      update: jest.fn(),
       autoplay,
     };
 
@@ -273,6 +291,7 @@ describe("hero-carousel/init.ts", () => {
       activeIndex: 0,
       previousIndex: 0,
       on: jest.fn(),
+      update: jest.fn(),
       autoplay,
     };
 
@@ -305,6 +324,7 @@ describe("hero-carousel/init.ts", () => {
       activeIndex: 0,
       previousIndex: 0,
       on: jest.fn(),
+      update: jest.fn(),
       autoplay,
     };
 

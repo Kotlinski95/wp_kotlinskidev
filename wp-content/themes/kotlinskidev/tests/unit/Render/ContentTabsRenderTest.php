@@ -344,5 +344,5 @@ it('renders the nav-link label wrapped in the native styling wrapper', function 
         ['label' => 'Creating Websites']
     );
 
-    expect($html)->toBe('<span class="wp-block-kotlinskidev-content-tabs-nav-link">Creating Websites</span>');
+    expect($html)->toBe('<span class="wp-block-kotlinskidev-content-tabs-nav-link"><span class="kt-content-tabs-nav-link__label">Creating Websites</span></span>');
 });

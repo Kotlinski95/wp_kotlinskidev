@@ -21,7 +21,18 @@ interface GlowTarget {
 
   document
     .querySelectorAll<HTMLElement>(
-      ".has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button)"
+      ".wp-block-kotlinskidev-content-tabs-nav-link.has-enhanced-hover-glow"
+    )
+    .forEach((link) => {
+      const label = link.querySelector<HTMLElement>(".kt-content-tabs-nav-link__label");
+      if (label) {
+        targets.push({ listenEl: link, paintEl: label });
+      }
+    });
+
+  document
+    .querySelectorAll<HTMLElement>(
+      ".has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link)"
     )
     .forEach((el) => targets.push({ listenEl: el, paintEl: el }));
 

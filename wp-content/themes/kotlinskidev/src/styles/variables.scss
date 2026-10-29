@@ -14,6 +14,10 @@ $white: #f2f2f2;
 $color-error: #dc3545;
 $kt-gradient-fallback: linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast));
 $kt-gradient-outline-width: 0.1875rem;
+$kt-device-frame-bezel-start: #41454b;
+$kt-device-frame-bezel-end: #26282c;
+$kt-device-frame-screen-bg: #0d0d0d;
+$kt-device-frame-notch-bg: #111;
 
 // Breakpoints
 $desktop: 64rem; // 1024px -> 64rem

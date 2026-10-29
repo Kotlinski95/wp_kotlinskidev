@@ -1,13 +1,18 @@
+@use "hover-transitions" as hover;
+
 .has-blur-siblings {
 
 	> * {
-		transition:
-			filter 0.3s ease,
-			opacity 0.3s ease;
+
+		@include hover.compose;
+		--kt-hover-filter-duration: 0.3s;
+		--kt-hover-filter-easing: ease;
+		--kt-hover-opacity-duration: 0.3s;
+		--kt-hover-opacity-easing: ease;
 	}
 
-	&:hover > *:not(:hover),
-	&:focus-within > *:not(:focus-within) {
+	&:has(> *:hover) > *:not(:hover),
+	&:has(> *:focus-within) > *:not(:focus-within) {
 		filter: blur(var(--kt-blur-amount, 0.25rem));
 		opacity: 0.6;
 	}

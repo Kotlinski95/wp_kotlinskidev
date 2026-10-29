@@ -35,6 +35,7 @@
     "navColor": { "type": "string", "default": "" },
     "navColorOnHover": { "type": "boolean", "default": false },
     "navPlacement": { "type": "string", "default": "inside" },
-    "transitionEffect": { "type": "string", "default": "slide" }
+    "transitionEffect": { "type": "string", "default": "slide" },
+    "autoHeight": { "type": "boolean", "default": false }
   }
 }

@@ -59,6 +59,7 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		height: 100%;
 		min-height: var(--hero-min-height, 80svh);
 		padding: 4rem 1.5rem;
 		color: #fff;
@@ -157,7 +158,6 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 
 .wp-block-kotlinskidev-hero-carousel-slide {
 	position: relative;
-	min-height: 400px;
 	overflow: hidden;
 
 	.block-editor-inner-blocks,
@@ -166,14 +166,16 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 	}
 }
 
+.editor-styles-wrapper .wp-block-kotlinskidev-hero-carousel-slide {
+	min-height: 400px;
+}
+
 .hero-carousel__bg--empty {
 	position: absolute;
 	inset: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #1a1a2e;
-	color: rgba(255, 255, 255, 0.4);
 	font-style: italic;
 }
 

@@ -179,7 +179,7 @@ function kotlinskidev_search_action_url_for_current_language() {
     return home_url('/');
 }
 
-function kotlinskidev_render_search_form_fresh_per_language() {
+function kotlinskidev_render_search_form_fresh_per_language($wrapper_background_color = '', $input_border_color = '', $label_color = '') {
     $current_search = get_search_query();
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search filter selection, no state change
     $current_category = isset($_GET['search_category']) ? sanitize_text_field(wp_unslash($_GET['search_category'])) : '';
@@ -194,16 +194,20 @@ function kotlinskidev_render_search_form_fresh_per_language() {
         'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
     ));
 
+    $wrapper_style_override = '' !== $wrapper_background_color ? 'background-color:' . esc_attr($wrapper_background_color) . ';' : '';
+    $field_style_override = '' !== $input_border_color ? ' style="border-color:' . esc_attr($input_border_color) . '"' : '';
+    $label_style_override = '' !== $label_color ? ' style="color:' . esc_attr($label_color) . '"' : '';
+
     ob_start();
     ?>
     <!-- wp:group {"style":{"spacing":{"margin":{"bottom":"0.9375rem"},"padding":{"top":"0.9375rem","bottom":"0.9375rem","left":"1.25rem","right":"1.25rem"}},"border":{"radius":"1.25rem","width":"0rem"}},"borderColor":"border-color","backgroundColor":"light-shade","layout":{"type":"constrained","contentSize":"50rem"}} -->
-    <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0rem;border-radius:1.25rem;margin-bottom:0.9375rem;padding-top:0.9375rem;padding-right:1.25rem;padding-bottom:0.9375rem;padding-left:1.25rem">
+    <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0rem;border-radius:1.25rem;margin-bottom:0.9375rem;padding-top:0.9375rem;padding-right:1.25rem;padding-bottom:0.9375rem;padding-left:1.25rem;<?php echo esc_attr($wrapper_style_override); ?>">
 
         <!-- wp:html -->
         <form method="get" action="<?php echo esc_url($search_action_url); ?>" class="kotlinskidev-search-form">
 
             <div style="margin-bottom:1.25rem;">
-                <label for="search-input" class="search-label">
+                <label for="search-input" class="search-label"<?php echo $label_style_override; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on the attribute's own color value ?>>
                     🔍 <?php esc_html_e('Search for content', 'kotlinskidev'); ?>
                 </label>
                 <input type="text"
@@ -213,7 +217,7 @@ function kotlinskidev_render_search_form_fresh_per_language() {
                        placeholder="<?php esc_attr_e('Enter keywords, topics, or specific terms...', 'kotlinskidev'); ?>"
                        class="search-input-field"
                        required
-                       aria-describedby="search-input-description" />
+                       aria-describedby="search-input-description"<?php echo $field_style_override; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on the attribute's own color value ?> />
                 <div id="search-input-description" class="sr-only">
                     <?php esc_html_e('Search across all articles, pages, and content on the site', 'kotlinskidev'); ?>
                 </div>
@@ -222,13 +226,13 @@ function kotlinskidev_render_search_form_fresh_per_language() {
             <div class="search-filters-grid">
 
                 <div>
-                    <label for="search-type" class="search-label">
+                    <label for="search-type" class="search-label"<?php echo $label_style_override; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on the attribute's own color value ?>>
                         📄 <?php esc_html_e('Content Type', 'kotlinskidev'); ?>
                     </label>
                     <select name="search_type"
                             id="search-type"
                             class="search-select-field"
-                            aria-describedby="search-type-description">
+                            aria-describedby="search-type-description"<?php echo $field_style_override; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on the attribute's own color value ?>>
                         <option value=""><?php esc_html_e('All Content', 'kotlinskidev'); ?></option>
                         <option value="post" <?php selected($current_type, 'post'); ?>><?php esc_html_e('Articles', 'kotlinskidev'); ?></option>
                         <option value="page" <?php selected($current_type, 'page'); ?>><?php esc_html_e('Pages', 'kotlinskidev'); ?></option>
@@ -239,13 +243,13 @@ function kotlinskidev_render_search_form_fresh_per_language() {
                 </div>
 
                 <div>
-                    <label for="search-category" class="search-label">
+                    <label for="search-category" class="search-label"<?php echo $label_style_override; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on the attribute's own color value ?>>
                         📂 <?php esc_html_e('Topic Category', 'kotlinskidev'); ?>
                     </label>
                     <select name="search_category"
                             id="search-category"
                             class="search-select-field"
-                            aria-describedby="search-category-description">
+                            aria-describedby="search-category-description"<?php echo $field_style_override; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above via esc_attr() on the attribute's own color value ?>>
                         <option value=""><?php esc_html_e('All Topics', 'kotlinskidev'); ?></option>
                         <?php
                         foreach ($categories as $category) {
@@ -558,19 +562,3 @@ function kotlinskidev_render_search_results_fresh_per_language() {
 
     return do_blocks(ob_get_clean());
 }
-
-function kotlinskidev_register_search_page_dynamic_blocks() {
-    register_block_type('kotlinskidev/popular-content-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_popular_content_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/search-header-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_search_header_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/search-form-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_search_form_fresh_per_language',
-    ));
-    register_block_type('kotlinskidev/search-results-dynamic', array(
-        'render_callback' => 'kotlinskidev_render_search_results_fresh_per_language',
-    ));
-}
-add_action('init', 'kotlinskidev_register_search_page_dynamic_blocks');

@@ -113,10 +113,44 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initS
   document.addEventListener("pointercancel", releasePress);
 };
 
+const syncTallestSlideHeight = (el: HTMLElement, swiper: ReturnType<typeof initSwiper>): void => {
+  el.style.minHeight = "";
+
+  const tallest = swiper.slides
+    .filter((slide) => !slide.classList.contains("swiper-slide-duplicate"))
+    .reduce((max, slide) => {
+      const content = slide.querySelector<HTMLElement>(".hero-carousel__content");
+      return Math.max(max, content?.scrollHeight ?? 0);
+    }, 0);
+
+  if (tallest > 0) {
+    el.style.minHeight = `${tallest}px`;
+  }
+
+  swiper.update();
+};
+
+const debounce = (fn: () => void, delay: number): (() => void) => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(fn, delay);
+  };
+};
+
 const initHeroCarousel = (el: HTMLElement): void => {
+  const settings = parseSettings(el);
   el.style.visibility = "hidden";
-  const swiper = initSwiper(el, parseSettings(el), { disableNativeHoverPause: true });
+  const swiper = initSwiper(el, settings, { disableNativeHoverPause: true });
   el.style.visibility = "visible";
+
+  if (settings.autoHeight !== true) {
+    syncTallestSlideHeight(el, swiper);
+    window.addEventListener(
+      "resize",
+      debounce(() => syncTallestSlideHeight(el, swiper), 150)
+    );
+  }
 
   wireAutoplayHoverPause(el, swiper);
 

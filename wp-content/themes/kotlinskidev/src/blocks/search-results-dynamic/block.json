@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/search-results-dynamic",
+  "version": "1.0.0",
+  "title": "Search Results (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered search results list, with a popular-content fallback when there is no query.",
+  "icon": "list-view",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/search-results-dynamic.js",
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

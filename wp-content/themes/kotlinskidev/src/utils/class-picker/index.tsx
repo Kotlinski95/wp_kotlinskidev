@@ -59,6 +59,11 @@ const UTILITY_GROUPS: UtilityGroup[] = [
         value: "container",
         help: __("Responsive centered container with max-width", "kotlinskidev"),
       },
+      {
+        label: __("Sticky", "kotlinskidev"),
+        value: "is-kotlinskidev-sticky",
+        help: __("Sticks the block below the header while scrolling", "kotlinskidev"),
+      },
     ],
   },
   {

@@ -121,12 +121,9 @@
 		@include gradient-text();
 	}
 
-	&.kt-link-current,
-	.kt-mega-nav__item.is-active & {
-
-		&::after {
-			width: 100% !important;
-		}
+	&.kt-link-current .kt-mega-nav__link-label,
+	.kt-mega-nav__item.is-active & .kt-mega-nav__link-label {
+		font-weight: 600;
 	}
 
 	@supports (anchor-name: --kt-nav-probe) {

@@ -25,6 +25,8 @@ export interface ContentTabsAttributes {
   activeTabColor: string;
   activeTabBackgroundEnabled: boolean;
   activeTabBackgroundColor: string;
+  activeTabBorderColorEnabled: boolean;
+  activeTabBorderColor: string;
   panelTransition: string;
   cardAnimation: string;
 }
@@ -145,6 +147,8 @@ export default function Edit({ attributes, setAttributes, clientId }: EditProps)
     activeTabColor,
     activeTabBackgroundEnabled,
     activeTabBackgroundColor,
+    activeTabBorderColorEnabled,
+    activeTabBorderColor,
     panelTransition,
     cardAnimation,
   } = attributes;
@@ -179,6 +183,10 @@ export default function Edit({ attributes, setAttributes, clientId }: EditProps)
     }
   };
   const isActiveBgGradient = (activeTabBackgroundColor || "").includes("gradient");
+
+  const handleActiveBorderColorChange = (value: string | undefined) => {
+    setAttributes({ activeTabBorderColor: value || "" });
+  };
 
   const { innerBlocks, blockParents, selectedBlockClientId } = useSelect(
     (select) => {
@@ -225,6 +233,7 @@ export default function Edit({ attributes, setAttributes, clientId }: EditProps)
       activeTabBackgroundColor &&
       isActiveBgGradient &&
       "kt-content-tabs--active-background-gradient",
+    activeTabBorderColorEnabled && activeTabBorderColor && "kt-content-tabs--active-border-color",
   ]
     .filter(Boolean)
     .join(" ");
@@ -239,6 +248,9 @@ export default function Edit({ attributes, setAttributes, clientId }: EditProps)
         : {}),
       ...(activeTabBackgroundEnabled && activeTabBackgroundColor
         ? { "--kt-content-tabs-active-bg": activeTabBackgroundColor }
+        : {}),
+      ...(activeTabBorderColorEnabled && activeTabBorderColor
+        ? { "--kt-content-tabs-active-border-color": activeTabBorderColor }
         : {}),
     } as React.CSSProperties,
   });
@@ -334,6 +346,22 @@ export default function Edit({ attributes, setAttributes, clientId }: EditProps)
               gradientValue={isActiveBgGradient ? activeTabBackgroundColor : undefined}
               onColorChange={handleActiveBackgroundChange}
               onGradientChange={handleActiveBackgroundChange}
+              enableAlpha={true}
+              clearable={true}
+              __experimentalIsRenderedInSidebar={true}
+              __nextHasNoMarginBottom
+            />
+          )}
+          <ToggleControl
+            label={__("Border color", "kotlinskidev")}
+            checked={!!activeTabBorderColorEnabled}
+            onChange={(value) => setAttributes({ activeTabBorderColorEnabled: value })}
+          />
+          {activeTabBorderColorEnabled && (
+            <ColorGradientControl
+              label={__("Active tab border color", "kotlinskidev")}
+              colorValue={activeTabBorderColor || undefined}
+              onColorChange={handleActiveBorderColorChange}
               enableAlpha={true}
               clearable={true}
               __experimentalIsRenderedInSidebar={true}

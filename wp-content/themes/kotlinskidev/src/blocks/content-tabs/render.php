@@ -7,6 +7,8 @@ $active_tab_text_enabled = ! empty( $attributes['activeTabTextColorEnabled'] );
 $active_tab_bg_enabled   = ! empty( $attributes['activeTabBackgroundEnabled'] );
 $active_tab_color        = (string) ( $attributes['activeTabColor'] ?? '' );
 $active_tab_bg_color     = (string) ( $attributes['activeTabBackgroundColor'] ?? '' );
+$active_tab_border_enabled = ! empty( $attributes['activeTabBorderColorEnabled'] );
+$active_tab_border_color  = (string) ( $attributes['activeTabBorderColor'] ?? '' );
 $panel_transition        = sanitize_key( $attributes['panelTransition'] ?? '' );
 $card_animation          = sanitize_key( $attributes['cardAnimation'] ?? '' );
 $orientation             = in_array( $nav_position, [ 'left', 'right' ], true ) ? 'vertical' : 'horizontal';
@@ -64,6 +66,9 @@ if ( $active_tab_text_enabled && '' !== $active_tab_color ) {
 if ( $active_tab_bg_enabled && '' !== $active_tab_bg_color ) {
     $active_classes[] = 'kt-content-tabs--active-background';
 }
+if ( $active_tab_border_enabled && '' !== $active_tab_border_color ) {
+    $active_classes[] = 'kt-content-tabs--active-border-color';
+}
 if ( 'fade' === $panel_transition ) {
     $active_classes[] = 'kt-content-tabs--transition-fade';
 }
@@ -99,6 +104,9 @@ if ( $active_tab_text_enabled && '' !== $active_tab_color ) {
 }
 if ( $active_tab_bg_enabled && '' !== $active_tab_bg_color ) {
     $style_declarations[] = '--kt-content-tabs-active-bg:' . $active_tab_bg_color;
+}
+if ( $active_tab_border_enabled && '' !== $active_tab_border_color ) {
+    $style_declarations[] = '--kt-content-tabs-active-border-color:' . $active_tab_border_color;
 }
 
 if ( ! empty( $style_declarations ) ) {

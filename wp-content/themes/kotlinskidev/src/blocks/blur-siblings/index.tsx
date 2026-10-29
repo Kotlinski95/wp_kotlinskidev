@@ -6,7 +6,7 @@ import { PanelBody, ToggleControl, SelectControl, TextControl } from "@wordpress
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 
-const BLUR_SIBLINGS_BLOCKS = ["core/group"];
+const BLUR_SIBLINGS_BLOCKS = ["core/group", "core/columns"];
 const CUSTOM_VALUE = "custom";
 const DEFAULT_VALUE = "";
 const DEFAULT_CUSTOM_BLUR = "0.25rem";
@@ -119,13 +119,13 @@ const withBlurSiblingsControls = createHigherOrderComponent((BlockEdit) => {
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Grid Hover Effect", "kotlinskidev")} initialOpen={false}>
+          <PanelBody title={__("Blur Siblings on Hover", "kotlinskidev")} initialOpen={false}>
             <ToggleControl
               label={__("Blur inactive items on hover", "kotlinskidev")}
               checked={blurSiblings}
               onChange={(next) => setAttributes({ kotlinskidevBlurSiblings: next })}
               help={__(
-                "Hovering or focusing one direct child of this group dims and blurs the rest.",
+                "Hovering or focusing one direct child dims and blurs the rest.",
                 "kotlinskidev"
               )}
               __nextHasNoMarginBottom

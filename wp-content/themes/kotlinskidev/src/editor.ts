@@ -42,4 +42,7 @@ import "./blocks/equal-height-columns/index.tsx";
 import "./blocks/image-filter-color/index.tsx";
 import "./blocks/image-grow-fill/index.tsx";
 import "./blocks/blur-siblings/index.tsx";
+import "./blocks/group-divider/index.tsx";
+import "./blocks/clip-to-radius/index.tsx";
+import "./blocks/responsive-grid-columns/index.tsx";
 import "./blocks/slider-modal-trigger/index.tsx";

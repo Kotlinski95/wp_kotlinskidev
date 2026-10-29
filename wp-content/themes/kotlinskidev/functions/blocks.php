@@ -50,6 +50,7 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/content-tabs' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
+    register_block_type( get_template_directory() . '/src/blocks/device-frame' );
     if ( kotlinskidev_feature_enabled( 'article_cards' ) ) {
         register_block_type( get_template_directory() . '/src/blocks/article-card' );
     }
@@ -70,6 +71,10 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/other-topics-dynamic' );
     register_block_type( get_template_directory() . '/src/blocks/article-tags-dynamic' );
     register_block_type( get_template_directory() . '/src/blocks/related-articles-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/popular-content-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/search-header-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/search-form-dynamic' );
+    register_block_type( get_template_directory() . '/src/blocks/search-results-dynamic' );
     if ( kotlinskidev_feature_enabled( 'certificates' ) ) {
         register_block_type( get_template_directory() . '/src/blocks/certificates-grid-dynamic' );
         register_block_type( get_template_directory() . '/src/blocks/certificate' );

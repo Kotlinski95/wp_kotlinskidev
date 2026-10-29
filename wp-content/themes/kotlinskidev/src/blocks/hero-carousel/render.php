@@ -23,6 +23,7 @@ $settings = wp_json_encode( [
 	'navColorOnHover'  => $nav_color_hover,
 	'navPlacement'     => $nav_placement,
 	'transitionEffect' => $transition_effect,
+	'autoHeight'       => (bool) ( $attributes['autoHeight'] ?? false ),
 ] ) ?: '{}';
 
 $slides_html = '';
@@ -32,6 +33,14 @@ foreach ( $block->inner_blocks as $i => $slide_block ) {
 }
 
 $inline_style = '--hero-min-height: calc(' . $min_height . 'svh - var(--admin-bar-offset, 0px))';
+
+$first_slide_padding = $block->inner_blocks[0]->attributes['style']['spacing']['padding'] ?? null;
+if ( is_array( $first_slide_padding ) ) {
+	$padding_styles = wp_style_engine_get_styles( [ 'spacing' => [ 'padding' => $first_slide_padding ] ] );
+	foreach ( $padding_styles['declarations'] ?? [] as $prop => $value ) {
+		$inline_style .= '; --hero-nav-' . $prop . ': ' . $value;
+	}
+}
 
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => 'hero-carousel',

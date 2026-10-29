@@ -153,3 +153,7 @@ artifacts
 # Local environment secrets (MCP API keys etc.) — commit .env.example only
 .env
 .aider*
+
+# PWA service worker + Yoast llms.txt are generated per-environment, not source
+/sw.js
+/llms.txt

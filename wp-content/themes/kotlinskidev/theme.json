@@ -441,6 +441,10 @@
         "adaptive": {
           "light": "brightness(0)",
           "dark": "brightness(0) invert(1)"
+        },
+        "grayscale": {
+          "light": "grayscale(1)",
+          "dark": "grayscale(1) invert(1)"
         }
       }
     },

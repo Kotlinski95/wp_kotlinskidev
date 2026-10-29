@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-20T10:55:46+00:00\n"
+"POT-Creation-Date: 2026-10-29T10:06:08+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -55,7 +55,8 @@ msgstr "Address"
 
 #: build/blocks/contact-detail/render.php:17 functions/contact-card.php:69
 #: functions/settings-page.php:721 src/blocks/contact-detail/render.php:17
-#: build/js/contact-detail.js:1 build/js/protected-content.js:1
+#: build/js/contact-detail.js:1 build/js/device-frame.js:1
+#: build/js/protected-content.js:1
 msgid "Phone"
 msgstr "Phone"
 
@@ -453,8 +454,8 @@ msgstr "Blog Topics Page (PL)"
 
 #: functions/blog-topic-manager.php:206 functions/blog-topic-manager.php:801
 #: functions/blog-topic-manager.php:860 functions/breadcrumbs.php:56
-#: functions/search-page-dynamic-blocks.php:233
-#: functions/search-page-dynamic-blocks.php:367
+#: functions/search-page-dynamic-blocks.php:237
+#: functions/search-page-dynamic-blocks.php:371
 #: functions/tag-archive-manager.php:32 patterns/cv-centered-facts.php:79
 msgid "Articles"
 msgstr "Articles"
@@ -570,12 +571,12 @@ msgid "Changes will apply immediately to all category and article pages"
 msgstr "Changes will apply immediately to all category and article pages"
 
 #: functions/blog-topic-manager.php:621
-#: functions/search-page-dynamic-blocks.php:207
+#: functions/search-page-dynamic-blocks.php:211
 msgid "Search for content"
 msgstr "Search for content"
 
 #: functions/blog-topic-manager.php:622
-#: functions/search-page-dynamic-blocks.php:267
+#: functions/search-page-dynamic-blocks.php:271
 msgid "Search Content"
 msgstr "Search Content"
 
@@ -601,7 +602,7 @@ msgstr "Create Your First Topic"
 
 #: functions/blog-topic-manager.php:801 functions/blog-topic-manager.php:860
 #: functions/search-page-dynamic-blocks.php:84
-#: functions/search-page-dynamic-blocks.php:405
+#: functions/search-page-dynamic-blocks.php:409
 #: functions/tag-archive-manager.php:32 build/js/article-card-panel.js:1
 msgid "Article"
 msgstr "Article"
@@ -617,24 +618,24 @@ msgid "Explore %s"
 msgstr "Explore %s"
 
 #: functions/blog-topic-manager.php:875
-#: functions/search-page-dynamic-blocks.php:249
+#: functions/search-page-dynamic-blocks.php:253
 msgid "All Topics"
 msgstr "All Topics"
 
 #: functions/blog-topic-manager.php:955 functions/blog-topic-manager.php:1292
-#: functions/search-page-dynamic-blocks.php:450
+#: functions/search-page-dynamic-blocks.php:454
 #: functions/tag-archive-manager.php:125
 msgid "Read Article"
 msgstr "Read Article"
 
 #: functions/blog-topic-manager.php:968
-#: functions/search-page-dynamic-blocks.php:467
+#: functions/search-page-dynamic-blocks.php:471
 #: functions/tag-archive-manager.php:138
 msgid "Previous"
 msgstr "Previous"
 
 #: functions/blog-topic-manager.php:969
-#: functions/search-page-dynamic-blocks.php:468
+#: functions/search-page-dynamic-blocks.php:472
 #: functions/tag-archive-manager.php:139
 msgid "Next"
 msgstr "Next"
@@ -1433,7 +1434,7 @@ msgid "Popular Content"
 msgstr "Popular Content"
 
 #: functions/search-page-dynamic-blocks.php:84
-#: functions/search-page-dynamic-blocks.php:405
+#: functions/search-page-dynamic-blocks.php:409
 msgid "Page"
 msgstr "Page"
 
@@ -1457,89 +1458,89 @@ msgstr "Search Our Content"
 msgid "Find articles, pages, and resources across our entire site"
 msgstr "Find articles, pages, and resources across our entire site"
 
-#: functions/search-page-dynamic-blocks.php:213
+#: functions/search-page-dynamic-blocks.php:217
 msgid "Enter keywords, topics, or specific terms..."
 msgstr "Enter keywords, topics, or specific terms..."
 
-#: functions/search-page-dynamic-blocks.php:218
+#: functions/search-page-dynamic-blocks.php:222
 msgid "Search across all articles, pages, and content on the site"
 msgstr "Search across all articles, pages, and content on the site"
 
-#: functions/search-page-dynamic-blocks.php:226
+#: functions/search-page-dynamic-blocks.php:230
 msgid "Content Type"
 msgstr "Content Type"
 
-#: functions/search-page-dynamic-blocks.php:232
+#: functions/search-page-dynamic-blocks.php:236
 msgid "All Content"
 msgstr "All Content"
 
-#: functions/search-page-dynamic-blocks.php:234
-#: functions/search-page-dynamic-blocks.php:367
+#: functions/search-page-dynamic-blocks.php:238
+#: functions/search-page-dynamic-blocks.php:371
 msgid "Pages"
 msgstr "Pages"
 
-#: functions/search-page-dynamic-blocks.php:237
+#: functions/search-page-dynamic-blocks.php:241
 msgid "Filter results by content type: articles, pages, or all content"
 msgstr "Filter results by content type: articles, pages, or all content"
 
-#: functions/search-page-dynamic-blocks.php:243
+#: functions/search-page-dynamic-blocks.php:247
 msgid "Topic Category"
 msgstr "Topic Category"
 
-#: functions/search-page-dynamic-blocks.php:259
+#: functions/search-page-dynamic-blocks.php:263
 msgid "Filter results by topic category"
 msgstr "Filter results by topic category"
 
-#: functions/search-page-dynamic-blocks.php:270
+#: functions/search-page-dynamic-blocks.php:274
 msgid "Search for content using the criteria above"
 msgstr "Search for content using the criteria above"
 
-#: functions/search-page-dynamic-blocks.php:277
+#: functions/search-page-dynamic-blocks.php:281
 msgid "search"
 msgstr "search"
 
-#: functions/search-page-dynamic-blocks.php:282
+#: functions/search-page-dynamic-blocks.php:286
 msgid "Clear search and return to homepage"
 msgstr "Clear search and return to homepage"
 
-#: functions/search-page-dynamic-blocks.php:283
+#: functions/search-page-dynamic-blocks.php:287
 msgid "Clear search and filters"
 msgstr "Clear search and filters"
 
-#: functions/search-page-dynamic-blocks.php:358
+#: functions/search-page-dynamic-blocks.php:362
 #, php-format
 msgid "Found %d results"
 msgstr "Found %d results"
 
-#: functions/search-page-dynamic-blocks.php:361
+#: functions/search-page-dynamic-blocks.php:365
 #, php-format
 msgid "Showing results for \"%s\""
 msgstr "Showing results for \"%s\""
 
-#: functions/search-page-dynamic-blocks.php:363
+#: functions/search-page-dynamic-blocks.php:367
 #, php-format
 msgid " in %s"
 msgstr " in %s"
 
-#: functions/search-page-dynamic-blocks.php:368
+#: functions/search-page-dynamic-blocks.php:372
 #, php-format
 msgid " • %s only"
 msgstr " • %s only"
 
-#: functions/search-page-dynamic-blocks.php:375
+#: functions/search-page-dynamic-blocks.php:379
 #, php-format
 msgid "Page %d of %d"
 msgstr "Page %d of %d"
 
-#: functions/search-page-dynamic-blocks.php:450
+#: functions/search-page-dynamic-blocks.php:454
 msgid "View Page"
 msgstr "View Page"
 
-#: functions/search-page-dynamic-blocks.php:494
+#: functions/search-page-dynamic-blocks.php:498
 msgid "Looking for something else?"
 msgstr "Looking for something else?"
 
-#: functions/search-page-dynamic-blocks.php:497
+#: functions/search-page-dynamic-blocks.php:501
 msgid ""
 "Try searching for a different term or explore more content using the search "
 "form below."
@@ -1547,44 +1548,44 @@ msgstr ""
 "Try searching for a different term or explore more content using the search "
 "form below."
 
-#: functions/search-page-dynamic-blocks.php:517
+#: functions/search-page-dynamic-blocks.php:521
 msgid "No results found"
 msgstr "No results found"
 
-#: functions/search-page-dynamic-blocks.php:522
+#: functions/search-page-dynamic-blocks.php:526
 #, php-format
 msgid "We couldn't find any content matching \"%s\""
 msgstr "We couldn't find any content matching \"%s\""
 
-#: functions/search-page-dynamic-blocks.php:526
+#: functions/search-page-dynamic-blocks.php:530
 msgid " with your current filters"
 msgstr " with your current filters"
 
-#: functions/search-page-dynamic-blocks.php:531
+#: functions/search-page-dynamic-blocks.php:535
 msgid "Try these search tips:"
 msgstr "Try these search tips:"
 
-#: functions/search-page-dynamic-blocks.php:533
+#: functions/search-page-dynamic-blocks.php:537
 msgid "Check your spelling and try again"
 msgstr "Check your spelling and try again"
 
-#: functions/search-page-dynamic-blocks.php:534
+#: functions/search-page-dynamic-blocks.php:538
 msgid "Use fewer or different keywords"
 msgstr "Use fewer or different keywords"
 
-#: functions/search-page-dynamic-blocks.php:535
+#: functions/search-page-dynamic-blocks.php:539
 msgid "Remove content type or category filters"
 msgstr "Remove content type or category filters"
 
-#: functions/search-page-dynamic-blocks.php:536
+#: functions/search-page-dynamic-blocks.php:540
 msgid "Try more general terms"
 msgstr "Try more general terms"
 
-#: functions/search-page-dynamic-blocks.php:537
+#: functions/search-page-dynamic-blocks.php:541
 msgid "Search for related topics or synonyms"
 msgstr "Search for related topics or synonyms"
 
-#: functions/search-page-dynamic-blocks.php:543
+#: functions/search-page-dynamic-blocks.php:547
 msgid "Browse All Content"
 msgstr "Browse All Content"
 
@@ -1979,14 +1980,14 @@ msgid "Mobile"
 msgstr "Mobile"
 
 #: functions/settings-page.php:950 build/js/content-tabs.js:1
-#: build/js/editor.js:13 build/js/editor.js:22 build/js/editor.js:31
-#: build/js/editor.js:40 build/js/editor.js:46
+#: build/js/device-frame.js:1 build/js/editor.js:13 build/js/editor.js:22
+#: build/js/editor.js:31 build/js/editor.js:40 build/js/editor.js:46
 msgid "Tablet"
 msgstr "Tablet"
 
 #: functions/settings-page.php:951 build/js/content-tabs.js:1
-#: build/js/editor.js:10 build/js/editor.js:19 build/js/editor.js:28
-#: build/js/editor.js:37 build/js/editor.js:46
+#: build/js/device-frame.js:1 build/js/editor.js:10 build/js/editor.js:19
+#: build/js/editor.js:28 build/js/editor.js:37 build/js/editor.js:46
 msgid "Desktop"
 msgstr "Desktop"
 
@@ -4151,22 +4152,81 @@ msgstr "Visit My Courses"
 msgid "Support and Donation Link"
 msgstr "Support and Donation Link"
 
-#: patterns/project-carousel-bottom-peek.php
+#: patterns/project-showcase-angled-peek.php
 msgctxt "Pattern title"
-msgid "Project Carousel Bottom Peek"
-msgstr "Project Carousel Bottom Peek"
+msgid "Project Showcase - Angled Peek"
+msgstr "Project Showcase - Angled Peek"
 
-#: patterns/project-carousel-bottom-peek.php:13
+#: patterns/project-showcase-angled-peek.php:11
+msgid "Platform"
+msgstr "Platform"
+
+#: patterns/project-showcase-angled-peek.php:15
+msgid "A slice of the product, on an angle"
+msgstr "A slice of the product, on an angle"
+
+#: patterns/project-showcase-angled-peek.php:19
+msgid ""
+"Perspective plus a soft fade keeps the crop intentional instead of "
+"accidental."
+msgstr ""
+"Perspective plus a soft fade keeps the crop intentional instead of "
+"accidental."
+
+#: patterns/project-showcase-bottom-peek.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Bottom Peek"
+msgstr "Project Showcase - Bottom Peek"
+
+#: patterns/project-showcase-bottom-peek.php:10
 msgid "Observe"
 msgstr "Observe"
 
-#: patterns/project-carousel-bottom-peek.php:17
+#: patterns/project-showcase-bottom-peek.php:14
+msgid "One line of project copy to set the scene for the screenshot below."
+msgstr "One line of project copy to set the scene for the screenshot below."
+
+#: patterns/project-showcase-captioned.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Captioned"
+msgstr "Project Showcase - Captioned"
+
+#: patterns/project-showcase-captioned.php:24
+msgid "E-commerce · WooCommerce"
+msgstr "E-commerce · WooCommerce"
+
+#: patterns/project-showcase-captioned.php:28
+msgid "Storefront rebuilt for speed"
+msgstr "Storefront rebuilt for speed"
+
+#: patterns/project-showcase-captioned.php:32
 msgid ""
-"One line of project copy, set in mono for contrast against the display "
-"heading."
+"Replace this copy per project, or drop the text column to fall back to an "
+"image-only slide."
 msgstr ""
-"One line of project copy, set in mono for contrast against the display "
-"heading."
+"Replace this copy per project, or drop the text column to fall back to an "
+"image-only slide."
+
+#: patterns/project-showcase-captioned.php:37
+msgid "View case study"
+msgstr "View case study"
+
+#: patterns/project-showcase-faded-window.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Faded Window"
+msgstr "Project Showcase - Faded Window"
+
+#: patterns/project-showcase-faded-window.php:11
+msgid "Responsive, both ends of the range"
+msgstr "Responsive, both ends of the range"
+
+#: patterns/project-showcase-faded-window.php:15
+msgid ""
+"The desktop shot fades out at the bottom; the phone stays fully legible on "
+"top of it."
+msgstr ""
+"The desktop shot fades out at the bottom; the phone stays fully legible on "
+"top of it."
 
 #: patterns/service-content.php
 msgctxt "Pattern title"
@@ -5364,6 +5424,20 @@ msgstr ""
 
 #: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
 #: build/js/hero-carousel.js:1
+msgid "Auto Height"
+msgstr "Auto Height"
+
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
+msgid ""
+"Sizes the carousel to each slide's own content instead of a fixed height. "
+"Any Min Height setting still applies as a floor."
+msgstr ""
+"Sizes the carousel to each slide's own content instead of a fixed height. "
+"Any Min Height setting still applies as a floor."
+
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show Scrollbar"
 msgstr "Show Scrollbar"
 
@@ -5971,8 +6045,8 @@ msgstr "Left"
 msgid "Right"
 msgstr "Right"
 
-#: build/js/content-tabs.js:1 build/js/editor.js:1 build/js/editor.js:28
-#: build/js/editor.js:46 build/js/language-panel.js:1
+#: build/js/content-tabs.js:1 build/js/device-frame.js:1 build/js/editor.js:1
+#: build/js/editor.js:28 build/js/editor.js:46 build/js/language-panel.js:1
 msgid "None"
 msgstr "None"
 
@@ -6076,6 +6150,14 @@ msgstr "Active tab text color"
 msgid "Active tab background color"
 msgstr "Active tab background color"
 
+#: build/js/content-tabs.js:1 build/js/editor.js:37
+msgid "Border color"
+msgstr "Border color"
+
+#: build/js/content-tabs.js:1
+msgid "Active tab border color"
+msgstr "Active tab border color"
+
 #: build/js/content-tabs.js:1
 msgid "Animations"
 msgstr "Animations"
@@ -6101,6 +6183,98 @@ msgid ""
 msgstr ""
 "Animates project/article cards inside the newly shown tab, one after "
 "another."
+
+#: build/js/device-frame.js:1
+msgid "Desktop screenshot or video"
+msgstr "Desktop screenshot or video"
+
+#: build/js/device-frame.js:1
+msgid "Tablet screenshot or video"
+msgstr "Tablet screenshot or video"
+
+#: build/js/device-frame.js:1
+msgid "Mobile screenshot or video"
+msgstr "Mobile screenshot or video"
+
+#: build/js/device-frame.js:1
+msgid "Angled"
+msgstr "Angled"
+
+#: build/js/device-frame.js:1
+msgid "Overlap"
+msgstr "Overlap"
+
+#: build/js/device-frame.js:1
+msgid "Faded Window"
+msgstr "Faded Window"
+
+#: build/js/device-frame.js:1
+msgid "Peek Top"
+msgstr "Peek Top"
+
+#: build/js/device-frame.js:1
+msgid "Device Frame"
+msgstr "Device Frame"
+
+#: build/js/device-frame.js:1
+msgid "Device"
+msgstr "Device"
+
+#: build/js/device-frame.js:1 build/js/model-viewer.js:1
+msgid "Aspect ratio"
+msgstr "Aspect ratio"
+
+#: build/js/device-frame.js:1
+msgid ""
+"Any CSS aspect-ratio value, e.g. 16/10. Leave empty for the device default."
+msgstr ""
+"Any CSS aspect-ratio value, e.g. 16/10. Leave empty for the device default."
+
+#: build/js/device-frame.js:1 build/js/nav-content.js:1
+msgid "Alt text"
+msgstr "Alt text"
+
+#: build/js/device-frame.js:1
+msgid "Position style"
+msgstr "Position style"
+
+#: build/js/device-frame.js:1
+msgid ""
+"How the frame sits in its showcase section. None keeps normal in-flow "
+"sizing."
+msgstr ""
+"How the frame sits in its showcase section. None keeps normal in-flow "
+"sizing."
+
+#: build/js/device-frame.js:1
+msgid "Keep effect on mobile"
+msgstr "Keep effect on mobile"
+
+#: build/js/device-frame.js:1
+msgid ""
+"Off (default) flattens the frame to normal in-flow stacking on narrow "
+"screens to avoid overlapping text. On keeps the angled/overlap effect at "
+"every width."
+msgstr ""
+"Off (default) flattens the frame to normal in-flow stacking on narrow "
+"screens to avoid overlapping text. On keeps the angled/overlap effect at "
+"every width."
+
+#: build/js/device-frame.js:1
+msgid "Change Media"
+msgstr "Change Media"
+
+#: build/js/device-frame.js:1
+msgid "Set Media"
+msgstr "Set Media"
+
+#: build/js/device-frame.js:1
+msgid "Accepts an image (incl. GIF/SVG) or a video file."
+msgstr "Accepts an image (incl. GIF/SVG) or a video file."
+
+#: build/js/device-frame.js:1
+msgid "Remove Media"
+msgstr "Remove Media"
 
 #: build/js/editor.js:1
 msgid "Canvas theme: dark — switch to light"
@@ -6193,6 +6367,14 @@ msgstr "Container"
 #: build/js/editor.js:1
 msgid "Responsive centered container with max-width"
 msgstr "Responsive centered container with max-width"
+
+#: build/js/editor.js:1 build/js/editor.js:46
+msgid "Sticky"
+msgstr "Sticky"
+
+#: build/js/editor.js:1
+msgid "Sticks the block below the header while scrolling"
+msgstr "Sticks the block below the header while scrolling"
 
 #: build/js/editor.js:1 build/js/editor.js:10
 msgid "Flex"
@@ -7117,10 +7299,6 @@ msgid "Button position"
 msgstr "Button position"
 
 #: build/js/editor.js:37
-msgid "Border color"
-msgstr "Border color"
-
-#: build/js/editor.js:37
 msgid "Border radius (px)"
 msgstr "Border radius (px)"
 
@@ -7271,10 +7449,6 @@ msgstr "Relative"
 #: build/js/editor.js:46
 msgid "Absolute"
 msgstr "Absolute"
-
-#: build/js/editor.js:46
-msgid "Sticky"
-msgstr "Sticky"
 
 #: build/js/editor.js:46
 msgid "Below content (-1)"
@@ -7697,18 +7871,86 @@ msgid "Any CSS length, e.g. 0.5rem or 8px."
 msgstr "Any CSS length, e.g. 0.5rem or 8px."
 
 #: build/js/editor.js:46
-msgid "Grid Hover Effect"
-msgstr "Grid Hover Effect"
+msgid "Blur Siblings on Hover"
+msgstr "Blur Siblings on Hover"
 
 #: build/js/editor.js:46
 msgid "Blur inactive items on hover"
 msgstr "Blur inactive items on hover"
 
 #: build/js/editor.js:46
+msgid "Hovering or focusing one direct child dims and blurs the rest."
+msgstr "Hovering or focusing one direct child dims and blurs the rest."
+
+#: build/js/editor.js:46
+msgid "Divider Lines"
+msgstr "Divider Lines"
+
+#: build/js/editor.js:46
+msgid "Show divider lines between items"
+msgstr "Show divider lines between items"
+
+#: build/js/editor.js:46
 msgid ""
-"Hovering or focusing one direct child of this group dims and blurs the rest."
+"Draws a line between each direct child using this group's own Border "
+"color/width (set those in the Border panel above). Works reliably for a "
+"single column, a row, or a Grid layout with a fixed column count. A "
+"responsive Grid without a fixed column count falls back to a border on every"
+" cell — use a background color + a small block gap instead if that looks "
+"uneven."
 msgstr ""
-"Hovering or focusing one direct child of this group dims and blurs the rest."
+"Draws a line between each direct child using this group's own Border "
+"color/width (set those in the Border panel above). Works reliably for a "
+"single column, a row, or a Grid layout with a fixed column count. A "
+"responsive Grid without a fixed column count falls back to a border on every"
+" cell — use a background color + a small block gap instead if that looks "
+"uneven."
+
+#: build/js/editor.js:46
+msgid "Corner Clipping"
+msgstr "Corner Clipping"
+
+#: build/js/editor.js:46
+msgid "Clip content to this block's border radius"
+msgstr "Clip content to this block's border radius"
+
+#: build/js/editor.js:46
+msgid ""
+"Set a border radius in this block's own Border panel above, then turn this "
+"on. Any child's own background (e.g. a hover background color) gets masked "
+"to the rounded corners automatically — whichever child ends up in a corner "
+"at any breakpoint, without tracking which one that is."
+msgstr ""
+"Set a border radius in this block's own Border panel above, then turn this "
+"on. Any child's own background (e.g. a hover background color) gets masked "
+"to the rounded corners automatically — whichever child ends up in a corner "
+"at any breakpoint, without tracking which one that is."
+
+#: build/js/editor.js:46
+msgid "Responsive Grid Columns"
+msgstr "Responsive Grid Columns"
+
+#: build/js/editor.js:46
+msgid "Desktop columns"
+msgstr "Desktop columns"
+
+#: build/js/editor.js:46
+msgid "Tablet columns"
+msgstr "Tablet columns"
+
+#: build/js/editor.js:46
+msgid "Mobile columns"
+msgstr "Mobile columns"
+
+#: build/js/editor.js:46
+msgid ""
+"Leave a field empty to inherit from the next larger breakpoint (Mobile falls"
+" back to Tablet, Tablet falls back to Desktop). Leave all three empty to use"
+" this block's own Min. column width wrapping instead."
+msgstr ""
+"Leave a field empty to inherit from the next larger breakpoint (Mobile falls"
+" back to Tablet, Tablet falls back to Desktop). Leave all three empty to use"
+" this block's own Min. column width wrapping instead."
 
 #: build/js/editor.js:46 build/js/marquee.js:1
 msgid "— None (not clickable) —"
@@ -8004,6 +8246,14 @@ msgid "Min Height (vh)"
 msgstr "Min Height (vh)"
 
 #: build/js/hero-carousel.js:4
+msgid ""
+"Auto Height is on (in Carousel Settings above) — this is now just a floor so"
+" slides never collapse below it."
+msgstr ""
+"Auto Height is on (in Carousel Settings above) — this is now just a floor so"
+" slides never collapse below it."
+
+#: build/js/hero-carousel.js:4
 msgid "Add slide"
 msgstr "Add slide"
 
@@ -8277,10 +8527,6 @@ msgid "A default label will be used, but a specific one is recommended."
 msgstr "A default label will be used, but a specific one is recommended."
 
 #: build/js/model-viewer.js:1
-msgid "Aspect ratio"
-msgstr "Aspect ratio"
-
-#: build/js/model-viewer.js:1
 msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
 msgstr "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
 
@@ -8345,10 +8591,6 @@ msgstr "Replace image"
 #: build/js/nav-content.js:1
 msgid "Select image"
 msgstr "Select image"
-
-#: build/js/nav-content.js:1
-msgid "Alt text"
-msgstr "Alt text"
 
 #: build/js/nav-content.js:1 build/js/translated-text.js:1
 msgid "Link URL"
@@ -8862,6 +9104,30 @@ msgstr ""
 #: build/js/scroll-to-top.js:1
 msgid "Scroll To Top"
 msgstr "Scroll To Top"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Search Form Colors"
+msgstr "Search Form Colors"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Panel background color"
+msgstr "Panel background color"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Input/select border color"
+msgstr "Input/select border color"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Label color"
+msgstr "Label color"
+
+#: build/js/search-form-dynamic.js:1
+msgid ""
+"Leave empty to keep the theme's default colors. The search button keeps its "
+"own gradient hover effect regardless of these settings."
+msgstr ""
+"Leave empty to keep the theme's default colors. The search button keeps its "
+"own gradient hover effect regardless of these settings."
 
 #: build/js/search-panel.js:1
 msgid "Search Panel"
@@ -9613,6 +9879,20 @@ msgctxt "block title"
 msgid "Copyrights"
 msgstr "Copyrights"
 
+#: build/blocks/device-frame/block.json src/blocks/device-frame/block.json
+msgctxt "block title"
+msgid "Device Frame"
+msgstr "Device Frame"
+
+#: build/blocks/device-frame/block.json src/blocks/device-frame/block.json
+msgctxt "block description"
+msgid ""
+"A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an "
+"image in to showcase a project."
+msgstr ""
+"A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an "
+"image in to showcase a project."
+
 #: build/blocks/gallery-lightbox/block.json
 #: src/blocks/gallery-lightbox/block.json
 msgctxt "block title"
@@ -9812,6 +10092,22 @@ msgctxt "block description"
 msgid "Server-rendered grid of other blog category topics."
 msgstr "Server-rendered grid of other blog category topics."
 
+#: build/blocks/popular-content-dynamic/block.json
+#: src/blocks/popular-content-dynamic/block.json
+msgctxt "block title"
+msgid "Popular Content (Dynamic)"
+msgstr "Popular Content (Dynamic)"
+
+#: build/blocks/popular-content-dynamic/block.json
+#: src/blocks/popular-content-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered grid of the site's most-viewed posts and pages, shown on the"
+" search page when there is no query."
+msgstr ""
+"Server-rendered grid of the site's most-viewed posts and pages, shown on the"
+" search page when there is no query."
+
 #: build/blocks/popular-pages/block.json src/blocks/popular-pages/block.json
 msgctxt "block description"
 msgid ""
@@ -9925,6 +10221,38 @@ msgctxt "block title"
 msgid "Scroll To Top"
 msgstr "Scroll To Top"
 
+#: build/blocks/search-form-dynamic/block.json
+#: src/blocks/search-form-dynamic/block.json
+msgctxt "block title"
+msgid "Search Form (Dynamic)"
+msgstr "Search Form (Dynamic)"
+
+#: build/blocks/search-form-dynamic/block.json
+#: src/blocks/search-form-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered search input form, translated per the current Polylang "
+"language."
+msgstr ""
+"Server-rendered search input form, translated per the current Polylang "
+"language."
+
+#: build/blocks/search-header-dynamic/block.json
+#: src/blocks/search-header-dynamic/block.json
+msgctxt "block title"
+msgid "Search Header (Dynamic)"
+msgstr "Search Header (Dynamic)"
+
+#: build/blocks/search-header-dynamic/block.json
+#: src/blocks/search-header-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered search results heading, translated per the current Polylang "
+"language."
+msgstr ""
+"Server-rendered search results heading, translated per the current Polylang "
+"language."
+
 #: build/blocks/search-panel/block.json src/blocks/search-panel/block.json
 msgctxt "block description"
 msgid ""
@@ -9933,6 +10261,22 @@ msgid ""
 msgstr ""
 "Search trigger with configurable panel content. Place inside a navigation "
 "for a mega-menu panel, or in the header for a standalone mobile modal."
+
+#: build/blocks/search-results-dynamic/block.json
+#: src/blocks/search-results-dynamic/block.json
+msgctxt "block title"
+msgid "Search Results (Dynamic)"
+msgstr "Search Results (Dynamic)"
+
+#: build/blocks/search-results-dynamic/block.json
+#: src/blocks/search-results-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered search results list, with a popular-content fallback when "
+"there is no query."
+msgstr ""
+"Server-rendered search results list, with a popular-content fallback when "
+"there is no query."
 
 #: build/blocks/simple-grid/block.json src/blocks/simple-grid/block.json
 msgctxt "block title"
@@ -10582,6 +10926,9 @@ msgstr "Rose Pink"
 msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Sunset Orange"
+
+#~ msgid "Grid Hover Effect"
+#~ msgstr "Grid Hover Effect"
 
 #~ msgid "GPT-4 API Developer"
 #~ msgstr "GPT-4 API Developer"

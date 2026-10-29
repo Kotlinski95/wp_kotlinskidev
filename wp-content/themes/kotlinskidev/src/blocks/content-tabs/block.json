@@ -23,6 +23,8 @@
     "activeTabColor": { "type": "string", "default": "" },
     "activeTabBackgroundEnabled": { "type": "boolean", "default": false },
     "activeTabBackgroundColor": { "type": "string", "default": "" },
+    "activeTabBorderColorEnabled": { "type": "boolean", "default": false },
+    "activeTabBorderColor": { "type": "string", "default": "" },
     "panelTransition": { "type": "string", "default": "" },
     "cardAnimation": { "type": "string", "default": "" }
   },

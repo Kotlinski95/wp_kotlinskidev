@@ -1,0 +1,55 @@
+@import "./variables";
+
+.kt-project-showcase--bottom-peek {
+	overflow: hidden;
+	background: radial-gradient(120% 90% at 50% 8%, #2b2f35 0, #141518 58%, #0e0f11 100%);
+}
+
+.kt-project-showcase--angled {
+	position: relative;
+	overflow: hidden;
+	min-height: 28.75rem;
+	background: linear-gradient(120deg, #16181c 0%, #1d2126 55%, #12262d 100%);
+
+	> .wp-block-group:first-child {
+		position: relative;
+		z-index: 2;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: auto 0 0 0;
+		height: 22%;
+		background: linear-gradient(transparent, rgba(14, 15, 17, 0.6));
+		pointer-events: none;
+	}
+
+	@media (max-width: $breakpoint-mobile) {
+
+		.kt-device-frame--angled:not(.kt-device-frame--mobile-preserve) {
+			position: static;
+			width: 100%;
+			margin-top: 2rem;
+			transform: none;
+			filter: none;
+		}
+
+		&:not(:has(.kt-device-frame--mobile-preserve))::after {
+			display: none;
+		}
+	}
+}
+
+.kt-project-showcase--faded-window__frames {
+	position: relative;
+
+	@media (max-width: $breakpoint-mobile) {
+
+		.kt-device-frame--overlap:not(.kt-device-frame--mobile-preserve) {
+			position: static;
+			width: 60%;
+			margin: 1.5rem auto 0;
+		}
+	}
+}

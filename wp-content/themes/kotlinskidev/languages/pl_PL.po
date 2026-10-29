@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-10-20T10:55:46+00:00\n"
+"POT-Creation-Date: 2026-10-29T10:06:08+00:00\n"
 "PO-Revision-Date: 2026-08-23 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
@@ -55,7 +55,8 @@ msgstr "Adres"
 
 #: build/blocks/contact-detail/render.php:17 functions/contact-card.php:69
 #: functions/settings-page.php:721 src/blocks/contact-detail/render.php:17
-#: build/js/contact-detail.js:1 build/js/protected-content.js:1
+#: build/js/contact-detail.js:1 build/js/device-frame.js:1
+#: build/js/protected-content.js:1
 msgid "Phone"
 msgstr "Telefon"
 
@@ -454,8 +455,8 @@ msgstr "Strona tematów bloga (PL)"
 
 #: functions/blog-topic-manager.php:206 functions/blog-topic-manager.php:801
 #: functions/blog-topic-manager.php:860 functions/breadcrumbs.php:56
-#: functions/search-page-dynamic-blocks.php:233
-#: functions/search-page-dynamic-blocks.php:367
+#: functions/search-page-dynamic-blocks.php:237
+#: functions/search-page-dynamic-blocks.php:371
 #: functions/tag-archive-manager.php:32 patterns/cv-centered-facts.php:79
 msgid "Articles"
 msgstr "Artykuły"
@@ -575,12 +576,12 @@ msgstr ""
 "artykułów"
 
 #: functions/blog-topic-manager.php:621
-#: functions/search-page-dynamic-blocks.php:207
+#: functions/search-page-dynamic-blocks.php:211
 msgid "Search for content"
 msgstr "Wyszukaj treści"
 
 #: functions/blog-topic-manager.php:622
-#: functions/search-page-dynamic-blocks.php:267
+#: functions/search-page-dynamic-blocks.php:271
 msgid "Search Content"
 msgstr "Wyszukaj treści"
 
@@ -606,7 +607,7 @@ msgstr "Utwórz swój pierwszy temat"
 
 #: functions/blog-topic-manager.php:801 functions/blog-topic-manager.php:860
 #: functions/search-page-dynamic-blocks.php:84
-#: functions/search-page-dynamic-blocks.php:405
+#: functions/search-page-dynamic-blocks.php:409
 #: functions/tag-archive-manager.php:32 build/js/article-card-panel.js:1
 msgid "Article"
 msgstr "Artykuł"
@@ -622,24 +623,24 @@ msgid "Explore %s"
 msgstr "Odkryj %s"
 
 #: functions/blog-topic-manager.php:875
-#: functions/search-page-dynamic-blocks.php:249
+#: functions/search-page-dynamic-blocks.php:253
 msgid "All Topics"
 msgstr "Wszystkie tematy"
 
 #: functions/blog-topic-manager.php:955 functions/blog-topic-manager.php:1292
-#: functions/search-page-dynamic-blocks.php:450
+#: functions/search-page-dynamic-blocks.php:454
 #: functions/tag-archive-manager.php:125
 msgid "Read Article"
 msgstr "Czytaj artykuł"
 
 #: functions/blog-topic-manager.php:968
-#: functions/search-page-dynamic-blocks.php:467
+#: functions/search-page-dynamic-blocks.php:471
 #: functions/tag-archive-manager.php:138
 msgid "Previous"
 msgstr "Wstecz"
 
 #: functions/blog-topic-manager.php:969
-#: functions/search-page-dynamic-blocks.php:468
+#: functions/search-page-dynamic-blocks.php:472
 #: functions/tag-archive-manager.php:139
 msgid "Next"
 msgstr "Dalej"
@@ -1443,7 +1444,7 @@ msgid "Popular Content"
 msgstr "Popularne treści"
 
 #: functions/search-page-dynamic-blocks.php:84
-#: functions/search-page-dynamic-blocks.php:405
+#: functions/search-page-dynamic-blocks.php:409
 msgid "Page"
 msgstr "Strona"
 
@@ -1467,89 +1468,89 @@ msgstr "Przeszukaj nasze treści"
 msgid "Find articles, pages, and resources across our entire site"
 msgstr "Znajdź artykuły, strony i zasoby na całej naszej stronie"
 
-#: functions/search-page-dynamic-blocks.php:213
+#: functions/search-page-dynamic-blocks.php:217
 msgid "Enter keywords, topics, or specific terms..."
 msgstr "Wprowadź słowa kluczowe, tematy lub konkretne terminy..."
 
-#: functions/search-page-dynamic-blocks.php:218
+#: functions/search-page-dynamic-blocks.php:222
 msgid "Search across all articles, pages, and content on the site"
 msgstr "Przeszukaj wszystkie artykuły, strony i treści na stronie"
 
-#: functions/search-page-dynamic-blocks.php:226
+#: functions/search-page-dynamic-blocks.php:230
 msgid "Content Type"
 msgstr "Typ treści"
 
-#: functions/search-page-dynamic-blocks.php:232
+#: functions/search-page-dynamic-blocks.php:236
 msgid "All Content"
 msgstr "Wszystkie treści"
 
-#: functions/search-page-dynamic-blocks.php:234
-#: functions/search-page-dynamic-blocks.php:367
+#: functions/search-page-dynamic-blocks.php:238
+#: functions/search-page-dynamic-blocks.php:371
 msgid "Pages"
 msgstr "Strony"
 
-#: functions/search-page-dynamic-blocks.php:237
+#: functions/search-page-dynamic-blocks.php:241
 msgid "Filter results by content type: articles, pages, or all content"
 msgstr "Filtruj wyniki według typu treści: artykuły, strony lub cała treść"
 
-#: functions/search-page-dynamic-blocks.php:243
+#: functions/search-page-dynamic-blocks.php:247
 msgid "Topic Category"
 msgstr "Kategoria tematu"
 
-#: functions/search-page-dynamic-blocks.php:259
+#: functions/search-page-dynamic-blocks.php:263
 msgid "Filter results by topic category"
 msgstr "Filtruj wyniki według kategorii tematu"
 
-#: functions/search-page-dynamic-blocks.php:270
+#: functions/search-page-dynamic-blocks.php:274
 msgid "Search for content using the criteria above"
 msgstr "Szukaj treści według powyższych kryteriów"
 
-#: functions/search-page-dynamic-blocks.php:277
+#: functions/search-page-dynamic-blocks.php:281
 msgid "search"
 msgstr "szukaj"
 
-#: functions/search-page-dynamic-blocks.php:282
+#: functions/search-page-dynamic-blocks.php:286
 msgid "Clear search and return to homepage"
 msgstr "Wyczyść wyszukiwanie i wróć do strony głównej"
 
-#: functions/search-page-dynamic-blocks.php:283
+#: functions/search-page-dynamic-blocks.php:287
 msgid "Clear search and filters"
 msgstr "Wyczyść wyszukiwanie i filtry"
 
-#: functions/search-page-dynamic-blocks.php:358
+#: functions/search-page-dynamic-blocks.php:362
 #, php-format
 msgid "Found %d results"
 msgstr "Znaleziono %d wyników"
 
-#: functions/search-page-dynamic-blocks.php:361
+#: functions/search-page-dynamic-blocks.php:365
 #, php-format
 msgid "Showing results for \"%s\""
 msgstr "Wyświetlanie wyników dla \"%s\""
 
-#: functions/search-page-dynamic-blocks.php:363
+#: functions/search-page-dynamic-blocks.php:367
 #, php-format
 msgid " in %s"
 msgstr " w %s"
 
-#: functions/search-page-dynamic-blocks.php:368
+#: functions/search-page-dynamic-blocks.php:372
 #, php-format
 msgid " • %s only"
 msgstr " • tylko %s"
 
-#: functions/search-page-dynamic-blocks.php:375
+#: functions/search-page-dynamic-blocks.php:379
 #, php-format
 msgid "Page %d of %d"
 msgstr "Strona %d z %d"
 
-#: functions/search-page-dynamic-blocks.php:450
+#: functions/search-page-dynamic-blocks.php:454
 msgid "View Page"
 msgstr "Zobacz stronę"
 
-#: functions/search-page-dynamic-blocks.php:494
+#: functions/search-page-dynamic-blocks.php:498
 msgid "Looking for something else?"
 msgstr "Szukasz czegoś innego?"
 
-#: functions/search-page-dynamic-blocks.php:497
+#: functions/search-page-dynamic-blocks.php:501
 msgid ""
 "Try searching for a different term or explore more content using the search "
 "form below."
@@ -1557,44 +1558,44 @@ msgstr ""
 "Spróbuj wyszukać inne hasło lub przejrzyj więcej treści za pomocą formularza"
 " wyszukiwania poniżej."
 
-#: functions/search-page-dynamic-blocks.php:517
+#: functions/search-page-dynamic-blocks.php:521
 msgid "No results found"
 msgstr "Nie znaleziono wyników"
 
-#: functions/search-page-dynamic-blocks.php:522
+#: functions/search-page-dynamic-blocks.php:526
 #, php-format
 msgid "We couldn't find any content matching \"%s\""
 msgstr "Nie mogliśmy znaleźć żadnych treści pasujących do \"%s\""
 
-#: functions/search-page-dynamic-blocks.php:526
+#: functions/search-page-dynamic-blocks.php:530
 msgid " with your current filters"
 msgstr " z Twoimi obecnymi filtrami"
 
-#: functions/search-page-dynamic-blocks.php:531
+#: functions/search-page-dynamic-blocks.php:535
 msgid "Try these search tips:"
 msgstr "Wypróbuj te wskazówki wyszukiwania:"
 
-#: functions/search-page-dynamic-blocks.php:533
+#: functions/search-page-dynamic-blocks.php:537
 msgid "Check your spelling and try again"
 msgstr "Sprawdź pisownię i spróbuj ponownie"
 
-#: functions/search-page-dynamic-blocks.php:534
+#: functions/search-page-dynamic-blocks.php:538
 msgid "Use fewer or different keywords"
 msgstr "Użyj mniej lub innych słów kluczowych"
 
-#: functions/search-page-dynamic-blocks.php:535
+#: functions/search-page-dynamic-blocks.php:539
 msgid "Remove content type or category filters"
 msgstr "Usuń filtry typu treści lub kategorii"
 
-#: functions/search-page-dynamic-blocks.php:536
+#: functions/search-page-dynamic-blocks.php:540
 msgid "Try more general terms"
 msgstr "Spróbuj bardziej ogólnych terminów"
 
-#: functions/search-page-dynamic-blocks.php:537
+#: functions/search-page-dynamic-blocks.php:541
 msgid "Search for related topics or synonyms"
 msgstr "Szukaj powiązanych tematów lub synonimów"
 
-#: functions/search-page-dynamic-blocks.php:543
+#: functions/search-page-dynamic-blocks.php:547
 msgid "Browse All Content"
 msgstr "Przeglądaj wszystkie treści"
 
@@ -1994,14 +1995,14 @@ msgid "Mobile"
 msgstr "Mobilny"
 
 #: functions/settings-page.php:950 build/js/content-tabs.js:1
-#: build/js/editor.js:13 build/js/editor.js:22 build/js/editor.js:31
-#: build/js/editor.js:40 build/js/editor.js:46
+#: build/js/device-frame.js:1 build/js/editor.js:13 build/js/editor.js:22
+#: build/js/editor.js:31 build/js/editor.js:40 build/js/editor.js:46
 msgid "Tablet"
 msgstr "Tablet"
 
 #: functions/settings-page.php:951 build/js/content-tabs.js:1
-#: build/js/editor.js:10 build/js/editor.js:19 build/js/editor.js:28
-#: build/js/editor.js:37 build/js/editor.js:46
+#: build/js/device-frame.js:1 build/js/editor.js:10 build/js/editor.js:19
+#: build/js/editor.js:28 build/js/editor.js:37 build/js/editor.js:46
 msgid "Desktop"
 msgstr "Komputer"
 
@@ -4204,21 +4205,82 @@ msgstr "Zobacz moje kursy"
 msgid "Support and Donation Link"
 msgstr "Link wsparcia i darowizn"
 
-#: patterns/project-carousel-bottom-peek.php
+#: patterns/project-showcase-angled-peek.php
 msgctxt "Pattern title"
-msgid "Project Carousel Bottom Peek"
-msgstr "Karuzela projektów – dolne prześwitywanie"
+msgid "Project Showcase - Angled Peek"
+msgstr "Prezentacja projektu – ukośne wysunięcie"
 
-#: patterns/project-carousel-bottom-peek.php:13
+#: patterns/project-showcase-angled-peek.php:11
+msgid "Platform"
+msgstr "Platforma"
+
+#: patterns/project-showcase-angled-peek.php:15
+msgid "A slice of the product, on an angle"
+msgstr "Fragment produktu, ukazany pod kątem"
+
+#: patterns/project-showcase-angled-peek.php:19
+msgid ""
+"Perspective plus a soft fade keeps the crop intentional instead of "
+"accidental."
+msgstr ""
+"Perspektywa i delikatne zanikanie sprawiają, że przycięcie wygląda "
+"zamierzenie, a nie przypadkowo."
+
+#: patterns/project-showcase-bottom-peek.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Bottom Peek"
+msgstr "Prezentacja projektu – dolne wysunięcie"
+
+#: patterns/project-showcase-bottom-peek.php:10
 msgid "Observe"
 msgstr "Obserwuj"
 
-#: patterns/project-carousel-bottom-peek.php:17
-msgid ""
-"One line of project copy, set in mono for contrast against the display "
-"heading."
+#: patterns/project-showcase-bottom-peek.php:14
+msgid "One line of project copy to set the scene for the screenshot below."
 msgstr ""
-"Jedna linia opisu projektu, w czcionce mono dla kontrastu z nagłówkiem."
+"Jedna linia opisu projektu, wprowadzająca w kontekst zrzutu ekranu poniżej."
+
+#: patterns/project-showcase-captioned.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Captioned"
+msgstr "Prezentacja projektu – z opisem"
+
+#: patterns/project-showcase-captioned.php:24
+msgid "E-commerce · WooCommerce"
+msgstr "E-commerce · WooCommerce"
+
+#: patterns/project-showcase-captioned.php:28
+msgid "Storefront rebuilt for speed"
+msgstr "Sklep przebudowany z myślą o szybkości"
+
+#: patterns/project-showcase-captioned.php:32
+msgid ""
+"Replace this copy per project, or drop the text column to fall back to an "
+"image-only slide."
+msgstr ""
+"Zastąp ten tekst opisem własnego projektu lub usuń kolumnę tekstową, aby "
+"pozostał sam obraz."
+
+#: patterns/project-showcase-captioned.php:37
+msgid "View case study"
+msgstr "Zobacz studium przypadku"
+
+#: patterns/project-showcase-faded-window.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Faded Window"
+msgstr "Prezentacja projektu – zanikające okno"
+
+#: patterns/project-showcase-faded-window.php:11
+msgid "Responsive, both ends of the range"
+msgstr "Responsywne od telefonu do komputera"
+
+#: patterns/project-showcase-faded-window.php:15
+msgid ""
+"The desktop shot fades out at the bottom; the phone stays fully legible on "
+"top of it."
+msgstr ""
+"Zrzut z komputera zanika na dole; telefon pozostaje w pełni widoczny na jego"
+" tle."
 
 #: patterns/service-content.php
 msgctxt "Pattern title"
@@ -5419,6 +5481,20 @@ msgstr "Renderuje kropki paginacji pod slajdami zamiast nakładać je na nie."
 
 #: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
 #: build/js/hero-carousel.js:1
+msgid "Auto Height"
+msgstr "Automatyczna wysokość"
+
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
+msgid ""
+"Sizes the carousel to each slide's own content instead of a fixed height. "
+"Any Min Height setting still applies as a floor."
+msgstr ""
+"Dopasowuje wysokość karuzeli do zawartości każdego slajdu, zamiast stałej "
+"wysokości. Ustawienie Min. wysokości nadal działa jako wartość minimalna."
+
+#: build/js/banner-carousel.js:1 build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show Scrollbar"
 msgstr "Pokaż pasek przewijania"
 
@@ -6030,8 +6106,8 @@ msgstr "Lewo"
 msgid "Right"
 msgstr "Prawo"
 
-#: build/js/content-tabs.js:1 build/js/editor.js:1 build/js/editor.js:28
-#: build/js/editor.js:46 build/js/language-panel.js:1
+#: build/js/content-tabs.js:1 build/js/device-frame.js:1 build/js/editor.js:1
+#: build/js/editor.js:28 build/js/editor.js:46 build/js/language-panel.js:1
 msgid "None"
 msgstr "Brak"
 
@@ -6135,6 +6211,14 @@ msgstr "Kolor tekstu aktywnej zakładki"
 msgid "Active tab background color"
 msgstr "Kolor tła aktywnej zakładki"
 
+#: build/js/content-tabs.js:1 build/js/editor.js:37
+msgid "Border color"
+msgstr "Kolor obramowania"
+
+#: build/js/content-tabs.js:1
+msgid "Active tab border color"
+msgstr "Kolor obramowania aktywnej zakładki"
+
 #: build/js/content-tabs.js:1
 msgid "Animations"
 msgstr "Animacje"
@@ -6161,6 +6245,99 @@ msgid ""
 msgstr ""
 "Animuje karty projektów/artykułów w nowo wyświetlonej zakładce, jedna po "
 "drugiej."
+
+#: build/js/device-frame.js:1
+msgid "Desktop screenshot or video"
+msgstr "Zrzut ekranu lub wideo – wersja desktopowa"
+
+#: build/js/device-frame.js:1
+msgid "Tablet screenshot or video"
+msgstr "Zrzut ekranu lub wideo – wersja na tablet"
+
+#: build/js/device-frame.js:1
+msgid "Mobile screenshot or video"
+msgstr "Zrzut ekranu lub wideo – wersja mobilna"
+
+#: build/js/device-frame.js:1
+msgid "Angled"
+msgstr "Ukośne"
+
+#: build/js/device-frame.js:1
+msgid "Overlap"
+msgstr "Nakładka"
+
+#: build/js/device-frame.js:1
+msgid "Faded Window"
+msgstr "Zanikające okno"
+
+#: build/js/device-frame.js:1
+msgid "Peek Top"
+msgstr "Wysunięcie od góry"
+
+#: build/js/device-frame.js:1
+msgid "Device Frame"
+msgstr "Ramka urządzenia"
+
+#: build/js/device-frame.js:1
+msgid "Device"
+msgstr "Urządzenie"
+
+#: build/js/device-frame.js:1 build/js/model-viewer.js:1
+msgid "Aspect ratio"
+msgstr "Proporcje obrazu"
+
+#: build/js/device-frame.js:1
+msgid ""
+"Any CSS aspect-ratio value, e.g. 16/10. Leave empty for the device default."
+msgstr ""
+"Dowolna wartość CSS aspect-ratio, np. 16/10. Pozostaw puste, aby użyć "
+"wartości domyślnej dla urządzenia."
+
+#: build/js/device-frame.js:1 build/js/nav-content.js:1
+msgid "Alt text"
+msgstr "Tekst alternatywny"
+
+#: build/js/device-frame.js:1
+msgid "Position style"
+msgstr "Styl pozycji"
+
+#: build/js/device-frame.js:1
+msgid ""
+"How the frame sits in its showcase section. None keeps normal in-flow "
+"sizing."
+msgstr ""
+"Sposób ustawienia ramki w sekcji prezentacji. „Brak” zachowuje normalny, "
+"niezmieniony układ."
+
+#: build/js/device-frame.js:1
+msgid "Keep effect on mobile"
+msgstr "Zachowaj efekt na urządzeniach mobilnych"
+
+#: build/js/device-frame.js:1
+msgid ""
+"Off (default) flattens the frame to normal in-flow stacking on narrow "
+"screens to avoid overlapping text. On keeps the angled/overlap effect at "
+"every width."
+msgstr ""
+"Wyłączone (domyślnie) spłaszcza ramkę do normalnego układu na wąskich "
+"ekranach, aby uniknąć nakładania się na tekst. Włączone zachowuje efekt "
+"ukośny/nakładki przy każdej szerokości."
+
+#: build/js/device-frame.js:1
+msgid "Change Media"
+msgstr "Zmień media"
+
+#: build/js/device-frame.js:1
+msgid "Set Media"
+msgstr "Wybierz media"
+
+#: build/js/device-frame.js:1
+msgid "Accepts an image (incl. GIF/SVG) or a video file."
+msgstr "Przyjmuje obraz (w tym GIF/SVG) lub plik wideo."
+
+#: build/js/device-frame.js:1
+msgid "Remove Media"
+msgstr "Usuń media"
 
 #: build/js/editor.js:1
 msgid "Canvas theme: dark — switch to light"
@@ -6253,6 +6430,14 @@ msgstr "Kontener"
 #: build/js/editor.js:1
 msgid "Responsive centered container with max-width"
 msgstr "Responsywny wyśrodkowany kontener z maksymalną szerokością"
+
+#: build/js/editor.js:1 build/js/editor.js:46
+msgid "Sticky"
+msgstr "Przyklejona"
+
+#: build/js/editor.js:1
+msgid "Sticks the block below the header while scrolling"
+msgstr "Przykleja blok pod nagłówkiem podczas przewijania"
 
 #: build/js/editor.js:1 build/js/editor.js:10
 msgid "Flex"
@@ -7186,10 +7371,6 @@ msgid "Button position"
 msgstr "Pozycja przycisku"
 
 #: build/js/editor.js:37
-msgid "Border color"
-msgstr "Kolor obramowania"
-
-#: build/js/editor.js:37
 msgid "Border radius (px)"
 msgstr "Promień obramowania (px)"
 
@@ -7347,10 +7528,6 @@ msgstr "Względna"
 #: build/js/editor.js:46
 msgid "Absolute"
 msgstr "Bezwzględna"
-
-#: build/js/editor.js:46
-msgid "Sticky"
-msgstr "Przyklejona"
 
 #: build/js/editor.js:46
 msgid "Below content (-1)"
@@ -7777,19 +7954,90 @@ msgid "Any CSS length, e.g. 0.5rem or 8px."
 msgstr "Dowolna wartość długości CSS, np. 0.5rem lub 8px."
 
 #: build/js/editor.js:46
-msgid "Grid Hover Effect"
-msgstr "Efekt najechania na siatkę"
+msgid "Blur Siblings on Hover"
+msgstr "Rozmycie elementów po najechaniu"
 
 #: build/js/editor.js:46
 msgid "Blur inactive items on hover"
 msgstr "Rozmyj nieaktywne elementy po najechaniu"
 
 #: build/js/editor.js:46
-msgid ""
-"Hovering or focusing one direct child of this group dims and blurs the rest."
+msgid "Hovering or focusing one direct child dims and blurs the rest."
 msgstr ""
-"Najechanie lub fokus na jednym bezpośrednim elemencie tej grupy przyciemnia "
-"i rozmywa pozostałe."
+"Najechanie lub fokus na jednym bezpośrednim elemencie przyciemnia i rozmywa "
+"pozostałe."
+
+#: build/js/editor.js:46
+msgid "Divider Lines"
+msgstr "Linie podziału"
+
+#: build/js/editor.js:46
+msgid "Show divider lines between items"
+msgstr "Pokaż linie podziału między elementami"
+
+#: build/js/editor.js:46
+msgid ""
+"Draws a line between each direct child using this group's own Border "
+"color/width (set those in the Border panel above). Works reliably for a "
+"single column, a row, or a Grid layout with a fixed column count. A "
+"responsive Grid without a fixed column count falls back to a border on every"
+" cell — use a background color + a small block gap instead if that looks "
+"uneven."
+msgstr ""
+"Rysuje linię między każdym bezpośrednim elementem, używając koloru i "
+"szerokości obramowania ustawionych w panelu Obramowanie powyżej. Działa "
+"poprawnie dla jednej kolumny, rzędu lub układu Grid o ustalonej liczbie "
+"kolumn. Responsywny Grid bez ustalonej liczby kolumn stosuje obramowanie na "
+"każdej komórce — jeśli wygląda to nierówno, użyj koloru tła i niewielkiego "
+"odstępu między elementami."
+
+#: build/js/editor.js:46
+msgid "Corner Clipping"
+msgstr "Przycinanie narożników"
+
+#: build/js/editor.js:46
+msgid "Clip content to this block's border radius"
+msgstr "Przycinaj zawartość do zaokrąglenia tego bloku"
+
+#: build/js/editor.js:46
+msgid ""
+"Set a border radius in this block's own Border panel above, then turn this "
+"on. Any child's own background (e.g. a hover background color) gets masked "
+"to the rounded corners automatically — whichever child ends up in a corner "
+"at any breakpoint, without tracking which one that is."
+msgstr ""
+"Najpierw ustaw zaokrąglenie w panelu Obramowanie tego bloku powyżej, a potem"
+" włącz tę opcję. Tło każdego elementu podrzędnego (np. kolor tła po "
+"najechaniu) zostanie automatycznie przycięte do zaokrąglonych narożników — "
+"niezależnie od tego, który element znajdzie się w rogu przy danej szerokości"
+" ekranu."
+
+#: build/js/editor.js:46
+msgid "Responsive Grid Columns"
+msgstr "Responsywne kolumny siatki"
+
+#: build/js/editor.js:46
+msgid "Desktop columns"
+msgstr "Kolumny – komputer"
+
+#: build/js/editor.js:46
+msgid "Tablet columns"
+msgstr "Kolumny – tablet"
+
+#: build/js/editor.js:46
+msgid "Mobile columns"
+msgstr "Kolumny – telefon"
+
+#: build/js/editor.js:46
+msgid ""
+"Leave a field empty to inherit from the next larger breakpoint (Mobile falls"
+" back to Tablet, Tablet falls back to Desktop). Leave all three empty to use"
+" this block's own Min. column width wrapping instead."
+msgstr ""
+"Pozostaw pole puste, aby odziedziczyć wartość z większego punktu przełamania"
+" (Mobile dziedziczy z Tablet, Tablet dziedziczy z Desktop). Pozostaw "
+"wszystkie trzy pola puste, aby użyć domyślnego zawijania kolumn na podstawie"
+" minimalnej szerokości."
 
 #: build/js/editor.js:46 build/js/marquee.js:1
 msgid "— None (not clickable) —"
@@ -8085,6 +8333,15 @@ msgid "Min Height (vh)"
 msgstr "Minimalna wysokość (vh)"
 
 #: build/js/hero-carousel.js:4
+msgid ""
+"Auto Height is on (in Carousel Settings above) — this is now just a floor so"
+" slides never collapse below it."
+msgstr ""
+"Automatyczna wysokość jest włączona (w Ustawieniach karuzeli powyżej) — to "
+"ustawienie działa teraz tylko jako minimalna wartość, aby slajdy nigdy nie "
+"zwęziły się poniżej niej."
+
+#: build/js/hero-carousel.js:4
 msgid "Add slide"
 msgstr "Dodaj slajd"
 
@@ -8363,10 +8620,6 @@ msgid "A default label will be used, but a specific one is recommended."
 msgstr "Zostanie użyta domyślna etykieta, ale zalecana jest własna."
 
 #: build/js/model-viewer.js:1
-msgid "Aspect ratio"
-msgstr "Proporcje obrazu"
-
-#: build/js/model-viewer.js:1
 msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
 msgstr ""
 "Dowolna wartość koloru CSS, np. #1a1a1a. Pozostaw puste dla "
@@ -8433,10 +8686,6 @@ msgstr "Zmień obraz"
 #: build/js/nav-content.js:1
 msgid "Select image"
 msgstr "Wybierz obraz"
-
-#: build/js/nav-content.js:1
-msgid "Alt text"
-msgstr "Tekst alternatywny"
 
 #: build/js/nav-content.js:1 build/js/translated-text.js:1
 msgid "Link URL"
@@ -8953,6 +9202,31 @@ msgstr ""
 #: build/js/scroll-to-top.js:1
 msgid "Scroll To Top"
 msgstr "Przycisk Do góry"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Search Form Colors"
+msgstr "Kolory formularza wyszukiwania"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Panel background color"
+msgstr "Kolor tła panelu"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Input/select border color"
+msgstr "Kolor obramowania pól formularza"
+
+#: build/js/search-form-dynamic.js:1
+msgid "Label color"
+msgstr "Kolor etykiet"
+
+#: build/js/search-form-dynamic.js:1
+msgid ""
+"Leave empty to keep the theme's default colors. The search button keeps its "
+"own gradient hover effect regardless of these settings."
+msgstr ""
+"Pozostaw puste, aby zachować domyślne kolory motywu. Przycisk wyszukiwania "
+"zachowuje własny gradientowy efekt po najechaniu niezależnie od tych "
+"ustawień."
 
 #: build/js/search-panel.js:1
 msgid "Search Panel"
@@ -9718,6 +9992,20 @@ msgctxt "block title"
 msgid "Copyrights"
 msgstr "Prawa autorskie"
 
+#: build/blocks/device-frame/block.json src/blocks/device-frame/block.json
+msgctxt "block title"
+msgid "Device Frame"
+msgstr "Ramka urządzenia"
+
+#: build/blocks/device-frame/block.json src/blocks/device-frame/block.json
+msgctxt "block description"
+msgid ""
+"A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an "
+"image in to showcase a project."
+msgstr ""
+"Ramka komputera, tabletu lub telefonu, która przycina zrzut ekranu do "
+"swojego kształtu — wstaw obraz, aby zaprezentować projekt."
+
 #: build/blocks/gallery-lightbox/block.json
 #: src/blocks/gallery-lightbox/block.json
 msgctxt "block title"
@@ -9924,6 +10212,22 @@ msgctxt "block description"
 msgid "Server-rendered grid of other blog category topics."
 msgstr "Renderowana po stronie serwera siatka innych tematów kategorii bloga."
 
+#: build/blocks/popular-content-dynamic/block.json
+#: src/blocks/popular-content-dynamic/block.json
+msgctxt "block title"
+msgid "Popular Content (Dynamic)"
+msgstr "Popularne treści (dynamiczne)"
+
+#: build/blocks/popular-content-dynamic/block.json
+#: src/blocks/popular-content-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered grid of the site's most-viewed posts and pages, shown on the"
+" search page when there is no query."
+msgstr ""
+"Siatka najpopularniejszych wpisów i stron, renderowana po stronie serwera, "
+"wyświetlana na stronie wyszukiwania, gdy nie podano zapytania."
+
 #: build/blocks/popular-pages/block.json src/blocks/popular-pages/block.json
 msgctxt "block description"
 msgid ""
@@ -10040,6 +10344,38 @@ msgctxt "block title"
 msgid "Scroll To Top"
 msgstr "Przewiń do góry"
 
+#: build/blocks/search-form-dynamic/block.json
+#: src/blocks/search-form-dynamic/block.json
+msgctxt "block title"
+msgid "Search Form (Dynamic)"
+msgstr "Formularz wyszukiwania (dynamiczny)"
+
+#: build/blocks/search-form-dynamic/block.json
+#: src/blocks/search-form-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered search input form, translated per the current Polylang "
+"language."
+msgstr ""
+"Formularz wyszukiwania renderowany po stronie serwera, tłumaczony zgodnie z "
+"aktualnym językiem Polylang."
+
+#: build/blocks/search-header-dynamic/block.json
+#: src/blocks/search-header-dynamic/block.json
+msgctxt "block title"
+msgid "Search Header (Dynamic)"
+msgstr "Nagłówek wyszukiwania (dynamiczny)"
+
+#: build/blocks/search-header-dynamic/block.json
+#: src/blocks/search-header-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered search results heading, translated per the current Polylang "
+"language."
+msgstr ""
+"Nagłówek wyników wyszukiwania renderowany po stronie serwera, tłumaczony "
+"zgodnie z aktualnym językiem Polylang."
+
 #: build/blocks/search-panel/block.json src/blocks/search-panel/block.json
 msgctxt "block description"
 msgid ""
@@ -10049,6 +10385,22 @@ msgstr ""
 "Przycisk wyszukiwania z konfigurowalną treścią panelu. Umieść wewnątrz "
 "nawigacji dla panelu mega menu lub w nagłówku dla samodzielnego modalu "
 "mobilnego."
+
+#: build/blocks/search-results-dynamic/block.json
+#: src/blocks/search-results-dynamic/block.json
+msgctxt "block title"
+msgid "Search Results (Dynamic)"
+msgstr "Wyniki wyszukiwania (dynamiczne)"
+
+#: build/blocks/search-results-dynamic/block.json
+#: src/blocks/search-results-dynamic/block.json
+msgctxt "block description"
+msgid ""
+"Server-rendered search results list, with a popular-content fallback when "
+"there is no query."
+msgstr ""
+"Lista wyników wyszukiwania renderowana po stronie serwera, z awaryjnym "
+"wyświetleniem popularnych treści, gdy nie podano zapytania."
 
 #: build/blocks/simple-grid/block.json src/blocks/simple-grid/block.json
 msgctxt "block title"
@@ -10700,6 +11052,9 @@ msgstr "Różowy Róż"
 msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Pomarańcz Zachodu"
+
+#~ msgid "Grid Hover Effect"
+#~ msgstr "Efekt najechania na siatkę"
 
 #~ msgid "GPT-4 API Developer"
 #~ msgstr "GPT-4 API Developer"

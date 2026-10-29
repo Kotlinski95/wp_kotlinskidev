@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/popular-content-dynamic",
+  "version": "1.0.0",
+  "title": "Popular Content (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered grid of the site's most-viewed posts and pages, shown on the search page when there is no query.",
+  "icon": "chart-line",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/popular-content-dynamic.js",
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}
