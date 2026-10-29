@@ -105,10 +105,15 @@ jobs:
         run: |
           TOKEN="${{ steps.sonar_token.outputs.token }}"
 
-          curl -fsS -u "${TOKEN}:" "http://localhost:9000/api/issues/search?componentKeys=kotlinskidev&resolved=false&ps=500" > sonar-issues.json
-          curl -fsS -u "${TOKEN}:" "http://localhost:9000/api/hotspots/search?projectKey=kotlinskidev&ps=500" > sonar-hotspots.json
+          ISSUES_CODE="$(curl -sS -o sonar-issues.json -w '%{http_code}' -u "${TOKEN}:" "http://localhost:9000/api/issues/search?componentKeys=kotlinskidev&resolved=false&ps=500" || echo "curl_failed")"
+          echo "issues API HTTP ${ISSUES_CODE}"
+          cat sonar-issues.json
 
-          python3 bin/sonar-summary.py sonar-issues.json sonar-hotspots.json >> "$GITHUB_STEP_SUMMARY"
+          HOTSPOTS_CODE="$(curl -sS -o sonar-hotspots.json -w '%{http_code}' -u "${TOKEN}:" "http://localhost:9000/api/hotspots/search?projectKey=kotlinskidev&ps=500" || echo "curl_failed")"
+          echo "hotspots API HTTP ${HOTSPOTS_CODE}"
+          cat sonar-hotspots.json
+
+          python3 bin/sonar-summary.py sonar-issues.json sonar-hotspots.json >> "$GITHUB_STEP_SUMMARY" || true
 
       - name: Fail if scan step failed
         if: steps.sonar_scan.outcome == 'failure'
