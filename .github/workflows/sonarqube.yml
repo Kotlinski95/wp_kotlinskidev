@@ -109,7 +109,7 @@ jobs:
           echo "issues API HTTP ${ISSUES_CODE}"
           cat sonar-issues.json
 
-          HOTSPOTS_CODE="$(curl -sS -o sonar-hotspots.json -w '%{http_code}' -u "${TOKEN}:" "http://localhost:9000/api/hotspots/search?projectKey=kotlinskidev&ps=500" || echo "curl_failed")"
+          HOTSPOTS_CODE="$(curl -sS -o sonar-hotspots.json -w '%{http_code}' -u "${TOKEN}:" "http://localhost:9000/api/hotspots/search?project=kotlinskidev&ps=500" || echo "curl_failed")"
           echo "hotspots API HTTP ${HOTSPOTS_CODE}"
           cat sonar-hotspots.json
 
