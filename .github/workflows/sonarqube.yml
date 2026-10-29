@@ -42,10 +42,13 @@ jobs:
           cache: 'npm'
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
 
+      - name: Pin npm to latest
+        run: npm install -g npm@latest
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.4'
           coverage: pcov
 
       - name: Install JS dependencies
