@@ -97,7 +97,7 @@ if (!function_exists('kotlinskidev_encrypt_content')) {
         }
 
         $encrypted = '';
-        $success = openssl_public_encrypt($content, $encrypted, $keys['public_key']);
+        $success = openssl_public_encrypt($content, $encrypted, $keys['public_key'], OPENSSL_PKCS1_OAEP_PADDING);
 
         if ($success) {
             return base64_encode($encrypted);
@@ -129,7 +129,10 @@ if (!function_exists('kotlinskidev_decrypt_content')) {
         }
 
         $decrypted = '';
-        $success = openssl_private_decrypt($encrypted_data, $decrypted, $keys['private_key']);
+        $success = openssl_private_decrypt($encrypted_data, $decrypted, $keys['private_key'], OPENSSL_PKCS1_OAEP_PADDING);
+        if (!$success) {
+            $success = openssl_private_decrypt($encrypted_data, $decrypted, $keys['private_key'], OPENSSL_PKCS1_PADDING);
+        }
 
         if ($success) {
             return $decrypted;
