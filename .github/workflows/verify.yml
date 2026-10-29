@@ -1,0 +1,174 @@
+name: Verify
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: wp-content/themes/kotlinskidev
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - run: npm ci
+
+      - run: npm run check-version-sync
+      - run: npm run check-palette-consistency
+      - run: npm run prettier:check
+      - run: npm run lint:css
+      - run: npm run lint:js
+      - run: npm run lint:pkg-json
+      - run: npm run lint:md:docs
+      - run: npm run lint:i18n:js
+
+  i18n:
+    name: i18n check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Install WP-CLI
+        run: |
+          curl -sSL -o /tmp/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x /tmp/wp-cli.phar
+          sudo mv /tmp/wp-cli.phar /usr/local/bin/wp
+
+      - run: npm ci
+      - run: npm run i18n:check
+
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Cache Composer vendor
+        uses: actions/cache@v4
+        with:
+          path: wp-content/themes/kotlinskidev/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('wp-content/themes/kotlinskidev/composer.lock') }}
+
+      - run: npm ci
+      - run: composer install --no-interaction --prefer-dist
+
+      - run: npm run security:sast
+      - run: npm run security:audit:full
+      - run: npm run security:audit:php
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: wp-content/themes/kotlinskidev/.gitleaks.toml
+
+  test-js:
+    name: JS unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - run: npm ci
+      - run: npm run test:unit
+
+  test-php:
+    name: PHP unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Cache Composer vendor
+        uses: actions/cache@v4
+        with:
+          path: wp-content/themes/kotlinskidev/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('wp-content/themes/kotlinskidev/composer.lock') }}
+
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer test:unit
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - run: npm ci
+      - run: npm run build
+
+  ci-passed:
+    name: CI passed
+    needs: [ lint, i18n, security, test-js, test-php, build ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check all jobs succeeded
+        run: |
+          if [ "${{ contains(needs.*.result, 'failure') }}" = "true" ] || [ "${{ contains(needs.*.result, 'cancelled') }}" = "true" ]; then
+            echo "One or more required jobs did not succeed."
+            exit 1
+          fi
+          echo "All required jobs succeeded."
