@@ -30,6 +30,27 @@ if ( ! in_array( $position_style, $allowed_position_styles, true ) ) {
 
 $keep_effect_on_mobile = (bool) ( $attributes['keepEffectOnMobile'] ?? false );
 
+$object_position = sanitize_text_field( $attributes['objectPosition'] ?? '' );
+if ( 1 !== preg_match( '/^-?\d{1,3}% -?\d{1,3}%$/', $object_position ) ) {
+	$object_position = '';
+}
+$image_style = '' !== $object_position ? 'object-position:' . esc_attr( $object_position ) . ';' : '';
+
+$fetch_priority = sanitize_key( $attributes['fetchPriority'] ?? 'auto' );
+if ( ! in_array( $fetch_priority, [ 'auto', 'high', 'low' ], true ) ) {
+	$fetch_priority = 'auto';
+}
+
+$loading = sanitize_key( $attributes['loading'] ?? 'lazy' );
+if ( ! in_array( $loading, [ 'lazy', 'eager' ], true ) ) {
+	$loading = 'lazy';
+}
+if ( 'high' === $fetch_priority ) {
+	$loading = 'eager';
+}
+
+$enable_lightbox = (bool) ( $attributes['enableLightbox'] ?? false );
+
 $wrapper_class = 'kt-device-frame kt-device-frame--' . $device;
 if ( '' !== $position_style ) {
 	$wrapper_class .= ' kt-device-frame--' . $position_style;
@@ -48,7 +69,24 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 		<div class="kt-device-frame__screen">
 			<?php
 			$mime_type = get_post_mime_type( $image_id );
-			if ( $mime_type && str_starts_with( $mime_type, 'video/' ) ) {
+			$is_video  = $mime_type && str_starts_with( $mime_type, 'video/' );
+
+			$lightbox_modal_id = $enable_lightbox
+				? kotlinskidev_register_device_frame_lightbox_media( $image_id, $is_video )
+				: '';
+
+			if ( $enable_lightbox ) :
+				?>
+				<button
+					type="button"
+					class="kt-device-frame__lightbox-trigger"
+					data-kt-modal-target="<?php echo esc_attr( $lightbox_modal_id ); ?>"
+					aria-label="<?php echo esc_attr( $is_video ? __( 'Expand video', 'kotlinskidev' ) : __( 'Expand image', 'kotlinskidev' ) ); ?>"
+				>
+				<?php
+			endif;
+
+			if ( $is_video ) {
 				$poster_id  = get_post_thumbnail_id( $image_id );
 				$poster_url = $poster_id ? wp_get_attachment_image_url( $poster_id, 'full' ) : '';
 				?>
@@ -56,11 +94,13 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 					class="kt-device-frame__image"
 					src="<?php echo esc_url( wp_get_attachment_url( $image_id ) ); ?>"
 					<?php if ( $poster_url ) : ?>poster="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
+					<?php if ( '' !== $image_style ) : ?>style="<?php echo esc_attr( $image_style ); ?>"<?php endif; ?>
+					fetchpriority="<?php echo esc_attr( $fetch_priority ); ?>"
 					muted
 					loop
 					autoplay
 					playsinline
-					preload="metadata"
+					preload="<?php echo esc_attr( 'eager' === $loading ? 'auto' : 'metadata' ); ?>"
 				></video>
 				<?php
 			} else {
@@ -69,13 +109,21 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 					'full',
 					false,
 					[
-						'class'    => 'kt-device-frame__image',
-						'loading'  => 'lazy',
-						'decoding' => 'async',
-						'alt'      => $alt,
+						'class'         => 'kt-device-frame__image',
+						'loading'       => $loading,
+						'fetchpriority' => $fetch_priority,
+						'decoding'      => 'async',
+						'alt'           => $alt,
+						'style'         => $image_style,
 					]
 				);
 			}
+
+			if ( $enable_lightbox ) :
+				?>
+				</button>
+				<?php
+			endif;
 			?>
 		</div>
 		<?php if ( 'phone' === $device ) : ?>

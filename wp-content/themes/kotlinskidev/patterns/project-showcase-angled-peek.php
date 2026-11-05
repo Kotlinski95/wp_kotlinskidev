@@ -5,8 +5,8 @@
  * Categories: sections, kotlinskidev/sections, themeslug/custom
  */
 ?>
-<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/project-showcase-angled-peek","name":"Project Showcase - Angled Peek"},"align":"wide","className":"kt-project-showcase--angled","style":{"spacing":{"padding":{"top":"4.375rem","bottom":"0","left":"3.5rem","right":"3.5rem"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group alignwide kt-project-showcase--angled" style="margin-top:0;margin-bottom:0;padding-top:4.375rem;padding-right:3.5rem;padding-bottom:0;padding-left:3.5rem"><!-- wp:group {"layout":{"type":"constrained","contentSize":"38ch","justifyContent":"left"}} -->
+<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/project-showcase-angled-peek","name":"Project Showcase - Angled Peek"},"align":"wide","className":"kt-project-showcase--angled","gradient":"project-showcase-angled","style":{"spacing":{"padding":{"top":"4.375rem","bottom":"0","left":"3.5rem","right":"3.5rem"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+<div class="wp-block-group alignwide kt-project-showcase--angled has-project-showcase-angled-gradient-background has-background" style="margin-top:0;margin-bottom:0;padding-top:4.375rem;padding-right:3.5rem;padding-bottom:0;padding-left:3.5rem"><!-- wp:group {"layout":{"type":"constrained","contentSize":"38ch","justifyContent":"left"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"style":{"typography":{"letterSpacing":"0.15em","textTransform":"uppercase"},"spacing":{"margin":{"bottom":"0.75rem"}}},"textColor":"primary-dark","fontSize":"x-small"} -->
 <p class="has-primary-dark-color has-text-color has-x-small-font-size" style="margin-bottom:0.75rem;letter-spacing:0.15em;text-transform:uppercase"><?php esc_html_e( 'Platform', 'kotlinskidev' ); ?></p>
 <!-- /wp:paragraph -->

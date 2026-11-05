@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/recently-viewed-dynamic",
+  "version": "1.0.0",
+  "title": "Recently Viewed (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Static shell for a visitor's recently-viewed pages, hidden until src/scripts/recently-viewed.ts finds entries in the browser's localStorage and populates it client-side.",
+  "icon": "clock",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/recently-viewed-dynamic.js",
+  "attributes": {
+    "cardHoverBackgroundColor": { "type": "string", "default": "" },
+    "blurOtherCards": { "type": "boolean", "default": false },
+    "blurAmount": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

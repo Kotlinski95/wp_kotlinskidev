@@ -64,3 +64,27 @@ it('omits the call-to-action link when only the url is set without a label', fun
 
     expect($html)->not->toContain('kt-nav-banner__link');
 });
+
+it('passes a custom hover padding through to get_block_wrapper_attributes', function () {
+    $captured = null;
+    Functions\when('get_block_wrapper_attributes')->alias(function ($extra) use (&$captured) {
+        $captured = $extra;
+        return 'class="kt-nav-banner"';
+    });
+
+    kotlinskidev_nav_banner_render(['hoverPadding' => '2rem']);
+
+    expect($captured['style'] ?? null)->toBe('--kt-nav-banner-hover-pad: 2rem;');
+});
+
+it('omits the style attribute when no hover padding is set', function () {
+    $captured = null;
+    Functions\when('get_block_wrapper_attributes')->alias(function ($extra) use (&$captured) {
+        $captured = $extra;
+        return 'class="kt-nav-banner"';
+    });
+
+    kotlinskidev_nav_banner_render([]);
+
+    expect($captured)->not->toHaveKey('style');
+});

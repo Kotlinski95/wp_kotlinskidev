@@ -33,6 +33,12 @@ if ( $overlay_menu !== 'never' ) {
 	if ( ( $attributes['hamburgerLineAlign'] ?? 'right' ) === 'left' ) {
 		$nav_classes[] = 'kt-hamburger-line-left';
 	}
+	if ( ! empty( $attributes['showHamburgerBorder'] ) ) {
+		$nav_classes[] = 'kt-hamburger-border';
+	}
+	if ( ! empty( $attributes['hideAccordionDividers'] ) ) {
+		$nav_classes[] = 'kt-hamburger-no-dividers';
+	}
 	echo '<div ' . get_block_wrapper_attributes( [ 'class' => implode( ' ', $nav_classes ) ] ) . '>' . render_block( [
 		'blockName'    => 'core/navigation',
 		'attrs'        => [
@@ -272,6 +278,7 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 					'nav_icon_id'     => (int) ( $attrs['navIconId'] ?? 0 ),
 					'font_size_style' => $sp_fs['style'],
 					'font_size_class' => $sp_fs['class'],
+					'is_utility'      => true,
 				];
 				continue;
 			}
@@ -314,6 +321,7 @@ if ( ! function_exists( 'kotlinskidev_parse_nav_blocks' ) ) {
 						'icon_id' => (int) ( $attrs['indicatorIconId'] ?? 0 ),
 						'effect'  => $attrs['indicatorEffect'] ?? 'rotate',
 					],
+					'is_utility'      => true,
 				];
 				continue;
 			}
@@ -386,7 +394,16 @@ $raw_blocks    = parse_blocks( $post->post_content );
 $items         = kotlinskidev_parse_nav_blocks( $raw_blocks );
 $extras        = kotlinskidev_render_nav_extras( $raw_blocks );
 $link_navigates = ! empty( $attributes['linkNavigatesOnClick'] );
+if ( ! empty( $attributes['blurInactiveLinks'] ) ) {
+	$nav_classes[] = 'kt-mega-nav--blur-siblings';
+	if ( ! empty( $attributes['blurIncludeUtility'] ) ) {
+		$nav_classes[] = 'kt-mega-nav--blur-include-utility';
+	}
+}
 $extra_attrs    = [ 'class' => trim( 'kt-mega-nav ' . implode( ' ', $nav_classes ) ) ];
+if ( ! empty( $attributes['blurInactiveLinks'] ) && ! empty( $attributes['blurAmount'] ) ) {
+	$extra_attrs['style'] = '--kt-blur-amount:' . $attributes['blurAmount'] . ';';
+}
 if ( $link_navigates ) {
 	$extra_attrs['data-link-navigates'] = 'true';
 }
@@ -427,7 +444,7 @@ ob_start();
 	<nav class="kt-mega-nav__bar" aria-label="<?php esc_attr_e( 'Main navigation', 'kotlinskidev' ); ?>">
 		<ul class="kt-mega-nav__list" role="list">
 			<?php foreach ( $items as $item ) : ?>
-			<li class="kt-mega-nav__item<?php echo $item['has_panel'] ? ' has-children' : ''; ?>"
+			<li class="kt-mega-nav__item<?php echo $item['has_panel'] ? ' has-children' : ''; ?><?php echo ! empty( $item['is_utility'] ) ? ' kt-mega-nav__item--utility' : ''; ?>"
 				<?php echo $item['has_panel'] ? 'data-panel="' . esc_attr( $item['panel_slug'] ) . '"' : ''; ?>>
 				<?php
 				$nav_icon_svg = kotlinskidev_inline_nav_icon( (int) ( $item['nav_icon_id'] ?? 0 ) );

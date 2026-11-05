@@ -1,12 +1,18 @@
 <?php
-$media_url  = $attributes['mediaUrl'] ?? '';
-$alt_text   = $attributes['altText'] ?? '';
-$heading    = $attributes['heading'] ?? '';
-$desc       = $attributes['description'] ?? '';
-$link_url   = $attributes['linkUrl'] ?? '';
-$link_label = $attributes['linkLabel'] ?? '';
+$media_url     = $attributes['mediaUrl'] ?? '';
+$alt_text      = $attributes['altText'] ?? '';
+$heading       = $attributes['heading'] ?? '';
+$desc          = $attributes['description'] ?? '';
+$link_url      = $attributes['linkUrl'] ?? '';
+$link_label    = $attributes['linkLabel'] ?? '';
+$hover_padding = $attributes['hoverPadding'] ?? '';
 
-$wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-nav-banner' ] );
+$wrapper_extra = [ 'class' => 'kt-nav-banner' ];
+if ( $hover_padding ) {
+	$wrapper_extra['style'] = '--kt-nav-banner-hover-pad: ' . esc_attr( $hover_padding ) . ';';
+}
+
+$wrapper_attrs = get_block_wrapper_attributes( $wrapper_extra );
 ?>
 <div <?php echo $wrapper_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<?php if ( $media_url ) : ?>

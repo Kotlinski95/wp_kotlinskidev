@@ -1,0 +1,34 @@
+// style.scss for responsive-spacing-controls
+// This file generates all mobile spacing classes for your plugin
+
+/* Panel body full width for mobile spacing controls */
+.components-panel__body {
+  display: grid !important;
+  grid-column: 1 / -1 !important;
+}
+
+$spacing-map: (
+  "0px": "0px",
+  "0.125rem": "0125rem",
+  "0.25rem": "025rem",
+  "0.5rem": "05rem",
+  "1rem": "1rem",
+  "2rem": "2rem",
+  "4rem": "4rem",
+  "8rem": "8rem"
+);
+$sides: (top, bottom, left, right);
+$prefixes: (pt: padding, mg: margin);
+
+  @each $prefix, $property in $prefixes {
+    @each $side in $sides {
+      @each $value, $class in $spacing-map {
+        .mobile-#{$prefix}-#{$side}-#{$class} {
+          #{$property}-#{$side}: #{$value} !important;
+        }
+      }
+    }
+  }
+
+// Helper function for string replace (for SCSS < 4.0, you may need a custom function)
+// If your SCSS compiler does not support str-replace, you can use the value as-is or write a custom function.

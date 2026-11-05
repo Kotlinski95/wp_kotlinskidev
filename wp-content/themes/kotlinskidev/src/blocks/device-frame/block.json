@@ -21,6 +21,10 @@
     "imageUrl": { "type": "string", "default": "" },
     "alt": { "type": "string", "default": "" },
     "positionStyle": { "type": "string", "default": "" },
-    "keepEffectOnMobile": { "type": "boolean", "default": false }
+    "keepEffectOnMobile": { "type": "boolean", "default": false },
+    "objectPosition": { "type": "string", "default": "" },
+    "loading": { "type": "string", "default": "lazy" },
+    "fetchPriority": { "type": "string", "default": "auto" },
+    "enableLightbox": { "type": "boolean", "default": false }
   }
 }

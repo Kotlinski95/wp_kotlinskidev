@@ -1,5 +1,35 @@
 <?php
-function kotlinskidev_render_popular_content_fresh_per_language() {
+function kotlinskidev_redirect_search_page_query() {
+    if ( ! is_page( [ 'search', 'szukaj' ] ) ) {
+        return;
+    }
+
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+    if ( ! isset( $_GET['s'] ) || '' === $_GET['s'] ) {
+        return;
+    }
+
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+    $search_params = [ 's' => sanitize_text_field( wp_unslash( $_GET['s'] ) ) ];
+
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+    if ( ! empty( $_GET['search_category'] ) ) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+        $search_params['search_category'] = sanitize_text_field( wp_unslash( $_GET['search_category'] ) );
+    }
+
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+    if ( ! empty( $_GET['search_type'] ) ) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search redirect, no state change
+        $search_params['search_type'] = sanitize_text_field( wp_unslash( $_GET['search_type'] ) );
+    }
+
+    wp_safe_redirect( home_url( '/?' . http_build_query( $search_params ) ) );
+    exit;
+}
+add_action( 'template_redirect', 'kotlinskidev_redirect_search_page_query' );
+
+function kotlinskidev_render_popular_content_fresh_per_language( bool $blur_other_cards = false ) {
     $query_args = array(
         'post_type' => array('post', 'page'),
         'post_status' => 'publish',
@@ -37,8 +67,8 @@ function kotlinskidev_render_popular_content_fresh_per_language() {
     <!-- wp:group {"style":{"spacing":{"margin":{"top":"2.5rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
     <div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained" style="margin-top:2.5rem">
 
-        <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt","fontSize":"x-large"} -->
-        <h3 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color has-x-large-font-size"><?php esc_html_e('Popular Content', 'kotlinskidev'); ?></h3>
+        <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground"}}}},"textColor":"foreground","fontSize":"x-large"} -->
+        <h3 class="wp-block-heading has-text-align-center has-foreground-color has-text-color has-link-color has-x-large-font-size"><?php esc_html_e('Popular Content', 'kotlinskidev'); ?></h3>
         <!-- /wp:heading -->
 
         <!-- wp:html -->
@@ -46,7 +76,7 @@ function kotlinskidev_render_popular_content_fresh_per_language() {
             $displayed_count = 0;
             $max_display = 6;
         ?>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: 0.9375rem; margin-top: 1.25rem; margin-bottom: 1.25rem;">
+            <div class="kt-post-card-grid<?php echo $blur_other_cards ? ' has-blur-siblings' : ''; ?>">
                 <?php while ($popular_posts->have_posts() && $displayed_count < $max_display) :
                     $popular_posts->the_post();
 
@@ -63,54 +93,39 @@ function kotlinskidev_render_popular_content_fresh_per_language() {
 
                     if (!$should_index) continue;
 
-                    $post_type = get_post_type();
-                    $is_page = ($post_type === 'page');
+                    $is_page = (get_post_type() === 'page');
                     $displayed_count++;
-                ?>
-                    <div class="wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:0.9375rem;display:flex;flex-direction:column;height:100%;">
 
-                        <?php if (has_post_thumbnail()) : ?>
-                            <div style="margin-bottom:0.9375rem;flex-shrink:0;">
-                                <a href="<?php the_permalink(); ?>">
-                                    <img src="<?php the_post_thumbnail_url('medium'); ?>"
-                                        alt="<?php the_title(); ?>"
-                                        style="width:100%;height:9.375rem;object-fit:contain;border-radius:0.75rem;" />
-                                </a>
-                            </div>
-                        <?php endif; ?>
-
-                        <div style="margin-bottom:0.9375rem;flex-shrink:0;">
-                            <span class="kt-gradient-pill" style="padding:0.25rem 0.75rem;border-radius:0.9375rem;font-size:0.75rem;font-weight:600;">
-                                <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
-                            </span>
-                        </div>
-
-                        <h4 style="margin-bottom:0.9375rem;font-size:1.125rem;font-weight:600;flex-shrink:0;">
-                            <a href="<?php the_permalink(); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
-                                <?php the_title(); ?>
-                            </a>
-                        </h4>
-
-                        <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.25rem;flex-grow:1;font-size:0.875rem;">
-                            <?php echo esc_html(wp_trim_words(get_the_excerpt(), 20, '...')); ?>
-                        </div>
-
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto;flex-shrink:0;font-size:0.75rem;">
-                            <span style="color:var(--wp--preset--color--foreground-alt);">
-                                <?php echo $is_page ? esc_html__('Updated', 'kotlinskidev') . ' ' . get_the_modified_date() : get_the_date(); ?>
-                            </span>
-                            <a href="<?php the_permalink(); ?>" class="search-link">
-                                <?php echo $is_page ? esc_html__('View', 'kotlinskidev') : esc_html__('Read', 'kotlinskidev'); ?>
-                            </a>
-                        </div>
-
-                    </div>
-                <?php endwhile; ?>
+                    echo kotlinskidev_render_post_card(get_the_ID(), [
+                        'badge_label' => $is_page ? esc_html__('Page', 'kotlinskidev') : esc_html__('Article', 'kotlinskidev'),
+                        'button_label' => $is_page ? esc_html__('View Page', 'kotlinskidev') : esc_html__('Read Article', 'kotlinskidev'),
+                    ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_post_card() escapes every dynamic value at the point of output
+                endwhile; ?>
             </div>
         <?php
         endif;
         wp_reset_postdata();
         ?>
+        <!-- /wp:html -->
+
+    </div>
+    <!-- /wp:group -->
+    <?php
+    return do_blocks(ob_get_clean());
+}
+
+function kotlinskidev_render_recently_viewed_shell( bool $blur_other_cards = false ) {
+    ob_start();
+    ?>
+    <!-- wp:group {"style":{"spacing":{"margin":{"top":"2.5rem"}}},"layout":{"type":"constrained","contentSize":"73.75rem"}} -->
+    <div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained" id="kt-recently-viewed" style="margin-top:2.5rem" hidden>
+
+        <!-- wp:heading {"textAlign":"center","level":3,"style":{"elements":{"link":{"color":{"text":"var:preset|color|foreground"}}}},"textColor":"foreground","fontSize":"x-large"} -->
+        <h3 class="wp-block-heading has-text-align-center has-foreground-color has-text-color has-link-color has-x-large-font-size"><?php esc_html_e('Recently Viewed', 'kotlinskidev'); ?></h3>
+        <!-- /wp:heading -->
+
+        <!-- wp:html -->
+        <div class="kt-post-card-grid<?php echo $blur_other_cards ? ' has-blur-siblings' : ''; ?>"></div>
         <!-- /wp:html -->
 
     </div>
@@ -130,16 +145,16 @@ function kotlinskidev_render_search_header_fresh_per_language() {
         <!-- wp:html -->
         <div style="text-align:center;">
             <?php if (!empty($search_query)) : ?>
-                <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:0.625rem;">
+                <h1 style="color:var(--wp--preset--color--foreground);font-weight:800;font-size:2.5rem;margin-bottom:0.625rem;">
                     <?php esc_html_e('Search Results', 'kotlinskidev'); ?>
                 </h1>
             <?php else : ?>
-                <h1 style="color:var(--wp--preset--color--foreground-alt);font-weight:800;font-size:2.5rem;margin-bottom:0.625rem;">
-                    <?php esc_html_e('Search Our Content', 'kotlinskidev'); ?>
+                <h1 style="color:var(--wp--preset--color--foreground);font-weight:800;font-size:2.5rem;margin-bottom:0.625rem;">
+                    <?php esc_html_e('Search My Content', 'kotlinskidev'); ?>
                 </h1>
 
-                <p style="color:var(--wp--preset--color--foreground-alt);font-size:1.125rem;margin-bottom:0.9375rem;">
-                    <?php esc_html_e('Find articles, pages, and resources across our entire site', 'kotlinskidev'); ?>
+                <p style="color:var(--wp--preset--color--foreground);font-size:1.125rem;margin-bottom:0.9375rem;">
+                    <?php esc_html_e('Find articles, pages, and resources across my entire site', 'kotlinskidev'); ?>
                 </p>
             <?php endif; ?>
         </div>
@@ -313,7 +328,47 @@ function kotlinskidev_render_search_form_fresh_per_language($wrapper_background_
     return do_blocks(ob_get_clean());
 }
 
-function kotlinskidev_render_search_results_fresh_per_language() {
+function kotlinskidev_build_search_results_style_vars( array $attributes = [] ): string {
+    $vars = [];
+
+    $color_attribute_map = [
+        'cardTextColor'              => '--kt-search-results-grid-card-text-color',
+        'cardBorderColor'            => '--kt-search-results-grid-card-border-color',
+        'cardBackgroundColor'        => '--kt-search-results-grid-card-bg',
+        'buttonBackgroundColor'      => '--kt-search-results-grid-button-bg',
+        'buttonTextColor'            => '--kt-search-results-grid-button-text-color',
+        'buttonHoverBackgroundColor' => '--kt-search-results-grid-button-hover-bg',
+        'buttonHoverTextColor'       => '--kt-search-results-grid-button-hover-text-color',
+        'cardHoverBackgroundColor'   => '--kt-search-results-grid-card-hover-bg',
+    ];
+
+    foreach ( $color_attribute_map as $attribute_key => $css_var ) {
+        $color_value = trim( (string) ( $attributes[ $attribute_key ] ?? '' ) );
+        if ( '' !== $color_value ) {
+            $vars[ $css_var ] = $color_value;
+        }
+    }
+
+    if ( ! empty( $attributes['blurOtherCards'] ) ) {
+        $blur_amount = trim( (string) ( $attributes['blurAmount'] ?? '' ) );
+        if ( '' !== $blur_amount ) {
+            $vars['--kt-blur-amount'] = $blur_amount;
+        }
+    }
+
+    if ( empty( $vars ) ) {
+        return '';
+    }
+
+    $declarations = [];
+    foreach ( $vars as $property => $value ) {
+        $declarations[] = $property . ':' . $value;
+    }
+
+    return implode( ';', $declarations ) . ';';
+}
+
+function kotlinskidev_render_search_results_fresh_per_language( bool $blur_other_cards = false, string $card_hover_background_color = '', string $blur_amount = '' ) {
     $search_query = get_search_query();
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only search filter selection, no state change
     $current_category = isset($_GET['search_category']) ? sanitize_text_field(wp_unslash($_GET['search_category'])) : '';
@@ -358,10 +413,10 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                     <div style="background:var(--wp--preset--color--light-shade);padding:0.9375rem;border-radius:0.75rem;border:0.125rem solid var(--wp--preset--color--border-color);margin-bottom:1.25rem;">
                         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.9375rem;">
                             <div>
-                                <h3 style="margin:0;color:var(--wp--preset--color--foreground-alt);font-size:1.25rem;">
+                                <h3 style="margin:0;color:var(--wp--preset--color--foreground);font-size:1.25rem;">
                                     <?php printf(esc_html__('Found %d results', 'kotlinskidev'), absint($search_results->found_posts)); ?>
                                 </h3>
-                                <p style="margin:0.3125rem 0 0 0;color:var(--wp--preset--color--foreground-alt);font-size:0.875rem;">
+                                <p style="margin:0.3125rem 0 0 0;color:var(--wp--preset--color--foreground);font-size:0.875rem;">
                                     <?php printf(esc_html__('Showing results for "%s"', 'kotlinskidev'), '<strong>' . esc_html($search_query) . '</strong>'); ?>
                                     <?php if (!empty($current_category)) : ?>
                                         <?php printf(esc_html__(' in %s', 'kotlinskidev'), '<strong>' . esc_html(str_replace('-', ' ', $current_category)) . '</strong>'); ?>
@@ -382,35 +437,41 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                         </div>
                     </div>
 
-                    <div class="search-result-grid" style="display:grid;gap:0.9375rem;">
+                    <div class="kt-search-results-grid<?php echo $blur_other_cards ? ' has-blur-siblings' : ''; ?>">
                         <?php while ($search_results->have_posts()) : $search_results->the_post();
                             $post_type = get_post_type();
                             $is_page = ($post_type === 'page');
                             $categories = get_the_category();
-                            $search_excerpt = kotlinskidev_get_search_excerpt(get_the_content(), $search_query, 40);
+                            $search_excerpt = kotlinskidev_get_search_excerpt(get_the_content(), $search_query, 20);
                         ?>
 
-                        <div class="wp-block-group has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:0.9375rem;display:flex;flex-wrap:wrap;justify-content:start;align-items:center;gap:0.9375rem;">
+                        <div class="kt-search-results-grid__card">
 
-                            <?php if (has_post_thumbnail()) : ?>
-                            <div style="flex-shrink:0;display:flex;justify-content:center;align-items:center;">
-                                <a href="<?php the_permalink(); ?>">
-                                    <img src="<?php the_post_thumbnail_url('medium'); ?>"
-                                         alt="<?php the_title(); ?>"
-                                         style="width:12.5rem;height:12.5rem;object-fit:contain;border-radius:0.75rem;" />
-                                </a>
-                            </div>
-                            <?php endif; ?>
+                            <a href="<?php the_permalink(); ?>" class="kt-search-results-grid__image-link">
+                                <?php if (has_post_thumbnail()) : ?>
+                                <img src="<?php the_post_thumbnail_url('medium'); ?>"
+                                     alt="<?php the_title(); ?>"
+                                     class="kt-search-results-grid__image" />
+                                <?php else : ?>
+                                <span class="kt-search-results-grid__image-placeholder" aria-hidden="true">
+                                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 6h16l8 8v28a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                        <path d="M29 6v8h8" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                                        <path d="M17 26h14M17 32h14M17 20h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                </span>
+                                <?php endif; ?>
+                            </a>
 
-                            <div style="flex-grow:1;">
+                            <div class="kt-search-results-grid__body">
 
-                                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:0.9375rem;margin-bottom:0.9375rem;font-size:0.875rem;">
-                                    <span class="kt-gradient-pill" style="padding:0.25rem 0.75rem;border-radius:0.9375rem;font-weight:600;">
+                                <div class="kt-search-results-grid__meta-row">
+                                    <span class="kt-search-results-grid__badge">
                                         <?php echo $is_page ? '📄 ' . esc_html__('Page', 'kotlinskidev') : '📝 ' . esc_html__('Article', 'kotlinskidev'); ?>
                                     </span>
 
                                     <?php if (!$is_page) : ?>
-                                        <span style="color:var(--wp--preset--color--foreground-alt);">
+                                        <span class="kt-search-results-grid__date">
                                             <?php echo get_the_date(); ?>
                                         </span>
 
@@ -420,40 +481,34 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                                             </span>
                                         <?php endif; ?>
                                     <?php endif; ?>
-
-                                    <span class="link-dark-variant-support kt-gradient-text">
-                                        <?php echo kotlinskidev_reading_time(); ?>
-                                    </span>
                                 </div>
 
-                                <h3 style="margin-bottom:0.625rem;font-size:1.5rem;font-weight:600;">
-                                    <a href="<?php the_permalink(); ?>" style="color:var(--wp--preset--color--foreground-alt);text-decoration:none;">
+                                <h3 class="kt-search-results-grid__title">
+                                    <a href="<?php the_permalink(); ?>" class="kt-search-results-grid__title-link">
                                         <?php echo kotlinskidev_highlight_search_terms(get_the_title(), $search_query); ?>
                                     </a>
                                 </h3>
 
-                                <div style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.9375rem;line-height:1.6;">
+                                <div class="kt-search-results-grid__excerpt kt-line-clamp">
                                     <?php echo $search_excerpt; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_get_search_excerpt() returns output already escaped via kotlinskidev_highlight_search_terms() ?>
                                 </div>
 
                                 <?php if (!$is_page) :
                                     $tags = get_the_tags();
                                     if ($tags) : ?>
-                                    <div style="margin-bottom:0.9375rem;">
+                                    <div class="kt-search-results-grid__tags">
                                         <?php foreach (array_slice($tags, 0, 3) as $tag) : ?>
-                                            <span class="kt-gradient-pill" style="padding:0.25rem 0.5rem;border-radius:0.5rem;font-size:0.75rem;margin-right:0.5rem;">
+                                            <span class="kt-search-results-grid__tag">
                                                 #<?php echo esc_html($tag->name); ?>
                                             </span>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php endif; endif; ?>
 
-                                <div>
-                                    <a href="<?php the_permalink(); ?>"
-                                       class="search-link">
-                                        <?php echo $is_page ? esc_html__('View Page', 'kotlinskidev') : esc_html__('Read Article', 'kotlinskidev'); ?> →
-                                    </a>
-                                </div>
+                                <a href="<?php the_permalink(); ?>"
+                                   class="wp-element-button has-background has-text-color kt-search-results-grid__button">
+                                    <?php echo $is_page ? esc_html__('View Page', 'kotlinskidev') : esc_html__('Read Article', 'kotlinskidev'); ?> →
+                                </a>
 
                             </div>
                         </div>
@@ -485,6 +540,11 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                                         $link = str_replace('</a>', '</span>', $link);
                                     }
                                 }
+
+                                if (preg_match('/class="([^"]*\b(?:prev|next)\b[^"]*)"/', $link, $prev_next_classes)) {
+                                    $link = str_replace('class="' . $prev_next_classes[1] . '"', 'class="' . $prev_next_classes[1] . ' has-background has-text-color"', $link);
+                                }
+
                                 echo $link; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $link comes from WP core's paginate_links() array output, only modified via fixed str_replace/preg_replace patterns, no user input involved
                             }
                         }
@@ -493,11 +553,18 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                     <?php endif; ?>
 
                     <div style="background:var(--wp--preset--color--light-shade);padding:0.9375rem;border-radius:1rem;text-align:center;margin-top:1.25rem;border:0.125rem solid var(--wp--preset--color--border-color);">
-                        <div style="font-size:2rem;margin-bottom:0.625rem;">🔍</div>
-                        <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.5rem;font-size:1.5rem;">
+                        <div class="kt-search-empty-icon" style="margin-bottom:0.625rem;">
+                            <?php
+                            $icon_path = get_template_directory() . '/assets/icons/search.svg';
+                            if ( file_exists( $icon_path ) ) {
+                                echo file_get_contents( $icon_path ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static theme-bundled icon asset under version control, not user-uploaded content
+                            }
+                            ?>
+                        </div>
+                        <h3 style="color:var(--wp--preset--color--foreground);margin-bottom:0.5rem;font-size:1.5rem;">
                             <?php esc_html_e('Looking for something else?', 'kotlinskidev'); ?>
                         </h3>
-                        <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.625rem;font-size:1rem;line-height:1.5;">
+                        <p style="color:var(--wp--preset--color--foreground);margin-bottom:0.625rem;font-size:1rem;line-height:1.5;">
                             <?php esc_html_e('Try searching for a different term or explore more content using the search form below.', 'kotlinskidev'); ?>
                         </p>
                     </div>
@@ -517,11 +584,11 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                 <div style="text-align:center;">
                     <div style="font-size:4rem;margin-bottom:0.9375rem;text-align:center;">🔍</div>
 
-                    <h3 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.625rem;">
+                    <h3 style="color:var(--wp--preset--color--foreground);margin-bottom:0.625rem;">
                         <?php esc_html_e('No results found', 'kotlinskidev'); ?>
                     </h3>
 
-                    <p style="color:var(--wp--preset--color--foreground-alt);margin-bottom:1.875rem;">
+                    <p style="color:var(--wp--preset--color--foreground);margin-bottom:1.875rem;">
                         <?php printf(
                             esc_html__('We couldn\'t find any content matching "%s"', 'kotlinskidev'),
                             '<strong>' . esc_html($search_query) . '</strong>'
@@ -532,8 +599,8 @@ function kotlinskidev_render_search_results_fresh_per_language() {
                     </p>
 
                     <div style="background:var(--wp--preset--color--light-shade);padding:1.5625rem;border-radius:0.75rem;text-align:left;margin-bottom:1.875rem;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-                        <h4 style="color:var(--wp--preset--color--foreground-alt);margin-bottom:0.9375rem;"><?php esc_html_e('Try these search tips:', 'kotlinskidev'); ?></h4>
-                        <ul style="color:var(--wp--preset--color--foreground-alt);line-height:1.6;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%;width:fit-content;">
+                        <h4 style="color:var(--wp--preset--color--foreground);margin-bottom:0.9375rem;"><?php esc_html_e('Try these search tips:', 'kotlinskidev'); ?></h4>
+                        <ul style="color:var(--wp--preset--color--foreground);line-height:1.6;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:100%;width:fit-content;">
                             <li><?php esc_html_e('Check your spelling and try again', 'kotlinskidev'); ?></li>
                             <li><?php esc_html_e('Use fewer or different keywords', 'kotlinskidev'); ?></li>
                             <li><?php esc_html_e('Remove content type or category filters', 'kotlinskidev'); ?></li>
@@ -557,7 +624,19 @@ function kotlinskidev_render_search_results_fresh_per_language() {
     }
 
     if (empty($search_query)) {
-        echo '<!-- wp:kotlinskidev/popular-content-dynamic /-->';
+        $popular_content_attrs = [];
+        if ( $blur_other_cards ) {
+            $popular_content_attrs['blurOtherCards'] = true;
+            if ( '' !== $blur_amount ) {
+                $popular_content_attrs['blurAmount'] = $blur_amount;
+            }
+        }
+        if ( '' !== $card_hover_background_color ) {
+            $popular_content_attrs['cardHoverBackgroundColor'] = $card_hover_background_color;
+        }
+
+        $popular_content_attrs_json = ! empty( $popular_content_attrs ) ? wp_json_encode( $popular_content_attrs ) : '';
+        echo '<!-- wp:kotlinskidev/popular-content-dynamic' . ( '' !== $popular_content_attrs_json ? ' ' . $popular_content_attrs_json : '' ) . ' /-->';
     }
 
     return do_blocks(ob_get_clean());

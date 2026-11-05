@@ -76,11 +76,10 @@
 }
 
 .kt-content-tabs--active-background .kt-content-tabs__nav-trigger[aria-selected="true"] {
-	background: var(--kt-content-tabs-active-bg, transparent);
 	color: var(--kt-content-tabs-active-color, currentcolor);
 
 	.wp-block-kotlinskidev-content-tabs-nav-link {
-		background: inherit;
+		background: var(--kt-content-tabs-active-bg, transparent);
 		color: inherit;
 	}
 }
@@ -167,6 +166,7 @@
 			position: absolute;
 			inset: 0;
 			z-index: -1;
+			border-radius: inherit;
 			background: var(--kt-content-tabs-active-bg, transparent);
 		}
 	}

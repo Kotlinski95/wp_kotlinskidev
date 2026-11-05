@@ -10,6 +10,18 @@
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
   "editorScript": "file:../../../build/js/blog-topics-grid-dynamic.js",
+  "attributes": {
+    "cardTextColor": { "type": "string", "default": "" },
+    "cardBorderColor": { "type": "string", "default": "" },
+    "cardBackgroundColor": { "type": "string", "default": "" },
+    "buttonBackgroundColor": { "type": "string", "default": "" },
+    "buttonTextColor": { "type": "string", "default": "" },
+    "buttonHoverBackgroundColor": { "type": "string", "default": "" },
+    "buttonHoverTextColor": { "type": "string", "default": "" },
+    "cardHoverBackgroundColor": { "type": "string", "default": "" },
+    "blurOtherCards": { "type": "boolean", "default": false },
+    "blurAmount": { "type": "string", "default": "" }
+  },
   "supports": {
     "html": false,
     "inserter": true,

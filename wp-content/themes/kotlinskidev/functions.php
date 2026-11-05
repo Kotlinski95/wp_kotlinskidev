@@ -8,6 +8,9 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+// Truncates wp-content/debug.log once it exceeds 5MB, under WP_DEBUG only — prevents unbounded log growth from degrading every request over time
+require_once get_template_directory() . '/functions/debug-log-rotation.php';
+
 // Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
 require_once get_template_directory() . '/functions/feature-toggles.php';
 
@@ -37,6 +40,7 @@ require_once get_template_directory() . '/functions/modals.php';
 
 // Opens a manageable modal when a wpe/slider slide (core/cover, .swiper-slide) is clicked
 require_once get_template_directory() . '/functions/slider-modal-trigger.php';
+require_once get_template_directory() . '/functions/device-frame-lightbox.php';
 
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
@@ -171,9 +175,6 @@ require_once get_template_directory() . '/functions/page-loader.php';
 // Banner carousel
 require_once get_template_directory() . '/functions/banner-slider.php';
 
-// Load search page block styles fix
-require_once get_template_directory() . '/functions/search-page-styles.php';
-
 // Hover animations
 require_once get_template_directory() . '/includes/hover-animations.php';
 require_once get_template_directory() . '/functions/canvas/render.php';
@@ -233,6 +234,11 @@ require_once get_template_directory() . '/functions/article-query-manager.php';
 
 // Universal noindex detection across common SEO plugins (Yoast, Rank Math, AIOSEO, SEOPress)
 require_once get_template_directory() . '/functions/seo-noindex-compat.php';
+
+// Shared post/topic card markup used by category, tag, and related-article grids
+require_once get_template_directory() . '/functions/card-hover-style-vars.php';
+require_once get_template_directory() . '/functions/post-card-renderer.php';
+require_once get_template_directory() . '/functions/topic-card-renderer.php';
 
 // Blog topic management system
 require_once get_template_directory() . '/functions/blog-topic-manager.php';

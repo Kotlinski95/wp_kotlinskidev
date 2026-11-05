@@ -1,15 +1,14 @@
 import React from "react";
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
-import { InspectorControls, useSettings } from "@wordpress/block-editor";
-import { PanelBody, ToggleControl, SelectControl, TextControl } from "@wordpress/components";
+import { InspectorControls } from "@wordpress/block-editor";
+import { PanelBody, ToggleControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { BlurAmountControl, BLUR_AMOUNT_DEFAULT_VALUE } from "../shared/blur-amount-control";
 
-const BLUR_SIBLINGS_BLOCKS = ["core/group", "core/columns"];
-const CUSTOM_VALUE = "custom";
-const DEFAULT_VALUE = "";
-const DEFAULT_CUSTOM_BLUR = "0.25rem";
+const BLUR_SIBLINGS_BLOCKS = ["core/group", "core/columns", "core/column"];
+const NESTED_TOGGLE_BLOCKS = ["core/columns", "core/column"];
 
 interface BlockSettings {
   name?: string;
@@ -30,80 +29,22 @@ const addBlurSiblingsAttributes = (settings: BlockSettings): BlockSettings => {
     attributes: {
       ...settings.attributes,
       kotlinskidevBlurSiblings: { type: "boolean", default: false },
-      kotlinskidevBlurAmount: { type: "string", default: DEFAULT_VALUE },
+      kotlinskidevBlurAmount: { type: "string", default: BLUR_AMOUNT_DEFAULT_VALUE },
+      kotlinskidevBlurSiblingsNested: { type: "boolean", default: false },
     },
   };
 };
 
-function slugToLabel(slug: string): string {
-  return slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
-function presetVar(slug: string): string {
-  return `var(--wp--custom--grid-hover-blur--${slug})`;
-}
-
 interface BlurSiblingsAttributes {
   kotlinskidevBlurSiblings?: boolean;
   kotlinskidevBlurAmount?: string;
+  kotlinskidevBlurSiblingsNested?: boolean;
 }
 
 interface BlockEditProps {
   name?: string;
   attributes: Record<string, unknown> & BlurSiblingsAttributes;
   setAttributes: (attrs: Record<string, unknown>) => void;
-}
-
-function BlurAmountControl({ attributes, setAttributes }: BlockEditProps) {
-  const [presets] = useSettings("custom.gridHoverBlur") as [Record<string, string> | undefined];
-  const presetSlugs = Object.keys(presets ?? {});
-  const value = attributes.kotlinskidevBlurAmount || DEFAULT_VALUE;
-  const matchedSlug = presetSlugs.find((slug) => value === presetVar(slug));
-  const isCustom = value !== DEFAULT_VALUE && !matchedSlug;
-
-  return (
-    <Fragment>
-      <SelectControl
-        label={__("Blur intensity", "kotlinskidev")}
-        value={matchedSlug ?? (isCustom ? CUSTOM_VALUE : DEFAULT_VALUE)}
-        options={[
-          { label: __("Default (0.25rem)", "kotlinskidev"), value: DEFAULT_VALUE },
-          ...presetSlugs.map((slug) => ({ label: slugToLabel(slug), value: slug })),
-          { label: __("Custom", "kotlinskidev"), value: CUSTOM_VALUE },
-        ]}
-        onChange={(next: string) => {
-          if (next === DEFAULT_VALUE) {
-            setAttributes({ kotlinskidevBlurAmount: DEFAULT_VALUE });
-          } else if (next === CUSTOM_VALUE) {
-            setAttributes({
-              kotlinskidevBlurAmount: isCustom ? value : DEFAULT_CUSTOM_BLUR,
-            });
-          } else {
-            setAttributes({ kotlinskidevBlurAmount: presetVar(next) });
-          }
-        }}
-        help={__(
-          "Presets come from theme.json's settings.custom.gridHoverBlur — add more there to offer them here.",
-          "kotlinskidev"
-        )}
-        __nextHasNoMarginBottom
-      />
-      {isCustom && (
-        <TextControl
-          label={__("Custom blur amount", "kotlinskidev")}
-          value={value}
-          onChange={(next) => setAttributes({ kotlinskidevBlurAmount: next })}
-          placeholder={DEFAULT_CUSTOM_BLUR}
-          help={__("Any CSS length, e.g. 0.5rem or 8px.", "kotlinskidev")}
-          __next40pxDefaultSize
-          __nextHasNoMarginBottom
-        />
-      )}
-    </Fragment>
-  );
 }
 
 const withBlurSiblingsControls = createHigherOrderComponent((BlockEdit) => {
@@ -114,6 +55,7 @@ const withBlurSiblingsControls = createHigherOrderComponent((BlockEdit) => {
 
     const { attributes, setAttributes } = props;
     const blurSiblings = Boolean(attributes.kotlinskidevBlurSiblings);
+    const blurSiblingsNested = Boolean(attributes.kotlinskidevBlurSiblingsNested);
 
     return (
       <Fragment>
@@ -130,8 +72,23 @@ const withBlurSiblingsControls = createHigherOrderComponent((BlockEdit) => {
               )}
               __nextHasNoMarginBottom
             />
+            {blurSiblings && NESTED_TOGGLE_BLOCKS.includes(props.name ?? "") && (
+              <ToggleControl
+                label={__("Include nested columns", "kotlinskidev")}
+                checked={blurSiblingsNested}
+                onChange={(next) => setAttributes({ kotlinskidevBlurSiblingsNested: next })}
+                help={__(
+                  "Also blur columns inside Columns blocks nested further down, not just this row's own columns.",
+                  "kotlinskidev"
+                )}
+                __nextHasNoMarginBottom
+              />
+            )}
             {blurSiblings && (
-              <BlurAmountControl attributes={attributes} setAttributes={setAttributes} />
+              <BlurAmountControl
+                value={attributes.kotlinskidevBlurAmount || BLUR_AMOUNT_DEFAULT_VALUE}
+                onChange={(next) => setAttributes({ kotlinskidevBlurAmount: next })}
+              />
             )}
           </PanelBody>
         </InspectorControls>
@@ -162,6 +119,10 @@ function applyBlurSiblingsProps(
   extraProps.className = extraProps.className
     ? `${extraProps.className} has-blur-siblings`
     : "has-blur-siblings";
+
+  if (attributes.kotlinskidevBlurSiblingsNested) {
+    extraProps.className = `${extraProps.className} has-blur-siblings-nested`;
+  }
 
   if (attributes.kotlinskidevBlurAmount) {
     extraProps.style = {

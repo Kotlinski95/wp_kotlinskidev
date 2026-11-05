@@ -41,6 +41,26 @@
     "linkNavigatesOnClick": {
       "type": "boolean",
       "default": false
+    },
+    "showHamburgerBorder": {
+      "type": "boolean",
+      "default": false
+    },
+    "hideAccordionDividers": {
+      "type": "boolean",
+      "default": false
+    },
+    "blurInactiveLinks": {
+      "type": "boolean",
+      "default": false
+    },
+    "blurAmount": {
+      "type": "string",
+      "default": ""
+    },
+    "blurIncludeUtility": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {

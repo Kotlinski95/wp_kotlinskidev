@@ -84,6 +84,7 @@ export interface NavBannerAttributes {
   description: string;
   linkUrl: string;
   linkLabel: string;
+  hoverPadding: string;
 }
 
 const previewStyle: CSSProperties = {
@@ -216,7 +217,8 @@ export function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavIm
 
 export function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
   const blockProps = useBlockProps();
-  const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel } = attributes;
+  const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel, hoverPadding } =
+    attributes;
 
   const onSelectMedia = (media: MediaObject) =>
     setAttributes({ mediaId: media.id, mediaUrl: media.url, altText: media.alt ?? "" });
@@ -273,6 +275,18 @@ export function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavB
             value={linkLabel}
             onChange={(value) => setAttributes({ linkLabel: value })}
             placeholder={__("Leave empty to link the image only", "kotlinskidev")}
+          />
+        </PanelBody>
+        <PanelBody title={__("Hover highlight", "kotlinskidev")} initialOpen={false}>
+          <TextControl
+            label={__("Padding", "kotlinskidev")}
+            value={hoverPadding}
+            onChange={(value) => setAttributes({ hoverPadding: value })}
+            placeholder={__("1.25rem", "kotlinskidev")}
+            help={__(
+              "Space around the banner the frosted hover background fills. Any CSS length, e.g. 1.5rem or 20px.",
+              "kotlinskidev"
+            )}
           />
         </PanelBody>
       </InspectorControls>

@@ -17,3 +17,14 @@ function kotlinskidev_apply_text_shadow_style( string $block_content, array $blo
     return $processor->get_updated_html();
 }
 add_filter( 'render_block', 'kotlinskidev_apply_text_shadow_style', 10, 2 );
+
+function kotlinskidev_add_shadow_support_to_text_blocks( array $args, string $block_type ): array {
+    if ( ! in_array( $block_type, [ 'core/heading', 'core/paragraph' ], true ) ) {
+        return $args;
+    }
+
+    $args['supports']['shadow'] = true;
+
+    return $args;
+}
+add_filter( 'register_block_type_args', 'kotlinskidev_add_shadow_support_to_text_blocks', 10, 2 );

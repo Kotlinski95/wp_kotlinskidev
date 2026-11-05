@@ -36,7 +36,6 @@ import "./blocks/text-line-clamp/index";
 import "./blocks/above-fold/index.tsx";
 import "./blocks/modal-trigger/index.tsx";
 import "./blocks/icon-extension/index.tsx";
-import "./blocks/city-grid/index.tsx";
 import "./blocks/contact-card/index.tsx";
 import "./blocks/equal-height-columns/index.tsx";
 import "./blocks/image-filter-color/index.tsx";

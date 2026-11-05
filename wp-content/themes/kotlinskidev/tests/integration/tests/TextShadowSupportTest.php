@@ -36,3 +36,17 @@ it('appends the text-shadow to an existing style attribute', function () {
 
     expect($html)->toContain('style="color:blue;text-shadow:1px 1px red;"');
 });
+
+it('grants shadow support to core/heading and core/paragraph', function () {
+    $heading_args = apply_filters('register_block_type_args', ['supports' => []], 'core/heading');
+    $paragraph_args = apply_filters('register_block_type_args', ['supports' => []], 'core/paragraph');
+
+    expect($heading_args['supports']['shadow'])->toBeTrue();
+    expect($paragraph_args['supports']['shadow'])->toBeTrue();
+});
+
+it('leaves other block types untouched', function () {
+    $group_args = apply_filters('register_block_type_args', ['supports' => ['shadow' => false]], 'core/image');
+
+    expect($group_args['supports']['shadow'])->toBeFalse();
+});

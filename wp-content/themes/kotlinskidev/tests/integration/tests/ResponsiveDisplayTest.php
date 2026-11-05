@@ -13,6 +13,13 @@ function kotlinskidev_responsive_display_render(array $attrs, string $inner = '<
     return render_block($blocks[0]);
 }
 
+it('does not enqueue a standalone editor script for responsive-display, since its controls are bundled into editor.js', function () {
+    do_action('enqueue_block_editor_assets');
+
+    expect(wp_script_is('kotlinskidev-responsive-display-controls', 'enqueued'))->toBeFalse();
+    expect(wp_script_is('kotlinskidev-responsive-display-controls', 'registered'))->toBeFalse();
+});
+
 it('leaves the block untouched when there is no responsiveDisplay attribute', function () {
     $html = kotlinskidev_responsive_display_render([]);
 

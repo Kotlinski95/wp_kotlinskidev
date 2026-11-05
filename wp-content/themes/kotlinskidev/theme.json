@@ -332,6 +332,16 @@
           "gradient": "linear-gradient(to right, #00ffd3 15%, #00f6ff 50%, #b896ff 90%)",
           "name": "Cyber Accent",
           "slug": "cyber-accent"
+        },
+        {
+          "gradient": "linear-gradient(120deg, #16181c 0%, #1d2126 55%, #12262d 100%)",
+          "name": "Project Showcase · Angled",
+          "slug": "project-showcase-angled"
+        },
+        {
+          "gradient": "radial-gradient(120% 90% at 50% 8%, #2b2f35 0%, #141518 58%, #0e0f11 100%)",
+          "name": "Project Showcase · Bottom Peek",
+          "slug": "project-showcase-bottom-peek"
         }
       ]
     },

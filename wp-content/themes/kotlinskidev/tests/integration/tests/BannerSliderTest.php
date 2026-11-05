@@ -31,11 +31,11 @@ it('does not enqueue banner-carousel assets on a page without the block', functi
     expect(wp_script_is('kotlinskidev-banner-carousel', 'enqueued'))->toBeFalse();
 });
 
-it('enqueues the editor assets for the banner carousel block', function () {
+it('does not manually enqueue editor assets for the banner carousel block, relying on block.json registration instead', function () {
     do_action('enqueue_block_editor_assets');
 
-    expect(wp_script_is('kotlinskidev-banner-carousel-editor', 'enqueued'))->toBeTrue();
-    expect(wp_style_is('kotlinskidev-banner-carousel-editor-style', 'enqueued'))->toBeTrue();
+    expect(wp_script_is('kotlinskidev-banner-carousel-editor', 'enqueued'))->toBeFalse();
+    expect(wp_style_is('kotlinskidev-banner-carousel-editor-style', 'enqueued'))->toBeFalse();
 });
 
 it('defers the swiper and banner-carousel script tags', function () {

@@ -15,6 +15,7 @@ Do not add inline or block comments. Selector and variable names must be self-do
 ## Theme-Aware Styles
 - Scope dark/light mode overrides using `body.dark-mode` and `body.light-mode` — never use `@media (prefers-color-scheme)` directly, as the theme switcher overrides it via JS.
 - Use the `gradient-text` mixin from `theme-colors.scss` for gradient text effects.
+- `global.scss` has a sitewide `a:not(.has-background):not(.has-text-color)...:hover` rule that applies a gradient-text/transparent-background hover effect to any plain link in dark mode. Any custom markup for an `<a>` that already carries its own explicit background/text color (inline style, CSS var, or block-support-generated style) must also carry the `has-background`/`has-text-color` classes — WP core's own signal that this link manages its own color — or that link silently loses its color to the generic hover effect the moment the mouse hovers it.
 
 ## Naming — BEM
 - Use BEM: `.block__element--modifier`.

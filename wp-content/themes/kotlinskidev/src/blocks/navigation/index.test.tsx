@@ -7,6 +7,7 @@ import type { ComponentType } from "react";
 jest.mock("@wordpress/block-editor", () => ({
   useBlockProps: (props: Record<string, unknown>) => props,
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useSettings: () => [undefined],
 }));
 
 interface RegisteredSettings {
@@ -196,6 +197,23 @@ describe("navigation Edit", () => {
     expect(setAttributes).toHaveBeenCalledWith({ hamburgerLineAlign: "left" });
   });
 
+  it("hides the hide-accordion-dividers toggle unless overlayMenu is always", () => {
+    renderEdit({ overlayMenu: "mobile" });
+
+    expect(
+      screen.queryByRole("checkbox", { name: "Hide accordion dividers" })
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows and wires the hide-accordion-dividers toggle when overlayMenu is always", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit({ overlayMenu: "always" });
+
+    await user.click(screen.getByRole("checkbox", { name: "Hide accordion dividers" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ hideAccordionDividers: true });
+  });
+
   it("toggles linkNavigatesOnClick", async () => {
     const user = userEvent.setup();
     const { setAttributes } = renderEdit();
@@ -203,5 +221,65 @@ describe("navigation Edit", () => {
     await user.click(screen.getByRole("checkbox", { name: "Navigate top-level links on click" }));
 
     expect(setAttributes).toHaveBeenCalledWith({ linkNavigatesOnClick: true });
+  });
+
+  async function openBlurPanel(user: ReturnType<typeof userEvent.setup>) {
+    await user.click(screen.getByRole("button", { name: /Blur Inactive Links on Hover/ }));
+  }
+
+  it("hides the Blur Inactive Links panel unless overlayMenu is never and displayMode is mega", () => {
+    renderEdit({ overlayMenu: "always" });
+
+    expect(
+      screen.queryByRole("button", { name: /Blur Inactive Links on Hover/ })
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows the Blur Inactive Links panel when overlayMenu is never and displayMode is mega", () => {
+    renderEdit();
+
+    expect(
+      screen.getByRole("button", { name: /Blur Inactive Links on Hover/ })
+    ).toBeInTheDocument();
+  });
+
+  it("hides the scope toggle and intensity control until blurInactiveLinks is on", async () => {
+    const user = userEvent.setup();
+    renderEdit();
+    await openBlurPanel(user);
+
+    expect(
+      screen.queryByRole("checkbox", { name: "Include search & language" })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Blur intensity")).not.toBeInTheDocument();
+  });
+
+  it("shows the scope toggle and intensity control once blurInactiveLinks is on", async () => {
+    const user = userEvent.setup();
+    renderEdit({ blurInactiveLinks: true });
+    await openBlurPanel(user);
+
+    expect(screen.getByRole("checkbox", { name: "Include search & language" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Blur intensity")).toBeInTheDocument();
+  });
+
+  it("toggles blurIncludeUtility", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit({ blurInactiveLinks: true });
+    await openBlurPanel(user);
+
+    await user.click(screen.getByRole("checkbox", { name: "Include search & language" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ blurIncludeUtility: true });
+  });
+
+  it("updates blurAmount from the intensity control", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit({ blurInactiveLinks: true });
+    await openBlurPanel(user);
+
+    await user.selectOptions(screen.getByLabelText("Blur intensity"), "custom");
+
+    expect(setAttributes).toHaveBeenCalledWith({ blurAmount: "0.25rem" });
   });
 });

@@ -3,7 +3,7 @@
 .kt-city-grid {
 	display: grid;
 	grid-template-columns: repeat(var(--kt-city-grid-columns-desktop, 3), 1fr);
-	gap: 0.9375rem;
+	gap: var(--kt-city-grid-gap, 0.9375rem);
 
 	@media (min-width: $breakpoint-tablet-wp) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
 		grid-template-columns: repeat(var(--kt-city-grid-columns-tablet, 2), 1fr);
@@ -14,6 +14,29 @@
 	}
 }
 
+.kt-city-grid__link {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.625rem;
+	padding: var(--kt-city-grid-card-padding, 1.25rem);
+	border-width: var(--kt-city-grid-card-border-width, 0.125rem);
+	border-style: solid;
+	border-radius: var(--kt-city-grid-card-radius, 1.125rem);
+	background-color: var(--kt-city-grid-card-bg, var(--wp--preset--color--background-alt));
+	border-color: var(--kt-city-grid-card-border-color, var(--wp--preset--color--divider));
+	text-decoration: none;
+	box-shadow: var(--wp--preset--shadow--natural);
+}
+
 .kt-city-grid__link-label {
 	color: var(--kt-city-grid-link-color, var(--wp--preset--color--foreground-alt));
+	font-weight: 600;
+	font-size: 1.0625rem;
+}
+
+.kt-city-grid__link-arrow {
+	font-size: 0.875rem;
+	flex-shrink: 0;
+	margin-inline-start: 0.25rem;
 }

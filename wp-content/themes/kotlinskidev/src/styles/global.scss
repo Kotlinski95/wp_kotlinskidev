@@ -340,7 +340,7 @@ span:empty {
 .dark-mode,
 .light-mode {
 
-	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.kt-nav-cta *):not(.kt-button__link):not(.wp-block-button__link) {
+	a:not(.custom-color):not(.has-text-color):not(.has-background):not(.kt-nav-cta *):not(.kt-button__link):not(.wp-block-button__link):not(.kt-nav-banner__media-link) {
 		display: inline-block;
 	}
 

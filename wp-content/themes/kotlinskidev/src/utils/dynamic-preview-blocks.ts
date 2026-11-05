@@ -11,4 +11,9 @@ export const DYNAMIC_PREVIEW_BLOCKS = [
   "kotlinskidev/category-posts-grid-dynamic",
   "kotlinskidev/other-topics-dynamic",
   "kotlinskidev/related-articles-dynamic",
+  "kotlinskidev/search-header-dynamic",
+  "kotlinskidev/search-form-dynamic",
+  "kotlinskidev/search-results-dynamic",
+  "kotlinskidev/popular-content-dynamic",
+  "kotlinskidev/recently-viewed-dynamic",
 ];

@@ -28,34 +28,6 @@ add_action('wp_enqueue_scripts', function () {
     }
 });
 
-// Enqueue editor assets
-add_action('enqueue_block_editor_assets', function () {
-    $banner_carousel_asset_path = kotlinskidev_build_path('js', 'banner-carousel.asset.php');
-    $banner_carousel_asset = file_exists($banner_carousel_asset_path)
-        ? include $banner_carousel_asset_path
-        : ['dependencies' => [], 'version' => null];
-
-    wp_enqueue_script(
-        'kotlinskidev-banner-carousel-editor',
-        kotlinskidev_build_url('js', 'banner-carousel.js'),
-        $banner_carousel_asset['dependencies'],
-        $banner_carousel_asset['version'],
-        true
-    );
-    wp_enqueue_style(
-        'kotlinskidev-banner-carousel-editor-style',
-        kotlinskidev_build_url('css', 'banner-carousel.css'),
-        [],
-        null
-    );
-    wp_enqueue_style(
-        'kotlinskidev-style-banner-carousel-editor-style',
-        kotlinskidev_build_url('css', 'style-banner-carousel.css'),
-        [],
-        null
-    );
-});
-
 // Extend defer attribute to WordPress core scripts
 add_filter('script_loader_tag', function ($tag, $handle) {
     $defer_scripts = [

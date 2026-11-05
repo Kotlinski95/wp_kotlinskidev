@@ -26,6 +26,10 @@
     "href": {
       "type": "string",
       "default": ""
+    },
+    "linkedPostId": {
+      "type": "number",
+      "default": 0
     }
   },
   "supports": {
@@ -34,7 +38,10 @@
     "color": {
       "text": true,
       "background": true,
-      "gradients": true
+      "gradients": true,
+      "__experimentalDefaultControls": {
+        "background": true
+      }
     },
     "spacing": {
       "margin": true,
@@ -61,14 +68,14 @@
     "border": {
       "radius": true,
       "width": true,
-      "color": false,
-      "style": false
+      "color": true,
+      "style": true
     },
     "__experimentalBorder": {
       "radius": true,
       "width": true,
-      "color": false,
-      "style": false
+      "color": true,
+      "style": true
     }
   }
 }

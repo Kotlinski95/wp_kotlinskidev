@@ -14,6 +14,7 @@ import "./scripts/cookie-consent";
 import "./scripts/accessibility";
 import "./scripts/animated-counter";
 import "./scripts/page-views";
+import "./scripts/recently-viewed";
 import "./scripts/hide-nav-on-scroll";
 import "./scripts/visual-viewport-offset";
 import "./scripts/faq-accordion";

@@ -169,7 +169,47 @@ function kotlinskidev_clamp_city_grid_columns( $value ): int {
     return max( 1, min( 6, absint( $value ) ) );
 }
 
-function kotlinskidev_render_city_grid_block( array $attributes = [] ): string {
+function kotlinskidev_sanitize_city_grid_dimension( $value, string $default ): string {
+    $value = trim( (string) $value );
+
+    return preg_match( '/^-?[0-9.]+(px|rem|em)$/', $value ) ? $value : $default;
+}
+
+function kotlinskidev_build_city_grid_style_vars( array $attributes = [] ): string {
+    $vars = [
+        '--kt-city-grid-columns-desktop' => (string) kotlinskidev_clamp_city_grid_columns( $attributes['columnsDesktop'] ?? 3 ),
+        '--kt-city-grid-columns-tablet'  => (string) kotlinskidev_clamp_city_grid_columns( $attributes['columnsTablet'] ?? 2 ),
+        '--kt-city-grid-columns-mobile'  => (string) kotlinskidev_clamp_city_grid_columns( $attributes['columnsMobile'] ?? 1 ),
+        '--kt-city-grid-gap'             => kotlinskidev_sanitize_city_grid_dimension( $attributes['gridGap'] ?? '', '0.9375rem' ),
+        '--kt-city-grid-card-border-width' => kotlinskidev_sanitize_city_grid_dimension( $attributes['cardBorderWidth'] ?? '', '0.125rem' ),
+        '--kt-city-grid-card-radius'      => kotlinskidev_sanitize_city_grid_dimension( $attributes['cardBorderRadius'] ?? '', '1.125rem' ),
+        '--kt-city-grid-card-padding'     => kotlinskidev_sanitize_city_grid_dimension( $attributes['cardPadding'] ?? '', '1.25rem' ),
+    ];
+
+    $link_text_color = trim( (string) ( $attributes['linkTextColor'] ?? '' ) );
+    if ( '' !== $link_text_color ) {
+        $vars['--kt-city-grid-link-color'] = $link_text_color;
+    }
+
+    $card_background_color = trim( (string) ( $attributes['cardBackgroundColor'] ?? '' ) );
+    if ( '' !== $card_background_color ) {
+        $vars['--kt-city-grid-card-bg'] = $card_background_color;
+    }
+
+    $card_border_color = trim( (string) ( $attributes['cardBorderColor'] ?? '' ) );
+    if ( '' !== $card_border_color ) {
+        $vars['--kt-city-grid-card-border-color'] = $card_border_color;
+    }
+
+    $style = '';
+    foreach ( $vars as $name => $value ) {
+        $style .= $name . ':' . $value . ';';
+    }
+
+    return rtrim( $style, ';' );
+}
+
+function kotlinskidev_render_city_grid_cards(): string {
     $query = new WP_Query( [
         'post_type'      => 'service_location',
         'post_status'    => 'publish',
@@ -188,30 +228,14 @@ function kotlinskidev_render_city_grid_block( array $attributes = [] ): string {
         $query->the_post();
         $city  = get_post_meta( get_the_ID(), 'city', true );
         $cards .= sprintf(
-            '<a href="%1$s" class="kt-city-grid__link wp-block-group has-border-color has-border-color-border-color has-light-shade-background-color has-background" style="border-width:0.125rem;border-radius:1.125rem;padding:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:0.625rem;text-decoration:none;box-shadow:var(--wp--preset--shadow--natural)"><span class="kt-city-grid__link-label" style="font-weight:600;font-size:1.0625rem">%2$s</span><span class="link-dark-variant-support kt-gradient-text" style="font-size:0.875rem;flex-shrink:0">&rarr;</span></a>',
+            '<a href="%1$s" class="kt-city-grid__link"><span class="kt-city-grid__link-label">%2$s</span><span class="link-dark-variant-support kt-gradient-text kt-city-grid__link-arrow">&rarr;</span></a>',
             esc_url( get_permalink() ),
             esc_html( $city )
         );
     }
     wp_reset_postdata();
 
-    $columns_desktop = kotlinskidev_clamp_city_grid_columns( $attributes['columnsDesktop'] ?? 3 );
-    $columns_tablet   = kotlinskidev_clamp_city_grid_columns( $attributes['columnsTablet'] ?? 2 );
-    $columns_mobile   = kotlinskidev_clamp_city_grid_columns( $attributes['columnsMobile'] ?? 1 );
-    $link_text_color  = isset( $attributes['linkTextColor'] ) ? trim( (string) $attributes['linkTextColor'] ) : '';
-
-    $wrapper_style = sprintf(
-        '--kt-city-grid-columns-desktop:%1$d;--kt-city-grid-columns-tablet:%2$d;--kt-city-grid-columns-mobile:%3$d',
-        $columns_desktop,
-        $columns_tablet,
-        $columns_mobile
-    );
-
-    if ( $link_text_color ) {
-        $wrapper_style .= ';--kt-city-grid-link-color:' . $link_text_color;
-    }
-
-    return sprintf( '<div class="kt-city-grid" style="%1$s">%2$s</div>', esc_attr( $wrapper_style ), $cards ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $cards built from esc_url()/esc_html()'d values above
+    return $cards; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from esc_url()/esc_html()'d values above
 }
 
 function kotlinskidev_register_city_grid_block(): void {
@@ -219,18 +243,7 @@ function kotlinskidev_register_city_grid_block(): void {
         return;
     }
 
-    register_block_type( 'kotlinskidev/city-grid', [
-        'title'            => __( 'City Grid', 'kotlinskidev' ),
-        'category'         => 'kotlinskidev',
-        'icon'             => 'grid-view',
-        'attributes'       => [
-            'columnsDesktop' => [ 'type' => 'number', 'default' => 3 ],
-            'columnsTablet'  => [ 'type' => 'number', 'default' => 2 ],
-            'columnsMobile'  => [ 'type' => 'number', 'default' => 1 ],
-            'linkTextColor'  => [ 'type' => 'string', 'default' => '' ],
-        ],
-        'render_callback'  => 'kotlinskidev_render_city_grid_block',
-    ] );
+    register_block_type( get_template_directory() . '/src/blocks/city-grid' );
 }
 add_action( 'init', 'kotlinskidev_register_city_grid_block' );
 
@@ -286,7 +299,6 @@ function kotlinskidev_service_location_editor_preview_blocks(): array {
     $blocks = [];
 
     if ( kotlinskidev_feature_enabled( 'service_locations' ) ) {
-        $blocks[] = [ 'name' => 'kotlinskidev/city-grid', 'title' => __( 'City Grid', 'kotlinskidev' ), 'icon' => 'grid-view' ];
         $blocks[] = [ 'name' => 'kotlinskidev/city-map', 'title' => __( 'City Map', 'kotlinskidev' ), 'icon' => 'location' ];
     }
 

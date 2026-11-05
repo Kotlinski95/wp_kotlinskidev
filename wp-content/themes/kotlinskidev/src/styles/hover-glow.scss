@@ -51,8 +51,8 @@
 		@include kt-glow-text-clip;
 	}
 
-	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):not(.has-hover-text-gradient):hover,
-	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):not(.has-hover-text-gradient):focus-visible {
+	*:has(.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):not(.has-hover-text-gradient)):hover .has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):not(.has-hover-text-gradient),
+	*:has(.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):not(.has-hover-text-gradient)):focus-within .has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):not(.has-hover-text-gradient) {
 		background-color: currentcolor;
 
 		@include kt-glow-spotlight(5rem, --hover-text-spotlight-color);
@@ -80,8 +80,8 @@
 		@include kt-glow-reduced-motion-text-reset;
 	}
 
-	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):hover,
-	.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link):focus-visible {
+	*:has(.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link)):hover .has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link),
+	*:has(.has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link)):focus-within .has-enhanced-hover-glow:not(.kt-button__link):not(.kt-button):not(.wp-block-button):not(.wp-block-kotlinskidev-content-tabs-nav-link) {
 
 		@include kt-glow-reduced-motion-text-reset;
 	}

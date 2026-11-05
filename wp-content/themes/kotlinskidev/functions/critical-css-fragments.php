@@ -10,7 +10,7 @@ function kotlinskidev_get_active_critical_css_fragments(): array
 {
     $fragments = array();
 
-    if (is_search()) {
+    if (is_search() || is_page(['search', 'szukaj'])) {
         $fragments[] = 'critical-search.css';
     }
 

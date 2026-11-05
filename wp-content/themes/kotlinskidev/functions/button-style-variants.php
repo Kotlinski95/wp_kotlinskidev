@@ -16,7 +16,7 @@ function kotlinskidev_register_button_style_variants(): void {
 
     $names = array_unique( array_merge( $gradient_outline_variants, kotlinskidev_theme_json_button_style_variant_names() ) );
 
-    $block_names = [ 'core/button', 'kotlinskidev/content-tabs-nav-link' ];
+    $block_names = [ 'core/button', 'kotlinskidev/content-tabs-nav-link', 'kotlinskidev/translated-text' ];
 
     foreach ( $block_names as $block_name ) {
         foreach ( $names as $name ) {

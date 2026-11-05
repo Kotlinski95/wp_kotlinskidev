@@ -12,6 +12,8 @@ module.exports = [
       "**/coverage/**",
       "**/artifacts/**",
       "**/storybook-static/**",
+      ".agents/**",
+      "media/**",
     ],
   },
   { files: ["**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"] },

@@ -41,10 +41,14 @@
 }
 
 .is-kotlinskidev-sticky {
-	position: sticky;
-	top: calc(#{$header} + var(--admin-bar-offset, 0px) + 0.5rem) !important;
+	position: static;
 	z-index: 10;
 	align-self: flex-start;
+
+	@media (min-width: $breakpoint-tablet-wp) {
+		position: sticky;
+		top: calc(#{$header} + var(--admin-bar-offset, 0px) + 0.5rem) !important;
+	}
 }
 
 .is-kotlinskidev-nowrap {

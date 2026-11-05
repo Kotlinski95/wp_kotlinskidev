@@ -127,36 +127,3 @@ function kotlinskidev_apply_block_visibility( string $block_content, array $bloc
 	return $processor->get_updated_html();
 }
 add_filter( 'render_block', 'kotlinskidev_apply_block_visibility', 10, 2 );
-
-/**
- * Enqueue responsive display block editor assets
- */
-function kotlinskidev_enqueue_responsive_display_assets() {
-    if (!is_admin()) {
-        return;
-    }
-
-    wp_enqueue_script(
-        'kotlinskidev-responsive-display-controls',
-        kotlinskidev_build_url('js', 'responsive-display.js'),
-        array(
-            'wp-blocks',
-            'wp-element',
-            'wp-block-editor',
-            'wp-components',
-            'wp-i18n',
-            'wp-hooks',
-            'wp-compose'
-        ),
-        filemtime(kotlinskidev_build_path('js', 'responsive-display.js')),
-        true
-    );
-
-    // Make script translatable
-    wp_set_script_translations(
-        'kotlinskidev-responsive-display-controls',
-        'kotlinskidev',
-        get_template_directory() . '/languages'
-    );
-}
-add_action('enqueue_block_editor_assets', 'kotlinskidev_enqueue_responsive_display_assets');

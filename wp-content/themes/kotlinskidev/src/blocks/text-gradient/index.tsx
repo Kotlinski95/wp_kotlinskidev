@@ -113,12 +113,12 @@ const withTextGradientControl = createHigherOrderComponent((BlockEdit) => {
         <InspectorControls group="color">
           <div style={{ gridColumn: "span 2" }}>
             <PanelColorGradientSettings
-              title={__("Text Gradient", "kotlinskidev")}
+              title={__("Text", "kotlinskidev")}
               showTitle={false}
               __experimentalIsRenderedInSidebar
               settings={[
                 {
-                  label: __("Text Gradient", "kotlinskidev"),
+                  label: __("Text", "kotlinskidev"),
                   colorValue: nativeTextColor || undefined,
                   gradientValue: textGradient || undefined,
                   onColorChange: setTextColor,

@@ -70,7 +70,8 @@
           }
         }
       }
-    }
+    },
+    "follow-redirects": "^1.16.2"
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.0",

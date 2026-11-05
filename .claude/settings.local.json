@@ -46,7 +46,9 @@
       "Bash(php -l tests/integration/tests/SearchPageDynamicBlocksTest.php)",
       "Bash(composer test:integration -- --filter=\"TagArchiveManager|SearchPageDynamicBlocks\")",
       "WebFetch(domain:eur-lex.europa.eu)",
-      "mcp__chrome-devtools-mcp__close_page"
+      "mcp__chrome-devtools-mcp__close_page",
+      "Read(//Users/adriankotlinski/mods/auto-handoff/**)",
+      "Bash(claude plugin *)"
     ]
   }
 }

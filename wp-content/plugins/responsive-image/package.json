@@ -1,0 +1,16 @@
+{
+  "name": "responsive-image-block",
+  "version": "1.0.0",
+  "description": "A custom WordPress block for responsive images (desktop/mobile)",
+  "author": "Adrian Kotlinski",
+  "license": "GPL-2.0-or-later",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.0.0"
+  },
+  "dependencies": {}
+}

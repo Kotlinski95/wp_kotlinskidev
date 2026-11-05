@@ -249,6 +249,11 @@ header:has(.kt-lang-panel.is-open) {
 	left: 0.625rem;
 }
 
+.kt-hamburger-border .wp-block-navigation__responsive-container-open {
+	border: 0.0625rem solid var(--wp--preset--color--divider);
+	border-radius: 0.5rem;
+}
+
 .kt-hamburger-desktop .wp-block-navigation__responsive-container-open {
 
 	@media (min-width: $breakpoint-desktop) {
@@ -769,6 +774,14 @@ header:has(.kt-lang-panel.is-open) {
 
 	.wp-block-social-links {
 		margin-top: auto;
+	}
+}
+
+.kt-hamburger-no-dividers {
+
+	.wp-block-navigation__container > .wp-block-navigation-item::after,
+	.wp-block-navigation__container > .wp-block-navigation-item .wp-block-navigation-item::before {
+		display: none;
 	}
 }
 

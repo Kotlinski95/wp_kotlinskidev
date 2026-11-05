@@ -38,15 +38,47 @@ function mockBoundingClientRect(el: Element, rect: Partial<DOMRect>) {
   });
 }
 
+function mockClientRects(el: Element, rects: Partial<DOMRect>[]) {
+  const full = rects.map((rect) => ({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 0,
+    toJSON() {},
+    ...rect,
+  })) as DOMRect[];
+
+  jest.spyOn(el, "getClientRects").mockReturnValue({
+    length: full.length,
+    item: (index: number) => full[index] ?? null,
+    [Symbol.iterator]: full[Symbol.iterator].bind(full),
+  } as unknown as DOMRectList);
+}
+
 describe("hover-glow.ts", () => {
+  let bodyListeners: Array<[string, EventListenerOrEventListenerObject]> = [];
+
   beforeEach(() => {
     jest.useFakeTimers();
     mockMatchMedia();
+
+    bodyListeners = [];
+    jest.spyOn(document.body, "addEventListener").mockImplementation((...args) => {
+      bodyListeners.push([args[0], args[1] as EventListenerOrEventListenerObject]);
+      Element.prototype.addEventListener.apply(document.body, args);
+    });
   });
 
   afterEach(() => {
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
+    bodyListeners.forEach(([type, listener]) =>
+      Element.prototype.removeEventListener.call(document.body, type, listener)
+    );
     jest.restoreAllMocks();
   });
 
@@ -140,6 +172,63 @@ describe("hover-glow.ts", () => {
 
     expect(paragraph.style.getPropertyValue("--kt-glow-x")).toBe("30px");
     expect(paragraph.style.getPropertyValue("--kt-glow-y")).toBe("30px");
+  });
+
+  it("computes the glow position relative to the line fragment the pointer is actually over, not the element's overall bounding box", () => {
+    document.body.innerHTML = '<p class="has-enhanced-hover-glow">Fast &amp; Scalable solution</p>';
+    loadScript();
+
+    const paragraph = document.querySelector<HTMLElement>("p")!;
+    mockBoundingClientRect(paragraph, { left: 0, top: 0, width: 183, height: 66 });
+    mockClientRects(paragraph, [
+      { top: 0, left: 0, right: 183, bottom: 30 },
+      { top: 36, left: 40, right: 142, bottom: 66 },
+    ]);
+
+    paragraph.dispatchEvent(
+      new MouseEvent("pointermove", { bubbles: true, clientX: 90, clientY: 50 })
+    );
+    jest.runAllTimers();
+
+    expect(paragraph.style.getPropertyValue("--kt-glow-x")).toBe("50px");
+    expect(paragraph.style.getPropertyValue("--kt-glow-y")).toBe("14px");
+  });
+
+  it("falls back to the first fragment when the pointer doesn't land inside any fragment rect", () => {
+    document.body.innerHTML = '<p class="has-enhanced-hover-glow">Fast &amp; Scalable solution</p>';
+    loadScript();
+
+    const paragraph = document.querySelector<HTMLElement>("p")!;
+    mockClientRects(paragraph, [
+      { top: 0, left: 0, right: 183, bottom: 30 },
+      { top: 36, left: 40, right: 142, bottom: 66 },
+    ]);
+
+    paragraph.dispatchEvent(
+      new MouseEvent("pointermove", { bubbles: true, clientX: 10, clientY: 33 })
+    );
+    jest.runAllTimers();
+
+    expect(paragraph.style.getPropertyValue("--kt-glow-x")).toBe("10px");
+    expect(paragraph.style.getPropertyValue("--kt-glow-y")).toBe("33px");
+  });
+
+  it("listens on the closest non-inline ancestor for a glow span nested inside an inline wrapper, so the gap between wrapped lines still receives pointermove", () => {
+    document.body.innerHTML =
+      '<div><p><strong style="display:inline"><span class="has-enhanced-hover-glow" style="display:inline">Fast &amp; Scalable</span></strong></p></div>';
+    loadScript();
+
+    const paragraph = document.querySelector<HTMLElement>("p")!;
+    const span = document.querySelector<HTMLElement>(".has-enhanced-hover-glow")!;
+    mockClientRects(span, [{ top: 0, left: 0, right: 183, bottom: 30 }]);
+
+    paragraph.dispatchEvent(
+      new MouseEvent("pointermove", { bubbles: true, clientX: 40, clientY: 10 })
+    );
+    jest.runAllTimers();
+
+    expect(span.style.getPropertyValue("--kt-glow-x")).toBe("40px");
+    expect(span.style.getPropertyValue("--kt-glow-y")).toBe("10px");
   });
 
   it("drops intermediate pointermove events scheduled within the same animation frame", () => {

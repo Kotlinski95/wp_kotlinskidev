@@ -5,9 +5,6 @@
 /wp-config.php
 wp-config.php
 
-# Ignore WordPress core files and directories
-/wp-admin/
-/wp-includes/
 
 # Ignore plugin and theme directories if you don’t want to include them in your repository
 /wp-content/plugins/*
@@ -160,3 +157,9 @@ artifacts
 # PWA service worker + Yoast llms.txt are generated per-environment, not source
 /sw.js
 /llms.txt
+
+# HyperFrames video projects — only the rendered .mp4 is used, uploaded via the WP Media Library
+wp-content/themes/kotlinskidev/media/hyperframes/
+
+# Skills installed by the skills CLI (restore with skills-lock.json), not source
+wp-content/themes/kotlinskidev/.agents/

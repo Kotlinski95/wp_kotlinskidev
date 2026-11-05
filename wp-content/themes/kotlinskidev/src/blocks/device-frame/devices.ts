@@ -23,3 +23,18 @@ export const POSITION_STYLE_OPTIONS: { label: string; value: PositionStyle }[] =
   { label: __("Faded Window", "kotlinskidev"), value: "faded" },
   { label: __("Peek Top", "kotlinskidev"), value: "peek-top" },
 ];
+
+export type LoadingStrategy = "lazy" | "eager";
+
+export const LOADING_OPTIONS: { label: string; value: LoadingStrategy }[] = [
+  { label: __("Lazy (default)", "kotlinskidev"), value: "lazy" },
+  { label: __("Eager", "kotlinskidev"), value: "eager" },
+];
+
+export type FetchPriority = "auto" | "high" | "low";
+
+export const FETCH_PRIORITY_OPTIONS: { label: string; value: FetchPriority }[] = [
+  { label: __("Auto (default)", "kotlinskidev"), value: "auto" },
+  { label: __("High", "kotlinskidev"), value: "high" },
+  { label: __("Low", "kotlinskidev"), value: "low" },
+];

@@ -17,14 +17,22 @@
     "heading": { "type": "string", "default": "" },
     "description": { "type": "string", "default": "" },
     "linkUrl": { "type": "string", "default": "" },
-    "linkLabel": { "type": "string", "default": "" }
+    "linkLabel": { "type": "string", "default": "" },
+    "hoverPadding": { "type": "string", "default": "" }
   },
   "supports": {
     "html": false,
     "reusable": false,
     "color": {
       "text": true,
-      "background": false
+      "background": true,
+      "gradients": true
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
     },
     "spacing": {
       "padding": true

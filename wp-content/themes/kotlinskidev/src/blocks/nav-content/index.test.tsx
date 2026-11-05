@@ -282,6 +282,7 @@ describe("NavBannerEdit", () => {
       description: "",
       linkUrl: "",
       linkLabel: "",
+      hoverPadding: "",
     };
   }
 
@@ -361,6 +362,16 @@ describe("NavBannerEdit", () => {
       />
     );
     expect(screen.getByText("Learn more →")).toBeInTheDocument();
+  });
+
+  it("updates the hover highlight padding", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit();
+
+    await user.click(screen.getByRole("button", { name: "Hover highlight" }));
+    await user.type(within(panelFor("Hover highlight")).getByLabelText("Padding"), "X");
+
+    expect(setAttributes).toHaveBeenCalledWith({ hoverPadding: "X" });
   });
 });
 
