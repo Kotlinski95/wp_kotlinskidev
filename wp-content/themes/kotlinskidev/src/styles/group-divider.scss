@@ -1,0 +1,52 @@
+.has-divider-between-y > * {
+	border-top-width: inherit;
+	border-top-color: inherit;
+	border-top-style: solid;
+}
+
+.has-divider-between-y > *:first-child {
+	border-top: none;
+}
+
+.has-divider-between-x > * {
+	border-left-width: inherit;
+	border-left-color: inherit;
+	border-left-style: solid;
+}
+
+.has-divider-between-x > *:first-child {
+	border-left: none;
+}
+
+.has-divider-between-grid > * {
+	border-bottom-width: inherit;
+	border-bottom-color: inherit;
+	border-bottom-style: solid;
+	border-right-width: inherit;
+	border-right-color: inherit;
+	border-right-style: solid;
+}
+
+.has-divider-between-grid > *:last-child {
+	border-bottom: none;
+	border-right: none;
+}
+
+@for $columns from 1 through 12 {
+	.has-divider-between-grid-cols-#{$columns} > * {
+		border-top-width: inherit;
+		border-top-color: inherit;
+		border-top-style: solid;
+		border-left-width: inherit;
+		border-left-color: inherit;
+		border-left-style: solid;
+	}
+
+	.has-divider-between-grid-cols-#{$columns} > *:nth-child(-n + #{$columns}) {
+		border-top: none;
+	}
+
+	.has-divider-between-grid-cols-#{$columns} > *:nth-child(#{$columns}n + 1) {
+		border-left: none;
+	}
+}

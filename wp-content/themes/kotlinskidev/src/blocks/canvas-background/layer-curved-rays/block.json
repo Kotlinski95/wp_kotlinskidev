@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-curved-rays",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Curved Rays",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A bezier-curved, pulsing light-ray layer for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "rayCount": { "type": "number", "default": 16 },
+    "speed": { "type": "number", "default": 0.4 },
+    "color": { "type": "string", "default": "#cccccc" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-grid-lines",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Grid Lines",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A faint grid-line layer for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "opacity": { "type": "number", "default": 0.08 },
+    "lineCount": { "type": "number", "default": 12 },
+    "color": { "type": "string", "default": "var(--wp--preset--color--surface)" }
+  }
+}

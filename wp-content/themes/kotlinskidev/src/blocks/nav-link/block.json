@@ -8,7 +8,7 @@
   "icon": "admin-links",
   "description": "Link for navigation panels and holders with full color, spacing, and typography supports.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/nav-content.js",
+  "editorScript": "file:../../../build/js/nav-content.js",
   "render": "file:./render.php",
   "attributes": {
     "label": {

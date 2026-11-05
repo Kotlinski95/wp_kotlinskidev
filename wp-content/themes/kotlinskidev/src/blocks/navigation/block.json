@@ -7,7 +7,7 @@
   "category": "kotlinskidev",
   "icon": "menu",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/navigation.js",
+  "editorScript": "file:../../../build/js/navigation.js",
   "render": "file:./render.php",
   "attributes": {
     "menuSlug": {
@@ -39,6 +39,26 @@
       "default": ""
     },
     "linkNavigatesOnClick": {
+      "type": "boolean",
+      "default": false
+    },
+    "showHamburgerBorder": {
+      "type": "boolean",
+      "default": false
+    },
+    "hideAccordionDividers": {
+      "type": "boolean",
+      "default": false
+    },
+    "blurInactiveLinks": {
+      "type": "boolean",
+      "default": false
+    },
+    "blurAmount": {
+      "type": "string",
+      "default": ""
+    },
+    "blurIncludeUtility": {
       "type": "boolean",
       "default": false
     }

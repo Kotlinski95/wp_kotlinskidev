@@ -69,7 +69,7 @@ function kotlinskidev_contact_form_handle_submit() {
                         'body'    => [
                             'secret'   => $recaptcha_secret,
                             'response' => $recaptcha_response,
-                            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                            'remoteip' => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
                         ],
                         'timeout' => 10,
                     ]
@@ -96,7 +96,7 @@ function kotlinskidev_contact_form_handle_submit() {
                         'body'    => [
                             'secret'   => $turnstile_secret,
                             'response' => $turnstile_response,
-                            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                            'remoteip' => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
                         ],
                         'timeout' => 10,
                     ]
@@ -182,7 +182,21 @@ function kotlinskidev_contact_form_handle_submit() {
         'Reply-To: ' . $email,
     ];
 
-    if ( ! wp_mail( $admin_email, $subject, $body, $headers ) ) {
+    $submission_id = kotlinskidev_save_contact_submission(
+        [
+            'post_id' => $post_id,
+            'name'    => $name,
+            'email'   => $email,
+            'topic'   => $topic,
+            'message' => $message,
+            'agree'   => 'Yes' === $agree,
+        ]
+    );
+
+    $email_sent = wp_mail( $admin_email, $subject, $body, $headers );
+    kotlinskidev_mark_contact_submission_email_status( $submission_id, $email_sent );
+
+    if ( ! $email_sent ) {
         error_log( 'Contact form email sending failed.' );
     }
 

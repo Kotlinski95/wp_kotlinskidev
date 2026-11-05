@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/content-tabs-item",
+  "version": "1.0.0",
+  "title": "Content Tab",
+  "category": "kotlinskidev",
+  "icon": "media-default",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/content-tabs"],
+  "attributes": {
+    "tabId": { "type": "string", "default": "" },
+    "panelId": { "type": "string", "default": "" },
+    "isActive": { "type": "boolean", "default": false }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": { "background": true, "text": true, "gradients": true },
+    "spacing": { "padding": true, "margin": true },
+    "__experimentalBorder": { "radius": true, "color": true, "width": true, "style": true }
+  }
+}

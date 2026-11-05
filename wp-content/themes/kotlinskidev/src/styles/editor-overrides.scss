@@ -253,11 +253,11 @@ header .wp-block-navigation__responsive-container {
 	margin-left: 12px;
 	border: 1px dashed currentcolor;
 	border-radius: 2px;
-	font-size: 13px;
+	font-size: 0.8125rem;
 	opacity: 0.75;
 
 	&__icon {
-		font-size: 16px !important;
+		font-size: 1rem !important;
 		width: 16px !important;
 		height: 16px !important;
 		flex-shrink: 0;
@@ -293,4 +293,18 @@ header .wp-block-navigation__responsive-container {
 
 .border-block-support-panel .block-editor-color-gradient-control {
 	grid-column: 1 / -1;
+}
+
+.block-editor-panel-color-gradient-settings {
+	margin-inline: 0 !important;
+	padding-inline: 0 !important;
+}
+
+.kt-breadcrumbs {
+	position: sticky !important;
+}
+
+.wp-block-buttons > .wp-block-button.wp-block-group {
+	width: auto !important;
+	flex: 0 0 auto !important;
 }

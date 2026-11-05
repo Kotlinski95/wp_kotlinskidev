@@ -1,19 +1,25 @@
 <?php
-$media_url  = $attributes['mediaUrl'] ?? '';
-$alt_text   = $attributes['altText'] ?? '';
-$heading    = $attributes['heading'] ?? '';
-$desc       = $attributes['description'] ?? '';
-$link_url   = $attributes['linkUrl'] ?? '';
-$link_label = $attributes['linkLabel'] ?? '';
+$media_url     = $attributes['mediaUrl'] ?? '';
+$alt_text      = $attributes['altText'] ?? '';
+$heading       = $attributes['heading'] ?? '';
+$desc          = $attributes['description'] ?? '';
+$link_url      = $attributes['linkUrl'] ?? '';
+$link_label    = $attributes['linkLabel'] ?? '';
+$hover_padding = $attributes['hoverPadding'] ?? '';
 
-$wrapper_attrs = get_block_wrapper_attributes( [ 'class' => 'kt-nav-banner' ] );
+$wrapper_extra = [ 'class' => 'kt-nav-banner' ];
+if ( $hover_padding ) {
+	$wrapper_extra['style'] = '--kt-nav-banner-hover-pad: ' . esc_attr( $hover_padding ) . ';';
+}
+
+$wrapper_attrs = get_block_wrapper_attributes( $wrapper_extra );
 ?>
-<div <?php echo $wrapper_attrs; ?>>
+<div <?php echo $wrapper_attrs; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>>
 	<?php if ( $media_url ) : ?>
 	<figure class="kt-nav-banner__media">
 		<?php
 		$img = '<img src="' . esc_url( $media_url ) . '" alt="' . esc_attr( $alt_text ) . '" loading="lazy">';
-		echo $link_url ? '<a class="kt-nav-banner__media-link" href="' . esc_url( $link_url ) . '">' . $img . '</a>' : $img;
+		echo $link_url ? '<a class="kt-nav-banner__media-link" href="' . esc_url( $link_url ) . '">' . $img . '</a>' : $img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $img is built exclusively from esc_url()/esc_attr() wrapped values above
 		?>
 	</figure>
 	<?php endif; ?>

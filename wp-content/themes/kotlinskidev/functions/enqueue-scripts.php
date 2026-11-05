@@ -2,22 +2,21 @@
 function defer_global_css()
 {
     // Enqueue the global stylesheet with media="print" to prevent it from blocking render
-    $main_css_path = get_template_directory() . '/build/main.css';
+    $main_css_path = kotlinskidev_build_path('css', 'main.css');
     $main_css_ver  = file_exists($main_css_path) ? filemtime($main_css_path) : null;
-    wp_enqueue_style('global-style', get_template_directory_uri() . '/build/main.css', [], $main_css_ver, 'print');
+    wp_enqueue_style('global-style', kotlinskidev_build_url('css', 'main.css'), [], $main_css_ver, 'print');
 }
 add_action('wp_enqueue_scripts', 'defer_global_css');
 
 // Inline critical JavaScript for frontend
 function inline_critical_js()
 {
-    $critical_js_path = get_template_directory() . '/build/critical.js';
+    $critical_js_path = kotlinskidev_build_path('js', 'critical.js');
     if (!file_exists($critical_js_path)) {
         return;
     }
 
-    // Cache the file contents — it only changes on build deploys.
-    // filemtime() in the cache key auto-invalidates whenever the file changes.
+        // Cached by filemtime()-keyed transient so it auto-invalidates on each deploy.
     $cache_key  = 'kotlinskidev_critical_js_' . filemtime($critical_js_path);
     $critical_js = get_transient($cache_key);
     if ($critical_js === false) {
@@ -28,7 +27,7 @@ function inline_critical_js()
     }
 
     if ($critical_js) {
-        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>';
+        echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/js/critical.js, not user input; escaping would corrupt the inline JS
     }
 }
 add_action('wp_head', 'inline_critical_js', 2); // Load after critical CSS
@@ -58,15 +57,13 @@ function master_css_filter($html, $handle)
         
     }
     
-    // Handle non-critical style preloading
-    if ($handle === 'icomoon-style') {
-        $html = str_replace("rel='stylesheet'", "rel='preload' as='style' onload='this.rel=\"stylesheet\"'", $html);
-    }
-
-    $deferred_handles = [
-        'wp-block-navigation',
-        'wp-pwa-manager-frontend',
-    ];
+    $deferred_handles = array_merge(
+        [
+            'wp-block-navigation',
+            'wp-pwa-manager-frontend',
+        ],
+        kotlinskidev_get_deferred_block_style_handles()
+    );
     if (in_array($handle, $deferred_handles, true)) {
         $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
         $html = str_replace('media="all"', 'media="print"', $html);
@@ -81,30 +78,60 @@ function master_css_filter($html, $handle)
 }
 add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to run before plugins
 
+function kotlinskidev_defer_deferrable_scripts($tag, $handle)
+{
+    $deferred_script_handles = [
+        'wp-pwa-manager-frontend',
+    ];
 
+    if (!in_array($handle, $deferred_script_handles, true)) {
+        return $tag;
+    }
+
+    if (strpos($tag, ' defer') !== false) {
+        return $tag;
+    }
+
+    return str_replace(' src=', ' defer src=', $tag);
+}
+add_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts', 10, 2);
+
+
+
+function kotlinskidev_read_cached_critical_css(string $relative_filename): string
+{
+    $css_path = kotlinskidev_build_path('css', $relative_filename);
+    if (!file_exists($css_path)) {
+        return '';
+    }
+
+    $cache_key = 'kotlinskidev_critical_css_' . sanitize_key($relative_filename) . '_' . filemtime($css_path) . '_' . kotlinskidev_breakpoints_hash();
+    $css = get_transient($cache_key);
+    if ($css === false) {
+        $css = file_get_contents($css_path);
+        if ($css) {
+            $css = kotlinskidev_transform_breakpoint_css($css);
+            set_transient($cache_key, $css, WEEK_IN_SECONDS);
+        }
+    }
+
+    return $css ?: '';
+}
 
 // Inline critical CSS and preload non-critical styles
 function inline_critical_css()
 {
-    $critical_css_path = get_template_directory() . '/build/critical.css';
-    if (file_exists($critical_css_path)) {
-        // Cache the file — it only changes on build deploys or breakpoint setting changes.
-        $cache_key = 'kotlinskidev_critical_css_' . filemtime($critical_css_path) . '_' . kotlinskidev_breakpoints_hash();
-        $critical_css = get_transient($cache_key);
-        if ($critical_css === false) {
-            $critical_css = file_get_contents($critical_css_path);
-            if ($critical_css) {
-                $critical_css = kotlinskidev_transform_breakpoint_css($critical_css);
-                set_transient($cache_key, $critical_css, WEEK_IN_SECONDS);
-            }
-        }
-        if ($critical_css) {
-            echo '<style id="critical-css">' . $critical_css . '</style>';
+    $critical_css = kotlinskidev_read_cached_critical_css('critical.css');
+    if ($critical_css) {
+        echo '<style id="critical-css">' . $critical_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/css/critical.css, not user input; escaping would corrupt the inline CSS
+    }
+
+    foreach (kotlinskidev_get_active_critical_css_fragments() as $fragment_filename) {
+        $fragment_css = kotlinskidev_read_cached_critical_css($fragment_filename);
+        if ($fragment_css) {
+            echo '<style id="critical-css-' . esc_attr(sanitize_key(basename($fragment_filename, '.css'))) . '">' . $fragment_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/css/*.css, not user input; escaping would corrupt the inline CSS
         }
     }
-    
-    // Non-critical styles - preload asynchronously
-    wp_enqueue_style('icomoon-style', get_template_directory_uri() . '/assets/css/icomoon.css', false, null);
 }
 add_action('wp_head', 'inline_critical_css', 1);
 
@@ -112,7 +139,7 @@ function kotlinskidev_editor_styles(): void
 {
     wp_enqueue_style(
         'kotlinskidev-editor-overrides',
-        get_template_directory_uri() . '/build/editor.css',
+        kotlinskidev_build_url('css', 'editor.css'),
         array(),
         wp_get_theme()->get('Version')
     );
@@ -120,14 +147,15 @@ function kotlinskidev_editor_styles(): void
 
 function kotlinskidev_editor_scripts(): void
 {
-    $asset = include get_template_directory() . '/build/editor.asset.php';
+    $asset = include kotlinskidev_build_path('js', 'editor.asset.php');
     wp_enqueue_script(
         'kotlinskidev-editor-only',
-        get_template_directory_uri() . '/build/editor.js',
+        kotlinskidev_build_url('js', 'editor.js'),
         $asset['dependencies'],
         $asset['version'],
         true
     );
+    wp_set_script_translations('kotlinskidev-editor-only', 'kotlinskidev', get_template_directory() . '/languages');
 }
 
 add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');
@@ -135,10 +163,10 @@ add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_scripts');
 
 
 add_action('wp_enqueue_scripts', function (): void {
-    $script_args = include get_template_directory() . '/build/main.asset.php';
+    $script_args = include kotlinskidev_build_path('js', 'main.asset.php');
     wp_enqueue_script(
         'wp-typescript',
-        get_template_directory_uri() . '/build/main.js',
+        kotlinskidev_build_url('js', 'main.js'),
         $script_args['dependencies'],
         $script_args['version'],
         [
@@ -157,8 +185,5 @@ add_action('wp_enqueue_scripts', function (): void {
         'scrollOffsets' => kotlinskidev_get_scroll_offsets(),
     ]);
     
-    // When used in a WordPress plugin
-    //$script_args = include( plugin_dir_path( __FILE__ ) . 'assets/public/scripts.asset.php');
-    //wp_enqueue_script('wp-typescript', plugins_url('assets/public/scripts.js', __FILE__), $script_args['dependencies'], $script_args['version']);
 });
 

@@ -21,20 +21,20 @@ interface MediaObject {
   alt: string;
 }
 
-interface NavParagraphAttributes {
+export interface NavParagraphAttributes {
   content: string;
   textColor: string;
   textGradient: string;
 }
 
-interface NavImageAttributes {
+export interface NavImageAttributes {
   mediaId: number;
   mediaUrl: string;
   altText: string;
   linkUrl: string;
 }
 
-interface NavLinkAttributes {
+export interface NavLinkAttributes {
   label: string;
   url: string;
   opensInNewTab: boolean;
@@ -76,7 +76,7 @@ const {
   __experimentalColorGradientControl: ComponentType<ColorGradientControlProps>;
 };
 
-interface NavBannerAttributes {
+export interface NavBannerAttributes {
   mediaId: number;
   mediaUrl: string;
   altText: string;
@@ -84,6 +84,7 @@ interface NavBannerAttributes {
   description: string;
   linkUrl: string;
   linkLabel: string;
+  hoverPadding: string;
 }
 
 const previewStyle: CSSProperties = {
@@ -100,7 +101,10 @@ const placeholderStyle: CSSProperties = {
   margin: 0,
 };
 
-function NavParagraphEdit({ attributes, setAttributes }: BlockEditProps<NavParagraphAttributes>) {
+export function NavParagraphEdit({
+  attributes,
+  setAttributes,
+}: BlockEditProps<NavParagraphAttributes>) {
   const blockProps = useBlockProps();
   const { content, textColor, textGradient } = attributes;
 
@@ -153,7 +157,7 @@ function NavParagraphEdit({ attributes, setAttributes }: BlockEditProps<NavParag
   );
 }
 
-function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttributes>) {
+export function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttributes>) {
   const blockProps = useBlockProps();
   const { mediaId, mediaUrl, altText, linkUrl } = attributes;
 
@@ -211,9 +215,10 @@ function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavImageAttr
   );
 }
 
-function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
+export function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
   const blockProps = useBlockProps();
-  const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel } = attributes;
+  const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel, hoverPadding } =
+    attributes;
 
   const onSelectMedia = (media: MediaObject) =>
     setAttributes({ mediaId: media.id, mediaUrl: media.url, altText: media.alt ?? "" });
@@ -272,6 +277,18 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
             placeholder={__("Leave empty to link the image only", "kotlinskidev")}
           />
         </PanelBody>
+        <PanelBody title={__("Hover highlight", "kotlinskidev")} initialOpen={false}>
+          <TextControl
+            label={__("Padding", "kotlinskidev")}
+            value={hoverPadding}
+            onChange={(value) => setAttributes({ hoverPadding: value })}
+            placeholder={__("1.25rem", "kotlinskidev")}
+            help={__(
+              "Space around the banner the frosted hover background fills. Any CSS length, e.g. 1.5rem or 20px.",
+              "kotlinskidev"
+            )}
+          />
+        </PanelBody>
       </InspectorControls>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
@@ -304,9 +321,7 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
             </p>
           )}
           {linkUrl && linkLabel && (
-            <span style={{ fontSize: "0.8125rem", fontWeight: 500 }}>
-              {linkLabel} →
-            </span>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 500 }}>{linkLabel} →</span>
           )}
         </div>
       </div>
@@ -314,7 +329,7 @@ function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAt
   );
 }
 
-function NavLinkEdit({ attributes, setAttributes }: BlockEditProps<NavLinkAttributes>) {
+export function NavLinkEdit({ attributes, setAttributes }: BlockEditProps<NavLinkAttributes>) {
   const blockProps = useBlockProps({ className: "kt-nav-link" });
   const { label, url, opensInNewTab, description, rel, textColor, textGradient } = attributes;
 

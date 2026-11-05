@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
 import { PanelBody, RangeControl, Button } from "@wordpress/components";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 import CarouselPanel from "@utils/carousel/CarouselPanel";
 import type { CarouselSettings } from "@utils/carousel/types";
+import { onActivationKey } from "@utils/keyboardActivation";
 import "./style.scss";
 
 export interface HeroCarouselAttributes extends Partial<CarouselSettings> {
@@ -36,6 +37,9 @@ interface BlockEditorActions {
   selectBlock: (clientId: string) => void;
 }
 
+const EMPTY_SLIDES: SlideBlock[] = [];
+const EMPTY_CLIENT_IDS: string[] = [];
+
 export default function Edit({
   attributes,
   setAttributes,
@@ -56,17 +60,22 @@ export default function Edit({
   } = carouselSettings;
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const { innerBlocks, selectedBlockParents } = useSelect(
+  const { innerBlocks, blockParents, selectedBlockClientId } = useSelect(
     (select) => {
       const store = select("core/block-editor") as unknown as BlockEditorSelectors;
       const selectedCid = store.getSelectedBlockClientId();
-      const parents: string[] = selectedCid ? store.getBlockParents(selectedCid) : [];
       return {
-        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? [],
-        selectedBlockParents: selectedCid ? [...parents, selectedCid] : [],
+        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? EMPTY_SLIDES,
+        blockParents: selectedCid ? store.getBlockParents(selectedCid) : EMPTY_CLIENT_IDS,
+        selectedBlockClientId: selectedCid,
       };
     },
     [clientId]
+  );
+
+  const selectedBlockParents = useMemo(
+    () => (selectedBlockClientId ? [...blockParents, selectedBlockClientId] : EMPTY_CLIENT_IDS),
+    [blockParents, selectedBlockClientId]
   );
 
   const { insertBlock, removeBlock, selectBlock } = useDispatch(
@@ -75,7 +84,9 @@ export default function Edit({
 
   useEffect(() => {
     const idx = innerBlocks.findIndex((b) => selectedBlockParents.includes(b.clientId));
-    if (idx >= 0) setActiveSlide(idx);
+    if (idx >= 0) {
+      setActiveSlide(idx);
+    }
   }, [selectedBlockParents, innerBlocks]);
 
   useEffect(() => {
@@ -97,18 +108,25 @@ export default function Edit({
   };
 
   const handleRemoveSlide = (index: number) => {
-    if (slideCount <= 1) return;
+    if (slideCount <= 1) {
+      return;
+    }
     const target = innerBlocks[index];
-    if (target) removeBlock(target.clientId);
+    if (target) {
+      removeBlock(target.clientId);
+    }
   };
+
+  const blockProps = useBlockProps({ className: "hero-carousel" });
 
   const effectivePlacement = arrowsPosition === "sides" ? "inside" : (navPlacement ?? "inside");
 
-  const navColorStyle: React.CSSProperties | undefined = navColor
-    ? navColorOnHover
+  let navColorStyle: React.CSSProperties | undefined;
+  if (navColor) {
+    navColorStyle = navColorOnHover
       ? ({ "--carousel-nav-color-hover": navColor } as React.CSSProperties)
-      : ({ "--carousel-nav-color": navColor } as React.CSSProperties)
-    : undefined;
+      : ({ "--carousel-nav-color": navColor } as React.CSSProperties);
+  }
 
   const editorNav = showArrows ? (
     <div
@@ -117,6 +135,7 @@ export default function Edit({
       <div
         className={`swiper-button-prev${activeSlide === 0 ? " swiper-button-disabled" : ""}`}
         onClick={() => activeSlide > 0 && handleNavigate(activeSlide - 1)}
+        onKeyDown={onActivationKey(() => activeSlide > 0 && handleNavigate(activeSlide - 1))}
         role="button"
         tabIndex={0}
         aria-label={__("Previous slide", "kotlinskidev")}
@@ -131,6 +150,9 @@ export default function Edit({
       <div
         className={`swiper-button-next${activeSlide === slideCount - 1 ? " swiper-button-disabled" : ""}`}
         onClick={() => activeSlide < slideCount - 1 && handleNavigate(activeSlide + 1)}
+        onKeyDown={onActivationKey(
+          () => activeSlide < slideCount - 1 && handleNavigate(activeSlide + 1)
+        )}
         role="button"
         tabIndex={0}
         aria-label={__("Next slide", "kotlinskidev")}
@@ -145,6 +167,7 @@ export default function Edit({
           key={i}
           className={`swiper-pagination-bullet${i === activeSlide ? " swiper-pagination-bullet-active" : ""}`}
           onClick={() => handleNavigate(i)}
+          onKeyDown={onActivationKey(() => handleNavigate(i))}
           role="button"
           tabIndex={0}
           aria-label={`${__("Go to slide", "kotlinskidev")} ${i + 1}`}
@@ -172,6 +195,18 @@ export default function Edit({
                     .filter(Boolean)
                     .join(" ")}
                   onClick={() => handleNavigate(i)}
+                  onKeyDown={(e) => {
+                    if (e.target === e.currentTarget) {
+                      onActivationKey(() => handleNavigate(i))(e);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={sprintf(
+                    // translators: %d: slide number
+                    __("Slide %d", "kotlinskidev"),
+                    i + 1
+                  )}
                 >
                   {imgUrl ? <img src={imgUrl} alt="" /> : <span>{i + 1}</span>}
                   {slideCount > 1 && (
@@ -207,24 +242,35 @@ export default function Edit({
             navPlacement: true,
             autoplay: true,
             lazyLoad: true,
+            transitionEffect: true,
+            autoHeight: true,
           }}
         />
         <PanelBody title={__("Height", "kotlinskidev")} initialOpen={false}>
           <RangeControl
             label={__("Min Height (vh)", "kotlinskidev")}
+            help={
+              carouselSettings.autoHeight
+                ? __(
+                    "Auto Height is on (in Carousel Settings above) — this is now just a floor so slides never collapse below it.",
+                    "kotlinskidev"
+                  )
+                : undefined
+            }
             value={minHeight}
             onChange={(value) => setAttributes({ minHeight: value ?? 80 })}
-            min={40}
+            min={0}
             max={100}
           />
         </PanelBody>
       </InspectorControls>
       <div
-        {...useBlockProps({ className: "hero-carousel" })}
+        {...blockProps}
         data-active-slide={activeSlide}
         style={
           {
-            "--hero-min-height": `${minHeight}svh`,
+            ...blockProps.style,
+            "--hero-min-height": `calc(${minHeight}svh - var(--admin-bar-offset, 0px))`,
             ...(navColorStyle ?? {}),
           } as React.CSSProperties
         }

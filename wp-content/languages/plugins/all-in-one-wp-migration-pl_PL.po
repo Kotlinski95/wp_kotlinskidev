@@ -2,575 +2,1220 @@
 # This file is distributed under the same license as the Plugins - All-in-One WP Migration and Backup - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-30 05:38:46+0000\n"
+"PO-Revision-Date: 2026-07-15 04:44:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
-"X-Generator: GlotPress/4.0.1\n"
+"X-Generator: GlotPress/4.0.3\n"
 "Language: pl\n"
 "Project-Id-Version: Plugins - All-in-One WP Migration and Backup - Stable (latest release)\n"
 
-#: lib/controller/class-ai1wm-main-controller.php:1160
-msgid "Error"
-msgstr "Błąd"
+#: lib/model/import/class-ai1wm-import-validate-crc.php:43
+msgid "Validating archive checksum..."
+msgstr "Weryfikacja sumy kontrolnej archiwum..."
 
-#: lib/view/backups/backups-list.php:129
+#: lib/model/export/class-ai1wm-export-archive-crc.php:38
+msgid "Calculating archive checksum..."
+msgstr "Obliczanie sumy kontrolnej archiwum..."
+
+#: lib/view/common/share-buttons.php:56 lib/view/common/share-buttons.php:57
+msgid "Subscribe on YouTube"
+msgstr "Subskrybuj na YouTube"
+
+#: lib/view/common/share-buttons.php:47 lib/view/common/share-buttons.php:48
+msgid "Share on Facebook"
+msgstr "Udostępnij na Facebooku"
+
+#: lib/view/common/share-buttons.php:38 lib/view/common/share-buttons.php:39
+msgid "Share on X"
+msgstr "Udostępnij na X"
+
+#: lib/model/import/class-ai1wm-import-validate.php:65
+msgid "Unpacking configuration..."
+msgstr "Rozpakowywanie konfiguracji..."
+
+#: lib/model/import/class-ai1wm-import-database-file.php:118
+msgid "Database unpacked."
+msgstr "Baza danych została rozpakowana."
+
+#: lib/model/import/class-ai1wm-import-check-compression.php:69
+msgid "Compressed backup detected. Compression will be handled automatically."
+msgstr "Wykryto skompresowaną kopię zapasową. Kompresja zostanie obsłużona automatycznie."
+
+#: lib/model/export/class-ai1wm-export-config-file.php:37
+msgid "Archiving configuration..."
+msgstr "Archiwizowanie konfiguracji..."
+
+#: lib/view/common/leave-feedback.php:64
+msgid "I agree to let All-in-One WP Migration use my <strong>email</strong> to respond to my request."
+msgstr "Zgadzam się, aby All-in-One WP Migration używało mojego <strong>adresu e-mail</strong> w celu odpowiedzi na moje zapytanie."
+
+#: lib/model/import/class-ai1wm-import-upload.php:186
+msgid ""
+"An unknown error (code: %s) occurred during the file upload. The process cannot continue.\n"
+"\t\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Podczas przesyłania pliku wystąpił nieznany błąd (kod: %s). Nie można kontynuować procesu.\n"
+"\t\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:171
+msgid ""
+"A PHP extension blocked this file upload. The process cannot continue.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Rozszerzenie PHP zablokowało przesłanie tego pliku. Proces nie może być kontynuowany.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:158
+msgid ""
+"Could not save the uploaded file. Please check file permissions and try again.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Nie udało się zapisać przesłanego pliku. Sprawdź uprawnienia pliku i spróbuj ponownie.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:145
+msgid ""
+"No temporary folder is available on the server. The process cannot continue.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Na serwerze nie ma katalogu tymczasowego. Proces nie może być kontynuowany.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:132
+msgid ""
+"The uploaded file is too large for this server. The process cannot continue.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Przesłany plik jest za duży dla tego serwera. Proces nie może być kontynuowany.\n"
+"\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:111
+msgid ""
+"Could not upload the file because %s. The process cannot continue.\n"
+"\t\t\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Nie można przesłać pliku, ponieważ %s. Proces nie może być kontynuowany.\n"
+"\t\t\t\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:89
+msgid ""
+"Invalid file data. Please ensure your file is a <strong>.wpress</strong> backup created with All-in-One WP Migration.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Nieprawidłowe dane pliku. Upewnij się, że plik jest kopią zapasową <strong>.wpress</strong> utworzoną za pomocą All-in-One WP Migration.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:59
+msgid ""
+"The uploaded file is missing an error code. The process cannot continue.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"W przesłanym pliku brakuje kodu błędu. Proces nie może być kontynuowany.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-upload.php:42
+msgid ""
+"The uploaded file is missing a temporary path. The process cannot continue.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"W przesłanym pliku brakuje ścieżki tymczasowej. Proces nie może być kontynuowany.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/upload-file-error/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/view/export/advanced-settings.php:134
+msgid "Exclude plugins"
+msgstr "Wyklucz wtyczki"
+
+#: lib/view/export/advanced-settings.php:127
+msgid "Exclude must-use plugins"
+msgstr "Wyklucz wtyczki, których używanie jest konieczne"
+
+#: lib/view/export/advanced-settings.php:118
+msgid "Exclude themes"
+msgstr "Wyklucz motywy"
+
+#: lib/view/export/advanced-settings.php:112
+msgid "Exclude media library"
+msgstr "Wyklucz multimedia"
+
+#: lib/view/export/advanced-settings.php:108
+msgid "File Options"
+msgstr "Opcje pliku"
+
+#: lib/view/export/advanced-settings.php:89
+msgid "Exclude database"
+msgstr "Wyklucz bazę danych"
+
+#: lib/view/export/advanced-settings.php:73
+msgid "Database Options"
+msgstr "Opcje bazy danych"
+
+#: lib/view/export/advanced-settings.php:41
+msgid "Security Options"
+msgstr "Opcje zabezpieczeń"
+
+#. translators: 1: Link to archive, 2: Archive title, 3: File name, 4: Archive
+#. title, 5: File size.
+#: lib/model/export/class-ai1wm-export-download.php:73
+msgid ""
+"<a href=\"%1$s\" class=\"ai1wm-button-green ai1wm-emphasize ai1wm-button-download\" title=\"%2$s\" download=\"%3$s\">\n"
+"\t\t\t\t\t\t\t<span>Download %2$s</span>\n"
+"\t\t\t\t\t\t\t<em>Size: %4$s</em>\n"
+"\t\t\t\t\t\t\t</a>"
+msgstr ""
+"<a href=\"%1$s\" class=\"ai1wm-button-green ai1wm-emphasize ai1wm-button-download\" title=\"%2$s\" download=\"%3$s\">\n"
+"\t\t\t\t\t\t\t<span>Pobierz %2$s</span>\n"
+"\t\t\t\t\t\t\t<em>Rozmiar: %4$s</em>\n"
+"\t\t\t\t\t\t\t</a>"
+
+#. Plugin Name of the plugin
+#: all-in-one-wp-migration.php
+msgid "All-in-One WP Migration and Backup"
+msgstr "All-in-One WP Migracja i Kopia zapasowa"
+
+#. translators: 1: Admin url, 2: Url
+#: lib/view/import/done.php:50
+msgid ""
+"» <a class=\"ai1wm-no-underline\" href=\"%1$s\" target=\"_blank\">Save permalinks structure</a><br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Review your migration experience</a><br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%2$s\" target=\"_blank\">Protect your site with real-time threat protection</a>"
+msgstr ""
+"» <a class=\"ai1wm-no-underline\" href=\"%1$s\" target=\"_blank\">Zapisz strukturę bezpośrednich odnośników</a><br />\n"
+"\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Przejrzyj swoje doświadczenia z migracją</a><br />\n"
+"\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%2$s\" target=\"_blank\">Chroń swoją witrynę dzięki ochronie przed zagrożeniami w czasie rzeczywistym</a>"
+
+#. translators: Url
+#: lib/view/import/avada.php:51
+msgid "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Protect your site with real-time threat protection</a>"
+msgstr "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Chroń swoją witrynę dzięki ochronie przed zagrożeniami w czasie rzeczywistym</a>"
+
+#: lib/view/main/multisite-notice.php:36
+msgid "WordPress Multisite requires our All-in-One WP Migration Multisite Extension. Get it here: "
+msgstr "WordPress wielowitrynowy wymaga naszego rozszerzenia All-in-One WP Migration Multisite. Pobierz je tutaj: "
+
+#. translators: Backups folder path.
+#. translators: Storage folder path.
+#: lib/view/main/backups-path-notice.php:39
+#: lib/view/main/storage-path-notice.php:39
+msgid "Could not create <strong>%s</strong> folder. Please ensure the parent folder has read/write/execute permissions (0777)."
+msgstr "Nie można utworzyć katalogu <strong>%s</strong>. Upewnij się, że katalog nadrzędny ma uprawnienia do odczytu/zapisu/wykonywania (0777)."
+
+#. translators: File name.
+#: lib/view/main/backups-htaccess-notice.php:39
+#: lib/view/main/backups-index-html-notice.php:39
+#: lib/view/main/backups-index-php-notice.php:39
+#: lib/view/main/backups-robots-txt-notice.php:39
+#: lib/view/main/backups-webconfig-notice.php:39
+#: lib/view/main/storage-htaccess-notice.php:39
+#: lib/view/main/storage-index-html-notice.php:39
+#: lib/view/main/storage-index-php-notice.php:39
+#: lib/view/main/storage-webconfig-notice.php:39
+#: lib/view/main/wordpress-htaccess-notice.php:39
+msgid "Could not create <strong>%s</strong> file. Please ensure the parent folder has read/write permissions."
+msgstr "Nie można utworzyć pliku <strong>%s</strong>. Upewnij się, że katalog nadrzędny ma uprawnienia do odczytu/zapisu."
+
+#. translators: Max upload file size
+#: lib/view/import/pro.php:38
+msgid "Your host restricts uploads to <strong>%s</strong>."
+msgstr "Twój host ogranicza przesyłanie danych do <strong>%s</strong>."
+
+#. translators: 1: Admin url, 2: Url
+#: lib/view/import/oxygen.php:51
+msgid ""
+"» <a class=\"ai1wm-no-underline\" href=\"%1$s\" target=\"_blank\">Save permalinks structure</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://classic.oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Re-sign Oxygen Builder shortcodes</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Review your migration experience</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%2$s\" target=\"_blank\">Protect your site with real-time threat protection</a>"
+msgstr ""
+"» <a class=\"ai1wm-no-underline\" href=\"%1$s\" target=\"_blank\">Zapisz strukturę bezpośrednich odnośników</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://classic.oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Ponowne podpisywanie krótkich kodów Oxygen Builder</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Przejrzyj swoje doświadczenia z migracją</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%2$s\" target=\"_blank\">Chroń swoją witrynę dzięki ochronie przed zagrożeniami w czasie rzeczywistym</a>"
+
+#. translators: Url
+#: lib/view/import/oxygen.php:36
+msgid ""
+"» Permalinks are set to default. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Why?</a><br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://classic.oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Re-sign Oxygen Builder shortcodes</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Review your migration experience</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Protect your site with real-time threat protection</a>"
+msgstr ""
+"» Bezpośrednie odnośniki ustawione są domyślnie. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Dlaczego?</a><br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://classic.oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Ponowne podpisywanie krótkich kodów Oxygen Builder</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Przegląd doświadczeń związanych z migracją</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Chroń swoją witrynę dzięki ochronie przed zagrożeniami w czasie rzeczywistym</a>"
+
+#. translators: Url
+#: lib/view/import/done.php:36
+msgid ""
+"» Permalinks are set to default. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Why?</a><br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Review your migration experience</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Protect your site with real-time threat protection</a>"
+msgstr ""
+"» Bezpośrednie odnośniki są ustawione na domyślne. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Dlaczego?</a><br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Przejrzyj swoje doświadczenia z migracją</a>.<br />\n"
+"\t\t\t\t» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Chroń swoją witrynę dzięki ochronie przed zagrożeniami w czasie rzeczywistym</a>"
+
+#: lib/view/import/avada.php:47
+msgid "» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Review your migration experience</a>.<br />"
+msgstr "» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Przejrzyj swoje doświadczenia związane z migracją</a>.<br />"
+
+#. translators: Url
+#: lib/view/import/avada.php:37
+msgid "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Save permalinks structure</a>.<br />"
+msgstr "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Zapisz strukturę bezpośrednich odnośników</a>.<br />"
+
+#: lib/view/export/help-section.php:38
+msgid "Hints"
+msgstr "Wskazówki"
+
+#: lib/view/export/help-section.php:34
+msgid "Use this screen to export your database, media, themes, and plugins into one .wpress file. Later, import that file to another WordPress site."
+msgstr "Użyj tego ekranu, aby wyeksportować bazę danych, media, motywy i wtyczki do jednego pliku .wpress. Później zaimportuj ten plik do innej witryny WordPress."
+
+#: lib/view/export/find-replace.php:37 lib/view/export/find-replace.php:46
+msgid "Search for"
+msgstr "Szukaj dla"
+
+#: lib/view/export/export-buttons.php:37
+msgid "Export Site To"
+msgstr "Eksportuj witrynę do"
+
+#: lib/view/export/advanced-settings.php:83
+msgid "Exclude post revisions"
+msgstr "Wyklucz wersje wpisu"
+
+#: lib/view/export/advanced-settings.php:77
+msgid "Exclude spam comments"
+msgstr "Wyklucz komentarze spamowe"
+
+#: lib/view/common/leave-feedback.php:59
+msgid "Describe your issue or feedback..."
+msgstr "Opisz swój problem lub przekaż uwagi..."
+
+#: lib/view/common/leave-feedback.php:56
+msgid "Email address"
+msgstr "Adres email"
+
+#: lib/view/common/leave-feedback.php:49
+msgid "I need help"
+msgstr "Potrzebuję pomocy"
+
+#: lib/view/common/leave-feedback.php:40
+msgid "I have an idea"
+msgstr "Mam pomysł"
+
+#: lib/view/backups/index.php:54
+msgid "No backups found. Create a new one?"
+msgstr "Nie znaleziono kopii zapasowych. Utworzyć nową?"
+
+#: lib/view/backups/backups-list.php:90
+msgid "Over 2GB"
+msgstr "Ponad 2 GB"
+
+#: lib/view/backups/backups-list.php:66
+msgid "Click to label this backup"
+msgstr "Kliknij, aby oznaczyć tę kopię zapasową"
+
+#: lib/model/import/class-ai1wm-import-validate.php:40
+msgid ""
+"Your server uses 32-bit PHP and cannot process files larger than 2GB. Please switch to 64-bit PHP and try again.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Twój serwer używa 32-bitowego PHP i nie może przetwarzać plików większych niż 2 GB. Przełącz się na 64-bitowe PHP i spróbuj ponownie.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-users.php:66
+msgid "WordPress users prepared."
+msgstr "Przygotowano użytkowników WordPressa."
+
+#: lib/model/import/class-ai1wm-import-users.php:40
+msgid "Preparing WordPress users..."
+msgstr "Przygotowywanie użytkowników WordPressa..."
+
+#: lib/model/import/class-ai1wm-import-upload.php:74
+#: lib/model/import/class-ai1wm-import-validate.php:54
+msgid ""
+"Invalid file type. Please ensure your file is a <strong>.wpress</strong> backup created with All-in-One WP Migration.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Nieprawidłowy rodzaj pliku. Upewnij się, że plik jest kopią zapasową <strong>.wpress</strong> utworzoną za pomocą All-in-One WP Migracja.\n"
+"\t\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/model/import/class-ai1wm-import-permalinks.php:44
+msgid "WordPress permalinks settings retrieved."
+msgstr "Pobrano ustawienia bezpośrednich odnośników WordPress."
+
+#: lib/model/import/class-ai1wm-import-options.php:75
+msgid "WordPress options prepared."
+msgstr "Przygotowano opcje WordPress."
+
+#: lib/model/import/class-ai1wm-import-options.php:36
+msgid "Preparing WordPress options..."
+msgstr "Przygotowywanie opcji WordPress..."
+
+#: lib/model/import/class-ai1wm-import-mu-plugins.php:89
+msgid "Mu-plugins activated."
+msgstr "Wtyczki Mu zostały włączone."
+
+#: lib/model/import/class-ai1wm-import-enumerate.php:52
+msgid "WordPress files gathered."
+msgstr "Zebrano pliki WordPress."
+
+#: lib/model/import/class-ai1wm-import-enumerate.php:37
+msgid "Gathering WordPress files..."
+msgstr "Zbieranie plików WordPress..."
+
+#: lib/model/import/class-ai1wm-import-database.php:1016
+msgid "Database restored."
+msgstr "Baza danych przywrócona."
+
+#. translators: Link to Unlimited Extension
+#: lib/model/import/class-ai1wm-import-confirm.php:69
+msgid ""
+"Importing this file will only replace matching content. Other items stay unchanged.\n"
+"\t\t\t\t\tNeed a full reset first? Try Reset Hub in our <a href=\"%s\" target=\"_blank\">Unlimited Extension</a>.<br />\n"
+"\t\t\t\t\tEnsure you have a current backup. Proceed?"
+msgstr ""
+"Importowanie tego pliku zastąpi tylko pasującą treść. Pozostałe elementy pozostaną niezmienione.\n"
+"\t\t\t\t\tPotrzebujesz najpierw pełnego resetu? Wypróbuj Reset Hub w naszym <a href=\"%s\" target=\"_blank\">Nieograniczonym rozszerzeniu</a>.<br />\n"
+"\t\t\t\t\tUpewnij się, że masz aktualną kopię zapasową. Kontynuować?"
+
+#. translators: Link to Unlimited Extension
+#: lib/model/import/class-ai1wm-import-confirm.php:58
+msgid ""
+"Importing this file will only replace matching content. Other items stay unchanged.\n"
+"\t\t\t\t\tNeed a full reset first? Try Reset Hub in our Unlimited Extension (%s).\n"
+"\t\t\t\t\tEnsure you have a current backup. Proceed?"
+msgstr ""
+"Importowanie tego pliku zastąpi tylko pasującą treść. Pozostałe elementy pozostaną niezmienione.\n"
+"\t\t\t\t\tPotrzebujesz najpierw pełnego resetu? Wypróbuj Reset Hub w naszym Nieograniczonym rozszerzeniu (%s).\n"
+"\t\t\t\t\tUpewnij się, że masz aktualną kopię zapasową. Kontynuować?"
+
+#: lib/controller/class-ai1wm-backups-controller.php:267
+#: lib/model/import/class-ai1wm-import-check-encryption.php:82
+msgid "The decryption password is not valid. The process cannot continue."
+msgstr "Hasło deszyfrujące jest nieprawidłowe. Proces nie może być kontynuowany."
+
+#: lib/model/import/class-ai1wm-import-check-encryption.php:77
+msgid "Decryption password validated."
+msgstr "Zweryfikowano hasło deszyfrujące."
+
+#: lib/model/import/class-ai1wm-import-blogs.php:152
+msgid "Blogs prepared."
+msgstr "Przygotowano blogi."
+
+#: lib/model/import/class-ai1wm-import-blogs.php:142
+msgid "Could not import a WordPress Network into a single WordPress site. The process cannot continue. Please check your import settings."
+msgstr "Nie można zaimportować sieci WordPress do pojedynczej witryny WordPress. Proces nie może być kontynuowany. Sprawdź ustawienia importu."
+
+#: lib/model/import/class-ai1wm-import-blogs.php:139
+msgid "The archive must contain at least one WordPress site. The process cannot continue. Please check your export settings."
+msgstr "Archiwum musi zawierać co najmniej jedną witrynę WordPress. Proces nie może być kontynuowany. Sprawdź ustawienia eksportu."
+
+#: lib/model/import/class-ai1wm-import-blogs.php:136
+msgid "The archive must contain only a single WordPress site. The process cannot continue. Please revisit your export settings."
+msgstr "Archiwum musi zawierać tylko jedną witrynę WordPress. Proces nie może być kontynuowany. Proszę ponownie przejrzeć ustawienia eksportu."
+
+#: lib/model/export/class-ai1wm-export-enumerate-themes.php:108
+msgid "Theme files gathered."
+msgstr "Zebrano pliki motywów."
+
+#: lib/model/export/class-ai1wm-export-enumerate-themes.php:53
+msgid "Gathering theme files..."
+msgstr "Zbieranie plików motywów..."
+
+#: lib/model/export/class-ai1wm-export-enumerate-tables.php:89
+msgid "Database tables gathered."
+msgstr "Zebrano tabele bazy danych."
+
+#: lib/model/export/class-ai1wm-export-enumerate-tables.php:48
+msgid "Gathering database tables..."
+msgstr "Zbieranie tabel bazy danych..."
+
+#: lib/model/export/class-ai1wm-export-enumerate-plugins.php:102
+msgid "Plugin files gathered."
+msgstr "Zebrano pliki wtyczek."
+
+#: lib/model/export/class-ai1wm-export-enumerate-plugins.php:53
+msgid "Gathering plugin files..."
+msgstr "Zbieranie plików wtyczki..."
+
+#: lib/model/export/class-ai1wm-export-enumerate-media.php:95
+msgid "Media files gathered."
+msgstr "Zebrano pliki multimedialne."
+
+#: lib/model/export/class-ai1wm-export-enumerate-media.php:53
+msgid "Gathering media files..."
+msgstr "Zbieranie plików multimedialnych..."
+
+#: lib/model/export/class-ai1wm-export-enumerate-content.php:113
+msgid "Content files gathered."
+msgstr "Zebrano pliki treści."
+
+#: lib/model/export/class-ai1wm-export-enumerate-content.php:53
+msgid "Gathering content files..."
+msgstr "Zbieranie plików treści..."
+
+#: lib/model/export/class-ai1wm-export-database.php:165
+msgid "Database exported."
+msgstr "Baza danych wyeksportowana."
+
+#: lib/model/export/class-ai1wm-export-database-file.php:107
+msgid "Database archived."
+msgstr "Baza danych zarchiwizowana."
+
+#: lib/model/export/class-ai1wm-export-config.php:199
+msgid "Configuration prepared."
+msgstr "Konfiguracja przygotowana."
+
+#: lib/model/export/class-ai1wm-export-config-file.php:46
+msgid "Configuration archived."
+msgstr "Konfiguracja zarchiwizowana."
+
+#: lib/model/export/class-ai1wm-export-compatibility.php:37
+#: lib/model/import/class-ai1wm-import-compatibility.php:38
+msgid "Checking for compatibility..."
+msgstr "Sprawdzanie zgodności..."
+
+#: lib/model/export/class-ai1wm-export-archive.php:46
+msgid "Export file created."
+msgstr "Plik eksportu został utworzony."
+
+#: lib/model/export/class-ai1wm-export-archive.php:39
+msgid "Creating export file..."
+msgstr "Tworzenie pliku eksportu..."
+
+#. translators: Error message.
+#: lib/model/class-ai1wm-feedback.php:81
+msgid "An error occurred while submitting your request: %s"
+msgstr "Wystąpił błąd podczas przesyłania Twojego żądania: %s"
+
+#: lib/model/class-ai1wm-feedback.php:63
+msgid "Please check the consent box so we can use your email to respond to you."
+msgstr "Zaznacz pole zgody, abyśmy mogli użyć Twojego adresu e-mail, aby Ci odpowiedzieć."
+
+#: lib/model/class-ai1wm-feedback.php:58
+msgid "Please describe your issue or feedback."
+msgstr "Proszę opisać swój problem lub przekazać opinię."
+
+#: lib/model/class-ai1wm-feedback.php:53
+msgid "Please select a feedback type."
+msgstr "Proszę wybrać rodzaj opinii."
+
+#: lib/model/class-ai1wm-feedback.php:48
+msgid "Please enter a valid email address."
+msgstr "Proszę podać prawidłowy adres e-mail."
+
+#. translators: 1: Extension name, 2: Plugins update page.
+#: lib/model/class-ai1wm-compatibility.php:56
+msgid "<strong>%1$s</strong> is out of date. You must <a href=\"%2$s\">update this extension</a> before using it.<br />"
+msgstr "<strong>%1$s</strong> jest nieaktualne. Musisz <a href=\"%2$s\">zaktualizować to rozszerzenie</a> przed jego użyciem.<br />"
+
+#. translators: Extension name.
+#: lib/model/class-ai1wm-compatibility.php:53
+msgid "%s is out of date. Please update this extension before using it."
+msgstr "%s jest nieaktualne. Proszę zaktualizować to rozszerzenie przed jego użyciem."
+
+#: lib/controller/class-ai1wm-main-controller.php:860
+msgid "Please enter a password to restore the backup"
+msgstr "Proszę wprowadzić hasło, aby przywrócić kopię zapasową"
+
+#: lib/controller/class-ai1wm-main-controller.php:839
+msgid "Could not download backup"
+msgstr "Nie można pobrać kopii zapasowej"
+
+#: lib/controller/class-ai1wm-main-controller.php:903
+msgid "Could not read backup content"
+msgstr "Nie można odczytać treści kopii zapasowej"
+
+#. translators: Disk space to free up.
+#: lib/controller/class-ai1wm-main-controller.php:868
+msgid "Not enough disk space.<br /> Free up %s before restoring."
+msgstr "Za mało miejsca na dysku.<br /> Zwolnij %s przed przywróceniem."
+
+#. translators: 1: Link to Unlimited Extension
+#: lib/controller/class-ai1wm-main-controller.php:899
+msgid "\"Restore\" functionality is available in our <a href=\"%s\" target=\"_blank\">Unlimited Extension</a>.<br /> If you would rather go the manual route, you can still restore by downloading your backup and using \"Import from file\"."
+msgstr "Funkcja „Przywróć” jest dostępna w naszym <a href=\"%s\" target=\"_blank\">Nieograniczonym rozszerzeniu</a>.<br /> Jeśli wolisz skorzystać z opcji ręcznej, nadal możesz przywrócić dane, pobierając kopię zapasową i używając opcji „Importuj z pliku”."
+
+#: lib/controller/class-ai1wm-main-controller.php:887
+msgid ""
+"Invalid file type. Please ensure that your file is a <strong>.wpress</strong> file created with All-in-One WP Migration.\n"
+"\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Nieprawidłowy rodzaj pliku. Upewnij się, że plik jest plikiem <strong>.wpress</strong> utworzonym za pomocą All-in-One WP Migracja.\n"
+"\t\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: Link to Unlimited Extension, 2: Link to how to article
+#: lib/controller/class-ai1wm-main-controller.php:871
+msgid "Your file exceeds the upload limit set by your host web server.<br />%1$s<br />%2$s"
+msgstr "Twój plik przekracza limit przesyłania ustawiony przez serwer hosta.<br />%1$s<br />%2$s"
+
+#: lib/controller/class-ai1wm-main-controller.php:866
+msgid "Upload failed"
+msgstr "Nie udało się przesłać"
+
+#: lib/controller/class-ai1wm-main-controller.php:865
+msgid "Upload failed - connection lost or timeout. Try uploading the file again."
+msgstr "Nie udało się przesłać - połączenie utracone lub przekroczono limit czasu. Spróbuj przesłać plik ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:851
+msgid "Stopping the import, please wait..."
+msgstr "Zatrzymywanie importu, proszę czekać..."
+
+#: lib/controller/class-ai1wm-main-controller.php:850
+msgid "Could not stop the import. Please refresh and try again."
+msgstr "Nie można zatrzymać importu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:849
+msgid "Could not prepare blogs for import. Please refresh and try again."
+msgstr "Nie można przygotować blogów do importu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:848
+msgid "Could not check the decryption password. Please refresh and try again."
+msgstr "Nie można sprawdzić hasła deszyfrującego. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:847
+msgid "Could not confirm the import. Please refresh and try again."
+msgstr "Nie można potwierdzić importu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:846
+msgid "Could not start the import. Please refresh and try again."
+msgstr "Nie można rozpocząć importu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:843
+msgid "Are you sure you want to stop the import?"
+msgstr "Czy na pewno chcesz zatrzymać import?"
+
+#. translators: Link to how to article
+#: lib/controller/class-ai1wm-main-controller.php:809
+#: lib/controller/class-ai1wm-main-controller.php:882
+#: lib/view/import/pro.php:61
+msgid "If you prefer a manual fix, follow our step-by-step guide on <a href=\"%s\" target=\"_blank\">raising your upload limit</a>."
+msgstr "Jeśli wolisz rozwiązać ten problem ręcznie, skorzystaj z naszego przewodnika krok po kroku, aby <a href=\"%s\" target=\"_blank\">zwiększyć limit przesyłania</a>."
+
+#. translators: Link to Unlimited Extension
+#: lib/controller/class-ai1wm-main-controller.php:804
+#: lib/controller/class-ai1wm-main-controller.php:877
+#: lib/view/import/pro.php:49
+msgid "Our <a href=\"%s\" target=\"_blank\">Unlimited Extension</a> bypasses this!"
+msgstr "Nasze <a href=\"%s\" target=\"_blank\">Nieograniczone rozszerzenie</a> omija ten problem!"
+
+#. translators: 1: Max upload file size
+#: lib/controller/class-ai1wm-main-controller.php:797
+msgid "Your file exceeds the <strong>%1$s</strong> upload limit set by your host.<br />%2$s<br />%3$s"
+msgstr "Twój plik przekracza limit przesyłania <strong>%1$s</strong> ustalony przez Twojego hosta.<br />%2$s<br />%3$s"
+
+#: lib/controller/class-ai1wm-main-controller.php:832
+msgid "Stopping the export, please wait..."
+msgstr "Zatrzymywanie eksportu, proszę czekać..."
+
+#: lib/controller/class-ai1wm-main-controller.php:831
+msgid "Could not stop the export. Please refresh and try again."
+msgstr "Nie można zatrzymać eksportu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:830
+msgid "Could not run the export. Please refresh and try again."
+msgstr "Nie można uruchomić eksportu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:829
+msgid "Could not start the export. Please refresh and try again."
+msgstr "Nie można rozpocząć eksportu. Odśwież i spróbuj ponownie."
+
+#: lib/controller/class-ai1wm-main-controller.php:826
+msgid "Are you sure you want to stop the export?"
+msgstr "Czy na pewno chcesz zatrzymać eksport?"
+
+#: lib/controller/class-ai1wm-main-controller.php:819
+msgid "Thank you! We have received your request and will be in touch soon."
+msgstr "Dziękujemy! Otrzymaliśmy Twoją prośbę i wkrótce się z Tobą skontaktujemy."
+
+#: lib/controller/class-ai1wm-import-controller.php:96
+#: lib/controller/class-ai1wm-import-controller.php:113
+#: lib/controller/class-ai1wm-import-controller.php:137
+#: lib/controller/class-ai1wm-import-controller.php:139
+#: lib/controller/class-ai1wm-import-controller.php:147
+#: lib/controller/class-ai1wm-main-controller.php:845
+msgid "Import failed"
+msgstr "Import nie powiódł się"
+
+#. translators: Error message.
+#: lib/controller/class-ai1wm-import-controller.php:132
+msgid "Import failed: %s"
+msgstr "Import nie powiódł się: %s"
+
+#. translators: 1: Error code, 2: Error message.
+#: lib/controller/class-ai1wm-import-controller.php:108
+msgid "Import failed (database error). Code: %1$s. %2$s"
+msgstr "Import nie powiódł się (błąd bazy danych). Kod: %1$s. %2$s"
+
+#. translators: 1: Error code, 2: Error message.
+#: lib/controller/class-ai1wm-import-controller.php:91
+msgid "Import failed. Code: %1$s. %2$s"
+msgstr "Import nie powiódł się. Kod: %1$s. %2$s"
+
+#: lib/controller/class-ai1wm-export-controller.php:96
+#: lib/controller/class-ai1wm-export-controller.php:112
+#: lib/controller/class-ai1wm-export-controller.php:119
+#: lib/controller/class-ai1wm-main-controller.php:828
+msgid "Export failed"
+msgstr "Eksport nie powiódł się"
+
+#. translators: 1: Error message.
+#: lib/controller/class-ai1wm-export-controller.php:108
+msgid "Export failed: %s"
+msgstr "Eksport nie powiódł się: %s"
+
+#. translators: 1: Error code, 2: Error message.
+#: lib/controller/class-ai1wm-export-controller.php:91
+msgid "Export failed (database error). Code: %1$s. Message: %2$s"
+msgstr "Eksport nie powiódł się (błąd bazy danych). Kod: %1$s. Wiadomość: %2$s"
+
+#: lib/controller/class-ai1wm-backups-controller.php:306
+msgid "Could not list the backup content. Please ensure the backup file is accessible and not corrupted."
+msgstr "Nie można wyświetlić treści kopii zapasowej. Upewnij się, że plik kopii zapasowej jest dostępny i nie jest uszkodzony."
+
+#: functions.php:2389
+msgid "Could not decrypt data. The process cannot continue."
+msgstr "Nie można odszyfrować danych. Proces nie może być kontynuowany."
+
+#: functions.php:2366
+msgid "Could not obtain cipher length. The process cannot continue."
+msgstr "Nie można uzyskać długości szyfru. Proces nie może być kontynuowany."
+
+#: functions.php:2351
+msgid "Could not encrypt data. The process cannot continue."
+msgstr "Nie można zaszyfrować danych. Proces nie może być kontynuowany."
+
+#: functions.php:2345
+msgid "Could not generate random bytes. The process cannot continue."
+msgstr "Nie można wygenerować losowych bajtów. Proces nie może być kontynuowany."
+
+#: functions.php:1958
+msgid "Could not authenticate the secret key. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-secret-key/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można uwierzytelnić klucza prywatnego. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-secret-key/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: Meta data stream URI.
+#: functions.php:1717
+msgid "Could not get current pointer position of %s. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można pobrać bieżącej pozycji wskaźnika %s. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: File offset, 2: Meta data stream URI.
+#: functions.php:1694
+msgid "Could not seek to offset %1$d on %2$s. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można wykonać przesunięcia %1$d na %2$s. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: Meta data stream URI.
+#: functions.php:1666
+msgid "Could not read file: %s. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można odczytać pliku: %s. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: Meta data stream URI.
+#: functions.php:1640
+msgid "Out of disk space. Could not write to: %s. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/out-of-disk-space/\" target=\"_blank\">Technical details</a>"
+msgstr "Brak miejsca na dysku. Nie można zapisać do: %s. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/out-of-disk-space/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: Meta data stream URI.
+#: functions.php:1628 functions.php:1752
+msgid "Could not write to: %s. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można zapisać do: %s. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: File path, 2: mode
+#: functions.php:1580 functions.php:1603
+msgid "Could not open %1$s with mode %2$s. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można otworzyć %1$s w trybie %2$s. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: functions.php:110 functions.php:172
+msgid "Your archive file name contains invalid characters: < > : \" | ? * \\0. It must not include these characters. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-archive-name/\" target=\"_blank\">Technical details</a>"
+msgstr "Nazwa pliku archiwum zawiera nieprawidłowe znaki: < > : \" | ? * \\0. Nie może zawierać tych znaków. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-archive-name/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: functions.php:100 functions.php:162
+msgid "Could not locate the archive path. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-archive-path/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można zlokalizować ścieżki archiwum. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-archive-path/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: functions.php:52
+msgid "Your storage directory name contains invalid characters: < > : \" | ? * \\0. It must not include these characters. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-name/\" target=\"_blank\">Technical details</a>"
+msgstr "Nazwa katalogu pamięci masowej zawiera nieprawidłowe znaki: < > : \" | ? * \\0. Nie może zawierać tych znaków. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-name/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: functions.php:42
+msgid "Could not locate the storage path. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-path/\" target=\"_blank\">Technical details</a>"
+msgstr "Nie można zlokalizować ścieżki przechowywania. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-path/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. Description of the plugin
+#: all-in-one-wp-migration.php
+msgid "All-in-One WP Migration makes moving your entire WordPress site simple. Export or import your database, media, plugins, and themes with just a few clicks."
+msgstr "All-in-One WP Migracja sprawia, że ​​przeniesienie całej witryny WordPress jest proste. Eksportuj lub importuj bazę danych, media, wtyczki i motywy za pomocą zaledwie kilku kliknięć."
+
+#: lib/controller/class-ai1wm-main-controller.php:840
+msgid "View Error Log"
+msgstr "Zobacz dziennik błędów"
+
+#: functions.php:120 functions.php:182
+msgid "Invalid archive file type. Only .wpress files are allowed. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-type/\" target=\"_blank\">Technical details</a>"
+msgstr "Nieprawidłowy rodzaj pliku archiwum. Dozwolone są tylko pliki .wpress. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-type/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#. translators: 1: Archive title, 2: File name, 3: Archive title, 4: File size.
+#: lib/model/export/class-ai1wm-export-download.php:90
+msgid ""
+"<a href=\"#\" class=\"ai1wm-button-green ai1wm-emphasize ai1wm-direct-download\" title=\"%1$s\" download=\"%2$s\">\n"
+"\t\t\t\t\t\t\t<span>Download %3$s</span>\n"
+"\t\t\t\t\t\t\t<em>Size: %4$s</em>\n"
+"\t\t\t\t\t\t\t</a>"
+msgstr ""
+"<a href=\"#\" class=\"ai1wm-button-green ai1wm-emphasize ai1wm-direct-download\" title=\"%1$s\" download=\"%2$s\">\n"
+"\t\t\t\t\t\t\t<span>Pobierz %3$s</span>\n"
+"\t\t\t\t\t\t\t<em>Rozmiar: %4$s</em>\n"
+"\t\t\t\t\t\t\t</a>"
+
+#: lib/view/reset/index.php:41
+msgid "Reset Hub Demo"
+msgstr "Demo Reset Hub"
+
+#: lib/view/reset/index.php:41
+msgid "Upgrade to Premium "
+msgstr "Uaktualnij do wersji premium "
+
+#: lib/view/reset/index.php:39
+msgid "Please note, the features displayed below are part of an image showcasing the potential of Reset Hub in its Premium version. To activate and enjoy these advanced features, <a href=\"https://servmask.com/products/unlimited-extension\" title=\"Upgrade to Premium\" target=\"_blank\">upgrade to Premium now</a>! Elevate your website management experience with these exclusive functionalities and priority support."
+msgstr "Należy pamiętać, że funkcje wyświetlane poniżej są częścią obrazka prezentującego potencjał Reset Hub w wersji Premium. Aby włączyć i korzystać z tych zaawansowanych funkcji, <a href=\"https://servmask.com/products/unlimited-extension\" title=\"Ulepsz do Premium\" target=\"_blank\">ulepsz do Premium teraz</a>! Ulepsz swoje doświadczenie w zarządzaniu witryną dzięki tym ekskluzywnym funkcjom i priorytetowemu wsparciu."
+
+#: lib/view/reset/index.php:37
+msgid "Experience Full Functionality with Premium!"
+msgstr "Ciesz się pełną funkcjonalnością z Premium!"
+
+#: lib/view/reset/index.php:36
+msgid "Star"
+msgstr "Gwiazdka"
+
+#: lib/controller/class-ai1wm-main-controller.php:739
+#: lib/controller/class-ai1wm-main-controller.php:740
+msgid "Reset Hub"
+msgstr "Reset Hub"
+
+#: lib/view/main/premium-badge.php:33
+msgid "Premium"
+msgstr "Premium"
+
+#: lib/view/schedules/index.php:111
+msgid "Leverage the simplicity of Dropbox for your backup needs. Direct your scheduled backups to be stored in Dropbox. It's secure, straightforward, and keeps your backups at your fingertips."
+msgstr "Wykorzystaj prostotę Dropboxa do swoich potrzeb tworzenia kopii zapasowych. Przekieruj swoje zaplanowane kopie zapasowe do przechowywania w Dropboxie. Jest to bezpieczne, proste i pozwala mieć kopie zapasowe na wyciągnięcie ręki."
+
+#: lib/view/schedules/index.php:163
+msgid "Tailor your backup schedules to fit the complexity of your WordPress Multisite. Choose to export the entire network or only a selection of subsites according to your requirements. Effortless management for even the most intricate site networks."
+msgstr "Dostosuj harmonogramy tworzenia kopii zapasowych do złożoności swojego WordPressa wielowitrynowego. Wybierz eksport całej sieci lub tylko wybranych podstron zgodnie ze swoimi wymaganiami. Bezproblemowe zarządzanie nawet najbardziej złożonymi sieciami witryn."
+
+#: lib/view/schedules/index.php:150
+msgid "We've got you covered with an array of supported storage providers. Whether you prefer Box, Amazon S3, WebDav or something else, you can choose the one that fits your needs best. Secure your backups exactly where you want them."
+msgstr "Mamy dla Ciebie całą gamę obsługiwanych dostawców pamięci masowej. Niezależnie od tego, czy wolisz Box, Amazon S3, WebDav czy coś innego, możesz wybrać tego, który najlepiej odpowiada Twoim potrzebom. Zabezpiecz swoje kopie zapasowe dokładnie tam, gdzie chcesz."
+
+#: lib/view/schedules/index.php:137
+msgid "Enjoy the flexibility of FTP storage. Direct your scheduled backups to your own FTP server. You'll have full control over your data, providing you with a versatile and private storage solution."
+msgstr "Ciesz się elastycznością pamięci masowej FTP. Kieruj zaplanowane kopie zapasowe na własny serwer FTP. Będziesz mieć pełną kontrolę nad swoimi danymi, co zapewni Ci wszechstronne i prywatne rozwiązanie pamięci masowej."
+
+#: lib/view/schedules/index.php:124
+msgid "Harness the power of OneDrive for your backups. Set up your scheduled backups to be saved directly in your OneDrive. It's secure, integrated with your Microsoft account, and keeps your data readily accessible."
+msgstr "Wykorzystaj moc OneDrive do tworzenia kopii zapasowych. Skonfiguruj zaplanowane kopie zapasowe, aby były zapisywane bezpośrednio w OneDrive. Jest bezpieczny, zintegrowany z kontem Microsoft i zapewnia łatwy dostęp do danych."
+
+#: lib/view/schedules/index.php:98
+msgid "Benefit from the robustness of Google Drive. Schedule your backups to be saved directly to your Google Drive account. Simple, secure, and integrated into a platform you already use."
+msgstr "Skorzystaj z solidności Google Drive. Zaplanuj zapisywanie kopii zapasowych bezpośrednio na koncie Google Drive. Proste, bezpieczne i zintegrowane z platformą, z której już korzystasz."
+
+#: lib/view/schedules/index.php:85
+msgid "Manage your storage effectively with our flexible retention settings. Decide how many backups you want to keep at a time. Old backups are automatically cleared, keeping your storage neat and efficient."
+msgstr "Zarządzaj skutecznie swoim magazynem dzięki naszym elastycznym ustawieniom przechowywania. Zdecyduj, ile kopii zapasowych chcesz przechowywać na raz. Stare kopie zapasowe są automatycznie czyszczone, dzięki czemu Twój magazyn jest uporządkowany i wydajny."
+
+#: lib/view/schedules/index.php:77 lib/view/schedules/index.php:82
+msgid "Retention settings"
+msgstr "Ustawienia retencji"
+
+#: lib/view/schedules/index.php:72
+msgid "Stay informed, not overwhelmed. Tailor your notification preferences to get updates that matter to you. Whether it's the status of each backup, or just critical alerts, control what you want to be notified about."
+msgstr "Bądź na bieżąco, nie przytłoczony. Dostosuj swoje preferencje powiadomień, aby otrzymywać aktualizacje, które są dla Ciebie ważne. Niezależnie od tego, czy chodzi o status każdej kopii zapasowej, czy tylko o krytyczne alerty, kontroluj, o czym chcesz być powiadamiany."
+
+#: lib/view/schedules/index.php:64 lib/view/schedules/index.php:69
+msgid "Notification settings"
+msgstr "Ustawienia powiadomienia"
+
+#: lib/view/schedules/index.php:59
+msgid "Never worry about forgetting to back up your site again. Choose from various scheduling options, from daily to monthly, and we'll automate the rest. Backups happen like clockwork, giving you peace of mind and a solid safety net"
+msgstr "Nie martw się już nigdy o zapomnienie o zrobieniu kopii zapasowej swojej witryny. Wybierz spośród różnych opcji planowania, od dziennego do miesięcznego, a my zautomatyzujemy resztę. Kopie zapasowe są tworzone jak w zegarku, co daje Ci spokój ducha i solidną sieć bezpieczeństwa"
+
+#: lib/view/schedules/index.php:56 lib/view/schedules/index.php:69
+#: lib/view/schedules/index.php:82 lib/view/schedules/index.php:95
+#: lib/view/schedules/index.php:108 lib/view/schedules/index.php:121
+#: lib/view/schedules/index.php:134 lib/view/schedules/index.php:147
+#: lib/view/schedules/index.php:160
+msgid "Enable this feature"
+msgstr "Włącz tą funkcję"
+
+#: lib/view/schedules/index.php:51
+msgid "Backup scheduler"
+msgstr "Harmonogram kopii zapasowej"
+
+#: lib/view/schedules/index.php:45 lib/view/schedules/index.php:155
+#: lib/view/schedules/index.php:160
+msgid "Multisite Schedules"
+msgstr "Harmonogramy wielowitrynowe"
+
+#: lib/view/schedules/index.php:44 lib/view/schedules/index.php:142
+#: lib/view/schedules/index.php:147
+msgid "More Storage Providers"
+msgstr "Więcej dostawców przechowywania"
+
+#: lib/view/schedules/index.php:43 lib/view/schedules/index.php:129
+#: lib/view/schedules/index.php:134
+msgid "FTP Storage"
+msgstr "Przechowywanie FTP"
+
+#: lib/view/schedules/index.php:42 lib/view/schedules/index.php:116
+#: lib/view/schedules/index.php:121
+msgid "OneDrive Storage"
+msgstr "Przechowywanie w OneDrive"
+
+#: lib/view/schedules/index.php:41 lib/view/schedules/index.php:103
+#: lib/view/schedules/index.php:108
+msgid "Dropbox Storage"
+msgstr "Przechowywanie w Dropboxie"
+
+#: lib/view/schedules/index.php:40 lib/view/schedules/index.php:90
+#: lib/view/schedules/index.php:95
+msgid "Google Drive Storage"
+msgstr "Przechowywanie w Dysku Google"
+
+#: lib/view/schedules/index.php:39
+msgid "Retention Settings"
+msgstr "Ustawienia retencji"
+
+#: lib/view/schedules/index.php:38
+msgid "Notification Settings"
+msgstr "Ustawienia powiadomienia"
+
+#: lib/view/schedules/index.php:37 lib/view/schedules/index.php:56
+msgid "Backup Scheduler"
+msgstr "Harmonogram kopii zapasowej"
+
+#: lib/controller/class-ai1wm-main-controller.php:748
+#: lib/controller/class-ai1wm-main-controller.php:749
+msgid "Schedules"
+msgstr "Harmonogramy"
+
+#: lib/model/import/class-ai1wm-import-check-encryption.php:69
+msgid "Backup is encrypted. Please provide decryption password: "
+msgstr "Kopia zapasowa jest szyfrowana. Proszę podać hasło deszyfrujące: "
+
+#: lib/view/export/advanced-settings.php:66
+msgid "Password-protect and encrypt backups"
+msgstr "Zabezpieczaj kopie zapasowe hasłem i szyfruj je"
+
+#: lib/view/export/advanced-settings.php:53
+msgid "A password is required"
+msgstr "Wymagane jest hasło"
+
+#: lib/view/export/advanced-settings.php:46
+msgid "Encrypt this backup with a password"
+msgstr "Zaszyfruj tę kopię zapasową hasłem"
+
+#: lib/model/import/class-ai1wm-import-check-encryption.php:56
+msgid "Importing an encrypted backup is not supported on this server. The process cannot continue. <a href=\"https://help.servmask.com/knowledgebase/unable-to-encrypt-and-decrypt-backups/\" target=\"_blank\">Technical details</a>"
+msgstr "Importowanie zaszyfrowanej kopii zapasowej nie jest obsługiwane na tym serwerze. Proces nie może być kontynuowany. <a href=\"https://help.servmask.com/knowledgebase/unable-to-encrypt-and-decrypt-backups/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/controller/class-ai1wm-main-controller.php:864
+#: lib/view/export/advanced-settings.php:58
+msgid "The passwords do not match"
+msgstr "Hasła nie pasują"
+
+#: lib/controller/class-ai1wm-main-controller.php:863
+#: lib/view/export/advanced-settings.php:56
+msgid "Repeat the password"
+msgstr "Powtórz hasło"
+
+#: lib/controller/class-ai1wm-main-controller.php:907
+msgid "Submit"
+msgstr "Prześlij"
+
+#: lib/controller/class-ai1wm-main-controller.php:859
+msgid "The backup is encrypted"
+msgstr "Kopia zapasowa jest szyfrowana"
+
+#: lib/view/backups/backups-list.php:131
 msgid "List"
 msgstr "Lista"
 
-#: lib/view/backups/backups-list.php:93
+#: lib/view/backups/backups-list.php:129
+msgid "Show backup content"
+msgstr "Pokaż zawartość kopii zapasowej"
+
+#: lib/view/backups/backups-list.php:122
+msgid "Downloading is not possible because backups directory is not accessible."
+msgstr "Pobieranie nie jest możliwe, ponieważ katalog kopii zapasowych jest niedostępny."
+
+#: lib/controller/class-ai1wm-main-controller.php:905
+msgid "Reading..."
+msgstr "Czytanie..."
+
+#: lib/controller/class-ai1wm-main-controller.php:904
+msgid "List the content of the backup"
+msgstr "Wyświetl zawartość kopii zapasowej"
+
+#: lib/controller/class-ai1wm-main-controller.php:902
+msgid "Error"
+msgstr "Błąd"
+
+#: lib/view/backups/backups-list.php:95
 msgid "More"
 msgstr "Więcej"
 
-#: lib/view/updater/error.php:31
+#. translators: 1: Number of backups.
+#: lib/controller/class-ai1wm-main-controller.php:838
+msgid "You have %d backups"
+msgstr "Masz %d kopii zapasowych"
+
+#. translators: 1: Number of backups.
+#. translators: Numbers of backups.
+#: lib/controller/class-ai1wm-main-controller.php:836
+#: lib/view/main/backups.php:33
+msgid "You have %d backup"
+msgid_plural "You have %d backups"
+msgstr[0] "Masz %d kopię zapasową"
+msgstr[1] "Masz %d kopie zapasowe"
+msgstr[2] "Masz %d kopii zapasowych"
+
+#. translators: 1: Error message.
+#: lib/view/updater/error.php:33
 msgid "Error: %s"
 msgstr "Błąd: %s"
 
-#: lib/view/main/translate.php:31
+#. translators: 1: Number of files, 2: Progress.
+#: lib/model/export/class-ai1wm-export-themes.php:109
+#: lib/model/export/class-ai1wm-export-themes.php:153
+msgid "Archiving %1$d theme files...<br />%2$d%% complete"
+msgstr "Archiwizowanie %1$d plików motywu...<br />%2$d%% ukończone"
+
+#: lib/view/main/contact-support.php:33
+msgid "Contact Support"
+msgstr "Skontaktuj się z pomocą techniczną"
+
+#: lib/model/import/class-ai1wm-import-permalinks.php:38
+msgid "Retrieving WordPress permalinks settings..."
+msgstr "Pobieranie ustawień bezpośrednich odnośników WordPress..."
+
+#: lib/view/import/avada.php:46
+msgid "» <a class=\"ai1wm-no-underline\" href=\"https://theme-fusion.com/documentation/avada/installation-maintenance/important-update-information/#clear-caches\" target=\"_blank\">Reset Avada Fusion Builder cache</a>.<br />"
+msgstr "» <a class=\"ai1wm-no-underline\" href=\"https://theme-fusion.com/documentation/avada/installation-maintenance/important-update-information/#clear-caches\" target=\"_blank\">Zresetuj pamięć podręczną Avada Fusion Builder</a>.<br />"
+
+#: lib/view/import/avada.php:43
+msgid "» <a class=\"ai1wm-no-underline\" href=\"https://classic.oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Re-sign Oxygen Builder shortcodes</a>.<br />"
+msgstr "» <a class=\"ai1wm-no-underline\" href=\"https://classic.oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Ponowne podpisywanie krótkich kodów Oxygen Builder</a>.<br />"
+
+#: lib/view/import/avada.php:33
+msgid "» Permalinks are set to default. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Why?</a><br />"
+msgstr "» Bezpośrednie odnośniki są ustawione na domyślne. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Dlaczego?</a><br />"
+
+#: lib/view/main/translate.php:33
 msgid "Translate"
 msgstr "Przetłumacz"
 
-#: lib/model/export/class-ai1wm-export-enumerate-content.php:111
-msgid "Done retrieving a list of WordPress content files."
-msgstr "Zakończono pobieranie listy plików z zawartością WordPressa."
+#. translators: 1: Number of files, 2: Progress.
+#: lib/model/export/class-ai1wm-export-media.php:109
+#: lib/model/export/class-ai1wm-export-media.php:153
+msgid "Archiving %1$d media files...<br />%2$d%% complete"
+msgstr "Archiwizowanie %1$d plików multimedialnych...<br />%2$d%% ukończone"
 
-#: lib/model/export/class-ai1wm-export-enumerate-media.php:93
-msgid "Done retrieving a list of WordPress media files."
-msgstr "Zakończono pobieranie listy plików multimedialnych WordPressa."
+#. translators: 1: Number of files, 2: Progress.
+#: lib/model/export/class-ai1wm-export-content.php:109
+#: lib/model/export/class-ai1wm-export-content.php:153
+msgid "Archiving %1$d content files...<br />%2$d%% complete"
+msgstr "Archiwizowanie %1$d plików treści...<br />%2$d%% ukończone"
 
-#: lib/model/export/class-ai1wm-export-media.php:80
-#: lib/model/export/class-ai1wm-export-media.php:119
-msgid "Archiving %d media files...<br />%d%% complete"
-msgstr "Archiwizacja %d plików multimedialnych...<br />%d%% ukończono "
-
-#: lib/model/export/class-ai1wm-export-enumerate-content.php:51
-msgid "Retrieving a list of WordPress content files..."
-msgstr "Pobieranie listy plików z zawartością WordPress..."
-
-#: lib/controller/class-ai1wm-main-controller.php:990
-#: lib/controller/class-ai1wm-main-controller.php:1153
-msgid "There is not enough space available on the disk.<br />Free up %s of disk space."
-msgstr "Na dysku jest za mało miejsca. <br /> Zwolnij %s miejsca na dysku."
-
-#: lib/controller/class-ai1wm-main-controller.php:946
-#: lib/controller/class-ai1wm-main-controller.php:1143
+#: lib/controller/class-ai1wm-main-controller.php:856
 msgid "I have enough disk space"
 msgstr "Mam wystarczająco dużo miejsca na dysku"
 
-#: lib/view/backups/backups-list.php:46 lib/view/backups/index.php:49
+#. translators: 1: Source PHP version, 2: Target PHP version.
+#: lib/model/import/class-ai1wm-import-confirm.php:103
+msgid ""
+"Your backup is from a PHP %1$s but the site that you are importing to is PHP %2$s.\n"
+"\t\t\t\t\t\t\tThis could cause the import to fail. Technical details: https://help.servmask.com/knowledgebase/migrate-wordpress-from-php-5-to-php-7/"
+msgstr ""
+"Twoja kopia zapasowa pochodzi z PHP %1$s, ale witryna, do której importujesz, to PHP %2$s.\n"
+"\t\t\t\t\t\t\tTo może spowodować niepowodzenie importu. Szczegóły techniczne: https://help.servmask.com/knowledgebase/migrate-wordpress-from-php-5-to-php-7/"
+
+#: lib/view/backups/backups-list.php:48 lib/view/backups/index.php:51
 msgid "Refreshing backup list..."
 msgstr "Odświeżam listę kopii zapasowych…"
 
-#: lib/view/import/done.php:38
-msgid "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Save permalinks structure</a>. (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optionally, review the plugin</a>. (opens a new window)"
-msgstr "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Zapisz strukturę linków bezpośrednich</a>. (otwiera nowe okno)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Opcjonalnie, wystaw opinię o wtyczce</a>. (otwiera nowe okno)"
+#. translators: Storage path
+#: lib/view/import/import-permissions.php:38
+msgid ""
+"<h3>Could not import site</h3>\n"
+"\t\t\t\t<p>Please ensure the directory <strong>%s</strong> has read/write permissions.</p>\n"
+"\t\t\t\t<p><a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a></p>"
+msgstr ""
+"<h3>Nie można zaimportować witryny</h3>\n"
+"\t\t\t\t<p>Upewnij się, że katalog <strong>%s</strong> ma uprawnienia do odczytu/zapisu.</p>\n"
+"\t\t\t\t<p><a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a></p>"
 
-#: lib/controller/class-ai1wm-main-controller.php:943
-#: lib/controller/class-ai1wm-main-controller.php:1139
+#. translators: Storage path.
+#: lib/view/export/export-permissions.php:38
+msgid ""
+"<h3>Could not export site</h3>\n"
+"\t\t\t\t<p>Please ensure the directory <strong>%s</strong> has read/write permissions.</p>\n"
+"\t\t\t\t<p><a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a></p>"
+msgstr ""
+"<h3>Nie można wyeksportować witryny</h3>\n"
+"\t\t\t\t<p>Upewnij się, że katalog <strong>%s</strong> ma uprawnienia do odczytu/zapisu.</p>\n"
+"\t\t\t\t<p><a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a></p>"
+
+#. translators: Backups path
+#: lib/view/backups/backups-permissions.php:38
+msgid ""
+"<h3>Could not restore site</h3>\n"
+"\t\t\t\t<p>Please ensure the directory <strong>%s</strong> has read/write permissions.</p>\n"
+"\t\t\t\t<p><a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a></p>"
+msgstr ""
+"<h3>Nie można przywrócić witryny</h3>\n"
+"\t\t\t\t<p>Upewnij się, że katalog <strong>%s</strong> ma uprawnienia do odczytu/zapisu.</p>\n"
+"\t\t\t\t<p><a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a></p>"
+
+#: lib/view/main/missing-role-capability-notice.php:37
+msgid ""
+"Your current profile role does not have Export/Import capabilities enabled.\n"
+"\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/how-to-add-import-and-export-capabilities-to-wordpress-users/\" target=\"_blank\">Technical details</a>"
+msgstr ""
+"Twoja bieżąca rola profilu nie ma włączonych możliwości eksportu/importu.\n"
+"\t\t\t\t<a href=\"https://help.servmask.com/knowledgebase/how-to-add-import-and-export-capabilities-to-wordpress-users/\" target=\"_blank\">Szczegóły techniczne</a>"
+
+#: lib/view/import/button-file.php:33
+msgid "To choose a file please go inside the link and click on the browse button."
+msgstr "Aby wybrać plik proszę wejść w odnośnik i kliknąć przycisk Przeglądaj."
+
+#: lib/controller/class-ai1wm-main-controller.php:854
 msgid "Finish"
 msgstr "Zakończ"
 
-#: lib/view/backups/backups-list.php:64
-msgid "Click to set a label for this backup"
-msgstr "Kliknij, aby ustawić etykietę dla tej kopii zapasowej"
+#: lib/model/import/class-ai1wm-import-validate.php:74
+msgid "The archive file appears to be corrupted. Follow <a href=\"https://help.servmask.com/knowledgebase/corrupted-archive/\" target=\"_blank\">this article</a> for possible fixes."
+msgstr "Wygląda na to, że plik archiwum jest uszkodzony. Postępuj zgodnie z <a href=\"https://help.servmask.com/knowledgebase/corrupted-archive/\" target=\"_blank\">tym artykułem</a>, aby uzyskać możliwe poprawki."
 
-#: lib/model/export/class-ai1wm-export-download.php:65
-msgid "<a href=\"%s\" class=\"ai1wm-button-green ai1wm-emphasize ai1wm-button-download\" title=\"%s\" download=\"%s\"><span>Download %s</span><em>Size: %s</em></a>"
-msgstr "<a href=\"%s\" class=\"ai1wm-button-green ai1wm-emphasize ai1wm-button-download\" title=\"%s\" download=\"%s\"><span>Pobierz %s</span><em>Rozmiar: %s</em></a>"
+#. translators: 1: Source PHP version, 2: Target PHP version.
+#: lib/model/import/class-ai1wm-import-confirm.php:115
+msgid "Your backup is from a PHP %1$s but the site that you are importing to is PHP %2$s. This could cause the import to fail. <a href=\"https://help.servmask.com/knowledgebase/migrate-wordpress-from-php-5-to-php-7/\" target=\"_blank\">Technical details</a>"
+msgstr "Twoja kopia zapasowa pochodzi z PHP %1$s, ale witryna, do której importujesz, to PHP %2$s. Może to spowodować niepowodzenie importu. <a href=\"https://help.servmask.com/knowledgebase/migrate-wordpress-from-php-5-to-php-7/\" target=\"_blank\">Szczegóły techniczne</a>"
 
-#: lib/controller/class-ai1wm-export-controller.php:91
-msgid "Unable to export: %s"
-msgstr "Nie można wyeksportować: %s"
-
-#: lib/controller/class-ai1wm-import-controller.php:102
-msgid "Unable to import: %s"
-msgstr "Nie można zaimportować: %s"
-
-#: lib/controller/class-ai1wm-import-controller.php:81
-#: lib/controller/class-ai1wm-import-controller.php:91
-msgid "Unable to import. Error code: %s. %s"
-msgstr "Nie można zaimportowac. Kod błędu: %s. %s"
-
-#: lib/model/import/class-ai1wm-import-validate.php:92
-msgid "The archive file is corrupted. Follow <a href=\"https://help.servmask.com/knowledgebase/corrupted-archive/\" target=\"_blank\">this article</a> to resolve the problem."
-msgstr "Plik archiwum jest uszkodzony. Postępuj zgodnie z <a href=\"https://help.servmask.com/knowledgebase/corrupted-archive/\" target=\"_blank\">tym artykułem</a>, aby rozwiązać problem."
-
-#: lib/model/import/class-ai1wm-import-validate.php:37
-msgid "Your PHP is 32-bit. In order to import your file, please change your PHP version to 64-bit and try again. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
-msgstr "Twój PHP jest 32-bitowy. Aby zaimportować plik, zmień wersję PHP na 64-bitową i spróbuj ponownie. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: lib/model/class-ai1wm-compatibility.php:52
-msgid "<strong>%s</strong> is not the latest version. You must <a href=\"%s\">update the plugin</a> before you can use it. <br />"
-msgstr "<strong>%s</strong> nie jest najnowszą wersją. Musisz <a href=\"%s\">zaktualizować wtyczkę</a>, zanim będzie można jej używać. <br />"
-
-#: lib/model/import/class-ai1wm-import-validate.php:115
-msgid "Please make sure that your file was exported using <strong>All-in-One WP Migration</strong> plugin. <a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Technical details</a>"
-msgstr "Proszę się upewnić, że plik został wyeksportowany przy użyciu wtyczki <strong>All-in-One WP Migration</strong>. <a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: lib/model/import/class-ai1wm-import-confirm.php:54
-msgid "The import process will overwrite your website including the database, media, plugins, and themes. Please ensure that you have a backup of your data before proceeding to the next step."
-msgstr "Proces importu nadpisze witrynę, w tym bazę danych, multimedia, wtyczki i motywy. Przed przejściem do następnego kroku, proszę się upewnić, że kopię zapasowa jest aktualna."
-
-#: lib/controller/class-ai1wm-main-controller.php:982
-msgid "The file that you are trying to import is over the maximum upload file size limit of <strong>%s</strong>.<br />You can remove this restriction by purchasing our <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\">Unlimited Extension</a>."
-msgstr "Plik, który próbujesz zaimportować przekracza maksymalny rozmiar przesyłanego pliku wynoszący <strong>%s</strong>.<br />Można usunąć to ograniczenie, kupując <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\">Unlimited Extension</a>."
-
-#: lib/view/main/multisite-notice.php:34
-msgid "WordPress Multisite is supported via our All-in-One WP Migration Multisite Extension. You can get a copy of it here"
-msgstr "WordPress Multisite jest obsługiwany przez All-in-One WP Migration Multisite Extension. Można je pobrać tutaj"
-
-#: lib/view/main/backups-path-notice.php:35
-#: lib/view/main/storage-path-notice.php:35
-msgid "All-in-One WP Migration is not able to create <strong>%s</strong> folder. You will need to create this folder and grant it read/write/execute permissions (0777) for the All-in-One WP Migration plugin to function properly."
-msgstr "All-in-One WP Migration nie może utworzyć folderu <strong>%s</strong>. Będzie trzeba utworzyć folder i przyznać mu uprawnienia do odczytu/zapisu/wykonywania (0777), aby wtyczka All-in-One WP Migration działała poprawnie."
-
-#: lib/controller/class-ai1wm-main-controller.php:975
-#: lib/model/import/class-ai1wm-import-upload.php:55
-msgid "The file type that you have tried to upload is not compatible with this plugin. Please ensure that your file is a <strong>.wpress</strong> file that was created with the All-in-One WP migration plugin. <a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Technical details</a>"
-msgstr "Typ pliku, który próbowano przesłać, nie jest zgodny z wtyczką. Proszę się upewnić, że jest to plik <strong>.wpress</strong>, który został utworzony za pomocą wtyczki All-in-One WP. <a href=\"https://help.servmask.com/knowledgebase/invalid-backup-file/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: lib/view/main/backups-htaccess-notice.php:35
-#: lib/view/main/backups-index-html-notice.php:35
-#: lib/view/main/backups-index-php-notice.php:35
-#: lib/view/main/backups-robots-txt-notice.php:35
-#: lib/view/main/backups-webconfig-notice.php:35
-#: lib/view/main/storage-index-html-notice.php:35
-#: lib/view/main/storage-index-php-notice.php:35
-#: lib/view/main/wordpress-htaccess-notice.php:35
-msgid "All-in-One WP Migration is not able to create <strong>%s</strong> file. Try to change permissions of the parent folder or send us an email at <a href=\"mailto:support@servmask.com\">support@servmask.com</a> for assistance."
-msgstr "All-in-One WP Migration nie może utworzyć pliku <strong>%s</strong>. Proszę spróbować zmienić uprawnienia folderu nadrzędnego lub wyślij nam e-mail na adres <a href=\"mailto:support@servmask.com\">support@servmask.com</a>, aby uzyskać pomoc."
-
-#: lib/view/import/pro.php:36
-msgid "or"
-msgstr "lub"
-
-#: lib/view/import/pro.php:35
-msgid "How-to: Increase maximum upload file size"
-msgstr "W jaki sposób: zwiększyć maksymalny rozmiar pliku do przesłania"
-
-#: lib/model/import/class-ai1wm-import-upload.php:79
-msgid "The file is too large for this server."
-msgstr "Plik jest zbyt duży dla tego serwera."
-
-#: lib/controller/class-ai1wm-main-controller.php:961
-msgid "Your file exceeds the maximum upload size for this site: <strong>%s</strong><br />%s%s"
-msgstr "Plik przekracza maksymalny rozmiar możliwy do przesłania dla tej witryny: <strong>%s</strong> <br />%s%s"
-
-#: lib/controller/class-ai1wm-main-controller.php:966
-msgid "<a href=\"https://help.servmask.com/2018/10/27/how-to-increase-maximum-upload-file-size-in-wordpress/\" target=\"_blank\">How-to: Increase maximum upload file size</a> or "
-msgstr "<a href=\"https://help.servmask.com/2018/10/27/how-to-increase-maximum-upload-file-size-in-wordpress/\" target=\"_blank\"> W jaki sposób: Zwiększyć maksymalny rozmiar pliku do wysyłania </a> lub "
-
-#: lib/view/import/pro.php:32
-msgid "Maximum upload file size: <strong>%s</strong>."
-msgstr "Maksymalny rozmiar przesyłanego pliku: <strong>%s </strong>."
-
-#: lib/view/import/import-buttons.php:39
+#: lib/view/import/import-buttons.php:41
 msgid "Drag & Drop a backup to import it"
 msgstr "Przeciągnij i upuść kopię zapasową, aby ją zaimportować"
 
-#: lib/model/export/class-ai1wm-export-database.php:77
-#: lib/model/export/class-ai1wm-export-database.php:185
-msgid "Exporting database...<br />%d%% complete<br />%s records saved"
-msgstr "Eksportowanie bazy danych ... <br />%d%% kompletne <br /> Zapisano %s rekordów"
+#. translators: 1: Progress, 2: Number of records.
+#: lib/model/export/class-ai1wm-export-database.php:81
+#: lib/model/export/class-ai1wm-export-database.php:192
+msgid "Exporting database...<br />%1$d%% complete<br />%2$s records saved"
+msgstr "Eksportowanie bazy danych...<br />%1$d%% ukończono<br />%2$s rekordów zostało zapisanych"
 
-#: lib/controller/class-ai1wm-main-controller.php:275
+#: lib/controller/class-ai1wm-main-controller.php:896
+msgid "Backup restore requires the Unlimited Extension. <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\">Get it here</a>"
+msgstr "Do przywrócenia kopii zapasowej wymagane jest Nieograniczone rozszerzenie. <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\">Pobierz je tutaj</a>"
+
+#: lib/controller/class-ai1wm-main-controller.php:262
 msgid "All-in-One WP Migration Command"
 msgstr "Komenda All-in-One WP Migration"
 
-#: lib/controller/class-ai1wm-main-controller.php:1151
-msgid "Restoring a backup is available via Unlimited extension. <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\">Get it here</a>"
-msgstr "Przywracanie kopii zapasowej jest dostępne przez rozszerzenie Unlimited. <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\"> Pobierz je tutaj </a>"
-
-#: lib/controller/class-ai1wm-main-controller.php:812
-#: lib/controller/class-ai1wm-main-controller.php:1123
-#: lib/model/export/class-ai1wm-export-init.php:43
+#: lib/controller/class-ai1wm-main-controller.php:827
+#: lib/model/export/class-ai1wm-export-init.php:47
 msgid "Preparing to export..."
-msgstr "Przygotowanie do eksportu&hellip;"
+msgstr "Przygotowywanie do eksportu..."
 
-#: lib/controller/class-ai1wm-main-controller.php:814
-#: lib/controller/class-ai1wm-main-controller.php:1125
-msgid "Unable to start the export. Refresh the page and try again"
-msgstr "Nie można rozpocząć eksportu. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:815
-#: lib/controller/class-ai1wm-main-controller.php:1126
-msgid "Unable to run the export. Refresh the page and try again"
-msgstr "Nie można uruchomić eksportu. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:1150
-msgid "Are you sure you want to delete this file?"
-msgstr "Czy na pewno chcesz usunąć ten plik?"
-
-#: lib/controller/class-ai1wm-main-controller.php:944
-#: lib/controller/class-ai1wm-main-controller.php:1141
-msgid "Stop import"
-msgstr "Zatrzymaj import"
-
-#: lib/controller/class-ai1wm-main-controller.php:940
-#: lib/controller/class-ai1wm-main-controller.php:1137
-msgid "Unable to stop the import. Refresh the page and try again"
-msgstr "Nie można zatrzymać importu. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:939
-#: lib/controller/class-ai1wm-main-controller.php:1136
-msgid "Unable to prepare blogs on import. Refresh the page and try again"
-msgstr "Nie można przygotować blogów do importowania. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:937
-#: lib/controller/class-ai1wm-main-controller.php:1135
-msgid "Unable to confirm the import. Refresh the page and try again"
-msgstr "Nie można potwierdzić importu. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:936
-#: lib/controller/class-ai1wm-main-controller.php:1134
-msgid "Unable to start the import. Refresh the page and try again"
-msgstr "Nie można rozpocząć importowania. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:933
-#: lib/controller/class-ai1wm-main-controller.php:1131
-msgid "You are about to stop importing your website, are you sure?"
-msgstr "Zamierzasz zatrzymać importowanie swojej witryny, czy jesteś pewien?"
-
-#: lib/controller/class-ai1wm-main-controller.php:733
-#: lib/controller/class-ai1wm-main-controller.php:823
-#: lib/controller/class-ai1wm-main-controller.php:952
-#: lib/controller/class-ai1wm-main-controller.php:1149
-msgid "Thanks for submitting your request!"
-msgstr "Dziękujemy za przesłanie prośby!"
-
-#: lib/controller/class-ai1wm-main-controller.php:732
-#: lib/controller/class-ai1wm-main-controller.php:822
-#: lib/controller/class-ai1wm-main-controller.php:951
-#: lib/controller/class-ai1wm-main-controller.php:1148
-msgid "Thanks for submitting your feedback!"
-msgstr "Dziękujemy za przesłanie uwag!"
-
-#: lib/controller/class-ai1wm-main-controller.php:731
-#: lib/controller/class-ai1wm-main-controller.php:821
-#: lib/controller/class-ai1wm-main-controller.php:950
-#: lib/controller/class-ai1wm-main-controller.php:1147
-msgid "How may we help you?"
-msgstr "Jak możemy Ci pomóc?"
-
-#: lib/controller/class-ai1wm-main-controller.php:819
-#: lib/controller/class-ai1wm-main-controller.php:1130
-msgid "Stop export"
-msgstr "Zatrzymaj eksport"
-
-#: lib/controller/class-ai1wm-main-controller.php:818
-#: lib/controller/class-ai1wm-main-controller.php:942
-#: lib/controller/class-ai1wm-main-controller.php:1129
-#: lib/controller/class-ai1wm-main-controller.php:1140
-msgid "Close"
-msgstr "Zamknij"
-
-#: lib/controller/class-ai1wm-main-controller.php:816
-#: lib/controller/class-ai1wm-main-controller.php:1127
-msgid "Unable to stop the export. Refresh the page and try again"
-msgstr "Nie można zatrzymać eksportu. Odśwież stronę i spróbuj ponownie"
-
-#: lib/controller/class-ai1wm-main-controller.php:1290
-msgid "Your purchase ID is invalid, please <a href=\"mailto:support@servmask.com\">contact us</a>"
-msgstr "Twój identyfikator zakupu jest nieprawidłowy. <a href=\"mailto:support@servmask.com\"> skontaktuj się z nami </a>"
-
-#: lib/view/backups/backups-list.php:82
+#. translators: Human time diff
+#: lib/view/backups/backups-list.php:84
 msgid "%s ago"
 msgstr "%s temu"
 
-#: functions.php:1704
-msgid "Unable to authenticate the secret key. <a href=\"https://help.servmask.com/knowledgebase/invalid-secret-key/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można uwierzytelnić tajnego klucza. <a href=\"https://help.servmask.com/knowledgebase/invalid-secret-key/\" target=\"_blank\"> Szczegóły techniczne </a>"
+#: lib/controller/class-ai1wm-main-controller.php:823
+msgid "Your purchase ID is invalid. Please <a href=\"mailto:support@servmask.com\">contact us</a>."
+msgstr "Twój identyfikator zakupu jest nieprawidłowy. Prosimy o <a href=\"mailto:support@servmask.com\">skontaktowanie się z nami</a>."
 
-#: functions.php:1570
-msgid "Unable to get current pointer position of %s. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można uzyskać aktualnej pozycji wskaźnika %s. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Szczegóły techniczne</a> "
+#: lib/controller/class-ai1wm-main-controller.php:895
+msgid "Are you sure you want to delete this backup?"
+msgstr "Czy na pewno chcesz usunąć tę kopię zapasową?"
 
-#: functions.php:1553
-msgid "Unable to seek to offset %d on %s. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można uzyskać informacji o przesunięciu %d na %s. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Szczegóły techniczne</a> "
-
-#: functions.php:1511
-msgid "Out of disk space. Unable to write to: %s. <a href=\"https://help.servmask.com/knowledgebase/out-of-disk-space/\" target=\"_blank\">Technical details</a>"
-msgstr "Brak miejsca na dysku. Nie można zapisać do:%s. <a href=\"https://help.servmask.com/knowledgebase/out-of-disk-space/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: functions.php:1486
-msgid "Unable to open %s with mode %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można otworzyć %s w trybie %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: functions.php:63 functions.php:110
-msgid "Unable to locate archive path. <a href=\"https://help.servmask.com/knowledgebase/invalid-archive-path/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można znaleźć ścieżki do archiwum. <a href=\"https://help.servmask.com/knowledgebase/invalid-archive-path/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: functions.php:38
-msgid "Unable to locate storage path. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-path/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można znaleźć ścieżki do przechowywania. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-path/\" target=\"_blank\">Szczegóły techniczne</a>"
-
-#: lib/controller/class-ai1wm-main-controller.php:945
-#: lib/controller/class-ai1wm-main-controller.php:1142
-msgid "Proceed"
-msgstr "Kontynuuj"
-
-#: lib/controller/class-ai1wm-main-controller.php:947
-#: lib/controller/class-ai1wm-main-controller.php:1144
-msgid "Continue"
-msgstr "Kontynuuj"
-
-#: functions.php:1531
-msgid "Unable to read file: %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można odczytać pliku:%s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\"> Szczegóły techniczne</a>"
-
-#: lib/controller/class-ai1wm-main-controller.php:811
-#: lib/controller/class-ai1wm-main-controller.php:1122
-msgid "You are about to stop exporting your website, are you sure?"
-msgstr "Zamierzasz zatrzymać eksportowanie swojej witryny, czy na pewno?"
-
-#: lib/controller/class-ai1wm-main-controller.php:817
-#: lib/controller/class-ai1wm-main-controller.php:1128
-msgid "Please wait, stopping the export..."
-msgstr "Proszę czekać, zatrzymywanie eksportu&hellip;"
-
-#: lib/controller/class-ai1wm-main-controller.php:730
-#: lib/controller/class-ai1wm-main-controller.php:820
-#: lib/controller/class-ai1wm-main-controller.php:949
-#: lib/controller/class-ai1wm-main-controller.php:1146
-msgid "Leave plugin developers any feedback here"
-msgstr " Tutaj zostaw programistom wtyczki wszelkie uwagi"
-
-#: lib/controller/class-ai1wm-main-controller.php:941
-#: lib/controller/class-ai1wm-main-controller.php:1138
-msgid "Please wait, stopping the import..."
-msgstr "Proszę czekać, zatrzymywanie importu&hellip;"
-
-#: lib/controller/class-ai1wm-main-controller.php:948
-#: lib/controller/class-ai1wm-main-controller.php:1145
+#: lib/controller/class-ai1wm-main-controller.php:858
 msgid "Please do not close this browser window or your import will fail"
 msgstr "Nie zamykaj tego okna przeglądarki bo import się nie powiedzie"
 
-#: functions.php:1505 functions.php:1589
-msgid "Unable to write to: %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
-msgstr "Nie można zapisać do:%s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Szczegóły techniczne</a>"
+#: lib/controller/class-ai1wm-main-controller.php:857
+msgid "Continue"
+msgstr "Kontynuuj"
 
-#: lib/model/export/class-ai1wm-export-config-file.php:72
-msgid "Done archiving configuration file."
-msgstr "Zakończono archiwizację pliku konfiguracyjnego."
+#: lib/controller/class-ai1wm-main-controller.php:855
+msgid "Proceed"
+msgstr "Kontynuuj"
 
-#: lib/model/export/class-ai1wm-export-config-file.php:60
-#: lib/model/export/class-ai1wm-export-config-file.php:95
-msgid "Archiving configuration file...<br />%d%% complete"
-msgstr "Archiwizacja pliku konfiguracyjnego…<br />wykonano %d%%"
+#: lib/controller/class-ai1wm-main-controller.php:853
+msgid "Stop import"
+msgstr "Zatrzymaj import"
 
-#: lib/model/export/class-ai1wm-export-config.php:36
-msgid "Preparing configuration file..."
-msgstr "Przygotowywanie pliku konfiguracyjnego&hellip;"
+#: lib/controller/class-ai1wm-main-controller.php:834
+msgid "Stop export"
+msgstr "Zatrzymaj eksport"
 
-#: lib/model/export/class-ai1wm-export-config.php:180
-msgid "Done preparing configuration file."
-msgstr "Gotowe przygotowanie pliku konfiguracyjnego."
+#: lib/controller/class-ai1wm-main-controller.php:833
+#: lib/controller/class-ai1wm-main-controller.php:852
+#: lib/controller/class-ai1wm-main-controller.php:906
+msgid "Close"
+msgstr "Zamknij"
 
-#: lib/view/common/leave-feedback.php:59
-msgid "I agree that by filling in the contact form with my data, I authorize All-in-One WP Migration to use my <strong>email</strong> to reply to my requests for information. <a href=\"https://www.iubenda.com/privacy-policy/946881\" target=\"_blank\">Privacy policy</a>"
-msgstr "Zgadzam się, że wypełniając formularz kontaktowy z moimi danymi, upoważniam All-in-One WP Migration do wykorzystania mojego <strong> adresu e-mail</strong> w celu udzielenia odpowiedzi na moje prośby o informacje. <a href=\"https://www.iubenda.com/privacy-policy/946881\" target=\"_blank\"> Polityka prywatności </a>"
+#: lib/model/export/class-ai1wm-export-config.php:38
+msgid "Preparing configuration..."
+msgstr "Przygotowywanie konfiguracji..."
 
-#: lib/view/backups/backups-list.php:88
-msgid "2GB+"
-msgstr "2GB+"
-
-#: lib/model/import/class-ai1wm-import-validate.php:119
-msgid "Done unpacking archive."
-msgstr "Ukończono rozpakowywanie archiwum."
-
-#: lib/model/import/class-ai1wm-import-validate.php:82
-#: lib/model/import/class-ai1wm-import-validate.php:139
-msgid "Unpacking archive...<br />%d%% complete"
-msgstr "Rozpakowywanie archiwum...<br />ukończono: %d%%"
-
-#: lib/model/export/class-ai1wm-export-database-file.php:78
-msgid "Done archiving database."
-msgstr "Ukończono archiwizowanie bazy danych."
-
-#: lib/model/export/class-ai1wm-export-database-file.php:66
-#: lib/model/export/class-ai1wm-export-database-file.php:101
+#. translators: Progress.
+#: lib/model/export/class-ai1wm-export-database-file.php:95
+#: lib/model/export/class-ai1wm-export-database-file.php:137
 msgid "Archiving database...<br />%d%% complete"
 msgstr "Archiwizowanie bazy danych...<br />ukończono: %d%%"
 
-#: lib/model/import/class-ai1wm-import-database.php:78
-#: lib/model/import/class-ai1wm-import-database.php:1005
+#. translators: Progress.
+#: lib/model/import/class-ai1wm-import-database.php:81
+#: lib/model/import/class-ai1wm-import-database.php:1037
 msgid "Restoring database...<br />%d%% complete"
 msgstr "Przywracanie bazy danych...<br />ukończono: %d%%"
 
-#: lib/model/export/class-ai1wm-export-compatibility.php:35
-#: lib/model/import/class-ai1wm-import-compatibility.php:36
-msgid "Checking extensions compatibility..."
-msgstr "Sprawdzanie zgodności rozszerzeń&hellip;"
+#. translators: Progress.
+#: lib/model/import/class-ai1wm-import-database-file.php:85
+#: lib/model/import/class-ai1wm-import-database-file.php:142
+msgid "Unpacking database...<br />%d%% complete"
+msgstr "Rozpakowywanie bazy danych...<br />%d%% ukończono"
 
-#: lib/controller/class-ai1wm-main-controller.php:1400
-msgid "Monthly"
-msgstr "Miesięcznie"
-
-#: lib/controller/class-ai1wm-main-controller.php:934
-#: lib/controller/class-ai1wm-main-controller.php:1132
+#: lib/controller/class-ai1wm-main-controller.php:844
 msgid "Preparing to import..."
-msgstr "Przygotowanie do importu&hellip;"
+msgstr "Przygotowywanie do importu..."
 
-#: lib/model/import/class-ai1wm-import-database.php:985
-msgid "Done restoring database."
-msgstr "Zakończono przywracanie bazy danych."
+#: lib/controller/class-ai1wm-main-controller.php:1377
+msgid "Monthly"
+msgstr "Co miesiąc"
 
-#: lib/controller/class-ai1wm-main-controller.php:1396
+#: lib/controller/class-ai1wm-main-controller.php:1373
 msgid "Weekly"
 msgstr "Co tydzień"
 
-#: lib/model/import/class-ai1wm-import-mu-plugins.php:35
+#: lib/model/import/class-ai1wm-import-mu-plugins.php:37
 msgid "Activating mu-plugins..."
-msgstr "Włączanie wtyczek MU (mu-plugins)&hellip;"
+msgstr "Włączanie wtyczek Mu..."
 
 #: lib/view/export/advanced-settings.php:97
-msgid "Do <strong>not</strong> export must-use plugins (files)"
-msgstr "<strong>Nie</strong> eksportuj wtyczek must-use (pliki)"
+msgid "Do <strong>not</strong> replace email domain"
+msgstr "<strong>Nie</strong> zastępuj domeny e-mail"
 
-#: lib/model/import/class-ai1wm-import-mu-plugins.php:63
-msgid "Done activating mu-plugins."
-msgstr "Udane włączenie wtyczek must-use (mu-plugins)."
-
-#: lib/model/import/class-ai1wm-import-upload.php:88
-msgid "A PHP extension stopped the file upload."
-msgstr "Rozszerzenie PHP zatrzymało przesyłanie pliku."
-
-#: lib/model/import/class-ai1wm-import-upload.php:85
-msgid "Failed to write file to disk."
-msgstr "Nie udało się zapisać pliku na dysku."
-
-#: lib/model/import/class-ai1wm-import-upload.php:70
-msgid "Unable to upload the file because %s"
-msgstr "Nie można przesłać pliku, ponieważ %s"
-
-#: lib/model/import/class-ai1wm-import-upload.php:34
-msgid "Missing upload file."
-msgstr "Brakuje pliku do przesłania."
-
-#: lib/model/import/class-ai1wm-import-upload.php:91
-msgid "Unrecognized error %s during upload."
-msgstr "Nierozpoznany błąd %s podczas przesyłania."
-
-#: lib/view/export/advanced-settings.php:121
-msgid "Do <strong>not</strong> replace email domain (sql)"
-msgstr "<strong>Nie</strong> zastępuj domeny w e-mailach (sql)"
-
-#: lib/model/import/class-ai1wm-import-upload.php:42
-msgid "Missing tmp_name in upload file."
-msgstr "Brakująca nazwa tmp_name w przesłanym pliku."
-
-#: lib/model/import/class-ai1wm-import-upload.php:38
-msgid "Missing error key in upload file."
-msgstr "Brakujący klucz błędu w przesłanym pliku."
-
-#: lib/model/import/class-ai1wm-import-upload.php:82
-msgid "Missing a temporary folder."
-msgstr "Brak katalogu plików tymczasowych."
-
-#: lib/model/class-ai1wm-feedback.php:78
-msgid "Something went wrong: %s"
-msgstr "Coś poszło nie tak: %s"
-
-#: lib/model/class-ai1wm-feedback.php:56
-msgid "Please enter comments in the text area."
-msgstr "Wpisz komentarz w polu tekstowym."
-
-#: lib/model/class-ai1wm-feedback.php:46
-msgid "Your email is not valid."
-msgstr "Twój adres e-mail nie jest prawidłowy."
-
-#: lib/model/import/class-ai1wm-import-blogs.php:35
+#: lib/model/import/class-ai1wm-import-blogs.php:37
 msgid "Preparing blogs..."
-msgstr "Przygotowywanie blogów&helip;"
+msgstr "Przygotowywanie blogów..."
 
-#: lib/model/class-ai1wm-feedback.php:51
-msgid "Feedback type is not valid."
-msgstr "Typ uwag jest nieprawidłowy."
-
-#: lib/model/class-ai1wm-feedback.php:61
-msgid "Please accept feedback term conditions."
-msgstr "Proszę zaakceptować zasady i warunki dotyczące zgłaszania uwag."
-
-#: lib/model/import/class-ai1wm-import-blogs.php:150
-msgid "Done preparing blogs."
-msgstr "Przygotowanie blogów wykonane."
-
-#: lib/model/import/class-ai1wm-import-blogs.php:134
-msgid "The archive should contain <strong>Single WordPress</strong> site! Please revisit your export settings."
-msgstr "Archiwum powinno zawierać <strong> Pojedynczą Witrynę WordPressa </strong>! Ponownie sprawdź ustawienia eksportu."
-
-#: lib/model/import/class-ai1wm-import-blogs.php:137
-msgid "At least <strong>one WordPress</strong> site should be presented in the archive."
-msgstr "Przynajmniej <strong> jedna witryna WordPress </strong> powinna być prezentowana w archiwum."
-
-#: lib/model/import/class-ai1wm-import-blogs.php:140
-msgid "Unable to import <strong>WordPress Network</strong> into WordPress <strong>Single</strong> site."
-msgstr "Nie można zaimportować <strong> sieci WordPress </strong> do <strong> pojedynczej witryny WordPress </strong>."
-
-#: lib/view/updater/modal.php:55
-msgid "There is an update available. To update, you must enter your"
-msgstr "Dostępna jest aktualizacja. Aby zaktualizować, musisz wpisać swój"
-
-#: lib/view/updater/modal.php:48
-msgid "Discard"
-msgstr "Odrzuć"
-
-#: lib/view/updater/modal.php:46
-msgid "Save"
-msgstr "Zapisz"
-
-#: lib/view/updater/modal.php:42
-msgid "here"
-msgstr "tutaj"
-
-#: lib/view/updater/modal.php:41
-msgid "Don't have a Purchase ID? You can find your Purchase ID"
-msgstr "Nie masz identyfikatora zakupu? Identyfikator zakupów można znaleźć"
-
-#: lib/view/updater/modal.php:34
-msgid "To update your plugin/extension to the latest version, please fill your Purchase ID below."
-msgstr "Aby zaktualizować wtyczkę/rozszerzenie do najnowszej wersji, wpisz poniżej swój identyfikator zakupu."
-
-#: lib/view/updater/modal.php:37 lib/view/updater/modal.php:56
-msgid "Purchase ID"
-msgstr "Identyfikator zakupu"
-
-#: lib/controller/class-ai1wm-main-controller.php:1289
-#: lib/view/updater/check.php:31
+#: lib/controller/class-ai1wm-main-controller.php:822
+#: lib/view/updater/check.php:33
 msgid "Check for updates"
 msgstr "Sprawdź aktualizacje"
-
-#: lib/view/updater/modal.php:33
-msgid "Enter your Purchase ID"
-msgstr "Wprowadź identyfikator zakupu"
-
-#: lib/view/backups/backups-list.php:36
-msgid "Name"
-msgstr "Nazwa"
-
-#: lib/view/common/leave-feedback.php:67
-msgid "Send"
-msgstr "Wyślij"
-
-#: lib/view/common/leave-feedback.php:64
-msgid "Cancel"
-msgstr "Anuluj"
-
-#: lib/view/backups/backups-list.php:38
-msgid "Size"
-msgstr "Rozmiar"
-
-#: lib/view/backups/backups-list.php:37
-msgid "Date"
-msgstr "Data"
-
-#: lib/view/backups/backups-list.php:107 lib/view/backups/backups-list.php:109
-#: lib/view/backups/backups-list.php:112 lib/view/backups/backups-list.php:114
-#: lib/view/backups/backups-list.php:122
-msgid "Download"
-msgstr "Pobierz"
 
 #. Author of the plugin
 #: all-in-one-wp-migration.php
@@ -583,230 +1228,147 @@ msgstr "ServMask"
 msgid "https://servmask.com/"
 msgstr "https://servmask.com/"
 
-#. Plugin Name of the plugin
-#: all-in-one-wp-migration.php
-msgid "All-in-One WP Migration"
-msgstr "All-in-One WP Migration"
-
-#: lib/view/import/import-buttons.php:43
-msgid "Import From"
-msgstr "Importuj z"
-
-#: lib/view/export/help-section.php:37
-msgid "Quick hints"
-msgstr "Szybkie wskazówki"
-
-#: lib/view/export/find-replace.php:39
-msgid "in the database"
-msgstr "w bazie danych"
-
-#: lib/view/export/find-replace.php:35 lib/view/export/find-replace.php:44
-msgid "Find"
-msgstr "Znajdź"
-
-#: lib/view/export/export-buttons.php:35
-msgid "Export To"
-msgstr "Eksportuj do"
-
-#: lib/view/export/button-file.php:31 lib/view/import/button-file.php:32
-msgid "File"
-msgstr "Plik"
-
-#: lib/view/export/advanced-settings.php:115
-msgid "Do <strong>not</strong> export database (sql)"
-msgstr "<strong>Nie</strong> eksportuj bazy danych (sql)"
-
-#: lib/view/export/advanced-settings.php:104
-msgid "Do <strong>not</strong> export plugins (files)"
-msgstr "<strong>Nie</strong> eksportuj wtyczek (plików)"
-
-#: lib/view/export/advanced-settings.php:88
-msgid "Do <strong>not</strong> export themes (files)"
-msgstr "<strong>Nie</strong> eksportuj motywów (plików)"
-
-#: lib/view/export/advanced-settings.php:82
-msgid "Do <strong>not</strong> export media library (files)"
-msgstr "<strong>Nie</strong> eksportuj biblioteki mediów (plików)"
-
-#: lib/view/export/advanced-settings.php:70
-msgid "Do <strong>not</strong> export spam comments"
-msgstr "<strong>Nie</strong> eksportuj komentarzy oznaczonych jako spam"
-
-#: lib/view/export/advanced-settings.php:36
-msgid "(click to expand)"
-msgstr "(kliknij, aby rozwinąć)"
-
-#: lib/view/common/leave-feedback.php:51
-msgid "Enter your email address.."
-msgstr "Wpisz swój adres e-mail..."
-
-#: lib/view/common/leave-feedback.php:44
-msgid "I need help with this plugin"
-msgstr "Potrzebuję pomocy z tą wtyczką"
-
-#: lib/view/common/leave-feedback.php:37
-msgid "I have ideas to improve this plugin"
-msgstr "Mam pomysły na ulepszenie tej wtyczki"
-
-#: lib/view/backups/backups-list.php:134 lib/view/backups/backups-list.php:136
-msgid "Delete"
-msgstr "Usuń"
-
-#: lib/view/backups/backups-list.php:99 lib/view/backups/backups-list.php:101
-msgid "Restore"
-msgstr "Przywróć"
-
-#: lib/model/export/class-ai1wm-export-database.php:159
-msgid "Done exporting database."
-msgstr "Ukończono eksport bazy danych."
-
-#: lib/controller/class-ai1wm-main-controller.php:667
-#: lib/controller/class-ai1wm-main-controller.php:668
-#: lib/view/backups/index.php:37
-msgid "Backups"
-msgstr "Kopie zapasowe"
-
-#: lib/view/import/index.php:37
+#: lib/view/import/index.php:39
 msgid "Import Site"
 msgstr "Importuj stronę"
 
-#: lib/view/export/index.php:37
+#: lib/view/import/import-buttons.php:45
+msgid "Import From"
+msgstr "Importuj z"
+
+#: lib/view/export/index.php:39
 msgid "Export Site"
 msgstr "Eksportuj stronę"
 
-#: lib/model/import/class-ai1wm-import-content.php:83
-#: lib/model/import/class-ai1wm-import-content.php:206
-msgid "Restoring %d files...<br />%d%% complete"
-msgstr "Przywracanie %d plików...<br />ukończono: %d%%"
-
-#: lib/model/export/class-ai1wm-export-download.php:35
-msgid "Renaming exported file..."
-msgstr "Zmiana nazwy wyeksportowanego pliku..."
-
-#: lib/model/export/class-ai1wm-export-archive.php:37
-msgid "Creating an empty archive..."
-msgstr "Tworzenie pustego archiwum ..."
-
-#: lib/model/export/class-ai1wm-export-archive.php:44
-msgid "Done creating an empty archive."
-msgstr "Utworzono puste archiwum."
-
-#: lib/view/backups/index.php:57
-msgid "Create backup"
-msgstr "Utwórz kopię zapasową"
-
-#. Description of the plugin
-#: all-in-one-wp-migration.php
-msgid "Migration tool for all your blog data. Import or Export your blog content with a single click."
-msgstr "Narzędzie migracji wszystkich danych bloga. Importuj lub eksportuj treści bloga jednym kliknięciem."
-
-#: lib/view/export/find-replace.php:52
-msgid "Add"
-msgstr "Dodaj"
-
-#: lib/view/export/help-section.php:43
-msgid "In the advanced settings section you can configure more precisely the way of exporting."
-msgstr "W sekcji ustawień zaawansowanych możesz bardziej precyzyjnie skonfigurować sposób eksportu."
-
-#: lib/view/export/help-section.php:47
-msgid "Press \"Export\" button and the site archive file will pop up in your browser."
-msgstr "Naciśnij przycisk \"Eksportuj\", a plik archiwum witryny pojawi się w Twojej przeglądarce."
-
-#: lib/view/backups/index.php:52
-msgid "There are no backups available at this time, why not create a new one?"
-msgstr "W tej chwili nie ma dostępnych kopii zapasowych, dlaczego nie utworzyć nowej?"
-
-#: lib/model/import/class-ai1wm-import-enumerate.php:50
-msgid "Done retrieving a list of all WordPress files."
-msgstr "Gotowe pobieranie listy wszystkich plików WordPress."
-
-#: lib/model/import/class-ai1wm-import-enumerate.php:35
-msgid "Retrieving a list of all WordPress files..."
-msgstr "Pobieranie listy wszystkich plików WordPress&hellip;"
-
-#: lib/controller/class-ai1wm-import-controller.php:105
-#: lib/controller/class-ai1wm-import-controller.php:106
-#: lib/controller/class-ai1wm-main-controller.php:935
-#: lib/controller/class-ai1wm-main-controller.php:1133
-msgid "Unable to import"
-msgstr "Nie można zaimportować"
-
-#: lib/controller/class-ai1wm-export-controller.php:94
-#: lib/controller/class-ai1wm-export-controller.php:95
-#: lib/controller/class-ai1wm-main-controller.php:813
-#: lib/controller/class-ai1wm-main-controller.php:1124
-msgid "Unable to export"
-msgstr "Nie można wyeksportować"
-
-#: lib/view/common/leave-feedback.php:54
-msgid "Leave plugin developers any feedback here.."
-msgstr "Tutaj zostaw programistom wtyczki wszelkie uwagi&helip;"
-
-#: lib/view/export/help-section.php:51
+#: lib/view/export/help-section.php:52
 msgid "Once the file is successfully downloaded on your computer, you can import it to any of your WordPress sites."
 msgstr "Po pomyślnym pobraniu pliku na komputer można go zaimportować do dowolnej witryny WordPress."
 
-#: lib/view/export/advanced-settings.php:76
-msgid "Do <strong>not</strong> export post revisions"
-msgstr "<strong>Nie</strong> eksportuj starszych wersji wpisów"
+#: lib/view/export/help-section.php:48
+msgid "Press \"Export\" button and the site archive file will pop up in your browser."
+msgstr "Naciśnij przycisk \"Eksportuj\", a plik archiwum witryny pojawi się w Twojej przeglądarce."
 
-#: lib/view/export/help-section.php:32
-msgid "This screen allows you to export database, media files, themes and plugins as one zipped file."
-msgstr "Ten ekran umożliwia eksportowanie bazy danych, plików multimedialnych, motywów i wtyczek jako jednego skompresowanego pliku."
+#: lib/view/export/help-section.php:44
+msgid "In the advanced settings section you can configure more precisely the way of exporting."
+msgstr "W sekcji ustawień zaawansowanych możesz bardziej precyzyjnie skonfigurować sposób eksportu."
 
-#: lib/view/import/pro.php:39
-msgid "Get unlimited"
-msgstr "Bez ograniczeń (ang.)"
+#: lib/view/export/find-replace.php:54
+msgid "Add"
+msgstr "Dodaj"
 
-#: lib/view/main/multisite-notice.php:42
-msgid "Get multisite"
-msgstr "Zdobądź wtyczkę dla multisite"
+#: lib/view/export/find-replace.php:41
+msgid "in the database"
+msgstr "w bazie danych"
 
-#: lib/view/export/help-section.php:33
-msgid "You can then use the import functionality provided by this plugin to import the zipped file onto any other WordPress sites that you have administrator access to."
-msgstr "Następnie możesz użyć funkcji importowania udostępnianej przez tę wtyczkę, aby zaimportować spakowany plik do innych witryn WordPress, do których posiadasz uprawnienia administratora."
+#: lib/view/export/find-replace.php:40
+msgid "<another-text>"
+msgstr "<another-text>"
 
-#: lib/view/export/find-replace.php:36
-msgid "<text>"
-msgstr "<text>"
-
-#: lib/controller/class-ai1wm-main-controller.php:647
-#: lib/controller/class-ai1wm-main-controller.php:648
-msgid "Export"
-msgstr "Eksport"
-
-#: lib/view/export/advanced-settings.php:35
-msgid "Advanced options"
-msgstr "Opcje zaawansowane"
-
-#: lib/view/common/share-buttons.php:63
-msgid "Tweet"
-msgstr "Tweetuj"
-
-#: lib/controller/class-ai1wm-main-controller.php:657
-#: lib/controller/class-ai1wm-main-controller.php:658
-msgid "Import"
-msgstr "Import"
-
-#: lib/view/export/find-replace.php:37 lib/view/export/find-replace.php:45
+#: lib/view/export/find-replace.php:39 lib/view/export/find-replace.php:47
 msgid "Replace with"
 msgstr "Zamień na"
 
-#: lib/view/common/sidebar-right.php:39
+#: lib/view/export/find-replace.php:38
+msgid "<text>"
+msgstr "<text>"
+
+#: lib/view/export/button-file.php:33 lib/view/import/button-file.php:34
+msgid "File"
+msgstr "Plik"
+
+#: lib/view/export/advanced-settings.php:38
+msgid "(click to expand)"
+msgstr "(kliknij, aby rozwinąć)"
+
+#: lib/view/export/advanced-settings.php:37
+msgid "Advanced options"
+msgstr "Opcje zaawansowane"
+
+#: lib/view/common/leave-feedback.php:69
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: lib/view/common/leave-feedback.php:72
+msgid "Send"
+msgstr "Wyślij"
+
+#: lib/controller/class-ai1wm-main-controller.php:862
+#: lib/view/export/advanced-settings.php:51
+msgid "Enter a password"
+msgstr "Wpisz hasło"
+
+#: lib/view/common/sidebar-right.php:41
 msgid "Leave Feedback"
 msgstr "Prześlij uwagi"
 
-#: lib/model/import/class-ai1wm-import-done.php:363
+#: lib/view/backups/index.php:59
+msgid "Create backup"
+msgstr "Utwórz kopię zapasową"
+
+#: lib/view/backups/backups-list.php:136 lib/view/backups/backups-list.php:138
+msgid "Delete"
+msgstr "Usuń"
+
+#: lib/view/backups/backups-list.php:101 lib/view/backups/backups-list.php:103
+msgid "Restore"
+msgstr "Przywróć"
+
+#: lib/view/backups/backups-list.php:109 lib/view/backups/backups-list.php:111
+#: lib/view/backups/backups-list.php:114 lib/view/backups/backups-list.php:116
+#: lib/view/backups/backups-list.php:124
+msgid "Download"
+msgstr "Pobierz"
+
+#: lib/view/backups/backups-list.php:40
+msgid "Size"
+msgstr "Rozmiar"
+
+#: lib/view/backups/backups-list.php:39
+msgid "Date"
+msgstr "Data"
+
+#: lib/view/backups/backups-list.php:38
+msgid "Name"
+msgstr "Nazwa"
+
 #: lib/model/import/class-ai1wm-import-done.php:365
 #: lib/model/import/class-ai1wm-import-done.php:367
+#: lib/model/import/class-ai1wm-import-done.php:369
 msgid "Your site has been imported successfully!"
 msgstr "Twoja witryna została zaimportowana!"
 
-#: lib/model/export/class-ai1wm-export-plugins.php:80
-#: lib/model/export/class-ai1wm-export-plugins.php:119
-msgid "Archiving %d plugin files...<br />%d%% complete"
-msgstr "Archiwizowanie %d plików wtyczek…<br />ukończono: %d%%"
+#. translators: 1: Number of files, 2: Progress.
+#: lib/model/import/class-ai1wm-import-content.php:109
+#: lib/model/import/class-ai1wm-import-content.php:242
+msgid "Restoring %1$d files...<br />%2$d%% complete"
+msgstr "Przywracanie %1$d plików...<br />%2$d%% ukończone"
 
-#: lib/view/export/find-replace.php:38
-msgid "<another-text>"
-msgstr "<another-text>"
+#: lib/model/export/class-ai1wm-export-download.php:43
+msgid "Renaming export file..."
+msgstr "Zmiana nazwy pliku eksportu..."
+
+#. translators: 1: Number of files, 2: Progress.
+#: lib/model/export/class-ai1wm-export-plugins.php:109
+#: lib/model/export/class-ai1wm-export-plugins.php:153
+msgid "Archiving %1$d plugin files...<br />%2$d%% complete"
+msgstr "Archiwizowanie %1$d plików wtyczki...<br />%2$d%% ukończone"
+
+#: lib/controller/class-ai1wm-main-controller.php:729
+#: lib/controller/class-ai1wm-main-controller.php:730
+#: lib/view/backups/index.php:39
+msgid "Backups"
+msgstr "Kopie zapasowe"
+
+#: lib/controller/class-ai1wm-main-controller.php:720
+#: lib/controller/class-ai1wm-main-controller.php:721
+msgid "Import"
+msgstr "Import"
+
+#: lib/controller/class-ai1wm-main-controller.php:711
+#: lib/controller/class-ai1wm-main-controller.php:712
+msgid "Export"
+msgstr "Eksport"
+
+#: lib/view/main/multisite-notice.php:43
+msgid "Get multisite"
+msgstr "Zdobądź wtyczkę dla multisite"

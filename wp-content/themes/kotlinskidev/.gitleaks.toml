@@ -1,0 +1,20 @@
+title = "kotlinskidev gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated/vendored dirs inside the theme itself — not our secrets"
+paths = [
+  '''node_modules''',
+  '''vendor''',
+  '''build''',
+  '''package-lock\.json''',
+  '''composer\.lock''',
+]
+commits = [
+  # sonarqube.yml's token-bootstrap curl, flagged as a generic credential pattern —
+  # SonarQube's own documented first-boot admin/admin default for a throwaway
+  # ephemeral CI container destroyed at job end, not a real credential.
+  '''b9bc41b9a461b809511c16c1135948f23f85d75f''',
+]

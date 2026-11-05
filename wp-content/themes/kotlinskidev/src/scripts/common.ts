@@ -1,9 +1,5 @@
 import { getBreakpoints } from "./utils";
 
-// =============================================================================
-// GLOBAL TRANSLATION INTERFACES
-// =============================================================================
-
 export interface NavigationTranslations {
   menu: {
     toggle: string;
@@ -94,10 +90,6 @@ export interface KotlinskiDevTranslations {
   scrollAnimations: ScrollAnimationsTranslations;
 }
 
-// =============================================================================
-// GLOBAL WINDOW INTERFACE EXTENSIONS
-// =============================================================================
-
 declare global {
   interface Window {
     kotlinskiDevL10n?: KotlinskiDevTranslations;
@@ -117,10 +109,6 @@ declare global {
   }
 }
 
-// =============================================================================
-// UTILITY TYPES
-// =============================================================================
-
 export type EventCallback = (event: Event) => void;
 export type VoidCallback = () => void;
 export type AsyncVoidCallback = () => Promise<void>;
@@ -139,10 +127,6 @@ export interface Rect extends Point, Dimensions {}
 
 export type DeviceType = "mobile" | "tablet" | "desktop";
 export type ThemeMode = "light" | "dark" | "auto";
-
-// =============================================================================
-// UTILITY FUNCTIONS
-// =============================================================================
 
 export const getTranslations = (): KotlinskiDevTranslations => {
   return (
@@ -247,14 +231,20 @@ export const debounce = <T extends (...args: any[]) => void>(
   return (...args: Parameters<T>) => {
     const callNow = immediate && !timeout;
 
-    if (timeout) clearTimeout(timeout);
+    if (timeout) {
+      clearTimeout(timeout);
+    }
 
     timeout = setTimeout(() => {
       timeout = null;
-      if (!immediate) func(...args);
+      if (!immediate) {
+        func(...args);
+      }
     }, wait);
 
-    if (callNow) func(...args);
+    if (callNow) {
+      func(...args);
+    }
   };
 };
 
@@ -286,8 +276,12 @@ export const isElementInViewport = (el: Element): boolean => {
 export const getDeviceType = (): DeviceType => {
   const width = window.innerWidth;
   const breakpoints = getBreakpoints();
-  if (width <= breakpoints.mobile_max) return "mobile";
-  if (width <= breakpoints.tablet_max) return "tablet";
+  if (width <= breakpoints.mobile_max) {
+    return "mobile";
+  }
+  if (width <= breakpoints.tablet_max) {
+    return "tablet";
+  }
   return "desktop";
 };
 
@@ -297,15 +291,19 @@ export const prefersReducedMotion = (): boolean => {
 
 export const getThemePreference = (): ThemeMode => {
   const saved = localStorage.getItem("theme-preference") as ThemeMode;
-  if (saved) return saved;
+  if (saved) {
+    return saved;
+  }
 
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "dark";
+  }
   return "light";
 };
 
 export const formatString = (str: string, ...args: (string | number)[]): string => {
   return str.replace(/%(\d+)\$?[sd]/g, (match, index) => {
-    const argIndex = parseInt(index) - 1;
+    const argIndex = Number.parseInt(index) - 1;
     return args[argIndex]?.toString() || match;
   });
 };
@@ -354,12 +352,16 @@ export class EventEmitter {
   }
 
   off(event: string, callback: (...args: any[]) => void): void {
-    if (!this.events[event]) return;
+    if (!this.events[event]) {
+      return;
+    }
     this.events[event] = this.events[event].filter((cb) => cb !== callback);
   }
 
   emit(event: string, ...args: any[]): void {
-    if (!this.events[event]) return;
+    if (!this.events[event]) {
+      return;
+    }
     this.events[event].forEach((callback) => callback(...args));
   }
 }

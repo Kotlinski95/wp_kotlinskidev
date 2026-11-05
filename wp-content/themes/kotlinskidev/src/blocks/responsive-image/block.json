@@ -20,6 +20,6 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:../../../build/responsive-image.js",
-  "style": "file:../../../build/style-responsive-image.css"
+  "editorScript": "file:../../../build/js/responsive-image.js",
+  "style": "file:../../../build/css/style-responsive-image.css"
 }

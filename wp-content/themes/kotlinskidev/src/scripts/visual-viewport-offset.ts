@@ -2,7 +2,9 @@ import { initMobileOnly, rafThrottle } from "./utils";
 
 (function () {
   const viewport = window.visualViewport;
-  if (!viewport) return;
+  if (!viewport) {
+    return;
+  }
 
   const root = document.documentElement;
 

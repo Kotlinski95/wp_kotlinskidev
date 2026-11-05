@@ -8,7 +8,7 @@
   "icon": "chart-bar",
   "description": "Compact list of most-visited pages. Place inside a navigation block.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/popular-pages.js",
+  "editorScript": "file:../../../build/js/popular-pages.js",
   "render": "file:./render.php",
   "attributes": {
     "title": {

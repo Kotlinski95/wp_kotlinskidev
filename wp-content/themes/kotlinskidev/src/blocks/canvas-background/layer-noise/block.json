@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-noise",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Noise",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A grain/noise texture layer for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "opacity": { "type": "number", "default": 0.06 },
+    "jitterAmount": { "type": "number", "default": 1.0 },
+    "grainSize": { "type": "number", "default": 1 }
+  }
+}

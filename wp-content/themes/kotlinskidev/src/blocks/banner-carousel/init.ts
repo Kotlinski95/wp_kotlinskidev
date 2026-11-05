@@ -1,6 +1,17 @@
 import "swiper/swiper-bundle.css";
 import Swiper from "swiper";
-import { Navigation, Pagination, Keyboard, Autoplay, Scrollbar } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Keyboard,
+  Autoplay,
+  Scrollbar,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectFlip,
+  EffectCards,
+} from "swiper/modules";
 import { buildSwiperConfig } from "@utils/carousel/buildConfig";
 import type { CarouselSettings } from "@utils/carousel/types";
 
@@ -12,7 +23,7 @@ const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   }
 };
 
-const initBannerCarousel = (el: HTMLElement): void => {
+export const initBannerCarousel = (el: HTMLElement): Swiper => {
   const settings = parseSettings(el);
   const config = buildSwiperConfig(settings);
 
@@ -42,22 +53,39 @@ const initBannerCarousel = (el: HTMLElement): void => {
   el.style.visibility = "hidden";
 
   const swiper = new Swiper(el, {
-    modules: [Navigation, Pagination, Keyboard, Autoplay, Scrollbar],
+    modules: [
+      Navigation,
+      Pagination,
+      Keyboard,
+      Autoplay,
+      Scrollbar,
+      EffectFade,
+      EffectCube,
+      EffectCoverflow,
+      EffectFlip,
+      EffectCards,
+    ],
     ...config,
   });
 
   const counterEl = navContainer?.querySelector<HTMLElement>(".carousel-nav__counter") ?? null;
   if (counterEl) {
     const total = el.querySelectorAll(".swiper-slide:not(.swiper-slide-duplicate)").length;
+    const currentSpan = document.createElement("span");
+    currentSpan.className = "carousel-nav__current";
+    counterEl.textContent = "";
+    counterEl.append(currentSpan, ` / ${String(total).padStart(2, "0")}`);
     const updateCounter = () => {
       const current = (swiper.realIndex ?? 0) + 1;
-      counterEl.innerHTML = `<span class="carousel-nav__current">${String(current).padStart(2, "0")}</span> / ${String(total).padStart(2, "0")}`;
+      currentSpan.textContent = String(current).padStart(2, "0");
     };
     updateCounter();
     swiper.on("slideChange", updateCounter);
   }
 
   el.style.visibility = "visible";
+
+  return swiper;
 };
 
 const init = (): void => {

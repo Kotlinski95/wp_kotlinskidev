@@ -5,6 +5,7 @@ import { createHigherOrderComponent } from "@wordpress/compose";
 import { InspectorAdvancedControls } from "@wordpress/block-editor";
 import { ToggleControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
 
 interface ActiveLinkState {
   disableActiveState?: boolean;
@@ -15,28 +16,40 @@ interface BlockAttributes {
 }
 
 interface BlockEditProps {
+  name?: string;
   attributes: BlockAttributes;
   setAttributes: (attrs: Partial<BlockAttributes>) => void;
 }
 
 interface BlockSettings {
+  name?: string;
   attributes?: Record<string, unknown>;
   [key: string]: unknown;
 }
 
-const addActiveLinkStateAttribute = (settings: BlockSettings): BlockSettings => ({
-  ...settings,
-  attributes: {
-    ...settings.attributes,
-    activeLinkState: {
-      type: "object",
-      default: {},
+const addActiveLinkStateAttribute = (settings: BlockSettings): BlockSettings => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name ?? "")) {
+    return settings;
+  }
+
+  return {
+    ...settings,
+    attributes: {
+      ...settings.attributes,
+      activeLinkState: {
+        type: "object",
+        default: {},
+      },
     },
-  },
-});
+  };
+};
 
 const withActiveLinkStateControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
+    if (DYNAMIC_PREVIEW_BLOCKS.includes(props.name ?? "")) {
+      return <BlockEdit {...props} />;
+    }
+
     const { attributes, setAttributes } = props;
     const activeLinkState = attributes.activeLinkState || {};
 

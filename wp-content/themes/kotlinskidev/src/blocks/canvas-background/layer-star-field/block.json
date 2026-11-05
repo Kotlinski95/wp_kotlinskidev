@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-star-field",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Star Field",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A parallax, depth-scrolling star field layer for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "layerCount": { "type": "number", "default": 7 },
+    "speed": { "type": "number", "default": 1 },
+    "color": { "type": "string", "default": "#ffffff" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

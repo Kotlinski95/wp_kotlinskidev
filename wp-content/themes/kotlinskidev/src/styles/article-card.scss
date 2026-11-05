@@ -1,0 +1,19 @@
+.kt-article-card {
+	box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.2);
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	overflow: hidden;
+
+	> .wp-block-image img {
+		display: block;
+		width: 100%;
+	}
+
+	> p {
+		padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--40) 0;
+	}
+
+	> .wp-block-buttons {
+		padding: 0 var(--wp--preset--spacing--40) var(--wp--preset--spacing--40);
+	}
+}

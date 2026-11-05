@@ -29,13 +29,13 @@ function kotlinskidev_add_responsive_order_attributes($block_content, $block) {
     if (!empty($classes)) {
         $class_string = implode(' ', $classes);
         
-        // Find the first opening tag and add our classes
+        // Find the first opening tag and merge our classes into its class attribute
         $new_content = preg_replace(
-            '/^(\s*)(<[^>]+class="[^"]*")/',
-            '$1$2 ' . esc_attr($class_string),
+            '/^(\s*<[^>]+class="[^"]*)"/',
+            '$1 ' . esc_attr($class_string) . '"',
             $block_content
         );
-        
+
         // If no class attribute exists, add one
         if (strpos($block_content, 'class=') === false) {
             $new_content = preg_replace(
@@ -51,36 +51,3 @@ function kotlinskidev_add_responsive_order_attributes($block_content, $block) {
     return $block_content;
 }
 add_filter('render_block', 'kotlinskidev_add_responsive_order_attributes', 10, 2);
-
-/**
- * Enqueue responsive order block editor assets
- */
-function kotlinskidev_enqueue_responsive_order_assets() {
-    if (!is_admin()) {
-        return;
-    }
-
-    wp_enqueue_script(
-        'kotlinskidev-responsive-order-controls',
-        get_template_directory_uri() . '/src/blocks/responsive-order/index.tsx',
-        array(
-            'wp-blocks',
-            'wp-element',
-            'wp-block-editor',
-            'wp-components',
-            'wp-i18n',
-            'wp-hooks',
-            'wp-compose'
-        ),
-        filemtime(get_template_directory() . '/src/blocks/responsive-order/index.tsx'),
-        true
-    );
-
-    // Make script translatable
-    wp_set_script_translations(
-        'kotlinskidev-responsive-order-controls',
-        'kotlinskidev',
-        get_template_directory() . '/languages'
-    );
-}
-add_action('enqueue_block_editor_assets', 'kotlinskidev_enqueue_responsive_order_assets');

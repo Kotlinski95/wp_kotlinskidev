@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="kotlinskidev-security">
+	<description>Security-only WPCS scan for the kotlinskidev theme</description>
+
+	<file>.</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<exclude-pattern>*/languages/*</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="extensions" value="php"/>
+
+	<rule ref="WordPress.Security">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array">
+				<element value="do_blocks"/>
+				<element value="render_block"/>
+				<element value="paginate_links"/>
+				<element value="wp_create_nonce"/>
+				<element value="get_block_wrapper_attributes"/>
+				<element value="human_time_diff"/>
+				<element value="get_the_modified_date"/>
+				<element value="kotlinskidev_reading_time"/>
+				<element value="kotlinskidev_highlight_search_terms"/>
+				<element value="kotlinskidev_copyrights_shortcode"/>
+				<element value="kotlinskidev_theme_switcher_shortcode"/>
+				<element value="kotlinskidev_scroll_to_top_shortcode"/>
+				<element value="get_maintenance_language_switcher"/>
+				<element value="get_maintenance_social_media_links"/>
+				<element value="kotlinskidev_google_maps_block_render_map"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

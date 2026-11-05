@@ -167,10 +167,6 @@ add_action('wp_footer', 'add_lazy_loading_override_script');
  * Add custom attributes to core/cover block without re-registering
  */
 function add_cover_block_attributes() {
-    // Don't re-register the block, just add support for our custom attribute
-    // The TypeScript will handle adding the attribute to the block editor
-    
-    // This is handled by the TypeScript in cover-lazy-loading/index.tsx
-    // which uses the blocks.registerBlockType filter to add the attribute
+    // No-op: the attribute is added client-side by cover-lazy-loading/index.tsx's blocks.registerBlockType filter.
 }
 add_action('init', 'add_cover_block_attributes');

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/article-card",
+  "version": "1.0.0",
+  "title": "Article Card",
+  "category": "kotlinskidev",
+  "icon": "id-alt",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/js/article-card.js",
+  "attributes": {
+    "cardId": { "type": "number", "default": 0 },
+    "borderGradient": { "type": "string", "default": "" },
+    "textGradient": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "border": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true
+    }
+  },
+  "render": "file:./render.php"
+}

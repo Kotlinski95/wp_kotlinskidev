@@ -8,7 +8,7 @@
   "icon": "align-center",
   "description": "Banner with media image and content for navigation panels.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/nav-content.js",
+  "editorScript": "file:../../../build/js/nav-content.js",
   "render": "file:./render.php",
   "attributes": {
     "mediaId": { "type": "integer", "default": 0 },
@@ -17,14 +17,22 @@
     "heading": { "type": "string", "default": "" },
     "description": { "type": "string", "default": "" },
     "linkUrl": { "type": "string", "default": "" },
-    "linkLabel": { "type": "string", "default": "" }
+    "linkLabel": { "type": "string", "default": "" },
+    "hoverPadding": { "type": "string", "default": "" }
   },
   "supports": {
     "html": false,
     "reusable": false,
     "color": {
       "text": true,
-      "background": false
+      "background": true,
+      "gradients": true
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
     },
     "spacing": {
       "padding": true

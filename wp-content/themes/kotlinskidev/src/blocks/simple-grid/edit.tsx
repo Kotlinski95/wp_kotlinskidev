@@ -2,7 +2,8 @@ import React from "react";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { createBlock } from "@wordpress/blocks";
-import { PanelBody, SelectControl, TextControl } from "@wordpress/components";
+import { PanelBody, SelectControl, TextControl, Modal, Button } from "@wordpress/components";
+import { useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import "./style.scss";
 
@@ -27,7 +28,7 @@ interface BlockEditorDispatch {
   removeBlocks: (clientIds: string[]) => void;
 }
 
-interface SimpleGridAttributes {
+export interface SimpleGridAttributes {
   label: string;
   mobileColumns?: number;
   tabletColumns?: number;
@@ -57,6 +58,8 @@ export default function Edit({
     "core/block-editor"
   ) as unknown as BlockEditorDispatch;
 
+  const [pendingRemovalIds, setPendingRemovalIds] = useState<string[] | null>(null);
+
   const colCount = Math.max(1, innerBlocks.length);
 
   const columnOptions = [...new Set([...COLUMN_CHOICES, colCount])]
@@ -67,7 +70,7 @@ export default function Edit({
     }));
 
   const onColumnsChange = (value: string) => {
-    const target = parseInt(value, 10);
+    const target = Number.parseInt(value, 10);
     if (!Number.isFinite(target) || target < 1 || target === innerBlocks.length) {
       return;
     }
@@ -79,18 +82,12 @@ export default function Edit({
     }
     const removed = innerBlocks.slice(target);
     const hasContent = removed.some((holder) => holder.innerBlocks.length > 0);
-    if (
-      hasContent &&
-      !window.confirm(
-        __(
-          "Reducing columns will delete the content of the removed column(s). Continue?",
-          "kotlinskidev"
-        )
-      )
-    ) {
+    const removedIds = removed.map((holder) => holder.clientId);
+    if (hasContent) {
+      setPendingRemovalIds(removedIds);
       return;
     }
-    removeBlocks(removed.map((holder) => holder.clientId));
+    removeBlocks(removedIds);
   };
 
   const mobileColumnOptions = [
@@ -100,7 +97,7 @@ export default function Edit({
   ];
 
   const onMobileColumnsChange = (value: string) => {
-    const mobileColumns = parseInt(value, 10);
+    const mobileColumns = Number.parseInt(value, 10);
     setAttributes({ mobileColumns: mobileColumns > 0 ? mobileColumns : undefined });
   };
 
@@ -108,15 +105,13 @@ export default function Edit({
     { label: __("Same as desktop", "kotlinskidev"), value: "0" },
     ...Array.from({ length: colCount }, (_, i) => i + 1).map((count) => ({
       label:
-        count === 1
-          ? __("1 column", "kotlinskidev")
-          : `${count} ${__("columns", "kotlinskidev")}`,
+        count === 1 ? __("1 column", "kotlinskidev") : `${count} ${__("columns", "kotlinskidev")}`,
       value: String(count),
     })),
   ];
 
   const onTabletColumnsChange = (value: string) => {
-    const tabletColumns = parseInt(value, 10);
+    const tabletColumns = Number.parseInt(value, 10);
     setAttributes({ tabletColumns: tabletColumns > 0 ? tabletColumns : undefined });
   };
 
@@ -169,6 +164,35 @@ export default function Edit({
       <div {...blockProps}>
         <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} template={TEMPLATE} templateLock={false} />
       </div>
+
+      {pendingRemovalIds && (
+        <Modal
+          title={__("Reduce columns?", "kotlinskidev")}
+          onRequestClose={() => setPendingRemovalIds(null)}
+        >
+          <p>
+            {__(
+              "Reducing columns will delete the content of the removed column(s). Continue?",
+              "kotlinskidev"
+            )}
+          </p>
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem" }}>
+            <Button variant="tertiary" onClick={() => setPendingRemovalIds(null)}>
+              {__("Cancel", "kotlinskidev")}
+            </Button>
+            <Button
+              variant="primary"
+              isDestructive
+              onClick={() => {
+                removeBlocks(pendingRemovalIds);
+                setPendingRemovalIds(null);
+              }}
+            >
+              {__("Continue", "kotlinskidev")}
+            </Button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 }

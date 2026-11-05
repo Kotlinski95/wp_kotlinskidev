@@ -1,3 +1,40 @@
+@mixin sliding-underline-hover {
+	position: relative;
+	text-decoration: none;
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 0;
+		height: 0.125rem;
+		background: var(--kt-underline-color, var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast))));
+		transition: width 0.3s ease;
+	}
+
+	&:hover::after,
+	&:focus-visible::after {
+		width: 100%;
+	}
+
+	&:focus-visible,
+	&.kt-link-current {
+		background-image: var(--kt-underline-color, var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast))));
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	&.kt-link-current {
+		font-weight: 600;
+	}
+}
+
+@mixin frame-shadow($blur: 2.125rem, $spread: -1.875rem, $alpha: 0.4) {
+	box-shadow: 0 $blur $blur $spread rgba(0, 0, 0, $alpha);
+}
+
 @function kt-not($selectors) {
 	$chain: "";
 
@@ -64,16 +101,197 @@
 	transition: opacity 0.25s ease;
 }
 
-@mixin custom-button-style(
-	$bg-gradient-angle: 135deg,
-	$bg-gradient-start: var(--wp--preset--color--primary),
-  $bg-gradient-end: rgba(var(--wp--preset--color--primary-rgb), 0.8),
-  $box-shadow1: rgba(var(--wp--preset--color--primary-rgb), 0.3) 0 0.375rem 1.25rem 0,
-  $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0
-) {
+@mixin kt-full-bleed-breakout {
+	position: relative;
+	left: 50%;
+	width: 100vw;
+	max-width: 100vw !important;
+	transform: translateX(-50%);
+}
+
+@mixin gradient-border($width: 0.125rem, $gradient: var(--kt-text-gradient)) {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: $width;
+	background: $gradient;
+	-webkit-mask:
+		linear-gradient(#fff 0 0) content-box,
+		linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	pointer-events: none;
+	z-index: -1;
+}
+
+@mixin kt-bg-fx-pan($gradient, $size: 400% 400%, $duration: 15s) {
+	background: $gradient;
+	background-size: $size;
+	animation: kt-bg-fx-pan var(--kt-bg-fx-duration, #{$duration}) ease infinite;
+}
+
+@mixin custom-button-style($bg-gradient-angle: 135deg, $bg-gradient-start: var(--wp--preset--color--primary), $bg-gradient-end: color-mix(in srgb, var(--wp--preset--color--primary) 80%, transparent), $box-shadow1: color-mix(in srgb, var(--wp--preset--color--primary) 30%, transparent) 0 0.375rem 1.25rem 0, $box-shadow2: rgba(0, 0, 0, 0.1) 0 0.125rem 0.25rem 0) {
+	$gradient: linear-gradient($bg-gradient-angle, $bg-gradient-start 0, $bg-gradient-end 100%);
+
 	background-clip: border-box !important;
 	background-color: rgba(0, 0, 0, 0) !important;
-	background-image: linear-gradient($bg-gradient-angle, $bg-gradient-start 0, $bg-gradient-end 100%) !important;
+	background-image: $gradient !important;
 	box-shadow: $box-shadow1, $box-shadow2 !important;
 	border: none !important;
+}
+
+@function px-to-rem($px) {
+
+	@return ($px / 16) * 1rem;
+}
+
+@mixin reveal-animation-base($duration: 1.5s) {
+	opacity: 0;
+	transition:
+		opacity $duration cubic-bezier(0.4, 0, 0.2, 1),
+		transform $duration cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: opacity, transform;
+}
+
+@mixin reveal-opacity-only($duration: 1.5s) {
+	opacity: 0;
+	transition: opacity $duration cubic-bezier(0.4, 0, 0.2, 1);
+	will-change: opacity;
+
+	&.visible {
+		opacity: var(--hover-opacity-from, 1);
+	}
+}
+
+@mixin reveal-animation-visible {
+	opacity: var(--hover-opacity-from, 1);
+	transform: none;
+}
+
+@mixin reveal-fade-direction($direction, $distance: 1.875rem, $duration: 1.5s) {
+
+	@include reveal-animation-base($duration);
+
+	@if $direction == "up" {
+		transform: translateY($distance);
+	} @else if $direction == "left" {
+		transform: translateX(-$distance);
+	} @else if $direction == "right" {
+		transform: translateX($distance);
+	}
+
+	&.visible {
+
+		@include reveal-animation-visible;
+	}
+}
+
+@mixin reveal-flip-animation($direction, $rotation: 90deg, $duration: 1.5s) {
+
+	@include reveal-animation-base($duration);
+	transform-origin: center center;
+
+	@if $direction == "up" {
+		transform: perspective(1000px) rotateX($rotation);
+	} @else if $direction == "down" {
+		transform: perspective(1000px) rotateX(-$rotation);
+	} @else if $direction == "left" {
+		transform: perspective(1000px) rotateY($rotation);
+	} @else if $direction == "right" {
+		transform: perspective(1000px) rotateY(-$rotation);
+	}
+
+	&.visible {
+		opacity: 1;
+		transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+	}
+}
+
+@mixin reveal-generate-translate-distances($direction) {
+	$distances: (
+		"sm": px-to-rem(20),
+		"md": px-to-rem(40),
+		"lg": px-to-rem(60),
+		"xl": px-to-rem(80),
+		"2xl": px-to-rem(100),
+	);
+
+	@each $size, $distance in $distances {
+		&.translate-#{$size} {
+
+			@if $direction == "up" {
+				transform: translateY($distance);
+			} @else if $direction == "left" {
+				transform: translateX(-$distance);
+			} @else if $direction == "right" {
+				transform: translateX($distance);
+			}
+
+			&.visible {
+
+				@include reveal-animation-visible;
+			}
+		}
+	}
+}
+
+@mixin reveal-generate-flip-rotations($direction) {
+	$rotations: (
+		"sm": 45deg,
+		"md": 90deg,
+		"lg": 120deg,
+		"xl": 150deg,
+		"2xl": 180deg,
+	);
+
+	@each $size, $rotation in $rotations {
+		&.translate-#{$size} {
+
+			@if $direction == "up" {
+				transform: perspective(1000px) rotateX($rotation);
+			} @else if $direction == "down" {
+				transform: perspective(1000px) rotateX(-$rotation);
+			} @else if $direction == "left" {
+				transform: perspective(1000px) rotateY($rotation);
+			} @else if $direction == "right" {
+				transform: perspective(1000px) rotateY(-$rotation);
+			}
+
+			&.visible {
+				opacity: 1;
+				transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+			}
+		}
+	}
+}
+
+@mixin kt-glow-spotlight($radius, $spotlight-var, $base: null) {
+
+	@if $base {
+		background-image:
+			radial-gradient(#{$radius} circle at var(--kt-glow-x, -9999px) var(--kt-glow-y, -9999px), var(#{$spotlight-var}, transparent) 0%, transparent 100%),
+			#{$base};
+	} @else {
+		background-image: radial-gradient(#{$radius} circle at var(--kt-glow-x, -9999px) var(--kt-glow-y, -9999px), var(#{$spotlight-var}, transparent) 0%, transparent 100%);
+	}
+}
+
+@mixin kt-glow-text-clip-base {
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+@mixin kt-glow-text-clip {
+
+	@include kt-glow-text-clip-base;
+	-webkit-text-fill-color: transparent;
+}
+
+@mixin kt-glow-reduced-motion-text-reset {
+	background-color: initial;
+	background-image: none;
+	-webkit-text-fill-color: unset;
 }

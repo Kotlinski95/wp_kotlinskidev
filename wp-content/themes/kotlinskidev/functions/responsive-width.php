@@ -1,9 +1,14 @@
 <?php
+function kotlinskidev_css_length_keywords(): array
+{
+    return [ 'auto', 'none', 'max-content', 'min-content', 'fit-content', 'stretch' ];
+}
+
 function kotlinskidev_sanitize_css_length( string $value ): string
 {
     $value = trim( $value );
 
-    if ( '' === $value || 'auto' === $value || 'none' === $value ) {
+    if ( '' === $value || in_array( $value, kotlinskidev_css_length_keywords(), true ) ) {
         return $value;
     }
 

@@ -10,7 +10,7 @@ if (!function_exists('kotlinskidev_allow_gradient_var_css')) {
             return false;
         }
 
-        $without_known_wrappers = preg_replace('/-gradient\(|rgba?\(|\)/', '', $css_test_string);
+        $without_known_wrappers = preg_replace('/-gradient\(|rgba?\(|light-dark\(|\)/', '', $css_test_string);
 
         return !preg_match('/[()]/', $without_known_wrappers);
     }

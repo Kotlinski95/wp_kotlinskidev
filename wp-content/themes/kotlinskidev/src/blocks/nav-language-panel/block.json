@@ -9,7 +9,7 @@
   "description": "Language switcher trigger with dropdown panel. Place inside a navigation block.",
   "textdomain": "kotlinskidev",
   "parent": ["core/navigation"],
-  "editorScript": "file:../../../build/language-panel.js",
+  "editorScript": "file:../../../build/js/language-panel.js",
   "render": "file:./render.php",
   "attributes": {
     "label": {

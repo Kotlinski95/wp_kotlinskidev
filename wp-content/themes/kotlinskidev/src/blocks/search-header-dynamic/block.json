@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/search-header-dynamic",
+  "version": "1.0.0",
+  "title": "Search Header (Dynamic)",
+  "category": "kotlinskidev",
+  "description": "Server-rendered search results heading, translated per the current Polylang language.",
+  "icon": "search",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/search-header-dynamic.js",
+  "supports": {
+    "html": false,
+    "inserter": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

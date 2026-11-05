@@ -116,8 +116,7 @@ add_filter('the_content', function ($content) {
             $width  = $size['width'];
             $height = $size['height'];
 
-            // If the element already has an aspect-ratio style that is not 'original',
-            // only append w/h attributes; do not overwrite the existing ratio.
+            // A non-'original' aspect-ratio style must not be overwritten — only append w/h attributes.
             if (preg_match('/style=["\'][^"\']*aspect-ratio\s*:\s*([^;"\']+)/i', $img, $aspectMatch)) {
                 $aspectValue = trim($aspectMatch[1]);
                 if (strtolower($aspectValue) !== 'original') {

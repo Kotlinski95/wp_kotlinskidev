@@ -1,40 +1,64 @@
-import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "./utils";
+import {
+  debounce,
+  getScrollTop,
+  isMobile,
+  isProgrammaticScrollActive,
+  onScroll,
+  onScreenSizeChange,
+} from "./utils";
 
 (function () {
   const header = document.querySelector("header") as HTMLElement;
   const mobileFooterNav = document.querySelector(".mobile-footer-nav") as HTMLElement;
   const scrollToTop = document.querySelector(".kotlinskidev-scrollto-top") as HTMLElement;
 
-  if (!header && !mobileFooterNav) return;
+  if (!header && !mobileFooterNav) {
+    return;
+  }
 
   let lastScrollTop = 0;
   const scrollThreshold = 10;
   const topThreshold = 100;
   const bottomThreshold = 100;
 
-  const toggleCookieButtonClass = (add: boolean) => {
-    const cookieButton = document.querySelector(".cmplz-btn.cmplz-manage-consent");
-    if (cookieButton) {
-      if (add) {
-        cookieButton.classList.add("mobile-nav-hidden");
-      } else {
-        cookieButton.classList.remove("mobile-nav-hidden");
+  const floatingIconSelectors = [
+    ".cmplz-btn.cmplz-manage-consent",
+    ".onetap-container-toggle .onetap-toggle",
+  ];
+
+  const toggleFloatingIconClass = (add: boolean) => {
+    floatingIconSelectors.forEach((selector) => {
+      const icon = document.querySelector(selector);
+      if (icon) {
+        icon.classList.toggle("mobile-nav-hidden", add);
       }
-    }
+    });
   };
 
   const showNav = () => {
-    if (header) header.classList.remove("nav-hidden");
-    if (mobileFooterNav) mobileFooterNav.classList.remove("nav-hidden");
-    if (scrollToTop) scrollToTop.classList.remove("mobile-nav-hidden");
-    toggleCookieButtonClass(false);
+    if (header) {
+      header.classList.remove("nav-hidden");
+    }
+    if (mobileFooterNav) {
+      mobileFooterNav.classList.remove("nav-hidden");
+    }
+    if (scrollToTop) {
+      scrollToTop.classList.remove("mobile-nav-hidden");
+    }
+    toggleFloatingIconClass(false);
   };
 
   const hideNav = () => {
-    if (header) header.classList.add("nav-hidden");
-    if (mobileFooterNav) mobileFooterNav.classList.add("nav-hidden");
-    if (scrollToTop) scrollToTop.classList.add("mobile-nav-hidden");
-    toggleCookieButtonClass(true);
+    if (header) {
+      header.classList.add("nav-hidden");
+    }
+    if (mobileFooterNav) {
+      mobileFooterNav.classList.add("nav-hidden");
+    }
+    if (scrollToTop) {
+      scrollToTop.classList.add("mobile-nav-hidden");
+    }
+    toggleFloatingIconClass(true);
   };
 
   const isNearBottom = (scrollTop: number) => {
@@ -45,10 +69,19 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
 
   const handleScroll = () => {
     const scrollTop = getScrollTop();
+
+    // A programmatic scroll fires real "scroll" events indistinguishable from user input — still update lastScrollTop so the next real scroll diffs correctly.
+    if (isProgrammaticScrollActive()) {
+      lastScrollTop = scrollTop;
+      return;
+    }
+
     const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
     const scrollDiff = Math.abs(scrollTop - lastScrollTop);
 
-    if (scrollDiff < scrollThreshold) return;
+    if (scrollDiff < scrollThreshold) {
+      return;
+    }
 
     if (scrollTop < topThreshold || isNearBottom(scrollTop)) {
       showNav();
@@ -70,7 +103,9 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   let removeScrollListener: (() => void) | null = null;
 
   const enableScrollHide = () => {
-    if (isListening) return;
+    if (isListening) {
+      return;
+    }
 
     handleScroll();
 
@@ -79,7 +114,9 @@ import { debounce, getScrollTop, isMobile, onScroll, onScreenSizeChange } from "
   };
 
   const disableScrollHide = () => {
-    if (!isListening) return;
+    if (!isListening) {
+      return;
+    }
 
     removeScrollListener?.();
     removeScrollListener = null;
