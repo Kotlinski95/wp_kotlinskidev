@@ -26,6 +26,69 @@ function kotlinskidev_get_contact_info(): array {
     ];
 }
 
+function kotlinskidev_parse_postal_address( string $address ): array {
+    $parts = array_values( array_filter( array_map( 'trim', explode( ',', $address ) ), 'strlen' ) );
+    if ( [] === $parts ) {
+        return [];
+    }
+
+    $postal = [ '@type' => 'PostalAddress', 'addressCountry' => 'PL' ];
+
+    if ( count( $parts ) >= 2 && 1 === preg_match( '/^(\d{2}-\d{3})\s+(.+)$/u', $parts[1], $m ) ) {
+        $postal['streetAddress']   = $parts[0];
+        $postal['postalCode']      = $m[1];
+        $postal['addressLocality'] = $m[2];
+        return $postal;
+    }
+
+    if ( count( $parts ) >= 2 && 1 === preg_match( '/^(\d{2}-\d{3})\s+(.+)$/u', $parts[0], $m ) ) {
+        $postal['streetAddress']   = $parts[1];
+        $postal['postalCode']      = $m[1];
+        $postal['addressLocality'] = $m[2];
+        return $postal;
+    }
+
+    $postal['streetAddress'] = $address;
+
+    return $postal;
+}
+
+function kotlinskidev_opening_hours_day_codes(): array {
+    return [
+        'mon' => 'Mo', 'monday' => 'Mo', 'pon' => 'Mo', 'poniedzialek' => 'Mo', 'poniedziałek' => 'Mo',
+        'tue' => 'Tu', 'tues' => 'Tu', 'tuesday' => 'Tu', 'wt' => 'Tu', 'wtorek' => 'Tu',
+        'wed' => 'We', 'wednesday' => 'We', 'sr' => 'We', 'śr' => 'We', 'sroda' => 'We', 'środa' => 'We',
+        'thu' => 'Th', 'thur' => 'Th', 'thurs' => 'Th', 'thursday' => 'Th', 'czw' => 'Th', 'czwartek' => 'Th',
+        'fri' => 'Fr', 'friday' => 'Fr', 'pt' => 'Fr', 'piatek' => 'Fr', 'piątek' => 'Fr',
+        'sat' => 'Sa', 'saturday' => 'Sa', 'sob' => 'Sa', 'sobota' => 'Sa',
+        'sun' => 'Su', 'sunday' => 'Su', 'niedz' => 'Su', 'nd' => 'Su', 'niedziela' => 'Su',
+    ];
+}
+
+function kotlinskidev_format_opening_hours( string $hours ): string {
+    $pattern = '/^\s*([\p{L}.]+)(?:\s*[-–—]\s*([\p{L}.]+))?\s*,?\s*(\d{1,2}):(\d{2})\s*[-–—]\s*(\d{1,2}):(\d{2})\s*$/u';
+    if ( 1 !== preg_match( $pattern, $hours, $m ) ) {
+        return '';
+    }
+
+    $codes = kotlinskidev_opening_hours_day_codes();
+    $from  = $codes[ mb_strtolower( rtrim( $m[1], '.' ) ) ] ?? '';
+    $to    = '' === $m[2] ? $from : ( $codes[ mb_strtolower( rtrim( $m[2], '.' ) ) ] ?? '' );
+    if ( '' === $from || '' === $to ) {
+        return '';
+    }
+
+    foreach ( [ [ $m[3], $m[4] ], [ $m[5], $m[6] ] ] as [ $h, $min ] ) {
+        if ( (int) $h > 24 || (int) $min > 59 ) {
+            return '';
+        }
+    }
+
+    $days = $from === $to ? $from : $from . '-' . $to;
+
+    return sprintf( '%s %02d:%s-%02d:%s', $days, (int) $m[3], $m[4], (int) $m[5], $m[6] );
+}
+
 function kotlinskidev_render_protected_contact_field( string $value, string $type ): string {
     if ( '' === $value ) {
         return '';
@@ -118,10 +181,7 @@ function kotlinskidev_output_service_location_business_schema(): void {
     ];
 
     if ( $info['address'] ) {
-        $schema['address'] = [
-            '@type'         => 'PostalAddress',
-            'streetAddress' => $info['address'],
-        ];
+        $schema['address'] = kotlinskidev_parse_postal_address( $info['address'] );
     }
     if ( $info['phone'] ) {
         $schema['telephone'] = $info['phone'];
@@ -129,8 +189,9 @@ function kotlinskidev_output_service_location_business_schema(): void {
     if ( $info['email'] ) {
         $schema['email'] = $info['email'];
     }
-    if ( $info['hours'] ) {
-        $schema['openingHours'] = $info['hours'];
+    $opening_hours = kotlinskidev_format_opening_hours( (string) $info['hours'] );
+    if ( '' !== $opening_hours ) {
+        $schema['openingHours'] = $opening_hours;
     }
     if ( $city ) {
         $schema['areaServed'] = $city;

@@ -14,6 +14,7 @@ function kt_city_meta(array $meta): void
 }
 
 beforeEach(function () {
+    Functions\when('pll_get_post_language')->justReturn('');
     Functions\when('get_option')->alias(fn ($name, $default = false) => $default);
     Functions\when('sanitize_key')->alias(fn ($v) => strtolower(preg_replace('/[^a-zA-Z0-9_\-]/', '', (string) $v)));
     Functions\when('sanitize_text_field')->alias(fn ($v) => trim(strip_tags((string) $v)));
@@ -25,16 +26,17 @@ beforeEach(function () {
     Functions\when('wp_slash')->returnArg(1);
 });
 
-it('is ready only with an intro plus one supporting field', function () {
+it('is ready only with an intro plus two distinct supporting fields', function () {
     expect(kotlinskidev_service_location_is_ready([]))->toBeFalse();
     expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro']))->toBeFalse();
-    expect(kotlinskidev_service_location_is_ready(['local_audience' => 'SMEs']))->toBeFalse();
-    expect(kotlinskidev_service_location_is_ready(['local_intro' => '  ', 'local_audience' => 'SMEs']))->toBeFalse();
-    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_audience' => 'SMEs']))->toBeTrue();
-    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_distance' => '30 min']))->toBeTrue();
-    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_faq' => [['question' => 'Q', 'answer' => 'A']]]))->toBeTrue();
-    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'featured_projects' => [5]]))->toBeTrue();
+    expect(kotlinskidev_service_location_is_ready(['local_audience' => 'SMEs', 'local_distance' => '30 min']))->toBeFalse();
+    expect(kotlinskidev_service_location_is_ready(['local_intro' => '  ', 'local_audience' => 'SMEs', 'local_distance' => '30 min']))->toBeFalse();
+    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_audience' => 'SMEs']))->toBeFalse();
+    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'featured_projects' => [5]]))->toBeFalse();
     expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_faq' => [], 'featured_projects' => []]))->toBeFalse();
+    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_audience' => 'SMEs', 'local_distance' => '30 min']))->toBeTrue();
+    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_distance' => '30 min', 'featured_projects' => [5]]))->toBeTrue();
+    expect(kotlinskidev_service_location_is_ready(['local_intro' => 'Intro', 'local_faq' => [['question' => 'Q', 'answer' => 'A']], 'featured_projects' => [5]]))->toBeTrue();
 });
 
 it('sanitizes the local faq to at most two complete pairs', function () {
@@ -84,7 +86,7 @@ it('leaves robots untouched for a ready city, a draft, or other post types', fun
 
     Functions\when('is_singular')->justReturn(true);
     Functions\when('get_post_status')->justReturn('publish');
-    kt_city_meta([10 => ['local_intro' => 'Intro', 'local_distance' => '30 min']]);
+    kt_city_meta([10 => ['local_intro' => 'Intro', 'local_distance' => '30 min', 'local_audience' => 'SMEs']]);
     expect(kotlinskidev_service_location_filter_robots($robots))->toBe($robots);
 
     Functions\when('get_post_status')->justReturn('draft');
@@ -103,15 +105,18 @@ it('overrides the yoast robots string only for a published city that is not read
 
     expect(kotlinskidev_service_location_filter_yoast_robots('index, follow'))->toBe('noindex, follow');
 
-    kt_city_meta([10 => ['local_intro' => 'I', 'local_audience' => 'A']]);
+    kt_city_meta([10 => ['local_intro' => 'I', 'local_audience' => 'A', 'local_distance' => 'D']]);
     expect(kotlinskidev_service_location_filter_yoast_robots('index, follow'))->toBe('index, follow');
 });
 
 it('excludes only published cities that are not ready from the sitemap', function () {
+    kotlinskidev_service_location_thin_published_ids(true);
+    Functions\when('get_transient')->justReturn(false);
+    Functions\when('set_transient')->justReturn(true);
     Functions\when('get_posts')->justReturn([1, 2, 3]);
     Functions\when('get_post_status')->justReturn('publish');
     kt_city_meta([
-        1 => ['local_intro' => 'I', 'local_audience' => 'A'],
+        1 => ['local_intro' => 'I', 'local_audience' => 'A', 'local_distance' => 'D'],
         2 => [],
         3 => ['local_intro' => 'only'],
     ]);
@@ -186,7 +191,7 @@ it('hides project cards not chosen for the city and keeps them when none are cho
 });
 
 it('adds area served, description and language to the schema only when ready', function () {
-    kt_city_meta([10 => ['local_intro' => 'Intro text', 'local_audience' => 'SMEs', 'city' => 'Katowice']]);
+    kt_city_meta([10 => ['local_intro' => 'Intro text', 'local_audience' => 'SMEs', 'local_distance' => '30 min', 'city' => 'Katowice']]);
     Functions\when('get_locale')->justReturn('en_US');
 
     $schema = kotlinskidev_service_location_filter_schema(['@type' => 'ProfessionalService'], 10);
@@ -253,4 +258,101 @@ it('creates linked en and pl drafts with titles slug and city meta', function ()
     expect($inserted[0]['meta_input'])->toBe(['city' => 'Ruda Śląska']);
     expect($languages)->toBe([101 => 'en', 102 => 'pl']);
     expect($linked)->toBe(['en' => 101, 'pl' => 102]);
+});
+
+it('caches thin ids in memory and the transient until flushed', function () {
+    kotlinskidev_service_location_thin_published_ids(true);
+    $stored = null;
+    $calls = 0;
+    Functions\when('get_transient')->alias(fn () => false);
+    Functions\when('set_transient')->alias(function ($key, $value) use (&$stored) {
+        $stored = $value;
+        return true;
+    });
+    Functions\when('get_posts')->alias(function () use (&$calls) {
+        $calls++;
+        return [2];
+    });
+    Functions\when('get_post_status')->justReturn('publish');
+    kt_city_meta([2 => []]);
+
+    expect(kotlinskidev_service_location_thin_published_ids())->toBe([2]);
+    expect(kotlinskidev_service_location_thin_published_ids())->toBe([2]);
+    expect($calls)->toBe(1);
+    expect($stored)->toBe([2]);
+
+    $deleted = [];
+    Functions\when('delete_transient')->alias(function ($key) use (&$deleted) {
+        $deleted[] = $key;
+        return true;
+    });
+    kotlinskidev_service_location_flush_thin_ids_cache();
+    expect($deleted)->toBe(['kotlinskidev_service_location_thin_ids']);
+
+    kotlinskidev_service_location_thin_published_ids();
+    expect($calls)->toBe(2);
+});
+
+it('reads thin ids from the transient when present', function () {
+    kotlinskidev_service_location_thin_published_ids(true);
+    Functions\when('get_transient')->justReturn(['5', 6]);
+    Functions\expect('get_posts')->never();
+
+    expect(kotlinskidev_service_location_thin_published_ids())->toBe([5, 6]);
+    kotlinskidev_service_location_thin_published_ids(true);
+});
+
+it('flushes the thin ids cache for city posts and status changes only', function () {
+    $deleted = 0;
+    Functions\when('delete_transient')->alias(function () use (&$deleted) {
+        $deleted++;
+        return true;
+    });
+    Functions\when('get_post_type')->alias(fn ($id) => $id === 1 ? 'service_location' : 'post');
+
+    kotlinskidev_service_location_flush_on_post(2);
+    expect($deleted)->toBe(0);
+    kotlinskidev_service_location_flush_on_post(1);
+    expect($deleted)->toBe(1);
+    kotlinskidev_service_location_flush_on_meta(9, 1);
+    expect($deleted)->toBe(2);
+
+    kotlinskidev_service_location_flush_on_transition('publish', 'publish', (object) ['post_type' => 'service_location']);
+    expect($deleted)->toBe(2);
+    kotlinskidev_service_location_flush_on_transition('publish', 'draft', (object) ['post_type' => 'post']);
+    expect($deleted)->toBe(2);
+    kotlinskidev_service_location_flush_on_transition('publish', 'draft', (object) ['post_type' => 'service_location']);
+    expect($deleted)->toBe(3);
+});
+
+it('builds a meta description from the local intro at a word boundary', function () {
+    Functions\when('wp_strip_all_tags')->alias(fn ($v) => strip_tags((string) $v));
+    $long = str_repeat('word ', 60);
+    kt_city_meta([10 => ['local_intro' => '<b>Short</b>  intro'], 11 => ['local_intro' => $long], 12 => []]);
+
+    expect(kotlinskidev_service_location_meta_description(10))->toBe('Short intro');
+    expect(kotlinskidev_service_location_meta_description(12))->toBe('');
+
+    $description = kotlinskidev_service_location_meta_description(11);
+    expect(mb_strlen($description))->toBeLessThanOrEqual(156);
+    expect($description)->toEndWith('word…');
+});
+
+it('fills the description only for a city page when yoast has none', function () {
+    Functions\when('wp_strip_all_tags')->alias(fn ($v) => strip_tags((string) $v));
+    Functions\when('get_queried_object_id')->justReturn(10);
+    kt_city_meta([10 => ['local_intro' => 'Local intro']]);
+
+    Functions\when('is_singular')->justReturn(true);
+    expect(kotlinskidev_service_location_filter_description(''))->toBe('Local intro');
+    expect(kotlinskidev_service_location_filter_description('Yoast text'))->toBe('Yoast text');
+
+    Functions\when('is_singular')->justReturn(false);
+    expect(kotlinskidev_service_location_filter_description(''))->toBe('');
+});
+
+it('requires edit_others_posts for the add city page', function () {
+    expect(file_get_contents(__DIR__ . '/../../functions/service-location-add-city.php'))
+        ->not->toContain("'edit_posts'")
+        ->toContain("'edit_others_posts'");
 });

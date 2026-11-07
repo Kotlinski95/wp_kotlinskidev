@@ -87,10 +87,10 @@ it('outputs LocalBusiness schema on singular service_location pages', function (
 
     expect($output)->toContain('<script type="application/ld+json">');
     expect($output)->toContain('"@type":"ProfessionalService"');
-    expect($output)->toContain('"streetAddress":"40-143 Katowice, ul. Dekerta"');
+    expect($output)->toContain('"streetAddress":"ul. Dekerta","postalCode":"40-143","addressLocality":"Katowice"');
     expect($output)->toContain('"telephone":"+48 608 418 911"');
     expect($output)->toContain('"email":"kotlinskidev@gmail.com"');
-    expect($output)->toContain('"openingHours":"Pon.-Pt. 8:00-17:00"');
+    expect($output)->toContain('"openingHours":"Mo-Fr 08:00-17:00"');
     expect($output)->toContain('"areaServed":"Katowice"');
 });
 

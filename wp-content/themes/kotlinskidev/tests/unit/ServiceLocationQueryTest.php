@@ -100,3 +100,26 @@ it('leaves the query untouched in the admin', function () {
 
     expect($query->set)->toBe([]);
 });
+
+it('keeps the original city slug when only another language uses it', function () {
+    Functions\when('pll_get_post_language')->justReturn('en');
+
+    expect(kotlinskidev_keep_service_location_slug_unique_per_language('unknown-2', 1, 'publish', 'service_location', 0, 'unknown'))->toBe('unknown');
+});
+
+it('keeps the suffixed slug when the same language already uses the original', function () {
+    Functions\when('pll_get_post_language')->justReturn('pl');
+
+    expect(kotlinskidev_keep_service_location_slug_unique_per_language('gliwice-2', 1, 'publish', 'service_location', 0, 'gliwice'))->toBe('gliwice-2');
+});
+
+it('keeps the original slug when the post is the one that owns it', function () {
+    Functions\when('pll_get_post_language')->justReturn('pl');
+
+    expect(kotlinskidev_keep_service_location_slug_unique_per_language('gliwice-2', 6356, 'publish', 'service_location', 0, 'gliwice'))->toBe('gliwice');
+});
+
+it('ignores other post types and unchanged slugs', function () {
+    expect(kotlinskidev_keep_service_location_slug_unique_per_language('a-2', 1, 'publish', 'post', 0, 'a'))->toBe('a-2');
+    expect(kotlinskidev_keep_service_location_slug_unique_per_language('a', 1, 'publish', 'service_location', 0, 'a'))->toBe('a');
+});

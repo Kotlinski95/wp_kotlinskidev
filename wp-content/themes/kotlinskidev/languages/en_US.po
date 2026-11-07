@@ -9980,10 +9980,10 @@ msgstr "Local content is complete. This city can be indexed."
 
 #: build/js/service-location-panel.js:1
 msgid ""
-"Needs content: until a local intro and at least one more field below are "
+"Needs content: until a local intro and at least two more fields below are "
 "filled, this city stays noindex, is left out of the sitemap and out of the "
 "city lists."
-msgstr "Needs content: until a local intro and at least one more field below are filled, this city stays noindex, is left out of the sitemap and out of the city lists."
+msgstr "Needs content: until a local intro and at least two more fields below are filled, this city stays noindex, is left out of the sitemap and out of the city lists."
 
 #: build/js/service-location-panel.js:1
 msgid "Local intro"

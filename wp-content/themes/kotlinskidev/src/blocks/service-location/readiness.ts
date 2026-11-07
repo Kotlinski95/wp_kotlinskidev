@@ -14,21 +14,24 @@ export interface ServiceLocationMeta {
 
 export const LOCAL_FAQ_MAX = 2;
 export const FEATURED_PROJECTS_MAX = 3;
+export const MIN_SUPPORTING_FIELDS = 2;
 
 export function isLocalContentReady(meta: ServiceLocationMeta | undefined): boolean {
   if (!meta || (meta.local_intro ?? "").trim() === "") {
     return false;
   }
 
-  if ((meta.local_audience ?? "").trim() !== "" || (meta.local_distance ?? "").trim() !== "") {
-    return true;
-  }
-
   const hasFaq = (meta.local_faq ?? []).some(
     (pair) => pair.question.trim() !== "" && pair.answer.trim() !== ""
   );
+  const supporting = [
+    (meta.local_audience ?? "").trim() !== "",
+    (meta.local_distance ?? "").trim() !== "",
+    hasFaq,
+    (meta.featured_projects ?? []).length > 0,
+  ].filter(Boolean).length;
 
-  return hasFaq || (meta.featured_projects ?? []).length > 0;
+  return supporting >= MIN_SUPPORTING_FIELDS;
 }
 
 export function toggleFeaturedProject(current: number[], id: number, checked: boolean): number[] {

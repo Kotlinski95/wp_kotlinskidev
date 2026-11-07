@@ -10,12 +10,21 @@ describe("isLocalContentReady", () => {
     expect(isLocalContentReady({ local_intro: "Hello" })).toBe(false);
   });
 
-  it("is ready with an intro and any supporting field", () => {
-    expect(isLocalContentReady({ local_intro: "Hi", local_audience: "SMEs" })).toBe(true);
-    expect(isLocalContentReady({ local_intro: "Hi", local_distance: "30 min" })).toBe(true);
-    expect(isLocalContentReady({ local_intro: "Hi", featured_projects: [4] })).toBe(true);
+  it("is not ready with an intro and a single supporting field", () => {
+    expect(isLocalContentReady({ local_intro: "Hi", local_audience: "SMEs" })).toBe(false);
+    expect(isLocalContentReady({ local_intro: "Hi", featured_projects: [4] })).toBe(false);
+  });
+
+  it("is ready with an intro and two distinct supporting fields", () => {
     expect(
-      isLocalContentReady({ local_intro: "Hi", local_faq: [{ question: "Q", answer: "A" }] })
+      isLocalContentReady({ local_intro: "Hi", local_audience: "SMEs", local_distance: "30 min" })
+    ).toBe(true);
+    expect(
+      isLocalContentReady({
+        local_intro: "Hi",
+        featured_projects: [4],
+        local_faq: [{ question: "Q", answer: "A" }],
+      })
     ).toBe(true);
   });
 

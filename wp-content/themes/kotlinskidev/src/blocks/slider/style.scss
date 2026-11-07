@@ -106,15 +106,18 @@
 
 .swiper.has-blur-slides {
 
-	.swiper-slide {
-		transition:
-			filter 0.3s ease,
-			opacity 0.3s ease;
-	}
+	@media (prefers-reduced-motion: no-preference) {
 
-	&:has(.swiper-slide:hover) .swiper-slide:not(:hover),
-	&:has(.swiper-slide:focus-within) .swiper-slide:not(:focus-within) {
-		filter: blur(var(--kt-blur-amount, 0.25rem));
-		opacity: 0.6;
+		.swiper-slide {
+			transition:
+				filter 0.3s ease,
+				opacity 0.3s ease;
+		}
+
+		&:has(.swiper-slide:hover) .swiper-slide:not(:hover),
+		&:has(.swiper-slide:focus-within) .swiper-slide:not(:focus-within) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
 	}
 }

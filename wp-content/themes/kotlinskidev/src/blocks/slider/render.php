@@ -56,7 +56,7 @@ $wrapper_style = $center_slides
     ? '--kt-slider-slide-width: ' . ( 100 - ( $peek * 2 ) ) . '%; --kt-slider-slide-max-width: ' . $slide_max_width
     : '';
 
-if ( $blur_other_slides && '' !== $blur_amount ) {
+if ( $blur_other_slides && 1 === preg_match( '/^\d+(\.\d+)?(px|rem|em)$/', $blur_amount ) ) {
     $wrapper_style .= ( '' === $wrapper_style ? '' : '; ' ) . '--kt-blur-amount: ' . $blur_amount;
 }
 

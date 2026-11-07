@@ -98,7 +98,7 @@ function kotlinskidev_register_add_city_page(): void {
         'edit.php?post_type=service_location',
         __( 'Add City (EN + PL)', 'kotlinskidev' ),
         __( 'Add City (EN + PL)', 'kotlinskidev' ),
-        'edit_posts',
+        'edit_others_posts',
         KOTLINSKIDEV_ADD_CITY_ACTION,
         'kotlinskidev_render_add_city_page'
     );
@@ -106,7 +106,7 @@ function kotlinskidev_register_add_city_page(): void {
 add_action( 'admin_menu', 'kotlinskidev_register_add_city_page' );
 
 function kotlinskidev_handle_add_city(): void {
-    if ( ! current_user_can( 'edit_posts' ) ) {
+    if ( ! current_user_can( 'edit_others_posts' ) ) {
         wp_die( esc_html__( 'You do not have permission to add cities.', 'kotlinskidev' ), 403 );
     }
 
@@ -164,7 +164,7 @@ function kotlinskidev_add_city_result_notice(): string {
 }
 
 function kotlinskidev_render_add_city_page(): void {
-    if ( ! current_user_can( 'edit_posts' ) ) {
+    if ( ! current_user_can( 'edit_others_posts' ) ) {
         return;
     }
 

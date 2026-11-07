@@ -10102,10 +10102,10 @@ msgstr "Treść lokalna jest kompletna. To miasto może być indeksowane."
 
 #: build/js/service-location-panel.js:1
 msgid ""
-"Needs content: until a local intro and at least one more field below are "
+"Needs content: until a local intro and at least two more fields below are "
 "filled, this city stays noindex, is left out of the sitemap and out of the "
 "city lists."
-msgstr "Wymaga treści: dopóki lokalne wprowadzenie i co najmniej jedno dodatkowe pole poniżej nie zostaną uzupełnione, to miasto ma noindex i jest pominięte w mapie witryny oraz na listach miast."
+msgstr "Wymaga treści: dopóki lokalne wprowadzenie i co najmniej dwa dodatkowe pola poniżej nie zostaną uzupełnione, to miasto ma noindex i jest pominięte w mapie witryny oraz na listach miast."
 
 #: build/js/service-location-panel.js:1
 msgid "Local intro"

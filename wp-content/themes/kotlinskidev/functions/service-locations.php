@@ -192,6 +192,22 @@ function kotlinskidev_scope_service_location_query_to_language( WP_Query $query 
 }
 add_action( 'pre_get_posts', 'kotlinskidev_scope_service_location_query_to_language', 5 );
 
+function kotlinskidev_keep_service_location_slug_unique_per_language( string $slug, int $post_id, string $post_status, string $post_type, int $post_parent, string $original_slug ): string {
+    if ( 'service_location' !== $post_type || $slug === $original_slug || ! function_exists( 'pll_get_post_language' ) ) {
+        return $slug;
+    }
+
+    $lang = (string) pll_get_post_language( $post_id, 'slug' );
+    if ( '' === $lang ) {
+        return $slug;
+    }
+
+    $existing_id = kotlinskidev_find_service_location_id_by_slug_and_language( $original_slug, $lang );
+
+    return ( 0 === $existing_id || $existing_id === $post_id ) ? $original_slug : $slug;
+}
+add_filter( 'wp_unique_post_slug', 'kotlinskidev_keep_service_location_slug_unique_per_language', 10, 6 );
+
 function kotlinskidev_service_location_translated_post_link( string $link, WP_Post $post ): string {
     if ( ! kotlinskidev_feature_enabled( 'service_locations' ) ) {
         return $link;
@@ -264,6 +280,7 @@ function kotlinskidev_render_city_grid_cards( array $args = [] ): string {
         'post_type'      => 'service_location',
         'post_status'    => 'publish',
         'posts_per_page' => -1,
+        'no_found_rows'  => true,
         'meta_key'       => 'city',
         'orderby'        => 'meta_value',
         'order'          => 'ASC',

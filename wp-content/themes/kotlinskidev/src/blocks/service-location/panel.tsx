@@ -78,7 +78,7 @@ function ServiceLocationPanel() {
           {ready
             ? __("Local content is complete. This city can be indexed.", "kotlinskidev")
             : __(
-                "Needs content: until a local intro and at least one more field below are filled, this city stays noindex, is left out of the sitemap and out of the city lists.",
+                "Needs content: until a local intro and at least two more fields below are filled, this city stays noindex, is left out of the sitemap and out of the city lists.",
                 "kotlinskidev"
               )}
         </Notice>

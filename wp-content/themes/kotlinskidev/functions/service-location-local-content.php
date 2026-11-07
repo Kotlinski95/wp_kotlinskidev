@@ -1,6 +1,8 @@
 <?php
-const KOTLINSKIDEV_LOCAL_FAQ_MAX          = 2;
-const KOTLINSKIDEV_FEATURED_PROJECTS_MAX  = 3;
+const KOTLINSKIDEV_LOCAL_FAQ_MAX                = 2;
+const KOTLINSKIDEV_LOCAL_FAQ_QUESTION_MAX_LENGTH = 300;
+const KOTLINSKIDEV_LOCAL_FAQ_ANSWER_MAX_LENGTH   = 1000;
+const KOTLINSKIDEV_FEATURED_PROJECTS_MAX        = 3;
 
 function kotlinskidev_sanitize_local_faq( $value ): array {
     if ( ! is_array( $value ) ) {
@@ -60,8 +62,8 @@ function kotlinskidev_register_service_location_local_meta(): void {
         return;
     }
 
-    $auth = function () {
-        return current_user_can( 'edit_posts' );
+    $auth = function ( $allowed, $meta_key, $post_id ) {
+        return current_user_can( 'edit_post', (int) $post_id );
     };
 
     $text_fields = [
@@ -92,8 +94,8 @@ function kotlinskidev_register_service_location_local_meta(): void {
                 'items'    => [
                     'type'       => 'object',
                     'properties' => [
-                        'question' => [ 'type' => 'string' ],
-                        'answer'   => [ 'type' => 'string' ],
+                        'question' => [ 'type' => 'string', 'maxLength' => KOTLINSKIDEV_LOCAL_FAQ_QUESTION_MAX_LENGTH ],
+                        'answer'   => [ 'type' => 'string', 'maxLength' => KOTLINSKIDEV_LOCAL_FAQ_ANSWER_MAX_LENGTH ],
                     ],
                 ],
             ],
