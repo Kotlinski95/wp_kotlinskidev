@@ -142,8 +142,55 @@ function kotlinskidev_register_service_location_translated_rewrite_rules(): void
         $slug = sanitize_title( $slug );
         add_rewrite_rule( '^' . $lang . '/' . $slug . '/([^/]+)/?$', 'index.php?service_location=$matches[1]&lang=' . $lang, 'top' );
     }
+
+    $default_lang = function_exists( 'pll_default_language' ) ? sanitize_key( (string) pll_default_language() ) : '';
+    $post_type    = get_post_type_object( 'service_location' );
+    $default_base = $post_type && is_array( $post_type->rewrite ) ? sanitize_title( (string) ( $post_type->rewrite['slug'] ?? '' ) ) : '';
+
+    if ( '' !== $default_lang && '' !== $default_base && ! isset( kotlinskidev_service_location_slug_translations()[ $default_lang ] ) ) {
+        add_rewrite_rule( '^' . $default_base . '/([^/]+)/?$', 'index.php?service_location=$matches[1]&lang=' . $default_lang, 'top' );
+    }
 }
 add_action( 'init', 'kotlinskidev_register_service_location_translated_rewrite_rules', 20 );
+
+function kotlinskidev_find_service_location_id_by_slug_and_language( string $slug, string $lang ): int {
+    global $wpdb;
+
+    $post_id = $wpdb->get_var( $wpdb->prepare(
+        "SELECT p.ID FROM {$wpdb->posts} p
+        INNER JOIN {$wpdb->term_relationships} tr ON tr.object_id = p.ID
+        INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id AND tt.taxonomy = 'language'
+        INNER JOIN {$wpdb->terms} t ON t.term_id = tt.term_id
+        WHERE p.post_type = 'service_location' AND p.post_name = %s AND t.slug = %s
+        LIMIT 1",
+        $slug,
+        $lang
+    ) );
+
+    return (int) $post_id;
+}
+
+function kotlinskidev_scope_service_location_query_to_language( WP_Query $query ): void {
+    if ( is_admin() || ! $query->is_main_query() ) {
+        return;
+    }
+
+    $slug = (string) $query->get( 'service_location' );
+    $lang = sanitize_key( (string) $query->get( 'lang' ) );
+    if ( '' === $slug || '' === $lang ) {
+        return;
+    }
+
+    $post_id = kotlinskidev_find_service_location_id_by_slug_and_language( $slug, $lang );
+    if ( $post_id <= 0 ) {
+        return;
+    }
+
+    $query->set( 'p', $post_id );
+    $query->set( 'service_location', '' );
+    $query->set( 'name', '' );
+}
+add_action( 'pre_get_posts', 'kotlinskidev_scope_service_location_query_to_language', 5 );
 
 function kotlinskidev_service_location_translated_post_link( string $link, WP_Post $post ): string {
     if ( ! kotlinskidev_feature_enabled( 'service_locations' ) ) {
@@ -209,24 +256,34 @@ function kotlinskidev_build_city_grid_style_vars( array $attributes = [] ): stri
     return rtrim( $style, ';' );
 }
 
-function kotlinskidev_render_city_grid_cards(): string {
-    $query = new WP_Query( [
+function kotlinskidev_render_city_grid_cards( array $args = [] ): string {
+    $exclude_id = (int) ( $args['exclude_id'] ?? 0 );
+    $show_empty = (bool) ( $args['show_empty'] ?? true );
+
+    $query_args = [
         'post_type'      => 'service_location',
         'post_status'    => 'publish',
         'posts_per_page' => -1,
         'meta_key'       => 'city',
         'orderby'        => 'meta_value',
         'order'          => 'ASC',
-    ] );
+    ];
 
-    if ( ! $query->have_posts() ) {
-        return '<div style="text-align:center;padding:3.75rem 0"><p style="color:var(--wp--preset--color--foreground-alt)">' . esc_html__( 'City pages will appear here soon.', 'kotlinskidev' ) . '</p></div>';
+    $lang = function_exists( 'pll_current_language' ) ? pll_current_language() : false;
+    if ( is_string( $lang ) && '' !== $lang ) {
+        $query_args['lang'] = $lang;
     }
+
+    $query = new WP_Query( $query_args );
 
     $cards = '';
     while ( $query->have_posts() ) {
         $query->the_post();
-        $city  = get_post_meta( get_the_ID(), 'city', true );
+        $post_id = (int) get_the_ID();
+        if ( $post_id === $exclude_id || ! kotlinskidev_service_location_post_is_ready( $post_id ) ) {
+            continue;
+        }
+        $city  = get_post_meta( $post_id, 'city', true );
         $cards .= sprintf(
             '<a href="%1$s" class="kt-city-grid__link"><span class="kt-city-grid__link-label">%2$s</span><span class="link-dark-variant-support kt-gradient-text kt-city-grid__link-arrow">&rarr;</span></a>',
             esc_url( get_permalink() ),
@@ -234,6 +291,10 @@ function kotlinskidev_render_city_grid_cards(): string {
         );
     }
     wp_reset_postdata();
+
+    if ( '' === $cards && $show_empty ) {
+        return '<div style="text-align:center;padding:3.75rem 0"><p style="color:var(--wp--preset--color--foreground-alt)">' . esc_html__( 'City pages will appear here soon.', 'kotlinskidev' ) . '</p></div>';
+    }
 
     return $cards; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from esc_url()/esc_html()'d values above
 }

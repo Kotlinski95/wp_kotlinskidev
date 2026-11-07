@@ -47,3 +47,56 @@ it('sanitizes a non-array value to an empty array', function () {
     expect(kotlinskidev_sanitize_enabled_features('project_cards'))->toBe([]);
     expect(kotlinskidev_sanitize_enabled_features(null))->toBe([]);
 });
+
+it('lists the four newer features as toggleable', function () {
+    expect(array_keys(kotlinskidev_toggleable_features()))->toContain('offers', 'article_toc', 'site_values', 'cover_video_controls');
+    expect(kotlinskidev_toggleable_feature_keys())->toBe(array_keys(kotlinskidev_toggleable_features()));
+});
+
+function kt_feature_migration_store(array $options): ArrayObject
+{
+    $store = new ArrayObject($options);
+    Functions\when('get_option')->alias(fn ($name, $default = false) => $store->offsetExists($name) ? $store[$name] : $default);
+    Functions\when('update_option')->alias(function ($name, $value) use ($store) {
+        $store[$name] = $value;
+        return true;
+    });
+    return $store;
+}
+
+it('migration appends the new features to an already saved option and records the version', function () {
+    $store = kt_feature_migration_store(['kotlinskidev_enabled_features' => ['project_cards', 'certificates']]);
+
+    kotlinskidev_migrate_feature_toggles();
+
+    expect($store['kotlinskidev_enabled_features'])->toBe(['project_cards', 'certificates', 'offers', 'article_toc', 'site_values', 'cover_video_controls']);
+    expect($store['kotlinskidev_feature_toggles_version'])->toBe(2);
+});
+
+it('migration leaves a fresh install without a saved option on the all-on default', function () {
+    $store = kt_feature_migration_store([]);
+
+    kotlinskidev_migrate_feature_toggles();
+
+    expect($store->offsetExists('kotlinskidev_enabled_features'))->toBeFalse();
+    expect($store['kotlinskidev_feature_toggles_version'])->toBe(2);
+    expect(kotlinskidev_feature_enabled('offers'))->toBeTrue();
+});
+
+it('migration is idempotent and never re-enables a feature the owner switched off later', function () {
+    $store = kt_feature_migration_store(['kotlinskidev_enabled_features' => ['project_cards']]);
+
+    kotlinskidev_migrate_feature_toggles();
+    $store['kotlinskidev_enabled_features'] = ['project_cards'];
+    kotlinskidev_migrate_feature_toggles();
+
+    expect($store['kotlinskidev_enabled_features'])->toBe(['project_cards']);
+});
+
+it('migration does not duplicate keys already present', function () {
+    $store = kt_feature_migration_store(['kotlinskidev_enabled_features' => ['offers', 'project_cards']]);
+
+    kotlinskidev_migrate_feature_toggles();
+
+    expect($store['kotlinskidev_enabled_features'])->toBe(['offers', 'project_cards', 'article_toc', 'site_values', 'cover_video_controls']);
+});

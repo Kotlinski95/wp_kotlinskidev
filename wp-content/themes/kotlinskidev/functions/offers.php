@@ -287,7 +287,10 @@ function kotlinskidev_offer_format_number( int|float $number ): string {
 
 function kotlinskidev_offer_format_money( int|float $number, string $currency ): string {
 	$formatted = kotlinskidev_offer_format_number( $number );
-	return 'PLN' === $currency ? $formatted . ' zł' : '€' . $formatted;
+	if ( 'PLN' === $currency ) {
+		return $formatted . ( str_starts_with( get_locale(), 'pl' ) ? ' zł' : ' PLN' );
+	}
+	return '€' . $formatted;
 }
 
 function kotlinskidev_offer_format_price( array $variant, string $currency ): string {

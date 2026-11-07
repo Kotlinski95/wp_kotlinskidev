@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/city-local-content",
+  "version": "1.0.0",
+  "title": "City Local Content",
+  "category": "kotlinskidev",
+  "description": "Per-city unique content (intro, audience, distance, local FAQ) or links to nearby ready cities. Renders nothing when empty.",
+  "icon": "location",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/city-local-content.js",
+  "style": "file:../../../build/css/style-city-local-content.css",
+  "attributes": {
+    "section": {
+      "type": "string",
+      "enum": ["intro", "faq", "nearby"],
+      "default": "intro"
+    }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

@@ -84,6 +84,8 @@ function baseAttributes() {
     peek: 20,
     slideMaxWidth: "900px",
     paginationPlacement: "outside" as const,
+    blurOtherSlides: false,
+    blurAmount: "",
   };
 }
 
@@ -317,6 +319,15 @@ describe("slider Edit", () => {
     await user.click(screen.getByRole("checkbox", { name: "Show pagination outside carousel" }));
 
     expect(setAttributes).toHaveBeenCalledWith({ paginationPlacement: "inside" });
+  });
+
+  it("toggles blurOtherSlides", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit({ blurOtherSlides: false });
+
+    await user.click(screen.getByRole("checkbox", { name: "Blur other slides on hover" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ blurOtherSlides: true });
   });
 
   it("toggles continuousAutoplay, which changes the autoplay-time help text", () => {

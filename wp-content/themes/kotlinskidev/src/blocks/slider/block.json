@@ -30,7 +30,9 @@
     "centerSlides": { "type": "boolean", "default": false },
     "peek": { "type": "number", "default": 20 },
     "slideMaxWidth": { "type": "string", "default": "900px" },
-    "paginationPlacement": { "type": "string", "default": "outside" }
+    "paginationPlacement": { "type": "string", "default": "outside" },
+    "blurOtherSlides": { "type": "boolean", "default": false },
+    "blurAmount": { "type": "string", "default": "" }
   },
   "example": {},
   "supports": {

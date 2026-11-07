@@ -54,6 +54,9 @@ if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
 }
 
 function kotlinskidev_pll_register_offers( array $post_types, bool $is_settings ): array {
+	if ( function_exists( 'kotlinskidev_feature_enabled' ) && ! kotlinskidev_feature_enabled( 'offers' ) ) {
+		return $post_types;
+	}
 	$post_types['kt_offer'] = 'kt_offer';
 	return $post_types;
 }

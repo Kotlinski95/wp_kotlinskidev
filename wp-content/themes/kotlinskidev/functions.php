@@ -8,14 +8,20 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+// Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
+require_once get_template_directory() . '/functions/feature-toggles.php';
+kotlinskidev_migrate_feature_toggles();
+
+// Named site values (Settings → kotlinski.dev → Site values) and the {token:key} render_block replacement
+require_once get_template_directory() . '/functions/site-values.php';
+
 // Article table of contents: heading parser, per-post memo, and missing heading id injection
-require_once get_template_directory() . '/functions/article-toc.php';
+if ( kotlinskidev_feature_enabled( 'article_toc' ) ) {
+    require_once get_template_directory() . '/functions/article-toc.php';
+}
 
 // Truncates wp-content/debug.log once it exceeds 5MB, under WP_DEBUG only — prevents unbounded log growth from degrading every request over time
 require_once get_template_directory() . '/functions/debug-log-rotation.php';
-
-// Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
-require_once get_template_directory() . '/functions/feature-toggles.php';
 
 // Sentry error monitoring — loaded early so it can catch fatals from anything that follows
 require_once get_template_directory() . '/functions/error-monitoring.php';
@@ -189,7 +195,9 @@ require_once get_template_directory() . '/functions/video-poster.php';
 
 // Cover video poster preload for performance optimization
 require_once get_template_directory() . '/functions/cover-video-preload.php';
-require_once get_template_directory() . '/functions/cover-video-controls.php';
+if ( kotlinskidev_feature_enabled( 'cover_video_controls' ) ) {
+    require_once get_template_directory() . '/functions/cover-video-controls.php';
+}
 require_once get_template_directory() . '/functions/responsive-media.php';
 
 // Cover image classes for lazy loading control
@@ -205,7 +213,9 @@ require_once get_template_directory() . '/functions/svg-gradient-defs.php';
 require_once get_template_directory() . '/functions/polylang-content-resolution.php';
 
 // Offers CPT: single source of truth for service prices and durations
-require_once get_template_directory() . '/functions/offers.php';
+if ( kotlinskidev_feature_enabled( 'offers' ) ) {
+    require_once get_template_directory() . '/functions/offers.php';
+}
 
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';
@@ -262,6 +272,9 @@ require_once get_template_directory() . '/functions/page-view-tracking.php';
 
 // Load city-based service location landing pages
 require_once get_template_directory() . '/functions/service-locations.php';
+require_once get_template_directory() . '/functions/service-location-local-content.php';
+require_once get_template_directory() . '/functions/service-location-seo.php';
+require_once get_template_directory() . '/functions/service-location-add-city.php';
 
 require_once get_template_directory() . '/functions/contact-card.php';
 

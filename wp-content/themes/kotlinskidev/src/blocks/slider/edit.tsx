@@ -23,6 +23,7 @@ import { memo, useEffect, useMemo, useRef, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import { onActivationKey } from "@utils/keyboardActivation";
 import SlidesPerViewControl from "@utils/carousel/SlidesPerViewControl";
+import { BlurAmountControl } from "../shared/blur-amount-control";
 
 import {
   ALLOWED_BLOCKS,
@@ -58,6 +59,8 @@ export interface SliderAttributes {
   centerSlides: boolean;
   peek: number;
   slideMaxWidth: string | number;
+  blurOtherSlides: boolean;
+  blurAmount: string;
   paginationPlacement: "inside" | "outside";
 }
 
@@ -541,6 +544,20 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               help={__("Enable navigation with keyboard arrow keys.", "kotlinskidev")}
             />
           </PanelRow>
+          <PanelRow>
+            <ToggleControl
+              label={__("Blur other slides on hover", "kotlinskidev")}
+              checked={attributes.blurOtherSlides}
+              onChange={(value) => setAttributes({ blurOtherSlides: value })}
+              help={__("Blurs and dims every slide except the hovered one.", "kotlinskidev")}
+            />
+          </PanelRow>
+          {attributes.blurOtherSlides && (
+            <BlurAmountControl
+              value={attributes.blurAmount}
+              onChange={(value) => setAttributes({ blurAmount: value })}
+            />
+          )}
         </PanelBody>
       </InspectorControls>
     </>

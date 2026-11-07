@@ -48,10 +48,17 @@ $swiper_settings = array(
     'centerSlides'     => $center_slides,
 );
 
-$wrapper_class = 'swiper' . ( $center_slides ? ' has-center-slides' : '' );
+$blur_other_slides = ! empty( $attributes['blurOtherSlides'] );
+$blur_amount       = trim( (string) ( $attributes['blurAmount'] ?? '' ) );
+
+$wrapper_class = 'swiper' . ( $center_slides ? ' has-center-slides' : '' ) . ( $blur_other_slides ? ' has-blur-slides' : '' );
 $wrapper_style = $center_slides
     ? '--kt-slider-slide-width: ' . ( 100 - ( $peek * 2 ) ) . '%; --kt-slider-slide-max-width: ' . $slide_max_width
     : '';
+
+if ( $blur_other_slides && '' !== $blur_amount ) {
+    $wrapper_style .= ( '' === $wrapper_style ? '' : '; ' ) . '--kt-blur-amount: ' . $blur_amount;
+}
 
 $wrapper_attributes = get_block_wrapper_attributes( array(
     'class' => $wrapper_class,

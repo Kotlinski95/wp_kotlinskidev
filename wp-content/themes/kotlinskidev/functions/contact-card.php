@@ -136,6 +136,11 @@ function kotlinskidev_output_service_location_business_schema(): void {
         $schema['areaServed'] = $city;
     }
 
+    $schema = apply_filters( 'kotlinskidev_service_location_schema', $schema, (int) get_the_ID() );
+    if ( [] === $schema ) {
+        return;
+    }
+
     echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_json_encode() output of a server-built array, no user HTML
 }
 add_action( 'wp_head', 'kotlinskidev_output_service_location_business_schema' );

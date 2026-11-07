@@ -88,12 +88,21 @@ it('formats EUR prices with prefix symbol and from', function () {
         ->and(kotlinskidev_offer_format($offer['range'], 'price', 'EUR'))->toBe('€250–€400');
 });
 
-it('formats PLN prices with suffix and month period', function () {
+it('formats PLN prices with zł suffix and month period on Polish locale', function () {
+    Functions\when('get_locale')->justReturn('pl_PL');
     $offer = kt_offers_fixture('PLN')['website']['variants'];
 
     expect(kotlinskidev_offer_format($offer['landing'], 'price', 'PLN'))->toBe('from 250 zł')
         ->and(kotlinskidev_offer_format($offer['range'], 'price', 'PLN'))->toBe('250–400 zł')
         ->and(kotlinskidev_offer_format($offer['monthly'], 'price', 'PLN'))->toBe('290 zł / month');
+});
+
+it('formats PLN prices with PLN suffix on non-Polish locale', function () {
+    Functions\when('get_locale')->justReturn('en_US');
+    $offer = kt_offers_fixture('PLN')['website']['variants'];
+
+    expect(kotlinskidev_offer_format($offer['landing'], 'price', 'PLN'))->toBe('from 250 PLN')
+        ->and(kotlinskidev_offer_format($offer['range'], 'price', 'PLN'))->toBe('250–400 PLN');
 });
 
 it('formats duration ranges and unit plurals', function () {
@@ -220,5 +229,7 @@ it('copies only offer_key between translations', function () {
 });
 
 it('registers kt_offer as a translatable post type', function () {
+    Functions\when('get_option')->alias(fn ($name, $default = false) => $default);
+    Functions\when('__')->returnArg(1);
     expect(kotlinskidev_pll_register_offers(['post' => 'post'], false))->toBe(['post' => 'post', 'kt_offer' => 'kt_offer']);
 });

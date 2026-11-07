@@ -9,10 +9,10 @@ beforeEach(function () {
     unset($_GET['tab']);
 });
 
-it('lists the ten known settings tabs', function () {
+it('lists the eleven known settings tabs', function () {
     $tabs = kotlinskidev_settings_tabs();
 
-    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'contact', 'advanced', 'monitoring', 'customization']);
+    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'contact', 'advanced', 'monitoring', 'customization', 'site-values']);
     expect($tabs['breakpoints']['group'])->toBe('kotlinskidev_settings_breakpoints');
     expect($tabs['security']['group'])->toBe('kotlinskidev_settings_security');
     expect($tabs['monitoring']['group'])->toBe('kotlinskidev_settings_monitoring');

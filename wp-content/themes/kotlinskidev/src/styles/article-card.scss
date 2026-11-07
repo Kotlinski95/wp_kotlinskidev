@@ -11,6 +11,12 @@
 
 	> p {
 		padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--40) 0;
+		min-height: calc(3lh + var(--wp--preset--spacing--40));
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		overflow: hidden;
 	}
 
 	> .wp-block-buttons {

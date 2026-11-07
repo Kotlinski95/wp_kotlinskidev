@@ -79,6 +79,64 @@ function kotlinskidev_sync_article_card_meta( int $card_id ): void {
     update_post_meta( $card_id, 'image_alt', $thumbnail_id ? get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true ) : '' );
 }
 
+function kotlinskidev_resync_article_cards_for_article( int $article_id ): void {
+    if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
+        return;
+    }
+
+    $card_ids = get_posts( [
+        'post_type'      => 'kt_article_card',
+        'post_status'    => 'any',
+        'posts_per_page' => -1,
+        'fields'         => 'ids',
+        'lang'           => '',
+        'meta_key'       => 'linked_article_id',
+        'meta_value'     => $article_id,
+    ] );
+
+    foreach ( $card_ids as $card_id ) {
+        kotlinskidev_sync_article_card_meta( (int) $card_id );
+    }
+}
+
+function kotlinskidev_resync_article_cards_on_thumbnail_change( $meta_id, int $post_id, string $meta_key = '' ): void {
+    if ( '_thumbnail_id' === $meta_key ) {
+        kotlinskidev_resync_article_cards_for_article( $post_id );
+    }
+}
+add_action( 'added_post_meta', 'kotlinskidev_resync_article_cards_on_thumbnail_change', 10, 3 );
+add_action( 'updated_post_meta', 'kotlinskidev_resync_article_cards_on_thumbnail_change', 10, 3 );
+add_action( 'deleted_post_meta', 'kotlinskidev_resync_article_cards_on_thumbnail_change', 10, 3 );
+
+function kotlinskidev_resync_article_cards_on_article_save( int $post_id ): void {
+    if ( ! wp_is_post_revision( $post_id ) ) {
+        kotlinskidev_resync_article_cards_for_article( $post_id );
+    }
+}
+add_action( 'save_post_post', 'kotlinskidev_resync_article_cards_on_article_save', 20 );
+
+function kotlinskidev_article_card_binding_value( $value, string $source_name, array $source_args, WP_Block $block_instance ) {
+    if ( null !== $value || 'core/post-meta' !== $source_name ) {
+        return $value;
+    }
+
+    $card_id = absint( $block_instance->context['postId'] ?? 0 );
+    $key     = (string) ( $source_args['key'] ?? '' );
+
+    if ( ! $card_id || 'kt_article_card' !== get_post_type( $card_id ) || 'publish' !== get_post_status( $card_id ) ) {
+        return $value;
+    }
+
+    if ( ! array_key_exists( $key, kotlinskidev_article_card_meta_fields() ) ) {
+        return $value;
+    }
+
+    $meta = get_post_meta( $card_id, $key, true );
+
+    return '' === $meta ? null : $meta;
+}
+add_filter( 'block_bindings_source_value', 'kotlinskidev_article_card_binding_value', 10, 4 );
+
 function kotlinskidev_sync_article_card_on_rest_insert( WP_Post $post ): void {
     if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
         return;

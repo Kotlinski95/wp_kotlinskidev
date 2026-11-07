@@ -163,3 +163,6 @@ wp-content/themes/kotlinskidev/media/hyperframes/
 
 # Skills installed by the skills CLI (restore with skills-lock.json), not source
 wp-content/themes/kotlinskidev/.agents/
+
+# Graphify knowledge graph output (local, rebuilt with graphify update .)
+graphify-out/

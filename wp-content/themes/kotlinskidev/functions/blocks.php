@@ -58,7 +58,9 @@ function kotlinskidev_register_blocks(): void {
         register_block_type( get_template_directory() . '/src/blocks/project-card' );
     }
     register_block_type( get_template_directory() . '/src/blocks/translated-text' );
-    register_block_type( get_template_directory() . '/src/blocks/offer-table' );
+    if ( kotlinskidev_feature_enabled( 'offers' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/offer-table' );
+    }
     register_block_type( get_template_directory() . '/src/blocks/process-steps' );
     register_block_type( get_template_directory() . '/src/blocks/process-steps/item' );
     register_block_type( get_template_directory() . '/src/blocks/pricing-cards' );
@@ -72,7 +74,9 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/other-topics-dynamic' );
     register_block_type( get_template_directory() . '/src/blocks/article-tags-dynamic' );
     register_block_type( get_template_directory() . '/src/blocks/related-articles-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/article-toc' );
+    if ( kotlinskidev_feature_enabled( 'article_toc' ) ) {
+        register_block_type( get_template_directory() . '/src/blocks/article-toc' );
+    }
     register_block_type( get_template_directory() . '/src/blocks/tag-posts-grid-dynamic' );
     register_block_type( get_template_directory() . '/src/blocks/popular-content-dynamic' );
     register_block_type( get_template_directory() . '/src/blocks/recently-viewed-dynamic' );
