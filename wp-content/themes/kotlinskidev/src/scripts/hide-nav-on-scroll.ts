@@ -24,6 +24,7 @@ import {
   const floatingIconSelectors = [
     ".cmplz-btn.cmplz-manage-consent",
     ".onetap-container-toggle .onetap-toggle",
+    ".kt-article-toc-toggle",
   ];
 
   const toggleFloatingIconClass = (add: boolean) => {

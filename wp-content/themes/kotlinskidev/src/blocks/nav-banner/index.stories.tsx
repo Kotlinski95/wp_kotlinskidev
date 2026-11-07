@@ -51,3 +51,19 @@ export const Empty: Story = {
     attributes: getDefaultAttributes<NavBannerAttributes>(metadata.attributes),
   },
 };
+
+export const FollowLinkedCover: Story = {
+  args: {
+    attributes: {
+      ...getDefaultAttributes<NavBannerAttributes>(metadata.attributes),
+      mediaId: 1,
+      mediaUrl: MOCK_IMAGE_WORK,
+      altText: "Storybook mock nav banner",
+      heading: "Linked page cover",
+      description: "Uses the featured image of the linked page on the front end.",
+      linkUrl: "#",
+      linkLabel: "Open",
+      followLinkedCover: true,
+    },
+  },
+};

@@ -126,7 +126,7 @@ describe("hide-nav-on-scroll.ts", () => {
     document.body.append(cookieButton);
     document.body.insertAdjacentHTML(
       "beforeend",
-      '<div class="onetap-container-toggle"><button class="onetap-toggle"></button></div>'
+      '<div class="onetap-container-toggle"><button class="onetap-toggle"></button></div><button class="kt-article-toc-toggle"></button>'
     );
     loadOnMobile();
 
@@ -142,6 +142,9 @@ describe("hide-nav-on-scroll.ts", () => {
     expect(document.querySelector(".onetap-toggle")?.classList.contains("mobile-nav-hidden")).toBe(
       true
     );
+    expect(
+      document.querySelector(".kt-article-toc-toggle")?.classList.contains("mobile-nav-hidden")
+    ).toBe(true);
   });
 
   it("re-shows the nav when switching from mobile to desktop", () => {

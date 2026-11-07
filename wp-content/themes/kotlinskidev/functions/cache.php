@@ -61,6 +61,12 @@
  *                                           canvas/scene.php). WEEK_IN_SECONDS. Invalidated
  *                                           on save_post_kt_canvas_scene/delete_post.
  *
+ *   kotlinskidev_offers_{lang}              Map of offer_key => name, currency, is_placeholder
+ *                                           and variants for one Polylang language
+ *                                           (functions/offers.php). WEEK_IN_SECONDS.
+ *                                           Invalidated on kt_offer save, trash, delete,
+ *                                           meta change and pll_save_post.
+ *
  *  Object-cache (wp_cache_get / wp_cache_set — ephemeral, per-request only when
  *  no persistent backend like Redis is active):
  *

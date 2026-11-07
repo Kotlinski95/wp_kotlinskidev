@@ -8,6 +8,9 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+// Article table of contents: heading parser, per-post memo, and missing heading id injection
+require_once get_template_directory() . '/functions/article-toc.php';
+
 // Truncates wp-content/debug.log once it exceeds 5MB, under WP_DEBUG only — prevents unbounded log growth from degrading every request over time
 require_once get_template_directory() . '/functions/debug-log-rotation.php';
 
@@ -186,6 +189,8 @@ require_once get_template_directory() . '/functions/video-poster.php';
 
 // Cover video poster preload for performance optimization
 require_once get_template_directory() . '/functions/cover-video-preload.php';
+require_once get_template_directory() . '/functions/cover-video-controls.php';
+require_once get_template_directory() . '/functions/responsive-media.php';
 
 // Cover image classes for lazy loading control
 require_once get_template_directory() . '/functions/cover-image-classes.php';
@@ -198,6 +203,9 @@ require_once get_template_directory() . '/functions/svg-gradient-defs.php';
 
 // Polylang-translatable post types (wp_navigation, wp_block) and slug-based translated post resolution
 require_once get_template_directory() . '/functions/polylang-content-resolution.php';
+
+// Offers CPT: single source of truth for service prices and durations
+require_once get_template_directory() . '/functions/offers.php';
 
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';

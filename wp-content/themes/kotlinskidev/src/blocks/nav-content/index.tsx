@@ -8,7 +8,13 @@ import {
   RichText,
 } from "@wordpress/block-editor";
 import * as blockEditor from "@wordpress/block-editor";
-import { PanelBody, Button, TextControl, TextareaControl } from "@wordpress/components";
+import {
+  PanelBody,
+  Button,
+  TextControl,
+  TextareaControl,
+  ToggleControl,
+} from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import paragraphMetadata from "../nav-paragraph/block.json";
 import imageMetadata from "../nav-image/block.json";
@@ -85,6 +91,7 @@ export interface NavBannerAttributes {
   linkUrl: string;
   linkLabel: string;
   hoverPadding: string;
+  followLinkedCover: boolean;
 }
 
 const previewStyle: CSSProperties = {
@@ -217,8 +224,17 @@ export function NavImageEdit({ attributes, setAttributes }: BlockEditProps<NavIm
 
 export function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavBannerAttributes>) {
   const blockProps = useBlockProps();
-  const { mediaId, mediaUrl, altText, heading, description, linkUrl, linkLabel, hoverPadding } =
-    attributes;
+  const {
+    mediaId,
+    mediaUrl,
+    altText,
+    heading,
+    description,
+    linkUrl,
+    linkLabel,
+    hoverPadding,
+    followLinkedCover,
+  } = attributes;
 
   const onSelectMedia = (media: MediaObject) =>
     setAttributes({ mediaId: media.id, mediaUrl: media.url, altText: media.alt ?? "" });
@@ -227,6 +243,15 @@ export function NavBannerEdit({ attributes, setAttributes }: BlockEditProps<NavB
     <div {...blockProps}>
       <InspectorControls>
         <PanelBody title={__("Image", "kotlinskidev")} initialOpen>
+          <ToggleControl
+            label={__("Use the linked page cover", "kotlinskidev")}
+            help={__(
+              "Show the featured image of the page this card links to. Falls back to the image below.",
+              "kotlinskidev"
+            )}
+            checked={!!followLinkedCover}
+            onChange={(value) => setAttributes({ followLinkedCover: value })}
+          />
           <MediaUploadCheck>
             <MediaUpload
               onSelect={onSelectMedia}

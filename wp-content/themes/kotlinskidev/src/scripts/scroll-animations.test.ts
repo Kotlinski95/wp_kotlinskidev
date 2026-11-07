@@ -172,3 +172,44 @@ describe("scroll-animations.ts — fallback without IntersectionObserver", () =>
     expect(el.classList.contains("visible")).toBe(true);
   });
 });
+
+describe("scroll-animations.ts — reveal-after-end covers", () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
+  const buildRevealCover = () => {
+    document.body.innerHTML =
+      '<div data-kt-reveal-after-end="true"><div class="fade-up-on-scroll" id="inside"></div></div><div class="fade-in-on-scroll" id="outside"></div>';
+  };
+
+  it("skips elements inside a reveal-after-end cover when observing", () => {
+    buildRevealCover();
+    const observeSpy = jest.fn();
+    class MockIntersectionObserver {
+      observe = observeSpy;
+      unobserve = jest.fn();
+    }
+    (window as unknown as { IntersectionObserver: unknown }).IntersectionObserver =
+      MockIntersectionObserver;
+
+    require("./scroll-animations");
+
+    expect(observeSpy).toHaveBeenCalledTimes(1);
+    expect(observeSpy).toHaveBeenCalledWith(document.getElementById("outside"));
+    delete (window as unknown as { IntersectionObserver?: unknown }).IntersectionObserver;
+  });
+
+  it("skips them in the no-IntersectionObserver fallback too", () => {
+    buildRevealCover();
+    delete (window as unknown as { IntersectionObserver?: unknown }).IntersectionObserver;
+    const inside = document.getElementById("inside") as HTMLElement;
+    const rectSpy = jest.spyOn(inside, "getBoundingClientRect");
+
+    require("./scroll-animations");
+    window.dispatchEvent(new Event("scroll"));
+
+    expect(rectSpy).not.toHaveBeenCalled();
+    expect(inside.classList.contains("visible")).toBe(false);
+  });
+});

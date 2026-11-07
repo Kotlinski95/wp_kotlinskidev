@@ -1,25 +1,13 @@
+import {
+  REVEAL_AFTER_END_SELECTOR,
+  SCROLL_ANIMATION_SELECTOR,
+  clearWillChangeAfterReveal,
+} from "./scroll-animation-selectors";
+
 (function () {
-  const selectors = [
-    ".appear-on-scroll",
-    ".fade-in-on-scroll",
-    ".fade-up-on-scroll",
-    ".fade-left-on-scroll",
-    ".fade-right-on-scroll",
-    ".flip-up-on-scroll",
-    ".flip-down-on-scroll",
-    ".flip-left-on-scroll",
-    ".flip-right-on-scroll",
-  ];
-  const elements = document.querySelectorAll<HTMLElement>(selectors.join(","));
-  const clearWillChangeAfterReveal = (el: HTMLElement) => {
-    el.addEventListener(
-      "transitionend",
-      () => {
-        el.style.willChange = "auto";
-      },
-      { once: true }
-    );
-  };
+  const elements = Array.from(
+    document.querySelectorAll<HTMLElement>(SCROLL_ANIMATION_SELECTOR)
+  ).filter((el) => !el.closest(REVEAL_AFTER_END_SELECTOR));
 
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(

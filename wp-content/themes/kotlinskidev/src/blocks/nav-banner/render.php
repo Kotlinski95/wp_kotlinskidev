@@ -1,4 +1,35 @@
 <?php
+if ( ! function_exists( 'kotlinskidev_nav_banner_linked_cover' ) ) {
+	function kotlinskidev_nav_banner_linked_cover( string $link_url ): array {
+		static $memo = [];
+		if ( isset( $memo[ $link_url ] ) ) {
+			return $memo[ $link_url ];
+		}
+		$cover   = [];
+		$post_id = $link_url ? (int) url_to_postid( str_starts_with( $link_url, '/' ) ? home_url( $link_url ) : $link_url ) : 0;
+		if ( $post_id ) {
+			if ( function_exists( 'kotlinskidev_resolve_translatable_post_id' ) ) {
+				$post_id = kotlinskidev_resolve_translatable_post_id( $post_id );
+			}
+			$thumb_id = (int) get_post_thumbnail_id( $post_id );
+			if ( $thumb_id ) {
+				$url = wp_get_attachment_image_url( $thumb_id, 'large' );
+				if ( ! $url ) {
+					$url = wp_get_attachment_image_url( $thumb_id, 'full' );
+				}
+				if ( $url ) {
+					$cover = [
+						'url' => (string) $url,
+						'alt' => (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ),
+					];
+				}
+			}
+		}
+		$memo[ $link_url ] = $cover;
+		return $cover;
+	}
+}
+
 $media_url     = $attributes['mediaUrl'] ?? '';
 $alt_text      = $attributes['altText'] ?? '';
 $heading       = $attributes['heading'] ?? '';
@@ -6,6 +37,16 @@ $desc          = $attributes['description'] ?? '';
 $link_url      = $attributes['linkUrl'] ?? '';
 $link_label    = $attributes['linkLabel'] ?? '';
 $hover_padding = $attributes['hoverPadding'] ?? '';
+
+if ( ! empty( $attributes['followLinkedCover'] ) ) {
+	$linked_cover = kotlinskidev_nav_banner_linked_cover( $link_url );
+	if ( $linked_cover ) {
+		$media_url = $linked_cover['url'];
+		if ( '' === $alt_text ) {
+			$alt_text = $linked_cover['alt'];
+		}
+	}
+}
 
 $wrapper_extra = [ 'class' => 'kt-nav-banner' ];
 if ( $hover_padding ) {

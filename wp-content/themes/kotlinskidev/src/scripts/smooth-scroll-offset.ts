@@ -21,7 +21,7 @@ import { getScrollTop, scrollTo, isMobile, getScrollOffsets } from "./utils";
 
   const handleAnchorLinks = () => {
     const anchorLinks = document.querySelectorAll(
-      'a[href^="#"]:not([href="#"]):not([href^="#kt-modal-"])'
+      'a[href^="#"]:not([href="#"]):not([href^="#kt-modal-"]):not([data-kt-toc-link])'
     );
 
     anchorLinks.forEach((link) => {

@@ -53,6 +53,15 @@ if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
 	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_canvas_scenes', 10, 2 );
 }
 
+function kotlinskidev_pll_register_offers( array $post_types, bool $is_settings ): array {
+	$post_types['kt_offer'] = 'kt_offer';
+	return $post_types;
+}
+
+if ( function_exists( 'pll_get_post' ) || has_filter( 'pll_get_post_types' ) ) {
+	add_filter( 'pll_get_post_types', 'kotlinskidev_pll_register_offers', 10, 2 );
+}
+
 function kotlinskidev_resolve_translatable_post_id( int $post_id ): int {
 	if ( function_exists( 'pll_get_post' ) ) {
 		$translated_id = pll_get_post( $post_id );

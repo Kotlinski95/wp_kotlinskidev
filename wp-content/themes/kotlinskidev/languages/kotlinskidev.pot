@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-06T12:29:13+00:00\n"
+"POT-Creation-Date: 2026-11-06T08:38:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: build/blocks/contact-detail/render.php:16
 #: functions/contact-card.php:57
-#: functions/settings-page.php:683
+#: functions/settings-page.php:729
 #: src/blocks/contact-detail/render.php:16
 #: build/js/contact-detail.js:1
 #: build/js/google-maps.js:1
@@ -50,9 +50,10 @@ msgstr ""
 
 #: build/blocks/contact-detail/render.php:17
 #: functions/contact-card.php:69
-#: functions/settings-page.php:691
+#: functions/settings-page.php:737
 #: src/blocks/contact-detail/render.php:17
 #: build/js/contact-detail.js:1
+#: build/js/device-frame.js:1
 #: build/js/protected-content.js:1
 msgid "Phone"
 msgstr ""
@@ -61,7 +62,7 @@ msgstr ""
 #: functions/class-contact-submissions-list-table.php:25
 #: functions/contact-card.php:75
 #: functions/contact-form-submissions.php:172
-#: functions/settings-page.php:699
+#: functions/settings-page.php:746
 #: src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1
 #: build/js/protected-content.js:1
@@ -72,7 +73,18 @@ msgstr ""
 #: functions/contact-card.php:63
 #: src/blocks/contact-detail/render.php:19
 #: build/js/contact-detail.js:1
+#: build/js/editor.js:1
 msgid "Hours"
+msgstr ""
+
+#: build/blocks/device-frame/render.php:84
+#: src/blocks/device-frame/render.php:84
+msgid "Expand video"
+msgstr ""
+
+#: build/blocks/device-frame/render.php:84
+#: src/blocks/device-frame/render.php:84
+msgid "Expand image"
 msgstr ""
 
 #: build/blocks/google-maps/render.php:29
@@ -87,9 +99,9 @@ msgid "Reset View"
 msgstr ""
 
 #: build/blocks/language-panel/render.php:19
-#: build/blocks/navigation/render.php:298
+#: build/blocks/navigation/render.php:305
 #: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:298
+#: src/blocks/navigation/render.php:305
 #: build/js/language-panel.js:1
 msgid "Language"
 msgstr ""
@@ -120,27 +132,65 @@ msgstr ""
 msgid "Interactive 3D model — click to open or close"
 msgstr ""
 
-#: build/blocks/navigation/render.php:175
-#: src/blocks/navigation/render.php:175
+#: build/blocks/navigation/render.php:181
+#: src/blocks/navigation/render.php:181
 msgid "Mobile navigation"
 msgstr ""
 
-#: build/blocks/navigation/render.php:250
-#: src/blocks/navigation/render.php:250
+#: build/blocks/navigation/render.php:256
+#: src/blocks/navigation/render.php:256
 msgid "Menu"
 msgstr ""
 
-#: build/blocks/navigation/render.php:268
+#: build/blocks/navigation/render.php:274
 #: build/blocks/search-panel/render.php:3
-#: src/blocks/navigation/render.php:268
+#: src/blocks/navigation/render.php:274
 #: src/blocks/search-panel/render.php:3
 #: build/js/search-panel.js:1
 msgid "Search"
 msgstr ""
 
-#: build/blocks/navigation/render.php:427
-#: src/blocks/navigation/render.php:427
+#: build/blocks/navigation/render.php:444
+#: src/blocks/navigation/render.php:444
 msgid "Main navigation"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:29
+#: functions/offers.php:297
+#: functions/offers.php:347
+#: functions/offers.php:350
+#: functions/offers.php:366
+#: src/blocks/offer-table/render.php:29
+msgid "Price on request"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:30
+#: functions/offers.php:323
+#: functions/offers.php:363
+#: src/blocks/offer-table/render.php:30
+msgid "Timeline agreed individually"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:47
+#: src/blocks/offer-table/render.php:47
+msgid "Package"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:48
+#: src/blocks/offer-table/render.php:48
+#: build/js/editor.js:1
+msgid "Price"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:49
+#: src/blocks/offer-table/render.php:49
+msgid "Timeline"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:50
+#: src/blocks/offer-table/render.php:50
+#: build/js/editor.js:1
+msgid "Included"
 msgstr ""
 
 #: build/blocks/pricing-cards/item/render.php:23
@@ -260,33 +310,34 @@ msgstr ""
 msgid "Protected content copied/clicked"
 msgstr ""
 
-#: functions/article-card.php:5
+#: functions/article-card.php:9
+#: functions/feature-toggles.php:5
 msgid "Article Cards"
 msgstr ""
 
-#: functions/article-card.php:6
+#: functions/article-card.php:10
 #: build/js/article-card.js:1
 msgid "Article Card"
 msgstr ""
 
-#: functions/article-card.php:7
+#: functions/article-card.php:11
 msgid "Add New Article Card"
 msgstr ""
 
-#: functions/article-card.php:8
+#: functions/article-card.php:12
 msgid "Edit Article Card"
 msgstr ""
 
-#: functions/article-card.php:9
+#: functions/article-card.php:13
 msgid "Search Article Cards"
 msgstr ""
 
-#: functions/article-card.php:10
+#: functions/article-card.php:14
 msgid "No article cards found"
 msgstr ""
 
-#: functions/article-card.php:81
-#: functions/project-card.php:82
+#: functions/article-card.php:119
+#: functions/project-card.php:116
 msgid "Select a card to display it here."
 msgstr ""
 
@@ -382,20 +433,48 @@ msgstr ""
 msgid "Most Commented"
 msgstr ""
 
-#: functions/article-query-manager.php:107
-msgid "Descending"
+#: functions/article-query-manager.php:106
+msgid "Order"
 msgstr ""
 
 #: functions/article-query-manager.php:108
+msgid "Descending"
+msgstr ""
+
+#: functions/article-query-manager.php:109
 msgid "Ascending"
 msgstr ""
 
-#: functions/article-query-manager.php:110
+#: functions/article-query-manager.php:111
 msgid "How to sort the articles"
 msgstr ""
 
-#: functions/article-query-manager.php:193
+#: functions/article-query-manager.php:194
 msgid "Mark as Featured Article"
+msgstr ""
+
+#: functions/background-effects/preset.php:5
+msgid "Background Effect Presets"
+msgstr ""
+
+#: functions/background-effects/preset.php:6
+msgid "Background Effect Preset"
+msgstr ""
+
+#: functions/background-effects/preset.php:7
+msgid "Add New Background Effect Preset"
+msgstr ""
+
+#: functions/background-effects/preset.php:8
+msgid "Edit Background Effect Preset"
+msgstr ""
+
+#: functions/background-effects/preset.php:9
+msgid "Search Background Effect Presets"
+msgstr ""
+
+#: functions/background-effects/preset.php:10
+msgid "No background effect presets found"
 msgstr ""
 
 #: functions/blocks.php:7
@@ -444,12 +523,12 @@ msgid "Blog Topics Page (PL)"
 msgstr ""
 
 #: functions/blog-topic-manager.php:206
-#: functions/blog-topic-manager.php:801
-#: functions/blog-topic-manager.php:860
+#: functions/blog-topic-manager.php:836
 #: functions/breadcrumbs.php:56
-#: functions/search-page-dynamic-blocks.php:233
-#: functions/search-page-dynamic-blocks.php:367
+#: functions/search-page-dynamic-blocks.php:252
+#: functions/search-page-dynamic-blocks.php:426
 #: functions/tag-archive-manager.php:32
+#: functions/topic-card-renderer.php:42
 #: patterns/cv-centered-facts.php:79
 msgid "Articles"
 msgstr ""
@@ -550,129 +629,95 @@ msgid "Changes will apply immediately to all category and article pages"
 msgstr ""
 
 #: functions/blog-topic-manager.php:621
-#: functions/search-page-dynamic-blocks.php:207
+#: functions/search-page-dynamic-blocks.php:226
 msgid "Search for content"
 msgstr ""
 
 #: functions/blog-topic-manager.php:622
-#: functions/search-page-dynamic-blocks.php:267
+#: functions/search-page-dynamic-blocks.php:286
 msgid "Search Content"
 msgstr ""
 
-#: functions/blog-topic-manager.php:704
+#: functions/blog-topic-manager.php:707
 msgid "Polish Search Page"
 msgstr ""
 
-#: functions/blog-topic-manager.php:725
+#: functions/blog-topic-manager.php:768
 msgid "No topics found"
 msgstr ""
 
-#: functions/blog-topic-manager.php:729
+#: functions/blog-topic-manager.php:772
 msgid "No blog topics have been created yet. Create some categories and add posts to them!"
 msgstr ""
 
-#: functions/blog-topic-manager.php:736
+#: functions/blog-topic-manager.php:779
 msgid "Create Your First Topic"
 msgstr ""
 
-#: functions/blog-topic-manager.php:801
-#: functions/blog-topic-manager.php:860
-#: functions/search-page-dynamic-blocks.php:84
-#: functions/search-page-dynamic-blocks.php:405
+#: functions/blog-topic-manager.php:836
+#: functions/search-page-dynamic-blocks.php:100
+#: functions/search-page-dynamic-blocks.php:470
 #: functions/tag-archive-manager.php:32
+#: functions/topic-card-renderer.php:42
 #: build/js/article-card-panel.js:1
 msgid "Article"
 msgstr ""
 
-#: functions/blog-topic-manager.php:807
-#, php-format
-msgid "Updated %s ago"
-msgstr ""
-
-#: functions/blog-topic-manager.php:817
-#: functions/blog-topic-manager.php:1075
-#, php-format
-msgid "Explore %s"
-msgstr ""
-
-#: functions/blog-topic-manager.php:875
-#: functions/search-page-dynamic-blocks.php:249
+#: functions/blog-topic-manager.php:851
+#: functions/search-page-dynamic-blocks.php:268
 msgid "All Topics"
 msgstr ""
 
-#: functions/blog-topic-manager.php:955
-#: functions/blog-topic-manager.php:1292
-#: functions/search-page-dynamic-blocks.php:450
-#: functions/tag-archive-manager.php:125
-msgid "Read Article"
-msgstr ""
-
-#: functions/blog-topic-manager.php:968
-#: functions/search-page-dynamic-blocks.php:467
-#: functions/tag-archive-manager.php:138
+#: functions/blog-topic-manager.php:904
+#: functions/search-page-dynamic-blocks.php:526
+#: functions/tag-archive-manager.php:89
 msgid "Previous"
 msgstr ""
 
-#: functions/blog-topic-manager.php:969
-#: functions/search-page-dynamic-blocks.php:468
-#: functions/tag-archive-manager.php:139
+#: functions/blog-topic-manager.php:905
+#: functions/search-page-dynamic-blocks.php:527
+#: functions/tag-archive-manager.php:90
 msgid "Next"
 msgstr ""
 
-#: functions/blog-topic-manager.php:977
+#: functions/blog-topic-manager.php:913
 msgid "No articles in this topic yet"
 msgstr ""
 
-#: functions/blog-topic-manager.php:978
+#: functions/blog-topic-manager.php:914
 msgid "Articles for this topic are coming soon!"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1008
+#: functions/blog-topic-manager.php:944
 msgid "Other Topics"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1063
-#: functions/tag-archive-manager.php:208
-msgid "article"
-msgstr ""
-
-#: functions/blog-topic-manager.php:1063
-#: functions/tag-archive-manager.php:208
-msgid "articles"
-msgstr ""
-
-#: functions/blog-topic-manager.php:1067
-#: functions/tag-archive-manager.php:213
-#, php-format
-msgid "Updated %s"
-msgstr ""
-
-#: functions/blog-topic-manager.php:1089
+#: functions/blog-topic-manager.php:960
 msgid "No other topics available yet."
 msgstr ""
 
-#: functions/blog-topic-manager.php:1108
+#: functions/blog-topic-manager.php:979
 #: build/js/project-card-panel.js:1
 msgid "Tags"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1216
+#: functions/blog-topic-manager.php:1087
 msgid "Related Articles"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1253
+#: functions/blog-topic-manager.php:1108
 msgid "Highly Related"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1255
+#: functions/blog-topic-manager.php:1110
 msgid "Same Topic"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1257
+#: functions/blog-topic-manager.php:1112
 msgid "Similar Tags"
 msgstr ""
 
-#: functions/blog-topic-manager.php:1302
+#: functions/blog-topic-manager.php:1126
 msgid "No related articles found."
 msgstr ""
 
@@ -681,87 +726,212 @@ msgstr ""
 msgid "Search results for \"%s\""
 msgstr ""
 
-#: functions/cache.php:230
-#: functions/cache.php:231
+#: functions/cache.php:247
+#: functions/cache.php:248
 msgid "Theme Cache"
 msgstr ""
 
-#: functions/cache.php:249
+#: functions/cache.php:266
 msgid "Theme cache cleared successfully."
 msgstr ""
 
-#: functions/cache.php:270
+#: functions/cache.php:287
 msgid "kotlinskidev — Theme Cache"
 msgstr ""
 
-#: functions/cache.php:272
+#: functions/cache.php:289
 msgid "Cached entries currently stored in the database:"
 msgstr ""
 
-#: functions/cache.php:278
+#: functions/cache.php:295
 msgid "Cache group"
 msgstr ""
 
-#: functions/cache.php:279
+#: functions/cache.php:296
 msgid "Key pattern"
 msgstr ""
 
-#: functions/cache.php:280
+#: functions/cache.php:297
 msgid "Invalidated by"
 msgstr ""
 
-#: functions/cache.php:285
+#: functions/cache.php:302
 msgid "Critical CSS"
 msgstr ""
 
-#: functions/cache.php:287
-#: functions/cache.php:292
+#: functions/cache.php:304
+#: functions/cache.php:309
 msgid "Build deploy (filemtime)"
 msgstr ""
 
-#: functions/cache.php:290
+#: functions/cache.php:307
 msgid "Critical JS"
 msgstr ""
 
-#: functions/cache.php:295
+#: functions/cache.php:312
 msgid "JS translations"
 msgstr ""
 
-#: functions/cache.php:297
+#: functions/cache.php:314
 msgid "Language file update / manual flush"
 msgstr ""
 
-#: functions/cache.php:300
+#: functions/cache.php:317
 msgid "Image dimensions"
 msgstr ""
 
-#: functions/cache.php:302
-#: functions/cache.php:312
+#: functions/cache.php:319
+#: functions/cache.php:329
 msgid "Attachment edit / delete / manual flush"
 msgstr ""
 
-#: functions/cache.php:305
+#: functions/cache.php:322
 msgid "Popular posts"
 msgstr ""
 
-#: functions/cache.php:307
+#: functions/cache.php:324
 msgid "15 minute TTL / manual flush"
 msgstr ""
 
-#: functions/cache.php:310
+#: functions/cache.php:327
 msgid "Inlined SVGs"
 msgstr ""
 
-#: functions/cache.php:315
+#: functions/cache.php:332
 msgid "Build fingerprint"
 msgstr ""
 
-#: functions/cache.php:317
+#: functions/cache.php:334
 msgid "Set automatically on every new build"
 msgstr ""
 
-#: functions/cache.php:326
+#: functions/cache.php:337
+msgid "Certificate badge fetch"
+msgstr ""
+
+#: functions/cache.php:339
+msgid "1 day TTL / manual flush"
+msgstr ""
+
+#: functions/cache.php:348
 msgid "Clear all theme cache"
+msgstr ""
+
+#: functions/canvas/scene.php:9
+msgid "Canvas Scenes"
+msgstr ""
+
+#: functions/canvas/scene.php:10
+#: build/js/editor.js:1
+msgid "Canvas Scene"
+msgstr ""
+
+#: functions/canvas/scene.php:11
+msgid "Add New Canvas Scene"
+msgstr ""
+
+#: functions/canvas/scene.php:12
+msgid "Edit Canvas Scene"
+msgstr ""
+
+#: functions/canvas/scene.php:13
+msgid "Search Canvas Scenes"
+msgstr ""
+
+#: functions/canvas/scene.php:14
+msgid "No canvas scenes found"
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:119
+msgid "Certificates are disabled on this site."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:123
+msgid "Insufficient permissions."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:128
+msgid "Security check failed."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:133
+msgid "A badge URL is required."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:138
+msgid "Only Credly or Accredible badge URLs are supported."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:142
+msgid "That URL could not be verified."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:152
+msgid "Could not reach that URL."
+msgstr ""
+
+#: functions/certificate-badge-fetch.php:156
+msgid "That URL did not return a page we could read."
+msgstr ""
+
+#: functions/certificate.php:9
+#: functions/feature-toggles.php:7
+msgid "Certificates"
+msgstr ""
+
+#: functions/certificate.php:10
+#: build/js/certificate.js:1
+msgid "Certificate"
+msgstr ""
+
+#: functions/certificate.php:11
+msgid "Add New Certificate"
+msgstr ""
+
+#: functions/certificate.php:12
+msgid "Edit Certificate"
+msgstr ""
+
+#: functions/certificate.php:13
+msgid "Search Certificates"
+msgstr ""
+
+#: functions/certificate.php:14
+msgid "No certificates found"
+msgstr ""
+
+#. translators: %s: formatted issue date
+#: functions/certificate.php:70
+#: functions/certificate.php:74
+#, php-format
+msgid "Issued %s"
+msgstr ""
+
+#: functions/certificate.php:126
+msgid "Verify"
+msgstr ""
+
+#. translators: %s: credential ID
+#: functions/certificate.php:160
+#, php-format
+msgid "Credential ID: %s"
+msgstr ""
+
+#: functions/certificate.php:166
+#: functions/certificate.php:167
+msgid "View credential →"
+msgstr ""
+
+#: functions/certificate.php:216
+msgid "Certified in"
+msgstr ""
+
+#: functions/certificate.php:225
+msgid "All credentials →"
+msgstr ""
+
+#: functions/certificate.php:237
+msgid "Select a certificate to display it here."
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:23
@@ -804,7 +974,6 @@ msgid "Email delivery failed"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:77
-#: functions/search-page-dynamic-blocks.php:103
 msgid "View"
 msgstr ""
 
@@ -818,7 +987,7 @@ msgid "Contact details"
 msgstr ""
 
 #: functions/contact-card.php:87
-#: functions/service-locations.php:253
+#: functions/service-locations.php:305
 msgid "Contact Card"
 msgstr ""
 
@@ -909,12 +1078,36 @@ msgstr ""
 msgid "CSS class name to add to cover images that should skip lazy loading. Common options: skip-lazy, no-lazy, exclude-lazy"
 msgstr ""
 
+#: functions/device-frame-lightbox.php:38
+msgid "Expanded media"
+msgstr ""
+
+#: functions/device-frame-lightbox.php:41
+#: functions/marquee.php:6
+#: functions/modals.php:129
+msgid "Close"
+msgstr ""
+
 #: functions/disable-comments.php:27
 msgid "Comments are disabled on this site."
 msgstr ""
 
 #: functions/disable-comments.php:28
 msgid "Comments Disabled"
+msgstr ""
+
+#: functions/feature-toggles.php:4
+#: functions/project-card.php:9
+msgid "Project Cards"
+msgstr ""
+
+#: functions/feature-toggles.php:6
+#: functions/service-locations.php:9
+msgid "Service Locations"
+msgstr ""
+
+#: functions/feature-toggles.php:8
+msgid "Canvas Backgrounds"
 msgstr ""
 
 #: functions/icon-library.php:4
@@ -967,9 +1160,8 @@ msgstr ""
 msgid "View full-size image: %s"
 msgstr ""
 
-#: functions/marquee.php:6
-#: functions/modals.php:129
-msgid "Close"
+#: functions/list-style-variants.php:7
+msgid "Checkmark"
 msgstr ""
 
 #: functions/marquee.php:11
@@ -1000,6 +1192,73 @@ msgstr ""
 
 #: functions/modals.php:10
 msgid "No modals found"
+msgstr ""
+
+#: functions/offers.php:5
+msgid "Offers"
+msgstr ""
+
+#: functions/offers.php:6
+#: build/js/editor.js:1
+#: build/js/offer-table.js:1
+msgid "Offer"
+msgstr ""
+
+#: functions/offers.php:7
+msgid "Add New Offer"
+msgstr ""
+
+#: functions/offers.php:8
+msgid "Edit Offer"
+msgstr ""
+
+#: functions/offers.php:9
+msgid "Search Offers"
+msgstr ""
+
+#: functions/offers.php:10
+msgid "No offers found"
+msgstr ""
+
+#: functions/offers.php:307
+msgid "from"
+msgstr ""
+
+#: functions/offers.php:313
+msgid "/ month"
+msgstr ""
+
+#. translators: %s: number of hours
+#: functions/offers.php:333
+#, php-format
+msgid "%s hour"
+msgid_plural "%s hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: functions/offers.php:335
+#, php-format
+msgid "%s week"
+msgid_plural "%s weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: functions/offers.php:337
+#, php-format
+msgid "%s day"
+msgid_plural "%s days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: functions/offers.php:538
+#, php-format
+msgid "%d offer uses placeholder prices"
+msgid_plural "%d offers use placeholder prices"
+msgstr[0] ""
+msgstr[1] ""
+
+#: functions/offers.php:555
+msgid "Review offers"
 msgstr ""
 
 #: functions/patterns.php:5
@@ -1042,227 +1301,233 @@ msgstr ""
 msgid "Language option"
 msgstr ""
 
-#: functions/project-card.php:5
-msgid "Project Cards"
+#: functions/post-card-renderer.php:6
+#: functions/search-page-dynamic-blocks.php:101
+#: functions/search-page-dynamic-blocks.php:510
+msgid "Read Article"
 msgstr ""
 
-#: functions/project-card.php:6
+#: functions/project-card.php:10
 #: build/js/project-card.js:1
 msgid "Project Card"
 msgstr ""
 
-#: functions/project-card.php:7
+#: functions/project-card.php:11
 msgid "Add New Project Card"
 msgstr ""
 
-#: functions/project-card.php:8
+#: functions/project-card.php:12
 msgid "Edit Project Card"
 msgstr ""
 
-#: functions/project-card.php:9
+#: functions/project-card.php:13
 msgid "Search Project Cards"
 msgstr ""
 
-#: functions/project-card.php:10
+#: functions/project-card.php:14
 msgid "No project cards found"
 msgstr ""
 
-#: functions/protection-helpers.php:169
+#: functions/protection-helpers.php:172
 msgid "KotlinskiDev"
 msgstr ""
 
-#: functions/protection-helpers.php:194
+#: functions/protection-helpers.php:197
 msgid "Failed to load protected content"
 msgstr ""
 
-#: functions/protection-helpers.php:408
-#: functions/protection-helpers.php:409
+#: functions/protection-helpers.php:411
+#: functions/protection-helpers.php:412
 msgid "Content Protection"
 msgstr ""
 
-#: functions/protection-helpers.php:427
+#: functions/protection-helpers.php:430
 msgid "Security check failed"
 msgstr ""
 
-#: functions/protection-helpers.php:431
+#: functions/protection-helpers.php:434
 msgid "You do not have permission to change these settings"
 msgstr ""
 
-#: functions/protection-helpers.php:437
+#: functions/protection-helpers.php:440
 msgid "Settings saved!"
 msgstr ""
 
-#: functions/protection-helpers.php:448
+#: functions/protection-helpers.php:451
 msgid "Content Protection Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:452
+#: functions/protection-helpers.php:455
 msgid "Auto-Protection Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:455
+#: functions/protection-helpers.php:458
 msgid "Auto-protect Emails"
 msgstr ""
 
-#: functions/protection-helpers.php:458
+#: functions/protection-helpers.php:461
 msgid "Automatically protect all email addresses in content"
 msgstr ""
 
-#: functions/protection-helpers.php:462
+#: functions/protection-helpers.php:465
 msgid "Auto-protect Phone Numbers"
 msgstr ""
 
-#: functions/protection-helpers.php:465
+#: functions/protection-helpers.php:468
 msgid "Automatically protect all phone numbers in content"
 msgstr ""
 
-#: functions/protection-helpers.php:470
+#: functions/protection-helpers.php:473
 msgid "Encryption Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:473
+#: functions/protection-helpers.php:476
 msgid "Encryption Status"
 msgstr ""
 
-#: functions/protection-helpers.php:476
+#: functions/protection-helpers.php:479
 msgid "RSA-2048 encryption is active"
 msgstr ""
 
-#: functions/protection-helpers.php:478
+#: functions/protection-helpers.php:481
 msgid "Keys are stored securely in wp-config.php"
 msgstr ""
 
-#: functions/protection-helpers.php:480
+#: functions/protection-helpers.php:483
 msgid "Keys are stored in database (less secure)"
 msgstr ""
 
-#: functions/protection-helpers.php:483
+#: functions/protection-helpers.php:486
 msgid "No encryption keys found"
 msgstr ""
 
-#: functions/protection-helpers.php:485
+#: functions/protection-helpers.php:488
 msgid "Content is encrypted using RSA-2048 encryption for maximum security."
 msgstr ""
 
-#: functions/protection-helpers.php:489
+#: functions/protection-helpers.php:492
 msgid "Key Storage Method"
 msgstr ""
 
-#: functions/protection-helpers.php:492
+#: functions/protection-helpers.php:495
 msgid "Currently using wp-config.php (Recommended)"
 msgstr ""
 
-#: functions/protection-helpers.php:493
+#: functions/protection-helpers.php:496
 msgid "Keys are securely stored in wp-config.php constants."
 msgstr ""
 
-#: functions/protection-helpers.php:496
+#: functions/protection-helpers.php:499
 msgid "Database (Default)"
 msgstr ""
 
-#: functions/protection-helpers.php:497
+#: functions/protection-helpers.php:500
 msgid "wp-config.php (More Secure)"
 msgstr ""
 
-#: functions/protection-helpers.php:500
+#: functions/protection-helpers.php:503
 msgid "Database storage is convenient but less secure. wp-config.php storage requires manual setup but is more secure."
 msgstr ""
 
-#: functions/protection-helpers.php:506
+#: functions/protection-helpers.php:509
 msgid "Generate New Keys"
 msgstr ""
 
-#: functions/protection-helpers.php:509
+#: functions/protection-helpers.php:512
 msgid "Generate New Encryption Keys"
 msgstr ""
 
-#: functions/protection-helpers.php:512
+#: functions/protection-helpers.php:515
 msgid "Warning: Regenerating keys will make all existing protected content unreadable until re-protected."
 msgstr ""
 
-#: functions/protection-helpers.php:523
+#: functions/protection-helpers.php:526
 msgid "wp-config.php Setup Instructions"
 msgstr ""
 
-#: functions/protection-helpers.php:524
+#: functions/protection-helpers.php:527
 msgid "To use wp-config.php storage, add these constants to your wp-config.php file:"
 msgstr ""
 
-#: functions/protection-helpers.php:526
+#: functions/protection-helpers.php:529
 msgid "Generate & Show wp-config.php Constants"
 msgstr ""
 
-#: functions/protection-helpers.php:530
-msgid "Instructions:"
-msgstr ""
-
 #: functions/protection-helpers.php:532
-msgid "Copy the constants above"
-msgstr ""
-
-#: functions/protection-helpers.php:533
-msgid "Add them to your wp-config.php file before the line that says \"/* That's all, stop editing! */\""
+msgid "Generated wp-config.php constants"
 msgstr ""
 
 #: functions/protection-helpers.php:534
+msgid "Instructions:"
+msgstr ""
+
+#: functions/protection-helpers.php:536
+msgid "Copy the constants above"
+msgstr ""
+
+#: functions/protection-helpers.php:537
+msgid "Add them to your wp-config.php file before the line that says \"/* That's all, stop editing! */\""
+msgstr ""
+
+#: functions/protection-helpers.php:538
 msgid "Save the file and reload this page"
 msgstr ""
 
-#: functions/protection-helpers.php:542
+#: functions/protection-helpers.php:546
 msgid "Are you sure? This will invalidate all existing protected content."
 msgstr ""
 
-#: functions/protection-helpers.php:557
+#: functions/protection-helpers.php:561
 msgid "Keys regenerated successfully!"
-msgstr ""
-
-#: functions/protection-helpers.php:560
-#: functions/protection-helpers.php:586
-msgid "Error: "
 msgstr ""
 
 #: functions/protection-helpers.php:564
 #: functions/protection-helpers.php:590
+msgid "Error: "
+msgstr ""
+
+#: functions/protection-helpers.php:568
+#: functions/protection-helpers.php:594
 msgid "Network error occurred"
 msgstr ""
 
-#: functions/protection-helpers.php:583
+#: functions/protection-helpers.php:587
 msgid "Constants Generated"
 msgstr ""
 
-#: functions/protection-helpers.php:596
+#: functions/protection-helpers.php:600
 msgid "Usage Examples"
 msgstr ""
 
-#: functions/protection-helpers.php:597
+#: functions/protection-helpers.php:601
 msgid "Block Editor"
 msgstr ""
 
-#: functions/protection-helpers.php:598
+#: functions/protection-helpers.php:602
 msgid "Use the \"Protected Content\" block from the KotlinskiDev category."
 msgstr ""
 
-#: functions/protection-helpers.php:600
+#: functions/protection-helpers.php:604
 msgid "Shortcode"
 msgstr ""
 
-#: functions/protection-helpers.php:633
+#: functions/protection-helpers.php:637
 msgid "Copy to clipboard"
 msgstr ""
 
-#: functions/protection-helpers.php:634
+#: functions/protection-helpers.php:638
 msgid "Copied to clipboard"
 msgstr ""
 
-#: functions/protection-helpers.php:682
+#: functions/protection-helpers.php:686
 msgid "Security token expired. This may be due to page caching. Please refresh the page and try again."
 msgstr ""
 
-#: functions/protection-helpers.php:691
+#: functions/protection-helpers.php:695
 msgid "No content provided"
 msgstr ""
 
-#: functions/protection-helpers.php:695
+#: functions/protection-helpers.php:699
 msgid "Too many items requested"
 msgstr ""
 
@@ -1271,207 +1536,195 @@ msgstr ""
 msgid "Scroll to Top"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:41
+#: functions/search-page-dynamic-blocks.php:71
 msgid "Popular Content"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:84
-#: functions/search-page-dynamic-blocks.php:405
+#: functions/search-page-dynamic-blocks.php:100
+#: functions/search-page-dynamic-blocks.php:470
 msgid "Page"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:100
-msgid "Updated"
+#: functions/search-page-dynamic-blocks.php:101
+#: functions/search-page-dynamic-blocks.php:510
+msgid "View Page"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:103
-msgid "Read"
+#: functions/search-page-dynamic-blocks.php:124
+msgid "Recently Viewed"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:134
+#: functions/search-page-dynamic-blocks.php:149
 msgid "Search Results"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:138
-msgid "Search Our Content"
+#: functions/search-page-dynamic-blocks.php:153
+msgid "Search My Content"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:142
-msgid "Find articles, pages, and resources across our entire site"
-msgstr ""
-
-#: functions/search-page-dynamic-blocks.php:213
-msgid "Enter keywords, topics, or specific terms..."
-msgstr ""
-
-#: functions/search-page-dynamic-blocks.php:218
-msgid "Search across all articles, pages, and content on the site"
-msgstr ""
-
-#: functions/search-page-dynamic-blocks.php:226
-msgid "Content Type"
+#: functions/search-page-dynamic-blocks.php:157
+msgid "Find articles, pages, and resources across my entire site"
 msgstr ""
 
 #: functions/search-page-dynamic-blocks.php:232
-msgid "All Content"
-msgstr ""
-
-#: functions/search-page-dynamic-blocks.php:234
-#: functions/search-page-dynamic-blocks.php:367
-msgid "Pages"
+msgid "Enter keywords, topics, or specific terms..."
 msgstr ""
 
 #: functions/search-page-dynamic-blocks.php:237
+msgid "Search across all articles, pages, and content on the site"
+msgstr ""
+
+#: functions/search-page-dynamic-blocks.php:245
+msgid "Content Type"
+msgstr ""
+
+#: functions/search-page-dynamic-blocks.php:251
+msgid "All Content"
+msgstr ""
+
+#: functions/search-page-dynamic-blocks.php:253
+#: functions/search-page-dynamic-blocks.php:426
+msgid "Pages"
+msgstr ""
+
+#: functions/search-page-dynamic-blocks.php:256
 msgid "Filter results by content type: articles, pages, or all content"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:243
+#: functions/search-page-dynamic-blocks.php:262
 msgid "Topic Category"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:259
+#: functions/search-page-dynamic-blocks.php:278
 msgid "Filter results by topic category"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:270
+#: functions/search-page-dynamic-blocks.php:289
 msgid "Search for content using the criteria above"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:277
+#: functions/search-page-dynamic-blocks.php:296
 msgid "search"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:282
+#: functions/search-page-dynamic-blocks.php:301
 msgid "Clear search and return to homepage"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:283
+#: functions/search-page-dynamic-blocks.php:302
 msgid "Clear search and filters"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:358
+#: functions/search-page-dynamic-blocks.php:417
 #, php-format
 msgid "Found %d results"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:361
+#: functions/search-page-dynamic-blocks.php:420
 #, php-format
 msgid "Showing results for \"%s\""
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:363
+#: functions/search-page-dynamic-blocks.php:422
 #, php-format
 msgid " in %s"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:368
+#: functions/search-page-dynamic-blocks.php:427
 #, php-format
 msgid " • %s only"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:375
+#: functions/search-page-dynamic-blocks.php:434
 #, php-format
 msgid "Page %d of %d"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:450
-msgid "View Page"
-msgstr ""
-
-#: functions/search-page-dynamic-blocks.php:494
+#: functions/search-page-dynamic-blocks.php:565
 msgid "Looking for something else?"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:497
+#: functions/search-page-dynamic-blocks.php:568
 msgid "Try searching for a different term or explore more content using the search form below."
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:517
+#: functions/search-page-dynamic-blocks.php:588
 msgid "No results found"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:522
+#: functions/search-page-dynamic-blocks.php:593
 #, php-format
 msgid "We couldn't find any content matching \"%s\""
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:526
+#: functions/search-page-dynamic-blocks.php:597
 msgid " with your current filters"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:531
+#: functions/search-page-dynamic-blocks.php:602
 msgid "Try these search tips:"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:533
+#: functions/search-page-dynamic-blocks.php:604
 msgid "Check your spelling and try again"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:534
+#: functions/search-page-dynamic-blocks.php:605
 msgid "Use fewer or different keywords"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:535
+#: functions/search-page-dynamic-blocks.php:606
 msgid "Remove content type or category filters"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:536
+#: functions/search-page-dynamic-blocks.php:607
 msgid "Try more general terms"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:537
+#: functions/search-page-dynamic-blocks.php:608
 msgid "Search for related topics or synonyms"
 msgstr ""
 
-#: functions/search-page-dynamic-blocks.php:543
+#: functions/search-page-dynamic-blocks.php:614
 msgid "Browse All Content"
 msgstr ""
 
-#: functions/service-locations.php:5
-msgid "Service Locations"
-msgstr ""
-
-#: functions/service-locations.php:6
+#: functions/service-locations.php:10
 msgid "Service Location"
 msgstr ""
 
-#: functions/service-locations.php:7
+#: functions/service-locations.php:11
 msgid "Add New City Page"
 msgstr ""
 
-#: functions/service-locations.php:8
+#: functions/service-locations.php:12
 msgid "Edit City Page"
 msgstr ""
 
-#: functions/service-locations.php:9
+#: functions/service-locations.php:13
 msgid "Search City Pages"
 msgstr ""
 
-#: functions/service-locations.php:10
+#: functions/service-locations.php:14
 msgid "No city pages found"
 msgstr ""
 
-#: functions/service-locations.php:155
+#: functions/service-locations.php:223
 msgid "City pages will appear here soon."
 msgstr ""
 
-#: functions/service-locations.php:191
-#: functions/service-locations.php:251
-msgid "City Grid"
-msgstr ""
-
 #. translators: %s: city name
-#: functions/service-locations.php:213
+#: functions/service-locations.php:258
 #, php-format
 msgid "Map of %s"
 msgstr ""
 
-#: functions/service-locations.php:219
+#: functions/service-locations.php:264
 msgid "View larger map"
 msgstr ""
 
-#: functions/service-locations.php:225
-#: functions/service-locations.php:252
+#: functions/service-locations.php:274
+#: functions/service-locations.php:302
 msgid "City Map"
 msgstr ""
 
@@ -1488,7 +1741,7 @@ msgid "General"
 msgstr ""
 
 #: functions/settings-page.php:24
-#: functions/settings-page.php:125
+#: functions/settings-page.php:130
 msgid "Theme Mode"
 msgstr ""
 
@@ -1520,243 +1773,258 @@ msgstr ""
 msgid "Error Monitoring"
 msgstr ""
 
-#: functions/settings-page.php:90
+#: functions/settings-page.php:64
+msgid "Customization"
+msgstr ""
+
+#: functions/settings-page.php:95
 msgid "Comment Spam Protection"
 msgstr ""
 
-#: functions/settings-page.php:97
+#: functions/settings-page.php:102
 msgid "Disable comments"
 msgstr ""
 
-#: functions/settings-page.php:132
+#: functions/settings-page.php:137
 msgid "Light/dark switching"
 msgstr ""
 
-#: functions/settings-page.php:140
+#: functions/settings-page.php:145
 msgid "Default mode"
 msgstr ""
 
-#: functions/settings-page.php:178
+#: functions/settings-page.php:184
 msgid "Responsive Breakpoints"
 msgstr ""
 
-#: functions/settings-page.php:185
+#: functions/settings-page.php:191
 msgid "Mobile max width (px)"
 msgstr ""
 
-#: functions/settings-page.php:193
+#: functions/settings-page.php:200
 msgid "Tablet max width (px)"
 msgstr ""
 
-#: functions/settings-page.php:201
+#: functions/settings-page.php:209
 msgid "Large desktop min width (px)"
 msgstr ""
 
-#: functions/settings-page.php:229
+#: functions/settings-page.php:238
 msgid "Anchor Scroll Offset"
 msgstr ""
 
-#: functions/settings-page.php:236
+#: functions/settings-page.php:245
 msgid "Desktop offset (px)"
 msgstr ""
 
-#: functions/settings-page.php:244
+#: functions/settings-page.php:254
 msgid "Mobile offset (px)"
 msgstr ""
 
-#: functions/settings-page.php:272
+#: functions/settings-page.php:283
 msgid "Active Page Links"
 msgstr ""
 
-#: functions/settings-page.php:279
+#: functions/settings-page.php:290
 msgid "Highlight active-page links"
 msgstr ""
 
-#: functions/settings-page.php:287
+#: functions/settings-page.php:298
 msgid "Disable current-page link clicks"
 msgstr ""
 
-#: functions/settings-page.php:345
+#: functions/settings-page.php:356
 msgid "Login Page Branding"
 msgstr ""
 
-#: functions/settings-page.php:352
+#: functions/settings-page.php:363
 msgid "Enable custom login"
 msgstr ""
 
-#: functions/settings-page.php:360
+#: functions/settings-page.php:371
 msgid "Background image"
 msgstr ""
 
-#: functions/settings-page.php:368
+#: functions/settings-page.php:380
 msgid "Logo image"
 msgstr ""
 
-#: functions/settings-page.php:376
+#: functions/settings-page.php:389
+#: build/js/editor.js:1
 #: build/js/editor.js:37
 #: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr ""
 
-#: functions/settings-page.php:384
+#: functions/settings-page.php:398
+#: build/js/certificate.js:1
 msgid "Accent color"
 msgstr ""
 
-#: functions/settings-page.php:430
+#: functions/settings-page.php:445
 msgid "Facebook Pixel"
 msgstr ""
 
-#: functions/settings-page.php:437
+#: functions/settings-page.php:452
 msgid "Pixel ID"
 msgstr ""
 
-#: functions/settings-page.php:445
-#: functions/settings-page.php:468
+#: functions/settings-page.php:461
+#: functions/settings-page.php:486
 msgid "Custom script (overrides ID)"
 msgstr ""
 
-#: functions/settings-page.php:453
+#: functions/settings-page.php:470
 msgid "Google Analytics"
 msgstr ""
 
-#: functions/settings-page.php:460
+#: functions/settings-page.php:477
 msgid "Measurement ID"
 msgstr ""
 
-#: functions/settings-page.php:486
+#: functions/settings-page.php:505
 msgid "Custom Event Tracking"
 msgstr ""
 
-#: functions/settings-page.php:493
+#: functions/settings-page.php:512
 msgid "Enabled events"
 msgstr ""
 
-#: functions/settings-page.php:544
+#: functions/settings-page.php:530
+msgid "Theme Features"
+msgstr ""
+
+#: functions/settings-page.php:537
+msgid "Enabled features"
+msgstr ""
+
+#: functions/settings-page.php:588
 msgid "Content Security Policy"
 msgstr ""
 
-#: functions/settings-page.php:551
+#: functions/settings-page.php:595
 msgid "Enable CSP"
 msgstr ""
 
-#: functions/settings-page.php:559
+#: functions/settings-page.php:603
 msgid "Mode"
 msgstr ""
 
-#: functions/settings-page.php:567
+#: functions/settings-page.php:611
 msgid "Upgrade insecure requests"
 msgstr ""
 
-#: functions/settings-page.php:575
+#: functions/settings-page.php:619
 msgid "CSP Directives"
 msgstr ""
 
-#: functions/settings-page.php:613
+#: functions/settings-page.php:657
 msgid "Other Security Headers"
 msgstr ""
 
-#: functions/settings-page.php:620
+#: functions/settings-page.php:664
 msgid "Referrer-Policy"
 msgstr ""
 
-#: functions/settings-page.php:628
+#: functions/settings-page.php:673
 msgid "Permissions-Policy"
 msgstr ""
 
-#: functions/settings-page.php:676
+#: functions/settings-page.php:722
 msgid "Business Contact Details"
 msgstr ""
 
-#: functions/settings-page.php:707
+#: functions/settings-page.php:755
 msgid "Business hours"
 msgstr ""
 
-#: functions/settings-page.php:725
+#: functions/settings-page.php:773
 msgid "Sentry"
 msgstr ""
 
-#: functions/settings-page.php:732
+#: functions/settings-page.php:780
 msgid "DSN"
 msgstr ""
 
-#: functions/settings-page.php:741
+#: functions/settings-page.php:790
 msgid "Reports uncaught PHP exceptions and fatal errors (the class of bug that shows visitors a broken page) to Sentry. Regular warnings/notices/deprecations are not sent — this is scoped to failures that actually break a page, to stay well inside a free-tier event quota. Only active when WP_DEBUG is off, so local development never sends events."
 msgstr ""
 
-#: functions/settings-page.php:750
+#: functions/settings-page.php:799
 msgid "From your Sentry project (Settings → Client Keys). Leave empty to disable reporting."
 msgstr ""
 
-#: functions/settings-page.php:757
+#: functions/settings-page.php:806
 msgid "Used on the contact card shown across the site (e.g. city landing pages). Address, phone, and email are shown obfuscated on the frontend and only revealed after a click, via the same protection used by the Protected Content block."
 msgstr ""
 
-#: functions/settings-page.php:782
+#: functions/settings-page.php:831
 msgid "Edit source text"
 msgstr ""
 
-#: functions/settings-page.php:784
+#: functions/settings-page.php:833
 msgid "This is the source text shown until a per-language translation exists."
 msgstr ""
 
-#: functions/settings-page.php:785
+#: functions/settings-page.php:834
 msgid "Translate per language →"
 msgstr ""
 
-#: functions/settings-page.php:822
+#: functions/settings-page.php:871
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr ""
 
-#: functions/settings-page.php:847
+#: functions/settings-page.php:896
 msgid "This site does not use comments. Enabling this protection closes comments at the server level — spam bots that POST directly to wp-comments-post.php or call XML-RPC comment methods are rejected with a 403 before any database write or email notification occurs. WordPress Discussion settings alone do not stop this traffic."
 msgstr ""
 
-#: functions/settings-page.php:861
+#: functions/settings-page.php:910
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr ""
 
-#: functions/settings-page.php:864
+#: functions/settings-page.php:913
 msgid "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from the block editor and admin menu."
 msgstr ""
 
-#: functions/settings-page.php:871
+#: functions/settings-page.php:920
 msgid "Controls the light/dark color mode. When switching is disabled, the theme switcher button is hidden and the site stays locked to the default mode."
 msgstr ""
 
-#: functions/settings-page.php:885
+#: functions/settings-page.php:934
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr ""
 
-#: functions/settings-page.php:894
+#: functions/settings-page.php:943
 msgid "Auto (visitor system preference)"
 msgstr ""
 
-#: functions/settings-page.php:895
+#: functions/settings-page.php:944
 msgid "Light"
 msgstr ""
 
-#: functions/settings-page.php:896
+#: functions/settings-page.php:945
 msgid "Dark"
 msgstr ""
 
-#: functions/settings-page.php:907
+#: functions/settings-page.php:956
 msgid "Initial mode for visitors without a saved preference. With switching disabled, this is the only mode used."
 msgstr ""
 
-#: functions/settings-page.php:915
+#: functions/settings-page.php:964
 msgid "One source of truth for responsive ranges. These values drive the compiled theme CSS (media queries are rewritten at runtime and cached), the editor responsive controls, frontend scripts, and any plugin reading the mobile_breakpoint / tablet_breakpoint theme mods."
 msgstr ""
 
-#: functions/settings-page.php:917
+#: functions/settings-page.php:966
 msgid "Range"
 msgstr ""
 
-#: functions/settings-page.php:918
+#: functions/settings-page.php:967
 msgid "Effective values"
 msgstr ""
 
-#: functions/settings-page.php:919
+#: functions/settings-page.php:968
 #: build/js/content-tabs.js:1
+#: build/js/editor.js:1
 #: build/js/editor.js:16
 #: build/js/editor.js:25
 #: build/js/editor.js:34
@@ -1765,8 +2033,10 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: functions/settings-page.php:920
+#: functions/settings-page.php:969
 #: build/js/content-tabs.js:1
+#: build/js/device-frame.js:1
+#: build/js/editor.js:1
 #: build/js/editor.js:13
 #: build/js/editor.js:22
 #: build/js/editor.js:31
@@ -1775,8 +2045,9 @@ msgstr ""
 msgid "Tablet"
 msgstr ""
 
-#: functions/settings-page.php:921
+#: functions/settings-page.php:970
 #: build/js/content-tabs.js:1
+#: build/js/device-frame.js:1
 #: build/js/editor.js:10
 #: build/js/editor.js:19
 #: build/js/editor.js:28
@@ -1785,137 +2056,145 @@ msgstr ""
 msgid "Desktop"
 msgstr ""
 
-#: functions/settings-page.php:922
+#: functions/settings-page.php:971
 msgid "Large desktop"
 msgstr ""
 
-#: functions/settings-page.php:932
+#: functions/settings-page.php:981
 msgid "Screens up to this width are mobile. Tablet starts at this value + 1px. Theme default: 781."
 msgstr ""
 
-#: functions/settings-page.php:943
+#: functions/settings-page.php:992
 msgid "Screens up to this width are tablet. Desktop starts at this value + 1px. Theme default: 1023."
 msgstr ""
 
-#: functions/settings-page.php:954
+#: functions/settings-page.php:1003
 msgid "Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200."
 msgstr ""
 
-#: functions/settings-page.php:961
+#: functions/settings-page.php:1010
 msgid "Distance kept between the sticky header and the target when clicking an in-page anchor link (e.g. \"#services\"). Desktop keeps its floating header visible at all times, so it needs the full header height as clearance. Mobile hides the header while scrolling and only re-shows it near the top of the page, so it typically needs little or no offset."
 msgstr ""
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:974
+#: functions/settings-page.php:1023
 #, php-format
 msgid "Applies above the desktop breakpoint, where the header stays visible while scrolling. Theme default: %d (matches the header height)."
 msgstr ""
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:992
+#: functions/settings-page.php:1041
 #, php-format
 msgid "Applies below the desktop breakpoint, where the header hides on scroll. Theme default: %d, since the header is typically hidden by the time the scroll finishes."
 msgstr ""
 
-#: functions/settings-page.php:1002
+#: functions/settings-page.php:1051
 msgid "When a link (navigation, button, in-content) points at the page currently being viewed, it can be marked as active — the same gradient-text/underline style normally reserved for hover — and/or prevented from being clicked, since navigating to the page a visitor is already on does nothing useful. Individual blocks can still opt out from their own Advanced panel regardless of these settings."
 msgstr ""
 
-#: functions/settings-page.php:1011
+#: functions/settings-page.php:1060
 msgid "Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
 
-#: functions/settings-page.php:1014
+#: functions/settings-page.php:1063
 msgid "Adds a kt-link-current class and aria-current=\"page\" to matching links sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 msgstr ""
 
-#: functions/settings-page.php:1025
+#: functions/settings-page.php:1074
 msgid "Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
 
-#: functions/settings-page.php:1028
+#: functions/settings-page.php:1077
 msgid "Adds aria-disabled and removes the link from tab order. Menu items that also open a mega-menu panel stay fully interactive. Has no effect if highlighting above is disabled."
 msgstr ""
 
-#: functions/settings-page.php:1045
+#: functions/settings-page.php:1094
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr ""
 
-#: functions/settings-page.php:1054
+#: functions/settings-page.php:1103
 msgid "Enable custom login page styling"
 msgstr ""
 
-#: functions/settings-page.php:1064
-#: functions/settings-page.php:1076
+#: functions/settings-page.php:1113
+#: functions/settings-page.php:1125
 msgid "Choose Image"
 msgstr ""
 
-#: functions/settings-page.php:1066
+#: functions/settings-page.php:1115
 msgid "Defaults to the theme background image when left empty."
 msgstr ""
 
-#: functions/settings-page.php:1078
+#: functions/settings-page.php:1127
 msgid "Defaults to the theme logo when left empty."
 msgstr ""
 
-#: functions/settings-page.php:1088
+#: functions/settings-page.php:1137
 msgid "Fallback background color when no image loads."
 msgstr ""
 
-#: functions/settings-page.php:1097
+#: functions/settings-page.php:1146
 msgid "Color for links and hover effects."
 msgstr ""
 
-#: functions/settings-page.php:1132
+#: functions/settings-page.php:1181
 msgid "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"marketing\" consent category — it only executes once a visitor accepts marketing cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 msgstr ""
 
-#: functions/settings-page.php:1148
-#: functions/settings-page.php:1170
+#: functions/settings-page.php:1197
+#: functions/settings-page.php:1219
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr ""
 
-#: functions/settings-page.php:1154
+#: functions/settings-page.php:1203
 msgid "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"statistics\" consent category — it only executes once a visitor accepts statistics cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 msgstr ""
 
-#: functions/settings-page.php:1176
+#: functions/settings-page.php:1225
 msgid "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, form completions, lightbox opens, etc.). Unchecking one stops it going to every connected platform at once — for per-platform routing (e.g. an event reaching GA4 but not Meta), that stays a code-level decision in routing.ts. See docs/tracking-spec.md for what each event tracks."
 msgstr ""
 
-#: functions/settings-page.php:1201
+#: functions/settings-page.php:1250
+msgid "Each of these registers its own custom post type, blocks, and admin screens. If this theme is reused for a project that doesn't need one, switching it off here skips that registration entirely instead of just hiding it — fewer blocks for the editor to discover, no unused admin menu items."
+msgstr ""
+
+#: functions/settings-page.php:1270
+msgid "Changes take effect on the next page load — WordPress re-registers post types and blocks on every request, nothing to rebuild."
+msgstr ""
+
+#: functions/settings-page.php:1276
 msgid "Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme's own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads."
 msgstr ""
 
-#: functions/settings-page.php:1210
+#: functions/settings-page.php:1285
 msgid "Send a Content-Security-Policy header"
 msgstr ""
 
-#: functions/settings-page.php:1221
+#: functions/settings-page.php:1296
 msgid "Enforce the policy (blocks violations)"
 msgstr ""
 
-#: functions/settings-page.php:1224
+#: functions/settings-page.php:1299
 msgid "Leave unchecked to send Content-Security-Policy-Report-Only instead — the browser reports violations to the console without blocking anything. Recommended for at least a few days on a new site before enforcing."
 msgstr ""
 
-#: functions/settings-page.php:1235
+#: functions/settings-page.php:1310
 msgid "Add the upgrade-insecure-requests directive"
 msgstr ""
 
-#: functions/settings-page.php:1242
+#: functions/settings-page.php:1317
 msgid "One field per CSP directive. Values are sanitized as plain text (no HTML, no line breaks) before being sent in the header."
 msgstr ""
 
-#: functions/settings-page.php:1257
+#: functions/settings-page.php:1332
 msgid "Referrer-Policy and Permissions-Policy are sent on every frontend response (never on wp-admin or REST requests). Set independently per site — no need to touch code to give a different customer a different policy."
 msgstr ""
 
-#: functions/settings-page.php:1272
+#: functions/settings-page.php:1347
 msgid "Controls how much of the current page URL is sent to other sites when a visitor follows a link away from this one. strict-origin-when-cross-origin is a balanced default."
 msgstr ""
 
-#: functions/settings-page.php:1283
+#: functions/settings-page.php:1358
 msgid "Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty."
 msgstr ""
 
@@ -1933,23 +2212,36 @@ msgstr ""
 msgid "Browse All Topics"
 msgstr ""
 
-#: functions/tag-archive-manager.php:147
+#: functions/tag-archive-manager.php:98
 msgid "No articles found with this tag"
 msgstr ""
 
-#: functions/tag-archive-manager.php:148
+#: functions/tag-archive-manager.php:99
 msgid "Articles with this tag are coming soon!"
 msgstr ""
 
-#: functions/tag-archive-manager.php:178
+#: functions/tag-archive-manager.php:129
 msgid "Related Tags"
 msgstr ""
 
-#: functions/tag-archive-manager.php:219
+#: functions/tag-archive-manager.php:159
+msgid "article"
+msgstr ""
+
+#: functions/tag-archive-manager.php:159
+msgid "articles"
+msgstr ""
+
+#: functions/tag-archive-manager.php:164
+#, php-format
+msgid "Updated %s"
+msgstr ""
+
+#: functions/tag-archive-manager.php:170
 msgid "View Articles"
 msgstr ""
 
-#: functions/tag-archive-manager.php:231
+#: functions/tag-archive-manager.php:182
 msgid "No other tags available yet."
 msgstr ""
 
@@ -1961,8 +2253,14 @@ msgstr ""
 msgid "Toggle light and dark theme"
 msgstr ""
 
-#. Template Name of the theme
-msgid "Search Page"
+#: functions/topic-card-renderer.php:48
+#, php-format
+msgid "Updated %s ago"
+msgstr ""
+
+#: functions/topic-card-renderer.php:57
+#, php-format
+msgid "Explore %s"
 msgstr ""
 
 #: patterns/about-2.php
@@ -2107,106 +2405,14 @@ msgctxt "Pattern title"
 msgid "Certificates Badge Grid"
 msgstr ""
 
-#: patterns/certificates-badge-grid.php:11
-#: patterns/certificates-feature-cards.php:12
-msgid "GPT-4 API Developer"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:12
-#: patterns/certificates-compact-strip.php:10
-#: patterns/certificates-feature-cards.php:11
-msgid "OpenAI"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:13
-#: patterns/certificates-badge-grid.php:18
-msgid "Issued 2025"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:16
-#: patterns/certificates-feature-cards.php:18
-msgid "Claude Builder"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:17
-#: patterns/certificates-compact-strip.php:11
-#: patterns/certificates-feature-cards.php:17
-msgid "Anthropic"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:21
-msgid "Gemini for Developers"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:22
-#: patterns/certificates-compact-strip.php:12
-msgid "Google"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:23
-#: patterns/certificates-badge-grid.php:28
-msgid "Issued 2024"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:26
-#: patterns/certificates-feature-cards.php:24
-msgid "Next.js App Router"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:27
-#: patterns/certificates-compact-strip.php:13
-#: patterns/certificates-feature-cards.php:23
-msgid "Vercel"
-msgstr ""
-
-#: patterns/certificates-badge-grid.php:50
-msgid "Verify"
-msgstr ""
-
 #: patterns/certificates-compact-strip.php
 msgctxt "Pattern title"
 msgid "Certificates Compact Strip"
 msgstr ""
 
-#: patterns/certificates-compact-strip.php:20
-msgid "Certified in"
-msgstr ""
-
-#: patterns/certificates-compact-strip.php:39
-msgid "All credentials →"
-msgstr ""
-
 #: patterns/certificates-feature-cards.php
 msgctxt "Pattern title"
 msgid "Certificates Feature Cards"
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:13
-msgid "Production use of function calling, structured outputs and streaming in customer-facing apps."
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:14
-msgid "Issued Mar 2025"
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:19
-msgid "Tool use, long-context retrieval and evaluation workflows for agentic products."
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:20
-msgid "Issued Jan 2025"
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:25
-msgid "Server components, streaming routes and edge caching on production storefronts."
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:26
-msgid "Issued Sep 2024"
-msgstr ""
-
-#: patterns/certificates-feature-cards.php:63
-msgid "View credential →"
 msgstr ""
 
 #: patterns/collaborations-described-cards.php
@@ -3718,17 +3924,68 @@ msgstr ""
 msgid "Support and Donation Link"
 msgstr ""
 
-#: patterns/project-carousel-bottom-peek.php
+#: patterns/project-showcase-angled-peek.php
 msgctxt "Pattern title"
-msgid "Project Carousel Bottom Peek"
+msgid "Project Showcase - Angled Peek"
 msgstr ""
 
-#: patterns/project-carousel-bottom-peek.php:13
+#: patterns/project-showcase-angled-peek.php:11
+msgid "Platform"
+msgstr ""
+
+#: patterns/project-showcase-angled-peek.php:15
+msgid "A slice of the product, on an angle"
+msgstr ""
+
+#: patterns/project-showcase-angled-peek.php:19
+msgid "Perspective plus a soft fade keeps the crop intentional instead of accidental."
+msgstr ""
+
+#: patterns/project-showcase-bottom-peek.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Bottom Peek"
+msgstr ""
+
+#: patterns/project-showcase-bottom-peek.php:10
 msgid "Observe"
 msgstr ""
 
-#: patterns/project-carousel-bottom-peek.php:17
-msgid "One line of project copy, set in mono for contrast against the display heading."
+#: patterns/project-showcase-bottom-peek.php:14
+msgid "One line of project copy to set the scene for the screenshot below."
+msgstr ""
+
+#: patterns/project-showcase-captioned.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Captioned"
+msgstr ""
+
+#: patterns/project-showcase-captioned.php:24
+msgid "E-commerce · WooCommerce"
+msgstr ""
+
+#: patterns/project-showcase-captioned.php:28
+msgid "Storefront rebuilt for speed"
+msgstr ""
+
+#: patterns/project-showcase-captioned.php:32
+msgid "Replace this copy per project, or drop the text column to fall back to an image-only slide."
+msgstr ""
+
+#: patterns/project-showcase-captioned.php:37
+msgid "View case study"
+msgstr ""
+
+#: patterns/project-showcase-faded-window.php
+msgctxt "Pattern title"
+msgid "Project Showcase - Faded Window"
+msgstr ""
+
+#: patterns/project-showcase-faded-window.php:11
+msgid "Responsive, both ends of the range"
+msgstr ""
+
+#: patterns/project-showcase-faded-window.php:15
+msgid "The desktop shot fades out at the bottom; the phone stays fully legible on top of it."
 msgstr ""
 
 #: patterns/service-content.php
@@ -4637,6 +4894,8 @@ msgstr ""
 
 #: build/js/article-card-panel.js:1
 #: build/js/article-card.js:1
+#: build/js/certificate.js:1
+#: build/js/editor.js:1
 #: build/js/project-card.js:1
 msgid "(no title)"
 msgstr ""
@@ -4778,6 +5037,18 @@ msgstr ""
 #: build/js/banner-carousel.js:1
 #: build/js/gallery-lightbox.js:1
 #: build/js/hero-carousel.js:1
+msgid "Auto Height"
+msgstr ""
+
+#: build/js/banner-carousel.js:1
+#: build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
+msgid "Sizes the carousel to each slide's own content instead of a fixed height. Any Min Height setting still applies as a floor."
+msgstr ""
+
+#: build/js/banner-carousel.js:1
+#: build/js/gallery-lightbox.js:1
+#: build/js/hero-carousel.js:1
 msgid "Show Scrollbar"
 msgstr ""
 
@@ -4851,6 +5122,7 @@ msgid "Lets users manually swipe/drag through the slides."
 msgstr ""
 
 #: build/js/banner-carousel.js:1
+#: build/js/editor.js:1
 #: build/js/gallery-lightbox.js:1
 #: build/js/hero-carousel.js:1
 #: build/js/slider.js:1
@@ -4912,6 +5184,227 @@ msgstr ""
 msgid "Slides (Desktop)"
 msgstr ""
 
+#: build/js/bg-effect-preset-settings.js:1
+#: build/js/editor.js:1
+msgid "Gradient Shift"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+#: build/js/editor.js:1
+msgid "Aurora"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+#: build/js/editor.js:1
+msgid "Wave"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+#: build/js/editor.js:1
+msgid "Shimmer Text"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+#: build/js/editor.js:1
+msgid "Glow Border"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Preset Settings"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+#: build/js/editor.js:1
+msgid "Effect"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Duration (seconds)"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 1"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 2"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Color 3"
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Leave a color empty to keep the theme's default."
+msgstr ""
+
+#: build/js/bg-effect-preset-settings.js:1
+msgid "Background Effect Preset Settings"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/editor.js:46
+#: build/js/navigation.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Blur intensity"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/editor.js:46
+#: build/js/navigation.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Default (0.25rem)"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/editor.js:46
+#: build/js/navigation.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Custom"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/editor.js:46
+#: build/js/navigation.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Presets come from theme.json's settings.custom.gridHoverBlur — add more there to offer them here."
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/editor.js:46
+#: build/js/navigation.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Custom blur amount"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/editor.js:46
+#: build/js/navigation.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Any CSS length, e.g. 0.5rem or 8px."
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+msgid "Topic Card Style"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Card text color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/city-grid.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Card background color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/city-grid.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Card border color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Button background color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Button text color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Button hover background color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+msgid "Button hover text color"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Card Hover Effects"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Card background on hover"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Blur other cards on hover"
+msgstr ""
+
+#: build/js/blog-topics-grid-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1
+#: build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
+msgid "Hovering or focusing one card dims and blurs the rest of the grid."
+msgstr ""
+
 #: build/js/breadcrumbs.js:1
 msgid "Breadcrumbs Settings"
 msgstr ""
@@ -4922,6 +5415,7 @@ msgstr ""
 
 #: build/js/button.js:1
 #: build/js/editor.js:1
+#: build/js/editor.js:46
 #: build/js/nav-content.js:1
 msgid "Text"
 msgstr ""
@@ -4935,6 +5429,10 @@ msgstr ""
 
 #: build/js/button.js:1
 msgid "Border"
+msgstr ""
+
+#: build/js/button.js:1
+msgid "Add text…"
 msgstr ""
 
 #: build/js/button.js:1
@@ -4956,6 +5454,19 @@ msgstr ""
 #: build/js/button.js:1
 #: build/js/nav-content.js:1
 msgid "The relationship of the linked URL as space-separated link types."
+msgstr ""
+
+#: build/js/button.js:1
+#: build/js/nav-content.js:1
+msgid "Content"
+msgstr ""
+
+#: build/js/button.js:1
+msgid "Allow nested blocks"
+msgstr ""
+
+#: build/js/button.js:1
+msgid "Switch the label to a block area so you can add Paragraph, Protected Content, Icon, etc. instead of plain text."
 msgstr ""
 
 #: build/js/button.js:1
@@ -4981,7 +5492,174 @@ msgid "Hover state"
 msgstr ""
 
 #: build/js/button.js:1
-msgid "Add text…"
+msgid "Enhanced hover effect"
+msgstr ""
+
+#: build/js/button.js:1
+msgid "Cursor glow"
+msgstr ""
+
+#: build/js/button.js:1
+msgid "A soft glow in the Hover text color above that follows the cursor. Set a Hover text color above for this to be visible — while this is on, that color only drives the glow and no longer recolors the whole button text on hover."
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Certificate Details"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Badge / credential URL"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "A Credly or Accredible badge link. Click Fetch to pre-fill the fields below."
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Could not fetch badge details."
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Network error while fetching badge details."
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Fetching…"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Fetch details"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Certificate name"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Also the post title."
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Issuer"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Issued date"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+#: build/js/editor.js:46
+#: build/js/nav-content.js:1
+msgid "Description"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Shown by the feature-cards layout only."
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Credential ID"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Verify URL"
+msgstr ""
+
+#: build/js/certificate-panel.js:1
+msgid "Falls back to the badge URL above when left empty."
+msgstr ""
+
+#: build/js/certificate.js:1
+msgid "Manage the certificate's badge, issuer, and verify link from Certificates in the admin menu. Editing it there updates every pattern it's embedded in."
+msgstr ""
+
+#: build/js/certificate.js:1
+#: build/js/certificates-grid-dynamic.js:1
+#: build/js/editor.js:1
+msgid "Layout"
+msgstr ""
+
+#: build/js/certificate.js:1
+#: build/js/certificates-grid-dynamic.js:1
+msgid "Badge grid"
+msgstr ""
+
+#: build/js/certificate.js:1
+#: build/js/certificates-grid-dynamic.js:1
+msgid "Feature cards"
+msgstr ""
+
+#: build/js/certificate.js:1
+#: build/js/certificates-grid-dynamic.js:1
+msgid "Compact strip"
+msgstr ""
+
+#: build/js/certificate.js:1
+msgid "Card Colors"
+msgstr ""
+
+#: build/js/certificate.js:1
+msgid "Secondary text color"
+msgstr ""
+
+#: build/js/certificate.js:1
+msgid "Secondary text color applies to the issuer and issued-date text. Accent color applies to the verify link (and the date pill in the Feature cards layout). Leave empty to keep the theme's default."
+msgstr ""
+
+#: build/js/certificates-grid-dynamic.js:1
+msgid "Certificates Grid"
+msgstr ""
+
+#: build/js/certificates-grid-dynamic.js:1
+msgid "\"All credentials\" link"
+msgstr ""
+
+#: build/js/certificates-grid-dynamic.js:1
+msgid "Where the trailing link points to. Leave empty to hide the link."
+msgstr ""
+
+#: build/js/certificates-grid-dynamic.js:1
+msgid "Manage certificates (name, issuer, badge image, verify link) from Certificates in the admin menu. Every published certificate appears here automatically."
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "City Grid Layout"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Columns (desktop)"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Columns (tablet)"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Columns (mobile)"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Gap between cards"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "City Card Style"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Link text color"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Card border width"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Card border radius"
+msgstr ""
+
+#: build/js/city-grid.js:1
+msgid "Card padding"
 msgstr ""
 
 #: build/js/contact-detail.js:1
@@ -5005,6 +5683,7 @@ msgid "Contact Detail"
 msgstr ""
 
 #: build/js/contact-detail.js:1
+#: build/js/editor.js:1
 msgid "Field"
 msgstr ""
 
@@ -5200,6 +5879,7 @@ msgid "Right"
 msgstr ""
 
 #: build/js/content-tabs.js:1
+#: build/js/device-frame.js:1
 #: build/js/editor.js:1
 #: build/js/editor.js:28
 #: build/js/editor.js:46
@@ -5295,6 +5975,15 @@ msgid "Active tab background color"
 msgstr ""
 
 #: build/js/content-tabs.js:1
+#: build/js/editor.js:37
+msgid "Border color"
+msgstr ""
+
+#: build/js/content-tabs.js:1
+msgid "Active tab border color"
+msgstr ""
+
+#: build/js/content-tabs.js:1
 msgid "Animations"
 msgstr ""
 
@@ -5312,6 +6001,149 @@ msgstr ""
 
 #: build/js/content-tabs.js:1
 msgid "Animates project/article cards inside the newly shown tab, one after another."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Desktop screenshot or video"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Tablet screenshot or video"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Mobile screenshot or video"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Angled"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Overlap"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Faded Window"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Peek Top"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Lazy (default)"
+msgstr ""
+
+#: build/js/device-frame.js:1
+#: build/js/responsive-image.js:1
+msgid "Eager"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Auto (default)"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "High"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Low"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Device Frame"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Device"
+msgstr ""
+
+#: build/js/device-frame.js:1
+#: build/js/model-viewer.js:1
+msgid "Aspect ratio"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Any CSS aspect-ratio value, e.g. 16/10. Leave empty for the device default."
+msgstr ""
+
+#: build/js/device-frame.js:1
+#: build/js/nav-content.js:1
+msgid "Alt text"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Focal point"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Drag to pick which part of the image stays visible when it's cropped by the frame."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Position style"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "How the frame sits in its showcase section. None keeps normal in-flow sizing."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Keep effect on mobile"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Off (default) flattens the frame to normal in-flow stacking on narrow screens to avoid overlapping text. On keeps the angled/overlap effect at every width."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Change Media"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Set Media"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Accepts an image (incl. GIF/SVG) or a video file."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Remove Media"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Media Performance"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Loading"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Lazy defers offscreen media until it's about to scroll into view. Use Eager for a device frame visible above the fold."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Fetch priority"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "High tells the browser to fetch this media first — use it for a hero/above-the-fold device frame driving the page's LCP. Setting High also forces Loading to Eager."
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Media Behavior"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Expand on click"
+msgstr ""
+
+#: build/js/device-frame.js:1
+msgid "Opens the image or video full-size in a modal when clicked, like the native Image block's Expand on click option."
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5348,7 +6180,127 @@ msgid "Gradient Text"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Layout"
+msgid "Price from"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Price to"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Duration"
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/nav-content.js:1
+#: build/js/social-section.js:1
+msgid "Label"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Offer value"
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/offer-table.js:1
+msgid "Select an offer"
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/scroll-to-top.js:1
+msgid "Variant"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Select a variant"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "This offer value could not be resolved."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Apply"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Variant key"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Price period"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "One-time"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Per month"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Price note"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Duration min"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Duration max"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Duration unit"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Days"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Weeks"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Move up"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Move down"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Remove variant"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Currency"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Placeholder prices"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Visitors see a fallback text instead of the values while this is on."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Add variant"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Cursor Glow"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Cursor Glow settings"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Glow color"
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5384,6 +6336,30 @@ msgid "Sets width to 100%"
 msgstr ""
 
 #: build/js/editor.js:1
+msgid "Overlay Link"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "On a Button or a block containing a link: stretches that link over its whole container (a Cover, or any block with Overlay Link Host)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Overlay Link Host"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "On a Group, Column or other block: the area an Overlay Link inside it covers"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Hide Overlay Link Label"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Hides the link text visually but keeps it for screen readers (use with Overlay Link)"
+msgstr ""
+
+#: build/js/editor.js:1
 msgid "Center Block"
 msgstr ""
 
@@ -5397,6 +6373,15 @@ msgstr ""
 
 #: build/js/editor.js:1
 msgid "Responsive centered container with max-width"
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/editor.js:46
+msgid "Sticky"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Sticks the block below the header while scrolling"
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5687,7 +6672,7 @@ msgid "Constant Bounce Fast"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Hover Animations"
+msgid "Hover Effects"
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5720,28 +6705,29 @@ msgid "Hover background color"
 msgstr ""
 
 #: build/js/editor.js:1
+msgid "Drag the color's alpha slider for a translucent hover background — e.g. white at 20% opacity."
+msgstr ""
+
+#: build/js/editor.js:1
 #: build/js/editor.js:37
 msgid "Hover text color"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Gradient Shift"
+#: build/js/editor.js:37
+msgid "Hover border color"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Aurora"
+msgid "Set a border width and style in this block's own Border panel first — this only changes the border's color on hover."
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Shimmer Text"
+msgid "Enhanced hover effect (cursor glow)"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Wave"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Glow Border"
+msgid "A soft glow in the Hover text color above that follows the cursor, same size as the button glow effect. Set a Hover text color above for this to be visible — while this is on, that color only drives the glow and no longer recolors the whole text on hover."
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5749,7 +6735,11 @@ msgid "Background Effects"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Effect"
+msgid "Effect Preset"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Manage presets from Background Effect Presets in the admin menu. Editing a preset there updates every block using it, with no code changes needed. Overrides the manual effect below when set."
 msgstr ""
 
 #: build/js/editor.js:1
@@ -5777,6 +6767,191 @@ msgid "Only the color animates. Border width and radius come from this block's o
 msgstr ""
 
 #: build/js/editor.js:1
+msgid "Canvas Background"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Manage scenes from Canvas Scenes in the admin menu. Editing a scene there updates every block using it, with no code changes needed."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Browse scenes by preview"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Text backdrop"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Adds a semi-transparent overlay between the animation and the content, to keep text readable."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Backdrop opacity"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Backdrop color"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Gradient Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Start color"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "End color"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Angle (deg)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Speed"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Noise Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Opacity"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Jitter amount (px)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Grain size"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Grid Lines Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Line count"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Line color"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Blob Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Blob count"
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/icon.js:1
+msgid "Color"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Radius (% of canvas)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Sweep Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Width (fraction of diagonal)"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Light Rays Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Ray count"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Curved Rays Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Pulse speed"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Star Field Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Depth layers"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Orbit Trails Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Trail length"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Warp Field Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Star density"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Nebula Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Tint"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Aurora Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Neon Waves Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Intensity"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Hex Tiles Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Deep Field Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Floating Panels Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Panel color"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Pleiades Layer"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Exposure"
+msgstr ""
+
+#: build/js/editor.js:1
 msgid "Skip Lazy Loading"
 msgstr ""
 
@@ -5786,6 +6961,101 @@ msgstr ""
 
 #: build/js/editor.js:1
 msgid "This cover image will use default lazy loading."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Video background"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "The video starts playing as soon as the page loads."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "The video stays on its first frame and does not play."
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/gallery-lightbox.js:1
+#: build/js/slider.js:1
+msgid "Loop"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Loop is off while content is revealed after the video ends."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "The video restarts every time it ends."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "The video plays once and stays on its last frame."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Pause when offscreen"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Pauses the video while it is scrolled out of view and resumes it when it returns. Saves battery and bandwidth."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Reveal content after video ends"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Keeps the cover content hidden until the video finishes playing, then animates it in. Turns Loop off."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Fit cover to video aspect ratio"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Shows the whole video. The cover takes the video's width-to-height ratio on each device; add a vertical video in Responsive media for phones."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Cover media"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Responsive media"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "The Cover's own media is used on desktop. Add a different file for tablet or mobile; an empty slot uses the next larger one."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "A video's poster is its featured image in the Media Library. Each slot uses its own video's poster."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Replace"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Select media"
+msgstr ""
+
+#: build/js/editor.js:1
+#: build/js/gallery-lightbox.js:1
+msgid "Remove"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Mobile uses:"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Tablet uses:"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Desktop uses:"
 msgstr ""
 
 #: build/js/editor.js:1
@@ -6074,10 +7344,6 @@ msgid "Button position"
 msgstr ""
 
 #: build/js/editor.js:37
-msgid "Border color"
-msgstr ""
-
-#: build/js/editor.js:37
 msgid "Border radius (px)"
 msgstr ""
 
@@ -6087,10 +7353,6 @@ msgstr ""
 
 #: build/js/editor.js:37
 msgid "Leave a hover color empty to keep the default fade effect."
-msgstr ""
-
-#: build/js/editor.js:37
-msgid "Hover border color"
 msgstr ""
 
 #: build/js/editor.js:37
@@ -6122,6 +7384,7 @@ msgid "Leave empty to use the default label."
 msgstr ""
 
 #: build/js/editor.js:37
+#: build/js/nav-content.js:1
 msgid "Padding"
 msgstr ""
 
@@ -6198,7 +7461,59 @@ msgid "Excludes links in this block from the sitewide active-page gradient-text/
 msgstr ""
 
 #: build/js/editor.js:46
-msgid "Text Gradient"
+msgid "Static"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Relative"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Absolute"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Below content (-1)"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "0"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "1"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "2"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "3"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "4"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "5"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Position"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Needed on a block's own container before a child can be absolutely positioned inside it (e.g. a canvas background layer)."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Stacking order (z-index)"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Controls which block paints on top when blocks overlap. Only takes effect once Position above is not Default."
 msgstr ""
 
 #: build/js/editor.js:46
@@ -6207,6 +7522,26 @@ msgstr ""
 
 #: build/js/editor.js:46
 msgid "Makes the whole group a real link (URL preview on hover, right-click to open in a new tab). If the group contains another link, it's kept as a clickable region instead to avoid an invalid nested link. Clicks on a button or form field inside the group still work normally either way."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Overlay link"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Stretch over container"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Makes this button's link clickable across the whole Cover, or the whole block marked Overlay Link Host, that it sits in."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Hide label"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Hides the button text visually but keeps it for screen readers."
 msgstr ""
 
 #: build/js/editor.js:46
@@ -6220,11 +7555,6 @@ msgstr ""
 #: build/js/editor.js:46
 #: build/js/nav-content.js:1
 msgid "Heading"
-msgstr ""
-
-#: build/js/editor.js:46
-#: build/js/nav-content.js:1
-msgid "Description"
 msgstr ""
 
 #: build/js/editor.js:46
@@ -6285,10 +7615,6 @@ msgstr ""
 
 #: build/js/editor.js:46
 msgid "Very Slow (4s)"
-msgstr ""
-
-#: build/js/editor.js:46
-msgid "Custom"
 msgstr ""
 
 #: build/js/editor.js:46
@@ -6376,10 +7702,6 @@ msgid "Remove icon"
 msgstr ""
 
 #: build/js/editor.js:46
-msgid "Gradient Outline"
-msgstr ""
-
-#: build/js/editor.js:46
 msgid "Text shadow presets"
 msgstr ""
 
@@ -6429,30 +7751,6 @@ msgid "Icon"
 msgstr ""
 
 #: build/js/editor.js:46
-msgid "City Grid Layout"
-msgstr ""
-
-#: build/js/editor.js:46
-msgid "Columns (desktop)"
-msgstr ""
-
-#: build/js/editor.js:46
-msgid "Columns (tablet)"
-msgstr ""
-
-#: build/js/editor.js:46
-msgid "Columns (mobile)"
-msgstr ""
-
-#: build/js/editor.js:46
-msgid "City Link Color"
-msgstr ""
-
-#: build/js/editor.js:46
-msgid "Link text color"
-msgstr ""
-
-#: build/js/editor.js:46
 msgid "Contact Card Layout"
 msgstr ""
 
@@ -6485,6 +7783,90 @@ msgid "Stretch every column's content to match the tallest column, so borders an
 msgstr ""
 
 #: build/js/editor.js:46
+msgid "Filter Color"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Filter"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Presets come from theme.json's settings.custom.imageFilterColors — add more there to offer them here."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Reveal original color on hover"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "On: the filter lifts on hover/focus. Off: the filter is permanent."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Blur Siblings on Hover"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Blur inactive items on hover"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Hovering or focusing one direct child dims and blurs the rest."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Include nested columns"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Also blur columns inside Columns blocks nested further down, not just this row's own columns."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Divider Lines"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Show divider lines between items"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Draws a line between each direct child using this group's own Border color/width (set those in the Border panel above). Works reliably for a single column, a row, or a Grid layout with a fixed column count. A responsive Grid without a fixed column count falls back to a border on every cell — use a background color + a small block gap instead if that looks uneven."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Corner Clipping"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Clip content to this block's border radius"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Set a border radius in this block's own Border panel above, then turn this on. Any child's own background (e.g. a hover background color) gets masked to the rounded corners automatically — whichever child ends up in a corner at any breakpoint, without tracking which one that is."
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Responsive Grid Columns"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Desktop columns"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Tablet columns"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Mobile columns"
+msgstr ""
+
+#: build/js/editor.js:46
+msgid "Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead."
+msgstr ""
+
+#: build/js/editor.js:46
 #: build/js/marquee.js:1
 msgid "— None (not clickable) —"
 msgstr ""
@@ -6504,10 +7886,6 @@ msgstr ""
 
 #: build/js/gallery-lightbox.js:1
 msgid "Media"
-msgstr ""
-
-#: build/js/gallery-lightbox.js:1
-msgid "Remove"
 msgstr ""
 
 #: build/js/gallery-lightbox.js:1
@@ -6568,11 +7946,6 @@ msgstr ""
 
 #: build/js/gallery-lightbox.js:1
 msgid "Required for autoplay in most browsers."
-msgstr ""
-
-#: build/js/gallery-lightbox.js:1
-#: build/js/slider.js:1
-msgid "Loop"
 msgstr ""
 
 #: build/js/google-maps.js:1
@@ -6777,6 +8150,10 @@ msgid "Min Height (vh)"
 msgstr ""
 
 #: build/js/hero-carousel.js:4
+msgid "Auto Height is on (in Carousel Settings above) — this is now just a floor so slides never collapse below it."
+msgstr ""
+
+#: build/js/hero-carousel.js:4
 msgid "Add slide"
 msgstr ""
 
@@ -6799,10 +8176,6 @@ msgstr ""
 
 #: build/js/icon.js:1
 msgid "Fills the icon with the site's Fancy Text gradient (Styles → Colors → Gradients) instead of a flat color. Only visible on the live page — the editor canvas can't preview it."
-msgstr ""
-
-#: build/js/icon.js:1
-msgid "Color"
 msgstr ""
 
 #: build/js/icon.js:1
@@ -7030,10 +8403,6 @@ msgid "A default label will be used, but a specific one is recommended."
 msgstr ""
 
 #: build/js/model-viewer.js:1
-msgid "Aspect ratio"
-msgstr ""
-
-#: build/js/model-viewer.js:1
 msgid "Any CSS color value, e.g. #1a1a1a. Leave empty for transparent."
 msgstr ""
 
@@ -7066,10 +8435,6 @@ msgid "Model Viewer — select a .glb model"
 msgstr ""
 
 #: build/js/nav-content.js:1
-msgid "Content"
-msgstr ""
-
-#: build/js/nav-content.js:1
 msgid "Paragraph text"
 msgstr ""
 
@@ -7090,11 +8455,6 @@ msgid "Select image"
 msgstr ""
 
 #: build/js/nav-content.js:1
-msgid "Alt text"
-msgstr ""
-
-#: build/js/nav-content.js:1
-#: build/js/translated-text.js:1
 msgid "Link URL"
 msgstr ""
 
@@ -7113,12 +8473,19 @@ msgid "URL"
 msgstr ""
 
 #: build/js/nav-content.js:1
-#: build/js/social-section.js:1
-msgid "Label"
+msgid "Leave empty to link the image only"
 msgstr ""
 
 #: build/js/nav-content.js:1
-msgid "Leave empty to link the image only"
+msgid "Hover highlight"
+msgstr ""
+
+#: build/js/nav-content.js:1
+msgid "1.25rem"
+msgstr ""
+
+#: build/js/nav-content.js:1
+msgid "Space around the banner the frosted hover background fills. Any CSS length, e.g. 1.5rem or 20px."
 msgstr ""
 
 #: build/js/nav-content.js:1
@@ -7218,11 +8585,55 @@ msgid "Hamburger short line alignment"
 msgstr ""
 
 #: build/js/navigation.js:1
+msgid "Show hamburger border"
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Adds a border around the hamburger icon button. Applies the same way whether this block is placed as the desktop or mobile hamburger."
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Hide accordion dividers"
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Removes the divider lines between items in the hamburger panel, including nested accordion children. Doesn't change content or expand/collapse behavior."
+msgstr ""
+
+#: build/js/navigation.js:1
 msgid "Navigate top-level links on click"
 msgstr ""
 
 #: build/js/navigation.js:1
 msgid "When on, clicking a link with a real URL navigates to it. Links with '#' or no URL still toggle the panel."
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Blur Inactive Links on Hover"
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Blur inactive links on hover"
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Hovering one top-level link dims and blurs the rest of the bar. Turn off anytime to revert."
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Include search & language"
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Off: only dropdown links (nav links/submenus) blur. On: the search and language items blur and trigger the effect too."
+msgstr ""
+
+#: build/js/offer-table.js:1
+msgid "Offer Table Settings"
+msgstr ""
+
+#: build/js/offer-table.js:1
+msgid "Offer Table"
 msgstr ""
 
 #: build/js/popular-pages.js:1
@@ -7431,6 +8842,10 @@ msgstr ""
 msgid "Enter your content here…"
 msgstr ""
 
+#: build/js/recently-viewed-dynamic.js:1
+msgid "Empty here by design — the cards themselves are populated client-side from the visitor's own browsing history, which this editor has none of."
+msgstr ""
+
 #: build/js/responsive-image.js:1
 msgid "Image Settings"
 msgstr ""
@@ -7453,10 +8868,6 @@ msgstr ""
 
 #: build/js/responsive-image.js:1
 msgid "Lazy"
-msgstr ""
-
-#: build/js/responsive-image.js:1
-msgid "Eager"
 msgstr ""
 
 #: build/js/responsive-image.js:1
@@ -7556,10 +8967,6 @@ msgid "Scroll To Top Settings"
 msgstr ""
 
 #: build/js/scroll-to-top.js:1
-msgid "Variant"
-msgstr ""
-
-#: build/js/scroll-to-top.js:1
 msgid "Button Label"
 msgstr ""
 
@@ -7587,12 +8994,36 @@ msgstr ""
 msgid "Scroll To Top"
 msgstr ""
 
+#: build/js/search-form-dynamic.js:1
+msgid "Search Form Colors"
+msgstr ""
+
+#: build/js/search-form-dynamic.js:1
+msgid "Panel background color"
+msgstr ""
+
+#: build/js/search-form-dynamic.js:1
+msgid "Input/select border color"
+msgstr ""
+
+#: build/js/search-form-dynamic.js:1
+msgid "Label color"
+msgstr ""
+
+#: build/js/search-form-dynamic.js:1
+msgid "Leave empty to keep the theme's default colors. The search button keeps its own gradient hover effect regardless of these settings."
+msgstr ""
+
 #: build/js/search-panel.js:1
 msgid "Search Panel"
 msgstr ""
 
 #: build/js/search-panel.js:1
 msgid "Used as aria-label when an icon is set."
+msgstr ""
+
+#: build/js/search-results-dynamic.js:1
+msgid "Search Result Card Style"
 msgstr ""
 
 #: build/js/service-location-panel.js:1
@@ -7864,7 +9295,11 @@ msgid "Unique key used in Languages → Strings translations, e.g. service-locat
 msgstr ""
 
 #: build/js/translated-text.js:1
-msgid "Translated the same way as the text, under {stringName}-href."
+msgid "Linked to a page — automatically points to the matching translation for each visitor's language."
+msgstr ""
+
+#: build/js/translated-text.js:1
+msgid "Typed-in URL — translated the same way as the text, under {stringName}-href. Search above instead to link to an actual page and skip manual translation."
 msgstr ""
 
 #: build/js/translated-text.js:1
@@ -7877,10 +9312,46 @@ msgctxt "block title"
 msgid "Article Card"
 msgstr ""
 
+#: build/blocks/article-tags-dynamic/block.json
+#: src/blocks/article-tags-dynamic/block.json
+msgctxt "block title"
+msgid "Article Tags (Dynamic)"
+msgstr ""
+
+#: build/blocks/article-tags-dynamic/block.json
+#: src/blocks/article-tags-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered list of tags for the current article."
+msgstr ""
+
 #: build/blocks/banner-carousel/block.json
 #: src/blocks/banner-carousel/block.json
 msgctxt "block title"
 msgid "Banner Carousel"
+msgstr ""
+
+#: build/blocks/bg-effect-preset-settings/block.json
+#: src/blocks/bg-effect-preset-settings/block.json
+msgctxt "block title"
+msgid "Background Effect Preset Settings"
+msgstr ""
+
+#: build/blocks/bg-effect-preset-settings/block.json
+#: src/blocks/bg-effect-preset-settings/block.json
+msgctxt "block description"
+msgid "Effect type, colors, and duration for a Background Effect Preset."
+msgstr ""
+
+#: build/blocks/blog-topics-grid-dynamic/block.json
+#: src/blocks/blog-topics-grid-dynamic/block.json
+msgctxt "block title"
+msgid "Blog Topics Grid (Dynamic)"
+msgstr ""
+
+#: build/blocks/blog-topics-grid-dynamic/block.json
+#: src/blocks/blog-topics-grid-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of blog category topics, refreshed per language."
 msgstr ""
 
 #: build/blocks/breadcrumbs/block.json
@@ -7905,6 +9376,264 @@ msgstr ""
 #: src/blocks/button/block.json
 msgctxt "block description"
 msgid "Button with independent normal/hover control over text, background, and border colors, including gradients."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-aurora/block.json
+#: src/blocks/canvas-background/layer-aurora/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Aurora"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-aurora/block.json
+#: src/blocks/canvas-background/layer-aurora/block.json
+msgctxt "block description"
+msgid "A drifting, simplex-noise aurora glow rising from the bottom edge of a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-blob/block.json
+#: src/blocks/canvas-background/layer-blob/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Blob"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-blob/block.json
+#: src/blocks/canvas-background/layer-blob/block.json
+msgctxt "block description"
+msgid "A soft moving glow-blob layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-curved-rays/block.json
+#: src/blocks/canvas-background/layer-curved-rays/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Curved Rays"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-curved-rays/block.json
+#: src/blocks/canvas-background/layer-curved-rays/block.json
+msgctxt "block description"
+msgid "A bezier-curved, pulsing light-ray layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-deep-field/block.json
+#: src/blocks/canvas-background/layer-deep-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Deep Field"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-deep-field/block.json
+#: src/blocks/canvas-background/layer-deep-field/block.json
+msgctxt "block description"
+msgid "A looping, parallax-popping star field over a drifting red/green/blue nebula backdrop for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-floating-panels/block.json
+#: src/blocks/canvas-background/layer-floating-panels/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Floating Panels"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-floating-panels/block.json
+#: src/blocks/canvas-background/layer-floating-panels/block.json
+msgctxt "block description"
+msgid "A deep, glowing noise backdrop with small rotating glass-like rectangles drifting and tumbling across it for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-gradient/block.json
+#: src/blocks/canvas-background/layer-gradient/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Gradient"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-gradient/block.json
+#: src/blocks/canvas-background/layer-gradient/block.json
+msgctxt "block description"
+msgid "A background-gradient layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-grid-lines/block.json
+#: src/blocks/canvas-background/layer-grid-lines/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Grid Lines"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-grid-lines/block.json
+#: src/blocks/canvas-background/layer-grid-lines/block.json
+msgctxt "block description"
+msgid "A faint grid-line layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-hex-tiles/block.json
+#: src/blocks/canvas-background/layer-hex-tiles/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Hex Tiles"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-hex-tiles/block.json
+#: src/blocks/canvas-background/layer-hex-tiles/block.json
+msgctxt "block description"
+msgid "A procedural, slowly-drifting floor of raised hexagon tiles with faked soft shadows for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-light-rays/block.json
+#: src/blocks/canvas-background/layer-light-rays/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Light Rays"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-light-rays/block.json
+#: src/blocks/canvas-background/layer-light-rays/block.json
+msgctxt "block description"
+msgid "A rotating sunburst/light-rays layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-nebula/block.json
+#: src/blocks/canvas-background/layer-nebula/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Nebula"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-nebula/block.json
+#: src/blocks/canvas-background/layer-nebula/block.json
+msgctxt "block description"
+msgid "A procedural, slowly-rotating nebula sky with blackbody-tinted star points for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-neon-waves/block.json
+#: src/blocks/canvas-background/layer-neon-waves/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Neon Waves"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-neon-waves/block.json
+#: src/blocks/canvas-background/layer-neon-waves/block.json
+msgctxt "block description"
+msgid "A raymarched field of glowing, grayscale neon wave lines for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-noise/block.json
+#: src/blocks/canvas-background/layer-noise/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Noise"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-noise/block.json
+#: src/blocks/canvas-background/layer-noise/block.json
+msgctxt "block description"
+msgid "A grain/noise texture layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-orbit-trails/block.json
+#: src/blocks/canvas-background/layer-orbit-trails/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Orbit Trails"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-orbit-trails/block.json
+#: src/blocks/canvas-background/layer-orbit-trails/block.json
+msgctxt "block description"
+msgid "A pulsing, color-cycling orbit with fading feedback trails for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-pleiades/block.json
+#: src/blocks/canvas-background/layer-pleiades/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Pleiades"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-pleiades/block.json
+#: src/blocks/canvas-background/layer-pleiades/block.json
+msgctxt "block description"
+msgid "A slowly-orbiting 3D view of the real Pleiades star cluster (M45) with a raymarched reflection nebula, Milky Way band, and parallax background star shells for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-star-field/block.json
+#: src/blocks/canvas-background/layer-star-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Star Field"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-star-field/block.json
+#: src/blocks/canvas-background/layer-star-field/block.json
+msgctxt "block description"
+msgid "A parallax, depth-scrolling star field layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-sweep/block.json
+#: src/blocks/canvas-background/layer-sweep/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Sweep"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-sweep/block.json
+#: src/blocks/canvas-background/layer-sweep/block.json
+msgctxt "block description"
+msgid "A diagonal light-sweep layer for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/canvas-background/layer-warp-field/block.json
+#: src/blocks/canvas-background/layer-warp-field/block.json
+msgctxt "block title"
+msgid "Canvas Layer: Warp Field"
+msgstr ""
+
+#: build/blocks/canvas-background/layer-warp-field/block.json
+#: src/blocks/canvas-background/layer-warp-field/block.json
+msgctxt "block description"
+msgid "A procedural, slowly-rotating 3D star field with a breathing zoom for a Canvas Scene."
+msgstr ""
+
+#: build/blocks/category-header-dynamic/block.json
+#: src/blocks/category-header-dynamic/block.json
+msgctxt "block title"
+msgid "Category Header (Dynamic)"
+msgstr ""
+
+#: build/blocks/category-header-dynamic/block.json
+#: src/blocks/category-header-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered category archive header with description and custom links."
+msgstr ""
+
+#: build/blocks/category-posts-grid-dynamic/block.json
+#: src/blocks/category-posts-grid-dynamic/block.json
+msgctxt "block title"
+msgid "Category Posts Grid (Dynamic)"
+msgstr ""
+
+#: build/blocks/category-posts-grid-dynamic/block.json
+#: src/blocks/category-posts-grid-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of posts within the current category archive."
+msgstr ""
+
+#: build/blocks/certificate/block.json
+#: src/blocks/certificate/block.json
+msgctxt "block title"
+msgid "Certificate"
+msgstr ""
+
+#: build/blocks/certificates-grid-dynamic/block.json
+#: src/blocks/certificates-grid-dynamic/block.json
+msgctxt "block title"
+msgid "Certificates Grid (Dynamic)"
+msgstr ""
+
+#: build/blocks/certificates-grid-dynamic/block.json
+#: src/blocks/certificates-grid-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of published certificates, in one of three layouts."
+msgstr ""
+
+#: build/blocks/city-grid/block.json
+#: src/blocks/city-grid/block.json
+msgctxt "block title"
+msgid "City Grid"
+msgstr ""
+
+#: build/blocks/city-grid/block.json
+#: src/blocks/city-grid/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of published city pages, linking to each service location."
 msgstr ""
 
 #: build/blocks/contact-detail/block.json
@@ -7953,6 +9682,18 @@ msgstr ""
 #: src/blocks/copyrights/block.json
 msgctxt "block title"
 msgid "Copyrights"
+msgstr ""
+
+#: build/blocks/device-frame/block.json
+#: src/blocks/device-frame/block.json
+msgctxt "block title"
+msgid "Device Frame"
+msgstr ""
+
+#: build/blocks/device-frame/block.json
+#: src/blocks/device-frame/block.json
+msgctxt "block description"
+msgid "A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an image in to showcase a project."
 msgstr ""
 
 #: build/blocks/gallery-lightbox/block.json
@@ -8147,6 +9888,42 @@ msgctxt "block title"
 msgid "Navigation"
 msgstr ""
 
+#: build/blocks/offer-table/block.json
+#: src/blocks/offer-table/block.json
+msgctxt "block title"
+msgid "Offer Table"
+msgstr ""
+
+#: build/blocks/offer-table/block.json
+#: src/blocks/offer-table/block.json
+msgctxt "block description"
+msgid "Table of an offer's variants with price, duration and scope, read from the Offers post type."
+msgstr ""
+
+#: build/blocks/other-topics-dynamic/block.json
+#: src/blocks/other-topics-dynamic/block.json
+msgctxt "block title"
+msgid "Other Topics (Dynamic)"
+msgstr ""
+
+#: build/blocks/other-topics-dynamic/block.json
+#: src/blocks/other-topics-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of other blog category topics."
+msgstr ""
+
+#: build/blocks/popular-content-dynamic/block.json
+#: src/blocks/popular-content-dynamic/block.json
+msgctxt "block title"
+msgid "Popular Content (Dynamic)"
+msgstr ""
+
+#: build/blocks/popular-content-dynamic/block.json
+#: src/blocks/popular-content-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of the site's most-viewed posts and pages, shown on the search page when there is no query."
+msgstr ""
+
 #: build/blocks/popular-pages/block.json
 #: src/blocks/popular-pages/block.json
 msgctxt "block description"
@@ -8207,6 +9984,30 @@ msgctxt "block description"
 msgid "Content that can be protected from bots using obfuscation"
 msgstr ""
 
+#: build/blocks/recently-viewed-dynamic/block.json
+#: src/blocks/recently-viewed-dynamic/block.json
+msgctxt "block title"
+msgid "Recently Viewed (Dynamic)"
+msgstr ""
+
+#: build/blocks/recently-viewed-dynamic/block.json
+#: src/blocks/recently-viewed-dynamic/block.json
+msgctxt "block description"
+msgid "Static shell for a visitor's recently-viewed pages, hidden until src/scripts/recently-viewed.ts finds entries in the browser's localStorage and populates it client-side."
+msgstr ""
+
+#: build/blocks/related-articles-dynamic/block.json
+#: src/blocks/related-articles-dynamic/block.json
+msgctxt "block title"
+msgid "Related Articles (Dynamic)"
+msgstr ""
+
+#: build/blocks/related-articles-dynamic/block.json
+#: src/blocks/related-articles-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of related articles for the current post."
+msgstr ""
+
 #: build/blocks/responsive-image/block.json
 #: src/blocks/responsive-image/block.json
 msgctxt "block title"
@@ -8243,10 +10044,46 @@ msgctxt "block title"
 msgid "Scroll To Top"
 msgstr ""
 
+#: build/blocks/search-form-dynamic/block.json
+#: src/blocks/search-form-dynamic/block.json
+msgctxt "block title"
+msgid "Search Form (Dynamic)"
+msgstr ""
+
+#: build/blocks/search-form-dynamic/block.json
+#: src/blocks/search-form-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered search input form, translated per the current Polylang language."
+msgstr ""
+
+#: build/blocks/search-header-dynamic/block.json
+#: src/blocks/search-header-dynamic/block.json
+msgctxt "block title"
+msgid "Search Header (Dynamic)"
+msgstr ""
+
+#: build/blocks/search-header-dynamic/block.json
+#: src/blocks/search-header-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered search results heading, translated per the current Polylang language."
+msgstr ""
+
 #: build/blocks/search-panel/block.json
 #: src/blocks/search-panel/block.json
 msgctxt "block description"
 msgid "Search trigger with configurable panel content. Place inside a navigation for a mega-menu panel, or in the header for a standalone mobile modal."
+msgstr ""
+
+#: build/blocks/search-results-dynamic/block.json
+#: src/blocks/search-results-dynamic/block.json
+msgctxt "block title"
+msgid "Search Results (Dynamic)"
+msgstr ""
+
+#: build/blocks/search-results-dynamic/block.json
+#: src/blocks/search-results-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered search results list, with a popular-content fallback when there is no query."
 msgstr ""
 
 #: build/blocks/simple-grid/block.json
@@ -8307,6 +10144,18 @@ msgstr ""
 #: src/blocks/social-section/item/block.json
 msgctxt "block description"
 msgid "Single social link. Icon comes from the link URL, a CSS class, or an SVG from the media library."
+msgstr ""
+
+#: build/blocks/tag-posts-grid-dynamic/block.json
+#: src/blocks/tag-posts-grid-dynamic/block.json
+msgctxt "block title"
+msgid "Tag Posts Grid (Dynamic)"
+msgstr ""
+
+#: build/blocks/tag-posts-grid-dynamic/block.json
+#: src/blocks/tag-posts-grid-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered grid of posts within the current tag archive."
 msgstr ""
 
 #: build/blocks/theme-switcher/block.json
@@ -8380,7 +10229,7 @@ msgstr ""
 #: styles/rose-pink.json
 #: styles/sunset-orange.json
 msgctxt "Color name"
-msgid "Primary RGB"
+msgid "Primary Contrast (Adaptive)"
 msgstr ""
 
 #: theme.json
@@ -8394,7 +10243,105 @@ msgstr ""
 #: styles/rose-pink.json
 #: styles/sunset-orange.json
 msgctxt "Color name"
-msgid "Primary Dark RGB"
+msgid "Primary · 10% · Light Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 10% · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 10% (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 10% Contrast (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 20% · Light Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 20% · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 20% (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Primary · 20% Contrast (Adaptive)"
 msgstr ""
 
 #: theme.json
@@ -8482,11 +10429,6 @@ msgid "Light Color"
 msgstr ""
 
 #: theme.json
-msgctxt "Color name"
-msgid "Light Color RGB"
-msgstr ""
-
-#: theme.json
 #: styles/blue.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
@@ -8498,11 +10440,6 @@ msgstr ""
 #: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Dark Color"
-msgstr ""
-
-#: theme.json
-msgctxt "Color name"
-msgid "Dark Color RGB"
 msgstr ""
 
 #: theme.json
@@ -8544,6 +10481,118 @@ msgstr ""
 #: styles/rose-pink.json
 #: styles/sunset-orange.json
 msgctxt "Color name"
+msgid "Divider · Light Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Divider · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Divider (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Divider Contrast (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Background Alt · Light Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Background Alt · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Background Alt (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Background Alt Contrast (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
 msgid "Surface · Light Mode"
 msgstr ""
 
@@ -8559,6 +10608,146 @@ msgstr ""
 #: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface Contrast (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 10% · Light Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 10% · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 10% (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 10% Contrast (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 20% · Light Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 20% · Dark Mode"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 20% (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Surface · 20% Contrast (Adaptive)"
 msgstr ""
 
 #: theme.json
@@ -8600,6 +10789,34 @@ msgstr ""
 #: styles/rose-pink.json
 #: styles/sunset-orange.json
 msgctxt "Color name"
+msgid "Foreground (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
+msgid "Foreground Contrast (Adaptive)"
+msgstr ""
+
+#: theme.json
+#: styles/blue.json
+#: styles/cyber-cyan.json
+#: styles/deep-indigo.json
+#: styles/emerald-forest.json
+#: styles/golden-amber.json
+#: styles/green.json
+#: styles/ocean-teal.json
+#: styles/rose-pink.json
+#: styles/sunset-orange.json
+msgctxt "Color name"
 msgid "Foreground Alt · Light Mode"
 msgstr ""
 
@@ -8628,81 +10845,10 @@ msgstr ""
 #: styles/rose-pink.json
 #: styles/sunset-orange.json
 msgctxt "Color name"
-msgid "Divider · Light Mode"
-msgstr ""
-
-#: theme.json
-#: styles/blue.json
-#: styles/cyber-cyan.json
-#: styles/deep-indigo.json
-#: styles/emerald-forest.json
-#: styles/golden-amber.json
-#: styles/green.json
-#: styles/ocean-teal.json
-#: styles/rose-pink.json
-#: styles/sunset-orange.json
-msgctxt "Color name"
-msgid "Divider · Dark Mode"
-msgstr ""
-
-#: theme.json
-msgctxt "Color name"
-msgid "Background Alt · Light Mode"
-msgstr ""
-
-#: theme.json
-msgctxt "Color name"
-msgid "Background Alt · Dark Mode"
-msgstr ""
-
-#: theme.json
-#: styles/blue.json
-#: styles/cyber-cyan.json
-#: styles/deep-indigo.json
-#: styles/emerald-forest.json
-#: styles/golden-amber.json
-#: styles/green.json
-#: styles/ocean-teal.json
-#: styles/rose-pink.json
-#: styles/sunset-orange.json
-msgctxt "Color name"
-msgid "Surface (Adaptive)"
-msgstr ""
-
-#: theme.json
-#: styles/blue.json
-#: styles/cyber-cyan.json
-#: styles/deep-indigo.json
-#: styles/emerald-forest.json
-#: styles/golden-amber.json
-#: styles/green.json
-#: styles/ocean-teal.json
-#: styles/rose-pink.json
-#: styles/sunset-orange.json
-msgctxt "Color name"
-msgid "Foreground (Adaptive)"
-msgstr ""
-
-#: theme.json
-#: styles/blue.json
-#: styles/cyber-cyan.json
-#: styles/deep-indigo.json
-#: styles/emerald-forest.json
-#: styles/golden-amber.json
-#: styles/green.json
-#: styles/ocean-teal.json
-#: styles/rose-pink.json
-#: styles/sunset-orange.json
-msgctxt "Color name"
 msgid "Foreground Alt (Adaptive)"
 msgstr ""
 
 #: theme.json
-msgctxt "Color name"
-msgid "Foreground Contrast (Adaptive)"
-msgstr ""
-
-#: theme.json
 #: styles/blue.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
@@ -8713,12 +10859,7 @@ msgstr ""
 #: styles/rose-pink.json
 #: styles/sunset-orange.json
 msgctxt "Color name"
-msgid "Divider (Adaptive)"
-msgstr ""
-
-#: theme.json
-msgctxt "Color name"
-msgid "Background Alt (Adaptive)"
+msgid "Foreground Alt Contrast (Adaptive)"
 msgstr ""
 
 #: theme.json
@@ -8774,6 +10915,16 @@ msgstr ""
 #: theme.json
 msgctxt "Gradient name"
 msgid "Cyber Accent"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Project Showcase · Angled"
+msgstr ""
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Project Showcase · Bottom Peek"
 msgstr ""
 
 #: theme.json

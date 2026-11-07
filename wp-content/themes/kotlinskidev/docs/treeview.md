@@ -46,7 +46,7 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 99 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 102 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -54,6 +54,7 @@ kotlinskidev/
 │   ├── ai-disclosure-labels.php                # adds an "AI-generated" checkbox to Media Library attachment fields (_kotlinskidev_ai_generated post meta) + a render_block filter that appends a visible "AI-generated image/video" <span> to any core/image or core/cover block whose attachment id has that meta set, EU AI Act Art. 50(4) deployer disclosure duty
 │   ├── article-card.php                        # kt_article_card CPT (title + linked_article_id/card_description meta, synced from the linked article via rest_insert_kt_article_card) + kotlinskidev_render_article_card_embed(), which renders templates/single-kt_article_card.html with explicit WP_Block context so its core/post-meta bindings resolve; kotlinskidev_merge_article_card_block_supports() (WP_HTML_Tag_Processor) merges the block's own color/spacing/border/typography Styles-panel overrides onto the template's existing root tag, called from src/blocks/article-card/render.php; PluginDocumentSettingPanel script (src/blocks/article-card/panel.tsx) enqueued only on the CPT's own edit screen
 │   ├── article-query-manager.php               # meta boxes for per-article query control
+│   ├── article-toc.php                         # kotlinskidev_article_toc_items()/_items_for_post() extract the H2 headings of a post's content into slugged id/label items, and a render_block_core/heading filter injects the matching ids so the anchors resolve; consumed by src/blocks/article-toc/render.php
 │   ├── asset-paths.php                         # kotlinskidev_build_path()/kotlinskidev_build_url() — single source of truth for the build/js, build/css subfolder layout, required right after cache.php
 │   ├── background-effects/                     # all background-effect-preset PHP, the second subfolder in functions/ alongside canvas/
 │   │   ├── preset.php                          # kt_bg_effect_preset CPT (non-public, title+editor only, same shape as kt_canvas_scene) whose content holds exactly one kotlinskidev/bg-effect-preset-settings block; kotlinskidev_build_bg_effect_preset() parse_blocks()s the post, clamps effectType to the 5 recognized kt-bg-fx-* types (falls back to gradient-shift), sanitizes color1/2/3 and duration (1-30s, per-type default), cached in a kotlinskidev_bg_effect_preset_{preset_id} transient
@@ -81,6 +82,8 @@ kotlinskidev/
 │   ├── copyrights.php                          # [copyrights] shortcode
 │   ├── cover-image-classes.php                 # lazy-loading behavior control for cover blocks
 │   ├── cover-video-preload.php                 # injects <link rel=preload> for cover-block video posters
+│   ├── cover-video-controls.php                # removes loop/autoplay and adds data-kt-video-* flags (and data-kt-reveal-after-end on the cover root; with fit-aspect on, adds kt-cover-fit-video plus --kt-vr-desktop/tablet/mobile ratio vars from attachment metadata) on a core/cover video background from the "Video background" panel
+│   ├── responsive-media.php                    # per-device media for core/cover: wraps image covers in <picture> and moves video src into data-kt-src-* attributes
 │   ├── custom-css-vars.php                     # render_block filter: injects an editor-defined list of arbitrary CSS custom properties (name/value pairs) as inline style on kotlinskidev/icon and core/image, for theming multi-color SVGs via var(--x) in their own fill/stroke attributes
 │   ├── critical-css-fragments.php              # filterable block-name→critical-CSS-fragment-filename registry + has_block()-based per-page detection, so e.g. kotlinskidev/certificate's card styles only get inlined on pages that actually use the block, not in the shared global critical.css; the search fragment is checked separately via is_search() OR is_page(['search','szukaj']) since its blocks live in templates/search.html and templates/page-search.html, not any post's content — is_page_template('page-search') looked equivalent but silently fails for the English page since its _wp_page_template meta is empty (block-theme hierarchy resolves page-search.html by slug, not by that meta value), confirmed by it actually breaking in production
 │   ├── customizer.php                          # Customizer panel registration
@@ -109,6 +112,7 @@ kotlinskidev/
 │   ├── modals.php                              # kt_modal CPT + size meta, resolves/dedupes/renders modal shells for any link with opensInModal+modalId, wp_footer
 │   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
 │   ├── nav-reveal-render.php                   # render_block filter for core/navigation-link/-submenu, kotlinskidev/nav-*, kotlinskidev/button, kotlinskidev/social-section — reads navRevealAnimation/navRevealDelay/navRevealTranslate off $block['attrs'] and injects the class + --reveal-delay inline style via WP_HTML_Tag_Processor onto the block's own root tag (these are dynamic PHP-rendered blocks, so the editor-side blocks.getSaveContent.extraProps filter never reaches their frontend output). search-panel/language-panel are deliberately excluded here — they need the class on their *inner* .kt-search-panel__modal/.kt-lang-panel__modal div, not their outer wrapper, so they call the exported kotlinskidev_nav_reveal_class_and_style() helper directly from their own render.php instead. Also exports kotlinskidev_stagger_reveal_items(\$html, \$animation, \$class_markers, \$step=60) — walks every tag via WP_HTML_Tag_Processor and auto-staggers, in one continuous document-order sequence, every tag whose class list contains an EXACT token match for ANY of \$class_markers (not substring — "wp-block-navigation-item" must not also match the BEM child "wp-block-navigation-item__content"); used by search-panel/language-panel render.php to stagger their whole auto-generated content (search form, "Frequently visited pages" title, each popular-pages link / each language option) in one pass, no per-item editor config needed
+│   ├── offers.php                              # kt_offer CPT (one post per service per language; offer_key/currency/is_placeholder/variants meta, Polylang-translatable) + per-language cached offer map, render_block filter resolving Offer-format spans to EUR/PLN price/duration text ('Price on request' for visitors while is_placeholder), REST routes for the editor, admin placeholder notice/admin-bar node, Yoast schema pieces
 │   ├── page-loader.php                         # renders page-loader markup on wp_body_open
 │   ├── page-view-tracking.php                  # AJAX view tracking + Popular Pages query source
 │   ├── patterns.php                            # registers 4 custom pattern categories
@@ -243,7 +247,7 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 77 top-level dirs (65 registered blocks + 30 JS-only block-extension filters + 1 post-editor settings panel (service-location) across them — canvas-background/ nests 17 blocks + 1 extension in one dir, so block/extension counts exceed the top-level dir count)
+│   ├── blocks/                                 # 79 top-level dirs (67 registered blocks + 30 JS-only block-extension filters + 1 post-editor settings panel (service-location) across them — canvas-background/ nests 17 blocks + 1 extension in one dir, so block/extension counts exceed the top-level dir count)
 │   │   ├── above-fold/                         # extension: Advanced-tab "Load above the fold" toggle, shown only on blocks registered in functions/deferred-block-assets.php
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
@@ -261,6 +265,15 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
+│   │   ├── article-toc/                        # dynamic block (render.php) — sticky numbered table of contents for single articles (desktop column with scroll-spy, mobile floating button opening a bottom-sheet dialog), fed by functions/article-toc.php; scroll-list.ts keeps the active item visible inside the card/dialog list (container scroll, never the page)
+│   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit placeholder
+│   │   │   ├── edit.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── init.test.ts                    # Jest: scroll-spy, dialog open/close
+│   │   │   ├── init.ts                         # viewScript: scroll-spy highlight + mobile dialog behaviour
+│   │   │   ├── render.php
+│   │   │   └── style.scss
 │   │   ├── background-effects-controls/        # extension: curated animated CSS background/border effect classes (kt-bg-fx-*), applied via className like hover-animation-controls; manual mode (backgroundEffect/backgroundEffectColor1-3) still bakes into saved content via blocks.getSaveContent.extraProps, but a new backgroundEffectPresetId ComboboxControl over kt_bg_effect_preset posts takes over instead when set — disables the manual Effect select, skips extraProps entirely, and resolution happens server-side via functions/background-effects/render.php so editing a preset propagates everywhere without a re-save, matching the canvasSceneId pattern
 │   │   │   └── index.tsx
 │   │   ├── banner-carousel/                    # full-width Swiper banner slider
@@ -422,6 +435,8 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── cover-lazy-loading/                 # extension: force-disable native lazy loading on cover/image
+│   │   ├── cover-video-controls/               # extension: "Video background" panel on core/cover with video (autoplay, loop, pause when offscreen, reveal content after video ends, fit cover to video aspect ratio)
+│   │   ├── responsive-media/                   # extension: "Responsive media" panel on core/cover with mobile/tablet media slots
 │   │   │   └── index.tsx
 │   │   ├── custom-css-vars/                    # extension: dynamic name/value CSS-custom-property repeater, scoped to kotlinskidev/icon + core/image (SVG theming, e.g. a multi-color logo referencing var(--logo-icon-bg) etc. in its own fill/stroke attributes)
 │   │   │   └── index.tsx
@@ -453,6 +468,7 @@ kotlinskidev/
 │   │   │   └── render.php
 │   │   ├── group-divider/                      # extension: "Divider Lines" toggle on core/group, adding has-divider-between-y (vertical stack, border-top) or has-divider-between-x (flex row, border-left) depending on the group's own layout.type/orientation; inherits the group's own Border panel color/width via CSS `inherit` rather than a separate color picker, so it can't desync from it. Reliable for a single column/row — not a responsive multi-column auto-fill grid, which has no CSS concept of "first row" without a fixed columnCount; collaborations-hairline-grid.php keeps its own background-color + 1px blockGap technique for that case instead
 │   │   ├── group-link/                         # extension: makes a whole core/group clickable/keyboard-activatable via a picked URL, without hijacking clicks on nested links/buttons/form fields
+│   │   ├── overlay-link-controls/              # extension: "Overlay link" panel on core/button toggling kt-overlay-link and kt-overlay-link--label-hidden
 │   │   │   └── index.tsx
 │   │   ├── hero-carousel/                      # full-bleed hero/Swiper carousel, image or video background
 │   │   │   ├── slide/
@@ -554,6 +570,13 @@ kotlinskidev/
 │   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
 │   │   │   ├── nav-icon-filter.tsx
+│   │   │   └── render.php
+│   │   ├── offer-table/                        # dynamic block (render.php, ServerSideRender preview) — offerKey attribute only, renders a table of the offer's variants (price, duration, scope) from kt_offer
+│   │   │   ├── block.json
+│   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
+│   │   │   ├── edit.tsx                        # Inspector offer picker + ServerSideRender preview
+│   │   │   ├── index.test.ts
+│   │   │   ├── index.ts
 │   │   │   └── render.php
 │   │   ├── other-topics-dynamic/               # dynamic block (render.php, ServerSideRender preview) wrapping kotlinskidev_render_other_topics_fresh_per_language() (functions/blog-topic-manager.php), placed in templates/category.html — see blog-topics-grid-dynamic/ above for why this folder-based form replaced a bare PHP-only register_block_type(). Its 4 category cards now reuse blog-topics-grid-dynamic's exact kt-blog-topics-grid__card markup via functions/topic-card-renderer.php's kotlinskidev_render_topic_card(), replacing an old inline-styled one-off card. Same "Card Hover Effects" panel as blog-topics-grid-dynamic, writing the same --kt-blog-topics-grid-card-hover-bg var (functions/card-hover-style-vars.php) since it shares that block's card markup
 │   │   │   ├── block.json
@@ -747,10 +770,18 @@ kotlinskidev/
 │   ├── formats/                                # custom RichText format types
 │   │   ├── glow-text/
 │   │   │   └── index.tsx                       # registers the kotlinskidev/glow-text RichText format — wraps the selection in <span class="has-enhanced-hover-glow" style="--hover-text-spotlight-color:...">, reusing hover-glow.scss/hover-glow.ts entirely as-is (same class the block-level Hover Effects panel's toggle uses, so no new CSS/JS needed); popover UI mirrors gradient-highlight's (solid color only, no gradient — matches the block-level glow's own gradient-text exclusion)
-│   │   └── gradient-highlight/
-│   │       ├── editor.scss                     # editor-only styling for the format's popover UI
-│   │       ├── index.tsx                       # registers the gradient-highlight RichText format
-│   │       └── style.scss                      # frontend + editor shared styling for the rendered span
+│   │   ├── gradient-highlight/
+│   │   │   ├── editor.scss                     # editor-only styling for the format's popover UI
+│   │   │   ├── index.tsx                       # registers the gradient-highlight RichText format
+│   │   │   └── style.scss                      # frontend + editor shared styling for the rendered span
+│   │   └── offer-value/
+│   │       ├── editor.scss                     # editor-only styling for the Offer value span and popover
+│   │       ├── index.test.tsx
+│   │       └── index.tsx                       # registers the kotlinskidev/offer-value RichText format — wraps the selection in a span carrying offer key/variant/field, resolved server-side by functions/offers.php
+│   ├── offers/                                 # kt_offer post-editor settings panel
+│   │   ├── panel.stories.tsx
+│   │   ├── panel.test.tsx
+│   │   └── panel.tsx                           # PluginDocumentSettingPanel on the kt_offer edit screen — key, currency, placeholder flag and variants editor
 │   ├── scripts/                                # frontend TS modules, bundled via src/index.ts / src/critical.ts
 │   │   ├── accessibility.ts                    # DOM/motion/video a11y helpers, reduced-motion checks
 │   │   ├── active-link-state.ts                 # single-pass DOM scan on load: marks <a href> pointing at location.pathname with kt-link-current/aria-current and blocks its click (unless a data-link-navigates ancestor + aria-haspopup panel trigger); reads window.kotlinskidevActiveLinkState (enabled/blockClicks) localized by functions/active-link-state.php — replaced a render_block PHP filter that cost ~104ms/page (redundant per-anchor URL parsing + ancestor re-scanning of already-processed block content)
@@ -777,6 +808,8 @@ kotlinskidev/
 │   │   ├── editor-theme-toggle.ts              # dark/light toggle button inside the block editor canvas
 │   │   ├── faq-accordion.ts                    # WAAPI height-animated open/close for FAQ details accordion; fires faq_expand (GA4) via track-event.ts on open only, not close
 │   │   ├── group-link.ts                       # click/keyboard delegation for .kt-group-link, skips nested interactive elements
+│   │   ├── cover-video-controls.ts             # shows the first frame when autoplay is off and pauses/resumes cover videos with the viewport and reveals reveal-after-end cover content when the video ends
+│   │   ├── responsive-media.ts                 # picks the cover video source for the current device via matchMedia and swaps it on resize
 │   │   ├── hamburger.ts                        # mobile nav overlay open/close, submenu collapse, scroll-lock
 │   │   ├── hide-nav-on-scroll.ts               # hides/shows nav bar based on scroll direction
 │   │   ├── hover-glow.ts                       # cursor-following glow for any block with "Enhanced Glow" enabled in the Hover Effects panel — not button-only: kotlinskidev/button, core/button, and any other block (paragraph, heading, group, etc.) — rAF-throttled pointermove sets --kt-glow-x/y relative to the painted text element itself (.kt-button__label, .wp-block-button__link, or the element itself for the generic case), gated behind (hover: hover) and (pointer: fine) and skipped under prefers-reduced-motion. findFragmentRect() computes the offset relative to whichever getClientRects() line fragment the pointer is actually over (not the element's overall multi-line bounding box) — needed because box-decoration-break:clone repaints the background independently per wrapped line, so a position computed against the union box falls outside a given line's own (shorter) box and the glow goes dark exactly when the cursor crosses into a wrapped second/third line. closestNonInlineAncestor() makes the generic (non-button) case listen on the nearest block ancestor rather than the fragmented span itself, so pointermove — and the paired :has()-driven CSS trigger in hover-glow.scss — stays continuous through the small gap between two wrapped line boxes, which the span's own :hover never covers
@@ -793,7 +826,8 @@ kotlinskidev/
 │   │   ├── recently-viewed.ts                  # records singular post/page views (title/URL/og:image/og:description/article:published_time + single-post-vs-page type) to localStorage kt_recently_viewed, capped at 6, excludes search/404; renders into #kt-recently-viewed as real kt-post-card-grid__card DOM nodes (same markup as functions/post-card-renderer.php's kotlinskidev_render_post_card(), built client-side since this data only exists in localStorage) so Recently Viewed matches Popular Content's card styling exactly, into the .kt-post-card-grid populated by functions/search-page-dynamic-blocks.php's Popular Content section
 │   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block; fires protected_content_reveal (GA4) via track-event.ts on a successful reveal only, not on a failed decrypt
 │   │   ├── restoration.ts                      # stores scrollY on pagehide (localStorage), restores it on pageshow for back_forward and reload navigations only (not a plain navigate) — pageshow fires after window's load event, so the restore always happens after marquee/ScrollTrigger have already settled, pairing with functions/scroll-restoration.php's history.scrollRestoration = 'manual' to stop the browser's own earlier, unsynced auto-restore. Restoring retries scrollTo() every animation frame (bounded by a stable-frame count + hard frame cap) rather than a single call, since a pinSpacing:false scroll-section only grows the document's real scrollHeight in response to scroll events — a one-shot scrollTo() gets silently clamped to the still-small, ungrown height and never catches up
-│   │   ├── scroll-animations.ts                # IntersectionObserver entrance-animation trigger
+│   │   ├── scroll-animations.ts                # IntersectionObserver entrance-animation trigger (skips reveal-after-end covers)
+│   │   ├── scroll-animation-selectors.ts       # shared scroll-animation selector list, reveal-after-end selector and will-change cleanup
 │   │   ├── scroll-to-top.ts                    # fixed-arrow visibility/progress ring + bar-variant click wiring; fires scroll_to_top_click (GA4) via track-event.ts with a fixed/bar variant param, from the one shared handler both variants (and keyboard activation) call
 │   │   ├── search-panel.ts                     # wraps initDropdownPanels for .kt-search-panel, autofocuses input; fires search_panel_open (GA4) via track-event.ts on open
 │   │   ├── smooth-scroll-offset.ts             # smooth-scrolls anchor links with header-height offset
@@ -836,6 +870,9 @@ kotlinskidev/
 │   │   ├── gradients.scss                      # gradient background utility class
 │   │   ├── group-divider.scss                  # .has-divider-between-y/-x — border-top/-left-{width,color} via `inherit` (reads the group's own Border panel values), border-style hardcoded solid; paired with the group-divider extension
 │   │   ├── group-link.scss                     # cursor + focus-visible styling for .kt-group-link, paired with the group-link extension
+│   │   ├── overlay-link.scss                   # .kt-overlay-link stretches a link over its host (Cover or .kt-overlay-link-host); .kt-overlay-link--label-hidden hides its text visually
+│   │   ├── responsive-media.scss               # keeps the responsive-media <picture> wrapper from affecting cover layout
+│   │   ├── cover-fit-video.scss                # .kt-cover-fit-video sizes the cover with aspect-ratio from --kt-vr-desktop/tablet/mobile per breakpoint, beating core min-height and .above-fold
 │   │   ├── hover-glow.scss                      # .has-enhanced-hover-glow cursor glow as a text-clipped radial-gradient background-image (background-clip: text) on the hover color — kotlinskidev/button's .kt-button__label, core/button's .wp-block-button__link directly, and (new) any other block directly, same fixed 5rem radius everywhere (root-relative, deliberately not scaled to the element's own font-size — an em-based radius looked oversized/washed-out on large headings in practice); can't bleed onto a background since it's clipped to text glyphs, not blended; scoped to (hover: hover)/(pointer: fine), disabled under prefers-reduced-motion; spotlight-gradient/text-clip/reduced-motion-reset boilerplate shared via mixins.scss's kt-glow-* mixins. Generic (non-button) case's trigger is `*:has(.has-enhanced-hover-glow...):hover <descendant>` rather than the span's own :hover/:focus-visible — paired with hover-glow.ts's closestNonInlineAncestor(), so a multi-line heading/paragraph keeps glowing through the small gap between two wrapped lines, which the span's own fragmented hit-boxes don't cover
 │   │   ├── image-grow-fill.scss                 # .has-self-stretch-fill/.has-self-stretch-fixed img { width:100% / var(--kt-self-stretch-width) !important } — makes core/image's native Layout Grow/Fixed options actually resize the image, not just its flex slot; paired with the image-grow-fill extension
 │   │   ├── image-hover-overlay.scss            # hover/focus-within reveal + editor preview for .kt-image-hover-overlay, paired with the image-hover-overlay extension
@@ -945,7 +982,7 @@ kotlinskidev/
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
 │   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey + a minimal WP_HTML_Tag_Processor (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 58 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 59 PHP unit test files (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed

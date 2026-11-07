@@ -37,32 +37,47 @@ if (!class_exists('WP_HTML_Tag_Processor')) {
             }
         }
 
-        public function next_tag(): bool
+        public function next_tag(array|string|null $query = null): bool
         {
             $this->commitCurrent();
 
-            if (!preg_match('/<([a-zA-Z0-9-]+)((?:\s+[a-zA-Z-]+(?:="[^"]*")?)*)\s*\/?>/', $this->html, $matches, PREG_OFFSET_CAPTURE, $this->cursor)) {
-                return false;
+            $tagName = is_string($query) ? $query : ($query['tag_name'] ?? null);
+            $className = is_array($query) ? ($query['class_name'] ?? null) : null;
+
+            while (preg_match('/<([a-zA-Z0-9-]+)((?:\s+[a-zA-Z-]+(?:="[^"]*")?)*)\s*\/?>/', $this->html, $matches, PREG_OFFSET_CAPTURE, $this->cursor)) {
+                $attrs = [];
+                preg_match_all('/([a-zA-Z-]+)(?:="([^"]*)")?/', $matches[2][0], $attrMatches, PREG_SET_ORDER);
+                foreach ($attrMatches as $attrMatch) {
+                    $attrs[$attrMatch[1]] = $attrMatch[2] ?? true;
+                }
+
+                $start = $matches[0][1];
+                $length = strlen($matches[0][0]);
+                $this->cursor = $start + $length;
+
+                $classes = array_filter(explode(' ', is_string($attrs['class'] ?? null) ? $attrs['class'] : ''));
+                if (($tagName !== null && strcasecmp($tagName, $matches[1][0]) !== 0) || ($className !== null && !in_array($className, $classes, true))) {
+                    continue;
+                }
+
+                $this->current = [
+                    'tagName' => $matches[1][0],
+                    'attrs' => $attrs,
+                    'start' => $start,
+                    'length' => $length,
+                ];
+
+                return true;
             }
 
-            $attrs = [];
-            preg_match_all('/([a-zA-Z-]+)="([^"]*)"/', $matches[2][0], $attrMatches, PREG_SET_ORDER);
-            foreach ($attrMatches as $attrMatch) {
-                $attrs[$attrMatch[1]] = $attrMatch[2];
+            return false;
+        }
+
+        public function remove_attribute(string $name): void
+        {
+            if ($this->current !== null) {
+                unset($this->current['attrs'][$name]);
             }
-
-            $start = $matches[0][1];
-            $length = strlen($matches[0][0]);
-            $this->cursor = $start + $length;
-
-            $this->current = [
-                'tagName' => $matches[1][0],
-                'attrs' => $attrs,
-                'start' => $start,
-                'length' => $length,
-            ];
-
-            return true;
         }
 
         public function get_attribute(string $name): ?string
@@ -98,7 +113,7 @@ if (!class_exists('WP_HTML_Tag_Processor')) {
             foreach ($this->edits as $edit) {
                 $attrString = '';
                 foreach ($edit['attrs'] as $name => $value) {
-                    $attrString .= ' ' . $name . '="' . htmlspecialchars($value, ENT_QUOTES) . '"';
+                    $attrString .= $value === true ? ' ' . $name : ' ' . $name . '="' . htmlspecialchars($value, ENT_QUOTES) . '"';
                 }
                 $replacement = '<' . $edit['tagName'] . $attrString . '>';
                 $start = $edit['start'] + $offsetShift;

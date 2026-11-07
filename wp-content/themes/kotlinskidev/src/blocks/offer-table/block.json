@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/offer-table",
+  "version": "1.0.0",
+  "title": "Offer Table",
+  "category": "kotlinskidev",
+  "icon": "tag",
+  "description": "Table of an offer's variants with price, duration and scope, read from the Offers post type.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/js/offer-table.js",
+  "render": "file:./render.php",
+  "attributes": {
+    "offerKey": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false
+  }
+}

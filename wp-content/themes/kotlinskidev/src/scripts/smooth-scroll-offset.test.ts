@@ -96,6 +96,23 @@ describe("smooth-scroll-offset.ts", () => {
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
+  it("ignores article TOC links, leaving them for the article-toc block to handle", () => {
+    document.body.innerHTML = "";
+    const link = document.createElement("a");
+    link.href = "#target";
+    link.setAttribute("data-kt-toc-link", "");
+    const target = document.createElement("div");
+    target.id = "target";
+    document.body.append(link, target);
+    require("./smooth-scroll-offset");
+
+    const clickEvent = new MouseEvent("click", { bubbles: true, cancelable: true });
+    link.dispatchEvent(clickEvent);
+
+    expect(clickEvent.defaultPrevented).toBe(false);
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
   it("does nothing when the anchor's target element does not exist", () => {
     document.body.innerHTML = "";
     const link = document.createElement("a");

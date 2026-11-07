@@ -21,6 +21,8 @@ import "./scripts/faq-accordion";
 import "./scripts/line-clamp";
 import "./scripts/modal-manager";
 import "./scripts/group-link";
+import "./scripts/cover-video-controls";
+import "./scripts/responsive-media";
 import "./scripts/city-map-lightbox";
 import "./scripts/load-more";
 import "./scripts/analytics";

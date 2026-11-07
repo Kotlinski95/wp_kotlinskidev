@@ -88,3 +88,66 @@ it('omits the style attribute when no hover padding is set', function () {
 
     expect($captured)->not->toHaveKey('style');
 });
+
+function kotlinskidev_nav_banner_stub_cover(string $url, int $post_id, int $thumb_id, string $large, string $alt = ''): void
+{
+    Functions\when('home_url')->alias(fn ($p = '') => 'https://site.test' . $p);
+    Functions\when('url_to_postid')->alias(fn ($u) => $u === $url || 'https://site.test' . $url === $u ? $post_id : 0);
+    Functions\when('get_post_thumbnail_id')->justReturn($thumb_id);
+    Functions\when('wp_get_attachment_image_url')->alias(fn ($id, $size) => 'large' === $size ? $large : 'full.jpg');
+    Functions\when('get_post_meta')->justReturn($alt);
+    Functions\when('pll_get_post')->alias(fn ($id) => $id);
+}
+
+it('keeps the stored media url when followLinkedCover is false', function () {
+    $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/off/', 'followLinkedCover' => false]);
+
+    expect($html)->toContain('<img src="stored.jpg"');
+});
+
+it('uses the linked page featured image and its alt when followLinkedCover is true', function () {
+    kotlinskidev_nav_banner_stub_cover('/page-a/', 5, 9, 'cover-large.jpg', 'Cover alt');
+
+    $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/page-a/', 'followLinkedCover' => true]);
+
+    expect($html)->toContain('<img src="cover-large.jpg" alt="Cover alt" loading="lazy">');
+    expect($html)->not->toContain('stored.jpg');
+});
+
+it('prefers the block alt text over the cover alt', function () {
+    kotlinskidev_nav_banner_stub_cover('/page-b/', 6, 10, 'cover-b.jpg', 'Cover alt');
+
+    $html = kotlinskidev_nav_banner_render(['linkUrl' => '/page-b/', 'altText' => 'Own alt', 'followLinkedCover' => true]);
+
+    expect($html)->toContain('src="cover-b.jpg" alt="Own alt"');
+});
+
+it('falls back to the stored media when the linked page has no thumbnail', function () {
+    kotlinskidev_nav_banner_stub_cover('/page-c/', 7, 0, 'x.jpg');
+
+    $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/page-c/', 'followLinkedCover' => true]);
+
+    expect($html)->toContain('<img src="stored.jpg"');
+});
+
+it('falls back to the stored media when the link does not resolve to a post', function () {
+    kotlinskidev_nav_banner_stub_cover('/page-d/', 0, 11, 'x.jpg');
+
+    $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/nowhere/', 'followLinkedCover' => true]);
+
+    expect($html)->toContain('<img src="stored.jpg"');
+});
+
+it('escapes the linked cover url and alt', function () {
+    kotlinskidev_nav_banner_stub_cover('/page-e/', 8, 12, 'c.jpg?a=1&b=2', 'A "quoted" alt');
+    $escUrl = null;
+    Functions\when('esc_url')->alias(function ($t) use (&$escUrl) {
+        $escUrl = $t;
+        return $t;
+    });
+    Functions\when('esc_attr')->alias(fn ($t) => htmlspecialchars($t, ENT_QUOTES));
+
+    $html = kotlinskidev_nav_banner_render(['linkUrl' => '/page-e/', 'followLinkedCover' => true]);
+
+    expect($html)->toContain('alt="A &quot;quoted&quot; alt"');
+});

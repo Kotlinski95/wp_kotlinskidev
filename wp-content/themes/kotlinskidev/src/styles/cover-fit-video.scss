@@ -1,0 +1,16 @@
+@import "variables";
+
+.wp-block-cover.kt-cover-fit-video {
+	aspect-ratio: var(--kt-vr-desktop, 16 / 9);
+	height: auto;
+	max-height: none;
+	min-height: min-content;
+
+	@media (max-width: #{$breakpoint-desktop - 0.0625rem}) {
+		aspect-ratio: var(--kt-vr-tablet, var(--kt-vr-desktop, 16 / 9));
+	}
+
+	@media (max-width: #{$breakpoint-mobile - 0.0625rem}) {
+		aspect-ratio: var(--kt-vr-mobile, var(--kt-vr-tablet, var(--kt-vr-desktop, 16 / 9)));
+	}
+}
