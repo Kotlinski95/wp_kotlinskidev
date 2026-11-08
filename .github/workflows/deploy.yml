@@ -143,7 +143,7 @@ jobs:
         if: steps.gate.outputs.skip != 'true'
         id: sync
         run: |
-          rsync -rltp --delete --omit-dir-times \
+          rsync -rltp --delete --prune-empty-dirs --omit-dir-times \
             --chmod=D2775,F664 \
             --filter="merge $RUNNER_TEMP/rsync-filter.txt" \
             -e "ssh -i ~/.ssh/deploy_key" \
