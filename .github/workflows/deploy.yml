@@ -1,0 +1,176 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: read
+
+jobs:
+  deploy:
+    name: Deploy to Lightsail
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    env:
+      THEME_DIR: wp-content/themes/kotlinskidev
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+      SSH_HOST: ${{ vars.SSH_HOST }}
+      SSH_USER: ${{ vars.SSH_USER }}
+      SITE_URL: ${{ vars.SITE_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check skip flags
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          skip=false
+          if [[ "$COMMIT_MESSAGE" == *"[skip deploy]"* ]]; then
+            skip=true
+          fi
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            labels=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '.[].labels[].name' || true)
+            if grep -qx 'no-deploy' <<< "$labels"; then
+              skip=true
+            fi
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+          if [[ "$skip" == "true" ]]; then
+            echo "Deploy skipped by [skip deploy] or no-deploy label." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Setup Node
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
+          cache: npm
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Setup PHP
+        if: steps.gate.outputs.skip != 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer
+
+      - name: Build theme
+        if: steps.gate.outputs.skip != 'true'
+        working-directory: ${{ env.THEME_DIR }}
+        run: |
+          npm ci
+          npm run build
+          composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Build rsync filter from manifest
+        if: steps.gate.outputs.skip != 'true'
+        run: bash .github/scripts/build-rsync-filter.sh .github/deploy-manifest.yml "$RUNNER_TEMP/rsync-filter.txt"
+
+      - name: Configure AWS credentials
+        if: steps.gate.outputs.skip != 'true'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Open SSH port for runner IP
+        if: steps.gate.outputs.skip != 'true'
+        id: port
+        run: |
+          runner_ip=$(curl -fsS https://checkip.amazonaws.com | tr -d '[:space:]')
+          echo "runner_ip=$runner_ip" >> "$GITHUB_OUTPUT"
+          aws lightsail open-instance-public-ports \
+            --instance-name "${{ vars.LIGHTSAIL_INSTANCE_NAME }}" \
+            --port-info "fromPort=22,toPort=22,protocol=tcp,cidrs=${runner_ip}/32"
+
+      - name: Configure SSH
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Back up current files on server
+        if: steps.gate.outputs.skip != 'true'
+        id: backup
+        run: |
+          paths=$(yq -r '.include[]' .github/deploy-manifest.yml | tr '\n' ' ')
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$DEPLOY_PATH" "${{ github.sha }}" $paths <<'REMOTE'
+          set -euo pipefail
+          deploy_path="$1"; sha="$2"; shift 2
+          cd "$deploy_path"
+          backups="$(dirname "$deploy_path")/deploy-backups"
+          mkdir -p "$backups"
+          existing=()
+          for p in "$@"; do
+            if [ -e "$p" ]; then existing+=("$p"); fi
+          done
+          tar czf "$backups/$sha.tar.gz" "${existing[@]}"
+          ls -1t "$backups"/*.tar.gz | tail -n +6 | xargs -r rm --
+          REMOTE
+
+      - name: Sync files
+        if: steps.gate.outputs.skip != 'true'
+        id: sync
+        run: |
+          rsync -rltp --delete --omit-dir-times \
+            --chmod=D2775,F664 \
+            --filter="merge $RUNNER_TEMP/rsync-filter.txt" \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            ./ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Post-deploy tasks
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$DEPLOY_PATH" <<'REMOTE'
+          set -euo pipefail
+          cd "$1"
+          wp transient delete --all -d memory_limit=512M
+          wp cache flush
+          sudo systemctl reload apache2
+          REMOTE
+
+      - name: Smoke test
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 5 --retry-delay 5 --retry-all-errors \
+            --output /dev/null "$SITE_URL"
+
+      - name: Roll back on failure
+        if: failure() && steps.backup.outcome == 'success'
+        run: |
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$DEPLOY_PATH" "${{ github.sha }}" <<'REMOTE'
+          set -euo pipefail
+          cd "$1"
+          tar xzf "$(dirname "$1")/deploy-backups/$2.tar.gz"
+          wp transient delete --all -d memory_limit=512M
+          wp cache flush
+          sudo systemctl reload apache2
+          REMOTE
+          echo "Deploy failed, previous files restored." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Close SSH port
+        if: always() && steps.port.outcome == 'success'
+        run: |
+          aws lightsail close-instance-public-ports \
+            --instance-name "${{ vars.LIGHTSAIL_INSTANCE_NAME }}" \
+            --port-info "fromPort=22,toPort=22,protocol=tcp,cidrs=${{ steps.port.outputs.runner_ip }}/32"

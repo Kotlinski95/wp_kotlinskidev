@@ -1,0 +1,37 @@
+include:
+  - wp-content/themes/kotlinskidev/
+  - wp-content/plugins/contact-form-ts/
+  - wp-content/plugins/custom-facebook-pixel-loader/
+  - wp-content/plugins/custom-google-analytics-loader/
+  - wp-content/plugins/google-maps-block/
+  - wp-content/plugins/kotlinskidev-custom-login/
+  - wp-content/plugins/responsive-image/
+  - wp-content/plugins/slider-block/
+
+exclude:
+  - node_modules/
+  - .DS_Store
+  - tests/
+  - "*.map"
+  - "/wp-content/themes/kotlinskidev/.*"
+  - "/wp-content/themes/kotlinskidev/artifacts/"
+  - "/wp-content/themes/kotlinskidev/audit/"
+  - "/wp-content/themes/kotlinskidev/bin/"
+  - "/wp-content/themes/kotlinskidev/coverage/"
+  - "/wp-content/themes/kotlinskidev/docs/"
+  - "/wp-content/themes/kotlinskidev/graphify-out/"
+  - "/wp-content/themes/kotlinskidev/media/"
+  - "/wp-content/themes/kotlinskidev/src/"
+  - "/wp-content/themes/kotlinskidev/*.md"
+  - "/wp-content/themes/kotlinskidev/*.config.js"
+  - "/wp-content/themes/kotlinskidev/composer.json"
+  - "/wp-content/themes/kotlinskidev/composer.lock"
+  - "/wp-content/themes/kotlinskidev/package.json"
+  - "/wp-content/themes/kotlinskidev/package-lock.json"
+  - "/wp-content/themes/kotlinskidev/tsconfig.json"
+  - "/wp-content/themes/kotlinskidev/phpunit*.xml"
+  - "/wp-content/themes/kotlinskidev/sonar-project.properties"
+  - "/wp-content/themes/kotlinskidev/skills-lock.json"
+  - "/wp-content/themes/kotlinskidev/docker-compose.sonar.yml"
+  - "/wp-content/themes/kotlinskidev/jest.setup.ts"
+  - "/wp-content/themes/kotlinskidev/jest.style-mock.js"
