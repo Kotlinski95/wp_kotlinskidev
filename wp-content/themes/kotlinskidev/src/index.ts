@@ -124,12 +124,24 @@ document.addEventListener("DOMContentLoaded", function () {
     'font-size: 0.875rem; color: #7c3aed; font-weight: 500; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); padding: 0.5rem 0.75rem; border-radius: 0.375rem; border-left: 0.25rem solid #8b5cf6;'
   );
 
-  if (window.performance && window.performance.timing) {
-    const loadTime =
-      window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+  const logLoadTime = (): void => {
+    const [navigation] = window.performance.getEntriesByType("navigation") as
+      | PerformanceNavigationTiming[]
+      | [];
+    if (!navigation || navigation.loadEventEnd <= 0) {
+      return;
+    }
     console.log(
-      `%c⚡ Site loaded in ${loadTime}ms`,
+      `%c⚡ Site loaded in ${Math.round(navigation.loadEventEnd)}ms`,
       "font-size: 0.75rem; color: #059669; font-weight: 600; font-family: monospace; background-color: #ecfdf5; padding: 0.25rem 0.5rem; border-radius: 0.25rem;"
     );
+  };
+
+  if (typeof window.performance?.getEntriesByType === "function") {
+    if (document.readyState === "complete") {
+      window.setTimeout(logLoadTime, 0);
+    } else {
+      window.addEventListener("load", () => window.setTimeout(logLoadTime, 0), { once: true });
+    }
   }
 });

@@ -11,14 +11,8 @@ const PROTECTED = [
 const ALLOWED = [
   /\/wp-content\/plugins\/text-justify-controls\//,
   /\/wp-content\/plugins\/responsive-spacing-controls\//,
-  /\/wp-content\/plugins\/responsive-image\//,
   /\/wp-content\/plugins\/responsive-font-controls\//,
   /\/wp-content\/plugins\/wordpress-pwa-manager\//,
-  /\/wp-content\/plugins\/kotlinskidev-custom-login\//,
-  /\/wp-content\/plugins\/google-maps-block\//,
-  /\/wp-content\/plugins\/custom-google-analytics-loader\//,
-  /\/wp-content\/plugins\/custom-facebook-pixel-loader\//,
-  /\/wp-content\/plugins\/contact-form-ts\//,
   /\/wp-content\/plugins\/block-visibility\//,
 ];
 

@@ -49,7 +49,7 @@ Check:
 5. **PHP safety** — unsanitized `$_GET`/`$_POST`, missing nonces on form handlers
 
 Approved custom plugins:
-`block-visibility`, `contact-form-block`, `contact-form-ts`, `custom-facebook-pixel-loader`, `custom-google-analytics-loader`, `google-maps-block`, `kotlinskidev-custom-login`, `responsive-image`, `slider-block`, `responsive-spacing-controls`, `responsive-font-controls`, `text-justify-controls`, `wordpress-pwa-manager`
+`block-visibility`, `contact-form-block`, `responsive-spacing-controls`, `responsive-font-controls`, `text-justify-controls`, `wordpress-pwa-manager`
 
 Output format:
 ```

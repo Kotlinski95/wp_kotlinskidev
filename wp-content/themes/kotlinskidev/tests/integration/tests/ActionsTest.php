@@ -25,6 +25,7 @@ it('strips duplicate viewport meta tags and injects a single custom one after th
 
     expect(substr_count($html, 'name="viewport"'))->toBe(1);
     expect($html)->toContain('<head><meta name="viewport" content="height=device-height, width=device-width');
-    expect($html)->toContain('target-densitydpi=device-dpi');
+    expect($html)->toContain('viewport-fit=cover');
+    expect($html)->not->toContain('target-densitydpi');
     expect($html)->toContain('<title>Test</title>');
 });

@@ -139,6 +139,23 @@ jobs:
           ls -1t "$backups"/*.tar.gz | tail -n +6 | xargs -r rm --
           REMOTE
 
+      - name: Normalize file ownership
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          paths=$(yq -r '.include[]' .github/deploy-manifest.yml | tr '\n' ' ')
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$DEPLOY_PATH" "$SSH_USER" $paths <<'REMOTE'
+          set -euo pipefail
+          deploy_path="$1"; owner="$2"; shift 2
+          cd "$deploy_path"
+          for p in "$@"; do
+            if [ -e "$p" ]; then
+              sudo chown -R "$owner:www-data" "$p"
+              sudo find "$p" -type d -exec chmod 2775 {} +
+              sudo find "$p" -type f -exec chmod 664 {} +
+            fi
+          done
+          REMOTE
+
       - name: Sync files
         if: steps.gate.outputs.skip != 'true'
         id: sync

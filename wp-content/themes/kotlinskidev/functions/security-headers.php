@@ -22,11 +22,11 @@ function kotlinskidev_csp_directive_labels(): array {
 function kotlinskidev_csp_directive_defaults(): array {
 	return array(
 		'kotlinskidev_csp_default_src'     => "'self'",
-		'kotlinskidev_csp_script_src'      => "'self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com connect.facebook.net challenges.cloudflare.com maps.googleapis.com",
+		'kotlinskidev_csp_script_src'      => "'self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com connect.facebook.net challenges.cloudflare.com maps.googleapis.com static.cloudflareinsights.com",
 		'kotlinskidev_csp_style_src'       => "'self' 'unsafe-inline' fonts.googleapis.com",
 		'kotlinskidev_csp_img_src'         => "'self' data: maps.gstatic.com maps.googleapis.com www.facebook.com www.google-analytics.com",
 		'kotlinskidev_csp_font_src'        => "'self' fonts.gstatic.com",
-		'kotlinskidev_csp_connect_src'     => "'self' www.google-analytics.com analytics.google.com region1.google-analytics.com www.googletagmanager.com maps.googleapis.com connect.facebook.net consent.complianz.io cookiedatabase.org",
+		'kotlinskidev_csp_connect_src'     => "'self' www.google-analytics.com analytics.google.com region1.google-analytics.com www.googletagmanager.com maps.googleapis.com connect.facebook.net consent.complianz.io cookiedatabase.org cloudflareinsights.com",
 		'kotlinskidev_csp_frame_src'       => "'self' challenges.cloudflare.com www.google.com maps.google.com",
 		'kotlinskidev_csp_object_src'      => "'none'",
 		'kotlinskidev_csp_base_uri'        => "'self'",
@@ -63,7 +63,10 @@ function kotlinskidev_content_security_policy_value(): string {
 		}
 	}
 
-	if ( (bool) get_option( 'kotlinskidev_csp_upgrade_insecure_requests', true ) ) {
+	if (
+		(bool) get_option( 'kotlinskidev_csp_enforce', false )
+		&& (bool) get_option( 'kotlinskidev_csp_upgrade_insecure_requests', true )
+	) {
 		$directives[] = 'upgrade-insecure-requests';
 	}
 
