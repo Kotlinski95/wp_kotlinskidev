@@ -19,7 +19,7 @@ source "$config"
 SSH_KEY="${SSH_KEY:-$HOME/.ssh/id_ed25519}"
 LOCAL_WP_ROOT="${LOCAL_WP_ROOT:-$(git -C "$script_dir" rev-parse --show-toplevel)}"
 SKIP_TABLES_REGEX="${SKIP_TABLES_REGEX:-(^|_)(wf|wpmailsmtp_)[a-z0-9_]*$|^[a-z0-9]+_(users|usermeta|comments|commentmeta|kotlinskidev_contact_submissions|novamira_[a-z_]+|actionscheduler_[a-z_]+|redirection_(404|logs)|wpai_request_logs|ewpa_activity_log)$}"
-PRESERVE_OPTIONS="${PRESERVE_OPTIONS:-blog_public}"
+PRESERVE_OPTIONS="${PRESERVE_OPTIONS:-blog_public active_plugins}"
 MEDIA_EXCLUDES="${MEDIA_EXCLUDES:-.DS_Store ai1wm-backups cache *.log}"
 KEEP_DB_BACKUPS="${KEEP_DB_BACKUPS:-5}"
 
