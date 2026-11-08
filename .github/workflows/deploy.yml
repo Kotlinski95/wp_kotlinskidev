@@ -64,20 +64,12 @@ jobs:
           cache: npm
           cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
 
-      - name: Setup PHP
-        if: steps.gate.outputs.skip != 'true'
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          tools: composer
-
       - name: Build theme
         if: steps.gate.outputs.skip != 'true'
         working-directory: ${{ env.THEME_DIR }}
         run: |
           npm ci
           npm run build
-          composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Build rsync filter from manifest
         if: steps.gate.outputs.skip != 'true'
@@ -111,6 +103,22 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+
+      - name: Prepare file ownership on server
+        if: steps.gate.outputs.skip != 'true'
+        run: |
+          paths=$(yq -r '.include[]' .github/deploy-manifest.yml | tr '\n' ' ')
+          ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$DEPLOY_PATH" "$SSH_USER" $paths <<'REMOTE'
+          set -euo pipefail
+          deploy_path="$1"; owner="$2"; shift 2
+          cd "$deploy_path"
+          for p in "$@"; do
+            if [ -e "$p" ]; then
+              sudo chown -R "$owner:www-data" "$p"
+              sudo chmod -R u+rwX,g+rwX "$p"
+            fi
+          done
+          REMOTE
 
       - name: Back up current files on server
         if: steps.gate.outputs.skip != 'true'
@@ -147,8 +155,8 @@ jobs:
           ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$DEPLOY_PATH" <<'REMOTE'
           set -euo pipefail
           cd "$1"
-          wp transient delete --all -d memory_limit=512M
-          wp cache flush
+          php -d memory_limit=512M "$(command -v wp)" transient delete --all
+          php -d memory_limit=512M "$(command -v wp)" cache flush
           sudo systemctl reload apache2
           REMOTE
 
@@ -166,8 +174,8 @@ jobs:
           set -euo pipefail
           cd "$1"
           tar xzf "$(dirname "$1")/deploy-backups/$2.tar.gz"
-          wp transient delete --all -d memory_limit=512M
-          wp cache flush
+          php -d memory_limit=512M "$(command -v wp)" transient delete --all
+          php -d memory_limit=512M "$(command -v wp)" cache flush
           sudo systemctl reload apache2
           REMOTE
           echo "Deploy failed, previous files restored." >> "$GITHUB_STEP_SUMMARY"

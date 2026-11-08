@@ -166,3 +166,5 @@ wp-content/themes/kotlinskidev/.agents/
 
 # Graphify knowledge graph output (local, rebuilt with graphify update .)
 graphify-out/
+
+db/sync-to-prod.env

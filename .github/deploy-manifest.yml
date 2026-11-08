@@ -16,6 +16,7 @@ exclude:
   - "/wp-content/themes/kotlinskidev/.*"
   - "/wp-content/themes/kotlinskidev/artifacts/"
   - "/wp-content/themes/kotlinskidev/audit/"
+  - "/wp-content/themes/kotlinskidev/vendor/"
   - "/wp-content/themes/kotlinskidev/bin/"
   - "/wp-content/themes/kotlinskidev/coverage/"
   - "/wp-content/themes/kotlinskidev/docs/"

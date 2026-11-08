@@ -4,7 +4,7 @@ Every push to `master` runs `.github/workflows/deploy.yml`: build theme, back up
 
 ## What gets deployed
 
-Only paths listed under `include:` in `.github/deploy-manifest.yml`. Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Add a new theme folder or custom plugin to the list before it can ship.
+Only paths listed under `include:` in `.github/deploy-manifest.yml`, minus its `exclude:` rules (the theme's `vendor/` is excluded because production runs PHP 8.2 and Sentry is skipped without it). Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Add a new theme folder or custom plugin to the list before it can ship.
 
 ## Skipping a deploy
 
@@ -48,3 +48,33 @@ Only paths listed under `include:` in `.github/deploy-manifest.yml`. Anything no
 ## Rollback
 
 Each deploy stores `/var/www/deploy-backups/<commit-sha>.tar.gz` (last 5 kept). A failed deploy restores it automatically. To roll back by hand, `cd /var/www/html && tar xzf ../deploy-backups/<sha>.tar.gz`, then run `wp transient delete --all` and `wp cache flush`.
+
+## Syncing local content to production
+
+The deploy workflow ships code only. Pages, templates edited in the Site Editor, menus, settings and media are moved with `db/sync-to-prod.sh`, run from your Mac (it lives in `db/` at the WordPress root, next to `sync_db.sh`).
+
+One-time setup:
+
+1. Copy `db/sync-to-prod.env.example` to `db/sync-to-prod.env` (gitignored) and check the values.
+2. Take a Lightsail snapshot before the first run.
+3. Run the script from Local's site shell (Local → your site → Open site shell), because it needs `mysqldump`.
+
+Usage:
+
+```bash
+db/sync-to-prod.sh --dry-run
+db/sync-to-prod.sh
+db/sync-to-prod.sh --db-only
+db/sync-to-prod.sh --media-only
+```
+
+What it does:
+
+- Syncs `wp-content/uploads/` with rsync (no deletions on the server).
+- Backs up the production database to `~/db-backups/` on the server (last 5 kept).
+- Puts the site in maintenance mode, imports the local database, then rewrites the local host and local file path to the production ones (`https` forced) and keeps the production value of every option in `PRESERVE_OPTIONS`.
+- Leaves tables matching `SKIP_TABLES_REGEX` (Wordfence, WP Mail SMTP, users, usermeta, comments, contact form submissions, Novamira, Action Scheduler and log tables by default) untouched on production.
+- Flushes caches, transients and rewrite rules, reloads Apache, leaves maintenance mode and smoke-tests the site.
+- Never reads or writes `wp-config.php`, plugins or the theme (those ship through the deploy workflow).
+
+The `users` and `usermeta` tables are skipped by default, so production keeps its own accounts and passwords. Posts keep the author ID they have locally, so the production admin should have the same user ID as the local author.
