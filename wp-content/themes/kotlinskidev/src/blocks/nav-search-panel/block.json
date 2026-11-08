@@ -9,7 +9,7 @@
   "description": "Search trigger with dropdown panel. Place inside a navigation block.",
   "textdomain": "kotlinskidev",
   "parent": ["core/navigation"],
-  "editorScript": "file:../../../build/search-panel.js",
+  "editorScript": "file:../../../build/js/search-panel.js",
   "render": "file:./render.php",
   "attributes": {
     "label": {

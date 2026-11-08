@@ -8,3 +8,6 @@ echo do_blocks('<!-- wp:pattern {"slug":"kotlinskidev/template-404"} /-->');
 echo do_blocks('<!-- wp:pattern {"slug":"kotlinskidev/footer-dynamic"} /-->');
 
 wp_footer();
+?>
+</body>
+</html>

@@ -28,18 +28,10 @@ function kotlinskidev_i18n_init() {
  * Load theme text domain for translations
  */
 function kotlinskidev_load_theme_textdomain() {
-    // Force load with current locale
-    $locale = determine_locale();
     load_theme_textdomain(
         KOTLINSKIDEV_TEXT_DOMAIN,
         get_template_directory() . '/languages'
     );
-    
-    // Debug: Log what locale we're trying to load
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-        error_log('KotlinskiDev: Loading textdomain for locale: ' . $locale);
-        error_log('KotlinskiDev: Textdomain loaded: ' . (is_textdomain_loaded(KOTLINSKIDEV_TEXT_DOMAIN) ? 'YES' : 'NO'));
-    }
 }
 
 /**
@@ -61,27 +53,11 @@ function kotlinskidev_localize_scripts() {
         'main-js'           // Keep as fallback
     ];
     
-    $localized = false;
     foreach ($script_handles as $handle) {
         if (wp_script_is($handle, 'enqueued') || wp_script_is($handle, 'registered')) {
-            $translations = kotlinskidev_get_all_translations();
-            wp_localize_script($handle, 'i18n', $translations);
-            $localized = true;
-            
-            // Debug: Log what translations are being sent to JavaScript
-            if (defined('WP_DEBUG') && WP_DEBUG) {
-                error_log('KotlinskiDev i18n: Localized to script handle: ' . $handle);
-                error_log('KotlinskiDev i18n: Sample translation - "Toggle navigation menu": ' . $translations['navigation']['menu']['toggle']);
-                error_log('KotlinskiDev i18n: Sample translation - "This field is required.": ' . $translations['forms']['validation']['required']);
-            }
-            
+            wp_localize_script($handle, 'i18n', kotlinskidev_get_all_translations());
             break; // Only localize once
         }
-    }
-    
-    // Debug: Log current locale to help troubleshooting
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-        error_log('KotlinskiDev i18n: Current locale is ' . get_locale());
     }
 }
 
@@ -93,7 +69,7 @@ function kotlinskidev_localize_scripts() {
 function kotlinskidev_get_all_translations() {
     return [
         'navigation' => kotlinskidev_get_navigation_translations(),
-        'forms' => kotlinskidev_get_form_translations(),
+        'forms' => kotlinskidev_get_forms_translations(),
         'general' => kotlinskidev_get_general_translations(),
         'accessibility' => kotlinskidev_get_accessibility_translations(),
         'cookieConsent' => kotlinskidev_get_cookie_consent_translations(),
@@ -133,7 +109,7 @@ function kotlinskidev_get_navigation_translations() {
  * 
  * @return array Form translations
  */
-function kotlinskidev_get_form_translations() {
+function kotlinskidev_get_forms_translations() {
     return [
         'validation' => [
             'required' => __('This field is required.', KOTLINSKIDEV_TEXT_DOMAIN),
@@ -309,7 +285,7 @@ function kotlinskidev__($group, $key, $default = '') {
  * @param mixed $default Default value
  */
 function kotlinskidev_e($group, $key, $default = '') {
-    echo kotlinskidev_get_string($group, $key, $default);
+    echo esc_html(kotlinskidev_get_string($group, $key, $default));
 }
 
 // Initialize the i18n system

@@ -1,0 +1,27 @@
+@import "../../styles/theme-colors";
+
+.kt-scroll-to-top--bar {
+	display: flex;
+
+	.kt-scroll-to-top__trigger {
+		width: 100%;
+		background: transparent;
+		border: none;
+		padding: inherit;
+		font: inherit;
+		color: inherit;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.kt-scroll-to-top__arrow {
+		margin-inline-start: 0.5em;
+	}
+
+	&.has-hover-text-gradient:hover .kt-scroll-to-top__trigger span {
+
+		@include gradient-text(var(--hover-text-color));
+	}
+}

@@ -22,7 +22,8 @@ add_action('wp_enqueue_scripts', 'kotlinskidev_localize_page_view_data', 20);
 
 function kotlinskidev_handle_page_view_tracking()
 {
-    if (!wp_verify_nonce($_POST['nonce'] ?? '', 'kotlinskidev_page_view_nonce')) {
+    $submitted_nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+    if (!wp_verify_nonce($submitted_nonce, 'kotlinskidev_page_view_nonce')) {
         wp_die('Security check failed');
     }
 
@@ -92,9 +93,7 @@ function kotlinskidev_get_popular_posts($limit = 6, $post_types = array('post', 
         return new WP_Query(array('post__in' => array(0), 'lang' => ''));
     }
 
-    // 'lang' => '' skips Polylang's per-post language re-validation here — the IDs
-    // are already language-resolved by the cached query above, so re-checking each
-    // one again on every request (cache hit or not) would be redundant DB work.
+    // 'lang' => '' skips Polylang's re-validation — IDs are already language-resolved by the cached query above.
     return new WP_Query(array(
         'post__in' => $post_ids,
         'orderby' => 'post__in',

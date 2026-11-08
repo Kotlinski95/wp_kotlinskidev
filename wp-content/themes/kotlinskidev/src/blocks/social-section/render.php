@@ -58,7 +58,7 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => trim( 'social-navigation social-menu-container' . ( $attach_to_bottom ? '' : ' social-menu-container--inline' ) . ( $unique_class ? " {$unique_class}" : '' ) ),
 ] );
 ?>
-<nav <?php echo $wrapper_attributes; ?> aria-label="<?php esc_attr_e( 'Social media', 'kotlinskidev' ); ?>">
-	<?php if ( '' !== $css ) : ?><style><?php echo $css; ?></style><?php endif; ?>
-	<ul class="social-menu-items"><?php echo $content; ?></ul>
+<nav <?php echo $wrapper_attributes; ?> aria-label="<?php esc_attr_e( 'Social media', 'kotlinskidev' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- return value of get_block_wrapper_attributes(), already esc_attr()'d internally ?>">
+	<?php if ( '' !== $css ) : ?><style><?php echo $css; ?></style><?php endif; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $css is built exclusively from kotlinskidev_sanitize_css_length()-validated values (strict numeric+unit regex) via kotlinskidev_build_scoped_responsive_css() ?>
+	<ul class="social-menu-items"><?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?></ul>
 </nav>

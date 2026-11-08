@@ -1,3 +1,4 @@
+@use "hover-transitions" as hover;
 @import "variables";
 @import "theme-colors";
 
@@ -19,6 +20,36 @@
 .kt-mega-nav__bar {
 	display: flex;
 	align-items: stretch;
+
+	@supports (anchor-name: --kt-nav-probe) {
+		position: relative;
+	}
+}
+
+.kt-mega-nav__glider {
+	display: none;
+
+	@supports (anchor-name: --kt-nav-probe) {
+		display: block;
+		position: absolute;
+		position-anchor: --kt-nav-glide;
+		left: anchor(left);
+		width: anchor-size(width);
+		bottom: 0;
+		height: 0.125rem;
+		border-radius: 999px;
+		background: var(--kt-text-gradient, #{$kt-gradient-fallback});
+		pointer-events: none;
+		opacity: 0;
+		transition:
+			left 0.3s var(--animation-curve, ease),
+			width 0.3s var(--animation-curve, ease),
+			opacity 0.2s ease;
+
+		.kt-mega-nav__bar:has(.kt-mega-nav__item:hover, .kt-mega-nav__item.is-active) & {
+			opacity: 1;
+		}
+	}
 }
 
 .kt-mega-nav__list {
@@ -35,6 +66,54 @@
 	position: relative;
 	display: flex;
 	align-items: center;
+}
+
+@mixin mega-nav-blur-target($exclude-utility) {
+
+	@if $exclude-utility {
+		$target: ".kt-mega-nav__item:not(.kt-mega-nav__item--utility)";
+
+		#{$target} {
+
+			@include hover.compose;
+			--kt-hover-filter-duration: 0.3s;
+			--kt-hover-filter-easing: ease;
+			--kt-hover-opacity-duration: 0.3s;
+			--kt-hover-opacity-easing: ease;
+		}
+
+		&:has(#{$target}:hover) #{$target}:not(:hover),
+		&.has-open-panel #{$target}:not(.is-active):not(:hover) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
+	} @else {
+
+		.kt-mega-nav__item {
+
+			@include hover.compose;
+			--kt-hover-filter-duration: 0.3s;
+			--kt-hover-filter-easing: ease;
+			--kt-hover-opacity-duration: 0.3s;
+			--kt-hover-opacity-easing: ease;
+		}
+
+		&:has(.kt-mega-nav__item:hover) .kt-mega-nav__item:not(:hover),
+		&.has-open-panel .kt-mega-nav__item:not(.is-active):not(:hover) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
+	}
+}
+
+.kt-mega-nav--blur-siblings:not(.kt-mega-nav--blur-include-utility) {
+
+	@include mega-nav-blur-target(true);
+}
+
+.kt-mega-nav--blur-siblings.kt-mega-nav--blur-include-utility {
+
+	@include mega-nav-blur-target(false);
 }
 
 .kt-mega-nav__indicator {
@@ -63,6 +142,7 @@
 
 .kt-mega-nav__link {
 	display: inline-flex;
+	height: 100%;
 	align-items: center;
 	gap: 0.375rem;
 	padding: 0.4375rem 0.75rem;
@@ -74,6 +154,15 @@
 	white-space: nowrap;
 	cursor: pointer;
 
+	@supports (anchor-name: --kt-nav-probe) {
+		anchor-name: none;
+
+		.kt-mega-nav__item:hover &,
+		.kt-mega-nav__item.is-active & {
+			anchor-name: --kt-nav-glide;
+		}
+	}
+
 	&:hover .kt-mega-nav__link-label,
 	&.kt-link-current .kt-mega-nav__link-label,
 	.kt-mega-nav__item.is-active & .kt-mega-nav__link-label {
@@ -81,11 +170,15 @@
 		@include gradient-text();
 	}
 
-	&.kt-link-current,
-	.kt-mega-nav__item.is-active & {
+	&.kt-link-current .kt-mega-nav__link-label,
+	.kt-mega-nav__item.is-active & .kt-mega-nav__link-label {
+		font-weight: 600;
+	}
+
+	@supports (anchor-name: --kt-nav-probe) {
 
 		&::after {
-			width: 100% !important;
+			display: none;
 		}
 	}
 
@@ -176,9 +269,7 @@
 		margin: 0;
 	}
 
-	a:not(.kt-mega-nav__l2-link):not(.kt-mega-nav__l3-link):not(.wp-element-button):not(
-	.wp-block-button__link
-):not(.kt-nav-link) {
+	a:not(.kt-mega-nav__l2-link):not(.kt-mega-nav__l3-link):not(.wp-element-button):not(.wp-block-button__link):not(.kt-nav-link) {
 		color: inherit;
 	}
 
@@ -224,26 +315,48 @@
 	.kt-nav-banner {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
 		font-size: 0.8125rem;
+		position: relative;
+		isolation: isolate;
+		border-radius: 0.875rem;
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: calc(-1 * min(var(--kt-nav-banner-hover-pad, 1.25rem), calc(var(--kt-nav-banner-row-gap, 1.5rem) / 2)));
+			z-index: -1;
+			border-radius: 1rem;
+			background: color-mix(in srgb, var(--color-text) 6%, transparent);
+			backdrop-filter: blur(12px);
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		&:hover::before,
+		&:focus-within::before {
+			opacity: 1;
+		}
 
 		&__media {
 			margin: 0;
+			aspect-ratio: 3 / 2;
 			border-radius: 0.5rem;
+			background: color-mix(in srgb, var(--color-text) 6%, transparent);
 			overflow: hidden;
 
 			img {
 				width: 100%;
-				height: auto;
+				height: 100%;
 				display: block;
 				max-width: none;
+				object-fit: cover;
 			}
 
 			&-link {
 				display: block;
 				position: relative;
 				isolation: isolate;
-				border-radius: 0.5rem;
+				height: 100%;
 
 				&::after {
 					display: none !important;
@@ -260,32 +373,35 @@
 			display: flex;
 			flex-direction: column;
 			gap: 0.375rem;
+			padding: 1rem 0.25rem 0.25rem;
 		}
 
 		&__heading {
-			font-size: 1.5em;
-			font-weight: 600;
+			font-size: 1.3125em;
+			font-weight: 700;
 			margin: 0;
+			color: var(--color-text);
 		}
 
 		&__desc {
 			font-size: inherit;
-			opacity: 0.7;
+			line-height: 1.5;
+			opacity: 0.6;
 			margin: 0;
-		}
-
-		&__link {
-			display: inline-block;
-			font-size: inherit;
-			font-weight: 500;
-			text-decoration: none;
-
-			@include gradient-text();
 		}
 	}
 
 	.kt-simple-grid {
 		grid-template-columns: repeat(var(--kt-sg-cols, 2), auto);
+
+		&.kt-mega-nav__banner-row {
+			grid-template-columns: repeat(var(--kt-sg-cols, 3), minmax(0, 1fr));
+			gap: var(--kt-nav-banner-row-gap, 1.5rem);
+
+			.kt-nav-banner {
+				height: 100%;
+			}
+		}
 	}
 
 	.kt-holder {

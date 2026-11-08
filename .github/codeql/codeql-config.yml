@@ -1,0 +1,9 @@
+name: kotlinskidev CodeQL config
+
+paths-ignore:
+  - wp-admin
+  - wp-includes
+  - wp-content/themes/kotlinskidev/build
+  - wp-content/themes/kotlinskidev/vendor
+  - wp-content/themes/kotlinskidev/node_modules
+  - wp-content/themes/kotlinskidev/storybook-static

@@ -3,18 +3,22 @@ export interface CarouselSettings {
   showPagination: boolean;
   showScrollbar: boolean;
   loop: boolean;
+  draggable: boolean;
   autoplay: boolean;
   autoplayDelay: number;
-  slidesPerView: number;
-  slidesPerMobile: number;
-  slidesPerTablet: number;
-  slidesPerDesktop: number;
+  slidesPerView: number | "auto";
+  slidesPerMobile: number | "auto";
+  slidesPerTablet: number | "auto";
+  slidesPerDesktop: number | "auto";
   lazyLoad: boolean;
   arrowsPosition: "sides" | "bottom-left" | "bottom-center" | "bottom-right";
   navColor: string;
   navColorOnHover: boolean;
   navPlacement: "inside" | "outside";
   trackActiveSlide: boolean;
+  paginationPlacement: "inside" | "outside";
+  transitionEffect: "slide" | "fade" | "cube" | "coverflow" | "flip" | "cards";
+  autoHeight: boolean;
 }
 
 export interface CarouselFeatures {
@@ -26,4 +30,7 @@ export interface CarouselFeatures {
   navColor?: boolean;
   navPlacement?: boolean;
   trackActiveSlide?: boolean;
+  paginationPlacement?: boolean;
+  transitionEffect?: boolean;
+  autoHeight?: boolean;
 }

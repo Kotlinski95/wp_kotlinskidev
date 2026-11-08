@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-aurora",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Aurora",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A drifting, simplex-noise aurora glow rising from the bottom edge of a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "speed": { "type": "number", "default": 1 },
+    "colorStart": { "type": "string", "default": "#8066ff" },
+    "colorEnd": { "type": "string", "default": "#99e6ff" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

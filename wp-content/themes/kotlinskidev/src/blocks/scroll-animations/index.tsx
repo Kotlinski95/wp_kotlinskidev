@@ -5,18 +5,14 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, SelectControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
+import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import {
+  ANIMATION_TRANSLATE_OPTIONS,
+  buildAnimationTypeOptions,
+  supportsDistanceControl,
+} from "@utils/animation-options";
 
-const scrollAnimations = [
-  { label: __("No Animation", "kotlinskidev"), value: "" },
-  { label: __("Fade In", "kotlinskidev"), value: "fade-in-on-scroll" },
-  { label: __("Fade Up", "kotlinskidev"), value: "fade-up-on-scroll" },
-  { label: __("Fade Left", "kotlinskidev"), value: "fade-left-on-scroll" },
-  { label: __("Fade Right", "kotlinskidev"), value: "fade-right-on-scroll" },
-  { label: __("Flip Up", "kotlinskidev"), value: "flip-up-on-scroll" },
-  { label: __("Flip Down", "kotlinskidev"), value: "flip-down-on-scroll" },
-  { label: __("Flip Left", "kotlinskidev"), value: "flip-left-on-scroll" },
-  { label: __("Flip Right", "kotlinskidev"), value: "flip-right-on-scroll" },
-];
+const scrollAnimations = buildAnimationTypeOptions("scroll");
 
 const scrollAnimationDelays = [
   { label: __("No Delay", "kotlinskidev"), value: "" },
@@ -28,17 +24,16 @@ const scrollAnimationDelays = [
   { label: __("1000ms", "kotlinskidev"), value: "delay-1000" },
 ];
 
-const scrollAnimationTranslates = [
-  { label: __("Default Distance", "kotlinskidev"), value: "" },
-  { label: __("Small (20px)", "kotlinskidev"), value: "translate-sm" },
-  { label: __("Medium (40px)", "kotlinskidev"), value: "translate-md" },
-  { label: __("Large (60px)", "kotlinskidev"), value: "translate-lg" },
-  { label: __("Extra Large (80px)", "kotlinskidev"), value: "translate-xl" },
-  { label: __("2X Large (100px)", "kotlinskidev"), value: "translate-2xl" },
-];
+const scrollAnimationTranslates = ANIMATION_TRANSLATE_OPTIONS;
 
 function addScrollAnimationAttribute(settings: any) {
-  const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+  const excludedBlocks = [
+    "core/html",
+    "core/code",
+    "core/preformatted",
+    "core/verse",
+    ...DYNAMIC_PREVIEW_BLOCKS,
+  ];
 
   if (excludedBlocks.includes(settings.name)) {
     return settings;
@@ -70,7 +65,13 @@ const withScrollAnimationControls = createHigherOrderComponent((BlockEdit) => {
     const { attributes, setAttributes, name } = props;
     const { scrollAnimation, scrollAnimationDelay, scrollAnimationTranslate } = attributes;
 
-    const excludedBlocks = ["core/html", "core/code", "core/preformatted", "core/verse"];
+    const excludedBlocks = [
+      "core/html",
+      "core/code",
+      "core/preformatted",
+      "core/verse",
+      ...DYNAMIC_PREVIEW_BLOCKS,
+    ];
 
     if (excludedBlocks.includes(name)) {
       return <BlockEdit {...props} />;
@@ -98,7 +99,7 @@ const withScrollAnimationControls = createHigherOrderComponent((BlockEdit) => {
               onChange={(value: string) => setAttributes({ scrollAnimationDelay: value })}
               help={__("Set a delay before the animation starts.", "kotlinskidev")}
             />
-            {scrollAnimation && !scrollAnimation.includes("flip") && (
+            {supportsDistanceControl(scrollAnimation || "") && (
               <SelectControl
                 label={__("Animation Distance", "kotlinskidev")}
                 value={scrollAnimationTranslate || ""}
@@ -120,7 +121,7 @@ const withScrollAnimationControls = createHigherOrderComponent((BlockEdit) => {
 function applyScrollAnimationClass(extraProps: any, blockType: any, attributes: any) {
   const { scrollAnimation, scrollAnimationDelay, scrollAnimationTranslate } = attributes;
 
-  let classes = [];
+  const classes = [];
 
   if (scrollAnimation) {
     classes.push(scrollAnimation);

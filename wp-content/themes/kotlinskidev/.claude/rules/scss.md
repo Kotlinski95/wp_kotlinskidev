@@ -10,10 +10,12 @@ Do not add inline or block comments. Selector and variable names must be self-do
 - Always use CSS custom properties from `theme.json` (`--wp--preset--color--{slug}`, `--wp--preset--spacing--{slug}`) for colours and spacing.
 - Use SCSS variables from `variables.scss` for values not covered by theme.json tokens.
 - Never hardcode hex colours, pixel spacing, or font sizes that have an existing token.
+- Every adaptive color in `theme.json`'s `settings.color.palette` (and each `styles/*.json` variant) must come as a full `{name}-light`/`{name}-dark`/`{name}` (adaptive `light-dark()`)/`{name}-contrast` (adaptive, light/dark args swapped) family — see `primary`/`surface` in `theme.json` for the shape. For a translucent tint of one of these, use `color-mix(in srgb, var(--wp--preset--color--{name}) N%, transparent)` directly on the adaptive token — never add a `-rgb` triplet preset just to feed `rgba()`. `npm run check-palette-consistency` (wired into `verify` and `.husky/pre-push`) enforces both rules and that every `styles/*.json` variant defines the exact same slug set as `theme.json` — run it after adding any new palette color.
 
 ## Theme-Aware Styles
 - Scope dark/light mode overrides using `body.dark-mode` and `body.light-mode` — never use `@media (prefers-color-scheme)` directly, as the theme switcher overrides it via JS.
 - Use the `gradient-text` mixin from `theme-colors.scss` for gradient text effects.
+- `global.scss` has a sitewide `a:not(.has-background):not(.has-text-color)...:hover` rule that applies a gradient-text/transparent-background hover effect to any plain link in dark mode. Any custom markup for an `<a>` that already carries its own explicit background/text color (inline style, CSS var, or block-support-generated style) must also carry the `has-background`/`has-text-color` classes — WP core's own signal that this link manages its own color — or that link silently loses its color to the generic hover effect the moment the mouse hovers it.
 
 ## Naming — BEM
 - Use BEM: `.block__element--modifier`.

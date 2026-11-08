@@ -8,8 +8,8 @@
   "category": "kotlinskidev",
   "icon": "shield",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/protected-content.js",
-  "style": "file:../../../build/style-protected-content.css",
+  "editorScript": "file:../../../build/js/protected-content.js",
+  "style": "file:../../../build/css/style-protected-content.css",
   "render": "file:./render.php",
   "supports": {
     "html": false,
@@ -27,7 +27,8 @@
       "__experimentalTextDecoration": true,
       "__experimentalLetterSpacing": true
     },
-    "border": { "color": true, "radius": true, "style": true, "width": true }
+    "border": { "color": true, "radius": true, "style": true, "width": true },
+    "__experimentalBorder": { "color": true, "radius": true, "style": true, "width": true }
   },
   "attributes": {
     "content": { "type": "string", "default": "" },

@@ -16,3 +16,20 @@ export const ColorGradientControl = (
     __experimentalColorGradientControl: ComponentType<ColorGradientControlProps>;
   }
 ).__experimentalColorGradientControl;
+
+export interface PanelColorGradientSettingsSetting extends ColorGradientControlProps {
+  isShownByDefault?: boolean;
+}
+
+export interface PanelColorGradientSettingsProps {
+  title: string;
+  settings: PanelColorGradientSettingsSetting[];
+  showTitle?: boolean;
+  __experimentalIsRenderedInSidebar?: boolean;
+}
+
+export const PanelColorGradientSettings = (
+  blockEditor as unknown as {
+    __experimentalPanelColorGradientSettings: ComponentType<PanelColorGradientSettingsProps>;
+  }
+).__experimentalPanelColorGradientSettings;

@@ -40,9 +40,13 @@ body:has(.mobile-footer-nav) {
 
 .scroll-to-top-wrapper {
 	position: relative;
-	display: inline-block;
+	display: none;
 	width: 2.5rem;
 	height: 2.5rem;
+
+	&.show {
+		display: inline-block;
+	}
 }
 
 .progress-ring {
@@ -84,14 +88,6 @@ body:has(.mobile-footer-nav) {
 	&:focus-visible {
 		outline: -webkit-focus-ring-color auto 1px;
 		outline-offset: 2px;
-	}
-}
-
-.scroll-to-top-wrapper {
-	display: none;
-
-	&.show {
-		display: inline-block;
 	}
 }
 

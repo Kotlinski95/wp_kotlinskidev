@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/article-toc",
+  "version": "1.0.0",
+  "title": "Article Table of Contents",
+  "category": "kotlinskidev",
+  "description": "Sticky table of contents built from the H2 headings of the current article.",
+  "icon": "list-view",
+  "textdomain": "kotlinskidev",
+  "attributes": {
+    "accentColor": {
+      "type": "string"
+    },
+    "customAccentColor": {
+      "type": "string"
+    },
+    "activeBackgroundColor": {
+      "type": "string"
+    },
+    "customActiveBackgroundColor": {
+      "type": "string"
+    }
+  },
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/article-toc.js",
+  "viewScript": "file:../../../build/js/article-toc-init.js",
+  "style": "file:../../../build/css/style-article-toc.css",
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "link": false
+    },
+    "border": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "shadow": true,
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "color": true,
+      "width": true,
+      "style": true
+    }
+  }
+}

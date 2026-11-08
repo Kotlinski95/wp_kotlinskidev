@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Write|Edit|Bash|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/adriankotlinski/Local Sites/kotlinskidev/app/public/.claude/hooks/wp-protect.js\"",
+            "statusMessage": "Checking for protected WordPress files..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/adriankotlinski/Local Sites/kotlinskidev/app/public/.claude/hooks/wp-format.js\"",
+            "statusMessage": "Formatting edited file with Prettier..."
+          }
+        ]
+      }
+    ]
+  }
+}

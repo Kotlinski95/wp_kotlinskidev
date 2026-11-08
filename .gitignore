@@ -5,9 +5,6 @@
 /wp-config.php
 wp-config.php
 
-# Ignore WordPress core files and directories
-/wp-admin/
-/wp-includes/
 
 # Ignore plugin and theme directories if you don’t want to include them in your repository
 /wp-content/plugins/*
@@ -63,6 +60,9 @@ wp-content/debug.log
 # Ignore the cache directory (if used by plugins)
 wp-content/cache/
 
+# Ignore Wordfence's runtime WAF state (auto-regenerated, contains API key/secrets)
+wp-content/wflogs/
+
 # Ignore local development files
 *.local
 *.env
@@ -86,11 +86,37 @@ Thumbs.db
 # Ignore node modules
 node_modules
 
+# Husky's own auto-regenerated helper scripts (recreated by `npm run prepare`)
+.husky/_
+
+# Ignore composer vendor directory
+vendor
+
 # Ingore dist folders
 dist
 
 # Ingore build folders
 build
+
+# Ignore generated site-audit reports (regenerated per run, baseline lives on audit-history branch)
+wp-content/themes/kotlinskidev/audit/results
+
+# Lighthouse CI's own raw report cache (regenerated per run)
+wp-content/themes/kotlinskidev/.lighthouseci
+
+# Ignore Storybook's static build output
+storybook-static
+
+# Test coverage reports and PHPUnit/Pest result cache
+coverage
+.phpunit.cache
+.phpunit.result.cache
+
+# SonarQube scanner working directory
+.scannerwork
+
+# Playwright e2e test output (screenshots, traces, browser binaries cache)
+artifacts
 
 # Allow only the build folder inside slider-block
 !/wp-content/plugins/slider-block/build/
@@ -126,3 +152,17 @@ build
 *.code-workspace
 # Local environment secrets (MCP API keys etc.) — commit .env.example only
 .env
+.aider*
+
+# PWA service worker + Yoast llms.txt are generated per-environment, not source
+/sw.js
+/llms.txt
+
+# HyperFrames video projects — only the rendered .mp4 is used, uploaded via the WP Media Library
+wp-content/themes/kotlinskidev/media/hyperframes/
+
+# Skills installed by the skills CLI (restore with skills-lock.json), not source
+wp-content/themes/kotlinskidev/.agents/
+
+# Graphify knowledge graph output (local, rebuilt with graphify update .)
+graphify-out/

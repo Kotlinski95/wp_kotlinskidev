@@ -1,0 +1,130 @@
+name: SonarQube (ephemeral)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: wp-content/themes/kotlinskidev
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+
+    services:
+      sonarqube:
+        image: sonarqube:community
+        ports:
+          - 9000:9000
+        env:
+          SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+        options: >-
+          --health-cmd="curl -fsS http://localhost:9000/api/system/status || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=30
+          --health-start-period=60s
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
+          cache: 'npm'
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: pcov
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Generate JS coverage
+        run: npm run test:unit:coverage
+        continue-on-error: true
+
+      - name: Generate PHP coverage
+        run: composer test:unit:coverage
+        continue-on-error: true
+
+      - name: Wait for SonarQube to be ready
+        run: |
+          for i in $(seq 1 30); do
+            status="$(curl -fsS http://localhost:9000/api/system/status | grep -o '"status":"[A-Z]*"' | cut -d'"' -f4 || echo "")"
+            echo "SonarQube status: ${status:-unknown} (attempt $i/30)"
+            if [ "$status" = "UP" ]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "SonarQube did not reach UP status in time" >&2
+          exit 1
+
+      - name: Generate analysis token
+        id: sonar_token
+        run: |
+          SONAR_BOOTSTRAP_USER="admin"
+          SONAR_BOOTSTRAP_PASS="admin"
+          TOKEN_JSON="$(curl -fsS -u "${SONAR_BOOTSTRAP_USER}:${SONAR_BOOTSTRAP_PASS}" -X POST "http://localhost:9000/api/user_tokens/generate?name=ci-$(date +%s)")"
+          TOKEN="$(echo "$TOKEN_JSON" | grep -o '"token":"[^"]*"' | cut -d'"' -f4)"
+          if [ -z "$TOKEN" ]; then
+            echo "Token generation failed, response was:" >&2
+            echo "$TOKEN_JSON" >&2
+            exit 1
+          fi
+          echo "::add-mask::$TOKEN"
+          echo "token=$TOKEN" >> "$GITHUB_OUTPUT"
+
+      - name: SonarQube Scan
+        id: sonar_scan
+        continue-on-error: true
+        uses: sonarsource/sonarqube-scan-action@v3
+        with:
+          projectBaseDir: wp-content/themes/kotlinskidev
+        env:
+          SONAR_HOST_URL: http://sonarqube:9000
+          SONAR_TOKEN: ${{ steps.sonar_token.outputs.token }}
+
+      - name: Summarize findings
+        if: always()
+        run: |
+          TOKEN="${{ steps.sonar_token.outputs.token }}"
+
+          ISSUES_CODE="$(curl -sS -o sonar-issues.json -w '%{http_code}' -u "${TOKEN}:" "http://localhost:9000/api/issues/search?componentKeys=kotlinskidev&resolved=false&ps=500" || echo "curl_failed")"
+          echo "issues API HTTP ${ISSUES_CODE}"
+          cat sonar-issues.json
+
+          HOTSPOTS_CODE="$(curl -sS -o sonar-hotspots.json -w '%{http_code}' -u "${TOKEN}:" "http://localhost:9000/api/hotspots/search?project=kotlinskidev&ps=500" || echo "curl_failed")"
+          echo "hotspots API HTTP ${HOTSPOTS_CODE}"
+          cat sonar-hotspots.json
+
+          python3 bin/sonar-summary.py sonar-issues.json sonar-hotspots.json >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Fail if scan step failed
+        if: steps.sonar_scan.outcome == 'failure'
+        run: exit 1
+
+      - name: Upload findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonar-findings
+          path: |
+            wp-content/themes/kotlinskidev/sonar-issues.json
+            wp-content/themes/kotlinskidev/sonar-hotspots.json
+          retention-days: 30

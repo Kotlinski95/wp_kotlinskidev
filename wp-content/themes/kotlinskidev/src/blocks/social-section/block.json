@@ -8,7 +8,7 @@
   "icon": "share",
   "description": "Row of social links. Place inside a navigation block; optionally pinned to the bottom of the menu overlay.",
   "textdomain": "kotlinskidev",
-  "editorScript": "file:../../../build/social-section.js",
+  "editorScript": "file:../../../build/js/social-section.js",
   "render": "file:./render.php",
   "attributes": {
     "attachToBottom": {

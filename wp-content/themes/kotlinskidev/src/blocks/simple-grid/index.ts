@@ -20,7 +20,9 @@ registerBlockType(metadata as unknown as BlockConfiguration<Record<string, never
 domReady(() => {
   ["core/navigation-link", "core/navigation-submenu"].forEach((blockName) => {
     const blockType = getBlockType(blockName) as { parent?: string[] } | undefined;
-    if (!blockType) return;
+    if (!blockType) {
+      return;
+    }
     if (!blockType.parent) {
       blockType.parent = ["kotlinskidev/holder"];
     } else if (!blockType.parent.includes("kotlinskidev/holder")) {

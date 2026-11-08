@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/bg-effect-preset-settings",
+  "version": "1.0.0",
+  "title": "Background Effect Preset Settings",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "Effect type, colors, and duration for a Background Effect Preset.",
+  "textdomain": "kotlinskidev",
+  "editorScript": "file:../../../build/js/bg-effect-preset-settings.js",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "effectType": { "type": "string", "default": "gradient-shift" },
+    "color1": { "type": "string", "default": "" },
+    "color2": { "type": "string", "default": "" },
+    "color3": { "type": "string", "default": "" },
+    "duration": { "type": "number", "default": 15 }
+  }
+}

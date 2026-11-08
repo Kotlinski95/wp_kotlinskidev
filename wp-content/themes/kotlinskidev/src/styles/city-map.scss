@@ -1,0 +1,105 @@
+@import "variables";
+
+.kt-city-map {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	min-height: 25rem;
+	border-radius: 0.75rem;
+	overflow: hidden;
+}
+
+.kt-city-map__frame {
+	border: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 25rem;
+}
+
+.kt-city-map__expand {
+	position: absolute;
+	top: 0.75rem;
+	right: 0.75rem;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border: none;
+	border-radius: 0.5rem;
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--foreground);
+	box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--white);
+	}
+}
+
+.kt-city-map-lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	background: rgba(0, 0, 0, 0.75);
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity 0.25s ease,
+		visibility 0.25s ease;
+
+	&.is-open {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
+.kt-city-map-lightbox__dialog {
+	position: relative;
+	width: 100%;
+	max-width: 75rem;
+	height: 90vh;
+	border-radius: 0.875rem;
+	overflow: hidden;
+	background: var(--wp--preset--color--surface);
+}
+
+.kt-city-map-lightbox__frame {
+	border: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.kt-city-map-lightbox__close {
+	position: absolute;
+	top: 0.75rem;
+	right: 0.75rem;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.25rem;
+	height: 2.25rem;
+	border: none;
+	border-radius: 0.5rem;
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--foreground);
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+
+	&:hover,
+	&:focus-visible {
+		background: var(--wp--preset--color--primary);
+		color: var(--wp--preset--color--white);
+	}
+}

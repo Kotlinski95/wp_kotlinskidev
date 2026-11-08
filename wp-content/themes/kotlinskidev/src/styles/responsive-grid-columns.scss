@@ -1,0 +1,16 @@
+@import "variables";
+
+.kt-has-responsive-grid-columns.is-layout-grid {
+
+	@media (min-width: #{$breakpoint-desktop}) {
+		grid-template-columns: repeat(var(--kt-grid-columns-desktop), minmax(0, 1fr)) !important;
+	}
+
+	@media (min-width: #{$breakpoint-tablet-wp}) and (max-width: #{$breakpoint-desktop - 0.0625rem}) {
+		grid-template-columns: repeat(var(--kt-grid-columns-tablet, var(--kt-grid-columns-desktop)), minmax(0, 1fr)) !important;
+	}
+
+	@media (max-width: #{$breakpoint-mobile}) {
+		grid-template-columns: repeat(var(--kt-grid-columns-mobile, var(--kt-grid-columns-tablet, var(--kt-grid-columns-desktop))), minmax(0, 1fr)) !important;
+	}
+}

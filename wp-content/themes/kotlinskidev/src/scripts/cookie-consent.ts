@@ -27,14 +27,15 @@ function replaceCookieConsentButton(): void {
         ? `${window.kotlinskiTheme.imagesUrl}/cookie.svg`
         : "/wp-content/themes/active/assets/images/cookie.svg";
 
-      consentButton.innerHTML = `
-        <img src="${cookieImagePath}" 
-             alt="Cookie consent" 
-             width="40" 
-             height="40" 
-             style="display: block; max-width: 100%; height: auto;"
-             aria-hidden="true" />
-      `;
+      consentButton.textContent = "";
+      const cookieImage = document.createElement("img");
+      cookieImage.src = cookieImagePath;
+      cookieImage.alt = "Cookie consent";
+      cookieImage.width = 40;
+      cookieImage.height = 40;
+      cookieImage.style.cssText = "display: block; max-width: 100%; height: auto;";
+      cookieImage.setAttribute("aria-hidden", "true");
+      consentButton.append(cookieImage);
 
       const originalStyle = consentButton.getAttribute("style") || "";
       consentButton.style.cssText =

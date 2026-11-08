@@ -1,0 +1,12 @@
+.wp-block-columns.kt-equal-height-columns > .wp-block-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.wp-block-columns.kt-equal-height-columns > .wp-block-column > * {
+	flex: 1;
+}
+
+.wp-block-group.kt-equal-height-columns.is-layout-grid > * {
+	height: 100%;
+}

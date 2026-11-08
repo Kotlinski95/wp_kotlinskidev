@@ -12,7 +12,7 @@ if ( $enable_captcha ) {
     }
 }
 
-if ( isset( $_GET['contact-success'] ) ) {
+if ( isset( $_GET['contact-success'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
     echo '<div class="contact-form-success" id="contact-form-ts-success">' . esc_html( $attributes['successMessage'] ?? 'Thank you! Your message has been sent.' ) . '</div>';
     ?>
     <script>
@@ -21,13 +21,14 @@ if ( isset( $_GET['contact-success'] ) ) {
         if (form) {
             form.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
+        window.kotlinskiAnalytics && window.kotlinskiAnalytics.trackEvent('generate_lead', { form_name: 'contact_form' });
     });
     </script>
     <?php
 }
 
-if ( isset( $_GET['contact-error'] ) ) {
-    $error_type    = sanitize_key( wp_unslash( $_GET['contact-error'] ) );
+if ( isset( $_GET['contact-error'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
+    $error_type    = sanitize_key( wp_unslash( $_GET['contact-error'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
     $error_message = $attributes['errorMessage'] ?? 'Sorry, there was an error. Please try again.';
 
     if ( 'captcha' === $error_type ) {
@@ -44,6 +45,7 @@ if ( isset( $_GET['contact-error'] ) ) {
         if (form) {
             form.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
+        window.kotlinskiAnalytics && window.kotlinskiAnalytics.trackEvent('form_error', { form_name: 'contact_form', error_type: '<?php echo esc_js( $error_type ); ?>' });
     });
     </script>
     <?php

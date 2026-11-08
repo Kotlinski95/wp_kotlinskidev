@@ -1,0 +1,40 @@
+@import "./variables";
+
+.kt-project-showcase--bottom-peek {
+	overflow: hidden;
+}
+
+.kt-project-showcase--angled {
+	position: relative;
+	overflow: hidden;
+	min-height: 28.75rem;
+
+	> .wp-block-group:first-child {
+		position: relative;
+		z-index: 2;
+	}
+
+	@media (max-width: $breakpoint-mobile) {
+
+		.kt-device-frame--angled:not(.kt-device-frame--mobile-preserve) {
+			position: static;
+			width: 100%;
+			margin-top: 2rem;
+			transform: none;
+			filter: none;
+		}
+	}
+}
+
+.kt-project-showcase--faded-window__frames {
+	position: relative;
+
+	@media (max-width: $breakpoint-mobile) {
+
+		.kt-device-frame--overlap:not(.kt-device-frame--mobile-preserve) {
+			position: static;
+			width: 60%;
+			margin: 1.5rem auto 0;
+		}
+	}
+}

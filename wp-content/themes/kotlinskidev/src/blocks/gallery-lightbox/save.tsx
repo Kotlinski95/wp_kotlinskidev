@@ -27,7 +27,9 @@ export default function Save({ attributes }: { attributes: GalleryLightboxAttrib
     ...carouselSettings
   } = attributes;
 
-  if (!images.length) return null;
+  if (!images.length) {
+    return null;
+  }
 
   const [first, ...rest] = images;
   const totalCount = images.length;
@@ -57,6 +59,13 @@ export default function Save({ attributes }: { attributes: GalleryLightboxAttrib
       : null;
   const settingsData = JSON.stringify(carouselSettings);
 
+  let triggerCountSuffix = "";
+  if (totalCount > 1) {
+    triggerCountSuffix = carouselSettings.trackActiveSlide
+      ? ` 01 / ${String(totalCount).padStart(2, "0")}`
+      : ` +${rest.length}`;
+  }
+
   return (
     <div
       {...useBlockProps.save()}
@@ -68,13 +77,7 @@ export default function Save({ attributes }: { attributes: GalleryLightboxAttrib
       <button
         className="gallery-lightbox-trigger"
         type="button"
-        aria-label={`${first.alt || "Open gallery"}${
-          totalCount > 1
-            ? carouselSettings.trackActiveSlide
-              ? ` 01 / ${String(totalCount).padStart(2, "0")}`
-              : ` +${rest.length}`
-            : ""
-        }`}
+        aria-label={`${first.alt || "Open gallery"}${triggerCountSuffix}`}
         style={
           first.width && first.height
             ? { aspectRatio: `${first.width}/${first.height}` }

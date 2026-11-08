@@ -77,12 +77,23 @@
 		}
 
 		&::after {
-			font-size: 0.75rem;
-			font-weight: 700;
+			content: "";
+			display: block;
+			width: 0.6875rem;
+			height: 1.25rem;
 			background: var(--carousel-nav-color, #{$color});
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
+			mask-image: url(@assets/icons/carousel-nav-arrow.svg);
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: contain;
+			-webkit-mask-image: url(@assets/icons/carousel-nav-arrow.svg);
+			-webkit-mask-repeat: no-repeat;
+			-webkit-mask-position: center;
+			-webkit-mask-size: contain;
+		}
+
+		&.swiper-button-prev::after {
+			transform: rotate(180deg);
 		}
 
 		&:hover {
@@ -95,15 +106,16 @@
 
 			&::after {
 				background: var(--carousel-nav-color-hover, var(--carousel-nav-color, #{$color}));
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
 			}
 		}
 
 		&.swiper-button-disabled {
 			opacity: 0.3;
 			cursor: not-allowed;
+		}
+
+		svg.swiper-navigation-icon {
+			display: none;
 		}
 	}
 
@@ -119,12 +131,14 @@
 		position: static;
 		width: 100%;
 		align-self: stretch;
-		margin-block: 1rem;
+		margin-top: var(--hero-nav-padding-top, 1rem);
+		margin-bottom: var(--hero-nav-padding-bottom, 1rem);
 		transform: none; // reset translateX(-50%) from --bottom-center when used inside
 
 		&.carousel-nav--bottom-left {
 			justify-content: flex-start;
-			padding-inline: 2rem 0;
+			padding-left: var(--hero-nav-padding-left, 2rem);
+			padding-right: var(--hero-nav-padding-right, 0);
 
 			@media (max-width: calc(#{$breakpoint-mobile} - 0.0625rem)) {
 				justify-content: center;
@@ -138,7 +152,8 @@
 
 		&.carousel-nav--bottom-right {
 			justify-content: flex-end;
-			padding-inline: 0 2rem;
+			padding-left: var(--hero-nav-padding-left, 0);
+			padding-right: var(--hero-nav-padding-right, 2rem);
 
 			@media (max-width: calc(#{$breakpoint-mobile} - 0.0625rem)) {
 				justify-content: center;
@@ -184,4 +199,8 @@
 
 .carousel-nav:has(.swiper-button-prev[disabled]) ~ .swiper-pagination {
 	display: none;
+}
+
+.swiper:has(> .swiper-pagination.kt-pagination-outside) {
+	padding-bottom: 2.5rem;
 }

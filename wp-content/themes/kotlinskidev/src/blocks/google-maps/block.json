@@ -12,7 +12,7 @@
   "supports": {
     "html": false
   },
-  "editorScript": "file:../../../build/google-maps.js",
+  "editorScript": "file:../../../build/js/google-maps.js",
   "render": "file:./render.php",
   "attributes": {
     "apiKey": { "type": "string", "default": "" },

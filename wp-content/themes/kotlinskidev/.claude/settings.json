@@ -1,4 +1,5 @@
 {
+  "agent": "orchestrator",
   "hooks": {
     "PostToolUse": [
       {
@@ -8,6 +9,28 @@
             "type": "command",
             "command": "bash \"/Users/adriankotlinski/Local Sites/kotlinskidev/app/public/wp-content/themes/kotlinskidev/.claude/hooks/theme-lint.sh\"",
             "statusMessage": "Formatting and linting modified file..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/adriankotlinski/.local/bin/graphify hook-guard search",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/adriankotlinski/.local/bin/graphify hook-guard read",
+            "timeout": 10
           }
         ]
       }

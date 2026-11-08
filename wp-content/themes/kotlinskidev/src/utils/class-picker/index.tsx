@@ -50,6 +50,30 @@ const UTILITY_GROUPS: UtilityGroup[] = [
         help: __("Sets width to 100%", "kotlinskidev"),
       },
       {
+        label: __("Overlay Link", "kotlinskidev"),
+        value: "kt-overlay-link",
+        help: __(
+          "On a Button or a block containing a link: stretches that link over its whole container (a Cover, or any block with Overlay Link Host)",
+          "kotlinskidev"
+        ),
+      },
+      {
+        label: __("Overlay Link Host", "kotlinskidev"),
+        value: "kt-overlay-link-host",
+        help: __(
+          "On a Group, Column or other block: the area an Overlay Link inside it covers",
+          "kotlinskidev"
+        ),
+      },
+      {
+        label: __("Hide Overlay Link Label", "kotlinskidev"),
+        value: "kt-overlay-link--label-hidden",
+        help: __(
+          "Hides the link text visually but keeps it for screen readers (use with Overlay Link)",
+          "kotlinskidev"
+        ),
+      },
+      {
         label: __("Center Block", "kotlinskidev"),
         value: "mx-auto",
         help: __("Centers the block with margin: auto", "kotlinskidev"),
@@ -58,6 +82,11 @@ const UTILITY_GROUPS: UtilityGroup[] = [
         label: __("Container", "kotlinskidev"),
         value: "container",
         help: __("Responsive centered container with max-width", "kotlinskidev"),
+      },
+      {
+        label: __("Sticky", "kotlinskidev"),
+        value: "is-kotlinskidev-sticky",
+        help: __("Sticks the block below the header while scrolling", "kotlinskidev"),
       },
     ],
   },

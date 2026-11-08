@@ -1,0 +1,17 @@
+.kt-offer--placeholder {
+	outline: 1px dashed var(--wp--preset--color--primary);
+	outline-offset: 2px;
+}
+
+.kt-offer--missing {
+	outline: 1px solid rgb(214 54 56);
+	outline-offset: 2px;
+}
+
+.kt-offer-popover__panel {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	min-width: 260px;
+	padding: 12px 16px 16px;
+}

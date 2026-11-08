@@ -1,0 +1,25 @@
+.kt-article-card {
+	box-shadow: 6px 6px 9px rgba(0, 0, 0, 0.2);
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	overflow: hidden;
+
+	> .wp-block-image img {
+		display: block;
+		width: 100%;
+	}
+
+	> p {
+		padding: var(--wp--preset--spacing--40) var(--wp--preset--spacing--40) 0;
+		min-height: calc(3lh + var(--wp--preset--spacing--40));
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		overflow: hidden;
+	}
+
+	> .wp-block-buttons {
+		padding: 0 var(--wp--preset--spacing--40) var(--wp--preset--spacing--40);
+	}
+}

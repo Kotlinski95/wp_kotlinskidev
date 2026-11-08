@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-deep-field",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Deep Field",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A looping, parallax-popping star field over a drifting red/green/blue nebula backdrop for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "speed": { "type": "number", "default": 1 },
+    "intensity": { "type": "number", "default": 3 },
+    "color": { "type": "string", "default": "#ffffff" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

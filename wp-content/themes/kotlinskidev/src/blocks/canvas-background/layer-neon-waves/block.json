@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-neon-waves",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Neon Waves",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A raymarched field of glowing, grayscale neon wave lines for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "speed": { "type": "number", "default": 0.6 },
+    "intensity": { "type": "number", "default": 3 },
+    "color": { "type": "string", "default": "#ffffff" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

@@ -1,0 +1,9 @@
+.has-self-stretch-fill img {
+	width: 100% !important;
+	height: auto !important;
+}
+
+.has-self-stretch-fixed img {
+	width: var(--kt-self-stretch-width) !important;
+	height: auto !important;
+}

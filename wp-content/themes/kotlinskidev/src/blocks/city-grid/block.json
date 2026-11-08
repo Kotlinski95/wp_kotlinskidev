@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/city-grid",
+  "version": "1.0.0",
+  "title": "City Grid",
+  "category": "kotlinskidev",
+  "description": "Server-rendered grid of published city pages, linking to each service location.",
+  "icon": "grid-view",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "editorScript": "file:../../../build/js/city-grid.js",
+  "attributes": {
+    "columnsDesktop": { "type": "number", "default": 3 },
+    "columnsTablet": { "type": "number", "default": 2 },
+    "columnsMobile": { "type": "number", "default": 1 },
+    "gridGap": { "type": "string", "default": "0.9375rem" },
+    "linkTextColor": { "type": "string", "default": "" },
+    "cardBackgroundColor": { "type": "string", "default": "" },
+    "cardBorderColor": { "type": "string", "default": "" },
+    "cardBorderWidth": { "type": "string", "default": "0.125rem" },
+    "cardBorderRadius": { "type": "string", "default": "1.125rem" },
+    "cardPadding": { "type": "string", "default": "1.25rem" },
+    "textGradient": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "dimensions": {
+      "minHeight": true
+    }
+  }
+}

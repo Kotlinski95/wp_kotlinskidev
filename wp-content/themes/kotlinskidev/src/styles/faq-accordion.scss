@@ -83,3 +83,24 @@
 	flex-direction: column;
 	gap: var(--wp--preset--spacing--30, 1.25rem);
 }
+
+.kt-faq-single-column {
+	display: flex !important;
+	flex-direction: column;
+	gap: 0;
+}
+
+.kt-faq-single-column > .wp-block-details {
+	border: none;
+	border-bottom: 0.0625rem solid var(--wp--preset--color--divider);
+	padding-block: var(--wp--preset--spacing--40, 1.5rem);
+	padding-inline: var(--wp--preset--spacing--30, 1.25rem);
+}
+
+.kt-faq-single-column > .wp-block-details:first-child {
+	padding-top: 0;
+}
+
+.kt-faq-single-column > .wp-block-details:last-child {
+	border-bottom: none;
+}

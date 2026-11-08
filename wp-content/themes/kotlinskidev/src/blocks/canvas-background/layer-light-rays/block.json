@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-light-rays",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Light Rays",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A rotating sunburst/light-rays layer for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "rayCount": { "type": "number", "default": 8 },
+    "speed": { "type": "number", "default": 0.3 },
+    "color": { "type": "string", "default": "#ffffff" },
+    "opacity": { "type": "number", "default": 0.5 }
+  }
+}

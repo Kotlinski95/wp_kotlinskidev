@@ -1,0 +1,54 @@
+@import "../../styles/variables";
+
+.kt-city-local {
+	box-sizing: border-box;
+	max-width: 73.75rem;
+	margin-inline: auto;
+	padding-block: var(--wp--preset--spacing--40);
+	color: var(--wp--preset--color--foreground);
+}
+
+.kt-city-local__intro {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--large);
+	line-height: 1.6;
+}
+
+.kt-city-local__facts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+	gap: 1.5rem;
+	margin: 1.5rem 0 0;
+}
+
+.kt-city-local__fact {
+	padding: 1.25rem;
+	border: 0.125rem solid var(--wp--preset--color--divider);
+	border-radius: 1.125rem;
+	background-color: var(--wp--preset--color--background-alt);
+}
+
+.kt-city-local__fact-label {
+	margin: 0 0 0.5rem;
+	font-size: var(--wp--preset--font-size--small);
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--primary);
+}
+
+.kt-city-local__fact-value {
+	margin: 0;
+}
+
+.kt-city-local__nearby-heading {
+	margin: 0 0 1rem;
+	font-size: var(--wp--preset--font-size--large);
+}
+
+.kt-city-local-placeholder {
+	padding: 0.75rem 1rem;
+	border: 0.0625rem dashed currentcolor;
+	border-radius: 0.5rem;
+	opacity: 0.8;
+}

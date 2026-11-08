@@ -30,7 +30,7 @@ Do not add PHP or HTML comments beyond the required registration block. Block st
 - Use only theme.json design tokens — never hardcode hex colours or pixel values outside of one-off layout constraints.
 - Prefer `var:preset|color|{slug}` and `var:preset|spacing|{slug}` over raw CSS values.
 - Every `<!-- wp:{block} -->` opener must have a matching `<!-- /wp:{block} -->` closer.
-- Validate markup in the block editor before committing — broken JSON attributes silently produce invalid blocks.
+- Run `npm run test:patterns` before committing any pattern change — it opens every pattern in a real editor and fails on "Block contains unexpected or invalid content." Broken JSON attributes (a style key nested wrong, a hardcoded CSS value with no matching attribute, a core-generated class like `has-border-color` missing from hand-written markup) silently produce invalid blocks that only this check catches.
 
 ## Reusability
 - Patterns must be self-contained. No pattern should depend on another pattern being present on the page.

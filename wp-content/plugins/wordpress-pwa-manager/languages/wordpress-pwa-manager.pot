@@ -1,65 +1,716 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2025 WordPress PWA Manager
-# This file is distributed under the same license as the WordPress PWA Manager package.
+# Copyright (C) 2026 Adrian Kotlinski
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress PWA Manager 1.0.0\n"
-"Report-Msgid-Bugs-To: https://adriankotlinski.com\n"
-"POT-Creation-Date: 2025-09-15 12:00+0000\n"
-"PO-Revision-Date: 2025-09-15 12:00+0000\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-pwa-manager\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: WordPress\n"
+"POT-Creation-Date: 2026-08-05T10:46:47+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wordpress-pwa-manager\n"
+
+#. Plugin Name of the plugin
+#: wordpress-pwa-manager.php
+msgid "WordPress PWA Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wordpress-pwa-manager.php
+msgid "https://adriankotlinski.com"
+msgstr ""
+
+#. Description of the plugin
+#: wordpress-pwa-manager.php
+msgid "Complete PWA functionality with admin settings for colors, offline cache, installation prompts, icons, and more."
+msgstr ""
+
+#. Author of the plugin
+#: wordpress-pwa-manager.php
+msgid "Adrian Kotlinski"
+msgstr ""
+
+#: includes/pwa-admin.php:22
+#: includes/pwa-admin.php:23
+msgid "PWA Manager"
+msgstr ""
+
+#: includes/pwa-admin.php:119
+msgid "Settings updated successfully"
+msgstr ""
 
 #: includes/pwa-frontend.php:35
 msgid "Try Again"
 msgstr ""
 
-#: wordpress-pwa-manager.php:101
+#: wordpress-pwa-manager.php:83
 msgid "Install App"
 msgstr ""
 
-#: wordpress-pwa-manager.php:102
+#: wordpress-pwa-manager.php:84
 msgid "Install this app on your device for a better experience and quick access."
 msgstr ""
 
-#: wordpress-pwa-manager.php:103
+#: wordpress-pwa-manager.php:85
 msgid "Install"
 msgstr ""
 
-#: wordpress-pwa-manager.php:104
+#: wordpress-pwa-manager.php:86
 msgid "Ask me later"
 msgstr ""
 
-#: wordpress-pwa-manager.php:105
+#: wordpress-pwa-manager.php:87
 msgid "No thanks"
 msgstr ""
 
-#: wordpress-pwa-manager.php:108
+#: wordpress-pwa-manager.php:88
 msgid "Update Available"
 msgstr ""
 
-#: wordpress-pwa-manager.php:109
+#: wordpress-pwa-manager.php:89
 msgid "A new version of this app is available. Update now for the latest features and improvements."
 msgstr ""
 
-#: wordpress-pwa-manager.php:110
+#: wordpress-pwa-manager.php:90
 msgid "Update Now"
 msgstr ""
 
-#: wordpress-pwa-manager.php:111
+#: wordpress-pwa-manager.php:91
 msgid "Later"
 msgstr ""
 
-#: wordpress-pwa-manager.php:114
+#: wordpress-pwa-manager.php:92
 msgid "Back online"
 msgstr ""
 
-#: wordpress-pwa-manager.php:115
+#: wordpress-pwa-manager.php:93
 msgid "You are offline"
+msgstr ""
+
+#: build/admin.js:1
+msgid "General Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Configure basic PWA application settings."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable PWA Features"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable or disable all PWA functionality. When disabled, your site will behave as a regular website."
+msgstr ""
+
+#: build/admin.js:1
+msgid "PWA features are currently disabled."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable PWA features above to configure your Progressive Web App settings."
+msgstr ""
+
+#: build/admin.js:1
+msgid "App Name"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The full name of your PWA as it will appear to users."
+msgstr ""
+
+#: build/admin.js:1
+msgid "App Short Name"
+msgstr ""
+
+#: build/admin.js:1
+msgid "A shorter name for your PWA (12 characters or less)."
+msgstr ""
+
+#: build/admin.js:1
+msgid "App Description"
+msgstr ""
+
+#: build/admin.js:1
+msgid "A brief description of your PWA."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Start URL"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The URL that loads when users launch your PWA."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Display Mode"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Standalone"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Fullscreen"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Minimal UI"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Browser"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Orientation"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Any"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Portrait"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Landscape"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Appearance Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Customize the visual appearance of your PWA."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Theme Color"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The color of the browser UI elements."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Background Color"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The background color shown while the app loads."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Preview"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Install Prompt Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Configure the app installation prompts and update notifications."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Install Prompt"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable Install Prompt"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Show a prompt to users encouraging them to install your PWA. Text content will be automatically translated based on your site language."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Update Prompt"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable Update Prompt"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Show a prompt when app updates are available. Text content will be automatically translated based on your site language."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache First"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Network First"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Stale While Revalidate"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Configure how your PWA handles caching and offline functionality."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache Strategy"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Caching Strategy"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Choose how resources are cached and served."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache First:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Serves cached content first, falls back to network. Best for static assets."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Network First:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Tries network first, falls back to cache. Best for dynamic content."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Stale While Revalidate:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Serves cached content immediately, updates in background. Good balance for most content."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache Limits"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Maximum Cache Entries"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Maximum number of items to store in cache."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache Max Age (days)"
+msgstr ""
+
+#: build/admin.js:1
+msgid "How long to keep items in cache before refreshing."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache Information"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Current Strategy:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Max Entries:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache Duration:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "days"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Push Notifications"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Configure push notifications for your PWA."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable Push Notifications"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Allow your PWA to send push notifications to users."
+msgstr ""
+
+#: build/admin.js:1
+msgid "VAPID Keys"
+msgstr ""
+
+#: build/admin.js:1
+msgid "VAPID keys are required for push notifications. Generate new keys or enter existing ones."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Generate VAPID Keys"
+msgstr ""
+
+#: build/admin.js:1
+msgid "VAPID Public Key"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The public key for VAPID authentication."
+msgstr ""
+
+#: build/admin.js:1
+msgid "VAPID Private Key"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The private key for VAPID authentication. Keep this secure!"
+msgstr ""
+
+#: build/admin.js:1
+msgid "VAPID keys are configured. Push notifications are ready!"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Notification Permissions"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Users will be prompted to allow notifications when they first visit your PWA."
+msgstr ""
+
+#: build/admin.js:1
+msgid "How it works:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "User visits your PWA"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Browser asks for notification permission"
+msgstr ""
+
+#: build/admin.js:1
+msgid "If allowed, user can receive push notifications"
+msgstr ""
+
+#: build/admin.js:1
+msgid "You can send notifications via WordPress admin or API"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Testing Notifications"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Test your push notification setup:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Send Test Notification"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable push notifications and configure VAPID keys to test."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Best Practices"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Only send relevant, timely notifications"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Respect user preferences and local time zones"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Keep notification content concise and actionable"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Provide easy unsubscribe options"
+msgstr ""
+
+#: build/admin.js:1
+msgid "File size must be less than 2MB."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to upload icon. Please try again."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Please upload an image file."
+msgstr ""
+
+#: build/admin.js:1
+msgid "PWA Icons"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Upload icons for your PWA. Icons should be square and in PNG format."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Icon 192x192"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Used for home screen and app launcher"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Remove"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Uploading..."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Upload 192x192 Icon"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Icon 512x512"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Used for splash screen and high-resolution displays"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Upload 512x512 Icon"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Icon Tips"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Use PNG format for best results"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Icons should be square (same width and height)"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Use high contrast colors for better visibility"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Avoid text in icons as it may be hard to read at small sizes"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to preview template. Please check your template syntax."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Please enter a template to preview."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to preview theme template. Please check if the offline.html file exists in your theme directory."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Offline Page Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Configure how your PWA behaves when users are offline."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable Offline Page"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Show a custom offline page when users lose internet connection."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Offline Page Title"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The title shown on the offline page."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Offline Page Message"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The message shown to users when they are offline."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Use Custom HTML Template"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enable to use a custom HTML template for the offline page instead of the default design."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Template Source"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Plugin Settings (editable below)"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Theme File (offline.html)"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Choose whether to use the custom template from plugin settings or a local offline.html file from your active theme directory."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Custom Offline Template"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enter your custom HTML template. You can use the following placeholders:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Enter your custom HTML template here..."
+msgstr ""
+
+#: build/admin.js:1
+msgid "This will replace your current template. Are you sure?"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Default template loaded successfully!"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to load default template. Please try again."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Loading..."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Load Default Template"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Previewing..."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Preview Template"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Using Theme File"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The offline page will use the offline.html file from your active theme directory. You can edit this file in your code editor and version control it with your theme."
+msgstr ""
+
+#: build/admin.js:1
+msgid "File location:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "The same placeholders are available in your theme file:"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Preview Theme Template"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Offline Page Preview"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Close Preview"
+msgstr ""
+
+#: build/admin.js:1
+msgid "General"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Appearance"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Icons"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Offline Page"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Cache"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Notifications"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to load settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Loading settings..."
+msgstr ""
+
+#: build/admin.js:1
+msgid "PWA Manager Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Settings saved successfully!"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to save settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Saving..."
+msgstr ""
+
+#: build/admin.js:1
+msgid "Save Settings"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Failed to load PWA Manager settings."
 msgstr ""

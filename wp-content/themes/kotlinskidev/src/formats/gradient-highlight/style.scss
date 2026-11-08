@@ -1,6 +1,7 @@
+@import "../../styles/variables";
+
 mark.kt-highlight-gradient {
-	background:
- var(--kt-highlight-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+	background: var(--kt-highlight-gradient, #{$kt-gradient-fallback});
 	color: inherit;
 	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
@@ -11,8 +12,7 @@ mark.kt-highlight-gradient {
 }
 
 .kt-gradient-text {
-	background-image:
- var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+	background-image: var(--kt-text-gradient, #{$kt-gradient-fallback});
 	background-clip: text;
 	-webkit-background-clip: text;
 	color: transparent;

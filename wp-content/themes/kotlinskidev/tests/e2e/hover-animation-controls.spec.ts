@@ -1,0 +1,236 @@
+import { test, expect } from "@playwright/test";
+import { acceptCookies } from "./utils";
+import { createFixturePage, deleteFixturePage } from "./wp-cli";
+
+const slug = "e2e-fixture-hover-animations";
+
+function buildContent(): string {
+  return `<!-- wp:group {"hoverAnimation":"hover-jump"} -->
+<div class="wp-block-group hover-jump" style="height:80px"><!-- wp:paragraph -->
+<p>Jump target</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"hoverAnimation":"constant-bounce"} -->
+<div class="wp-block-group constant-bounce" style="height:80px"><!-- wp:paragraph -->
+<p>Bounce target</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->
+
+<!-- wp:group -->
+<div class="wp-block-group hover-test-plain" style="height:80px"><!-- wp:paragraph -->
+<p>Plain target</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group -->`;
+}
+
+test.describe("Hover animation controls (kotlinskidev/hover-animation-controls block extension)", () => {
+  let fixtureUrl: string;
+
+  test.beforeAll(() => {
+    fixtureUrl = createFixturePage(slug, "E2E Fixture — Hover Animations", buildContent()).url;
+  });
+
+  test.afterAll(() => {
+    deleteFixturePage(slug);
+  });
+
+  test("shows the final state immediately with no transform change when reduced motion is preferred (default)", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const jump = page.locator(".hover-jump");
+    await jump.hover();
+    await expect(jump).toHaveCSS("transform", "none");
+
+    const bounce = page.locator(".constant-bounce");
+    const animationName = await bounce.evaluate((el) => getComputedStyle(el).animationName);
+    expect(animationName).toBe("none");
+  });
+
+  test.describe("with motion allowed", () => {
+    test.use({ contextOptions: { reducedMotion: "no-preference" } });
+
+    test("hovering a hover-jump element translates it upward", async ({ page }) => {
+      await page.goto(fixtureUrl);
+      await acceptCookies(page);
+
+      const jump = page.locator(".hover-jump");
+      await expect(jump).toHaveCSS("transform", "none");
+
+      await jump.hover();
+
+      await expect(jump).not.toHaveCSS("transform", "none");
+    });
+
+    test("a constant-bounce element animates continuously without hovering", async ({ page }) => {
+      await page.goto(fixtureUrl);
+      await acceptCookies(page);
+
+      const bounce = page.locator(".constant-bounce");
+      const animationName = await bounce.evaluate((el) => getComputedStyle(el).animationName);
+      expect(animationName).toBe("constant-bounce");
+    });
+  });
+
+  test("a block without a hover animation attribute is not affected", async ({ page }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const plain = page.locator(".hover-test-plain");
+    await plain.hover();
+    await expect(plain).toHaveCSS("transform", "none");
+  });
+});
+
+test.describe("Hover colors on a dynamic (render.php-only) block — kotlinskidev/scroll-to-top", () => {
+  // Regression: a null-save() block never goes through blocks.getSaveContent.extraProps, so hover color/gradient CSS vars and classes were silently dropped on dynamic blocks (hoverAnimation classes were already bridged server-side, these weren't).
+  const dynamicBlockSlug = "e2e-fixture-hover-colors-dynamic-block";
+  let fixtureUrl: string;
+
+  test.beforeAll(() => {
+    const attrs = {
+      variant: "bar",
+      hoverBackgroundColor: "#8209d3",
+      hoverTextColor: "linear-gradient(90deg,#8209d3 0%,#ff6b6b 100%)",
+    };
+    fixtureUrl = createFixturePage(
+      dynamicBlockSlug,
+      "E2E Fixture — Hover Colors Dynamic Block",
+      `<div style="height:600px">Spacer</div><!-- wp:kotlinskidev/scroll-to-top ${JSON.stringify(attrs)} /-->`
+    ).url;
+  });
+
+  test.afterAll(() => {
+    deleteFixturePage(dynamicBlockSlug);
+  });
+
+  test("the frontend markup carries the color-transition class and CSS custom properties", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const wrapper = page.locator("main .kt-scroll-to-top--bar");
+    await expect(wrapper).toHaveClass(/has-hover-color-transition/);
+    await expect(wrapper).toHaveClass(/has-hover-text-gradient/);
+    expect(
+      await wrapper.evaluate((el) => (el as HTMLElement).style.getPropertyValue("--hover-bg-color"))
+    ).toBe("#8209d3");
+  });
+
+  test("hovering renders the gradient as real text-clipped background, not a solid color", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const wrapper = page.locator("main .kt-scroll-to-top--bar");
+    const label = wrapper.locator(".kt-scroll-to-top__trigger span");
+
+    await wrapper.scrollIntoViewIfNeeded();
+    await wrapper.hover();
+
+    await expect(label).toHaveCSS("background-image", /gradient/);
+    await expect(label).toHaveCSS("-webkit-text-fill-color", "rgba(0, 0, 0, 0)");
+  });
+});
+
+test.describe("core/button with a solid hover background AND the enhanced glow effect together", () => {
+  // Regression: has-enhanced-hover-glow used to clip the <a>'s own background to text, exposing the
+  // unstyled wrapping div (no border-radius, a slow color-transition) behind it — a visible flash and
+  // square corners on hover. The label is now wrapped server-side in a .kt-btn-glow-text span so the
+  // glow clips that span only, leaving the <a>'s own solid background and border-radius untouched.
+  const glowHoverBgSlug = "e2e-fixture-button-glow-hover-bg";
+  let fixtureUrl: string;
+
+  test.beforeAll(() => {
+    const attrs = {
+      hoverBackgroundColor: "#f2f2f2",
+      hoverTextColor: "#8209d3",
+      hoverEnhancedGlow: true,
+      className: "is-style-fill-light",
+    };
+    fixtureUrl = createFixturePage(
+      glowHoverBgSlug,
+      "E2E Fixture — Button Glow + Hover Background",
+      `<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button ${JSON.stringify(attrs)} -->
+<div class="wp-block-button is-style-fill-light"><a class="wp-block-button__link wp-element-button" href="#" style="border-top-left-radius:6px;border-top-right-radius:6px;border-bottom-left-radius:6px;border-bottom-right-radius:6px">Glow target</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->`
+    ).url;
+  });
+
+  test.afterAll(() => {
+    deleteFixturePage(glowHoverBgSlug);
+  });
+
+  test("the label is wrapped in a glow-text span, not left as bare text in the link", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+    await expect(link.locator(".kt-btn-glow-text")).toHaveText("Glow target");
+  });
+
+  test("hovering keeps the link's own background solid and never transitions it", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+
+    await expect(link).toHaveCSS("transition-duration", /^(0s|1e-05s)$/);
+
+    await link.hover();
+
+    await expect(link).toHaveCSS("background-color", "rgb(242, 242, 242)");
+    await expect(link).toHaveCSS("background-clip", "border-box");
+  });
+
+  test("hovering never resets the link's border-radius", async ({ page }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+
+    await expect(link).toHaveCSS("border-top-left-radius", "6px");
+
+    await link.hover();
+
+    await expect(link).toHaveCSS("border-top-left-radius", "6px");
+  });
+
+  test("hovering never paints the square-cornered wrapping div behind the rounded link", async ({
+    page,
+  }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+    const wrapper = page.locator(".wp-block-button", { has: link });
+
+    await link.hover();
+
+    await expect(wrapper).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  });
+
+  test("hovering still clips the glow-text span's background to the text", async ({ page }) => {
+    await page.goto(fixtureUrl);
+    await acceptCookies(page);
+
+    const link = page.locator('a.wp-block-button__link[href="#"]');
+    const glowText = link.locator(".kt-btn-glow-text");
+
+    await link.hover();
+
+    await expect(glowText).toHaveCSS("background-clip", "text");
+    await expect(glowText).toHaveCSS("-webkit-text-fill-color", /^rgba\(\d+, \d+, \d+, 0\)$/);
+  });
+});

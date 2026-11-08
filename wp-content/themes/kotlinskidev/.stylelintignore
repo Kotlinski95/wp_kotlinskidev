@@ -1,0 +1,8 @@
+# wp-scripts' own default ignores — lost once a project-level .stylelintignore exists, so repeated here
+build
+vendor
+
+# generated test coverage reports (gitignored, but present on disk once tests run)
+coverage
+
+src/styles/shortcodes.scss

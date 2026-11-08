@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/canvas-layer-floating-panels",
+  "version": "1.0.0",
+  "title": "Canvas Layer: Floating Panels",
+  "category": "kotlinskidev",
+  "icon": "art",
+  "description": "A deep, glowing noise backdrop with small rotating glass-like rectangles drifting and tumbling across it for a Canvas Scene.",
+  "textdomain": "kotlinskidev",
+  "supports": {
+    "html": false,
+    "multiple": false,
+    "reusable": false,
+    "inserter": true
+  },
+  "attributes": {
+    "speed": { "type": "number", "default": 1 },
+    "colorStart": { "type": "string", "default": "#03296b" },
+    "colorEnd": { "type": "string", "default": "#034291" },
+    "opacity": { "type": "number", "default": 1 }
+  }
+}

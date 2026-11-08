@@ -2,8 +2,35 @@
 // Include theme setup functions
 require_once get_template_directory() . '/functions/theme-setup.php';
 
+// Disable native browser scroll restoration before first paint, so our own controlled restore in restoration.ts is the only thing that moves scrollY on load/reload
+require_once get_template_directory() . '/functions/scroll-restoration.php';
+
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
+
+// Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
+require_once get_template_directory() . '/functions/feature-toggles.php';
+kotlinskidev_migrate_feature_toggles();
+
+// Named site values (Settings → kotlinski.dev → Site values) and the {token:key} render_block replacement
+require_once get_template_directory() . '/functions/site-values.php';
+
+// Article table of contents: heading parser, per-post memo, and missing heading id injection
+if ( kotlinskidev_feature_enabled( 'article_toc' ) ) {
+    require_once get_template_directory() . '/functions/article-toc.php';
+}
+
+// Truncates wp-content/debug.log once it exceeds 5MB, under WP_DEBUG only — prevents unbounded log growth from degrading every request over time
+require_once get_template_directory() . '/functions/debug-log-rotation.php';
+
+// Sentry error monitoring — loaded early so it can catch fatals from anything that follows
+require_once get_template_directory() . '/functions/error-monitoring.php';
+
+// Build-output path/URL helpers (build/js, build/css) — used by any module that enqueues or reads compiled assets
+require_once get_template_directory() . '/functions/asset-paths.php';
+
+// HTTP security response headers (CSP, Referrer-Policy, Permissions-Policy)
+require_once get_template_directory() . '/functions/security-headers.php';
 
 // Include internationalization functions
 require_once get_template_directory() . '/includes/i18n.php';
@@ -11,8 +38,27 @@ require_once get_template_directory() . '/includes/i18n.php';
 // Register custom blocks via block.json
 require_once get_template_directory() . '/functions/blocks.php';
 
+// Register core/button style variants (Fill/Outline/Gradient Outline x light/dark/adaptive/adaptive-contrast)
+require_once get_template_directory() . '/functions/button-style-variants.php';
+
+// Register core/list style variants (Checkmark)
+require_once get_template_directory() . '/functions/list-style-variants.php';
+
+// Manageable modal content system: kt_modal CPT, link triggers, footer render
+require_once get_template_directory() . '/functions/modals.php';
+
+// Opens a manageable modal when a wpe/slider slide (core/cover, .swiper-slide) is clicked
+require_once get_template_directory() . '/functions/slider-modal-trigger.php';
+require_once get_template_directory() . '/functions/device-frame-lightbox.php';
+
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
+
+require_once get_template_directory() . '/functions/text-line-clamp.php';
+
+require_once get_template_directory() . '/functions/deferred-block-assets.php';
+
+require_once get_template_directory() . '/functions/critical-css-fragments.php';
 
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
@@ -22,9 +68,6 @@ require_once get_template_directory() . '/functions/admin-bar-styles.php';
 
 // Include customizer settings and functions
 require_once get_template_directory() . '/functions/customizer.php';
-
-// Include seo customizer settings and functions
-// require_once get_template_directory() . '/functions/seo-customizer.php';
 
 // Include logo functions
 require_once get_template_directory() . '/functions/site-identity.php';
@@ -39,6 +82,9 @@ require_once get_template_directory() . '/functions/patterns.php';
 
 // Load responsive breakpoints helper
 require_once get_template_directory() . '/functions/breakpoints.php';
+
+// Load breadcrumb trail builder
+require_once get_template_directory() . '/functions/breadcrumbs.php';
 
 // Load anchor scroll offset settings
 require_once get_template_directory() . '/functions/scroll-offset.php';
@@ -58,8 +104,29 @@ require_once get_template_directory() . '/functions/responsive-display.php';
 // Load responsive width controls
 require_once get_template_directory() . '/functions/responsive-width.php';
 
+// Load responsive min-height controls
+require_once get_template_directory() . '/functions/responsive-height.php';
+
+// Load per-breakpoint Grid column-count overrides
+require_once get_template_directory() . '/functions/responsive-grid-columns.php';
+
+// Precise per-breakpoint Grid divider-line edge exclusion (needs the real child count, computed server-side)
+require_once get_template_directory() . '/functions/group-divider.php';
+
+// Load per-block custom CSS custom-property controls (icon/image SVG theming)
+require_once get_template_directory() . '/functions/custom-css-vars.php';
+
+// Load load-more (progressive reveal) controls
+require_once get_template_directory() . '/functions/load-more.php';
+
 // Load universal gradient-border support
 require_once get_template_directory() . '/functions/border-gradient.php';
+require_once get_template_directory() . '/functions/text-gradient.php';
+require_once get_template_directory() . '/functions/nav-reveal-render.php';
+require_once get_template_directory() . '/functions/scroll-animation-render.php';
+require_once get_template_directory() . '/functions/scroll-section-pin-boundary-render.php';
+require_once get_template_directory() . '/functions/group-link.php';
+require_once get_template_directory() . '/functions/image-hover-overlay.php';
 
 // Load responsive spacing controls
 require_once get_template_directory() . '/functions/responsive-spacing.php';
@@ -69,6 +136,7 @@ require_once get_template_directory() . '/functions/responsive-font-size.php';
 
 // Load contact form submission handler
 require_once get_template_directory() . '/functions/contact-form.php';
+require_once get_template_directory() . '/functions/contact-form-submissions.php';
 
 // Load link hover effects controls
 require_once get_template_directory() . '/functions/link-hover-effects.php';
@@ -76,10 +144,16 @@ require_once get_template_directory() . '/functions/link-hover-effects.php';
 // Load active-page link state controls
 require_once get_template_directory() . '/functions/active-link-state.php';
 
+// Inject tabindex="-1" on the main content wrapper at render time (skip-link focus target)
+require_once get_template_directory() . '/functions/main-content-focus.php';
+
 require_once get_template_directory() . '/functions/faq-layout.php';
 
 // Load Facebook Pixel / Google Analytics tracking scripts
 require_once get_template_directory() . '/functions/tracking-scripts.php';
+
+// Load custom GA4/Meta event tracking toggles (Settings -> Tracking)
+require_once get_template_directory() . '/functions/analytics-events.php';
 
 // Load parallax frontend support
 require_once get_template_directory() . '/includes/parallax-frontend.php';
@@ -110,17 +184,21 @@ require_once get_template_directory() . '/functions/page-loader.php';
 // Banner carousel
 require_once get_template_directory() . '/functions/banner-slider.php';
 
-// Load search page block styles fix
-require_once get_template_directory() . '/functions/search-page-styles.php';
-
 // Hover animations
 require_once get_template_directory() . '/includes/hover-animations.php';
+require_once get_template_directory() . '/functions/canvas/render.php';
+require_once get_template_directory() . '/functions/background-effects/render.php';
+require_once get_template_directory() . '/functions/position-z-index.php';
 
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
 
 // Cover video poster preload for performance optimization
 require_once get_template_directory() . '/functions/cover-video-preload.php';
+if ( kotlinskidev_feature_enabled( 'cover_video_controls' ) ) {
+    require_once get_template_directory() . '/functions/cover-video-controls.php';
+}
+require_once get_template_directory() . '/functions/responsive-media.php';
 
 // Cover image classes for lazy loading control
 require_once get_template_directory() . '/functions/cover-image-classes.php';
@@ -134,8 +212,28 @@ require_once get_template_directory() . '/functions/svg-gradient-defs.php';
 // Polylang-translatable post types (wp_navigation, wp_block) and slug-based translated post resolution
 require_once get_template_directory() . '/functions/polylang-content-resolution.php';
 
+// Offers CPT: single source of truth for service prices and durations
+if ( kotlinskidev_feature_enabled( 'offers' ) ) {
+    require_once get_template_directory() . '/functions/offers.php';
+}
+
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';
+
+// Visible "AI-generated" disclosure label for any image/cover block using an attachment marked AI-generated in the Media Library
+require_once get_template_directory() . '/functions/ai-disclosure-labels.php';
+
+// .glb upload support for the model-viewer block
+require_once get_template_directory() . '/functions/model-viewer-mime.php';
+
+// Media Library "Icons (SVG)" type filter
+require_once get_template_directory() . '/functions/icon-library.php';
+
+// Leading-icon extension for button/link blocks
+require_once get_template_directory() . '/functions/icon-extension.php';
+
+// Hover/focus tooltip for core Social Links block anchors
+require_once get_template_directory() . '/functions/social-link-tooltip.php';
 
 // Admin settings page (must load before disable-comments so the option is registered)
 require_once get_template_directory() . '/functions/settings-page.php';
@@ -155,11 +253,41 @@ require_once get_template_directory() . '/functions/article-query-manager.php';
 // Universal noindex detection across common SEO plugins (Yoast, Rank Math, AIOSEO, SEOPress)
 require_once get_template_directory() . '/functions/seo-noindex-compat.php';
 
+// Shared post/topic card markup used by category, tag, and related-article grids
+require_once get_template_directory() . '/functions/card-hover-style-vars.php';
+require_once get_template_directory() . '/functions/post-card-renderer.php';
+require_once get_template_directory() . '/functions/topic-card-renderer.php';
+
 // Blog topic management system
 require_once get_template_directory() . '/functions/blog-topic-manager.php';
 
+// Tag archive dynamic blocks (tag header, tag posts grid, related tags)
+require_once get_template_directory() . '/functions/tag-archive-manager.php';
+
+// Search page dynamic blocks (search header, search form, search results, popular content)
+require_once get_template_directory() . '/functions/search-page-dynamic-blocks.php';
+
 // Include page view tracking functionality
 require_once get_template_directory() . '/functions/page-view-tracking.php';
+
+// Load city-based service location landing pages
+require_once get_template_directory() . '/functions/service-locations.php';
+require_once get_template_directory() . '/functions/service-location-local-content.php';
+require_once get_template_directory() . '/functions/service-location-seo.php';
+require_once get_template_directory() . '/functions/service-location-add-city.php';
+
+require_once get_template_directory() . '/functions/contact-card.php';
+
+require_once get_template_directory() . '/functions/article-card.php';
+require_once get_template_directory() . '/functions/project-card.php';
+require_once get_template_directory() . '/functions/certificate.php';
+require_once get_template_directory() . '/functions/certificate-badge-fetch.php';
+require_once get_template_directory() . '/functions/canvas/scene.php';
+require_once get_template_directory() . '/functions/canvas/enqueue.php';
+require_once get_template_directory() . '/functions/background-effects/preset.php';
+require_once get_template_directory() . '/functions/translated-text.php';
+require_once get_template_directory() . '/functions/marquee.php';
+require_once get_template_directory() . '/functions/block-attribute-escaping-guard.php';
 
 function kotlinskidev_load_textdomain()
 {

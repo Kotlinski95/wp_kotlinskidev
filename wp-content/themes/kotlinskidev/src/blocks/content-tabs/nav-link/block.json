@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/content-tabs-nav-link",
+  "version": "1.0.0",
+  "title": "Tab Label",
+  "category": "kotlinskidev",
+  "icon": "admin-links",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/content-tabs-item"],
+  "attributes": {
+    "label": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "color": { "background": true, "text": true, "gradients": true },
+    "spacing": { "padding": true, "margin": true },
+    "__experimentalBorder": { "radius": true, "color": true, "width": true, "style": true },
+    "typography": { "fontSize": true, "lineHeight": true, "fontWeight": true }
+  }
+}
