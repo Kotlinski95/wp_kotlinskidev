@@ -10,6 +10,7 @@ Only paths listed under `include:` in `.github/deploy-manifest.yml`. Anything no
 
 - Put `[skip deploy]` in the merge commit message or PR title.
 - Add the `no-deploy` label to the PR before merging.
+- Tick the "Skip deploy after merge" checkbox in the PR description (from `.github/pull_request_template.md`).
 - Cancel the running workflow in the Actions tab.
 
 ## One-time setup

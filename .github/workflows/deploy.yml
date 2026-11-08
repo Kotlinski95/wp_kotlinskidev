@@ -46,6 +46,10 @@ jobs:
             if grep -qx 'no-deploy' <<< "$labels"; then
               skip=true
             fi
+            bodies=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '.[].body // ""' || true)
+            if grep -qiE '^[[:space:]]*-[[:space:]]*\[x\][[:space:]]*skip deploy' <<< "$bodies"; then
+              skip=true
+            fi
           fi
           echo "skip=$skip" >> "$GITHUB_OUTPUT"
           if [[ "$skip" == "true" ]]; then
