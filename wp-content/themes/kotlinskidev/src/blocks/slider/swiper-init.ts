@@ -32,6 +32,8 @@ export interface SliderOptions {
   mousewheel?: boolean;
   keyboard?: boolean;
   spaceBetween?: number;
+  spaceBetweenMobile?: number;
+  spaceBetweenTablet?: number;
   grabCursor?: boolean;
   simulateTouch?: boolean;
   centerSlides?: boolean;
@@ -47,6 +49,18 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
   const continuousAutoplay = Boolean(options.continuousAutoplay);
   const reverse = options.direction === "reverse";
   const draggable = options.draggable ?? true;
+  const desktopSpaceBetween = typeof options.spaceBetween === "number" ? options.spaceBetween : 16;
+  const mobileSpaceBetween =
+    typeof options.spaceBetweenMobile === "number"
+      ? options.spaceBetweenMobile
+      : desktopSpaceBetween;
+  const tabletSpaceBetween =
+    typeof options.spaceBetweenTablet === "number"
+      ? options.spaceBetweenTablet
+      : desktopSpaceBetween;
+  const hasResponsiveSpacing =
+    typeof options.spaceBetweenMobile === "number" ||
+    typeof options.spaceBetweenTablet === "number";
 
   const parameters: Record<string, unknown> = {
     centeredSlides: centerSlides,
@@ -72,13 +86,22 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
     loop: (options.loop ?? true) && canLoop,
     autoplay: buildAutoplayParams(options, continuousAutoplay),
     slidesPerView: centerSlides ? "auto" : options.slidesPerView || 1,
-    spaceBetween: typeof options.spaceBetween === "number" ? options.spaceBetween : 16,
+    spaceBetween: mobileSpaceBetween,
     breakpoints: centerSlides
       ? undefined
       : {
-          640: { slidesPerView: options.slidesPerMobile || 1 },
-          768: { slidesPerView: options.slidesPerTablet || 1 },
-          1024: { slidesPerView: options.slidesPerDesktop || 1 },
+          640: {
+            slidesPerView: options.slidesPerMobile || 1,
+            ...(hasResponsiveSpacing && { spaceBetween: mobileSpaceBetween }),
+          },
+          768: {
+            slidesPerView: options.slidesPerTablet || 1,
+            ...(hasResponsiveSpacing && { spaceBetween: tabletSpaceBetween }),
+          },
+          1024: {
+            slidesPerView: options.slidesPerDesktop || 1,
+            ...(hasResponsiveSpacing && { spaceBetween: desktopSpaceBetween }),
+          },
         },
     zoom: { maxRatio: 5 },
     parallax: true,
@@ -337,7 +360,8 @@ function computeCatchUpToIndex(
   swiper: Swiper,
   targetIndex: number,
   frozenTranslateX: number,
-  fullSpeed: number
+  fullSpeed: number,
+  reverse = false
 ): CatchUpTarget | null {
   const grid = (swiper as unknown as SwiperWithTranslateControl).snapGrid;
   const targetTranslateX = grid?.[targetIndex];
@@ -345,7 +369,12 @@ function computeCatchUpToIndex(
   if (typeof targetTranslateX !== "number" || !stepDistance) {
     return null;
   }
-  const remainingDistance = Math.abs(-targetTranslateX - frozenTranslateX);
+  const remainingSigned = targetTranslateX + frozenTranslateX;
+  const remainingDistance = Math.abs(remainingSigned);
+  const goesWrongWay = reverse ? remainingSigned > 0 : remainingSigned < 0;
+  if (goesWrongWay || remainingDistance > stepDistance) {
+    return null;
+  }
   const ratio = Math.min(remainingDistance / stepDistance, 1);
   return { translateX: -targetTranslateX, duration: Math.max(fullSpeed * ratio, 50) };
 }
@@ -361,10 +390,9 @@ function computeCatchUpToNextBoundary(
   if (!grid?.length || !stepDistance) {
     return null;
   }
-  const traveled = Math.abs(frozenTranslateX);
+  const traveled = -frozenTranslateX;
   const nextBoundary = reverse
-    ? ([...grid].reverse().find((position) => position < traveled) ??
-      Math.max(traveled - stepDistance, 0))
+    ? ([...grid].reverse().find((position) => position < traveled) ?? traveled - stepDistance)
     : (grid.find((position) => position > traveled) ?? traveled + stepDistance);
   const remainingDistance = Math.abs(nextBoundary - traveled);
   const ratio = Math.min(Math.max(remainingDistance / stepDistance, 0), 1);
@@ -455,6 +483,8 @@ function wireContinuousAutoplay(
   let focused = false;
   let pressed = false;
   let modalOpen = false;
+  let touchPinned = false;
+  let touchStarted = false;
   let isPaused = false;
   let resumeMidTransition = false;
   let resumeTargetIndex = -1;
@@ -462,7 +492,7 @@ function wireContinuousAutoplay(
   let dragEndedTranslateX: number | null = null;
 
   const evaluate = () => {
-    const shouldPause = hovered || focused || pressed || modalOpen;
+    const shouldPause = hovered || focused || pressed || modalOpen || touchPinned;
     if (shouldPause === isPaused) {
       return;
     }
@@ -486,7 +516,8 @@ function wireContinuousAutoplay(
         swiper,
         resumeTargetIndex,
         resumeFrozenTranslateX,
-        speed
+        speed,
+        reverse
       );
       if (target) {
         resumeWithCatchUp(swiper, target, speed, reverse);
@@ -519,6 +550,9 @@ function wireContinuousAutoplay(
       return;
     }
     focused = false;
+    if (nextFocusedElement instanceof Node) {
+      touchPinned = false;
+    }
     evaluate();
   });
 
@@ -546,7 +580,7 @@ function wireContinuousAutoplay(
   window.addEventListener(
     "scroll",
     () => {
-      if (isPaused && !hovered && !pressed && !modalOpen) {
+      if (isPaused && !hovered && !pressed && !modalOpen && !touchPinned) {
         focused = false;
         evaluate();
       }
@@ -554,8 +588,22 @@ function wireContinuousAutoplay(
     { passive: true }
   );
 
-  container.addEventListener("pointerdown", () => {
+  container.addEventListener("pointerdown", (event) => {
+    touchStarted = Boolean(event.pointerType) && event.pointerType !== "mouse";
     pressed = true;
+    evaluate();
+    if (touchStarted && swiper.params.loop && typeof swiper.loopFix === "function") {
+      swiper.loopFix({ byMousewheel: true });
+    }
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    if (!touchPinned || (event.target instanceof Node && container.contains(event.target))) {
+      return;
+    }
+    touchPinned = false;
+    focused = false;
+    hovered = false;
     evaluate();
   });
 
@@ -565,6 +613,10 @@ function wireContinuousAutoplay(
     }
     pressed = false;
     const pointerEvent = event as PointerEvent;
+    if (touchStarted && event.type === "pointerup") {
+      touchPinned = true;
+    }
+    touchStarted = false;
     if (!pointerEvent.pointerType || pointerEvent.pointerType === "mouse") {
       const rect = container.getBoundingClientRect();
       hovered =
@@ -585,6 +637,25 @@ function wireContinuousAutoplay(
     }
     evaluate();
   };
+  const holdPinnedPosition = () => {
+    if (!touchPinned || swiper.destroyed) {
+      return;
+    }
+    swiper.autoplay.pause();
+    dragEndedTranslateX = freezeAtCurrentPosition(swiper);
+  };
+  swiper.on("touchEnd", () => {
+    if (!touchPinned) {
+      return;
+    }
+    const autoplayState = swiper.autoplay as { running: boolean };
+    const wasRunning = autoplayState.running;
+    autoplayState.running = false;
+    setTimeout(() => {
+      autoplayState.running = wasRunning;
+      holdPinnedPosition();
+    }, 0);
+  });
   document.addEventListener("pointerup", releasePress);
   document.addEventListener("pointercancel", releasePress);
 

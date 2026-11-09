@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createReduxStore, createSelector, register } from "@wordpress/data";
 
@@ -354,25 +354,36 @@ describe("slider Edit", () => {
     expect(setAttributes).toHaveBeenCalledWith({ autoplayTime: 8 });
   });
 
-  it("updates slides per view/mobile/tablet/desktop independently", () => {
+  it("updates slides per view per device section independently", () => {
     const { setAttributes } = renderEdit();
 
-    const changeSlider = (name: string, value: string) => {
-      const slider = screen.getByRole("slider", { name });
-      fireEvent.change(slider, { target: { value } });
+    const changeSlider = (group: string, name: string, value: string) => {
+      const section = screen.getByRole("group", { name: group });
+      fireEvent.change(within(section).getByRole("slider", { name }), { target: { value } });
     };
 
-    changeSlider("Slides Per View", "2");
+    changeSlider("Phones (<640px)", "Slides Per View", "2");
     expect(setAttributes).toHaveBeenCalledWith({ slidesPerView: 2 });
 
-    changeSlider("Slides Per Mobile", "2");
-    expect(setAttributes).toHaveBeenCalledWith({ slidesPerMobile: 2 });
+    changeSlider("Large phones (640–767px)", "Slides Per View", "2.25");
+    expect(setAttributes).toHaveBeenCalledWith({ slidesPerMobile: 2.25 });
 
-    changeSlider("Slides Per Tablet", "3");
+    changeSlider("Tablet", "Slides Per View", "3");
     expect(setAttributes).toHaveBeenCalledWith({ slidesPerTablet: 3 });
 
-    changeSlider("Slides Per Desktop", "4");
+    changeSlider("Desktop", "Slides Per View", "4");
     expect(setAttributes).toHaveBeenCalledWith({ slidesPerDesktop: 4 });
+  });
+
+  it("groups the responsive controls under Desktop, Tablet and Mobile headings", () => {
+    renderEdit();
+
+    ["Desktop", "Tablet", "Mobile", "Phones (<640px)", "Large phones (640–767px)"].forEach(
+      (name) => {
+        expect(screen.getByRole("group", { name })).toBeInTheDocument();
+      }
+    );
+    expect(screen.queryByRole("slider", { name: "Slides Per Tablet" })).not.toBeInTheDocument();
   });
 
   it("toggles scrollbar and loop", async () => {
@@ -437,6 +448,28 @@ describe("slider Edit", () => {
     fireEvent.change(slider, { target: { value: "40" } });
 
     expect(setAttributes).toHaveBeenCalledWith({ spaceBetween: 40 });
+  });
+
+  it("updates the mobile space between slides, defaulting the control to the desktop value", () => {
+    const { setAttributes } = renderEdit({ spaceBetween: 10 });
+
+    const slider = screen.getByRole("slider", { name: "Space Between (Mobile)" });
+    expect(slider).toHaveValue("10");
+    fireEvent.change(slider, { target: { value: "6" } });
+
+    expect(setAttributes).toHaveBeenCalledWith({ spaceBetweenMobile: 6 });
+  });
+
+  it("updates the tablet space between slides, defaulting the control to the desktop value", () => {
+    const { setAttributes } = renderEdit({ spaceBetween: 10 });
+
+    const slider = within(screen.getByRole("group", { name: "Tablet" })).getByRole("slider", {
+      name: "Space Between (Tablet)",
+    });
+    expect(slider).toHaveValue("10");
+    fireEvent.change(slider, { target: { value: "12" } });
+
+    expect(setAttributes).toHaveBeenCalledWith({ spaceBetweenTablet: 12 });
   });
 
   it("toggles mousewheel and keyboard navigation", async () => {

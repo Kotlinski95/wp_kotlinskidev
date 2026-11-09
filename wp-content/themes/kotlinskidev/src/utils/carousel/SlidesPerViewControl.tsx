@@ -6,12 +6,14 @@ export interface SlidesPerViewControlProps {
   label: string;
   value: number | "auto";
   onChange: (value: number | "auto") => void;
+  step?: number;
 }
 
 export default function SlidesPerViewControl({
   label,
   value,
   onChange,
+  step = 1,
 }: SlidesPerViewControlProps) {
   const isAuto = value === "auto";
 
@@ -33,6 +35,7 @@ export default function SlidesPerViewControl({
           onChange={(next) => onChange(next ?? 1)}
           min={1}
           max={5}
+          step={step}
         />
       )}
     </div>

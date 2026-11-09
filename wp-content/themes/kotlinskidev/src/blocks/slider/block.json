@@ -27,6 +27,8 @@
     "mousewheel": { "type": "boolean", "default": false },
     "keyboard": { "type": "boolean", "default": true },
     "spaceBetween": { "type": "number", "default": 16 },
+    "spaceBetweenMobile": { "type": "number" },
+    "spaceBetweenTablet": { "type": "number" },
     "centerSlides": { "type": "boolean", "default": false },
     "peek": { "type": "number", "default": 20 },
     "slideMaxWidth": { "type": "string", "default": "900px" },

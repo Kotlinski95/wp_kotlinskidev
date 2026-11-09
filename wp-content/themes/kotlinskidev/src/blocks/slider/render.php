@@ -16,6 +16,8 @@ $scrollbar         = empty( $attributes['scrollbar'] ) ? false : $attributes['sc
 $mousewheel        = empty( $attributes['mousewheel'] ) ? false : $attributes['mousewheel'];
 $keyboard          = isset( $attributes['keyboard'] ) ? (bool) $attributes['keyboard'] : true;
 $space_between      = isset( $attributes['spaceBetween'] ) ? (int) $attributes['spaceBetween'] : 16;
+$space_between_mobile = isset( $attributes['spaceBetweenMobile'] ) ? (int) $attributes['spaceBetweenMobile'] : $space_between;
+$space_between_tablet = isset( $attributes['spaceBetweenTablet'] ) ? (int) $attributes['spaceBetweenTablet'] : $space_between;
 $center_slides     = empty( $attributes['centerSlides'] ) ? false : $attributes['centerSlides'];
 $peek              = isset( $attributes['peek'] ) ? min( 40, max( 0, (int) $attributes['peek'] ) ) : 20;
 $slide_max_width_raw = $attributes['slideMaxWidth'] ?? '900px';
@@ -45,6 +47,8 @@ $swiper_settings = array(
     'mousewheel'       => $mousewheel,
     'keyboard'         => $keyboard,
     'spaceBetween'     => $space_between,
+    'spaceBetweenMobile' => $space_between_mobile,
+    'spaceBetweenTablet' => $space_between_tablet,
     'centerSlides'     => $center_slides,
 );
 

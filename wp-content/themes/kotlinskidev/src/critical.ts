@@ -4,6 +4,18 @@ import "./scripts/restoration";
 import "./scripts/utils";
 import "./scripts/sticky-header";
 
+const markViewTransition = (event: Event): void => {
+  if ((event as Event & { viewTransition?: unknown }).viewTransition) {
+    document.documentElement.classList.add("kt-vt");
+  }
+};
+
+try {
+  window.addEventListener("pagereveal", markViewTransition);
+} catch {
+  document.documentElement.classList.remove("kt-vt");
+}
+
 const markLoaded = (): void => {
   document.body.classList.add("loaded");
 };
