@@ -25,6 +25,7 @@ beforeEach(function () {
     Functions\when('wp_get_attachment_image_url')->justReturn('frame.jpg');
     kotlinskidev_reset_above_fold_state();
     Functions\when('get_post_mime_type')->justReturn('image/webp');
+    Functions\when('wp_get_attachment_metadata')->justReturn(false);
     Functions\when('wp_get_attachment_image')->alias(
         fn ($id, $size, $icon, $attr) => '<img data-style="' . ($attr['style'] ?? '') . '" data-loading="' . $attr['loading'] . '" data-priority="' . $attr['fetchpriority'] . '">'
     );
@@ -118,4 +119,26 @@ it('keeps poster and src on the above-fold video', function () {
     expect($html)->toContain('poster="frame.jpg"');
     expect($html)->not->toContain('data-poster');
     expect($html)->toContain('src="clip.mp4"');
+});
+
+it('prints video width and height from attachment metadata', function () {
+    Functions\when('get_post_mime_type')->justReturn('video/mp4');
+    Functions\when('get_post_thumbnail_id')->justReturn(0);
+    Functions\when('wp_get_attachment_url')->justReturn('v.mp4');
+    Functions\when('wp_get_attachment_metadata')->justReturn(['width' => 1280, 'height' => 720]);
+
+    $html = kotlinskidev_device_frame_render(['imageId' => 5]);
+
+    expect($html)->toContain('width="1280" height="720"');
+});
+
+it('omits video dimensions when metadata is missing', function () {
+    Functions\when('get_post_mime_type')->justReturn('video/mp4');
+    Functions\when('get_post_thumbnail_id')->justReturn(0);
+    Functions\when('wp_get_attachment_url')->justReturn('v.mp4');
+    Functions\when('wp_get_attachment_metadata')->justReturn(false);
+
+    $html = kotlinskidev_device_frame_render(['imageId' => 5]);
+
+    expect($html)->not->toContain('width="');
 });

@@ -87,12 +87,16 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 			if ( $is_video ) {
 				$poster_id  = get_post_thumbnail_id( $image_id );
 				$poster_url = $poster_id ? wp_get_attachment_image_url( $poster_id, 'full' ) : '';
+				$video_meta   = wp_get_attachment_metadata( $image_id );
+				$video_width  = is_array( $video_meta ) ? absint( $video_meta['width'] ?? 0 ) : 0;
+				$video_height = is_array( $video_meta ) ? absint( $video_meta['height'] ?? 0 ) : 0;
 				if ( $is_eager && kotlinskidev_claim_lcp_slot( (string) $poster_url ) ) {
 					$fetch_priority = 'high';
 				}
 				?>
 				<video
 					class="kt-device-frame__image"
+					<?php if ( $video_width && $video_height ) : ?>width="<?php echo (int) $video_width; ?>" height="<?php echo (int) $video_height; ?>"<?php endif; ?>
 					<?php if ( 'eager' === $loading ) : ?>
 					src="<?php echo esc_url( wp_get_attachment_url( $image_id ) ); ?>"
 					autoplay

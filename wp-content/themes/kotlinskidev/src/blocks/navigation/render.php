@@ -184,7 +184,10 @@ if ( $display_mode === 'bar' ) {
 		$bar_icon    = kotlinskidev_inline_nav_icon( $bar_item['icon_id'] );
 		$bar_classes = array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', $bar_item['class_name'], -1, PREG_SPLIT_NO_EMPTY ) ) );
 		array_unshift( $bar_classes, 'menu-item' );
-		echo '<li class="' . esc_attr( implode( ' ', $bar_classes ) ) . '"><a href="' . esc_url( $bar_item['url'] ) . '">';
+		$bar_current_attrs = function_exists( 'kotlinskidev_is_current_request_link' ) && kotlinskidev_is_current_request_link( $bar_item['url'] )
+			? ' class="kt-link-current" aria-current="page"'
+			: '';
+		echo '<li class="' . esc_attr( implode( ' ', $bar_classes ) ) . '"><a href="' . esc_url( $bar_item['url'] ) . '"' . $bar_current_attrs . '>';
 		if ( $bar_icon !== '' ) {
 			echo '<span class="mobile-menu-icon">' . $bar_icon . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $bar_icon comes from kotlinskidev_inline_nav_icon(), which reuses the sanitized functions/blocks.php implementation (kotlinskidev_load_svg_content()/kotlinskidev_sanitize_svg())
 		}

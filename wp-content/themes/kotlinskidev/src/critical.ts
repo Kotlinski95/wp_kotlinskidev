@@ -4,9 +4,20 @@ import "./scripts/restoration";
 import "./scripts/utils";
 import "./scripts/sticky-header";
 
-document.addEventListener("DOMContentLoaded", function () {
+const markLoaded = (): void => {
   document.body.classList.add("loaded");
-});
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("readystatechange", () => {
+    if (document.readyState !== "loading") {
+      markLoaded();
+    }
+  });
+  document.addEventListener("DOMContentLoaded", markLoaded);
+} else {
+  markLoaded();
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const mode = document.documentElement.classList.contains("light-mode")

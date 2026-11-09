@@ -11,9 +11,16 @@ function kotlinskidev_render_topic_card( WP_Term $category ): string {
         'lang'             => function_exists( 'pll_current_language' ) ? pll_current_language() : '',
     ] );
 
-    $featured_image = '';
+    $featured_image        = '';
+    $featured_image_width  = 0;
+    $featured_image_height = 0;
     if ( ! empty( $latest_post ) && has_post_thumbnail( $latest_post[0]->ID ) ) {
-        $featured_image = get_the_post_thumbnail_url( $latest_post[0]->ID, 'medium' );
+        $featured_source = wp_get_attachment_image_src( get_post_thumbnail_id( $latest_post[0]->ID ), 'medium' );
+        if ( is_array( $featured_source ) ) {
+            $featured_image        = $featured_source[0];
+            $featured_image_width  = absint( $featured_source[1] );
+            $featured_image_height = absint( $featured_source[2] );
+        }
     }
 
     ob_start();
@@ -24,6 +31,7 @@ function kotlinskidev_render_topic_card( WP_Term $category ): string {
         <a href="<?php echo esc_url( $category_link ); ?>">
             <img src="<?php echo esc_url( $featured_image ); ?>"
                  alt="<?php echo esc_attr( $category->name ); ?>"
+                 <?php echo $featured_image_width && $featured_image_height ? 'width="' . esc_attr( (string) $featured_image_width ) . '" height="' . esc_attr( (string) $featured_image_height ) . '"' : ''; ?>
                  class="kt-blog-topics-grid__image" />
         </a>
         <?php endif; ?>

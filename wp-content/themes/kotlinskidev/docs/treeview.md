@@ -46,7 +46,7 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 103 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 104 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -82,6 +82,7 @@ kotlinskidev/
 │   ├── copyrights.php                          # [copyrights] shortcode
 │   ├── cover-image-classes.php                 # lazy-loading behavior control for cover blocks
 │   ├── above-fold-media.php                    # per-instance "Above the fold" registry for core/image, core/cover, core/video, hero-carousel, device-frame — kotlinskidev_is_above_fold() (legacy kotlinskidevSkipLazy fallback, only the first hero-carousel defaults on) and kotlinskidev_claim_lcp_slot(), where the first claimant per page gets fetchpriority=high plus a wp_head preload
+│   ├── image-dimensions.php                    # render_block_core/image filter filling missing width/height from the wp-image-{ID}/size-* classes or attachment metadata (SVG via width/height/viewBox, 256KB cap), plus 48x30 on Polylang switcher flag <img>s; never overwrites existing attributes, skipped in admin/feed/REST
 │   ├── cover-video-controls.php                # removes loop/autoplay and adds data-kt-video-* flags (and data-kt-reveal-after-end on the cover root; with fit-aspect on, adds kt-cover-fit-video plus --kt-vr-desktop/tablet/mobile ratio vars from attachment metadata) on a core/cover video background from the "Video background" panel
 │   ├── responsive-media.php                    # per-device media for core/cover: wraps image covers in <picture> and moves video src into data-kt-src-* attributes
 │   ├── custom-css-vars.php                     # render_block filter: injects an editor-defined list of arbitrary CSS custom properties (name/value pairs) as inline style on kotlinskidev/icon and core/image, for theming multi-color SVGs via var(--x) in their own fill/stroke attributes
