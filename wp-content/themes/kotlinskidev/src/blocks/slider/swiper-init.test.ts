@@ -119,6 +119,14 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
     delete (globalThis as unknown as { IntersectionObserver?: unknown }).IntersectionObserver;
   });
 
+  it("passes a fractional slidesPerView through to Swiper unchanged", () => {
+    const container = buildContainer(6);
+
+    SwiperInit(container, { slidesPerView: 1.5 });
+
+    expect(mockLastInstance?.params.slidesPerView).toBe(1.5);
+  });
+
   it("enables loop when there are enough slides for the requested slidesPerView", () => {
     const container = buildContainer(6);
 
@@ -287,6 +295,66 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       768: { slidesPerView: 2 },
       1024: { slidesPerView: 3 },
     });
+  });
+
+  it("maps spaceBetweenMobile to <768, spaceBetweenTablet to 768-1023 and spaceBetween to 1024+", () => {
+    const container = buildContainer(3);
+
+    SwiperInit(container, {
+      spaceBetween: 24,
+      spaceBetweenMobile: 8,
+      spaceBetweenTablet: 12,
+      slidesPerMobile: 2,
+    });
+
+    expect(mockLastInstance?.params.spaceBetween).toBe(8);
+    expect(mockLastInstance?.params.breakpoints).toEqual({
+      640: { slidesPerView: 2, spaceBetween: 8 },
+      768: { slidesPerView: 1, spaceBetween: 12 },
+      1024: { slidesPerView: 1, spaceBetween: 24 },
+    });
+  });
+
+  it("falls back to spaceBetween for tablet when only spaceBetweenMobile is set", () => {
+    const container = buildContainer(3);
+
+    SwiperInit(container, { spaceBetween: 24, spaceBetweenMobile: 8 });
+
+    expect(
+      (mockLastInstance?.params.breakpoints as Record<number, Record<string, number>>)[768]
+        .spaceBetween
+    ).toBe(24);
+  });
+
+  it("falls back to spaceBetween for mobile when only spaceBetweenTablet is set", () => {
+    const container = buildContainer(3);
+
+    SwiperInit(container, { spaceBetween: 24, spaceBetweenTablet: 12 });
+
+    expect(mockLastInstance?.params.spaceBetween).toBe(24);
+    expect(
+      (mockLastInstance?.params.breakpoints as Record<number, Record<string, number>>)[640]
+        .spaceBetween
+    ).toBe(24);
+  });
+
+  it("falls back to spaceBetween everywhere when spaceBetweenMobile is unset", () => {
+    const container = buildContainer(3);
+
+    SwiperInit(container, { spaceBetween: 24 });
+
+    expect(mockLastInstance?.params.spaceBetween).toBe(24);
+    expect(
+      (mockLastInstance?.params.breakpoints as Record<number, Record<string, number>>)[640]
+    ).toEqual({ slidesPerView: 1 });
+  });
+
+  it("accepts a spaceBetweenMobile of 0", () => {
+    const container = buildContainer(3);
+
+    SwiperInit(container, { spaceBetween: 24, spaceBetweenMobile: 0 });
+
+    expect(mockLastInstance?.params.spaceBetween).toBe(0);
   });
 
   it("respects an explicit spaceBetween of 0", () => {
@@ -1388,7 +1456,7 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       Object.defineProperty(touchPointerDown, "pointerType", { value: "touch" });
       text.dispatchEvent(touchPointerDown);
 
-      const touchPointerUp = new Event("pointerup", { bubbles: true }) as PointerEvent;
+      const touchPointerUp = new Event("pointercancel", { bubbles: true }) as PointerEvent;
       Object.defineProperty(touchPointerUp, "pointerType", { value: "touch" });
       text.dispatchEvent(touchPointerUp);
 
@@ -1407,6 +1475,99 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
 
       expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(20000, true, true);
       expect(mockLastInstance?.autoplay.resume).not.toHaveBeenCalled();
+    });
+
+    it("never catches up backwards: a stale target index behind the current position resumes with a plain advance in the configured direction", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      mockLastInstance!.animating = true;
+      mockLastInstance!.activeIndex = 0;
+      mockLastInstance!.snapGrid = [0, 300, 600];
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -150, 0)";
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.setTranslate).not.toHaveBeenCalledWith(0);
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(10000, true, true);
+    });
+
+    it("never catches up more than one step: a stale target index far ahead resumes with a plain advance", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      mockLastInstance!.animating = true;
+      mockLastInstance!.activeIndex = 2;
+      mockLastInstance!.snapGrid = [0, 300, 600];
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -150, 0)";
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.setTranslate).not.toHaveBeenCalledWith(-600);
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledWith(10000, true, true);
+    });
+
+    it("in reverse direction a stale target index ahead of the position resumes with a plain slidePrev", () => {
+      const container = buildContainer(3);
+      SwiperInit(container, {
+        continuousAutoplay: true,
+        autoplay: true,
+        autoplayTime: 10,
+        direction: "reverse",
+      });
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      mockLastInstance!.animating = true;
+      mockLastInstance!.activeIndex = 2;
+      mockLastInstance!.snapGrid = [0, 300, 600];
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -450, 0)";
+
+      container.dispatchEvent(new MouseEvent("mouseenter"));
+      container.dispatchEvent(new MouseEvent("mouseleave"));
+
+      expect(mockLastInstance?.setTranslate).not.toHaveBeenCalledWith(-600);
+      expect(mockLastInstance?.slidePrev).toHaveBeenCalledWith(10000, true, true);
+    });
+
+    it("after a drag released past the start of the track (translate > 0) resumes forward toward the next boundary, never in the opposite direction", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true, autoplayTime: 10 });
+      mockLastInstance!.snapGrid = [0, 300, 600];
+
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      wrapper.style.transform = "matrix(1, 0, 0, 1, 50, 0)";
+      text.dispatchEvent(new Event("pointerup", { bubbles: true }));
+
+      const target = mockLastInstance!.setTranslate.mock.calls.at(-1)![0] as number;
+      expect(target + 0).toBe(0);
+      document.body.innerHTML = "";
+    });
+
+    it("after a reverse-direction drag release resumes toward the previous boundary", () => {
+      const container = buildContainer(3);
+      const wrapper = container.querySelector(".swiper-wrapper") as HTMLElement;
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      SwiperInit(container, {
+        continuousAutoplay: true,
+        autoplay: true,
+        autoplayTime: 10,
+        direction: "reverse",
+      });
+      mockLastInstance!.snapGrid = [0, 300, 600];
+
+      text.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+      wrapper.style.transform = "matrix(1, 0, 0, 1, -350, 0)";
+      text.dispatchEvent(new Event("pointerup", { bubbles: true }));
+
+      expect(mockLastInstance?.setTranslate).toHaveBeenCalledWith(-300);
+      document.body.innerHTML = "";
     });
 
     it("scales the resumed catch-up's duration to the remaining distance — finishing an interrupted transition at the full nominal speed would cover less ground in the same time, visibly slowing the ticker down until the next natural cycle restores it", () => {
@@ -1639,6 +1800,162 @@ describe("slider/swiper-init.ts — SwiperInit", () => {
       window.dispatchEvent(new Event("scroll"));
 
       expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("continuousAutoplay — touch tap pins the pause until a pointerdown outside", () => {
+    beforeEach(() => {
+      mockIntersectionObserver();
+    });
+
+    afterEach(() => {
+      document.body.innerHTML = "";
+    });
+
+    const touchEvent = (type: string, x: number, y: number): PointerEvent => {
+      const event = new MouseEvent(type, { bubbles: true, clientX: x, clientY: y });
+      Object.defineProperty(event, "pointerType", { value: "touch" });
+      return event as unknown as PointerEvent;
+    };
+
+    const setup = () => {
+      const container = buildContainer(3);
+      document.body.append(container);
+      const text = document.createElement("p");
+      container.append(text);
+      const outside = document.createElement("div");
+      document.body.append(outside);
+      SwiperInit(container, { continuousAutoplay: true, autoplay: true });
+      return { text, outside };
+    };
+
+    it("a short stationary touch tap keeps the carousel paused after release", () => {
+      const { text } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 102, 101));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("a swipe also pins, however far it travels", () => {
+      const { text } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 280, 100));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("a browser-cancelled gesture (page scroll taking over) does not pin and resumes", () => {
+      const { text } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointercancel", 100, 160));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+
+    it("focus moving to an element outside the carousel unpins and resumes", () => {
+      const { text, outside } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 100, 100));
+      text.dispatchEvent(new FocusEvent("focusout", { bubbles: true, relatedTarget: outside }));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+
+    it("focus simply blurring to nothing does not unpin", () => {
+      const { text } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 100, 100));
+      text.dispatchEvent(new FocusEvent("focusout", { bubbles: true, relatedTarget: null }));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("re-asserts the pause and the held position after Swiper's own touchEnd release handling", () => {
+      jest.useFakeTimers();
+      const { text } = setup();
+      const swiper = mockLastInstance!;
+      swiper.autoplay = { ...swiper.autoplay, running: true } as typeof swiper.autoplay;
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 280, 100));
+      swiper.autoplay.pause.mockClear();
+      swiper.setTranslate.mockClear();
+      mockOnHandlers.touchEnd.at(-1)!();
+      expect((swiper.autoplay as unknown as { running: boolean }).running).toBe(false);
+      jest.runOnlyPendingTimers();
+
+      expect((swiper.autoplay as unknown as { running: boolean }).running).toBe(true);
+      expect(swiper.autoplay.pause).toHaveBeenCalled();
+      expect(swiper.setTranslate).toHaveBeenCalled();
+      jest.useRealTimers();
+    });
+
+    it("rebases loop duplicates preserving the fractional offset when a touch starts, so Swiper's own first-move loopFix has nothing left to snap", () => {
+      const { text } = setup();
+      mockLastInstance!.params.loop = true;
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+
+      expect(mockLastInstance?.loopFix).toHaveBeenCalledWith({ byMousewheel: true });
+    });
+
+    it("does not rebase on a mouse press", () => {
+      const { text } = setup();
+      mockLastInstance!.params.loop = true;
+
+      text.dispatchEvent(new MouseEvent("pointerdown", { bubbles: true }));
+
+      expect(mockLastInstance?.loopFix).not.toHaveBeenCalled();
+    });
+
+    it("a pointerdown outside the carousel unpins and resumes", () => {
+      const { text, outside } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 100, 100));
+      outside.dispatchEvent(touchEvent("pointerdown", 500, 500));
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
+    });
+
+    it("a second tap inside keeps it pinned", () => {
+      const { text } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 100, 100));
+      text.dispatchEvent(touchEvent("pointerdown", 120, 100));
+      text.dispatchEvent(touchEvent("pointerup", 120, 100));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("page scroll does not unpin", () => {
+      const { text } = setup();
+
+      text.dispatchEvent(touchEvent("pointerdown", 100, 100));
+      text.dispatchEvent(touchEvent("pointerup", 100, 100));
+      window.dispatchEvent(new Event("scroll"));
+
+      expect(mockLastInstance?.slideNext).not.toHaveBeenCalled();
+    });
+
+    it("a mouse click does not pin", () => {
+      const { text } = setup();
+
+      const down = new MouseEvent("pointerdown", { bubbles: true, clientX: 100, clientY: 100 });
+      Object.defineProperty(down, "pointerType", { value: "mouse" });
+      const up = new MouseEvent("pointerup", { bubbles: true, clientX: 100, clientY: 100 });
+      Object.defineProperty(up, "pointerType", { value: "mouse" });
+      text.dispatchEvent(down);
+      text.dispatchEvent(up);
+
+      expect(mockLastInstance?.slideNext).toHaveBeenCalledTimes(1);
     });
   });
 

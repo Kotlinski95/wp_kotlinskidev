@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { createBlock } from "@wordpress/blocks";
 import {
   useBlockProps,
@@ -21,6 +21,7 @@ import {
 import { useSelect, useDispatch } from "@wordpress/data";
 import { memo, useEffect, useMemo, useRef, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { desktop, mobile, tablet, Icon } from "@wordpress/icons";
 import { onActivationKey } from "@utils/keyboardActivation";
 import SlidesPerViewControl from "@utils/carousel/SlidesPerViewControl";
 import { BlurAmountControl } from "../shared/blur-amount-control";
@@ -56,6 +57,7 @@ export interface SliderAttributes {
   mousewheel: boolean;
   keyboard: boolean;
   spaceBetween: number;
+  spaceBetweenMobile?: number;
   centerSlides: boolean;
   peek: number;
   slideMaxWidth: string | number;
@@ -111,6 +113,50 @@ const editorSlideLayoutVars = (
       ),
     } as React.CSSProperties,
   };
+};
+
+interface ResponsiveSectionProps {
+  icon: React.ComponentProps<typeof Icon>["icon"];
+  title: string;
+  range: string;
+  children: React.ReactNode;
+}
+
+const ResponsiveSection = ({
+  icon,
+  title,
+  range,
+  children,
+}: ResponsiveSectionProps): React.ReactElement => {
+  const headingId = useId();
+  return (
+    <div className="kt-slider-responsive-section" role="group" aria-labelledby={headingId}>
+      <div className="kt-slider-responsive-section__heading">
+        <Icon icon={icon} size={20} />
+        <strong id={headingId}>{title}</strong>
+        <span className="kt-slider-responsive-section__range">{range}</span>
+      </div>
+      {children}
+    </div>
+  );
+};
+
+const ResponsiveSubSection = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}): React.ReactElement => {
+  const headingId = useId();
+  return (
+    <div className="kt-slider-responsive-subsection" role="group" aria-labelledby={headingId}>
+      <span className="kt-slider-responsive-subsection__title" id={headingId}>
+        {title}
+      </span>
+      {children}
+    </div>
+  );
 };
 
 interface EditProps {
@@ -423,34 +469,80 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               }
             />
           </PanelRow>
-          <PanelRow>
+          <ResponsiveSection
+            icon={desktop}
+            title={__("Desktop", "kotlinskidev")}
+            range={__("1024px and wider", "kotlinskidev")}
+          >
             <SlidesPerViewControl
               label={__("Slides Per View", "kotlinskidev")}
-              value={attributes.slidesPerView}
-              onChange={(value) => setAttributes({ slidesPerView: value })}
-            />
-          </PanelRow>
-          <PanelRow>
-            <SlidesPerViewControl
-              label={__("Slides Per Mobile", "kotlinskidev")}
-              value={attributes.slidesPerMobile}
-              onChange={(value) => setAttributes({ slidesPerMobile: value })}
-            />
-          </PanelRow>
-          <PanelRow>
-            <SlidesPerViewControl
-              label={__("Slides Per Tablet", "kotlinskidev")}
-              value={attributes.slidesPerTablet}
-              onChange={(value) => setAttributes({ slidesPerTablet: value })}
-            />
-          </PanelRow>
-          <PanelRow>
-            <SlidesPerViewControl
-              label={__("Slides Per Desktop", "kotlinskidev")}
               value={attributes.slidesPerDesktop}
+              step={0.25}
               onChange={(value) => setAttributes({ slidesPerDesktop: value })}
             />
-          </PanelRow>
+            <RangeControl
+              label={__("Space Between Slides (px)", "kotlinskidev")}
+              value={spaceBetween}
+              onChange={(value) => setAttributes({ spaceBetween: value })}
+              min={0}
+              max={100}
+              help={__(
+                "Space between slides in pixels. Also used for tablet and mobile unless set below.",
+                "kotlinskidev"
+              )}
+            />
+          </ResponsiveSection>
+          <ResponsiveSection
+            icon={tablet}
+            title={__("Tablet", "kotlinskidev")}
+            range={__("768px to 1023px", "kotlinskidev")}
+          >
+            <SlidesPerViewControl
+              label={__("Slides Per View", "kotlinskidev")}
+              value={attributes.slidesPerTablet}
+              step={0.25}
+              onChange={(value) => setAttributes({ slidesPerTablet: value })}
+            />
+            <RangeControl
+              label={__("Space Between (Tablet)", "kotlinskidev")}
+              value={attributes.spaceBetweenTablet ?? spaceBetween}
+              onChange={(value) => setAttributes({ spaceBetweenTablet: value })}
+              min={0}
+              max={100}
+              allowReset
+            />
+          </ResponsiveSection>
+          <ResponsiveSection
+            icon={mobile}
+            title={__("Mobile", "kotlinskidev")}
+            range={__("Below 768px", "kotlinskidev")}
+          >
+            <ResponsiveSubSection title={__("Phones (<640px)", "kotlinskidev")}>
+              <SlidesPerViewControl
+                label={__("Slides Per View", "kotlinskidev")}
+                value={attributes.slidesPerView}
+                step={0.25}
+                onChange={(value) => setAttributes({ slidesPerView: value })}
+              />
+              <RangeControl
+                label={__("Space Between (Mobile)", "kotlinskidev")}
+                value={attributes.spaceBetweenMobile ?? spaceBetween}
+                onChange={(value) => setAttributes({ spaceBetweenMobile: value })}
+                min={0}
+                max={100}
+                allowReset
+                help={__("Also applies to large phones (640–767px).", "kotlinskidev")}
+              />
+            </ResponsiveSubSection>
+            <ResponsiveSubSection title={__("Large phones (640–767px)", "kotlinskidev")}>
+              <SlidesPerViewControl
+                label={__("Slides Per View", "kotlinskidev")}
+                value={attributes.slidesPerMobile}
+                step={0.25}
+                onChange={(value) => setAttributes({ slidesPerMobile: value })}
+              />
+            </ResponsiveSubSection>
+          </ResponsiveSection>
           <PanelRow>
             <ToggleControl
               label={__("Scrollbar", "kotlinskidev")}
@@ -518,16 +610,6 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               </PanelRow>
             </>
           )}
-          <PanelRow>
-            <RangeControl
-              label={__("Space Between Slides (px)", "kotlinskidev")}
-              value={spaceBetween}
-              onChange={(value) => setAttributes({ spaceBetween: value })}
-              min={0}
-              max={100}
-              help={__("Set the space between slides in pixels.", "kotlinskidev")}
-            />
-          </PanelRow>
           <PanelRow>
             <ToggleControl
               label={__("Mousewheel", "kotlinskidev")}

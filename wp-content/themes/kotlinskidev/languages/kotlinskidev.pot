@@ -2030,6 +2030,7 @@ msgstr ""
 #: build/js/editor.js:34
 #: build/js/editor.js:43
 #: build/js/editor.js:46
+#: build/js/slider.js:1
 msgid "Mobile"
 msgstr ""
 
@@ -2042,6 +2043,7 @@ msgstr ""
 #: build/js/editor.js:31
 #: build/js/editor.js:40
 #: build/js/editor.js:46
+#: build/js/slider.js:1
 msgid "Tablet"
 msgstr ""
 
@@ -2053,6 +2055,7 @@ msgstr ""
 #: build/js/editor.js:28
 #: build/js/editor.js:37
 #: build/js/editor.js:46
+#: build/js/slider.js:1
 msgid "Desktop"
 msgstr ""
 
@@ -9198,6 +9201,42 @@ msgstr ""
 
 #: build/js/slider.js:1
 msgid "Space Between Slides (px)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Space Between (Mobile)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Space Between (Tablet)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Phones (<640px)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Large phones (640–767px)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "1024px and wider"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "768px to 1023px"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Below 768px"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Space between slides in pixels. Also used for tablet and mobile unless set below."
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Also applies to large phones (640–767px)."
 msgstr ""
 
 #: build/js/slider.js:1
