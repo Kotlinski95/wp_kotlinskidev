@@ -9,6 +9,7 @@
   "description": "A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an image in to showcase a project.",
   "textdomain": "kotlinskidev",
   "editorScript": "file:../../../build/js/device-frame.js",
+  "viewScript": "file:../../../build/js/device-frame-init.js",
   "render": "file:./render.php",
   "supports": {
     "html": false,
@@ -25,6 +26,7 @@
     "objectPosition": { "type": "string", "default": "" },
     "loading": { "type": "string", "default": "lazy" },
     "fetchPriority": { "type": "string", "default": "auto" },
+    "kotlinskidevAboveFold": { "type": "boolean" },
     "enableLightbox": { "type": "boolean", "default": false }
   }
 }

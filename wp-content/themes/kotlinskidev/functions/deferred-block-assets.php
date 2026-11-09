@@ -14,6 +14,9 @@ function kotlinskidev_get_deferrable_block_assets(): array
                 'kotlinskidev-style-banner-carousel-style',
             ),
         ),
+        'kotlinskidev/content-tabs' => array(
+            'style' => array('kotlinskidev-content-tabs-style'),
+        ),
         'kotlinskidev/hero-carousel' => array(
             'style' => array(
                 'kotlinskidev-hero-carousel-style',
@@ -123,7 +126,7 @@ function kotlinskidev_get_deferred_block_style_handles(): array
 function kotlinskidev_localize_deferrable_blocks(): void
 {
     wp_localize_script('kotlinskidev-editor-only', 'kotlinskidevDeferrableBlocks', array(
-        'blocks' => kotlinskidev_get_above_fold_defaults(),
+        'blocks' => array_merge(kotlinskidev_get_above_fold_defaults(), kotlinskidev_get_above_fold_media_blocks()),
     ));
 }
 add_action('enqueue_block_editor_assets', 'kotlinskidev_localize_deferrable_blocks', 20);

@@ -89,13 +89,6 @@ wp-content/themes/kotlinskidev/README.md
 wp-content/plugins/*
 !wp-content/plugins/block-visibility
 !wp-content/plugins/contact-form-block
-!wp-content/plugins/contact-form-ts
-!wp-content/plugins/custom-facebook-pixel-loader
-!wp-content/plugins/custom-google-analytics-loader
-!wp-content/plugins/google-maps-block
-!wp-content/plugins/kotlinskidev-custom-login
-!wp-content/plugins/responsive-image
-!wp-content/plugins/slider-block
 !wp-content/plugins/responsive-spacing-controls
 !wp-content/plugins/responsive-font-controls
 !wp-content/plugins/text-justify-controls

@@ -1,9 +1,18 @@
 include:
   - wp-content/themes/kotlinskidev/
+  - wp-content/plugins/wordpress-pwa-manager/
 
 exclude:
   - node_modules/
   - .DS_Store
+  - "._*"
+  - "*.po~"
+  - "/wp-content/plugins/wordpress-pwa-manager/src/"
+  - "/wp-content/plugins/wordpress-pwa-manager/package.json"
+  - "/wp-content/plugins/wordpress-pwa-manager/package-lock.json"
+  - "/wp-content/plugins/wordpress-pwa-manager/tsconfig.json"
+  - "/wp-content/plugins/wordpress-pwa-manager/webpack.config.js"
+  - "/wp-content/plugins/wordpress-pwa-manager/README.md"
   - tests/
   - "*.map"
   - "/wp-content/themes/kotlinskidev/.*"

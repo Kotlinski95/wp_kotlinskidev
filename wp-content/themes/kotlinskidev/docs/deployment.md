@@ -4,7 +4,7 @@ Every push to `master` runs `.github/workflows/deploy.yml`: build theme, back up
 
 ## What gets deployed
 
-Only paths listed under `include:` in `.github/deploy-manifest.yml`, minus its `exclude:` rules (the theme's `vendor/` is excluded because production runs PHP 8.2 and Sentry is skipped without it). Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Custom plugins are not shipped right now; add `wp-content/plugins/<name>/` under `include:` when one is needed on production.
+Only paths listed under `include:` in `.github/deploy-manifest.yml`, minus its `exclude:` rules (the theme's `vendor/` is excluded because production runs PHP 8.2 and Sentry is skipped without it). Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Only one custom plugin is shipped, `wordpress-pwa-manager` (its prebuilt `build/` is committed, its sources and tooling are excluded); add `wp-content/plugins/<name>/` under `include:` when another one is needed on production. Before each sync the workflow resets every included path on the server to owner `admin`, group `www-data`, directories `2775`, files `664`, so both the deploy user and WordPress (Theme/Plugin File Editor, plugin updates) can write to deployed files.
 
 ## Skipping a deploy
 

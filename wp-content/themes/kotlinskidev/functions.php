@@ -8,6 +8,9 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+require_once get_template_directory() . '/functions/above-fold-media.php';
+require_once get_template_directory() . '/functions/viewport-deferred-images.php';
+
 // Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
 require_once get_template_directory() . '/functions/feature-toggles.php';
 kotlinskidev_migrate_feature_toggles();
@@ -193,8 +196,6 @@ require_once get_template_directory() . '/functions/position-z-index.php';
 // Video poster cover block
 require_once get_template_directory() . '/functions/video-poster.php';
 
-// Cover video poster preload for performance optimization
-require_once get_template_directory() . '/functions/cover-video-preload.php';
 if ( kotlinskidev_feature_enabled( 'cover_video_controls' ) ) {
     require_once get_template_directory() . '/functions/cover-video-controls.php';
 }

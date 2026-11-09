@@ -7670,18 +7670,6 @@ msgid "Exposure"
 msgstr "Exposure"
 
 #: build/js/editor.js:1
-msgid "Skip Lazy Loading"
-msgstr "Skip Lazy Loading"
-
-#: build/js/editor.js:1
-msgid "This cover image will not be lazy loaded."
-msgstr "This cover image will not be lazy loaded."
-
-#: build/js/editor.js:1
-msgid "This cover image will use default lazy loading."
-msgstr "This cover image will use default lazy loading."
-
-#: build/js/editor.js:1
 msgid "Video background"
 msgstr "Video background"
 
@@ -8511,18 +8499,18 @@ msgstr ""
 "translated automatically for each site language."
 
 #: build/js/editor.js:46
-msgid "Load above the fold"
-msgstr "Load above the fold"
+msgid "Above the fold"
+msgstr "Above the fold"
 
 #: build/js/editor.js:46
-msgid ""
-"Enable only if this specific instance is visible without scrolling on this "
-"page. Its styles load render-blocking instead of deferred — use sparingly, "
-"since every enabled instance costs initial render time."
-msgstr ""
-"Enable only if this specific instance is visible without scrolling on this "
-"page. Its styles load render-blocking instead of deferred — use sparingly, "
-"since every enabled instance costs initial render time."
+msgid "Turn on only for content visible without scrolling. The first such element on the page gets high fetch priority and a preload; others load eagerly."
+msgstr "Turn on only for content visible without scrolling. The first such element on the page gets high fetch priority and a preload; others load eagerly."
+
+#: build/js/editor.js:46
+msgid "%d element on this page is marked above the fold. Only the first gets high priority."
+msgid_plural "%d elements on this page are marked above the fold. Only the first gets high priority."
+msgstr[0] "%d element on this page is marked above the fold. Only the first gets high priority."
+msgstr[1] "%d elements on this page are marked above the fold. Only the first gets high priority."
 
 #: build/js/editor.js:46
 msgid "— Select modal —"

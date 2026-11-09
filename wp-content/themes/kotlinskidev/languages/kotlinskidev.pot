@@ -6952,18 +6952,6 @@ msgid "Exposure"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Skip Lazy Loading"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "This cover image will not be lazy loaded."
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "This cover image will use default lazy loading."
-msgstr ""
-
-#: build/js/editor.js:1
 msgid "Video background"
 msgstr ""
 
@@ -7730,12 +7718,18 @@ msgid "Text past this many lines is hidden behind a \"Read more\" toggle, transl
 msgstr ""
 
 #: build/js/editor.js:46
-msgid "Load above the fold"
+msgid "Above the fold"
 msgstr ""
 
 #: build/js/editor.js:46
-msgid "Enable only if this specific instance is visible without scrolling on this page. Its styles load render-blocking instead of deferred — use sparingly, since every enabled instance costs initial render time."
+msgid "Turn on only for content visible without scrolling. The first such element on the page gets high fetch priority and a preload; others load eagerly."
 msgstr ""
+
+#: build/js/editor.js:46
+msgid "%d element on this page is marked above the fold. Only the first gets high priority."
+msgid_plural "%d elements on this page are marked above the fold. Only the first gets high priority."
+msgstr[0] ""
+msgstr[1] ""
 
 #: build/js/editor.js:46
 msgid "— Select modal —"

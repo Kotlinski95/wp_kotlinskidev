@@ -28,7 +28,8 @@ it('renders the media figure with a bare image when there is no link url', funct
     $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'banner.jpg']);
 
     expect($html)->toContain('<figure class="kt-nav-banner__media">');
-    expect($html)->toContain('<img src="banner.jpg"');
+    expect($html)->not->toMatch('/<img src=/');
+    expect($html)->toContain('<img data-src="banner.jpg"');
     expect($html)->not->toContain('kt-nav-banner__media-link');
 });
 
@@ -102,7 +103,7 @@ function kotlinskidev_nav_banner_stub_cover(string $url, int $post_id, int $thum
 it('keeps the stored media url when followLinkedCover is false', function () {
     $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/off/', 'followLinkedCover' => false]);
 
-    expect($html)->toContain('<img src="stored.jpg"');
+    expect($html)->toContain('<img data-src="stored.jpg"');
 });
 
 it('uses the linked page featured image and its alt when followLinkedCover is true', function () {
@@ -110,7 +111,7 @@ it('uses the linked page featured image and its alt when followLinkedCover is tr
 
     $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/page-a/', 'followLinkedCover' => true]);
 
-    expect($html)->toContain('<img src="cover-large.jpg" alt="Cover alt" loading="lazy">');
+    expect($html)->toContain('<img data-src="cover-large.jpg" alt="Cover alt" loading="lazy">');
     expect($html)->not->toContain('stored.jpg');
 });
 
@@ -119,7 +120,7 @@ it('prefers the block alt text over the cover alt', function () {
 
     $html = kotlinskidev_nav_banner_render(['linkUrl' => '/page-b/', 'altText' => 'Own alt', 'followLinkedCover' => true]);
 
-    expect($html)->toContain('src="cover-b.jpg" alt="Own alt"');
+    expect($html)->toContain('data-src="cover-b.jpg" alt="Own alt"');
 });
 
 it('falls back to the stored media when the linked page has no thumbnail', function () {
@@ -127,7 +128,7 @@ it('falls back to the stored media when the linked page has no thumbnail', funct
 
     $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/page-c/', 'followLinkedCover' => true]);
 
-    expect($html)->toContain('<img src="stored.jpg"');
+    expect($html)->toContain('<img data-src="stored.jpg"');
 });
 
 it('falls back to the stored media when the link does not resolve to a post', function () {
@@ -135,7 +136,7 @@ it('falls back to the stored media when the link does not resolve to a post', fu
 
     $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/nowhere/', 'followLinkedCover' => true]);
 
-    expect($html)->toContain('<img src="stored.jpg"');
+    expect($html)->toContain('<img data-src="stored.jpg"');
 });
 
 it('escapes the linked cover url and alt', function () {

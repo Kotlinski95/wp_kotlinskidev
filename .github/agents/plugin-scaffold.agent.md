@@ -22,7 +22,6 @@ You are a WordPress plugin scaffolding expert for the **kotlinskidev** project. 
 
 Study these plugins as reference before generating:
 - `wp-content/plugins/responsive-font-controls/` — block editor controls + admin settings page
-- `wp-content/plugins/slider-block/` — standalone block plugin
 - `wp-content/plugins/responsive-spacing-controls/` — block attribute extension plugin
 
 ---

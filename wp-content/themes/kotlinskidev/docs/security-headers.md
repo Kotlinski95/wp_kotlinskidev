@@ -107,10 +107,11 @@ Confirmed by grepping the live theme source and active plugins for real outbound
 | Source | Domains | Directive |
 | --- | --- | --- |
 | Google Fonts | `fonts.googleapis.com`, `fonts.gstatic.com` | `style-src`, `font-src` |
-| Google Maps (`google-maps-block` plugin) | `maps.googleapis.com`, `maps.gstatic.com` | `script-src`, `img-src`, `connect-src` |
-| Facebook Pixel (`custom-facebook-pixel-loader`) | `connect.facebook.net`, `www.facebook.com` | `script-src`, `connect-src`, `img-src` (pixel uses a 1×1 image beacon too) |
-| Google Analytics / GTM (`custom-google-analytics-loader`) | `www.googletagmanager.com`, and typically `www.google-analytics.com`/`analytics.google.com` (verify against the loader's actual `gtag`/GA4 endpoint) | `script-src`, `connect-src` |
+| Google Maps (theme `google-maps` block) | `maps.googleapis.com`, `maps.gstatic.com` | `script-src`, `img-src`, `connect-src` |
+| Facebook Pixel (the `custom-facebook-pixel-loader` plugin was removed; confirm the current loader before dropping the domain) | `connect.facebook.net`, `www.facebook.com` | `script-src`, `connect-src`, `img-src` (pixel uses a 1×1 image beacon too) |
+| Google Analytics / GTM (the `custom-google-analytics-loader` plugin was removed; confirm the current loader before dropping the domain) | `www.googletagmanager.com`, and typically `www.google-analytics.com`/`analytics.google.com` (verify against the loader's actual `gtag`/GA4 endpoint) | `script-src`, `connect-src` |
 | Cloudflare Turnstile (referenced in theme source) | `challenges.cloudflare.com` | `script-src`, `frame-src` |
+| Cloudflare Web Analytics (beacon auto-injected by Cloudflare) | `static.cloudflareinsights.com`, `cloudflareinsights.com` | `script-src`, `connect-src` |
 | Complianz consent scanning | `consent.complianz.io`, `cookiedatabase.org` | `connect-src` (only if Complianz's server-side scanning features are enabled) |
 | `wordpress-pwa-manager` | Self-hosted service worker/manifest — no external domain confirmed by static analysis; **verify separately if push notifications are enabled** (would need an FCM/push-service domain) | `script-src`, `worker-src`, possibly `connect-src` |
 

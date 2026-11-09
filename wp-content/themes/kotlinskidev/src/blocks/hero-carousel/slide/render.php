@@ -4,10 +4,11 @@ $bg_image_url = esc_url( $attributes['bgImageUrl'] ?? '' );
 $bg_video_url = esc_url( $attributes['bgVideoUrl'] ?? '' );
 $bg_overlay   = min( 1.0, max( 0.0, (float) ( $attributes['bgOverlay'] ?? 0.4 ) ) );
 $slide_index  = absint( $attributes['slideIndex'] ?? 0 );
-$lazy_load    = (bool) ( $block->context['kotlinskidev/lazyLoad'] ?? false );
 $poster_url   = $bg_image_id ? wp_get_attachment_url( $bg_image_id ) : $bg_image_url;
 
-$is_eager = $slide_index === 0 && ! $lazy_load;
+$is_above_fold = (bool) ( $block->context['kotlinskidev/aboveFold'] ?? false );
+$is_eager      = 0 === $slide_index && $is_above_fold;
+$is_high       = $is_eager && kotlinskidev_claim_lcp_slot( (string) $poster_url );
 
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class' => 'swiper-slide hero-carousel__slide',
@@ -34,9 +35,8 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 			<video
 				<?php if ( $is_eager ) : ?>
 					src="<?php echo esc_url( $bg_video_url ); ?>"
-					autoplay
-					preload="auto"
-					fetchpriority="high"
+					preload="none"
+					<?php if ( $is_high ) : ?>fetchpriority="high"<?php endif; ?>
 					<?php if ( $poster_url ) : ?>poster="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
 				<?php else : ?>
 					data-src="<?php echo esc_url( $bg_video_url ); ?>"
@@ -57,7 +57,7 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 					'decoding'      => 'async',
 					'role'          => 'presentation',
 					'alt'           => '',
-					'fetchpriority' => $is_eager ? 'high' : 'auto',
+					'fetchpriority' => $is_high ? 'high' : 'auto',
 				]
 			);
 			?>
@@ -68,7 +68,7 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 				role="presentation"
 				loading="<?php echo $is_eager ? 'eager' : 'lazy'; ?>"
 				decoding="async"
-				<?php if ( $is_eager ) : ?>fetchpriority="high"<?php endif; ?>
+				<?php if ( $is_high ) : ?>fetchpriority="high"<?php endif; ?>
 			/>
 		<?php endif; ?>
 		<div
@@ -80,6 +80,3 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 		<?php echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $content is the block's already-rendered InnerBlocks HTML from WP core's own self-escaping block render pipeline ?>
 	</div>
 </div>
-<?php if ( $is_eager && $poster_url ) : ?>
-<link rel="preload" as="image" fetchpriority="high" href="<?php echo esc_url( $poster_url ); ?>">
-<?php endif; ?>

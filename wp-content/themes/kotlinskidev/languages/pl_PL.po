@@ -7758,18 +7758,6 @@ msgid "Exposure"
 msgstr "Ekspozycja"
 
 #: build/js/editor.js:1
-msgid "Skip Lazy Loading"
-msgstr "Pomiń leniwe ładowanie"
-
-#: build/js/editor.js:1
-msgid "This cover image will not be lazy loaded."
-msgstr "Ten obraz okładki nie będzie ładowany leniwie."
-
-#: build/js/editor.js:1
-msgid "This cover image will use default lazy loading."
-msgstr "Ten obraz okładki będzie używał domyślnego leniwego ładowania."
-
-#: build/js/editor.js:1
 msgid "Video background"
 msgstr "Wideo w tle"
 
@@ -8612,19 +8600,19 @@ msgstr ""
 "więcej”, tłumaczonym automatycznie dla każdego języka witryny."
 
 #: build/js/editor.js:46
-msgid "Load above the fold"
-msgstr "Ładuj przed pierwszym ekranem"
+msgid "Above the fold"
+msgstr "Widoczne bez przewijania"
 
 #: build/js/editor.js:46
-msgid ""
-"Enable only if this specific instance is visible without scrolling on this "
-"page. Its styles load render-blocking instead of deferred — use sparingly, "
-"since every enabled instance costs initial render time."
-msgstr ""
-"Włącz tylko wtedy, gdy ta konkretna instancja jest widoczna bez przewijania "
-"na tej stronie. Jej style ładują się w sposób blokujący renderowanie zamiast "
-"odroczony — używaj oszczędnie, ponieważ każda włączona instancja kosztuje "
-"czas pierwszego renderowania."
+msgid "Turn on only for content visible without scrolling. The first such element on the page gets high fetch priority and a preload; others load eagerly."
+msgstr "Włącz tylko dla treści widocznej bez przewijania. Pierwszy taki element na stronie otrzymuje wysoki priorytet pobierania i preload; pozostałe ładują się od razu."
+
+#: build/js/editor.js:46
+msgid "%d element on this page is marked above the fold. Only the first gets high priority."
+msgid_plural "%d elements on this page are marked above the fold. Only the first gets high priority."
+msgstr[0] "%d element na tej stronie jest oznaczony jako widoczny bez przewijania. Tylko pierwszy otrzymuje wysoki priorytet."
+msgstr[1] "%d elementy na tej stronie są oznaczone jako widoczne bez przewijania. Tylko pierwszy otrzymuje wysoki priorytet."
+msgstr[2] "%d elementów na tej stronie jest oznaczonych jako widoczne bez przewijania. Tylko pierwszy otrzymuje wysoki priorytet."
 
 #: build/js/editor.js:46
 msgid "— Select modal —"

@@ -20,8 +20,6 @@ import {
   DEVICE_ASPECT_RATIOS,
   DEVICE_PLACEHOLDERS,
   POSITION_STYLE_OPTIONS,
-  LOADING_OPTIONS,
-  FETCH_PRIORITY_OPTIONS,
   type DeviceType,
   type PositionStyle,
   type LoadingStrategy,
@@ -231,34 +229,6 @@ export default function Edit({ attributes, setAttributes }: EditProps) {
               </Button>
             )}
           </MediaUploadCheck>
-        </PanelBody>
-        <PanelBody title={__("Media Performance", "kotlinskidev")} initialOpen={false}>
-          <SelectControl
-            label={__("Loading", "kotlinskidev")}
-            help={__(
-              "Lazy defers offscreen media until it's about to scroll into view. Use Eager for a device frame visible above the fold.",
-              "kotlinskidev"
-            )}
-            value={loading}
-            options={LOADING_OPTIONS}
-            onChange={(value) => setAttributes({ loading: value as LoadingStrategy })}
-          />
-          <SelectControl
-            label={__("Fetch priority", "kotlinskidev")}
-            help={__(
-              "High tells the browser to fetch this media first — use it for a hero/above-the-fold device frame driving the page's LCP. Setting High also forces Loading to Eager.",
-              "kotlinskidev"
-            )}
-            value={fetchPriority}
-            options={FETCH_PRIORITY_OPTIONS}
-            onChange={(value) => {
-              const nextPriority = value as FetchPriority;
-              setAttributes({
-                fetchPriority: nextPriority,
-                loading: nextPriority === "high" ? "eager" : loading,
-              });
-            }}
-          />
         </PanelBody>
         <PanelBody title={__("Media Behavior", "kotlinskidev")} initialOpen={false}>
           <ToggleControl

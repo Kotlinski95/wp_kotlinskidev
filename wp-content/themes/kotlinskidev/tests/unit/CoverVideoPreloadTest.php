@@ -2,103 +2,66 @@
 
 use Brain\Monkey\Functions;
 
-require_once __DIR__ . '/../../functions/cover-video-preload.php';
+require_once __DIR__ . '/../../functions/above-fold-media.php';
 
-function kotlinskidev_video_cover_block(array $overrides = []): array
+beforeEach(function () {
+    Functions\when('wp_high_priority_element_flag')->justReturn(true);
+    Functions\when('wp_increase_content_media_count')->justReturn(1);
+    Functions\when('wp_omit_loading_attr_threshold')->justReturn(3);
+    Functions\when('esc_url')->alias(fn ($t) => $t);
+    kotlinskidev_reset_above_fold_state();
+});
+
+function kotlinskidev_captured_preload(): string
 {
-    return array_replace_recursive([
-        'blockName' => 'core/cover',
-        'attrs' => [
-            'backgroundType' => 'video',
-            'kotlinskidevSkipLazy' => true,
-            'poster' => 'poster.jpg',
-        ],
-    ], $overrides);
+    ob_start();
+    kotlinskidev_print_lcp_preload();
+    return ob_get_clean();
 }
 
-it('returns the poster url for a matching skip-lazy video cover block', function () {
-    expect(extract_poster_from_block(kotlinskidev_video_cover_block()))->toBe(['poster.jpg']);
+it('prints a high priority image preload for the claimed poster', function () {
+    kotlinskidev_claim_lcp_slot('poster.jpg');
+
+    expect(kotlinskidev_captured_preload())->toBe('<link rel="preload" as="image" fetchpriority="high" href="poster.jpg">' . "\n");
 });
 
-it('returns nothing when the cover block has not opted out of lazy loading', function () {
-    $block = kotlinskidev_video_cover_block(['attrs' => ['kotlinskidevSkipLazy' => false]]);
-
-    expect(extract_poster_from_block($block))->toBe([]);
+it('prints nothing when nothing has been claimed', function () {
+    expect(kotlinskidev_captured_preload())->toBe('');
 });
 
-it('returns nothing for a cover block whose background is not a video', function () {
-    $block = kotlinskidev_video_cover_block(['attrs' => ['backgroundType' => 'image']]);
+it('prints nothing when the claim carried no url', function () {
+    kotlinskidev_claim_lcp_slot();
 
-    expect(extract_poster_from_block($block))->toBe([]);
+    expect(kotlinskidev_captured_preload())->toBe('');
 });
 
-it('returns nothing for a non-cover block', function () {
-    expect(extract_poster_from_block(['blockName' => 'core/paragraph', 'attrs' => []]))->toBe([]);
+it('lets only the first claim win and keeps its url', function () {
+    expect(kotlinskidev_claim_lcp_slot('one.jpg'))->toBeTrue();
+    expect(kotlinskidev_claim_lcp_slot('two.jpg'))->toBeFalse();
+
+    expect(kotlinskidev_captured_preload())->toContain('href="one.jpg"');
 });
 
-it('falls back to the attachment featured image url when there is no poster attribute', function () {
-    Functions\when('get_the_post_thumbnail_url')->justReturn('thumb.jpg');
-    $block = kotlinskidev_video_cover_block(['attrs' => ['poster' => null, 'id' => 5]]);
-    unset($block['attrs']['poster']);
-    $block['attrs']['id'] = 5;
+it('flags the winner as the high priority element and bumps the media count once', function () {
+    $calls = [];
+    Functions\when('wp_high_priority_element_flag')->alias(function ($flag) use (&$calls) {
+        $calls[] = ['flag', $flag];
+        return true;
+    });
+    Functions\when('wp_increase_content_media_count')->alias(function ($n) use (&$calls) {
+        $calls[] = ['count', $n];
+        return $n;
+    });
 
-    expect(extract_poster_from_block($block))->toBe(['thumb.jpg']);
+    kotlinskidev_claim_lcp_slot('a.jpg');
+    kotlinskidev_claim_lcp_slot('b.jpg');
+
+    expect($calls)->toBe([['flag', false], ['count', 3]]);
 });
 
-it('returns nothing when there is neither a poster attribute nor an attachment id', function () {
-    $block = kotlinskidev_video_cover_block();
-    unset($block['attrs']['poster']);
+it('allows a new claim after the state is reset', function () {
+    kotlinskidev_claim_lcp_slot('a.jpg');
+    kotlinskidev_reset_above_fold_state();
 
-    expect(extract_poster_from_block($block))->toBe([]);
-});
-
-it('recurses into inner blocks to find nested video cover posters', function () {
-    $block = [
-        'blockName' => 'core/group',
-        'attrs' => [],
-        'innerBlocks' => [kotlinskidev_video_cover_block(['attrs' => ['poster' => 'nested.jpg']])],
-    ];
-
-    expect(extract_poster_from_block($block))->toBe(['nested.jpg']);
-});
-
-it('combines posters from multiple sibling inner blocks', function () {
-    $block = [
-        'blockName' => 'core/group',
-        'attrs' => [],
-        'innerBlocks' => [
-            kotlinskidev_video_cover_block(['attrs' => ['poster' => 'one.jpg']]),
-            kotlinskidev_video_cover_block(['attrs' => ['poster' => 'two.jpg']]),
-        ],
-    ];
-
-    expect(extract_poster_from_block($block))->toBe(['one.jpg', 'two.jpg']);
-});
-
-it('returns an empty array when there is no current post', function () {
-    global $post;
-    $post = null;
-
-    expect(get_cover_video_poster_preloads())->toBe([]);
-});
-
-it('returns an empty array when the post has no blocks', function () {
-    global $post;
-    $post = (object) ['ID' => 9001, 'post_content' => 'plain text'];
-    Functions\when('has_blocks')->justReturn(false);
-
-    expect(get_cover_video_poster_preloads())->toBe([]);
-});
-
-it('collects and deduplicates poster urls from the parsed post content', function () {
-    global $post;
-    $post = (object) ['ID' => 9002, 'post_content' => 'has blocks'];
-    Functions\when('has_blocks')->justReturn(true);
-    Functions\when('parse_blocks')->justReturn([
-        kotlinskidev_video_cover_block(['attrs' => ['poster' => 'dup.jpg']]),
-        kotlinskidev_video_cover_block(['attrs' => ['poster' => 'dup.jpg']]),
-        kotlinskidev_video_cover_block(['attrs' => ['poster' => 'unique.jpg']]),
-    ]);
-
-    expect(array_values(get_cover_video_poster_preloads()))->toBe(['dup.jpg', 'unique.jpg']);
+    expect(kotlinskidev_claim_lcp_slot('b.jpg'))->toBeTrue();
 });

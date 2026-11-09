@@ -20,7 +20,8 @@
     }
   },
   "providesContext": {
-    "kotlinskidev/lazyLoad": "lazyLoad"
+    "kotlinskidev/lazyLoad": "lazyLoad",
+    "kotlinskidev/aboveFold": "kotlinskidevAboveFold"
   },
   "attributes": {
     "minHeight": { "type": "number", "default": 80 },
@@ -31,6 +32,7 @@
     "autoplay": { "type": "boolean", "default": false },
     "autoplayDelay": { "type": "number", "default": 5000 },
     "lazyLoad": { "type": "boolean", "default": false },
+    "kotlinskidevAboveFold": { "type": "boolean" },
     "arrowsPosition": { "type": "string", "default": "sides" },
     "navColor": { "type": "string", "default": "" },
     "navColorOnHover": { "type": "boolean", "default": false },

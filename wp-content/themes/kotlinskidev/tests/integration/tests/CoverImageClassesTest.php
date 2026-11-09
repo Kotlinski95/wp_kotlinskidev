@@ -2,6 +2,10 @@
 
 uses(Tests\Integration\TestCase::class);
 
+beforeEach(function () {
+    kotlinskidev_reset_above_fold_state();
+});
+
 it('leaves non-cover-and-image blocks untouched by the lazy loading override', function () {
     $output = '<img loading="lazy">';
     $block = ['blockName' => 'core/paragraph', 'attrs' => []];
@@ -9,7 +13,7 @@ it('leaves non-cover-and-image blocks untouched by the lazy loading override', f
     expect(control_block_lazy_loading($output, $block))->toBe($output);
 });
 
-it('leaves the output untouched when kotlinskidevSkipLazy is not set', function () {
+it('leaves the output untouched when kotlinskidevAboveFold is not set', function () {
     $output = '<img loading="lazy" class="wp-image">';
     $block = ['blockName' => 'core/image', 'attrs' => []];
 
@@ -19,7 +23,7 @@ it('leaves the output untouched when kotlinskidevSkipLazy is not set', function 
 it('forces eager loading and appends the configured skip-lazy class to an image', function () {
     set_theme_mod('kotlinskidev_lazy_loading_class', 'skip-lazy');
     $output = '<img loading="lazy" data-src="photo.jpg" class="wp-image">';
-    $block = ['blockName' => 'core/image', 'attrs' => ['kotlinskidevSkipLazy' => true]];
+    $block = ['blockName' => 'core/image', 'attrs' => ['kotlinskidevAboveFold' => true]];
 
     $result = control_block_lazy_loading($output, $block);
 
@@ -35,7 +39,7 @@ it('forces eager loading and appends the configured skip-lazy class to an image'
 
 it('adds a fresh class attribute to a video with no existing class', function () {
     $output = '<video data-src="clip.mp4"></video>';
-    $block = ['blockName' => 'core/cover', 'attrs' => ['kotlinskidevSkipLazy' => true]];
+    $block = ['blockName' => 'core/cover', 'attrs' => ['kotlinskidevAboveFold' => true]];
 
     $result = control_block_lazy_loading($output, $block);
 
@@ -45,7 +49,7 @@ it('adds a fresh class attribute to a video with no existing class', function ()
 });
 
 it('sets the global skip-lazy context flag for a cover block with the attribute enabled', function () {
-    set_lazy_loading_context('', ['blockName' => 'core/cover', 'attrs' => ['kotlinskidevSkipLazy' => true]]);
+    set_lazy_loading_context('', ['blockName' => 'core/cover', 'attrs' => ['kotlinskidevAboveFold' => true]]);
 
     global $current_block_skip_lazy;
     expect($current_block_skip_lazy)->toBeTrue();
@@ -91,4 +95,24 @@ it('outputs the lazy-loading override script on wp_footer', function () {
 
     expect($html)->toContain('no-lazy-loading');
     expect($html)->toContain('fetchpriority');
+});
+
+it('still honours the legacy kotlinskidevSkipLazy attribute', function () {
+    $block = ['blockName' => 'core/image', 'attrs' => ['kotlinskidevSkipLazy' => true]];
+
+    $result = control_block_lazy_loading('<img loading="lazy">', $block);
+
+    expect($result)->toContain('loading="eager"');
+    expect($result)->toContain('fetchpriority="high"');
+});
+
+it('gives a second flagged block no high priority', function () {
+    $block = ['blockName' => 'core/image', 'attrs' => ['kotlinskidevAboveFold' => true]];
+
+    $first = control_block_lazy_loading('<img src="a.jpg">', $block);
+    $second = control_block_lazy_loading('<img src="b.jpg">', $block);
+
+    expect($first)->toContain('fetchpriority="high"');
+    expect($second)->toContain('loading="eager"');
+    expect($second)->not->toContain('fetchpriority');
 });

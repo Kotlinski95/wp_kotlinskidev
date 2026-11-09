@@ -2,6 +2,7 @@
 
 use Brain\Monkey\Functions;
 
+require_once __DIR__ . '/../../functions/above-fold-media.php';
 require_once __DIR__ . '/../../functions/deferred-block-assets.php';
 
 beforeEach(function () {
@@ -15,6 +16,7 @@ it('lists the deferrable block assets, with hero-carousel defaulting above the f
         'wpe/slider',
         'kotlinskidev/gallery-lightbox',
         'kotlinskidev/banner-carousel',
+        'kotlinskidev/content-tabs',
         'kotlinskidev/hero-carousel',
     ]);
     expect($assets['kotlinskidev/hero-carousel']['default_above_fold'])->toBeTrue();
@@ -27,6 +29,7 @@ it('maps each block to its above-the-fold default', function () {
         'wpe/slider' => false,
         'kotlinskidev/gallery-lightbox' => false,
         'kotlinskidev/banner-carousel' => false,
+        'kotlinskidev/content-tabs' => false,
         'kotlinskidev/hero-carousel' => true,
     ]);
 });
@@ -96,5 +99,26 @@ it('defers the style handles of every block not marked above the fold', function
     expect($handles)->toContain('wpe-slider-style');
     expect($handles)->toContain('kotlinskidev-gallery-lightbox-view-style');
     expect($handles)->toContain('kotlinskidev-banner-carousel-style');
+    expect($handles)->toContain('kotlinskidev-content-tabs-style');
     expect($handles)->toContain('kotlinskidev-hero-carousel-style');
+});
+
+it('localizes deferrable defaults merged with the media block defaults', function () {
+    $localized = null;
+    Functions\when('wp_localize_script')->alias(function ($handle, $name, $data) use (&$localized) {
+        $localized = [$handle, $name, $data];
+        return true;
+    });
+
+    kotlinskidev_localize_deferrable_blocks();
+
+    expect($localized[1])->toBe('kotlinskidevDeferrableBlocks');
+    expect($localized[2]['blocks'])->toMatchArray([
+        'wpe/slider' => false,
+        'kotlinskidev/hero-carousel' => true,
+        'core/image' => false,
+        'core/cover' => false,
+        'core/video' => false,
+        'kotlinskidev/device-frame' => false,
+    ]);
 });

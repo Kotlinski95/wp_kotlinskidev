@@ -16,8 +16,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Removed
+
+- **2026-11-08 — Removed the unused custom plugins `contact-form-ts`, `custom-facebook-pixel-loader`, `custom-google-analytics-loader`, `google-maps-block`, `kotlinskidev-custom-login`, `responsive-image` and `slider-block`.** They were inactive, and the contact form, maps and responsive-image blocks now live in the theme. Their `.gitignore`, `.deployignore`, hook allow-list and agent-doc entries are gone too.
+
 ### Changed
 
+- **2026-11-08 — The Deploy workflow now ships the `wordpress-pwa-manager` plugin again.** Production ran an older copy whose `sw.js` was a 75-byte stub with no caching or offline fallback; the committed plugin generates the full service worker. Its sources, tooling and macOS `._*` files are excluded from the deploy. A new "Normalize file ownership" step resets deployed paths to owner `admin`, group `www-data` (dirs `2775`, files `664`) before each sync, so WordPress and the deploy user can both edit them.
+- **2026-11-08 — Cleaned up console noise on the live site.** The "Site loaded in" log now waits for the page `load` event instead of printing a negative number, the viewport meta no longer carries the unsupported `target-densitydpi`, and `upgrade-insecure-requests` is only added once the CSP is enforcing (the browser ignored it in report-only mode). The default CSP also allows the Cloudflare Web Analytics beacon (`static.cloudflareinsights.com`, `cloudflareinsights.com`).
 - **2026-11-08 — The Deploy workflow no longer ships the custom plugins (`slider-block`, `contact-form-ts`, `responsive-image` and the others); only the theme is deployed.** They are inactive and unused, so they stay off production until needed. The local-to-production sync also now keeps production's `active_plugins`, so a sync never re-activates plugins such as Novamira.
 - **2026-11-07 — Filled in the offer prices (all in PLN, English and Polish alike) and English pages now show the currency as `PLN` while Polish pages keep `zł`.** Web-app and website-optimization stay "Price on request" because they are priced individually. The "Start" card in `single-service_location.html` now shows the landing page and up-to-5-pages prices separately, both read from the Offers data.
 - **2026-11-06 — Article, page and service-location templates now use the adaptive `foreground` colour instead of `foreground-alt`, and the service-location template's prices come from offers.** Text keeps its contrast in both light and dark mode, and a price change is made once in the Offers editor instead of in each template.
@@ -228,6 +234,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Performance
 
+- **2026-11-09 — Hero carousels now load only the next slide after `load`, nav-banner and device-frame media wait for hover, drawer open or a 200px viewport margin, and the 2.5 MB `projects-all-1.gif` became a 1 MB lazy MP4.** A single per-instance "Above the fold" toggle (`kotlinskidevAboveFold`, replacing `kotlinskidevSkipLazy`) now decides eager loading, so `functions/above-fold-media.php` gives `fetchpriority="high"` and the head preload to only one element per page. Content-tabs CSS is deferred and the footer image no longer forces eager loading. Device-frame posters, next-slide carousel posters and content-tabs images (`functions/viewport-deferred-images.php`) now load near the viewport or after first interaction instead of before LCP.
 - **2026-10-13 — Audited every hover/scroll-reveal animation for `will-change` correctness, moving it off permanently-applied hover classes and into their own `:hover` rule so the compositor layer only exists while actually hovered.** Removed it from a non-accelerated gradient-background rule where it had no benefit, and added cleanup in `scroll-animations.ts` so one-shot scroll-reveals release their layer once revealed instead of holding it forever.
 
 ### Chore

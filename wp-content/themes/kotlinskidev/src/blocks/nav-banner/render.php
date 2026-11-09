@@ -59,7 +59,7 @@ $wrapper_attrs = get_block_wrapper_attributes( $wrapper_extra );
 	<?php if ( $media_url ) : ?>
 	<figure class="kt-nav-banner__media">
 		<?php
-		$img = '<img src="' . esc_url( $media_url ) . '" alt="' . esc_attr( $alt_text ) . '" loading="lazy">';
+		$img = '<img data-src="' . esc_url( $media_url ) . '" alt="' . esc_attr( $alt_text ) . '" loading="lazy">';
 		echo $link_url ? '<a class="kt-nav-banner__media-link" href="' . esc_url( $link_url ) . '">' . $img . '</a>' : $img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $img is built exclusively from esc_url()/esc_attr() wrapped values above
 		?>
 	</figure>

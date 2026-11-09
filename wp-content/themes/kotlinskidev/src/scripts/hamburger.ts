@@ -1,5 +1,6 @@
 import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
+import { loadDeferredImages } from "@utils/load-deferred-images";
 import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
 
 const LOCK_OWNER = "hamburger";
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isOpen = container.classList.contains("is-menu-open");
         if (isOpen && !wasOpen) {
           lockScroll(LOCK_OWNER);
+          loadDeferredImages(container);
           dispatchNavPanelOpen(container);
           container.classList.add("kt-nav-panel-animating");
           container
