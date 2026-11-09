@@ -177,4 +177,46 @@ describe("hero-carousel/slide Edit", () => {
 
     expect(screen.getByTestId("inner-blocks")).toHaveAttribute("data-template-length", "3");
   });
+
+  it("hides the Safari/iOS video control until a background video is set", () => {
+    render(<Edit attributes={{} as never} setAttributes={jest.fn()} />);
+
+    expect(screen.queryByRole("button", { name: "Set Safari/iOS Video" })).not.toBeInTheDocument();
+  });
+
+  it("sets bgVideoAlphaUrl/Id when a Safari/iOS video is selected", () => {
+    const setAttributes = jest.fn();
+    render(
+      <Edit
+        attributes={{ bgVideoUrl: "bg.webm", bgVideoId: 2 } as never}
+        setAttributes={setAttributes}
+      />
+    );
+
+    mockMediaUploadCalls[2].onSelect({ id: 9, url: "bg.mov" });
+
+    expect(setAttributes).toHaveBeenCalledWith({ bgVideoAlphaUrl: "bg.mov", bgVideoAlphaId: 9 });
+  });
+
+  it("clears bgVideoAlphaUrl/Id when the Safari/iOS video is removed", async () => {
+    const user = userEvent.setup();
+    const setAttributes = jest.fn();
+    render(
+      <Edit
+        attributes={
+          {
+            bgVideoUrl: "bg.webm",
+            bgVideoId: 2,
+            bgVideoAlphaUrl: "bg.mov",
+            bgVideoAlphaId: 9,
+          } as never
+        }
+        setAttributes={setAttributes}
+      />
+    );
+
+    await user.click(screen.getByRole("button", { name: "Remove Safari/iOS Video" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ bgVideoAlphaUrl: "", bgVideoAlphaId: 0 });
+  });
 });

@@ -44,12 +44,18 @@ jest.mock("@utils/carousel/initSwiper", () => ({
 function buildSlide({
   video,
   lazyImg,
-}: { video?: { dataSrc?: string; dataPoster?: string }; lazyImg?: boolean } = {}) {
+}: {
+  video?: { dataSrc?: string; dataPoster?: string; dataSrcAlpha?: string };
+  lazyImg?: boolean;
+} = {}) {
   const slide = document.createElement("div");
   if (video) {
     const videoEl = document.createElement("video");
     if (video.dataSrc) {
       videoEl.dataset.src = video.dataSrc;
+    }
+    if (video.dataSrcAlpha) {
+      videoEl.dataset.srcAlpha = video.dataSrcAlpha;
     }
     if (video.dataPoster) {
       videoEl.dataset.poster = video.dataPoster;
@@ -220,7 +226,7 @@ describe("hero-carousel/init.ts", () => {
       jest.advanceTimersByTime(1900);
 
       expect(nextVideo.src).toBe("");
-      expect(nextVideo.poster).toBe("");
+      expect(nextVideo.poster).toContain("b.jpg");
     });
 
     it("prepares the next slide once the delay elapses", () => {
@@ -438,5 +444,88 @@ describe("hero-carousel/init.ts", () => {
 
     carousel.dispatchEvent(new FocusEvent("focusout", { bubbles: true, relatedTarget: linkB }));
     expect(autoplay.resume).not.toHaveBeenCalled();
+  });
+
+  describe("poster, alpha source and reset", () => {
+    const originalUserAgent = navigator.userAgent;
+    const setUserAgent = (ua: string) =>
+      Object.defineProperty(navigator, "userAgent", { configurable: true, value: ua });
+
+    afterEach(() => {
+      setUserAgent(originalUserAgent);
+    });
+
+    const IPHONE_UA =
+      "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1";
+    const CHROME_UA =
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+
+    const run = (slides: HTMLElement[]) => {
+      const el = buildCarouselElement();
+      const onHandlers: Record<string, () => void> = {};
+      mockInitSwiperReturn = {
+        slides,
+        activeIndex: 0,
+        previousIndex: 0,
+        on: jest.fn((event: string, handler: () => void) => {
+          onHandlers[event] = handler;
+        }),
+        update: jest.fn(),
+      };
+      loadModule();
+      mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
+        unobserve: mockUnobserveSpy,
+      });
+      return onHandlers;
+    };
+
+    it("sets the poster of every slide video at init while src stays lazy", () => {
+      const far = buildSlide({ video: { dataSrc: "c.mp4", dataPoster: "c.jpg" } });
+      run([buildSlide({ video: { dataSrc: "a.mp4", dataPoster: "a.jpg" } }), far]);
+
+      const farVideo = far.querySelector("video") as HTMLVideoElement;
+      expect(farVideo.poster).toContain("c.jpg");
+      expect(farVideo.src).toBe("");
+    });
+
+    it("uses the alpha source on WebKit browsers", () => {
+      setUserAgent(IPHONE_UA);
+      const slide = buildSlide({ video: { dataSrc: "a.webm", dataSrcAlpha: "a.mov" } });
+      run([slide]);
+
+      expect((slide.querySelector("video") as HTMLVideoElement).src).toContain("a.mov");
+    });
+
+    it("keeps the data-src source on non-WebKit browsers even with an alpha source", () => {
+      setUserAgent(CHROME_UA);
+      const slide = buildSlide({ video: { dataSrc: "a.webm", dataSrcAlpha: "a.mov" } });
+      run([slide]);
+
+      expect((slide.querySelector("video") as HTMLVideoElement).src).toContain("a.webm");
+    });
+
+    it("keeps the data-src source on WebKit browsers when no alpha source is set", () => {
+      setUserAgent(IPHONE_UA);
+      const slide = buildSlide({ video: { dataSrc: "a.webm" } });
+      run([slide]);
+
+      expect((slide.querySelector("video") as HTMLVideoElement).src).toContain("a.webm");
+    });
+
+    it("pauses without rewinding the outgoing video, then rewinds it at transition end", () => {
+      const outgoing = buildSlide({ video: { dataSrc: "a.webm" } });
+      const incoming = buildSlide({ video: { dataSrc: "b.webm" } });
+      const handlers = run([outgoing, incoming]);
+      const outgoingVideo = outgoing.querySelector("video") as HTMLVideoElement;
+      outgoingVideo.currentTime = 3;
+      mockInitSwiperReturn.previousIndex = 0;
+      mockInitSwiperReturn.activeIndex = 1;
+
+      handlers.slideChangeTransitionStart();
+      expect(outgoingVideo.currentTime).toBe(3);
+
+      handlers.slideChangeTransitionEnd();
+      expect(outgoingVideo.currentTime).toBe(0);
+    });
   });
 });

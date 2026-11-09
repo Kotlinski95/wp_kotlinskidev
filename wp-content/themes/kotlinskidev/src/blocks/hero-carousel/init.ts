@@ -1,6 +1,7 @@
 import "swiper/swiper-bundle.css";
 import { initSwiper } from "@utils/carousel/initSwiper";
 import type { CarouselSettings } from "@utils/carousel/types";
+import { isWebKitBrowser } from "@utils/is-webkit-browser";
 
 const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   try {
@@ -24,13 +25,31 @@ const prepareSlideVideo = (slide: HTMLElement): void => {
   if (!video) {
     return;
   }
-  if (video.dataset.src) {
+  const alphaSrc = video.dataset.srcAlpha;
+  if (alphaSrc && isWebKitBrowser()) {
+    video.src = alphaSrc;
+    delete video.dataset.src;
+  } else if (video.dataset.src) {
     video.src = video.dataset.src;
     delete video.dataset.src;
   }
-  if (video.dataset.poster) {
-    video.poster = video.dataset.poster;
-    delete video.dataset.poster;
+  delete video.dataset.srcAlpha;
+  applySlidePoster(slide);
+};
+
+const applySlidePoster = (slide: HTMLElement): void => {
+  const video = slide.querySelector<HTMLVideoElement>("video");
+  if (!video || !video.dataset.poster) {
+    return;
+  }
+  video.poster = video.dataset.poster;
+  delete video.dataset.poster;
+};
+
+const resetSlideVideo = (slide: HTMLElement): void => {
+  const video = slide.querySelector<HTMLVideoElement>("video");
+  if (video) {
+    video.currentTime = 0;
   }
 };
 
@@ -47,7 +66,6 @@ const pauseSlideVideo = (slide: HTMLElement): void => {
     return;
   }
   video.pause();
-  video.currentTime = 0;
 };
 
 const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initSwiper>): void => {
@@ -217,6 +235,8 @@ const initHeroCarousel = (el: HTMLElement): void => {
     }
   };
 
+  swiper.slides.forEach(applySlidePoster);
+
   const firstSlide = swiper.slides[swiper.activeIndex];
   const startIndex = swiper.activeIndex;
   prepareSlideAt(startIndex);
@@ -237,6 +257,10 @@ const initHeroCarousel = (el: HTMLElement): void => {
   });
 
   swiper.on("slideChangeTransitionEnd", () => {
+    const prev = swiper.slides[swiper.previousIndex];
+    if (prev && prev !== swiper.slides[swiper.activeIndex]) {
+      resetSlideVideo(prev);
+    }
     const active = swiper.slides[swiper.activeIndex];
     if (active) {
       playSlideVideo(active);

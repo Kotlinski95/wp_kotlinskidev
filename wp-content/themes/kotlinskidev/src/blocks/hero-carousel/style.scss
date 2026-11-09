@@ -36,6 +36,7 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 		inset: 0;
 		z-index: 0;
 		pointer-events: none;
+		background: var(--wp--preset--color--dark-color);
 
 		img,
 		video {

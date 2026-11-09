@@ -9034,6 +9034,26 @@ msgid "Remove Video"
 msgstr "Usuń wideo"
 
 #: build/js/hero-carousel.js:1
+msgid "Video for Safari/iOS (HEVC with alpha)"
+msgstr "Wideo dla Safari/iOS (HEVC z kanałem alfa)"
+
+#: build/js/hero-carousel.js:1
+msgid "Change Safari/iOS Video"
+msgstr "Zmień wideo dla Safari/iOS"
+
+#: build/js/hero-carousel.js:1
+msgid "Set Safari/iOS Video"
+msgstr "Ustaw wideo dla Safari/iOS"
+
+#: build/js/hero-carousel.js:1
+msgid "Optional. Safari and iOS ignore the transparency of WebM videos. Upload an HEVC .mov/.mp4 with an alpha channel to use there instead."
+msgstr "Opcjonalne. Safari i iOS ignorują przezroczystość wideo WebM. Prześlij plik HEVC .mov/.mp4 z kanałem alfa, który będzie tam używany zamiast niego."
+
+#: build/js/hero-carousel.js:1
+msgid "Remove Safari/iOS Video"
+msgstr "Usuń wideo dla Safari/iOS"
+
+#: build/js/hero-carousel.js:1
 msgid "Overlay Opacity"
 msgstr "Krycie nakładki"
 

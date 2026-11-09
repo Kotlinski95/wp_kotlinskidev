@@ -192,3 +192,31 @@ it('applies the spacing style engine output directly on the content wrapper', fu
 
     expect($html)->toContain('<div class="hero-carousel__content" style="padding-top:2rem;">');
 });
+
+it('prints data-src-alpha on the video only when an alpha source is set', function () {
+    $with = kotlinskidev_hero_carousel_slide_render([
+        'slideIndex' => 1,
+        'bgImageUrl' => 'poster.jpg',
+        'bgVideoUrl' => 'bg.webm',
+        'bgVideoAlphaUrl' => 'bg.mov',
+    ]);
+    $without = kotlinskidev_hero_carousel_slide_render([
+        'slideIndex' => 1,
+        'bgImageUrl' => 'poster.jpg',
+        'bgVideoUrl' => 'bg.webm',
+    ]);
+
+    expect($with)->toContain('data-src-alpha="bg.mov"');
+    expect($with)->toContain('data-src="bg.webm"');
+    expect($without)->not->toContain('data-src-alpha');
+});
+
+it('prints data-src-alpha on an eager first-slide video too', function () {
+    $html = kotlinskidev_hero_carousel_slide_render(
+        ['slideIndex' => 0, 'bgImageUrl' => 'poster.jpg', 'bgVideoUrl' => 'bg.webm', 'bgVideoAlphaUrl' => 'bg.mov'],
+        kotlinskidev_above_fold_context()
+    );
+
+    expect($html)->toContain('src="bg.webm"');
+    expect($html)->toContain('data-src-alpha="bg.mov"');
+});
