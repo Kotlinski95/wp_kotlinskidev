@@ -64,15 +64,15 @@ declare global {
     }
 
     const style = (link.getAttribute("style") ?? "").trim();
+    if (style.includes("pointer-events:none")) {
+      return;
+    }
     const withSemicolon = style && !style.endsWith(";") ? `${style};` : style;
     link.setAttribute("style", `${withSemicolon}pointer-events:none`);
   };
 
   document.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((link) => {
-    if (
-      link.classList.contains("kt-link-current") ||
-      link.classList.contains("kt-hover-no-link-gradient")
-    ) {
+    if (link.classList.contains("kt-hover-no-link-gradient")) {
       return;
     }
 

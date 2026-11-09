@@ -2,6 +2,8 @@
 
 use Brain\Monkey\Functions;
 
+require_once __DIR__ . '/../../../functions/image-dimensions.php';
+
 function kotlinskidev_nav_banner_render(array $attributes): string
 {
     return kotlinskidev_render_block_file(
@@ -16,6 +18,9 @@ beforeEach(function () {
     Functions\when('esc_attr')->alias(fn ($t) => $t);
     Functions\when('esc_html')->alias(fn ($t) => $t);
     Functions\when('wp_kses_post')->alias(fn ($t) => $t);
+    Functions\when('attachment_url_to_postid')->justReturn(0);
+    Functions\when('wp_parse_url')->alias('parse_url');
+    Functions\when('wp_get_upload_dir')->justReturn(['baseurl' => 'https://none.test', 'basedir' => '/nonexistent']);
 });
 
 it('renders no media figure when there is no media url', function () {
@@ -95,7 +100,7 @@ function kotlinskidev_nav_banner_stub_cover(string $url, int $post_id, int $thum
     Functions\when('home_url')->alias(fn ($p = '') => 'https://site.test' . $p);
     Functions\when('url_to_postid')->alias(fn ($u) => $u === $url || 'https://site.test' . $url === $u ? $post_id : 0);
     Functions\when('get_post_thumbnail_id')->justReturn($thumb_id);
-    Functions\when('wp_get_attachment_image_url')->alias(fn ($id, $size) => 'large' === $size ? $large : 'full.jpg');
+    Functions\when('wp_get_attachment_image_src')->alias(fn ($id, $size) => 'large' === $size ? [$large, 1024, 683, true] : ['full.jpg', 2000, 1334, false]);
     Functions\when('get_post_meta')->justReturn($alt);
     Functions\when('pll_get_post')->alias(fn ($id) => $id);
 }
@@ -111,7 +116,7 @@ it('uses the linked page featured image and its alt when followLinkedCover is tr
 
     $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'stored.jpg', 'linkUrl' => '/page-a/', 'followLinkedCover' => true]);
 
-    expect($html)->toContain('<img data-src="cover-large.jpg" alt="Cover alt" loading="lazy">');
+    expect($html)->toContain('<img data-src="cover-large.jpg" alt="Cover alt" width="1024" height="683" loading="lazy">');
     expect($html)->not->toContain('stored.jpg');
 });
 
@@ -151,4 +156,33 @@ it('escapes the linked cover url and alt', function () {
     $html = kotlinskidev_nav_banner_render(['linkUrl' => '/page-e/', 'followLinkedCover' => true]);
 
     expect($html)->toContain('alt="A &quot;quoted&quot; alt"');
+});
+
+it('prints width and height from the attachment matching the url', function () {
+    Functions\when('attachment_url_to_postid')->justReturn(4);
+    Functions\when('wp_parse_url')->alias('parse_url');
+    Functions\when('wp_get_attachment_metadata')->justReturn([
+        'width' => 2000, 'height' => 1334,
+        'sizes' => ['large' => ['file' => 'pic-1024x683.webp', 'width' => 1024, 'height' => 683]],
+    ]);
+
+    $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'https://x.test/up/pic-1024x683.webp']);
+
+    expect($html)->toContain('alt="" width="1024" height="683" loading="lazy">');
+});
+
+it('omits width and height when the attachment is unknown', function () {
+    Functions\when('attachment_url_to_postid')->justReturn(0);
+
+    $html = kotlinskidev_nav_banner_render(['mediaUrl' => 'https://x.test/unknown.webp']);
+
+    expect($html)->not->toContain('width=');
+});
+
+it('prints the linked cover size dimensions', function () {
+    kotlinskidev_nav_banner_stub_cover('/page-f/', 9, 13, 'c-1024x683.webp');
+
+    $html = kotlinskidev_nav_banner_render(['linkUrl' => '/page-f/', 'followLinkedCover' => true]);
+
+    expect($html)->toContain('width="1024" height="683"');
 });

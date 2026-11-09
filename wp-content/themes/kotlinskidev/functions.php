@@ -9,6 +9,7 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 require_once get_template_directory() . '/functions/cache.php';
 
 require_once get_template_directory() . '/functions/above-fold-media.php';
+require_once get_template_directory() . '/functions/image-dimensions.php';
 require_once get_template_directory() . '/functions/viewport-deferred-images.php';
 
 // Sitewide feature on/off switches (Settings → Customization) — loaded early so every feature module below can gate its own registration
