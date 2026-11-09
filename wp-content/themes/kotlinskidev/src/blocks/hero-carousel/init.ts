@@ -138,6 +138,61 @@ const debounce = (fn: () => void, delay: number): (() => void) => {
   };
 };
 
+const whenPageSettled = (callback: () => void): void => {
+  const afterLoad = () => {
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(callback);
+    } else {
+      setTimeout(callback, 200);
+    }
+  };
+  if (document.readyState === "complete") {
+    afterLoad();
+  } else {
+    window.addEventListener("load", afterLoad, { once: true });
+  }
+};
+
+const NON_ACTIVE_PREP_DELAY_MS = 2000;
+const FIRST_INTERACTION_EVENTS = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
+
+const whenInteractedOrDelayed = (callback: () => void): void => {
+  let done = false;
+  const cleanups: Array<() => void> = [];
+
+  const run = () => {
+    if (done) {
+      return;
+    }
+    done = true;
+    cleanups.forEach((cleanup) => cleanup());
+    callback();
+  };
+
+  FIRST_INTERACTION_EVENTS.forEach((type) => {
+    window.addEventListener(type, run, { once: true, passive: true });
+    cleanups.push(() => window.removeEventListener(type, run));
+  });
+
+  const scheduleIdle = () => {
+    const timer = setTimeout(() => {
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(run, { timeout: NON_ACTIVE_PREP_DELAY_MS });
+      } else {
+        run();
+      }
+    }, NON_ACTIVE_PREP_DELAY_MS);
+    cleanups.push(() => clearTimeout(timer));
+  };
+
+  if (document.readyState === "complete") {
+    scheduleIdle();
+  } else {
+    window.addEventListener("load", scheduleIdle, { once: true });
+    cleanups.push(() => window.removeEventListener("load", scheduleIdle));
+  }
+};
+
 const initHeroCarousel = (el: HTMLElement): void => {
   const settings = parseSettings(el);
   el.style.visibility = "hidden";
@@ -154,19 +209,27 @@ const initHeroCarousel = (el: HTMLElement): void => {
 
   wireAutoplayHoverPause(el, swiper);
 
-  swiper.slides.forEach((slide, i) => {
-    if (i !== swiper.activeIndex) {
+  const prepareSlideAt = (index: number): void => {
+    const slide = swiper.slides[index];
+    if (slide) {
       prepareSlideVideo(slide);
       preloadSlideImages(slide);
     }
-  });
+  };
 
   const firstSlide = swiper.slides[swiper.activeIndex];
-  if (firstSlide) {
-    playSlideVideo(firstSlide);
-  }
+  const startIndex = swiper.activeIndex;
+  prepareSlideAt(startIndex);
+  whenInteractedOrDelayed(() => prepareSlideAt(startIndex + 1));
+  whenPageSettled(() => {
+    if (firstSlide) {
+      playSlideVideo(firstSlide);
+    }
+  });
 
   swiper.on("slideChangeTransitionStart", () => {
+    prepareSlideAt(swiper.activeIndex);
+    prepareSlideAt(swiper.activeIndex + 1);
     const prev = swiper.slides[swiper.previousIndex];
     if (prev) {
       pauseSlideVideo(prev);

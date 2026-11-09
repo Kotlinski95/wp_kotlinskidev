@@ -36,17 +36,15 @@ if ( 1 !== preg_match( '/^-?\d{1,3}% -?\d{1,3}%$/', $object_position ) ) {
 }
 $image_style = '' !== $object_position ? 'object-position:' . esc_attr( $object_position ) . ';' : '';
 
-$fetch_priority = sanitize_key( $attributes['fetchPriority'] ?? 'auto' );
-if ( ! in_array( $fetch_priority, [ 'auto', 'high', 'low' ], true ) ) {
-	$fetch_priority = 'auto';
-}
+$is_eager = kotlinskidev_is_above_fold( [
+	'blockName' => 'kotlinskidev/device-frame',
+	'attrs'     => $attributes,
+] );
+$loading  = $is_eager ? 'eager' : 'lazy';
 
-$loading = sanitize_key( $attributes['loading'] ?? 'lazy' );
-if ( ! in_array( $loading, [ 'lazy', 'eager' ], true ) ) {
-	$loading = 'lazy';
-}
-if ( 'high' === $fetch_priority ) {
-	$loading = 'eager';
+$fetch_priority = 'auto';
+if ( ! $is_eager && 'low' === sanitize_key( $attributes['fetchPriority'] ?? 'auto' ) ) {
+	$fetch_priority = 'low';
 }
 
 $enable_lightbox = (bool) ( $attributes['enableLightbox'] ?? false );
@@ -89,21 +87,32 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 			if ( $is_video ) {
 				$poster_id  = get_post_thumbnail_id( $image_id );
 				$poster_url = $poster_id ? wp_get_attachment_image_url( $poster_id, 'full' ) : '';
+				if ( $is_eager && kotlinskidev_claim_lcp_slot( (string) $poster_url ) ) {
+					$fetch_priority = 'high';
+				}
 				?>
 				<video
 					class="kt-device-frame__image"
+					<?php if ( 'eager' === $loading ) : ?>
 					src="<?php echo esc_url( wp_get_attachment_url( $image_id ) ); ?>"
-					<?php if ( $poster_url ) : ?>poster="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
+					autoplay
+					preload="auto"
+					<?php else : ?>
+					data-src="<?php echo esc_url( wp_get_attachment_url( $image_id ) ); ?>"
+					preload="none"
+					<?php endif; ?>
+					<?php if ( $poster_url ) : ?><?php echo 'eager' === $loading ? 'poster' : 'data-poster'; ?>="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
 					<?php if ( '' !== $image_style ) : ?>style="<?php echo esc_attr( $image_style ); ?>"<?php endif; ?>
 					fetchpriority="<?php echo esc_attr( $fetch_priority ); ?>"
 					muted
 					loop
-					autoplay
 					playsinline
-					preload="<?php echo esc_attr( 'eager' === $loading ? 'auto' : 'metadata' ); ?>"
 				></video>
 				<?php
 			} else {
+				if ( $is_eager && kotlinskidev_claim_lcp_slot( (string) wp_get_attachment_image_url( $image_id, 'full' ) ) ) {
+					$fetch_priority = 'high';
+				}
 				echo wp_get_attachment_image(
 					$image_id,
 					'full',

@@ -8,7 +8,7 @@ const POSTER_URL =
   "http://kotlinskidev.local/wp-content/themes/kotlinskidev/assets/images/about.webp";
 
 test.describe("Cover/Image lazy loading override (kotlinskidev/cover-lazy-loading block extension)", () => {
-  test.describe("default (Skip Lazy Loading off)", () => {
+  test.describe("default (Above the fold off)", () => {
     const slug = "e2e-fixture-lazy-default";
     let fixtureUrl: string;
 
@@ -34,12 +34,12 @@ test.describe("Cover/Image lazy loading override (kotlinskidev/cover-lazy-loadin
     });
   });
 
-  test.describe("Skip Lazy Loading enabled on an image", () => {
+  test.describe("Above the fold enabled on an image", () => {
     const slug = "e2e-fixture-lazy-skip-image";
     let fixtureUrl: string;
 
     test.beforeAll(() => {
-      const content = `<!-- wp:image {"sizeSlug":"full","kotlinskidevSkipLazy":true} -->
+      const content = `<!-- wp:image {"sizeSlug":"full","kotlinskidevAboveFold":true} -->
 <figure class="wp-block-image size-full"><img src="${IMAGE_URL}" alt="team" loading="lazy" data-src="placeholder.webp"/></figure>
 <!-- /wp:image -->`;
       fixtureUrl = createFixturePage(slug, "E2E Fixture — Lazy Skip Image", content).url;
@@ -64,12 +64,12 @@ test.describe("Cover/Image lazy loading override (kotlinskidev/cover-lazy-loadin
     });
   });
 
-  test.describe("Skip Lazy Loading enabled on a video cover", () => {
+  test.describe("Above the fold enabled on a video cover", () => {
     const slug = "e2e-fixture-lazy-skip-cover-video";
     let fixtureUrl: string;
 
     test.beforeAll(() => {
-      const content = `<!-- wp:cover {"url":"${IMAGE_URL}","backgroundType":"video","kotlinskidevSkipLazy":true,"poster":"${POSTER_URL}","dimRatio":50} -->
+      const content = `<!-- wp:cover {"url":"${IMAGE_URL}","backgroundType":"video","kotlinskidevAboveFold":true,"poster":"${POSTER_URL}","dimRatio":50} -->
 <div class="wp-block-cover"><span class="wp-block-cover__background"></span><video class="wp-block-cover__video-background" autoplay muted loop playsinline src="${IMAGE_URL}" data-src="placeholder.webp"></video><div class="wp-block-cover__inner-container"></div></div>
 <!-- /wp:cover -->`;
       fixtureUrl = createFixturePage(slug, "E2E Fixture — Lazy Skip Cover Video", content).url;

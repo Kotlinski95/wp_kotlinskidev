@@ -4,8 +4,41 @@ import userEvent from "@testing-library/user-event";
 import { applyFilters } from "@wordpress/hooks";
 import type { ComponentType } from "react";
 
+let mockBlocks: unknown[] = [];
+
 jest.mock("@wordpress/block-editor", () => ({
   InspectorAdvancedControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
+jest.mock("@wordpress/components", () => ({
+  ToggleControl: ({
+    label,
+    help,
+    checked,
+    onChange,
+  }: {
+    label: string;
+    help: string;
+    checked: boolean;
+    onChange: (value: boolean) => void;
+  }) => (
+    <div>
+      <input
+        id="mock-toggle"
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+      />
+      <label htmlFor="mock-toggle">{label}</label>
+      <span>{help}</span>
+    </div>
+  ),
+  Notice: ({ children }: { children: React.ReactNode }) => <div role="alert">{children}</div>,
+}));
+
+jest.mock("@wordpress/data", () => ({
+  useSelect: (mapper: (select: (store: string) => unknown) => unknown) =>
+    mapper(() => ({ getBlocks: () => mockBlocks })),
 }));
 
 import "./index";
@@ -81,7 +114,7 @@ describe("above-fold — editor.BlockEdit filter", () => {
     renderWrapped({ name: "core/paragraph", attributes: {}, setAttributes: jest.fn() });
 
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
-    expect(screen.queryByText("Load above the fold")).not.toBeInTheDocument();
+    expect(screen.queryByText("Above the fold")).not.toBeInTheDocument();
   });
 
   it("renders the above-fold toggle for a deferrable block, reflecting its current value", () => {
@@ -94,7 +127,7 @@ describe("above-fold — editor.BlockEdit filter", () => {
     });
 
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: /Load above the fold/ })).toBeChecked();
+    expect(screen.getByRole("checkbox", { name: /Above the fold/ })).toBeChecked();
   });
 
   it("calls setAttributes with the new value when the toggle is clicked", async () => {
@@ -107,8 +140,83 @@ describe("above-fold — editor.BlockEdit filter", () => {
       attributes: { kotlinskidevAboveFold: false },
       setAttributes,
     });
-    await user.click(screen.getByRole("checkbox", { name: /Load above the fold/ }));
+    await user.click(screen.getByRole("checkbox", { name: /Above the fold/ }));
 
     expect(setAttributes).toHaveBeenCalledWith({ kotlinskidevAboveFold: true });
+  });
+});
+
+describe("above-fold — legacy migration", () => {
+  it("maps kotlinskidevSkipLazy true to kotlinskidevAboveFold and drops the old key", () => {
+    const result = applyFilters("blocks.getBlockAttributes", {
+      url: "a.webp",
+      kotlinskidevSkipLazy: true,
+    });
+
+    expect(result).toEqual({ url: "a.webp", kotlinskidevAboveFold: true });
+  });
+
+  it("drops a false kotlinskidevSkipLazy without setting the new key", () => {
+    const result = applyFilters("blocks.getBlockAttributes", { kotlinskidevSkipLazy: false });
+
+    expect(result).toEqual({});
+  });
+
+  it("leaves attributes without the old key untouched", () => {
+    const attributes = { url: "a.webp" };
+
+    expect(applyFilters("blocks.getBlockAttributes", attributes)).toBe(attributes);
+  });
+});
+
+describe("above-fold — multiple flagged warning", () => {
+  afterEach(() => {
+    mockBlocks = [];
+    delete (window as unknown as { kotlinskidevDeferrableBlocks?: unknown })
+      .kotlinskidevDeferrableBlocks;
+  });
+
+  function renderCover() {
+    const Wrapped = applyFilters("editor.BlockEdit", () => null) as ComponentType<
+      Record<string, unknown>
+    >;
+    return render(<Wrapped name="core/cover" attributes={{}} setAttributes={jest.fn()} />);
+  }
+
+  it("applies to core media blocks even when the registry lacks them", () => {
+    setDeferrableBlocks({});
+
+    renderCover();
+
+    expect(screen.getByRole("checkbox", { name: /Above the fold/ })).toBeInTheDocument();
+  });
+
+  it("shows no warning for a single flagged element", () => {
+    mockBlocks = [{ name: "core/cover", attributes: { kotlinskidevAboveFold: true } }];
+
+    renderCover();
+
+    expect(screen.queryByText(/marked above the fold/)).not.toBeInTheDocument();
+  });
+
+  it("warns when more than one registry block is flagged, including nested ones", () => {
+    mockBlocks = [
+      { name: "core/cover", attributes: { kotlinskidevAboveFold: true } },
+      {
+        name: "core/group",
+        attributes: { kotlinskidevAboveFold: true },
+        innerBlocks: [
+          { name: "kotlinskidev/hero-carousel", attributes: { kotlinskidevAboveFold: true } },
+        ],
+      },
+    ];
+
+    renderCover();
+
+    expect(
+      screen.getByText(
+        "2 elements on this page are marked above the fold. Only the first gets high priority."
+      )
+    ).toBeInTheDocument();
   });
 });

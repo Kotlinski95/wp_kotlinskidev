@@ -28,6 +28,7 @@ import "./scripts/load-more";
 import "./scripts/analytics";
 import "./scripts/active-link-state";
 import "./scripts/hover-glow";
+import "./scripts/viewport-deferred-images";
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log(

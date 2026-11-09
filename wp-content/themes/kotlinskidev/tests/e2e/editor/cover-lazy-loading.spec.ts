@@ -25,22 +25,29 @@ async function setUpEditor(page: Page, title: string) {
   return { editor, admin };
 }
 
+async function openAdvancedPanel(page: Page) {
+  const toggle = page.getByRole("button", { name: "Advanced", exact: true });
+  if ((await toggle.getAttribute("aria-expanded")) !== "true") {
+    await toggle.click();
+  }
+}
+
 test.describe("Cover/Image lazy loading override — Site Editor (kotlinskidev/cover-lazy-loading)", () => {
-  test("toggling Skip Lazy Loading on an image updates the saved attribute", async ({ page }) => {
+  test("toggling Above the fold on an image updates the saved attribute", async ({ page }) => {
     const { editor } = await setUpEditor(page, "E2E Editor Test — Lazy Image A");
 
     await editor.insertBlock({ name: "core/image", attributes: { url: IMAGE_URL, alt: "team" } });
     await editor.openDocumentSettingsSidebar();
     await openBlockSettingsTab(page);
+    await openAdvancedPanel(page);
 
-    await page.getByRole("button", { name: /Lazy Loading Settings/ }).click();
-    await page.getByRole("checkbox", { name: "Skip Lazy Loading" }).click();
+    await page.getByRole("checkbox", { name: "Above the fold" }).click();
 
     const content = await editor.getEditedPostContent();
-    expect(content).toContain('"kotlinskidevSkipLazy":true');
+    expect(content).toContain('"kotlinskidevAboveFold":true');
   });
 
-  test("toggling Skip Lazy Loading on a cover updates the saved attribute", async ({ page }) => {
+  test("toggling Above the fold on a cover updates the saved attribute", async ({ page }) => {
     const { editor } = await setUpEditor(page, "E2E Editor Test — Lazy Cover B");
 
     await editor.insertBlock({ name: "core/cover", attributes: { url: IMAGE_URL } });
@@ -48,12 +55,12 @@ test.describe("Cover/Image lazy loading override — Site Editor (kotlinskidev/c
     await page.getByRole("button", { name: "Cover", exact: true }).click();
     await editor.openDocumentSettingsSidebar();
     await openBlockSettingsTab(page);
+    await openAdvancedPanel(page);
 
-    await page.getByRole("button", { name: /Lazy Loading Settings/ }).click();
-    await page.getByRole("checkbox", { name: "Skip Lazy Loading" }).click();
+    await page.getByRole("checkbox", { name: "Above the fold" }).click();
 
     const content = await editor.getEditedPostContent();
-    expect(content).toContain('"kotlinskidevSkipLazy":true');
+    expect(content).toContain('"kotlinskidevAboveFold":true');
   });
 
   test("the panel is not shown for an unsupported block", async ({ page }) => {
@@ -63,10 +70,10 @@ test.describe("Cover/Image lazy loading override — Site Editor (kotlinskidev/c
     await editor.openDocumentSettingsSidebar();
     await openBlockSettingsTab(page);
 
-    await expect(page.getByRole("button", { name: /Lazy Loading Settings/ })).toHaveCount(0);
+    await expect(page.getByRole("checkbox", { name: "Above the fold" })).toHaveCount(0);
   });
 
-  test("publishing an image with Skip Lazy Loading enabled renders eager-loaded on the frontend", async ({
+  test("publishing an image with Above the fold enabled renders eager-loaded on the frontend", async ({
     page,
     browser,
   }) => {
@@ -75,8 +82,8 @@ test.describe("Cover/Image lazy loading override — Site Editor (kotlinskidev/c
     await editor.insertBlock({ name: "core/image", attributes: { url: IMAGE_URL, alt: "team" } });
     await editor.openDocumentSettingsSidebar();
     await openBlockSettingsTab(page);
-    await page.getByRole("button", { name: /Lazy Loading Settings/ }).click();
-    await page.getByRole("checkbox", { name: "Skip Lazy Loading" }).click();
+    await openAdvancedPanel(page);
+    await page.getByRole("checkbox", { name: "Above the fold" }).click();
 
     const postId = await editor.publishPost();
     expect(postId).not.toBeNull();

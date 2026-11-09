@@ -1,84 +1,91 @@
 <?php
-/**
- * Control lazy loading directly for cover and image blocks
- */
+function kotlinskidev_get_lazy_control_block_names(): array
+{
+    return array('core/cover', 'core/image', 'core/video');
+}
+
+function kotlinskidev_get_cover_video_poster_url(array $block): string
+{
+    $attrs = $block['attrs'] ?? array();
+
+    if ('core/cover' !== ($block['blockName'] ?? '') || 'video' !== ($attrs['backgroundType'] ?? '')) {
+        return '';
+    }
+
+    if (!empty($attrs['poster'])) {
+        return (string) $attrs['poster'];
+    }
+
+    if (!empty($attrs['id'])) {
+        return (string) get_the_post_thumbnail_url($attrs['id']);
+    }
+
+    return '';
+}
+
+function kotlinskidev_add_media_classes(string $attributes, array $classes): string
+{
+    if (false !== strpos($attributes, 'class=')) {
+        return preg_replace('/class="([^"]*)"/', 'class="$1 ' . implode(' ', $classes) . '"', $attributes);
+    }
+
+    return $attributes . ' class="' . implode(' ', $classes) . '"';
+}
+
 function control_block_lazy_loading($output, $block)
 {
-    // Only process cover and image blocks
-    if ($block['blockName'] !== 'core/cover' && $block['blockName'] !== 'core/image') {
+    if (!in_array($block['blockName'], kotlinskidev_get_lazy_control_block_names(), true)) {
         return $output;
     }
 
-    // Check if this specific block should skip lazy loading
-    $skip_lazy = isset($block['attrs']['kotlinskidevSkipLazy']) && $block['attrs']['kotlinskidevSkipLazy'];
-    
-    if ($skip_lazy) {
-        // Get the configurable class name from theme options
-        $lazy_class = get_theme_mod('kotlinskidev_lazy_loading_class', 'skip-lazy');
-        
-        // Remove any lazy loading attributes and force eager loading for images
-        $output = preg_replace_callback(
-            '/<img([^>]*)>/i',
-            function($matches) use ($lazy_class) {
-                $img_attributes = $matches[1];
-                
-                // Remove any existing lazy loading attributes
-                $img_attributes = preg_replace('/\s*loading=["\'][^"\']*["\']/', '', $img_attributes);
-                $img_attributes = preg_replace('/\s*fetchpriority=["\'][^"\']*["\']/', '', $img_attributes);
-                $img_attributes = preg_replace('/\s*data-lazy-src=["\'][^"\']*["\']/', '', $img_attributes);
-                $img_attributes = preg_replace('/\s*data-src=["\'][^"\']*["\']/', '', $img_attributes);
-                $img_attributes = preg_replace('/\s*data-lazy=["\'][^"\']*["\']/', '', $img_attributes);
-                
-                // Force eager loading and high fetch priority
-                $img_attributes .= ' loading="eager" fetchpriority="high"';
-                
-                // Add both the configurable skip-lazy class AND the debug class
-                $classes_to_add = array($lazy_class, 'no-lazy-loading');
-                
-                if (strpos($img_attributes, 'class=') !== false) {
-                    // Add to existing class attribute
-                    $img_attributes = preg_replace('/class="([^"]*)"/', 'class="$1 ' . implode(' ', $classes_to_add) . '"', $img_attributes);
-                } else {
-                    // Create new class attribute
-                    $img_attributes .= ' class="' . implode(' ', $classes_to_add) . '"';
-                }
-                
-                return '<img' . $img_attributes . '>';
-            },
-            $output
-        );
-        
-        // Handle video elements - remove lazy loading and set high priority
-        $output = preg_replace_callback(
-            '/<video([^>]*)>/i',
-            function($matches) use ($lazy_class) {
-                $video_attributes = $matches[1];
-                
-                // Remove any existing lazy loading attributes
-                $video_attributes = preg_replace('/\s*loading=["\'][^"\']*["\']/', '', $video_attributes);
-                $video_attributes = preg_replace('/\s*fetchpriority=["\'][^"\']*["\']/', '', $video_attributes);
-                $video_attributes = preg_replace('/\s*data-lazy=["\'][^"\']*["\']/', '', $video_attributes);
-                $video_attributes = preg_replace('/\s*data-src=["\'][^"\']*["\']/', '', $video_attributes);
-                
-                // Set high fetch priority for videos
-                $video_attributes .= ' fetchpriority="high"';
-                
-                // Add the skip-lazy class to videos as well
-                $classes_to_add = array($lazy_class, 'no-lazy-loading');
-                
-                if (strpos($video_attributes, 'class=') !== false) {
-                    // Add to existing class attribute
-                    $video_attributes = preg_replace('/class="([^"]*)"/', 'class="$1 ' . implode(' ', $classes_to_add) . '"', $video_attributes);
-                } else {
-                    // Create new class attribute
-                    $video_attributes .= ' class="' . implode(' ', $classes_to_add) . '"';
-                }
-                
-                return '<video' . $video_attributes . '>';
-            },
-            $output
-        );
+    if (!kotlinskidev_is_above_fold($block)) {
+        return $output;
     }
+
+    $lazy_class       = get_theme_mod('kotlinskidev_lazy_loading_class', 'skip-lazy');
+    $classes_to_add   = array($lazy_class, 'no-lazy-loading');
+    $high_priority    = kotlinskidev_claim_lcp_slot(kotlinskidev_get_cover_video_poster_url($block));
+
+    $take_high_priority = static function () use (&$high_priority): string {
+        $attribute     = $high_priority ? ' fetchpriority="high"' : '';
+        $high_priority = false;
+        return $attribute;
+    };
+
+    $output = preg_replace_callback(
+        '/<img([^>]*?)\s*\/?>/i',
+        function ($matches) use ($classes_to_add, $take_high_priority) {
+            $img_attributes = $matches[1];
+
+            $img_attributes = preg_replace('/\s*loading=["\'][^"\']*["\']/', '', $img_attributes);
+            $img_attributes = preg_replace('/\s*fetchpriority=["\'][^"\']*["\']/', '', $img_attributes);
+            $img_attributes = preg_replace('/\s*data-lazy-src=["\'][^"\']*["\']/', '', $img_attributes);
+            $img_attributes = preg_replace('/\s*data-src=["\'][^"\']*["\']/', '', $img_attributes);
+            $img_attributes = preg_replace('/\s*data-lazy=["\'][^"\']*["\']/', '', $img_attributes);
+
+            $img_attributes .= ' loading="eager"' . $take_high_priority();
+
+            return '<img' . kotlinskidev_add_media_classes($img_attributes, $classes_to_add) . '>';
+        },
+        $output
+    );
+
+    $output = preg_replace_callback(
+        '/<video([^>]*?)\s*\/?>/i',
+        function ($matches) use ($classes_to_add, $take_high_priority) {
+            $video_attributes = $matches[1];
+
+            $video_attributes = preg_replace('/\s*loading=["\'][^"\']*["\']/', '', $video_attributes);
+            $video_attributes = preg_replace('/\s*fetchpriority=["\'][^"\']*["\']/', '', $video_attributes);
+            $video_attributes = preg_replace('/\s*data-lazy=["\'][^"\']*["\']/', '', $video_attributes);
+            $video_attributes = preg_replace('/\s*data-src=["\'][^"\']*["\']/', '', $video_attributes);
+
+            $video_attributes .= $take_high_priority();
+
+            return '<video' . kotlinskidev_add_media_classes($video_attributes, $classes_to_add) . '>';
+        },
+        $output
+    );
 
     return $output;
 }
@@ -106,13 +113,11 @@ add_filter('wp_img_tag_add_loading_attr', 'disable_wp_lazy_loading_for_blocks', 
 function set_lazy_loading_context($output, $block) {
     global $current_block_skip_lazy;
     
-    // Only process cover and image blocks
-    if ($block['blockName'] !== 'core/cover' && $block['blockName'] !== 'core/image') {
+    if (!in_array($block['blockName'], kotlinskidev_get_lazy_control_block_names(), true)) {
         return $output;
     }
-    
-    // Set global flag if this block should skip lazy loading
-    $current_block_skip_lazy = isset($block['attrs']['kotlinskidevSkipLazy']) && $block['attrs']['kotlinskidevSkipLazy'];
+
+    $current_block_skip_lazy = kotlinskidev_is_above_fold($block);
     
     return $output;
 }
@@ -133,9 +138,8 @@ function add_lazy_loading_override_script() {
             img.removeAttribute('data-lazy');
             img.removeAttribute('data-smush-lazy');
             
-            // Force loading to eager and set high fetch priority
+            // Force loading to eager
             img.setAttribute('loading', 'eager');
-            img.setAttribute('fetchpriority', 'high');
             
             // If the image has a data-src (lazy loading), move it to src immediately
             if (img.hasAttribute('data-src') && !img.src) {
@@ -148,9 +152,6 @@ function add_lazy_loading_override_script() {
             // Remove any lazy loading attributes that might have been added by plugins
             video.removeAttribute('data-lazy');
             video.removeAttribute('data-src');
-            
-            // Set high fetch priority for videos
-            video.setAttribute('fetchpriority', 'high');
             
             // If the video has a data-src (lazy loading), move it to src immediately
             if (video.hasAttribute('data-src') && !video.src) {

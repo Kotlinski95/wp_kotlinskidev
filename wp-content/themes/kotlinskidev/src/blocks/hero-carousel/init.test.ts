@@ -154,15 +154,17 @@ describe("hero-carousel/init.ts", () => {
     expect(mockUnobserveSpy).toHaveBeenCalledWith(el);
   });
 
-  it("preloads images and prepares video sources for non-active slides only", () => {
+  it("prepares the active slide on init and only the next slide after the page settles, not later slides", () => {
+    jest.useFakeTimers();
     const el = buildCarouselElement();
-    const activeSlide = buildSlide({ lazyImg: true });
+    const activeSlide = buildSlide({ lazyImg: true, video: { dataSrc: "a.mp4" } });
     const otherSlide = buildSlide({
       lazyImg: true,
       video: { dataSrc: "b.mp4", dataPoster: "b.jpg" },
     });
+    const farSlide = buildSlide({ lazyImg: true, video: { dataSrc: "c.mp4" } });
     mockInitSwiperReturn = {
-      slides: [activeSlide, otherSlide],
+      slides: [activeSlide, otherSlide, farSlide],
       activeIndex: 0,
       previousIndex: 0,
       on: jest.fn(),
@@ -174,14 +176,109 @@ describe("hero-carousel/init.ts", () => {
       unobserve: mockUnobserveSpy,
     });
 
-    expect(activeSlide.querySelector("img")?.loading).toBe("lazy");
-    expect(otherSlide.querySelector("img")?.loading).toBe("eager");
     const otherVideo = otherSlide.querySelector("video") as HTMLVideoElement;
+    expect(otherVideo.src).toBe("");
+    expect((activeSlide.querySelector("video") as HTMLVideoElement).src).toContain("a.mp4");
+    jest.runAllTimers();
+
+    expect(activeSlide.querySelector("img")?.loading).toBe("eager");
+    expect(otherSlide.querySelector("img")?.loading).toBe("eager");
     expect(otherVideo.src).toContain("b.mp4");
     expect(otherVideo.poster).toContain("b.jpg");
+    expect(farSlide.querySelector("img")?.loading).toBe("lazy");
+    expect((farSlide.querySelector("video") as HTMLVideoElement).src).toBe("");
+    jest.useRealTimers();
   });
 
-  it("plays the active slide's video once initialized", () => {
+  describe("deferred preparation of the next slide", () => {
+    const start = () => {
+      const el = buildCarouselElement();
+      const activeSlide = buildSlide({ video: { dataSrc: "a.mp4" } });
+      const nextSlide = buildSlide({ video: { dataSrc: "b.mp4", dataPoster: "b.jpg" } });
+      mockInitSwiperReturn = {
+        slides: [activeSlide, nextSlide],
+        activeIndex: 0,
+        previousIndex: 0,
+        on: jest.fn(),
+        update: jest.fn(),
+      };
+      loadModule();
+      mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
+        unobserve: mockUnobserveSpy,
+      });
+      return nextSlide.querySelector("video") as HTMLVideoElement;
+    };
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it("keeps the next slide untouched before the delay elapses", () => {
+      jest.useFakeTimers();
+      const nextVideo = start();
+
+      jest.advanceTimersByTime(1900);
+
+      expect(nextVideo.src).toBe("");
+      expect(nextVideo.poster).toBe("");
+    });
+
+    it("prepares the next slide once the delay elapses", () => {
+      jest.useFakeTimers();
+      const nextVideo = start();
+
+      jest.advanceTimersByTime(2100);
+
+      expect(nextVideo.src).toContain("b.mp4");
+      expect(nextVideo.poster).toContain("b.jpg");
+    });
+
+    it.each(["pointerdown", "keydown", "touchstart", "scroll"])(
+      "prepares the next slide early on %s",
+      (type) => {
+        jest.useFakeTimers();
+        const nextVideo = start();
+
+        window.dispatchEvent(new Event(type));
+
+        expect(nextVideo.src).toContain("b.mp4");
+        expect(nextVideo.poster).toContain("b.jpg");
+      }
+    );
+  });
+
+  it("prepares the target and following slide on slideChangeTransitionStart", () => {
+    const el = buildCarouselElement();
+    const slides = [
+      buildSlide({ video: {} }),
+      buildSlide({ video: { dataSrc: "b.mp4" } }),
+      buildSlide({ video: { dataSrc: "c.mp4" } }),
+      buildSlide({ video: { dataSrc: "d.mp4" } }),
+    ];
+    const onHandlers: Record<string, () => void> = {};
+    mockInitSwiperReturn = {
+      slides,
+      activeIndex: 1,
+      previousIndex: 0,
+      on: jest.fn((event: string, handler: () => void) => {
+        onHandlers[event] = handler;
+      }),
+      update: jest.fn(),
+    };
+
+    loadModule();
+    mockIntersectionCallback?.([{ isIntersecting: true, target: el }], {
+      unobserve: mockUnobserveSpy,
+    });
+    onHandlers.slideChangeTransitionStart();
+
+    expect((slides[1].querySelector("video") as HTMLVideoElement).src).toContain("b.mp4");
+    expect((slides[2].querySelector("video") as HTMLVideoElement).src).toContain("c.mp4");
+    expect((slides[3].querySelector("video") as HTMLVideoElement).src).toBe("");
+  });
+
+  it("plays the active slide's video once the page settles", () => {
+    jest.useFakeTimers();
     const el = buildCarouselElement();
     const activeSlide = buildSlide({ video: {} });
     mockInitSwiperReturn = {
@@ -197,7 +294,10 @@ describe("hero-carousel/init.ts", () => {
       unobserve: mockUnobserveSpy,
     });
 
+    jest.runAllTimers();
+
     expect(activeSlide.querySelector("video")?.play).toHaveBeenCalled();
+    jest.useRealTimers();
   });
 
   it("pauses the previous slide's video on slideChangeTransitionStart", () => {

@@ -234,6 +234,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Performance
 
+- **2026-11-09 — Hero carousels now load only the next slide after `load`, nav-banner and device-frame media wait for hover, drawer open or a 200px viewport margin, and the 2.5 MB `projects-all-1.gif` became a 1 MB lazy MP4.** A single per-instance "Above the fold" toggle (`kotlinskidevAboveFold`, replacing `kotlinskidevSkipLazy`) now decides eager loading, so `functions/above-fold-media.php` gives `fetchpriority="high"` and the head preload to only one element per page. Content-tabs CSS is deferred and the footer image no longer forces eager loading. Device-frame posters, next-slide carousel posters and content-tabs images (`functions/viewport-deferred-images.php`) now load near the viewport or after first interaction instead of before LCP.
 - **2026-10-13 — Audited every hover/scroll-reveal animation for `will-change` correctness, moving it off permanently-applied hover classes and into their own `:hover` rule so the compositor layer only exists while actually hovered.** Removed it from a non-accelerated gradient-background rule where it had no benefit, and added cleanup in `scroll-animations.ts` so one-shot scroll-reveals release their layer once revealed instead of holding it forever.
 
 ### Chore

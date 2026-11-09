@@ -21,6 +21,7 @@ function buildMegaNav({ linkNavigates = false }: { linkNavigates?: boolean } = {
       <div class="kt-mega-nav__panel" data-panel="products">
         <a href="#a">First</a>
         <a href="#b">Last</a>
+        <img data-src="banner.jpg" alt="">
       </div>
       <div class="kt-mega-nav__panel" data-panel="solutions"></div>
     </nav>
@@ -257,5 +258,29 @@ describe("mega-menu.ts", () => {
     nav.dispatchEvent(new FocusEvent("focusout", { relatedTarget: panelLink }));
 
     expect(getItem("products").classList.contains("is-active")).toBe(true);
+  });
+
+  describe("deferred banner images", () => {
+    const panelImg = () => getPanel("products").querySelector("img") as HTMLImageElement;
+
+    it("loads the panel image when the panel opens", () => {
+      buildMegaNav();
+      expect(panelImg().getAttribute("src")).toBeNull();
+      (document.querySelector(".kt-mega-nav__link") as HTMLElement).click();
+      expect(panelImg().getAttribute("src")).toBe("banner.jpg");
+      expect(panelImg().hasAttribute("data-src")).toBe(false);
+    });
+
+    it("loads the panel image on trigger mouseenter", () => {
+      buildMegaNav();
+      getItem("products").dispatchEvent(new Event("mouseenter"));
+      expect(panelImg().getAttribute("src")).toBe("banner.jpg");
+    });
+
+    it("loads the panel image on trigger focusin", () => {
+      buildMegaNav();
+      getItem("products").dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+      expect(panelImg().getAttribute("src")).toBe("banner.jpg");
+    });
   });
 });

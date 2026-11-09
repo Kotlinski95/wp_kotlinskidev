@@ -12,7 +12,7 @@ Scope: `src/scripts/*` (`accessibility.ts`, `hamburger.ts`, `mega-menu.ts`, `sea
 - [ ] Inlined SVGs (`functions/svg-support.php`) that are decorative get `aria-hidden="true" focusable="false"` (already applied by `kotlinskidev_build_inline_svg`); SVGs that convey meaning on their own (not paired with visible text) get an accessible name via `<title>` or `aria-label` instead of being blanket-hidden.
 - [ ] Every icon-only interactive control has a non-empty accessible name: hamburger toggle, search-panel trigger, theme-switcher, scroll-to-top, language-panel indicator, social icons (`social-item` block).
 - [ ] **`functions/image-link-accessibility.php` is a hardcoded URL→label lookup covering exactly 6 fixed URLs in 2 languages** — any icon-only image link outside that list (or any URL that changes) silently loses its accessible name. Prefer sourcing the label from the block's own attributes (or the linked page's title) so coverage isn't hand-maintained and language/URL-drift doesn't silently break it.
-- [ ] Background/hero videos (`cover-video-preload`, `hero-carousel` slide video) that carry meaningful audio content have captions/transcripts; purely decorative muted background video does not need alt text but should be marked `aria-hidden` if it has no `<video>` controls exposed.
+- [ ] Background/hero videos (`above-fold-media`, `hero-carousel` slide video) that carry meaningful audio content have captions/transcripts; purely decorative muted background video does not need alt text but should be marked `aria-hidden` if it has no `<video>` controls exposed.
 
 ## 2. Perceivable — Color, Contrast & Color-Blindness (WCAG 1.4.1, 1.4.3, 1.4.6 AAA, 1.4.11)
 

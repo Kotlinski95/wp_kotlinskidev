@@ -9,7 +9,7 @@
   "textdomain": "kotlinskidev",
   "render": "file:./render.php",
   "parent": ["kotlinskidev/hero-carousel"],
-  "usesContext": ["kotlinskidev/lazyLoad"],
+  "usesContext": ["kotlinskidev/lazyLoad", "kotlinskidev/aboveFold"],
   "supports": {
     "inserter": false,
     "reusable": false,

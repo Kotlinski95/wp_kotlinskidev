@@ -1,4 +1,5 @@
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
+import { loadDeferredImages } from "@utils/load-deferred-images";
 import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
 
 const OPEN_DELAY = 500;
@@ -70,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nav.classList.add("has-open-panel");
     lockScroll(LOCK_OWNER);
     if (panel) {
+      loadDeferredImages(panel);
       dispatchNavPanelOpen(panel);
     }
   };
@@ -116,7 +118,18 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    const warmPanelImages = () => {
+      const target = panelId
+        ? nav.querySelector<HTMLElement>(`.kt-mega-nav__panel[data-panel="${panelId}"]`)
+        : null;
+      if (target) {
+        loadDeferredImages(target);
+      }
+    };
+    item.addEventListener("focusin", warmPanelImages);
+
     item.addEventListener("mouseenter", () => {
+      warmPanelImages();
       cancelClose();
       cancelSwitch();
       if (panelId) {
