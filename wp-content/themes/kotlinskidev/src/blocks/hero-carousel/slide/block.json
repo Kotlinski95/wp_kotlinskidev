@@ -26,6 +26,8 @@
     "bgImageId": { "type": "number", "default": 0 },
     "bgVideoUrl": { "type": "string", "default": "" },
     "bgVideoId": { "type": "number", "default": 0 },
+    "bgVideoAlphaUrl": { "type": "string", "default": "" },
+    "bgVideoAlphaId": { "type": "number", "default": 0 },
     "bgOverlay": { "type": "number", "default": 0.4 },
     "slideIndex": { "type": "number", "default": 0 }
   }

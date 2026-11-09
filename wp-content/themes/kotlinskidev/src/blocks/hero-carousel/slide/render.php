@@ -2,6 +2,7 @@
 $bg_image_id  = absint( $attributes['bgImageId'] ?? 0 );
 $bg_image_url = esc_url( $attributes['bgImageUrl'] ?? '' );
 $bg_video_url = esc_url( $attributes['bgVideoUrl'] ?? '' );
+$bg_video_alpha_url = esc_url( $attributes['bgVideoAlphaUrl'] ?? '' );
 $bg_overlay   = min( 1.0, max( 0.0, (float) ( $attributes['bgOverlay'] ?? 0.4 ) ) );
 $slide_index  = absint( $attributes['slideIndex'] ?? 0 );
 $poster_url   = $bg_image_id ? wp_get_attachment_url( $bg_image_id ) : $bg_image_url;
@@ -42,6 +43,7 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 					data-src="<?php echo esc_url( $bg_video_url ); ?>"
 					<?php if ( $poster_url ) : ?>data-poster="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
 				<?php endif; ?>
+				<?php if ( $bg_video_alpha_url ) : ?>data-src-alpha="<?php echo esc_url( $bg_video_alpha_url ); ?>"<?php endif; ?>
 				muted
 				loop
 				playsinline

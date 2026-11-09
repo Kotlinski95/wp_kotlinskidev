@@ -15,6 +15,8 @@ Object.defineProperty(performance, "getEntriesByType", {
 
 import "./restoration";
 
+const KEY = `kt-scroll:${window.location.pathname}${window.location.search}`;
+
 function mockNavigationEntries(entries: unknown[]) {
   (performance.getEntriesByType as jest.Mock).mockReturnValue(entries);
 }
@@ -22,7 +24,7 @@ function mockNavigationEntries(entries: unknown[]) {
 describe("restoration.ts", () => {
   afterEach(() => {
     (performance.getEntriesByType as jest.Mock).mockReset();
-    localStorage.clear();
+    sessionStorage.clear();
   });
 
   it("stores the current scroll position on pagehide", () => {
@@ -30,11 +32,11 @@ describe("restoration.ts", () => {
 
     window.dispatchEvent(new Event("pagehide"));
 
-    expect(localStorage.getItem("scrollPosition")).toBe("456");
+    expect(sessionStorage.getItem(KEY)).toBe("456");
   });
 
   it("restores scroll position on a back/forward navigation", () => {
-    localStorage.setItem("scrollPosition", "789");
+    sessionStorage.setItem(KEY, "789");
     mockNavigationEntries([new MockPerformanceNavigationTiming("back_forward")]);
     window.scrollTo = jest.fn();
 
@@ -44,7 +46,7 @@ describe("restoration.ts", () => {
   });
 
   it("restores scroll position on a reload navigation", () => {
-    localStorage.setItem("scrollPosition", "321");
+    sessionStorage.setItem(KEY, "321");
     mockNavigationEntries([new MockPerformanceNavigationTiming("reload")]);
     window.scrollTo = jest.fn();
 
@@ -62,28 +64,62 @@ describe("restoration.ts", () => {
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
-  it("treats a persisted pageshow with no navigation entries as back_forward", () => {
-    mockNavigationEntries([]);
-    localStorage.setItem("scrollPosition", "100");
+  it("skips restore on a persisted pageshow because bfcache keeps the real position", () => {
+    mockNavigationEntries([new MockPerformanceNavigationTiming("back_forward")]);
+    sessionStorage.setItem(KEY, "100");
     window.scrollTo = jest.fn();
 
     const event = new Event("pageshow") as Event & { persisted: boolean };
     Object.defineProperty(event, "persisted", { value: true });
     window.dispatchEvent(event);
 
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 100);
+    expect(window.scrollTo).not.toHaveBeenCalled();
   });
 
   it("treats a non-persisted pageshow with no navigation entries as a normal navigate", () => {
     mockNavigationEntries([]);
-    localStorage.setItem("scrollPosition", "100");
+    sessionStorage.setItem(KEY, "100");
     window.scrollTo = jest.fn();
 
-    const event = new Event("pageshow") as Event & { persisted: boolean };
-    Object.defineProperty(event, "persisted", { value: false });
-    window.dispatchEvent(event);
+    window.dispatchEvent(new Event("pageshow"));
 
     expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("keys the stored position per URL so another page's offset is never restored", () => {
+    mockNavigationEntries([new MockPerformanceNavigationTiming("back_forward")]);
+    sessionStorage.setItem("kt-scroll:/other/", "800");
+    window.scrollTo = jest.fn();
+
+    window.dispatchEvent(new Event("pageshow"));
+
+    expect(window.scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("flags a programmatic scroll while restoring and clears it once settled", () => {
+    jest.useFakeTimers();
+    Object.defineProperty(performance, "getEntriesByType", {
+      writable: true,
+      configurable: true,
+      value: jest.fn(),
+    });
+    try {
+      sessionStorage.setItem(KEY, "50");
+      mockNavigationEntries([new MockPerformanceNavigationTiming("back_forward")]);
+      let currentY = 0;
+      Object.defineProperty(window, "scrollY", { configurable: true, get: () => currentY });
+      window.scrollTo = jest.fn((_x: number, y: number) => {
+        currentY = y;
+      });
+
+      window.dispatchEvent(new Event("pageshow"));
+      expect(window.kotlinskidevProgrammaticScrollActive).toBe(true);
+      jest.advanceTimersByTime(2000);
+
+      expect(window.kotlinskidevProgrammaticScrollActive).toBe(false);
+    } finally {
+      jest.useRealTimers();
+    }
   });
 
   it("does not call scrollTo when there is no stored scroll position", () => {
@@ -104,7 +140,7 @@ describe("restoration.ts", () => {
       value: jest.fn(),
     });
     try {
-      localStorage.setItem("scrollPosition", "500");
+      sessionStorage.setItem(KEY, "500");
       mockNavigationEntries([new MockPerformanceNavigationTiming("reload")]);
 
       let currentMax = 100;
@@ -135,7 +171,7 @@ describe("restoration.ts", () => {
       value: jest.fn(),
     });
     try {
-      localStorage.setItem("scrollPosition", "9999");
+      sessionStorage.setItem(KEY, "9999");
       mockNavigationEntries([new MockPerformanceNavigationTiming("reload")]);
 
       let currentY = 0;

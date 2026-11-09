@@ -15,6 +15,8 @@ export interface HeroSlideAttributes {
   bgImageId: number;
   bgVideoUrl: string;
   bgVideoId: number;
+  bgVideoAlphaUrl: string;
+  bgVideoAlphaId: number;
   bgOverlay: number;
   style?: { spacing?: Record<string, unknown> };
 }
@@ -37,7 +39,15 @@ export default function Edit({
   attributes: HeroSlideAttributes;
   setAttributes: (attrs: Partial<HeroSlideAttributes>) => void;
 }) {
-  const { bgImageUrl, bgImageId, bgVideoUrl, bgVideoId, bgOverlay = 0.4 } = attributes;
+  const {
+    bgImageUrl,
+    bgImageId,
+    bgVideoUrl,
+    bgVideoId,
+    bgVideoAlphaUrl,
+    bgVideoAlphaId,
+    bgOverlay = 0.4,
+  } = attributes;
   const contentSpacingStyle = getSpacingClassesAndStyles(attributes).style;
 
   return (
@@ -107,6 +117,49 @@ export default function Edit({
               >
                 {__("Remove Video", "kotlinskidev")}
               </Button>
+            )}
+
+            {bgVideoUrl && (
+              <>
+                <p className="hero-carousel-sidebar-label" style={{ marginTop: "0.75rem" }}>
+                  {__("Video for Safari/iOS (HEVC with alpha)", "kotlinskidev")}
+                </p>
+                <MediaUpload
+                  onSelect={(item) => {
+                    const media = item as WPMediaItem;
+                    setAttributes({ bgVideoAlphaUrl: media.url, bgVideoAlphaId: media.id });
+                  }}
+                  allowedTypes={["video"]}
+                  value={bgVideoAlphaId || undefined}
+                  render={({ open }) => (
+                    <Button
+                      variant={bgVideoAlphaUrl ? "secondary" : "tertiary"}
+                      onClick={open}
+                      style={{ width: "100%", justifyContent: "center" }}
+                    >
+                      {bgVideoAlphaUrl
+                        ? __("Change Safari/iOS Video", "kotlinskidev")
+                        : __("Set Safari/iOS Video", "kotlinskidev")}
+                    </Button>
+                  )}
+                />
+                <p className="components-base-control__help">
+                  {__(
+                    "Optional. Safari and iOS ignore the transparency of WebM videos. Upload an HEVC .mov/.mp4 with an alpha channel to use there instead.",
+                    "kotlinskidev"
+                  )}
+                </p>
+                {bgVideoAlphaUrl && (
+                  <Button
+                    variant="tertiary"
+                    isDestructive
+                    onClick={() => setAttributes({ bgVideoAlphaUrl: "", bgVideoAlphaId: 0 })}
+                    style={{ width: "100%", justifyContent: "center", marginTop: "0.25rem" }}
+                  >
+                    {__("Remove Safari/iOS Video", "kotlinskidev")}
+                  </Button>
+                )}
+              </>
             )}
           </MediaUploadCheck>
 

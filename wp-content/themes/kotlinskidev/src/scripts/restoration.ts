@@ -1,3 +1,5 @@
+import { beginProgrammaticScroll, endProgrammaticScroll } from "./utils";
+
 const RESTORE_MAX_FRAMES = 240;
 const RESTORE_STABLE_FRAMES_REQUIRED = 6;
 
@@ -7,6 +9,8 @@ function restoreScroll(target: number): void {
   let stableFrames = 0;
   let frame = 0;
 
+  beginProgrammaticScroll();
+
   const tick = (): void => {
     window.scrollTo(0, target);
     const y = window.scrollY;
@@ -14,6 +18,7 @@ function restoreScroll(target: number): void {
     lastY = y;
     frame += 1;
     if (stableFrames >= RESTORE_STABLE_FRAMES_REQUIRED || frame >= RESTORE_MAX_FRAMES) {
+      endProgrammaticScroll();
       return;
     }
     requestAnimationFrame(tick);
@@ -22,30 +27,58 @@ function restoreScroll(target: number): void {
   tick();
 }
 
+const STORAGE_KEY_PREFIX = "kt-scroll:";
+
+function storageKey(): string {
+  return `${STORAGE_KEY_PREFIX}${window.location.pathname}${window.location.search}`;
+}
+
+function readNavigationType(): string {
+  const entries = performance.getEntriesByType("navigation");
+  if (entries.length > 0 && entries[0] instanceof PerformanceNavigationTiming) {
+    return entries[0].type;
+  }
+  return "navigate";
+}
+
+function readStoredPosition(): number | null {
+  try {
+    const raw = sessionStorage.getItem(storageKey());
+    if (raw === null) {
+      return null;
+    }
+    const value = Number(raw);
+    return Number.isFinite(value) && value > 0 ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredPosition(position: number): boolean {
+  try {
+    sessionStorage.setItem(storageKey(), `${position}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 (function () {
   window.addEventListener("pagehide", () => {
-    localStorage.setItem("scrollPosition", `${window.scrollY}`);
+    writeStoredPosition(window.scrollY);
   });
 
   window.addEventListener("pageshow", (event) => {
-    const navigationEntries = performance.getEntriesByType("navigation");
-    let navigationType: string;
-    if (
-      navigationEntries.length > 0 &&
-      navigationEntries[0] instanceof PerformanceNavigationTiming
-    ) {
-      navigationType = navigationEntries[0].type;
-    } else if (event.persisted) {
-      navigationType = "back_forward";
-    } else {
-      navigationType = "navigate";
+    if (event.persisted) {
+      return;
     }
-
-    if (navigationType === "back_forward" || navigationType === "reload") {
-      const scrollPosition = localStorage.getItem("scrollPosition");
-      if (scrollPosition) {
-        restoreScroll(+scrollPosition);
-      }
+    const navigationType = readNavigationType();
+    if (navigationType !== "back_forward" && navigationType !== "reload") {
+      return;
+    }
+    const position = readStoredPosition();
+    if (position !== null) {
+      restoreScroll(position);
     }
   });
 })();
