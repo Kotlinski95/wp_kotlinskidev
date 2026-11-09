@@ -112,6 +112,12 @@ jobs:
           set -euo pipefail
           deploy_path="$1"; owner="$2"; shift 2
           cd "$deploy_path"
+          for d in $(for p in "$@"; do dirname "$p"; done | sort -u); do
+            if [ -d "$d" ]; then
+              sudo chown "$owner:www-data" "$d"
+              sudo chmod 2775 "$d"
+            fi
+          done
           for p in "$@"; do
             if [ -e "$p" ]; then
               sudo chown -R "$owner:www-data" "$p"
@@ -147,6 +153,12 @@ jobs:
           set -euo pipefail
           deploy_path="$1"; owner="$2"; shift 2
           cd "$deploy_path"
+          for d in $(for p in "$@"; do dirname "$p"; done | sort -u); do
+            if [ -d "$d" ]; then
+              sudo chown "$owner:www-data" "$d"
+              sudo chmod 2775 "$d"
+            fi
+          done
           for p in "$@"; do
             if [ -e "$p" ]; then
               sudo chown -R "$owner:www-data" "$p"
