@@ -11,10 +11,13 @@
 		--kt-hover-opacity-easing: ease;
 	}
 
-	&:has(> *:hover) > *:not(:hover),
-	&:has(> *:focus-within) > *:not(:focus-within) {
-		filter: blur(var(--kt-blur-amount, 0.25rem));
-		opacity: 0.6;
+	@media (hover: hover) and (pointer: fine) {
+
+		&:has(> *:hover) > *:not(:hover),
+		&:has(> *:focus-within) > *:not(:focus-within) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
 	}
 }
 
@@ -30,8 +33,11 @@
 		--kt-hover-opacity-easing: ease;
 	}
 
-	&:has(#{$leaf-column}:hover, #{$leaf-column}:focus-within) #{$leaf-column}:not(:hover):not(:focus-within) {
-		filter: blur(var(--kt-blur-amount, 0.25rem));
-		opacity: 0.6;
+	@media (hover: hover) and (pointer: fine) {
+
+		&:has(#{$leaf-column}:hover, #{$leaf-column}:focus-within) #{$leaf-column}:not(:hover):not(:focus-within) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
 	}
 }
