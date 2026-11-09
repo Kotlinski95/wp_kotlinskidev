@@ -4,7 +4,7 @@ Every push to `master` runs `.github/workflows/deploy.yml`: build theme, back up
 
 ## What gets deployed
 
-Only paths listed under `include:` in `.github/deploy-manifest.yml`, minus its `exclude:` rules (the theme's `vendor/` is excluded because production runs PHP 8.2 and Sentry is skipped without it). Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Add a new theme folder or custom plugin to the list before it can ship.
+Only paths listed under `include:` in `.github/deploy-manifest.yml`, minus its `exclude:` rules (the theme's `vendor/` is excluded because production runs PHP 8.2 and Sentry is skipped without it). Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Custom plugins are not shipped right now; add `wp-content/plugins/<name>/` under `include:` when one is needed on production.
 
 ## Skipping a deploy
 
@@ -75,6 +75,6 @@ What it does:
 - Puts the site in maintenance mode, imports the local database, then rewrites the local host and local file path to the production ones (`https` forced) and keeps the production value of every option in `PRESERVE_OPTIONS`.
 - Leaves tables matching `SKIP_TABLES_REGEX` (Wordfence, WP Mail SMTP, users, usermeta, comments, contact form submissions, Novamira, Action Scheduler and log tables by default) untouched on production.
 - Flushes caches, transients and rewrite rules, reloads Apache, leaves maintenance mode and smoke-tests the site.
-- Never reads or writes `wp-config.php`, plugins or the theme (those ship through the deploy workflow).
+- Never reads or writes `wp-config.php`, plugins or the theme (the theme ships through the deploy workflow).
 
 The `users` and `usermeta` tables are skipped by default, so production keeps its own accounts and passwords. Posts keep the author ID they have locally, so the production admin should have the same user ID as the local author.

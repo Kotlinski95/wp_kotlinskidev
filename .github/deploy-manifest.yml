@@ -1,12 +1,5 @@
 include:
   - wp-content/themes/kotlinskidev/
-  - wp-content/plugins/contact-form-ts/
-  - wp-content/plugins/custom-facebook-pixel-loader/
-  - wp-content/plugins/custom-google-analytics-loader/
-  - wp-content/plugins/google-maps-block/
-  - wp-content/plugins/kotlinskidev-custom-login/
-  - wp-content/plugins/responsive-image/
-  - wp-content/plugins/slider-block/
 
 exclude:
   - node_modules/
