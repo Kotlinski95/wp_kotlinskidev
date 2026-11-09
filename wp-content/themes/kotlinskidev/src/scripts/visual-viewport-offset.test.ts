@@ -24,11 +24,22 @@ function mockVisualViewport() {
   return viewport;
 }
 
+function setInnerHeight(height: number) {
+  Object.defineProperty(window, "innerHeight", {
+    writable: true,
+    configurable: true,
+    value: height,
+  });
+}
+
 describe("visual-viewport-offset.ts", () => {
   let rafSpy: jest.SpyInstance;
+  let nowSpy: jest.SpyInstance;
 
   beforeEach(() => {
     jest.resetModules();
+    document.documentElement.style.removeProperty("--kt-vv-bottom-offset");
+    nowSpy = jest.spyOn(performance, "now").mockReturnValue(5000);
     rafSpy = jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
       cb(0);
       return 1;
@@ -37,6 +48,8 @@ describe("visual-viewport-offset.ts", () => {
 
   afterEach(() => {
     rafSpy.mockRestore();
+    nowSpy.mockRestore();
+    jest.useRealTimers();
     setInnerWidth(1024);
     delete (window as unknown as { visualViewport?: unknown }).visualViewport;
   });
@@ -95,5 +108,59 @@ describe("visual-viewport-offset.ts", () => {
 
     expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("");
     expect(viewport.removeEventListener).toHaveBeenCalled();
+  });
+
+  describe("during the first page-load seconds", () => {
+    it("applies a zero offset immediately", () => {
+      const viewport = mockVisualViewport();
+      setInnerWidth(500);
+      setInnerHeight(600);
+      viewport.height = 600;
+      nowSpy.mockReturnValue(200);
+
+      require("./visual-viewport-offset");
+
+      expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("0px");
+    });
+
+    it("withholds a transient non-zero offset that resolves to zero", () => {
+      jest.useFakeTimers({
+        doNotFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"],
+      });
+      const viewport = mockVisualViewport();
+      setInnerWidth(500);
+      setInnerHeight(650);
+      viewport.height = 600;
+      nowSpy.mockReturnValue(200);
+
+      require("./visual-viewport-offset");
+      expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("");
+
+      viewport.height = 650;
+      viewport.trigger("resize");
+      expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("0px");
+
+      nowSpy.mockReturnValue(5000);
+      jest.advanceTimersByTime(2000);
+      expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("0px");
+    });
+
+    it("applies a persistent non-zero offset once the page has settled", () => {
+      jest.useFakeTimers({
+        doNotFake: ["requestAnimationFrame", "cancelAnimationFrame", "performance"],
+      });
+      const viewport = mockVisualViewport();
+      setInnerWidth(500);
+      setInnerHeight(700);
+      viewport.height = 650;
+      nowSpy.mockReturnValue(200);
+
+      require("./visual-viewport-offset");
+      expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("");
+
+      nowSpy.mockReturnValue(1600);
+      jest.advanceTimersByTime(1400);
+      expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("50px");
+    });
   });
 });
