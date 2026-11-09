@@ -183,6 +183,7 @@ require_once get_template_directory() . '/functions/theme-switcher.php';
 
 // Page loader
 require_once get_template_directory() . '/functions/page-loader.php';
+require_once get_template_directory() . '/functions/view-transitions.php';
 
 
 // Banner carousel
