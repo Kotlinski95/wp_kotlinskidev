@@ -83,6 +83,40 @@ function kotlinskidev_inject_project_card_overlay( string $html, string $descrip
     );
 }
 
+function kotlinskidev_link_project_card_elements( string $html, string $project_url, string $title ): string {
+    $project_url = esc_url( $project_url );
+
+    if ( '' === $project_url ) {
+        return $html;
+    }
+
+    $html = preg_replace_callback(
+        '/(<div\b[^>]*class="[^"]*kt-project-card__link[^"]*"[^>]*>\s*<a\b)([^>]*)(>)/s',
+        static function ( array $matches ) use ( $project_url, $title ): string {
+            if ( false !== strpos( $matches[2], 'href=' ) ) {
+                return $matches[0];
+            }
+
+            $label = '' !== $title ? ' aria-label="' . esc_attr( $title ) . '"' : '';
+
+            return $matches[1] . ' href="' . $project_url . '"' . $label . $matches[2] . $matches[3];
+        },
+        $html
+    ) ?? $html;
+
+    return preg_replace_callback(
+        '/(<h[1-6]\b[^>]*wp-block-post-title[^>]*>)(.*?)(<\/h[1-6]>)/s',
+        static function ( array $matches ) use ( $project_url ): string {
+            if ( false !== strpos( $matches[2], '<a ' ) ) {
+                return $matches[0];
+            }
+
+            return $matches[1] . '<a href="' . $project_url . '">' . $matches[2] . '</a>' . $matches[3];
+        },
+        $html
+    ) ?? $html;
+}
+
 function kotlinskidev_merge_project_card_block_supports( string $html ): string {
     $supports = WP_Block_Supports::get_instance()->apply_block_supports();
 
@@ -145,6 +179,9 @@ function kotlinskidev_render_project_card_embed( int $card_id ): string {
     }
 
     $description = (string) get_post_meta( $card_id, 'project_description', true );
+    $project_url = (string) get_post_meta( $card_id, 'project_url', true );
+
+    $rendered = kotlinskidev_link_project_card_elements( $rendered, $project_url, get_the_title( $card_id ) );
 
     return kotlinskidev_inject_project_card_overlay( $rendered, $description );
 }
