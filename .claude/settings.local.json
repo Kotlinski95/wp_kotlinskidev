@@ -48,7 +48,8 @@
       "WebFetch(domain:eur-lex.europa.eu)",
       "mcp__chrome-devtools-mcp__close_page",
       "Read(//Users/adriankotlinski/mods/auto-handoff/**)",
-      "Bash(claude plugin *)"
+      "Bash(claude plugin *)",
+      "mcp__wordpress-prod__mcp-adapter-execute-ability"
     ]
   }
 }
