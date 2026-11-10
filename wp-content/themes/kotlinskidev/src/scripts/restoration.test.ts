@@ -42,7 +42,7 @@ describe("restoration.ts", () => {
 
     window.dispatchEvent(new Event("pageshow"));
 
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 789);
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 789, behavior: "instant" });
   });
 
   it("restores scroll position on a reload navigation", () => {
@@ -52,7 +52,7 @@ describe("restoration.ts", () => {
 
     window.dispatchEvent(new Event("pageshow"));
 
-    expect(window.scrollTo).toHaveBeenCalledWith(0, 321);
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 321, behavior: "instant" });
   });
 
   it("does not restore scroll on a normal navigation", () => {
@@ -108,7 +108,7 @@ describe("restoration.ts", () => {
       mockNavigationEntries([new MockPerformanceNavigationTiming("back_forward")]);
       let currentY = 0;
       Object.defineProperty(window, "scrollY", { configurable: true, get: () => currentY });
-      window.scrollTo = jest.fn((_x: number, y: number) => {
+      window.scrollTo = jest.fn(({ top: y }: ScrollToOptions) => {
         currentY = y;
       });
 
@@ -149,7 +149,7 @@ describe("restoration.ts", () => {
         configurable: true,
         get: () => currentY,
       });
-      window.scrollTo = jest.fn((_x: number, y: number) => {
+      window.scrollTo = jest.fn(({ top: y }: ScrollToOptions) => {
         currentY = Math.min(y, currentMax);
         currentMax = Math.min(currentMax + 60, 500);
       });
@@ -179,7 +179,7 @@ describe("restoration.ts", () => {
         configurable: true,
         get: () => currentY,
       });
-      const scrollToMock = jest.fn((_x: number, y: number) => {
+      const scrollToMock = jest.fn(({ top: y }: ScrollToOptions) => {
         currentY = Math.min(y, 300);
       });
       window.scrollTo = scrollToMock;

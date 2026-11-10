@@ -451,8 +451,15 @@ describe("hero-carousel/init.ts", () => {
     const setUserAgent = (ua: string) =>
       Object.defineProperty(navigator, "userAgent", { configurable: true, value: ua });
 
+    beforeEach(() => {
+      jest
+        .spyOn(HTMLCanvasElement.prototype, "getContext")
+        .mockReturnValue({ clearRect: jest.fn(), drawImage: jest.fn() } as never);
+    });
+
     afterEach(() => {
       setUserAgent(originalUserAgent);
+      jest.restoreAllMocks();
     });
 
     const IPHONE_UA =
@@ -494,6 +501,55 @@ describe("hero-carousel/init.ts", () => {
       run([slide]);
 
       expect((slide.querySelector("video") as HTMLVideoElement).src).toContain("a.mov");
+    });
+
+    it("draws the alpha video through a canvas on iOS WebKit", () => {
+      setUserAgent(IPHONE_UA);
+      const slide = buildSlide({
+        video: { dataSrc: "a.webm", dataSrcAlpha: "a.mov", dataPoster: "a.webp" },
+      });
+      run([slide]);
+
+      expect(slide.querySelector("canvas.hero-carousel__alpha-canvas")).not.toBeNull();
+      expect(slide.classList.contains("hero-carousel__bg--alpha-canvas")).toBe(true);
+    });
+
+    it("keeps the native video on desktop Safari even with an alpha source", () => {
+      setUserAgent(
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+      );
+      const slide = buildSlide({ video: { dataSrc: "a.webm", dataSrcAlpha: "a.mov" } });
+      run([slide]);
+
+      expect((slide.querySelector("video") as HTMLVideoElement).src).toContain("a.mov");
+      expect(slide.querySelector("canvas")).toBeNull();
+    });
+
+    it("holds an opaque slide video behind its poster on iOS until the first frame", () => {
+      setUserAgent(IPHONE_UA);
+      const slide = buildSlide({ video: { dataSrc: "a.mp4", dataPoster: "a.webp" } });
+      const video = slide.querySelector("video") as HTMLVideoElement;
+      const bg = document.createElement("div");
+      bg.className = "hero-carousel__bg";
+      slide.append(bg);
+      bg.append(video);
+      run([slide]);
+
+      expect(bg.classList.contains("hero-carousel__bg--video-pending")).toBe(true);
+      expect(bg.style.getPropertyValue("--kt-hero-poster")).toContain("a.webp");
+    });
+
+    it("does not hold slide videos outside iOS", () => {
+      setUserAgent(CHROME_UA);
+      const slide = buildSlide({ video: { dataSrc: "a.mp4", dataPoster: "a.webp" } });
+      const video = slide.querySelector("video") as HTMLVideoElement;
+      const bg = document.createElement("div");
+      bg.className = "hero-carousel__bg";
+      slide.append(bg);
+      bg.append(video);
+      run([slide]);
+
+      expect(bg.classList.contains("hero-carousel__bg--video-pending")).toBe(false);
     });
 
     it("keeps the data-src source on non-WebKit browsers even with an alpha source", () => {

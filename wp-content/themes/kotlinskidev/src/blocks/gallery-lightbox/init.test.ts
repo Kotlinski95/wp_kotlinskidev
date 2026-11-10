@@ -152,7 +152,7 @@ describe("gallery-lightbox/init.ts", () => {
 
     const modal = document.getElementById("gallery-lightbox-modal");
     expect(modal).not.toBeNull();
-    expect(document.body.style.overflow).toBe("hidden");
+    expect(document.documentElement.classList.contains("has-modal-open")).toBe(true);
     expect(modal?.querySelector("img")?.getAttribute("alt")).toBe("Nice view");
   });
 

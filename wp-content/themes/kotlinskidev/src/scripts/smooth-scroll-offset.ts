@@ -1,4 +1,4 @@
-import { getScrollTop, scrollTo, isMobile, getScrollOffsets } from "./utils";
+import { getElementScrollTop, scrollTo, isMobile, getScrollOffsets } from "./utils";
 
 (function () {
   const getHeaderOffset = () => {
@@ -11,7 +11,7 @@ import { getScrollTop, scrollTo, isMobile, getScrollOffsets } from "./utils";
   };
 
   const scrollToElementWithOffset = (element: Element) => {
-    const elementTop = element.getBoundingClientRect().top + getScrollTop();
+    const elementTop = getElementScrollTop(element);
     const offsetTop = elementTop - getHeaderOffset();
 
     const scrollBehavior: ScrollBehavior = prefersReducedMotion() ? "auto" : "smooth";

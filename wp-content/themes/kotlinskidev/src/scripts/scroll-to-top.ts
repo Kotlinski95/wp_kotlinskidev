@@ -1,6 +1,7 @@
 import {
   beginProgrammaticScroll,
   endProgrammaticScroll,
+  getMaxScrollTop,
   getScrollTop,
   onScroll,
   rafThrottle,
@@ -47,13 +48,13 @@ function handleScrollToTop(e: Event) {
 
   const handleScroll = () => {
     const scrollTop = getScrollTop();
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const maxScrollTop = getMaxScrollTop();
 
     if (scrollTop > 100) {
       scrollToTopBtn.style.display = "block";
       scrollWrapper.classList.add("show");
 
-      const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
+      const scrollProgress = maxScrollTop > 0 ? Math.min(scrollTop / maxScrollTop, 1) : 1;
       const circumference = Number.parseFloat(progressRing.dataset.circumference || "0");
       const offset = circumference - scrollProgress * circumference;
 

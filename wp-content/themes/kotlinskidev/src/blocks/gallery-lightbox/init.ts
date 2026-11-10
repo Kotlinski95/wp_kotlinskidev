@@ -2,9 +2,11 @@ import DOMPurify from "dompurify";
 import "swiper/swiper-bundle.css";
 import { initSwiper } from "@utils/carousel/initSwiper";
 import { attachImageZoom } from "@utils/zoom/attachImageZoom";
+import { lockScroll, unlockScroll } from "@utils/scroll-lock";
 import { trackEvent } from "../../scripts/track-event";
 
 const MODAL_ID = "gallery-lightbox-modal";
+const SCROLL_LOCK_OWNER = "gallery-lightbox";
 
 const escapeAttribute = (value: string): string =>
   value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -139,7 +141,7 @@ const openModal = (
   onSlideChange?: (index: number) => void
 ): void => {
   document.getElementById(MODAL_ID)?.remove();
-  document.body.style.overflow = "hidden";
+  lockScroll(SCROLL_LOCK_OWNER);
   document.body.insertAdjacentHTML(
     "beforeend",
     DOMPurify.sanitize(buildModalHTML(images, startIndex, settings))
@@ -217,7 +219,7 @@ const openModal = (
       () => {
         swiper.destroy(true, true);
         modal.remove();
-        document.body.style.overflow = "";
+        unlockScroll(SCROLL_LOCK_OWNER);
         trigger.focus({ preventScroll: true });
       },
       { once: true }

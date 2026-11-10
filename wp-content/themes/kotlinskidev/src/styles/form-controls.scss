@@ -1,0 +1,23 @@
+@import "variables";
+
+@media (pointer: coarse), (max-width: $breakpoint-desktop) {
+
+	:where(
+		input:not(
+			[type="checkbox"],
+			[type="radio"],
+			[type="range"],
+			[type="color"],
+			[type="file"],
+			[type="image"],
+			[type="hidden"],
+			[type="submit"],
+			[type="button"],
+			[type="reset"]
+		),
+		textarea,
+		select
+	) {
+		font-size: max(1rem, 16px);
+	}
+}

@@ -164,6 +164,22 @@ describe("reveal after video ends", () => {
     expect(cover.querySelector(".fade-up-on-scroll.visible")).toBeNull();
   });
 
+  it("keeps the content revealed and returns to the last frame when the browser rewinds an ended, paused video", () => {
+    const { cover, video } = mountCover(["fade-up-on-scroll"]);
+    Object.defineProperty(video, "duration", { value: 15, configurable: true });
+    Object.defineProperty(video, "currentTime", { value: 15, configurable: true, writable: true });
+
+    initCoverVideoControls();
+    video.dispatchEvent(new Event("ended"));
+    expect(cover.querySelector(".fade-up-on-scroll.visible")).not.toBeNull();
+
+    (video as { currentTime: number }).currentTime = 11.2;
+    video.dispatchEvent(new Event("timeupdate"));
+
+    expect(cover.querySelector(".fade-up-on-scroll.visible")).not.toBeNull();
+    expect(video.currentTime).toBe(15);
+  });
+
   it("does not reveal early when autoplay is off", () => {
     const { cover, video } = mountCover(["fade-up-on-scroll"], {
       "data-kt-video-autoplay": "off",

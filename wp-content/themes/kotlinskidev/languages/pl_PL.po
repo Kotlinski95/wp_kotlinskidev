@@ -11396,6 +11396,18 @@ msgstr ""
 "Formularz wyszukiwania renderowany po stronie serwera, tłumaczony zgodnie z "
 "aktualnym językiem Polylang."
 
+#: build/blocks/not-found-dynamic/block.json
+#: src/blocks/not-found-dynamic/block.json
+msgctxt "block title"
+msgid "Not Found (Dynamic)"
+msgstr "Nie znaleziono (dynamiczny)"
+
+#: build/blocks/not-found-dynamic/block.json
+#: src/blocks/not-found-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered 404 hero (image, heading, message and homepage button), translated per the current Polylang language."
+msgstr "Sekcja 404 renderowana po stronie serwera (obraz, nagłówek, komunikat i przycisk strony głównej), tłumaczona zgodnie z aktualnym językiem Polylang."
+
 #: build/blocks/search-header-dynamic/block.json
 #: src/blocks/search-header-dynamic/block.json
 msgctxt "block title"
@@ -12111,3 +12123,11 @@ msgstr "Różowy Róż"
 msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Pomarańcz Zachodu"
+
+#: src/blocks/navigation/index.tsx:139 build/js/navigation.js:1
+msgid "Bar background while loading"
+msgstr "Tło paska podczas ładowania"
+
+#: src/blocks/navigation/index.tsx:141 build/js/navigation.js:1
+msgid "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background."
+msgstr "Pełny kolor wyświetlany podczas ładowania lub zmiany strony, zanim wróci rozmycie szkła. Puste pole używa tła strony."

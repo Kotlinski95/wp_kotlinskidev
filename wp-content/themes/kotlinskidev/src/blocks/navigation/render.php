@@ -178,7 +178,13 @@ if ( $display_mode === 'bar' ) {
 		return;
 	}
 
-	echo '<nav id="mobile-footer-menu" class="mobile-footer-nav" aria-label="' . esc_attr__( 'Mobile navigation', 'kotlinskidev' ) . '">';
+	$defer_bar = function_exists( 'kotlinskidev_app_shell_can_defer_nav' ) && kotlinskidev_app_shell_can_defer_nav();
+	ob_start();
+	$bar_solid_background = function_exists( 'kotlinskidev_mobile_nav_solid_background_value' )
+		? kotlinskidev_mobile_nav_solid_background_value( (string) ( $attributes['barSolidBackground'] ?? '' ) )
+		: '';
+	$bar_style_attr       = $bar_solid_background !== '' ? ' style="--kt-mobile-nav-solid-bg:' . esc_attr( $bar_solid_background ) . '"' : '';
+	echo '<nav id="mobile-footer-menu" class="mobile-footer-nav"' . $bar_style_attr . ' aria-label="' . esc_attr__( 'Mobile navigation', 'kotlinskidev' ) . '">'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $bar_style_attr is built only from a value restricted by kotlinskidev_mobile_nav_solid_background_value() and passed through esc_attr()
 	echo '<div class="mobile-fixed-nav"><ul class="mobile-footer-menu-items">';
 	foreach ( $bar_items as $bar_item ) {
 		$bar_icon    = kotlinskidev_inline_nav_icon( $bar_item['icon_id'] );
@@ -198,6 +204,12 @@ if ( $display_mode === 'bar' ) {
 		echo '<li class="menu-item menu-item--extra">' . $bar_extra . '</li>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $bar_extra is render_block() output, WP core's own self-escaping block render pipeline
 	}
 	echo '</ul></div></nav>';
+	$bar_markup = ob_get_clean();
+	if ( $defer_bar ) {
+		kotlinskidev_app_shell_defer_nav( $bar_markup );
+		return;
+	}
+	echo $bar_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- buffer contains only the already-escaped fragments echoed above
 	return;
 }
 

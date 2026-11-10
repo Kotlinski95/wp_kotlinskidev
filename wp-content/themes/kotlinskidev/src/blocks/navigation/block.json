@@ -58,6 +58,10 @@
       "type": "string",
       "default": ""
     },
+    "barSolidBackground": {
+      "type": "string",
+      "default": ""
+    },
     "blurIncludeUtility": {
       "type": "boolean",
       "default": false

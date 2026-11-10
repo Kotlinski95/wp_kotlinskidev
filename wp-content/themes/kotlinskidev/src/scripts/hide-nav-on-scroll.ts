@@ -1,8 +1,11 @@
 import {
   debounce,
+  getScrollHeight,
   getScrollTop,
+  getScrollViewportHeight,
   isMobile,
   isProgrammaticScrollActive,
+  onAppShellChange,
   onScroll,
   onScreenSizeChange,
 } from "./utils";
@@ -63,8 +66,8 @@ import {
   };
 
   const isNearBottom = (scrollTop: number) => {
-    const documentHeight = document.documentElement.scrollHeight;
-    const viewportHeight = window.innerHeight;
+    const documentHeight = getScrollHeight();
+    const viewportHeight = getScrollViewportHeight();
     return documentHeight - (scrollTop + viewportHeight) < bottomThreshold;
   };
 
@@ -74,6 +77,9 @@ import {
     // A programmatic scroll fires real "scroll" events indistinguishable from user input — still update lastScrollTop so the next real scroll diffs correctly.
     if (isProgrammaticScrollActive()) {
       lastScrollTop = scrollTop;
+      if (scrollTop < topThreshold) {
+        showNav();
+      }
       return;
     }
 
@@ -137,4 +143,6 @@ import {
   handleScreenSizeChange(isMobile());
 
   onScreenSizeChange(handleScreenSizeChange);
+
+  onAppShellChange(showNav);
 })();

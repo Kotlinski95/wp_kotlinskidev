@@ -8,6 +8,8 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+require_once get_template_directory() . '/functions/app-shell.php';
+
 require_once get_template_directory() . '/functions/above-fold-media.php';
 require_once get_template_directory() . '/functions/image-dimensions.php';
 require_once get_template_directory() . '/functions/viewport-deferred-images.php';
@@ -35,6 +37,8 @@ require_once get_template_directory() . '/functions/asset-paths.php';
 
 // HTTP security response headers (CSP, Referrer-Policy, Permissions-Policy)
 require_once get_template_directory() . '/functions/security-headers.php';
+
+require_once get_template_directory() . '/functions/live-link-https.php';
 
 // Include internationalization functions
 require_once get_template_directory() . '/includes/i18n.php';

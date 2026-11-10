@@ -1,7 +1,10 @@
 import "swiper/swiper-bundle.css";
 import { initSwiper } from "@utils/carousel/initSwiper";
 import type { CarouselSettings } from "@utils/carousel/types";
-import { isWebKitBrowser } from "@utils/is-webkit-browser";
+import { isIosWebKit, isWebKitBrowser } from "@utils/is-webkit-browser";
+import { attachAlphaCanvas } from "./alpha-canvas";
+import { holdVideoUntilFirstFrame } from "./video-first-frame";
+import { onScroll } from "../../scripts/utils";
 
 const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   try {
@@ -29,12 +32,19 @@ const prepareSlideVideo = (slide: HTMLElement): void => {
   if (alphaSrc && isWebKitBrowser()) {
     video.src = alphaSrc;
     delete video.dataset.src;
+    if (isIosWebKit()) {
+      applySlidePoster(slide);
+      attachAlphaCanvas(video);
+    }
   } else if (video.dataset.src) {
     video.src = video.dataset.src;
     delete video.dataset.src;
   }
   delete video.dataset.srcAlpha;
   applySlidePoster(slide);
+  if (isIosWebKit() && !video.closest(".hero-carousel__bg--alpha-canvas")) {
+    holdVideoUntilFirstFrame(video);
+  }
 };
 
 const applySlidePoster = (slide: HTMLElement): void => {
@@ -172,7 +182,7 @@ const whenPageSettled = (callback: () => void): void => {
 };
 
 const NON_ACTIVE_PREP_DELAY_MS = 2000;
-const FIRST_INTERACTION_EVENTS = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
+const FIRST_INTERACTION_EVENTS = ["pointerdown", "keydown", "touchstart"] as const;
 
 const whenInteractedOrDelayed = (callback: () => void): void => {
   let done = false;
@@ -191,6 +201,7 @@ const whenInteractedOrDelayed = (callback: () => void): void => {
     window.addEventListener(type, run, { once: true, passive: true });
     cleanups.push(() => window.removeEventListener(type, run));
   });
+  cleanups.push(onScroll(run));
 
   const scheduleIdle = () => {
     const timer = setTimeout(() => {

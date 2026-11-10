@@ -44,6 +44,10 @@ function kotlinskidev_get_breadcrumb_trail(): array {
         return $trail;
     }
 
+    if ( is_404() ) {
+        return $trail;
+    }
+
     if ( is_search() ) {
         $trail[] = [
             'label' => sprintf( __( 'Search results for "%s"', 'kotlinskidev' ), get_search_query() ),

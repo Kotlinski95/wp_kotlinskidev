@@ -1,3 +1,5 @@
+import { onScroll } from "./utils";
+
 (function () {
   const activeAnimations = new Map<HTMLElement, number>();
 
@@ -214,9 +216,7 @@
       };
 
       checkVisibility();
-      (window as Window).addEventListener("scroll", checkVisibility, {
-        passive: true,
-      });
+      onScroll(checkVisibility);
       (window as Window).addEventListener("resize", checkVisibility, {
         passive: true,
       });

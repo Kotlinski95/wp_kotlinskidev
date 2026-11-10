@@ -105,15 +105,19 @@ test.describe("Footer", () => {
       page,
     }) => {
       const nav = getMobileFooterNav(page);
-      const header = page.locator("header");
+      const header = page.locator("header").first();
       await expect(nav).not.toHaveClass(/nav-hidden/);
 
-      await page.evaluate(() => window.scrollTo(0, 600));
+      await page.evaluate(() =>
+        document.querySelector(".wp-site-blocks")?.scrollTo({ top: 600, behavior: "instant" })
+      );
 
       await expect(nav).toHaveClass(/nav-hidden/);
       await expect(header).toHaveClass(/nav-hidden/);
 
-      await page.evaluate(() => window.scrollTo(0, 300));
+      await page.evaluate(() =>
+        document.querySelector(".wp-site-blocks")?.scrollTo({ top: 300, behavior: "instant" })
+      );
 
       await expect(nav).not.toHaveClass(/nav-hidden/);
       await expect(header).not.toHaveClass(/nav-hidden/);

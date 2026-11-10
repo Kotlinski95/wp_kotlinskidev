@@ -36,7 +36,7 @@ with a real pattern already wrapping it), `cta-block`, `features-section`,
 Dropped as near-duplicates of an included pattern: `about-2`/`about-us`,
 `cta-block-2`, `featured-content-2`, `mission-goal`/`mission-vision`,
 `service-location*`, `counter-*`, `header-default`, `simple-banner`,
-`home-banner`, `template-404`, `simple-text`, `photo-gallery`,
+`home-banner`, `simple-text`, `photo-gallery`,
 `profile-links-card`, `highlight-features`, `service-content`,
 `content-tabs-media`.
 

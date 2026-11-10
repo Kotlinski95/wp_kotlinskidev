@@ -7,6 +7,7 @@ function mockVisualViewport() {
   const viewport = {
     height: 600,
     offsetTop: 0,
+    scale: 1,
     addEventListener: jest.fn((event: string, cb: () => void) => {
       listeners[event] = listeners[event] ?? [];
       listeners[event].push(cb);
@@ -39,6 +40,8 @@ describe("visual-viewport-offset.ts", () => {
   beforeEach(() => {
     jest.resetModules();
     document.documentElement.style.removeProperty("--kt-vv-bottom-offset");
+    document.body.innerHTML = '<input id="field" type="text" />';
+    (document.getElementById("field") as HTMLInputElement).focus();
     nowSpy = jest.spyOn(performance, "now").mockReturnValue(5000);
     rafSpy = jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
       cb(0);
@@ -92,6 +95,51 @@ describe("visual-viewport-offset.ts", () => {
     viewport.trigger("resize");
 
     expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("50px");
+  });
+
+  it("recomputes a stale offset when the tab becomes visible again", () => {
+    const viewport = mockVisualViewport();
+    setInnerWidth(500);
+    Object.defineProperty(window, "innerHeight", {
+      writable: true,
+      configurable: true,
+      value: 700,
+    });
+    viewport.height = 400;
+    viewport.offsetTop = 0;
+    require("./visual-viewport-offset");
+    expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("300px");
+
+    viewport.height = 700;
+    document.dispatchEvent(new Event("visibilitychange"));
+
+    expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("0px");
+  });
+
+  it("keeps the offset at zero when no text field is focused and the page is not zoomed, even if innerHeight and visualViewport disagree", () => {
+    const viewport = mockVisualViewport();
+    setInnerWidth(500);
+    setInnerHeight(760);
+    viewport.height = 650;
+    (document.getElementById("field") as HTMLInputElement).blur();
+
+    require("./visual-viewport-offset");
+    viewport.trigger("resize");
+
+    expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("0px");
+  });
+
+  it("applies the offset while pinch-zoomed even without a focused text field", () => {
+    const viewport = mockVisualViewport();
+    setInnerWidth(500);
+    setInnerHeight(700);
+    viewport.height = 600;
+    viewport.scale = 2;
+    (document.getElementById("field") as HTMLInputElement).blur();
+
+    require("./visual-viewport-offset");
+
+    expect(document.documentElement.style.getPropertyValue("--kt-vv-bottom-offset")).toBe("100px");
   });
 
   it("removes the custom property once switched to a desktop viewport", () => {

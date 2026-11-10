@@ -191,6 +191,24 @@ describe("hide-nav-on-scroll.ts", () => {
     expect(header.classList.contains("nav-hidden")).toBe(true);
   });
 
+  it("shows the nav again when a programmatic scroll (scroll-to-top) reaches the top zone, so the header is not left hidden at the top", () => {
+    buildMarkup();
+    loadOnMobile();
+    const header = document.querySelector("header") as HTMLElement;
+    const footerNav = document.querySelector(".mobile-footer-nav") as HTMLElement;
+
+    scrollAndFlush(300);
+    expect(header.classList.contains("nav-hidden")).toBe(true);
+
+    (
+      window as unknown as { kotlinskidevProgrammaticScrollActive?: boolean }
+    ).kotlinskidevProgrammaticScrollActive = true;
+    scrollAndFlush(60);
+
+    expect(header.classList.contains("nav-hidden")).toBe(false);
+    expect(footerNav.classList.contains("nav-hidden")).toBe(false);
+  });
+
   it("resumes reacting to real scroll input, using the position reached during the ignored programmatic scroll as its new baseline, once the flag clears", () => {
     buildMarkup();
     loadOnMobile();

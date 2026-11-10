@@ -1,11 +1,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { APP_SHELL_MEDIA_QUERY, getScrollContainer } from "../../scripts/utils";
+
 gsap.registerPlugin(ScrollTrigger);
 
 ScrollTrigger.config({ ignoreMobileResize: true });
 
-const init = (): void => {
+const buildTriggers = (scroller: HTMLElement | null): void => {
   const tracks = gsap.utils.toArray<HTMLElement>(".scroll-section__track");
 
   tracks.forEach((track) => {
@@ -38,9 +40,22 @@ const init = (): void => {
         scrub: true,
         invalidateOnRefresh: true,
         markers,
+        ...(scroller ? { scroller, pinType: "fixed" as const } : {}),
       },
     });
   });
+};
+
+const init = (): void => {
+  const mediaContext = gsap.matchMedia();
+  mediaContext.add(
+    { shell: APP_SHELL_MEDIA_QUERY, document: `not ${APP_SHELL_MEDIA_QUERY}` },
+    (context) => {
+      const conditions = context.conditions as { shell: boolean };
+      buildTriggers(conditions.shell ? getScrollContainer() : null);
+    }
+  );
+  window.addEventListener("kt:scroll-container-change", () => ScrollTrigger.refresh());
 };
 
 if (document.readyState === "loading") {

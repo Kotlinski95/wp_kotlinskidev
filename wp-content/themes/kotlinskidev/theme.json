@@ -439,6 +439,9 @@
         "strong": "0.5rem",
         "heavy": "0.75rem"
       },
+      "mobileNav": {
+        "solidBackground": "var(--wp--preset--color--surface)"
+      },
       "imageFilterColors": {
         "black": {
           "light": "brightness(0)",
@@ -566,7 +569,7 @@
               "src": ["file:./assets/fonts/sora/Sora-VariableFont_wght.woff2"]
             }
           ],
-          "fontFamily": "\"Sora\", sans-serif",
+          "fontFamily": "\"Sora\", \"Sora Fallback\", sans-serif",
           "name": "Sora",
           "slug": "sora"
         }
@@ -575,7 +578,7 @@
   },
   "styles": {
     "typography": {
-      "fontFamily": "\"Sora\", sans-serif",
+      "fontFamily": "\"Sora\", \"Sora Fallback\", sans-serif",
       "fontSize": "var(--wp-preset--font-size--normal)",
       "lineHeight": "1.5"
     },

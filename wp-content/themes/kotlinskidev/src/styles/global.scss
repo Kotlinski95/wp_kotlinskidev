@@ -36,7 +36,7 @@ html {
 
 body {
 	--kt-above-fold: calc(100svh - #{$header} - var(--admin-bar-offset, 0px));
-	font-family: Sora, Arial, sans-serif;
+	font-family: Sora, "Sora Fallback", Arial, sans-serif;
 	line-height: 1.6;
 	scroll-behavior: smooth;
 	overflow-x: clip;

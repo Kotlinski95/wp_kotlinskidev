@@ -2,11 +2,20 @@ import "./critical.scss";
 import "./scripts/theme-switcher";
 import "./scripts/restoration";
 import "./scripts/utils";
+import "./scripts/app-shell";
 import "./scripts/sticky-header";
+import { initNavSolidTransition } from "./scripts/nav-solid-transition";
+import { initBlockingStylesheets } from "./scripts/blocking-stylesheets";
+import { revealAboveFoldForViewTransition } from "./scripts/view-transition-reveal";
+
+initBlockingStylesheets();
+initNavSolidTransition();
 
 const markViewTransition = (event: Event): void => {
-  if ((event as Event & { viewTransition?: unknown }).viewTransition) {
+  const viewTransition = (event as Event & { viewTransition?: unknown }).viewTransition;
+  if (viewTransition) {
     document.documentElement.classList.add("kt-vt");
+    revealAboveFoldForViewTransition(viewTransition);
   }
 };
 

@@ -12,6 +12,7 @@ export const DYNAMIC_PREVIEW_BLOCKS = [
   "kotlinskidev/other-topics-dynamic",
   "kotlinskidev/related-articles-dynamic",
   "kotlinskidev/search-header-dynamic",
+  "kotlinskidev/not-found-dynamic",
   "kotlinskidev/search-form-dynamic",
   "kotlinskidev/search-results-dynamic",
   "kotlinskidev/popular-content-dynamic",

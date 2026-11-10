@@ -13,6 +13,14 @@ import {
   beginProgrammaticScroll,
   endProgrammaticScroll,
   isProgrammaticScrollActive,
+  APP_SHELL_MEDIA_QUERY,
+  isAppShellActive,
+  getScrollContainer,
+  getScrollViewportHeight,
+  getScrollHeight,
+  getMaxScrollTop,
+  getElementScrollTop,
+  onAppShellChange,
 } from "./utils";
 
 function setInnerWidth(width: number) {
@@ -307,5 +315,111 @@ describe("setScrollBehavior", () => {
 
     expect(document.documentElement.style.scrollBehavior).toBe("auto");
     expect(document.body.style.scrollBehavior).toBe("auto");
+  });
+});
+
+describe("app shell scroll abstraction", () => {
+  let container: HTMLElement;
+  let matches: boolean;
+  const listeners = new Set<() => void>();
+
+  beforeEach(() => {
+    matches = true;
+    listeners.clear();
+    Object.defineProperty(window, "matchMedia", {
+      configurable: true,
+      writable: true,
+      value: (query: string) => ({
+        get matches() {
+          return query === APP_SHELL_MEDIA_QUERY && matches;
+        },
+        addEventListener: (_type: string, listener: () => void) => listeners.add(listener),
+        removeEventListener: (_type: string, listener: () => void) => listeners.delete(listener),
+      }),
+    });
+    document.body.className = "kt-app-shell";
+    document.body.innerHTML = '<div class="wp-site-blocks"><section id="target"></section></div>';
+    document.body.style.overflow = "";
+    Object.defineProperty(document.body, "scrollTop", { writable: true, value: 0 });
+    container = document.querySelector(".wp-site-blocks") as HTMLElement;
+    Object.defineProperty(container, "scrollHeight", { configurable: true, value: 2000 });
+    Object.defineProperty(container, "clientHeight", { configurable: true, value: 700 });
+    container.scrollTop = 150;
+    container.scrollTo = jest.fn() as unknown as typeof container.scrollTo;
+    window.scrollTo = jest.fn() as unknown as typeof window.scrollTo;
+    Object.defineProperty(window, "scrollY", { writable: true, configurable: true, value: 0 });
+  });
+
+  afterEach(() => {
+    document.body.className = "";
+  });
+
+  it("is active only with the body class and a matching media query", () => {
+    expect(isAppShellActive()).toBe(true);
+    matches = false;
+    expect(isAppShellActive()).toBe(false);
+    matches = true;
+    document.body.classList.remove("kt-app-shell");
+    expect(isAppShellActive()).toBe(false);
+  });
+
+  it("returns the scroller and reads metrics from it in shell mode", () => {
+    expect(getScrollContainer()).toBe(container);
+    expect(getScrollTop()).toBe(150);
+    expect(getScrollViewportHeight()).toBe(700);
+    expect(getScrollHeight()).toBe(2000);
+    expect(getMaxScrollTop()).toBe(1300);
+  });
+
+  it("falls back to window metrics outside shell mode", () => {
+    matches = false;
+    Object.defineProperty(window, "scrollY", { writable: true, configurable: true, value: 90 });
+    expect(getScrollContainer()).toBeNull();
+    expect(getScrollTop()).toBe(90);
+    expect(getScrollViewportHeight()).toBe(window.innerHeight);
+  });
+
+  it("scrolls the container in shell mode and the window otherwise", () => {
+    scrollTo(10, "instant");
+    expect(container.scrollTo).toHaveBeenCalledWith({ top: 10, behavior: "instant" });
+    matches = false;
+    scrollTo(20, "instant");
+    expect(window.scrollTo).toHaveBeenCalledWith({ top: 20, behavior: "instant" });
+  });
+
+  it("computes an element offset relative to the scroller", () => {
+    const target = document.getElementById("target") as HTMLElement;
+    target.getBoundingClientRect = () => ({ top: 300 }) as DOMRect;
+    container.getBoundingClientRect = () => ({ top: 40 }) as DOMRect;
+    expect(getElementScrollTop(target)).toBe(300 + 150 - 40);
+    matches = false;
+    Object.defineProperty(window, "scrollY", { writable: true, configurable: true, value: 50 });
+    expect(getElementScrollTop(target)).toBe(350);
+  });
+
+  it("onScroll listens on the container as well as the window", () => {
+    const callback = jest.fn();
+    const cleanup = onScroll(callback);
+    container.dispatchEvent(new Event("scroll"));
+    window.dispatchEvent(new Event("scroll"));
+    expect(callback).toHaveBeenCalledTimes(2);
+    cleanup();
+    container.dispatchEvent(new Event("scroll"));
+    expect(callback).toHaveBeenCalledTimes(2);
+  });
+
+  it("onAppShellChange reports the new state and unsubscribes", () => {
+    const callback = jest.fn();
+    const cleanup = onAppShellChange(callback);
+    matches = false;
+    listeners.forEach((listener) => listener());
+    expect(callback).toHaveBeenCalledWith(false);
+    cleanup();
+    expect(listeners.size).toBe(0);
+  });
+
+  it("setScrollBehavior also applies to the container", () => {
+    setScrollBehavior("auto");
+    expect(container.style.scrollBehavior).toBe("auto");
   });
 });

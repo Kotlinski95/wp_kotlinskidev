@@ -1,4 +1,4 @@
-import { beginProgrammaticScroll, endProgrammaticScroll } from "./utils";
+import { beginProgrammaticScroll, endProgrammaticScroll, getScrollTop, scrollTo } from "./utils";
 
 const RESTORE_MAX_FRAMES = 240;
 const RESTORE_STABLE_FRAMES_REQUIRED = 6;
@@ -12,8 +12,8 @@ function restoreScroll(target: number): void {
   beginProgrammaticScroll();
 
   const tick = (): void => {
-    window.scrollTo(0, target);
-    const y = window.scrollY;
+    scrollTo(target, "instant");
+    const y = getScrollTop();
     stableFrames = Math.abs(y - lastY) < 1 ? stableFrames + 1 : 0;
     lastY = y;
     frame += 1;
@@ -65,7 +65,7 @@ function writeStoredPosition(position: number): boolean {
 
 (function () {
   window.addEventListener("pagehide", () => {
-    writeStoredPosition(window.scrollY);
+    writeStoredPosition(getScrollTop());
   });
 
   window.addEventListener("pageshow", (event) => {

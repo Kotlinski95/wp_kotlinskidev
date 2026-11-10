@@ -28,7 +28,10 @@
 	box-shadow: 0 0.125rem 0.3125rem color-mix(in srgb, var(--color-surface) 40%, transparent);
 	backdrop-filter: blur(16px);
 	z-index: 999;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	transition:
+		transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		background-color 0.25s ease,
+		opacity 0.15s ease;
 
 	&.nav-hidden {
 		transform: translateY(calc(100% + 1rem)) translateZ(0);
@@ -118,6 +121,10 @@
 
 	.mobile-footer-nav {
 		display: block;
+	}
+
+	html.kt-nav-solid .mobile-footer-nav {
+		background: var(--kt-mobile-nav-solid-bg, var(--wp--custom--mobile-nav--solid-background, var(--color-surface)));
 	}
 
 	body:has(.mobile-footer-nav) {

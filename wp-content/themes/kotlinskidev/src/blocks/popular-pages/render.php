@@ -1,5 +1,8 @@
 <?php
 $title          = $attributes['title'] ?? '';
+if ( 'Popular Pages' === $title ) {
+	$title = __( 'Popular Pages', 'kotlinskidev' );
+}
 $count          = absint( $attributes['count'] ?? 5 );
 $title_font_size = $attributes['titleFontSize'] ?? '';
 $popular        = kotlinskidev_get_popular_posts( $count );

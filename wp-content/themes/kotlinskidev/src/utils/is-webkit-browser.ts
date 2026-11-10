@@ -13,3 +13,13 @@ export function isWebKitBrowser(
   }
   return /Safari\//.test(userAgent) && !NON_SAFARI_ENGINE_PATTERN.test(userAgent);
 }
+
+export function isIosWebKit(
+  userAgent: string = navigator.userAgent,
+  maxTouchPoints: number = navigator.maxTouchPoints
+): boolean {
+  if (IOS_PATTERN.test(userAgent)) {
+    return true;
+  }
+  return /Macintosh/.test(userAgent) && maxTouchPoints > 1;
+}
