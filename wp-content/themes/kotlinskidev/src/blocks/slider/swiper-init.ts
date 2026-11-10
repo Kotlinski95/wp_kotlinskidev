@@ -1,3 +1,4 @@
+import { onScroll } from "../../scripts/utils";
 import Swiper from "swiper";
 import {
   Autoplay,
@@ -577,16 +578,12 @@ function wireContinuousAutoplay(
   });
 
   // Defense-in-depth: resume on scroll if paused with no genuine reason left — doesn't override a real ongoing hover or press.
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (isPaused && !hovered && !pressed && !modalOpen && !touchPinned) {
-        focused = false;
-        evaluate();
-      }
-    },
-    { passive: true }
-  );
+  onScroll(() => {
+    if (isPaused && !hovered && !pressed && !modalOpen && !touchPinned) {
+      focused = false;
+      evaluate();
+    }
+  });
 
   container.addEventListener("pointerdown", (event) => {
     touchStarted = Boolean(event.pointerType) && event.pointerType !== "mouse";

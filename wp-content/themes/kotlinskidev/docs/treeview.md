@@ -29,12 +29,14 @@ kotlinskidev/
 │   ├── env.md                                  # environment/.env variable documentation
 │   ├── footer-architecture.md                  # footer template/block architecture
 │   ├── git-instructions.md                     # branch/PR naming conventions
+│   ├── hero-alpha-video.md                     # why iOS draws the hero alpha video through a canvas (opaque compositing bug), the fix and how to test it
 │   ├── header-architecture.md                  # header template/block architecture
 │   ├── legal-compliance.md                     # legal/privacy review checklist (GDPR, cookie consent, Impressum, EAA accessibility statement) + practical how-to steps for items with a concrete engineering fix (e.g. AI-generated media disclosure)
 │   ├── mcp-server-usage.md                     # MCP server usage notes
 │   ├── mcp-wordpress-setup.md                  # MCP WordPress integration setup notes
 │   ├── monitoring.md                           # EC2 CloudWatch alarms/agent setup + PHP-FPM memory cleanup
 │   ├── navigation-structure.md                 # desktop mega-menu + hamburger architecture
+│   ├── page-transition.md                      # mobile bottom nav investigation (T24): root causes (Chrome iOS fixed-bottom bug), the app shell fix and its rules, other fixes, what was tried and dropped, debugging on a real device
 │   ├── performance.md                          # performance review checklist (JS runtime, rendering, network, WP backend)
 │   ├── reference/                              # retired file-based artifacts kept for comparison only — not loaded/routed by WordPress
 │   │   └── single-service_location-en.html     # pre-Polylang-strings EN city landing page, superseded by templates/single-service_location.html + kotlinskidev/translated-text; kept as a copy-reference, not wired into any template hierarchy
@@ -46,7 +48,7 @@ kotlinskidev/
 │   ├── theme-colors.md                         # adaptive color token system
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
-├── functions/                                  # 105 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 106 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -114,6 +116,8 @@ kotlinskidev/
 │   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
 │   ├── nav-reveal-render.php                   # render_block filter for core/navigation-link/-submenu, kotlinskidev/nav-*, kotlinskidev/button, kotlinskidev/social-section — reads navRevealAnimation/navRevealDelay/navRevealTranslate off $block['attrs'] and injects the class + --reveal-delay inline style via WP_HTML_Tag_Processor onto the block's own root tag (these are dynamic PHP-rendered blocks, so the editor-side blocks.getSaveContent.extraProps filter never reaches their frontend output). search-panel/language-panel are deliberately excluded here — they need the class on their *inner* .kt-search-panel__modal/.kt-lang-panel__modal div, not their outer wrapper, so they call the exported kotlinskidev_nav_reveal_class_and_style() helper directly from their own render.php instead. Also exports kotlinskidev_stagger_reveal_items(\$html, \$animation, \$class_markers, \$step=60) — walks every tag via WP_HTML_Tag_Processor and auto-staggers, in one continuous document-order sequence, every tag whose class list contains an EXACT token match for ANY of \$class_markers (not substring — "wp-block-navigation-item" must not also match the BEM child "wp-block-navigation-item__content"); used by search-panel/language-panel render.php to stagger their whole auto-generated content (search form, "Frequently visited pages" title, each popular-pages link / each language option) in one pass, no per-item editor config needed
 │   ├── offers.php                              # kt_offer CPT (one post per service per language; offer_key/currency/is_placeholder/variants meta, Polylang-translatable) + per-language cached offer map, render_block filter resolving Offer-format spans to EUR/PLN price/duration text ('Price on request' for visitors while is_placeholder), REST routes for the editor, admin placeholder notice/admin-bar node, Yoast schema pieces
+│   ├── app-shell.php                           # kotlinskidev_mark_app_shell()/kotlinskidev_app_shell_active() flag, body_class filter adding kt-app-shell, and the wp_footer priority-0 printer for the mobile footer nav markup that blocks/navigation/render.php (bar mode) defers out of .wp-site-blocks
+│   ├── live-link-https.php                     # local env + Local Live Link tunnel (X-Original-Host) only: output buffer on template_redirect upgrading http:// to https:// for the local/tunnel hosts
 │   ├── page-loader.php                         # renders page-loader markup on wp_body_open
 │   ├── view-transitions.php                    # inline <style id="kt-view-transitions"> on wp_head priority 1 (front end only): @view-transition navigation:auto, no named elements on purpose (the header and the mobile footer nav crossfade with the page: view-transition-name makes an element a backdrop root, which killed the blur of the header's ::after pill), 180ms root crossfade, html.kt-vt hides #page-loader — all under @supports + prefers-reduced-motion:no-preference
 │   ├── page-view-tracking.php                  # AJAX view tracking + Popular Pages query source
@@ -244,7 +248,6 @@ kotlinskidev/
 │   ├── tech-stack-chip-clusters.php            # Tech Stack Chip Clusters — scannable category-label + pill-cluster rows, good for an About page (design system "Technology stack" slot B)
 │   ├── tech-stack-grouped-cards.php            # Tech Stack Grouped Cards — 4 bordered cards, each an icon head + name/note definition rows, full detail for a dedicated stack page (design system "Technology stack" slot A)
 │   ├── tech-stack-icon-tiles.php               # Tech Stack Icon Tiles — 12 original monoline glyphs (assets/icons/tech-stack/*.svg, not vendor logos) in a hover-accented tile grid (design system "Technology stack" slot D)
-│   ├── template-404.php                        # 404 Template
 │   ├── testimonial-section.php                 # Testimonial Section
 │   ├── testimonials-grid.php                   # Testimonials Grid (slug: testimonial-grid)
 │   ├── vertical-timeline-layout.php            # Vertical Timeline Layout
@@ -488,6 +491,10 @@ kotlinskidev/
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── index.ts
+│   │   │   ├── alpha-canvas.ts                  # iOS WebKit only: draws the hidden alpha <video> to a 480px canvas (poster as background until the first frame) because iOS composites the video layer opaque
+│   │   │   ├── alpha-canvas.test.ts
+│   │   │   ├── video-first-frame.ts             # iOS WebKit only: keeps an opaque slide video at opacity 0 with the poster painted behind it until requestVideoFrameCallback reports the first frame (stops the black frame + native spinner at video start)
+│   │   │   ├── video-first-frame.test.ts
 │   │   │   ├── init.ts
 │   │   │   ├── render.php
 │   │   │   ├── save.tsx
@@ -577,8 +584,11 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
 │   │   │   ├── index.tsx
+│   │   │   ├── bar-background.ts                # palette slug <-> colour mapping for the bar "Bar background while loading" control (barSolidBackground)
+│   │   │   ├── bar-background.test.ts
 │   │   │   ├── nav-icon-filter.tsx
 │   │   │   └── render.php
+│   │   ├── not-found-dynamic/                  # dynamic block (render.php, ServerSideRender preview, no attributes) rendering the 404 hero — inline SVG 404 graphic (gradient numerals, window frame, fixed viewBox), one h1.kt-not-found__title, message paragraph and a wp-block-button homepage link — with msgids translated at request time (not frozen by the pattern cache); placed in templates/404.html above popular-content-dynamic; styled by src/styles/not-found.scss
 │   │   ├── offer-table/                        # dynamic block (render.php, ServerSideRender preview) — offerKey attribute only, renders a table of the offer's variants (price, duration, scope) from kt_offer
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
@@ -831,13 +841,16 @@ kotlinskidev/
 │   │   ├── load-more.ts                        # scans [data-kt-load-more-initial], hides children past the limit, wraps a reveal-on-click button in a .kt-load-more__wrapper (alignment), applies its style data attributes as inline styles, and swaps to hover-color overrides on mouseenter/focus (reverting on mouseleave/blur) — reusable across any core/group flagged by functions/load-more.php; fires load_more_click (GA4) via track-event.ts on reveal, with an items_revealed count
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
 │   │   ├── viewport-deferred-images.ts         # IntersectionObserver (200px margin) that restores data-src/data-srcset/data-sizes on deferred content-tabs images via @utils/load-deferred-images
-│   │   ├── is-webkit-browser.ts                # isWebKitBrowser(): true for iOS (all browsers), iPadOS desktop-class UA and desktop Safari — hero-carousel uses it to pick the HEVC-with-alpha data-src-alpha source
+│   │   ├── is-webkit-browser.ts                # isWebKitBrowser(): true for iOS (all browsers), iPadOS desktop-class UA and desktop Safari — hero-carousel uses it to pick the HEVC-with-alpha data-src-alpha source; isIosWebKit(): iOS/iPadOS only (hero-carousel draws the alpha video through a canvas there)
 │   │   ├── nav-reveal.ts                   # listens for kt:nav-panel-open/-close (dispatched by hamburger.ts/mega-menu.ts/dropdown-panel.ts), toggles .visible on *-on-reveal elements — both descendants of the dispatched container AND the container itself, since search/language-panel put the class directly on the dispatched modal — so content stagger/fades in via --reveal-delay instead of on scroll
 │   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator; initModalManager() now exported with an immediate-run fallback (matching gallery-lightbox/init.ts) so Storybook (page already loaded) can call it directly instead of waiting on a DOMContentLoaded that already fired; fires modal_open (GA4) via track-event.ts on every open, with the opened modal's id — separate from gallery-lightbox's own lightbox_open
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change
 │   │   ├── recently-viewed.ts                  # records singular post/page views (title/URL/og:image/og:description/article:published_time + single-post-vs-page type) to localStorage kt_recently_viewed, capped at 6, excludes search/404; renders into #kt-recently-viewed as real kt-post-card-grid__card DOM nodes (same markup as functions/post-card-renderer.php's kotlinskidev_render_post_card(), built client-side since this data only exists in localStorage) so Recently Viewed matches Popular Content's card styling exactly, into the .kt-post-card-grid populated by functions/search-page-dynamic-blocks.php's Popular Content section
 │   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block; fires protected_content_reveal (GA4) via track-event.ts on a successful reveal only, not on a failed decrypt
 │   │   ├── restoration.ts                      # stores scrollY per URL on pagehide (sessionStorage key kt-scroll:<path><query>), restores it only on back_forward/reload of that URL and never when the page comes from bfcache for back_forward and reload navigations only (not a plain navigate) — pageshow fires after window's load event, so the restore always happens after marquee/ScrollTrigger have already settled, pairing with functions/scroll-restoration.php's history.scrollRestoration = 'manual' to stop the browser's own earlier, unsynced auto-restore. Restoring retries scrollTo() every animation frame (bounded by a stable-frame count + hard frame cap) rather than a single call, since a pinSpacing:false scroll-section only grows the document's real scrollHeight in response to scroll events — a one-shot scrollTo() gets silently clamped to the still-small, ungrown height and never catches up
+│   │   ├── view-transition-reveal.ts           # on a view-transition pagereveal, adds .visible to above-the-fold scroll-animated elements before first paint (style-flush with transition:none so they do not fade from 0)
+│   │   ├── blocking-stylesheets.ts             # same-origin referrer only: promotes deferred media="print" onload stylesheets to media="all" as they are inserted, so internal navigations wait for cached CSS instead of painting unstyled
+│   │   ├── nav-solid-transition.ts             # html.kt-nav-solid from page start/pageswap until load or the view transition finishes: the mobile footer nav uses a solid background (theme.json settings.custom.mobileNav.solidBackground) instead of the translucent glass
 │   │   ├── scroll-animations.ts                # IntersectionObserver entrance-animation trigger (skips reveal-after-end covers)
 │   │   ├── scroll-animation-selectors.ts       # shared scroll-animation selector list, reveal-after-end selector and will-change cleanup
 │   │   ├── scroll-to-top.ts                    # fixed-arrow visibility/progress ring + bar-variant click wiring; fires scroll_to_top_click (GA4) via track-event.ts with a fixed/bar variant param, from the one shared handler both variants (and keyboard activation) call
@@ -846,7 +859,8 @@ kotlinskidev/
 │   │   ├── track-event.ts                      # trackEvent(name, params) — first checks window.kotlinskiAnalyticsConfig.disabledEvents (localized by functions/analytics-events.php from the wp-admin Tracking settings, no-ops for every provider if listed), then looks up analytics-providers/routing.ts for which provider(s) this event reaches and calls send() on each that's isReady(); stateless dispatcher, no direct vendor calls of its own, safe to import into any per-block bundle without duplicating anything — analytics.ts re-exports it and adds the sitewide side-effecting delegation on top
 │   │   ├── sticky-header.ts                    # enables/disables sticky header based on scroll threshold
 │   │   ├── theme-switcher.ts                   # dark/light theme apply + OS prefers-color-scheme listener; fires theme_mode_toggle (GA4) via track-event.ts only on a real user toggle, not the initial stored/OS-default apply
-│   │   └── utils.ts                            # shared debounce/getBreakpoints/getScrollTop/isMobile helpers
+│   │   ├── app-shell.ts                        # tracks the last scrollTop and, when the app-shell media query flips, re-applies it on the new scroller and dispatches kt:scroll-container-change
+│   │   └── utils.ts                            # shared debounce/getBreakpoints/isMobile helpers and the app-shell scroll abstraction (getScrollContainer/getScrollTop/scrollTo/onScroll/getElementScrollTop/getMaxScrollTop/onAppShellChange)
 │   ├── styles/                                 # SCSS source partials
 │   │   ├── above-the-fold.scss                 # critical layout-shift prevention rules
 │   │   ├── accessibility.scss                  # skip-link, prefers-reduced-motion handling
@@ -877,6 +891,8 @@ kotlinskidev/
 │   │   ├── equal-height-columns.scss           # .kt-equal-height-columns: flex-column columns + flex:1 direct children for core/columns, and height:100% grid items for a core/group grid, paired with the equal-height-columns extension
 │   │   ├── faq-accordion.scss                  # FAQ details 2-col grid, +/− icon, animating-state overflow
 │   │   ├── filter-color.scss                   # .has-filter-color reads --kt-filter-color-light/-dark (set per-instance from theme.json's settings.custom.imageFilterColors); .has-reveal-color-on-hover only centers the img within the figure (flex + align/justify-center), deliberately NOT forcing figure width/height:100% — that would override core/image's own native Layout (Fit/Fill/Fixed) flex-child sizing, so the hover/filter hit-area is whatever size the editor's native Layout panel gives the figure — paired with the image-filter-color extension
+│   │   ├── font-fallback.scss                  # critical: "Sora Fallback" @font-face (local Arial with size-adjust and ascent/descent overrides) so the Sora swap causes no layout shift
+│   │   ├── form-controls.scss                  # critical: zero-specificity :where() floor so text inputs, textareas and selects are at least 16px on touch / phone width (stops iOS focus zoom)
 │   │   ├── footer.scss                         # footer layout (top/brand/nav sections)
 │   │   ├── global.scss                         # broad utility classes, social-link overrides
 │   │   ├── gradients.scss                      # gradient background utility class
@@ -902,6 +918,7 @@ kotlinskidev/
 │   │   ├── mega-menu.scss                      # desktop mega-menu structure/positioning. .kt-mega-nav--blur-siblings blurs/dims inactive .kt-mega-nav__item links on hover via the mega-nav-blur-target mixin, paired with the navigation block's blurInactiveLinks toggle; mixin has two variants selected by whether .kt-mega-nav--blur-include-utility is also present — exclude (default, dropdown links only) or include .kt-mega-nav__item--utility (search/language panel items) in both the hover trigger and the blur target. Trigger/exclusion also key off mega-menu.ts's JS-maintained .has-open-panel (wrapper)/.is-active (item) classes, not just raw :hover — .kt-mega-nav__panels is a DOM sibling of .kt-mega-nav__item, not a descendant, so hovering the open dropdown panel itself would otherwise fall outside the :has(:hover) trigger and drop the blur. .is-active is deliberately excluded from the immediate :has(:hover) branch's own target exclusion (kept only on the separate .has-open-panel branch) — including it there let the previously-active item dodge re-blurring for the full 500ms SWITCH_DELAY when hopping directly between two dropdown items, since .is-active lags :hover by that JS timer. The .has-open-panel branch's own target also carries :not(:hover) — without it, that branch (which has no :hover awareness) kept re-blurring the newly-hovered item too, silently overriding the :hover branch's immediate exclusion since both share one OR'd declaration block
 │   │   ├── mixins.scss                         # shared SCSS mixins (kt-panel-trigger, kt-not(), reveal-animation-base/reveal-opacity-only/reveal-fade-direction/reveal-flip-animation/reveal-generate-translate-distances/reveal-generate-flip-rotations shared by scroll-animations.scss + nav-reveal-animations.scss, kt-glow-spotlight/kt-glow-text-clip/kt-glow-reduced-motion-text-reset shared by hover-glow.scss, etc.)
 │   │   ├── mobile-footer-menu.scss             # fixed mobile bottom-nav menu
+│   │   ├── app-shell.scss                      # mobile-only app shell: html/body locked to 100dvh, .wp-site-blocks is the scroller, mobile footer nav is an absolute glass overlay (in critical.scss)
 │   │   ├── modal.scss                          # kt-modal overlay shell — fixed, z-index 99999, size variants, always-in-DOM
 │   │   ├── nav.scss                            # main site header/nav layout, logo styling
 │   │   ├── nav-reveal-animations.scss     # fade/flip -on-reveal classes (critical, header is always above the fold) sharing mixins.scss's reveal-* mixins with scroll-animations.scss; transition-delay reads the --reveal-delay custom property set per-block
@@ -919,6 +936,7 @@ kotlinskidev/
 │   │   ├── scroll-animations-critical.scss     # scroll entrance animation mixins (critical split)
 │   │   ├── scroll-animations.scss              # scroll entrance animation mixins (deferred split)
 │   │   ├── scroll.scss                         # scroll-to-top button + progress ring
+│   │   ├── not-found.scss                      # critical: .kt-not-found hero (inline SVG art, title, text, button) for not-found-dynamic, token-only, centered and responsive
 │   │   ├── search-panel.scss                   # search dropdown panel + modal, popular-pages list
 │   │   ├── search-results-grid.scss            # .kt-search-results-grid card/title/excerpt/meta/button BEM classes for search-results-dynamic, same shape as blog-topics-grid.scss (color custom properties, button :hover state with its own hover vars falling back to normal-state vars); replaced the old .search-result-grid 1-2-column list layout. .kt-search-results-grid__image-link forces a 16:9 aspect-ratio box (overflow:hidden) that both .kt-search-results-grid__image (object-fit:cover) and .kt-search-results-grid__image-placeholder fill identically, so every card in a row is the same height; .kt-search-results-grid__badge/__tag are flat tinted pills (no gradient border), replacing the sitewide kt-gradient-pill class previously used here. .kt-search-results-grid__card also uses the shared hover.compose mixin, same reason as blog-topics-grid.scss's __card
 │   │   ├── search.scss                         # search form/input styling + pagination
@@ -976,7 +994,8 @@ kotlinskidev/
 │   ├── ocean-teal.json                         # colour scheme variation
 │   ├── rose-pink.json                          # colour scheme variation
 │   └── sunset-orange.json                      # colour scheme variation
-├── templates/                                  # 14 FSE block templates (no 404.html — see Known Issues)
+├── templates/                                  # 15 FSE block templates
+│   ├── 404.html                                # 404 page shell (header, main.main-wrapper with the header+breadcrumbs offset padding, not-found-dynamic + popular-content-dynamic, footer) — replaced the classic 404.php so .wp-site-blocks, the footer and the mobile bottom nav exist on 404s
 │   ├── article.html                            # single blog post
 │   ├── articles.html                           # blog archive/hub
 │   ├── blank-with-header-footer.html           # canvas with header/footer, empty content area
@@ -1014,6 +1033,7 @@ kotlinskidev/
 │   │   ├── layout-header-offset.spec.ts        # --kt-header-height/--kt-breadcrumbs-height CSS custom properties (global.scss): both always resolve to valid unit-bearing lengths (regression guard for a past bare-zero calc() type mismatch that silently zeroed out <main>'s padding-top sitewide), homepage gets header-height only, a regular page with breadcrumbs gets header+breadcrumbs combined, content never overlaps the fixed breadcrumbs bar
 │   │   ├── mobile-footer-nav-gsap-transform.spec.ts  # regression guard — on a page with a GSAP-pinned scroll-section, .mobile-footer-nav (parts/footer.html, position:fixed) stays viewport-relative (no transformed ancestor breaking its containing block), spans the full viewport width (not shrunk by a stray max-width:fit-content), and is the real topmost hit-testable element at its own center point; searches live content for a page with a scroll-section block, per this project's content-agnostic testing convention
 │   │   ├── model-viewer.spec.ts                # frontend — kotlinskidev/model-viewer block (real WebGL via headless Chromium: load, click/keyboard toggle, reduced-motion)
+│   │   ├── not-found.spec.ts                   # frontend — 404 page: HTTP 404, single h1, footer/mobile bottom nav, .wp-site-blocks scroller at 428px, no horizontal overflow, English heading under /en/
 │   │   ├── parallax.spec.ts                    # frontend — kotlinskidev/parallax block extension
 │   │   ├── protected-content.spec.ts           # frontend — kotlinskidev/protected-content block
 │   │   ├── responsive-display.spec.ts          # frontend — kotlinskidev/responsive-display block extension
@@ -1039,7 +1059,6 @@ kotlinskidev/
 ├── .prettierignore
 ├── .prettierrc.json
 ├── .storybook/                                 # Storybook config (react-webpack5) — documents src/blocks/*/*.stories.tsx in isolation; run npm run storybook / build-storybook; mock-server-side-render.tsx aliases @wordpress/server-side-render to per-block static mock HTML (BLOCK_MOCKS map) since Storybook has no WP REST backend to call, sourcing photos from mock-assets.ts (real theme assets/images/*.webp — logo.webp blurs badly once scaled into a full-size card, so use the larger photos instead); exports BreadcrumbsRouteContext so a block whose real markup varies by page (not by any block attribute — breadcrumbs' trail depends on is_category()/is_single()/is_page(), never on an attribute) can pick a mock variant per-story instead of per-control; mock-media-upload.tsx registers a fake editor.MediaUpload filter + dispatches core/block-editor's mediaUpload setting, since @wordpress/block-editor's real MediaUpload is a `() => null` placeholder outside a full WP admin bootstrap and MediaUploadCheck hides its children without that setting; preview.tsx imports the real src/critical.scss + src/index.scss (all frontend SCSS, not just editor overrides) plus @wordpress/block-library's compiled CSS for core-block base styles, toggles html.light-mode/dark-mode (not body — theme-colors.scss's color-scheme rules target html) via a Theme toolbar, and defines custom mobile/breakpoint-edge/desktop viewport presets; frame.scss makes the Story+Inspector layout stack under the theme's own 782px breakpoint instead of staying side-by-side
-├── 404.php                                     # classic 404 handler (no FSE templates/404.html exists yet); closes </body></html> after wp_footer() — header.php now opens <body>, this closes it
 ├── 500.html                                    # static PWA offline/error fallback
 ├── CHANGELOG.md                                # Keep a Changelog + semver history
 ├── CLAUDE.md                                   # Claude Code project instructions
@@ -1050,7 +1069,7 @@ kotlinskidev/
 ├── content.php                                 # legacy classic-theme partial
 ├── footer.php                                  # legacy classic-theme footer (superseded by parts/footer.html)
 ├── functions.php                               # thin require_once loader for functions/
-├── header.php                                  # doctype/head/wp_head() + <body <?php body_class(); ?>>/wp_body_open() — required by 404.php, the theme's one remaining live classic template override
+├── header.php                                  # doctype/head/wp_head() + <body <?php body_class(); ?>>/wp_body_open() — no longer used by any template, kept as a leftover
 ├── index.php                                   # classic-theme fallback (WP resolves templates/*.html first)
 ├── offline.html                                # PWA offline fallback page
 ├── package-lock.json                           # npm lockfile
@@ -1071,9 +1090,8 @@ kotlinskidev/
 
 Found while compiling this reference — not fixed, just flagged:
 
-1. **`404.php` references pattern slug `kotlinskidev/footer-dynamic`, which doesn't exist anywhere in the theme.** The 404 page's footer silently renders nothing for that call.
-2. **`patterns/header-default.php` appears orphaned** — contains unresolved placeholder shortcodes (`[theme_shortcode_here]`, `[language_shortcode_here]`), not referenced anywhere except itself. `parts/header.html` is hand-built with blocks directly, not via this pattern.
-3. **Three blocks don't use the `kotlinskidev/` namespace**: `googlemaps/google-maps-block`, `contact-form-ts/form`, `wpe/slider` — intentional/working, but inconsistent with the rest of the theme's naming.
-4. **README claims `npm run build` runs a two-step "Webpack + Tailwind minification" build**; the actual `build` script is plain `wp-scripts build` with no visible Tailwind step. Either stale README or a step that moved elsewhere.
-5. **`src/styles/shortcodes.scss` is an empty placeholder file.**
-6. **`index.php`, `page.php`, `single.php`, `content.php` are dead** — superseded by `templates/*.html`, and each references template parts (`get_template_part('nav')`, `content-page.php`) that don't exist in this theme, confirming they're unreachable leftovers rather than live fallbacks. **`header.php` is not dead**: it's required by `404.php`, the theme's one remaining live classic template override. `footer.php` itself is unused (`404.php` builds its own footer output inline instead of `get_footer()`).
+1. **`patterns/header-default.php` appears orphaned** — contains unresolved placeholder shortcodes (`[theme_shortcode_here]`, `[language_shortcode_here]`), not referenced anywhere except itself. `parts/header.html` is hand-built with blocks directly, not via this pattern.
+2. **Three blocks don't use the `kotlinskidev/` namespace**: `googlemaps/google-maps-block`, `contact-form-ts/form`, `wpe/slider` — intentional/working, but inconsistent with the rest of the theme's naming.
+3. **README claims `npm run build` runs a two-step "Webpack + Tailwind minification" build**; the actual `build` script is plain `wp-scripts build` with no visible Tailwind step. Either stale README or a step that moved elsewhere.
+4. **`src/styles/shortcodes.scss` is an empty placeholder file.**
+5. **`index.php`, `page.php`, `single.php`, `content.php` are dead** — superseded by `templates/*.html`, and each references template parts (`get_template_part('nav')`, `content-page.php`) that don't exist in this theme, confirming they're unreachable leftovers rather than live fallbacks. `header.php` and `footer.php` are dead too: since `404.php` was replaced by `templates/404.html` no classic template override is left. `patterns/template-404.php` is now unused but still appears in the inserter.

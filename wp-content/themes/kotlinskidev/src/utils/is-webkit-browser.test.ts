@@ -1,4 +1,4 @@
-import { isWebKitBrowser } from "./is-webkit-browser";
+import { isIosWebKit, isWebKitBrowser } from "./is-webkit-browser";
 
 const UA = {
   iphoneSafari:
@@ -54,5 +54,25 @@ describe("isWebKitBrowser", () => {
 
   it("reads navigator by default", () => {
     expect(typeof isWebKitBrowser()).toBe("boolean");
+  });
+});
+
+describe("isIosWebKit", () => {
+  it("is true for iPhone, iPad and iPod browsers including Chrome and Firefox on iOS", () => {
+    expect(isIosWebKit(UA.iphoneSafari, 5)).toBe(true);
+    expect(isIosWebKit(UA.iphoneChrome, 5)).toBe(true);
+    expect(isIosWebKit(UA.iphoneFirefox, 5)).toBe(true);
+    expect(isIosWebKit(UA.ipad, 5)).toBe(true);
+    expect(isIosWebKit(UA.ipod, 5)).toBe(true);
+  });
+
+  it("is true for iPadOS posing as a Mac and false for a real Mac", () => {
+    expect(isIosWebKit(UA.ipadOsDesktop, 5)).toBe(true);
+    expect(isIosWebKit(UA.macSafari, 0)).toBe(false);
+  });
+
+  it("is false for non-Apple browsers", () => {
+    expect(isIosWebKit(UA.winEdge, 0)).toBe(false);
+    expect(isIosWebKit(UA.androidChrome, 5)).toBe(false);
   });
 });

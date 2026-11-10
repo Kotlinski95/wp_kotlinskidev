@@ -36,10 +36,13 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 		inset: 0;
 		z-index: 0;
 		pointer-events: none;
+		isolation: isolate;
 		background: var(--wp--preset--color--dark-color);
 
 		img,
 		video {
+			position: relative;
+			z-index: 0;
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
@@ -47,11 +50,50 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 		}
 	}
 
+	&__bg--video-pending {
+		background-image: var(--kt-hero-poster, none);
+		background-position: center;
+		background-size: cover;
+
+		video {
+			opacity: 0;
+		}
+	}
+
+	&__bg--alpha-canvas {
+		background-image: var(--kt-hero-poster, none);
+		background-position: center;
+		background-size: cover;
+
+		video {
+			position: absolute;
+			inset: 0 auto auto 0;
+			width: 10rem;
+			height: 5.625rem;
+			opacity: 0;
+		}
+	}
+
+	&__bg--alpha-drawing {
+		background-image: none;
+	}
+
+	&__alpha-canvas {
+		position: absolute;
+		inset: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
 	&__overlay {
 		position: absolute;
 		inset: 0;
+		z-index: 1;
 		background: rgba(0, 0, 0, var(--overlay-opacity, 0.4));
 		pointer-events: none;
+		transform: translateZ(0);
 	}
 
 	&__content {

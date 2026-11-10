@@ -1,10 +1,16 @@
 import React from "react";
 import { registerBlockType } from "@wordpress/blocks";
-import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
+import {
+  ColorPalette,
+  InspectorControls,
+  useBlockProps,
+  useSettings,
+} from "@wordpress/block-editor";
+import { BaseControl, PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
 import { BlurAmountControl, BLUR_AMOUNT_DEFAULT_VALUE } from "../shared/blur-amount-control";
+import { barBackgroundToColor, colorToBarBackground, PaletteColor } from "./bar-background";
 
 type OverlayMenu = "never" | "mobile" | "always";
 type DisplayMode = "mega" | "list" | "bar";
@@ -31,6 +37,7 @@ export interface NavigationAttributes {
   blurInactiveLinks: boolean;
   blurAmount: string;
   blurIncludeUtility: boolean;
+  barSolidBackground: string;
 }
 
 const overlayMenuOptions = [
@@ -79,6 +86,12 @@ export function Edit({ attributes, setAttributes }: EditProps) {
       .join(" "),
   });
 
+  const [themePalette = [], defaultPalette = []] = useSettings(
+    "color.palette.theme",
+    "color.palette.default"
+  ) as [PaletteColor[] | undefined, PaletteColor[] | undefined];
+  const paletteColors = [...themePalette, ...defaultPalette];
+
   const navigationPosts = useSelect((select) => {
     return (select("core") as any).getEntityRecords("postType", "wp_navigation", {
       per_page: 100,
@@ -120,6 +133,26 @@ export function Edit({ attributes, setAttributes }: EditProps) {
             options={displayModeOptions}
             onChange={(displayMode) => setAttributes({ displayMode: displayMode as DisplayMode })}
           />
+          {attributes.displayMode === "bar" && (
+            <BaseControl
+              id="kt-nav-bar-solid-background"
+              label={__("Bar background while loading", "kotlinskidev")}
+              help={__(
+                "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background.",
+                "kotlinskidev"
+              )}
+              __nextHasNoMarginBottom
+            >
+              <ColorPalette
+                colors={paletteColors}
+                value={barBackgroundToColor(attributes.barSolidBackground, paletteColors)}
+                onChange={(color) =>
+                  setAttributes({ barSolidBackground: colorToBarBackground(color, paletteColors) })
+                }
+                clearable
+              />
+            </BaseControl>
+          )}
           <SelectControl
             label={__("Overlay mode", "kotlinskidev")}
             value={attributes.overlayMenu}
@@ -239,6 +272,7 @@ registerBlockType<NavigationAttributes>("kotlinskidev/navigation", {
     blurInactiveLinks: { type: "boolean", default: false },
     blurAmount: { type: "string", default: "" },
     blurIncludeUtility: { type: "boolean", default: false },
+    barSolidBackground: { type: "string", default: "" },
   },
   edit: Edit,
   save() {

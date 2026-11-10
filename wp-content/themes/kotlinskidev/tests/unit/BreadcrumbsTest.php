@@ -23,6 +23,7 @@ beforeEach(function () {
     Functions\when('is_single')->justReturn(false);
     Functions\when('is_page')->justReturn(false);
     Functions\when('is_search')->justReturn(false);
+    Functions\when('is_404')->justReturn(false);
     Functions\when('is_home')->justReturn(false);
     Functions\when('is_post_type_archive')->justReturn(false);
 });
@@ -219,4 +220,11 @@ it('replaces the yoast crumbs with our own trail, mapping label/url to text/url'
         ['text' => $settings['topics_text'], 'url' => $settings['topics_url']],
         ['text' => 'PHP', 'url' => 'https://example.test/category/php/'],
     ]);
+});
+
+it('returns only the home crumb on a 404 so the trail renders nothing', function () {
+    Functions\when('is_404')->justReturn(true);
+    Functions\when('get_the_title')->justReturn('');
+
+    expect(kotlinskidev_get_breadcrumb_trail())->toHaveCount(1);
 });

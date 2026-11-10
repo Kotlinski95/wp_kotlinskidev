@@ -11252,6 +11252,18 @@ msgstr ""
 "Server-rendered search input form, translated per the current Polylang "
 "language."
 
+#: build/blocks/not-found-dynamic/block.json
+#: src/blocks/not-found-dynamic/block.json
+msgctxt "block title"
+msgid "Not Found (Dynamic)"
+msgstr "Not Found (Dynamic)"
+
+#: build/blocks/not-found-dynamic/block.json
+#: src/blocks/not-found-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered 404 hero (image, heading, message and homepage button), translated per the current Polylang language."
+msgstr "Server-rendered 404 hero (image, heading, message and homepage button), translated per the current Polylang language."
+
 #: build/blocks/search-header-dynamic/block.json
 #: src/blocks/search-header-dynamic/block.json
 msgctxt "block title"
@@ -11963,3 +11975,11 @@ msgstr "Rose Pink"
 msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Sunset Orange"
+
+#: src/blocks/navigation/index.tsx:139 build/js/navigation.js:1
+msgid "Bar background while loading"
+msgstr "Bar background while loading"
+
+#: src/blocks/navigation/index.tsx:141 build/js/navigation.js:1
+msgid "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background."
+msgstr "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background."

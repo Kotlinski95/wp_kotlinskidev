@@ -1,6 +1,7 @@
 import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
 import { trackEvent } from "./track-event";
+import { getScrollTop, scrollTo } from "./utils";
 
 const OWNER = "kt-modal";
 const FOCUSABLE_SELECTOR =
@@ -14,9 +15,9 @@ let scrollYAtPointerDown: number | null = null;
 
 // Re-asserts target scrollY for a few frames since an external reaction (GSAP auto-refresh, etc.) can shift it unpredictably after open/close.
 function guardScrollPosition(targetY: number, framesRemaining: number): void {
-  if (window.scrollY !== targetY) {
+  if (getScrollTop() !== targetY) {
     // behavior:"instant" avoids the 2-arg scrollTo()'s inherited theme-wide smooth-scroll animation, which would leave a residual gap.
-    window.scrollTo({ left: window.scrollX, top: targetY, behavior: "instant" });
+    scrollTo(targetY, "instant");
   }
   if (framesRemaining <= 0) {
     return;
@@ -60,7 +61,7 @@ function closeModal(): void {
   if (!activeModal) {
     return;
   }
-  const scrollYBeforeClose = window.scrollY;
+  const scrollYBeforeClose = getScrollTop();
   const modal = activeModal;
   const trigger = activeTrigger;
   setBackgroundInert(activeModal, false);
@@ -77,7 +78,7 @@ function closeModal(): void {
 }
 
 function openModal(modal: HTMLElement, trigger: HTMLElement): void {
-  const scrollYBeforeOpen = scrollYAtPointerDown ?? window.scrollY;
+  const scrollYBeforeOpen = scrollYAtPointerDown ?? getScrollTop();
   scrollYAtPointerDown = null;
   closeAllExcept(closeModal);
   activeModal = modal;
@@ -101,7 +102,7 @@ export function initModalManager(): void {
     (e) => {
       const target = e.target as HTMLElement;
       if (target.closest('[data-kt-modal-target], a[href^="#kt-modal-"]')) {
-        scrollYAtPointerDown = window.scrollY;
+        scrollYAtPointerDown = getScrollTop();
         e.preventDefault();
       }
     },

@@ -1,3 +1,4 @@
+import { onScroll as bindScroll } from "./utils";
 import {
   REVEAL_AFTER_END_SELECTOR,
   SCROLL_ANIMATION_SELECTOR,
@@ -37,7 +38,7 @@ import {
       });
     };
     document.addEventListener("DOMContentLoaded", onScroll);
-    (window as Window).addEventListener("scroll", onScroll);
+    bindScroll(onScroll);
     (window as Window).addEventListener("resize", onScroll);
   }
 })();

@@ -24,7 +24,8 @@
 	}
 }
 
-.kt-breadcrumbs--hidden {
+.kt-breadcrumbs--hidden,
+body:has(header.nav-hidden) .kt-breadcrumbs {
 	transform: translateY(-100%);
 	opacity: 0;
 	pointer-events: none;

@@ -1,3 +1,4 @@
+@import "./styles/font-fallback";
 @import "./styles/global";
 @import "./formats/gradient-highlight/style";
 @import "./styles/page";
@@ -17,6 +18,10 @@
 @import "./styles/kotlinskiwind";
 @import "./styles/above-the-fold";
 @import "./styles/mobile-footer-menu";
+@import "./styles/app-shell";
+@import "./styles/form-controls";
+@import "./styles/not-found";
+@import "./styles/post-card";
 @import "./styles/parallax-critical";
 @import "./styles/scroll-animations-critical";
 @import "./styles/nav-reveal-animations";

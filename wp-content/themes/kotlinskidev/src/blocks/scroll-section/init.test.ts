@@ -18,6 +18,8 @@ interface GsapToCall {
 let mockToCalls: GsapToCall[] = [];
 const mockRegisterPlugin = jest.fn();
 const mockScrollTriggerConfig = jest.fn();
+const mockScrollTriggerRefresh = jest.fn();
+let mockShellActive = false;
 
 jest.mock("gsap", () => ({
   gsap: {
@@ -25,6 +27,12 @@ jest.mock("gsap", () => ({
     to: (target: HTMLElement, config: unknown) => {
       mockToCalls.push({ target, config } as GsapToCall);
     },
+    matchMedia: () => ({
+      add: (
+        _conditions: Record<string, string>,
+        callback: (context: { conditions: { shell: boolean } }) => void
+      ) => callback({ conditions: { shell: mockShellActive } }),
+    }),
     utils: {
       toArray: (selector: string) =>
         Array.from(globalThis.document.querySelectorAll<HTMLElement>(selector)),
@@ -33,7 +41,10 @@ jest.mock("gsap", () => ({
 }));
 
 jest.mock("gsap/ScrollTrigger", () => ({
-  ScrollTrigger: { config: (...args: unknown[]) => mockScrollTriggerConfig(...args) },
+  ScrollTrigger: {
+    config: (...args: unknown[]) => mockScrollTriggerConfig(...args),
+    refresh: () => mockScrollTriggerRefresh(),
+  },
 }));
 
 function buildSection({
@@ -75,6 +86,37 @@ function loadModule() {
 describe("scroll-section/init.ts", () => {
   afterEach(() => {
     document.body.innerHTML = "";
+    document.body.className = "";
+    mockShellActive = false;
+  });
+
+  it("targets the .wp-site-blocks scroller with a fixed pin type in app shell mode", () => {
+    buildSection();
+    document.body.classList.add("kt-app-shell");
+    const scroller = document.createElement("div");
+    scroller.className = "wp-site-blocks";
+    document.body.append(scroller);
+    Object.defineProperty(window, "matchMedia", {
+      configurable: true,
+      writable: true,
+      value: () => ({ matches: true, addEventListener: jest.fn(), removeEventListener: jest.fn() }),
+    });
+    mockShellActive = true;
+
+    loadModule();
+
+    const trigger = mockToCalls[0].config.scrollTrigger as unknown as Record<string, unknown>;
+    expect(trigger.scroller).toBe(scroller);
+    expect(trigger.pinType).toBe("fixed");
+  });
+
+  it("refreshes ScrollTrigger when the scroll container changes", () => {
+    buildSection();
+
+    loadModule();
+    window.dispatchEvent(new Event("kt:scroll-container-change"));
+
+    expect(mockScrollTriggerRefresh).toHaveBeenCalled();
   });
 
   it("registers ScrollTrigger and disables mobile-resize invalidation", () => {

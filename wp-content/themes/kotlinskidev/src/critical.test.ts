@@ -2,6 +2,7 @@ jest.mock("./critical.scss", () => ({}), { virtual: true });
 jest.mock("./scripts/theme-switcher", () => ({}));
 jest.mock("./scripts/restoration", () => ({}));
 jest.mock("./scripts/utils", () => ({}));
+jest.mock("./scripts/app-shell", () => ({}));
 jest.mock("./scripts/sticky-header", () => ({}));
 
 describe("critical loaded marker", () => {

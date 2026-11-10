@@ -1,3 +1,5 @@
+import { getScrollTop, onScroll as bindScroll } from "./utils";
+
 (function () {
   if (!(window as any).kotlinskidev_ajax) {
     return;
@@ -92,13 +94,13 @@
 
     if (timeSpent >= 3000 || hasScrolled) {
       trackPageView();
-      window.removeEventListener("scroll", onScroll);
+      removeScrollListener();
       document.removeEventListener("visibilitychange", onVisibilityChange);
     }
   };
 
   const onScroll = () => {
-    if (window.scrollY > 100) {
+    if (getScrollTop() > 100) {
       hasScrolled = true;
       trackView();
     }
@@ -110,7 +112,7 @@
     }
   };
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  const removeScrollListener = bindScroll(onScroll);
   document.addEventListener("visibilitychange", onVisibilityChange);
 
   setTimeout(trackView, 10000);

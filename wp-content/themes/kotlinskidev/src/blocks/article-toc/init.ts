@@ -1,7 +1,14 @@
 import {
   beginProgrammaticScroll,
   endProgrammaticScroll,
+  getElementScrollTop,
+  getMaxScrollTop,
+  getScrollContainer,
   getScrollOffsets,
+  getScrollTop,
+  getScrollViewportHeight,
+  onScroll,
+  scrollTo,
   isMobile,
   isProgrammaticScrollActive,
   onScreenSizeChange,
@@ -34,15 +41,11 @@ function resolveHeadings(links: HTMLAnchorElement[]): (HTMLElement | null)[] {
 }
 
 function computeActiveIndex(headings: (HTMLElement | null)[]): number {
-  const doc = document.documentElement;
-  if (
-    headings.length > 0 &&
-    window.innerHeight + window.scrollY >= doc.scrollHeight - DOCUMENT_BOTTOM_TOLERANCE_PX
-  ) {
+  if (headings.length > 0 && getScrollTop() >= getMaxScrollTop() - DOCUMENT_BOTTOM_TOLERANCE_PX) {
     return headings.length - 1;
   }
 
-  const threshold = getOffset() + window.innerHeight * ACTIVE_VIEWPORT_RATIO;
+  const threshold = getOffset() + getScrollViewportHeight() * ACTIVE_VIEWPORT_RATIO;
   let active = -1;
   headings.forEach((heading, index) => {
     if (heading && heading.getBoundingClientRect().top <= threshold) {
@@ -153,27 +156,27 @@ function initRoot(root: HTMLElement): void {
 
     let finished = false;
     let fallbackTimer = 0;
+    const scrollEndTarget: EventTarget = getScrollContainer() ?? window;
     const finish = (): void => {
       if (finished) {
         return;
       }
       finished = true;
       window.clearTimeout(fallbackTimer);
-      window.removeEventListener("scrollend", finish);
+      scrollEndTarget.removeEventListener("scrollend", finish);
       endProgrammaticScroll();
       spyLocked = false;
       heading.setAttribute("tabindex", "-1");
       heading.focus({ preventScroll: true });
     };
 
-    window.addEventListener("scrollend", finish);
+    scrollEndTarget.addEventListener("scrollend", finish);
     fallbackTimer = window.setTimeout(finish, SCROLL_END_FALLBACK_MS);
 
-    const top = heading.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-      top: Math.max(0, top - getOffset() - SCROLL_CLEARANCE_PX),
-      behavior: prefersReducedMotion() ? "auto" : "smooth",
-    });
+    scrollTo(
+      Math.max(0, getElementScrollTop(heading) - getOffset() - SCROLL_CLEARANCE_PX),
+      prefersReducedMotion() ? "auto" : "smooth"
+    );
   };
 
   [mainLinks, dialogLinks].forEach((links) => {
@@ -198,10 +201,11 @@ function initRoot(root: HTMLElement): void {
     }
   });
 
-  window.addEventListener("scroll", throttledUpdate, { passive: true });
+  onScroll(throttledUpdate);
   window.addEventListener("resize", throttledUpdate);
   window.addEventListener("load", updateSpy);
   window.addEventListener("scrollend", updateSpy);
+  getScrollContainer()?.addEventListener("scrollend", updateSpy);
   document.addEventListener("visibilitychange", updateSpy);
 
   updateSpy();

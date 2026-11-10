@@ -1,3 +1,5 @@
+import { onScroll } from "../../scripts/utils";
+
 export {};
 
 const MAX_CLONE_ITERATIONS = 20;
@@ -143,16 +145,12 @@ const wireMarqueePauseResume = (container: HTMLElement, track: HTMLElement): voi
   });
 
   // Defense-in-depth: resume on scroll if paused with no genuine reason left — doesn't override a real ongoing hover or press.
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (isPaused && !hovered && !pressed && !modalOpen) {
-        focused = false;
-        evaluate();
-      }
-    },
-    { passive: true }
-  );
+  onScroll(() => {
+    if (isPaused && !hovered && !pressed && !modalOpen) {
+      focused = false;
+      evaluate();
+    }
+  });
 };
 
 const initMarquee = (el: HTMLElement): void => {

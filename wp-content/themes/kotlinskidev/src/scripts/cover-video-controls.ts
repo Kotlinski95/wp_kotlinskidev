@@ -7,6 +7,7 @@ import {
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const FIRST_FRAME_TIME = 0.001;
 const REVEAL_LEAD_SECONDS = 0.4;
+const END_FRAME_TOLERANCE_SECONDS = 0.05;
 
 const showFirstFrame = (video: HTMLVideoElement): void => {
   const seek = () => {
@@ -97,8 +98,20 @@ const revealAfterEnd = (cover: HTMLElement): void => {
     targets.forEach((el) => el.classList.remove("visible"));
   };
 
+  let playedToEnd = false;
+
+  const restoreEndFrame = () => {
+    if (video.duration - video.currentTime > END_FRAME_TOLERANCE_SECONDS) {
+      video.currentTime = video.duration;
+    }
+  };
+
   const syncVisibility = () => {
     if (!Number.isFinite(video.duration) || video.duration <= 0) {
+      return;
+    }
+    if (playedToEnd && video.paused) {
+      restoreEndFrame();
       return;
     }
     if (video.ended || video.duration - video.currentTime <= REVEAL_LEAD_SECONDS) {
@@ -108,15 +121,27 @@ const revealAfterEnd = (cover: HTMLElement): void => {
     hide();
   };
 
+  const onPlaying = () => {
+    if (video.currentTime < video.duration - REVEAL_LEAD_SECONDS) {
+      playedToEnd = false;
+    }
+    syncVisibility();
+  };
+
+  const onEnded = () => {
+    playedToEnd = true;
+    reveal();
+  };
+
   if (window.matchMedia(REDUCED_MOTION_QUERY).matches || video.ended) {
     reveal();
     return;
   }
 
   video.addEventListener("timeupdate", syncVisibility);
-  video.addEventListener("playing", syncVisibility);
+  video.addEventListener("playing", onPlaying);
   video.addEventListener("seeked", syncVisibility);
-  video.addEventListener("ended", reveal);
+  video.addEventListener("ended", onEnded);
   video.addEventListener("error", reveal, { once: true });
 
   if (video.dataset.ktVideoAutoplay !== "off") {

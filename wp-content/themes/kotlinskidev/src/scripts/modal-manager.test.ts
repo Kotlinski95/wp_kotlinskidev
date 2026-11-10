@@ -140,7 +140,6 @@ describe("modal-manager", () => {
     flushOneFrame();
 
     expect(window.scrollTo).toHaveBeenCalledWith({
-      left: window.scrollX,
       top: 500,
       behavior: "instant",
     });
@@ -158,7 +157,6 @@ describe("modal-manager", () => {
     trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
 
     expect(window.scrollTo).toHaveBeenCalledWith({
-      left: window.scrollX,
       top: 500,
       behavior: "instant",
     });
@@ -177,7 +175,6 @@ describe("modal-manager", () => {
     trigger.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
 
     expect(window.scrollTo).toHaveBeenCalledWith({
-      left: window.scrollX,
       top: 500,
       behavior: "instant",
     });
