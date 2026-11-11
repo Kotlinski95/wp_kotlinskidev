@@ -21,7 +21,6 @@ kotlinskidev/
 │   └── results/                                # gitignored — generated per run (incl. urls.generated.json), baseline persisted on the orphan audit-history branch instead
 ├── assets/                                     # static: css/ fonts/ icons/ images/ videos/
 ├── docs/                                       # architecture reference, workflow, and tooling docs (current state only)
-│   ├── 522.md                                  # Cloudflare 522 incident runbook + root-cause notes
 │   ├── accessibility.md                        # accessibility review checklist (WCAG 2.2 POUR, ARIA, EAA/ADA/Section 508 cross-ref)
 │   ├── breakpoints.md                          # DB-driven breakpoint system
 │   ├── build.md                                # Webpack build architecture — entry-derivation logic, why build/ stays (not Astra's assets/css-minified pattern)
@@ -32,9 +31,6 @@ kotlinskidev/
 │   ├── hero-alpha-video.md                     # why iOS draws the hero alpha video through a canvas (opaque compositing bug), the fix and how to test it
 │   ├── header-architecture.md                  # header template/block architecture
 │   ├── legal-compliance.md                     # legal/privacy review checklist (GDPR, cookie consent, Impressum, EAA accessibility statement) + practical how-to steps for items with a concrete engineering fix (e.g. AI-generated media disclosure)
-│   ├── mcp-server-usage.md                     # MCP server usage notes
-│   ├── mcp-wordpress-setup.md                  # MCP WordPress integration setup notes
-│   ├── monitoring.md                           # EC2 CloudWatch alarms/agent setup + PHP-FPM memory cleanup
 │   ├── navigation-structure.md                 # desktop mega-menu + hamburger architecture
 │   ├── page-transition.md                      # mobile bottom nav investigation (T24): root causes (Chrome iOS fixed-bottom bug), the app shell fix and its rules, other fixes, what was tried and dropped, debugging on a real device
 │   ├── performance.md                          # performance review checklist (JS runtime, rendering, network, WP backend)

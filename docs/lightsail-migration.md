@@ -27,8 +27,8 @@ Lightsail's flat-rate pricing matched the actual workload far better. Final targ
 - **Plan:** Micro-1GB Linux, $7/month
 - **Blueprint:** WordPress 7.1 (AWS's own Lightsail blueprint, not Bitnami-packaged)
 - **OS:** Debian, Apache 2.4 + mod_php 8.2
-- **Static IP:** `52.28.121.185` (named `kotlinskidev-static-ip` in Lightsail)
-- **SSH:** user `admin`, key `LightsailDefaultKey-eu-central-1.pem`, firewall restricted to the admin's home IP (`84.40.218.223/32`) plus Lightsail's own browser-SSH ranges
+- **Static IP:** named `kotlinskidev-static-ip` in Lightsail (the address is deliberately not written here because the repo is public; read it in the Lightsail console)
+- **SSH:** user `admin`, key `LightsailDefaultKey-eu-central-1.pem`, firewall restricted to the admin's home IP plus Lightsail's own browser-SSH ranges
 - **WordPress root:** `/var/www/html` (note: `wp-config.php` itself sits one level up at `/var/www/wp-config.php`, standard WP convention)
 - **TLS:** Cloudflare Origin CA certificate (15-year validity), installed at `/etc/ssl/certs/cloudflare-origin.pem` / `/etc/ssl/private/cloudflare-origin.key`, wired into Apache's `default-ssl.conf`
 - **DNS/CDN:** Cloudflare, proxied (orange-cloud) on `kotlinskidev.com` and `www`, SSL/TLS mode **Full (strict)** — requires the origin cert above to be valid at all times
@@ -74,7 +74,7 @@ Lightsail's flat-rate pricing matched the actual workload far better. Final targ
 **7. Stale URLs baked into the database by the migration plugin** — This was the biggest and most persistent issue, in three separate layers:
 
 - All-in-One WP Migration automatically search-replaces the backup's URL with whatever the *current* site's URL is *at import time*. Since the import happened before DNS cutover (correctly, for safe pre-launch testing), it rewrote every URL in the database to the Lightsail IP address instead of the real domain.
-- A first search-replace pass (`http://52.28.121.185` → `https://kotlinskidev.com`) missed the `https://` variant of the IP, which several menu/footer custom links used — a second, broader pass (bare IP, no protocol) was needed.
+- A first search-replace pass (`http://<STATIC_IP>` → `https://kotlinskidev.com`) missed the `https://` variant of the IP, which several menu/footer custom links used — a second, broader pass (bare IP, no protocol) was needed.
 - `wp-config.php` itself defined `WP_HOME`/`WP_SITEURL` dynamically from the incoming request's `Host` header (`define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] . '/')`) — a sensible Lightsail first-boot default, but one that silently overrides the database value on every request. This caused WP-CLI (no real HTTP context, defaults to `127.0.0.1`) and any background process without a proper Host header to keep leaking `127.0.0.1` into stored content (notably Yoast SEO's separate `wp_yoast_indexable.permalink` cache table, which doesn't read `home_url()` live). Fixed by hardcoding both constants to the real domain.
 - **Diagnosis method worth remembering**: `wp option get` can itself be misleading if a plugin or object cache intercepts the value — cross-checking with a raw `wp db query` against `wp_options` directly, and testing the origin server straight via IP + explicit `Host` header (bypassing Cloudflare entirely), was what isolated each layer.
 

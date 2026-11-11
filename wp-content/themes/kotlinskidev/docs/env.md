@@ -13,7 +13,7 @@ All of these live in the **theme root** (`wp-content/themes/kotlinskidev/`):
 | `.envrc` | Yes | direnv config — a single `dotenv` directive that auto-loads `.env`. |
 | `.mcp.json` | Yes | Claude Code MCP config. References the secret as `${WP_MCP_API_KEY}` — never contains the value itself. |
 
-`WP_MCP_API_KEY` is an API key generated in the **Enable Abilities for MCP** plugin settings (wp-admin), used as a Bearer token for the WordPress MCP endpoint. See `docs/mcp-wordpress-setup.md` for the full MCP picture.
+`WP_MCP_API_KEY` is an API key generated in the **Enable Abilities for MCP** plugin settings (wp-admin), used as a Bearer token for the WordPress MCP endpoint. See `../../../../docs/mcp-wordpress-setup.md` for the full MCP picture.
 
 ## Where Claude Code actually reads it from
 
