@@ -288,6 +288,8 @@ require_once get_template_directory() . '/functions/service-location-ready-ids-c
 require_once get_template_directory() . '/functions/service-location-add-city.php';
 
 require_once get_template_directory() . '/functions/contact-card.php';
+require_once get_template_directory() . '/functions/seo-identity.php';
+require_once get_template_directory() . '/functions/seo-schema.php';
 
 require_once get_template_directory() . '/functions/article-card.php';
 require_once get_template_directory() . '/functions/project-card.php';

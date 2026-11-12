@@ -69,8 +69,8 @@ it('migration appends the new features to an already saved option and records th
 
     kotlinskidev_migrate_feature_toggles();
 
-    expect($store['kotlinskidev_enabled_features'])->toBe(['project_cards', 'certificates', 'offers', 'article_toc', 'site_values', 'cover_video_controls']);
-    expect($store['kotlinskidev_feature_toggles_version'])->toBe(2);
+    expect($store['kotlinskidev_enabled_features'])->toBe(['project_cards', 'certificates', 'offers', 'article_toc', 'site_values', 'cover_video_controls', 'custom_seo']);
+    expect($store['kotlinskidev_feature_toggles_version'])->toBe(3);
 });
 
 it('migration leaves a fresh install without a saved option on the all-on default', function () {
@@ -79,7 +79,7 @@ it('migration leaves a fresh install without a saved option on the all-on defaul
     kotlinskidev_migrate_feature_toggles();
 
     expect($store->offsetExists('kotlinskidev_enabled_features'))->toBeFalse();
-    expect($store['kotlinskidev_feature_toggles_version'])->toBe(2);
+    expect($store['kotlinskidev_feature_toggles_version'])->toBe(3);
     expect(kotlinskidev_feature_enabled('offers'))->toBeTrue();
 });
 
@@ -98,5 +98,18 @@ it('migration does not duplicate keys already present', function () {
 
     kotlinskidev_migrate_feature_toggles();
 
-    expect($store['kotlinskidev_enabled_features'])->toBe(['offers', 'project_cards', 'article_toc', 'site_values', 'cover_video_controls']);
+    expect($store['kotlinskidev_enabled_features'])->toBe(['offers', 'project_cards', 'article_toc', 'site_values', 'cover_video_controls', 'custom_seo']);
+});
+
+it('migration from version two adds only the custom SEO feature', function () {
+    $store = kt_feature_migration_store(['kotlinskidev_enabled_features' => ['project_cards'], 'kotlinskidev_feature_toggles_version' => 2]);
+
+    kotlinskidev_migrate_feature_toggles();
+
+    expect($store['kotlinskidev_enabled_features'])->toBe(['project_cards', 'custom_seo']);
+    expect($store['kotlinskidev_feature_toggles_version'])->toBe(3);
+});
+
+it('lists custom_seo as a toggleable feature', function () {
+    expect(array_keys(kotlinskidev_toggleable_features()))->toContain('custom_seo');
 });

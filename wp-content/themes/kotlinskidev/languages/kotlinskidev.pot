@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-06T08:38:05+00:00\n"
+"POT-Creation-Date: 2026-11-12T13:05:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -38,9 +38,25 @@ msgstr ""
 msgid "Adrian Kotliński"
 msgstr ""
 
+#: build/blocks/article-toc/render.php:25
+#: src/blocks/article-toc/render.php:25
+#: build/js/article-toc.js:1
+msgid "Table of contents"
+msgstr ""
+
+#: build/blocks/article-toc/render.php:26
+#: src/blocks/article-toc/render.php:26
+msgid "Open table of contents"
+msgstr ""
+
+#: build/blocks/article-toc/render.php:27
+#: src/blocks/article-toc/render.php:27
+msgid "Close table of contents"
+msgstr ""
+
 #: build/blocks/contact-detail/render.php:16
-#: functions/contact-card.php:57
-#: functions/settings-page.php:729
+#: functions/contact-card.php:120
+#: functions/settings-page.php:765
 #: src/blocks/contact-detail/render.php:16
 #: build/js/contact-detail.js:1
 #: build/js/google-maps.js:1
@@ -49,8 +65,8 @@ msgid "Address"
 msgstr ""
 
 #: build/blocks/contact-detail/render.php:17
-#: functions/contact-card.php:69
-#: functions/settings-page.php:737
+#: functions/contact-card.php:132
+#: functions/settings-page.php:773
 #: src/blocks/contact-detail/render.php:17
 #: build/js/contact-detail.js:1
 #: build/js/device-frame.js:1
@@ -60,9 +76,9 @@ msgstr ""
 
 #: build/blocks/contact-detail/render.php:18
 #: functions/class-contact-submissions-list-table.php:25
-#: functions/contact-card.php:75
-#: functions/contact-form-submissions.php:172
-#: functions/settings-page.php:746
+#: functions/contact-card.php:138
+#: functions/contact-form-submissions.php:174
+#: functions/settings-page.php:782
 #: src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1
 #: build/js/protected-content.js:1
@@ -70,38 +86,143 @@ msgid "Email"
 msgstr ""
 
 #: build/blocks/contact-detail/render.php:19
-#: functions/contact-card.php:63
+#: functions/contact-card.php:126
 #: src/blocks/contact-detail/render.php:19
 #: build/js/contact-detail.js:1
 #: build/js/editor.js:1
 msgid "Hours"
 msgstr ""
 
-#: build/blocks/device-frame/render.php:84
-#: src/blocks/device-frame/render.php:84
+#: build/blocks/contact-form/render.php:35
+#: src/blocks/contact-form/render.php:35
+msgid "One of the files is not an allowed type or its content does not match its extension."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:36
+#: src/blocks/contact-form/render.php:36
+msgid "The files are too large. Please attach fewer or smaller files."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:37
+#: src/blocks/contact-form/render.php:37
+msgid "Too many files. Please attach fewer files."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:38
+#: src/blocks/contact-form/render.php:38
+msgid "The files could not be processed. Please try again."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:39
+#: src/blocks/contact-form/render.php:39
+msgid "Too many submissions with attachments. Please wait a few minutes and try again."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:40
+#: src/blocks/contact-form/render.php:40
+msgid "The upload is too large. Please attach fewer or smaller files."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:84
+#: src/blocks/contact-form/render.php:84
+#, php-format
+msgid "You can attach up to %s files."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:85
+#: src/blocks/contact-form/render.php:85
+#, php-format
+msgid "The files together are larger than %s."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:86
+#: src/blocks/contact-form/render.php:86
+#, php-format
+msgid "\"%s\" is larger than the per-file limit."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:87
+#: src/blocks/contact-form/render.php:87
+#, php-format
+msgid "\"%s\" is not an allowed file type."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:88
+#: src/blocks/contact-form/render.php:88
+#, php-format
+msgid "Remove %s"
+msgstr ""
+
+#: build/blocks/contact-form/render.php:113
+#: src/blocks/contact-form/render.php:113
+#: build/js/contact-form.js:1
+msgid "Attachments (optional)"
+msgstr ""
+
+#: build/blocks/contact-form/render.php:119
+#: src/blocks/contact-form/render.php:119
+#, php-format
+msgid "Allowed types: %1$s. Max %2$d files, %3$d MB total."
+msgstr ""
+
+#: build/blocks/contact-form/render.php:127
+#: src/blocks/contact-form/render.php:127
+msgid "Files are sent to the site owner by email and are not stored on the website."
+msgstr ""
+
+#: build/blocks/device-frame/render.php:82
+#: src/blocks/device-frame/render.php:82
 msgid "Expand video"
 msgstr ""
 
-#: build/blocks/device-frame/render.php:84
-#: src/blocks/device-frame/render.php:84
+#: build/blocks/device-frame/render.php:82
+#: src/blocks/device-frame/render.php:82
 msgid "Expand image"
 msgstr ""
 
-#: build/blocks/google-maps/render.php:29
-#: src/blocks/google-maps/render.php:29
+#. translators: %s: place name and tagline shown on the map marker
+#: build/blocks/google-maps/render.php:30
+#: src/blocks/google-maps/render.php:30
+#, php-format
+msgid "%s, opens in Google Maps in a new tab"
+msgstr ""
+
+#: build/blocks/google-maps/render.php:31
+#: src/blocks/google-maps/render.php:31
+msgid "Location"
+msgstr ""
+
+#: build/blocks/google-maps/render.php:69
+#: src/blocks/google-maps/render.php:69
 msgid "Please provide a Google Maps API key and address or coordinates in the block settings."
 msgstr ""
 
-#: build/blocks/google-maps/render.php:39
-#: src/blocks/google-maps/render.php:39
+#: build/blocks/google-maps/render.php:74
+#: src/blocks/google-maps/render.php:74
+#: build/js/google-maps.js:1
+msgid "Cookie settings"
+msgstr ""
+
+#: build/blocks/google-maps/render.php:76
+#: src/blocks/google-maps/render.php:76
 #: build/js/google-maps.js:1
 msgid "Reset View"
 msgstr ""
 
+#: build/blocks/google-maps/render.php:84
+#: src/blocks/google-maps/render.php:84
+msgid "Map unavailable"
+msgstr ""
+
+#: build/blocks/google-maps/render.php:85
+#: src/blocks/google-maps/render.php:85
+msgid "This map is provided by Google and needs your consent to marketing cookies before it can load."
+msgstr ""
+
 #: build/blocks/language-panel/render.php:19
-#: build/blocks/navigation/render.php:305
+#: build/blocks/navigation/render.php:320
 #: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:305
+#: src/blocks/navigation/render.php:320
 #: build/js/language-panel.js:1
 msgid "Language"
 msgstr ""
@@ -132,65 +253,86 @@ msgstr ""
 msgid "Interactive 3D model — click to open or close"
 msgstr ""
 
-#: build/blocks/navigation/render.php:181
-#: src/blocks/navigation/render.php:181
+#: build/blocks/navigation/render.php:187
+#: src/blocks/navigation/render.php:187
 msgid "Mobile navigation"
 msgstr ""
 
-#: build/blocks/navigation/render.php:256
-#: src/blocks/navigation/render.php:256
+#: build/blocks/navigation/render.php:271
+#: src/blocks/navigation/render.php:271
 msgid "Menu"
 msgstr ""
 
-#: build/blocks/navigation/render.php:274
+#: build/blocks/navigation/render.php:289
 #: build/blocks/search-panel/render.php:3
-#: src/blocks/navigation/render.php:274
+#: src/blocks/navigation/render.php:289
 #: src/blocks/search-panel/render.php:3
 #: build/js/search-panel.js:1
 msgid "Search"
 msgstr ""
 
-#: build/blocks/navigation/render.php:444
-#: src/blocks/navigation/render.php:444
+#: build/blocks/navigation/render.php:459
+#: src/blocks/navigation/render.php:459
 msgid "Main navigation"
 msgstr ""
 
+#: build/blocks/not-found-dynamic/render.php:2
+#: src/blocks/not-found-dynamic/render.php:2
+msgid "OOPS! Page Not Found!"
+msgstr ""
+
+#: build/blocks/not-found-dynamic/render.php:3
+#: src/blocks/not-found-dynamic/render.php:3
+msgid "Something went wrong! We couldn’t find the page you were looking for. But don’t worry, we’ve got some other Links that might be helpful:"
+msgstr ""
+
+#: build/blocks/not-found-dynamic/render.php:4
+#: src/blocks/not-found-dynamic/render.php:4
+msgid "Go to Homepage"
+msgstr ""
+
 #: build/blocks/offer-table/render.php:29
-#: functions/offers.php:297
-#: functions/offers.php:347
-#: functions/offers.php:350
-#: functions/offers.php:366
+#: functions/offers.php:302
+#: functions/offers.php:352
+#: functions/offers.php:355
+#: functions/offers.php:371
 #: src/blocks/offer-table/render.php:29
 msgid "Price on request"
 msgstr ""
 
 #: build/blocks/offer-table/render.php:30
-#: functions/offers.php:323
-#: functions/offers.php:363
+#: functions/offers.php:328
+#: functions/offers.php:368
 #: src/blocks/offer-table/render.php:30
 msgid "Timeline agreed individually"
 msgstr ""
 
-#: build/blocks/offer-table/render.php:47
-#: src/blocks/offer-table/render.php:47
-msgid "Package"
-msgstr ""
-
-#: build/blocks/offer-table/render.php:48
-#: src/blocks/offer-table/render.php:48
-#: build/js/editor.js:1
-msgid "Price"
-msgstr ""
-
 #: build/blocks/offer-table/render.php:49
 #: src/blocks/offer-table/render.php:49
-msgid "Timeline"
+msgid "Package"
 msgstr ""
 
 #: build/blocks/offer-table/render.php:50
 #: src/blocks/offer-table/render.php:50
 #: build/js/editor.js:1
+msgid "Price"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:51
+#: src/blocks/offer-table/render.php:51
+msgid "Timeline"
+msgstr ""
+
+#: build/blocks/offer-table/render.php:53
+#: src/blocks/offer-table/render.php:53
+#: build/js/editor.js:1
 msgid "Included"
+msgstr ""
+
+#: build/blocks/popular-pages/render.php:4
+#: src/blocks/popular-pages/render.php:4
+#: build/js/popular-pages.js:1
+msgid "Popular Pages"
 msgstr ""
 
 #: build/blocks/pricing-cards/item/render.php:23
@@ -311,7 +453,7 @@ msgid "Protected content copied/clicked"
 msgstr ""
 
 #: functions/article-card.php:9
-#: functions/feature-toggles.php:5
+#: functions/feature-toggles.php:31
 msgid "Article Cards"
 msgstr ""
 
@@ -336,8 +478,8 @@ msgstr ""
 msgid "No article cards found"
 msgstr ""
 
-#: functions/article-card.php:119
-#: functions/project-card.php:116
+#: functions/article-card.php:177
+#: functions/project-card.php:150
 msgid "Select a card to display it here."
 msgstr ""
 
@@ -412,7 +554,7 @@ msgstr ""
 
 #: functions/article-query-manager.php:99
 #: functions/class-contact-submissions-list-table.php:28
-#: functions/contact-form-submissions.php:164
+#: functions/contact-form-submissions.php:166
 msgid "Date"
 msgstr ""
 
@@ -524,11 +666,11 @@ msgstr ""
 
 #: functions/blog-topic-manager.php:206
 #: functions/blog-topic-manager.php:836
-#: functions/breadcrumbs.php:56
+#: functions/breadcrumbs.php:60
 #: functions/search-page-dynamic-blocks.php:252
 #: functions/search-page-dynamic-blocks.php:426
 #: functions/tag-archive-manager.php:32
-#: functions/topic-card-renderer.php:42
+#: functions/topic-card-renderer.php:44
 #: patterns/cv-centered-facts.php:79
 msgid "Articles"
 msgstr ""
@@ -658,7 +800,7 @@ msgstr ""
 #: functions/search-page-dynamic-blocks.php:100
 #: functions/search-page-dynamic-blocks.php:470
 #: functions/tag-archive-manager.php:32
-#: functions/topic-card-renderer.php:42
+#: functions/topic-card-renderer.php:44
 #: build/js/article-card-panel.js:1
 msgid "Article"
 msgstr ""
@@ -721,7 +863,7 @@ msgstr ""
 msgid "No related articles found."
 msgstr ""
 
-#: functions/breadcrumbs.php:49
+#: functions/breadcrumbs.php:53
 #, php-format
 msgid "Search results for \"%s\""
 msgstr ""
@@ -875,7 +1017,7 @@ msgid "That URL did not return a page we could read."
 msgstr ""
 
 #: functions/certificate.php:9
-#: functions/feature-toggles.php:7
+#: functions/feature-toggles.php:33
 msgid "Certificates"
 msgstr ""
 
@@ -907,30 +1049,30 @@ msgstr ""
 msgid "Issued %s"
 msgstr ""
 
-#: functions/certificate.php:126
+#: functions/certificate.php:128
 msgid "Verify"
 msgstr ""
 
 #. translators: %s: credential ID
-#: functions/certificate.php:160
+#: functions/certificate.php:162
 #, php-format
 msgid "Credential ID: %s"
 msgstr ""
 
-#: functions/certificate.php:166
-#: functions/certificate.php:167
+#: functions/certificate.php:168
+#: functions/certificate.php:169
 msgid "View credential →"
 msgstr ""
 
-#: functions/certificate.php:216
+#: functions/certificate.php:218
 msgid "Certified in"
 msgstr ""
 
-#: functions/certificate.php:225
+#: functions/certificate.php:227
 msgid "All credentials →"
 msgstr ""
 
-#: functions/certificate.php:237
+#: functions/certificate.php:239
 msgid "Select a certificate to display it here."
 msgstr ""
 
@@ -939,29 +1081,32 @@ msgid "Status"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:24
-#: functions/contact-form-submissions.php:168
+#: functions/contact-form-submissions.php:170
+#: functions/settings-page.php:1657
+#: functions/settings-page.php:1668
+#: functions/settings-page.php:1699
 #: build/js/editor.js:37
 msgid "Name"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:26
-#: functions/contact-form-submissions.php:176
+#: functions/contact-form-submissions.php:178
 msgid "Topic"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:27
-#: functions/contact-form-submissions.php:180
+#: functions/contact-form-submissions.php:182
 msgid "Message"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:42
 #: functions/class-contact-submissions-list-table.php:82
-#: functions/contact-form-submissions.php:200
+#: functions/contact-form-submissions.php:217
 msgid "Delete"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:54
-#: functions/contact-form-submissions.php:222
+#: functions/contact-form-submissions.php:239
 msgid "Unread"
 msgstr ""
 
@@ -978,91 +1123,95 @@ msgid "View"
 msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:81
-#: functions/contact-form-submissions.php:199
+#: functions/contact-form-submissions.php:216
 msgid "Delete this submission permanently?"
 msgstr ""
 
-#: functions/contact-card.php:53
+#: functions/contact-card.php:116
 msgid "Contact details"
 msgstr ""
 
-#: functions/contact-card.php:87
-#: functions/service-locations.php:305
+#: functions/contact-card.php:150
+#: functions/service-locations.php:364
 msgid "Contact Card"
 msgstr ""
 
-#: functions/contact-form-submissions.php:92
+#: functions/contact-form-submissions.php:94
 msgid "Submissions"
 msgstr ""
 
-#: functions/contact-form-submissions.php:103
+#: functions/contact-form-submissions.php:105
 msgid "Contact Submissions"
 msgstr ""
 
-#: functions/contact-form-submissions.php:117
+#: functions/contact-form-submissions.php:119
 msgid "You do not have permission to access this page."
 msgstr ""
 
-#: functions/contact-form-submissions.php:148
+#: functions/contact-form-submissions.php:150
 msgid "Submission not found."
 msgstr ""
 
-#: functions/contact-form-submissions.php:160
+#: functions/contact-form-submissions.php:162
 msgid "Submission Details"
 msgstr ""
 
-#: functions/contact-form-submissions.php:161
+#: functions/contact-form-submissions.php:163
 msgid "Back to all submissions"
 msgstr ""
 
-#: functions/contact-form-submissions.php:184
+#: functions/contact-form-submissions.php:186
 msgid "Agreed to be contacted"
 msgstr ""
 
-#: functions/contact-form-submissions.php:185
+#: functions/contact-form-submissions.php:187
 msgid "Yes"
 msgstr ""
 
-#: functions/contact-form-submissions.php:185
+#: functions/contact-form-submissions.php:187
 msgid "No"
 msgstr ""
 
-#: functions/contact-form-submissions.php:188
+#: functions/contact-form-submissions.php:190
 msgid "Email delivery"
 msgstr ""
 
-#: functions/contact-form-submissions.php:189
-#: functions/contact-form-submissions.php:223
+#: functions/contact-form-submissions.php:191
+#: functions/contact-form-submissions.php:240
 msgid "Sent"
 msgstr ""
 
-#: functions/contact-form-submissions.php:189
-#: functions/contact-form-submissions.php:224
+#: functions/contact-form-submissions.php:191
+#: functions/contact-form-submissions.php:241
 msgid "Failed"
 msgstr ""
 
-#: functions/contact-form-submissions.php:193
+#: functions/contact-form-submissions.php:196
+#: build/js/contact-form.js:1
+msgid "Attachments"
+msgstr ""
+
+#: functions/contact-form-submissions.php:210
 msgid "Submitted from"
 msgstr ""
 
-#: functions/contact-form-submissions.php:221
+#: functions/contact-form-submissions.php:238
 msgid "All"
 msgstr ""
 
-#: functions/contact-form-submissions.php:228
+#: functions/contact-form-submissions.php:245
 msgid "Contact Form Submissions"
 msgstr ""
 
-#: functions/contact-form-submissions.php:253
+#: functions/contact-form-submissions.php:270
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: functions/contact-form.php:24
+#: functions/contact-form.php:28
 msgid "Security check failed. Please reload the page and try again."
 msgstr ""
 
 #: functions/customizer.php:6
-#: build/js/editor.js:1
 msgid "Lazy Loading Settings"
 msgstr ""
 
@@ -1096,18 +1245,39 @@ msgstr ""
 msgid "Comments Disabled"
 msgstr ""
 
-#: functions/feature-toggles.php:4
+#: functions/feature-toggles.php:30
 #: functions/project-card.php:9
 msgid "Project Cards"
 msgstr ""
 
-#: functions/feature-toggles.php:6
+#: functions/feature-toggles.php:32
 #: functions/service-locations.php:9
 msgid "Service Locations"
 msgstr ""
 
-#: functions/feature-toggles.php:8
+#: functions/feature-toggles.php:34
 msgid "Canvas Backgrounds"
+msgstr ""
+
+#: functions/feature-toggles.php:35
+#: functions/offers.php:5
+msgid "Offers"
+msgstr ""
+
+#: functions/feature-toggles.php:36
+msgid "Article Table of Contents"
+msgstr ""
+
+#: functions/feature-toggles.php:37
+msgid "Site Values"
+msgstr ""
+
+#: functions/feature-toggles.php:38
+msgid "Cover Video Controls"
+msgstr ""
+
+#: functions/feature-toggles.php:39
+msgid "Custom SEO options"
 msgstr ""
 
 #: functions/icon-library.php:4
@@ -1173,7 +1343,7 @@ msgid "Modals"
 msgstr ""
 
 #: functions/modals.php:6
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/marquee.js:1
 msgid "Modal"
 msgstr ""
@@ -1192,10 +1362,6 @@ msgstr ""
 
 #: functions/modals.php:10
 msgid "No modals found"
-msgstr ""
-
-#: functions/offers.php:5
-msgid "Offers"
 msgstr ""
 
 #: functions/offers.php:6
@@ -1220,44 +1386,44 @@ msgstr ""
 msgid "No offers found"
 msgstr ""
 
-#: functions/offers.php:307
+#: functions/offers.php:312
 msgid "from"
 msgstr ""
 
-#: functions/offers.php:313
+#: functions/offers.php:318
 msgid "/ month"
 msgstr ""
 
 #. translators: %s: number of hours
-#: functions/offers.php:333
+#: functions/offers.php:338
 #, php-format
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions/offers.php:335
+#: functions/offers.php:340
 #, php-format
 msgid "%s week"
 msgid_plural "%s weeks"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions/offers.php:337
+#: functions/offers.php:342
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions/offers.php:538
+#: functions/offers.php:543
 #, php-format
 msgid "%d offer uses placeholder prices"
 msgid_plural "%d offers use placeholder prices"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions/offers.php:555
+#: functions/offers.php:560
 msgid "Review offers"
 msgstr ""
 
@@ -1689,6 +1855,70 @@ msgstr ""
 msgid "Browse All Content"
 msgstr ""
 
+#: functions/service-location-add-city.php:99
+#: functions/service-location-add-city.php:100
+#: functions/service-location-add-city.php:171
+msgid "Add City (EN + PL)"
+msgstr ""
+
+#: functions/service-location-add-city.php:110
+msgid "You do not have permission to add cities."
+msgstr ""
+
+#: functions/service-location-add-city.php:135
+msgid "Enter a city name."
+msgstr ""
+
+#: functions/service-location-add-city.php:136
+msgid "This city already exists in every language, nothing was created."
+msgstr ""
+
+#: functions/service-location-add-city.php:137
+msgid "Could not create the city page."
+msgstr ""
+
+#: functions/service-location-add-city.php:163
+msgid "City draft pages created. Fill in the local content before publishing:"
+msgstr ""
+
+#: functions/service-location-add-city.php:173
+msgid "Creates a draft page for the city in English and Polish and links them as translations. Cities stay noindex until their local content is filled in."
+msgstr ""
+
+#: functions/service-location-add-city.php:177
+msgid "City name"
+msgstr ""
+
+#: functions/service-location-add-city.php:179
+msgid "Add city"
+msgstr ""
+
+#: functions/service-location-local-content.php:142
+msgid "Who I help"
+msgstr ""
+
+#: functions/service-location-local-content.php:143
+#: build/js/service-location-panel.js:1
+msgid "Distance and meetings"
+msgstr ""
+
+#: functions/service-location-local-content.php:186
+msgid "Other cities I work in"
+msgstr ""
+
+#: functions/service-location-seo.php:226
+msgid "Local content"
+msgstr ""
+
+#: functions/service-location-seo.php:233
+#: patterns/deploy-pipeline.php:146
+msgid "Ready"
+msgstr ""
+
+#: functions/service-location-seo.php:233
+msgid "Needs content"
+msgstr ""
+
 #: functions/service-locations.php:10
 msgid "Service Location"
 msgstr ""
@@ -1709,22 +1939,22 @@ msgstr ""
 msgid "No city pages found"
 msgstr ""
 
-#: functions/service-locations.php:223
+#: functions/service-locations.php:294
 msgid "City pages will appear here soon."
 msgstr ""
 
 #. translators: %s: city name
-#: functions/service-locations.php:258
+#: functions/service-locations.php:317
 #, php-format
 msgid "Map of %s"
 msgstr ""
 
-#: functions/service-locations.php:264
+#: functions/service-locations.php:323
 msgid "View larger map"
 msgstr ""
 
-#: functions/service-locations.php:274
-#: functions/service-locations.php:302
+#: functions/service-locations.php:333
+#: functions/service-locations.php:361
 msgid "City Map"
 msgstr ""
 
@@ -1741,7 +1971,7 @@ msgid "General"
 msgstr ""
 
 #: functions/settings-page.php:24
-#: functions/settings-page.php:130
+#: functions/settings-page.php:141
 msgid "Theme Mode"
 msgstr ""
 
@@ -1777,252 +2007,281 @@ msgstr ""
 msgid "Customization"
 msgstr ""
 
-#: functions/settings-page.php:95
+#: functions/settings-page.php:69
+#: functions/settings-page.php:566
+msgid "Site values"
+msgstr ""
+
+#: functions/settings-page.php:75
+msgid "SEO"
+msgstr ""
+
+#: functions/settings-page.php:106
 msgid "Comment Spam Protection"
 msgstr ""
 
-#: functions/settings-page.php:102
+#: functions/settings-page.php:113
 msgid "Disable comments"
 msgstr ""
 
-#: functions/settings-page.php:137
+#: functions/settings-page.php:148
 msgid "Light/dark switching"
 msgstr ""
 
-#: functions/settings-page.php:145
+#: functions/settings-page.php:156
 msgid "Default mode"
 msgstr ""
 
-#: functions/settings-page.php:184
+#: functions/settings-page.php:195
 msgid "Responsive Breakpoints"
 msgstr ""
 
-#: functions/settings-page.php:191
+#: functions/settings-page.php:202
 msgid "Mobile max width (px)"
 msgstr ""
 
-#: functions/settings-page.php:200
+#: functions/settings-page.php:211
 msgid "Tablet max width (px)"
 msgstr ""
 
-#: functions/settings-page.php:209
+#: functions/settings-page.php:220
 msgid "Large desktop min width (px)"
 msgstr ""
 
-#: functions/settings-page.php:238
+#: functions/settings-page.php:249
 msgid "Anchor Scroll Offset"
 msgstr ""
 
-#: functions/settings-page.php:245
+#: functions/settings-page.php:256
 msgid "Desktop offset (px)"
 msgstr ""
 
-#: functions/settings-page.php:254
+#: functions/settings-page.php:265
 msgid "Mobile offset (px)"
 msgstr ""
 
-#: functions/settings-page.php:283
+#: functions/settings-page.php:294
 msgid "Active Page Links"
 msgstr ""
 
-#: functions/settings-page.php:290
+#: functions/settings-page.php:301
 msgid "Highlight active-page links"
 msgstr ""
 
-#: functions/settings-page.php:298
+#: functions/settings-page.php:309
 msgid "Disable current-page link clicks"
 msgstr ""
 
-#: functions/settings-page.php:356
+#: functions/settings-page.php:367
 msgid "Login Page Branding"
 msgstr ""
 
-#: functions/settings-page.php:363
+#: functions/settings-page.php:374
 msgid "Enable custom login"
 msgstr ""
 
-#: functions/settings-page.php:371
+#: functions/settings-page.php:382
 msgid "Background image"
 msgstr ""
 
-#: functions/settings-page.php:380
+#: functions/settings-page.php:391
 msgid "Logo image"
 msgstr ""
 
-#: functions/settings-page.php:389
+#: functions/settings-page.php:400
 #: build/js/editor.js:1
 #: build/js/editor.js:37
 #: build/js/model-viewer.js:1
 msgid "Background color"
 msgstr ""
 
-#: functions/settings-page.php:398
+#: functions/settings-page.php:409
 #: build/js/certificate.js:1
 msgid "Accent color"
 msgstr ""
 
-#: functions/settings-page.php:445
+#: functions/settings-page.php:456
 msgid "Facebook Pixel"
 msgstr ""
 
-#: functions/settings-page.php:452
+#: functions/settings-page.php:463
 msgid "Pixel ID"
 msgstr ""
 
-#: functions/settings-page.php:461
-#: functions/settings-page.php:486
+#: functions/settings-page.php:472
+#: functions/settings-page.php:497
 msgid "Custom script (overrides ID)"
 msgstr ""
 
-#: functions/settings-page.php:470
+#: functions/settings-page.php:481
 msgid "Google Analytics"
 msgstr ""
 
-#: functions/settings-page.php:477
+#: functions/settings-page.php:488
 msgid "Measurement ID"
 msgstr ""
 
-#: functions/settings-page.php:505
+#: functions/settings-page.php:516
 msgid "Custom Event Tracking"
 msgstr ""
 
-#: functions/settings-page.php:512
+#: functions/settings-page.php:523
 msgid "Enabled events"
 msgstr ""
 
-#: functions/settings-page.php:530
+#: functions/settings-page.php:541
 msgid "Theme Features"
 msgstr ""
 
-#: functions/settings-page.php:537
+#: functions/settings-page.php:548
 msgid "Enabled features"
 msgstr ""
 
-#: functions/settings-page.php:588
+#: functions/settings-page.php:573
+msgid "Values"
+msgstr ""
+
+#: functions/settings-page.php:624
 msgid "Content Security Policy"
 msgstr ""
 
-#: functions/settings-page.php:595
+#: functions/settings-page.php:631
 msgid "Enable CSP"
 msgstr ""
 
-#: functions/settings-page.php:603
+#: functions/settings-page.php:639
 msgid "Mode"
 msgstr ""
 
-#: functions/settings-page.php:611
+#: functions/settings-page.php:647
 msgid "Upgrade insecure requests"
 msgstr ""
 
-#: functions/settings-page.php:619
+#: functions/settings-page.php:655
 msgid "CSP Directives"
 msgstr ""
 
-#: functions/settings-page.php:657
+#: functions/settings-page.php:693
 msgid "Other Security Headers"
 msgstr ""
 
-#: functions/settings-page.php:664
+#: functions/settings-page.php:700
 msgid "Referrer-Policy"
 msgstr ""
 
-#: functions/settings-page.php:673
+#: functions/settings-page.php:709
 msgid "Permissions-Policy"
 msgstr ""
 
-#: functions/settings-page.php:722
+#: functions/settings-page.php:758
 msgid "Business Contact Details"
 msgstr ""
 
-#: functions/settings-page.php:755
+#: functions/settings-page.php:791
 msgid "Business hours"
 msgstr ""
 
-#: functions/settings-page.php:773
+#: functions/settings-page.php:809
 msgid "Sentry"
 msgstr ""
 
-#: functions/settings-page.php:780
+#: functions/settings-page.php:816
 msgid "DSN"
 msgstr ""
 
-#: functions/settings-page.php:790
+#: functions/settings-page.php:835
+msgid "Alerts"
+msgstr ""
+
+#: functions/settings-page.php:842
+msgid "ntfy topic URL"
+msgstr ""
+
+#: functions/settings-page.php:852
 msgid "Reports uncaught PHP exceptions and fatal errors (the class of bug that shows visitors a broken page) to Sentry. Regular warnings/notices/deprecations are not sent — this is scoped to failures that actually break a page, to stay well inside a free-tier event quota. Only active when WP_DEBUG is off, so local development never sends events."
 msgstr ""
 
-#: functions/settings-page.php:799
+#: functions/settings-page.php:861
 msgid "From your Sentry project (Settings → Client Keys). Leave empty to disable reporting."
 msgstr ""
 
-#: functions/settings-page.php:806
+#: functions/settings-page.php:868
+msgid "Sends a push notification when the site fails to send an email, independently of the mailer that failed. Install the ntfy app on your phone, choose a long random topic name, subscribe to it in the app, then paste https://ntfy.sh/<topic> below. Only the site host, the time and a short error message are sent; no visitor data is ever sent."
+msgstr ""
+
+#: functions/settings-page.php:877
+msgid "Treat this URL like a password: anyone who knows the topic can read the alerts. Leave empty to disable alerts and the weekly mail check."
+msgstr ""
+
+#: functions/settings-page.php:884
 msgid "Used on the contact card shown across the site (e.g. city landing pages). Address, phone, and email are shown obfuscated on the frontend and only revealed after a click, via the same protection used by the Protected Content block."
 msgstr ""
 
-#: functions/settings-page.php:831
+#: functions/settings-page.php:909
 msgid "Edit source text"
 msgstr ""
 
-#: functions/settings-page.php:833
+#: functions/settings-page.php:911
 msgid "This is the source text shown until a per-language translation exists."
 msgstr ""
 
-#: functions/settings-page.php:834
+#: functions/settings-page.php:912
 msgid "Translate per language →"
 msgstr ""
 
-#: functions/settings-page.php:871
+#: functions/settings-page.php:949
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr ""
 
-#: functions/settings-page.php:896
+#: functions/settings-page.php:974
 msgid "This site does not use comments. Enabling this protection closes comments at the server level — spam bots that POST directly to wp-comments-post.php or call XML-RPC comment methods are rejected with a 403 before any database write or email notification occurs. WordPress Discussion settings alone do not stop this traffic."
 msgstr ""
 
-#: functions/settings-page.php:910
+#: functions/settings-page.php:988
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr ""
 
-#: functions/settings-page.php:913
+#: functions/settings-page.php:991
 msgid "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from the block editor and admin menu."
 msgstr ""
 
-#: functions/settings-page.php:920
+#: functions/settings-page.php:998
 msgid "Controls the light/dark color mode. When switching is disabled, the theme switcher button is hidden and the site stays locked to the default mode."
 msgstr ""
 
-#: functions/settings-page.php:934
+#: functions/settings-page.php:1012
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr ""
 
-#: functions/settings-page.php:943
+#: functions/settings-page.php:1021
 msgid "Auto (visitor system preference)"
 msgstr ""
 
-#: functions/settings-page.php:944
+#: functions/settings-page.php:1022
 msgid "Light"
 msgstr ""
 
-#: functions/settings-page.php:945
+#: functions/settings-page.php:1023
 msgid "Dark"
 msgstr ""
 
-#: functions/settings-page.php:956
+#: functions/settings-page.php:1034
 msgid "Initial mode for visitors without a saved preference. With switching disabled, this is the only mode used."
 msgstr ""
 
-#: functions/settings-page.php:964
+#: functions/settings-page.php:1042
 msgid "One source of truth for responsive ranges. These values drive the compiled theme CSS (media queries are rewritten at runtime and cached), the editor responsive controls, frontend scripts, and any plugin reading the mobile_breakpoint / tablet_breakpoint theme mods."
 msgstr ""
 
-#: functions/settings-page.php:966
+#: functions/settings-page.php:1044
 msgid "Range"
 msgstr ""
 
-#: functions/settings-page.php:967
+#: functions/settings-page.php:1045
 msgid "Effective values"
 msgstr ""
 
-#: functions/settings-page.php:968
+#: functions/settings-page.php:1046
 #: build/js/content-tabs.js:1
 #: build/js/editor.js:1
 #: build/js/editor.js:16
@@ -2034,7 +2293,7 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: functions/settings-page.php:969
+#: functions/settings-page.php:1047
 #: build/js/content-tabs.js:1
 #: build/js/device-frame.js:1
 #: build/js/editor.js:1
@@ -2047,7 +2306,7 @@ msgstr ""
 msgid "Tablet"
 msgstr ""
 
-#: functions/settings-page.php:970
+#: functions/settings-page.php:1048
 #: build/js/content-tabs.js:1
 #: build/js/device-frame.js:1
 #: build/js/editor.js:10
@@ -2059,146 +2318,380 @@ msgstr ""
 msgid "Desktop"
 msgstr ""
 
-#: functions/settings-page.php:971
+#: functions/settings-page.php:1049
 msgid "Large desktop"
 msgstr ""
 
-#: functions/settings-page.php:981
+#: functions/settings-page.php:1059
 msgid "Screens up to this width are mobile. Tablet starts at this value + 1px. Theme default: 781."
 msgstr ""
 
-#: functions/settings-page.php:992
+#: functions/settings-page.php:1070
 msgid "Screens up to this width are tablet. Desktop starts at this value + 1px. Theme default: 1023."
 msgstr ""
 
-#: functions/settings-page.php:1003
+#: functions/settings-page.php:1081
 msgid "Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200."
 msgstr ""
 
-#: functions/settings-page.php:1010
+#: functions/settings-page.php:1088
 msgid "Distance kept between the sticky header and the target when clicking an in-page anchor link (e.g. \"#services\"). Desktop keeps its floating header visible at all times, so it needs the full header height as clearance. Mobile hides the header while scrolling and only re-shows it near the top of the page, so it typically needs little or no offset."
 msgstr ""
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:1023
+#: functions/settings-page.php:1101
 #, php-format
 msgid "Applies above the desktop breakpoint, where the header stays visible while scrolling. Theme default: %d (matches the header height)."
 msgstr ""
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:1041
+#: functions/settings-page.php:1119
 #, php-format
 msgid "Applies below the desktop breakpoint, where the header hides on scroll. Theme default: %d, since the header is typically hidden by the time the scroll finishes."
 msgstr ""
 
-#: functions/settings-page.php:1051
+#: functions/settings-page.php:1129
 msgid "When a link (navigation, button, in-content) points at the page currently being viewed, it can be marked as active — the same gradient-text/underline style normally reserved for hover — and/or prevented from being clicked, since navigating to the page a visitor is already on does nothing useful. Individual blocks can still opt out from their own Advanced panel regardless of these settings."
 msgstr ""
 
-#: functions/settings-page.php:1060
+#: functions/settings-page.php:1138
 msgid "Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
 
-#: functions/settings-page.php:1063
+#: functions/settings-page.php:1141
 msgid "Adds a kt-link-current class and aria-current=\"page\" to matching links sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 msgstr ""
 
-#: functions/settings-page.php:1074
+#: functions/settings-page.php:1152
 msgid "Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
 
-#: functions/settings-page.php:1077
+#: functions/settings-page.php:1155
 msgid "Adds aria-disabled and removes the link from tab order. Menu items that also open a mega-menu panel stay fully interactive. Has no effect if highlighting above is disabled."
 msgstr ""
 
-#: functions/settings-page.php:1094
+#: functions/settings-page.php:1172
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr ""
 
-#: functions/settings-page.php:1103
+#: functions/settings-page.php:1181
 msgid "Enable custom login page styling"
 msgstr ""
 
-#: functions/settings-page.php:1113
-#: functions/settings-page.php:1125
+#: functions/settings-page.php:1191
+#: functions/settings-page.php:1203
+#: functions/settings-page.php:1767
 msgid "Choose Image"
 msgstr ""
 
-#: functions/settings-page.php:1115
+#: functions/settings-page.php:1193
 msgid "Defaults to the theme background image when left empty."
 msgstr ""
 
-#: functions/settings-page.php:1127
+#: functions/settings-page.php:1205
 msgid "Defaults to the theme logo when left empty."
 msgstr ""
 
-#: functions/settings-page.php:1137
+#: functions/settings-page.php:1215
 msgid "Fallback background color when no image loads."
 msgstr ""
 
-#: functions/settings-page.php:1146
+#: functions/settings-page.php:1224
 msgid "Color for links and hover effects."
 msgstr ""
 
-#: functions/settings-page.php:1181
+#: functions/settings-page.php:1259
 msgid "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"marketing\" consent category — it only executes once a visitor accepts marketing cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 msgstr ""
 
-#: functions/settings-page.php:1197
-#: functions/settings-page.php:1219
+#: functions/settings-page.php:1275
+#: functions/settings-page.php:1297
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr ""
 
-#: functions/settings-page.php:1203
+#: functions/settings-page.php:1281
 msgid "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"statistics\" consent category — it only executes once a visitor accepts statistics cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 msgstr ""
 
-#: functions/settings-page.php:1225
+#: functions/settings-page.php:1303
 msgid "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, form completions, lightbox opens, etc.). Unchecking one stops it going to every connected platform at once — for per-platform routing (e.g. an event reaching GA4 but not Meta), that stays a code-level decision in routing.ts. See docs/tracking-spec.md for what each event tracks."
 msgstr ""
 
-#: functions/settings-page.php:1250
+#: functions/settings-page.php:1328
 msgid "Each of these registers its own custom post type, blocks, and admin screens. If this theme is reused for a project that doesn't need one, switching it off here skips that registration entirely instead of just hiding it — fewer blocks for the editor to discover, no unused admin menu items."
 msgstr ""
 
-#: functions/settings-page.php:1270
+#: functions/settings-page.php:1348
 msgid "Changes take effect on the next page load — WordPress re-registers post types and blocks on every request, nothing to rebuild."
 msgstr ""
 
-#: functions/settings-page.php:1276
+#: functions/settings-page.php:1354
 msgid "Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme's own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads."
 msgstr ""
 
-#: functions/settings-page.php:1285
+#: functions/settings-page.php:1363
 msgid "Send a Content-Security-Policy header"
 msgstr ""
 
-#: functions/settings-page.php:1296
+#: functions/settings-page.php:1374
 msgid "Enforce the policy (blocks violations)"
 msgstr ""
 
-#: functions/settings-page.php:1299
+#: functions/settings-page.php:1377
 msgid "Leave unchecked to send Content-Security-Policy-Report-Only instead — the browser reports violations to the console without blocking anything. Recommended for at least a few days on a new site before enforcing."
 msgstr ""
 
-#: functions/settings-page.php:1310
+#: functions/settings-page.php:1388
 msgid "Add the upgrade-insecure-requests directive"
 msgstr ""
 
-#: functions/settings-page.php:1317
+#: functions/settings-page.php:1395
 msgid "One field per CSP directive. Values are sanitized as plain text (no HTML, no line breaks) before being sent in the header."
 msgstr ""
 
-#: functions/settings-page.php:1332
+#: functions/settings-page.php:1410
 msgid "Referrer-Policy and Permissions-Policy are sent on every frontend response (never on wp-admin or REST requests). Set independently per site — no need to touch code to give a different customer a different policy."
 msgstr ""
 
-#: functions/settings-page.php:1347
+#: functions/settings-page.php:1425
 msgid "Controls how much of the current page URL is sent to other sites when a visitor follows a link away from this one. strict-origin-when-cross-origin is a balanced default."
 msgstr ""
 
-#: functions/settings-page.php:1358
+#: functions/settings-page.php:1436
 msgid "Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty."
+msgstr ""
+
+#: functions/settings-page.php:1461
+msgid "Named values that can be reused anywhere in content. Write {token:key} in a paragraph, heading, button or menu item and it is replaced with the current value when the page is rendered. Unknown keys are left as plain text."
+msgstr ""
+
+#: functions/settings-page.php:1471
+msgid "Years since"
+msgstr ""
+
+#: functions/settings-page.php:1472
+msgid "Current year"
+msgstr ""
+
+#: functions/settings-page.php:1473
+msgid "Static text"
+msgstr ""
+
+#: functions/settings-page.php:1491
+msgid "Start year (2020) or full date (2020-03-01). Resolves to the whole years elapsed."
+msgstr ""
+
+#: functions/settings-page.php:1494
+msgid "Resolves to the current year automatically."
+msgstr ""
+
+#: functions/settings-page.php:1510
+#: functions/settings-page.php:1768
+#: build/js/editor.js:1
+#: build/js/gallery-lightbox.js:1
+msgid "Remove"
+msgstr ""
+
+#: functions/settings-page.php:1524
+msgid "Key"
+msgstr ""
+
+#: functions/settings-page.php:1525
+msgid "Type"
+msgstr ""
+
+#: functions/settings-page.php:1526
+#: build/js/editor.js:37
+msgid "Value"
+msgstr ""
+
+#: functions/settings-page.php:1536
+msgid "Add value"
+msgstr ""
+
+#: functions/settings-page.php:1537
+msgid "Keys use lowercase letters, numbers, dashes and underscores, and must be unique. Rows with an empty or duplicate key are dropped on save."
+msgstr ""
+
+#: functions/settings-page.php:1654
+msgid "Organization"
+msgstr ""
+
+#: functions/settings-page.php:1655
+msgid "Business entity published in the structured data (JSON-LD) on every page."
+msgstr ""
+
+#: functions/settings-page.php:1658
+#: functions/settings-page.php:1700
+msgid "Alternate names"
+msgstr ""
+
+#: functions/settings-page.php:1658
+#: functions/settings-page.php:1700
+msgid "One per line."
+msgstr ""
+
+#: functions/settings-page.php:1659
+#: build/js/certificate-panel.js:1
+#: build/js/editor.js:46
+#: build/js/nav-content.js:1
+msgid "Description"
+msgstr ""
+
+#: functions/settings-page.php:1659
+msgid "Per language. When empty, the site tagline is used for the website only."
+msgstr ""
+
+#: functions/settings-page.php:1660
+msgid "Logo"
+msgstr ""
+
+#: functions/settings-page.php:1660
+msgid "PNG or WebP, at least 112 x 112 px. SVG is ignored. Falls back to the site icon."
+msgstr ""
+
+#: functions/settings-page.php:1661
+msgid "Social profiles"
+msgstr ""
+
+#: functions/settings-page.php:1661
+msgid "One http(s) URL per line."
+msgstr ""
+
+#: functions/settings-page.php:1665
+msgid "Person"
+msgstr ""
+
+#: functions/settings-page.php:1666
+msgid "The founder shown as author of articles and owner of the organization."
+msgstr ""
+
+#: functions/settings-page.php:1669
+msgid "Job title"
+msgstr ""
+
+#: functions/settings-page.php:1669
+msgid "Per language."
+msgstr ""
+
+#: functions/settings-page.php:1670
+#: build/js/nav-content.js:1
+msgid "Image"
+msgstr ""
+
+#: functions/settings-page.php:1670
+msgid "When empty, the organization logo is referenced instead."
+msgstr ""
+
+#: functions/settings-page.php:1671
+msgid "About page slug"
+msgstr ""
+
+#: functions/settings-page.php:1671
+msgid "Default-language slug of the page used as the person URL."
+msgstr ""
+
+#: functions/settings-page.php:1675
+msgid "Location & expertise"
+msgstr ""
+
+#: functions/settings-page.php:1676
+msgid "Only city, region and country are published. The street address is never exposed."
+msgstr ""
+
+#: functions/settings-page.php:1678
+#: patterns/service-location-content.php:12
+#: patterns/service-location-content.php:153
+#: patterns/service-location-content.php:214
+#: patterns/service-location-content.php:306
+#: patterns/service-location-content.php:373
+#: build/js/service-location-panel.js:1
+msgid "City"
+msgstr ""
+
+#: functions/settings-page.php:1679
+msgid "Region"
+msgstr ""
+
+#: functions/settings-page.php:1679
+msgid "Optional."
+msgstr ""
+
+#: functions/settings-page.php:1680
+msgid "Country code"
+msgstr ""
+
+#: functions/settings-page.php:1680
+msgid "Two-letter ISO code, for example PL."
+msgstr ""
+
+#: functions/settings-page.php:1681
+msgid "Area served"
+msgstr ""
+
+#: functions/settings-page.php:1682
+msgid "Knows about"
+msgstr ""
+
+#: functions/settings-page.php:1682
+msgid "One topic per line."
+msgstr ""
+
+#: functions/settings-page.php:1686
+msgid "Contact point"
+msgstr ""
+
+#: functions/settings-page.php:1687
+msgid "Contact point published with the organization."
+msgstr ""
+
+#: functions/settings-page.php:1689
+msgid "Contact type"
+msgstr ""
+
+#: functions/settings-page.php:1690
+msgid "Available languages"
+msgstr ""
+
+#: functions/settings-page.php:1690
+msgid "Language codes, one per line."
+msgstr ""
+
+#: functions/settings-page.php:1691
+msgid "Contact page slug"
+msgstr ""
+
+#: functions/settings-page.php:1691
+msgid "Default-language slug of the contact page."
+msgstr ""
+
+#: functions/settings-page.php:1692
+msgid "Publish email and phone"
+msgstr ""
+
+#: functions/settings-page.php:1692
+msgid "Publishes the Contact Info email and phone in the JSON-LD."
+msgstr ""
+
+#: functions/settings-page.php:1696
+msgid "Website"
+msgstr ""
+
+#: functions/settings-page.php:1697
+msgid "Website entity published in the structured data."
+msgstr ""
+
+#: functions/settings-page.php:1816
+msgid "Yoast SEO takes precedence over this field when it has a value."
+msgstr ""
+
+#: functions/settings-page.php:1824
+#, php-format
+msgid "Currently overridden by %1$s: %2$s"
+msgstr ""
+
+#: functions/settings-page.php:1829
+msgid "Open Yoast SEO settings"
 msgstr ""
 
 #: functions/site-identity.php:19
@@ -2227,24 +2720,24 @@ msgstr ""
 msgid "Related Tags"
 msgstr ""
 
-#: functions/tag-archive-manager.php:159
+#: functions/tag-archive-manager.php:153
 msgid "article"
 msgstr ""
 
-#: functions/tag-archive-manager.php:159
+#: functions/tag-archive-manager.php:153
 msgid "articles"
 msgstr ""
 
-#: functions/tag-archive-manager.php:164
+#: functions/tag-archive-manager.php:158
 #, php-format
 msgid "Updated %s"
 msgstr ""
 
-#: functions/tag-archive-manager.php:170
+#: functions/tag-archive-manager.php:164
 msgid "View Articles"
 msgstr ""
 
-#: functions/tag-archive-manager.php:182
+#: functions/tag-archive-manager.php:176
 msgid "No other tags available yet."
 msgstr ""
 
@@ -2256,12 +2749,12 @@ msgstr ""
 msgid "Toggle light and dark theme"
 msgstr ""
 
-#: functions/topic-card-renderer.php:48
+#: functions/topic-card-renderer.php:50
 #, php-format
 msgid "Updated %s ago"
 msgstr ""
 
-#: functions/topic-card-renderer.php:57
+#: functions/topic-card-renderer.php:59
 #, php-format
 msgid "Explore %s"
 msgstr ""
@@ -3011,10 +3504,6 @@ msgstr ""
 
 #: patterns/deploy-pipeline.php:145
 msgid "Deployment · main"
-msgstr ""
-
-#: patterns/deploy-pipeline.php:146
-msgid "Ready"
 msgstr ""
 
 #: patterns/deploy-pipeline.php:151
@@ -4074,15 +4563,6 @@ msgctxt "Pattern title"
 msgid "Service Location Content"
 msgstr ""
 
-#: patterns/service-location-content.php:12
-#: patterns/service-location-content.php:153
-#: patterns/service-location-content.php:214
-#: patterns/service-location-content.php:306
-#: patterns/service-location-content.php:373
-#: build/js/service-location-panel.js:1
-msgid "City"
-msgstr ""
-
 #: patterns/service-location-content.php:18
 msgid "We design and build fast, accessible, block-based WordPress websites — from single-page landing pages to full multilingual platforms."
 msgstr ""
@@ -4534,42 +5014,6 @@ msgstr ""
 msgid "Quality and formatting"
 msgstr ""
 
-#: patterns/template-404.php
-msgctxt "Pattern title"
-msgid "404 Template"
-msgstr ""
-
-#: patterns/template-404.php:17
-msgid "OOPS! Page Not Found!"
-msgstr ""
-
-#: patterns/template-404.php:23
-msgid "Go to Homepage"
-msgstr ""
-
-#: patterns/template-404.php:34
-msgid "Helpful Link"
-msgstr ""
-
-#: patterns/template-404.php:38
-msgid "Something went wrong! We couldn’t find the page you were looking for. But don’t worry, we’ve got some other Links that might be helpful:"
-msgstr ""
-
-#: patterns/template-404.php:49
-msgctxt "404"
-msgid "Pages"
-msgstr ""
-
-#: patterns/template-404.php:58
-msgctxt "404"
-msgid "Categories"
-msgstr ""
-
-#: patterns/template-404.php:68
-msgctxt "404"
-msgid "Posts"
-msgstr ""
-
 #: patterns/testimonial-section.php
 msgctxt "Pattern title"
 msgid "Testimonial Section"
@@ -4928,6 +5372,18 @@ msgstr ""
 msgid "Manage the card's linked article, image, and text from Article Cards in the admin menu. Editing the shared card layout there updates every card wherever it's embedded."
 msgstr ""
 
+#: build/js/article-toc.js:1
+msgid "Table of contents colors"
+msgstr ""
+
+#: build/js/article-toc.js:1
+msgid "Accent (numbers and active bar)"
+msgstr ""
+
+#: build/js/article-toc.js:1
+msgid "Active item background"
+msgstr ""
+
 #: build/js/banner-carousel.js:1
 #: build/js/editor.js:19
 #: build/js/gallery-lightbox.js:1
@@ -5247,26 +5703,28 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1
 #: build/js/search-results-dynamic.js:1
+#: build/js/slider.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Blur intensity"
 msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1
 #: build/js/search-results-dynamic.js:1
+#: build/js/slider.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Default (0.25rem)"
 msgstr ""
@@ -5274,51 +5732,56 @@ msgstr ""
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
 #: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1
 #: build/js/search-results-dynamic.js:1
+#: build/js/slider.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Custom"
 msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1
 #: build/js/search-results-dynamic.js:1
+#: build/js/slider.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Presets come from theme.json's settings.custom.gridHoverBlur — add more there to offer them here."
 msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1
 #: build/js/search-results-dynamic.js:1
+#: build/js/slider.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Custom blur amount"
 msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1
 #: build/js/search-results-dynamic.js:1
+#: build/js/slider.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Any CSS length, e.g. 0.5rem or 8px."
 msgstr ""
@@ -5551,12 +6014,6 @@ msgid "Issued date"
 msgstr ""
 
 #: build/js/certificate-panel.js:1
-#: build/js/editor.js:46
-#: build/js/nav-content.js:1
-msgid "Description"
-msgstr ""
-
-#: build/js/certificate-panel.js:1
 msgid "Shown by the feature-cards layout only."
 msgstr ""
 
@@ -5665,6 +6122,30 @@ msgstr ""
 msgid "Card padding"
 msgstr ""
 
+#: build/js/city-local-content.js:1
+msgid "Local FAQ"
+msgstr ""
+
+#: build/js/city-local-content.js:1
+msgid "Nearby cities"
+msgstr ""
+
+#: build/js/city-local-content.js:1
+msgid "Local intro, audience and distance"
+msgstr ""
+
+#: build/js/city-local-content.js:1
+msgid "City Local Content"
+msgstr ""
+
+#: build/js/city-local-content.js:1
+msgid "Section"
+msgstr ""
+
+#: build/js/city-local-content.js:1
+msgid "filled per city in the City Details sidebar; hidden when empty."
+msgstr ""
+
 #: build/js/contact-detail.js:1
 msgid "123 Example Street"
 msgstr ""
@@ -5743,11 +6224,24 @@ msgid "Submit Button Label"
 msgstr ""
 
 #: build/js/contact-form.js:1
+#: build/js/google-maps.js:1
+msgid "Button style"
+msgstr ""
+
+#: build/js/contact-form.js:1
 msgid "Success Message"
 msgstr ""
 
 #: build/js/contact-form.js:1
 msgid "Error Message"
+msgstr ""
+
+#: build/js/contact-form.js:1
+msgid "Allow file attachments"
+msgstr ""
+
+#: build/js/contact-form.js:1
+msgid "Visitors can attach up to 3 files (10 MB total). Files are emailed to you and are not stored on the website."
 msgstr ""
 
 #: build/js/contact-form.js:1
@@ -5843,7 +6337,7 @@ msgid "Cloudflare Turnstile will appear here"
 msgstr ""
 
 #: build/js/content-block.js:1
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/marquee.js:1
 #: build/js/navigation.js:1
 msgid "Loading…"
@@ -5886,6 +6380,7 @@ msgstr ""
 #: build/js/editor.js:1
 #: build/js/editor.js:28
 #: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/language-panel.js:1
 msgid "None"
 msgstr ""
@@ -6115,26 +6610,6 @@ msgstr ""
 
 #: build/js/device-frame.js:1
 msgid "Remove Media"
-msgstr ""
-
-#: build/js/device-frame.js:1
-msgid "Media Performance"
-msgstr ""
-
-#: build/js/device-frame.js:1
-msgid "Loading"
-msgstr ""
-
-#: build/js/device-frame.js:1
-msgid "Lazy defers offscreen media until it's about to scroll into view. Use Eager for a device frame visible above the fold."
-msgstr ""
-
-#: build/js/device-frame.js:1
-msgid "Fetch priority"
-msgstr ""
-
-#: build/js/device-frame.js:1
-msgid "High tells the browser to fetch this media first — use it for a hero/above-the-fold device frame driving the page's LCP. Setting High also forces Loading to Eager."
 msgstr ""
 
 #: build/js/device-frame.js:1
@@ -7033,11 +7508,6 @@ msgid "Select media"
 msgstr ""
 
 #: build/js/editor.js:1
-#: build/js/gallery-lightbox.js:1
-msgid "Remove"
-msgstr ""
-
-#: build/js/editor.js:1
 msgid "Mobile uses:"
 msgstr ""
 
@@ -7316,10 +7786,6 @@ msgstr ""
 
 #: build/js/editor.js:37
 msgid "Applied as inline style on this block, e.g. --logo-icon-bg: #1c1d18. Reference them from the SVG's own fill/stroke attributes."
-msgstr ""
-
-#: build/js/editor.js:37
-msgid "Value"
 msgstr ""
 
 #: build/js/editor.js:37
@@ -7667,6 +8133,7 @@ msgid "Nav Icon"
 msgstr ""
 
 #: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/icon.js:1
 #: build/js/language-panel.js:1
 #: build/js/scroll-to-top.js:1
@@ -7675,6 +8142,7 @@ msgid "Replace icon"
 msgstr ""
 
 #: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/icon.js:1
 #: build/js/language-panel.js:1
 #: build/js/scroll-to-top.js:1
@@ -7684,6 +8152,7 @@ msgid "Select SVG icon"
 msgstr ""
 
 #: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/icon.js:1
 #: build/js/language-panel.js:1
 #: build/js/scroll-to-top.js:1
@@ -7728,156 +8197,158 @@ msgstr ""
 msgid "Turn on only for content visible without scrolling. The first such element on the page gets high fetch priority and a preload; others load eagerly."
 msgstr ""
 
-#: build/js/editor.js:46
+#. translators: %d: number of elements marked above the fold
+#: build/js/editor.js:49
+#, js-format
 msgid "%d element on this page is marked above the fold. Only the first gets high priority."
 msgid_plural "%d elements on this page are marked above the fold. Only the first gets high priority."
 msgstr[0] ""
 msgstr[1] ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "— Select modal —"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Open in a modal"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/icon.js:1
 msgid "Icon"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Contact Card Layout"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Gap between fields (rem)"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Lower this if long values (e.g. an email address) wrap to a second line."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Equal Height"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Equal height grid items"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Equal height columns"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Stretch every grid item to match the tallest item in its row, so cards line up."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Stretch every column's content to match the tallest column, so borders and backgrounds line up."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Filter Color"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Filter"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Presets come from theme.json's settings.custom.imageFilterColors — add more there to offer them here."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Reveal original color on hover"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "On: the filter lifts on hover/focus. Off: the filter is permanent."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Blur Siblings on Hover"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Blur inactive items on hover"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Hovering or focusing one direct child dims and blurs the rest."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Include nested columns"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Also blur columns inside Columns blocks nested further down, not just this row's own columns."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Divider Lines"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Show divider lines between items"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Draws a line between each direct child using this group's own Border color/width (set those in the Border panel above). Works reliably for a single column, a row, or a Grid layout with a fixed column count. A responsive Grid without a fixed column count falls back to a border on every cell — use a background color + a small block gap instead if that looks uneven."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Corner Clipping"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Clip content to this block's border radius"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Set a border radius in this block's own Border panel above, then turn this on. Any child's own background (e.g. a hover background color) gets masked to the rounded corners automatically — whichever child ends up in a corner at any breakpoint, without tracking which one that is."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Responsive Grid Columns"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Desktop columns"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Tablet columns"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Mobile columns"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead."
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/marquee.js:1
 msgid "— None (not clickable) —"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Slide Modal"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 #: build/js/marquee.js:1
 msgid "Open on click"
 msgstr ""
 
-#: build/js/editor.js:46
+#: build/js/editor.js:49
 msgid "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 msgstr ""
 
@@ -8030,7 +8501,7 @@ msgid "Marker Label"
 msgstr ""
 
 #: build/js/google-maps.js:1
-msgid "Short label for the marker (1–2 chars)."
+msgid "Name shown in bold on the marker card."
 msgstr ""
 
 #: build/js/google-maps.js:1
@@ -8038,11 +8509,31 @@ msgid "Marker Tooltip"
 msgstr ""
 
 #: build/js/google-maps.js:1
-msgid "Tooltip text shown when marker is clicked."
+msgid "Tagline shown under the name on the marker card."
+msgstr ""
+
+#: build/js/google-maps.js:1
+msgid "Replace marker logo"
+msgstr ""
+
+#: build/js/google-maps.js:1
+msgid "Select marker logo"
+msgstr ""
+
+#: build/js/google-maps.js:1
+msgid "Remove marker logo"
 msgstr ""
 
 #: build/js/google-maps.js:1
 msgid "Show Reset View Button"
+msgstr ""
+
+#: build/js/google-maps.js:1
+msgid "Cookie settings button label"
+msgstr ""
+
+#: build/js/google-maps.js:1
+msgid "Reset View button label"
 msgstr ""
 
 #: build/js/google-maps.js:1
@@ -8460,10 +8951,6 @@ msgid "Nav paragraph — add text in the panel →"
 msgstr ""
 
 #: build/js/nav-content.js:1
-msgid "Image"
-msgstr ""
-
-#: build/js/nav-content.js:1
 msgid "Replace image"
 msgstr ""
 
@@ -8477,6 +8964,14 @@ msgstr ""
 
 #: build/js/nav-content.js:1
 msgid "Nav image — select an image in the panel →"
+msgstr ""
+
+#: build/js/nav-content.js:1
+msgid "Use the linked page cover"
+msgstr ""
+
+#: build/js/nav-content.js:1
+msgid "Show the featured image of the page this card links to. Falls back to the image below."
 msgstr ""
 
 #: build/js/nav-content.js:1
@@ -8586,6 +9081,14 @@ msgid "Flat link list renders top-level links only, e.g. footer link columns."
 msgstr ""
 
 #: build/js/navigation.js:1
+msgid "Bar background while loading"
+msgstr ""
+
+#: build/js/navigation.js:1
+msgid "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background."
+msgstr ""
+
+#: build/js/navigation.js:1
 msgid "Overlay mode"
 msgstr ""
 
@@ -8651,10 +9154,6 @@ msgstr ""
 
 #: build/js/offer-table.js:1
 msgid "Offer Table"
-msgstr ""
-
-#: build/js/popular-pages.js:1
-msgid "Popular Pages"
 msgstr ""
 
 #: build/js/popular-pages.js:1
@@ -9051,6 +9550,58 @@ msgstr ""
 msgid "Every city mention on the page is bound to this field — changing it updates the whole page."
 msgstr ""
 
+#: build/js/service-location-panel.js:1
+msgid "Local Content"
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Local content is complete. This city can be indexed."
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Needs content: until a local intro and at least two more fields below are filled, this city stays noindex, is left out of the sitemap and out of the city lists."
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Local intro"
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "2–3 sentences, about 150–300 characters, unique to this city."
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Who I help here"
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Local industries or client types, one or two sentences."
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "For example: 30 min from Katowice, in-person or remote."
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Local FAQ question"
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "A pair is saved only when both question and answer are filled."
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Local FAQ answer"
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Featured projects (up to 3)"
+msgstr ""
+
+#: build/js/service-location-panel.js:1
+msgid "Only the chosen project cards are shown on this city page. Leave empty to show all."
+msgstr ""
+
 #: build/js/simple-grid.js:1
 msgid "Same as desktop"
 msgstr ""
@@ -9168,15 +9719,43 @@ msgid "Set the autoplay interval in seconds."
 msgstr ""
 
 #: build/js/slider.js:1
-msgid "Slides Per Mobile"
+msgid "1024px and wider"
 msgstr ""
 
 #: build/js/slider.js:1
-msgid "Slides Per Tablet"
+msgid "Space Between Slides (px)"
 msgstr ""
 
 #: build/js/slider.js:1
-msgid "Slides Per Desktop"
+msgid "Space between slides in pixels. Also used for tablet and mobile unless set below."
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "768px to 1023px"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Space Between (Tablet)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Below 768px"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Phones (<640px)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Space Between (Mobile)"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Also applies to large phones (640–767px)."
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Large phones (640–767px)"
 msgstr ""
 
 #: build/js/slider.js:1
@@ -9220,50 +9799,6 @@ msgid "Caps how wide the active slide can grow. On wider screens the slide stays
 msgstr ""
 
 #: build/js/slider.js:1
-msgid "Space Between Slides (px)"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Space Between (Mobile)"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Space Between (Tablet)"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Phones (<640px)"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Large phones (640–767px)"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "1024px and wider"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "768px to 1023px"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Below 768px"
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Space between slides in pixels. Also used for tablet and mobile unless set below."
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Also applies to large phones (640–767px)."
-msgstr ""
-
-#: build/js/slider.js:1
-msgid "Set the space between slides in pixels."
-msgstr ""
-
-#: build/js/slider.js:1
 msgid "Mousewheel"
 msgstr ""
 
@@ -9277,6 +9812,14 @@ msgstr ""
 
 #: build/js/slider.js:1
 msgid "Enable navigation with keyboard arrow keys."
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Blur other slides on hover"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Blurs and dims every slide except the hovered one."
 msgstr ""
 
 #: build/js/social-section.js:1
@@ -9375,6 +9918,18 @@ msgstr ""
 #: src/blocks/article-tags-dynamic/block.json
 msgctxt "block description"
 msgid "Server-rendered list of tags for the current article."
+msgstr ""
+
+#: build/blocks/article-toc/block.json
+#: src/blocks/article-toc/block.json
+msgctxt "block title"
+msgid "Article Table of Contents"
+msgstr ""
+
+#: build/blocks/article-toc/block.json
+#: src/blocks/article-toc/block.json
+msgctxt "block description"
+msgid "Sticky table of contents built from the H2 headings of the current article."
 msgstr ""
 
 #: build/blocks/banner-carousel/block.json
@@ -9689,6 +10244,18 @@ msgctxt "block description"
 msgid "Server-rendered grid of published city pages, linking to each service location."
 msgstr ""
 
+#: build/blocks/city-local-content/block.json
+#: src/blocks/city-local-content/block.json
+msgctxt "block title"
+msgid "City Local Content"
+msgstr ""
+
+#: build/blocks/city-local-content/block.json
+#: src/blocks/city-local-content/block.json
+msgctxt "block description"
+msgid "Per-city unique content (intro, audience, distance, local FAQ) or links to nearby ready cities. Renders nothing when empty."
+msgstr ""
+
 #: build/blocks/contact-detail/block.json
 #: src/blocks/contact-detail/block.json
 msgctxt "block title"
@@ -9941,6 +10508,18 @@ msgctxt "block title"
 msgid "Navigation"
 msgstr ""
 
+#: build/blocks/not-found-dynamic/block.json
+#: src/blocks/not-found-dynamic/block.json
+msgctxt "block title"
+msgid "Not Found (Dynamic)"
+msgstr ""
+
+#: build/blocks/not-found-dynamic/block.json
+#: src/blocks/not-found-dynamic/block.json
+msgctxt "block description"
+msgid "Server-rendered 404 hero (image, heading, message and homepage button), translated per the current Polylang language."
+msgstr ""
+
 #: build/blocks/offer-table/block.json
 #: src/blocks/offer-table/block.json
 msgctxt "block title"
@@ -10107,18 +10686,6 @@ msgstr ""
 #: src/blocks/search-form-dynamic/block.json
 msgctxt "block description"
 msgid "Server-rendered search input form, translated per the current Polylang language."
-msgstr ""
-
-#: build/blocks/not-found-dynamic/block.json
-#: src/blocks/not-found-dynamic/block.json
-msgctxt "block title"
-msgid "Not Found (Dynamic)"
-msgstr ""
-
-#: build/blocks/not-found-dynamic/block.json
-#: src/blocks/not-found-dynamic/block.json
-msgctxt "block description"
-msgid "Server-rendered 404 hero (image, heading, message and homepage button), translated per the current Polylang language."
 msgstr ""
 
 #: build/blocks/search-header-dynamic/block.json
@@ -11160,12 +11727,4 @@ msgstr ""
 #: styles/sunset-orange.json
 msgctxt "Style variation name"
 msgid "Sunset Orange"
-msgstr ""
-
-#: src/blocks/navigation/index.tsx:139 build/js/navigation.js:1
-msgid "Bar background while loading"
-msgstr ""
-
-#: src/blocks/navigation/index.tsx:141 build/js/navigation.js:1
-msgid "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background."
 msgstr ""

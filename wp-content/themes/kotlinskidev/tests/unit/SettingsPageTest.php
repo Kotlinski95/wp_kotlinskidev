@@ -2,21 +2,47 @@
 
 use Brain\Monkey\Functions;
 
+require_once __DIR__ . '/../../functions/feature-toggles.php';
 require_once __DIR__ . '/../../functions/settings-page.php';
 
 beforeEach(function () {
     Functions\when('esc_html__')->alias(fn ($t) => $t);
+    Functions\when('get_option')->alias(fn ($name, $default = false) => $default);
     unset($_GET['tab']);
 });
 
-it('lists the eleven known settings tabs', function () {
+it('lists the known settings tabs with the SEO tab enabled by default', function () {
     $tabs = kotlinskidev_settings_tabs();
 
-    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'contact', 'advanced', 'monitoring', 'customization', 'site-values']);
+    expect(array_keys($tabs))->toBe(['general', 'theme-mode', 'breakpoints', 'login', 'tracking', 'security', 'contact', 'advanced', 'monitoring', 'customization', 'site-values', 'seo']);
     expect($tabs['breakpoints']['group'])->toBe('kotlinskidev_settings_breakpoints');
     expect($tabs['security']['group'])->toBe('kotlinskidev_settings_security');
     expect($tabs['monitoring']['group'])->toBe('kotlinskidev_settings_monitoring');
     expect($tabs['customization']['group'])->toBe('kotlinskidev_settings_customization');
+});
+
+it('omits the SEO tab when the custom SEO feature is switched off', function () {
+    Functions\when('get_option')->alias(fn ($name, $default = false) => ['project_cards']);
+
+    expect(array_keys(kotlinskidev_settings_tabs()))->not->toContain('seo');
+    expect(array_keys(kotlinskidev_settings_tabs()))->toContain('customization');
+});
+
+it('falls back to general for a direct seo tab request when the feature is off', function () {
+    Functions\when('sanitize_key')->alias(fn ($t) => $t);
+    Functions\when('wp_unslash')->alias(fn ($t) => $t);
+    Functions\when('get_option')->alias(fn ($name, $default = false) => ['project_cards']);
+    $_GET['tab'] = 'seo';
+
+    expect(kotlinskidev_active_settings_tab())->toBe('general');
+});
+
+it('registers no SEO settings when the custom SEO feature is switched off', function () {
+    Functions\when('get_option')->alias(fn ($name, $default = false) => ['project_cards']);
+    Functions\expect('register_setting')->never();
+    Functions\expect('add_settings_section')->never();
+
+    kotlinskidev_register_seo_settings();
 });
 
 it('defaults to the general tab when no tab is requested', function () {

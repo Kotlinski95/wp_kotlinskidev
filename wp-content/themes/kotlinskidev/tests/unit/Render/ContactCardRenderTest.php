@@ -73,44 +73,6 @@ it('omits a row entirely when its option is empty', function () {
     expect($html)->not->toContain('protected-content--phone');
 });
 
-it('outputs LocalBusiness schema on singular service_location pages', function () {
-    Functions\when('is_singular')->justReturn(true);
-    Functions\when('get_the_ID')->justReturn(42);
-    Functions\when('get_post_meta')->justReturn('Katowice');
-    Functions\when('get_bloginfo')->justReturn('kotlinski.dev');
-    Functions\when('get_permalink')->justReturn('https://kotlinski.dev/city/katowice/');
-    Functions\when('wp_json_encode')->alias(fn ($data, $flags = 0) => json_encode($data, $flags));
-
-    ob_start();
-    kotlinskidev_output_service_location_business_schema();
-    $output = ob_get_clean();
-
-    expect($output)->toContain('<script type="application/ld+json">');
-    expect($output)->toContain('"@type":"ProfessionalService"');
-    expect($output)->toContain('"streetAddress":"ul. Dekerta","postalCode":"40-143","addressLocality":"Katowice"');
-    expect($output)->toContain('"telephone":"+48 608 418 911"');
-    expect($output)->toContain('"email":"kotlinskidev@gmail.com"');
-    expect($output)->toContain('"openingHours":"Mo-Fr 08:00-17:00"');
-    expect($output)->toContain('"areaServed":"Katowice"');
-});
-
-it('outputs no schema outside singular service_location pages', function () {
-    Functions\when('is_singular')->justReturn(false);
-
-    ob_start();
-    kotlinskidev_output_service_location_business_schema();
-    $output = ob_get_clean();
-
-    expect($output)->toBe('');
-});
-
-it('outputs no schema when address, phone, and email are all empty', function () {
-    Functions\when('is_singular')->justReturn(true);
-    Functions\when('get_option')->justReturn('');
-
-    ob_start();
-    kotlinskidev_output_service_location_business_schema();
-    $output = ob_get_clean();
-
-    expect($output)->toBe('');
+it('no longer emits a standalone business schema script', function () {
+    expect(function_exists('kotlinskidev_output_service_location_business_schema'))->toBeFalse();
 });
