@@ -13,8 +13,9 @@ const ASSET_EXTENSIONS = new Set([
 const ASSET_PATH_PREFIXES = ['/wp-content/', '/wp-includes/'];
 const REQUEST_TIMEOUT_MS = 90_000;
 
-const decodeEntities = (text) =>
-	text.replace(/&amp;/g, '&').replace(/&#038;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+const HTML_ENTITIES = { amp: '&', '#038': '&', quot: '"', '#39': "'" };
+
+const decodeEntities = (text) => text.replace(/&(amp|#038|quot|#39);/g, (_, entity) => HTML_ENTITIES[entity]);
 
 const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
