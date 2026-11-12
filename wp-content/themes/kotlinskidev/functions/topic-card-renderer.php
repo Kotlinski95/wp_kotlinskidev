@@ -3,19 +3,13 @@ function kotlinskidev_render_topic_card( WP_Term $category ): string {
     $category_link        = get_category_link( $category->term_id );
     $extended_description = kotlinskidev_get_category_description( $category->term_id );
 
-    $latest_post = get_posts( [
-        'category'         => $category->term_id,
-        'posts_per_page'   => 1,
-        'post_status'      => 'publish',
-        'suppress_filters' => false,
-        'lang'             => function_exists( 'pll_current_language' ) ? pll_current_language() : '',
-    ] );
+    $latest_post_id = kotlinskidev_get_term_latest_post_id( $category->term_id, 'category' );
 
     $featured_image        = '';
     $featured_image_width  = 0;
     $featured_image_height = 0;
-    if ( ! empty( $latest_post ) && has_post_thumbnail( $latest_post[0]->ID ) ) {
-        $featured_source = wp_get_attachment_image_src( get_post_thumbnail_id( $latest_post[0]->ID ), 'medium' );
+    if ( $latest_post_id > 0 && has_post_thumbnail( $latest_post_id ) ) {
+        $featured_source = wp_get_attachment_image_src( get_post_thumbnail_id( $latest_post_id ), 'medium' );
         if ( is_array( $featured_source ) ) {
             $featured_image        = $featured_source[0];
             $featured_image_width  = absint( $featured_source[1] );

@@ -24,7 +24,7 @@ sitemap_index.xml -> every page URL (PL and EN) -> each page HTML -> every image
 
 - Reads `sitemap_index.xml` (Yoast), requests every page, then follows `hreflang` links for language versions the sitemap misses.
 - Reads each page's HTML and requests every same-site file under `/wp-content/` and `/wp-includes/`: images (including every `srcset` size), videos, 3D models, scripts, stylesheets, fonts. It also reads the stylesheets for `url(...)` references.
-- Is gentle on the server: pages are requested 2 at a time with a 300 ms pause, because after a purge every page is a cache miss and costs PHP time. Files are fetched 6 at a time.
+- Is gentle on the server: pages are requested 2 at a time with a 300 ms pause, because after a purge every page is a cache miss and costs PHP time. Files are fetched 2 at a time (the same as `--workers`; it was 6 until 2026-11-12, which could queue behind Apache's 5 workers and slow real visitors during a warm run).
 - Prints one summary per run: how many requests were `HIT` (already cached) and `MISS` (just warmed), the data volume, and the slowest request.
 
 Modes:
@@ -92,6 +92,10 @@ node scripts/cache-warm.mjs --mode full
 
 Home addresses are not challenged by Bot Fight Mode. This works anywhere with Node 18 or newer.
 
+## Why the cache used to go cold after about 2 hours
+
+Warming only helps while the files stay cached. On 2026-11-12 we found that static files expired from Cloudflare's edge every 2 hours, because Apache's `headers` module was off and the origin sent no cache lifetime (see `docs/cloudflare.md` → How long Cloudflare keeps a file). Pages themselves stayed cached for a year. After enabling the module, files that are already cached switch to the long lifetime the next time they are revalidated (within 2 hours), and every new download is kept for 30 days or a year.
+
 ## Test results
 
 2026-11-11:
@@ -102,6 +106,7 @@ Home addresses are not challenged by Bot Fight Mode. This works anywhere with No
 
 ## Open items
 
+0. Around 2 to 3 hours after 2026-11-12 11:00 UTC, check that the `expired` and `revalidated` counts for static files in Cloudflare's cache analytics have dropped.
 1. Check the log after the first 1 a.m. run (`tail -n 8 /var/log/kotlinskidev-cache-warm.log`). A warm run should take well under a minute.
 2. Test the purge detection once: purge only the homepage URL in Cloudflare (or all of the cache at a quiet time) and confirm the log shows `warming` within 5 minutes.
 3. Optional: ship the script with the deploy and start the warm-up at the end of the deploy workflow, so a deploy does not wait for the next check.

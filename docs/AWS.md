@@ -147,8 +147,8 @@ visitor -> Cloudflare -> Lightsail firewall (Cloudflare IPs only) -> Apache + PH
 | Operating system | Debian 12.15, `unattended-upgrades` enabled, 0 packages waiting | security patches install by themselves |
 | Memory | 945 MiB RAM, 649 MiB swap, about 400 MiB available | swap stops a short memory spike from crashing the server |
 | Monitoring agent | `amazon-cloudwatch-agent` active | feeds the memory and disk alarms |
-| PHP | 8.2.35 as `mod_php`, `expose_php` off, OPcache on (128 MB, default) | OPcache keeps compiled PHP in memory so pages build faster |
-| Apache | `ServerTokens Prod`, `ServerSignature Off` | Apache stops advertising its version |
+| PHP | 8.2.35 as `mod_php`, `expose_php` off, OPcache on (192 MB, 32 MB for interned strings) | OPcache keeps compiled PHP in memory so pages build faster |
+| Apache | `ServerTokens Prod`, `ServerSignature Off`, `headers` module on | Apache stops advertising its version, and the `Cache-Control` rules in `.htaccess` work |
 | Database | MariaDB 10.11.19, 173 MB of data, InnoDB buffer pool 128 MB | the cache holds the hot part of the database in RAM |
 | WordPress cron | system cron every 5 minutes | scheduled tasks no longer wait for visitors |
 | Outgoing network | prefers IPv4 (`/etc/gai.conf`) | Cloudflare's IP Access rule for the server matches the IPv4 static IP only |
@@ -156,7 +156,20 @@ visitor -> Cloudflare -> Lightsail firewall (Cloudflare IPs only) -> Apache + PH
 
 **PHP limits.** Lightsail's own files set `memory_limit` to 512M and the main `php.ini` allowed 512M uploads. On a 1 GB server a few heavy requests could use most of the RAM, and a huge upload limit helps abusers. `/etc/php/8.2/apache2/conf.d/99-kotlinskidev.ini` overrides them: `memory_limit = 256M`, `upload_max_filesize = 64M`, `post_max_size = 64M`. The biggest file in the Media Library is 10.1 MB. To restore a large site backup, remove that file temporarily, restore, then put it back. Rollback: `sudo rm /etc/php/8.2/apache2/conf.d/99-kotlinskidev.ini && sudo systemctl reload apache2`.
 
+**PHP OPcache.** On 2026-11-12 OPcache's default 128 MB was completely used (0 MB free) and the 8 MB string buffer was full, so any new plugin could push PHP files out of the cache. `/etc/php/8.2/apache2/conf.d/99-kotlinskidev-opcache.ini` sets `opcache.memory_consumption=192` and `opcache.interned_strings_buffer=32` (about 90 MB more RAM at most). Apply a change with `sudo systemctl restart apache2`, because OPcache memory is only resized on a full restart. Rollback: delete the file and restart Apache.
+
+**Apache workers.** Apache uses the `prefork` module with `MaxRequestWorkers 5`, `KeepAlive On` and `KeepAliveTimeout 5`. With only five workers, a burst of requests to the origin queues: static files took 6-10 s while the cache warm-up ran, and 0.1-0.2 s on an idle server (an uncached page builds in about 0.8 s). The warm-up now fetches files 2 at a time to stay below the worker count. Do not purge the whole cache repeatedly, because each purge starts a full re-warm. A later improvement is `mpm_event` with PHP-FPM, which serves static files without a full PHP worker.
+
 **Apache version hiding.** `/etc/apache2/conf-available/zz-hide-version.conf` (enabled with `a2enconf`) loads after Debian's `security.conf`, so it wins. Rollback: `sudo a2disconf zz-hide-version && sudo systemctl reload apache2`.
+
+**Apache `headers` module.** The Super Page Cache plugin writes cache lifetime rules into `/var/www/html/.htaccess` (CSS and JS 30 days, images, fonts and video 1 year, `no-store` for error pages and for `robots.txt` and XML, session cookies removed from cached HTML). They sit inside `<IfModule mod_headers.c>`, and the module was **not enabled** until 2026-11-12, so Apache skipped all of them without any error. Static files then got Cloudflare's 2-hour default edge lifetime and kept expiring (see `docs/cloudflare.md` → How long Cloudflare keeps a file). Fixed with `sudo a2enmod headers` and `sudo systemctl restart apache2`. A newly enabled module needs a restart, not only a reload. Check with `sudo apache2ctl -M | grep headers`. Rollback: `sudo a2dismod headers && sudo systemctl restart apache2`.
+
+**Who owns `.htaccess`.** WordPress core writes its own block (`# BEGIN WordPress` to `# END WordPress`), and the Super Page Cache plugin writes the block between `# BEGIN WP Cloudflare Super Page Cache` and `# END WP Cloudflare Super Page Cache`. The plugin overwrites everything between its markers when its settings are saved and when it is activated, deactivated or updated. Anything outside all marked blocks is left alone, and the deploy never touches the file (it ships only the theme and one plugin). Two plugin options (in the `swcfpc_config` option) control the rules, and both are on:
+
+- `cf_browser_caching_htaccess`: the block that gives CSS and JS 30 days and images, fonts and video 1 year. **Do not turn it off**: static files would go back to Cloudflare's 2-hour default edge lifetime.
+- `cf_cache_control_htaccess`: the rules that set the page `Cache-Control` header and remove cookies from cached HTML.
+
+Do not edit the plugin's block by hand. Put any custom rule in an Apache config file (`/etc/apache2/conf-available/`) instead, because no plugin can overwrite it and Apache does not re-read it on every request. A backup of the file was taken on 2026-11-12 (`~/htaccess.backup-2026-11-12` on the server, if the backup command was run). To see the plugin options: `sudo -u www-data wp option get swcfpc_config --format=json --path=/var/www/html`, and print only keys containing `htaccess`, because the option also holds secret URL keys.
 
 **Database cache.** The buffer pool was 16 MB for a 173 MB database, and about 13 % of reads missed the cache and went to disk (a healthy site is under 1 %). `/etc/mysql/mariadb.conf.d/99-kotlinskidev.cnf` sets `innodb_buffer_pool_size = 128M`, which adds about 112 MB of RAM use. Recheck the memory alarm after a few days. Rollback: delete that file and run `sudo mysql -e "SET GLOBAL innodb_buffer_pool_size = 16777216;"`.
 

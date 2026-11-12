@@ -76,7 +76,7 @@ visitor -> Cloudflare (DNS, TLS, WAF, rate limit, cache) -> Lightsail Apache + W
 | --- | --- | --- |
 | Cache level | Aggressive | |
 | Browser Cache TTL | Respect origin | the transform rules below set it per path |
-| Edge Cache TTL (zone default) | 2 hours | unused, the cache rule respects origin headers |
+| Edge Cache TTL (zone default) | 2 hours | the fallback when the origin sends no cache lifetime. It applied to every static file until 2026-11-12, see below |
 | Tiered Cache | Smart topology on | fewer origin requests to the 1 GB Lightsail instance |
 | Brotli, Early Hints | on | the theme prints a Sora font preload and an LCP image preload |
 | Always Online | on | serves the cached copy when the origin is down |
@@ -86,6 +86,17 @@ visitor -> Cloudflare (DNS, TLS, WAF, rate limit, cache) -> Lightsail Apache + W
 | Cloudflare Fonts | off | fonts are self-hosted in the theme |
 | Polish, Mirage, Cache Reserve | not available | paid plans |
 
+### How long Cloudflare keeps a file
+
+Two different lifetimes exist, and mixing them up caused a real slowdown:
+
+- **Browser lifetime:** how long a visitor's browser keeps a file. Our response header transform rules (below) set this.
+- **Edge lifetime:** how long Cloudflare keeps the file in its cache. Cloudflare takes this from the `Cache-Control` header the **origin server** sends. A header added by a Cloudflare transform rule only changes what the browser sees. If the origin sends nothing, the edge falls back to 2 hours.
+
+Until 2026-11-12 the origin sent nothing for static files, so every image, font, script and video expired from the edge every 2 hours, then needed a revalidation or a new download from the server. Visitors who came back after a pause felt it as a slow site until the files were cached again. The cause: the plugin's `.htaccess` rules that set 30 days (CSS, JS) and 1 year (images, fonts, video) are wrapped in `<IfModule mod_headers.c>`, and Apache's `headers` module was not enabled, so Apache skipped them silently. Enabling it (`sudo a2enmod headers`, then an Apache **restart**) fixed it. Details in `docs/AWS.md`.
+
+Because the edge now keeps unversioned files for up to a year, a file replaced at the same URL stays old until it is purged. Rename the file, add `?ver=`, or purge that URL.
+
 ### Cache rule
 
 **How it works:** By default Cloudflare does not cache HTML pages, only static files. A cache rule tells it to cache HTML too, so most visitors get the page without WordPress running at all. Logged-in users and forms must skip the cache, so the rule bypasses requests with login cookies.
@@ -94,7 +105,11 @@ visitor -> Cloudflare (DNS, TLS, WAF, rate limit, cache) -> Lightsail Apache + W
 
 - Matches host `kotlinskidev.com*` without WordPress, comment or shop cookies, and bypasses `wp-json`, `wp-admin`, `wp-login` and XML files.
 - Edge and browser TTL respect origin. Status 4xx is cached for 0 seconds and 5xx is never cached.
-- HTML is served with `s-maxage=31536000, max-age=60`: Cloudflare may keep it for a year, browsers re-check after a minute. After a deploy, purge from Super Page Cache, or purge everything in Cloudflare.
+- HTML is served with `s-maxage=604800, max-age=60` (lowered from a year on 2026-11-12): Cloudflare may keep it for 7 days, browsers re-check after a minute. The shorter edge lifetime limits how long anything that was not purged, such as a form nonce baked into the HTML, can stay stale. After a deploy, purge from Super Page Cache, or purge everything in Cloudflare.
+- Super Page Cache's disk page cache is **off** on purpose. On 2026-11-12 it served the cached public page to requests carrying a `wordpress_logged_in_` cookie even with the cookie exclusion list set, and it only helps the rare requests that reach the origin. Do not turn it on without testing a real logged-in session first.
+- Super Page Cache's skip-cookies list also contains `wp-settings-` (set for logged-in users), next to the default WordPress and WooCommerce names.
+- Super Page Cache excluded URLs also cover `contact-success`, `contact-error`, `contact-thankyou` (form result pages must never be shared between visitors) and `/sw.js`.
+- A second rule in the same ruleset, **Bypass edge cache for the service worker script**, matches `/sw.js` and turns caching off. The origin sends `immutable, max-age=2592000` for that file, so without it a new service worker would not reach visitors for 30 days. Super Page Cache keeps this rule when it rewrites its own (checked 2026-11-12), but re-check after a plugin update.
 
 ## Transform rules
 
@@ -134,7 +149,7 @@ visitor -> Cloudflare (DNS, TLS, WAF, rate limit, cache) -> Lightsail Apache + W
 
 **How it works:** A redirect rule sends the browser to another URL. Cloudflare answers it itself, so the server is not used at all.
 
-**Our setting:** Ruleset `http_request_dynamic_redirect`, id `62fcd4ac486d4a6f97712a08aaa39cea`: **Redirect www to apex**. Host `www.kotlinskidev.com` gets a 301 (permanent) to `https://kotlinskidev.com` plus the path, with the query string kept. Before 2026-11-11 WordPress did this redirect on the server.
+**Our setting:** Ruleset `http_request_dynamic_redirect`, id `62fcd4ac486d4a6f97712a08aaa39cea`: **Redirect www to apex**. Host `www.kotlinskidev.com` gets a 301 (permanent) to `https://kotlinskidev.com` plus the path, with the query string kept. Before 2026-11-11 WordPress did this redirect on the server. A second rule, **Redirect /en/ to /en/home/**, answers the bare Polylang language root at the edge with a 301 (query string kept). Polylang sends the same redirect and sets a `pll_language` cookie, which made Cloudflare skip the cache and hit the server on every visit. The language switcher already links to `/en/home/`, so only typed or old links reach this rule.
 
 ### Request transform
 

@@ -181,7 +181,7 @@ async function runFull({ base, workers, delayMs, limit }) {
 			for (const asset of more.assets) assets.add(asset);
 		}
 	}
-	const assetResults = await warmAssets(assets, workers * 3, base);
+	const assetResults = await warmAssets(assets, workers, base);
 	console.log(summarize('pages', pages));
 	console.log(summarize('assets', assetResults));
 	for (const failure of [...pages, ...assetResults].filter((result) => result.status !== 200).slice(0, 10)) {

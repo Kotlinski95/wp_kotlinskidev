@@ -135,17 +135,11 @@ function kotlinskidev_render_related_tags_fresh_per_language() {
             <?php foreach ($related_tags as $tag) :
                 $tag_link = get_tag_link($tag->term_id);
 
-                $latest_post = get_posts(array(
-                    'tag_id' => $tag->term_id,
-                    'posts_per_page' => 1,
-                    'post_status' => 'publish',
-                    'suppress_filters' => false,
-                    'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
-                ));
+                $latest_post_id = kotlinskidev_get_term_latest_post_id($tag->term_id, 'post_tag');
 
                 $last_updated = '';
-                if (!empty($latest_post)) {
-                    $last_updated = human_time_diff(get_the_time('U', $latest_post[0]->ID), current_time('timestamp')) . ' ago';
+                if ($latest_post_id > 0) {
+                    $last_updated = human_time_diff(get_the_time('U', $latest_post_id), current_time('timestamp')) . ' ago';
                 }
             ?>
             <div style="text-align:center;padding:0.9375rem;border:0.125rem solid var(--wp--preset--color--border-color);border-radius:0.75rem;background:var(--wp--preset--color--light-shade);transition:transform 0.3s ease;hover:transform:translateY(-0.125rem);min-width:12.5rem;">

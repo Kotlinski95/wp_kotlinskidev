@@ -51,7 +51,7 @@ if ( isset( $_GET['contact-error'] ) ) { // phpcs:ignore WordPress.Security.Nonc
     <?php
 }
 ?>
-<form <?php echo get_block_wrapper_attributes( [ 'class' => 'contact-form-ts contact-form-block' ] ); ?> method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+<form <?php echo get_block_wrapper_attributes( [ 'class' => 'contact-form-ts contact-form-block' ] ); ?> data-nonce-url="<?php echo esc_url( admin_url( 'admin-ajax.php?action=kotlinskidev_contact_form_nonce' ) ); ?>" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
     <input type="hidden" name="action" value="kotlinskidev_contact_form_submit">
     <?php wp_nonce_field( 'kotlinskidev_contact_form_submit', 'kotlinskidev_contact_form_nonce' ); ?>
     <label for="name"><?php echo esc_html( $attributes['nameLabel'] ?? 'Name' ); ?></label>
