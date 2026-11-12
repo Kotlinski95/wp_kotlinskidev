@@ -2,6 +2,8 @@
 
 Every push to `master` runs `.github/workflows/deploy.yml`: build theme, back up the current files on Lightsail, rsync the whitelisted paths, clear transients and caches, reload Apache, smoke-test the site, and restore the backup if anything fails.
 
+The smoke test runs `curl` on the server against the public URL with a throwaway `?deploy-smoke=<timestamp>` query, so the request travels through Cloudflare and uses the real Authenticated Origin Pulls certificate. It cannot call Apache on `127.0.0.1` any more: since 2026-11-11 Apache requires Cloudflare's client certificate, and a local request without one fails with `tlsv13 alert certificate required` (curl error 56). The random query makes Cloudflare fetch the page from the origin instead of answering from its cache.
+
 ## What gets deployed
 
 Only paths listed under `include:` in `.github/deploy-manifest.yml`, minus its `exclude:` rules (the theme's `vendor/` is excluded because production runs PHP 8.2 and Sentry is skipped without it). Anything not listed is never copied or deleted on the server (uploads, `wp-config.php`, third-party plugins, WP core). Only one custom plugin is shipped, `wordpress-pwa-manager` (its prebuilt `build/` is committed, its sources and tooling are excluded); add `wp-content/plugins/<name>/` under `include:` when another one is needed on production. Before each sync the workflow resets every included path on the server to owner `admin`, group `www-data`, directories `2775`, files `664`, so both the deploy user and WordPress (Theme/Plugin File Editor, plugin updates) can write to deployed files.

@@ -196,10 +196,9 @@ jobs:
           site_host="${site_host%%/*}"
           ssh -i ~/.ssh/deploy_key "$SSH_USER@$SSH_HOST" bash -s -- "$site_host" <<'REMOTE'
           set -euo pipefail
-          curl --fail --silent --show-error --location --insecure \
+          curl --fail --silent --show-error --location \
             --retry 5 --retry-delay 5 --retry-all-errors \
-            --resolve "$1:443:127.0.0.1" --resolve "$1:80:127.0.0.1" \
-            --output /dev/null "https://$1/"
+            --output /dev/null "https://$1/?deploy-smoke=$(date +%s)"
           REMOTE
 
       - name: Roll back on failure
