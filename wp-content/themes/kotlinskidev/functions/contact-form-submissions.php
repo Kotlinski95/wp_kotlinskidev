@@ -7,7 +7,7 @@ function kotlinskidev_contact_submissions_table_name(): string
 
 function kotlinskidev_contact_submissions_db_version(): string
 {
-    return '1.0';
+    return '1.1';
 }
 
 function kotlinskidev_contact_submissions_maybe_create_table(): void
@@ -28,6 +28,7 @@ function kotlinskidev_contact_submissions_maybe_create_table(): void
         topic VARCHAR(255) NOT NULL DEFAULT '',
         message LONGTEXT NOT NULL,
         agree TINYINT(1) NOT NULL DEFAULT 0,
+        attachments LONGTEXT NULL,
         email_sent TINYINT(1) NOT NULL DEFAULT 0,
         submitted_at DATETIME NOT NULL,
         read_at DATETIME NULL,
@@ -58,10 +59,11 @@ function kotlinskidev_save_contact_submission( array $data ): int
             'topic'        => $data['topic'] ?? '',
             'message'      => $data['message'],
             'agree'        => ! empty( $data['agree'] ) ? 1 : 0,
+            'attachments'  => $data['attachments'] ?? null,
             'email_sent'   => 0,
             'submitted_at' => current_time( 'mysql' ),
         ],
-        [ '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%s' ]
+        [ '%d', '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s' ]
     );
 
     return (int) $wpdb->insert_id;
@@ -188,6 +190,21 @@ function kotlinskidev_render_contact_submission_detail( int $submission_id ): vo
                 <th scope="row"><?php esc_html_e( 'Email delivery', 'kotlinskidev' ); ?></th>
                 <td><?php echo $submission->email_sent ? '✅ ' . esc_html__( 'Sent', 'kotlinskidev' ) : '⚠️ ' . esc_html__( 'Failed', 'kotlinskidev' ); ?></td>
             </tr>
+            <?php $attachment_records = ! empty( $submission->attachments ) ? json_decode( (string) $submission->attachments, true ) : []; ?>
+            <?php if ( is_array( $attachment_records ) && [] !== $attachment_records ) : ?>
+            <tr>
+                <th scope="row"><?php esc_html_e( 'Attachments', 'kotlinskidev' ); ?></th>
+                <td>
+                    <?php foreach ( $attachment_records as $record ) : ?>
+                        <div>
+                            <?php echo esc_html( (string) ( $record['name'] ?? '' ) ); ?>
+                            (<?php echo esc_html( size_format( absint( $record['size'] ?? 0 ) ) ); ?>)
+                            <code><?php echo esc_html( (string) ( $record['sha256'] ?? '' ) ); ?></code>
+                        </div>
+                    <?php endforeach; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
             <?php if ( $submission->post_id ) : ?>
             <tr>
                 <th scope="row"><?php esc_html_e( 'Submitted from', 'kotlinskidev' ); ?></th>

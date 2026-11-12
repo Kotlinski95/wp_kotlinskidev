@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { registerBlockType } from "@wordpress/blocks";
 
@@ -83,6 +83,12 @@ describe("contact-form Edit", () => {
     renderEdit({ submitLabel: "Get in touch" });
 
     expect(screen.getByRole("button", { name: "Get in touch" })).toBeDisabled();
+  });
+
+  it("changes the submit button style from the shared variant list", () => {
+    const { setAttributes } = renderEdit();
+    fireEvent.change(screen.getByLabelText("Button style"), { target: { value: "primary-dark" } });
+    expect(setAttributes).toHaveBeenCalledWith({ submitButtonStyle: "primary-dark" });
   });
 
   it("updates the name label", async () => {

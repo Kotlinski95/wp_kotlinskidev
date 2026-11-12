@@ -61,6 +61,37 @@ Last 14 days before 2026-11-11: CPU average 1.2 %, peak 76.7 %; burst capacity n
 4. **High disk:** run `sudo du -xh / --max-depth=2 | sort -h | tail` and look at `/var/log`, the database and `wp-content/uploads`. Old backups from plugins are a common cause.
 5. **Cloudflare origin unreachable:** check the Lightsail firewall against Cloudflare's current IP ranges first (stale ranges cause 522 errors, see `docs/522.md`), then the instance itself.
 
+## Contact form mail failure alerts
+
+The Gmail mailer can stop working without any error on the site (an expired OAuth token gives `invalid_grant`), and WP Mail SMTP's own alerts would use the same broken mailer. The theme therefore sends a push notification over ntfy.sh, which does not depend on mail. The code is `functions/mail-failure-alerts.php` in the theme.
+
+**Setup:**
+
+1. Install the ntfy app on your phone.
+2. Choose a long random topic name, for example 30 random characters, and subscribe to it in the app. Treat the name like a password.
+3. In wp-admin open Settings, then the Error Monitoring tab, and paste `https://ntfy.sh/<topic>` into **ntfy topic URL** under Alerts. Only `https` addresses on `ntfy.sh` are accepted.
+
+**What triggers an alert:** a failure reported by WordPress (`wp_mail_failed`), or the contact form getting `false` from `wp_mail`. The message holds only the site host, the UTC time and a short error text. Visitor details, email addresses and the topic URL are never sent.
+
+**Throttle:** at most one alert per 30 minutes for the same error. The next alert after that window says how many were held back.
+
+**Weekly check:** once a week the site sends a tiny mail to the admin address with the subject `[kotlinskidev] Weekly mail check`. If that send fails, the normal alert fires, so a broken token is noticed within a week even when nobody uses the contact form.
+
+**Turn it off:** empty the field. Alerts stop and the weekly check is unscheduled on the next page load.
+
+## Contact form attachments
+
+The contact form block has an **Allow file attachments** toggle in the Inspector (off by default). When it is on, visitors can attach files that are emailed to the admin address and not kept on the website.
+
+- **Limits:** 3 files, 10 MB in total, 8 MB per file, names cut to 100 characters. Change them with the `kotlinskidev_contact_attachment_limits` filter.
+- **Allowed types:** pdf, doc, docx, odt, rtf, txt, png, jpg, jpeg, zip. Macro-enabled Office files, scripts, executables, HTML/SVG, disk images and names with a blocked double extension are refused. Content is checked by real type and file signature, never by name alone. A docx or odt with macros or more than 500 entries is refused, and a plain zip is never opened.
+- **Where files live:** uploads are moved to a random-named file in `../kotlinskidev-private/contact-attachments` next to the WordPress folder when it is writable, otherwise in the system temp folder (override with the `kotlinskidev_contact_attachment_dir` filter). They are deleted right after the email is sent.
+- **Failed sends:** if `wp_mail` fails, the files are kept in `retained/<submission id>/` for 7 days and an ntfy alert says so. A daily wp-cron event deletes older files. Fetch them over SFTP; the site has no download link.
+- **Rate limit:** 5 submissions with attachments per 10 minutes per visitor, keyed by a hash of the IP address.
+- **PHP settings needed:** `upload_max_filesize` of at least 8M and `post_max_size` of at least 12M. Lower values make PHP drop the upload and the form shows a "too large" message.
+- **Request size limit:** Cloudflare's free plan cannot filter by request size (`http.request.body.size` needs a paid WAF plan), so the limit lives in Apache. In the HTTPS vhost (`/etc/apache2/sites-enabled/default-ssl.conf`) add `<Location "/wp-admin/admin-post.php">` with `LimitRequestBody 12582912` inside, then run `sudo apachectl configtest && sudo systemctl reload apache2`. Apache then answers 413 right after reading the headers, so an oversized upload never ties up one of the 5 workers. Check it with `head -c 13000000 /dev/zero | curl -s -o /dev/null -w "%{http_code}\n" -X POST --data-binary @- https://kotlinskidev.com/wp-admin/admin-post.php`, which should print `413`.
+- **Turn it off:** switch the toggle off on the form. Without the toggle the server ignores any files sent to the form.
+
 ## Free improvements still open
 
 - Confirm the SNS email subscription (see above).

@@ -10,6 +10,7 @@ import {
   ToggleControl,
   SelectControl,
 } from "@wordpress/components";
+import { BUTTON_STYLE_OPTIONS, resolveButtonStyle } from "@utils/button-style-variants";
 import metadata from "./block.json";
 import "./style.scss";
 
@@ -24,8 +25,10 @@ export interface ContactFormAttributes {
   messagePlaceholder: string;
   agreeLabel: string;
   submitLabel: string;
+  submitButtonStyle?: string;
   successMessage: string;
   errorMessage: string;
+  enableAttachments?: boolean;
   enableCaptcha: boolean;
   captchaProvider: "recaptcha" | "turnstile";
   recaptchaSiteKey: string;
@@ -98,6 +101,12 @@ export function Edit({ attributes, setAttributes }: EditProps) {
             value={attributes.submitLabel}
             onChange={(value) => setAttributes({ submitLabel: value })}
           />
+          <SelectControl
+            label={__("Button style", "kotlinskidev")}
+            value={resolveButtonStyle(attributes.submitButtonStyle)}
+            options={[...BUTTON_STYLE_OPTIONS]}
+            onChange={(value) => setAttributes({ submitButtonStyle: value })}
+          />
           <TextControl
             label={__("Success Message", "kotlinskidev")}
             value={attributes.successMessage}
@@ -107,6 +116,18 @@ export function Edit({ attributes, setAttributes }: EditProps) {
             label={__("Error Message", "kotlinskidev")}
             value={attributes.errorMessage}
             onChange={(value) => setAttributes({ errorMessage: value })}
+          />
+        </PanelBody>
+
+        <PanelBody title={__("Attachments", "kotlinskidev")} initialOpen={false}>
+          <ToggleControl
+            label={__("Allow file attachments", "kotlinskidev")}
+            checked={Boolean(attributes.enableAttachments)}
+            onChange={(value) => setAttributes({ enableAttachments: value })}
+            help={__(
+              "Visitors can attach up to 3 files (10 MB total). Files are emailed to you and are not stored on the website.",
+              "kotlinskidev"
+            )}
           />
         </PanelBody>
 
@@ -258,6 +279,13 @@ export function Edit({ attributes, setAttributes }: EditProps) {
         <label htmlFor="contact-form-preview-agree">
           <input id="contact-form-preview-agree" type="checkbox" disabled /> {attributes.agreeLabel}
         </label>
+
+        {attributes.enableAttachments && (
+          <label htmlFor="contact-form-preview-attachments">
+            {__("Attachments (optional)", "kotlinskidev")}
+            <input id="contact-form-preview-attachments" type="file" multiple disabled />
+          </label>
+        )}
 
         {attributes.enableCaptcha &&
           ((attributes.captchaProvider === "recaptcha" && attributes.recaptchaSiteKey) ||

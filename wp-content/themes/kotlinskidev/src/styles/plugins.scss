@@ -28,17 +28,6 @@
 	border-color: var(--wp--preset--color--primary);
 }
 
-.dark-mode .contact-form-block button {
-	background: var(--wp--preset--color--primary);
-	color: var(--wp--preset--color--light-color);
-}
-
-.dark-mode .contact-form-block button:hover,
-.dark-mode .contact-form-block button:focus-visible {
-	background: var(--wp--preset--color--primary-hover);
-	color: var(--wp--preset--color--light-color);
-}
-
 .pwa-install-button {
 
 	@include custom-button-style();
