@@ -17,7 +17,7 @@ Never read, write, or grep `wp-config.php`, `wp-admin/`, `wp-includes/`, or `wp-
 
 ## Step 1 — Scope the review
 
-If the user names a specific feature, file, or PR/diff, scope to that. If asked for a full audit, work through the checklist section by section against `functions/*.php`, `src/blocks/*`, the active plugin inventory, and the MCP/Novamira integration docs (`docs/mcp-wordpress-setup.md`, `docs/env.md`).
+If the user names a specific feature, file, or PR/diff, scope to that. If asked for a full audit, work through the checklist section by section against `functions/*.php`, `src/blocks/*`, the active plugin inventory, and the MCP/Novamira integration docs (`../../../docs/mcp-wordpress-setup.md`, `docs/env.md`).
 
 ## Step 2 — Verify, don't assume
 

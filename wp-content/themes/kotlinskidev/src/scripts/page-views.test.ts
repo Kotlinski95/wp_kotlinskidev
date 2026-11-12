@@ -235,4 +235,63 @@ describe("page-views.ts", () => {
 
     expect(MockXHR.instances).toHaveLength(0);
   });
+
+  describe("fresh nonce", () => {
+    const flush = async (): Promise<void> => {
+      for (let i = 0; i < 20; i += 1) {
+        await Promise.resolve();
+      }
+    };
+    const sentBodyFor = (postId: number): string =>
+      MockXHR.instances.find((request) => request.sentBody.includes(`post_id=${postId}`))
+        ?.sentBody ?? "";
+    const mockFetch = (impl: jest.Mock) => {
+      (global as unknown as { fetch: jest.Mock }).fetch = impl;
+    };
+
+    afterEach(() => {
+      delete (global as unknown as { fetch?: unknown }).fetch;
+    });
+
+    it("replaces the cached nonce with a fresh one before sending", async () => {
+      const fetchMock = jest.fn().mockResolvedValue({
+        json: () => Promise.resolve({ success: true, data: { nonce: "fresh999" } }),
+      });
+      mockFetch(fetchMock);
+      setAjaxGlobal();
+      loadWithPostId(77);
+      grantStatisticsConsent();
+      await flush();
+
+      jest.advanceTimersByTime(10000);
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "/wp-admin/admin-ajax.php?action=kotlinskidev_page_view_nonce",
+        { cache: "no-store", credentials: "same-origin" }
+      );
+      expect(sentBodyFor(77)).toContain("nonce=fresh999");
+    });
+
+    it("falls back to the cached nonce when the refresh fails", async () => {
+      mockFetch(jest.fn().mockRejectedValue(new Error("offline")));
+      setAjaxGlobal();
+      loadWithPostId(77);
+      grantStatisticsConsent();
+      await flush();
+
+      jest.advanceTimersByTime(10000);
+
+      expect(sentBodyFor(77)).toContain("nonce=abc123");
+    });
+
+    it("skips the refresh when the view was already counted today", () => {
+      const fetchMock = jest.fn();
+      mockFetch(fetchMock);
+      localStorage.setItem(`pv_77_${new Date().toDateString()}`, "1");
+      setAjaxGlobal();
+      loadWithPostId(77);
+
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+  });
 });

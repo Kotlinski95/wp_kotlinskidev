@@ -2,7 +2,7 @@
 
 The WordPress site exposes **one MCP server** that aggregates abilities from several plugins. "Which server" is therefore really two questions: which **endpoint URL** to connect to, and which **ability family** to use for a given task.
 
-Related docs: [`mcp-wordpress-setup.md`](mcp-wordpress-setup.md) (how the connection works), [`env.md`](env.md) (where the API key lives).
+Related docs: [`mcp-wordpress-setup.md`](mcp-wordpress-setup.md) (how the connection works), [`env.md`](../wp-content/themes/kotlinskidev/docs/env.md) (where the API key lives).
 
 ## Endpoints
 
@@ -67,7 +67,7 @@ MCP server names carry an environment suffix so chats always show which site is 
 
 | Client | Config | Auth |
 | --- | --- | --- |
-| Claude Code CLI | `.mcp.json` in the theme root | `${WP_MCP_API_KEY}` / `${WP_MCP_API_KEY_PROD}` from `.env` via direnv — see [`env.md`](env.md) |
+| Claude Code CLI | `.mcp.json` in the theme root | `${WP_MCP_API_KEY}` / `${WP_MCP_API_KEY_PROD}` from `.env` via direnv — see [`env.md`](../wp-content/themes/kotlinskidev/docs/env.md) |
 | Claude Desktop | `~/Library/Application Support/Claude/claude_desktop_config.json` → `mcp-remote` proxy (`--allow-http` needed for the local site only) | Same keys, pasted into `env.AUTH_HEADER` in that file |
 
 Both currently point at the legacy alias endpoint; when switching to `/wp-json/mcp/novamira`, update both configs plus `mcp-wordpress-setup.md`. Production setup steps live in [`mcp-wordpress-setup.md`](mcp-wordpress-setup.md#production-kotlinskidev).

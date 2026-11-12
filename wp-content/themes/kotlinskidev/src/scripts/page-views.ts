@@ -32,8 +32,32 @@ import { getScrollTop, onScroll as bindScroll } from "./utils";
     return;
   }
 
+  const ajaxUrl: string = (window as any).kotlinskidev_ajax?.ajaxurl || "/wp-admin/admin-ajax.php";
+  let nonce: string = (window as any).kotlinskidev_ajax?.nonce || "";
+
+  const getStorageKey = () => `pv_${postId}_${new Date().toDateString()}`;
+
+  const refreshNonce = async (): Promise<void> => {
+    try {
+      const response = await fetch(`${ajaxUrl}?action=kotlinskidev_page_view_nonce`, {
+        cache: "no-store",
+        credentials: "same-origin",
+      });
+      const payload = await response.json();
+      if (payload?.success && payload.data?.nonce) {
+        nonce = payload.data.nonce;
+      }
+    } catch {
+      nonce = nonce || "";
+    }
+  };
+
+  if (!localStorage.getItem(getStorageKey())) {
+    void refreshNonce();
+  }
+
   const sendPageView = () => {
-    const storageKey = `pv_${postId}_${new Date().toDateString()}`;
+    const storageKey = getStorageKey();
 
     if (localStorage.getItem(storageKey)) {
       return;
@@ -42,13 +66,13 @@ import { getScrollTop, onScroll as bindScroll } from "./utils";
     localStorage.setItem(storageKey, "1");
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", (window as any).kotlinskidev_ajax?.ajaxurl || "/wp-admin/admin-ajax.php");
+    xhr.open("POST", ajaxUrl);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     const formData = new URLSearchParams({
       action: "kotlinskidev_track_page_view",
       post_id: postId.toString(),
-      nonce: (window as any).kotlinskidev_ajax?.nonce || "",
+      nonce,
     });
 
     xhr.onreadystatechange = () => {

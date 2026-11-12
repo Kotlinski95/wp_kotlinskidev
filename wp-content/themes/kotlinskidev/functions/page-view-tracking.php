@@ -20,6 +20,14 @@ function kotlinskidev_localize_page_view_data()
 }
 add_action('wp_enqueue_scripts', 'kotlinskidev_localize_page_view_data', 20);
 
+function kotlinskidev_send_page_view_nonce()
+{
+    nocache_headers();
+    wp_send_json_success(array('nonce' => wp_create_nonce('kotlinskidev_page_view_nonce')));
+}
+add_action('wp_ajax_kotlinskidev_page_view_nonce', 'kotlinskidev_send_page_view_nonce');
+add_action('wp_ajax_nopriv_kotlinskidev_page_view_nonce', 'kotlinskidev_send_page_view_nonce');
+
 function kotlinskidev_handle_page_view_tracking()
 {
     $submitted_nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';

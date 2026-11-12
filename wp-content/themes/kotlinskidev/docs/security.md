@@ -2,7 +2,7 @@
 
 A comprehensive security review checklist for kotlinskidev.dev, structured around **OWASP Top 10 (2021)**, WordPress-specific hardening (CIS WordPress Benchmark practices), **OWASP ASVS** control depth, and **ISO/IEC 27001:2022 Annex A** control families for anything that's organizational/process rather than code. This is a working checklist, not a description of current state — items get checked off as each is verified. See §17 for the ISO cross-reference.
 
-Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active plugin inventory (Polylang, Complianz, WP Mail SMTP, WPS Hide Login, FileBird, Smush, Yoast, MCP Adapter, Enable Abilities for MCP, Novamira), the MCP/AI-agent integration unique to this project, and the AWS/Cloudflare infra referenced in `docs/522.md` / `docs/monitoring.md`.
+Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active plugin inventory (Polylang, Complianz, WP Mail SMTP, WPS Hide Login, FileBird, Smush, Yoast, MCP Adapter, Enable Abilities for MCP, Novamira), the MCP/AI-agent integration unique to this project, and the AWS/Cloudflare infra referenced in `../../../../docs/522.md` / `../../../../docs/monitoring.md`.
 
 > Note: this pass did **not** read `wp-config.php` (explicitly off-limits per the root `CLAUDE.md` / `wp-protect.sh` hook) — several items below (debug flags, secret key strength, `DISALLOW_FILE_EDIT`, DB prefix) need to be verified by you directly rather than by me.
 
@@ -56,7 +56,7 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 - [ ] Security response headers are set (currently none found anywhere — confirmed 2026-08-09, see `docs/security-headers.md` for the full investigation): `Strict-Transport-Security`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and a `Content-Security-Policy` scoped to this site's actual third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile). `docs/security-headers.md` has the exact recommended values, the GDPR Art. 32 rationale, the PHP-vs-Cloudflare split, and the CSP Report-Only rollout plan — implement from there, not from this line alone.
 - [ ] WordPress version number isn't exposed in `<meta name="generator">`, readme.html, or asset query strings.
 - [ ] Default/guessable admin username (`admin`) is not in use; confirm via `wp user list` there's no obviously-named super-admin account.
-- [ ] File permissions on the origin follow WordPress hardening guidance (directories 755, files 644, `wp-config.php` 600/640) — verify on the EC2 host, ties to `docs/monitoring.md`.
+- [ ] File permissions on the origin follow WordPress hardening guidance (directories 755, files 644, `wp-config.php` 600/640) — verify on the EC2 host, ties to `../../../../docs/monitoring.md`.
 - [ ] Database table prefix is not the default `wp_`.
 
 ## 6. Vulnerable & Outdated Components (OWASP A06)
@@ -89,8 +89,8 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 
 - [ ] Failed login attempts, password resets, and role/capability changes are logged somewhere durable (plugin, server-level, or custom `functions/actions.php` hook), not just WordPress's default (mostly silent) behavior.
 - [ ] Admin actions taken **through the MCP/Novamira integration** are logged with enough detail to reconstruct what an AI agent changed and when (see §15 — this is the newest and least battle-tested access path into the site).
-- [ ] Server-level access/error logs (nginx/Apache, PHP-FPM) are retained long enough to investigate an incident after the fact — ties to the CloudWatch Logs setup in `docs/monitoring.md` (currently `syslog` only; confirm web server logs are covered too, or explicitly accepted as out of scope).
-- [ ] There's an actual person/process that reviews alerts (the 5 CloudWatch alarms in `docs/monitoring.md` are infra-health, not security — consider whether a security-relevant alert, e.g. repeated 403/401s or admin-login spikes, should exist too).
+- [ ] Server-level access/error logs (nginx/Apache, PHP-FPM) are retained long enough to investigate an incident after the fact — ties to the CloudWatch Logs setup in `../../../../docs/monitoring.md` (currently `syslog` only; confirm web server logs are covered too, or explicitly accepted as out of scope).
+- [ ] There's an actual person/process that reviews alerts (the 5 CloudWatch alarms in `../../../../docs/monitoring.md` are infra-health, not security — consider whether a security-relevant alert, e.g. repeated 403/401s or admin-login spikes, should exist too).
 - [ ] A basic incident-response note exists (who to contact, how to rotate all secrets/keys, how to take the site into maintenance mode) — `functions/maintenance.php` exists; confirm it's usable as an emergency lockdown, not just a planned-downtime feature.
 
 ## 10. Server-Side Request Forgery (OWASP A10)
@@ -132,21 +132,21 @@ Scope: theme code (`functions/*.php`, `src/blocks/*`, `src/scripts/*`), active p
 ## 15. MCP / AI-Agent Attack Surface (project-specific — highest novelty, least battle-tested)
 
 - [ ] `WP_MCP_API_KEY` (local) and `WP_MCP_API_KEY_PROD` (once issued) are treated as full-admin-equivalent credentials — because they effectively are one: `novamira/execute-php` runs arbitrary PHP with full WordPress/`$wpdb` context, and `novamira/write-file`/`delete-file` touch the filesystem outside the sandbox for non-PHP files.
-- [ ] The MCP endpoint (`/wp-json/mcp/*`) is not reachable without the bearer token, and ideally is also IP-allowlisted or otherwise network-restricted at Cloudflare for the production key once it goes live (per `docs/mcp-wordpress-setup.md` § Production, not yet issued as of the last check).
+- [ ] The MCP endpoint (`/wp-json/mcp/*`) is not reachable without the bearer token, and ideally is also IP-allowlisted or otherwise network-restricted at Cloudflare for the production key once it goes live (per `../../../../docs/mcp-wordpress-setup.md` § Production, not yet issued as of the last check).
 - [ ] There's a defined key-rotation process, and a plan to revoke immediately if a key is ever suspected leaked (committed by accident, shared in a screenshot, etc.).
 - [ ] `novamira/execute-php` and file-write abilities are not exposed to any lower-trust caller — confirm the plugin's own auth model doesn't allow a non-admin WordPress user to generate an MCP key for themselves.
 - [ ] Actions taken via MCP abilities are attributable (agent/session label) and logged (ties to §9) so a destructive or unexpected change can be traced back to *which* session made it.
 - [ ] The production MCP key, when issued, uses `ewpa/*` content abilities only (per existing setup notes) and does **not** get `novamira/execute-php`/file-system abilities on production unless there's a specific, reviewed reason — local/staging is the appropriate place for unrestricted PHP execution, not the live site.
 - [ ] Rate limiting exists on the MCP endpoint independent of WordPress's normal request handling, so a leaked key can't be used to script large-scale destructive changes before it's noticed/revoked.
 
-## 16. Infrastructure & Network (ties to `docs/522.md` / `docs/monitoring.md`)
+## 16. Infrastructure & Network (ties to `../../../../docs/522.md` / `../../../../docs/monitoring.md`)
 
 - [ ] Cloudflare WAF rules are enabled (at least the free managed ruleset) in front of the origin.
 - [ ] Cloudflare rate limiting covers the login page, contact form, and any other public POST endpoint.
 - [ ] The EC2 security group only exposes the ports actually needed (443/80 from Cloudflare IP ranges ideally, SSH restricted to known IPs, not `0.0.0.0/0`).
 - [ ] SSH access uses key-based auth only, no password auth, and ideally goes through EC2 Instance Connect / a bastion rather than a permanently open port.
 - [ ] Backups (All-in-One WP Migration, present though inactive — confirm what actually produces backups) are encrypted at rest and stored somewhere other than the same EC2 instance, so a compromised/corrupted instance doesn't take the backups down with it.
-- [ ] CloudPanel's 10 concurrent PHP-FPM version stacks (flagged in `docs/monitoring.md` as a resource risk) are also a security-hygiene concern — unused PHP versions should be removed, not just left idle, since each is additional attack surface if a version-specific vulnerability surfaces.
+- [ ] CloudPanel's 10 concurrent PHP-FPM version stacks (flagged in `../../../../docs/monitoring.md` as a resource risk) are also a security-hygiene concern — unused PHP versions should be removed, not just left idle, since each is additional attack surface if a version-specific vulnerability surfaces.
 
 ## 17. ISO/IEC 27001:2022 Annex A Cross-Reference
 

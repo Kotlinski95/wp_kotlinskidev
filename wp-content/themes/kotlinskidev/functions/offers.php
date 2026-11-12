@@ -200,6 +200,8 @@ function kotlinskidev_offer_build_map( string $lang ): array {
 		'post_type'        => 'kt_offer',
 		'post_status'      => 'publish',
 		'numberposts'      => -1,
+		'no_found_rows'    => true,
+		'update_post_term_cache' => false,
 		'orderby'          => 'menu_order',
 		'order'            => 'ASC',
 		'lang'             => $lang,

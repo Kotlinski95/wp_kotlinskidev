@@ -99,6 +99,8 @@ function kotlinskidev_get_certificates(): array {
         'post_type'      => 'kt_certificate',
         'post_status'    => 'publish',
         'posts_per_page' => -1,
+        'no_found_rows'  => true,
+        'update_post_term_cache' => false,
         'orderby'        => 'menu_order date',
         'order'          => 'DESC',
     ] );

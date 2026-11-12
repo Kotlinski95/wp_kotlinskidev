@@ -77,7 +77,7 @@ a full push silently deletes that data — it's an overwrite, not a merge. This 
 serious WordPress workflows split the two halves of a deploy:
 
 - **Code** (theme/plugin files) → git + a deploy pipeline (this repo already does this
-  via DeployHQ — see `docs/git-instructions.md`). Never pushed via a database dump.
+  via DeployHQ — see `wp-content/themes/kotlinskidev/docs/git-instructions.md`). Never pushed via a database dump.
 - **Content/config changes** → pushed selectively (specific tables, specific
   `wp_options` rows, or just the one page/post you actually edited), or re-applied
   directly via wp-admin/WP-CLI on the live site instead of exported from local at all.
@@ -91,7 +91,7 @@ pull with zero production activity in between — not a default habit.
 
 A full pull brings real visitor/customer data (contact form submissions, any stored
 PII) onto a local dev machine. Worth checking against a project's own
-`docs/legal-compliance.md`-equivalent (data minimization / processor-agreement
+`wp-content/themes/kotlinskidev/docs/legal-compliance.md`-equivalent (data minimization / processor-agreement
 obligations) before treating this as routine, especially for client sites under GDPR —
 consider excluding or anonymizing any submission/PII tables on pull if the local copy
 isn't needed for that specific piece of work.

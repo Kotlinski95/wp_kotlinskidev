@@ -63,7 +63,7 @@ Scope for this pass: `src/blocks/*` (10 custom Gutenberg blocks), `src/scripts/*
 - [ ] **LCP** — the largest above-the-fold element (hero image/banner) is preloaded (`<link rel="preload">` or `fetchpriority="high"`), not lazy-loaded, and served in a modern format at the correct rendered size.
 - [ ] **CLS** — all images/video have explicit `width`/`height` (or `aspect-ratio`) so the browser reserves space before load; web fonts use `font-display: swap` (or are preloaded) to avoid FOIT/layout jump.
 - [ ] **INP** — no single long task blocks the main thread for >200ms on interaction (menu open, search input, filter click); heavy work is chunked or moved off the critical interaction path.
-- [ ] **TTFB** — server response time is monitored (ties into `docs/monitoring.md`); PHP-side caching (`functions/cache.php` transients) is actually hit on repeat requests, not bypassed.
+- [ ] **TTFB** — server response time is monitored (ties into `../../../../docs/monitoring.md`); PHP-side caching (`functions/cache.php` transients) is actually hit on repeat requests, not bypassed.
 - [ ] No render-blocking third-party script (analytics, consent, fonts) sits above the fold without `async`/`defer`.
 - [ ] Above-the-fold CSS is minimal/critical; non-critical styles don't block first paint.
 
@@ -107,9 +107,9 @@ Scope for this pass: `src/blocks/*` (10 custom Gutenberg blocks), `src/scripts/*
 
 ## 11. Caching & Delivery (Infra)
 
-- [ ] Cloudflare cache rules are tuned so static assets are edge-cached and only dynamic HTML hits origin (ties into `docs/monitoring.md` / `docs/522.md` origin-capacity concerns).
+- [ ] Cloudflare cache rules are tuned so static assets are edge-cached and only dynamic HTML hits origin (ties into `../../../../docs/monitoring.md` / `../../../../docs/522.md` origin-capacity concerns).
 - [ ] Page-level caching (if a caching plugin/proxy layer exists) is verified to actually serve cached HTML for anonymous visitors, not bypassed by cookies set unconditionally (consent banner, page-views tracker).
-- [ ] Origin PHP-FPM has headroom under load (per `docs/monitoring.md` — 10 idle PHP-FPM version stacks competing for <1GiB RAM was already flagged as a risk factor for responsiveness, not just uptime).
+- [ ] Origin PHP-FPM has headroom under load (per `../../../../docs/monitoring.md` — 10 idle PHP-FPM version stacks competing for <1GiB RAM was already flagged as a risk factor for responsiveness, not just uptime).
 
 ## 12. Accessibility ↔ Performance Overlap
 

@@ -276,38 +276,19 @@ function kotlinskidev_render_city_grid_cards( array $args = [] ): string {
     $exclude_id = (int) ( $args['exclude_id'] ?? 0 );
     $show_empty = (bool) ( $args['show_empty'] ?? true );
 
-    $query_args = [
-        'post_type'      => 'service_location',
-        'post_status'    => 'publish',
-        'posts_per_page' => -1,
-        'no_found_rows'  => true,
-        'meta_key'       => 'city',
-        'orderby'        => 'meta_value',
-        'order'          => 'ASC',
-    ];
-
     $lang = function_exists( 'pll_current_language' ) ? pll_current_language() : false;
-    if ( is_string( $lang ) && '' !== $lang ) {
-        $query_args['lang'] = $lang;
-    }
-
-    $query = new WP_Query( $query_args );
 
     $cards = '';
-    while ( $query->have_posts() ) {
-        $query->the_post();
-        $post_id = (int) get_the_ID();
-        if ( $post_id === $exclude_id || ! kotlinskidev_service_location_post_is_ready( $post_id ) ) {
+    foreach ( kotlinskidev_service_location_ready_ids( is_string( $lang ) ? $lang : '' ) as $post_id ) {
+        if ( $post_id === $exclude_id ) {
             continue;
         }
-        $city  = get_post_meta( $post_id, 'city', true );
         $cards .= sprintf(
             '<a href="%1$s" class="kt-city-grid__link"><span class="kt-city-grid__link-label">%2$s</span><span class="link-dark-variant-support kt-gradient-text kt-city-grid__link-arrow">&rarr;</span></a>',
-            esc_url( get_permalink() ),
-            esc_html( $city )
+            esc_url( get_permalink( $post_id ) ),
+            esc_html( get_post_meta( $post_id, 'city', true ) )
         );
     }
-    wp_reset_postdata();
 
     if ( '' === $cards && $show_empty ) {
         return '<div style="text-align:center;padding:3.75rem 0"><p style="color:var(--wp--preset--color--foreground-alt)">' . esc_html__( 'City pages will appear here soon.', 'kotlinskidev' ) . '</p></div>';

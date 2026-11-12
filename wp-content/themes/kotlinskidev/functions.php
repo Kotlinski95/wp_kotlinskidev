@@ -263,6 +263,7 @@ require_once get_template_directory() . '/functions/seo-noindex-compat.php';
 // Shared post/topic card markup used by category, tag, and related-article grids
 require_once get_template_directory() . '/functions/card-hover-style-vars.php';
 require_once get_template_directory() . '/functions/post-card-renderer.php';
+require_once get_template_directory() . '/functions/term-latest-post-cache.php';
 require_once get_template_directory() . '/functions/topic-card-renderer.php';
 
 // Blog topic management system
@@ -281,6 +282,7 @@ require_once get_template_directory() . '/functions/page-view-tracking.php';
 require_once get_template_directory() . '/functions/service-locations.php';
 require_once get_template_directory() . '/functions/service-location-local-content.php';
 require_once get_template_directory() . '/functions/service-location-seo.php';
+require_once get_template_directory() . '/functions/service-location-ready-ids-cache.php';
 require_once get_template_directory() . '/functions/service-location-add-city.php';
 
 require_once get_template_directory() . '/functions/contact-card.php';
