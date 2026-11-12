@@ -3,6 +3,7 @@
 use Brain\Monkey\Functions;
 
 require_once __DIR__ . '/../../functions/button-style-variants.php';
+require_once __DIR__ . '/../../functions/svg-support.php';
 
 function kotlinskidev_render_google_maps_fixture(array $attributes): string
 {
@@ -13,6 +14,9 @@ function kotlinskidev_render_google_maps_fixture(array $attributes): string
     Functions\when('wp_strip_all_tags')->alias(fn ($t) => strip_tags($t));
     Functions\when('__')->returnArg();
     Functions\when('get_site_icon_url')->justReturn('https://example.test/site-icon-128.webp');
+    Functions\when('get_theme_mod')->alias(fn ($key) => 'custom_logo' === $key ? ($GLOBALS['kt_test_logo_id'] ?? 0) : false);
+    Functions\when('get_post_mime_type')->alias(fn () => $GLOBALS['kt_test_logo_mime'] ?? 'image/svg+xml');
+    Functions\when('get_transient')->alias(fn ($key) => 'kotlinskidev_svg_' . ($GLOBALS['kt_test_logo_id'] ?? 0) === $key ? ($GLOBALS['kt_test_logo_svg'] ?? false) : false);
     Functions\when('esc_html__')->returnArg();
     Functions\when('esc_js')->returnArg();
     Functions\when('wp_kses_post')->returnArg();
@@ -170,4 +174,67 @@ it('falls back to fill-adaptive for an unknown button style', function () {
     $html = kotlinskidev_render_google_maps_fixture(['apiKey' => 'KEY', 'lat' => '1', 'lng' => '2', 'buttonStyle' => '"><script>']);
 
     expect($html)->toContain('kt-google-maps__consent is-style-fill-adaptive"');
+});
+
+function kotlinskidev_test_site_logo_svg(): string
+{
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="274" height="80" viewBox="0 0 274 80" class="custom-logo">'
+        . '<g class="logo-icon"><rect width="80" height="80" rx="17.5" fill="var(--logo-icon-bg, #1c1d18)"/>'
+        . '<g transform="scale(1.25)" fill="var(--logo-icon-mark, #00f6ff)"><path d="M10 10h20v20z"/></g></g>'
+        . '<rect class="logo-divider" x="90" width="2" height="80" fill="var(--logo-divider, #00f6ff)"/>'
+        . '<path class="logo-name" d="M100 10h100v20z" fill="var(--logo-text, #ffffff)"/></svg>';
+}
+
+afterEach(function () {
+    unset($GLOBALS['kt_test_logo_id'], $GLOBALS['kt_test_logo_mime'], $GLOBALS['kt_test_logo_svg']);
+});
+
+it('draws the real site logo icon inline in the marker instead of the site icon image', function () {
+    $GLOBALS['kt_test_logo_id'] = 7252;
+    $GLOBALS['kt_test_logo_svg'] = kotlinskidev_test_site_logo_svg();
+
+    $html = kotlinskidev_render_google_maps_fixture(['apiKey' => 'KEY', 'lat' => '1', 'lng' => '2', 'markerLabel' => 'X']);
+
+    expect($html)
+        ->toContain('<svg class="kt-google-maps__marker-logo"')
+        ->toContain('viewBox="0 0 80 80"')
+        ->toContain('aria-hidden="true" focusable="false"')
+        ->toContain('var(--logo-icon-bg, #1c1d18)')
+        ->toContain('var(--logo-icon-mark, #00f6ff)')
+        ->not->toContain('logo-name')
+        ->not->toContain('logo-divider')
+        ->not->toContain('site-icon-128.webp');
+});
+
+it('keeps a custom marker logo ahead of the site logo icon', function () {
+    $GLOBALS['kt_test_logo_id'] = 7252;
+    $GLOBALS['kt_test_logo_svg'] = kotlinskidev_test_site_logo_svg();
+
+    $html = kotlinskidev_render_google_maps_fixture(['apiKey' => 'KEY', 'lat' => '1', 'lng' => '2', 'markerLogoUrl' => 'https://example.test/custom.webp']);
+
+    expect($html)
+        ->toContain('src="https://example.test/custom.webp"')
+        ->not->toContain('<svg class="kt-google-maps__marker-logo"');
+});
+
+it('falls back to the site icon when the site logo is not an svg or has no icon group', function () {
+    $GLOBALS['kt_test_logo_id'] = 7252;
+    $GLOBALS['kt_test_logo_mime'] = 'image/png';
+    $GLOBALS['kt_test_logo_svg'] = kotlinskidev_test_site_logo_svg();
+
+    expect(kotlinskidev_render_google_maps_fixture(['apiKey' => 'KEY', 'lat' => '1', 'lng' => '2']))
+        ->toContain('src="https://example.test/site-icon-128.webp"')
+        ->not->toContain('<svg class="kt-google-maps__marker-logo"');
+
+    $GLOBALS['kt_test_logo_mime'] = 'image/svg+xml';
+    $GLOBALS['kt_test_logo_svg'] = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M0 0h10v10z"/></svg>';
+
+    expect(kotlinskidev_render_google_maps_fixture(['apiKey' => 'KEY', 'lat' => '1', 'lng' => '2']))
+        ->toContain('src="https://example.test/site-icon-128.webp"');
+});
+
+it('falls back to the site icon when no site logo is configured', function () {
+    $html = kotlinskidev_render_google_maps_fixture(['apiKey' => 'KEY', 'lat' => '1', 'lng' => '2']);
+
+    expect($html)->toContain('src="https://example.test/site-icon-128.webp"');
 });

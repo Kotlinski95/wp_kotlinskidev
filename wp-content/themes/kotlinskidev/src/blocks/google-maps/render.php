@@ -15,12 +15,49 @@ if ( ! function_exists( 'kotlinskidev_google_maps_directions_url' ) ) {
     }
 }
 
+if ( ! function_exists( 'kotlinskidev_google_maps_site_logo_icon' ) ) {
+    function kotlinskidev_google_maps_site_logo_icon(): string {
+        $logo_id = (int) get_theme_mod( 'custom_logo' );
+        if ( $logo_id < 1 || 'image/svg+xml' !== get_post_mime_type( $logo_id ) || ! function_exists( 'kotlinskidev_load_svg_content' ) || ! class_exists( 'DOMDocument' ) ) {
+            return '';
+        }
+        $svg = kotlinskidev_load_svg_content( $logo_id );
+        if ( '' === $svg ) {
+            return '';
+        }
+        $document = new DOMDocument();
+        $previous = libxml_use_internal_errors( true );
+        $loaded   = $document->loadXML( $svg, LIBXML_NONET );
+        libxml_clear_errors();
+        libxml_use_internal_errors( $previous );
+        if ( ! $loaded ) {
+            return '';
+        }
+        $xpath = new DOMXPath( $document );
+        $icon  = $xpath->query( '//*[local-name()="g"][contains(concat(" ", normalize-space(@class), " "), " logo-icon ")]' )->item( 0 );
+        if ( ! $icon instanceof DOMElement ) {
+            return '';
+        }
+        $tile = $xpath->query( './*[local-name()="rect"]', $icon )->item( 0 );
+        $size = ( $tile instanceof DOMElement && is_numeric( $tile->getAttribute( 'width' ) ) && (float) $tile->getAttribute( 'width' ) > 0 ) ? (float) $tile->getAttribute( 'width' ) : 80.0;
+        $markup = $document->saveXML( $icon );
+        if ( ! is_string( $markup ) || '' === $markup ) {
+            return '';
+        }
+        return '<svg class="kt-google-maps__marker-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' . $size . ' ' . $size . '" width="40" height="40" aria-hidden="true" focusable="false">' . $markup . '</svg>';
+    }
+}
+
 if ( ! function_exists( 'kotlinskidev_google_maps_marker_card' ) ) {
     function kotlinskidev_google_maps_marker_card( array $attributes, string $lat, string $lng, string $address ): string {
         $name = isset( $attributes['markerLabel'] ) ? trim( (string) $attributes['markerLabel'] ) : '';
         $tagline = isset( $attributes['markerTooltip'] ) ? trim( wp_strip_all_tags( (string) $attributes['markerTooltip'] ) ) : '';
         $logo = isset( $attributes['markerLogoUrl'] ) ? trim( (string) $attributes['markerLogoUrl'] ) : '';
+        $logo_icon = '';
         if ( '' === $logo ) {
+            $logo_icon = kotlinskidev_google_maps_site_logo_icon();
+        }
+        if ( '' === $logo && '' === $logo_icon ) {
             $logo = (string) get_site_icon_url( 128 );
         }
         $url = kotlinskidev_google_maps_directions_url( $lat, $lng, $address );
@@ -33,7 +70,9 @@ if ( ! function_exists( 'kotlinskidev_google_maps_marker_card' ) ) {
         ob_start();
         ?>
         <a class="kt-google-maps__marker has-background has-text-color" href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( $aria_label ); ?>" data-kt-google-maps-marker hidden>
-            <?php if ( '' !== $logo ) : ?>
+            <?php if ( '' !== $logo_icon ) : ?>
+                <?php echo $logo_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG taken from the theme-sanitised site logo ?>
+            <?php elseif ( '' !== $logo ) : ?>
                 <img class="kt-google-maps__marker-logo" src="<?php echo esc_url( $logo ); ?>" alt="" width="40" height="40" loading="lazy" decoding="async">
             <?php endif; ?>
             <span class="kt-google-maps__marker-text">

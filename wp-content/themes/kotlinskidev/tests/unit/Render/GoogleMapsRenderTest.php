@@ -21,6 +21,7 @@ beforeEach(function () {
     Functions\when('wp_strip_all_tags')->alias(fn ($t) => strip_tags($t));
     Functions\when('__')->alias(fn ($t) => $t);
     Functions\when('get_site_icon_url')->justReturn('');
+    Functions\when('get_theme_mod')->justReturn(0);
     Functions\when('get_template_directory')->justReturn(dirname(__DIR__, 3));
     Functions\when('esc_js')->alias(fn ($t) => $t);
     Functions\when('wp_kses_post')->alias(fn ($t) => $t);
