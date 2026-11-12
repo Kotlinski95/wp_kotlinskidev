@@ -13,6 +13,8 @@
     "html": false
   },
   "editorScript": "file:../../../build/js/google-maps.js",
+  "viewScript": "file:../../../build/js/google-maps-init.js",
+  "style": "file:../../../build/css/style-google-maps.css",
   "render": "file:./render.php",
   "attributes": {
     "apiKey": { "type": "string", "default": "" },
@@ -30,7 +32,12 @@
     "markerLabel": { "type": "string", "default": "" },
     "markerTooltip": { "type": "string", "default": "" },
     "markerColor": { "type": "string", "default": "red" },
+    "markerLogoUrl": { "type": "string", "default": "" },
+    "markerLogoId": { "type": "number", "default": 0 },
     "customCSS": { "type": "string", "default": "" },
-    "showResetViewButton": { "type": "boolean", "default": false }
+    "showResetViewButton": { "type": "boolean", "default": false },
+    "buttonStyle": { "type": "string", "default": "fill-adaptive" },
+    "consentButtonLabel": { "type": "string", "default": "" },
+    "resetViewLabel": { "type": "string", "default": "" }
   }
 }

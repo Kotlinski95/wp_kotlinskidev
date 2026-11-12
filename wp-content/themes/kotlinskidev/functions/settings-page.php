@@ -813,6 +813,32 @@ function kotlinskidev_register_settings(): void
         'kotlinskidev_section_monitoring',
         ['label_for' => 'kotlinskidev_sentry_dsn']
     );
+
+    register_setting(
+        'kotlinskidev_settings_monitoring',
+        'kotlinskidev_ntfy_alert_url',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'kotlinskidev_sanitize_ntfy_alert_url',
+            'default'           => '',
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_alerts',
+        esc_html__('Alerts', 'kotlinskidev'),
+        'kotlinskidev_render_alerts_section',
+        'kotlinskidev-settings-monitoring'
+    );
+
+    add_settings_field(
+        'kotlinskidev_ntfy_alert_url',
+        esc_html__('ntfy topic URL', 'kotlinskidev'),
+        'kotlinskidev_render_ntfy_alert_url_field',
+        'kotlinskidev-settings-monitoring',
+        'kotlinskidev_section_alerts',
+        ['label_for' => 'kotlinskidev_ntfy_alert_url']
+    );
 }
 
 function kotlinskidev_render_monitoring_section(): void
@@ -827,6 +853,22 @@ function kotlinskidev_render_sentry_dsn_field(): void
     <input type="url" id="kotlinskidev_sentry_dsn" name="kotlinskidev_sentry_dsn" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://examplePublicKey@o0.ingest.sentry.io/0" />
     <p class="description">
         <?php esc_html_e('From your Sentry project (Settings → Client Keys). Leave empty to disable reporting.', 'kotlinskidev'); ?>
+    </p>
+    <?php
+}
+
+function kotlinskidev_render_alerts_section(): void
+{
+    echo '<p>' . esc_html__('Sends a push notification when the site fails to send an email, independently of the mailer that failed. Install the ntfy app on your phone, choose a long random topic name, subscribe to it in the app, then paste https://ntfy.sh/<topic> below. Only the site host, the time and a short error message are sent; no visitor data is ever sent.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_ntfy_alert_url_field(): void
+{
+    $value = get_option('kotlinskidev_ntfy_alert_url', '');
+    ?>
+    <input type="url" id="kotlinskidev_ntfy_alert_url" name="kotlinskidev_ntfy_alert_url" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://ntfy.sh/your-long-random-topic" />
+    <p class="description">
+        <?php esc_html_e('Treat this URL like a password: anyone who knows the topic can read the alerts. Leave empty to disable alerts and the weekly mail check.', 'kotlinskidev'); ?>
     </p>
     <?php
 }

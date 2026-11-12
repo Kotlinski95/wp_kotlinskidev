@@ -2,6 +2,8 @@
 
 use Brain\Monkey\Functions;
 
+require_once __DIR__ . '/../../../functions/button-style-variants.php';
+
 function kotlinskidev_google_maps_render(array $attributes): string
 {
     return kotlinskidev_render_block_file(
@@ -15,6 +17,11 @@ beforeEach(function () {
     Functions\when('esc_attr')->alias(fn ($t) => $t);
     Functions\when('esc_html')->alias(fn ($t) => $t);
     Functions\when('esc_html__')->alias(fn ($t) => $t);
+    Functions\when('esc_url')->alias(fn ($t) => $t);
+    Functions\when('wp_strip_all_tags')->alias(fn ($t) => strip_tags($t));
+    Functions\when('__')->alias(fn ($t) => $t);
+    Functions\when('get_site_icon_url')->justReturn('');
+    Functions\when('get_template_directory')->justReturn(dirname(__DIR__, 3));
     Functions\when('esc_js')->alias(fn ($t) => $t);
     Functions\when('wp_kses_post')->alias(fn ($t) => $t);
     Functions\when('wp_json_encode')->alias(fn ($t, $flags = 0) => json_encode($t, $flags));

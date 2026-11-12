@@ -2,6 +2,24 @@
 
 use Brain\Monkey\Functions;
 
+require_once __DIR__ . '/../../../functions/button-style-variants.php';
+
+if (!function_exists('kotlinskidev_contact_attachment_is_uploaded')) {
+    function kotlinskidev_contact_attachment_is_uploaded(string $path): bool
+    {
+        return is_file($path);
+    }
+}
+
+if (!function_exists('kotlinskidev_contact_attachment_move_upload')) {
+    function kotlinskidev_contact_attachment_move_upload(string $from, string $to): bool
+    {
+        return rename($from, $to);
+    }
+}
+
+require_once __DIR__ . '/../../../functions/contact-form-attachments.php';
+
 function kotlinskidev_contact_form_render(array $attributes): string
 {
     return kotlinskidev_render_block_file(
@@ -15,11 +33,16 @@ beforeEach(function () {
     Functions\when('esc_html')->alias(fn ($t) => $t);
     Functions\when('esc_attr')->alias(fn ($t) => $t);
     Functions\when('esc_url')->alias(fn ($t) => $t);
+    Functions\when('get_template_directory')->justReturn(dirname(__DIR__, 3));
     Functions\when('esc_js')->alias(fn ($t) => $t);
-    Functions\when('admin_url')->justReturn('https://example.test/wp-admin/admin-post.php');
+    Functions\when('admin_url')->alias(fn ($path = '') => 'https://example.test/wp-admin/' . $path);
     Functions\when('wp_nonce_field')->justReturn('');
     Functions\when('sanitize_key')->alias(fn ($t) => $t);
     Functions\when('wp_unslash')->alias(fn ($t) => $t);
+    Functions\when('apply_filters')->alias(fn ($hook, $value) => $value);
+    Functions\when('wp_json_encode')->alias(fn ($v) => json_encode($v));
+    Functions\when('absint')->alias(fn ($v) => abs((int) $v));
+    Functions\stubTranslationFunctions();
     unset($_GET['contact-success'], $_GET['contact-error']);
 });
 
@@ -126,5 +149,64 @@ it('uses the configured field labels', function () {
     $html = kotlinskidev_contact_form_render(['nameLabel' => 'Full Name', 'submitLabel' => 'Get in touch']);
 
     expect($html)->toContain('<label for="name">Full Name</label>');
-    expect($html)->toContain('<button type="submit">Get in touch</button>');
+    expect($html)->toContain('<button type="submit" class="is-style-fill-adaptive">Get in touch</button>');
 });
+
+it('renders the submit button with the default fill-adaptive style', function () {
+    expect(kotlinskidev_contact_form_render([]))
+        ->toContain('<button type="submit" class="is-style-fill-adaptive">Send</button>');
+});
+
+it('renders the chosen submit style', function () {
+    expect(kotlinskidev_contact_form_render(['submitButtonStyle' => 'primary-adaptive', 'submitLabel' => 'Wyślij']))
+        ->toContain('<button type="submit" class="is-style-primary-adaptive">Wyślij</button>');
+});
+
+it('falls back to fill-adaptive for an invalid submit style', function () {
+    expect(kotlinskidev_contact_form_render(['submitButtonStyle' => 'evil" onclick="x']))
+        ->toContain('<button type="submit" class="is-style-fill-adaptive">');
+});
+
+
+it('renders no attachment markup and the plain action when the feature is off', function () {
+    $html = kotlinskidev_contact_form_render([]);
+
+    expect($html)->not->toContain('multipart/form-data');
+    expect($html)->not->toContain('attachments[]');
+    expect($html)->not->toContain('data-attachments');
+    expect($html)->toContain('action="https://example.test/wp-admin/admin-post.php"');
+});
+
+it('renders enctype, the file input and the data attributes when attachments are on', function () {
+    $html = kotlinskidev_contact_form_render(['enableAttachments' => true]);
+
+    expect($html)->toContain('enctype="multipart/form-data"');
+    expect($html)->toContain('name="attachments[]"');
+    expect($html)->toContain('multiple');
+    expect($html)->toContain('accept=".pdf,.doc,.docx,.odt,.rtf,.txt,.png,.jpg,.jpeg,.zip"');
+    expect($html)->toContain('data-attachments-max-files="3"');
+    expect($html)->toContain('data-attachments-max-total="10485760"');
+    expect($html)->toContain('data-attachments-max-file="8388608"');
+    expect($html)->toContain('data-attachments-extensions="pdf,doc,docx,odt,rtf,txt,png,jpg,jpeg,zip"');
+    expect($html)->toContain('for="kt-contact-attachments-input"');
+    expect($html)->toContain('aria-describedby="kt-contact-attachments-help kt-contact-attachments-error"');
+    expect($html)->toContain('id="kt-contact-attachments-error"');
+    expect($html)->toContain('role="alert"');
+    expect($html)->toContain('not stored on the website');
+    expect($html)->toContain('action="https://example.test/wp-admin/admin-post.php?action=kotlinskidev_contact_form_submit"');
+});
+
+it('shows a specific alert message for every attachment error code', function (string $code, string $message) {
+    $_GET['contact-error'] = $code;
+
+    $html = kotlinskidev_contact_form_render([]);
+
+    expect($html)->toContain('<div class="contact-form-error" role="alert">' . $message);
+})->with([
+    ['attachment_type', 'One of the files is not an allowed type'],
+    ['attachment_size', 'The files are too large'],
+    ['attachment_count', 'Too many files'],
+    ['attachment_failed', 'The files could not be processed'],
+    ['ratelimit', 'Too many submissions with attachments'],
+    ['toolarge', 'The upload is too large'],
+]);

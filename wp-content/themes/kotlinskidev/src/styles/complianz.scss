@@ -164,3 +164,53 @@ body:has(.mobile-footer-nav) {
 		}
 	}
 }
+
+.cmplz-logo {
+	--logo-icon-bg: #1c1d18;
+	--logo-icon-mark: #00f6ff;
+	--logo-divider: #00f6ff;
+	--logo-text: var(--wp--preset--color--foreground);
+	--logo-dev-weight: 4;
+}
+
+.cmplz-cookiebanner {
+
+	.cmplz-btn {
+		border: 0.0625rem solid transparent !important;
+		border-radius: 0.375rem !important;
+		font-weight: 600 !important;
+		transition:
+			background-color 0.2s,
+			color 0.2s,
+			border-color 0.2s;
+	}
+
+	.cmplz-btn:focus-visible {
+		outline: 0.1875rem solid var(--wp--preset--color--primary) !important;
+		outline-offset: 0.125rem !important;
+	}
+
+	.cmplz-btn.cmplz-accept {
+		background: var(--wp--preset--color--primary) !important;
+		color: light-dark(var(--wp--preset--color--white), var(--wp--preset--color--dark-color)) !important;
+	}
+
+	.cmplz-btn.cmplz-accept:hover {
+		background: color-mix(in srgb, var(--wp--preset--color--primary) 82%, var(--wp--preset--color--foreground)) !important;
+	}
+
+	.cmplz-btn.cmplz-deny,
+	.cmplz-btn.cmplz-view-preferences,
+	.cmplz-btn.cmplz-save-preferences {
+		background: var(--wp--preset--color--surface-contrast) !important;
+		color: var(--wp--preset--color--foreground-contrast) !important;
+	}
+
+	.cmplz-btn.cmplz-deny:hover,
+	.cmplz-btn.cmplz-view-preferences:hover,
+	.cmplz-btn.cmplz-save-preferences:hover {
+		background: var(--wp--preset--color--surface) !important;
+		color: var(--wp--preset--color--foreground) !important;
+		border-color: var(--wp--preset--color--divider) !important;
+	}
+}

@@ -5,6 +5,15 @@ function kotlinskidev_theme_json_button_style_variant_names(): array {
     return array_keys( $theme_json['styles']['blocks']['core/button']['variations'] ?? [] );
 }
 
+function kotlinskidev_resolve_button_style( $value ): string {
+    $default = 'fill-adaptive';
+    if ( ! is_string( $value ) || '' === $value ) {
+        return $default;
+    }
+
+    return in_array( $value, kotlinskidev_theme_json_button_style_variant_names(), true ) ? $value : $default;
+}
+
 function kotlinskidev_register_button_style_variants(): void {
     $gradient_outline_variants = [
         'gradient-outline',

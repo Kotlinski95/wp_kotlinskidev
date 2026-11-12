@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+import {
+  useBlockProps,
+  InspectorControls,
+  MediaUpload,
+  MediaUploadCheck,
+} from "@wordpress/block-editor";
 import {
   PanelBody,
   TextControl,
@@ -11,6 +16,7 @@ import {
   TextareaControl,
   Button,
 } from "@wordpress/components";
+import { BUTTON_STYLE_OPTIONS, resolveButtonStyle } from "@utils/button-style-variants";
 
 declare global {
   interface Window {
@@ -63,6 +69,11 @@ export interface GoogleMapsBlockAttributes {
   markerLabel: string;
   markerTooltip: string;
   markerColor: string;
+  markerLogoUrl: string;
+  markerLogoId: number;
+  buttonStyle: string;
+  consentButtonLabel: string;
+  resetViewLabel: string;
   customCSS: string;
   showResetViewButton: boolean;
 }
@@ -287,14 +298,50 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
             label={__("Marker Label", "kotlinskidev")}
             value={markerLabel}
             onChange={(value) => setAttributes({ markerLabel: value })}
-            help={__("Short label for the marker (1–2 chars).", "kotlinskidev")}
+            help={__("Name shown in bold on the marker card.", "kotlinskidev")}
           />
           <TextControl
             label={__("Marker Tooltip", "kotlinskidev")}
             value={markerTooltip}
             onChange={(value) => setAttributes({ markerTooltip: value })}
-            help={__("Tooltip text shown when marker is clicked.", "kotlinskidev")}
+            help={__("Tagline shown under the name on the marker card.", "kotlinskidev")}
           />
+          <MediaUploadCheck>
+            <MediaUpload
+              allowedTypes={["image"]}
+              value={attributes.markerLogoId}
+              onSelect={(media: { id: number; url: string }) =>
+                setAttributes({ markerLogoId: media.id, markerLogoUrl: media.url })
+              }
+              render={({ open }: { open: () => void }) => (
+                <div className="kt-google-maps__logo-control">
+                  {attributes.markerLogoUrl ? (
+                    <img
+                      src={attributes.markerLogoUrl}
+                      alt=""
+                      width={40}
+                      height={40}
+                      style={{ borderRadius: "0.5rem", objectFit: "cover" }}
+                    />
+                  ) : null}
+                  <Button variant="secondary" onClick={open}>
+                    {attributes.markerLogoUrl
+                      ? __("Replace marker logo", "kotlinskidev")
+                      : __("Select marker logo", "kotlinskidev")}
+                  </Button>
+                  {attributes.markerLogoUrl ? (
+                    <Button
+                      variant="link"
+                      isDestructive
+                      onClick={() => setAttributes({ markerLogoId: 0, markerLogoUrl: "" })}
+                    >
+                      {__("Remove marker logo", "kotlinskidev")}
+                    </Button>
+                  ) : null}
+                </div>
+              )}
+            />
+          </MediaUploadCheck>
           <ColorPalette
             value={markerColor}
             onChange={(value) => setAttributes({ markerColor: value ?? "red" })}
@@ -311,6 +358,24 @@ const GoogleMapsBlockEdit = ({ attributes, setAttributes }: EditProps): React.Re
             label={__("Show Reset View Button", "kotlinskidev")}
             checked={!!attributes.showResetViewButton}
             onChange={(value) => setAttributes({ showResetViewButton: value })}
+          />
+          <SelectControl
+            label={__("Button style", "kotlinskidev")}
+            value={resolveButtonStyle(attributes.buttonStyle)}
+            options={[...BUTTON_STYLE_OPTIONS]}
+            onChange={(value) => setAttributes({ buttonStyle: value })}
+          />
+          <TextControl
+            label={__("Cookie settings button label", "kotlinskidev")}
+            value={attributes.consentButtonLabel ?? ""}
+            onChange={(value) => setAttributes({ consentButtonLabel: value })}
+            placeholder={__("Cookie settings", "kotlinskidev")}
+          />
+          <TextControl
+            label={__("Reset View button label", "kotlinskidev")}
+            value={attributes.resetViewLabel ?? ""}
+            onChange={(value) => setAttributes({ resetViewLabel: value })}
+            placeholder={__("Reset View", "kotlinskidev")}
           />
         </PanelBody>
         <PanelBody title={__("Additional CSS", "kotlinskidev")} initialOpen={false}>

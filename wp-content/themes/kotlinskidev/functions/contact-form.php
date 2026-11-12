@@ -17,6 +17,10 @@ function kotlinskidev_contact_form_find_block( array $blocks ) {
 }
 
 function kotlinskidev_contact_form_handle_submit() {
+    if ( kotlinskidev_contact_attachment_is_oversized_request() ) {
+        kotlinskidev_contact_form_redirect_with_error( 'toolarge' );
+    }
+
     if (
         ! isset( $_POST['kotlinskidev_contact_form_nonce'] )
         || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kotlinskidev_contact_form_nonce'] ) ), 'kotlinskidev_contact_form_submit' )
@@ -116,6 +120,25 @@ function kotlinskidev_contact_form_handle_submit() {
         }
     }
 
+    $uploads = kotlinskidev_contact_attachments_enabled( $contact_block ) ? kotlinskidev_contact_attachment_collect_uploads() : [];
+    $stored  = [];
+
+    if ( [] !== $uploads ) {
+        if ( ! kotlinskidev_contact_attachment_register_attempt() ) {
+            kotlinskidev_contact_form_redirect_with_error( 'ratelimit' );
+        }
+
+        $attachment_error = kotlinskidev_contact_attachment_validate( $uploads );
+        if ( '' !== $attachment_error ) {
+            kotlinskidev_contact_form_redirect_with_error( $attachment_error );
+        }
+
+        $stored = kotlinskidev_contact_attachment_store( $uploads );
+        if ( null === $stored ) {
+            kotlinskidev_contact_form_redirect_with_error( 'attachment_failed' );
+        }
+    }
+
     $admin_email = get_option( 'admin_email' );
     $subject     = 'New Contact Form Submission';
     $body        = '<!DOCTYPE html>
@@ -172,7 +195,7 @@ function kotlinskidev_contact_form_handle_submit() {
     <div class="field"><span class="label">Topic</span><span class="value">' . esc_html( $topic ) . '</span></div>
     <div class="field"><span class="label">Message</span><div class="value" style="white-space:pre-line;">' . nl2br( esc_html( $message ) ) . '</div></div>
     <div class="field"><span class="label">Agreed</span><span class="value">' . esc_html( $agree ) . '</span></div>
-    <div class="footer">Contact Form &bull; ' . esc_html( wp_date( 'Y-m-d H:i' ) ) . '</div>
+' . kotlinskidev_contact_attachment_email_block( $stored ) . '    <div class="footer">Contact Form &bull; ' . esc_html( wp_date( 'Y-m-d H:i' ) ) . '</div>
   </div>
 </body>
 </html>';
@@ -182,22 +205,37 @@ function kotlinskidev_contact_form_handle_submit() {
         'Reply-To: ' . $email,
     ];
 
-    $submission_id = kotlinskidev_save_contact_submission(
-        [
-            'post_id' => $post_id,
-            'name'    => $name,
-            'email'   => $email,
-            'topic'   => $topic,
-            'message' => $message,
-            'agree'   => 'Yes' === $agree,
-        ]
-    );
+    try {
+        $submission_id = kotlinskidev_save_contact_submission(
+            [
+                'post_id'     => $post_id,
+                'name'        => $name,
+                'email'       => $email,
+                'topic'       => $topic,
+                'message'     => $message,
+                'agree'       => 'Yes' === $agree,
+                'attachments' => kotlinskidev_contact_attachment_record_json( $stored ),
+            ]
+        );
 
-    $email_sent = wp_mail( $admin_email, $subject, $body, $headers );
-    kotlinskidev_mark_contact_submission_email_status( $submission_id, $email_sent );
+        $email_sent = wp_mail( $admin_email, $subject, $body, $headers, kotlinskidev_contact_attachment_mail_attachments( $stored ) );
+        kotlinskidev_mark_contact_submission_email_status( $submission_id, $email_sent );
+
+        if ( ! $email_sent && [] !== $stored ) {
+            kotlinskidev_contact_attachment_retain( $stored, $submission_id );
+        }
+    } finally {
+        kotlinskidev_contact_attachment_delete( $stored );
+    }
 
     if ( ! $email_sent ) {
         error_log( 'Contact form email sending failed.' );
+
+        if ( [] !== $stored ) {
+            kotlinskidev_contact_attachment_alert_retained();
+        } else {
+            kotlinskidev_alert_contact_mail_failure();
+        }
     }
 
     if ( 'thank_you_page' === $redirect_type ) {

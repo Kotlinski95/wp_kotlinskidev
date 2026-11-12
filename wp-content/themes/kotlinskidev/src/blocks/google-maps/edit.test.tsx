@@ -5,6 +5,16 @@ import userEvent from "@testing-library/user-event";
 jest.mock("@wordpress/block-editor", () => ({
   useBlockProps: () => ({}),
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  MediaUploadCheck: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  MediaUpload: ({
+    onSelect,
+    render: renderTrigger,
+  }: {
+    onSelect: (media: { id: number; url: string }) => void;
+    render: (props: { open: () => void }) => React.ReactNode;
+  }) => (
+    <>{renderTrigger({ open: () => onSelect({ id: 7, url: "https://example.test/logo.webp" }) })}</>
+  ),
 }));
 
 interface ColorPaletteProps {
@@ -49,6 +59,11 @@ function baseAttributes(overrides: Record<string, unknown> = {}) {
     markerLabel: "",
     markerTooltip: "",
     markerColor: "red",
+    markerLogoUrl: "",
+    markerLogoId: 0,
+    buttonStyle: "fill-adaptive",
+    consentButtonLabel: "",
+    resetViewLabel: "",
     customCSS: "",
     showResetViewButton: false,
     ...overrides,
@@ -127,6 +142,36 @@ describe("google-maps Edit — settings wiring", () => {
 
     await user.type(screen.getByLabelText("Longitude"), "2");
     expect(setAttributes).toHaveBeenCalledWith({ lng: "2" });
+  });
+
+  it("stores the picked marker logo and clears it again", () => {
+    const { setAttributes } = renderEdit();
+    fireEvent.click(screen.getByRole("button", { name: "Select marker logo" }));
+    expect(setAttributes).toHaveBeenCalledWith({
+      markerLogoId: 7,
+      markerLogoUrl: "https://example.test/logo.webp",
+    });
+  });
+
+  it("removes the marker logo", () => {
+    const { setAttributes } = renderEdit({ markerLogoUrl: "https://example.test/l.webp" });
+    fireEvent.click(screen.getByRole("button", { name: "Remove marker logo" }));
+    expect(setAttributes).toHaveBeenCalledWith({ markerLogoId: 0, markerLogoUrl: "" });
+  });
+
+  it("changes the button style from the shared variant list", () => {
+    const { setAttributes } = renderEdit();
+    fireEvent.change(screen.getByLabelText("Button style"), { target: { value: "outline-dark" } });
+    expect(setAttributes).toHaveBeenCalledWith({ buttonStyle: "outline-dark" });
+  });
+
+  it("updates the consent and reset button labels", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit();
+    await user.type(screen.getByLabelText("Cookie settings button label"), "A");
+    expect(setAttributes).toHaveBeenCalledWith({ consentButtonLabel: "A" });
+    await user.type(screen.getByLabelText("Reset View button label"), "B");
+    expect(setAttributes).toHaveBeenCalledWith({ resetViewLabel: "B" });
   });
 
   it("updates the zoom level", () => {

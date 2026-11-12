@@ -1,0 +1,69 @@
+html body .pwa-install-prompt,
+html body .pwa-update-prompt {
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--foreground);
+	border-color: var(--wp--preset--color--divider);
+}
+
+html body .pwa-prompt-content .pwa-prompt-icon,
+html body .pwa-update-prompt .pwa-prompt-icon {
+	background: var(--wp--preset--color--primary);
+	color: light-dark(var(--wp--preset--color--white), var(--wp--preset--color--dark-color));
+}
+
+html body .pwa-prompt-content .pwa-prompt-text h3 {
+	margin: 0 0 0.5rem;
+	font-size: 1.125rem;
+	line-height: 1.3;
+	color: var(--wp--preset--color--foreground);
+}
+
+html body .pwa-prompt-content .pwa-prompt-text p {
+	color: var(--wp--preset--color--foreground);
+}
+
+html body .pwa-prompt-content .pwa-prompt-buttons button {
+	border: 0.0625rem solid transparent;
+	font-weight: 600;
+}
+
+html body .pwa-prompt-content .pwa-prompt-buttons button:focus-visible {
+	outline: 0.1875rem solid var(--wp--preset--color--primary);
+	outline-offset: 0.125rem;
+}
+
+html body .pwa-prompt-content .pwa-prompt-buttons .pwa-install-button,
+html body .pwa-prompt-content .pwa-prompt-buttons .pwa-update-button {
+	background: var(--wp--preset--color--primary);
+	color: light-dark(var(--wp--preset--color--white), var(--wp--preset--color--dark-color));
+}
+
+html body .pwa-prompt-content .pwa-prompt-buttons .pwa-install-button:hover,
+html body .pwa-prompt-content .pwa-prompt-buttons .pwa-update-button:hover {
+	background: color-mix(in srgb, var(--wp--preset--color--primary) 82%, var(--wp--preset--color--foreground));
+}
+
+html body .pwa-prompt-content .pwa-prompt-buttons .pwa-dismiss-button {
+	background: var(--wp--preset--color--surface-contrast);
+	color: var(--wp--preset--color--foreground-contrast);
+	border-color: var(--wp--preset--color--divider);
+}
+
+html body .pwa-prompt-content .pwa-prompt-buttons .pwa-dismiss-button:hover {
+	background: var(--wp--preset--color--surface);
+	color: var(--wp--preset--color--foreground);
+}
+
+html body .pwa-prompt-content .pwa-close-button {
+	color: var(--wp--preset--color--foreground);
+}
+
+html body .pwa-prompt-content .pwa-close-button:hover {
+	background: var(--wp--preset--color--surface-contrast);
+	color: var(--wp--preset--color--foreground-contrast);
+}
+
+html body .pwa-prompt-content .pwa-close-button:focus-visible {
+	outline: 0.1875rem solid var(--wp--preset--color--primary);
+	outline-offset: 0.125rem;
+}
