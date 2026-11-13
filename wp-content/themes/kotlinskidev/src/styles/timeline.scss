@@ -118,6 +118,20 @@
 	}
 }
 
+@media (min-width: 48.0625rem) {
+
+	.career-timeline--spaced {
+
+		.timeline-left .timeline-item {
+			padding-right: 2.5rem;
+		}
+
+		.timeline-right .timeline-item {
+			padding-left: 2.5rem;
+		}
+	}
+}
+
 @media (max-width: 48rem) {
 
 	.career-timeline {

@@ -308,6 +308,14 @@
 		}
 	}
 
+	.kt-nav-two-columns {
+
+		> .wp-block-navigation__submenu-container {
+			column-count: 2;
+			column-gap: var(--wp--preset--spacing--large);
+		}
+	}
+
 	img {
 		max-width: 12.5rem;
 	}

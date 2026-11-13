@@ -1,9 +1,13 @@
 <?php
 const KOTLINSKIDEV_FEATURE_TOGGLES_VERSION_OPTION = 'kotlinskidev_feature_toggles_version';
-const KOTLINSKIDEV_FEATURE_TOGGLES_VERSION        = 2;
+const KOTLINSKIDEV_FEATURE_TOGGLES_VERSION        = 3;
 
 function kotlinskidev_features_added_in_version_two(): array {
     return [ 'offers', 'article_toc', 'site_values', 'cover_video_controls' ];
+}
+
+function kotlinskidev_features_added_in_version_three(): array {
+    return [ 'custom_seo' ];
 }
 
 function kotlinskidev_toggleable_feature_keys(): array {
@@ -17,6 +21,7 @@ function kotlinskidev_toggleable_feature_keys(): array {
         'article_toc',
         'site_values',
         'cover_video_controls',
+        'custom_seo',
     ];
 }
 
@@ -31,6 +36,7 @@ function kotlinskidev_toggleable_features(): array {
         'article_toc'          => __( 'Article Table of Contents', 'kotlinskidev' ),
         'site_values'          => __( 'Site Values', 'kotlinskidev' ),
         'cover_video_controls' => __( 'Cover Video Controls', 'kotlinskidev' ),
+        'custom_seo'           => __( 'Custom SEO options', 'kotlinskidev' ),
     ];
 }
 
@@ -53,16 +59,21 @@ function kotlinskidev_sanitize_enabled_features( $value ): array {
 }
 
 function kotlinskidev_migrate_feature_toggles(): void {
-    if ( (int) get_option( KOTLINSKIDEV_FEATURE_TOGGLES_VERSION_OPTION, 0 ) >= KOTLINSKIDEV_FEATURE_TOGGLES_VERSION ) {
+    $stored_version = (int) get_option( KOTLINSKIDEV_FEATURE_TOGGLES_VERSION_OPTION, 0 );
+    if ( $stored_version >= KOTLINSKIDEV_FEATURE_TOGGLES_VERSION ) {
         return;
     }
 
     $saved = get_option( 'kotlinskidev_enabled_features', false );
     if ( is_array( $saved ) ) {
-        update_option(
-            'kotlinskidev_enabled_features',
-            array_values( array_unique( array_merge( $saved, kotlinskidev_features_added_in_version_two() ) ) )
-        );
+        $added = [];
+        if ( $stored_version < 2 ) {
+            $added = array_merge( $added, kotlinskidev_features_added_in_version_two() );
+        }
+        if ( $stored_version < 3 ) {
+            $added = array_merge( $added, kotlinskidev_features_added_in_version_three() );
+        }
+        update_option( 'kotlinskidev_enabled_features', array_values( array_unique( array_merge( $saved, $added ) ) ) );
     }
 
     update_option( KOTLINSKIDEV_FEATURE_TOGGLES_VERSION_OPTION, KOTLINSKIDEV_FEATURE_TOGGLES_VERSION );
