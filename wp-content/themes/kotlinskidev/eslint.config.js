@@ -14,6 +14,7 @@ module.exports = [
       "**/storybook-static/**",
       ".agents/**",
       "media/**",
+      "bin/push-page.mjs",
     ],
   },
   { files: ["**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"] },

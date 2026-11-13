@@ -99,3 +99,102 @@ footer,
 		}
 	}
 }
+
+@media (max-width: ($breakpoint-desktop - 0.0625rem)) {
+
+	.kt-footer-brand--center,
+	.kt-footer-nav--center {
+
+		.kotlinskidev-footer__top {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.kotlinskidev-footer__brand,
+		.kotlinskidev-footer__nav,
+		.kotlinskidev-footer__contact {
+			width: 100%;
+			flex-basis: auto;
+		}
+	}
+
+	.kt-footer-brand--center {
+
+		.kotlinskidev-footer__brand {
+			text-align: center;
+		}
+
+		.kotlinskidev-footer__brand > .wp-block-group > * {
+			margin-inline: auto !important;
+		}
+
+		.kotlinskidev-logo,
+		.wp-block-social-links {
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	.kt-footer-nav--center {
+
+		.kotlinskidev-footer__nav,
+		.kotlinskidev-footer__contact {
+			text-align: center;
+		}
+
+		.kotlinskidev-footer__contact {
+			align-items: center;
+			justify-content: center;
+		}
+
+		.kt-nav-list__columns,
+		.kt-nav-list__group,
+		.kt-simple-grid,
+		.kt-holder {
+			width: 100%;
+			max-width: 100%;
+			justify-items: stretch;
+			justify-self: stretch;
+		}
+
+		.kt-nav-list__title,
+		.kt-holder p {
+			text-align: center;
+		}
+
+		.kt-nav-list__items {
+			width: 100%;
+			max-width: 100%;
+			margin-inline: 0;
+			padding-inline-start: 0;
+			list-style: none;
+			text-align: start;
+		}
+	}
+}
+
+@media (max-width: ($breakpoint-mobile - 0.0625rem)) {
+
+	@for $columns from 2 through 3 {
+
+		.kt-footer-cols-mobile-#{$columns} .kotlinskidev-footer .kt-nav-list__items {
+			display: grid;
+			grid-template-columns: repeat($columns, minmax(0, 1fr));
+			column-gap: var(--wp--preset--spacing--40, 1.5rem);
+			justify-items: start;
+		}
+	}
+}
+
+@media (min-width: $breakpoint-mobile) and (max-width: ($breakpoint-desktop - 0.0625rem)) {
+
+	@for $columns from 2 through 4 {
+
+		.kt-footer-cols-tablet-#{$columns} .kotlinskidev-footer .kt-nav-list__items {
+			display: grid;
+			grid-template-columns: repeat($columns, minmax(0, 1fr));
+			column-gap: var(--wp--preset--spacing--40, 1.5rem);
+			justify-items: start;
+		}
+	}
+}

@@ -76,6 +76,7 @@ require_once get_template_directory() . '/functions/admin-bar-styles.php';
 
 // Include customizer settings and functions
 require_once get_template_directory() . '/functions/customizer.php';
+require_once get_template_directory() . '/functions/footer-layout.php';
 
 // Include logo functions
 require_once get_template_directory() . '/functions/site-identity.php';

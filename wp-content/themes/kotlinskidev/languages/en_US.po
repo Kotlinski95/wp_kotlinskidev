@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-11-12T13:05:38+00:00\n"
+"POT-Creation-Date: 2026-11-13T10:09:36+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -1263,6 +1263,44 @@ msgstr "Cover Video Controls"
 #: functions/feature-toggles.php:39
 msgid "Custom SEO options"
 msgstr "Custom SEO options"
+
+#: functions/footer-layout.php:13
+msgid "Left aligned (default)"
+msgstr "Left aligned (default)"
+
+#: functions/footer-layout.php:14
+msgid "Centered"
+msgstr "Centered"
+
+#: functions/footer-layout.php:70
+msgid "Footer layout (mobile and tablet)"
+msgstr "Footer layout (mobile and tablet)"
+
+#: functions/footer-layout.php:72
+msgid ""
+"Choose how the footer is laid out below the desktop breakpoint. Desktop is "
+"not affected. Left aligned with 1 column on both devices is the original "
+"layout."
+msgstr ""
+"Choose how the footer is laid out below the desktop breakpoint. Desktop is "
+"not affected. Left aligned with 1 column on both devices is the original "
+"layout."
+
+#: functions/footer-layout.php:77
+msgid "Brand alignment (photo, description, social links)"
+msgstr "Brand alignment (photo, description, social links)"
+
+#: functions/footer-layout.php:78
+msgid "Navigation alignment (headings, links, contact)"
+msgstr "Navigation alignment (headings, links, contact)"
+
+#: functions/footer-layout.php:105
+msgid "Link columns on mobile"
+msgstr "Link columns on mobile"
+
+#: functions/footer-layout.php:110
+msgid "Link columns on tablet"
+msgstr "Link columns on tablet"
 
 #: functions/icon-library.php:4
 msgid "Icons (SVG)"

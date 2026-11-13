@@ -204,6 +204,22 @@ span:empty {
 	height: 1em;
 }
 
+.wp-lightbox-overlay {
+
+	.lightbox-image-container {
+		width: var(--wp--lightbox-image-width) !important;
+		height: var(--wp--lightbox-image-height) !important;
+	}
+
+	img {
+		aspect-ratio: auto !important;
+		object-fit: contain !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+	}
+}
+
 .light-mode {
 
 	.invert-light {

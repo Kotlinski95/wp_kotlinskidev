@@ -458,6 +458,10 @@
         "grayscale": {
           "light": "grayscale(1)",
           "dark": "grayscale(1) invert(1)"
+        },
+        "screenshot-grayscale": {
+          "light": "grayscale(1)",
+          "dark": "grayscale(1)"
         }
       }
     },
