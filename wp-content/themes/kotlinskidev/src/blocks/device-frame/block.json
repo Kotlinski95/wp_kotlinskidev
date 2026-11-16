@@ -27,6 +27,7 @@
     "loading": { "type": "string", "default": "lazy" },
     "fetchPriority": { "type": "string", "default": "auto" },
     "kotlinskidevAboveFold": { "type": "boolean" },
-    "enableLightbox": { "type": "boolean", "default": false }
+    "enableLightbox": { "type": "boolean", "default": false },
+    "responsiveMedia": { "type": "object", "default": {} }
   }
 }

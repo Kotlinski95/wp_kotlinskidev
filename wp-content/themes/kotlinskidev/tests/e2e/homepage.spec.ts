@@ -31,7 +31,7 @@ test.describe("Homepage", () => {
   });
 
   test("theme toggle switches between light and dark mode", async ({ page }) => {
-    const toggle = page.getByRole("button", { name: "Toggle light and dark theme" });
+    const toggle = page.getByRole("button", { name: "Przełącz tryb jasny/ciemny" });
     await expect(toggle).toBeVisible();
 
     const initialIsDark = await page.evaluate(() => document.body.classList.contains("dark-mode"));

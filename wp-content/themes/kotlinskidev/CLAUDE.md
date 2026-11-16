@@ -11,7 +11,7 @@ See @README.md for project overview and @package.json for available npm commands
 - Polylang handles i18n routing inline via Polylang-aware blocks (`nav-language-panel`, `polylang/navigation-language-switcher`) and `kotlinskidev_resolve_translatable_post()` (translatable `wp_navigation`/`wp_block` posts resolved by slug). There are no `-pl` suffixed template part/pattern files — that was an earlier approach, since replaced.
 - `npm run build` runs webpack.
 - See `docs/treeview.md` for a full current-state annotated directory tree of every block/pattern/template/function module — keep it in sync when adding/removing/renaming one.
-- Log every notable change in `CHANGELOG.md` (Keep a Changelog format). Theme follows semver — bump `Version` in `style.css` and `"version"` in `package.json` together, in the same commit that moves `[Unreleased]` entries under a new version heading.
+- Log every notable change in `CHANGELOG.md` (Keep a Changelog format). Theme follows semver — cut the release inside the PR with `npm run release` (bumps `style.css`, `package.json`, `package-lock.json` together and moves `[Unreleased]` under a new version heading; `--dry-run` previews, `--major`/`--minor`/`--patch` override). CI fails a PR that changes theme code without a version bump; deploy tags `vX.Y.Z`.
 
 # Additional Instructions
 - Git workflow: @docs/git-instructions.md

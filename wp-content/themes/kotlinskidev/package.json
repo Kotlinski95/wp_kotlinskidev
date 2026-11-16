@@ -1,6 +1,6 @@
 {
   "name": "kotlinskidev",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Kotlinskidev Theme for WordPress, built with React, TypeScript, and GSAP.",
   "author": "Adrian Kotlinski",
   "license": "GPL-2.0-or-later",
@@ -134,8 +134,10 @@
     "push-page": "node --env-file-if-exists=.env bin/push-page.mjs",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
+    "release": "node bin/release.js",
     "check-version-sync": "node bin/check-version-sync.js",
     "check-palette-consistency": "node bin/check-palette-consistency.js",
+    "check-asset-budget": "node bin/check-asset-budget.js",
     "format": "wp-scripts format",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",
@@ -164,6 +166,7 @@
     "audit:a11y": "pa11y-ci --config ./audit/pa11yci.js --json > ./audit/results/pa11y.json",
     "audit:seo": "node ./audit/scripts/check-schema.js",
     "audit:security": "node ./audit/scripts/check-security-headers.js",
+    "audit:images": "node ./audit/scripts/check-images.js",
     "audit:report": "node ./audit/scripts/merge-report.js",
     "audit:regression": "node ./audit/scripts/regression-diff.js",
     "audit": "mkdir -p ./audit/results && npm run audit:discover && npm run audit:seo && npm run audit:security && npm run audit:lighthouse && npm run audit:a11y && npm run audit:report",
@@ -181,6 +184,6 @@
     "test:php": "composer test:unit",
     "test:php:coverage": "composer test:unit:coverage",
     "test:php:integration": "composer test:integration",
-    "verify": "npm run check-version-sync && npm run check-palette-consistency && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build"
+    "verify": "npm run check-version-sync && npm run check-palette-consistency && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build && npm run check-asset-budget"
   }
 }

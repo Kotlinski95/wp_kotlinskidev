@@ -1,10 +1,26 @@
-import "swiper/swiper-bundle.css";
-import { initSwiper } from "@utils/carousel/initSwiper";
+import "@utils/webpack-public-path";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+import "swiper/css/effect-cube";
+import "swiper/css/effect-coverflow";
+import "swiper/css/effect-flip";
+import "swiper/css/effect-cards";
+import type { initSwiper as InitSwiper } from "@utils/carousel/initSwiper";
 import type { CarouselSettings } from "@utils/carousel/types";
 import { isIosWebKit, isWebKitBrowser } from "@utils/is-webkit-browser";
 import { attachAlphaCanvas } from "./alpha-canvas";
 import { holdVideoUntilFirstFrame } from "./video-first-frame";
+import { SCROLL_CONTAINER_CHANGE_EVENT } from "../../scripts/app-shell";
 import { onScroll } from "../../scripts/utils";
+import {
+  clearVideoPosterData,
+  clearVideoSourceData,
+  resolveVideoAlphaSource,
+  resolveVideoPoster,
+  resolveVideoSource,
+} from "@utils/responsive-media";
 
 const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   try {
@@ -23,12 +39,32 @@ const preloadSlideImages = (slide: HTMLElement): void => {
   });
 };
 
+const watchFirstPlaying = (video: HTMLVideoElement): void => {
+  video.addEventListener(
+    "playing",
+    () => {
+      const reveal = (): void => {
+        video.classList.add("is-playing");
+        video.closest(".hero-carousel__bg")?.classList.add("hero-carousel__bg--playing");
+      };
+      const isAlpha = video.closest(".hero-carousel__bg--alpha") !== null;
+      if (isAlpha && typeof video.requestVideoFrameCallback === "function") {
+        video.requestVideoFrameCallback(reveal);
+        window.setTimeout(reveal, 1000);
+        return;
+      }
+      reveal();
+    },
+    { once: true }
+  );
+};
+
 const prepareSlideVideo = (slide: HTMLElement): void => {
   const video = slide.querySelector<HTMLVideoElement>("video");
   if (!video) {
     return;
   }
-  const alphaSrc = video.dataset.srcAlpha;
+  const alphaSrc = resolveVideoAlphaSource(video);
   if (alphaSrc && isWebKitBrowser()) {
     video.src = alphaSrc;
     delete video.dataset.src;
@@ -36,11 +72,15 @@ const prepareSlideVideo = (slide: HTMLElement): void => {
       applySlidePoster(slide);
       attachAlphaCanvas(video);
     }
-  } else if (video.dataset.src) {
-    video.src = video.dataset.src;
-    delete video.dataset.src;
+  } else {
+    const source = resolveVideoSource(video);
+    if (source) {
+      video.src = source;
+    }
   }
+  clearVideoSourceData(video);
   delete video.dataset.srcAlpha;
+  watchFirstPlaying(video);
   applySlidePoster(slide);
   if (isIosWebKit() && !video.closest(".hero-carousel__bg--alpha-canvas")) {
     holdVideoUntilFirstFrame(video);
@@ -49,11 +89,15 @@ const prepareSlideVideo = (slide: HTMLElement): void => {
 
 const applySlidePoster = (slide: HTMLElement): void => {
   const video = slide.querySelector<HTMLVideoElement>("video");
-  if (!video || !video.dataset.poster) {
+  if (!video) {
     return;
   }
-  video.poster = video.dataset.poster;
-  delete video.dataset.poster;
+  const poster = resolveVideoPoster(video);
+  if (!poster) {
+    return;
+  }
+  video.poster = poster;
+  clearVideoPosterData(video);
 };
 
 const resetSlideVideo = (slide: HTMLElement): void => {
@@ -78,9 +122,9 @@ const pauseSlideVideo = (slide: HTMLElement): void => {
   video.pause();
 };
 
-const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initSwiper>): void => {
+const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof InitSwiper>): void => {
   const container = el.closest<HTMLElement>(".hero-carousel") ?? el;
-  let hovered = false;
+  let hovered = container.matches(":hover");
   let focused = false;
   let pressed = false;
 
@@ -91,6 +135,12 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initS
       swiper.autoplay.resume();
     }
   };
+
+  swiper.on("autoplayResume", () => {
+    if (hovered || focused || pressed) {
+      swiper.autoplay.pause();
+    }
+  });
 
   container.addEventListener("mouseenter", () => {
     hovered = true;
@@ -141,7 +191,7 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof initS
   document.addEventListener("pointercancel", releasePress);
 };
 
-const syncTallestSlideHeight = (el: HTMLElement, swiper: ReturnType<typeof initSwiper>): void => {
+const syncTallestSlideHeight = (el: HTMLElement, swiper: ReturnType<typeof InitSwiper>): void => {
   el.style.minHeight = "";
 
   const tallest = swiper.slides
@@ -166,12 +216,15 @@ const debounce = (fn: () => void, delay: number): (() => void) => {
   };
 };
 
+const VIDEO_START_IDLE_TIMEOUT_MS = 300;
+const VIDEO_START_FALLBACK_MS = 100;
+
 const whenPageSettled = (callback: () => void): void => {
   const afterLoad = () => {
     if (typeof window.requestIdleCallback === "function") {
-      window.requestIdleCallback(callback);
+      window.requestIdleCallback(callback, { timeout: VIDEO_START_IDLE_TIMEOUT_MS });
     } else {
-      setTimeout(callback, 200);
+      setTimeout(callback, VIDEO_START_FALLBACK_MS);
     }
   };
   if (document.readyState === "complete") {
@@ -181,10 +234,62 @@ const whenPageSettled = (callback: () => void): void => {
   }
 };
 
-const NON_ACTIVE_PREP_DELAY_MS = 2000;
-const FIRST_INTERACTION_EVENTS = ["pointerdown", "keydown", "touchstart"] as const;
+type NavigationAction = "prev" | "next" | number;
 
-const whenInteractedOrDelayed = (callback: () => void): void => {
+interface PendingNavigation {
+  actions: NavigationAction[];
+  stop: () => void;
+}
+
+const resolveNavigationAction = (target: Element): NavigationAction | null => {
+  if (target.closest(".swiper-button-prev")) {
+    return "prev";
+  }
+  if (target.closest(".swiper-button-next")) {
+    return "next";
+  }
+  const bullet = target.closest(".swiper-pagination-bullet");
+  if (bullet?.parentElement) {
+    return Array.prototype.indexOf.call(bullet.parentElement.children, bullet);
+  }
+  return null;
+};
+
+const capturePendingNavigation = (el: HTMLElement): PendingNavigation => {
+  const container = el.closest<HTMLElement>(".hero-carousel") ?? el;
+  const actions: NavigationAction[] = [];
+  const onClick = (event: Event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+    const action = resolveNavigationAction(event.target);
+    if (action !== null) {
+      actions.push(action);
+    }
+  };
+  container.addEventListener("click", onClick);
+  return { actions, stop: () => container.removeEventListener("click", onClick) };
+};
+
+const replayNavigation = (
+  swiper: ReturnType<typeof InitSwiper>,
+  actions: NavigationAction[]
+): void => {
+  actions.forEach((action) => {
+    if (action === "prev") {
+      swiper.slidePrev();
+    } else if (action === "next") {
+      swiper.slideNext();
+    } else {
+      swiper.slideTo(action);
+    }
+  });
+};
+
+const LATE_INIT_TIMEOUT_MS = 1200;
+const FIRST_INTERACTION_EVENTS = ["pointerdown", "keydown", "touchstart", "wheel"] as const;
+
+const whenInteractedOrIdle = (callback: () => void): void => {
   let done = false;
   const cleanups: Array<() => void> = [];
 
@@ -204,14 +309,12 @@ const whenInteractedOrDelayed = (callback: () => void): void => {
   cleanups.push(onScroll(run));
 
   const scheduleIdle = () => {
-    const timer = setTimeout(() => {
-      if (typeof window.requestIdleCallback === "function") {
-        window.requestIdleCallback(run, { timeout: NON_ACTIVE_PREP_DELAY_MS });
-      } else {
-        run();
-      }
-    }, NON_ACTIVE_PREP_DELAY_MS);
-    cleanups.push(() => clearTimeout(timer));
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(run, { timeout: LATE_INIT_TIMEOUT_MS });
+    } else {
+      const timer = setTimeout(run, LATE_INIT_TIMEOUT_MS);
+      cleanups.push(() => clearTimeout(timer));
+    }
   };
 
   if (document.readyState === "complete") {
@@ -222,21 +325,25 @@ const whenInteractedOrDelayed = (callback: () => void): void => {
   }
 };
 
-const initHeroCarousel = (el: HTMLElement): void => {
+const yieldToMain = (): Promise<void> => {
+  const scheduler = (window as unknown as { scheduler?: { yield?: () => Promise<void> } })
+    .scheduler;
+  if (typeof scheduler?.yield === "function") {
+    return scheduler.yield();
+  }
+  return new Promise((resolve) => setTimeout(resolve, 0));
+};
+
+const initHeroCarousel = async (
+  el: HTMLElement,
+  initSwiper: typeof InitSwiper,
+  pending: PendingNavigation
+): Promise<void> => {
   const settings = parseSettings(el);
   el.style.visibility = "hidden";
   const swiper = initSwiper(el, settings, { disableNativeHoverPause: true });
   el.style.visibility = "visible";
-
-  if (settings.autoHeight !== true) {
-    syncTallestSlideHeight(el, swiper);
-    window.addEventListener(
-      "resize",
-      debounce(() => syncTallestSlideHeight(el, swiper), 150)
-    );
-  }
-
-  wireAutoplayHoverPause(el, swiper);
+  pending.stop();
 
   const prepareSlideAt = (index: number): void => {
     const slide = swiper.slides[index];
@@ -245,18 +352,6 @@ const initHeroCarousel = (el: HTMLElement): void => {
       preloadSlideImages(slide);
     }
   };
-
-  swiper.slides.forEach(applySlidePoster);
-
-  const firstSlide = swiper.slides[swiper.activeIndex];
-  const startIndex = swiper.activeIndex;
-  prepareSlideAt(startIndex);
-  whenInteractedOrDelayed(() => prepareSlideAt(startIndex + 1));
-  whenPageSettled(() => {
-    if (firstSlide) {
-      playSlideVideo(firstSlide);
-    }
-  });
 
   swiper.on("slideChangeTransitionStart", () => {
     prepareSlideAt(swiper.activeIndex);
@@ -277,12 +372,48 @@ const initHeroCarousel = (el: HTMLElement): void => {
       playSlideVideo(active);
     }
   });
+
+  replayNavigation(swiper, pending.actions);
+  wireAutoplayHoverPause(el, swiper);
+
+  await yieldToMain();
+
+  if (settings.autoHeight !== true) {
+    requestAnimationFrame(() => {
+      const previousHeight = el.offsetHeight;
+      syncTallestSlideHeight(el, swiper);
+      if (el.offsetHeight !== previousHeight) {
+        window.dispatchEvent(new Event(SCROLL_CONTAINER_CHANGE_EVENT));
+      }
+    });
+    window.addEventListener(
+      "resize",
+      debounce(() => syncTallestSlideHeight(el, swiper), 150)
+    );
+  }
+
+  await yieldToMain();
+
+  const firstSlide = swiper.slides[swiper.activeIndex];
+  const startIndex = swiper.activeIndex;
+  const nextSlide = swiper.slides[startIndex + 1];
+  prepareSlideAt(startIndex);
+  if (nextSlide) {
+    applySlidePoster(nextSlide);
+    preloadSlideImages(nextSlide);
+  }
+  whenPageSettled(() => {
+    if (firstSlide) {
+      playSlideVideo(firstSlide);
+    }
+  });
 };
 
 const init = (): void => {
   document
     .querySelectorAll<HTMLElement>(".hero-carousel__swiper[data-carousel-settings]")
     .forEach((el) => {
+      const pending = capturePendingNavigation(el);
       const rootMargin = parseSettings(el).lazyLoad ? "0px" : "200px 0px";
       const observer = new IntersectionObserver(
         (entries, obs) => {
@@ -290,8 +421,13 @@ const init = (): void => {
             if (!entry.isIntersecting) {
               return;
             }
-            initHeroCarousel(entry.target as HTMLElement);
-            obs.unobserve(entry.target);
+            const target = entry.target as HTMLElement;
+            obs.unobserve(target);
+            whenInteractedOrIdle(() => {
+              void import("@utils/carousel/initSwiper")
+                .then(({ initSwiper }) => initHeroCarousel(target, initSwiper, pending))
+                .catch(() => pending.stop());
+            });
           });
         },
         { rootMargin }

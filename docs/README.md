@@ -5,6 +5,7 @@ Docs for the kotlinski.dev website as a whole: hosting, Cloudflare, deployment, 
 | Doc | Covers |
 | --- | --- |
 | `AWS.md` | Lightsail host, firewall, TLS, origin lockdown checklist |
+| `php.md` | PHP version, settings and the upgrade runbook for the Lightsail server |
 | `cloudflare.md` | Source of truth for the Cloudflare zone, with plain-language explanations |
 | `deployment.md` | GitHub Actions deploy to Lightsail |
 | `lightsail-migration.md` | EC2 to Lightsail migration and its pitfalls |

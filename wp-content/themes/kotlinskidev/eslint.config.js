@@ -55,6 +55,10 @@ module.exports = [
     },
   },
   {
+    files: ["bin/**/*.test.js"],
+    languageOptions: { globals: { ...globals.jest } },
+  },
+  {
     // Intentional styled console banner (devtools easter egg), not debug leftovers.
     files: ["src/index.ts"],
     rules: {
@@ -95,6 +99,13 @@ module.exports = [
     files: ["src/formats/gradient-highlight/index.tsx"],
     rules: {
       "jsx-a11y/no-static-element-interactions": "off",
+    },
+  },
+  {
+    files: ["src/utils/webpack-public-path.ts"],
+    rules: {
+      camelcase: "off",
+      "@typescript-eslint/no-unused-vars": "off",
     },
   },
 ];

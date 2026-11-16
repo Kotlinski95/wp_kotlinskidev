@@ -1,0 +1,120 @@
+{
+  "panels": {
+    "src": "src/panels.scss",
+    "always": true
+  },
+  "post-card": {
+    "src": "src/styles/post-card.scss",
+    "inline": true,
+    "templates": ["archive", "search"],
+    "blocks": [
+      "kotlinskidev/category-posts-grid-dynamic",
+      "kotlinskidev/popular-content-dynamic",
+      "kotlinskidev/recently-viewed-dynamic",
+      "kotlinskidev/related-articles-dynamic",
+      "kotlinskidev/tag-posts-grid-dynamic",
+      "kotlinskidev/search-results-dynamic"
+    ]
+  },
+  "cover": {
+    "src": ["src/styles/parallax.scss", "src/styles/cover-fit-video.scss"],
+    "blocks": ["core/cover"],
+    "classes": ["enable-parallax", "kt-cover-fit-video"]
+  },
+  "image-hover-overlay": {
+    "src": "src/styles/image-hover-overlay.scss",
+    "blocks": ["kotlinskidev/image-hover-overlay"],
+    "classes": ["kt-image-hover-overlay"],
+    "attrs": ["kotlinskidevOverlayEnabled"]
+  },
+  "timeline": {
+    "src": "src/styles/timeline.scss",
+    "classes": ["career-timeline", "timeline-item"]
+  },
+  "background-effects": {
+    "src": "src/styles/background-effects.scss",
+    "classes": ["kt-bg-fx-"],
+    "attrs": ["backgroundEffectPresetId"]
+  },
+  "faq-accordion": {
+    "src": "src/styles/faq-accordion.scss",
+    "blocks": ["core/details", "kotlinskidev/faq-layout"]
+  },
+  "city-grid": {
+    "src": "src/styles/city-grid.scss",
+    "blocks": ["kotlinskidev/city-grid", "kotlinskidev/city-local-content"],
+    "templates": ["singular:service_location"]
+  },
+  "blog-topics-grid": {
+    "src": "src/styles/blog-topics-grid.scss",
+    "blocks": ["kotlinskidev/blog-topics-grid-dynamic", "kotlinskidev/other-topics-dynamic"]
+  },
+  "search-results-grid": {
+    "src": "src/styles/search-results-grid.scss",
+    "blocks": ["kotlinskidev/search-results-dynamic"],
+    "templates": ["search"],
+    "inline": true
+  },
+  "city-map": {
+    "src": "src/styles/city-map.scss",
+    "blocks": ["kotlinskidev/city-map"],
+    "templates": ["singular:service_location"]
+  },
+  "contact-card": {
+    "src": ["src/styles/contact-card.scss", "src/styles/contact-detail.scss"],
+    "blocks": ["kotlinskidev/contact-card", "kotlinskidev/contact-detail"]
+  },
+  "article-card": {
+    "src": "src/styles/article-card.scss",
+    "blocks": ["kotlinskidev/article-card"],
+    "templates": ["singular:kt_article_card"]
+  },
+  "project-card": {
+    "src": "src/styles/project-card.scss",
+    "blocks": ["kotlinskidev/project-card"],
+    "templates": ["singular:kt_project_card", "singular:service_location"],
+    "deps": ["image-hover-overlay"]
+  },
+  "responsive-display": {
+    "src": "src/styles/responsive-display.scss",
+    "attrs": ["responsiveDisplay"]
+  },
+  "hover-glow": {
+    "src": "src/styles/hover-glow.scss",
+    "classes": ["has-enhanced-hover-glow"],
+    "attrs": ["hoverEnhancedGlow"]
+  },
+  "certificate": {
+    "src": "src/styles/certificate.scss",
+    "blocks": ["kotlinskidev/certificate", "kotlinskidev/certificates-grid-dynamic"],
+    "templates": ["singular:kt_certificate"]
+  },
+  "canvas-background": {
+    "src": "src/styles/canvas-background.scss",
+    "blocks": ["kotlinskidev/canvas-background"],
+    "classes": ["kt-has-canvas-bg"],
+    "attrs": ["canvasSceneId", "canvasScrim"]
+  },
+  "device-frame": {
+    "src": "src/styles/device-frame.scss",
+    "blocks": ["kotlinskidev/device-frame"],
+    "inline": true,
+    "classes": ["kt-device-frame"]
+  },
+  "load-more": {
+    "src": "src/styles/load-more.scss",
+    "blocks": ["kotlinskidev/load-more"],
+    "attrs": ["loadMore"],
+    "deps": ["post-card"]
+  },
+  "not-found": {
+    "src": "src/styles/not-found.scss",
+    "blocks": ["kotlinskidev/not-found-dynamic"],
+    "templates": ["404"]
+  },
+  "button-variations": {
+    "src": "src/styles/button-variations.scss",
+    "inline": true,
+    "classes": ["is-style-fill-", "is-style-primary-", "is-style-outline-"]
+  }
+}

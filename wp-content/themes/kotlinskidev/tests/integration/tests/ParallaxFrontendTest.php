@@ -38,7 +38,7 @@ it('leaves a cover block untouched when enableParallax is set but there is no ur
     expect($html)->not->toContain('enable-parallax');
 });
 
-it('adds the enable-parallax class and a background-image style to a cover block with no existing style', function () {
+it('adds the enable-parallax class and a data-kt-parallax-bg attribute to a below-the-fold cover block', function () {
     $blocks = parse_blocks(
         '<!-- wp:cover {"url":"https://example.com/photo.jpg","enableParallax":true} -->'
         . '<div class="wp-block-cover"><div class="wp-block-cover__inner-container">x</div></div>'
@@ -48,10 +48,11 @@ it('adds the enable-parallax class and a background-image style to a cover block
     $html = render_block($blocks[0]);
 
     expect($html)->toContain('wp-block-cover enable-parallax');
-    expect($html)->toContain("style=\"background-image:url('https://example.com/photo.jpg');\"");
+    expect($html)->toContain('data-kt-parallax-bg="https://example.com/photo.jpg"');
+    expect($html)->not->toContain('background-image');
 });
 
-it('prepends the background-image declaration into an existing style attribute rather than overwriting it', function () {
+it('keeps an existing style attribute intact and adds the parallax data attribute for a below-the-fold cover', function () {
     $blocks = parse_blocks(
         '<!-- wp:cover {"url":"https://example.com/photo.jpg","enableParallax":true} -->'
         . '<div class="wp-block-cover" style="min-height:400px"><div class="wp-block-cover__inner-container">x</div></div>'
@@ -60,9 +61,9 @@ it('prepends the background-image declaration into an existing style attribute r
 
     $html = render_block($blocks[0]);
 
-    expect($html)->toContain(
-        "style=\"background-image:url('https://example.com/photo.jpg');min-height:400px\""
-    );
+    expect($html)->toContain('style="min-height:400px"');
+    expect($html)->toContain('data-kt-parallax-bg="https://example.com/photo.jpg"');
+    expect($html)->not->toContain('background-image');
 });
 
 it('transforms a section-wrapped cover block the same way as a div-wrapped one', function () {
@@ -75,7 +76,7 @@ it('transforms a section-wrapped cover block the same way as a div-wrapped one',
     $html = render_block($blocks[0]);
 
     expect($html)->toContain('wp-block-cover enable-parallax');
-    expect($html)->toContain("style=\"background-image:url('https://example.com/photo.jpg');\"");
+    expect($html)->toContain('data-kt-parallax-bg="https://example.com/photo.jpg"');
 });
 
 it('only rewrites the first wp-block-cover tag, leaving inner markup untouched', function () {
@@ -104,4 +105,17 @@ it('escapes the url attribute to prevent attribute injection via a crafted block
     $html = render_block($blocks[0]);
 
     expect($html)->not->toContain('<script>');
+});
+
+it('keeps the inline background-image style for an above-the-fold cover block', function () {
+    $blocks = parse_blocks(
+        '<!-- wp:cover {"url":"https://example.com/photo.jpg","enableParallax":true,"kotlinskidevAboveFold":true} -->'
+        . '<div class="wp-block-cover" style="min-height:400px"><div class="wp-block-cover__inner-container">x</div></div>'
+        . '<!-- /wp:cover -->'
+    );
+
+    $html = render_block($blocks[0]);
+
+    expect($html)->toContain("style=\"background-image:url('https://example.com/photo.jpg');min-height:400px\"");
+    expect($html)->not->toContain('data-kt-parallax-bg');
 });

@@ -6,10 +6,16 @@ if ( ! function_exists( 'kotlinskidev_protected_content_apply_custom_colors' ) )
 
 		$extra_style = '';
 		if ( '' !== $custom_text_color ) {
-			$extra_style .= 'color:' . esc_attr( $custom_text_color ) . ';';
+			$text_declaration = 'color:' . esc_attr( $custom_text_color );
+			if ( ! preg_match( '/["; ]' . preg_quote( $text_declaration, '/' ) . '\s*[;"]/', $wrapper_attrs ) ) {
+				$extra_style .= $text_declaration . ';';
+			}
 		}
 		if ( '' !== $custom_bg_color ) {
-			$extra_style .= 'background-color:' . esc_attr( $custom_bg_color ) . ';';
+			$background_declaration = 'background-color:' . esc_attr( $custom_bg_color );
+			if ( ! preg_match( '/["; ]' . preg_quote( $background_declaration, '/' ) . '\s*[;"]/', $wrapper_attrs ) ) {
+				$extra_style .= $background_declaration . ';';
+			}
 		}
 
 		if ( '' === $extra_style ) {

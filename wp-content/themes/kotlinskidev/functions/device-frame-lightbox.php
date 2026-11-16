@@ -10,10 +10,7 @@ function kotlinskidev_device_frame_lightbox_registry( ?array $entry = null, ?str
 }
 
 function kotlinskidev_register_device_frame_lightbox_media( int $media_id, bool $is_video ): string {
-    static $instance = 0;
-    $instance++;
-
-    $modal_id = 'kt-modal-device-frame-' . $instance . '-' . $media_id;
+    $modal_id = 'kt-modal-device-frame-' . $media_id;
     kotlinskidev_device_frame_lightbox_registry(
         [
             'media_id' => $media_id,
@@ -42,7 +39,7 @@ function kotlinskidev_render_device_frame_lightbox_shells(): void {
         echo '<div class="kt-modal__content kt-device-frame-lightbox__content">';
 
         if ( $is_video ) {
-            echo '<video class="kt-device-frame-lightbox__media" src="' . esc_url( wp_get_attachment_url( $media_id ) ) . '" controls playsinline></video>';
+            echo '<video class="kt-device-frame-lightbox__media" data-src="' . esc_url( wp_get_attachment_url( $media_id ) ) . '" preload="none" controls playsinline></video>';
         } else {
             echo wp_get_attachment_image( $media_id, 'full', false, [ 'class' => 'kt-device-frame-lightbox__media' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes
         }

@@ -1,0 +1,7 @@
+{
+  "core/image": "image",
+  "core/cover": "cover",
+  "core/video": "video",
+  "kotlinskidev/hero-carousel-slide": "hero-slide",
+  "kotlinskidev/device-frame": "device-frame"
+}

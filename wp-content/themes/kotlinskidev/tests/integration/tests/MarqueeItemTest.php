@@ -22,11 +22,11 @@ function kotlinskidev_render_marquee_item(array $attrs = [], string $inner = '<!
     return render_block($blocks[0]);
 }
 
-it('renders the inner blocks content inside a swiper-slide wrapper', function () {
+it('renders the inner blocks content inside the marquee item wrapper', function () {
     $html = kotlinskidev_render_marquee_item();
 
     expect($html)->toContain('kt-marquee__item');
-    expect($html)->toContain('swiper-slide');
+    expect($html)->toContain('wp-block-kotlinskidev-marquee-item');
     expect($html)->toContain('>React</p>');
 });
 

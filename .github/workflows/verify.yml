@@ -161,10 +161,47 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+      - run: npm run check-asset-budget
+
+  version-bump:
+    name: Version bump
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require a theme version bump when theme files change
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          THEME_DIR: wp-content/themes/kotlinskidev
+        run: |
+          changed=$(git diff --name-only "origin/$BASE_REF"...HEAD -- "$THEME_DIR" \
+            ":(exclude)$THEME_DIR/docs" \
+            ":(exclude)$THEME_DIR/tests" \
+            ":(exclude)$THEME_DIR/.claude" \
+            ":(exclude)$THEME_DIR/graphify-out" \
+            ":(exclude)$THEME_DIR/*.md" \
+            ":(exclude)*.md")
+          if [ -z "$changed" ]; then
+            echo "No releasable theme files changed; version bump not required."
+            exit 0
+          fi
+          head_version=$(sed -n 's/^Version:[[:space:]]*//p' "$THEME_DIR/style.css" | head -n1 | tr -d '[:space:]')
+          base_version=$(git show "origin/$BASE_REF:$THEME_DIR/style.css" | sed -n 's/^Version:[[:space:]]*//p' | head -n1 | tr -d '[:space:]')
+          echo "Base version: $base_version, PR version: $head_version"
+          if [ "$head_version" = "$base_version" ]; then
+            echo "::error::Theme files changed but the version in style.css is still $base_version. Run 'npm run release' in $THEME_DIR and commit the result."
+            exit 1
+          fi
 
   ci-passed:
     name: CI passed
-    needs: [ lint, i18n, security, test-js, test-php, build ]
+    needs: [ lint, i18n, security, test-js, test-php, build, version-bump ]
     runs-on: ubuntu-latest
     if: always()
     defaults:

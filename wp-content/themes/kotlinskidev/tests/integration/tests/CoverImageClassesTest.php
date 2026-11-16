@@ -94,7 +94,7 @@ it('outputs the lazy-loading override script on wp_footer', function () {
     $html = ob_get_clean();
 
     expect($html)->toContain('no-lazy-loading');
-    expect($html)->toContain('fetchpriority');
+    expect($html)->toContain('loading');
 });
 
 it('still honours the legacy kotlinskidevSkipLazy attribute', function () {

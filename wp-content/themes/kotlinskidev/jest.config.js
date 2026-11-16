@@ -7,6 +7,7 @@ module.exports = {
   moduleNameMapper: {
     "^@utils/(.*)$": "<rootDir>/src/utils/$1",
     "^@node_modules/(.*)$": "<rootDir>/node_modules/$1",
+    "^swiper/css(/.*)?$": "<rootDir>/jest.style-mock.js",
   },
   transformIgnorePatterns: ["node_modules/(?!.*(@wordpress|uuid)/)"],
   transform: {

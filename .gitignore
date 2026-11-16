@@ -141,3 +141,5 @@ wp-content/themes/kotlinskidev/.agents/
 graphify-out/
 
 db/sync-to-prod.env
+
+/local-phpinfo.php

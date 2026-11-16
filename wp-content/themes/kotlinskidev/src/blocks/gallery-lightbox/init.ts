@@ -1,12 +1,11 @@
-import DOMPurify from "dompurify";
-import "swiper/swiper-bundle.css";
-import { initSwiper } from "@utils/carousel/initSwiper";
+import "@utils/webpack-public-path";
 import { attachImageZoom } from "@utils/zoom/attachImageZoom";
 import { lockScroll, unlockScroll } from "@utils/scroll-lock";
 import { trackEvent } from "../../scripts/track-event";
 
 const MODAL_ID = "gallery-lightbox-modal";
 const SCROLL_LOCK_OWNER = "gallery-lightbox";
+let openingToken = 0;
 
 const escapeAttribute = (value: string): string =>
   value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -133,15 +132,37 @@ const buildModalHTML = (
     </div>`;
 };
 
-const openModal = (
+const openModal = async (
   images: GalleryMedia[],
   startIndex: number,
   trigger: HTMLElement,
   settings: ReturnType<typeof parseSettings>,
   onSlideChange?: (index: number) => void
-): void => {
+): Promise<void> => {
   document.getElementById(MODAL_ID)?.remove();
   lockScroll(SCROLL_LOCK_OWNER);
+  const token = ++openingToken;
+
+  let DOMPurify: typeof import("dompurify").default;
+  try {
+    const [purifyModule, { loadSwiperStyles }] = await Promise.all([
+      import("dompurify"),
+      import("@utils/carousel/loadSwiperStyles"),
+    ]);
+    DOMPurify = purifyModule.default;
+    await loadSwiperStyles(settings);
+  } catch {
+    if (token === openingToken) {
+      unlockScroll(SCROLL_LOCK_OWNER);
+    }
+    return;
+  }
+
+  if (token !== openingToken) {
+    return;
+  }
+
+  document.getElementById(MODAL_ID)?.remove();
   document.body.insertAdjacentHTML(
     "beforeend",
     DOMPurify.sanitize(buildModalHTML(images, startIndex, settings))
@@ -149,6 +170,11 @@ const openModal = (
 
   const modal = document.getElementById(MODAL_ID) as HTMLElement;
   const swiperEl = modal.querySelector<HTMLElement>(".gallery-lightbox-swiper")!;
+
+  const { initSwiper } = await import("@utils/carousel/initSwiper");
+  if (!modal.isConnected) {
+    return;
+  }
 
   const swiper = initSwiper(
     swiperEl,

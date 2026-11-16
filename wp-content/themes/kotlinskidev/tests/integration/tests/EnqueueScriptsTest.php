@@ -9,7 +9,7 @@ it('enqueues the global stylesheet deferred via media print', function () {
 
     $registered = wp_styles()->registered['global-style'];
     expect($registered->args)->toBe('print');
-    expect($registered->src)->toContain('/build/main.css');
+    expect($registered->src)->toContain('/build/css/main.css');
 });
 
 it('enqueues the theme main script with defer strategy and localizes theme data', function () {

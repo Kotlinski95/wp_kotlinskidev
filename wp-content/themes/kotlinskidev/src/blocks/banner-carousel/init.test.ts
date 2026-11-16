@@ -50,10 +50,17 @@ function buildCarousel(settings: Record<string, unknown> | string, slideCount = 
   return el;
 }
 
-function loadModule() {
+async function flush() {
+  for (let i = 0; i < 10; i += 1) {
+    await Promise.resolve();
+  }
+}
+
+async function loadModule() {
   jest.resetModules();
   mockSlideChangeHandlers.length = 0;
   require("./init");
+  await flush();
 }
 
 describe("banner-carousel/init.ts", () => {
@@ -61,16 +68,16 @@ describe("banner-carousel/init.ts", () => {
     document.body.innerHTML = "";
   });
 
-  it("does nothing when there are no carousel elements", () => {
+  it("does nothing when there are no carousel elements", async () => {
     document.body.innerHTML = "";
 
-    expect(() => loadModule()).not.toThrow();
+    await expect(loadModule()).resolves.not.toThrow();
   });
 
-  it("initializes a Swiper instance with the parsed settings applied", () => {
+  it("initializes a Swiper instance with the parsed settings applied", async () => {
     const el = buildCarousel({ showArrows: true });
 
-    loadModule();
+    await loadModule();
 
     const swiperCalls = (jest.requireMock("swiper") as { default: jest.Mock }).default.mock.results;
     expect(swiperCalls).toHaveLength(1);
@@ -85,13 +92,13 @@ describe("banner-carousel/init.ts", () => {
     ]);
   });
 
-  it("falls back to default settings when the JSON is invalid", () => {
+  it("falls back to default settings when the JSON is invalid", async () => {
     buildCarousel("{not-json");
 
-    expect(() => loadModule()).not.toThrow();
+    await expect(loadModule()).resolves.not.toThrow();
   });
 
-  it("wires prev/next buttons found inside a sibling .carousel-nav container", () => {
+  it("wires prev/next buttons found inside a sibling .carousel-nav container", async () => {
     const wrapper = document.createElement("div");
     document.body.innerHTML = "";
     const el = document.createElement("div");
@@ -103,7 +110,7 @@ describe("banner-carousel/init.ts", () => {
     wrapper.append(el, nav);
     document.body.append(wrapper);
 
-    loadModule();
+    await loadModule();
 
     const instance = (jest.requireMock("swiper") as { default: jest.Mock }).default.mock.results[0]
       .value as MockSwiper;
@@ -112,15 +119,15 @@ describe("banner-carousel/init.ts", () => {
     expect(navigation.nextEl).toBe(nav.querySelector(".swiper-button-next"));
   });
 
-  it("makes the carousel visible again after initialization", () => {
+  it("makes the carousel visible again after initialization", async () => {
     const el = buildCarousel({});
 
-    loadModule();
+    await loadModule();
 
     expect(el.style.visibility).toBe("visible");
   });
 
-  it("populates and updates the slide counter, excluding duplicate slides", () => {
+  it("populates and updates the slide counter, excluding duplicate slides", async () => {
     const wrapper = document.createElement("div");
     document.body.innerHTML = "";
     const el = document.createElement("div");
@@ -139,7 +146,7 @@ describe("banner-carousel/init.ts", () => {
     wrapper.append(el, nav);
     document.body.append(wrapper);
 
-    loadModule();
+    await loadModule();
 
     const counter = nav.querySelector(".carousel-nav__counter") as HTMLElement;
     expect(counter.querySelector(".carousel-nav__current")?.textContent).toBe("01");
@@ -153,7 +160,7 @@ describe("banner-carousel/init.ts", () => {
     expect(counter.querySelector(".carousel-nav__current")?.textContent).toBe("03");
   });
 
-  it("initializes every carousel found on the page", () => {
+  it("initializes every carousel found on the page", async () => {
     document.body.innerHTML = "";
     const first = document.createElement("div");
     first.setAttribute("data-carousel-settings", "{}");
@@ -161,7 +168,7 @@ describe("banner-carousel/init.ts", () => {
     second.setAttribute("data-carousel-settings", "{}");
     document.body.append(first, second);
 
-    loadModule();
+    await loadModule();
 
     const swiperMock = (jest.requireMock("swiper") as { default: jest.Mock }).default;
     expect(swiperMock).toHaveBeenCalledTimes(2);

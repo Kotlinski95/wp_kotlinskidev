@@ -32,7 +32,7 @@ it('shows the "Search Results" heading through the search-header dynamic block w
     $html = render_block(parse_blocks('<!-- wp:kotlinskidev/search-header-dynamic /-->')[0]);
 
     expect($html)->toContain('Search Results');
-    expect($html)->not->toContain('Search Our Content');
+    expect($html)->not->toContain('Search My Content');
 });
 
 it('shows the "Search Our Content" heading through the search-header dynamic block when no query is present', function () {
@@ -40,7 +40,7 @@ it('shows the "Search Our Content" heading through the search-header dynamic blo
 
     $html = render_block(parse_blocks('<!-- wp:kotlinskidev/search-header-dynamic /-->')[0]);
 
-    expect($html)->toContain('Search Our Content');
+    expect($html)->toContain('Search My Content');
     expect($html)->not->toContain('Search Results');
 });
 

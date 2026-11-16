@@ -36,7 +36,7 @@
 
 		// Loading state
 		&::before {
-			content: "🔒 " attr(data-loading-text, "Loading protected content...");
+			content: "🔒 " var(--kt-protected-loading-text, "Loading protected content...");
 			color: var(--wp--preset--color--foreground-alt);
 			font-style: italic;
 		}
