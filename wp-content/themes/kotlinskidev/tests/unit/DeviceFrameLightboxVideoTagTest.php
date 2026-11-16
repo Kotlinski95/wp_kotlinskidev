@@ -16,7 +16,7 @@ it('prints the deferred source with the attachment size and poster so the modal 
     Functions\when('wp_get_attachment_image_url')->justReturn('https://example.com/clip-poster.webp');
 
     expect(kotlinskidev_device_frame_lightbox_video_tag(10))->toBe(
-        '<video class="kt-device-frame-lightbox__media" data-src="https://example.com/clip.mp4" width="1440" height="964" poster="https://example.com/clip-poster.webp" preload="none" controls playsinline></video>'
+        '<video class="kt-device-frame-lightbox__media" data-src="https://example.com/clip.mp4" width="1440" height="964" data-poster="https://example.com/clip-poster.webp" preload="none" controls playsinline></video>'
     );
 });
 

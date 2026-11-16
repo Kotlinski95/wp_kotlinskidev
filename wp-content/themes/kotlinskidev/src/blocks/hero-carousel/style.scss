@@ -317,6 +317,10 @@ $hero-above-fold-height: calc(var(--kt-above-fold) - var(--kt-breadcrumbs-height
 	min-height: $hero-above-fold-height;
 }
 
+.hero-carousel.above-fold .hero-carousel__content:not(:has(> :last-child)) > * {
+	visibility: hidden;
+}
+
 .hero-carousel.above-fold .hero-carousel__slide.swiper-slide {
 	height: auto;
 }

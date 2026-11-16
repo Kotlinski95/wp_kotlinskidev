@@ -5,7 +5,7 @@ uses(Tests\Integration\TestCase::class);
 function kotlinskidev_seed_icon_attachment(string $svg = '<svg xmlns="http://www.w3.org/2000/svg"><path fill="#000" d="M0 0"/></svg>'): int
 {
     $id = test()->factory()->attachment->create_object('icon.svg', 0, ['post_mime_type' => 'image/svg+xml']);
-    set_transient('kotlinskidev_svg_' . $id, $svg, WEEK_IN_SECONDS);
+    set_transient(kotlinskidev_svg_cache_key($id), $svg, WEEK_IN_SECONDS);
 
     return $id;
 }

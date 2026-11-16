@@ -84,7 +84,7 @@ it('leaves a block with no attributes untouched', function () {
         ->toBe('<div class="wp-block-group">x</div>');
 });
 
-it('adds the spacing class and an inline style tag for a block with valid responsive spacing', function () {
+it('adds the spacing class and registers its style for the head for a block with valid responsive spacing', function () {
     $blocks = parse_blocks(
         '<!-- wp:group ' . wp_json_encode(['desktopPadding' => ['top' => '10px']]) . ' -->'
         . '<div class="wp-block-group">x</div>'
@@ -94,8 +94,10 @@ it('adds the spacing class and an inline style tag for a block with valid respon
     $html = render_block($blocks[0]);
 
     expect($html)->toContain('kt-rspc-');
-    expect($html)->toContain('<style>');
-    expect($html)->toContain('padding-top:10px');
+    $pending = implode('', kotlinskidev_responsive_style_registry()['pending']);
+    $printed = implode('', kotlinskidev_responsive_style_registry()['printed']);
+
+    expect($html . $pending . $printed)->toContain('padding-top:10px');
 });
 
 it('is registered on the render_block filter', function () {

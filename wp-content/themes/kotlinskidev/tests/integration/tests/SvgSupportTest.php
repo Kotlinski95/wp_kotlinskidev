@@ -17,13 +17,13 @@ it('returns an empty string when the attachment file does not exist on disk', fu
 
 it('inlines a real svg into wp_get_attachment_image output for an svg attachment', function () {
     $id = self::factory()->attachment->create_object('icon.svg', 0, ['post_mime_type' => 'image/svg+xml']);
-    set_transient('kotlinskidev_svg_' . $id, '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
+    set_transient(kotlinskidev_svg_cache_key($id), '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
 
     $result = kotlinskidev_inline_svg_image('<img class="attachment-full" src="icon.svg">', $id);
 
     expect($result)->toContain('<svg aria-hidden="true" focusable="false" class="attachment-full"');
 
-    delete_transient('kotlinskidev_svg_' . $id);
+    delete_transient(kotlinskidev_svg_cache_key($id));
 });
 
 it('leaves the image markup untouched for a non-svg attachment', function () {
@@ -35,7 +35,7 @@ it('leaves the image markup untouched for a non-svg attachment', function () {
 
 it('inlines a real svg into the core/image block render output', function () {
     $id = self::factory()->attachment->create_object('icon.svg', 0, ['post_mime_type' => 'image/svg+xml']);
-    set_transient('kotlinskidev_svg_' . $id, '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
+    set_transient(kotlinskidev_svg_cache_key($id), '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
 
     $blocks = parse_blocks(
         '<!-- wp:image {"id":' . $id . '} -->'
@@ -47,7 +47,7 @@ it('inlines a real svg into the core/image block render output', function () {
 
     expect($html)->toContain('<svg aria-hidden="true" focusable="false"');
 
-    delete_transient('kotlinskidev_svg_' . $id);
+    delete_transient(kotlinskidev_svg_cache_key($id));
 });
 
 it('leaves the block untouched when the image block has no attachment id', function () {
@@ -64,11 +64,11 @@ it('leaves the block untouched when the image block has no attachment id', funct
 
 it('clears the svg transient cache when an svg attachment is edited', function () {
     $id = self::factory()->attachment->create_object('icon.svg', 0, ['post_mime_type' => 'image/svg+xml']);
-    set_transient('kotlinskidev_svg_' . $id, '<svg></svg>', WEEK_IN_SECONDS);
+    set_transient(kotlinskidev_svg_cache_key($id), '<svg></svg>', WEEK_IN_SECONDS);
 
     kotlinskidev_clear_svg_cache($id);
 
-    expect(get_transient('kotlinskidev_svg_' . $id))->toBeFalse();
+    expect(get_transient(kotlinskidev_svg_cache_key($id)))->toBeFalse();
 });
 
 it('adds width/height metadata for a real svg attachment via the wp_generate_attachment_metadata filter', function () {
@@ -131,11 +131,45 @@ it('does not touch a non-svg attachment file', function () {
 
 it('does not touch the transient cache for a non-svg attachment', function () {
     $id = self::factory()->attachment->create_object('photo.jpg', 0, ['post_mime_type' => 'image/jpeg']);
-    set_transient('kotlinskidev_svg_' . $id, 'should-remain', WEEK_IN_SECONDS);
+    set_transient(kotlinskidev_svg_cache_key($id), 'should-remain', WEEK_IN_SECONDS);
 
     kotlinskidev_clear_svg_cache($id);
 
-    expect(get_transient('kotlinskidev_svg_' . $id))->toBe('should-remain');
+    expect(get_transient(kotlinskidev_svg_cache_key($id)))->toBe('should-remain');
 
-    delete_transient('kotlinskidev_svg_' . $id);
+    delete_transient(kotlinskidev_svg_cache_key($id));
+});
+
+
+it('replaces a small svg with a sprite reference before wp_body_open', function () {
+    $id = self::factory()->attachment->create_object('icon.svg', 0, ['post_mime_type' => 'image/svg+xml']);
+    set_transient(kotlinskidev_svg_cache_key($id), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
+
+    $result = kotlinskidev_inline_svg_image('<img class="attachment-full" src="icon.svg">', $id);
+
+    expect($result)->toContain('<use href="#kt-svg-' . $id . '-');
+    expect($result)->not->toContain('<path');
+
+    delete_transient(kotlinskidev_svg_cache_key($id));
+});
+
+it('leaves a large svg without currentColor as the original img on the front end', function () {
+    $id  = self::factory()->attachment->create_object('big.svg', 0, ['post_mime_type' => 'image/svg+xml']);
+    $big = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4"><path d="' . str_repeat('M0 0 ', 1000) . '"/></svg>';
+    set_transient(kotlinskidev_svg_cache_key($id), $big, WEEK_IN_SECONDS);
+
+    $html = '<img class="attachment-full" src="big.svg">';
+
+    expect(kotlinskidev_inline_svg_image($html, $id))->toBe($html);
+
+    delete_transient(kotlinskidev_svg_cache_key($id));
+});
+
+it('drops the legacy unversioned cache entry when loading svg content', function () {
+    $id = self::factory()->attachment->create_object('legacy.svg', 0, ['post_mime_type' => 'image/svg+xml']);
+    set_transient('kotlinskidev_svg_' . $id, 'stale', WEEK_IN_SECONDS);
+
+    kotlinskidev_load_svg_content($id);
+
+    expect(get_transient('kotlinskidev_svg_' . $id))->toBeFalse();
 });

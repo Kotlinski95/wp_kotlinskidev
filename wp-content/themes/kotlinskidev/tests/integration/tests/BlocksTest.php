@@ -42,7 +42,7 @@ it('returns an empty icon when the attachment is not an svg', function () {
 
 it('strips the fill attribute and marks a real svg icon as decorative with currentColor', function () {
     $id = self::factory()->attachment->create_object('icon.svg', 0, ['post_mime_type' => 'image/svg+xml']);
-    set_transient('kotlinskidev_svg_' . $id, '<svg xmlns="http://www.w3.org/2000/svg" fill="#000000"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
+    set_transient(kotlinskidev_svg_cache_key($id), '<svg xmlns="http://www.w3.org/2000/svg" fill="#000000"><path d="M0 0"/></svg>', WEEK_IN_SECONDS);
 
     $html = kotlinskidev_inline_nav_icon($id);
 
@@ -50,7 +50,7 @@ it('strips the fill attribute and marks a real svg icon as decorative with curre
     expect($html)->toContain('fill="currentColor"');
     expect($html)->not->toContain('fill="#000000"');
 
-    delete_transient('kotlinskidev_svg_' . $id);
+    delete_transient(kotlinskidev_svg_cache_key($id));
 });
 
 it('returns null for the current polylang language when none is marked current', function () {

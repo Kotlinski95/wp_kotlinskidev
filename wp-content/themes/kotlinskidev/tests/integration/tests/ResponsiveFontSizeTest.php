@@ -27,15 +27,17 @@ it('leaves the block untouched when there is no responsiveFontSize attribute', f
     expect($html)->not->toContain('kt-rfs-');
 });
 
-it('injects a generated class and a scoped style tag with real breakpoint media queries', function () {
+it('injects a generated class and a head-registered style with real breakpoint media queries', function () {
     $html = kotlinskidev_font_size_group_render([
         'responsiveFontSize' => ['mobile' => '1rem', 'desktop' => '2rem'],
     ]);
 
     expect($html)->toContain('kt-rfs-');
-    expect($html)->toContain('<style>');
-    expect($html)->toContain('font-size:1rem !important');
-    expect($html)->toContain('font-size:2rem !important');
+    $registry = kotlinskidev_responsive_style_registry();
+    $css      = $html . implode('', $registry['pending']) . implode('', $registry['printed']);
+
+    expect($css)->toContain('font-size:1rem !important');
+    expect($css)->toContain('font-size:2rem !important');
 });
 
 it('produces the same generated class for the same values every time', function () {

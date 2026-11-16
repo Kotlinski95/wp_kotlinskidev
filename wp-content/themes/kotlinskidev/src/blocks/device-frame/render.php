@@ -107,8 +107,37 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 				$video_meta   = wp_get_attachment_metadata( $image_id );
 				$video_width  = is_array( $video_meta ) ? absint( $video_meta['width'] ?? 0 ) : 0;
 				$video_height = is_array( $video_meta ) ? absint( $video_meta['height'] ?? 0 ) : 0;
-				if ( $is_eager && kotlinskidev_claim_lcp_slot( kotlinskidev_responsive_media_preload_entries( $video_posters, [], '', $breakpoints ) ) ) {
+				$use_poster_image = $is_eager && $lazy_attributes && $poster_id && '' !== $video_posters['desktop'];
+				$poster_sizes     = '(max-width: ' . (int) $breakpoints['mobile_max'] . 'px) 100vw, 50vw';
+				$poster_srcsets   = [];
+				if ( $use_poster_image ) {
+					$poster_srcsets            = kotlinskidev_responsive_media_poster_srcsets( $responsive_slots, $video_posters );
+					$poster_srcsets['desktop'] = (string) wp_get_attachment_image_srcset( $poster_id, 'full' );
+				}
+				$lcp_entries = kotlinskidev_responsive_media_preload_entries( $video_posters, $poster_srcsets, $use_poster_image ? $poster_sizes : '', $breakpoints );
+				if ( $is_eager && kotlinskidev_claim_lcp_slot( $lcp_entries ) ) {
 					$fetch_priority = 'high';
+				}
+				if ( $use_poster_image ) {
+					$poster_markup = wp_get_attachment_image(
+						$poster_id,
+						'full',
+						false,
+						[
+							'class'         => 'kt-device-frame__poster',
+							'loading'       => 'eager',
+							'decoding'      => 'async',
+							'fetchpriority' => $fetch_priority,
+							'sizes'         => $poster_sizes,
+							'alt'           => '',
+							'role'          => 'presentation',
+							'style'         => $image_style,
+						]
+					);
+					echo $has_poster_variant // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes; picture sources built from esc_attr()/esc_url()'d values
+						? kotlinskidev_responsive_media_picture( $poster_markup, $video_posters, $breakpoints, $poster_srcsets, $poster_sizes )
+						: $poster_markup;
+					$fetch_priority = 'auto';
 				}
 				?>
 				<video
@@ -122,9 +151,9 @@ $wrapper_attributes = get_block_wrapper_attributes( [
 					data-src="<?php echo esc_url( $video_sources['desktop'] ); ?>"
 					preload="none"
 					<?php endif; ?>
-					<?php if ( $poster_url ) : ?><?php echo $lazy_attributes ? 'data-poster' : 'poster'; ?>="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
+					<?php if ( $poster_url && ! $use_poster_image ) : ?><?php echo $lazy_attributes ? 'data-poster' : 'poster'; ?>="<?php echo esc_url( $poster_url ); ?>"<?php endif; ?>
 					<?php echo kotlinskidev_responsive_media_data_attributes( $video_sources, 'src' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- each value passed through esc_url() ?>
-					<?php echo kotlinskidev_responsive_media_data_attributes( $video_posters, 'poster' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- each value passed through esc_url() ?>
+					<?php if ( ! $use_poster_image ) : ?><?php echo kotlinskidev_responsive_media_data_attributes( $video_posters, 'poster' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- each value passed through esc_url() ?><?php endif; ?>
 					<?php if ( '' !== $image_style ) : ?>style="<?php echo esc_attr( $image_style ); ?>"<?php endif; ?>
 					fetchpriority="<?php echo esc_attr( $fetch_priority ); ?>"
 					muted

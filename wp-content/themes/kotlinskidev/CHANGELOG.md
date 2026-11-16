@@ -16,6 +16,22 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+*Nothing yet.*
+
+## [2.1.1] — 2026-11-16
+
+### Changed
+
+- **2026-11-16 — Throttled mobile CLS on the pre-shown banner pages is now under 0.01.** Sora uses `font-display: optional` so it can no longer re-wrap text on a slow first view, the responsive `order-*` rules moved into `critical.css` so reordered columns do not jump, and the hero content stays hidden until fully parsed (critical budget raised 81000 to 83000 bytes).
+- **2026-11-16 — The cookie banner buttons and the mobile bottom nav bar now render in their final colours and position from the first painted frame.** The complianz, mobile-footer-menu and theme-colors styles moved from the deferred `main.css` into `critical.css` (budget raised 76000 to 81000 bytes), so neither flips colour nor pops in late.
+- **2026-11-16 — The cookie banner and its dim backdrop now paint from first render instead of after the deferred Complianz script and stylesheet.** The banner CSS is inlined and the script preloaded by `functions/consent-banner-critical.php`, `src/critical/consent-preshow.ts` shows it for first-time visitors (never running or unblocking any non-essential script), and the hero carousel autoplay stays paused while it is open.
+- **2026-11-16 — Browser install prompts are held back until a visitor has seen two pages or stayed 30 seconds and answered the cookie banner (`src/critical/pwa-install-gate.ts`), and the OneTap inline style moved from the head to the footer.** `npm run` users can measure Speed Index with `node audit/scripts/si-probe.mjs <url>`.
+- **2026-11-16 — Front-end HTML trimmed by about 5% with no visual change.** Small or currentColor SVGs render as one hidden sprite plus `<use>` references, large plain SVGs stay lazy `<img>`, responsive spacing/font-size styles print once in the head, and unused core default color, gradient, duotone and shadow presets leave global styles. Editor, REST and AJAX renders keep full inline output.
+- **2026-11-16 — Below-the-fold post content blocks and the footer top group now use `content-visibility:auto` to cut Style & Layout work.** New `functions/content-visibility.php` tags them with `kt-cv-auto` (opt-in via the `kotlinskidev_content_visibility` option, off by default because local runs showed no clear Style & Layout gain; filterable via `kotlinskidev_content_visibility_enabled`) while skipping above-fold, anchor, scroll-section, parallax, scroll-animation, hero and fixed/sticky subtrees.
+- **2026-11-16 — Above-the-fold `kotlinskidev/device-frame` videos with responsive variants now paint an eager, high-priority poster `<img>`/`<picture>` (`kt-device-frame__poster`) under the `<video>`, so the poster is the LCP element instead of a video that waits for JavaScript.** The video starts after load and idle, hides the poster once playing, and below-fold frames are unchanged.
+- **2026-11-16 — Animated WebP uploads keep their animation: no static sub-sizes, no `srcset`.** New `functions/animated-webp.php` detects animation (cached in post meta) and skips resizing and `wp_calculate_image_srcset` for those files, so the three project slideshow GIFs were replaced with animated WebP at roughly a quarter of the weight.
+- **2026-11-16 — ntfy alerts (mail failures, contact-attachment retention, weekly mail check) are now sent only when `wp_get_environment_type()` is `production`, so Local (`local`) and staging stay quiet.** `kotlinskidev_ntfy_alerts_enabled()` in `functions/mail-failure-alerts.php` gates the alert URL and can be overridden with the `kotlinskidev_ntfy_alerts_enabled` filter; the settings field explains when alerts are off.
+
 ### Fixed
 
 - **2026-11-16 — Device-frame video lightboxes play again: the modal video now prints its attachment width, height and poster (`kotlinskidev_device_frame_lightbox_video_tag()` in `functions/device-frame-lightbox.php`) and switches to `preload="auto"` and `load()` on open.** Before, the deferred `preload="none"` video never started loading and collapsed to a 150 px strip.

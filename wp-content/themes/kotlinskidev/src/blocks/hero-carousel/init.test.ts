@@ -502,6 +502,62 @@ describe("hero-carousel/init.ts", () => {
     expect(autoplay.resume).toHaveBeenCalledTimes(1);
   });
 
+  it("pauses autoplay while the consent dialog is pending and resumes once it is released", async () => {
+    document.body.innerHTML = "";
+    document.documentElement.classList.add("kt-cmplz-pending");
+    const carousel = document.createElement("div");
+    carousel.className = "hero-carousel";
+    const el = buildCarouselElement();
+    carousel.append(el);
+    document.body.append(carousel);
+    const autoplay = { pause: jest.fn(), resume: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      update: jest.fn(),
+      autoplay,
+    };
+
+    loadModule();
+    await intersect(el);
+
+    expect(autoplay.pause).toHaveBeenCalled();
+
+    document.documentElement.classList.remove("kt-cmplz-pending");
+    document.dispatchEvent(new Event("kt-cmplz-released"));
+    expect(autoplay.resume).toHaveBeenCalledTimes(1);
+  });
+
+  it("stays paused while a visible soft cookiewall exists", async () => {
+    document.body.innerHTML = "";
+    const wall = document.createElement("div");
+    wall.className = "cmplz-soft-cookiewall";
+    const carousel = document.createElement("div");
+    carousel.className = "hero-carousel";
+    const el = buildCarouselElement();
+    carousel.append(el);
+    document.body.append(carousel);
+    const autoplay = { pause: jest.fn(), resume: jest.fn() };
+    mockInitSwiperReturn = {
+      slides: [],
+      activeIndex: 0,
+      previousIndex: 0,
+      on: jest.fn(),
+      update: jest.fn(),
+      autoplay,
+    };
+
+    loadModule();
+    await intersect(el);
+
+    document.body.append(wall);
+    carousel.dispatchEvent(new Event("mouseleave"));
+    expect(autoplay.resume).not.toHaveBeenCalled();
+    expect(autoplay.pause).toHaveBeenCalled();
+  });
+
   it("pauses autoplay while a slide has keyboard focus and resumes once focus leaves entirely", async () => {
     document.body.innerHTML = "";
     const carousel = document.createElement("div");
