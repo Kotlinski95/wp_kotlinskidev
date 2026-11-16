@@ -24,8 +24,10 @@ const activate = (video: HTMLVideoElement): void => {
 const loadLightboxVideos = (event: Event): void => {
   const modal = (event as CustomEvent<{ modal: HTMLElement }>).detail?.modal;
   modal?.querySelectorAll<HTMLVideoElement>("video[data-src]").forEach((video) => {
+    video.preload = "auto";
     video.src = video.dataset.src ?? "";
     delete video.dataset.src;
+    video.load();
   });
 };
 

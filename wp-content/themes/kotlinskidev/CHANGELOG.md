@@ -18,6 +18,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Fixed
 
+- **2026-11-16 — Device-frame video lightboxes play again: the modal video now prints its attachment width, height and poster (`kotlinskidev_device_frame_lightbox_video_tag()` in `functions/device-frame-lightbox.php`) and switches to `preload="auto"` and `load()` on open.** Before, the deferred `preload="none"` video never started loading and collapsed to a 150 px strip.
 - **2026-11-16 — Synced `templates/single-service_location.html` with the Site Editor override, which was the intended reference layout.** The service-location e2e specs now assert that markup (two gradient city headings, `translated-text` hero CTA for Polylang routing), and local `/en/` links became root-relative.
 
 ## [2.1.0] — 2026-11-16

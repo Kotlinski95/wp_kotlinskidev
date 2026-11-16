@@ -109,19 +109,23 @@ describe("device-frame init", () => {
     expect(video.getAttribute("poster")).toBe("http://x/p.jpg");
   });
 
-  it("sets the lightbox video src when its modal opens", () => {
+  it("sets the lightbox video src and starts loading it when its modal opens", () => {
     document.body.innerHTML =
       '<div id="m"><video class="kt-device-frame-lightbox__media" data-src="http://x/b.mp4" preload="none"></video></div>';
     const modal = document.getElementById("m") as HTMLElement;
+    const video = modal.querySelector("video") as HTMLVideoElement;
+    const load = jest.fn();
+    Object.defineProperty(video, "load", { value: load, configurable: true });
     jest.isolateModules(() => {
       require("./init");
     });
 
     document.dispatchEvent(new CustomEvent("kt-modal:open", { detail: { modal } }));
 
-    const video = modal.querySelector("video") as HTMLVideoElement;
     expect(video.getAttribute("src")).toBe("http://x/b.mp4");
     expect(video.dataset.src).toBeUndefined();
+    expect(video.preload).toBe("auto");
+    expect(load).toHaveBeenCalledTimes(1);
   });
 
   it("pauses once it leaves the viewport", () => {
