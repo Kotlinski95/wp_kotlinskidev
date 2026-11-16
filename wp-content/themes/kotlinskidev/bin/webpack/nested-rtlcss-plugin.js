@@ -22,7 +22,7 @@ class NestedRtlCssPlugin {
         const dst = rtlcss.process(src);
         const dstFileName = path.posix.join(
           path.posix.dirname(filename),
-          compilation.getPath("[name]-rtl.css", { chunk, cssFileName: filename })
+          path.posix.basename(filename, ".css") + "-rtl.css"
         );
 
         compilation.assets[dstFileName] = new webpack.sources.RawSource(dst);

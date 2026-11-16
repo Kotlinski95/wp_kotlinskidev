@@ -8,15 +8,12 @@ import {
   resolveButtonStyle,
 } from "./button-style-variants";
 
-const themeJsonPath = path.resolve(__dirname, "../../theme.json");
-const themeJson = JSON.parse(fs.readFileSync(themeJsonPath, "utf8")) as {
-  styles: { blocks: { "core/button": { variations: Record<string, unknown> } } };
-};
+const variantsPath = path.resolve(__dirname, "../button-style-variants.json");
+const registeredNames = JSON.parse(fs.readFileSync(variantsPath, "utf8")) as string[];
 
 describe("button-style-variants", () => {
-  it("matches the core/button variations defined in theme.json", () => {
-    const names = Object.keys(themeJson.styles.blocks["core/button"].variations);
-    expect([...BUTTON_STYLE_VARIANTS].sort()).toEqual([...names].sort());
+  it("matches the core/button variations registered in button-style-variants.json", () => {
+    expect([...BUTTON_STYLE_VARIANTS].sort()).toEqual([...registeredNames].sort());
   });
 
   it("has the default variant in the list", () => {

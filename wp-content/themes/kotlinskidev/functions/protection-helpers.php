@@ -401,6 +401,18 @@ if (!function_exists('kotlinskidev_maybe_add_auto_protection')) {
     add_action('init', 'kotlinskidev_maybe_add_auto_protection');
 }
 
+if (!function_exists('kotlinskidev_print_protection_loading_text')) {
+    function kotlinskidev_print_protection_loading_text(): void
+    {
+        $text = __('Loading protected content...', 'kotlinskidev');
+        printf(
+            '<style id="kt-protected-loading-text">:root{--kt-protected-loading-text:%s}</style>' . "\n",
+            wp_json_encode($text, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP)
+        );
+    }
+    add_action('wp_head', 'kotlinskidev_print_protection_loading_text', 5);
+}
+
 if (!function_exists('kotlinskidev_admin_protection_settings')) {
     /**
      * Add protection settings to admin

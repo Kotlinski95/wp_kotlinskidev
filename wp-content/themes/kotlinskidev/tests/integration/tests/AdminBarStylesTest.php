@@ -27,5 +27,5 @@ it('enqueues the admin bar stylesheet when the admin bar is showing', function (
     expect(wp_style_is('kotlinskidev-admin-bar', 'enqueued'))->toBeTrue();
 
     $registered = wp_styles()->registered['kotlinskidev-admin-bar'];
-    expect($registered->src)->toContain('/build/admin-bar.css');
+    expect($registered->src)->toContain('/build/css/admin-bar.css');
 });

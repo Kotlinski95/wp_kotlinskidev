@@ -23,6 +23,19 @@ const setup = (): { video: HTMLVideoElement; play: jest.Mock; pause: jest.Mock }
   return { video, play, pause };
 };
 
+const mockMobileViewport = (): (() => void) => {
+  const original = window.matchMedia;
+  window.matchMedia = jest.fn().mockImplementation((query: string) => ({
+    matches: query === "(max-width: 781px)" || query === "(max-width: 1023px)",
+    media: query,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  })) as unknown as typeof window.matchMedia;
+  return () => {
+    window.matchMedia = original;
+  };
+};
+
 describe("device-frame init", () => {
   beforeEach(() => {
     jest.resetModules();
@@ -65,6 +78,54 @@ describe("device-frame init", () => {
 
     expect(video.getAttribute("poster")).toBe("http://x/p.jpg");
     expect(video.dataset.poster).toBeUndefined();
+  });
+
+  it("uses the mobile poster on narrow viewports", () => {
+    const { video } = setup();
+    video.setAttribute("data-poster", "http://x/p.jpg");
+    video.setAttribute("data-kt-poster-mobile", "http://x/p-m.jpg");
+    const restore = mockMobileViewport();
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    capturedCallback?.([{ isIntersecting: true, target: video }]);
+
+    expect(video.getAttribute("poster")).toBe("http://x/p-m.jpg");
+    restore();
+  });
+
+  it("uses the full poster on wide viewports", () => {
+    const { video } = setup();
+    video.setAttribute("data-poster", "http://x/p.jpg");
+    video.setAttribute("data-kt-poster-mobile", "http://x/p-m.jpg");
+    Object.defineProperty(window, "innerWidth", { value: 1600, configurable: true });
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    capturedCallback?.([{ isIntersecting: true, target: video }]);
+
+    expect(video.getAttribute("poster")).toBe("http://x/p.jpg");
+  });
+
+  it("sets the lightbox video src and starts loading it when its modal opens", () => {
+    document.body.innerHTML =
+      '<div id="m"><video class="kt-device-frame-lightbox__media" data-src="http://x/b.mp4" preload="none"></video></div>';
+    const modal = document.getElementById("m") as HTMLElement;
+    const video = modal.querySelector("video") as HTMLVideoElement;
+    const load = jest.fn();
+    Object.defineProperty(video, "load", { value: load, configurable: true });
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    document.dispatchEvent(new CustomEvent("kt-modal:open", { detail: { modal } }));
+
+    expect(video.getAttribute("src")).toBe("http://x/b.mp4");
+    expect(video.dataset.src).toBeUndefined();
+    expect(video.preload).toBe("auto");
+    expect(load).toHaveBeenCalledTimes(1);
   });
 
   it("pauses once it leaves the viewport", () => {

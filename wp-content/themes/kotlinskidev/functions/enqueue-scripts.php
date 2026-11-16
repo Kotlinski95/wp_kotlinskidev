@@ -61,8 +61,11 @@ function master_css_filter($html, $handle)
         [
             'wp-block-navigation',
             'wp-pwa-manager-frontend',
+            'accessibility-onetap',
+            'cmplz-banner-1-optin',
         ],
-        kotlinskidev_get_deferred_block_style_handles()
+        kotlinskidev_get_deferred_block_style_handles(),
+        kotlinskidev_get_block_style_link_handles()
     );
     if (in_array($handle, $deferred_handles, true)) {
         $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
@@ -71,6 +74,9 @@ function master_css_filter($html, $handle)
         if (strpos($html, 'onload=') === false) {
             $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
             $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
+        }
+        if (in_array($handle, ['accessibility-onetap', 'cmplz-banner-1-optin'], true)) {
+            $html = str_replace("this.media='all'", "this.media='all';document.documentElement.classList.add('kt-css-" . $handle . "')", $html);
         }
     }
 

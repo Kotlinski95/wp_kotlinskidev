@@ -1,17 +1,5 @@
-import "swiper/swiper-bundle.css";
-import Swiper from "swiper";
-import {
-  Navigation,
-  Pagination,
-  Keyboard,
-  Autoplay,
-  Scrollbar,
-  EffectFade,
-  EffectCube,
-  EffectCoverflow,
-  EffectFlip,
-  EffectCards,
-} from "swiper/modules";
+import "@utils/webpack-public-path";
+import type Swiper from "swiper";
 import { buildSwiperConfig } from "@utils/carousel/buildConfig";
 import type { CarouselSettings } from "@utils/carousel/types";
 
@@ -23,8 +11,26 @@ const parseSettings = (el: HTMLElement): Partial<CarouselSettings> => {
   }
 };
 
-export const initBannerCarousel = (el: HTMLElement): Swiper => {
+export const initBannerCarousel = async (el: HTMLElement): Promise<Swiper> => {
   const settings = parseSettings(el);
+  const [{ default: Swiper }, modules, { loadSwiperStyles }] = await Promise.all([
+    import("swiper"),
+    import("@utils/carousel/bannerSwiperModules"),
+    import("@utils/carousel/loadSwiperStyles"),
+  ]);
+  const {
+    Navigation,
+    Pagination,
+    Keyboard,
+    Autoplay,
+    Scrollbar,
+    EffectFade,
+    EffectCube,
+    EffectCoverflow,
+    EffectFlip,
+    EffectCards,
+  } = modules;
+  await loadSwiperStyles(settings);
   const config = buildSwiperConfig(settings);
 
   const navContainer =
@@ -89,7 +95,9 @@ export const initBannerCarousel = (el: HTMLElement): Swiper => {
 };
 
 const init = (): void => {
-  document.querySelectorAll<HTMLElement>("[data-carousel-settings]").forEach(initBannerCarousel);
+  document.querySelectorAll<HTMLElement>("[data-carousel-settings]").forEach((el) => {
+    void initBannerCarousel(el);
+  });
 };
 
 if (document.readyState === "loading") {

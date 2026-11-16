@@ -34,7 +34,7 @@
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"primary","textColor":"background"} -->
-<div class="wp-block-button"><a class="wp-block-button__link has-background-color has-primary-background-color has-text-color wp-element-button"><?php esc_html_e( 'View case study', 'kotlinskidev' ); ?></a></div>
+<div class="wp-block-button"><a class="wp-block-button__link has-background-color has-primary-background-color has-text-color has-background wp-element-button"><?php esc_html_e( 'View case study', 'kotlinskidev' ); ?></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:column --></div>

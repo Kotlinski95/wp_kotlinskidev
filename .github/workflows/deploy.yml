@@ -20,6 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 30
+    outputs:
+      skip: ${{ steps.gate.outputs.skip }}
     env:
       THEME_DIR: wp-content/themes/kotlinskidev
       DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
@@ -30,6 +32,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check skip flags
         id: gate
@@ -220,3 +224,32 @@ jobs:
           aws lightsail close-instance-public-ports \
             --instance-name "${{ vars.LIGHTSAIL_INSTANCE_NAME }}" \
             --port-info "fromPort=22,toPort=22,protocol=tcp,cidrs=${{ steps.port.outputs.runner_ip }}/32"
+
+  tag-release:
+    name: Tag release
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: needs.deploy.result == 'success' && needs.deploy.outputs.skip != 'true'
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      THEME_DIR: wp-content/themes/kotlinskidev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ github.token }}
+
+      - name: Tag release
+        run: |
+          version=$(sed -n 's/^Version:[[:space:]]*//p' "$THEME_DIR/style.css" | head -n1 | tr -d '[:space:]')
+          [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+([-+][0-9A-Za-z.-]+)?$ ]] || exit 1
+          tag="v$version"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "Tag $tag already exists." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git tag "$tag" "${{ github.sha }}"
+            git push origin "refs/tags/$tag"
+            echo "Created tag $tag." >> "$GITHUB_STEP_SUMMARY"
+          fi

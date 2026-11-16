@@ -1,8 +1,13 @@
 <?php
 function kotlinskidev_theme_json_button_style_variant_names(): array {
-    $theme_json = json_decode( (string) file_get_contents( get_template_directory() . '/theme.json' ), true );
+    static $names = null;
 
-    return array_keys( $theme_json['styles']['blocks']['core/button']['variations'] ?? [] );
+    if ( null === $names ) {
+        $decoded = json_decode( (string) file_get_contents( get_template_directory() . '/src/button-style-variants.json' ), true );
+        $names   = is_array( $decoded ) ? array_values( $decoded ) : [];
+    }
+
+    return $names;
 }
 
 function kotlinskidev_resolve_button_style( $value ): string {

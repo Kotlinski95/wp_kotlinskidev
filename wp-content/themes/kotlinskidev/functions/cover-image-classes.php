@@ -44,7 +44,7 @@ function control_block_lazy_loading($output, $block)
 
     $lazy_class       = get_theme_mod('kotlinskidev_lazy_loading_class', 'skip-lazy');
     $classes_to_add   = array($lazy_class, 'no-lazy-loading');
-    $high_priority    = kotlinskidev_claim_lcp_slot(kotlinskidev_get_cover_video_poster_url($block));
+    $high_priority    = kotlinskidev_claim_lcp_slot(array(array('href' => kotlinskidev_get_cover_video_poster_url($block))));
 
     $take_high_priority = static function () use (&$high_priority): string {
         $attribute     = $high_priority ? ' fetchpriority="high"' : '';

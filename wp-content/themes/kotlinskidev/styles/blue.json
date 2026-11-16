@@ -250,7 +250,10 @@
           "color": "light-dark(var(--wp--preset--color--divider-dark), var(--wp--preset--color--divider-light))",
           "name": "Divider Contrast (Adaptive)"
         }
-      ]
+      ],
+      "defaultDuotone": false,
+      "customDuotone": false,
+      "defaultGradients": false
     }
   }
 }

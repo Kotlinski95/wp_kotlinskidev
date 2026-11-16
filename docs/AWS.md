@@ -23,7 +23,7 @@ visitor -> Cloudflare -> Lightsail firewall (Cloudflare IPs only) -> Apache + PH
 | Region | `eu-central-1` (Frankfurt) |
 | Network | Static IP attached, dual-stack (IPv4 and IPv6), firewall: 443 Cloudflare only (port 80 closed), 22 admin IP plus Lightsail browser SSH |
 | Origin hardening | Cloudflare Origin CA cert, Authenticated Origin Pulls enforced, `mod_remoteip`, IMDSv2 required |
-| Server software | Debian 12.15, auto security updates on, key-only SSH without root login, PHP 8.2 limits tightened, MariaDB cache 128 MB, system cron for WordPress |
+| Server software | Debian 12.15, auto security updates on, key-only SSH without root login, PHP 8.5 limits tightened (see `php.md`), MariaDB cache 128 MB, system cron for WordPress |
 | Backups | 1 manual snapshot (2026-11-08). Automatic snapshots off on purpose (paid) |
 | Monitoring | 3 Lightsail alarms (CPU, burst capacity, status check) and 2 CloudWatch alarms (memory, disk), email alerts. Details in `docs/monitoring.md` |
 | Load (last 14 days) | CPU avg 1.2 %, max 76.7 %; burst capacity never below 82.5 %; memory avg 29.6 %, max 42.7 %; disk max 12.9 % |
@@ -38,7 +38,7 @@ visitor -> Cloudflare -> Lightsail firewall (Cloudflare IPs only) -> Apache + PH
 **Our setting:**
 
 - Instance `Kotlinskidev-wordpress`, blueprint `wordpress_ls_1_0` (AWS's own WordPress image, not Bitnami), bundle `micro_3_0`: 2 vCPU, 1 GB RAM, 40 GB SSD, 2 TB monthly transfer.
-- Debian with Apache 2.4 and mod_php 8.2. The WordPress root is `/var/www/html`, and `wp-config.php` sits one level up.
+- Debian with Apache 2.4 and mod_php 8.5. The WordPress root is `/var/www/html`, and `wp-config.php` sits one level up.
 - The size fits the load. Over 14 days the CPU averaged 1.2 % and burst capacity never dropped below 82.5 %. Memory peaked at 42.7 % and the disk is 13 % full. An upgrade is not needed. Recheck these numbers after a traffic jump or a new heavy plugin.
 - Cloudflare caches most HTML at the edge, which is the main reason a 1 GB server is enough.
 
@@ -147,18 +147,18 @@ visitor -> Cloudflare -> Lightsail firewall (Cloudflare IPs only) -> Apache + PH
 | Operating system | Debian 12.15, `unattended-upgrades` enabled, 0 packages waiting | security patches install by themselves |
 | Memory | 945 MiB RAM, 649 MiB swap, about 400 MiB available | swap stops a short memory spike from crashing the server |
 | Monitoring agent | `amazon-cloudwatch-agent` active | feeds the memory and disk alarms |
-| PHP | 8.2.35 as `mod_php`, `expose_php` off, OPcache on (192 MB, 32 MB for interned strings) | OPcache keeps compiled PHP in memory so pages build faster |
+| PHP | 8.5.12 as `mod_php`, `expose_php` off, OPcache on (192 MB, 32 MB for interned strings) | OPcache keeps compiled PHP in memory so pages build faster |
 | Apache | `ServerTokens Prod`, `ServerSignature Off`, `headers` module on | Apache stops advertising its version, and the `Cache-Control` rules in `.htaccess` work |
 | Database | MariaDB 10.11.19, 173 MB of data, InnoDB buffer pool 128 MB | the cache holds the hot part of the database in RAM |
 | WordPress cron | system cron every 5 minutes | scheduled tasks no longer wait for visitors |
 | Outgoing network | prefers IPv4 (`/etc/gai.conf`) | Cloudflare's IP Access rule for the server matches the IPv4 static IP only |
 | Cache warming | Node 18, `/etc/cron.d/kotlinskidev-cache-warm` | nightly full warm plus a 5-minute purge check, see `docs/cache-warming.md` |
 
-**PHP limits.** Lightsail's own files set `memory_limit` to 512M and the main `php.ini` allowed 512M uploads. On a 1 GB server a few heavy requests could use most of the RAM, and a huge upload limit helps abusers. `/etc/php/8.2/apache2/conf.d/99-kotlinskidev.ini` overrides them: `memory_limit = 256M`, `upload_max_filesize = 64M`, `post_max_size = 64M`. The biggest file in the Media Library is 10.1 MB. To restore a large site backup, remove that file temporarily, restore, then put it back. Rollback: `sudo rm /etc/php/8.2/apache2/conf.d/99-kotlinskidev.ini && sudo systemctl reload apache2`.
+**PHP limits.** Lightsail's own files set `memory_limit` to 512M and the main `php.ini` allowed 512M uploads. On a 1 GB server a few heavy requests could use most of the RAM, and a huge upload limit helps abusers. `/etc/php/8.5/apache2/conf.d/99-kotlinskidev.ini` overrides them: `memory_limit = 256M`, `upload_max_filesize = 64M`, `post_max_size = 64M`. The biggest file in the Media Library is 10.1 MB. To restore a large site backup, remove that file temporarily, restore, then put it back. Rollback: `sudo rm /etc/php/8.5/apache2/conf.d/99-kotlinskidev.ini && sudo systemctl reload apache2`.
 
-**PHP OPcache.** On 2026-11-12 OPcache's default 128 MB was completely used (0 MB free) and the 8 MB string buffer was full, so any new plugin could push PHP files out of the cache. `/etc/php/8.2/apache2/conf.d/99-kotlinskidev-opcache.ini` sets `opcache.memory_consumption=192` and `opcache.interned_strings_buffer=32` (about 90 MB more RAM at most). Apply a change with `sudo systemctl restart apache2`, because OPcache memory is only resized on a full restart. Rollback: delete the file and restart Apache.
+**PHP OPcache.** On 2026-11-12 OPcache's default 128 MB was completely used (0 MB free) and the 8 MB string buffer was full, so any new plugin could push PHP files out of the cache. `/etc/php/8.5/apache2/conf.d/99-kotlinskidev-opcache.ini` sets `opcache.memory_consumption=192` and `opcache.interned_strings_buffer=32` (about 90 MB more RAM at most). Apply a change with `sudo systemctl restart apache2`, because OPcache memory is only resized on a full restart. Rollback: delete the file and restart Apache.
 
-**Apache workers.** Apache uses the `prefork` module with `MaxRequestWorkers 5`, `KeepAlive On` and `KeepAliveTimeout 5`. With only five workers, a burst of requests to the origin queues: static files took 6-10 s while the cache warm-up ran, and 0.1-0.2 s on an idle server (an uncached page builds in about 0.8 s). The warm-up now fetches files 2 at a time to stay below the worker count. Do not purge the whole cache repeatedly, because each purge starts a full re-warm. A later improvement is `mpm_event` with PHP-FPM, which serves static files without a full PHP worker.
+**Apache workers.** Apache uses the `prefork` module with `MaxRequestWorkers 8` and `KeepAlive On` with `KeepAliveTimeout 1`. On 2026-11-15 both values were tightened after the WordPress editor went blank with 522 errors (see `docs/522.md`). The limit was 5 and the timeout 5 s. Each worker holds one connection, plus any idle keep-alive time, so a page that loads 150 scripts at once (the block editor) queued behind five workers. Cloudflare retried after 1 s and 3 s and finally returned 522. The new numbers come from measured memory: each worker uses about 62 MB of its own memory (`Pss` in `/proc/PID/smaps_rollup`), and about 330 MB of RAM was free, so 8 workers is the safe ceiling. Do not raise it further without re-measuring `free -h`: more workers push the server into swap. The files changed are `/etc/apache2/mods-available/mpm_prefork.conf` (`mods-enabled` only holds a symlink to it, so edit the real file, because `sed -i` on a symlink replaces it) and `/etc/apache2/apache2.conf`. Backups: `mods-enabled/mpm_prefork.conf.bak` and `apache2.conf.bak`. Rollback: copy the backups back and run `sudo systemctl reload apache2`. Earlier, a static file took 6-10 s while the cache warm-up ran, and 0.1-0.2 s on an idle server (an uncached page builds in about 0.8 s). The warm-up fetches files 2 at a time to stay below the worker count. Do not purge the whole cache repeatedly, because each purge starts a full re-warm. A later improvement is `mpm_event` with PHP-FPM, which serves static files without a full PHP worker and would remove this limit.
 
 **Apache version hiding.** `/etc/apache2/conf-available/zz-hide-version.conf` (enabled with `a2enconf`) loads after Debian's `security.conf`, so it wins. Rollback: `sudo a2disconf zz-hide-version && sudo systemctl reload apache2`.
 

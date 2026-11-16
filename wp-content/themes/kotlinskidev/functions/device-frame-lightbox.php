@@ -10,10 +10,7 @@ function kotlinskidev_device_frame_lightbox_registry( ?array $entry = null, ?str
 }
 
 function kotlinskidev_register_device_frame_lightbox_media( int $media_id, bool $is_video ): string {
-    static $instance = 0;
-    $instance++;
-
-    $modal_id = 'kt-modal-device-frame-' . $instance . '-' . $media_id;
+    $modal_id = 'kt-modal-device-frame-' . $media_id;
     kotlinskidev_device_frame_lightbox_registry(
         [
             'media_id' => $media_id,
@@ -42,7 +39,7 @@ function kotlinskidev_render_device_frame_lightbox_shells(): void {
         echo '<div class="kt-modal__content kt-device-frame-lightbox__content">';
 
         if ( $is_video ) {
-            echo '<video class="kt-device-frame-lightbox__media" src="' . esc_url( wp_get_attachment_url( $media_id ) ) . '" controls playsinline></video>';
+            echo kotlinskidev_device_frame_lightbox_video_tag( $media_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every attribute is escaped inside kotlinskidev_device_frame_lightbox_video_tag()
         } else {
             echo wp_get_attachment_image( $media_id, 'full', false, [ 'class' => 'kt-device-frame-lightbox__media' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes
         }
@@ -51,3 +48,21 @@ function kotlinskidev_render_device_frame_lightbox_shells(): void {
     }
 }
 add_action( 'wp_footer', 'kotlinskidev_render_device_frame_lightbox_shells' );
+
+function kotlinskidev_device_frame_lightbox_video_tag( int $media_id ): string {
+    $meta       = wp_get_attachment_metadata( $media_id );
+    $width      = is_array( $meta ) ? absint( $meta['width'] ?? 0 ) : 0;
+    $height     = is_array( $meta ) ? absint( $meta['height'] ?? 0 ) : 0;
+    $poster_id  = get_post_thumbnail_id( $media_id );
+    $poster_url = $poster_id ? wp_get_attachment_image_url( $poster_id, 'full' ) : '';
+
+    $attributes = ' data-src="' . esc_url( wp_get_attachment_url( $media_id ) ) . '"';
+    if ( $width && $height ) {
+        $attributes .= ' width="' . $width . '" height="' . $height . '"';
+    }
+    if ( $poster_url ) {
+        $attributes .= ' poster="' . esc_url( $poster_url ) . '"';
+    }
+
+    return '<video class="kt-device-frame-lightbox__media"' . $attributes . ' preload="none" controls playsinline></video>';
+}

@@ -19,6 +19,8 @@ it('hides the loader without JS via noscript style', function () {
 });
 
 it('prints an inline dismiss script with timeout fallback at the end of the body', function () {
+    test()->setExpectedDeprecated('the_block_template_skip_link');
+
     ob_start();
     do_action('wp_footer');
     $html = ob_get_clean();

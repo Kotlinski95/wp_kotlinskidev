@@ -11728,3 +11728,8 @@ msgstr ""
 msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr ""
+
+#: functions/protection-helpers.php:411
+msgid "Loading protected content..."
+msgstr ""
+

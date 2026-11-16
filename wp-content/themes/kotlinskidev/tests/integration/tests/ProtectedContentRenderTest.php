@@ -27,7 +27,8 @@ it('applies a light-dark() text color that core\'s own style engine silently dro
         'innerContent' => [],
     ]);
 
-    expect($html)->toContain('style="color:light-dark(var(--wp--preset--color--foreground-dark), var(--wp--preset--color--foreground-light));"');
+    expect($html)->toContain('color:light-dark(var(--wp--preset--color--foreground-dark), var(--wp--preset--color--foreground-light))');
+    expect(substr_count($html, 'color:light-dark('))->toBe(1);
 });
 
 it('keeps the merged style attribute valid CSS when core\'s own engine already produced a style with no trailing semicolon', function () {

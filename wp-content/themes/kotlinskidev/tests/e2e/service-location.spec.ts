@@ -43,22 +43,24 @@ test.describe("Service Location city page (single-service_location.html) — bou
     expect(bodyText).not.toContain('{"source":"core/post-meta"');
   });
 
-  test("applies the gradient-text treatment to exactly the three contrast-safe city headings", async ({
+  test("applies the gradient-text treatment to exactly the two contrast-safe city headings", async ({
     page,
   }) => {
     const gradientCityElements = page.locator(`.kt-gradient-text:text("${cityName}")`);
 
-    await expect(gradientCityElements).toHaveCount(3);
+    await expect(gradientCityElements).toHaveCount(2);
   });
 
   test("leaves the pill badge and the primary-background CTA heading without gradient-text", async ({
     page,
   }) => {
-    const pillBadge = page.locator(`p.has-primary-background-color:text("${cityName}")`);
-    const ctaHeading = page.locator(`h2.has-background-color:text("${cityName}")`);
+    const pillBadge = page.locator(`p.has-small-font-size:text("${cityName}")`);
+    const ctaHeading = page.locator(`h2.has-foreground-dark-color:text("${cityName}")`);
 
-    await expect(pillBadge).not.toHaveClass(/kt-gradient-text/);
-    await expect(ctaHeading).not.toHaveClass(/kt-gradient-text/);
+    await expect(pillBadge.first()).toBeVisible();
+    await expect(pillBadge.and(page.locator(".kt-gradient-text"))).toHaveCount(0);
+    await expect(ctaHeading.first()).toBeVisible();
+    await expect(ctaHeading.and(page.locator(".kt-gradient-text"))).toHaveCount(0);
   });
 
   test("renders the city map for the fixture's own city", async ({ page }) => {
@@ -126,12 +128,22 @@ test.describe("Service Location city page — Polylang language routing", () => 
       return;
     }
 
+    const heroCta = page.locator("main .wp-block-buttons a").first();
+
     await page.goto(pair.pl);
     await acceptCookies(page);
-    await expect(page.getByRole("button", { name: "Zamów bezpłatną wycenę" })).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute("lang", /^pl/);
+    await expect(heroCta).toBeVisible();
+    const plText = (await heroCta.innerText()).trim();
 
     await page.goto(pair.en);
     await acceptCookies(page);
-    await expect(page.getByRole("button", { name: "Get a free quote" })).toBeVisible();
+    await expect(page.locator("html")).toHaveAttribute("lang", /^en/);
+    await expect(heroCta).toBeVisible();
+    const enText = (await heroCta.innerText()).trim();
+
+    expect(plText).not.toBe("");
+    expect(enText).not.toBe("");
+    expect(enText).not.toBe(plText);
   });
 });

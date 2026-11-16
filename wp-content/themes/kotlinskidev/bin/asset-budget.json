@@ -1,0 +1,11 @@
+{
+  "files": {
+    "build/css/critical.css": 76000,
+    "build/css/main.css": 88000,
+    "build/js/main.js": 60000,
+    "build/js/swiper.js": 140000
+  },
+  "globs": {
+    "build/css/blocks": { "extension": ".css", "exclude": "-rtl.css", "max": 20000 }
+  }
+}

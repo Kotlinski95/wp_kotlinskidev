@@ -76,11 +76,11 @@ it('adds a tablet source covering the tablet range', function () {
     $block = kotlinskidev_responsive_block('image', 'desktop.jpg', array('tablet' => array('url' => 'tablet.jpg')));
     $out   = kotlinskidev_apply_responsive_media(kotlinskidev_responsive_image_cover(), $block);
 
-    expect($out)->toContain('<source media="(max-width: 781px)" srcset="tablet.jpg">')
-        ->toContain('<source media="(min-width: 782px) and (max-width: 1023px)" srcset="tablet.jpg">');
+    expect($out)->toContain('<source media="(max-width: 1023px)" srcset="tablet.jpg">')
+        ->not->toContain('min-width');
 });
 
-it('moves a video cover src into data attributes with the breakpoints', function () {
+it('moves a video cover src into data attributes without breakpoint data', function () {
     $block = kotlinskidev_responsive_block('video', 'desktop.mp4', array('mobile' => array('url' => 'mobile.mp4')));
     $out   = kotlinskidev_apply_responsive_media(kotlinskidev_responsive_video_cover(), $block);
 
@@ -88,8 +88,7 @@ it('moves a video cover src into data attributes with the breakpoints', function
         ->toContain('data-kt-src-desktop="desktop.mp4"')
         ->toContain('data-kt-src-tablet="desktop.mp4"')
         ->toContain('data-kt-src-mobile="mobile.mp4"')
-        ->toContain('data-kt-bp-mobile="781"')
-        ->toContain('data-kt-bp-tablet="1023"')
+        ->not->toContain('data-kt-bp-')
         ->toContain(' autoplay');
 });
 
@@ -148,4 +147,163 @@ it('gives a slot video without a featured image no poster instead of the desktop
     expect($out)->toContain('data-kt-poster-tablet=""')
         ->toContain('data-kt-poster-desktop="desktop-poster.jpg"')
         ->not->toContain(' poster="desktop-poster.jpg"');
+});
+
+function kotlinskidev_responsive_image_block_markup(): string
+{
+    return '<figure class="wp-block-image size-large"><img src="desktop.jpg" alt="" class="wp-image-5" sizes="(max-width: 1200px) 100vw, 1200px"/></figure>';
+}
+
+function kotlinskidev_responsive_core_block(string $name, array $attrs): array
+{
+    return array('blockName' => $name, 'attrs' => $attrs);
+}
+
+it('registers the responsiveMedia attribute on core blocks listed in the registry only', function () {
+    $args = kotlinskidev_responsive_media_register_attribute(array('attributes' => array('id' => array('type' => 'number'))), 'core/image');
+
+    expect($args['attributes'])->toHaveKey('responsiveMedia')
+        ->and($args['attributes']['responsiveMedia'])->toBe(array('type' => 'object', 'default' => array()));
+    expect(kotlinskidev_responsive_media_register_attribute(array('attributes' => array()), 'core/group'))->toBe(array('attributes' => array()));
+    expect(kotlinskidev_responsive_media_register_attribute(array('attributes' => array()), 'kotlinskidev/device-frame'))->toBe(array('attributes' => array()));
+});
+
+it('reads the adapter registry shared with the editor', function () {
+    expect(kotlinskidev_responsive_media_registry())->toMatchArray(array(
+        'core/image'                       => 'image',
+        'core/cover'                       => 'cover',
+        'core/video'                       => 'video',
+        'kotlinskidev/hero-carousel-slide' => 'hero-slide',
+        'kotlinskidev/device-frame'        => 'device-frame',
+    ));
+});
+
+it('leaves a core image without responsive media byte-identical', function () {
+    $content = kotlinskidev_responsive_image_block_markup();
+
+    expect(kotlinskidev_apply_responsive_media($content, kotlinskidev_responsive_core_block('core/image', array('id' => 5))))->toBe($content);
+    expect(kotlinskidev_apply_responsive_media($content, kotlinskidev_responsive_core_block('core/image', array('responsiveMedia' => array()))))->toBe($content);
+    expect(kotlinskidev_apply_responsive_media($content, kotlinskidev_responsive_core_block('core/image', array('responsiveMedia' => array('mobile' => array('url' => 'desktop.jpg'))))))->toBe($content);
+});
+
+it('wraps a core image in a picture with a srcset source using the slot attachment', function () {
+    Functions\when('wp_get_attachment_image_srcset')->justReturn('mobile-400.webp 400w, mobile-828.webp 828w');
+    $block = kotlinskidev_responsive_core_block('core/image', array('id' => 5, 'responsiveMedia' => array('mobile' => array('id' => 9, 'url' => 'mobile-828.webp'))));
+
+    $out = kotlinskidev_apply_responsive_media(kotlinskidev_responsive_image_block_markup(), $block);
+
+    expect($out)->toContain('<figure class="wp-block-image size-large"><picture class="kt-responsive-media"><source media="(max-width: 781px)" srcset="mobile-400.webp 400w, mobile-828.webp 828w" sizes="(max-width: 1200px) 100vw, 1200px"><img src="desktop.jpg"')
+        ->toContain('</picture></figure>');
+});
+
+it('falls back to the slot url when the slot has no attachment id', function () {
+    $block = kotlinskidev_responsive_core_block('core/image', array('responsiveMedia' => array('mobile' => array('url' => 'mobile.webp'))));
+
+    $out = kotlinskidev_apply_responsive_media(kotlinskidev_responsive_image_block_markup(), $block);
+
+    expect($out)->toContain('<source media="(max-width: 781px)" srcset="mobile.webp"');
+});
+
+it('gives the same source to the mobile and tablet ranges when only a tablet slot is set', function () {
+    $block = kotlinskidev_responsive_core_block('core/image', array('responsiveMedia' => array('tablet' => array('url' => 'tablet.webp'))));
+
+    $out = kotlinskidev_apply_responsive_media(kotlinskidev_responsive_image_block_markup(), $block);
+
+    expect(substr_count($out, '<source'))->toBe(1);
+    expect($out)->toContain('<source media="(max-width: 1023px)" srcset="tablet.webp"');
+});
+
+it('moves a core video src into per-device data attributes and keeps its controls', function () {
+    $content = '<figure class="wp-block-video"><video controls poster="poster.jpg" src="desktop.mp4"></video></figure>';
+    $block   = kotlinskidev_responsive_core_block('core/video', array('id' => 4, 'responsiveMedia' => array('mobile' => array('url' => 'mobile.mp4', 'posterUrl' => 'mobile.jpg'))));
+
+    $out = kotlinskidev_apply_responsive_media($content, $block);
+
+    expect($out)->not->toContain(' src="desktop.mp4"')
+        ->toContain('data-kt-src-desktop="desktop.mp4"')
+        ->toContain('data-kt-src-mobile="mobile.mp4"')
+        ->toContain('data-kt-poster-mobile="mobile.jpg"')
+        ->toContain('data-kt-poster-tablet="poster.jpg"')
+        ->toContain(' controls');
+});
+
+it('leaves a core video without variants byte-identical', function () {
+    $content = '<figure class="wp-block-video"><video controls src="desktop.mp4"></video></figure>';
+
+    expect(kotlinskidev_apply_responsive_media($content, kotlinskidev_responsive_core_block('core/video', array('id' => 4))))->toBe($content);
+});
+
+it('resolves per-device sources and posters with the medium_large mobile default', function () {
+    Functions\when('wp_get_attachment_image_url')->justReturn('poster-medium.jpg');
+
+    $assets = kotlinskidev_resolve_responsive_media_assets(
+        array('src' => 'd.mp4', 'poster' => 'd.jpg', 'poster_id' => 3),
+        array(),
+        true
+    );
+
+    expect($assets['mobile'])->toBe(array('src' => 'd.mp4', 'poster' => 'poster-medium.jpg'))
+        ->and($assets['tablet'])->toBe(array('src' => 'd.mp4', 'poster' => 'd.jpg'))
+        ->and($assets['desktop'])->toBe(array('src' => 'd.mp4', 'poster' => 'd.jpg'));
+});
+
+it('does not apply the medium_large default when a slot is set or the default is off', function () {
+    Functions\when('wp_get_attachment_image_url')->justReturn('poster-medium.jpg');
+    $desktop = array('src' => 'd.mp4', 'poster' => 'd.jpg', 'poster_id' => 3);
+
+    $with_slot = kotlinskidev_resolve_responsive_media_assets($desktop, array('mobile' => array('url' => 'm.mp4', 'posterUrl' => 'm.jpg')), true);
+    $no_default = kotlinskidev_resolve_responsive_media_assets($desktop, array(), false);
+
+    expect($with_slot['mobile'])->toBe(array('src' => 'm.mp4', 'poster' => 'm.jpg'));
+    expect($no_default['mobile']['poster'])->toBe('d.jpg');
+});
+
+it('builds preload entries whose media strings equal the picture source media strings', function () {
+    $breakpoints = kotlinskidev_get_breakpoints();
+    $assets      = array('mobile' => 'm.jpg', 'tablet' => 'd.jpg', 'desktop' => 'd.jpg');
+    $srcsets     = array('mobile' => 'm-400.jpg 400w', 'desktop' => 'd-800.jpg 800w');
+
+    $entries = kotlinskidev_responsive_media_preload_entries($assets, $srcsets, '100vw', $breakpoints);
+    $picture = kotlinskidev_responsive_media_picture('<img>', $assets, $breakpoints, $srcsets, '100vw');
+    preg_match_all('/<source media="([^"]+)"/', $picture, $source_media);
+
+    expect(array_column($entries, 'media'))->toBe(array('(max-width: 781px)', '(min-width: 782px)'));
+    expect($source_media[1])->toBe(array('(max-width: 781px)'));
+    expect($entries[1])->toBe(array('href' => 'd.jpg', 'srcset' => 'd-800.jpg 800w', 'sizes' => '100vw', 'media' => '(min-width: 782px)'));
+});
+
+it('emits a single media-less preload entry when every device uses the same asset', function () {
+    $entries = kotlinskidev_responsive_media_preload_entries(
+        array('mobile' => 'd.jpg', 'tablet' => 'd.jpg', 'desktop' => 'd.jpg'),
+        array(),
+        '',
+        kotlinskidev_get_breakpoints()
+    );
+
+    expect($entries)->toBe(array(array('href' => 'd.jpg', 'srcset' => '', 'sizes' => '', 'media' => '')));
+});
+
+it('resolves alpha sources per device from slots that carry an alpha file', function () {
+    $slots = array('mobile' => array('url' => 'm.webm', 'alphaUrl' => 'm.mov'));
+
+    expect(kotlinskidev_responsive_media_alpha_sources('d.mov', $slots))->toBe(array('desktop' => 'd.mov', 'tablet' => 'd.mov', 'mobile' => 'm.mov'));
+    expect(kotlinskidev_responsive_media_alpha_sources('d.mov', array()))->toBe(array('desktop' => 'd.mov', 'tablet' => 'd.mov', 'mobile' => 'd.mov'));
+});
+
+it('drops slots without an alpha file on an alpha slide so the desktop pair is used', function () {
+    $slots = kotlinskidev_responsive_media_alpha_slots(array(
+        'mobile' => array('url' => 'm.webm'),
+        'tablet' => array('url' => 't.webm', 'alphaUrl' => 't.mov'),
+    ));
+
+    expect(array_keys($slots))->toBe(array('tablet'));
+    expect(kotlinskidev_resolve_responsive_media('d.webm', $slots))->toBe(array('desktop' => 'd.webm', 'tablet' => 't.webm', 'mobile' => 't.webm'));
+    expect(kotlinskidev_responsive_media_alpha_sources('d.mov', $slots))->toBe(array('desktop' => 'd.mov', 'tablet' => 't.mov', 'mobile' => 't.mov'));
+    expect(kotlinskidev_responsive_media_alpha_slots(array('mobile' => array('url' => 'm.webm'))))->toBe(array());
+});
+
+it('prints per-device alpha data attributes only where they differ from desktop', function () {
+    $sources = kotlinskidev_responsive_media_alpha_sources('d.mov', array('mobile' => array('url' => 'm.webm', 'alphaUrl' => 'm.mov')));
+
+    expect(kotlinskidev_responsive_media_data_attributes($sources, 'src-alpha'))->toBe(' data-kt-src-alpha-mobile="m.mov"');
 });

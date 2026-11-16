@@ -1,4 +1,5 @@
-import { SwiperInit, type SliderOptions } from "./swiper-init";
+import "@utils/webpack-public-path";
+import type { SliderOptions } from "./swiper-init";
 
 const init = (): void => {
   const containers = document.querySelectorAll<HTMLElement>(".wp-block-wpe-slider.swiper");
@@ -18,8 +19,10 @@ const init = (): void => {
       return;
     }
 
-    SwiperInit(element, options);
-    element.style.visibility = "visible";
+    void import("./swiper-init").then(({ SwiperInit }) => {
+      SwiperInit(element, options);
+      element.style.visibility = "visible";
+    });
   });
 };
 

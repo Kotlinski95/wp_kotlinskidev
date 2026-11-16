@@ -1,0 +1,15 @@
+@use "sass:map";
+@import "button-variant-map";
+
+@each $name, $props in $kt-translated-text-variants {
+	:where(.wp-block-button).is-style-#{$name} .wp-block-button__link {
+		background-color: map.get($props, background);
+		color: map.get($props, color);
+
+		@if map.has-key($props, border-color) {
+			border-color: map.get($props, border-color);
+			border-width: 2px;
+			border-style: solid;
+		}
+	}
+}

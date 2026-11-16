@@ -6,7 +6,7 @@
  */
 ?>
 <!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/project-showcase-faded-window","name":"Project Showcase - Faded Window"},"align":"wide","className":"kt-project-showcase--faded-window","style":{"border":{"width":"1px","color":"var:preset|color|divider","radius":"1.625rem"},"spacing":{"padding":{"top":"3.5rem","bottom":"0","left":"3.5rem","right":"3.5rem"},"margin":{"top":"0","bottom":"0"}}},"backgroundColor":"surface","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group alignwide kt-project-showcase--faded-window has-surface-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;margin-top:0;margin-bottom:0;border-radius:1.625rem;padding-top:3.5rem;padding-right:3.5rem;padding-bottom:0;padding-left:3.5rem"><!-- wp:group {"layout":{"type":"constrained","contentSize":"48ch"},"style":{"spacing":{"margin":{"bottom":"2.75rem"}}}} -->
+<div class="wp-block-group alignwide kt-project-showcase--faded-window has-border-color has-surface-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;margin-top:0;margin-bottom:0;border-radius:1.625rem;padding-top:3.5rem;padding-right:3.5rem;padding-bottom:0;padding-left:3.5rem"><!-- wp:group {"layout":{"type":"constrained","contentSize":"48ch"},"style":{"spacing":{"margin":{"bottom":"2.75rem"}}}} -->
 <div class="wp-block-group" style="margin-bottom:2.75rem"><!-- wp:heading {"textAlign":"center","style":{"spacing":{"margin":{"bottom":"0.625rem"}}}} -->
 <h2 class="wp-block-heading has-text-align-center" style="margin-bottom:0.625rem"><?php esc_html_e( 'Responsive, both ends of the range', 'kotlinskidev' ); ?></h2>
 <!-- /wp:heading -->

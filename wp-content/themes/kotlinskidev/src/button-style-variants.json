@@ -1,0 +1,18 @@
+[
+  "fill-light",
+  "fill-dark",
+  "fill-adaptive",
+  "fill-adaptive-contrast",
+  "primary-light",
+  "primary-dark",
+  "primary-adaptive",
+  "primary-adaptive-contrast",
+  "outline-light",
+  "outline-dark",
+  "outline-adaptive",
+  "outline-adaptive-contrast",
+  "outline-primary-light",
+  "outline-primary-dark",
+  "outline-primary-adaptive",
+  "outline-primary-adaptive-contrast"
+]

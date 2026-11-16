@@ -125,7 +125,7 @@ Because the edge now keeps unversioned files for up to a year, a file replaced a
 | --- | --- | --- |
 | Security headers | all | `Referrer-Policy: strict-origin-when-cross-origin`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` |
 | Static assets: versioned | `cache/asset-cleanup/*`, theme `assets/fonts/*`, `?ver=` files in themes, plugins, wp-includes | `public, max-age=31536000, immutable` |
-| Uploads | `/wp-content/uploads/*`, status 200 or 206 (video range requests) | `public, max-age=604800` |
+| Uploads | `/wp-content/uploads/*`, status 200 or 206 (video range requests) | `public, max-age=31536000` (1 year since 2026-11-15, was 7 days; no `immutable`, because an upload can be replaced under the same name) |
 | Theme build files without version | `/wp-content/themes/kotlinskidev/build/*` | `public, max-age=86400` |
 | Unversioned theme and plugin files | theme `assets/`, theme `polylang/`, plugin images, fonts, CSS, JS without `?ver=` | `public, max-age=2592000` |
 

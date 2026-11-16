@@ -10,6 +10,7 @@ require_once __DIR__ . '/../../includes/parallax-frontend.php';
 
 beforeEach(function () {
     Functions\when('esc_url')->alias(fn ($t) => $t);
+    Functions\when('wp_get_attachment_image_url')->justReturn(false);
     Functions\when('esc_attr')->alias(fn ($t) => $t);
 });
 
@@ -36,7 +37,7 @@ it('leaves cover blocks unchanged when there is no background image url', functi
 
 it('adds the parallax class and a fresh style attribute when none exists', function () {
     $content = '<div class="wp-block-cover is-light">Content</div>';
-    $block = ['blockName' => 'core/cover', 'attrs' => ['enableParallax' => true, 'url' => 'bg.jpg']];
+    $block = ['blockName' => 'core/cover', 'attrs' => ['enableParallax' => true, 'url' => 'bg.jpg', 'kotlinskidevAboveFold' => true]];
 
     $result = kotlinskidev_render_parallax_cover_block($content, $block);
 
@@ -47,11 +48,28 @@ it('adds the parallax class and a fresh style attribute when none exists', funct
 
 it('prepends the background-image declaration to an existing style attribute', function () {
     $content = '<section class="wp-block-cover" style="min-height:20rem;">Content</section>';
-    $block = ['blockName' => 'core/cover', 'attrs' => ['enableParallax' => true, 'url' => 'bg.jpg']];
+    $block = ['blockName' => 'core/cover', 'attrs' => ['enableParallax' => true, 'url' => 'bg.jpg', 'kotlinskidevAboveFold' => true]];
 
     $result = kotlinskidev_render_parallax_cover_block($content, $block);
 
     expect($result)->toBe(
         '<section class="wp-block-cover enable-parallax" style="background-image:url(\'bg.jpg\');min-height:20rem;">Content</section>'
     );
+});
+
+it('defers the background to a data attribute below the fold', function () {
+    $content = '<div class="wp-block-cover" style="min-height:20rem;">Content</div>';
+    $block = ['blockName' => 'core/cover', 'attrs' => ['enableParallax' => true, 'url' => 'bg.jpg']];
+
+    expect(kotlinskidev_render_parallax_cover_block($content, $block))->toBe(
+        '<div class="wp-block-cover enable-parallax" style="min-height:20rem;" data-kt-parallax-bg="bg.jpg">Content</div>'
+    );
+});
+
+it('uses the large attachment size for the deferred background', function () {
+    Functions\when('wp_get_attachment_image_url')->justReturn('bg-large.jpg');
+    $content = '<div class="wp-block-cover">Content</div>';
+    $block = ['blockName' => 'core/cover', 'attrs' => ['enableParallax' => true, 'url' => 'bg.jpg', 'id' => 7]];
+
+    expect(kotlinskidev_render_parallax_cover_block($content, $block))->toContain('data-kt-parallax-bg="bg-large.jpg"');
 });

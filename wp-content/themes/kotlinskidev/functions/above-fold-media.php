@@ -14,7 +14,8 @@ function &kotlinskidev_above_fold_state(): array
 {
     static $state = array(
         'claimed'          => false,
-        'preload_url'      => '',
+        'preloads'         => array(),
+        'owner'            => '',
         'hero_carousels'   => 0,
     );
 
@@ -26,7 +27,8 @@ function kotlinskidev_reset_above_fold_state(): void
     $state = &kotlinskidev_above_fold_state();
     $state = array(
         'claimed'        => false,
-        'preload_url'    => '',
+        'preloads'       => array(),
+        'owner'          => '',
         'hero_carousels' => 0,
     );
 }
@@ -62,16 +64,17 @@ function kotlinskidev_is_above_fold(array $block): bool
     return false;
 }
 
-function kotlinskidev_claim_lcp_slot(string $preload_url = ''): bool
+function kotlinskidev_claim_lcp_slot(array $preloads = array(), string $owner = ''): bool
 {
     $state = &kotlinskidev_above_fold_state();
 
     if ($state['claimed']) {
-        return false;
+        return '' !== $owner && $state['owner'] === $owner;
     }
 
-    $state['claimed']     = true;
-    $state['preload_url'] = $preload_url;
+    $state['claimed']  = true;
+    $state['preloads'] = $preloads;
+    $state['owner']    = $owner;
 
     wp_high_priority_element_flag(false);
     wp_increase_content_media_count(wp_omit_loading_attr_threshold());
@@ -79,18 +82,48 @@ function kotlinskidev_claim_lcp_slot(string $preload_url = ''): bool
     return true;
 }
 
+function kotlinskidev_lcp_preload_tag(array $entry): string
+{
+    $href = (string) ($entry['href'] ?? '');
+    if ('' === $href) {
+        return '';
+    }
+
+    $srcset = (string) ($entry['srcset'] ?? '');
+    $sizes  = (string) ($entry['sizes'] ?? '');
+    $media  = (string) ($entry['media'] ?? '');
+
+    $extra = '';
+    if ('' !== $media) {
+        $extra .= sprintf(' media="%s"', esc_attr($media));
+    }
+    if ('' !== $srcset) {
+        $extra .= sprintf(' imagesrcset="%s"', esc_attr($srcset));
+        if ('' !== $sizes) {
+            $extra .= sprintf(' imagesizes="%s"', esc_attr($sizes));
+        }
+    }
+
+    return sprintf(
+        '<link rel="preload" as="image" fetchpriority="high" href="%s"%s>' . "\n",
+        esc_url($href),
+        $extra
+    );
+}
+
 function kotlinskidev_print_lcp_preload(): void
 {
     $state = kotlinskidev_above_fold_state();
 
-    if (!$state['claimed'] || '' === $state['preload_url']) {
+    if (!$state['claimed']) {
         return;
     }
 
-    printf(
-        '<link rel="preload" as="image" fetchpriority="high" href="%s">' . "\n",
-        esc_url($state['preload_url'])
-    );
+    foreach ($state['preloads'] as $entry) {
+        if (is_array($entry)) {
+            echo kotlinskidev_lcp_preload_tag($entry); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every attribute escaped in kotlinskidev_lcp_preload_tag()
+        }
+    }
 }
 add_action('wp_head', 'kotlinskidev_print_lcp_preload', 1);
 
