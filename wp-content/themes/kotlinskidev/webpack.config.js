@@ -130,6 +130,25 @@ module.exports = {
       ...defaults.optimization.splitChunks,
       cacheGroups: {
         ...defaults.optimization.splitChunks.cacheGroups,
+        dompurify: {
+          test: /[\\/]node_modules[\\/]dompurify[\\/]/,
+          name: "dompurify",
+          chunks: "async",
+          enforce: true,
+          priority: 20,
+        },
+        swiperEffect: {
+          test: /[\\/]node_modules[\\/]swiper[\\/]modules[\\/]effect-(fade|cube|coverflow|flip|cards)\.m?js$/,
+          name: (module) => {
+            const match = /effect-(fade|cube|coverflow|flip|cards)\.m?js$/.exec(
+              module.resource ?? ""
+            );
+            return `swiper-effect-${match ? match[1] : "shared"}`;
+          },
+          chunks: "async",
+          enforce: true,
+          priority: 30,
+        },
         swiper: {
           test: /[\\/]node_modules[\\/]swiper[\\/]/,
           name: "swiper",

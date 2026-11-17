@@ -241,7 +241,7 @@ Because the edge now keeps unversioned files for up to a year, a file replaced a
 
 **Our setting:**
 
-- **Web Analytics (RUM)**: site tag `d900953950f04173b51fac8c3836f90b`, created 2025-08-22. Auto-install is on, so Cloudflare injects `beacon.min.js` into HTML responses. EU visitors are not excluded. The beacon sets no cookies. The theme CSP allows `static.cloudflareinsights.com` in `script-src` and `cloudflareinsights.com` in `connect-src`. Core Web Vitals per page are under Analytics & Logs → Web Analytics.
+- **Web Analytics (RUM)**: site tag `d900953950f04173b51fac8c3836f90b`, created 2025-08-22. Auto-install is on, so Cloudflare injects `beacon.min.js` into HTML responses. EU visitors are not excluded. The beacon sets no cookies. The theme CSP allows `static.cloudflareinsights.com` in `script-src` and `cloudflareinsights.com` in `connect-src`. Core Web Vitals per page are under Analytics & Logs → Web Analytics. The theme loads the beacon itself (`functions/cloudflare-beacon.php`) after the first interaction or 6 s post-load, with the token from Settings → Kotlinski.dev → Tracking → Cloudflare Web Analytics, so Auto-install must be off. The option is listed in `PRESERVE_OPTIONS` of `db/sync-to-prod.sh` so a database sync does not overwrite the production value.
 - Network Error Logging: Cloudflare adds `NEL` and `Report-To` headers.
 - Notifications (email to the account owner, created 2026-11-11): Passive Origin Monitoring (origin down), Universal SSL events, HTTP DDoS attack.
 - Origin health is monitored by CloudWatch (see `docs/monitoring.md`), not Cloudflare.

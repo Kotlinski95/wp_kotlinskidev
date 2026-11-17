@@ -1,15 +1,6 @@
 import Swiper from "swiper";
-import {
-  Navigation,
-  Pagination,
-  Keyboard,
-  Autoplay,
-  EffectFade,
-  EffectCube,
-  EffectCoverflow,
-  EffectFlip,
-  EffectCards,
-} from "swiper/modules";
+import { Navigation, Pagination, Keyboard, Autoplay } from "swiper/modules";
+import type { SwiperModule } from "swiper/types";
 import { buildSwiperConfig } from "./buildConfig";
 import type { CarouselSettings } from "./types";
 
@@ -19,6 +10,7 @@ export interface InitSwiperOptions {
   slideCount?: number;
   onSlideChange?: (index: number) => void;
   disableNativeHoverPause?: boolean;
+  effectModules?: SwiperModule[];
 }
 
 export const initSwiper = (
@@ -26,7 +18,14 @@ export const initSwiper = (
   settings: Partial<CarouselSettings>,
   options: InitSwiperOptions = {}
 ): Swiper => {
-  const { initialSlide, forceLoop, slideCount, onSlideChange, disableNativeHoverPause } = options;
+  const {
+    initialSlide,
+    forceLoop,
+    slideCount,
+    onSlideChange,
+    disableNativeHoverPause,
+    effectModules = [],
+  } = options;
   const config = buildSwiperConfig(settings);
 
   if (disableNativeHoverPause && config.autoplay) {
@@ -68,17 +67,7 @@ export const initSwiper = (
   }
 
   const swiper = new Swiper(el, {
-    modules: [
-      Navigation,
-      Pagination,
-      Keyboard,
-      Autoplay,
-      EffectFade,
-      EffectCube,
-      EffectCoverflow,
-      EffectFlip,
-      EffectCards,
-    ],
+    modules: [Navigation, Pagination, Keyboard, Autoplay, ...effectModules],
     ...config,
     ...overrides,
   } as ConstructorParameters<typeof Swiper>[1]);

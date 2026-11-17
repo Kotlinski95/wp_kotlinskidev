@@ -89,7 +89,9 @@ describe("article-toc init", () => {
     });
     window.scrollTo = jest.fn();
     window.matchMedia = jest.fn().mockImplementation((query: string) => ({
-      matches: false,
+      matches: /max-width:\s*([\d.]+)px/.test(query)
+        ? 500 <= Number(/max-width:\s*([\d.]+)px/.exec(query)![1])
+        : false,
       media: query,
       addEventListener: jest.fn(),
       removeEventListener: jest.fn(),

@@ -18,6 +18,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.1.3] — 2026-11-17
+
+### Changed
+
+- **2026-11-17 — Viewport checks no longer force a layout during page load.** `isMobile()` and `getDeviceType()` use `matchMedia` with the same breakpoints from `window.kotlinskiTheme.breakpoints` (falling back to `innerWidth`), which removes the forced reflow PageSpeed flagged in the theme bundle.
+- **2026-11-17 — Swiper effect modules (fade, cube, coverflow, flip, cards) load only when a carousel uses them.** The hero carousel and gallery lightbox call `loadEffectModules()` before `initSwiper()`, and each effect is its own small chunk, so the shared `swiper.js` shrinks by about 10 KB.
+- **2026-11-17 — `main.js` is about 13 KB smaller (56 KB to 43 KB) on every page.** The protected-content handler now loads only when a protected element or copy button exists, and the recently-viewed tracker and developer console banner load on idle after the page has loaded.
+- **2026-11-17 — DOMPurify is now one shared chunk instead of two identical copies** (gallery lightbox and protected content), saving about 30 KB on pages that use both.
+- **2026-11-17 — New `npm run analyze` script produces a source-map bundle report at `artifacts/bundle-report.html`.** It builds with source maps, runs `source-map-explorer` (new dev dependency) over `build/js`, then rebuilds a clean `build/`.
+- **2026-11-17 — The Cloudflare Web Analytics beacon now loads from the theme after the first interaction or 6 s post-load, instead of the edge auto-injected tag in the first-load chain.** The token is a setting under Settings → Kotlinski.dev → Tracking, so changing it needs no deploy, and Auto-install must be turned off in Cloudflare.
+
 ## [2.1.2] — 2026-11-17
 
 ### Fixed

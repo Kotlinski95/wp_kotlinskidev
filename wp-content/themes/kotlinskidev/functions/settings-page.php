@@ -503,6 +503,32 @@ function kotlinskidev_register_settings(): void
 
     register_setting(
         'kotlinskidev_settings_tracking',
+        'kotlinskidev_cf_beacon_token',
+        [
+            'type'              => 'string',
+            'sanitize_callback' => 'kotlinskidev_sanitize_cf_beacon_token',
+            'default'           => '',
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_tracking_cf',
+        esc_html__('Cloudflare Web Analytics', 'kotlinskidev'),
+        'kotlinskidev_render_tracking_cf_section',
+        'kotlinskidev-settings-tracking'
+    );
+
+    add_settings_field(
+        'kotlinskidev_cf_beacon_token',
+        esc_html__('Beacon token', 'kotlinskidev'),
+        'kotlinskidev_render_cf_beacon_token_field',
+        'kotlinskidev-settings-tracking',
+        'kotlinskidev_section_tracking_cf',
+        ['label_for' => 'kotlinskidev_cf_beacon_token']
+    );
+
+    register_setting(
+        'kotlinskidev_settings_tracking',
         'kotlinskidev_enabled_analytics_events',
         [
             'type'              => 'array',
@@ -1305,6 +1331,20 @@ function kotlinskidev_render_ga_script_field(): void
     ?>
     <textarea id="custom_ga_loader_custom_script" name="custom_ga_loader_custom_script" rows="8" class="large-text code"><?php echo esc_textarea($value); ?></textarea>
     <p class="description"><?php esc_html_e('Paste a full script tag here to override the ID-based snippet above.', 'kotlinskidev'); ?></p>
+    <?php
+}
+
+function kotlinskidev_render_tracking_cf_section(): void
+{
+    echo '<p>' . esc_html__('Loads the Cloudflare Web Analytics beacon after the first interaction or six seconds after page load, so it stays out of the critical path. Leave the token empty to disable it, and turn Auto-install off in Cloudflare so the beacon is not loaded twice.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_cf_beacon_token_field(): void
+{
+    $value = get_option('kotlinskidev_cf_beacon_token', '');
+    ?>
+    <input type="text" id="kotlinskidev_cf_beacon_token" name="kotlinskidev_cf_beacon_token" value="<?php echo esc_attr($value); ?>" class="regular-text code" maxlength="32" placeholder="32 hexadecimal characters" />
+    <p class="description"><?php esc_html_e('Cloudflare dashboard, Analytics & Logs, Web Analytics, your site, Manage site, the token inside the JavaScript snippet.', 'kotlinskidev'); ?></p>
     <?php
 }
 
