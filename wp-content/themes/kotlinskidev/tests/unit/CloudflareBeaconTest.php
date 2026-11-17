@@ -52,6 +52,8 @@ it('loads the beacon only after interaction or a post-load delay', function () {
     $script = kotlinskidev_cf_beacon_script();
 
     expect($script)->toContain('static.cloudflareinsights.com/beacon.min.js');
+    expect($script)->toContain('s.type="module"');
+    expect($script)->not->toContain('spa');
     expect($script)->toContain(KT_CF_TEST_TOKEN);
     expect($script)->toContain('setTimeout(load,6000)');
     expect($script)->toContain('pointerdown');

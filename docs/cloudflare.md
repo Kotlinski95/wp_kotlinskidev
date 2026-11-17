@@ -124,9 +124,9 @@ Because the edge now keeps unversioned files for up to a year, a file replaced a
 | Rule | Matches | Header |
 | --- | --- | --- |
 | Security headers | all | `Referrer-Policy: strict-origin-when-cross-origin`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` |
-| Static assets: versioned | `cache/asset-cleanup/*`, theme `assets/fonts/*`, `?ver=` files in themes, plugins, wp-includes | `public, max-age=31536000, immutable` |
+| Static assets: versioned | `cache/asset-cleanup/*`, theme `assets/fonts/*`, `?ver=` files in themes, plugins, wp-includes, and the theme's `build/` files with a `?v=` content hash (webpack chunks, since 2026-11-17) | `public, max-age=31536000, immutable` |
 | Uploads | `/wp-content/uploads/*`, status 200 or 206 (video range requests) | `public, max-age=31536000` (1 year since 2026-11-15, was 7 days; no `immutable`, because an upload can be replaced under the same name) |
-| Theme build files without version | `/wp-content/themes/kotlinskidev/build/*` | `public, max-age=86400` |
+| Theme build files without version | `/wp-content/themes/kotlinskidev/build/*` without `ver=` or `v=` | `public, max-age=86400` |
 | Unversioned theme and plugin files | theme `assets/`, theme `polylang/`, plugin images, fonts, CSS, JS without `?ver=` | `public, max-age=2592000` |
 
 - The security headers mean: `Referrer-Policy` limits what other sites learn about where the visitor came from, `X-Content-Type-Options` stops browsers guessing file types, `X-Frame-Options: DENY` stops other sites embedding ours in a frame (clickjacking).

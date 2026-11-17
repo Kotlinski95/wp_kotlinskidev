@@ -55,6 +55,40 @@ describe("sticky-header.ts", () => {
     }).not.toThrow();
   });
 
+  it("does not read the header height while the page is at the top", () => {
+    document.body.innerHTML = "<header></header>";
+    const header = document.querySelector("header") as HTMLElement;
+    const heightRead = jest.fn(() => 75);
+    Object.defineProperty(header, "offsetHeight", { configurable: true, get: heightRead });
+    jest.resetModules();
+    require("./sticky-header");
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+    flushRaf();
+
+    expect(heightRead).not.toHaveBeenCalled();
+  });
+
+  it("reads the header height only once the page has scrolled", () => {
+    document.body.innerHTML = "<header></header>";
+    const header = document.querySelector("header") as HTMLElement;
+    const heightRead = jest.fn(() => 75);
+    Object.defineProperty(header, "offsetHeight", { configurable: true, get: heightRead });
+    jest.resetModules();
+    require("./sticky-header");
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+    flushRaf();
+
+    setScrollTop(100);
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+    setScrollTop(120);
+    window.dispatchEvent(new Event("scroll"));
+    flushRaf();
+
+    expect(heightRead).toHaveBeenCalled();
+    expect(header.classList.contains("header-sticky")).toBe(true);
+  });
+
   it("adds header-sticky once scrolled past the threshold on desktop", () => {
     const header = loadWithHeader();
     setScrollTop(100);

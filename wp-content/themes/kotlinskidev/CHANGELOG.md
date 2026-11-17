@@ -18,6 +18,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.1.4] — 2026-11-17
+
+### Fixed
+
+- **2026-11-17 — Two forced reflows during page load are gone.** The sticky header reads its height only after the first scroll (`src/scripts/sticky-header.ts`, also inlined in `critical.js`), and the scroll-to-top button reads the document height only once the page is scrolled past 100 px.
+- **2026-11-17 — Async CSS chunks (such as `swiper.css`) are now requested with a content hash, like the JS chunks, so they can be cached for a year.** The RTL stylesheet plugin now ignores that query string, so `swiper-rtl.css` is still generated.
+- **2026-11-17 — The theme-loaded Cloudflare Web Analytics beacon now matches Cloudflare's own snippet.** It loads as `type="module"` with only the `token` option, instead of a classic script with an extra `spa` flag.
+
 ## [2.1.3] — 2026-11-17
 
 ### Changed
