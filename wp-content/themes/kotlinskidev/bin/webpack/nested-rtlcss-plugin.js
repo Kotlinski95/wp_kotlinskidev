@@ -8,7 +8,9 @@ const path = require("node:path");
 const rtlcss = require("rtlcss");
 const webpack = require("webpack");
 
-const cssOnly = (filename) => path.extname(filename) === ".css";
+const withoutQuery = (filename) => filename.split("?")[0];
+
+const cssOnly = (filename) => path.extname(withoutQuery(filename)) === ".css";
 
 class NestedRtlCssPlugin {
   processAssets = (compilation, callback) => {
@@ -20,9 +22,10 @@ class NestedRtlCssPlugin {
       files.filter(cssOnly).forEach((filename) => {
         const src = compilation.assets[filename].source();
         const dst = rtlcss.process(src);
+        const plainName = withoutQuery(filename);
         const dstFileName = path.posix.join(
-          path.posix.dirname(filename),
-          path.posix.basename(filename, ".css") + "-rtl.css"
+          path.posix.dirname(plainName),
+          path.posix.basename(plainName, ".css") + "-rtl.css"
         );
 
         compilation.assets[dstFileName] = new webpack.sources.RawSource(dst);

@@ -30,11 +30,10 @@ function kotlinskidev_cf_beacon_script(): string
 	$config = wp_json_encode(
 		array(
 			'token' => kotlinskidev_cf_beacon_token(),
-			'spa'   => true,
 		)
 	);
 
-	return '(function(){var started=false;function load(){if(started||document.querySelector("script[data-cf-beacon]")){return}started=true;var s=document.createElement("script");s.async=true;s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",' . wp_json_encode($config) . ');document.head.appendChild(s)}var events=["pointerdown","keydown","scroll","touchstart"];function arm(){events.forEach(function(e){addEventListener(e,load,{once:true,passive:true})});setTimeout(load,6000)}if(document.readyState==="complete"){arm()}else{addEventListener("load",arm,{once:true})}})();';
+	return '(function(){var started=false;function load(){if(started||document.querySelector("script[data-cf-beacon]")){return}started=true;var s=document.createElement("script");s.type="module";s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",' . wp_json_encode($config) . ');document.head.appendChild(s)}var events=["pointerdown","keydown","scroll","touchstart"];function arm(){events.forEach(function(e){addEventListener(e,load,{once:true,passive:true})});setTimeout(load,6000)}if(document.readyState==="complete"){arm()}else{addEventListener("load",arm,{once:true})}})();';
 }
 
 function kotlinskidev_print_cf_beacon_loader(): void

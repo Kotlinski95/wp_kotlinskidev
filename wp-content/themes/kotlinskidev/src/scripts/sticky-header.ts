@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement | null;
 
-  const stickyThreshold = header.offsetHeight;
+  let stickyThreshold: number | null = null;
   let rafId: number | null = null;
 
   const handleScroll = () => {
@@ -16,7 +16,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     rafId = requestAnimationFrame(() => {
-      const scrolled = getScrollTop() > stickyThreshold;
+      const scrollTop = getScrollTop();
+      if (scrollTop > 0) {
+        stickyThreshold ??= header.offsetHeight;
+      }
+      const scrolled = stickyThreshold !== null && scrollTop > stickyThreshold;
       header.classList.toggle("header-sticky", scrolled);
       breadcrumbs?.classList.toggle("kt-breadcrumbs--hidden", scrolled);
       rafId = null;

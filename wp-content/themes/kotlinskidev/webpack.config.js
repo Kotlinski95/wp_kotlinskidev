@@ -97,7 +97,10 @@ const nestedOutputPlugins = defaults.plugins
       !(plugin instanceof DependencyExtractionWebpackPlugin)
   )
   .concat([
-    new MiniCssExtractPlugin({ filename: "css/[name].css" }),
+    new MiniCssExtractPlugin({
+      filename: "css/[name].css",
+      chunkFilename: "css/[name].css?v=[contenthash]",
+    }),
     new NestedRtlCssPlugin(),
     new DropCssOnlyScriptsPlugin(),
     new DependencyExtractionWebpackPlugin({ outputFilename: "js/[name].asset.php" }),
