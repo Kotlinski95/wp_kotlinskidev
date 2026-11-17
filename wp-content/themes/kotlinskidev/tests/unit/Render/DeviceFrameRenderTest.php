@@ -30,7 +30,7 @@ beforeEach(function () {
     Functions\when('get_post_mime_type')->justReturn('image/webp');
     Functions\when('wp_get_attachment_metadata')->justReturn(false);
     Functions\when('wp_get_attachment_image')->alias(
-        fn ($id, $size, $icon, $attr) => '<img data-style="' . ($attr['style'] ?? '') . '" data-loading="' . $attr['loading'] . '" data-priority="' . $attr['fetchpriority'] . '">'
+        fn ($id, $size, $icon, $attr) => '<img class="' . ($attr['class'] ?? '') . '" data-style="' . ($attr['style'] ?? '') . '" data-loading="' . $attr['loading'] . '" data-priority="' . $attr['fetchpriority'] . '">'
     );
 });
 
@@ -181,6 +181,7 @@ it('moves an above-fold video with a mobile variant to data attributes', functio
     Functions\when('get_post_mime_type')->justReturn('video/mp4');
     Functions\when('get_post_thumbnail_id')->justReturn(7);
     Functions\when('wp_get_attachment_url')->justReturn('clip.mp4');
+    Functions\when('wp_get_attachment_image_srcset')->justReturn('');
 
     $html = kotlinskidev_device_frame_render([
         'imageId'               => 42,
@@ -225,4 +226,42 @@ it('leaves an image screen without variants as a plain image with a single prelo
     expect($html)->not->toContain('<picture');
     expect($head)->toBe('<link rel="preload" as="image" fetchpriority="high" href="frame.jpg">' . "\n");
     kotlinskidev_reset_above_fold_state();
+});
+
+it('renders an eager poster image under a video with a mobile variant and drops the video poster data', function () {
+    Functions\when('get_post_mime_type')->justReturn('video/mp4');
+    Functions\when('get_post_thumbnail_id')->justReturn(7);
+    Functions\when('wp_get_attachment_url')->justReturn('clip.mp4');
+    Functions\when('wp_get_attachment_image_srcset')->justReturn('poster-800.webp 800w');
+
+    $html = kotlinskidev_device_frame_render([
+        'imageId'               => 42,
+        'kotlinskidevAboveFold' => true,
+        'responsiveMedia'       => ['mobile' => ['url' => 'clip-m.mp4', 'type' => 'video']],
+    ]);
+
+    ob_start();
+    kotlinskidev_print_lcp_preload();
+    $head = ob_get_clean();
+
+    expect($html)->toContain('class="kt-device-frame__poster"');
+    expect($html)->toContain('data-loading="eager"');
+    expect($html)->toContain('data-priority="high"');
+    expect(strpos($html, 'kt-device-frame__poster'))->toBeLessThan(strpos($html, '<video'));
+    expect($html)->not->toContain('data-poster');
+    expect($html)->not->toContain('data-kt-poster');
+    expect($html)->toContain('data-src="clip.mp4"');
+    expect($html)->toContain('fetchpriority="auto"');
+    expect($head)->toContain('imagesrcset="poster-800.webp 800w"');
+    kotlinskidev_reset_above_fold_state();
+});
+
+it('does not render a poster image for a lazy video', function () {
+    Functions\when('get_post_mime_type')->justReturn('video/mp4');
+    Functions\when('get_post_thumbnail_id')->justReturn(7);
+    Functions\when('wp_get_attachment_url')->justReturn('clip.mp4');
+
+    $html = kotlinskidev_device_frame_render(['imageId' => 42]);
+
+    expect($html)->not->toContain('kt-device-frame__poster');
 });

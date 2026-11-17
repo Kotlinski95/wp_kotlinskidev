@@ -365,6 +365,7 @@ it('stores only name, size and hash in the submission record', function () {
 
 it('sends a retention alert without filenames or visitor data', function () {
     $requests = [];
+    Functions\when('wp_get_environment_type')->justReturn('production');
     Functions\when('get_option')->alias(fn ($name, $default = '') => 'kotlinskidev_ntfy_alert_url' === $name ? 'https://ntfy.sh/topic' : $default);
     Functions\when('esc_url_raw')->returnArg();
     Functions\when('wp_parse_url')->alias(fn ($u, $component = -1) => parse_url($u, $component));

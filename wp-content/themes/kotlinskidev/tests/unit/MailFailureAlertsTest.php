@@ -28,6 +28,7 @@ require_once __DIR__ . '/../../functions/mail-failure-alerts.php';
 
 function kotlinskidev_test_stub_alert_environment(string $url, array &$transients, array &$requests): void
 {
+    Functions\when('wp_get_environment_type')->justReturn('production');
     Functions\when('get_option')->alias(fn ($name, $default = '') => 'kotlinskidev_ntfy_alert_url' === $name ? $url : $default);
     Functions\when('esc_url_raw')->returnArg();
     Functions\when('wp_parse_url')->alias(fn ($u, $component = -1) => parse_url($u, $component));
@@ -243,4 +244,25 @@ it('skips the weekly check mail when the option is empty', function () {
     Functions\expect('wp_mail')->never();
 
     kotlinskidev_run_mail_health_check();
+});
+
+it('sends no alert outside production so local and staging stay quiet', function () {
+    $transients = [];
+    $requests   = [];
+    kotlinskidev_test_stub_alert_environment('https://ntfy.sh/topic', $transients, $requests);
+    Functions\when('wp_get_environment_type')->justReturn('local');
+
+    expect(kotlinskidev_get_ntfy_alert_url())->toBe('');
+    expect(kotlinskidev_send_mail_failure_alert('SMTP connect failed'))->toBeFalse();
+    expect($requests)->toBe([]);
+});
+
+it('lets a filter enable alerts outside production', function () {
+    $transients = [];
+    $requests   = [];
+    kotlinskidev_test_stub_alert_environment('https://ntfy.sh/topic', $transients, $requests);
+    Functions\when('wp_get_environment_type')->justReturn('staging');
+    Functions\when('apply_filters')->alias(fn ($hook, $value) => 'kotlinskidev_ntfy_alerts_enabled' === $hook ? true : $value);
+
+    expect(kotlinskidev_get_ntfy_alert_url())->toBe('https://ntfy.sh/topic');
 });

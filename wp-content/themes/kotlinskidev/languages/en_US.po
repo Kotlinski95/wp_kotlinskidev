@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-11-16T06:49:44+00:00\n"
+"POT-Creation-Date: 2026-11-16T09:34:32+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -1069,8 +1069,8 @@ msgid "Status"
 msgstr "Status"
 
 #: functions/class-contact-submissions-list-table.php:24
-#: functions/contact-form-submissions.php:170 functions/settings-page.php:1657
-#: functions/settings-page.php:1668 functions/settings-page.php:1699
+#: functions/contact-form-submissions.php:170 functions/settings-page.php:1667
+#: functions/settings-page.php:1678 functions/settings-page.php:1709
 #: build/js/editor.js:37
 msgid "Name"
 msgstr "Name"
@@ -2275,7 +2275,14 @@ msgstr ""
 "Treat this URL like a password: anyone who knows the topic can read the "
 "alerts. Leave empty to disable alerts and the weekly mail check."
 
-#: functions/settings-page.php:884
+#: functions/settings-page.php:883
+#, php-format
+msgid ""
+"Alerts are off in this environment (%s). They are only sent when "
+"WP_ENVIRONMENT_TYPE is production."
+msgstr "Alerts are off in this environment (%s). They are only sent when WP_ENVIRONMENT_TYPE is production."
+
+#: functions/settings-page.php:894
 msgid ""
 "Used on the contact card shown across the site (e.g. city landing pages). "
 "Address, phone, and email are shown obfuscated on the frontend and only "
@@ -2287,23 +2294,23 @@ msgstr ""
 "revealed after a click, via the same protection used by the Protected "
 "Content block."
 
-#: functions/settings-page.php:909
+#: functions/settings-page.php:919
 msgid "Edit source text"
 msgstr "Edit source text"
 
-#: functions/settings-page.php:911
+#: functions/settings-page.php:921
 msgid "This is the source text shown until a per-language translation exists."
 msgstr "This is the source text shown until a per-language translation exists."
 
-#: functions/settings-page.php:912
+#: functions/settings-page.php:922
 msgid "Translate per language →"
 msgstr "Translate per language →"
 
-#: functions/settings-page.php:949
+#: functions/settings-page.php:959
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr "Shown as plain text — not sensitive, so not obfuscated."
 
-#: functions/settings-page.php:974
+#: functions/settings-page.php:984
 msgid ""
 "This site does not use comments. Enabling this protection closes comments at "
 "the server level — spam bots that POST directly to wp-comments-post.php or "
@@ -2317,11 +2324,11 @@ msgstr ""
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
 
-#: functions/settings-page.php:988
+#: functions/settings-page.php:998
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr "Block all comment submissions site-wide (recommended)"
 
-#: functions/settings-page.php:991
+#: functions/settings-page.php:1001
 msgid ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
@@ -2329,7 +2336,7 @@ msgstr ""
 "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from "
 "the block editor and admin menu."
 
-#: functions/settings-page.php:998
+#: functions/settings-page.php:1008
 msgid ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
@@ -2337,58 +2344,58 @@ msgstr ""
 "Controls the light/dark color mode. When switching is disabled, the theme "
 "switcher button is hidden and the site stays locked to the default mode."
 
-#: functions/settings-page.php:1012
+#: functions/settings-page.php:1022
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr "Show the theme switcher and let visitors toggle light/dark mode"
 
-#: functions/settings-page.php:1021
+#: functions/settings-page.php:1031
 msgid "Auto (visitor system preference)"
 msgstr "Auto (visitor system preference)"
 
-#: functions/settings-page.php:1022
+#: functions/settings-page.php:1032
 msgid "Light"
 msgstr "Light"
 
-#: functions/settings-page.php:1023
+#: functions/settings-page.php:1033
 msgid "Dark"
 msgstr "Dark"
 
-#: functions/settings-page.php:1034
-msgid ""
-"Initial mode for visitors without a saved preference. With switching "
-"disabled, this is the only mode used."
-msgstr ""
-"Initial mode for visitors without a saved preference. With switching "
-"disabled, this is the only mode used."
-
-#: functions/settings-page.php:1042
-msgid ""
-"One source of truth for responsive ranges. These values drive the compiled "
-"theme CSS (media queries are rewritten at runtime and cached), the editor "
-"responsive controls, frontend scripts, and any plugin reading the "
-"mobile_breakpoint / tablet_breakpoint theme mods."
-msgstr ""
-"One source of truth for responsive ranges. These values drive the compiled "
-"theme CSS (media queries are rewritten at runtime and cached), the editor "
-"responsive controls, frontend scripts, and any plugin reading the "
-"mobile_breakpoint / tablet_breakpoint theme mods."
-
 #: functions/settings-page.php:1044
+msgid ""
+"Initial mode for visitors without a saved preference. With switching "
+"disabled, this is the only mode used."
+msgstr ""
+"Initial mode for visitors without a saved preference. With switching "
+"disabled, this is the only mode used."
+
+#: functions/settings-page.php:1052
+msgid ""
+"One source of truth for responsive ranges. These values drive the compiled "
+"theme CSS (media queries are rewritten at runtime and cached), the editor "
+"responsive controls, frontend scripts, and any plugin reading the "
+"mobile_breakpoint / tablet_breakpoint theme mods."
+msgstr ""
+"One source of truth for responsive ranges. These values drive the compiled "
+"theme CSS (media queries are rewritten at runtime and cached), the editor "
+"responsive controls, frontend scripts, and any plugin reading the "
+"mobile_breakpoint / tablet_breakpoint theme mods."
+
+#: functions/settings-page.php:1054
 msgid "Range"
 msgstr "Range"
 
-#: functions/settings-page.php:1045
+#: functions/settings-page.php:1055
 msgid "Effective values"
 msgstr "Effective values"
 
-#: functions/settings-page.php:1046 build/js/content-tabs.js:1
+#: functions/settings-page.php:1056 build/js/content-tabs.js:1
 #: build/js/editor.js:1 build/js/editor.js:16 build/js/editor.js:25
 #: build/js/editor.js:34 build/js/editor.js:43 build/js/editor.js:46
 #: build/js/responsive-media-panel.js:1 build/js/slider.js:1
 msgid "Mobile"
 msgstr "Mobile"
 
-#: functions/settings-page.php:1047 build/js/content-tabs.js:1
+#: functions/settings-page.php:1057 build/js/content-tabs.js:1
 #: build/js/device-frame.js:1 build/js/editor.js:1 build/js/editor.js:13
 #: build/js/editor.js:22 build/js/editor.js:31 build/js/editor.js:40
 #: build/js/editor.js:46 build/js/responsive-media-panel.js:1
@@ -2396,18 +2403,18 @@ msgstr "Mobile"
 msgid "Tablet"
 msgstr "Tablet"
 
-#: functions/settings-page.php:1048 build/js/content-tabs.js:1
+#: functions/settings-page.php:1058 build/js/content-tabs.js:1
 #: build/js/device-frame.js:1 build/js/editor.js:10 build/js/editor.js:19
 #: build/js/editor.js:28 build/js/editor.js:37 build/js/editor.js:46
 #: build/js/slider.js:1
 msgid "Desktop"
 msgstr "Desktop"
 
-#: functions/settings-page.php:1049
+#: functions/settings-page.php:1059
 msgid "Large desktop"
 msgstr "Large desktop"
 
-#: functions/settings-page.php:1059
+#: functions/settings-page.php:1069
 msgid ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
@@ -2415,7 +2422,7 @@ msgstr ""
 "Screens up to this width are mobile. Tablet starts at this value + 1px. "
 "Theme default: 781."
 
-#: functions/settings-page.php:1070
+#: functions/settings-page.php:1080
 msgid ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
@@ -2423,7 +2430,7 @@ msgstr ""
 "Screens up to this width are tablet. Desktop starts at this value + 1px. "
 "Theme default: 1023."
 
-#: functions/settings-page.php:1081
+#: functions/settings-page.php:1091
 msgid ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
@@ -2431,7 +2438,7 @@ msgstr ""
 "Wide-desktop refinements (e.g. wider content container) start here. Theme "
 "default: 1200."
 
-#: functions/settings-page.php:1088
+#: functions/settings-page.php:1098
 msgid ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
@@ -2446,7 +2453,7 @@ msgstr ""
 "the page, so it typically needs little or no offset."
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:1101
+#: functions/settings-page.php:1111
 #, php-format
 msgid ""
 "Applies above the desktop breakpoint, where the header stays visible while "
@@ -2456,7 +2463,7 @@ msgstr ""
 "scrolling. Theme default: %d (matches the header height)."
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:1119
+#: functions/settings-page.php:1129
 #, php-format
 msgid ""
 "Applies below the desktop breakpoint, where the header hides on scroll. "
@@ -2467,7 +2474,7 @@ msgstr ""
 "Theme default: %d, since the header is typically hidden by the time the "
 "scroll finishes."
 
-#: functions/settings-page.php:1129
+#: functions/settings-page.php:1139
 msgid ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
@@ -2483,13 +2490,13 @@ msgstr ""
 "Individual blocks can still opt out from their own Advanced panel regardless "
 "of these settings."
 
-#: functions/settings-page.php:1138
+#: functions/settings-page.php:1148
 msgid ""
 "Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
 "Mark links pointing at the current page with the active hover-style highlight"
 
-#: functions/settings-page.php:1141
+#: functions/settings-page.php:1151
 msgid ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
@@ -2497,13 +2504,13 @@ msgstr ""
 "Adds a kt-link-current class and aria-current=\"page\" to matching links "
 "sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 
-#: functions/settings-page.php:1152
+#: functions/settings-page.php:1162
 msgid ""
 "Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
 "Prevent clicking a link/button that points at the page currently being viewed"
 
-#: functions/settings-page.php:1155
+#: functions/settings-page.php:1165
 msgid ""
 "Adds aria-disabled and removes the link from tab order. Menu items that also "
 "open a mega-menu panel stay fully interactive. Has no effect if highlighting "
@@ -2513,36 +2520,36 @@ msgstr ""
 "open a mega-menu panel stay fully interactive. Has no effect if highlighting "
 "above is disabled."
 
-#: functions/settings-page.php:1172
+#: functions/settings-page.php:1182
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr "Customize the wp-login.php background, logo, and accent color."
 
-#: functions/settings-page.php:1181
+#: functions/settings-page.php:1191
 msgid "Enable custom login page styling"
 msgstr "Enable custom login page styling"
 
-#: functions/settings-page.php:1191 functions/settings-page.php:1203
-#: functions/settings-page.php:1767
+#: functions/settings-page.php:1201 functions/settings-page.php:1213
+#: functions/settings-page.php:1777
 msgid "Choose Image"
 msgstr "Choose Image"
 
-#: functions/settings-page.php:1193
+#: functions/settings-page.php:1203
 msgid "Defaults to the theme background image when left empty."
 msgstr "Defaults to the theme background image when left empty."
 
-#: functions/settings-page.php:1205
+#: functions/settings-page.php:1215
 msgid "Defaults to the theme logo when left empty."
 msgstr "Defaults to the theme logo when left empty."
 
-#: functions/settings-page.php:1215
+#: functions/settings-page.php:1225
 msgid "Fallback background color when no image loads."
 msgstr "Fallback background color when no image loads."
 
-#: functions/settings-page.php:1224
+#: functions/settings-page.php:1234
 msgid "Color for links and hover effects."
 msgstr "Color for links and hover effects."
 
-#: functions/settings-page.php:1259
+#: functions/settings-page.php:1269
 msgid ""
 "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST "
 "responses), gated behind Complianz's \"marketing\" consent category — it "
@@ -2554,11 +2561,11 @@ msgstr ""
 "only executes once a visitor accepts marketing cookies. A pasted custom "
 "script is output as-is and is not consent-gated automatically."
 
-#: functions/settings-page.php:1275 functions/settings-page.php:1297
+#: functions/settings-page.php:1285 functions/settings-page.php:1307
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr "Paste a full script tag here to override the ID-based snippet above."
 
-#: functions/settings-page.php:1281
+#: functions/settings-page.php:1291
 msgid ""
 "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or "
 "REST responses), gated behind Complianz's \"statistics\" consent category — "
@@ -2570,7 +2577,7 @@ msgstr ""
 "it only executes once a visitor accepts statistics cookies. A pasted custom "
 "script is output as-is and is not consent-gated automatically."
 
-#: functions/settings-page.php:1303
+#: functions/settings-page.php:1313
 msgid ""
 "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, "
 "form completions, lightbox opens, etc.). Unchecking one stops it going to "
@@ -2584,7 +2591,7 @@ msgstr ""
 "reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
 "See docs/tracking-spec.md for what each event tracks."
 
-#: functions/settings-page.php:1328
+#: functions/settings-page.php:1338
 msgid ""
 "Each of these registers its own custom post type, blocks, and admin screens. "
 "If this theme is reused for a project that doesn't need one, switching it "
@@ -2596,7 +2603,7 @@ msgstr ""
 "off here skips that registration entirely instead of just hiding it — fewer "
 "blocks for the editor to discover, no unused admin menu items."
 
-#: functions/settings-page.php:1348
+#: functions/settings-page.php:1358
 msgid ""
 "Changes take effect on the next page load — WordPress re-registers post "
 "types and blocks on every request, nothing to rebuild."
@@ -2604,7 +2611,7 @@ msgstr ""
 "Changes take effect on the next page load — WordPress re-registers post "
 "types and blocks on every request, nothing to rebuild."
 
-#: functions/settings-page.php:1354
+#: functions/settings-page.php:1364
 msgid ""
 "Controls the Content-Security-Policy header sent on frontend responses "
 "(never on wp-admin or REST requests). Each directive below is a space-"
@@ -2622,15 +2629,15 @@ msgstr ""
 "Analytics, Cloudflare Turnstile); edit them to match whatever a given site "
 "actually loads."
 
-#: functions/settings-page.php:1363
+#: functions/settings-page.php:1373
 msgid "Send a Content-Security-Policy header"
 msgstr "Send a Content-Security-Policy header"
 
-#: functions/settings-page.php:1374
+#: functions/settings-page.php:1384
 msgid "Enforce the policy (blocks violations)"
 msgstr "Enforce the policy (blocks violations)"
 
-#: functions/settings-page.php:1377
+#: functions/settings-page.php:1387
 msgid ""
 "Leave unchecked to send Content-Security-Policy-Report-Only instead — the "
 "browser reports violations to the console without blocking anything. "
@@ -2640,11 +2647,11 @@ msgstr ""
 "browser reports violations to the console without blocking anything. "
 "Recommended for at least a few days on a new site before enforcing."
 
-#: functions/settings-page.php:1388
+#: functions/settings-page.php:1398
 msgid "Add the upgrade-insecure-requests directive"
 msgstr "Add the upgrade-insecure-requests directive"
 
-#: functions/settings-page.php:1395
+#: functions/settings-page.php:1405
 msgid ""
 "One field per CSP directive. Values are sanitized as plain text (no HTML, no "
 "line breaks) before being sent in the header."
@@ -2652,7 +2659,7 @@ msgstr ""
 "One field per CSP directive. Values are sanitized as plain text (no HTML, no "
 "line breaks) before being sent in the header."
 
-#: functions/settings-page.php:1410
+#: functions/settings-page.php:1420
 msgid ""
 "Referrer-Policy and Permissions-Policy are sent on every frontend response "
 "(never on wp-admin or REST requests). Set independently per site — no need "
@@ -2662,7 +2669,7 @@ msgstr ""
 "(never on wp-admin or REST requests). Set independently per site — no need "
 "to touch code to give a different customer a different policy."
 
-#: functions/settings-page.php:1425
+#: functions/settings-page.php:1435
 msgid ""
 "Controls how much of the current page URL is sent to other sites when a "
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
@@ -2672,37 +2679,37 @@ msgstr ""
 "visitor follows a link away from this one. strict-origin-when-cross-origin "
 "is a balanced default."
 
-#: functions/settings-page.php:1436
+#: functions/settings-page.php:1446
 msgid ""
 "Full Permissions-Policy header value. Clear this field to stop sending the "
 "header entirely — it will not fall back to a default once saved empty."
 msgstr ""
 "Full Permissions-Policy header value. Clear this field to stop sending the "
 "header entirely — it will not fall back to a default once saved empty."
-
-#: functions/settings-page.php:1461
-msgid ""
-"Named values that can be reused anywhere in content. Write {token:key} in a "
-"paragraph, heading, button or menu item and it is replaced with the current "
-"value when the page is rendered. Unknown keys are left as plain text."
-msgstr ""
-"Named values that can be reused anywhere in content. Write {token:key} in a "
-"paragraph, heading, button or menu item and it is replaced with the current "
-"value when the page is rendered. Unknown keys are left as plain text."
 
 #: functions/settings-page.php:1471
+msgid ""
+"Named values that can be reused anywhere in content. Write {token:key} in a "
+"paragraph, heading, button or menu item and it is replaced with the current "
+"value when the page is rendered. Unknown keys are left as plain text."
+msgstr ""
+"Named values that can be reused anywhere in content. Write {token:key} in a "
+"paragraph, heading, button or menu item and it is replaced with the current "
+"value when the page is rendered. Unknown keys are left as plain text."
+
+#: functions/settings-page.php:1481
 msgid "Years since"
 msgstr "Years since"
 
-#: functions/settings-page.php:1472
+#: functions/settings-page.php:1482
 msgid "Current year"
 msgstr "Current year"
 
-#: functions/settings-page.php:1473
+#: functions/settings-page.php:1483
 msgid "Static text"
 msgstr "Static text"
 
-#: functions/settings-page.php:1491
+#: functions/settings-page.php:1501
 msgid ""
 "Start year (2020) or full date (2020-03-01). Resolves to the whole years "
 "elapsed."
@@ -2710,32 +2717,32 @@ msgstr ""
 "Start year (2020) or full date (2020-03-01). Resolves to the whole years "
 "elapsed."
 
-#: functions/settings-page.php:1494
+#: functions/settings-page.php:1504
 msgid "Resolves to the current year automatically."
 msgstr "Resolves to the current year automatically."
 
-#: functions/settings-page.php:1510 functions/settings-page.php:1768
+#: functions/settings-page.php:1520 functions/settings-page.php:1778
 #: build/js/editor.js:1 build/js/gallery-lightbox.js:1
 msgid "Remove"
 msgstr "Remove"
 
-#: functions/settings-page.php:1524
+#: functions/settings-page.php:1534
 msgid "Key"
 msgstr "Key"
 
-#: functions/settings-page.php:1525
+#: functions/settings-page.php:1535
 msgid "Type"
 msgstr "Type"
 
-#: functions/settings-page.php:1526 build/js/editor.js:37
+#: functions/settings-page.php:1536 build/js/editor.js:37
 msgid "Value"
 msgstr "Value"
 
-#: functions/settings-page.php:1536
+#: functions/settings-page.php:1546
 msgid "Add value"
 msgstr "Add value"
 
-#: functions/settings-page.php:1537
+#: functions/settings-page.php:1547
 msgid ""
 "Keys use lowercase letters, numbers, dashes and underscores, and must be "
 "unique. Rows with an empty or duplicate key are dropped on save."
@@ -2743,40 +2750,40 @@ msgstr ""
 "Keys use lowercase letters, numbers, dashes and underscores, and must be "
 "unique. Rows with an empty or duplicate key are dropped on save."
 
-#: functions/settings-page.php:1654
+#: functions/settings-page.php:1664
 msgid "Organization"
 msgstr "Organization"
 
-#: functions/settings-page.php:1655
+#: functions/settings-page.php:1665
 msgid ""
 "Business entity published in the structured data (JSON-LD) on every page."
 msgstr ""
 "Business entity published in the structured data (JSON-LD) on every page."
 
-#: functions/settings-page.php:1658 functions/settings-page.php:1700
+#: functions/settings-page.php:1668 functions/settings-page.php:1710
 msgid "Alternate names"
 msgstr "Alternate names"
 
-#: functions/settings-page.php:1658 functions/settings-page.php:1700
+#: functions/settings-page.php:1668 functions/settings-page.php:1710
 msgid "One per line."
 msgstr "One per line."
 
-#: functions/settings-page.php:1659 build/js/certificate-panel.js:1
+#: functions/settings-page.php:1669 build/js/certificate-panel.js:1
 #: build/js/editor.js:46 build/js/nav-content.js:1
 msgid "Description"
 msgstr "Description"
 
-#: functions/settings-page.php:1659
+#: functions/settings-page.php:1669
 msgid ""
 "Per language. When empty, the site tagline is used for the website only."
 msgstr ""
 "Per language. When empty, the site tagline is used for the website only."
 
-#: functions/settings-page.php:1660
+#: functions/settings-page.php:1670
 msgid "Logo"
 msgstr "Logo"
 
-#: functions/settings-page.php:1660
+#: functions/settings-page.php:1670
 msgid ""
 "PNG or WebP, at least 112 x 112 px. SVG is ignored. Falls back to the site "
 "icon."
@@ -2784,52 +2791,52 @@ msgstr ""
 "PNG or WebP, at least 112 x 112 px. SVG is ignored. Falls back to the site "
 "icon."
 
-#: functions/settings-page.php:1661
+#: functions/settings-page.php:1671
 msgid "Social profiles"
 msgstr "Social profiles"
 
-#: functions/settings-page.php:1661
+#: functions/settings-page.php:1671
 msgid "One http(s) URL per line."
 msgstr "One http(s) URL per line."
 
-#: functions/settings-page.php:1665
+#: functions/settings-page.php:1675
 msgid "Person"
 msgstr "Person"
 
-#: functions/settings-page.php:1666
+#: functions/settings-page.php:1676
 msgid "The founder shown as author of articles and owner of the organization."
 msgstr "The founder shown as author of articles and owner of the organization."
 
-#: functions/settings-page.php:1669
+#: functions/settings-page.php:1679
 msgid "Job title"
 msgstr "Job title"
 
-#: functions/settings-page.php:1669
+#: functions/settings-page.php:1679
 msgid "Per language."
 msgstr "Per language."
 
-#: functions/settings-page.php:1670 build/js/editor.js:1
+#: functions/settings-page.php:1680 build/js/editor.js:1
 #: build/js/nav-content.js:1
 msgid "Image"
 msgstr "Image"
 
-#: functions/settings-page.php:1670
+#: functions/settings-page.php:1680
 msgid "When empty, the organization logo is referenced instead."
 msgstr "When empty, the organization logo is referenced instead."
 
-#: functions/settings-page.php:1671
+#: functions/settings-page.php:1681
 msgid "About page slug"
 msgstr "About page slug"
 
-#: functions/settings-page.php:1671
+#: functions/settings-page.php:1681
 msgid "Default-language slug of the page used as the person URL."
 msgstr "Default-language slug of the page used as the person URL."
 
-#: functions/settings-page.php:1675
+#: functions/settings-page.php:1685
 msgid "Location & expertise"
 msgstr "Location & expertise"
 
-#: functions/settings-page.php:1676
+#: functions/settings-page.php:1686
 msgid ""
 "Only city, region and country are published. The street address is never "
 "exposed."
@@ -2837,7 +2844,7 @@ msgstr ""
 "Only city, region and country are published. The street address is never "
 "exposed."
 
-#: functions/settings-page.php:1678 patterns/service-location-content.php:12
+#: functions/settings-page.php:1688 patterns/service-location-content.php:12
 #: patterns/service-location-content.php:153
 #: patterns/service-location-content.php:214
 #: patterns/service-location-content.php:306
@@ -2846,88 +2853,88 @@ msgstr ""
 msgid "City"
 msgstr "City"
 
-#: functions/settings-page.php:1679
+#: functions/settings-page.php:1689
 msgid "Region"
 msgstr "Region"
 
-#: functions/settings-page.php:1679
+#: functions/settings-page.php:1689
 msgid "Optional."
 msgstr "Optional."
 
-#: functions/settings-page.php:1680
+#: functions/settings-page.php:1690
 msgid "Country code"
 msgstr "Country code"
 
-#: functions/settings-page.php:1680
+#: functions/settings-page.php:1690
 msgid "Two-letter ISO code, for example PL."
 msgstr "Two-letter ISO code, for example PL."
 
-#: functions/settings-page.php:1681
+#: functions/settings-page.php:1691
 msgid "Area served"
 msgstr "Area served"
 
-#: functions/settings-page.php:1682
+#: functions/settings-page.php:1692
 msgid "Knows about"
 msgstr "Knows about"
 
-#: functions/settings-page.php:1682
+#: functions/settings-page.php:1692
 msgid "One topic per line."
 msgstr "One topic per line."
 
-#: functions/settings-page.php:1686
+#: functions/settings-page.php:1696
 msgid "Contact point"
 msgstr "Contact point"
 
-#: functions/settings-page.php:1687
+#: functions/settings-page.php:1697
 msgid "Contact point published with the organization."
 msgstr "Contact point published with the organization."
 
-#: functions/settings-page.php:1689
+#: functions/settings-page.php:1699
 msgid "Contact type"
 msgstr "Contact type"
 
-#: functions/settings-page.php:1690
+#: functions/settings-page.php:1700
 msgid "Available languages"
 msgstr "Available languages"
 
-#: functions/settings-page.php:1690
+#: functions/settings-page.php:1700
 msgid "Language codes, one per line."
 msgstr "Language codes, one per line."
 
-#: functions/settings-page.php:1691
+#: functions/settings-page.php:1701
 msgid "Contact page slug"
 msgstr "Contact page slug"
 
-#: functions/settings-page.php:1691
+#: functions/settings-page.php:1701
 msgid "Default-language slug of the contact page."
 msgstr "Default-language slug of the contact page."
 
-#: functions/settings-page.php:1692
+#: functions/settings-page.php:1702
 msgid "Publish email and phone"
 msgstr "Publish email and phone"
 
-#: functions/settings-page.php:1692
+#: functions/settings-page.php:1702
 msgid "Publishes the Contact Info email and phone in the JSON-LD."
 msgstr "Publishes the Contact Info email and phone in the JSON-LD."
 
-#: functions/settings-page.php:1696
+#: functions/settings-page.php:1706
 msgid "Website"
 msgstr "Website"
 
-#: functions/settings-page.php:1697
+#: functions/settings-page.php:1707
 msgid "Website entity published in the structured data."
 msgstr "Website entity published in the structured data."
 
-#: functions/settings-page.php:1816
+#: functions/settings-page.php:1826
 msgid "Yoast SEO takes precedence over this field when it has a value."
 msgstr "Yoast SEO takes precedence over this field when it has a value."
 
-#: functions/settings-page.php:1824
+#: functions/settings-page.php:1834
 #, php-format
 msgid "Currently overridden by %1$s: %2$s"
 msgstr "Currently overridden by %1$s: %2$s"
 
-#: functions/settings-page.php:1829
+#: functions/settings-page.php:1839
 msgid "Open Yoast SEO settings"
 msgstr "Open Yoast SEO settings"
 

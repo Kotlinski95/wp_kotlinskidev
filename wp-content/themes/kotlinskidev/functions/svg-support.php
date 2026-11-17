@@ -86,13 +86,33 @@ function kotlinskidev_allow_svg_uploads( array $mimes ): array {
 	return $mimes;
 }
 
+function kotlinskidev_svg_cache_key( int $attachment_id ): string {
+	return 'kotlinskidev_svg_v2_' . $attachment_id;
+}
+
+function kotlinskidev_is_front_end_render(): bool {
+	if ( is_admin() || wp_doing_ajax() || is_feed() ) {
+		return false;
+	}
+
+	return ! ( defined( 'REST_REQUEST' ) && REST_REQUEST );
+}
+
+function kotlinskidev_should_inline_svg( string $svg ): bool {
+	$should_inline = false !== stripos( $svg, 'currentColor' ) || strlen( $svg ) <= 4096;
+
+	return (bool) apply_filters( 'kotlinskidev_should_inline_svg', $should_inline, $svg );
+}
+
 function kotlinskidev_load_svg_content( int $attachment_id ): string {
-	$cache_key = 'kotlinskidev_svg_' . $attachment_id;
+	$cache_key = kotlinskidev_svg_cache_key( $attachment_id );
 	$svg       = get_transient( $cache_key );
 
 	if ( false !== $svg ) {
 		return $svg;
 	}
+
+	delete_transient( 'kotlinskidev_svg_' . $attachment_id );
 
 	$svg_path = get_attached_file( $attachment_id );
 	if ( ! $svg_path || ! file_exists( $svg_path ) ) {
@@ -175,7 +195,7 @@ function kotlinskidev_sanitize_svg( string $raw ): string {
 	return trim( $dom->saveXML( $dom->documentElement ) );
 }
 
-function kotlinskidev_build_inline_svg( string $svg, string $img_html ): string {
+function kotlinskidev_build_inline_svg( string $svg, string $img_html, int $attachment_id = 0 ): string {
 	$class = '';
 	if ( preg_match( '/\bclass=["\']([^"\']*)["\']/', $img_html, $matches ) ) {
 		$class = $matches[1];
@@ -232,7 +252,16 @@ function kotlinskidev_build_inline_svg( string $svg, string $img_html ): string 
 		$extra_attrs .= sprintf( ' height="%s"', esc_attr( $height ) );
 	}
 
-	return preg_replace( '/<svg\b/', '<svg ' . $extra_attrs, $svg, 1 );
+	$inline = preg_replace( '/<svg\b/', '<svg ' . $extra_attrs, $svg, 1 );
+
+	if ( $attachment_id > 0 && function_exists( 'kotlinskidev_svg_sprite_reference' ) ) {
+		$reference = kotlinskidev_svg_sprite_reference( $attachment_id, $inline );
+		if ( null !== $reference ) {
+			return $reference;
+		}
+	}
+
+	return $inline;
 }
 
 function kotlinskidev_inline_svg_image( string $html, int $attachment_id ): string {
@@ -245,7 +274,11 @@ function kotlinskidev_inline_svg_image( string $html, int $attachment_id ): stri
 		return $html;
 	}
 
-	return kotlinskidev_build_inline_svg( $svg, $html );
+	if ( kotlinskidev_is_front_end_render() && ! kotlinskidev_should_inline_svg( $svg ) ) {
+		return $html;
+	}
+
+	return kotlinskidev_build_inline_svg( $svg, $html, $attachment_id );
 }
 
 function kotlinskidev_inline_svg_image_block( string $html, array $block ): string {
@@ -259,12 +292,16 @@ function kotlinskidev_inline_svg_image_block( string $html, array $block ): stri
 		return $html;
 	}
 
+	if ( kotlinskidev_is_front_end_render() && ! kotlinskidev_should_inline_svg( $svg ) ) {
+		return $html;
+	}
+
 	$img_html = '';
 	if ( preg_match( '/<img\b[^>]*>/i', $html, $matches ) ) {
 		$img_html = $matches[0];
 	}
 
-	$inlined = kotlinskidev_build_inline_svg( $svg, $img_html );
+	$inlined = kotlinskidev_build_inline_svg( $svg, $img_html, $attachment_id );
 
 	$html = preg_replace( '/<img\b[^>]*>/i', $inlined, $html, 1 );
 
@@ -294,6 +331,7 @@ function kotlinskidev_inline_svg_image_block( string $html, array $block ): stri
 
 function kotlinskidev_clear_svg_cache( int $attachment_id ): void {
 	if ( 'image/svg+xml' === get_post_mime_type( $attachment_id ) ) {
+		delete_transient( kotlinskidev_svg_cache_key( $attachment_id ) );
 		delete_transient( 'kotlinskidev_svg_' . $attachment_id );
 	}
 }

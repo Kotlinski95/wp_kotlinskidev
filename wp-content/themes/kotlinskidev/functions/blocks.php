@@ -144,7 +144,14 @@ function kotlinskidev_inline_nav_icon( int $id ): string {
         return '';
     }
     $svg = preg_replace( '/ fill="[^"]*"/i', '', $svg );
-    return preg_replace( '/<svg(\s)/i', '<svg aria-hidden="true" focusable="false" fill="currentColor"$1', $svg, 1 );
+    $inline = preg_replace( '/<svg(\s)/i', '<svg aria-hidden="true" focusable="false" fill="currentColor"$1', $svg, 1 );
+    if ( function_exists( 'kotlinskidev_svg_sprite_reference' ) ) {
+        $reference = kotlinskidev_svg_sprite_reference( $id, $inline );
+        if ( null !== $reference ) {
+            return $reference;
+        }
+    }
+    return $inline;
 }
 
 function kotlinskidev_pll_current_language_data(): ?array {

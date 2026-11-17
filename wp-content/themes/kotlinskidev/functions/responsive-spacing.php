@@ -103,6 +103,6 @@ function kotlinskidev_apply_responsive_spacing_style( string $block_content, arr
         $processor->set_attribute( 'class', trim( $existing_class . ' ' . $class ) );
     }
 
-    return $processor->get_updated_html() . '<style>' . $css . '</style>';
+    return kotlinskidev_append_responsive_style( $processor->get_updated_html(), $class, $css );
 }
 add_filter( 'render_block', 'kotlinskidev_apply_responsive_spacing_style', 10, 2 );

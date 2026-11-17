@@ -37,6 +37,7 @@ Core blocks get the attribute from `blocks.registerBlockType` and PHP `register_
 
 - **Images** use `<picture><source media srcset>` built on the server from the slot's attachment, so the saved block markup does not change.
 - **Videos** do not use `<source media>` (browsers ignore it for `<video>`). The server prints `data-kt-src-{device}` and `data-kt-poster-{device}` and no `src`. `src/utils/responsive-media.ts` (`currentDevice()`, `applyResponsiveVideo()`) picks the file when the video activates and again on resize.
+- **Above-the-fold device-frame videos with variants** print an eager `<img class="kt-device-frame__poster">` (a `<picture>` when the poster varies) under the `<video>`, which starts after load and idle and hides the poster once playing.
 - **No device detection on the server.** Cloudflare caches one HTML page per URL, so the choice is always made in the browser.
 - **Preload:** `kotlinskidev_claim_lcp_slot()` in `functions/above-fold-media.php` prints one `<link rel="preload" as="image">` per breakpoint. Each carries the same `media` string as its `<source>`, so only one of them matches.
 - **No mobile slot set:** a lazy video's mobile poster defaults to the `medium_large` size of the desktop poster.

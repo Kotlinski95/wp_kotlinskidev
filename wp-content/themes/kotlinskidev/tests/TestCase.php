@@ -11,6 +11,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         Monkey\setUp();
+        Monkey\Functions\when('is_admin')->justReturn(true);
     }
 
     protected function tearDown(): void

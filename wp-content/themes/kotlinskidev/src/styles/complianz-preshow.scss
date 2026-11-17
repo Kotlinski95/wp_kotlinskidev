@@ -1,0 +1,49 @@
+@import "variables";
+
+html:not(.kt-cmplz-pending) .cmplz-cookiebanner.cmplz-hidden {
+	display: none !important;
+}
+
+#cmplz-cookiebanner-container .cmplz-cookiebanner {
+	animation: none;
+}
+
+html.kt-cmplz-pending {
+
+	&::after {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: 9998;
+		background-color: rgb(0 0 0 / 0.7);
+	}
+
+	&.kt-cmplz-parsed #cmplz-cookiebanner-container .cmplz-cookiebanner.cmplz-hidden {
+		display: grid !important;
+		box-shadow: rgba(0, 0, 0, 0.19) 0 10px 20px, rgba(0, 0, 0, 0.23) 0 6px 6px;
+	}
+}
+
+body:has(.mobile-footer-nav) {
+
+	@media (max-width: $breakpoint-desktop) {
+
+		.cmplz-cookiebanner {
+			bottom: $mobile-footer-nav !important;
+			max-height: calc(100vh - $mobile-footer-nav - 1.25rem) !important;
+		}
+	}
+}
+
+.cmplz-cookiebanner .cmplz-btn {
+	border: 0.0625rem solid transparent !important;
+	border-radius: 0.375rem !important;
+	font-weight: 600 !important;
+}
+
+.cmplz-documents a.cmplz-link {
+	display: inline-flex;
+	align-items: center;
+	min-height: 1.5rem;
+	padding-block: 0.1875rem;
+}

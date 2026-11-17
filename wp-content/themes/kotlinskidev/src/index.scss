@@ -1,4 +1,3 @@
-@import "./styles/theme-colors";
 @import "./styles/position-utilities";
 @import "./styles/footer";
 @import "./styles/scroll";
@@ -8,6 +7,7 @@
 @import "./styles/plugins";
 @import "./styles/lazy";
 @import "./styles/scroll-animations";
+@import "./styles/content-visibility";
 @import "./styles/link";
 @import "./styles/link-hover-effects";
 @import "./styles/group-link";
@@ -15,9 +15,7 @@
 @import "./styles/responsive-media";
 @import "./styles/social";
 @import "./styles/animations";
-@import "./styles/order";
 @import "./styles/text-justify";
-@import "./styles/complianz";
 @import "./styles/pwa-prompts";
 @import "./styles/accessibility";
 @import "./styles/line-clamp";
@@ -41,5 +39,4 @@
 @import "./styles/ai-disclosure";
 @import "./styles/svg-support";
 @import "./styles/blog";
-@import "./styles/mobile-footer-menu";
 @import "./styles/form-controls";

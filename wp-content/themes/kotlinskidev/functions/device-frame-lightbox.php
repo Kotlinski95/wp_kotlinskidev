@@ -61,7 +61,7 @@ function kotlinskidev_device_frame_lightbox_video_tag( int $media_id ): string {
         $attributes .= ' width="' . $width . '" height="' . $height . '"';
     }
     if ( $poster_url ) {
-        $attributes .= ' poster="' . esc_url( $poster_url ) . '"';
+        $attributes .= ' data-poster="' . esc_url( $poster_url ) . '"';
     }
 
     return '<video class="kt-device-frame-lightbox__media"' . $attributes . ' preload="none" controls playsinline></video>';

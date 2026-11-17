@@ -876,6 +876,16 @@ function kotlinskidev_render_ntfy_alert_url_field(): void
     <p class="description">
         <?php esc_html_e('Treat this URL like a password: anyone who knows the topic can read the alerts. Leave empty to disable alerts and the weekly mail check.', 'kotlinskidev'); ?>
     </p>
+    <?php if (!kotlinskidev_ntfy_alerts_enabled()) : ?>
+    <p class="description">
+        <?php
+        printf(
+            esc_html__('Alerts are off in this environment (%s). They are only sent when WP_ENVIRONMENT_TYPE is production.', 'kotlinskidev'),
+            esc_html(wp_get_environment_type())
+        );
+        ?>
+    </p>
+    <?php endif; ?>
     <?php
 }
 

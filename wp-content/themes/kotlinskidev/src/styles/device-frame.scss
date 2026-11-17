@@ -25,12 +25,17 @@
 	aspect-ratio: var(--kt-device-frame-aspect-ratio, 16 / 10);
 }
 
-.kt-device-frame__image {
+.kt-device-frame__image,
+.kt-device-frame__poster {
 	position: absolute;
 	inset: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.kt-device-frame__screen--playing .kt-device-frame__poster {
+	visibility: hidden;
 }
 
 .kt-device-frame__lightbox-trigger {

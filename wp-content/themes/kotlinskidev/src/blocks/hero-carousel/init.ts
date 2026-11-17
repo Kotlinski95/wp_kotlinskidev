@@ -122,6 +122,10 @@ const pauseSlideVideo = (slide: HTMLElement): void => {
   video.pause();
 };
 
+const isConsentDialogOpen = (): boolean =>
+  document.documentElement.classList.contains("kt-cmplz-pending") ||
+  document.querySelector(".cmplz-soft-cookiewall:not(.cmplz-dismissed)") !== null;
+
 const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof InitSwiper>): void => {
   const container = el.closest<HTMLElement>(".hero-carousel") ?? el;
   let hovered = container.matches(":hover");
@@ -129,7 +133,7 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof InitS
   let pressed = false;
 
   const evaluate = () => {
-    if (hovered || focused || pressed) {
+    if (hovered || focused || pressed || isConsentDialogOpen()) {
       swiper.autoplay.pause();
     } else {
       swiper.autoplay.resume();
@@ -137,7 +141,7 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof InitS
   };
 
   swiper.on("autoplayResume", () => {
-    if (hovered || focused || pressed) {
+    if (hovered || focused || pressed || isConsentDialogOpen()) {
       swiper.autoplay.pause();
     }
   });
@@ -187,6 +191,18 @@ const wireAutoplayHoverPause = (el: HTMLElement, swiper: ReturnType<typeof InitS
     }
     evaluate();
   };
+  const evaluateWhileConnected = () => {
+    if (container.isConnected) {
+      evaluate();
+    }
+  };
+  const evaluateNextFrame = () => window.requestAnimationFrame(evaluateWhileConnected);
+  document.addEventListener("cmplz_status_change", evaluateNextFrame);
+  document.addEventListener("cmplz_cookie_warning_loaded", evaluateNextFrame);
+  document.addEventListener("kt-cmplz-released", evaluateWhileConnected);
+  if (isConsentDialogOpen()) {
+    evaluate();
+  }
   document.addEventListener("pointerup", releasePress);
   document.addEventListener("pointercancel", releasePress);
 };
