@@ -39,6 +39,7 @@ function kotlinskidev_svg_sprite_reference( int $attachment_id, string $inline_s
 	}
 
 	$outer_attrs = (string) preg_replace( '/\sxmlns(?::[\w-]+)?="[^"]*"/i', '', $root_attrs );
+	$outer_attrs = (string) preg_replace( '/\sviewBox="[^"]*"/i', '', $outer_attrs );
 	$symbol_id   = sprintf( 'kt-svg-%d-%s', $attachment_id, substr( md5( $inner ), 0, 6 ) );
 
 	kotlinskidev_svg_sprite_symbols( $symbol_id, $view_box[1], $inner );

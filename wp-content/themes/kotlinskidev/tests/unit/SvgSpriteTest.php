@@ -22,13 +22,22 @@ it('replaces an inline svg with a use reference and registers the symbol', funct
 
     $out = kotlinskidev_svg_sprite_reference(9001, KT_SPRITE_SVG);
 
-    expect($out)->toStartWith('<svg aria-hidden="true" class="logo" viewBox="0 0 24 24" fill="currentColor"><use href="#kt-svg-9001-');
+    expect($out)->toStartWith('<svg aria-hidden="true" class="logo" fill="currentColor"><use href="#kt-svg-9001-');
     expect($out)->not->toContain('<path');
     $symbols = kotlinskidev_svg_sprite_symbols();
     $id      = array_key_last($symbols);
     expect($id)->toStartWith('kt-svg-9001-');
     expect($symbols[$id]['view_box'])->toBe('0 0 24 24');
     expect($symbols[$id]['inner'])->toBe('<path d="M0 0h24v24H0z"/>');
+});
+
+it('drops the outer viewBox so a non-zero-origin symbol is not offset', function () {
+    kt_sprite_context(true, 0);
+
+    $out = kotlinskidev_svg_sprite_reference(9005, '<svg viewBox="4.5 5 14.6 14.6" width="24"><path d="M5 6h1"/></svg>');
+
+    expect($out)->not->toContain('viewBox');
+    expect(array_values(kotlinskidev_svg_sprite_symbols())[count(kotlinskidev_svg_sprite_symbols()) - 1]['view_box'])->toBe('4.5 5 14.6 14.6');
 });
 
 it('keeps full inline output once wp_body_open has fired', function () {

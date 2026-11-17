@@ -70,6 +70,7 @@ it('detaches the onetap inline style and prints it in the footer', function () {
     Functions\when('wp_styles')->justReturn($styles);
     Functions\when('is_admin')->justReturn(false);
     Functions\when('wp_strip_all_tags')->alias(fn ($v) => strip_tags($v));
+    Functions\when('wp_get_upload_dir')->justReturn(['error' => 'no uploads']);
 
     kotlinskidev_detach_onetap_inline_style();
 
@@ -80,6 +81,26 @@ it('detaches the onetap inline style and prints it in the footer', function () {
     $out = ob_get_clean();
 
     expect($out)->toContain('<style id="accessibility-onetap-inline-css">.onetap{color:red}</style>');
+});
+
+it('loads the onetap style from a cached uploads file when writable', function () {
+    $base = sys_get_temp_dir() . '/kt-onetap-' . uniqid();
+    mkdir($base);
+    $GLOBALS['kotlinskidev_onetap_inline_css'] = '.onetap{color:red}';
+    Functions\when('wp_strip_all_tags')->alias(fn ($v) => strip_tags($v));
+    Functions\when('wp_get_upload_dir')->justReturn(['error' => false, 'basedir' => $base, 'baseurl' => 'https://x.test/uploads']);
+    Functions\when('trailingslashit')->alias(fn ($v) => rtrim($v, '/') . '/');
+    Functions\when('wp_mkdir_p')->alias(fn ($d) => is_dir($d) || mkdir($d, 0777, true));
+    Functions\when('set_url_scheme')->returnArg();
+    Functions\when('esc_url')->returnArg();
+
+    ob_start();
+    kotlinskidev_print_onetap_inline_style();
+    $out = ob_get_clean();
+
+    expect($out)->toContain('<link rel="stylesheet" id="accessibility-onetap-inline-css" href="https://x.test/uploads/kotlinskidev-cache/onetap-');
+    expect($out)->not->toContain('<style');
+    expect(glob($base . '/kotlinskidev-cache/onetap-*.css'))->toHaveCount(1);
 });
 
 it('prints the parsed marker script on ordinary pages', function () {

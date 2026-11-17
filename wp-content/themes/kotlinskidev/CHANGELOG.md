@@ -18,6 +18,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.1.2] — 2026-11-17
+
+### Fixed
+
+- **2026-11-17 — Search icon was shifted and clipped after the SVG sprite change.** Its non-zero-origin viewBox was applied to both the `<symbol>` and the outer `<svg>`. The outer viewBox is now dropped.
+
+### Changed
+
+- **2026-11-17 — The OneTap accessibility stylesheet (~11 KB) now loads deferred from a cached uploads file instead of being inlined in every page.** It falls back to inline if the uploads file can't be written.
+
 ## [2.1.1] — 2026-11-16
 
 ### Changed
