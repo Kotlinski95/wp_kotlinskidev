@@ -8,6 +8,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/effect-flip";
 import "swiper/css/effect-cards";
 import type { initSwiper as InitSwiper } from "@utils/carousel/initSwiper";
+import { loadEffectModules } from "@utils/carousel/effectModules";
 import type { CarouselSettings } from "@utils/carousel/types";
 import { isIosWebKit, isWebKitBrowser } from "@utils/is-webkit-browser";
 import { attachAlphaCanvas } from "./alpha-canvas";
@@ -356,8 +357,9 @@ const initHeroCarousel = async (
   pending: PendingNavigation
 ): Promise<void> => {
   const settings = parseSettings(el);
+  const effectModules = await loadEffectModules(settings.transitionEffect);
   el.style.visibility = "hidden";
-  const swiper = initSwiper(el, settings, { disableNativeHoverPause: true });
+  const swiper = initSwiper(el, settings, { disableNativeHoverPause: true, effectModules });
   el.style.visibility = "visible";
   pending.stop();
 

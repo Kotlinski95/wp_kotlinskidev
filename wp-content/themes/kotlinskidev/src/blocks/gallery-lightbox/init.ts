@@ -171,7 +171,12 @@ const openModal = async (
   const modal = document.getElementById(MODAL_ID) as HTMLElement;
   const swiperEl = modal.querySelector<HTMLElement>(".gallery-lightbox-swiper")!;
 
-  const { initSwiper } = await import("@utils/carousel/initSwiper");
+  const [{ initSwiper }, effectModules] = await Promise.all([
+    import("@utils/carousel/initSwiper"),
+    import("@utils/carousel/effectModules").then(({ loadEffectModules }) =>
+      loadEffectModules(settings.transitionEffect)
+    ),
+  ]);
   if (!modal.isConnected) {
     return;
   }
@@ -184,6 +189,7 @@ const openModal = async (
       forceLoop: images.length > 1 && (settings.loop ?? true),
       slideCount: images.length,
       onSlideChange,
+      effectModules,
     }
   );
 

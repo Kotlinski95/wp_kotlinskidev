@@ -44,6 +44,7 @@ npm run test:e2e       # End-to-end tests
 npm run storybook      # Browse every block in isolation at localhost:6006
 npm run build-storybook # Static Storybook build (storybook-static/, not committed)
 npm run audit          # Performance/accessibility/SEO/security audit against audit/urls.json (see audit/)
+npm run analyze        # Source-map bundle report (artifacts/bundle-report.html): which packages and modules weigh what in build/js, then rebuilds a clean build/
 ```
 
 ---

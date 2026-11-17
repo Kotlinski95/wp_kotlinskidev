@@ -54,6 +54,26 @@ describe("initSwiper", () => {
     expect(swiper.params.modules).toEqual(["Navigation", "Pagination", "Keyboard", "Autoplay"]);
   });
 
+  it("appends the effect modules passed by the caller", () => {
+    const el = buildCarousel(3);
+
+    const swiper = initSwiper(
+      el,
+      {},
+      {
+        effectModules: ["EffectFade"] as never,
+      }
+    ) as unknown as MockSwiper;
+
+    expect(swiper.params.modules).toEqual([
+      "Navigation",
+      "Pagination",
+      "Keyboard",
+      "Autoplay",
+      "EffectFade",
+    ]);
+  });
+
   it("strips the native pauseOnMouseEnter when disableNativeHoverPause is set, to avoid racing a caller's own hover wiring", () => {
     const el = buildCarousel(3);
 

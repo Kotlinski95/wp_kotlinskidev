@@ -53,7 +53,11 @@ export function getScrollOffsets(): ThemeScrollOffsets {
  * @return true if viewport is below the desktop breakpoint
  */
 export function isMobile(): boolean {
-  return window.innerWidth < getBreakpoints().desktop_min;
+  const { desktop_min: desktopMin } = getBreakpoints();
+  if (typeof window.matchMedia === "function") {
+    return window.matchMedia(`(max-width: ${desktopMin - 0.02}px)`).matches;
+  }
+  return window.innerWidth < desktopMin;
 }
 
 /**

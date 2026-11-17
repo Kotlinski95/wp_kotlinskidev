@@ -60,7 +60,7 @@ module.exports = [
   },
   {
     // Intentional styled console banner (devtools easter egg), not debug leftovers.
-    files: ["src/index.ts"],
+    files: ["src/scripts/console-banner.ts"],
     rules: {
       "no-console": "off",
     },
