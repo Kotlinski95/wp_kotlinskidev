@@ -1,3 +1,5 @@
+@import "mixins";
+
 .kt-image-hover-overlay {
 	position: relative;
 	overflow: hidden;
@@ -30,9 +32,18 @@
 	}
 }
 
-.kt-image-hover-overlay:hover .kt-image-hover-overlay__content,
-.kt-image-hover-overlay:focus-within .kt-image-hover-overlay__content {
-	opacity: 1;
+.kt-image-hover-overlay {
+
+	@include kt-hover-or-in-view {
+
+		.kt-image-hover-overlay__content {
+			opacity: 1;
+		}
+	}
+
+	&:focus-within .kt-image-hover-overlay__content {
+		opacity: 1;
+	}
 }
 
 .kt-image-hover-overlay__heading {

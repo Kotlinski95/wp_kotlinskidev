@@ -8,8 +8,7 @@
 		display: none !important;
 	}
 
-	&:hover,
-	&:focus-visible {
+	@include kt-hover-or-in-view(true) {
 
 		&::after {
 			width: 0 !important;
@@ -25,27 +24,24 @@
 .kt-hover-no-background,
 .kt-hover-no-background a {
 
-	&:hover,
-	&:focus-visible {
+	@include kt-hover-or-in-view(true) {
 
 		@include text-inherit();
 		background-clip: initial !important;
 		-webkit-background-clip: initial !important;
 		opacity: 1 !important;
 		transform: none !important;
-	}
 
-	svg {
-
-		&:hover,
-		&:focus-visible {
+		svg {
 			fill: currentcolor !important;
 		}
 	}
 
-	&:hover svg,
-	&:focus-visible svg {
-		fill: currentcolor !important;
+	svg {
+
+		@include kt-hover-or-in-view(true) {
+			fill: currentcolor !important;
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 import { easeInOutCubic, stepProgress } from "./easing";
 import { DEFAULT_ACCENT_SLUG, readPalette, resolvePresetColor } from "./palette";
+import { BAND_THRESHOLDS, bandRootMargin, readInViewBandConfig } from "@utils/in-view-band";
 import { isVariant } from "./variants/names";
 import { loadVariant, type DrawFunction } from "./variant-loaders";
 import type { FeatureCanvasPalette, FeatureCanvasTrigger, FeatureCanvasVariant } from "./types";
@@ -83,8 +84,6 @@ const prefersReducedMotion = (): boolean => window.matchMedia(REDUCED_MOTION_QUE
 
 const HOVER_NONE_QUERY = "(hover: none)";
 const ACCENT_SLUG = /^[a-z0-9-]{1,64}$/;
-const CENTRE_BAND_MARGIN = "-35% 0px -35% 0px";
-const CENTRE_BAND_THRESHOLDS = [0, 0.25, 0.5, 0.75, 1];
 
 const resolveAccent = (raw: string | undefined): string =>
   raw && ACCENT_SLUG.test(raw) ? raw : DEFAULT_ACCENT_SLUG;
@@ -355,6 +354,8 @@ export const mountFeatureCanvas = (
         applyTarget(instance, 1);
         return;
       }
+      const bandConfig = readInViewBandConfig();
+      const useBand = touchOnly && touchAutoplay && bandConfig.enabled;
       const viewObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -366,7 +367,9 @@ export const mountFeatureCanvas = (
             instance.target = 0;
           });
         },
-        { threshold: IN_VIEW_THRESHOLD }
+        useBand
+          ? { rootMargin: bandRootMargin(bandConfig), threshold: BAND_THRESHOLDS }
+          : { threshold: IN_VIEW_THRESHOLD }
       );
       viewObserver.observe(host);
       inputCleanups.push(() => viewObserver.disconnect());
@@ -379,14 +382,15 @@ export const mountFeatureCanvas = (
       listen(hoverTarget, "focusout", () => applyTarget(instance, 0));
       return;
     }
-    if (!touchAutoplay || typeof IntersectionObserver === "undefined") {
+    const bandConfig = readInViewBandConfig();
+    if (!touchAutoplay || !bandConfig.enabled || typeof IntersectionObserver === "undefined") {
       return;
     }
     const centreObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => applyTarget(instance, entry.isIntersecting ? 1 : 0));
       },
-      { rootMargin: CENTRE_BAND_MARGIN, threshold: CENTRE_BAND_THRESHOLDS }
+      { rootMargin: bandRootMargin(bandConfig), threshold: BAND_THRESHOLDS }
     );
     centreObserver.observe(hoverTarget);
     inputCleanups.push(() => centreObserver.disconnect());

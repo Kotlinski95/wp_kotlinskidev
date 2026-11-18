@@ -13139,6 +13139,58 @@ msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Pomarańcz Zachodu"
 
+#: functions/settings-page.php
+msgid "Touch in-view trigger"
+msgstr "Wyzwalacz hover na ekranach dotykowych"
+
+#: functions/settings-page.php
+msgid "Enable"
+msgstr "Włącz"
+
+#: functions/settings-page.php
+msgid "Band centre (% from viewport top)"
+msgstr "Środek pasma (% od góry okna)"
+
+#: functions/settings-page.php
+msgid "Include links and buttons"
+msgstr "Uwzględnij linki i przyciski"
+
+#: functions/settings-page.php
+msgid "Also trigger hover effects on links, buttons and navigation items"
+msgstr "Wyzwalaj efekty hover także na linkach, przyciskach i elementach nawigacji"
+
+#: functions/settings-page.php
+msgid "Band size (% of viewport height)"
+msgstr "Wysokość pasma (% wysokości okna)"
+
+#: functions/settings-page.php
+msgid "On touch screens there is no hover, so the one hover-capable element nearest the centre of this horizontal band gets its hover effect. Feature card canvases use the same band. Individual blocks can opt out in the Hover animation panel."
+msgstr "Na ekranach dotykowych nie ma hovera, więc efekt hover otrzymuje jeden element najbliżej środka tego poziomego pasma. Płótna kart funkcji używają tego samego pasma. Pojedyncze bloki mogą zrezygnować w panelu animacji hover."
+
+#: functions/settings-page.php
+msgid "Trigger hover effects for the element centred on touch screens"
+msgstr "Uruchamiaj efekty hover dla elementu pośrodku na ekranach dotykowych"
+
+#: functions/settings-page.php
+msgid "Activate when centred on touch screens"
+msgstr "Aktywuj, gdy pośrodku na ekranach dotykowych"
+
+#: functions/settings-page.php
+msgid "On touch screens there is no hover, so the hover effect plays while this block is the one nearest the centre of the screen."
+msgstr "Na ekranach dotykowych nie ma hovera, więc efekt odtwarza się, gdy ten blok jest najbliżej środka ekranu."
+
+#: functions/settings-page.php
+msgid "Touch parallax"
+msgstr "Parallax na ekranach dotykowych"
+
+#: functions/settings-page.php
+msgid "Touch screens cannot render a fixed background, so parallax banners are emulated with a scroll-driven animation. Browsers without scroll-driven animation support, and visitors who prefer reduced motion, keep the static background."
+msgstr "Ekrany dotykowe nie obsługują stałego tła, dlatego banery z efektem parallax są emulowane za pomocą animacji sterowanej przewijaniem. Przeglądarki bez obsługi takich animacji oraz osoby preferujące ograniczony ruch zachowują statyczne tło."
+
+#: functions/settings-page.php
+msgid "Pin parallax banner backgrounds while scrolling on touch screens"
+msgstr "Przypinaj tła banerów parallax podczas przewijania na ekranach dotykowych"
+
 #~ msgid "Choose slide"
 #~ msgstr "Wybierz slajd"
 

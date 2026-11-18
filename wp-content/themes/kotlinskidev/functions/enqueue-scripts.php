@@ -188,6 +188,7 @@ add_action('wp_enqueue_scripts', function (): void {
         'mobileBreakpoint' => kotlinskidev_get_breakpoints()['mobile_max'],
         'breakpoints' => kotlinskidev_get_breakpoints(),
         'scrollOffsets' => kotlinskidev_get_scroll_offsets(),
+        'inViewBand' => kotlinskidev_get_in_view_band_config(),
     ]);
     
 });

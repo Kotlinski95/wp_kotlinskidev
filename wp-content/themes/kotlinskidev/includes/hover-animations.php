@@ -93,6 +93,10 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
         $classes[] = 'has-enhanced-hover-glow';
     }
 
+    if ( false === ( $attrs['inViewHover'] ?? true ) && ! empty( $classes ) ) {
+        $classes[] = 'kt-in-view-hover-off';
+    }
+
     if ( empty( $classes ) ) {
         return $block_content;
     }
