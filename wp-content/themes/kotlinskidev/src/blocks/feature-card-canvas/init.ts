@@ -1,3 +1,4 @@
+import "@utils/webpack-public-path";
 import type * as Runtime from "./runtime";
 
 const handles = new WeakMap<HTMLElement, Promise<Runtime.FeatureCanvasHandle>>();

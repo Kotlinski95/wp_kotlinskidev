@@ -18,6 +18,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.2.1] — 2026-11-18
+
+### Fixed
+
+- The Feature Card Canvas and Model Viewer front-end scripts now pin webpack's chunk path to the theme URL like the other lazy-loading blocks. On production Asset CleanUp combines scripts into its cache folder, which made webpack request the canvas runtime and 3D chunks from there (404), so canvases and models never loaded.
+
 ## [2.2.0] — 2026-11-18
 
 ### Added
