@@ -5,6 +5,19 @@ import { InspectorControls, useSettings } from "@wordpress/block-editor";
 import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { getPaletteDuotoneData, watchEditorCanvas } from "./palette-duotone-svg";
+
+const paletteDuotones = getPaletteDuotoneData(
+  (window as unknown as { kotlinskidevPaletteDuotones?: unknown }).kotlinskidevPaletteDuotones
+);
+
+if (paletteDuotones.svg && typeof document !== "undefined") {
+  if (document.body) {
+    watchEditorCanvas(paletteDuotones.svg);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => watchEditorCanvas(paletteDuotones.svg));
+  }
+}
 
 const FILTER_COLOR_BLOCKS = ["core/image"];
 const DEFAULT_VALUE = "";
@@ -34,6 +47,10 @@ const addFilterColorAttributes = (settings: BlockSettings): BlockSettings => {
 };
 
 function slugToLabel(slug: string): string {
+  if (paletteDuotones.labels[slug]) {
+    return paletteDuotones.labels[slug];
+  }
+
   return slug
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))

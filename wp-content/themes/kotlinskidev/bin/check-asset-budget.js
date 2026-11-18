@@ -23,7 +23,10 @@ Object.entries(budget.globs).forEach(([dir, rule]) => {
   }
   fs.readdirSync(absoluteDir)
     .filter(
-      (name) => name.endsWith(rule.extension) && !(rule.exclude && name.endsWith(rule.exclude))
+      (name) =>
+        name.endsWith(rule.extension) &&
+        (!rule.prefix || name.startsWith(rule.prefix)) &&
+        !(rule.exclude && name.endsWith(rule.exclude))
     )
     .forEach((name) => checks.push({ file: `${dir}/${name}`, max: rule.max }));
 });

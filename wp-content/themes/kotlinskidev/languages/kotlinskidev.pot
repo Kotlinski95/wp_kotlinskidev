@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: kotlinskidev 2.0.0\n"
+"Project-Id-Version: kotlinskidev 2.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-12T13:05:38+00:00\n"
+"POT-Creation-Date: 2026-11-17T18:01:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: kotlinskidev\n"
@@ -56,7 +56,7 @@ msgstr ""
 
 #: build/blocks/contact-detail/render.php:16
 #: functions/contact-card.php:120
-#: functions/settings-page.php:765
+#: functions/settings-page.php:791
 #: src/blocks/contact-detail/render.php:16
 #: build/js/contact-detail.js:1
 #: build/js/google-maps.js:1
@@ -66,7 +66,7 @@ msgstr ""
 
 #: build/blocks/contact-detail/render.php:17
 #: functions/contact-card.php:132
-#: functions/settings-page.php:773
+#: functions/settings-page.php:799
 #: src/blocks/contact-detail/render.php:17
 #: build/js/contact-detail.js:1
 #: build/js/device-frame.js:1
@@ -78,7 +78,7 @@ msgstr ""
 #: functions/class-contact-submissions-list-table.php:25
 #: functions/contact-card.php:138
 #: functions/contact-form-submissions.php:174
-#: functions/settings-page.php:782
+#: functions/settings-page.php:808
 #: src/blocks/contact-detail/render.php:18
 #: build/js/contact-detail.js:1
 #: build/js/protected-content.js:1
@@ -170,13 +170,13 @@ msgstr ""
 msgid "Files are sent to the site owner by email and are not stored on the website."
 msgstr ""
 
-#: build/blocks/device-frame/render.php:82
-#: src/blocks/device-frame/render.php:82
+#: build/blocks/device-frame/render.php:85
+#: src/blocks/device-frame/render.php:85
 msgid "Expand video"
 msgstr ""
 
-#: build/blocks/device-frame/render.php:82
-#: src/blocks/device-frame/render.php:82
+#: build/blocks/device-frame/render.php:85
+#: src/blocks/device-frame/render.php:85
 msgid "Expand image"
 msgstr ""
 
@@ -271,8 +271,8 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: build/blocks/navigation/render.php:459
-#: src/blocks/navigation/render.php:459
+#: build/blocks/navigation/render.php:466
+#: src/blocks/navigation/render.php:466
 msgid "Main navigation"
 msgstr ""
 
@@ -1082,9 +1082,9 @@ msgstr ""
 
 #: functions/class-contact-submissions-list-table.php:24
 #: functions/contact-form-submissions.php:170
-#: functions/settings-page.php:1657
-#: functions/settings-page.php:1668
-#: functions/settings-page.php:1699
+#: functions/settings-page.php:1707
+#: functions/settings-page.php:1718
+#: functions/settings-page.php:1749
 #: build/js/editor.js:37
 msgid "Name"
 msgstr ""
@@ -1227,11 +1227,11 @@ msgstr ""
 msgid "CSS class name to add to cover images that should skip lazy loading. Common options: skip-lazy, no-lazy, exclude-lazy"
 msgstr ""
 
-#: functions/device-frame-lightbox.php:38
+#: functions/device-frame-lightbox.php:35
 msgid "Expanded media"
 msgstr ""
 
-#: functions/device-frame-lightbox.php:41
+#: functions/device-frame-lightbox.php:38
 #: functions/marquee.php:6
 #: functions/modals.php:129
 msgid "Close"
@@ -1243,6 +1243,108 @@ msgstr ""
 
 #: functions/disable-comments.php:28
 msgid "Comments Disabled"
+msgstr ""
+
+#: functions/feature-card-canvas.php:10
+msgid "Original"
+msgstr ""
+
+#: functions/feature-card-canvas.php:11
+msgid "1440px"
+msgstr ""
+
+#: functions/feature-card-canvas.php:12
+msgid "375px"
+msgstr ""
+
+#: functions/feature-card-canvas.php:18
+#: functions/feature-card-canvas.php:74
+msgid "LCP"
+msgstr ""
+
+#: functions/feature-card-canvas.php:19
+#: functions/feature-card-canvas.php:75
+msgid "INP"
+msgstr ""
+
+#: functions/feature-card-canvas.php:20
+#: functions/feature-card-canvas.php:76
+msgid "CLS"
+msgstr ""
+
+#: functions/feature-card-canvas.php:26
+msgid "Frontend"
+msgstr ""
+
+#: functions/feature-card-canvas.php:27
+#: functions/feature-card-canvas.php:82
+msgid "Next.js"
+msgstr ""
+
+#: functions/feature-card-canvas.php:28
+msgid "WordPress"
+msgstr ""
+
+#: functions/feature-card-canvas.php:34
+msgid "Cart"
+msgstr ""
+
+#: functions/feature-card-canvas.php:35
+msgid "Payment"
+msgstr ""
+
+#: functions/feature-card-canvas.php:36
+msgid "Done"
+msgstr ""
+
+#: functions/feature-card-canvas.php:42
+msgid "website near me"
+msgstr ""
+
+#: functions/feature-card-canvas.php:50
+msgid "Uptime"
+msgstr ""
+
+#: functions/feature-card-canvas.php:51
+msgid "Backups"
+msgstr ""
+
+#: functions/feature-card-canvas.php:58
+msgid "CMS"
+msgstr ""
+
+#: functions/feature-card-canvas.php:59
+msgid "GraphQL"
+msgstr ""
+
+#: functions/feature-card-canvas.php:60
+msgid "API"
+msgstr ""
+
+#: functions/feature-card-canvas.php:66
+#: patterns/tech-stack-grouped-cards.php:23
+#: patterns/tech-stack-icon-tiles.php:14
+msgid "Shopify"
+msgstr ""
+
+#: functions/feature-card-canvas.php:67
+#: patterns/tech-stack-grouped-cards.php:24
+#: patterns/tech-stack-icon-tiles.php:15
+msgid "WooCommerce"
+msgstr ""
+
+#: functions/feature-card-canvas.php:68
+#: patterns/tech-stack-grouped-cards.php:25
+#: patterns/tech-stack-icon-tiles.php:16
+msgid "SAP Hybris"
+msgstr ""
+
+#: functions/feature-card-canvas.php:83
+msgid "Angular"
+msgstr ""
+
+#: functions/feature-card-canvas.php:84
+msgid "VS"
 msgstr ""
 
 #: functions/feature-toggles.php:30
@@ -1278,6 +1380,38 @@ msgstr ""
 
 #: functions/feature-toggles.php:39
 msgid "Custom SEO options"
+msgstr ""
+
+#: functions/footer-layout.php:13
+msgid "Left aligned (default)"
+msgstr ""
+
+#: functions/footer-layout.php:14
+msgid "Centered"
+msgstr ""
+
+#: functions/footer-layout.php:70
+msgid "Footer layout (mobile and tablet)"
+msgstr ""
+
+#: functions/footer-layout.php:72
+msgid "Choose how the footer is laid out below the desktop breakpoint. Desktop is not affected. Left aligned with 1 column on both devices is the original layout."
+msgstr ""
+
+#: functions/footer-layout.php:77
+msgid "Brand alignment (photo, description, social links)"
+msgstr ""
+
+#: functions/footer-layout.php:78
+msgid "Navigation alignment (headings, links, contact)"
+msgstr ""
+
+#: functions/footer-layout.php:105
+msgid "Link columns on mobile"
+msgstr ""
+
+#: functions/footer-layout.php:110
+msgid "Link columns on tablet"
 msgstr ""
 
 #: functions/icon-library.php:4
@@ -1427,6 +1561,22 @@ msgstr[1] ""
 msgid "Review offers"
 msgstr ""
 
+#: functions/palette-duotone.php:12
+msgid "Duotone · Primary"
+msgstr ""
+
+#: functions/palette-duotone.php:17
+msgid "Primary colour (solid)"
+msgstr ""
+
+#: functions/palette-duotone.php:22
+msgid "Duotone · Primary soft"
+msgstr ""
+
+#: functions/palette-duotone.php:27
+msgid "Duotone · Foreground"
+msgstr ""
+
 #: functions/patterns.php:5
 msgid "FAQs"
 msgstr ""
@@ -1502,198 +1652,202 @@ msgstr ""
 msgid "Failed to load protected content"
 msgstr ""
 
-#: functions/protection-helpers.php:411
-#: functions/protection-helpers.php:412
+#: functions/protection-helpers.php:407
+msgid "Loading protected content..."
+msgstr ""
+
+#: functions/protection-helpers.php:423
+#: functions/protection-helpers.php:424
 msgid "Content Protection"
 msgstr ""
 
-#: functions/protection-helpers.php:430
+#: functions/protection-helpers.php:442
 msgid "Security check failed"
 msgstr ""
 
-#: functions/protection-helpers.php:434
+#: functions/protection-helpers.php:446
 msgid "You do not have permission to change these settings"
 msgstr ""
 
-#: functions/protection-helpers.php:440
+#: functions/protection-helpers.php:452
 msgid "Settings saved!"
 msgstr ""
 
-#: functions/protection-helpers.php:451
+#: functions/protection-helpers.php:463
 msgid "Content Protection Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:455
+#: functions/protection-helpers.php:467
 msgid "Auto-Protection Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:458
+#: functions/protection-helpers.php:470
 msgid "Auto-protect Emails"
 msgstr ""
 
-#: functions/protection-helpers.php:461
+#: functions/protection-helpers.php:473
 msgid "Automatically protect all email addresses in content"
 msgstr ""
 
-#: functions/protection-helpers.php:465
+#: functions/protection-helpers.php:477
 msgid "Auto-protect Phone Numbers"
 msgstr ""
 
-#: functions/protection-helpers.php:468
+#: functions/protection-helpers.php:480
 msgid "Automatically protect all phone numbers in content"
 msgstr ""
 
-#: functions/protection-helpers.php:473
+#: functions/protection-helpers.php:485
 msgid "Encryption Settings"
 msgstr ""
 
-#: functions/protection-helpers.php:476
+#: functions/protection-helpers.php:488
 msgid "Encryption Status"
 msgstr ""
 
-#: functions/protection-helpers.php:479
+#: functions/protection-helpers.php:491
 msgid "RSA-2048 encryption is active"
 msgstr ""
 
-#: functions/protection-helpers.php:481
+#: functions/protection-helpers.php:493
 msgid "Keys are stored securely in wp-config.php"
 msgstr ""
 
-#: functions/protection-helpers.php:483
+#: functions/protection-helpers.php:495
 msgid "Keys are stored in database (less secure)"
 msgstr ""
 
-#: functions/protection-helpers.php:486
+#: functions/protection-helpers.php:498
 msgid "No encryption keys found"
 msgstr ""
 
-#: functions/protection-helpers.php:488
+#: functions/protection-helpers.php:500
 msgid "Content is encrypted using RSA-2048 encryption for maximum security."
 msgstr ""
 
-#: functions/protection-helpers.php:492
+#: functions/protection-helpers.php:504
 msgid "Key Storage Method"
 msgstr ""
 
-#: functions/protection-helpers.php:495
+#: functions/protection-helpers.php:507
 msgid "Currently using wp-config.php (Recommended)"
 msgstr ""
 
-#: functions/protection-helpers.php:496
+#: functions/protection-helpers.php:508
 msgid "Keys are securely stored in wp-config.php constants."
 msgstr ""
 
-#: functions/protection-helpers.php:499
+#: functions/protection-helpers.php:511
 msgid "Database (Default)"
 msgstr ""
 
-#: functions/protection-helpers.php:500
+#: functions/protection-helpers.php:512
 msgid "wp-config.php (More Secure)"
 msgstr ""
 
-#: functions/protection-helpers.php:503
+#: functions/protection-helpers.php:515
 msgid "Database storage is convenient but less secure. wp-config.php storage requires manual setup but is more secure."
 msgstr ""
 
-#: functions/protection-helpers.php:509
+#: functions/protection-helpers.php:521
 msgid "Generate New Keys"
 msgstr ""
 
-#: functions/protection-helpers.php:512
+#: functions/protection-helpers.php:524
 msgid "Generate New Encryption Keys"
 msgstr ""
 
-#: functions/protection-helpers.php:515
+#: functions/protection-helpers.php:527
 msgid "Warning: Regenerating keys will make all existing protected content unreadable until re-protected."
 msgstr ""
 
-#: functions/protection-helpers.php:526
+#: functions/protection-helpers.php:538
 msgid "wp-config.php Setup Instructions"
 msgstr ""
 
-#: functions/protection-helpers.php:527
+#: functions/protection-helpers.php:539
 msgid "To use wp-config.php storage, add these constants to your wp-config.php file:"
 msgstr ""
 
-#: functions/protection-helpers.php:529
+#: functions/protection-helpers.php:541
 msgid "Generate & Show wp-config.php Constants"
 msgstr ""
 
-#: functions/protection-helpers.php:532
+#: functions/protection-helpers.php:544
 msgid "Generated wp-config.php constants"
 msgstr ""
 
-#: functions/protection-helpers.php:534
+#: functions/protection-helpers.php:546
 msgid "Instructions:"
 msgstr ""
 
-#: functions/protection-helpers.php:536
+#: functions/protection-helpers.php:548
 msgid "Copy the constants above"
 msgstr ""
 
-#: functions/protection-helpers.php:537
+#: functions/protection-helpers.php:549
 msgid "Add them to your wp-config.php file before the line that says \"/* That's all, stop editing! */\""
 msgstr ""
 
-#: functions/protection-helpers.php:538
+#: functions/protection-helpers.php:550
 msgid "Save the file and reload this page"
 msgstr ""
 
-#: functions/protection-helpers.php:546
+#: functions/protection-helpers.php:558
 msgid "Are you sure? This will invalidate all existing protected content."
 msgstr ""
 
-#: functions/protection-helpers.php:561
+#: functions/protection-helpers.php:573
 msgid "Keys regenerated successfully!"
 msgstr ""
 
-#: functions/protection-helpers.php:564
-#: functions/protection-helpers.php:590
+#: functions/protection-helpers.php:576
+#: functions/protection-helpers.php:602
 msgid "Error: "
 msgstr ""
 
-#: functions/protection-helpers.php:568
-#: functions/protection-helpers.php:594
+#: functions/protection-helpers.php:580
+#: functions/protection-helpers.php:606
 msgid "Network error occurred"
 msgstr ""
 
-#: functions/protection-helpers.php:587
+#: functions/protection-helpers.php:599
 msgid "Constants Generated"
 msgstr ""
 
-#: functions/protection-helpers.php:600
+#: functions/protection-helpers.php:612
 msgid "Usage Examples"
 msgstr ""
 
-#: functions/protection-helpers.php:601
+#: functions/protection-helpers.php:613
 msgid "Block Editor"
 msgstr ""
 
-#: functions/protection-helpers.php:602
+#: functions/protection-helpers.php:614
 msgid "Use the \"Protected Content\" block from the KotlinskiDev category."
 msgstr ""
 
-#: functions/protection-helpers.php:604
+#: functions/protection-helpers.php:616
 msgid "Shortcode"
 msgstr ""
 
-#: functions/protection-helpers.php:637
+#: functions/protection-helpers.php:649
 msgid "Copy to clipboard"
 msgstr ""
 
-#: functions/protection-helpers.php:638
+#: functions/protection-helpers.php:650
 msgid "Copied to clipboard"
 msgstr ""
 
-#: functions/protection-helpers.php:686
+#: functions/protection-helpers.php:698
 msgid "Security token expired. This may be due to page caching. Please refresh the page and try again."
 msgstr ""
 
-#: functions/protection-helpers.php:695
+#: functions/protection-helpers.php:707
 msgid "No content provided"
 msgstr ""
 
-#: functions/protection-helpers.php:699
+#: functions/protection-helpers.php:711
 msgid "Too many items requested"
 msgstr ""
 
@@ -2008,7 +2162,7 @@ msgid "Customization"
 msgstr ""
 
 #: functions/settings-page.php:69
-#: functions/settings-page.php:566
+#: functions/settings-page.php:592
 msgid "Site values"
 msgstr ""
 
@@ -2122,166 +2276,179 @@ msgid "Measurement ID"
 msgstr ""
 
 #: functions/settings-page.php:516
-msgid "Custom Event Tracking"
+msgid "Cloudflare Web Analytics"
 msgstr ""
 
 #: functions/settings-page.php:523
+msgid "Beacon token"
+msgstr ""
+
+#: functions/settings-page.php:542
+msgid "Custom Event Tracking"
+msgstr ""
+
+#: functions/settings-page.php:549
 msgid "Enabled events"
 msgstr ""
 
-#: functions/settings-page.php:541
+#: functions/settings-page.php:567
 msgid "Theme Features"
 msgstr ""
 
-#: functions/settings-page.php:548
+#: functions/settings-page.php:574
 msgid "Enabled features"
 msgstr ""
 
-#: functions/settings-page.php:573
+#: functions/settings-page.php:599
 msgid "Values"
 msgstr ""
 
-#: functions/settings-page.php:624
+#: functions/settings-page.php:650
 msgid "Content Security Policy"
 msgstr ""
 
-#: functions/settings-page.php:631
+#: functions/settings-page.php:657
 msgid "Enable CSP"
 msgstr ""
 
-#: functions/settings-page.php:639
+#: functions/settings-page.php:665
 msgid "Mode"
 msgstr ""
 
-#: functions/settings-page.php:647
+#: functions/settings-page.php:673
 msgid "Upgrade insecure requests"
 msgstr ""
 
-#: functions/settings-page.php:655
+#: functions/settings-page.php:681
 msgid "CSP Directives"
 msgstr ""
 
-#: functions/settings-page.php:693
+#: functions/settings-page.php:719
 msgid "Other Security Headers"
 msgstr ""
 
-#: functions/settings-page.php:700
+#: functions/settings-page.php:726
 msgid "Referrer-Policy"
 msgstr ""
 
-#: functions/settings-page.php:709
+#: functions/settings-page.php:735
 msgid "Permissions-Policy"
 msgstr ""
 
-#: functions/settings-page.php:758
+#: functions/settings-page.php:784
 msgid "Business Contact Details"
 msgstr ""
 
-#: functions/settings-page.php:791
+#: functions/settings-page.php:817
 msgid "Business hours"
 msgstr ""
 
-#: functions/settings-page.php:809
+#: functions/settings-page.php:835
 msgid "Sentry"
 msgstr ""
 
-#: functions/settings-page.php:816
+#: functions/settings-page.php:842
 msgid "DSN"
 msgstr ""
 
-#: functions/settings-page.php:835
+#: functions/settings-page.php:861
 msgid "Alerts"
 msgstr ""
 
-#: functions/settings-page.php:842
+#: functions/settings-page.php:868
 msgid "ntfy topic URL"
 msgstr ""
 
-#: functions/settings-page.php:852
+#: functions/settings-page.php:878
 msgid "Reports uncaught PHP exceptions and fatal errors (the class of bug that shows visitors a broken page) to Sentry. Regular warnings/notices/deprecations are not sent — this is scoped to failures that actually break a page, to stay well inside a free-tier event quota. Only active when WP_DEBUG is off, so local development never sends events."
 msgstr ""
 
-#: functions/settings-page.php:861
+#: functions/settings-page.php:887
 msgid "From your Sentry project (Settings → Client Keys). Leave empty to disable reporting."
 msgstr ""
 
-#: functions/settings-page.php:868
+#: functions/settings-page.php:894
 msgid "Sends a push notification when the site fails to send an email, independently of the mailer that failed. Install the ntfy app on your phone, choose a long random topic name, subscribe to it in the app, then paste https://ntfy.sh/<topic> below. Only the site host, the time and a short error message are sent; no visitor data is ever sent."
 msgstr ""
 
-#: functions/settings-page.php:877
+#: functions/settings-page.php:903
 msgid "Treat this URL like a password: anyone who knows the topic can read the alerts. Leave empty to disable alerts and the weekly mail check."
 msgstr ""
 
-#: functions/settings-page.php:884
+#: functions/settings-page.php:909
+#, php-format
+msgid "Alerts are off in this environment (%s). They are only sent when WP_ENVIRONMENT_TYPE is production."
+msgstr ""
+
+#: functions/settings-page.php:920
 msgid "Used on the contact card shown across the site (e.g. city landing pages). Address, phone, and email are shown obfuscated on the frontend and only revealed after a click, via the same protection used by the Protected Content block."
 msgstr ""
 
-#: functions/settings-page.php:909
+#: functions/settings-page.php:945
 msgid "Edit source text"
 msgstr ""
 
-#: functions/settings-page.php:911
+#: functions/settings-page.php:947
 msgid "This is the source text shown until a per-language translation exists."
 msgstr ""
 
-#: functions/settings-page.php:912
+#: functions/settings-page.php:948
 msgid "Translate per language →"
 msgstr ""
 
-#: functions/settings-page.php:949
+#: functions/settings-page.php:985
 msgid "Shown as plain text — not sensitive, so not obfuscated."
 msgstr ""
 
-#: functions/settings-page.php:974
+#: functions/settings-page.php:1010
 msgid "This site does not use comments. Enabling this protection closes comments at the server level — spam bots that POST directly to wp-comments-post.php or call XML-RPC comment methods are rejected with a 403 before any database write or email notification occurs. WordPress Discussion settings alone do not stop this traffic."
 msgstr ""
 
-#: functions/settings-page.php:988
+#: functions/settings-page.php:1024
 msgid "Block all comment submissions site-wide (recommended)"
 msgstr ""
 
-#: functions/settings-page.php:991
+#: functions/settings-page.php:1027
 msgid "Hooks into preprocess_comment and xmlrpc_methods. Removes comment UI from the block editor and admin menu."
 msgstr ""
 
-#: functions/settings-page.php:998
+#: functions/settings-page.php:1034
 msgid "Controls the light/dark color mode. When switching is disabled, the theme switcher button is hidden and the site stays locked to the default mode."
 msgstr ""
 
-#: functions/settings-page.php:1012
+#: functions/settings-page.php:1048
 msgid "Show the theme switcher and let visitors toggle light/dark mode"
 msgstr ""
 
-#: functions/settings-page.php:1021
+#: functions/settings-page.php:1057
 msgid "Auto (visitor system preference)"
 msgstr ""
 
-#: functions/settings-page.php:1022
+#: functions/settings-page.php:1058
 msgid "Light"
 msgstr ""
 
-#: functions/settings-page.php:1023
+#: functions/settings-page.php:1059
 msgid "Dark"
 msgstr ""
 
-#: functions/settings-page.php:1034
+#: functions/settings-page.php:1070
 msgid "Initial mode for visitors without a saved preference. With switching disabled, this is the only mode used."
 msgstr ""
 
-#: functions/settings-page.php:1042
+#: functions/settings-page.php:1078
 msgid "One source of truth for responsive ranges. These values drive the compiled theme CSS (media queries are rewritten at runtime and cached), the editor responsive controls, frontend scripts, and any plugin reading the mobile_breakpoint / tablet_breakpoint theme mods."
 msgstr ""
 
-#: functions/settings-page.php:1044
+#: functions/settings-page.php:1080
 msgid "Range"
 msgstr ""
 
-#: functions/settings-page.php:1045
+#: functions/settings-page.php:1081
 msgid "Effective values"
 msgstr ""
 
-#: functions/settings-page.php:1046
+#: functions/settings-page.php:1082
 #: build/js/content-tabs.js:1
 #: build/js/editor.js:1
 #: build/js/editor.js:16
@@ -2289,11 +2456,12 @@ msgstr ""
 #: build/js/editor.js:34
 #: build/js/editor.js:43
 #: build/js/editor.js:46
+#: build/js/responsive-media-panel.js:1
 #: build/js/slider.js:1
 msgid "Mobile"
 msgstr ""
 
-#: functions/settings-page.php:1047
+#: functions/settings-page.php:1083
 #: build/js/content-tabs.js:1
 #: build/js/device-frame.js:1
 #: build/js/editor.js:1
@@ -2302,11 +2470,12 @@ msgstr ""
 #: build/js/editor.js:31
 #: build/js/editor.js:40
 #: build/js/editor.js:46
+#: build/js/responsive-media-panel.js:1
 #: build/js/slider.js:1
 msgid "Tablet"
 msgstr ""
 
-#: functions/settings-page.php:1048
+#: functions/settings-page.php:1084
 #: build/js/content-tabs.js:1
 #: build/js/device-frame.js:1
 #: build/js/editor.js:10
@@ -2318,288 +2487,297 @@ msgstr ""
 msgid "Desktop"
 msgstr ""
 
-#: functions/settings-page.php:1049
+#: functions/settings-page.php:1085
 msgid "Large desktop"
 msgstr ""
 
-#: functions/settings-page.php:1059
+#: functions/settings-page.php:1095
 msgid "Screens up to this width are mobile. Tablet starts at this value + 1px. Theme default: 781."
 msgstr ""
 
-#: functions/settings-page.php:1070
+#: functions/settings-page.php:1106
 msgid "Screens up to this width are tablet. Desktop starts at this value + 1px. Theme default: 1023."
 msgstr ""
 
-#: functions/settings-page.php:1081
+#: functions/settings-page.php:1117
 msgid "Wide-desktop refinements (e.g. wider content container) start here. Theme default: 1200."
 msgstr ""
 
-#: functions/settings-page.php:1088
+#: functions/settings-page.php:1124
 msgid "Distance kept between the sticky header and the target when clicking an in-page anchor link (e.g. \"#services\"). Desktop keeps its floating header visible at all times, so it needs the full header height as clearance. Mobile hides the header while scrolling and only re-shows it near the top of the page, so it typically needs little or no offset."
 msgstr ""
 
 #. translators: %d: default desktop scroll offset in pixels
-#: functions/settings-page.php:1101
+#: functions/settings-page.php:1137
 #, php-format
 msgid "Applies above the desktop breakpoint, where the header stays visible while scrolling. Theme default: %d (matches the header height)."
 msgstr ""
 
 #. translators: %d: default mobile scroll offset in pixels
-#: functions/settings-page.php:1119
+#: functions/settings-page.php:1155
 #, php-format
 msgid "Applies below the desktop breakpoint, where the header hides on scroll. Theme default: %d, since the header is typically hidden by the time the scroll finishes."
 msgstr ""
 
-#: functions/settings-page.php:1129
+#: functions/settings-page.php:1165
 msgid "When a link (navigation, button, in-content) points at the page currently being viewed, it can be marked as active — the same gradient-text/underline style normally reserved for hover — and/or prevented from being clicked, since navigating to the page a visitor is already on does nothing useful. Individual blocks can still opt out from their own Advanced panel regardless of these settings."
 msgstr ""
 
-#: functions/settings-page.php:1138
+#: functions/settings-page.php:1174
 msgid "Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
 
-#: functions/settings-page.php:1141
+#: functions/settings-page.php:1177
 msgid "Adds a kt-link-current class and aria-current=\"page\" to matching links sitewide (navigation, footer, hamburger, mega menu, popular pages)."
 msgstr ""
 
-#: functions/settings-page.php:1152
+#: functions/settings-page.php:1188
 msgid "Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
 
-#: functions/settings-page.php:1155
+#: functions/settings-page.php:1191
 msgid "Adds aria-disabled and removes the link from tab order. Menu items that also open a mega-menu panel stay fully interactive. Has no effect if highlighting above is disabled."
 msgstr ""
 
-#: functions/settings-page.php:1172
+#: functions/settings-page.php:1208
 msgid "Customize the wp-login.php background, logo, and accent color."
 msgstr ""
 
-#: functions/settings-page.php:1181
+#: functions/settings-page.php:1217
 msgid "Enable custom login page styling"
 msgstr ""
 
-#: functions/settings-page.php:1191
-#: functions/settings-page.php:1203
-#: functions/settings-page.php:1767
+#: functions/settings-page.php:1227
+#: functions/settings-page.php:1239
+#: functions/settings-page.php:1817
 msgid "Choose Image"
 msgstr ""
 
-#: functions/settings-page.php:1193
+#: functions/settings-page.php:1229
 msgid "Defaults to the theme background image when left empty."
 msgstr ""
 
-#: functions/settings-page.php:1205
+#: functions/settings-page.php:1241
 msgid "Defaults to the theme logo when left empty."
 msgstr ""
 
-#: functions/settings-page.php:1215
+#: functions/settings-page.php:1251
 msgid "Fallback background color when no image loads."
 msgstr ""
 
-#: functions/settings-page.php:1224
+#: functions/settings-page.php:1260
 msgid "Color for links and hover effects."
 msgstr ""
 
-#: functions/settings-page.php:1259
+#: functions/settings-page.php:1295
 msgid "Loads the Facebook Pixel on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"marketing\" consent category — it only executes once a visitor accepts marketing cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 msgstr ""
 
-#: functions/settings-page.php:1275
-#: functions/settings-page.php:1297
+#: functions/settings-page.php:1311
+#: functions/settings-page.php:1333
 msgid "Paste a full script tag here to override the ID-based snippet above."
 msgstr ""
 
-#: functions/settings-page.php:1281
+#: functions/settings-page.php:1317
 msgid "Loads Google Analytics (gtag.js) on the frontend only (not in wp-admin or REST responses), gated behind Complianz's \"statistics\" consent category — it only executes once a visitor accepts statistics cookies. A pasted custom script is output as-is and is not consent-gated automatically."
 msgstr ""
 
-#: functions/settings-page.php:1303
+#: functions/settings-page.php:1339
+msgid "Loads the Cloudflare Web Analytics beacon after the first interaction or six seconds after page load, so it stays out of the critical path. Leave the token empty to disable it, and turn Auto-install off in Cloudflare so the beacon is not loaded twice."
+msgstr ""
+
+#: functions/settings-page.php:1347
+msgid "Cloudflare dashboard, Analytics & Logs, Web Analytics, your site, Manage site, the token inside the JavaScript snippet."
+msgstr ""
+
+#: functions/settings-page.php:1353
 msgid "Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, form completions, lightbox opens, etc.). Unchecking one stops it going to every connected platform at once — for per-platform routing (e.g. an event reaching GA4 but not Meta), that stays a code-level decision in routing.ts. See docs/tracking-spec.md for what each event tracks."
 msgstr ""
 
-#: functions/settings-page.php:1328
+#: functions/settings-page.php:1378
 msgid "Each of these registers its own custom post type, blocks, and admin screens. If this theme is reused for a project that doesn't need one, switching it off here skips that registration entirely instead of just hiding it — fewer blocks for the editor to discover, no unused admin menu items."
 msgstr ""
 
-#: functions/settings-page.php:1348
+#: functions/settings-page.php:1398
 msgid "Changes take effect on the next page load — WordPress re-registers post types and blocks on every request, nothing to rebuild."
 msgstr ""
 
-#: functions/settings-page.php:1354
+#: functions/settings-page.php:1404
 msgid "Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme's own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads."
 msgstr ""
 
-#: functions/settings-page.php:1363
+#: functions/settings-page.php:1413
 msgid "Send a Content-Security-Policy header"
 msgstr ""
 
-#: functions/settings-page.php:1374
+#: functions/settings-page.php:1424
 msgid "Enforce the policy (blocks violations)"
 msgstr ""
 
-#: functions/settings-page.php:1377
+#: functions/settings-page.php:1427
 msgid "Leave unchecked to send Content-Security-Policy-Report-Only instead — the browser reports violations to the console without blocking anything. Recommended for at least a few days on a new site before enforcing."
 msgstr ""
 
-#: functions/settings-page.php:1388
+#: functions/settings-page.php:1438
 msgid "Add the upgrade-insecure-requests directive"
 msgstr ""
 
-#: functions/settings-page.php:1395
+#: functions/settings-page.php:1445
 msgid "One field per CSP directive. Values are sanitized as plain text (no HTML, no line breaks) before being sent in the header."
 msgstr ""
 
-#: functions/settings-page.php:1410
+#: functions/settings-page.php:1460
 msgid "Referrer-Policy and Permissions-Policy are sent on every frontend response (never on wp-admin or REST requests). Set independently per site — no need to touch code to give a different customer a different policy."
 msgstr ""
 
-#: functions/settings-page.php:1425
+#: functions/settings-page.php:1475
 msgid "Controls how much of the current page URL is sent to other sites when a visitor follows a link away from this one. strict-origin-when-cross-origin is a balanced default."
 msgstr ""
 
-#: functions/settings-page.php:1436
+#: functions/settings-page.php:1486
 msgid "Full Permissions-Policy header value. Clear this field to stop sending the header entirely — it will not fall back to a default once saved empty."
 msgstr ""
 
-#: functions/settings-page.php:1461
+#: functions/settings-page.php:1511
 msgid "Named values that can be reused anywhere in content. Write {token:key} in a paragraph, heading, button or menu item and it is replaced with the current value when the page is rendered. Unknown keys are left as plain text."
 msgstr ""
 
-#: functions/settings-page.php:1471
+#: functions/settings-page.php:1521
 msgid "Years since"
 msgstr ""
 
-#: functions/settings-page.php:1472
+#: functions/settings-page.php:1522
 msgid "Current year"
 msgstr ""
 
-#: functions/settings-page.php:1473
+#: functions/settings-page.php:1523
 msgid "Static text"
 msgstr ""
 
-#: functions/settings-page.php:1491
+#: functions/settings-page.php:1541
 msgid "Start year (2020) or full date (2020-03-01). Resolves to the whole years elapsed."
 msgstr ""
 
-#: functions/settings-page.php:1494
+#: functions/settings-page.php:1544
 msgid "Resolves to the current year automatically."
 msgstr ""
 
-#: functions/settings-page.php:1510
-#: functions/settings-page.php:1768
+#: functions/settings-page.php:1560
+#: functions/settings-page.php:1818
 #: build/js/editor.js:1
 #: build/js/gallery-lightbox.js:1
 msgid "Remove"
 msgstr ""
 
-#: functions/settings-page.php:1524
+#: functions/settings-page.php:1574
 msgid "Key"
 msgstr ""
 
-#: functions/settings-page.php:1525
+#: functions/settings-page.php:1575
 msgid "Type"
 msgstr ""
 
-#: functions/settings-page.php:1526
+#: functions/settings-page.php:1576
 #: build/js/editor.js:37
 msgid "Value"
 msgstr ""
 
-#: functions/settings-page.php:1536
+#: functions/settings-page.php:1586
 msgid "Add value"
 msgstr ""
 
-#: functions/settings-page.php:1537
+#: functions/settings-page.php:1587
 msgid "Keys use lowercase letters, numbers, dashes and underscores, and must be unique. Rows with an empty or duplicate key are dropped on save."
 msgstr ""
 
-#: functions/settings-page.php:1654
+#: functions/settings-page.php:1704
 msgid "Organization"
 msgstr ""
 
-#: functions/settings-page.php:1655
+#: functions/settings-page.php:1705
 msgid "Business entity published in the structured data (JSON-LD) on every page."
 msgstr ""
 
-#: functions/settings-page.php:1658
-#: functions/settings-page.php:1700
+#: functions/settings-page.php:1708
+#: functions/settings-page.php:1750
 msgid "Alternate names"
 msgstr ""
 
-#: functions/settings-page.php:1658
-#: functions/settings-page.php:1700
+#: functions/settings-page.php:1708
+#: functions/settings-page.php:1750
 msgid "One per line."
 msgstr ""
 
-#: functions/settings-page.php:1659
+#: functions/settings-page.php:1709
 #: build/js/certificate-panel.js:1
 #: build/js/editor.js:46
 #: build/js/nav-content.js:1
 msgid "Description"
 msgstr ""
 
-#: functions/settings-page.php:1659
+#: functions/settings-page.php:1709
 msgid "Per language. When empty, the site tagline is used for the website only."
 msgstr ""
 
-#: functions/settings-page.php:1660
+#: functions/settings-page.php:1710
 msgid "Logo"
 msgstr ""
 
-#: functions/settings-page.php:1660
+#: functions/settings-page.php:1710
 msgid "PNG or WebP, at least 112 x 112 px. SVG is ignored. Falls back to the site icon."
 msgstr ""
 
-#: functions/settings-page.php:1661
+#: functions/settings-page.php:1711
 msgid "Social profiles"
 msgstr ""
 
-#: functions/settings-page.php:1661
+#: functions/settings-page.php:1711
 msgid "One http(s) URL per line."
 msgstr ""
 
-#: functions/settings-page.php:1665
+#: functions/settings-page.php:1715
 msgid "Person"
 msgstr ""
 
-#: functions/settings-page.php:1666
+#: functions/settings-page.php:1716
 msgid "The founder shown as author of articles and owner of the organization."
 msgstr ""
 
-#: functions/settings-page.php:1669
+#: functions/settings-page.php:1719
 msgid "Job title"
 msgstr ""
 
-#: functions/settings-page.php:1669
+#: functions/settings-page.php:1719
 msgid "Per language."
 msgstr ""
 
-#: functions/settings-page.php:1670
+#: functions/settings-page.php:1720
+#: build/js/editor.js:1
 #: build/js/nav-content.js:1
 msgid "Image"
 msgstr ""
 
-#: functions/settings-page.php:1670
+#: functions/settings-page.php:1720
 msgid "When empty, the organization logo is referenced instead."
 msgstr ""
 
-#: functions/settings-page.php:1671
+#: functions/settings-page.php:1721
 msgid "About page slug"
 msgstr ""
 
-#: functions/settings-page.php:1671
+#: functions/settings-page.php:1721
 msgid "Default-language slug of the page used as the person URL."
 msgstr ""
 
-#: functions/settings-page.php:1675
+#: functions/settings-page.php:1725
 msgid "Location & expertise"
 msgstr ""
 
-#: functions/settings-page.php:1676
+#: functions/settings-page.php:1726
 msgid "Only city, region and country are published. The street address is never exposed."
 msgstr ""
 
-#: functions/settings-page.php:1678
+#: functions/settings-page.php:1728
 #: patterns/service-location-content.php:12
 #: patterns/service-location-content.php:153
 #: patterns/service-location-content.php:214
@@ -2609,94 +2787,99 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: functions/settings-page.php:1679
+#: functions/settings-page.php:1729
 msgid "Region"
 msgstr ""
 
-#: functions/settings-page.php:1679
+#: functions/settings-page.php:1729
 msgid "Optional."
 msgstr ""
 
-#: functions/settings-page.php:1680
+#: functions/settings-page.php:1730
 msgid "Country code"
 msgstr ""
 
-#: functions/settings-page.php:1680
+#: functions/settings-page.php:1730
 msgid "Two-letter ISO code, for example PL."
 msgstr ""
 
-#: functions/settings-page.php:1681
+#: functions/settings-page.php:1731
 msgid "Area served"
 msgstr ""
 
-#: functions/settings-page.php:1682
+#: functions/settings-page.php:1732
 msgid "Knows about"
 msgstr ""
 
-#: functions/settings-page.php:1682
+#: functions/settings-page.php:1732
 msgid "One topic per line."
 msgstr ""
 
-#: functions/settings-page.php:1686
+#: functions/settings-page.php:1736
 msgid "Contact point"
 msgstr ""
 
-#: functions/settings-page.php:1687
+#: functions/settings-page.php:1737
 msgid "Contact point published with the organization."
 msgstr ""
 
-#: functions/settings-page.php:1689
+#: functions/settings-page.php:1739
 msgid "Contact type"
 msgstr ""
 
-#: functions/settings-page.php:1690
+#: functions/settings-page.php:1740
 msgid "Available languages"
 msgstr ""
 
-#: functions/settings-page.php:1690
+#: functions/settings-page.php:1740
 msgid "Language codes, one per line."
 msgstr ""
 
-#: functions/settings-page.php:1691
+#: functions/settings-page.php:1741
 msgid "Contact page slug"
 msgstr ""
 
-#: functions/settings-page.php:1691
+#: functions/settings-page.php:1741
 msgid "Default-language slug of the contact page."
 msgstr ""
 
-#: functions/settings-page.php:1692
+#: functions/settings-page.php:1742
 msgid "Publish email and phone"
 msgstr ""
 
-#: functions/settings-page.php:1692
+#: functions/settings-page.php:1742
 msgid "Publishes the Contact Info email and phone in the JSON-LD."
 msgstr ""
 
-#: functions/settings-page.php:1696
+#: functions/settings-page.php:1746
 msgid "Website"
 msgstr ""
 
-#: functions/settings-page.php:1697
+#: functions/settings-page.php:1747
 msgid "Website entity published in the structured data."
 msgstr ""
 
-#: functions/settings-page.php:1816
+#: functions/settings-page.php:1866
 msgid "Yoast SEO takes precedence over this field when it has a value."
 msgstr ""
 
-#: functions/settings-page.php:1824
+#: functions/settings-page.php:1874
 #, php-format
 msgid "Currently overridden by %1$s: %2$s"
 msgstr ""
 
-#: functions/settings-page.php:1829
+#: functions/settings-page.php:1879
 msgid "Open Yoast SEO settings"
 msgstr ""
 
-#: functions/site-identity.php:19
+#: functions/site-identity.php:21
 #, php-format
 msgid "%s home"
+msgstr ""
+
+#: functions/site-identity.php:24
+#, php-format
+msgid "%1$s – %2$s home"
 msgstr ""
 
 #: functions/tag-archive-manager.php:21
@@ -2768,6 +2951,7 @@ msgstr ""
 #: patterns/about-us.php:26
 #: patterns/cta-block-2.php:21
 #: patterns/cta-block.php:29
+#: patterns/feature-cards-canvas.php:24
 #: patterns/featured-content.php:21
 #: patterns/featured-content.php:60
 #: patterns/featured-content.php:94
@@ -2807,6 +2991,7 @@ msgstr ""
 #: patterns/contact-with-form.php:16
 #: patterns/cta-block-2.php:16
 #: patterns/cta-block.php:20
+#: patterns/feature-cards-canvas.php:19
 #: patterns/featured-content.php:35
 #: patterns/featured-content.php:74
 #: patterns/featured-content.php:108
@@ -2916,15 +3101,15 @@ msgctxt "Pattern title"
 msgid "Collaborations Described Cards"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:11
+#: patterns/collaborations-described-cards.php:10
 msgid "E-commerce · 2025"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:12
+#: patterns/collaborations-described-cards.php:11
 msgid "Headless storefront migration"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:13
+#: patterns/collaborations-described-cards.php:12
 msgid "Moved a Shopify theme onto Next.js; checkout time halved."
 msgstr ""
 
@@ -2940,55 +3125,55 @@ msgstr ""
 msgid "Cut initial bundle by 62% and made the table view usable on mobile."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:21
+#: patterns/collaborations-described-cards.php:22
 msgid "Agency · 2024"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:22
+#: patterns/collaborations-described-cards.php:23
 msgid "Frontend for six client sites"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:23
+#: patterns/collaborations-described-cards.php:24
 msgid "A shared component library the agency’s team still builds on."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:26
+#: patterns/collaborations-described-cards.php:28
 msgid "Publisher · 2023"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:27
+#: patterns/collaborations-described-cards.php:29
 msgid "Core Web Vitals rescue"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:28
+#: patterns/collaborations-described-cards.php:30
 msgid "All three metrics into the green across 40k article pages."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:31
+#: patterns/collaborations-described-cards.php:34
 msgid "Marketplace · 2023"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:32
+#: patterns/collaborations-described-cards.php:35
 msgid "Angular to Next.js rewrite"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:33
+#: patterns/collaborations-described-cards.php:36
 msgid "Incremental migration with no downtime and no feature freeze."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:36
+#: patterns/collaborations-described-cards.php:40
 msgid "Startup · 2022"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:37
+#: patterns/collaborations-described-cards.php:41
 msgid "Marketing site from scratch"
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:38
+#: patterns/collaborations-described-cards.php:42
 msgid "Design, build and CMS in five weeks, launched on time."
 msgstr ""
 
-#: patterns/collaborations-described-cards.php:67
+#: patterns/collaborations-described-cards.php:69
 msgid "Read more →"
 msgstr ""
 
@@ -3598,6 +3783,52 @@ msgstr ""
 msgid "Frequently Asked Question"
 msgstr ""
 
+#: patterns/feature-cards-canvas.php
+msgctxt "Pattern title"
+msgid "Feature Cards Canvas"
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:15
+#: patterns/services-section.php:22
+msgid "Ensure You Receive High-Quality Services"
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:40
+#: patterns/service-icons-grid.php:23
+msgid "Websites"
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:44
+msgid "Fast, accessible websites built to convert visitors into customers."
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:52
+#: patterns/service-icons-grid.php:38
+msgid "Page optimization"
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:56
+msgid "Lighter pages, sharper images and faster loads on every device."
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:64
+#: patterns/service-icons-grid.php:53
+msgid "Internet applications"
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:68
+msgid "Scalable web applications connecting your data, services and users."
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:76
+#: patterns/service-icons-grid.php:68
+msgid "Analysis and reporting"
+msgstr ""
+
+#: patterns/feature-cards-canvas.php:80
+msgid "Clear metrics and reports that show what drives your growth."
+msgstr ""
+
 #: patterns/featured-content-2.php
 msgctxt "Pattern title"
 msgid "Featured Content 2"
@@ -4141,7 +4372,7 @@ msgid "Link Cards Icon Led"
 msgstr ""
 
 #: patterns/link-cards-icon-led.php:11
-#: patterns/link-cards-image-band.php:12
+#: patterns/link-cards-image-band.php:10
 #: patterns/link-cards-typographic.php:9
 msgid "Core Web Vitals optimization"
 msgstr ""
@@ -4151,7 +4382,7 @@ msgid "LCP, INP and CLS brought into the green and kept there."
 msgstr ""
 
 #: patterns/link-cards-icon-led.php:16
-#: patterns/link-cards-image-band.php:18
+#: patterns/link-cards-image-band.php:16
 #: patterns/link-cards-typographic.php:14
 msgid "Mobile-first frontend overhaul"
 msgstr ""
@@ -4161,7 +4392,7 @@ msgid "One component system that holds together at every width."
 msgstr ""
 
 #: patterns/link-cards-icon-led.php:21
-#: patterns/link-cards-image-band.php:24
+#: patterns/link-cards-image-band.php:22
 #: patterns/link-cards-typographic.php:19
 msgid "Performance audit & report"
 msgstr ""
@@ -4171,7 +4402,7 @@ msgid "Everything measured, prioritised and written down."
 msgstr ""
 
 #: patterns/link-cards-icon-led.php:51
-#: patterns/link-cards-image-band.php:53
+#: patterns/link-cards-image-band.php:49
 #: patterns/link-cards-typographic.php:48
 msgid "See more →"
 msgstr ""
@@ -4181,21 +4412,21 @@ msgctxt "Pattern title"
 msgid "Link Cards Image Band"
 msgstr ""
 
-#: patterns/link-cards-image-band.php:11
-#: patterns/link-cards-image-band.php:17
-#: patterns/link-cards-image-band.php:23
+#: patterns/link-cards-image-band.php:9
+#: patterns/link-cards-image-band.php:15
+#: patterns/link-cards-image-band.php:21
 msgid "Service"
 msgstr ""
 
-#: patterns/link-cards-image-band.php:13
+#: patterns/link-cards-image-band.php:11
 msgid "LCP, INP and CLS brought into the green, with before-and-after field data."
 msgstr ""
 
-#: patterns/link-cards-image-band.php:19
+#: patterns/link-cards-image-band.php:17
 msgid "Rebuilt from the smallest breakpoint up, so the phone experience stops being an afterthought."
 msgstr ""
 
-#: patterns/link-cards-image-band.php:25
+#: patterns/link-cards-image-band.php:23
 msgid "A prioritised list of what to fix first, with the measured cost of each problem."
 msgstr ""
 
@@ -4526,32 +4757,16 @@ msgctxt "Pattern title"
 msgid "Service Icons Grid"
 msgstr ""
 
-#: patterns/service-icons-grid.php:23
-msgid "Websites"
-msgstr ""
-
 #: patterns/service-icons-grid.php:27
 msgid "Design and build sites that hold together at every breakpoint, from first commit to launch."
-msgstr ""
-
-#: patterns/service-icons-grid.php:38
-msgid "Page optimization"
 msgstr ""
 
 #: patterns/service-icons-grid.php:42
 msgid "LCP, INP and CLS brought into the green, with before-and-after field data to prove it."
 msgstr ""
 
-#: patterns/service-icons-grid.php:53
-msgid "Internet applications"
-msgstr ""
-
 #: patterns/service-icons-grid.php:57
 msgid "Composable, component-based applications built with React, Next.js and Node."
-msgstr ""
-
-#: patterns/service-icons-grid.php:68
-msgid "Analysis and reporting"
 msgstr ""
 
 #: patterns/service-icons-grid.php:72
@@ -4729,10 +4944,6 @@ msgctxt "Pattern title"
 msgid "Service Section"
 msgstr ""
 
-#: patterns/services-section.php:22
-msgid "Ensure You Receive High-Quality Services"
-msgstr ""
-
 #: patterns/services-section.php:49
 msgid "Web Applications"
 msgstr ""
@@ -4858,26 +5069,11 @@ msgid "E-commerce platforms"
 msgstr ""
 
 #: patterns/tech-stack-grouped-cards.php:23
-#: patterns/tech-stack-icon-tiles.php:14
-msgid "Shopify"
-msgstr ""
-
-#: patterns/tech-stack-grouped-cards.php:23
 msgid "Liquid themes and Hydrogen"
 msgstr ""
 
 #: patterns/tech-stack-grouped-cards.php:24
-#: patterns/tech-stack-icon-tiles.php:15
-msgid "WooCommerce"
-msgstr ""
-
-#: patterns/tech-stack-grouped-cards.php:24
 msgid "WordPress-based commerce"
-msgstr ""
-
-#: patterns/tech-stack-grouped-cards.php:25
-#: patterns/tech-stack-icon-tiles.php:16
-msgid "SAP Hybris"
 msgstr ""
 
 #: patterns/tech-stack-grouped-cards.php:25
@@ -5020,6 +5216,7 @@ msgid "Testimonial Section"
 msgstr ""
 
 #: patterns/testimonial-section.php:19
+#: patterns/testimonials-carousel.php:22
 #: patterns/testimonials-grid.php:22
 msgid "Hear From Our Happy Clients: Their Stories"
 msgstr ""
@@ -5027,17 +5224,23 @@ msgstr ""
 #: patterns/testimonial-section.php:36
 #: patterns/testimonial-section.php:68
 #: patterns/testimonial-section.php:100
+#: patterns/testimonials-carousel.php:34
+#: patterns/testimonials-carousel.php:179
 #: patterns/testimonials-grid.php:35
 #: patterns/testimonials-grid.php:186
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
 msgstr ""
 
 #: patterns/testimonial-section.php:46
+#: patterns/testimonials-carousel.php:44
 #: patterns/testimonials-grid.php:45
 msgid "Henry Benzamin Clark"
 msgstr ""
 
 #: patterns/testimonial-section.php:50
+#: patterns/testimonials-carousel.php:48
+#: patterns/testimonials-carousel.php:135
+#: patterns/testimonials-carousel.php:193
 #: patterns/testimonials-grid.php:49
 #: patterns/testimonials-grid.php:139
 #: patterns/testimonials-grid.php:200
@@ -5060,51 +5263,68 @@ msgstr ""
 msgid "Product Owner"
 msgstr ""
 
-#: patterns/testimonials-grid.php
+#: patterns/testimonials-carousel.php
 msgctxt "Pattern title"
-msgid "Testimonials Grid"
+msgid "Testimonials Carousel"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:63
+#: patterns/testimonials-carousel.php:121
+#: patterns/testimonials-carousel.php:150
 #: patterns/testimonials-grid.php:64
 #: patterns/testimonials-grid.php:125
 #: patterns/testimonials-grid.php:157
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:73
 #: patterns/testimonials-grid.php:74
 msgid "Kristine Perrak"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:77
 #: patterns/testimonials-grid.php:78
 msgid "Blogger"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:92
 #: patterns/testimonials-grid.php:96
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 msgstr ""
 
+#: patterns/testimonials-carousel.php:102
 #: patterns/testimonials-grid.php:106
 msgid "Robert Linken"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:106
 #: patterns/testimonials-grid.php:110
 msgid "Counseller"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:131
 #: patterns/testimonials-grid.php:135
 msgid "John Doe"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:160
 #: patterns/testimonials-grid.php:167
 msgid "Liyana Torq"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:164
 #: patterns/testimonials-grid.php:171
 msgid "Yoga Coach"
 msgstr ""
 
+#: patterns/testimonials-carousel.php:189
 #: patterns/testimonials-grid.php:196
 msgid "Benzamin Clark"
+msgstr ""
+
+#: patterns/testimonials-grid.php
+msgctxt "Pattern title"
+msgid "Testimonials Grid"
 msgstr ""
 
 #: patterns/vertical-timeline-layout.php
@@ -5703,6 +5923,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
@@ -5717,6 +5938,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
@@ -5731,6 +5953,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:46
 #: build/js/editor.js:49
 #: build/js/navigation.js:1
@@ -5746,6 +5969,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
@@ -5760,6 +5984,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
@@ -5774,6 +5999,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:49
 #: build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1
@@ -5851,6 +6077,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
@@ -5862,6 +6089,7 @@ msgstr ""
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1
 #: build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1
 #: build/js/recently-viewed-dynamic.js:1
@@ -6379,6 +6607,7 @@ msgstr ""
 #: build/js/device-frame.js:1
 #: build/js/editor.js:1
 #: build/js/editor.js:28
+#: build/js/editor.js:37
 #: build/js/editor.js:46
 #: build/js/editor.js:49
 #: build/js/language-panel.js:1
@@ -6559,6 +6788,7 @@ msgid "Device"
 msgstr ""
 
 #: build/js/device-frame.js:1
+#: build/js/feature-card-canvas.js:1
 #: build/js/model-viewer.js:1
 msgid "Aspect ratio"
 msgstr ""
@@ -6625,6 +6855,54 @@ msgid "Opens the image or video full-size in a modal when clicked, like the nati
 msgstr ""
 
 #: build/js/editor.js:1
+msgid "Responsive media"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "The block's own media is used on desktop. Add a different file for tablet or mobile; an empty slot uses the next larger one."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "A video's poster is its featured image in the Media Library. It is filled in automatically when you pick a video and can be changed there."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Replace"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Select media"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Safari HEVC alpha file"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Replace Safari HEVC alpha file"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Select Safari HEVC alpha file"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "this file is larger than the desktop one and will slow down the page."
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Mobile uses:"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Tablet uses:"
+msgstr ""
+
+#: build/js/editor.js:1
+msgid "Desktop uses:"
+msgstr ""
+
+#: build/js/editor.js:1
 msgid "Canvas theme: dark — switch to light"
 msgstr ""
 
@@ -6685,6 +6963,7 @@ msgid "Select an offer"
 msgstr ""
 
 #: build/js/editor.js:1
+#: build/js/feature-card-canvas.js:1
 #: build/js/scroll-to-top.js:1
 msgid "Variant"
 msgstr ""
@@ -7488,35 +7767,15 @@ msgid "Cover media"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "Responsive media"
+msgid "Video"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "The Cover's own media is used on desktop. Add a different file for tablet or mobile; an empty slot uses the next larger one."
+msgid "Slide media"
 msgstr ""
 
 #: build/js/editor.js:1
-msgid "A video's poster is its featured image in the Media Library. Each slot uses its own video's poster."
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Replace"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Select media"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Mobile uses:"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Tablet uses:"
-msgstr ""
-
-#: build/js/editor.js:1
-msgid "Desktop uses:"
+msgid "Screen media"
 msgstr ""
 
 #: build/js/editor.js:1
@@ -7554,6 +7813,7 @@ msgid "Set the order for mobile screens (below %spx)."
 msgstr ""
 
 #: build/js/editor.js:10
+#: build/js/editor.js:37
 #: build/js/editor.js:46
 msgid "Default"
 msgstr ""
@@ -7797,7 +8057,76 @@ msgid "Add Variable"
 msgstr ""
 
 #: build/js/editor.js:37
+msgid "Regular"
+msgstr ""
+
+#: build/js/editor.js:37
+#: build/js/modal-settings-panel.js:1
+msgid "Medium"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Semi bold"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Bold"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Extra bold"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Wide"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Wider"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Uppercase"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Capitalize"
+msgstr ""
+
+#: build/js/editor.js:37
 msgid "Button position"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Typography"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Font size"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Font weight"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Letter spacing"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Text transform"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Spacing"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Vertical padding (rem)"
+msgstr ""
+
+#: build/js/editor.js:37
+msgid "Horizontal padding (rem)"
 msgstr ""
 
 #: build/js/editor.js:37
@@ -8352,6 +8681,226 @@ msgstr ""
 msgid "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 msgstr ""
 
+#: build/js/feature-card-canvas.js:1
+msgid "Browser stream"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Node tree"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Dot image stack"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Chart growth"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Storefront"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Layout builder"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Speed gauge"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · About"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · Projects"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · Services"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · Contact"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Company site"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Checkout"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · App dashboard"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Load waterfall"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Local search"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Support shield"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · Marketing"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · SaaS"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · Design system"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · API"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Conversion"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Scale"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Secure"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Platforms"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Storefront"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Audit"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Mobile first"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Web vitals"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Mobile checkout"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · SEO growth"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Handover"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · App & services"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Framework comparison"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · PWA"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · SSR & SmartEdit"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Next.js architecture"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Performance by design"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Smart shopping list"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · WordPress custom theme"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · WordPress stack ownership"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · WordPress flexibility & control"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Canvas"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "CSS aspect-ratio value, e.g. 16/9."
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Label one"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Label two"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Label three"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Colour"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Animation"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Animate"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "On hover"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "When in view"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "When in view, the illustration plays as it scrolls into view and resets once it leaves."
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Animate automatically on touch devices"
+msgstr ""
+
+#: build/js/feature-card-canvas.js:1
+msgid "Touch screens have no hover, so the illustration animates while the card is in the middle of the viewport."
+msgstr ""
+
 #: build/js/gallery-lightbox.js:1
 msgid "Media"
 msgstr ""
@@ -8820,10 +9369,6 @@ msgstr ""
 
 #: build/js/modal-settings-panel.js:1
 msgid "Small"
-msgstr ""
-
-#: build/js/modal-settings-panel.js:1
-msgid "Medium"
 msgstr ""
 
 #: build/js/modal-settings-panel.js:1
@@ -9699,6 +10244,34 @@ msgid "“Pagination” will display dots along the bottom for user to click thr
 msgstr ""
 
 #: build/js/slider.js:1
+msgid "Pagination style"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Dots"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Pill"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Equal slide height"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Stretches every slide to the height of the tallest one so the slider never jumps."
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Highlight active slide"
+msgstr ""
+
+#: build/js/slider.js:1
+msgid "Highlight strength (%)"
+msgstr ""
+
+#: build/js/slider.js:1
 msgid "Smooth Transition"
 msgstr ""
 
@@ -10316,6 +10889,18 @@ msgctxt "block description"
 msgid "A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an image in to showcase a project."
 msgstr ""
 
+#: build/blocks/feature-card-canvas/block.json
+#: src/blocks/feature-card-canvas/block.json
+msgctxt "block title"
+msgid "Feature Card Canvas"
+msgstr ""
+
+#: build/blocks/feature-card-canvas/block.json
+#: src/blocks/feature-card-canvas/block.json
+msgctxt "block description"
+msgid "Animated, palette-driven illustration rendered on a canvas for feature cards."
+msgstr ""
+
 #: build/blocks/gallery-lightbox/block.json
 #: src/blocks/gallery-lightbox/block.json
 msgctxt "block title"
@@ -10810,10 +11395,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10824,10 +11409,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10838,10 +11423,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10852,10 +11437,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10866,10 +11451,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10880,10 +11465,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10894,10 +11479,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10908,10 +11493,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10922,10 +11507,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10936,10 +11521,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10950,10 +11535,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10964,10 +11549,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10978,10 +11563,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -10992,10 +11577,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11006,10 +11591,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11020,10 +11605,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11034,10 +11619,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11048,10 +11633,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11062,10 +11647,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11076,10 +11661,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11090,10 +11675,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11104,10 +11689,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11118,10 +11703,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11132,10 +11717,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11146,10 +11731,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11160,10 +11745,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11174,10 +11759,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11188,10 +11773,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11202,10 +11787,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11216,10 +11801,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11230,10 +11815,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11244,10 +11829,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11258,10 +11843,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11272,10 +11857,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11286,10 +11871,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11300,10 +11885,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11314,10 +11899,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11328,10 +11913,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11342,10 +11927,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11356,10 +11941,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11370,10 +11955,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11384,10 +11969,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11398,10 +11983,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11412,10 +11997,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11426,10 +12011,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11440,10 +12025,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11454,10 +12039,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11468,10 +12053,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11482,10 +12067,10 @@ msgstr ""
 
 #: theme.json
 #: styles/blue.json
+#: styles/champagne-gold.json
 #: styles/cyber-cyan.json
 #: styles/deep-indigo.json
 #: styles/emerald-forest.json
-#: styles/golden-amber.json
 #: styles/green.json
 #: styles/ocean-teal.json
 #: styles/rose-pink.json
@@ -11689,6 +12274,11 @@ msgctxt "Style variation name"
 msgid "Blue Palette"
 msgstr ""
 
+#: styles/champagne-gold.json
+msgctxt "Style variation name"
+msgid "Champagne Gold"
+msgstr ""
+
 #: styles/cyber-cyan.json
 msgctxt "Style variation name"
 msgid "Cyber Cyan"
@@ -11702,11 +12292,6 @@ msgstr ""
 #: styles/emerald-forest.json
 msgctxt "Style variation name"
 msgid "Emerald Forest"
-msgstr ""
-
-#: styles/golden-amber.json
-msgctxt "Style variation name"
-msgid "Golden Amber"
 msgstr ""
 
 #: styles/green.json
@@ -11728,8 +12313,3 @@ msgstr ""
 msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr ""
-
-#: functions/protection-helpers.php:411
-msgid "Loading protected content..."
-msgstr ""
-

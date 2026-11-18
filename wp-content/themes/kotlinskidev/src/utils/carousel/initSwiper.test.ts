@@ -232,3 +232,47 @@ describe("initSwiper", () => {
     expect(swiper.params.loop).toBe(true);
   });
 });
+
+describe("initSwiper pagination scoping", () => {
+  const swiperModule = jest.requireMock("swiper") as { default: jest.Mock };
+
+  const lastParams = (): Record<string, unknown> => {
+    const calls = swiperModule.default.mock.calls;
+    return calls[calls.length - 1][1] as Record<string, unknown>;
+  };
+
+  it("passes the pagination element inside the carousel instead of the global selector", () => {
+    const wrapper = document.createElement("div");
+    const other = document.createElement("div");
+    other.className = "swiper-pagination";
+    const el = document.createElement("div");
+    const own = document.createElement("div");
+    own.className = "swiper-pagination";
+    el.append(own);
+    wrapper.append(el);
+    document.body.append(other, wrapper);
+
+    initSwiper(el, { showPagination: true } as never);
+
+    expect((lastParams().pagination as { el: unknown }).el).toBe(own);
+    other.remove();
+    wrapper.remove();
+  });
+
+  it("falls back to the parent container and drops pagination when none exists", () => {
+    const wrapper = document.createElement("div");
+    const outside = document.createElement("div");
+    outside.className = "swiper-pagination";
+    const el = document.createElement("div");
+    wrapper.append(el, outside);
+    document.body.append(wrapper);
+
+    initSwiper(el, { showPagination: true } as never);
+    expect((lastParams().pagination as { el: unknown }).el).toBe(outside);
+
+    outside.remove();
+    initSwiper(el, { showPagination: true } as never);
+    expect(lastParams().pagination).toBe(false);
+    wrapper.remove();
+  });
+});

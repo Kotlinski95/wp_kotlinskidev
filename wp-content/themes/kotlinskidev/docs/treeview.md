@@ -107,6 +107,7 @@ kotlinskidev/
 │   ├── error-monitoring.php                    # Sentry PHP SDK (vendor/sentry/sentry via Composer — the theme's first real runtime Composer dependency; production deploys must run `composer install` or vendor/ won't exist and this silently no-ops). Loaded first in functions.php, right after cache.php, so it can catch fatals from anything that follows. Only registers Sentry\ErrorHandler's exception + fatal-error handlers (not the general error handler, so warnings/notices/deprecations are never sent — keeps free-tier event quota for real page-breaking failures only), and only when a kotlinskidev_sentry_dsn option is set AND WP_DEBUG is off, so local dev never reports
 │   ├── faq-layout.php                          # applies kt-faq-independent-columns-N class to core/group per its faqLayout Advanced-panel choice
 │   ├── feature-toggles.php                     # kotlinskidev_feature_enabled()/kotlinskidev_toggleable_features() — single source of truth for the Settings → Customization on/off switches (project cards, article cards, service locations, certificates, custom SEO options; the version-3 migration adds `custom_seo` to already saved lists so existing sites stay on); loaded right after cache.php so every feature module below can gate its own CPT/meta/block registration on it
+│   ├── feature-card-canvas.php                 # kotlinskidev_feature_canvas_variants()/kotlinskidev_feature_canvas_render_data() — whitelists the variant, validates the CSS aspect ratio and resolves the three translated screen labels for kotlinskidev/feature-card-canvas
 │   ├── filters.php                             # misc content/attachment filters
 │   ├── footer-layout.php                       # Customizer settings (Appearance → Customize → Footer layout): separate left/center alignment for the footer brand and the navigation plus 1-3 mobile and 1-4 tablet link columns, exposed as body classes kt-footer-brand--center, kt-footer-nav--center, kt-footer-cols-mobile-N and kt-footer-cols-tablet-N below the desktop breakpoint; all left with one column adds no class, so the original footer is the one-click rollback
 │   ├── group-divider.php                       # render_block filter (kotlinskidev_apply_grid_divider_precise_style()) for the group-divider extension's grid case: resolves the per-breakpoint kotlinskidevGridColumns attribute (mobile falls back to tablet falls back to desktop), then computes the real last-row/last-column child indices from the group's actual innerBlocks count so the divider border can be hidden exactly on the final row/column edge instead of collaborations-hairline-grid.php's background-color + 1px-blockGap approximation — emits one `<style>` tag per instance (unique kt-divider-grid-N class) with nth-child selectors scoped per breakpoint
@@ -226,6 +227,7 @@ kotlinskidev/
 │   ├── deploy-pipeline.php                     # Deploy Pipeline — CI/CD status-card mockup with a CSS `@keyframes` spinner + progress sweep, `prefers-reduced-motion` guarded (design system "Banner templates" slot G)
 │   ├── faq-accordion.php                       # FAQ Accordion
 │   ├── faq-section.php                         # FAQ Section
+│   ├── feature-cards-canvas.php                # Feature Cards Canvas — 33/66 heading column plus a 2x2 grid of kt-feature-card groups, each topped by a kotlinskidev/feature-card-canvas illustration
 │   ├── featured-content-2.php                  # Featured Content 2
 │   ├── featured-content.php                    # Featured Content
 │   ├── features-and-benefits.php               # Features and Benefits
@@ -479,6 +481,7 @@ kotlinskidev/
 │   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
 │   │   ├── faq-layout/                         # extension: Advanced-tab "FAQ columns behavior" (default grid / independent columns + count) for core/group wrapping core/details
+│   │   ├── feature-card-canvas/                # nextjs.org-style animated canvas illustration for feature cards (browser-stream, node-tree, dot-image-stack, chart-growth) — palette-driven via CSS variables, eased hover/focus progress on the parent .kt-feature-card, IO-gated lazy runtime chunk, reduced-motion aware
 │   │   │   └── index.tsx
 │   │   ├── gallery-lightbox/                   # image/video gallery with lightbox + mobile media variant
 │   │   │   ├── block.json
@@ -925,6 +928,7 @@ kotlinskidev/
 │   │   ├── global.scss                         # broad utility classes, social-link overrides
 │   │   ├── gradients.scss                      # gradient background utility class
 │   │   ├── group-divider.scss                  # .has-divider-between-y/-x — border-top/-left-{width,color} via `inherit` (reads the group's own Border panel values), border-style hardcoded solid; paired with the group-divider extension
+│   │   ├── soft-card.scss                      # .kt-soft-card — delicate divider border at rest, primary border + glow on hover/focus/.kt-active (the carousel active slide)
 │   │   ├── group-link.scss                     # cursor + focus-visible styling for .kt-group-link, paired with the group-link extension
 │   │   ├── overlay-link.scss                   # .kt-overlay-link stretches a link over its host (Cover or .kt-overlay-link-host); .kt-overlay-link--label-hidden hides its text visually
 │   │   ├── responsive-media.scss               # keeps the responsive-media <picture> wrapper from affecting cover layout
@@ -1030,10 +1034,10 @@ kotlinskidev/
 │   └── test-globals.d.ts                       # Jest global type shims
 ├── styles/                                     # 9 colour-scheme variation JSON files
 │   ├── blue.json                               # colour scheme variation
+│   ├── champagne-gold.json                     # colour scheme variation
 │   ├── cyber-cyan.json                         # colour scheme variation
 │   ├── deep-indigo.json                        # colour scheme variation
 │   ├── emerald-forest.json                     # colour scheme variation
-│   ├── golden-amber.json                       # colour scheme variation
 │   ├── green.json                              # colour scheme variation
 │   ├── ocean-teal.json                         # colour scheme variation
 │   ├── rose-pink.json                          # colour scheme variation

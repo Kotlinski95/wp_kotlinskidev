@@ -8,6 +8,7 @@ import {
   BlockControls,
   InspectorControls,
   ButtonBlockAppender,
+  useSettings,
 } from "@wordpress/block-editor";
 import {
   ToolbarGroup,
@@ -15,7 +16,9 @@ import {
   PanelBody,
   PanelRow,
   ToggleControl,
+  SelectControl,
   RangeControl,
+  ColorPalette,
   __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 import { useSelect, useDispatch } from "@wordpress/data";
@@ -64,7 +67,28 @@ export interface SliderAttributes {
   blurOtherSlides: boolean;
   blurAmount: string;
   paginationPlacement: "inside" | "outside";
+  paginationStyle?: "dots" | "pill";
+  equalSlideHeight?: boolean;
+  highlightActiveSlide?: boolean;
+  activeHighlightColor?: string;
+  activeHighlightStrength?: number;
 }
+
+interface PaletteEntry {
+  name: string;
+  slug: string;
+  color: string;
+}
+
+const toPaletteEntries = (raw: unknown): PaletteEntry[] => {
+  if (Array.isArray(raw)) {
+    return raw as PaletteEntry[];
+  }
+  if (raw && typeof raw === "object") {
+    return Object.values(raw as Record<string, unknown>).flatMap(toPaletteEntries);
+  }
+  return [];
+};
 
 const SLIDE_MAX_WIDTH_UNITS = [
   { value: "px", label: "px", default: 900 },
@@ -319,6 +343,11 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
   const { autoplay, navigation, pagination, spaceBetween } = attributes;
   const { clientId } = useBlockEditContext();
   const blockProps = useBlockProps();
+  const [rawHighlightPalette] = useSettings("color.palette");
+  const highlightPalette = toPaletteEntries(rawHighlightPalette);
+  const highlightColorValue = highlightPalette.find(
+    (entry) => entry.slug === attributes.activeHighlightColor
+  )?.color;
 
   const innerBlocksProps = useInnerBlocksProps(
     { className: "swiper-wrapper", style: { gap: `${spaceBetween}px` } },
@@ -426,6 +455,66 @@ export default function Edit({ attributes, setAttributes }: EditProps): React.Re
               )}
             />
           </PanelRow>
+          {pagination && (
+            <PanelRow>
+              <SelectControl
+                label={__("Pagination style", "kotlinskidev")}
+                value={attributes.paginationStyle ?? "dots"}
+                options={[
+                  { label: __("Dots", "kotlinskidev"), value: "dots" },
+                  { label: __("Pill", "kotlinskidev"), value: "pill" },
+                ]}
+                onChange={(value) => setAttributes({ paginationStyle: value as "dots" | "pill" })}
+                __nextHasNoMarginBottom
+              />
+            </PanelRow>
+          )}
+          <PanelRow>
+            <ToggleControl
+              label={__("Equal slide height", "kotlinskidev")}
+              checked={attributes.equalSlideHeight ?? false}
+              onChange={(value) => setAttributes({ equalSlideHeight: value })}
+              help={__(
+                "Stretches every slide to the height of the tallest one so the slider never jumps.",
+                "kotlinskidev"
+              )}
+            />
+          </PanelRow>
+          <PanelRow>
+            <ToggleControl
+              label={__("Highlight active slide", "kotlinskidev")}
+              checked={attributes.highlightActiveSlide ?? false}
+              onChange={(value) => setAttributes({ highlightActiveSlide: value })}
+            />
+          </PanelRow>
+          {attributes.highlightActiveSlide && (
+            <>
+              <PanelRow>
+                <ColorPalette
+                  colors={highlightPalette.map(({ name, color }) => ({ name, color }))}
+                  value={highlightColorValue}
+                  disableCustomColors
+                  clearable
+                  onChange={(color) =>
+                    setAttributes({
+                      activeHighlightColor:
+                        highlightPalette.find((entry) => entry.color === color)?.slug ?? "",
+                    })
+                  }
+                />
+              </PanelRow>
+              <PanelRow>
+                <RangeControl
+                  label={__("Highlight strength (%)", "kotlinskidev")}
+                  value={attributes.activeHighlightStrength ?? 45}
+                  min={5}
+                  max={100}
+                  onChange={(value) => setAttributes({ activeHighlightStrength: value ?? 45 })}
+                  __nextHasNoMarginBottom
+                />
+              </PanelRow>
+            </>
+          )}
           {pagination && (
             <PanelRow>
               <ToggleControl

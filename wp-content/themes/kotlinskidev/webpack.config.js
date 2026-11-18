@@ -152,6 +152,13 @@ module.exports = {
           enforce: true,
           priority: 30,
         },
+        fccShared: {
+          test: /[\\/]feature-card-canvas[\\/](geometry|variants[\\/]shared)\.ts$/,
+          name: "fcc-variant-shared",
+          chunks: "async",
+          enforce: true,
+          priority: 30,
+        },
         swiper: {
           test: /[\\/]node_modules[\\/]swiper[\\/]/,
           name: "swiper",

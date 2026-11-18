@@ -51,6 +51,7 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
     register_block_type( get_template_directory() . '/src/blocks/device-frame' );
+    register_block_type( get_template_directory() . '/src/blocks/feature-card-canvas' );
     if ( kotlinskidev_feature_enabled( 'article_cards' ) ) {
         register_block_type( get_template_directory() . '/src/blocks/article-card' );
     }

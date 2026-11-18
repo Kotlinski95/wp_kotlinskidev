@@ -12,7 +12,9 @@
   "editorScript": "file:../../../build/js/certificates-grid-dynamic.js",
   "attributes": {
     "layout": { "type": "string", "default": "badge-grid" },
-    "viewAllUrl": { "type": "string", "default": "" }
+    "viewAllUrl": { "type": "string", "default": "" },
+    "blurOtherCards": { "type": "boolean", "default": false },
+    "blurAmount": { "type": "string", "default": "" }
   },
   "supports": {
     "html": false,

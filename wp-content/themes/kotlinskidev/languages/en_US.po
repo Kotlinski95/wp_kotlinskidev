@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kotlinskidev 1.0.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/kotlinskidev\n"
-"POT-Creation-Date: 2026-11-17T08:43:14+00:00\n"
+"POT-Creation-Date: 2026-11-18T12:31:02+00:00\n"
 "PO-Revision-Date: 2026-08-17 12:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: English (United States)\n"
@@ -32,13 +32,13 @@ msgstr "https://kotlinskidev.com"
 msgid ""
 "A custom WordPress theme built by Adrian Kotliński. Features dark/light "
 "mode, scroll animations, parallax effects, PWA support, and a fully custom "
-"block-based layout. Focused on clean code, performance and efficiency, and a"
-" great user experience."
+"block-based layout. Focused on clean code, performance and efficiency, and a "
+"great user experience."
 msgstr ""
 "A custom WordPress theme built by Adrian Kotliński. Features dark/light "
 "mode, scroll animations, parallax effects, PWA support, and a fully custom "
-"block-based layout. Focused on clean code, performance and efficiency, and a"
-" great user experience."
+"block-based layout. Focused on clean code, performance and efficiency, and a "
+"great user experience."
 
 #. Author of the theme
 #: style.css patterns/about-me-editorial.php:18
@@ -195,11 +195,11 @@ msgstr "Location"
 
 #: build/blocks/google-maps/render.php:69 src/blocks/google-maps/render.php:69
 msgid ""
-"Please provide a Google Maps API key and address or coordinates in the block"
-" settings."
+"Please provide a Google Maps API key and address or coordinates in the block "
+"settings."
 msgstr ""
-"Please provide a Google Maps API key and address or coordinates in the block"
-" settings."
+"Please provide a Google Maps API key and address or coordinates in the block "
+"settings."
 
 #: build/blocks/google-maps/render.php:74 src/blocks/google-maps/render.php:74
 #: build/js/google-maps.js:1
@@ -225,8 +225,8 @@ msgstr ""
 
 #: build/blocks/language-panel/render.php:19
 #: build/blocks/navigation/render.php:320
-#: src/blocks/language-panel/render.php:19
-#: src/blocks/navigation/render.php:320 build/js/language-panel.js:1
+#: src/blocks/language-panel/render.php:19 src/blocks/navigation/render.php:320
+#: build/js/language-panel.js:1
 msgid "Language"
 msgstr "Language"
 
@@ -268,7 +268,7 @@ msgstr "Menu"
 msgid "Search"
 msgstr "Search"
 
-#: build/blocks/navigation/render.php:459 src/blocks/navigation/render.php:459
+#: build/blocks/navigation/render.php:466 src/blocks/navigation/render.php:466
 msgid "Main navigation"
 msgstr "Main navigation"
 
@@ -342,8 +342,8 @@ msgstr " Kotlinskidev | Web Development"
 #: footer.php:6 functions/copyrights.php:9
 msgid "Proudly powered by"
 msgstr ""
-"Proudly powered by <a href=\"https://kotlinskidev.com/\">Adrian "
-"Kotlinski</a> | All rights reserved"
+"Proudly powered by <a href=\"https://kotlinskidev.com/\">Adrian Kotlinski</"
+"a> | All rights reserved"
 
 #: functions/ai-disclosure-labels.php:5
 msgid "AI-generated video"
@@ -363,11 +363,11 @@ msgstr "Show a visible disclosure label wherever this media is used"
 
 #: functions/ai-disclosure-labels.php:36
 msgid ""
-"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies"
-" automatically to every Image or Cover block using this file."
+"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies "
+"automatically to every Image or Cover block using this file."
 msgstr ""
-"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies"
-" automatically to every Image or Cover block using this file."
+"Required by EU AI Act Art. 50(4) for AI-generated/manipulated media. Applies "
+"automatically to every Image or Cover block using this file."
 
 #: functions/analytics-events.php:5
 msgid "CTA clicks"
@@ -1232,6 +1232,104 @@ msgstr "Comments are disabled on this site."
 msgid "Comments Disabled"
 msgstr "Comments Disabled"
 
+#: functions/feature-card-canvas.php:10
+msgid "Original"
+msgstr "Original"
+
+#: functions/feature-card-canvas.php:11
+msgid "1440px"
+msgstr "1440px"
+
+#: functions/feature-card-canvas.php:12
+msgid "375px"
+msgstr "375px"
+
+#: functions/feature-card-canvas.php:18 functions/feature-card-canvas.php:74
+msgid "LCP"
+msgstr "LCP"
+
+#: functions/feature-card-canvas.php:19 functions/feature-card-canvas.php:75
+msgid "INP"
+msgstr "INP"
+
+#: functions/feature-card-canvas.php:20 functions/feature-card-canvas.php:76
+msgid "CLS"
+msgstr "CLS"
+
+#: functions/feature-card-canvas.php:26
+msgid "Frontend"
+msgstr "Frontend"
+
+#: functions/feature-card-canvas.php:27 functions/feature-card-canvas.php:82
+msgid "Next.js"
+msgstr "Next.js"
+
+#: functions/feature-card-canvas.php:28
+msgid "WordPress"
+msgstr "WordPress"
+
+#: functions/feature-card-canvas.php:34
+msgid "Cart"
+msgstr "Cart"
+
+#: functions/feature-card-canvas.php:35
+msgid "Payment"
+msgstr "Payment"
+
+#: functions/feature-card-canvas.php:36
+msgid "Done"
+msgstr "Done"
+
+#: functions/feature-card-canvas.php:42
+msgid "website near me"
+msgstr "website near me"
+
+#: functions/feature-card-canvas.php:50
+msgid "Uptime"
+msgstr "Uptime"
+
+#: functions/feature-card-canvas.php:51
+msgid "Backups"
+msgstr "Backups"
+
+#: functions/feature-card-canvas.php:58
+msgid "CMS"
+msgstr "CMS"
+
+#: functions/feature-card-canvas.php:59
+msgid "GraphQL"
+msgstr "GraphQL"
+
+#: functions/feature-card-canvas.php:60
+msgid "API"
+msgstr "API"
+
+#: functions/feature-card-canvas.php:66
+#: patterns/tech-stack-grouped-cards.php:23
+#: patterns/tech-stack-icon-tiles.php:14
+msgid "Shopify"
+msgstr "Shopify"
+
+#: functions/feature-card-canvas.php:67
+#: patterns/tech-stack-grouped-cards.php:24
+#: patterns/tech-stack-icon-tiles.php:15
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: functions/feature-card-canvas.php:68
+#: patterns/tech-stack-grouped-cards.php:25
+#: patterns/tech-stack-icon-tiles.php:16
+msgid "SAP Hybris"
+msgstr "SAP Hybris"
+
+#: functions/feature-card-canvas.php:83
+msgid "Angular"
+msgstr "Angular"
+
+#: functions/feature-card-canvas.php:84
+msgid "VS"
+msgstr "VS"
+
 #: functions/feature-toggles.php:30 functions/project-card.php:9
 msgid "Project Cards"
 msgstr "Project Cards"
@@ -1444,6 +1542,22 @@ msgstr[1] "%d offers use placeholder prices"
 msgid "Review offers"
 msgstr "Review offers"
 
+#: functions/palette-duotone.php:12
+msgid "Duotone · Primary"
+msgstr "Duotone · Primary"
+
+#: functions/palette-duotone.php:17
+msgid "Primary colour (solid)"
+msgstr "Primary colour (solid)"
+
+#: functions/palette-duotone.php:22
+msgid "Duotone · Primary soft"
+msgstr "Duotone · Primary soft"
+
+#: functions/palette-duotone.php:27
+msgid "Duotone · Foreground"
+msgstr "Duotone · Foreground"
+
 #: functions/patterns.php:5
 msgid "FAQs"
 msgstr "FAQs"
@@ -1640,11 +1754,9 @@ msgstr "wp-config.php Setup Instructions"
 
 #: functions/protection-helpers.php:539
 msgid ""
-"To use wp-config.php storage, add these constants to your wp-config.php "
-"file:"
+"To use wp-config.php storage, add these constants to your wp-config.php file:"
 msgstr ""
-"To use wp-config.php storage, add these constants to your wp-config.php "
-"file:"
+"To use wp-config.php storage, add these constants to your wp-config.php file:"
 
 #: functions/protection-helpers.php:541
 msgid "Generate & Show wp-config.php Constants"
@@ -1919,8 +2031,7 @@ msgstr "Could not create the city page."
 
 #: functions/service-location-add-city.php:163
 msgid "City draft pages created. Fill in the local content before publishing:"
-msgstr ""
-"City draft pages created. Fill in the local content before publishing:"
+msgstr "City draft pages created. Fill in the local content before publishing:"
 
 #: functions/service-location-add-city.php:173
 msgid ""
@@ -2245,16 +2356,16 @@ msgstr "ntfy topic URL"
 #: functions/settings-page.php:878
 msgid ""
 "Reports uncaught PHP exceptions and fatal errors (the class of bug that "
-"shows visitors a broken page) to Sentry. Regular "
-"warnings/notices/deprecations are not sent — this is scoped to failures that"
-" actually break a page, to stay well inside a free-tier event quota. Only "
-"active when WP_DEBUG is off, so local development never sends events."
+"shows visitors a broken page) to Sentry. Regular warnings/notices/"
+"deprecations are not sent — this is scoped to failures that actually break a "
+"page, to stay well inside a free-tier event quota. Only active when WP_DEBUG "
+"is off, so local development never sends events."
 msgstr ""
 "Reports uncaught PHP exceptions and fatal errors (the class of bug that "
-"shows visitors a broken page) to Sentry. Regular "
-"warnings/notices/deprecations are not sent — this is scoped to failures that"
-" actually break a page, to stay well inside a free-tier event quota. Only "
-"active when WP_DEBUG is off, so local development never sends events."
+"shows visitors a broken page) to Sentry. Regular warnings/notices/"
+"deprecations are not sent — this is scoped to failures that actually break a "
+"page, to stay well inside a free-tier event quota. Only active when WP_DEBUG "
+"is off, so local development never sends events."
 
 #: functions/settings-page.php:887
 msgid ""
@@ -2267,14 +2378,14 @@ msgstr ""
 #: functions/settings-page.php:894
 msgid ""
 "Sends a push notification when the site fails to send an email, "
-"independently of the mailer that failed. Install the ntfy app on your phone,"
-" choose a long random topic name, subscribe to it in the app, then paste "
+"independently of the mailer that failed. Install the ntfy app on your phone, "
+"choose a long random topic name, subscribe to it in the app, then paste "
 "https://ntfy.sh/<topic> below. Only the site host, the time and a short "
 "error message are sent; no visitor data is ever sent."
 msgstr ""
 "Sends a push notification when the site fails to send an email, "
-"independently of the mailer that failed. Install the ntfy app on your phone,"
-" choose a long random topic name, subscribe to it in the app, then paste "
+"independently of the mailer that failed. Install the ntfy app on your phone, "
+"choose a long random topic name, subscribe to it in the app, then paste "
 "https://ntfy.sh/<topic> below. Only the site host, the time and a short "
 "error message are sent; no visitor data is ever sent."
 
@@ -2313,8 +2424,7 @@ msgstr "Edit source text"
 
 #: functions/settings-page.php:947
 msgid "This is the source text shown until a per-language translation exists."
-msgstr ""
-"This is the source text shown until a per-language translation exists."
+msgstr "This is the source text shown until a per-language translation exists."
 
 #: functions/settings-page.php:948
 msgid "Translate per language →"
@@ -2326,14 +2436,14 @@ msgstr "Shown as plain text — not sensitive, so not obfuscated."
 
 #: functions/settings-page.php:1010
 msgid ""
-"This site does not use comments. Enabling this protection closes comments at"
-" the server level — spam bots that POST directly to wp-comments-post.php or "
+"This site does not use comments. Enabling this protection closes comments at "
+"the server level — spam bots that POST directly to wp-comments-post.php or "
 "call XML-RPC comment methods are rejected with a 403 before any database "
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
 msgstr ""
-"This site does not use comments. Enabling this protection closes comments at"
-" the server level — spam bots that POST directly to wp-comments-post.php or "
+"This site does not use comments. Enabling this protection closes comments at "
+"the server level — spam bots that POST directly to wp-comments-post.php or "
 "call XML-RPC comment methods are rejected with a 403 before any database "
 "write or email notification occurs. WordPress Discussion settings alone do "
 "not stop this traffic."
@@ -2457,14 +2567,14 @@ msgid ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
 "visible at all times, so it needs the full header height as clearance. "
-"Mobile hides the header while scrolling and only re-shows it near the top of"
-" the page, so it typically needs little or no offset."
+"Mobile hides the header while scrolling and only re-shows it near the top of "
+"the page, so it typically needs little or no offset."
 msgstr ""
 "Distance kept between the sticky header and the target when clicking an in-"
 "page anchor link (e.g. \"#services\"). Desktop keeps its floating header "
 "visible at all times, so it needs the full header height as clearance. "
-"Mobile hides the header while scrolling and only re-shows it near the top of"
-" the page, so it typically needs little or no offset."
+"Mobile hides the header while scrolling and only re-shows it near the top of "
+"the page, so it typically needs little or no offset."
 
 #. translators: %d: default desktop scroll offset in pixels
 #: functions/settings-page.php:1137
@@ -2494,23 +2604,21 @@ msgid ""
 "being viewed, it can be marked as active — the same gradient-text/underline "
 "style normally reserved for hover — and/or prevented from being clicked, "
 "since navigating to the page a visitor is already on does nothing useful. "
-"Individual blocks can still opt out from their own Advanced panel regardless"
-" of these settings."
+"Individual blocks can still opt out from their own Advanced panel regardless "
+"of these settings."
 msgstr ""
 "When a link (navigation, button, in-content) points at the page currently "
 "being viewed, it can be marked as active — the same gradient-text/underline "
 "style normally reserved for hover — and/or prevented from being clicked, "
 "since navigating to the page a visitor is already on does nothing useful. "
-"Individual blocks can still opt out from their own Advanced panel regardless"
-" of these settings."
+"Individual blocks can still opt out from their own Advanced panel regardless "
+"of these settings."
 
 #: functions/settings-page.php:1174
 msgid ""
-"Mark links pointing at the current page with the active hover-style "
-"highlight"
+"Mark links pointing at the current page with the active hover-style highlight"
 msgstr ""
-"Mark links pointing at the current page with the active hover-style "
-"highlight"
+"Mark links pointing at the current page with the active hover-style highlight"
 
 #: functions/settings-page.php:1177
 msgid ""
@@ -2522,21 +2630,19 @@ msgstr ""
 
 #: functions/settings-page.php:1188
 msgid ""
-"Prevent clicking a link/button that points at the page currently being "
-"viewed"
+"Prevent clicking a link/button that points at the page currently being viewed"
 msgstr ""
-"Prevent clicking a link/button that points at the page currently being "
-"viewed"
+"Prevent clicking a link/button that points at the page currently being viewed"
 
 #: functions/settings-page.php:1191
 msgid ""
-"Adds aria-disabled and removes the link from tab order. Menu items that also"
-" open a mega-menu panel stay fully interactive. Has no effect if "
-"highlighting above is disabled."
+"Adds aria-disabled and removes the link from tab order. Menu items that also "
+"open a mega-menu panel stay fully interactive. Has no effect if highlighting "
+"above is disabled."
 msgstr ""
-"Adds aria-disabled and removes the link from tab order. Menu items that also"
-" open a mega-menu panel stay fully interactive. Has no effect if "
-"highlighting above is disabled."
+"Adds aria-disabled and removes the link from tab order. Menu items that also "
+"open a mega-menu panel stay fully interactive. Has no effect if highlighting "
+"above is disabled."
 
 #: functions/settings-page.php:1208
 msgid "Customize the wp-login.php background, logo, and accent color."
@@ -2597,13 +2703,13 @@ msgstr ""
 
 #: functions/settings-page.php:1339
 msgid ""
-"Loads the Cloudflare Web Analytics beacon after the first interaction or six"
-" seconds after page load, so it stays out of the critical path. Leave the "
+"Loads the Cloudflare Web Analytics beacon after the first interaction or six "
+"seconds after page load, so it stays out of the critical path. Leave the "
 "token empty to disable it, and turn Auto-install off in Cloudflare so the "
 "beacon is not loaded twice."
 msgstr ""
-"Loads the Cloudflare Web Analytics beacon after the first interaction or six"
-" seconds after page load, so it stays out of the critical path. Leave the "
+"Loads the Cloudflare Web Analytics beacon after the first interaction or six "
+"seconds after page load, so it stays out of the critical path. Leave the "
 "token empty to disable it, and turn Auto-install off in Cloudflare so the "
 "beacon is not loaded twice."
 
@@ -2617,27 +2723,27 @@ msgstr ""
 
 #: functions/settings-page.php:1353
 msgid ""
-"Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks,"
-" form completions, lightbox opens, etc.). Unchecking one stops it going to "
+"Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, "
+"form completions, lightbox opens, etc.). Unchecking one stops it going to "
 "every connected platform at once — for per-platform routing (e.g. an event "
 "reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
 "See docs/tracking-spec.md for what each event tracks."
 msgstr ""
-"Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks,"
-" form completions, lightbox opens, etc.). Unchecking one stops it going to "
+"Custom GA4/Meta events this theme sends beyond a plain pageview (CTA clicks, "
+"form completions, lightbox opens, etc.). Unchecking one stops it going to "
 "every connected platform at once — for per-platform routing (e.g. an event "
 "reaching GA4 but not Meta), that stays a code-level decision in routing.ts. "
 "See docs/tracking-spec.md for what each event tracks."
 
 #: functions/settings-page.php:1378
 msgid ""
-"Each of these registers its own custom post type, blocks, and admin screens."
-" If this theme is reused for a project that doesn't need one, switching it "
+"Each of these registers its own custom post type, blocks, and admin screens. "
+"If this theme is reused for a project that doesn't need one, switching it "
 "off here skips that registration entirely instead of just hiding it — fewer "
 "blocks for the editor to discover, no unused admin menu items."
 msgstr ""
-"Each of these registers its own custom post type, blocks, and admin screens."
-" If this theme is reused for a project that doesn't need one, switching it "
+"Each of these registers its own custom post type, blocks, and admin screens. "
+"If this theme is reused for a project that doesn't need one, switching it "
 "off here skips that registration entirely instead of just hiding it — fewer "
 "blocks for the editor to discover, no unused admin menu items."
 
@@ -2691,11 +2797,11 @@ msgstr "Add the upgrade-insecure-requests directive"
 
 #: functions/settings-page.php:1445
 msgid ""
-"One field per CSP directive. Values are sanitized as plain text (no HTML, no"
-" line breaks) before being sent in the header."
+"One field per CSP directive. Values are sanitized as plain text (no HTML, no "
+"line breaks) before being sent in the header."
 msgstr ""
-"One field per CSP directive. Values are sanitized as plain text (no HTML, no"
-" line breaks) before being sent in the header."
+"One field per CSP directive. Values are sanitized as plain text (no HTML, no "
+"line breaks) before being sent in the header."
 
 #: functions/settings-page.php:1460
 msgid ""
@@ -2843,8 +2949,7 @@ msgstr "Person"
 
 #: functions/settings-page.php:1716
 msgid "The founder shown as author of articles and owner of the organization."
-msgstr ""
-"The founder shown as author of articles and owner of the organization."
+msgstr "The founder shown as author of articles and owner of the organization."
 
 #: functions/settings-page.php:1719
 msgid "Job title"
@@ -3052,8 +3157,8 @@ msgctxt "Pattern title"
 msgid "About Section 2"
 msgstr "About Section 2"
 
-#: patterns/about-2.php:23 patterns/about-us.php:26
-#: patterns/cta-block-2.php:21 patterns/cta-block.php:29
+#: patterns/about-2.php:23 patterns/about-us.php:26 patterns/cta-block-2.php:21
+#: patterns/cta-block.php:29 patterns/feature-cards-canvas.php:24
 #: patterns/featured-content.php:21 patterns/featured-content.php:60
 #: patterns/featured-content.php:94 patterns/features-and-benefits.php:24
 #: patterns/highlight-features.php:20 patterns/latest-work.php:30
@@ -3075,26 +3180,27 @@ msgstr "Building Smarter Solutions SaaS Experts"
 #: patterns/about-2.php:40 patterns/about-us.php:21
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore."
 
 #: patterns/about-2.php:44 patterns/contact-page.php:28
 #: patterns/contact-with-form.php:16 patterns/cta-block-2.php:16
-#: patterns/cta-block.php:20 patterns/featured-content.php:35
-#: patterns/featured-content.php:74 patterns/featured-content.php:108
-#: patterns/profile-links-card.php:22 patterns/service-content.php:36
-#: patterns/service-content.php:62 patterns/service-content.php:89
-#: patterns/service-content.php:116 patterns/services-section.php:26
-#: patterns/services-section.php:53 patterns/services-section.php:71
-#: patterns/services-section.php:110 patterns/testimonial-section.php:23
+#: patterns/cta-block.php:20 patterns/feature-cards-canvas.php:19
+#: patterns/featured-content.php:35 patterns/featured-content.php:74
+#: patterns/featured-content.php:108 patterns/profile-links-card.php:22
+#: patterns/service-content.php:36 patterns/service-content.php:62
+#: patterns/service-content.php:89 patterns/service-content.php:116
+#: patterns/services-section.php:26 patterns/services-section.php:53
+#: patterns/services-section.php:71 patterns/services-section.php:110
+#: patterns/testimonial-section.php:23
 msgid ""
 "Lorem ipsum is placeholder text commonly used in the graphic, print, and "
 "publishing industries for previewing layouts and visual mockups."
@@ -3198,15 +3304,15 @@ msgctxt "Pattern title"
 msgid "Collaborations Described Cards"
 msgstr "Collaborations Described Cards"
 
-#: patterns/collaborations-described-cards.php:11
+#: patterns/collaborations-described-cards.php:10
 msgid "E-commerce · 2025"
 msgstr "E-commerce · 2025"
 
-#: patterns/collaborations-described-cards.php:12
+#: patterns/collaborations-described-cards.php:11
 msgid "Headless storefront migration"
 msgstr "Headless storefront migration"
 
-#: patterns/collaborations-described-cards.php:13
+#: patterns/collaborations-described-cards.php:12
 msgid "Moved a Shopify theme onto Next.js; checkout time halved."
 msgstr "Moved a Shopify theme onto Next.js; checkout time halved."
 
@@ -3222,55 +3328,55 @@ msgstr "Dashboard performance work"
 msgid "Cut initial bundle by 62% and made the table view usable on mobile."
 msgstr "Cut initial bundle by 62% and made the table view usable on mobile."
 
-#: patterns/collaborations-described-cards.php:21
+#: patterns/collaborations-described-cards.php:22
 msgid "Agency · 2024"
 msgstr "Agency · 2024"
 
-#: patterns/collaborations-described-cards.php:22
+#: patterns/collaborations-described-cards.php:23
 msgid "Frontend for six client sites"
 msgstr "Frontend for six client sites"
 
-#: patterns/collaborations-described-cards.php:23
+#: patterns/collaborations-described-cards.php:24
 msgid "A shared component library the agency’s team still builds on."
 msgstr "A shared component library the agency’s team still builds on."
 
-#: patterns/collaborations-described-cards.php:26
+#: patterns/collaborations-described-cards.php:28
 msgid "Publisher · 2023"
 msgstr "Publisher · 2023"
 
-#: patterns/collaborations-described-cards.php:27
+#: patterns/collaborations-described-cards.php:29
 msgid "Core Web Vitals rescue"
 msgstr "Core Web Vitals rescue"
 
-#: patterns/collaborations-described-cards.php:28
+#: patterns/collaborations-described-cards.php:30
 msgid "All three metrics into the green across 40k article pages."
 msgstr "All three metrics into the green across 40k article pages."
 
-#: patterns/collaborations-described-cards.php:31
+#: patterns/collaborations-described-cards.php:34
 msgid "Marketplace · 2023"
 msgstr "Marketplace · 2023"
 
-#: patterns/collaborations-described-cards.php:32
+#: patterns/collaborations-described-cards.php:35
 msgid "Angular to Next.js rewrite"
 msgstr "Angular to Next.js rewrite"
 
-#: patterns/collaborations-described-cards.php:33
+#: patterns/collaborations-described-cards.php:36
 msgid "Incremental migration with no downtime and no feature freeze."
 msgstr "Incremental migration with no downtime and no feature freeze."
 
-#: patterns/collaborations-described-cards.php:36
+#: patterns/collaborations-described-cards.php:40
 msgid "Startup · 2022"
 msgstr "Startup · 2022"
 
-#: patterns/collaborations-described-cards.php:37
+#: patterns/collaborations-described-cards.php:41
 msgid "Marketing site from scratch"
 msgstr "Marketing site from scratch"
 
-#: patterns/collaborations-described-cards.php:38
+#: patterns/collaborations-described-cards.php:42
 msgid "Design, build and CMS in five weeks, launched on time."
 msgstr "Design, build and CMS in five weeks, launched on time."
 
-#: patterns/collaborations-described-cards.php:67
+#: patterns/collaborations-described-cards.php:69
 msgid "Read more →"
 msgstr "Read more →"
 
@@ -3303,11 +3409,11 @@ msgstr "Teams I’ve built with"
 
 #: patterns/collaborations-split.php:20
 msgid ""
-"Agencies, in-house product teams and founders — from single landing pages to"
-" multi-year platform work."
+"Agencies, in-house product teams and founders — from single landing pages to "
+"multi-year platform work."
 msgstr ""
-"Agencies, in-house product teams and founders — from single landing pages to"
-" multi-year platform work."
+"Agencies, in-house product teams and founders — from single landing pages to "
+"multi-year platform work."
 
 #: patterns/collaborations-split.php:24
 msgid "See the case studies →"
@@ -3464,11 +3570,11 @@ msgstr "Design, Build, and Ongoing Support"
 
 #: patterns/content-tabs-media.php:110
 msgid ""
-"From first wireframe to launch and beyond — design, development, performance"
-" tuning, and support all under one roof."
+"From first wireframe to launch and beyond — design, development, performance "
+"tuning, and support all under one roof."
 msgstr ""
-"From first wireframe to launch and beyond — design, development, performance"
-" tuning, and support all under one roof."
+"From first wireframe to launch and beyond — design, development, performance "
+"tuning, and support all under one roof."
 
 #: patterns/content-tabs-media.php:114
 msgid "Includes:"
@@ -3602,13 +3708,13 @@ msgstr "100+"
 #: patterns/number-stats.php:91
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat."
 
 #: patterns/counter-with-desc.php:55 patterns/number-stats.php:64
@@ -3676,11 +3782,11 @@ msgstr "CET hours"
 
 #: patterns/cv-centered-facts.php:66
 msgid ""
-"Want the detail? Download the one-page CV, or browse the career timeline and"
-" project write-ups."
+"Want the detail? Download the one-page CV, or browse the career timeline and "
+"project write-ups."
 msgstr ""
-"Want the detail? Download the one-page CV, or browse the career timeline and"
-" project write-ups."
+"Want the detail? Download the one-page CV, or browse the career timeline and "
+"project write-ups."
 
 #: patterns/cv-centered-facts.php:71 patterns/cv-slim-bar.php:43
 msgid "Download CV"
@@ -3758,11 +3864,11 @@ msgstr "Web Developer · React, Next.js, commerce"
 
 #: patterns/cv-profile-card.php:37
 msgid ""
-"Eight years building storefronts and content sites. The CV is one page, PDF,"
-" updated September 2026."
+"Eight years building storefronts and content sites. The CV is one page, PDF, "
+"updated September 2026."
 msgstr ""
-"Eight years building storefronts and content sites. The CV is one page, PDF,"
-" updated September 2026."
+"Eight years building storefronts and content sites. The CV is one page, PDF, "
+"updated September 2026."
 
 #: patterns/cv-profile-card.php:42
 msgid "Download CV — PDF · 380 KB"
@@ -3871,12 +3977,12 @@ msgstr "What is Full Site Editing in WordPress?"
 
 #: patterns/faq-accordion.php:24 patterns/faq-section.php:55
 msgid ""
-"Full Site Editing in WordPress allows users to create and edit their website"
-" more efficiently and with more control. It enables users to create unique "
+"Full Site Editing in WordPress allows users to create and edit their website "
+"more efficiently and with more control. It enables users to create unique "
 "and custom designs without needing to have advanced coding skills."
 msgstr ""
-"Full Site Editing in WordPress allows users to create and edit their website"
-" more efficiently and with more control. It enables users to create unique "
+"Full Site Editing in WordPress allows users to create and edit their website "
+"more efficiently and with more control. It enables users to create unique "
 "and custom designs without needing to have advanced coding skills."
 
 #: patterns/faq-accordion.php:31 patterns/faq-accordion.php:47
@@ -3888,12 +3994,12 @@ msgstr "What are the benefits of Full Site Editing in WordPress?"
 #: patterns/faq-accordion.php:72 patterns/faq-section.php:24
 msgid ""
 "Full Site Editing in WordPress refers to a feature that allows users to "
-"create and edit their website’s entire layout, including the header, footer,"
-" and other structural elements, using a visual editor."
+"create and edit their website’s entire layout, including the header, footer, "
+"and other structural elements, using a visual editor."
 msgstr ""
 "Full Site Editing in WordPress refers to a feature that allows users to "
-"create and edit their website’s entire layout, including the header, footer,"
-" and other structural elements, using a visual editor."
+"create and edit their website’s entire layout, including the header, footer, "
+"and other structural elements, using a visual editor."
 
 #: patterns/faq-accordion.php:39 patterns/faq-accordion.php:55
 msgid "How do I enable Full Site Editing in WordPress?"
@@ -3903,31 +4009,30 @@ msgstr "How do I enable Full Site Editing in WordPress?"
 #: patterns/faq-section.php:38
 msgid ""
 "To enable Full Site Editing in WordPress, you need to ensure that you are "
-"using a compatible WordPress theme that supports Full Site Editing. You will"
-" also need to install the latest version of WordPress and enable the "
+"using a compatible WordPress theme that supports Full Site Editing. You will "
+"also need to install the latest version of WordPress and enable the "
 "Gutenberg editor."
 msgstr ""
 "To enable Full Site Editing in WordPress, you need to ensure that you are "
-"using a compatible WordPress theme that supports Full Site Editing. You will"
-" also need to install the latest version of WordPress and enable the "
+"using a compatible WordPress theme that supports Full Site Editing. You will "
+"also need to install the latest version of WordPress and enable the "
 "Gutenberg editor."
 
 #: patterns/faq-accordion.php:63
 msgid "What are some popular WordPress themes that support Full Site Editing?"
-msgstr ""
-"What are some popular WordPress themes that support Full Site Editing?"
+msgstr "What are some popular WordPress themes that support Full Site Editing?"
 
 #: patterns/faq-accordion.php:64 patterns/faq-section.php:69
 msgid ""
 "Some popular WordPress themes that support Full Site Editing include the "
 "FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes "
-"have built-in support for Full Site Editing, allowing users to create custom"
-" designs without needing to know how to code."
+"have built-in support for Full Site Editing, allowing users to create custom "
+"designs without needing to know how to code."
 msgstr ""
 "Some popular WordPress themes that support Full Site Editing include the "
 "FotaWP Theme, ReviveNews Theme, and the Hello Agency Theme. These themes "
-"have built-in support for Full Site Editing, allowing users to create custom"
-" designs without needing to know how to code."
+"have built-in support for Full Site Editing, allowing users to create custom "
+"designs without needing to know how to code."
 
 #: patterns/faq-section.php
 msgctxt "Pattern title"
@@ -3937,6 +4042,47 @@ msgstr "FAQ Section"
 #: patterns/faq-section.php:10
 msgid "Frequently Asked Question"
 msgstr "Frequently Asked Question"
+
+#: patterns/feature-cards-canvas.php
+msgctxt "Pattern title"
+msgid "Feature Cards Canvas"
+msgstr "Feature Cards Canvas"
+
+#: patterns/feature-cards-canvas.php:15 patterns/services-section.php:22
+msgid "Ensure You Receive High-Quality Services"
+msgstr "Ensure You Receive High-Quality Services"
+
+#: patterns/feature-cards-canvas.php:40 patterns/service-icons-grid.php:23
+msgid "Websites"
+msgstr "Websites"
+
+#: patterns/feature-cards-canvas.php:44
+msgid "Fast, accessible websites built to convert visitors into customers."
+msgstr "Fast, accessible websites built to convert visitors into customers."
+
+#: patterns/feature-cards-canvas.php:52 patterns/service-icons-grid.php:38
+msgid "Page optimization"
+msgstr "Page optimization"
+
+#: patterns/feature-cards-canvas.php:56
+msgid "Lighter pages, sharper images and faster loads on every device."
+msgstr "Lighter pages, sharper images and faster loads on every device."
+
+#: patterns/feature-cards-canvas.php:64 patterns/service-icons-grid.php:53
+msgid "Internet applications"
+msgstr "Internet applications"
+
+#: patterns/feature-cards-canvas.php:68
+msgid "Scalable web applications connecting your data, services and users."
+msgstr "Scalable web applications connecting your data, services and users."
+
+#: patterns/feature-cards-canvas.php:76 patterns/service-icons-grid.php:68
+msgid "Analysis and reporting"
+msgstr "Analysis and reporting"
+
+#: patterns/feature-cards-canvas.php:80
+msgid "Clear metrics and reports that show what drives your growth."
+msgstr "Clear metrics and reports that show what drives your growth."
 
 #: patterns/featured-content-2.php
 msgctxt "Pattern title"
@@ -3953,15 +4099,15 @@ msgstr "Social Media and Brand identity"
 #: patterns/featured-content-2.php:31 patterns/featured-content-2.php:54
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
 "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat "
 "non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -4013,9 +4159,8 @@ msgid "Lifetime Free Update"
 msgstr "Lifetime Free Update"
 
 #: patterns/features-and-benefits.php:62 patterns/features-and-benefits.php:80
-#: patterns/features-and-benefits.php:98
-#: patterns/features-and-benefits.php:116 patterns/latest-work.php:25
-#: patterns/photo-gallery.php:23
+#: patterns/features-and-benefits.php:98 patterns/features-and-benefits.php:116
+#: patterns/latest-work.php:25 patterns/photo-gallery.php:23
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
 "tempor incididunt ut labore et dolore magna aliqua."
@@ -4088,12 +4233,12 @@ msgstr "Scalable Solutions for Every Stage"
 #: patterns/highlight-features.php:34
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
-" laboris."
+"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco "
+"laboris."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, eiusmod tempor "
-"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco"
-" laboris."
+"incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ullamco "
+"laboris."
 
 #: patterns/highlight-features.php:40
 msgid "Scalability &amp; Flexibility"
@@ -4115,13 +4260,11 @@ msgstr "Real-Time Analytics &amp; Reporting"
 
 #: patterns/highlight-features.php:60
 msgid ""
-"Access to powerful, real-time data analytics and custom reporting tools that"
-" help you make informed business decisions and track performance "
-"effortlessly."
+"Access to powerful, real-time data analytics and custom reporting tools that "
+"help you make informed business decisions and track performance effortlessly."
 msgstr ""
-"Access to powerful, real-time data analytics and custom reporting tools that"
-" help you make informed business decisions and track performance "
-"effortlessly."
+"Access to powerful, real-time data analytics and custom reporting tools that "
+"help you make informed business decisions and track performance effortlessly."
 
 #: patterns/highlight-features.php:68
 msgid "User-Centric Interface"
@@ -4203,8 +4346,7 @@ msgid "A one-line goal and a deadline that isn’t “as soon as possible”"
 msgstr "A one-line goal and a deadline that isn’t “as soon as possible”"
 
 #: patterns/how-to-prepare-phase-cards.php:13
-msgid ""
-"Logo in SVG or high-res PNG, brand colours, fonts you own a licence for"
+msgid "Logo in SVG or high-res PNG, brand colours, fonts you own a licence for"
 msgstr ""
 "Logo in SVG or high-res PNG, brand colours, fonts you own a licence for"
 
@@ -4340,12 +4482,12 @@ msgstr "Define the goal"
 
 #: patterns/how-to-prepare-timeline.php:10
 msgid ""
-"Before anything else: what should the site actually do? Sell a product, book"
-" appointments, publish articles, replace a broken WordPress install. One "
+"Before anything else: what should the site actually do? Sell a product, book "
+"appointments, publish articles, replace a broken WordPress install. One "
 "sentence is enough to start."
 msgstr ""
-"Before anything else: what should the site actually do? Sell a product, book"
-" appointments, publish articles, replace a broken WordPress install. One "
+"Before anything else: what should the site actually do? Sell a product, book "
+"appointments, publish articles, replace a broken WordPress install. One "
 "sentence is enough to start."
 
 #: patterns/how-to-prepare-timeline.php:11
@@ -4396,13 +4538,11 @@ msgstr "Discuss ideas and agree the scope"
 msgid ""
 "We turn the brief into a written scope: page list, features, integrations, "
 "who writes the content, what is explicitly out of scope. You get a fixed "
-"quote or an hourly estimate with a cap, plus a timeline and payment "
-"schedule."
+"quote or an hourly estimate with a cap, plus a timeline and payment schedule."
 msgstr ""
 "We turn the brief into a written scope: page list, features, integrations, "
 "who writes the content, what is explicitly out of scope. You get a fixed "
-"quote or an hourly estimate with a cap, plus a timeline and payment "
-"schedule."
+"quote or an hourly estimate with a cap, plus a timeline and payment schedule."
 
 #: patterns/how-to-prepare-timeline.php:26
 msgid "I deliver: written scope, quote, timeline"
@@ -4470,13 +4610,13 @@ msgstr "Testing and the fix round"
 
 #: patterns/how-to-prepare-timeline.php:45
 msgid ""
-"Cross-browser and real-device checks, Core Web Vitals, accessibility, forms,"
-" redirects and SEO metadata. You review on staging and send one consolidated"
-" list; I fix and re-test until it’s signed off."
+"Cross-browser and real-device checks, Core Web Vitals, accessibility, forms, "
+"redirects and SEO metadata. You review on staging and send one consolidated "
+"list; I fix and re-test until it’s signed off."
 msgstr ""
-"Cross-browser and real-device checks, Core Web Vitals, accessibility, forms,"
-" redirects and SEO metadata. You review on staging and send one consolidated"
-" list; I fix and re-test until it’s signed off."
+"Cross-browser and real-device checks, Core Web Vitals, accessibility, forms, "
+"redirects and SEO metadata. You review on staging and send one consolidated "
+"list; I fix and re-test until it’s signed off."
 
 #: patterns/how-to-prepare-timeline.php:46
 msgid "I deliver: test report, fixes, re-test"
@@ -4565,11 +4705,11 @@ msgstr "Shopify storefront rebuilt on Next.js"
 
 #: patterns/link-cards-feature-stack.php:47
 msgid ""
-"Checkout time cut in half and a 41-point Lighthouse gain — the full write-up"
-" covers the architecture and the trade-offs."
+"Checkout time cut in half and a 41-point Lighthouse gain — the full write-up "
+"covers the architecture and the trade-offs."
 msgstr ""
-"Checkout time cut in half and a 41-point Lighthouse gain — the full write-up"
-" covers the architecture and the trade-offs."
+"Checkout time cut in half and a 41-point Lighthouse gain — the full write-up "
+"covers the architecture and the trade-offs."
 
 #: patterns/link-cards-feature-stack.php:61
 msgid "Read the case study →"
@@ -4580,7 +4720,7 @@ msgctxt "Pattern title"
 msgid "Link Cards Icon Led"
 msgstr "Link Cards Icon Led"
 
-#: patterns/link-cards-icon-led.php:11 patterns/link-cards-image-band.php:12
+#: patterns/link-cards-icon-led.php:11 patterns/link-cards-image-band.php:10
 #: patterns/link-cards-typographic.php:9
 msgid "Core Web Vitals optimization"
 msgstr "Core Web Vitals optimization"
@@ -4589,7 +4729,7 @@ msgstr "Core Web Vitals optimization"
 msgid "LCP, INP and CLS brought into the green and kept there."
 msgstr "LCP, INP and CLS brought into the green and kept there."
 
-#: patterns/link-cards-icon-led.php:16 patterns/link-cards-image-band.php:18
+#: patterns/link-cards-icon-led.php:16 patterns/link-cards-image-band.php:16
 #: patterns/link-cards-typographic.php:14
 msgid "Mobile-first frontend overhaul"
 msgstr "Mobile-first frontend overhaul"
@@ -4598,7 +4738,7 @@ msgstr "Mobile-first frontend overhaul"
 msgid "One component system that holds together at every width."
 msgstr "One component system that holds together at every width."
 
-#: patterns/link-cards-icon-led.php:21 patterns/link-cards-image-band.php:24
+#: patterns/link-cards-icon-led.php:21 patterns/link-cards-image-band.php:22
 #: patterns/link-cards-typographic.php:19
 msgid "Performance audit & report"
 msgstr "Performance audit & report"
@@ -4607,7 +4747,7 @@ msgstr "Performance audit & report"
 msgid "Everything measured, prioritised and written down."
 msgstr "Everything measured, prioritised and written down."
 
-#: patterns/link-cards-icon-led.php:51 patterns/link-cards-image-band.php:53
+#: patterns/link-cards-icon-led.php:51 patterns/link-cards-image-band.php:49
 #: patterns/link-cards-typographic.php:48
 msgid "See more →"
 msgstr "See more →"
@@ -4617,26 +4757,26 @@ msgctxt "Pattern title"
 msgid "Link Cards Image Band"
 msgstr "Link Cards Image Band"
 
-#: patterns/link-cards-image-band.php:11 patterns/link-cards-image-band.php:17
-#: patterns/link-cards-image-band.php:23
+#: patterns/link-cards-image-band.php:9 patterns/link-cards-image-band.php:15
+#: patterns/link-cards-image-band.php:21
 msgid "Service"
 msgstr "Service"
 
-#: patterns/link-cards-image-band.php:13
+#: patterns/link-cards-image-band.php:11
 msgid ""
 "LCP, INP and CLS brought into the green, with before-and-after field data."
 msgstr ""
 "LCP, INP and CLS brought into the green, with before-and-after field data."
 
-#: patterns/link-cards-image-band.php:19
+#: patterns/link-cards-image-band.php:17
 msgid ""
-"Rebuilt from the smallest breakpoint up, so the phone experience stops being"
-" an afterthought."
+"Rebuilt from the smallest breakpoint up, so the phone experience stops being "
+"an afterthought."
 msgstr ""
-"Rebuilt from the smallest breakpoint up, so the phone experience stops being"
-" an afterthought."
+"Rebuilt from the smallest breakpoint up, so the phone experience stops being "
+"an afterthought."
 
-#: patterns/link-cards-image-band.php:25
+#: patterns/link-cards-image-band.php:23
 msgid ""
 "A prioritised list of what to fix first, with the measured cost of each "
 "problem."
@@ -4692,12 +4832,12 @@ msgstr "Mission & Goal Content"
 #: patterns/mission-goal.php:46
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris."
 
 #: patterns/mission-goal.php:51
 msgid "Streamlined Digital Transformation"
@@ -4989,14 +5129,14 @@ msgstr "Service Grid"
 #: patterns/simple-text.php:15
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
 "consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse "
 "cillum dolore eu fugiat nulla pariatur."
 
@@ -5004,10 +5144,6 @@ msgstr ""
 msgctxt "Pattern title"
 msgid "Service Icons Grid"
 msgstr "Service Icons Grid"
-
-#: patterns/service-icons-grid.php:23
-msgid "Websites"
-msgstr "Websites"
 
 #: patterns/service-icons-grid.php:27
 msgid ""
@@ -5017,31 +5153,19 @@ msgstr ""
 "Design and build sites that hold together at every breakpoint, from first "
 "commit to launch."
 
-#: patterns/service-icons-grid.php:38
-msgid "Page optimization"
-msgstr "Page optimization"
-
 #: patterns/service-icons-grid.php:42
 msgid ""
-"LCP, INP and CLS brought into the green, with before-and-after field data to"
-" prove it."
+"LCP, INP and CLS brought into the green, with before-and-after field data to "
+"prove it."
 msgstr ""
-"LCP, INP and CLS brought into the green, with before-and-after field data to"
-" prove it."
-
-#: patterns/service-icons-grid.php:53
-msgid "Internet applications"
-msgstr "Internet applications"
+"LCP, INP and CLS brought into the green, with before-and-after field data to "
+"prove it."
 
 #: patterns/service-icons-grid.php:57
 msgid ""
 "Composable, component-based applications built with React, Next.js and Node."
 msgstr ""
 "Composable, component-based applications built with React, Next.js and Node."
-
-#: patterns/service-icons-grid.php:68
-msgid "Analysis and reporting"
-msgstr "Analysis and reporting"
 
 #: patterns/service-icons-grid.php:72
 msgid ""
@@ -5156,11 +5280,11 @@ msgstr "SEO optimization"
 
 #: patterns/service-location-content.php:192
 msgid ""
-"Technical SEO, structured data, and page speed — better visibility in search"
-" results."
+"Technical SEO, structured data, and page speed — better visibility in search "
+"results."
 msgstr ""
-"Technical SEO, structured data, and page speed — better visibility in search"
-" results."
+"Technical SEO, structured data, and page speed — better visibility in search "
+"results."
 
 #: patterns/service-location-content.php:210
 msgid "Find us in"
@@ -5196,11 +5320,11 @@ msgstr "Your site goes live, and we stay with you with ongoing support."
 
 #: patterns/service-location-content.php:298
 msgid ""
-"\"Professional approach from the first conversation through launch. The site"
-" is fast and looks exactly the way we imagined.\""
+"\"Professional approach from the first conversation through launch. The site "
+"is fast and looks exactly the way we imagined.\""
 msgstr ""
-"\"Professional approach from the first conversation through launch. The site"
-" is fast and looks exactly the way we imagined.\""
+"\"Professional approach from the first conversation through launch. The site "
+"is fast and looks exactly the way we imagined.\""
 
 #: patterns/service-location-content.php:302
 msgid "Client review from:"
@@ -5263,10 +5387,6 @@ msgstr "Service Locations Grid"
 msgctxt "Pattern title"
 msgid "Service Section"
 msgstr "Service Section"
-
-#: patterns/services-section.php:22
-msgid "Ensure You Receive High-Quality Services"
-msgstr "Ensure You Receive High-Quality Services"
 
 #: patterns/services-section.php:49
 msgid "Web Applications"
@@ -5344,15 +5464,15 @@ msgstr ""
 
 #: patterns/simple-text.php:27
 msgid ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
-" with discovering the source behind the ubiquitous filler text. In seeing a "
+"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited "
+"with discovering the source behind the ubiquitous filler text. In seeing a "
 "sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
 "albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
 "passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
 "Evil”), a first-century B.C. text from the Roman philosopher Cicero."
 msgstr ""
-"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited"
-" with discovering the source behind the ubiquitous filler text. In seeing a "
+"Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited "
+"with discovering the source behind the ubiquitous filler text. In seeing a "
 "sample of lorem ipsum, his interest was piqued by consectetur—a genuine, "
 "albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a "
 "passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and "
@@ -5429,27 +5549,12 @@ msgid "E-commerce platforms"
 msgstr "E-commerce platforms"
 
 #: patterns/tech-stack-grouped-cards.php:23
-#: patterns/tech-stack-icon-tiles.php:14
-msgid "Shopify"
-msgstr "Shopify"
-
-#: patterns/tech-stack-grouped-cards.php:23
 msgid "Liquid themes and Hydrogen"
 msgstr "Liquid themes and Hydrogen"
 
 #: patterns/tech-stack-grouped-cards.php:24
-#: patterns/tech-stack-icon-tiles.php:15
-msgid "WooCommerce"
-msgstr "WooCommerce"
-
-#: patterns/tech-stack-grouped-cards.php:24
 msgid "WordPress-based commerce"
 msgstr "WordPress-based commerce"
-
-#: patterns/tech-stack-grouped-cards.php:25
-#: patterns/tech-stack-icon-tiles.php:16
-msgid "SAP Hybris"
-msgstr "SAP Hybris"
 
 #: patterns/tech-stack-grouped-cards.php:25
 msgid "Enterprise commerce stack"
@@ -5590,27 +5695,32 @@ msgctxt "Pattern title"
 msgid "Testimonial Section"
 msgstr "Testimonial Section"
 
-#: patterns/testimonial-section.php:19 patterns/testimonials-grid.php:22
+#: patterns/testimonial-section.php:19 patterns/testimonials-carousel.php:22
+#: patterns/testimonials-grid.php:22
 msgid "Hear From Our Happy Clients: Their Stories"
 msgstr "Hear From Our Happy Clients: Their Stories"
 
 #: patterns/testimonial-section.php:36 patterns/testimonial-section.php:68
-#: patterns/testimonial-section.php:100 patterns/testimonials-grid.php:35
+#: patterns/testimonial-section.php:100 patterns/testimonials-carousel.php:34
+#: patterns/testimonials-carousel.php:179 patterns/testimonials-grid.php:35
 #: patterns/testimonials-grid.php:186
 msgid ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco."
 msgstr ""
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco."
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco."
 
-#: patterns/testimonial-section.php:46 patterns/testimonials-grid.php:45
+#: patterns/testimonial-section.php:46 patterns/testimonials-carousel.php:44
+#: patterns/testimonials-grid.php:45
 msgid "Henry Benzamin Clark"
 msgstr "Henry Benzamin Clark"
 
-#: patterns/testimonial-section.php:50 patterns/testimonials-grid.php:49
+#: patterns/testimonial-section.php:50 patterns/testimonials-carousel.php:48
+#: patterns/testimonials-carousel.php:135
+#: patterns/testimonials-carousel.php:193 patterns/testimonials-grid.php:49
 #: patterns/testimonials-grid.php:139 patterns/testimonials-grid.php:200
 msgid "Fitness Coach"
 msgstr "Fitness Coach"
@@ -5631,67 +5741,71 @@ msgstr "Robert Mathew"
 msgid "Product Owner"
 msgstr "Product Owner"
 
+#: patterns/testimonials-carousel.php
+msgctxt "Pattern title"
+msgid "Testimonials Carousel"
+msgstr "Testimonials Carousel"
+
+#: patterns/testimonials-carousel.php:63 patterns/testimonials-carousel.php:121
+#: patterns/testimonials-carousel.php:150 patterns/testimonials-grid.php:64
+#: patterns/testimonials-grid.php:125 patterns/testimonials-grid.php:157
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+msgstr ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+
+#: patterns/testimonials-carousel.php:73 patterns/testimonials-grid.php:74
+msgid "Kristine Perrak"
+msgstr "Kristine Perrak"
+
+#: patterns/testimonials-carousel.php:77 patterns/testimonials-grid.php:78
+msgid "Blogger"
+msgstr "Blogger"
+
+#: patterns/testimonials-carousel.php:92 patterns/testimonials-grid.php:96
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
+"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+msgstr ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
+"consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
+"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+
+#: patterns/testimonials-carousel.php:102 patterns/testimonials-grid.php:106
+msgid "Robert Linken"
+msgstr "Robert Linken"
+
+#: patterns/testimonials-carousel.php:106 patterns/testimonials-grid.php:110
+msgid "Counseller"
+msgstr "Counseller"
+
+#: patterns/testimonials-carousel.php:131 patterns/testimonials-grid.php:135
+msgid "John Doe"
+msgstr "John Doe"
+
+#: patterns/testimonials-carousel.php:160 patterns/testimonials-grid.php:167
+msgid "Liyana Torq"
+msgstr "Liyana Torq"
+
+#: patterns/testimonials-carousel.php:164 patterns/testimonials-grid.php:171
+msgid "Yoga Coach"
+msgstr "Yoga Coach"
+
+#: patterns/testimonials-carousel.php:189 patterns/testimonials-grid.php:196
+msgid "Benzamin Clark"
+msgstr "Benzamin Clark"
+
 #: patterns/testimonials-grid.php
 msgctxt "Pattern title"
 msgid "Testimonials Grid"
 msgstr "Testimonials Grid"
-
-#: patterns/testimonials-grid.php:64 patterns/testimonials-grid.php:125
-#: patterns/testimonials-grid.php:157
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
-
-#: patterns/testimonials-grid.php:74
-msgid "Kristine Perrak"
-msgstr "Kristine Perrak"
-
-#: patterns/testimonials-grid.php:78
-msgid "Blogger"
-msgstr "Blogger"
-
-#: patterns/testimonials-grid.php:96
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
-msgstr ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
-"tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
-" quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat. ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis "
-"nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo "
-"consequat."
-
-#: patterns/testimonials-grid.php:106
-msgid "Robert Linken"
-msgstr "Robert Linken"
-
-#: patterns/testimonials-grid.php:110
-msgid "Counseller"
-msgstr "Counseller"
-
-#: patterns/testimonials-grid.php:135
-msgid "John Doe"
-msgstr "John Doe"
-
-#: patterns/testimonials-grid.php:167
-msgid "Liyana Torq"
-msgstr "Liyana Torq"
-
-#: patterns/testimonials-grid.php:171
-msgid "Yoga Coach"
-msgstr "Yoga Coach"
-
-#: patterns/testimonials-grid.php:196
-msgid "Benzamin Clark"
-msgstr "Benzamin Clark"
 
 #: patterns/vertical-timeline-layout.php
 msgctxt "Pattern title"
@@ -5720,11 +5834,11 @@ msgstr "Joined Agency"
 
 #: patterns/vertical-timeline-layout.php:57
 msgid ""
-"Worked with a team to develop Angular and Next.js projects for clients in "
-"e-commerce and tech."
+"Worked with a team to develop Angular and Next.js projects for clients in e-"
+"commerce and tech."
 msgstr ""
-"Worked with a team to develop Angular and Next.js projects for clients in "
-"e-commerce and tech."
+"Worked with a team to develop Angular and Next.js projects for clients in e-"
+"commerce and tech."
 
 #: patterns/vertical-timeline-layout.php:63
 msgid "See What I Offer Now"
@@ -5775,8 +5889,7 @@ msgstr "See my CV →"
 msgid "Retainer"
 msgstr "Retainer"
 
-#: patterns/work-with-me-option-cards.php:21
-#: patterns/work-with-me-split.php:19
+#: patterns/work-with-me-option-cards.php:21 patterns/work-with-me-split.php:19
 msgid "Ongoing support"
 msgstr "Ongoing support"
 
@@ -5796,8 +5909,7 @@ msgstr "Check availability →"
 msgid "Project"
 msgstr "Project"
 
-#: patterns/work-with-me-option-cards.php:28
-#: patterns/work-with-me-split.php:25
+#: patterns/work-with-me-option-cards.php:28 patterns/work-with-me-split.php:25
 msgid "Help with my website"
 msgstr "Help with my website"
 
@@ -5817,18 +5929,17 @@ msgstr "Describe the project →"
 msgid "Fixed fee"
 msgstr "Fixed fee"
 
-#: patterns/work-with-me-option-cards.php:35
-#: patterns/work-with-me-split.php:31
+#: patterns/work-with-me-option-cards.php:35 patterns/work-with-me-split.php:31
 msgid "Ask for an analysis"
 msgstr "Ask for an analysis"
 
 #: patterns/work-with-me-option-cards.php:36
 msgid ""
-"Performance, SEO and accessibility audit with a written, prioritised list of"
-" what to fix first."
+"Performance, SEO and accessibility audit with a written, prioritised list of "
+"what to fix first."
 msgstr ""
-"Performance, SEO and accessibility audit with a written, prioritised list of"
-" what to fix first."
+"Performance, SEO and accessibility audit with a written, prioritised list of "
+"what to fix first."
 
 #: patterns/work-with-me-option-cards.php:37
 msgid "Request an audit →"
@@ -5838,8 +5949,7 @@ msgstr "Request an audit →"
 msgid "Part-time"
 msgstr "Part-time"
 
-#: patterns/work-with-me-option-cards.php:42
-#: patterns/work-with-me-split.php:37
+#: patterns/work-with-me-option-cards.php:42 patterns/work-with-me-split.php:37
 msgid "Part-time engagement"
 msgstr "Part-time engagement"
 
@@ -5859,8 +5969,7 @@ msgstr "Talk about scope →"
 msgid "Evenings"
 msgstr "Evenings"
 
-#: patterns/work-with-me-option-cards.php:49
-#: patterns/work-with-me-split.php:43
+#: patterns/work-with-me-option-cards.php:49 patterns/work-with-me-split.php:43
 msgid "Small freelance jobs"
 msgstr "Small freelance jobs"
 
@@ -5999,12 +6108,12 @@ msgstr "Card"
 #: build/js/article-card.js:1
 msgid ""
 "Manage the card's linked article, image, and text from Article Cards in the "
-"admin menu. Editing the shared card layout there updates every card wherever"
-" it's embedded."
+"admin menu. Editing the shared card layout there updates every card wherever "
+"it's embedded."
 msgstr ""
 "Manage the card's linked article, image, and text from Article Cards in the "
-"admin menu. Editing the shared card layout there updates every card wherever"
-" it's embedded."
+"admin menu. Editing the shared card layout there updates every card wherever "
+"it's embedded."
 
 #: build/js/article-toc.js:1
 msgid "Table of contents colors"
@@ -6292,7 +6401,8 @@ msgid "Background Effect Preset Settings"
 msgstr "Background Effect Preset Settings"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1 build/js/editor.js:49
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/editor.js:49
 #: build/js/navigation.js:1 build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
@@ -6301,7 +6411,8 @@ msgid "Blur intensity"
 msgstr "Blur intensity"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1 build/js/editor.js:49
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/editor.js:49
 #: build/js/navigation.js:1 build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
@@ -6310,17 +6421,19 @@ msgid "Default (0.25rem)"
 msgstr "Default (0.25rem)"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1 build/js/editor.js:46
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/editor.js:46
 #: build/js/editor.js:49 build/js/navigation.js:1
 #: build/js/other-topics-dynamic.js:1 build/js/popular-content-dynamic.js:1
-#: build/js/recently-viewed-dynamic.js:1
-#: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
-#: build/js/slider.js:1 build/js/tag-posts-grid-dynamic.js:1
+#: build/js/recently-viewed-dynamic.js:1 build/js/related-articles-dynamic.js:1
+#: build/js/search-results-dynamic.js:1 build/js/slider.js:1
+#: build/js/tag-posts-grid-dynamic.js:1
 msgid "Custom"
 msgstr "Custom"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1 build/js/editor.js:49
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/editor.js:49
 #: build/js/navigation.js:1 build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
@@ -6333,7 +6446,8 @@ msgstr ""
 "there to offer them here."
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1 build/js/editor.js:49
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/editor.js:49
 #: build/js/navigation.js:1 build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
@@ -6342,7 +6456,8 @@ msgid "Custom blur amount"
 msgstr "Custom blur amount"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1 build/js/editor.js:49
+#: build/js/category-posts-grid-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/editor.js:49
 #: build/js/navigation.js:1 build/js/other-topics-dynamic.js:1
 #: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
@@ -6385,18 +6500,16 @@ msgid "Button hover text color"
 msgstr "Button hover text color"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1
-#: build/js/other-topics-dynamic.js:1 build/js/popular-content-dynamic.js:1
-#: build/js/recently-viewed-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1 build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Card Hover Effects"
 msgstr "Card Hover Effects"
 
 #: build/js/blog-topics-grid-dynamic.js:1
-#: build/js/category-posts-grid-dynamic.js:1
-#: build/js/other-topics-dynamic.js:1 build/js/popular-content-dynamic.js:1
-#: build/js/recently-viewed-dynamic.js:1
+#: build/js/category-posts-grid-dynamic.js:1 build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Card background on hover"
@@ -6404,8 +6517,8 @@ msgstr "Card background on hover"
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/other-topics-dynamic.js:1 build/js/popular-content-dynamic.js:1
-#: build/js/recently-viewed-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Blur other cards on hover"
@@ -6413,8 +6526,8 @@ msgstr "Blur other cards on hover"
 
 #: build/js/blog-topics-grid-dynamic.js:1
 #: build/js/category-posts-grid-dynamic.js:1
-#: build/js/other-topics-dynamic.js:1 build/js/popular-content-dynamic.js:1
-#: build/js/recently-viewed-dynamic.js:1
+#: build/js/certificates-grid-dynamic.js:1 build/js/other-topics-dynamic.js:1
+#: build/js/popular-content-dynamic.js:1 build/js/recently-viewed-dynamic.js:1
 #: build/js/related-articles-dynamic.js:1 build/js/search-results-dynamic.js:1
 #: build/js/tag-posts-grid-dynamic.js:1
 msgid "Hovering or focusing one card dims and blurs the rest of the grid."
@@ -6513,12 +6626,12 @@ msgstr "Cursor glow"
 #: build/js/button.js:1
 msgid ""
 "A soft glow in the Hover text color above that follows the cursor. Set a "
-"Hover text color above for this to be visible — while this is on, that color"
-" only drives the glow and no longer recolors the whole button text on hover."
+"Hover text color above for this to be visible — while this is on, that color "
+"only drives the glow and no longer recolors the whole button text on hover."
 msgstr ""
 "A soft glow in the Hover text color above that follows the cursor. Set a "
-"Hover text color above for this to be visible — while this is on, that color"
-" only drives the glow and no longer recolors the whole button text on hover."
+"Hover text color above for this to be visible — while this is on, that color "
+"only drives the glow and no longer recolors the whole button text on hover."
 
 #: build/js/certificate-panel.js:1
 msgid "Certificate Details"
@@ -6584,11 +6697,11 @@ msgstr "Falls back to the badge URL above when left empty."
 
 #: build/js/certificate.js:1
 msgid ""
-"Manage the certificate's badge, issuer, and verify link from Certificates in"
-" the admin menu. Editing it there updates every pattern it's embedded in."
+"Manage the certificate's badge, issuer, and verify link from Certificates in "
+"the admin menu. Editing it there updates every pattern it's embedded in."
 msgstr ""
-"Manage the certificate's badge, issuer, and verify link from Certificates in"
-" the admin menu. Editing it there updates every pattern it's embedded in."
+"Manage the certificate's badge, issuer, and verify link from Certificates in "
+"the admin menu. Editing it there updates every pattern it's embedded in."
 
 #: build/js/certificate.js:1 build/js/certificates-grid-dynamic.js:1
 #: build/js/editor.js:1
@@ -6941,8 +7054,8 @@ msgid "Right"
 msgstr "Right"
 
 #: build/js/content-tabs.js:1 build/js/device-frame.js:1 build/js/editor.js:1
-#: build/js/editor.js:28 build/js/editor.js:46 build/js/editor.js:49
-#: build/js/language-panel.js:1
+#: build/js/editor.js:28 build/js/editor.js:37 build/js/editor.js:46
+#: build/js/editor.js:49 build/js/language-panel.js:1
 msgid "None"
 msgstr "None"
 
@@ -7074,11 +7187,9 @@ msgstr "Card entrance animation"
 
 #: build/js/content-tabs.js:1
 msgid ""
-"Animates project/article cards inside the newly shown tab, one after "
-"another."
+"Animates project/article cards inside the newly shown tab, one after another."
 msgstr ""
-"Animates project/article cards inside the newly shown tab, one after "
-"another."
+"Animates project/article cards inside the newly shown tab, one after another."
 
 #: build/js/device-frame.js:1
 msgid "Desktop screenshot or video"
@@ -7136,7 +7247,8 @@ msgstr "Device Frame"
 msgid "Device"
 msgstr "Device"
 
-#: build/js/device-frame.js:1 build/js/model-viewer.js:1
+#: build/js/device-frame.js:1 build/js/feature-card-canvas.js:1
+#: build/js/model-viewer.js:1
 msgid "Aspect ratio"
 msgstr "Aspect ratio"
 
@@ -7168,11 +7280,9 @@ msgstr "Position style"
 
 #: build/js/device-frame.js:1
 msgid ""
-"How the frame sits in its showcase section. None keeps normal in-flow "
-"sizing."
+"How the frame sits in its showcase section. None keeps normal in-flow sizing."
 msgstr ""
-"How the frame sits in its showcase section. None keeps normal in-flow "
-"sizing."
+"How the frame sits in its showcase section. None keeps normal in-flow sizing."
 
 #: build/js/device-frame.js:1
 msgid "Keep effect on mobile"
@@ -7226,19 +7336,19 @@ msgstr "Responsive media"
 
 #: build/js/editor.js:1
 msgid ""
-"The block's own media is used on desktop. Add a different file for tablet or"
-" mobile; an empty slot uses the next larger one."
+"The block's own media is used on desktop. Add a different file for tablet or "
+"mobile; an empty slot uses the next larger one."
 msgstr ""
-"The block's own media is used on desktop. Add a different file for tablet or"
-" mobile; an empty slot uses the next larger one."
+"The block's own media is used on desktop. Add a different file for tablet or "
+"mobile; an empty slot uses the next larger one."
 
 #: build/js/editor.js:1
 msgid ""
-"A video's poster is its featured image in the Media Library. It is filled in"
-" automatically when you pick a video and can be changed there."
+"A video's poster is its featured image in the Media Library. It is filled in "
+"automatically when you pick a video and can be changed there."
 msgstr ""
-"A video's poster is its featured image in the Media Library. It is filled in"
-" automatically when you pick a video and can be changed there."
+"A video's poster is its featured image in the Media Library. It is filled in "
+"automatically when you pick a video and can be changed there."
 
 #: build/js/editor.js:1
 msgid "Replace"
@@ -7332,7 +7442,8 @@ msgstr "Offer value"
 msgid "Select an offer"
 msgstr "Select an offer"
 
-#: build/js/editor.js:1 build/js/scroll-to-top.js:1
+#: build/js/editor.js:1 build/js/feature-card-canvas.js:1
+#: build/js/scroll-to-top.js:1
 msgid "Variant"
 msgstr "Variant"
 
@@ -7466,11 +7577,11 @@ msgstr "Overlay Link"
 
 #: build/js/editor.js:1
 msgid ""
-"On a Button or a block containing a link: stretches that link over its whole"
-" container (a Cover, or any block with Overlay Link Host)"
+"On a Button or a block containing a link: stretches that link over its whole "
+"container (a Cover, or any block with Overlay Link Host)"
 msgstr ""
-"On a Button or a block containing a link: stretches that link over its whole"
-" container (a Cover, or any block with Overlay Link Host)"
+"On a Button or a block containing a link: stretches that link over its whole "
+"container (a Cover, or any block with Overlay Link Host)"
 
 #: build/js/editor.js:1
 msgid "Overlay Link Host"
@@ -7733,15 +7844,15 @@ msgstr "Use as scroll-section pin boundary"
 #: build/js/editor.js:1
 msgid ""
 "For a kotlinskidev/scroll-section set to the “Natural” pinning strategy, "
-"nested anywhere inside this block: pins this whole block instead of just the"
-" section, so content before/after it (within this block) stays visible, "
+"nested anywhere inside this block: pins this whole block instead of just the "
+"section, so content before/after it (within this block) stays visible, "
 "frozen, for the whole horizontal scroll — matching how the legacy strategy "
 "always looked. Has no effect without a natural-strategy scroll-section "
 "inside."
 msgstr ""
 "For a kotlinskidev/scroll-section set to the “Natural” pinning strategy, "
-"nested anywhere inside this block: pins this whole block instead of just the"
-" section, so content before/after it (within this block) stays visible, "
+"nested anywhere inside this block: pins this whole block instead of just the "
+"section, so content before/after it (within this block) stays visible, "
 "frozen, for the whole horizontal scroll — matching how the legacy strategy "
 "always looked. Has no effect without a natural-strategy scroll-section "
 "inside."
@@ -7830,15 +7941,15 @@ msgstr "Choose an animation that will trigger when hovering over the block."
 
 #: build/js/editor.js:1
 msgid ""
-"Zooms only the block's own image/video on hover, keeping surrounding content"
-" still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set "
-"a border radius in this block's own Border panel to keep rounded corners "
-"while zooming."
+"Zooms only the block's own image/video on hover, keeping surrounding content "
+"still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a "
+"border radius in this block's own Border panel to keep rounded corners while "
+"zooming."
 msgstr ""
-"Zooms only the block's own image/video on hover, keeping surrounding content"
-" still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set "
-"a border radius in this block's own Border panel to keep rounded corners "
-"while zooming."
+"Zooms only the block's own image/video on hover, keeping surrounding content "
+"still. Works on Image, Video, Gallery, Media & Text, and Cover blocks. Set a "
+"border radius in this block's own Border panel to keep rounded corners while "
+"zooming."
 
 #: build/js/editor.js:1
 msgid ""
@@ -7894,13 +8005,13 @@ msgstr "Enhanced hover effect (cursor glow)"
 
 #: build/js/editor.js:1
 msgid ""
-"A soft glow in the Hover text color above that follows the cursor, same size"
-" as the button glow effect. Set a Hover text color above for this to be "
+"A soft glow in the Hover text color above that follows the cursor, same size "
+"as the button glow effect. Set a Hover text color above for this to be "
 "visible — while this is on, that color only drives the glow and no longer "
 "recolors the whole text on hover."
 msgstr ""
-"A soft glow in the Hover text color above that follows the cursor, same size"
-" as the button glow effect. Set a Hover text color above for this to be "
+"A soft glow in the Hover text color above that follows the cursor, same size "
+"as the button glow effect. Set a Hover text color above for this to be "
 "visible — while this is on, that color only drives the glow and no longer "
 "recolors the whole text on hover."
 
@@ -8265,7 +8376,7 @@ msgstr "Mobile Order"
 msgid "Set the order for mobile screens (below %spx)."
 msgstr "Set the order for mobile screens (below %spx)."
 
-#: build/js/editor.js:10 build/js/editor.js:46
+#: build/js/editor.js:10 build/js/editor.js:37 build/js/editor.js:46
 msgid "Default"
 msgstr "Default"
 
@@ -8403,8 +8514,7 @@ msgstr "Configure responsive display, flex, and grid properties"
 msgid "Settings for screens %srem and above"
 msgstr "Settings for screens %srem and above"
 
-#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in
-#. rem
+#. translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
 #: build/js/editor.js:16 build/js/editor.js:25 build/js/editor.js:34
 #: build/js/editor.js:43
 msgid "Settings for screens %1$srem - %2$srem"
@@ -8501,8 +8611,76 @@ msgid "Add Variable"
 msgstr "Add Variable"
 
 #: build/js/editor.js:37
+msgid "Regular"
+msgstr "Regular"
+
+#: build/js/editor.js:37 build/js/modal-settings-panel.js:1
+msgid "Medium"
+msgstr "Medium"
+
+#: build/js/editor.js:37
+msgid "Semi bold"
+msgstr "Semi bold"
+
+#: build/js/editor.js:37
+msgid "Bold"
+msgstr "Bold"
+
+#: build/js/editor.js:37
+msgid "Extra bold"
+msgstr "Extra bold"
+
+#: build/js/editor.js:37
+msgid "Wide"
+msgstr "Wide"
+
+#: build/js/editor.js:37
+msgid "Wider"
+msgstr "Wider"
+
+#: build/js/editor.js:37
+msgid "Uppercase"
+msgstr "Uppercase"
+
+#: build/js/editor.js:37
+msgid "Capitalize"
+msgstr "Capitalize"
+
+#: build/js/editor.js:37
 msgid "Button position"
 msgstr "Button position"
+
+#: build/js/editor.js:37
+msgid "Typography"
+msgstr "Typography"
+
+#: build/js/editor.js:37
+msgid "Font size"
+msgstr "Font size"
+
+#: build/js/editor.js:37
+msgid "Font weight"
+msgstr "Font weight"
+
+#: build/js/editor.js:37
+msgid "Letter spacing"
+msgstr "Letter spacing"
+
+#: build/js/editor.js:37
+msgid "Text transform"
+msgstr "Text transform"
+
+#: build/js/editor.js:37
+msgid "Spacing"
+msgstr "Spacing"
+
+#: build/js/editor.js:37
+msgid "Vertical padding (rem)"
+msgstr "Vertical padding (rem)"
+
+#: build/js/editor.js:37
+msgid "Horizontal padding (rem)"
+msgstr "Horizontal padding (rem)"
 
 #: build/js/editor.js:37
 msgid "Border radius (px)"
@@ -8586,13 +8764,13 @@ msgstr "Enable underline hover effect"
 
 #: build/js/editor.js:46
 msgid ""
-"Adds the same animated sliding-underline hover/focus effect used sitewide in"
-" the header and footer to links in this block, even outside those areas or "
-"on elements that aren't a native link."
+"Adds the same animated sliding-underline hover/focus effect used sitewide in "
+"the header and footer to links in this block, even outside those areas or on "
+"elements that aren't a native link."
 msgstr ""
-"Adds the same animated sliding-underline hover/focus effect used sitewide in"
-" the header and footer to links in this block, even outside those areas or "
-"on elements that aren't a native link."
+"Adds the same animated sliding-underline hover/focus effect used sitewide in "
+"the header and footer to links in this block, even outside those areas or on "
+"elements that aren't a native link."
 
 #: build/js/editor.js:46
 msgid "Disable background hover effect"
@@ -8620,15 +8798,15 @@ msgstr "Disable link underline/gradient effect"
 
 #: build/js/editor.js:46
 msgid ""
-"Excludes links in this block from the sitewide header/footer hover-underline"
-" and gradient-text-on-focus effect, without affecting this block's own "
-"hover/focus styling. Enabled by default sitewide; turn this on only where it"
-" conflicts, like the Social Link block."
+"Excludes links in this block from the sitewide header/footer hover-underline "
+"and gradient-text-on-focus effect, without affecting this block's own hover/"
+"focus styling. Enabled by default sitewide; turn this on only where it "
+"conflicts, like the Social Link block."
 msgstr ""
-"Excludes links in this block from the sitewide header/footer hover-underline"
-" and gradient-text-on-focus effect, without affecting this block's own "
-"hover/focus styling. Enabled by default sitewide; turn this on only where it"
-" conflicts, like the Social Link block."
+"Excludes links in this block from the sitewide header/footer hover-underline "
+"and gradient-text-on-focus effect, without affecting this block's own hover/"
+"focus styling. Enabled by default sitewide; turn this on only where it "
+"conflicts, like the Social Link block."
 
 #: build/js/editor.js:46
 msgid "Disable active-page highlight"
@@ -8636,13 +8814,13 @@ msgstr "Disable active-page highlight"
 
 #: build/js/editor.js:46
 msgid ""
-"Excludes links in this block from the sitewide active-page gradient-"
-"text/underline treatment shown when a link points at the page currently "
-"being viewed. Enabled by default sitewide."
+"Excludes links in this block from the sitewide active-page gradient-text/"
+"underline treatment shown when a link points at the page currently being "
+"viewed. Enabled by default sitewide."
 msgstr ""
-"Excludes links in this block from the sitewide active-page gradient-"
-"text/underline treatment shown when a link points at the page currently "
-"being viewed. Enabled by default sitewide."
+"Excludes links in this block from the sitewide active-page gradient-text/"
+"underline treatment shown when a link points at the page currently being "
+"viewed. Enabled by default sitewide."
 
 #: build/js/editor.js:46
 msgid "Static"
@@ -8714,14 +8892,14 @@ msgstr "Link whole group"
 
 #: build/js/editor.js:46
 msgid ""
-"Makes the whole group a real link (URL preview on hover, right-click to open"
-" in a new tab). If the group contains another link, it's kept as a clickable"
-" region instead to avoid an invalid nested link. Clicks on a button or form "
+"Makes the whole group a real link (URL preview on hover, right-click to open "
+"in a new tab). If the group contains another link, it's kept as a clickable "
+"region instead to avoid an invalid nested link. Clicks on a button or form "
 "field inside the group still work normally either way."
 msgstr ""
-"Makes the whole group a real link (URL preview on hover, right-click to open"
-" in a new tab). If the group contains another link, it's kept as a clickable"
-" region instead to avoid an invalid nested link. Clicks on a button or form "
+"Makes the whole group a real link (URL preview on hover, right-click to open "
+"in a new tab). If the group contains another link, it's kept as a clickable "
+"region instead to avoid an invalid nested link. Clicks on a button or form "
 "field inside the group still work normally either way."
 
 #: build/js/editor.js:46
@@ -8786,12 +8964,12 @@ msgstr "FAQ columns behavior"
 
 #: build/js/editor.js:46
 msgid ""
-"Default: closed items align into uniform rows, but opening one stretches its"
-" row partner. Independent columns: each column grows on its own, no "
+"Default: closed items align into uniform rows, but opening one stretches its "
+"row partner. Independent columns: each column grows on its own, no "
 "stretching, but closed items no longer line up edge-to-edge."
 msgstr ""
-"Default: closed items align into uniform rows, but opening one stretches its"
-" row partner. Independent columns: each column grows on its own, no "
+"Default: closed items align into uniform rows, but opening one stretches its "
+"row partner. Independent columns: each column grows on its own, no "
 "stretching, but closed items no longer line up edge-to-edge."
 
 #: build/js/editor.js:46
@@ -8971,14 +9149,14 @@ msgid ""
 "%d element on this page is marked above the fold. Only the first gets high "
 "priority."
 msgid_plural ""
-"%d elements on this page are marked above the fold. Only the first gets high"
-" priority."
+"%d elements on this page are marked above the fold. Only the first gets high "
+"priority."
 msgstr[0] ""
 "%d element on this page is marked above the fold. Only the first gets high "
 "priority."
 msgstr[1] ""
-"%d elements on this page are marked above the fold. Only the first gets high"
-" priority."
+"%d elements on this page are marked above the fold. Only the first gets high "
+"priority."
 
 #: build/js/editor.js:49
 msgid "— Select modal —"
@@ -9092,19 +9270,17 @@ msgstr "Show divider lines between items"
 
 #: build/js/editor.js:49
 msgid ""
-"Draws a line between each direct child using this group's own Border "
-"color/width (set those in the Border panel above). Works reliably for a "
-"single column, a row, or a Grid layout with a fixed column count. A "
-"responsive Grid without a fixed column count falls back to a border on every"
-" cell — use a background color + a small block gap instead if that looks "
-"uneven."
+"Draws a line between each direct child using this group's own Border color/"
+"width (set those in the Border panel above). Works reliably for a single "
+"column, a row, or a Grid layout with a fixed column count. A responsive Grid "
+"without a fixed column count falls back to a border on every cell — use a "
+"background color + a small block gap instead if that looks uneven."
 msgstr ""
-"Draws a line between each direct child using this group's own Border "
-"color/width (set those in the Border panel above). Works reliably for a "
-"single column, a row, or a Grid layout with a fixed column count. A "
-"responsive Grid without a fixed column count falls back to a border on every"
-" cell — use a background color + a small block gap instead if that looks "
-"uneven."
+"Draws a line between each direct child using this group's own Border color/"
+"width (set those in the Border panel above). Works reliably for a single "
+"column, a row, or a Grid layout with a fixed column count. A responsive Grid "
+"without a fixed column count falls back to a border on every cell — use a "
+"background color + a small block gap instead if that looks uneven."
 
 #: build/js/editor.js:49
 msgid "Corner Clipping"
@@ -9144,13 +9320,13 @@ msgstr "Mobile columns"
 
 #: build/js/editor.js:49
 msgid ""
-"Leave a field empty to inherit from the next larger breakpoint (Mobile falls"
-" back to Tablet, Tablet falls back to Desktop). Leave all three empty to use"
-" this block's own Min. column width wrapping instead."
+"Leave a field empty to inherit from the next larger breakpoint (Mobile falls "
+"back to Tablet, Tablet falls back to Desktop). Leave all three empty to use "
+"this block's own Min. column width wrapping instead."
 msgstr ""
-"Leave a field empty to inherit from the next larger breakpoint (Mobile falls"
-" back to Tablet, Tablet falls back to Desktop). Leave all three empty to use"
-" this block's own Min. column width wrapping instead."
+"Leave a field empty to inherit from the next larger breakpoint (Mobile falls "
+"back to Tablet, Tablet falls back to Desktop). Leave all three empty to use "
+"this block's own Min. column width wrapping instead."
 
 #: build/js/editor.js:49 build/js/marquee.js:1
 msgid "— None (not clickable) —"
@@ -9169,6 +9345,245 @@ msgid ""
 "Selecting a modal makes this whole slide clickable/keyboard-activatable."
 msgstr ""
 "Selecting a modal makes this whole slide clickable/keyboard-activatable."
+
+#: build/js/feature-card-canvas.js:1
+msgid "Browser stream"
+msgstr "Browser stream"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Node tree"
+msgstr "Node tree"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Dot image stack"
+msgstr "Dot image stack"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Chart growth"
+msgstr "Chart growth"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Storefront"
+msgstr "Storefront"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Layout builder"
+msgstr "Layout builder"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Speed gauge"
+msgstr "Speed gauge"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · About"
+msgstr "Navigation · About"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · Projects"
+msgstr "Navigation · Projects"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · Services"
+msgstr "Navigation · Services"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Navigation · Contact"
+msgstr "Navigation · Contact"
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Company site"
+msgstr "City · Company site"
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Checkout"
+msgstr "City · Checkout"
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · App dashboard"
+msgstr "City · App dashboard"
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Load waterfall"
+msgstr "City · Load waterfall"
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Local search"
+msgstr "City · Local search"
+
+#: build/js/feature-card-canvas.js:1
+msgid "City · Support shield"
+msgstr "City · Support shield"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · Marketing"
+msgstr "Benefit · Marketing"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · SaaS"
+msgstr "Benefit · SaaS"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · Design system"
+msgstr "Benefit · Design system"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Benefit · API"
+msgstr "Benefit · API"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Conversion"
+msgstr "Commerce · Conversion"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Scale"
+msgstr "Commerce · Scale"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Secure"
+msgstr "Commerce · Secure"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Commerce · Platforms"
+msgstr "Commerce · Platforms"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Storefront"
+msgstr "Illustration · Storefront"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Audit"
+msgstr "Illustration · Audit"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Mobile first"
+msgstr "Illustration · Mobile first"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Web vitals"
+msgstr "Illustration · Web vitals"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Mobile checkout"
+msgstr "Illustration · Mobile checkout"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · SEO growth"
+msgstr "Illustration · SEO growth"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Handover"
+msgstr "Illustration · Handover"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · App & services"
+msgstr "Illustration · App & services"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Framework comparison"
+msgstr "Illustration · Framework comparison"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · PWA"
+msgstr "Illustration · PWA"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · SSR & SmartEdit"
+msgstr "Illustration · SSR & SmartEdit"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Next.js architecture"
+msgstr "Illustration · Next.js architecture"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Performance by design"
+msgstr "Illustration · Performance by design"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · Smart shopping list"
+msgstr "Illustration · Smart shopping list"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · WordPress custom theme"
+msgstr "Illustration · WordPress custom theme"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · WordPress stack ownership"
+msgstr "Illustration · WordPress stack ownership"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Illustration · WordPress flexibility & control"
+msgstr "Illustration · WordPress flexibility & control"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Canvas"
+msgstr "Canvas"
+
+#: build/js/feature-card-canvas.js:1
+msgid "CSS aspect-ratio value, e.g. 16/9."
+msgstr "CSS aspect-ratio value, e.g. 16/9."
+
+#: build/js/feature-card-canvas.js:1
+msgid "Label one"
+msgstr "Label one"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Label two"
+msgstr "Label two"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Label three"
+msgstr "Label three"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Accessible description"
+msgstr "Accessible description"
+
+#: build/js/feature-card-canvas.js:1
+msgid ""
+"Describe what the illustration shows when it carries information the nearby "
+"text does not. Leave empty to hide it from assistive technology as "
+"decoration."
+msgstr "Describe what the illustration shows when it carries information the nearby text does not. Leave empty to hide it from assistive technology as decoration."
+
+#: build/js/feature-card-canvas.js:1
+msgid "Colour"
+msgstr "Colour"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Animation"
+msgstr "Animation"
+
+#: build/js/feature-card-canvas.js:1
+msgid "Animate"
+msgstr "Animate"
+
+#: build/js/feature-card-canvas.js:1
+msgid "On hover"
+msgstr "On hover"
+
+#: build/js/feature-card-canvas.js:1
+msgid "When in view"
+msgstr "When in view"
+
+#: build/js/feature-card-canvas.js:1
+msgid ""
+"When in view, the illustration plays as it scrolls into view and resets once "
+"it leaves."
+msgstr ""
+"When in view, the illustration plays as it scrolls into view and resets once "
+"it leaves."
+
+#: build/js/feature-card-canvas.js:1
+msgid "Animate automatically on touch devices"
+msgstr "Animate automatically on touch devices"
+
+#: build/js/feature-card-canvas.js:1
+msgid ""
+"Touch screens have no hover, so the illustration animates while the card is "
+"in the middle of the viewport."
+msgstr ""
+"Touch screens have no hover, so the illustration animates while the card is "
+"in the middle of the viewport."
 
 #: build/js/gallery-lightbox.js:1
 msgid "Media"
@@ -9247,8 +9662,7 @@ msgid "Google Maps API Key"
 msgstr "Google Maps API Key"
 
 #: build/js/google-maps.js:1
-msgid ""
-"Get your API key from https://console.cloud.google.com/apis/credentials"
+msgid "Get your API key from https://console.cloud.google.com/apis/credentials"
 msgstr ""
 "Get your API key from https://console.cloud.google.com/apis/credentials"
 
@@ -9483,11 +9897,11 @@ msgstr "Min Height (vh)"
 
 #: build/js/hero-carousel.js:4
 msgid ""
-"Auto Height is on (in Carousel Settings above) — this is now just a floor so"
-" slides never collapse below it."
+"Auto Height is on (in Carousel Settings above) — this is now just a floor so "
+"slides never collapse below it."
 msgstr ""
-"Auto Height is on (in Carousel Settings above) — this is now just a floor so"
-" slides never collapse below it."
+"Auto Height is on (in Carousel Settings above) — this is now just a floor so "
+"slides never collapse below it."
 
 #: build/js/hero-carousel.js:4
 msgid "Add slide"
@@ -9520,8 +9934,7 @@ msgstr ""
 "editor canvas can't preview it."
 
 #: build/js/icon.js:1
-msgid ""
-"Any CSS color value. Leave empty to inherit the surrounding text color."
+msgid "Any CSS color value. Leave empty to inherit the surrounding text color."
 msgstr ""
 "Any CSS color value. Leave empty to inherit the surrounding text color."
 
@@ -9659,10 +10072,6 @@ msgid "Small"
 msgstr "Small"
 
 #: build/js/modal-settings-panel.js:1
-msgid "Medium"
-msgstr "Medium"
-
-#: build/js/modal-settings-panel.js:1
 msgid "Large"
 msgstr "Large"
 
@@ -9740,11 +10149,11 @@ msgstr "Select fallback image"
 
 #: build/js/model-viewer.js:1
 msgid ""
-"A fallback image is required — it's shown while the model loads and if WebGL"
-" isn't supported."
+"A fallback image is required — it's shown while the model loads and if WebGL "
+"isn't supported."
 msgstr ""
-"A fallback image is required — it's shown while the model loads and if WebGL"
-" isn't supported."
+"A fallback image is required — it's shown while the model loads and if WebGL "
+"isn't supported."
 
 #: build/js/model-viewer.js:1
 msgid "Accessibility & Layout"
@@ -9791,14 +10200,14 @@ msgstr "Screen text"
 #: build/js/model-viewer.js:1
 msgid ""
 "Rendered onto the model's screen/display surface (auto-detected as its most "
-"strongly emissive material) as a texture — e.g. your email and phone number."
-" Leave empty to keep the model's original screen image. One line per line of"
-" text."
+"strongly emissive material) as a texture — e.g. your email and phone number. "
+"Leave empty to keep the model's original screen image. One line per line of "
+"text."
 msgstr ""
 "Rendered onto the model's screen/display surface (auto-detected as its most "
-"strongly emissive material) as a texture — e.g. your email and phone number."
-" Leave empty to keep the model's original screen image. One line per line of"
-" text."
+"strongly emissive material) as a texture — e.g. your email and phone number. "
+"Leave empty to keep the model's original screen image. One line per line of "
+"text."
 
 #: build/js/model-viewer.js:1
 msgid "3D Model"
@@ -9954,8 +10363,7 @@ msgstr "Display mode"
 
 #: build/js/navigation.js:1
 msgid "Flat link list renders top-level links only, e.g. footer link columns."
-msgstr ""
-"Flat link list renders top-level links only, e.g. footer link columns."
+msgstr "Flat link list renders top-level links only, e.g. footer link columns."
 
 #: build/js/navigation.js:1
 msgid "Bar background while loading"
@@ -9991,11 +10399,11 @@ msgstr "Show hamburger border"
 
 #: build/js/navigation.js:1
 msgid ""
-"Adds a border around the hamburger icon button. Applies the same way whether"
-" this block is placed as the desktop or mobile hamburger."
+"Adds a border around the hamburger icon button. Applies the same way whether "
+"this block is placed as the desktop or mobile hamburger."
 msgstr ""
-"Adds a border around the hamburger icon button. Applies the same way whether"
-" this block is placed as the desktop or mobile hamburger."
+"Adds a border around the hamburger icon button. Applies the same way whether "
+"this block is placed as the desktop or mobile hamburger."
 
 #: build/js/navigation.js:1
 msgid "Hide accordion dividers"
@@ -10650,8 +11058,7 @@ msgstr ""
 "slide change."
 
 #: build/js/slider.js:1
-msgid ""
-"“Navigation” will display arrows so user can navigate forward/backward."
+msgid "“Navigation” will display arrows so user can navigate forward/backward."
 msgstr ""
 "“Navigation” will display arrows so user can navigate forward/backward."
 
@@ -10666,6 +11073,38 @@ msgid ""
 msgstr ""
 "“Pagination” will display dots along the bottom for user to click through "
 "slides."
+
+#: build/js/slider.js:1
+msgid "Pagination style"
+msgstr "Pagination style"
+
+#: build/js/slider.js:1
+msgid "Dots"
+msgstr "Dots"
+
+#: build/js/slider.js:1
+msgid "Pill"
+msgstr "Pill"
+
+#: build/js/slider.js:1
+msgid "Equal slide height"
+msgstr "Equal slide height"
+
+#: build/js/slider.js:1
+msgid ""
+"Stretches every slide to the height of the tallest one so the slider never "
+"jumps."
+msgstr ""
+"Stretches every slide to the height of the tallest one so the slider never "
+"jumps."
+
+#: build/js/slider.js:1
+msgid "Highlight active slide"
+msgstr "Highlight active slide"
+
+#: build/js/slider.js:1
+msgid "Highlight strength (%)"
+msgstr "Highlight strength (%)"
 
 #: build/js/slider.js:1
 msgid "Smooth Transition"
@@ -10758,13 +11197,13 @@ msgstr "Centered slides (peek effect)"
 #: build/js/slider.js:1
 msgid ""
 "Centers the active slide with the next/previous slides peeking in from the "
-"sides. Below tablet width, always shows a single full-width slide regardless"
-" of these settings. Use the block's own Wide/Full alignment for an edge-to-"
+"sides. Below tablet width, always shows a single full-width slide regardless "
+"of these settings. Use the block's own Wide/Full alignment for an edge-to-"
 "edge carousel."
 msgstr ""
 "Centers the active slide with the next/previous slides peeking in from the "
-"sides. Below tablet width, always shows a single full-width slide regardless"
-" of these settings. Use the block's own Wide/Full alignment for an edge-to-"
+"sides. Below tablet width, always shows a single full-width slide regardless "
+"of these settings. Use the block's own Wide/Full alignment for an edge-to-"
 "edge carousel."
 
 #: build/js/slider.js:1
@@ -10889,19 +11328,19 @@ msgstr ""
 
 #: build/js/translated-text.js:1
 msgid ""
-"Linked to a page — automatically points to the matching translation for each"
-" visitor's language."
+"Linked to a page — automatically points to the matching translation for each "
+"visitor's language."
 msgstr ""
-"Linked to a page — automatically points to the matching translation for each"
-" visitor's language."
+"Linked to a page — automatically points to the matching translation for each "
+"visitor's language."
 
 #: build/js/translated-text.js:1
 msgid ""
-"Typed-in URL — translated the same way as the text, under {stringName}-href."
-" Search above instead to link to an actual page and skip manual translation."
+"Typed-in URL — translated the same way as the text, under {stringName}-href. "
+"Search above instead to link to an actual page and skip manual translation."
 msgstr ""
-"Typed-in URL — translated the same way as the text, under {stringName}-href."
-" Search above instead to link to an actual page and skip manual translation."
+"Typed-in URL — translated the same way as the text, under {stringName}-href. "
+"Search above instead to link to an actual page and skip manual translation."
 
 #: build/js/translated-text.js:1
 msgid "Enter the base text…"
@@ -11044,11 +11483,11 @@ msgstr "Canvas Layer: Deep Field"
 #: src/blocks/canvas-background/layer-deep-field/block.json
 msgctxt "block description"
 msgid ""
-"A looping, parallax-popping star field over a drifting red/green/blue nebula"
-" backdrop for a Canvas Scene."
+"A looping, parallax-popping star field over a drifting red/green/blue nebula "
+"backdrop for a Canvas Scene."
 msgstr ""
-"A looping, parallax-popping star field over a drifting red/green/blue nebula"
-" backdrop for a Canvas Scene."
+"A looping, parallax-popping star field over a drifting red/green/blue nebula "
+"backdrop for a Canvas Scene."
 
 #: build/blocks/canvas-background/layer-floating-panels/block.json
 #: src/blocks/canvas-background/layer-floating-panels/block.json
@@ -11371,6 +11810,20 @@ msgstr ""
 "A desktop, tablet, or phone bezel that crops a screenshot to fit — drop an "
 "image in to showcase a project."
 
+#: build/blocks/feature-card-canvas/block.json
+#: src/blocks/feature-card-canvas/block.json
+msgctxt "block title"
+msgid "Feature Card Canvas"
+msgstr "Feature Card Canvas"
+
+#: build/blocks/feature-card-canvas/block.json
+#: src/blocks/feature-card-canvas/block.json
+msgctxt "block description"
+msgid ""
+"Animated, palette-driven illustration rendered on a canvas for feature cards."
+msgstr ""
+"Animated, palette-driven illustration rendered on a canvas for feature cards."
+
 #: build/blocks/gallery-lightbox/block.json
 #: src/blocks/gallery-lightbox/block.json
 msgctxt "block title"
@@ -11610,16 +12063,15 @@ msgstr "Popular Content (Dynamic)"
 #: src/blocks/popular-content-dynamic/block.json
 msgctxt "block description"
 msgid ""
-"Server-rendered grid of the site's most-viewed posts and pages, shown on the"
-" search page when there is no query."
+"Server-rendered grid of the site's most-viewed posts and pages, shown on the "
+"search page when there is no query."
 msgstr ""
-"Server-rendered grid of the site's most-viewed posts and pages, shown on the"
-" search page when there is no query."
+"Server-rendered grid of the site's most-viewed posts and pages, shown on the "
+"search page when there is no query."
 
 #: build/blocks/popular-pages/block.json src/blocks/popular-pages/block.json
 msgctxt "block description"
-msgid ""
-"Compact list of most-visited pages, sorted by internal page-view count."
+msgid "Compact list of most-visited pages, sorted by internal page-view count."
 msgstr ""
 "Compact list of most-visited pages, sorted by internal page-view count."
 
@@ -11651,11 +12103,11 @@ msgstr "Process Steps"
 #: build/blocks/process-steps/block.json src/blocks/process-steps/block.json
 msgctxt "block description"
 msgid ""
-"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any"
-" other process."
+"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any "
+"other process."
 msgstr ""
-"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any"
-" other process."
+"Numbered step timeline — add or remove steps to fit a 3-step, 5-step, or any "
+"other process."
 
 #: build/blocks/process-steps/item/block.json
 #: src/blocks/process-steps/item/block.json
@@ -11690,13 +12142,13 @@ msgstr "Recently Viewed (Dynamic)"
 #: src/blocks/recently-viewed-dynamic/block.json
 msgctxt "block description"
 msgid ""
-"Static shell for a visitor's recently-viewed pages, hidden until "
-"src/scripts/recently-viewed.ts finds entries in the browser's localStorage "
-"and populates it client-side."
+"Static shell for a visitor's recently-viewed pages, hidden until src/scripts/"
+"recently-viewed.ts finds entries in the browser's localStorage and populates "
+"it client-side."
 msgstr ""
-"Static shell for a visitor's recently-viewed pages, hidden until "
-"src/scripts/recently-viewed.ts finds entries in the browser's localStorage "
-"and populates it client-side."
+"Static shell for a visitor's recently-viewed pages, hidden until src/scripts/"
+"recently-viewed.ts finds entries in the browser's localStorage and populates "
+"it client-side."
 
 #: build/blocks/related-articles-dynamic/block.json
 #: src/blocks/related-articles-dynamic/block.json
@@ -11891,351 +12343,400 @@ msgstr "Translated Text"
 #: src/blocks/translated-text/block.json
 msgctxt "block description"
 msgid ""
-"Heading or paragraph text translated via Polylang strings, shared across all"
-" languages from one template."
+"Heading or paragraph text translated via Polylang strings, shared across all "
+"languages from one template."
 msgstr ""
-"Heading or paragraph text translated via Polylang strings, shared across all"
-" languages from one template."
+"Heading or paragraph text translated via Polylang strings, shared across all "
+"languages from one template."
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · Light Mode"
 msgstr "Primary · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · Dark Mode"
 msgstr "Primary · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary (Adaptive)"
 msgstr "Primary (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary Contrast (Adaptive)"
 msgstr "Primary Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 10% · Light Mode"
 msgstr "Primary · 10% · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 10% · Dark Mode"
 msgstr "Primary · 10% · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 10% (Adaptive)"
 msgstr "Primary · 10% (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 10% Contrast (Adaptive)"
 msgstr "Primary · 10% Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 20% · Light Mode"
 msgstr "Primary · 20% · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 20% · Dark Mode"
 msgstr "Primary · 20% · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 20% (Adaptive)"
 msgstr "Primary · 20% (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary · 20% Contrast (Adaptive)"
 msgstr "Primary · 20% Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary Hover"
 msgstr "Primary Hover"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary Shade 1"
 msgstr "Primary Shade 1"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Primary Shade 2"
 msgstr "Primary Shade 2"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Contrast"
 msgstr "Contrast"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "White"
 msgstr "White"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Light Color"
 msgstr "Light Color"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Dark Color"
 msgstr "Dark Color"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Dark Shade"
 msgstr "Dark Shade"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Transparent Shade"
 msgstr "Transparent Shade"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Divider · Light Mode"
 msgstr "Divider · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Divider · Dark Mode"
 msgstr "Divider · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Divider (Adaptive)"
 msgstr "Divider (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Divider Contrast (Adaptive)"
 msgstr "Divider Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Background Alt · Light Mode"
 msgstr "Background Alt · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Background Alt · Dark Mode"
 msgstr "Background Alt · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Background Alt (Adaptive)"
 msgstr "Background Alt (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Background Alt Contrast (Adaptive)"
 msgstr "Background Alt Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · Light Mode"
 msgstr "Surface · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · Dark Mode"
 msgstr "Surface · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface (Adaptive)"
 msgstr "Surface (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface Contrast (Adaptive)"
 msgstr "Surface Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 10% · Light Mode"
 msgstr "Surface · 10% · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 10% · Dark Mode"
 msgstr "Surface · 10% · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 10% (Adaptive)"
 msgstr "Surface · 10% (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 10% Contrast (Adaptive)"
 msgstr "Surface · 10% Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 20% · Light Mode"
 msgstr "Surface · 20% · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 20% · Dark Mode"
 msgstr "Surface · 20% · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 20% (Adaptive)"
 msgstr "Surface · 20% (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Surface · 20% Contrast (Adaptive)"
 msgstr "Surface · 20% Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground · Light Mode"
 msgstr "Foreground · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground · Dark Mode"
 msgstr "Foreground · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground (Adaptive)"
 msgstr "Foreground (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground Contrast (Adaptive)"
 msgstr "Foreground Contrast (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground Alt · Light Mode"
 msgstr "Foreground Alt · Light Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground Alt · Dark Mode"
 msgstr "Foreground Alt · Dark Mode"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground Alt (Adaptive)"
 msgstr "Foreground Alt (Adaptive)"
 
-#: theme.json styles/blue.json styles/cyber-cyan.json styles/deep-indigo.json
-#: styles/emerald-forest.json styles/golden-amber.json styles/green.json
-#: styles/ocean-teal.json styles/rose-pink.json styles/sunset-orange.json
+#: theme.json styles/blue.json styles/champagne-gold.json
+#: styles/cyber-cyan.json styles/deep-indigo.json styles/emerald-forest.json
+#: styles/green.json styles/ocean-teal.json styles/rose-pink.json
+#: styles/sunset-orange.json
 msgctxt "Color name"
 msgid "Foreground Alt Contrast (Adaptive)"
 msgstr "Foreground Alt Contrast (Adaptive)"
@@ -12435,6 +12936,11 @@ msgctxt "Style variation name"
 msgid "Blue Palette"
 msgstr "Blue Palette"
 
+#: styles/champagne-gold.json
+msgctxt "Style variation name"
+msgid "Champagne Gold"
+msgstr "Champagne Gold"
+
 #: styles/cyber-cyan.json
 msgctxt "Style variation name"
 msgid "Cyber Cyan"
@@ -12449,11 +12955,6 @@ msgstr "Deep Indigo"
 msgctxt "Style variation name"
 msgid "Emerald Forest"
 msgstr "Emerald Forest"
-
-#: styles/golden-amber.json
-msgctxt "Style variation name"
-msgid "Golden Amber"
-msgstr "Golden Amber"
 
 #: styles/green.json
 msgctxt "Style variation name"
@@ -12475,19 +12976,79 @@ msgctxt "Style variation name"
 msgid "Sunset Orange"
 msgstr "Sunset Orange"
 
-#~ msgid ""
-#~ "The Cover's own media is used on desktop. Add a different file for tablet or"
-#~ " mobile; an empty slot uses the next larger one."
-#~ msgstr ""
-#~ "The Cover's own media is used on desktop. Add a different file for tablet or"
-#~ " mobile; an empty slot uses the next larger one."
+#~ msgid "Choose slide"
+#~ msgstr "Choose slide"
+
+#, php-format
+#~ msgid "Go to slide %1$d of %2$d"
+#~ msgstr "Go to slide %1$d of %2$d"
+
+#~ msgid "Carousel"
+#~ msgstr "Carousel"
+
+#~ msgid "Slides per view (mobile)"
+#~ msgstr "Slides per view (mobile)"
+
+#~ msgid "Slides per view (tablet)"
+#~ msgstr "Slides per view (tablet)"
+
+#~ msgid "Next slide peek (%)"
+#~ msgstr "Next slide peek (%)"
+
+#~ msgid "Gap (px)"
+#~ msgstr "Gap (px)"
+
+#~ msgid "Show dots"
+#~ msgstr "Show dots"
 
 #~ msgid ""
-#~ "A video's poster is its featured image in the Media Library. Each slot uses "
-#~ "its own video's poster."
+#~ "Advances only while the carousel is on screen and is never used with "
+#~ "reduced motion."
 #~ msgstr ""
-#~ "A video's poster is its featured image in the Media Library. Each slot uses "
-#~ "its own video's poster."
+#~ "Advances only while the carousel is on screen and is never used with "
+#~ "reduced motion."
+
+#~ msgid "Interval (seconds)"
+#~ msgstr "Interval (seconds)"
+
+#~ msgid "Accessibility"
+#~ msgstr "Accessibility"
+
+#~ msgid "Carousel label"
+#~ msgstr "Carousel label"
+
+#~ msgid "Read by screen readers. Defaults to Carousel."
+#~ msgstr "Read by screen readers. Defaults to Carousel."
+
+#~ msgctxt "block title"
+#~ msgid "Snap Carousel"
+#~ msgstr "Snap Carousel"
+
+#~ msgctxt "block description"
+#~ msgid ""
+#~ "Lightweight scroll-snap carousel for mobile and tablet. Each direct child "
+#~ "group is one slide."
+#~ msgstr ""
+#~ "Lightweight scroll-snap carousel for mobile and tablet. Each direct child "
+#~ "group is one slide."
+
+#~ msgctxt "Style variation name"
+#~ msgid "Golden Amber"
+#~ msgstr "Golden Amber"
+
+#~ msgid ""
+#~ "The Cover's own media is used on desktop. Add a different file for tablet "
+#~ "or mobile; an empty slot uses the next larger one."
+#~ msgstr ""
+#~ "The Cover's own media is used on desktop. Add a different file for tablet "
+#~ "or mobile; an empty slot uses the next larger one."
+
+#~ msgid ""
+#~ "A video's poster is its featured image in the Media Library. Each slot "
+#~ "uses its own video's poster."
+#~ msgstr ""
+#~ "A video's poster is its featured image in the Media Library. Each slot "
+#~ "uses its own video's poster."
 
 #~ msgid "Short label for the marker (1–2 chars)."
 #~ msgstr "Short label for the marker (1–2 chars)."
@@ -12521,23 +13082,23 @@ msgstr "Sunset Orange"
 #~ msgstr "Loading"
 
 #~ msgid ""
-#~ "Lazy defers offscreen media until it's about to scroll into view. Use Eager "
-#~ "for a device frame visible above the fold."
+#~ "Lazy defers offscreen media until it's about to scroll into view. Use "
+#~ "Eager for a device frame visible above the fold."
 #~ msgstr ""
-#~ "Lazy defers offscreen media until it's about to scroll into view. Use Eager "
-#~ "for a device frame visible above the fold."
+#~ "Lazy defers offscreen media until it's about to scroll into view. Use "
+#~ "Eager for a device frame visible above the fold."
 
 #~ msgid "Fetch priority"
 #~ msgstr "Fetch priority"
 
 #~ msgid ""
-#~ "High tells the browser to fetch this media first — use it for a hero/above-"
-#~ "the-fold device frame driving the page's LCP. Setting High also forces "
-#~ "Loading to Eager."
+#~ "High tells the browser to fetch this media first — use it for a hero/"
+#~ "above-the-fold device frame driving the page's LCP. Setting High also "
+#~ "forces Loading to Eager."
 #~ msgstr ""
-#~ "High tells the browser to fetch this media first — use it for a hero/above-"
-#~ "the-fold device frame driving the page's LCP. Setting High also forces "
-#~ "Loading to Eager."
+#~ "High tells the browser to fetch this media first — use it for a hero/"
+#~ "above-the-fold device frame driving the page's LCP. Setting High also "
+#~ "forces Loading to Eager."
 
 #~ msgid "Slides Per Mobile"
 #~ msgstr "Slides Per Mobile"
