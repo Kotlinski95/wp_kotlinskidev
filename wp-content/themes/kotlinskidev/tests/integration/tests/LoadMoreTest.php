@@ -140,3 +140,56 @@ it('does not apply loadMore attributes to a block other than core/group', functi
 
     expect($html)->not->toContain('kt-has-load-more');
 });
+
+it('emits a sanitised font size slug data attribute', function () {
+    $valid = kotlinskidev_load_more_group_render([
+        'loadMore' => [ 'enabled' => true, 'initialCount' => 3, 'fontSize' => 'large' ],
+    ]);
+    $invalid = kotlinskidev_load_more_group_render([
+        'loadMore' => [ 'enabled' => true, 'initialCount' => 3, 'fontSize' => 'Bad Slug;' ],
+    ]);
+
+    expect($valid)->toContain('data-kt-load-more-font-size="large"');
+    expect($invalid)->not->toContain('data-kt-load-more-font-size');
+});
+
+it('emits whitelisted typography data attributes and rejects invalid ones', function () {
+    $valid = kotlinskidev_load_more_group_render([
+        'loadMore' => [
+            'enabled' => true,
+            'initialCount' => 3,
+            'fontWeight' => '600',
+            'letterSpacing' => 'wide',
+            'textTransform' => 'uppercase',
+        ],
+    ]);
+    $invalid = kotlinskidev_load_more_group_render([
+        'loadMore' => [
+            'enabled' => true,
+            'initialCount' => 3,
+            'fontWeight' => '900',
+            'letterSpacing' => '9em',
+            'textTransform' => 'x;y',
+        ],
+    ]);
+
+    expect($valid)->toContain('data-kt-load-more-font-weight="600"');
+    expect($valid)->toContain('data-kt-load-more-letter-spacing="wide"');
+    expect($valid)->toContain('data-kt-load-more-text-transform="uppercase"');
+    expect($invalid)->not->toContain('data-kt-load-more-font-weight');
+    expect($invalid)->not->toContain('data-kt-load-more-letter-spacing');
+    expect($invalid)->not->toContain('data-kt-load-more-text-transform');
+});
+
+it('clamps padding data attributes and skips non-numeric values', function () {
+    $clamped = kotlinskidev_load_more_group_render([
+        'loadMore' => [ 'enabled' => true, 'initialCount' => 3, 'paddingY' => 99, 'paddingX' => 0.1 ],
+    ]);
+    $invalid = kotlinskidev_load_more_group_render([
+        'loadMore' => [ 'enabled' => true, 'initialCount' => 3, 'paddingY' => 'abc', 'paddingX' => null ],
+    ]);
+
+    expect($clamped)->toContain('data-kt-load-more-padding-y="2"');
+    expect($clamped)->toContain('data-kt-load-more-padding-x="0.5"');
+    expect($invalid)->not->toContain('data-kt-load-more-padding');
+});

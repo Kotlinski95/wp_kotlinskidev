@@ -33,6 +33,11 @@
     "peek": { "type": "number", "default": 20 },
     "slideMaxWidth": { "type": "string", "default": "900px" },
     "paginationPlacement": { "type": "string", "default": "outside" },
+    "paginationStyle": { "type": "string", "enum": ["dots", "pill"], "default": "dots" },
+    "equalSlideHeight": { "type": "boolean", "default": false },
+    "highlightActiveSlide": { "type": "boolean", "default": false },
+    "activeHighlightColor": { "type": "string", "default": "" },
+    "activeHighlightStrength": { "type": "number", "default": 45 },
     "blurOtherSlides": { "type": "boolean", "default": false },
     "blurAmount": { "type": "string", "default": "" }
   },

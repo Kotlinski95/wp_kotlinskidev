@@ -1,4 +1,4 @@
-export const ALLOWED_BLOCKS = ["core/cover"];
+export const ALLOWED_BLOCKS = ["core/cover", "core/group"];
 
 export const DEFAULT_BLOCK = "core/cover";
 

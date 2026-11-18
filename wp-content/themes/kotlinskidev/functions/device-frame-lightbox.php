@@ -32,7 +32,7 @@ function kotlinskidev_render_device_frame_lightbox_shells(): void {
         $media_id = $entry['media_id'];
         $is_video = $entry['is_video'];
 
-        echo '<div id="' . esc_attr( $modal_id ) . '" class="kt-modal kt-modal--large kt-device-frame-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="' . esc_attr__( 'Expanded media', 'kotlinskidev' ) . '">';
+        echo '<div id="' . esc_attr( $modal_id ) . '" class="kt-modal kt-modal--full kt-device-frame-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="' . esc_attr__( 'Expanded media', 'kotlinskidev' ) . '">';
         echo '<div class="kt-modal__backdrop" data-kt-modal-close></div>';
         echo '<div class="kt-modal__dialog">';
         echo '<button type="button" class="kt-modal__close" data-kt-modal-close aria-label="' . esc_attr__( 'Close', 'kotlinskidev' ) . '">&times;</button>';

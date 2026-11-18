@@ -140,8 +140,8 @@ function kotlinskidev_render_certificate_badge_card( array $certificate, string 
     return $html;
 }
 
-function kotlinskidev_render_certificate_badge_grid( array $certificates ): string {
-    $html = '<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><div class="wp-block-group" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(14.375rem,1fr));gap:1.25rem">';
+function kotlinskidev_render_certificate_badge_grid( array $certificates, bool $blur_other_cards = false ): string {
+    $html = '<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><div class="wp-block-group' . ( $blur_other_cards ? ' has-blur-siblings' : '' ) . '" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(14.375rem,1fr));gap:1.25rem">';
 
     foreach ( $certificates as $certificate ) {
         $html .= kotlinskidev_render_certificate_badge_card( $certificate );
@@ -187,8 +187,8 @@ function kotlinskidev_render_certificate_feature_card( array $certificate, strin
     return $html;
 }
 
-function kotlinskidev_render_certificate_feature_cards( array $certificates ): string {
-    $html = '<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><div class="wp-block-group" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(19.375rem,1fr));gap:1.25rem">';
+function kotlinskidev_render_certificate_feature_cards( array $certificates, bool $blur_other_cards = false ): string {
+    $html = '<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><div class="wp-block-group' . ( $blur_other_cards ? ' has-blur-siblings' : '' ) . '" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(19.375rem,1fr));gap:1.25rem">';
 
     foreach ( $certificates as $certificate ) {
         $html .= kotlinskidev_render_certificate_feature_card( $certificate );
@@ -211,10 +211,10 @@ function kotlinskidev_render_certificate_compact_pill( array $certificate, strin
     return $html;
 }
 
-function kotlinskidev_render_certificate_compact_strip( array $certificates, string $view_all_url ): string {
+function kotlinskidev_render_certificate_compact_strip( array $certificates, string $view_all_url, bool $blur_other_cards = false ): string {
     $html = '<div class="wp-block-group" style="margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--40);padding-right:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40);padding-left:var(--wp--preset--spacing--40)"><div class="wp-block-group has-border-color has-background-alt-background-color has-background" style="border-color:var(--wp--preset--color--divider);border-width:1px;border-radius:1.25rem;padding-top:1.375rem;padding-right:1.625rem;padding-bottom:1.375rem;padding-left:1.625rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem">';
 
-    $html .= '<div class="wp-block-group" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.875rem">';
+    $html .= '<div class="wp-block-group' . ( $blur_other_cards ? ' has-blur-siblings' : '' ) . '" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.875rem">';
     $html .= '<p class="has-foreground-alt-color has-text-color has-link-color has-x-small-font-size" style="font-weight:700;letter-spacing:0.14em;text-transform:uppercase">' . esc_html__( 'Certified in', 'kotlinskidev' ) . '</p>';
 
     foreach ( $certificates as $certificate ) {
@@ -257,7 +257,7 @@ function kotlinskidev_render_certificate_embed( int $certificate_id, string $lay
     }
 }
 
-function kotlinskidev_render_certificates_grid( string $layout, string $view_all_url ): string {
+function kotlinskidev_render_certificates_grid( string $layout, string $view_all_url, bool $blur_other_cards = false ): string {
     $certificates = kotlinskidev_get_certificates();
 
     if ( empty( $certificates ) ) {
@@ -266,11 +266,11 @@ function kotlinskidev_render_certificates_grid( string $layout, string $view_all
 
     switch ( $layout ) {
         case 'feature-cards':
-            return kotlinskidev_render_certificate_feature_cards( $certificates );
+            return kotlinskidev_render_certificate_feature_cards( $certificates, $blur_other_cards );
         case 'compact-strip':
-            return kotlinskidev_render_certificate_compact_strip( $certificates, $view_all_url );
+            return kotlinskidev_render_certificate_compact_strip( $certificates, $view_all_url, $blur_other_cards );
         default:
-            return kotlinskidev_render_certificate_badge_grid( $certificates );
+            return kotlinskidev_render_certificate_badge_grid( $certificates, $blur_other_cards );
     }
 }
 

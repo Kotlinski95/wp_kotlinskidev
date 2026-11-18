@@ -46,6 +46,12 @@ jest.mock("@wordpress/block-editor", () => ({
   store: "core/block-editor",
   BlockControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useSettings: () => [
+    [
+      { name: "Primary", slug: "primary", color: "#111111" },
+      { name: "Teal", slug: "teal", color: "#00aaaa" },
+    ],
+  ],
   ButtonBlockAppender: ({ rootClientId }: { rootClientId: string }) => (
     <button data-testid="button-block-appender" data-root={rootClientId}>
       Add block
@@ -84,6 +90,11 @@ function baseAttributes() {
     peek: 20,
     slideMaxWidth: "900px",
     paginationPlacement: "outside" as const,
+    paginationStyle: "dots" as "dots" | "pill",
+    equalSlideHeight: false,
+    highlightActiveSlide: false,
+    activeHighlightColor: "",
+    activeHighlightStrength: 45,
     blurOtherSlides: false,
     blurAmount: "",
   };
@@ -319,6 +330,51 @@ describe("slider Edit", () => {
     await user.click(screen.getByRole("checkbox", { name: "Show pagination outside carousel" }));
 
     expect(setAttributes).toHaveBeenCalledWith({ paginationPlacement: "inside" });
+  });
+
+  it("sets paginationStyle from the select", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit({ pagination: true });
+
+    await user.selectOptions(screen.getByRole("combobox", { name: "Pagination style" }), "pill");
+
+    expect(setAttributes).toHaveBeenCalledWith({ paginationStyle: "pill" });
+  });
+
+  it("toggles equalSlideHeight", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit();
+
+    await user.click(screen.getByRole("checkbox", { name: "Equal slide height" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ equalSlideHeight: true });
+  });
+
+  it("toggles highlightActiveSlide", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = renderEdit();
+
+    await user.click(screen.getByRole("checkbox", { name: "Highlight active slide" }));
+
+    expect(setAttributes).toHaveBeenCalledWith({ highlightActiveSlide: true });
+  });
+
+  it("hides colour and strength controls until the highlight is on", () => {
+    renderEdit();
+
+    expect(screen.queryByText("Highlight strength (%)")).toBeNull();
+  });
+
+  it("shows the strength control when the highlight is on", async () => {
+    renderEdit({ highlightActiveSlide: true });
+
+    expect(await screen.findByText("Highlight strength (%)")).toBeTruthy();
+  });
+
+  it("hides the pagination style select when pagination is off", () => {
+    renderEdit({ pagination: false });
+
+    expect(screen.queryByRole("combobox", { name: "Pagination style" })).toBeNull();
   });
 
   it("toggles blurOtherSlides", async () => {

@@ -1,6 +1,6 @@
 # WordPress Project Root
 
-This is the root of a LocalWP WordPress installation powering [kotlinski.dev](https://kotlinski.dev).
+This is the root of a LocalWP WordPress installation powering [kotlinskidev.com](https://kotlinskidev.com).
 
 ## Structure
 

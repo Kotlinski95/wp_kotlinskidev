@@ -1,18 +1,18 @@
 {
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 3,
-  "title": "Golden Amber",
+  "title": "Champagne Gold",
   "settings": {
     "color": {
       "palette": [
         {
           "slug": "primary-light",
-          "color": "#d97706",
+          "color": "#7f6010",
           "name": "Primary · Light Mode"
         },
         {
           "slug": "primary-dark",
-          "color": "#faa441",
+          "color": "#d4af37",
           "name": "Primary · Dark Mode"
         },
         {
@@ -67,17 +67,17 @@
         },
         {
           "slug": "primary-hover",
-          "color": "#b45309",
+          "color": "light-dark(#6b5010, #e8cf7e)",
           "name": "Primary Hover"
         },
         {
           "slug": "primary-shade-1",
-          "color": "#f59e0b",
+          "color": "#c9a227",
           "name": "Primary Shade 1"
         },
         {
           "slug": "primary-shade-2",
-          "color": "#fbbf24",
+          "color": "#e3c565",
           "name": "Primary Shade 2"
         },
         {

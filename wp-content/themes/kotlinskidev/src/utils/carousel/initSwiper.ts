@@ -58,6 +58,24 @@ export const initSwiper = (
     };
   }
 
+  const scopeSelectorToContainer = (key: "pagination" | "scrollbar"): void => {
+    const current = (config as Record<string, unknown>)[key];
+    if (!current || typeof current !== "object") {
+      return;
+    }
+    const selector = (current as { el?: unknown }).el;
+    if (typeof selector !== "string") {
+      return;
+    }
+    const scoped =
+      el.querySelector<HTMLElement>(selector) ??
+      el.parentElement?.querySelector<HTMLElement>(selector) ??
+      null;
+    (config as Record<string, unknown>)[key] = scoped ? { ...current, el: scoped } : false;
+  };
+  scopeSelectorToContainer("pagination");
+  scopeSelectorToContainer("scrollbar");
+
   const overrides: Record<string, unknown> = {};
   if (initialSlide !== undefined) {
     overrides.initialSlide = initialSlide;

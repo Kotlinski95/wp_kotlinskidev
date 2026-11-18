@@ -36,3 +36,23 @@ export const Default: Story = {
     attributes: getDefaultAttributes<SliderAttributes>(metadata.attributes),
   },
 };
+
+export const PillPagination: Story = {
+  args: {
+    attributes: {
+      ...getDefaultAttributes<SliderAttributes>(metadata.attributes),
+      paginationStyle: "pill",
+    },
+  },
+};
+
+export const EqualHeightWithActiveHighlight: Story = {
+  args: {
+    attributes: {
+      ...getDefaultAttributes<SliderAttributes>(metadata.attributes),
+      equalSlideHeight: true,
+      highlightActiveSlide: true,
+      activeHighlightStrength: 100,
+    },
+  },
+};

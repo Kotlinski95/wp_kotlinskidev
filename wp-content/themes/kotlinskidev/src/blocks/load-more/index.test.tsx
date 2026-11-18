@@ -7,6 +7,7 @@ import { DEFAULT_LOAD_MORE, type LoadMoreAttribute } from "./types";
 
 jest.mock("@wordpress/block-editor", () => ({
   InspectorControls: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useSettings: () => [[{ name: "Large", slug: "large" }]],
 }));
 
 jest.mock("@wordpress/components", () => {
@@ -190,6 +191,44 @@ describe("load-more — editor.BlockEdit filter", () => {
 
     expect(setAttributes).toHaveBeenCalledWith({
       loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, hoverBackgroundColor: "#8209d3" },
+    });
+  });
+
+  it("updates fontSize from the style fields", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.selectOptions(screen.getByLabelText("Font size"), "large");
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, fontSize: "large" },
+    });
+  });
+
+  it.each([
+    ["Font weight", "600", { fontWeight: "600" }],
+    ["Letter spacing", "wide", { letterSpacing: "wide" }],
+    ["Text transform", "uppercase", { textTransform: "uppercase" }],
+  ])("updates %s from the style fields", async (label, option, change) => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "core/group",
+      attributes: { loadMore: { ...DEFAULT_LOAD_MORE, enabled: true } },
+      setAttributes,
+    });
+    await openPanel(user);
+
+    await user.selectOptions(screen.getByLabelText(label), option);
+
+    expect(setAttributes).toHaveBeenCalledWith({
+      loadMore: { ...DEFAULT_LOAD_MORE, enabled: true, ...change },
     });
   });
 

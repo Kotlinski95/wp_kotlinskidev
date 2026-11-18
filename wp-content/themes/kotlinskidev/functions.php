@@ -64,6 +64,7 @@ require_once get_template_directory() . '/functions/modals.php';
 // Opens a manageable modal when a wpe/slider slide (core/cover, .swiper-slide) is clicked
 require_once get_template_directory() . '/functions/slider-modal-trigger.php';
 require_once get_template_directory() . '/functions/device-frame-lightbox.php';
+require_once get_template_directory() . '/functions/feature-card-canvas.php';
 
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
@@ -230,6 +231,7 @@ require_once get_template_directory() . '/functions/polylang-accessibility.php';
 
 // SVG gradient defs for icon fill effects
 require_once get_template_directory() . '/functions/svg-gradient-defs.php';
+require_once get_template_directory() . '/functions/palette-duotone.php';
 require_once get_template_directory() . '/functions/theme-json-trim-presets.php';
 
 // Polylang-translatable post types (wp_navigation, wp_block) and slug-based translated post resolution
