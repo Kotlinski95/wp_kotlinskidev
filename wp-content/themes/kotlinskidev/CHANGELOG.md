@@ -16,7 +16,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
-*Nothing yet.*
+### Added
+
+- Parallax banners now look pinned on touch devices through a compositor-run scroll-driven animation tied to the banner's own scroll range (no drift or gaps on phones), with a new Settings → Customization → Touch parallax toggle (on by default). Browsers without scroll-driven animation support and reduced-motion visitors keep the static background.
+- New "Include links and buttons" option in Settings → Customization → Touch in-view trigger, off by default, so the touch in-view hover no longer fires on links, buttons and navigation items. Cards, timeline items and image overlays keep working either way.
+
+### Fixed
+
+- The touch in-view hover no longer flickers: the active element now stays active while the centre band sits in a gap between cards, switches to a new card only after a short 150 ms settle, and clears once it fully leaves the viewport. Nested hover elements, such as a project card and its image text overlay, now activate together as one outermost element, so the overlay no longer blinks off right after appearing.
+
+## [2.3.0] — 2026-11-18
+
+### Added
+
+- On touch screens the one hover-capable element nearest the centre of a configurable viewport band now plays its hover effect, replacing the missing hover. The band (enable, centre, size) lives in Settings → Customization → Touch in-view trigger and also drives the Feature Card Canvas, and each block can opt out via "Activate when centred on touch screens" in its Hover Effects panel.
 
 ## [2.2.1] — 2026-11-18
 

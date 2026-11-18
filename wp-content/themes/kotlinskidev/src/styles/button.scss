@@ -1,5 +1,6 @@
 @import "variables";
 @import "theme-colors";
+@import "mixins";
 
 .kt-button {
 	display: inline-flex;
@@ -26,8 +27,7 @@
 		transition: background 0.25s ease;
 	}
 
-	&:hover,
-	&:focus-visible {
+	@include kt-hover-or-in-view(true) {
 		background: var(--kt-btn-hover-bg, var(--kt-btn-bg, transparent));
 
 		&::before {
@@ -41,7 +41,12 @@
 	@include gradient-text(var(--kt-btn-color, currentColor));
 }
 
-.kt-button__link:not(.has-enhanced-hover-glow):hover .kt-button__label,
-.kt-button__link:not(.has-enhanced-hover-glow):focus-visible .kt-button__label {
-	background-image: var(--kt-btn-hover-color, var(--kt-btn-color, currentColor));
+.kt-button__link:not(.has-enhanced-hover-glow) {
+
+	@include kt-hover-or-in-view(true) {
+
+		.kt-button__label {
+			background-image: var(--kt-btn-hover-color, var(--kt-btn-color, currentColor));
+		}
+	}
 }

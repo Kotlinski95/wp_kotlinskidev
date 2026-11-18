@@ -1,4 +1,5 @@
 @use "hover-transitions" as hover;
+@import "mixins";
 @import "variables";
 
 .kt-post-card-grid {
@@ -25,7 +26,7 @@
 	--kt-hover-transform-duration: 0.3s;
 	--kt-hover-transform-easing: ease;
 
-	&:hover {
+	@include kt-hover-or-in-view {
 		transform: translateY(-0.3125rem);
 		background-color: var(--kt-post-card-grid-card-hover-bg, var(--wp--preset--color--background-alt));
 	}

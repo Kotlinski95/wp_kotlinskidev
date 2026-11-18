@@ -39,6 +39,30 @@
 	box-shadow: 0 $blur $blur $spread rgba(0, 0, 0, $alpha);
 }
 
+@mixin kt-hover-or-in-view($focus: false) {
+
+	@media (hover: hover) {
+
+		&:hover {
+			@content;
+		}
+	}
+
+	@media (hover: none) {
+
+		&.is-in-view-hover:not(.kt-in-view-hover-off) {
+			@content;
+		}
+	}
+
+	@if $focus {
+
+		&:focus-visible {
+			@content;
+		}
+	}
+}
+
 @function kt-not($selectors) {
 	$chain: "";
 

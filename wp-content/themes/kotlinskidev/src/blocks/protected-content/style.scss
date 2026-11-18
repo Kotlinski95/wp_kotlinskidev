@@ -106,6 +106,16 @@
 	}
 }
 
+.kt-button__label {
+
+	.protected-content,
+	.kt-protected-value,
+	.kt-protected-value a {
+		background: none;
+		-webkit-text-fill-color: currentcolor;
+	}
+}
+
 .kt-copy-btn {
 	display: inline-flex;
 	align-items: center;

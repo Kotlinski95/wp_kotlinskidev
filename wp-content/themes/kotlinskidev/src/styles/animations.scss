@@ -1,4 +1,5 @@
 @use "hover-transitions" as hover;
+@import "mixins";
 
 .hover-jump {
 	--kt-hover-fx-move: translateY(-0.625rem);
@@ -54,14 +55,17 @@
 	--kt-hover-transform-easing: ease-in-out;
 	cursor: pointer;
 
-	&:hover {
+	@include kt-hover-or-in-view {
 		will-change: transform;
 		transform: var(--kt-hover-fx-move, translateY(0)) var(--kt-hover-fx-scale, scale(1)) var(--kt-hover-fx-rotate, rotate(0deg));
 	}
 }
 
-.hover-jump-shadow:hover {
-	box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+.hover-jump-shadow {
+
+	@include kt-hover-or-in-view {
+		box-shadow: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+	}
 }
 
 .hover-zoom-bg {
@@ -76,7 +80,7 @@
 		transition: transform 0.4s ease-in-out;
 	}
 
-	&:hover {
+	@include kt-hover-or-in-view {
 
 		img,
 		video,
@@ -95,7 +99,7 @@
 	--kt-hover-opacity-easing: ease-in-out;
 	cursor: pointer;
 
-	&:hover {
+	@include kt-hover-or-in-view {
 		will-change: opacity;
 		opacity: 0.8;
 	}
@@ -109,7 +113,7 @@
 	cursor: pointer;
 	opacity: var(--hover-opacity-from, 1);
 
-	&:hover {
+	@include kt-hover-or-in-view {
 		will-change: opacity;
 		opacity: var(--hover-opacity-to, 1);
 	}
@@ -122,17 +126,23 @@
 	--kt-hover-color-easing: ease-in-out;
 }
 
-.has-hover-bg-color:not(.wp-block-button):hover {
-	background: var(--hover-bg-color) !important;
+.has-hover-bg-color:not(.wp-block-button) {
+
+	@include kt-hover-or-in-view {
+		background: var(--hover-bg-color) !important;
+	}
 }
 
-.has-hover-text-color:hover {
-	color: var(--hover-text-color) !important;
+.has-hover-text-color {
 
-	&.has-hover-text-gradient {
-		color: inherit !important;
+	@include kt-hover-or-in-view {
+		color: var(--hover-text-color) !important;
 
-		@include gradient-text(var(--hover-text-color));
+		&.has-hover-text-gradient {
+			color: inherit !important;
+
+			@include gradient-text(var(--hover-text-color));
+		}
 	}
 }
 
@@ -142,7 +152,7 @@
 	--kt-hover-color-duration: 0.3s;
 	--kt-hover-color-easing: ease-in-out;
 
-	&:hover {
+	@include kt-hover-or-in-view {
 		border-color: var(--hover-border-color) !important;
 	}
 }

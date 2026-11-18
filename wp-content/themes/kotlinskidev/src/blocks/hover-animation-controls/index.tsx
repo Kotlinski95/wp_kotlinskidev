@@ -106,6 +106,10 @@ function addHoverAnimationAttribute(settings: any) {
         type: "boolean",
         default: false,
       },
+      inViewHover: {
+        type: "boolean",
+        default: true,
+      },
     };
   }
 
@@ -125,7 +129,17 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
       hoverOpacityTo,
       hoverBorderColor,
       hoverEnhancedGlow,
+      inViewHover,
     } = attributes;
+    const hasAnyHoverEffect = Boolean(
+      hoverAnimation ||
+      (Array.isArray(hoverAnimationExtra) && hoverAnimationExtra.length) ||
+      hoverBackgroundColor ||
+      hoverTextColor ||
+      hoverOpacityEnabled ||
+      hoverBorderColor ||
+      hoverEnhancedGlow
+    );
     const extraEffects: string[] = Array.isArray(hoverAnimationExtra) ? hoverAnimationExtra : [];
 
     const toggleExtraEffect = (value: string, checked: boolean) => {
@@ -287,6 +301,21 @@ const withHoverAnimationControls = createHigherOrderComponent((BlockEdit) => {
                 "kotlinskidev"
               )}
             </p>
+            {hasAnyHoverEffect && (
+              <>
+                <ToggleControl
+                  label={__("Activate when centred on touch screens", "kotlinskidev")}
+                  checked={inViewHover !== false}
+                  onChange={(checked) => setAttributes({ inViewHover: checked })}
+                />
+                <p className="components-base-control__help">
+                  {__(
+                    "On touch screens there is no hover, so the hover effect plays while this block is the one nearest the centre of the screen.",
+                    "kotlinskidev"
+                  )}
+                </p>
+              </>
+            )}
             {name !== "kotlinskidev/button" && (
               <>
                 <ToggleControl

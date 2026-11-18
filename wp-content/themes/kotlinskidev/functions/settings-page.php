@@ -578,6 +578,110 @@ function kotlinskidev_register_settings(): void
     );
 
     register_setting(
+        'kotlinskidev_settings_customization',
+        'kotlinskidev_in_view_hover_enabled',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_customization',
+        'kotlinskidev_in_view_band_center',
+        [
+            'type'              => 'integer',
+            'sanitize_callback' => 'kotlinskidev_sanitize_viewport_percent',
+            'default'           => 50,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_customization',
+        'kotlinskidev_in_view_band_size',
+        [
+            'type'              => 'integer',
+            'sanitize_callback' => 'kotlinskidev_sanitize_in_view_band_size',
+            'default'           => 30,
+        ]
+    );
+
+    register_setting(
+        'kotlinskidev_settings_customization',
+        'kotlinskidev_in_view_hover_links',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => false,
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_in_view_hover',
+        esc_html__('Touch in-view trigger', 'kotlinskidev'),
+        'kotlinskidev_render_in_view_hover_section',
+        'kotlinskidev-settings-customization'
+    );
+
+    add_settings_field(
+        'kotlinskidev_in_view_hover_enabled',
+        esc_html__('Enable', 'kotlinskidev'),
+        'kotlinskidev_render_in_view_hover_enabled_field',
+        'kotlinskidev-settings-customization',
+        'kotlinskidev_section_in_view_hover'
+    );
+
+    add_settings_field(
+        'kotlinskidev_in_view_hover_links',
+        esc_html__('Include links and buttons', 'kotlinskidev'),
+        'kotlinskidev_render_in_view_hover_links_field',
+        'kotlinskidev-settings-customization',
+        'kotlinskidev_section_in_view_hover'
+    );
+
+    add_settings_field(
+        'kotlinskidev_in_view_band_center',
+        esc_html__('Band centre (% from viewport top)', 'kotlinskidev'),
+        'kotlinskidev_render_in_view_band_center_field',
+        'kotlinskidev-settings-customization',
+        'kotlinskidev_section_in_view_hover'
+    );
+
+    add_settings_field(
+        'kotlinskidev_in_view_band_size',
+        esc_html__('Band size (% of viewport height)', 'kotlinskidev'),
+        'kotlinskidev_render_in_view_band_size_field',
+        'kotlinskidev-settings-customization',
+        'kotlinskidev_section_in_view_hover'
+    );
+
+    register_setting(
+        'kotlinskidev_settings_customization',
+        'kotlinskidev_mobile_parallax',
+        [
+            'type'              => 'boolean',
+            'sanitize_callback' => 'rest_sanitize_boolean',
+            'default'           => true,
+        ]
+    );
+
+    add_settings_section(
+        'kotlinskidev_section_mobile_parallax',
+        esc_html__('Touch parallax', 'kotlinskidev'),
+        'kotlinskidev_render_mobile_parallax_section',
+        'kotlinskidev-settings-customization'
+    );
+
+    add_settings_field(
+        'kotlinskidev_mobile_parallax',
+        esc_html__('Enable', 'kotlinskidev'),
+        'kotlinskidev_render_mobile_parallax_field',
+        'kotlinskidev-settings-customization',
+        'kotlinskidev_section_mobile_parallax'
+    );
+
+    register_setting(
         'kotlinskidev_settings_site_values',
         'kotlinskidev_site_values',
         [
@@ -1402,6 +1506,75 @@ function kotlinskidev_render_feature_toggles_field(): void
 function kotlinskidev_render_csp_general_section(): void
 {
     echo '<p>' . esc_html__('Controls the Content-Security-Policy header sent on frontend responses (never on wp-admin or REST requests). Each directive below is a space-separated list of sources, exactly as it appears in a real CSP header — clear a field to omit that directive entirely. Defaults match this theme\'s own third-party inventory (Google Fonts/Maps, Facebook Pixel, Google Analytics, Cloudflare Turnstile); edit them to match whatever a given site actually loads.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_sanitize_viewport_percent($value): int
+{
+    return min(100, absint($value));
+}
+
+function kotlinskidev_sanitize_in_view_band_size($value): int
+{
+    return max(1, kotlinskidev_sanitize_viewport_percent($value));
+}
+
+function kotlinskidev_render_mobile_parallax_section(): void
+{
+    echo '<p>' . esc_html__('Touch screens cannot render a fixed background, so parallax banners are emulated with a scroll-driven animation. Browsers without scroll-driven animation support, and visitors who prefer reduced motion, keep the static background.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_mobile_parallax_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_mobile_parallax', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_mobile_parallax" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Pin parallax banner backgrounds while scrolling on touch screens', 'kotlinskidev'); ?>
+    </label>
+    <?php
+}
+
+function kotlinskidev_render_in_view_hover_section(): void
+{
+    echo '<p>' . esc_html__('On touch screens there is no hover, so the one hover-capable element nearest the centre of this horizontal band gets its hover effect. Feature card canvases use the same band. Individual blocks can opt out in the Hover animation panel.', 'kotlinskidev') . '</p>';
+}
+
+function kotlinskidev_render_in_view_hover_enabled_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_in_view_hover_enabled', true);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_in_view_hover_enabled" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Trigger hover effects for the element centred on touch screens', 'kotlinskidev'); ?>
+    </label>
+    <?php
+}
+
+function kotlinskidev_render_in_view_hover_links_field(): void
+{
+    $enabled = (bool) get_option('kotlinskidev_in_view_hover_links', false);
+    ?>
+    <label>
+        <input type="checkbox" name="kotlinskidev_in_view_hover_links" value="1" <?php checked($enabled); ?> />
+        <?php esc_html_e('Also trigger hover effects on links, buttons and navigation items', 'kotlinskidev'); ?>
+    </label>
+    <?php
+}
+
+function kotlinskidev_render_in_view_band_center_field(): void
+{
+    $value = (int) get_option('kotlinskidev_in_view_band_center', 50);
+    ?>
+    <input type="number" min="0" max="100" step="1" name="kotlinskidev_in_view_band_center" value="<?php echo esc_attr((string) $value); ?>" class="small-text" />
+    <?php
+}
+
+function kotlinskidev_render_in_view_band_size_field(): void
+{
+    $value = (int) get_option('kotlinskidev_in_view_band_size', 30);
+    ?>
+    <input type="number" min="1" max="100" step="1" name="kotlinskidev_in_view_band_size" value="<?php echo esc_attr((string) $value); ?>" class="small-text" />
+    <?php
 }
 
 function kotlinskidev_render_csp_enabled_field(): void

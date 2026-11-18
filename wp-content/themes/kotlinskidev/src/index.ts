@@ -23,6 +23,7 @@ import "./scripts/viewport-deferred-images";
 import "./scripts/parallax-deferred-bg";
 import { loadWhenPresent } from "@utils/load-when-present";
 import { whenIdle } from "@utils/when-idle";
+import { IN_VIEW_HOVER_SELECTOR } from "./scripts/in-view-hover-selector";
 
 loadWhenPresent(".wp-block-image", () => import("./scripts/image-lightbox"));
 loadWhenPresent(".animated-counter", () => import("./scripts/animated-counter"));
@@ -35,6 +36,9 @@ loadWhenPresent(
 loadWhenPresent("[data-city-map-expand]", () => import("./scripts/city-map-lightbox"));
 loadWhenPresent("[data-kt-load-more-initial]", () => import("./scripts/load-more"));
 loadWhenPresent(".has-enhanced-hover-glow", () => import("./scripts/hover-glow"));
+if (window.matchMedia("(hover: none)").matches) {
+  loadWhenPresent(IN_VIEW_HOVER_SELECTOR, () => import("./scripts/in-view-hover"));
+}
 loadWhenPresent(
   '[data-protected="true"], [data-protection-type], .kt-copy-btn',
   () => import("./scripts/protected-content")

@@ -120,3 +120,49 @@ it('enqueues media and the inline script on the login settings tab', function ()
 
     kotlinskidev_enqueue_login_settings_media('settings_page_kotlinskidev-settings');
 });
+
+it('clamps a viewport percent between 0 and 100', function () {
+    Functions\when('absint')->alias('abs');
+
+    expect(kotlinskidev_sanitize_viewport_percent(-20))->toBe(20);
+    expect(kotlinskidev_sanitize_viewport_percent(250))->toBe(100);
+    expect(kotlinskidev_sanitize_viewport_percent(0))->toBe(0);
+    expect(kotlinskidev_sanitize_viewport_percent(42))->toBe(42);
+});
+
+it('keeps the in-view band size at 1 or more', function () {
+    Functions\when('absint')->alias('abs');
+
+    expect(kotlinskidev_sanitize_in_view_band_size(0))->toBe(1);
+    expect(kotlinskidev_sanitize_in_view_band_size(500))->toBe(100);
+    expect(kotlinskidev_sanitize_in_view_band_size(30))->toBe(30);
+});
+
+it('registers the three in-view options with their defaults in the customization group', function () {
+    $registered = [];
+    Functions\when('register_setting')->alias(function ($group, $name, $args = []) use (&$registered) {
+        if ('kotlinskidev_site_values' === $name) {
+            throw new RuntimeException('stop');
+        }
+        $registered[$name] = ['group' => $group, 'args' => $args];
+    });
+    Functions\when('add_settings_section')->justReturn(null);
+    Functions\when('add_settings_field')->justReturn(null);
+    Functions\when('__')->returnArg(1);
+    Functions\when('sanitize_key')->alias(fn ($t) => $t);
+    Functions\when('kotlinskidev_tracked_event_names')->justReturn([]);
+
+    try {
+        kotlinskidev_register_settings();
+    } catch (RuntimeException $e) {
+    }
+
+    expect($registered['kotlinskidev_in_view_hover_enabled']['group'])->toBe('kotlinskidev_settings_customization');
+    expect($registered['kotlinskidev_in_view_hover_enabled']['args']['default'])->toBeTrue();
+    expect($registered['kotlinskidev_in_view_band_center']['args']['default'])->toBe(50);
+    expect($registered['kotlinskidev_in_view_band_size']['args']['default'])->toBe(30);
+    expect($registered['kotlinskidev_in_view_hover_links']['args']['default'])->toBeFalse();
+    expect($registered['kotlinskidev_mobile_parallax']['group'])->toBe('kotlinskidev_settings_customization');
+    expect($registered['kotlinskidev_mobile_parallax']['args']['default'])->toBeTrue();
+    expect($registered['kotlinskidev_mobile_parallax']['args']['sanitize_callback'])->toBe('rest_sanitize_boolean');
+});
