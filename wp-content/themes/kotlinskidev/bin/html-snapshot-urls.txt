@@ -12,3 +12,6 @@ http://kotlinskidev.local/en/faq/
 http://kotlinskidev.local/en/e-commerce/
 http://kotlinskidev.local/?s=strona
 http://kotlinskidev.local/en/this-page-does-not-exist/
+http://kotlinskidev.local/artykuly/
+http://kotlinskidev.local/en/category/website-development/
+http://kotlinskidev.local/category/tworzenie-stron-i-aplikacji-internetowych/

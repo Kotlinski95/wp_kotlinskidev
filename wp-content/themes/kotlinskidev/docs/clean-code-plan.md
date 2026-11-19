@@ -44,7 +44,7 @@ Model routing:
 ## Phase 2: PHP modules (`functions/`, `includes/`, 21k lines)
 
 - B2.1 (done) **[plan first]** `settings-page.php` (2,126) → `functions/settings-page/` split by tab (registration, fields, sanitizers, rendering). Option keys and page slugs are frozen.
-- B2.2 `blog-topic-manager.php` (1,136)
+- B2.2 (done) `blog-topic-manager.php` (1,136). Dead-code suspects to check against the database and patterns: `kotlinskidev_get_related_posts()`, `kotlinskidev_get_search_excerpt()`, `kotlinskidev_get_breadcrumb_settings()`, unused `$blog_text` in `kotlinskidev_blog_breadcrumbs()`
 - B2.3 `maintenance.php` (1,126)
 - B2.4 `protection-helpers.php` (831)
 - B2.5 `offers.php`, `search-page-dynamic-blocks.php`
