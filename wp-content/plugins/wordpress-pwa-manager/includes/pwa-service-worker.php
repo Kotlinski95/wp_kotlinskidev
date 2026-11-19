@@ -31,6 +31,7 @@ function wp_pwa_manager_maybe_regenerate_service_worker($option_name, $old_value
 function wp_pwa_manager_service_worker_get_settings_hash() {
     $settings = wp_pwa_manager_get_all_settings();
     $sw_settings = array(
+        'plugin_version' => WP_PWA_MANAGER_VERSION,
         'home_url' => home_url('/'),
         'pwa_enabled' => $settings['pwa_enabled'],
         'app_name' => $settings['app_name'],
@@ -115,7 +116,6 @@ const CACHE_NAME = CONFIG.cacheName;
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => cache.add(CONFIG.homeUrl).catch(() => {}))
-            .then(() => self.skipWaiting())
     );
 });
 
