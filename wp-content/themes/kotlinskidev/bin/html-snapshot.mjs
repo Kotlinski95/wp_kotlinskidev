@@ -4,21 +4,46 @@ import path from "node:path";
 const SNAPSHOT_DIR = path.resolve("artifacts/clean-code-baseline");
 const URL_LIST_FILE = path.resolve("bin/html-snapshot-urls.txt");
 
-const VOLATILE_PATTERNS = [
-  [/(<script\b[^>]*>)[\s\S]*?(<\/script>)/gi, "$1INLINE_SCRIPT$2"],
-  [/(<style\b[^>]*>)[\s\S]*?(<\/style>)/gi, "$1INLINE_STYLE$2"],
-  [/([?&](?:v|ver)=)[^"'&\s]+/g, "$1VERSION"],
-  [/(?<![0-9a-f])[0-9a-f]{13}(?![0-9a-f])/g, "UNIQID"],
-  [/(data-original-content=")[^"]*(")/g, "$1ENCRYPTED$2"],
-  [/(nonce["']?\s*[:=]\s*["'])[0-9a-f]{10}(["'])/gi, "$1NONCE$2"],
-  [/(_wpnonce=)[0-9a-f]{10}/g, "$1NONCE"],
+const replaceInnerValue =
+  (placeholder) =>
+  (...match) => {
+    const { before, after } = match.at(-1);
+    return `${before}${placeholder}${after ?? ""}`;
+  };
+
+const VOLATILE_VALUES = [
+  {
+    pattern: /(?<before><script\b[^>]*>)[\s\S]*?(?<after><\/script>)/gi,
+    replace: replaceInnerValue("INLINE_SCRIPT"),
+  },
+  {
+    pattern: /(?<before><style\b[^>]*>)[\s\S]*?(?<after><\/style>)/gi,
+    replace: replaceInnerValue("INLINE_STYLE"),
+  },
+  {
+    pattern: /(?<before>[?&](?:v|ver)=)[^"'&\s]+/g,
+    replace: replaceInnerValue("VERSION"),
+  },
+  {
+    pattern: /(?<before>)(?<![0-9a-f])[0-9a-f]{13}(?![0-9a-f])/g,
+    replace: replaceInnerValue("UNIQID"),
+  },
+  {
+    pattern: /(?<before>data-original-content=")[^"]*(?<after>")/g,
+    replace: replaceInnerValue("ENCRYPTED"),
+  },
+  {
+    pattern: /(?<before>nonce["']?\s*[:=]\s*["'])[0-9a-f]{10}(?<after>["'])/gi,
+    replace: replaceInnerValue("NONCE"),
+  },
+  {
+    pattern: /(?<before>_wpnonce=)[0-9a-f]{10}/g,
+    replace: replaceInnerValue("NONCE"),
+  },
 ];
 
 const normalizeHtml = (html) =>
-  VOLATILE_PATTERNS.reduce(
-    (text, [pattern, replacement]) => text.replace(pattern, replacement),
-    html
-  );
+  VOLATILE_VALUES.reduce((text, { pattern, replace }) => text.replace(pattern, replace), html);
 
 const snapshotFileName = (url, position) => {
   const slug =
