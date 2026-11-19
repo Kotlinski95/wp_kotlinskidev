@@ -34,8 +34,8 @@ Model routing:
 ## Phase 0: Safety net (main session)
 
 - B0.1 `npm run verify` green on the branch before any refactor.
-- B0.2 Save rendered HTML of the key pages as a baseline for output diffs: home EN/PL, services, projects, one project, articles, one article, contact, FAQ, search, 404. Store under `artifacts/clean-code-baseline/` (not committed).
-- B0.3 List characterization-test gaps for the PHP modules in Phase 2 (`/write-tests` before their batch).
+- B0.2 Baseline of rendered HTML: `npm run snapshot:capture` saves the pages in `bin/html-snapshot-urls.txt` (home EN/PL, services EN/PL, projects, one project, articles, one article, about, contact, FAQ, e-commerce, search, 404) to `artifacts/clean-code-baseline/` (gitignored). `npm run snapshot:compare` must print `same` for every page after every batch. Re-capture only after a deliberate content change, never to hide a refactor diff.
+- B0.3 PHP modules with no unit test referencing them (largest first). Their batch writes a characterization test first with `/write-tests`: `search-page-dynamic-blocks` (643), `contact-form-submissions` (285), `article-card` (230), `tag-archive-manager` (195), `class-contact-submissions-list-table` (187), `load-more` (139), `security-headers` (101), `group-divider`, `translated-text`, `post-card-renderer`, `banner-slider`, `topic-card-renderer`, `responsive-grid-columns`, `analytics-events`, `ai-disclosure-labels`, and 17 modules under 50 lines.
 
 ## Phase 1: Shared TypeScript (`src/utils`, 2.1k lines)
 
@@ -117,7 +117,7 @@ find src functions includes -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*
 
 ## Progress
 
-- [ ] Phase 0
+- [x] Phase 0 (2026-11-19: verify green, 14-page HTML baseline, test gaps listed)
 - [ ] Phase 1
 - [ ] Phase 2
 - [ ] Phase 3

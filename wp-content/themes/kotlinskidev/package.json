@@ -140,6 +140,8 @@
     "check-version-sync": "node bin/check-version-sync.js",
     "check-palette-consistency": "node bin/check-palette-consistency.js",
     "check-asset-budget": "node bin/check-asset-budget.js",
+    "snapshot:capture": "node bin/html-snapshot.mjs capture",
+    "snapshot:compare": "node bin/html-snapshot.mjs compare",
     "format": "wp-scripts format",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",

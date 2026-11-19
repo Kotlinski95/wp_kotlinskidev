@@ -80,7 +80,7 @@ If a contract name is bad, leave it and note it in the batch report as a candida
    - `npm run test:unit` and `npm run test:php`
    - `npm run build`
    - `graphify update .`
-5. Static blocks: confirm `save.tsx` output is byte-identical (snapshot or the existing save test). Dynamic blocks: compare `render.php` HTML before and after for one real post with `curl -s http://kotlinskidev.local/<page>/ | <extract>`.
+5. Output: run `npm run snapshot:compare`. Every page must print `same`; any `CHANGED` line is a behavior change to fix before reporting. It compares rendered markup of the pages in `bin/html-snapshot-urls.txt` against the baseline in `artifacts/clean-code-baseline/` (inline scripts, styles, asset versions, nonces and `uniqid()` tokens are masked). Static blocks also need their `save.tsx` test or snapshot to pass unchanged. If the batch touches a template or block not on those pages, add its URL to `bin/html-snapshot-urls.txt` and run `npm run snapshot:capture` BEFORE refactoring.
 
 ## 5. Report (keep it short)
 

@@ -18,6 +18,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Added
 
+- `npm run snapshot:capture` / `npm run snapshot:compare` (`bin/html-snapshot.mjs`) save and compare the rendered markup of the key pages in `bin/html-snapshot-urls.txt`, masking nonces, `uniqid()` tokens, asset versions and inline scripts. The clean-code refactor (`docs/clean-code-plan.md`) uses it to prove each batch leaves the HTML unchanged.
 - Parallax banners now look pinned on touch devices through a compositor-run scroll-driven animation tied to the banner's own scroll range (no drift or gaps on phones), with a new Settings → Customization → Touch parallax toggle (on by default). Browsers without scroll-driven animation support and reduced-motion visitors keep the static background.
 - New "Include links and buttons" option in Settings → Customization → Touch in-view trigger, off by default, so the touch in-view hover no longer fires on links, buttons and navigation items. Cards, timeline items and image overlays keep working either way.
 
