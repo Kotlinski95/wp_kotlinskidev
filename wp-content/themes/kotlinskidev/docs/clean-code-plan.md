@@ -43,7 +43,7 @@ Model routing:
 
 ## Phase 2: PHP modules (`functions/`, `includes/`, 21k lines)
 
-- B2.1 **[plan first]** `settings-page.php` (2,126) → `functions/settings-page/` split by tab (registration, fields, sanitizers, rendering). Option keys and page slugs are frozen.
+- B2.1 (done) **[plan first]** `settings-page.php` (2,126) → `functions/settings-page/` split by tab (registration, fields, sanitizers, rendering). Option keys and page slugs are frozen.
 - B2.2 `blog-topic-manager.php` (1,136)
 - B2.3 `maintenance.php` (1,126)
 - B2.4 `protection-helpers.php` (831)

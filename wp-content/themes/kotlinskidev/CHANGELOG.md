@@ -24,6 +24,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Changed
 
+- Clean-code batch B2.1: the 2,126-line `functions/settings-page.php` is now a 15-line loader plus 14 files under `functions/settings-page/` (one per settings tab, `page.php`, and four shared field helpers that replaced about 60 repeated registrations and renderers). Option names, tab slugs and the rendered admin pages are unchanged: all 12 tab pages diff empty against the baseline.
 - Clean-code batch B1.1 (`src/utils`): image zoom magic numbers became named constants (`TAP_ZOOM_SCALE`, `SNAP_BACK_SCALE`, `DRAG_THRESHOLD_PX`) with descriptive variable names, and the last comment in `_carousel-nav.scss` was removed. Behavior and rendered markup are unchanged (`npm run snapshot:compare`).
 
 ### Fixed
