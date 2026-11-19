@@ -45,7 +45,7 @@ Model routing:
 
 - B2.1 (done) **[plan first]** `settings-page.php` (2,126) → `functions/settings-page/` split by tab (registration, fields, sanitizers, rendering). Option keys and page slugs are frozen.
 - B2.2 (done) `blog-topic-manager.php` (1,136). Dead-code suspects to check against the database and patterns: `kotlinskidev_get_related_posts()`, `kotlinskidev_get_search_excerpt()`, `kotlinskidev_get_breadcrumb_settings()`, unused `$blog_text` in `kotlinskidev_blog_breadcrumbs()`
-- B2.3 `maintenance.php` (1,126)
+- B2.3 (done) `maintenance.php` (1,126). Follow-ups: unprefixed public names (`add_maintenance_mode_settings`, `maintenance_mode_*_field`, `get_maintenance_*`, `generate_maintenance_page`) are a contract migration; shared social platform list is a DRY candidate
 - B2.4 `protection-helpers.php` (831)
 - B2.5 `offers.php`, `search-page-dynamic-blocks.php`
 - B2.6 Contact form: `contact-form.php`, `contact-form-attachments.php`, `contact-form-submissions.php`, `class-contact-submissions-list-table.php`, `mail-failure-alerts.php`, `contact-card.php`
@@ -103,7 +103,7 @@ Add here every bad name the refactor could not change because it is a frozen con
 
 | Name | Kind | Where stored | Proposed name |
 | --- | --- | --- | --- |
-| _none yet_ | | | |
+| `add_maintenance_mode_settings`, `maintenance_mode_*_field`, `get_maintenance_*`, `generate_maintenance_page` | PHP functions (hooked and tested) | `functions/maintenance/`, `tests/unit/MaintenanceTest.php` | `kotlinskidev_`-prefixed |
 
 ## Measuring
 

@@ -82,6 +82,12 @@ If a contract name is bad, leave it and note it in the batch report as a candida
    - `graphify update .`
 5. Output: run `npm run snapshot:compare`. Every page must print `same`; any `CHANGED` line is a behavior change to fix before reporting. It compares rendered markup of the pages in `bin/html-snapshot-urls.txt` against the baseline in `artifacts/clean-code-baseline/` (inline scripts, styles, asset versions, nonces and `uniqid()` tokens are masked). Static blocks also need their `save.tsx` test or snapshot to pass unchanged. If the batch touches a template or block not on those pages, add its URL to `bin/html-snapshot-urls.txt` and run `npm run snapshot:capture` BEFORE refactoring.
 
+### Database safety
+
+- Smoke scripts and tests must be read-only against the local database: no `update_option`, `delete_option`, `wp_update_post`, `wp option update/delete`, `wp post delete` or direct SQL writes on real options, posts or terms.
+- To exercise a code path that writes, run it against a throwaway key (for example `kotlinskidev_smoke_<name>`) that you delete afterwards, or capture a value first with `get_option` and put it back in the same script even if the code under test fails (use `try`/`finally`).
+- If any real data changed by accident, stop, report the exact key and previous value, and do not repair it yourself.
+
 ## 5. Report (keep it short)
 
 ```text

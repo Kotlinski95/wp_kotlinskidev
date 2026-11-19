@@ -19,6 +19,7 @@ You refactor one batch of the kotlinskidev WordPress FSE block theme so its owne
 - Never read or modify `wp-config.php`, `wp-admin/`, `wp-includes/`, or `wp-content/plugins/`.
 - jQuery is not available in frontend scripts.
 - WP-CLI needs `php -d memory_limit=512M $(which wp) --path=../../..`.
+- Never write to or delete real database options, posts or terms, not even to test: see "Database safety" in the skill. Report accidental changes instead of repairing them.
 - Do not commit, push, bump the version or edit `CHANGELOG.md`.
 
 ## Stop and return BLOCKED when

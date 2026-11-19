@@ -123,7 +123,8 @@ kotlinskidev/
 │   ├── load-more.php                           # render_block filter: adds kt-has-load-more class + data-kt-load-more-initial/-label/-align/-text-color/-bg-color/-border-color/-border-width/-border-radius/-hover-text-color/-hover-bg-color/-hover-border-color/-underline attributes to a core/group with loadMore.enabled set, read by src/scripts/load-more.ts to progressively reveal children and style the button (incl. hover)
 │   ├── login.php                               # custom wp-login.php styling
 │   ├── main-content-focus.php                  # injects tabindex="-1" onto the <main class="main-wrapper"> core/group at render time (skip-link focus target, kept out of stored markup so block validation doesn't flag an attribute the block itself can't declare)
-│   ├── maintenance.php                         # maintenance-mode toggle + admin settings page
+│   ├── maintenance.php                         # loader that requires the maintenance/ files in order (admin_menu, admin_enqueue_scripts, admin_init and init hook order depends on it)
+│   ├── maintenance/                            # maintenance-mode toggle: admin menu + settings page + registered fields (translated and plain), init redirect for logged-out visitors, 503 page render split into head/body and two style files, Polylang language helpers, social-link icons
 │   ├── marquee.php                             # prints the single shared kt-modal-marquee shell in wp_footer for kotlinskidev/marquee (src/blocks/marquee/) — an empty title/body populated client-side per click, kept outside any transformed ancestor
 │   ├── modals.php                              # kt_modal CPT + size meta, resolves/dedupes/renders modal shells for any link with opensInModal+modalId, wp_footer
 │   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
