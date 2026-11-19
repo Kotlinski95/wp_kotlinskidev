@@ -52,7 +52,7 @@ Model routing:
 - B2.7 Responsive family: `responsive-*.php`, `breakpoints.php`, `responsive-style-dedupe.php`
 - B2.8 SEO and locations: `seo-*.php`, `service-location*.php`, `site-identity.php`, `site-values.php`
 - B2.9 Content renderers: `article-*.php`, `project-card.php`, `post-card-renderer.php`, `topic-card-renderer.php`, `certificate*.php`, `load-more.php`, `term-latest-post-cache.php`, `tag-archive-manager.php`
-- B2.10 Assets and performance: `enqueue-scripts.php`, `deferred-block-assets.php`, `critical-css-fragments.php`, `above-fold-media.php`, `image-dimensions.php`, `responsive-media.php`, `viewport-deferred-images.php`, `content-visibility.php`, `cache.php` (load order frozen: must stay first in `functions.php`)
+- B2.10 Assets and performance: `enqueue-scripts.php`, `deferred-block-assets.php`, `critical-css-fragments.php`, `above-fold-media.php`, `image-dimensions.php`, `viewport-deferred-images.php`, `content-visibility.php`, `cache.php` (load order frozen: must stay first in `functions.php`)
 - B2.11 Media and SVG: `svg-*.php`, `animated-webp.php`, `video-poster.php`, `cover-*.php`, `palette-duotone.php`, `icon-library.php`, `model-viewer-mime.php`
 - B2.12 Remaining modules under 100 lines, A–L
 - B2.13 Remaining modules under 100 lines, M–Z, plus `functions/background-effects/`, `functions/canvas/`, `includes/`

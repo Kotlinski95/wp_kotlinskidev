@@ -22,3 +22,4 @@ http://kotlinskidev.local/?s=zzqxqx
 http://kotlinskidev.local/en/?s=website&search_category=website-development
 http://kotlinskidev.local/en/website-optimization/
 http://kotlinskidev.local/kontakt/
+http://kotlinskidev.local/en/website-performance/

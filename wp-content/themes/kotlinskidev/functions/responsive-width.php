@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/responsive-block-markup.php';
+
 function kotlinskidev_css_length_keywords(): array
 {
     return [ 'auto', 'none', 'max-content', 'min-content', 'fit-content', 'stretch' ];
@@ -23,7 +25,7 @@ function kotlinskidev_build_responsive_width_declarations( array $responsive_wid
 {
     $declarations = [];
 
-    foreach ( [ 'desktop', 'tablet', 'mobile' ] as $device ) {
+    foreach ( KOTLINSKIDEV_DEVICES_DESKTOP_FIRST as $device ) {
         $device_settings = $responsive_width[ $device ] ?? [];
         if ( ! is_array( $device_settings ) ) {
             continue;
@@ -56,19 +58,13 @@ function kotlinskidev_apply_responsive_width_style( string $block_content, array
         return $block_content;
     }
 
-    $processor = new WP_HTML_Tag_Processor( $block_content );
-    if ( ! $processor->next_tag() ) {
+    $processor = kotlinskidev_responsive_open_block_tag( $block_content );
+    if ( null === $processor ) {
         return $block_content;
     }
 
-    $existing_class = $processor->get_attribute( 'class' ) ?? '';
-    if ( ! str_contains( $existing_class, 'kt-has-responsive-width' ) ) {
-        $processor->set_attribute( 'class', trim( $existing_class . ' kt-has-responsive-width' ) );
-    }
-
-    $existing_style = trim( (string) ( $processor->get_attribute( 'style' ) ?? '' ) );
-    $existing_style = '' !== $existing_style ? rtrim( $existing_style, ';' ) . ';' : '';
-    $processor->set_attribute( 'style', $existing_style . implode( ';', $declarations ) . ';' );
+    kotlinskidev_responsive_add_class_once( $processor, 'kt-has-responsive-width' );
+    kotlinskidev_responsive_append_inline_declarations( $processor, $declarations );
 
     return $processor->get_updated_html();
 }
