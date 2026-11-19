@@ -118,7 +118,7 @@ find src functions includes -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*
 ## Progress
 
 - [x] Phase 0 (2026-11-19: verify green, 14-page HTML baseline, test gaps listed)
-- [ ] Phase 1
+- [x] Phase 1 (B1.1: src/utils was already mostly clean; follow-ups: split `observeCentreBand` and `attachImageZoom` closures once more tests exist, review `CarouselPanel.tsx` in the carousel batch)
 - [ ] Phase 2
 - [ ] Phase 3
 - [ ] Phase 4

@@ -1,4 +1,5 @@
-const isTouchDevice = () => window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+const isTouchDevice = (): boolean =>
+  window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
 const getDistance = (touches: TouchList): number => {
   const dx = touches[0].clientX - touches[1].clientX;
@@ -9,6 +10,9 @@ const getDistance = (touches: TouchList): number => {
 export const attachImageZoom = (container: HTMLElement): (() => void) => {
   const MIN_SCALE = 1;
   const MAX_SCALE = 4;
+  const TAP_ZOOM_SCALE = 1.75;
+  const SNAP_BACK_SCALE = 1.05;
+  const DRAG_THRESHOLD_PX = 4;
 
   let isZoomedIn = false;
   let currentScale = 1;
@@ -33,9 +37,9 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   const img = (): HTMLElement | null => container.querySelector<HTMLElement>("img");
 
   const clampTranslate = () => {
-    const { width: W, height: H } = container.getBoundingClientRect();
-    translateX = Math.min(0, Math.max(W - W * currentScale, translateX));
-    translateY = Math.min(0, Math.max(H - H * currentScale, translateY));
+    const { width, height } = container.getBoundingClientRect();
+    translateX = Math.min(0, Math.max(width - width * currentScale, translateX));
+    translateY = Math.min(0, Math.max(height - height * currentScale, translateY));
   };
 
   const applyTransform = () => {
@@ -81,7 +85,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
   const onMouseMove = (e: MouseEvent) => {
     const dx = e.clientX - panStartX;
     const dy = e.clientY - panStartY;
-    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+    if (Math.abs(dx) > DRAG_THRESHOLD_PX || Math.abs(dy) > DRAG_THRESHOLD_PX) {
       mouseDragged = true;
     }
     if (!mouseDragged) {
@@ -134,12 +138,12 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
 
     if (isZoomedIn) {
       container.style.overflow = "visible";
-      currentScale = 1.75;
+      currentScale = TAP_ZOOM_SCALE;
       const rect = el.getBoundingClientRect();
-      const cx = e.clientX - rect.left;
-      const cy = e.clientY - rect.top;
-      translateX = cx * (1 - currentScale);
-      translateY = cy * (1 - currentScale);
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      translateX = clickX * (1 - currentScale);
+      translateY = clickY * (1 - currentScale);
       clampTranslate();
       el.style.transition = "transform 0.25s ease";
       el.style.cursor = "grab";
@@ -221,7 +225,7 @@ export const attachImageZoom = (container: HTMLElement): (() => void) => {
     }
     if (e.touches.length === 0) {
       isPanning = false;
-      if (currentScale <= 1.05) {
+      if (currentScale <= SNAP_BACK_SCALE) {
         reset(true);
       }
     }
