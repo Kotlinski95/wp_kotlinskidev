@@ -129,6 +129,49 @@ class Kotlinskidev_Contact_Submissions_List_Table extends WP_List_Table
         }
     }
 
+    private function resolve_status_filter(): string
+    {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only list filter, no state change
+        return isset( $_GET['status'] ) ? sanitize_key( wp_unslash( $_GET['status'] ) ) : 'all';
+    }
+
+    private function resolve_where_clause( string $status_filter ): string
+    {
+        if ( 'sent' === $status_filter ) {
+            return 'email_sent = 1';
+        }
+
+        if ( 'failed' === $status_filter ) {
+            return 'email_sent = 0';
+        }
+
+        if ( 'unread' === $status_filter ) {
+            return 'read_at IS NULL';
+        }
+
+        return '1=1';
+    }
+
+    private function resolve_orderby(): string
+    {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only sort control, no state change
+        if ( isset( $_GET['orderby'] ) && in_array( wp_unslash( $_GET['orderby'] ), [ 'submitted_at', 'name' ], true ) ) {
+            return sanitize_key( wp_unslash( $_GET['orderby'] ) );
+        }
+
+        return 'submitted_at';
+    }
+
+    private function resolve_order(): string
+    {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only sort control, no state change
+        if ( isset( $_GET['order'] ) && 'asc' === strtolower( sanitize_key( wp_unslash( $_GET['order'] ) ) ) ) {
+            return 'ASC';
+        }
+
+        return 'DESC';
+    }
+
     public function prepare_items(): void
     {
         global $wpdb;
@@ -140,30 +183,9 @@ class Kotlinskidev_Contact_Submissions_List_Table extends WP_List_Table
 
         $per_page     = 20;
         $current_page = $this->get_pagenum();
-
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only list filter, no state change
-        $status_filter = isset( $_GET['status'] ) ? sanitize_key( wp_unslash( $_GET['status'] ) ) : 'all';
-
-        $where = '1=1';
-        if ( 'sent' === $status_filter ) {
-            $where = 'email_sent = 1';
-        } elseif ( 'failed' === $status_filter ) {
-            $where = 'email_sent = 0';
-        } elseif ( 'unread' === $status_filter ) {
-            $where = 'read_at IS NULL';
-        }
-
-        $orderby = 'submitted_at';
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only sort control, no state change
-        if ( isset( $_GET['orderby'] ) && in_array( wp_unslash( $_GET['orderby'] ), [ 'submitted_at', 'name' ], true ) ) {
-            $orderby = sanitize_key( wp_unslash( $_GET['orderby'] ) );
-        }
-
-        $order = 'DESC';
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only sort control, no state change
-        if ( isset( $_GET['order'] ) && 'asc' === strtolower( sanitize_key( wp_unslash( $_GET['order'] ) ) ) ) {
-            $order = 'ASC';
-        }
+        $where        = $this->resolve_where_clause( $this->resolve_status_filter() );
+        $orderby      = $this->resolve_orderby();
+        $order        = $this->resolve_order();
 
         $total_items = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE {$where}" );
 
