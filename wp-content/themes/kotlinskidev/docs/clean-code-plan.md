@@ -49,7 +49,7 @@ Model routing:
 - B2.4 (done) `protection-helpers.php` (831)
 - B2.5 (done) `offers.php` (657), `search-page-dynamic-blocks.php` (643)
 - B2.6 (done) Contact form: `contact-form.php`, `contact-form-attachments.php`, `contact-form-submissions.php`, `class-contact-submissions-list-table.php`, `mail-failure-alerts.php`, `contact-card.php`
-- B2.7 Responsive family: `responsive-*.php`, `breakpoints.php`, `responsive-style-dedupe.php`
+- B2.7 (done) Responsive family: `responsive-*.php`, `breakpoints.php`, `responsive-style-dedupe.php`
 - B2.8 SEO and locations: `seo-*.php`, `service-location*.php`, `site-identity.php`, `site-values.php`
 - B2.9 Content renderers: `article-*.php`, `project-card.php`, `post-card-renderer.php`, `topic-card-renderer.php`, `certificate*.php`, `load-more.php`, `term-latest-post-cache.php`, `tag-archive-manager.php`
 - B2.10 Assets and performance: `enqueue-scripts.php`, `deferred-block-assets.php`, `critical-css-fragments.php`, `above-fold-media.php`, `image-dimensions.php`, `viewport-deferred-images.php`, `content-visibility.php`, `cache.php` (load order frozen: must stay first in `functions.php`)
