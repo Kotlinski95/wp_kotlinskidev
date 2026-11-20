@@ -14,6 +14,8 @@ export const SCROLL_ANIMATION_SELECTOR = SCROLL_ANIMATION_SELECTORS.join(",");
 
 export const REVEAL_AFTER_END_SELECTOR = "[data-kt-reveal-after-end]";
 
+export const REVEALED_CLASS = "visible";
+
 export const clearWillChangeAfterReveal = (el: HTMLElement): void => {
   el.addEventListener(
     "transitionend",
