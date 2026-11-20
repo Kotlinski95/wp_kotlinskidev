@@ -13,6 +13,10 @@ const replaceInnerValue =
 
 const VOLATILE_VALUES = [
   {
+    pattern: /<a\b(?=[^>]*kt-popular-pages__link)[^>]*>[\s\S]*?<\/a>/g,
+    replace: () => '<a class="kt-popular-pages__link"></a>',
+  },
+  {
     pattern: /(?<before><script\b[^>]*>)[\s\S]*?(?<after><\/script>)/gi,
     replace: replaceInnerValue("INLINE_SCRIPT"),
   },
@@ -75,7 +79,10 @@ const firstDifference = (expected, actual) => {
   const index = expectedLines.findIndex((line, position) => line !== actualLines[position]);
   return index === -1
     ? null
-    : { expected: expectedLines[index]?.slice(0, 200), actual: actualLines[index]?.slice(0, 200) };
+    : {
+        expected: expectedLines[index]?.trim().slice(0, 300),
+        actual: actualLines[index]?.trim().slice(0, 300),
+      };
 };
 
 const capture = async (urls) => {

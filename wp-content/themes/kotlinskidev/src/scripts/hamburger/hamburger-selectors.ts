@@ -1,0 +1,11 @@
+export const LOCK_OWNER = "hamburger";
+export const NAVIGATION_SELECTOR = ".wp-block-navigation";
+export const RESPONSIVE_CONTAINER_SELECTOR = ".wp-block-navigation__responsive-container";
+export const OPEN_BUTTON_SELECTOR = ".wp-block-navigation__responsive-container-open";
+export const CLOSE_BUTTON_SELECTOR = ".wp-block-navigation__responsive-container-close";
+export const SUBMENU_TOGGLE_SELECTOR = ".wp-block-navigation-submenu__toggle";
+export const SUBMENU_CONTAINER_SELECTOR = ".wp-block-navigation__submenu-container";
+export const NAVIGATION_ITEM_SELECTOR = ".wp-block-navigation-item";
+export const OPEN_NAVIGATION_SELECTOR = `${NAVIGATION_SELECTOR}:has(${RESPONSIVE_CONTAINER_SELECTOR}.is-menu-open)`;
+export const MENU_OPEN_CLASS = "is-menu-open";
+export const PANEL_ANIMATING_CLASS = "kt-nav-panel-animating";

@@ -67,10 +67,13 @@ Model routing:
 - `accessibility.test.ts` has duplicate function declarations flagged by `tsc --noEmit` (TS2393, pre-existing).
 - `bin/dom-snapshot.mjs` filters the timing-dependent class tokens `visible` and `has-transparent-shade-background-color`; B3.3 (scroll animations) should compare `visible` with a slower scroll.
 
+- Browser tools must stub the page-view tracking AJAX call (done in `bin/dom-snapshot.mjs`): real page views move the popular-pages ranking and drift server-rendered baselines. On 2026-11-20 the HTML baseline was re-captured once (PHP unchanged since the last verified commit) and the DOM baseline was re-captured from the original B3.1 scripts after fixing a non-idempotent style mask.
+- The DOM compare still shows an occasional single-line flake (a data-driven hero image in the home page cards grid, a mobile lightbox button style); it appears on unmodified code too, so judge a batch by repeated runs plus its interaction probe.
+
 ## Phase 3: Frontend scripts (`src/scripts`, 10k lines)
 
 - B3.1 (done) `accessibility.ts`, `analytics.ts`, `analytics-providers/`, `track-event.ts`, `page-views.ts`, `cookie-consent.ts`
-- B3.2 Navigation: `hamburger.ts`, `mega-menu.ts`, `nav-reveal.ts`, `nav-solid-transition.ts`, `hide-nav-on-scroll.ts`, `sticky-header.ts`, `search-panel.ts`, `language*.ts`, `active-link-state.ts`
+- B3.2 (done) Navigation: `hamburger.ts`, `mega-menu.ts`, `nav-reveal.ts`, `nav-solid-transition.ts`, `hide-nav-on-scroll.ts`, `sticky-header.ts`, `search-panel.ts`, `language*.ts`, `active-link-state.ts`
 - B3.3 Scroll and motion: `scroll-*.ts`, `smooth-scroll-offset.ts`, `restoration.ts`, `view-transition-reveal.ts`, `visual-viewport-offset.ts`, `in-view-hover*.ts`, `hover-glow.ts`, `parallax-deferred-bg.ts`
 - B3.4 Media and UI: `image-lightbox.ts`, `city-map-lightbox.ts`, `modal-manager.ts`, `faq-accordion.ts`, `line-clamp.ts`, `load-more.ts`, `protected-content.ts`, `recently-viewed.ts`, `responsive-media.ts`, `viewport-deferred-images.ts`, `cover-video-controls.ts`, `animated-counter.ts`, `group-link.ts`
 - B3.5 Shell: `app-shell.ts`, `blocking-stylesheets.ts`, `common.ts`, `utils.ts`, `console-banner.ts`, `theme-switcher.ts`, `editor-theme-toggle.ts`

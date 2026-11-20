@@ -5,6 +5,7 @@ import { chromium, devices } from "@playwright/test";
 const SNAPSHOT_DIR = path.resolve("artifacts/dom-baseline");
 const URL_LIST_FILE = path.resolve("bin/dom-snapshot-urls.txt");
 const SETTLE_MS = 1500;
+const PAGE_VIEW_TRACKING_ACTION = "kotlinskidev_track_page_view";
 const SCROLL_STEP_COUNT = 6;
 
 const VIEWPORTS = {
@@ -18,9 +19,13 @@ const TIMING_DEPENDENT_CLASS_TOKENS = new Set([
 ]);
 
 const MASKED_STYLE_PROPERTIES =
-  /(font-size|transition[a-z-]*|cursor|transform|translate|rotate|scale|opacity|will-change|--kt-glow-[xy]|--kt-parallax[a-z-]*|visibility|filter|clip-path|top|left|width|height|min-height|max-height|margin-[a-z]+|padding-[a-z]+|background-position[a-z-]*|--[a-z0-9-]*(?:progress|offset|scroll|mouse|pointer|x|y|w|h)[a-z0-9-]*)\s*:[^;"]*;?/gi;
+  /(?<![\w-])(font-size|transition[a-z-]*|cursor|transform|translate|rotate|scale|opacity|will-change|--kt-glow-[xy]|--kt-parallax[a-z-]*|visibility|filter|clip-path|top|left|width|height|min-height|max-height|margin-[a-z]+|padding-[a-z]+|background-position[a-z-]*|--[a-z0-9-]*(?:progress|offset|scroll|mouse|pointer|x|y|w|h)[a-z0-9-]*)\s*:[^;"]*;?/gi;
 
 const VOLATILE_PATTERNS = [
+  [
+    /<a\b(?=[^>]*kt-popular-pages__link)[^>]*>[\s\S]*?<\/a>/g,
+    '<a class="kt-popular-pages__link"></a>',
+  ],
   [/(?<![0-9a-f])[0-9a-f]{13}(?![0-9a-f])/g, "UNIQID"],
   [/(?<before>[?&](?:v|ver)=)[^"'&\s]+/g, "$<before>VERSION"],
   [/(?<before>data-original-content=")[^"]*(?<after>")/g, "$<before>ENCRYPTED$<after>"],
@@ -113,6 +118,11 @@ const capturePage = async (browser, url, viewportName) => {
     reducedMotion: "reduce",
     serviceWorkers: "block",
   });
+  await context.route("**/admin-ajax.php*", (route) =>
+    route.request().postData()?.includes(PAGE_VIEW_TRACKING_ACTION)
+      ? route.fulfill({ contentType: "application/json", body: '{"success":true}' })
+      : route.continue()
+  );
   const page = await context.newPage();
   const consoleErrors = [];
   page.on("pageerror", (error) => consoleErrors.push(`pageerror: ${error.message}`));

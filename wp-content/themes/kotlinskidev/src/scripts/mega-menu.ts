@@ -1,213 +1,35 @@
-import { lockScroll, unlockScroll } from "@utils/scroll-lock";
-import { loadDeferredImages } from "@utils/load-deferred-images";
-import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
-
-const OPEN_DELAY = 500;
-const SWITCH_DELAY = 500;
-const CLOSE_DELAY = 500;
-const LOCK_OWNER = "mega-menu";
+import {
+  BACKDROP_SELECTOR,
+  ITEM_SELECTOR,
+  NAV_SELECTOR,
+  PANEL_SELECTOR,
+} from "./mega-menu/mega-menu-constants";
+import { createMegaMenuController } from "./mega-menu/mega-menu-controller";
+import { bindItem } from "./mega-menu/item-bindings";
+import {
+  bindBackdrop,
+  bindEscapeKey,
+  bindFocusOut,
+  bindNavPointerEvents,
+} from "./mega-menu/nav-bindings";
+import { bindPanel } from "./mega-menu/panel-bindings";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const nav = document.querySelector<HTMLElement>(".kt-mega-nav");
+  const nav = document.querySelector<HTMLElement>(NAV_SELECTOR);
   if (!nav) {
     return;
   }
 
-  const items = nav.querySelectorAll<HTMLElement>(".kt-mega-nav__item");
-  const panels = nav.querySelectorAll<HTMLElement>(".kt-mega-nav__panel");
-  const backdrop = nav.querySelector<HTMLElement>(".kt-mega-nav__backdrop");
-  const header = document.querySelector<HTMLElement>("header");
-  const linkNavigates = nav.hasAttribute("data-link-navigates");
-  let closeTimer: ReturnType<typeof setTimeout> | null = null;
-  let switchTimer: ReturnType<typeof setTimeout> | null = null;
+  const controller = createMegaMenuController(nav);
 
-  const cancelClose = () => {
-    if (closeTimer !== null) {
-      clearTimeout(closeTimer);
-      closeTimer = null;
-    }
-  };
-
-  const cancelSwitch = () => {
-    if (switchTimer !== null) {
-      clearTimeout(switchTimer);
-      switchTimer = null;
-    }
-  };
-
-  const closeAll = () => {
-    header?.classList.add("no-transition");
-    nav.querySelectorAll<HTMLElement>(".kt-mega-nav__item.is-active").forEach((t) => {
-      t.classList.remove("is-active");
-      t.querySelector(".kt-mega-nav__link")?.setAttribute("aria-expanded", "false");
-    });
-    nav.querySelectorAll<HTMLElement>(".kt-mega-nav__panel.is-open").forEach((p) => {
-      p.classList.remove("is-open");
-      dispatchNavPanelClose(p);
-    });
-    nav.classList.remove("has-open-panel");
-    unlockScroll(LOCK_OWNER);
-    requestAnimationFrame(() => header?.classList.remove("no-transition"));
-  };
-
-  const scheduleClose = () => {
-    cancelClose();
-    closeTimer = setTimeout(() => {
-      if (!nav.contains(document.activeElement)) {
-        closeAll();
-      }
-    }, CLOSE_DELAY);
-  };
-
-  const openPanel = (panelId: string) => {
-    cancelClose();
-    cancelSwitch();
-    closeAll();
-    const item = nav.querySelector<HTMLElement>(`.kt-mega-nav__item[data-panel="${panelId}"]`);
-    item?.classList.add("is-active");
-    item?.querySelector(".kt-mega-nav__link")?.setAttribute("aria-expanded", "true");
-    const panel = nav.querySelector<HTMLElement>(`.kt-mega-nav__panel[data-panel="${panelId}"]`);
-    panel?.classList.add("is-open");
-    nav.classList.add("has-open-panel");
-    lockScroll(LOCK_OWNER);
-    if (panel) {
-      loadDeferredImages(panel);
-      dispatchNavPanelOpen(panel);
-    }
-  };
-
-  const hasOpenPanel = () => nav.classList.contains("has-open-panel");
-
-  items.forEach((item) => {
-    const panelId = item.dataset.panel;
-
-    if (panelId) {
-      const trigger = item.querySelector<HTMLAnchorElement>(".kt-mega-nav__link");
-      const togglePanel = () => {
-        if (item.classList.contains("is-active")) {
-          closeAll();
-        } else {
-          openPanel(panelId);
-        }
-      };
-      trigger?.addEventListener("click", (e) => {
-        const href = (e.currentTarget as HTMLAnchorElement).getAttribute("href") ?? "";
-        const isRealHref = linkNavigates && href !== "" && href !== "#" && !href.startsWith("#");
-        if (isRealHref) {
-          return;
-        }
-        e.preventDefault();
-        togglePanel();
-      });
-      trigger?.addEventListener("keydown", (e) => {
-        if (e.key === " ") {
-          e.preventDefault();
-          togglePanel();
-        } else if (e.key === "Tab" && !e.shiftKey && item.classList.contains("is-active")) {
-          const panelEl = nav.querySelector<HTMLElement>(
-            `.kt-mega-nav__panel[data-panel="${panelId}"]`
-          );
-          const firstFocusable = panelEl?.querySelector<HTMLElement>(
-            "a[href], button:not([disabled])"
-          );
-          if (firstFocusable) {
-            e.preventDefault();
-            firstFocusable.focus();
-          }
-        }
-      });
-    }
-
-    const warmPanelImages = () => {
-      const target = panelId
-        ? nav.querySelector<HTMLElement>(`.kt-mega-nav__panel[data-panel="${panelId}"]`)
-        : null;
-      if (target) {
-        loadDeferredImages(target);
-      }
-    };
-    item.addEventListener("focusin", warmPanelImages);
-
-    item.addEventListener("mouseenter", () => {
-      warmPanelImages();
-      cancelClose();
-      cancelSwitch();
-      if (panelId) {
-        if (!item.classList.contains("is-active")) {
-          const delay = hasOpenPanel() ? SWITCH_DELAY : OPEN_DELAY;
-          switchTimer = setTimeout(() => openPanel(panelId), delay);
-        }
-      } else if (hasOpenPanel()) {
-        scheduleClose();
-      }
-    });
-
-    item.addEventListener("mouseleave", cancelSwitch);
-  });
-
-  panels.forEach((panel) => {
-    panel.addEventListener("keydown", (e) => {
-      if (e.key !== "Tab") {
-        return;
-      }
-      const trigger = nav.querySelector<HTMLElement>(
-        `.kt-mega-nav__item[data-panel="${panel.dataset.panel}"] .kt-mega-nav__link`
-      );
-      if (!trigger) {
-        return;
-      }
-
-      const focusables = panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
-      if (e.shiftKey && focusables[0] === e.target) {
-        e.preventDefault();
-        trigger.focus();
-      } else if (!e.shiftKey && focusables[focusables.length - 1] === e.target) {
-        e.preventDefault();
-        closeAll();
-        trigger.focus();
-      }
-    });
-
-    panel.addEventListener("mouseenter", () => {
-      cancelClose();
-      cancelSwitch();
-    });
-    panel.addEventListener("mouseleave", scheduleClose);
-  });
-
-  nav.addEventListener("mouseenter", cancelClose);
-  nav.addEventListener("mouseleave", () => {
-    cancelSwitch();
-    scheduleClose();
-  });
-
-  backdrop?.addEventListener("click", () => {
-    cancelClose();
-    cancelSwitch();
-    closeAll();
-  });
-
-  nav.addEventListener("focusout", (e) => {
-    if (!hasOpenPanel()) {
-      return;
-    }
-    const nextFocus = e.relatedTarget as Node | null;
-    const openItem = nav.querySelector<HTMLElement>(".kt-mega-nav__item.is-active");
-    const openPanelEl = nav.querySelector<HTMLElement>(".kt-mega-nav__panel.is-open");
-    const staysWithin =
-      !!nextFocus &&
-      ((openItem && openItem.contains(nextFocus)) ||
-        (openPanelEl && openPanelEl.contains(nextFocus)));
-    if (!staysWithin) {
-      closeAll();
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      cancelClose();
-      cancelSwitch();
-      closeAll();
-    }
-  });
+  nav
+    .querySelectorAll<HTMLElement>(ITEM_SELECTOR)
+    .forEach((item) => bindItem(nav, item, controller));
+  nav
+    .querySelectorAll<HTMLElement>(PANEL_SELECTOR)
+    .forEach((panel) => bindPanel(nav, panel, controller));
+  bindNavPointerEvents(nav, controller);
+  bindBackdrop(nav.querySelector<HTMLElement>(BACKDROP_SELECTOR), controller);
+  bindFocusOut(nav, controller);
+  bindEscapeKey(controller);
 });
