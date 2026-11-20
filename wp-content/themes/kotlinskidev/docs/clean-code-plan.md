@@ -57,6 +57,10 @@ Model routing:
 - B2.12 (done, merged with B2.13) Remaining modules under 100 lines, A–L
 - B2.13 (done in B2.12) Remaining modules under 100 lines, M–Z, plus `functions/background-effects/`, `functions/canvas/`, `includes/`
 
+## Frontend proof tooling (Phase 3 onwards)
+
+`npm run dom:capture` / `npm run dom:compare` (`bin/dom-snapshot.mjs`, URL list `bin/dom-snapshot-urls.txt`): rendered DOM after JavaScript at desktop and mobile sizes, with volatile values (ids, timings, carousel state, inline animation styles) masked and the console error list included. Baseline stored in the gitignored `artifacts/dom-baseline/`. It is stable on unmodified code (two consecutive compares: 20 of 20 `same`) and sensitive to script changes (disabling JavaScript removes the carousel and `visible` state it records).
+
 ## Phase 3: Frontend scripts (`src/scripts`, 10k lines)
 
 - B3.1 `accessibility.ts`, `analytics.ts`, `analytics-providers/`, `track-event.ts`, `page-views.ts`, `cookie-consent.ts`

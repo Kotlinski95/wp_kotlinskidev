@@ -142,6 +142,8 @@
     "check-asset-budget": "node bin/check-asset-budget.js",
     "snapshot:capture": "node bin/html-snapshot.mjs capture",
     "snapshot:compare": "node bin/html-snapshot.mjs compare",
+    "dom:capture": "node bin/dom-snapshot.mjs capture",
+    "dom:compare": "node bin/dom-snapshot.mjs compare",
     "format": "wp-scripts format",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",

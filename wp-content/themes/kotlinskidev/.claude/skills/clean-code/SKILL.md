@@ -88,6 +88,13 @@ If a contract name is bad, leave it and note it in the batch report as a candida
 - To exercise a code path that writes, run it against a throwaway key (for example `kotlinskidev_smoke_<name>`) that you delete afterwards, or capture a value first with `get_option` and put it back in the same script even if the code under test fails (use `try`/`finally`).
 - If any real data changed by accident, stop, report the exact key and previous value, and do not repair it yourself.
 
+### TypeScript, SCSS and block batches
+
+- Run `npm run dom:compare` after `npm run build`. It loads 10 key pages (`bin/dom-snapshot-urls.txt`) at desktop and iPhone-13 sizes, scrolls through them, and compares the rendered DOM after JavaScript has run (classes, attributes, ARIA state, carousels, lazy loading, protected content) plus the console error list against `artifacts/dom-baseline/`. Every line must print `same`. Capture the baseline with `npm run dom:capture` BEFORE the first edit of a batch; if the batch touches a script that acts on a page not in the list, add that URL first. Never re-capture to hide a difference.
+- Unit tests are not enough for scripts: a rename that breaks an event handler or selector usually passes Jest and fails the DOM compare.
+- Static blocks: `save.tsx` output is stored in post content, so its markup must be byte-identical: the block's save test or snapshot must pass unchanged, and `npm run test:patterns` must stay green when patterns use the block.
+- `block.json` (attributes, supports, name, `render`) and `build/` entry names are frozen; webpack entries change only when the batch moves files and `npm run build` still emits the same asset names (`npm run check-asset-budget`).
+
 ## 5. Report (keep it short)
 
 ```text
