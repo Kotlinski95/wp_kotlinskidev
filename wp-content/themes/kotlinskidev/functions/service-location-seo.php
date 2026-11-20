@@ -3,6 +3,9 @@ const KOTLINSKIDEV_SERVICE_LOCATION_MIN_SUPPORTING_FIELDS = 2;
 const KOTLINSKIDEV_SERVICE_LOCATION_META_DESCRIPTION_LENGTH = 155;
 const KOTLINSKIDEV_SERVICE_LOCATION_THIN_IDS_TRANSIENT    = 'kotlinskidev_service_location_thin_ids';
 const KOTLINSKIDEV_SERVICE_LOCATION_THIN_IDS_TTL          = 86400;
+const KOTLINSKIDEV_SERVICE_LOCATION_DESCRIPTION_TRAILING_PUNCTUATION = " ,;:-\u{2013}\u{2014}";
+const KOTLINSKIDEV_SERVICE_LOCATION_READY_COLUMN_COLOR    = '#00a32a';
+const KOTLINSKIDEV_SERVICE_LOCATION_THIN_COLUMN_COLOR     = '#d63638';
 
 function kotlinskidev_service_location_is_ready( array $fields ): bool {
     if ( '' === trim( (string) ( $fields['local_intro'] ?? '' ) ) ) {
@@ -36,12 +39,14 @@ function kotlinskidev_service_location_is_thin_published( int $post_id ): bool {
         && ! kotlinskidev_service_location_post_is_ready( $post_id );
 }
 
-function kotlinskidev_service_location_filter_robots( array $robots ): array {
-    if ( ! kotlinskidev_feature_enabled( 'service_locations' ) || ! is_singular( 'service_location' ) ) {
-        return $robots;
-    }
+function kotlinskidev_service_location_current_page_is_thin_published(): bool {
+    return kotlinskidev_feature_enabled( 'service_locations' )
+        && is_singular( 'service_location' )
+        && kotlinskidev_service_location_is_thin_published( (int) get_queried_object_id() );
+}
 
-    if ( ! kotlinskidev_service_location_is_thin_published( (int) get_queried_object_id() ) ) {
+function kotlinskidev_service_location_filter_robots( array $robots ): array {
+    if ( ! kotlinskidev_service_location_current_page_is_thin_published() ) {
         return $robots;
     }
 
@@ -54,11 +59,7 @@ function kotlinskidev_service_location_filter_robots( array $robots ): array {
 add_filter( 'wp_robots', 'kotlinskidev_service_location_filter_robots', 20 );
 
 function kotlinskidev_service_location_filter_yoast_robots( $robots ) {
-    if ( ! kotlinskidev_feature_enabled( 'service_locations' ) || ! is_singular( 'service_location' ) ) {
-        return $robots;
-    }
-
-    if ( ! kotlinskidev_service_location_is_thin_published( (int) get_queried_object_id() ) ) {
+    if ( ! kotlinskidev_service_location_current_page_is_thin_published() ) {
         return $robots;
     }
 
@@ -157,7 +158,7 @@ function kotlinskidev_service_location_meta_description( int $post_id ): string 
     $space = mb_strrpos( $cut, ' ' );
     $cut   = false === $space ? $cut : mb_substr( $cut, 0, $space );
 
-    return rtrim( $cut, " ,;:-\u{2013}\u{2014}" ) . "\u{2026}";
+    return rtrim( $cut, KOTLINSKIDEV_SERVICE_LOCATION_DESCRIPTION_TRAILING_PUNCTUATION ) . "\u{2026}";
 }
 
 function kotlinskidev_service_location_filter_description( $description ) {
@@ -239,7 +240,7 @@ function kotlinskidev_service_location_render_column( string $column, int $post_
     }
 
     $ready = kotlinskidev_service_location_post_is_ready( $post_id );
-    $color = $ready ? '#00a32a' : '#d63638';
+    $color = $ready ? KOTLINSKIDEV_SERVICE_LOCATION_READY_COLUMN_COLOR : KOTLINSKIDEV_SERVICE_LOCATION_THIN_COLUMN_COLOR;
 
     echo '<strong style="color:' . esc_attr( $color ) . '">' . esc_html( kotlinskidev_service_location_column_label( $ready ) ) . '</strong>';
 }

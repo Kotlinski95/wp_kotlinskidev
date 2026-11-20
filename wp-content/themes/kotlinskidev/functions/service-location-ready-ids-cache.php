@@ -9,14 +9,7 @@ function kotlinskidev_service_location_ready_ids_cache_key( string $lang ): stri
     return KOTLINSKIDEV_CACHE_PREFIX . 'city_grid_ready_ids_' . sanitize_key( $lang );
 }
 
-function kotlinskidev_service_location_ready_ids( string $lang ): array {
-    $cache_key = kotlinskidev_service_location_ready_ids_cache_key( $lang );
-    $cached    = get_transient( $cache_key );
-
-    if ( is_array( $cached ) ) {
-        return array_map( 'intval', $cached );
-    }
-
+function kotlinskidev_service_location_ready_ids_query_args( string $lang ): array {
     $query_args = [
         'post_type'              => 'service_location',
         'post_status'            => 'publish',
@@ -34,12 +27,27 @@ function kotlinskidev_service_location_ready_ids( string $lang ): array {
         $query_args['lang'] = $lang;
     }
 
-    $ready_ids = array_values(
+    return $query_args;
+}
+
+function kotlinskidev_service_location_query_ready_ids( string $lang ): array {
+    return array_values(
         array_filter(
-            array_map( 'intval', get_posts( $query_args ) ),
+            array_map( 'intval', get_posts( kotlinskidev_service_location_ready_ids_query_args( $lang ) ) ),
             'kotlinskidev_service_location_post_is_ready'
         )
     );
+}
+
+function kotlinskidev_service_location_ready_ids( string $lang ): array {
+    $cache_key = kotlinskidev_service_location_ready_ids_cache_key( $lang );
+    $cached    = get_transient( $cache_key );
+
+    if ( is_array( $cached ) ) {
+        return array_map( 'intval', $cached );
+    }
+
+    $ready_ids = kotlinskidev_service_location_query_ready_ids( $lang );
 
     set_transient( $cache_key, $ready_ids, KOTLINSKIDEV_SERVICE_LOCATION_READY_IDS_TTL );
 

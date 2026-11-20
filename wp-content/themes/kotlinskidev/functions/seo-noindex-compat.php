@@ -1,4 +1,6 @@
 <?php
+const KOTLINSKIDEV_AIOSEO_NOINDEX_IDS_TTL = 15 * MINUTE_IN_SECONDS;
+
 function kotlinskidev_detect_active_seo_plugin(): string
 {
     if (defined('WPSEO_VERSION')) {
@@ -27,30 +29,15 @@ function kotlinskidev_get_aioseo_noindex_post_ids(): array
         $table = $wpdb->prefix . 'aioseo_posts';
         $post_ids = $wpdb->get_col("SELECT post_id FROM {$table} WHERE robots_noindex = 1"); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
         $post_ids = array_map('absint', (array) $post_ids);
-        set_transient($cache_key, $post_ids, 15 * MINUTE_IN_SECONDS);
+        set_transient($cache_key, $post_ids, KOTLINSKIDEV_AIOSEO_NOINDEX_IDS_TTL);
     }
 
     return $post_ids;
 }
 
-function kotlinskidev_apply_seo_noindex_exclusion(array $query_args): array
+function kotlinskidev_seo_plugin_noindex_meta_rules(): array
 {
-    $plugin = kotlinskidev_detect_active_seo_plugin();
-
-    if ('' === $plugin) {
-        return $query_args;
-    }
-
-    if ('aioseo' === $plugin) {
-        $noindex_ids = kotlinskidev_get_aioseo_noindex_post_ids();
-        if (!empty($noindex_ids)) {
-            $existing = $query_args['post__not_in'] ?? array();
-            $query_args['post__not_in'] = array_values(array_unique(array_merge($existing, $noindex_ids)));
-        }
-        return $query_args;
-    }
-
-    $plugin_meta = array(
+    return array(
         'yoast' => array(
             'key' => '_yoast_wpseo_meta-robots-noindex',
             'value' => '1',
@@ -67,24 +54,53 @@ function kotlinskidev_apply_seo_noindex_exclusion(array $query_args): array
             'compare' => 'NOT LIKE',
         ),
     );
+}
 
-    if (!isset($plugin_meta[$plugin])) {
-        return $query_args;
-    }
-
-    $meta = $plugin_meta[$plugin];
-    $noindex_clause = array(
+function kotlinskidev_build_indexable_meta_clause(array $rule): array
+{
+    return array(
         'relation' => 'OR',
         array(
-            'key' => $meta['key'],
+            'key' => $rule['key'],
             'compare' => 'NOT EXISTS',
         ),
         array(
-            'key' => $meta['key'],
-            'value' => $meta['value'],
-            'compare' => $meta['compare'],
+            'key' => $rule['key'],
+            'value' => $rule['value'],
+            'compare' => $rule['compare'],
         ),
     );
+}
+
+function kotlinskidev_exclude_aioseo_noindex_posts(array $query_args): array
+{
+    $noindex_ids = kotlinskidev_get_aioseo_noindex_post_ids();
+    if (!empty($noindex_ids)) {
+        $existing = $query_args['post__not_in'] ?? array();
+        $query_args['post__not_in'] = array_values(array_unique(array_merge($existing, $noindex_ids)));
+    }
+    return $query_args;
+}
+
+function kotlinskidev_apply_seo_noindex_exclusion(array $query_args): array
+{
+    $plugin = kotlinskidev_detect_active_seo_plugin();
+
+    if ('' === $plugin) {
+        return $query_args;
+    }
+
+    if ('aioseo' === $plugin) {
+        return kotlinskidev_exclude_aioseo_noindex_posts($query_args);
+    }
+
+    $rules = kotlinskidev_seo_plugin_noindex_meta_rules();
+
+    if (!isset($rules[$plugin])) {
+        return $query_args;
+    }
+
+    $noindex_clause = kotlinskidev_build_indexable_meta_clause($rules[$plugin]);
 
     $existing_meta_query = $query_args['meta_query'] ?? array();
     $query_args['meta_query'] = empty($existing_meta_query)

@@ -40,6 +40,10 @@ const VOLATILE_VALUES = [
     pattern: /(?<before>_wpnonce=)[0-9a-f]{10}/g,
     replace: replaceInnerValue("NONCE"),
   },
+  {
+    pattern: /(?<before>name="[^"]*nonce[^"]*"\s+value=")[0-9a-f]{10}(?<after>")/gi,
+    replace: replaceInnerValue("NONCE"),
+  },
 ];
 
 const normalizeHtml = (html) =>
@@ -86,9 +90,8 @@ const capture = async (urls) => {
 const compare = async (urls) => {
   let changedCount = 0;
   for (const [position, url] of urls.entries()) {
-    const expected = await readFile(
-      path.join(SNAPSHOT_DIR, snapshotFileName(url, position)),
-      "utf8"
+    const expected = normalizeHtml(
+      await readFile(path.join(SNAPSHOT_DIR, snapshotFileName(url, position)), "utf8")
     );
     const actual = await fetchNormalizedHtml(url);
     const difference = expected === actual ? null : firstDifference(expected, actual);
