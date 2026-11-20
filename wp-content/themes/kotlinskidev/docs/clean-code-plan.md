@@ -53,7 +53,7 @@ Model routing:
 - B2.8 (done) SEO and locations: `seo-*.php`, `service-location*.php`, `site-identity.php`, `site-values.php`
 - B2.9 (done) Content renderers: `article-*.php`, `project-card.php`, `post-card-renderer.php`, `topic-card-renderer.php`, `certificate*.php`, `load-more.php`, `term-latest-post-cache.php`, `tag-archive-manager.php`
 - B2.10 (done) Assets and performance: `enqueue-scripts.php`, `deferred-block-assets.php`, `critical-css-fragments.php`, `above-fold-media.php`, `image-dimensions.php`, `viewport-deferred-images.php`, `content-visibility.php`, `cache.php` (load order frozen: must stay first in `functions.php`)
-- B2.11 Media and SVG: `svg-*.php`, `animated-webp.php`, `video-poster.php`, `cover-*.php`, `palette-duotone.php`, `icon-library.php`, `model-viewer-mime.php`
+- B2.11 (done) Media and SVG: `svg-*.php`, `animated-webp.php`, `video-poster.php`, `cover-*.php`, `palette-duotone.php`, `icon-library.php`, `model-viewer-mime.php`
 - B2.12 Remaining modules under 100 lines, A–L
 - B2.13 Remaining modules under 100 lines, M–Z, plus `functions/background-effects/`, `functions/canvas/`, `includes/`
 
@@ -108,6 +108,12 @@ Add here every bad name the refactor could not change because it is a frozen con
 ## Known issues found (deliberate decision needed)
 
 - `topic-card-renderer.php` reads an undefined `$latest_post` in the "Updated %s ago" span; it is always empty, so the text never shows. Fixing it changes markup.
+
+## Follow-ups from B2.11
+
+- The inline lazy-loading JavaScript printed by `cover-image-classes.php` still carries its comments because they are emitted markup; move it to `src/scripts` to remove them.
+- `add_cover_block_attributes` is a hooked no-op on `init`; retire it in a deliberate hook migration.
+- Poorly named global hooked functions (`control_block_lazy_loading`, `add_poster_image_to_cover_video`) go into the contract-migration table when the rename migration is planned.
 
 ## Environment note
 

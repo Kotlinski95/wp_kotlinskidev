@@ -1,12 +1,22 @@
 <?php
 const KOTLINSKIDEV_ANIMATED_WEBP_META_KEY   = '_kotlinskidev_animated_webp';
 const KOTLINSKIDEV_ANIMATED_WEBP_HEAD_BYTES = 512;
+const KOTLINSKIDEV_WEBP_RIFF_HEADER_BYTES   = 12;
+const KOTLINSKIDEV_WEBP_VP8X_CHUNK_OFFSET   = 12;
+const KOTLINSKIDEV_WEBP_VP8X_FLAGS_OFFSET   = 20;
+const KOTLINSKIDEV_WEBP_ANIMATION_FLAG      = 0x02;
+
+function kotlinskidev_webp_vp8x_flags_mark_animation( string $head ): bool {
+	return 'VP8X' === substr( $head, KOTLINSKIDEV_WEBP_VP8X_CHUNK_OFFSET, 4 )
+		&& strlen( $head ) > KOTLINSKIDEV_WEBP_VP8X_FLAGS_OFFSET
+		&& ( ord( $head[ KOTLINSKIDEV_WEBP_VP8X_FLAGS_OFFSET ] ) & KOTLINSKIDEV_WEBP_ANIMATION_FLAG ) === KOTLINSKIDEV_WEBP_ANIMATION_FLAG;
+}
 
 function kotlinskidev_webp_head_is_animated( string $head ): bool {
-	if ( strlen( $head ) < 12 || 'RIFF' !== substr( $head, 0, 4 ) || 'WEBP' !== substr( $head, 8, 4 ) ) {
+	if ( strlen( $head ) < KOTLINSKIDEV_WEBP_RIFF_HEADER_BYTES || 'RIFF' !== substr( $head, 0, 4 ) || 'WEBP' !== substr( $head, 8, 4 ) ) {
 		return false;
 	}
-	if ( 'VP8X' === substr( $head, 12, 4 ) && strlen( $head ) > 20 && ( ord( $head[20] ) & 0x02 ) === 0x02 ) {
+	if ( kotlinskidev_webp_vp8x_flags_mark_animation( $head ) ) {
 		return true;
 	}
 	return false !== strpos( $head, 'ANIM' );
