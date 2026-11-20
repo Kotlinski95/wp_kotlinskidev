@@ -1,4 +1,6 @@
 <?php
+const KOTLINSKIDEV_CERTIFICATE_MENU_POSITION = 25;
+
 function kotlinskidev_register_certificate_post_type(): void {
     if ( ! kotlinskidev_feature_enabled( 'certificates' ) ) {
         return;
@@ -20,7 +22,7 @@ function kotlinskidev_register_certificate_post_type(): void {
         'show_in_menu'        => true,
         'show_in_rest'        => true,
         'menu_icon'           => 'dashicons-awards',
-        'menu_position'       => 25,
+        'menu_position'       => KOTLINSKIDEV_CERTIFICATE_MENU_POSITION,
         'supports'            => [ 'title', 'editor', 'thumbnail', 'custom-fields' ],
         'has_archive'         => false,
     ] );

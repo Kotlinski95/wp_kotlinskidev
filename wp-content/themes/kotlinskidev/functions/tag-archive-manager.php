@@ -1,4 +1,12 @@
 <?php
+const KOTLINSKIDEV_TAG_ARCHIVE_POSTS_PER_PAGE = 6;
+const KOTLINSKIDEV_TAG_ARCHIVE_CARD_TAG_LIMIT = 2;
+const KOTLINSKIDEV_RELATED_TAGS_LIMIT = 8;
+
+function kotlinskidev_current_polylang_language_or_empty() {
+    return function_exists('pll_current_language') ? pll_current_language() : '';
+}
+
 function kotlinskidev_render_tag_header_fresh_per_language() {
     $current_tag = get_queried_object();
     $tag_name = $current_tag->name;
@@ -44,18 +52,35 @@ function kotlinskidev_render_tag_header_fresh_per_language() {
     return do_blocks(ob_get_clean());
 }
 
-function kotlinskidev_render_tag_posts_grid_fresh_per_language( bool $blur_other_cards = false ) {
-    $current_tag = get_queried_object();
-
-    $tag_posts = new WP_Query(array(
+function kotlinskidev_tag_archive_posts_query($tag_id) {
+    return new WP_Query(array(
         'post_type' => 'post',
         'post_status' => 'publish',
-        'posts_per_page' => 6,
-        'tag_id' => $current_tag->term_id,
+        'posts_per_page' => KOTLINSKIDEV_TAG_ARCHIVE_POSTS_PER_PAGE,
+        'tag_id' => $tag_id,
         'orderby' => 'date',
         'order' => 'DESC',
-        'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+        'lang' => kotlinskidev_current_polylang_language_or_empty(),
     ));
+}
+
+function kotlinskidev_other_tag_names_of_current_post($current_tag_id) {
+    $post_tags = get_the_tags();
+    $other_tag_names = array();
+    if ($post_tags) {
+        foreach ($post_tags as $tag) {
+            if ($tag->term_id !== $current_tag_id) {
+                $other_tag_names[] = $tag->name;
+            }
+        }
+    }
+
+    return $other_tag_names;
+}
+
+function kotlinskidev_render_tag_posts_grid_fresh_per_language( bool $blur_other_cards = false ) {
+    $current_tag = get_queried_object();
+    $tag_posts = kotlinskidev_tag_archive_posts_query($current_tag->term_id);
 
     ob_start();
     ?>
@@ -65,18 +90,8 @@ function kotlinskidev_render_tag_posts_grid_fresh_per_language( bool $blur_other
         <?php if ($tag_posts->have_posts()) : ?>
         <div class="kt-post-card-grid<?php echo $blur_other_cards ? ' has-blur-siblings' : ''; ?>">
             <?php while ($tag_posts->have_posts()) : $tag_posts->the_post();
-                $post_tags = get_the_tags();
-                $other_tag_names = array();
-                if ($post_tags) {
-                    foreach ($post_tags as $tag) {
-                        if ($tag->term_id !== $current_tag->term_id) {
-                            $other_tag_names[] = $tag->name;
-                        }
-                    }
-                }
-
                 echo kotlinskidev_render_post_card(get_the_ID(), [
-                    'tags' => array_slice($other_tag_names, 0, 2),
+                    'tags' => array_slice(kotlinskidev_other_tag_names_of_current_post($current_tag->term_id), 0, KOTLINSKIDEV_TAG_ARCHIVE_CARD_TAG_LIMIT),
                 ]); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_post_card() escapes every dynamic value at the point of output
             endwhile; ?>
         </div>
@@ -109,16 +124,29 @@ function kotlinskidev_render_tag_posts_grid_fresh_per_language( bool $blur_other
     return do_blocks(ob_get_clean());
 }
 
-function kotlinskidev_render_related_tags_fresh_per_language() {
-    $current_tag = get_queried_object();
-    $related_tags = get_tags(array(
-        'exclude' => array($current_tag->term_id),
+function kotlinskidev_related_tags($current_tag_id) {
+    return get_tags(array(
+        'exclude' => array($current_tag_id),
         'orderby' => 'count',
         'order' => 'DESC',
-        'number' => 8,
+        'number' => KOTLINSKIDEV_RELATED_TAGS_LIMIT,
         'hide_empty' => true,
-        'lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+        'lang' => kotlinskidev_current_polylang_language_or_empty(),
     ));
+}
+
+function kotlinskidev_tag_last_updated_label($tag_id) {
+    $latest_post_id = kotlinskidev_get_term_latest_post_id($tag_id, 'post_tag');
+    if ($latest_post_id > 0) {
+        return human_time_diff(get_the_time('U', $latest_post_id), current_time('timestamp')) . ' ago';
+    }
+
+    return '';
+}
+
+function kotlinskidev_render_related_tags_fresh_per_language() {
+    $current_tag = get_queried_object();
+    $related_tags = kotlinskidev_related_tags($current_tag->term_id);
 
     ob_start();
     ?>
@@ -135,12 +163,7 @@ function kotlinskidev_render_related_tags_fresh_per_language() {
             <?php foreach ($related_tags as $tag) :
                 $tag_link = get_tag_link($tag->term_id);
 
-                $latest_post_id = kotlinskidev_get_term_latest_post_id($tag->term_id, 'post_tag');
-
-                $last_updated = '';
-                if ($latest_post_id > 0) {
-                    $last_updated = human_time_diff(get_the_time('U', $latest_post_id), current_time('timestamp')) . ' ago';
-                }
+                $last_updated = kotlinskidev_tag_last_updated_label($tag->term_id);
             ?>
             <div style="text-align:center;padding:0.9375rem;border:0.125rem solid var(--wp--preset--color--border-color);border-radius:0.75rem;background:var(--wp--preset--color--light-shade);transition:transform 0.3s ease;hover:transform:translateY(-0.125rem);min-width:12.5rem;">
                 <div style="margin-bottom:0.5rem;">

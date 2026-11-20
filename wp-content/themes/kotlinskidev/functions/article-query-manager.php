@@ -1,4 +1,7 @@
 <?php
+const KOTLINSKIDEV_ARTICLE_QUERY_DEFAULT_POSTS_PER_PAGE = '6';
+const KOTLINSKIDEV_ARTICLE_QUERY_DEFAULT_COLUMN_COUNT   = '3';
+
 function kotlinskidev_add_article_query_meta_boxes() {
     add_meta_box(
         'article_query_settings',
@@ -11,31 +14,32 @@ function kotlinskidev_add_article_query_meta_boxes() {
 }
 add_action('add_meta_boxes', 'kotlinskidev_add_article_query_meta_boxes');
 
-// Meta box callback function
-function kotlinskidev_article_query_meta_box_callback($post) {
-    // Add nonce for security
-    wp_nonce_field('kotlinskidev_article_query_nonce', 'kotlinskidev_article_query_nonce');
-    
-    // Get existing values
-    $posts_per_page = get_post_meta($post->ID, '_posts_per_page', true) ?: '6';
-    $filter_category = get_post_meta($post->ID, '_filter_category', true);
-    $filter_tags = get_post_meta($post->ID, '_filter_tags', true);
-    $column_count = get_post_meta($post->ID, '_column_count', true) ?: '3';
-    $show_featured_only = get_post_meta($post->ID, '_show_featured_only', true);
-    $order_by = get_post_meta($post->ID, '_order_by', true) ?: 'date';
-    $order = get_post_meta($post->ID, '_order', true) ?: 'DESC';
-    
+function kotlinskidev_article_query_settings($post_id) {
+    return array(
+        'posts_per_page' => get_post_meta($post_id, '_posts_per_page', true) ?: KOTLINSKIDEV_ARTICLE_QUERY_DEFAULT_POSTS_PER_PAGE,
+        'filter_category' => get_post_meta($post_id, '_filter_category', true),
+        'filter_tags' => get_post_meta($post_id, '_filter_tags', true),
+        'column_count' => get_post_meta($post_id, '_column_count', true) ?: KOTLINSKIDEV_ARTICLE_QUERY_DEFAULT_COLUMN_COUNT,
+        'show_featured_only' => get_post_meta($post_id, '_show_featured_only', true),
+        'order_by' => get_post_meta($post_id, '_order_by', true) ?: 'date',
+        'order' => get_post_meta($post_id, '_order', true) ?: 'DESC',
+    );
+}
+
+function kotlinskidev_render_article_query_posts_per_page_row($posts_per_page) {
     ?>
-    <table class="form-table">
-        <tr>
+<tr>
             <th scope="row"><label for="posts_per_page"><?php esc_html_e('Posts Per Page', 'kotlinskidev'); ?></label></th>
             <td>
                 <input type="number" id="posts_per_page" name="posts_per_page" value="<?php echo esc_attr($posts_per_page); ?>" min="1" max="50" />
                 <p class="description"><?php esc_html_e('How many articles to show (1-50)', 'kotlinskidev'); ?></p>
             </td>
-        </tr>
+        </tr><?php
+}
 
-        <tr>
+function kotlinskidev_render_article_query_category_row($filter_category) {
+    ?>
+<tr>
             <th scope="row"><label for="filter_category"><?php esc_html_e('Filter by Category', 'kotlinskidev'); ?></label></th>
             <td>
                 <?php
@@ -50,9 +54,12 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                 ?>
                 <p class="description"><?php esc_html_e('Show articles from a specific category only', 'kotlinskidev'); ?></p>
             </td>
-        </tr>
+        </tr><?php
+}
 
-        <tr>
+function kotlinskidev_render_article_query_tags_row($filter_tags) {
+    ?>
+<tr>
             <th scope="row"><label for="filter_tags"><?php esc_html_e('Filter by Tags', 'kotlinskidev'); ?></label></th>
             <td>
                 <?php
@@ -68,9 +75,12 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                 </select>
                 <p class="description"><?php esc_html_e('Hold Ctrl/Cmd to select multiple tags', 'kotlinskidev'); ?></p>
             </td>
-        </tr>
+        </tr><?php
+}
 
-        <tr>
+function kotlinskidev_render_article_query_columns_row($column_count) {
+    ?>
+<tr>
             <th scope="row"><label for="column_count"><?php esc_html_e('Columns', 'kotlinskidev'); ?></label></th>
             <td>
                 <select name="column_count" id="column_count">
@@ -81,18 +91,24 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                 </select>
                 <p class="description"><?php esc_html_e('Layout columns for article grid', 'kotlinskidev'); ?></p>
             </td>
-        </tr>
+        </tr><?php
+}
 
-        <tr>
+function kotlinskidev_render_article_query_featured_only_row($show_featured_only) {
+    ?>
+<tr>
             <th scope="row"><label for="show_featured_only"><?php esc_html_e('Featured Only', 'kotlinskidev'); ?></label></th>
             <td>
                 <input type="checkbox" id="show_featured_only" name="show_featured_only" value="1" <?php checked($show_featured_only, '1'); ?> />
                 <label for="show_featured_only"><?php esc_html_e('Show only featured articles', 'kotlinskidev'); ?></label>
                 <p class="description"><?php esc_html_e('Enable this to show only articles marked as featured', 'kotlinskidev'); ?></p>
             </td>
-        </tr>
+        </tr><?php
+}
 
-        <tr>
+function kotlinskidev_render_article_query_order_row($order_by, $order) {
+    ?>
+<tr>
             <th scope="row"><label for="order_by"><?php esc_html_e('Order By', 'kotlinskidev'); ?></label></th>
             <td>
                 <select name="order_by" id="order_by">
@@ -110,7 +126,33 @@ function kotlinskidev_article_query_meta_box_callback($post) {
                 </select>
                 <p class="description"><?php esc_html_e('How to sort the articles', 'kotlinskidev'); ?></p>
             </td>
-        </tr>
+        </tr><?php
+}
+
+function kotlinskidev_article_query_meta_box_callback($post) {
+    wp_nonce_field('kotlinskidev_article_query_nonce', 'kotlinskidev_article_query_nonce');
+
+    $settings = kotlinskidev_article_query_settings($post->ID);
+
+    ?>
+    <table class="form-table">
+        <?php kotlinskidev_render_article_query_posts_per_page_row($settings['posts_per_page']); ?>
+
+
+        <?php kotlinskidev_render_article_query_category_row($settings['filter_category']); ?>
+
+
+        <?php kotlinskidev_render_article_query_tags_row($settings['filter_tags']); ?>
+
+
+        <?php kotlinskidev_render_article_query_columns_row($settings['column_count']); ?>
+
+
+        <?php kotlinskidev_render_article_query_featured_only_row($settings['show_featured_only']); ?>
+
+
+        <?php kotlinskidev_render_article_query_order_row($settings['order_by'], $settings['order']); ?>
+
     </table>
     
     <style>
@@ -129,42 +171,41 @@ function kotlinskidev_article_query_meta_box_callback($post) {
     <?php
 }
 
-// Save meta box data
-function kotlinskidev_save_article_query_meta_box($post_id) {
-    // Check nonce
-    if (!isset($_POST['kotlinskidev_article_query_nonce']) ||
-        !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kotlinskidev_article_query_nonce'])), 'kotlinskidev_article_query_nonce')) {
-        return;
-    }
-    
-    // Check if user has permission
-    if (!current_user_can('edit_post', $post_id)) {
-        return;
-    }
-    
-    // Save fields
-    $fields = array(
+function kotlinskidev_article_query_save_fields() {
+    return array(
         'posts_per_page' => 'sanitize_text_field',
-        'filter_category' => 'sanitize_text_field', 
+        'filter_category' => 'sanitize_text_field',
         'filter_tags' => 'array',
         'column_count' => 'sanitize_text_field',
         'show_featured_only' => 'sanitize_text_field',
         'order_by' => 'sanitize_text_field',
         'order' => 'sanitize_text_field'
     );
-    
-    foreach ($fields as $field => $sanitize_func) {
-        if (isset($_POST[$field])) {
-            $value = wp_unslash($_POST[$field]); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $sanitize_func is always 'sanitize_text_field' or 'array' from the fixed $fields whitelist above, applied immediately below
+}
 
-            if ($sanitize_func === 'array') {
-                $value = array_map('sanitize_text_field', (array)$value);
-                $value = implode(',', $value);
-            } else {
-                $value = $sanitize_func($value);
-            }
-            
-            update_post_meta($post_id, '_' . $field, $value);
+function kotlinskidev_sanitize_article_query_value($value, $sanitize_func) {
+    if ($sanitize_func === 'array') {
+        return implode(',', array_map('sanitize_text_field', (array)$value));
+    }
+
+    return $sanitize_func($value);
+}
+
+function kotlinskidev_save_article_query_meta_box($post_id) {
+    if (!isset($_POST['kotlinskidev_article_query_nonce']) ||
+        !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kotlinskidev_article_query_nonce'])), 'kotlinskidev_article_query_nonce')) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    foreach (kotlinskidev_article_query_save_fields() as $field => $sanitize_func) {
+        if (isset($_POST[$field])) {
+            $value = wp_unslash($_POST[$field]); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- $sanitize_func is always 'sanitize_text_field' or 'array' from the fixed kotlinskidev_article_query_save_fields() whitelist, applied immediately below
+
+            update_post_meta($post_id, '_' . $field, kotlinskidev_sanitize_article_query_value($value, $sanitize_func));
         } else {
             delete_post_meta($post_id, '_' . $field);
         }
@@ -172,7 +213,6 @@ function kotlinskidev_save_article_query_meta_box($post_id) {
 }
 add_action('save_post', 'kotlinskidev_save_article_query_meta_box');
 
-// Add featured post checkbox to post edit screen
 function kotlinskidev_add_featured_post_meta_box() {
     add_meta_box(
         'featured_post',
@@ -196,17 +236,16 @@ function kotlinskidev_featured_post_callback($post) {
     <?php
 }
 
-// Save featured post meta
 function kotlinskidev_save_featured_post_meta($post_id) {
     if (!isset($_POST['kotlinskidev_featured_post_nonce']) ||
         !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['kotlinskidev_featured_post_nonce'])), 'kotlinskidev_featured_post_nonce')) {
         return;
     }
-    
+
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
-    
+
     if (isset($_POST['featured_post'])) {
         update_post_meta($post_id, '_featured_post', '1');
     } else {

@@ -51,7 +51,7 @@ Model routing:
 - B2.6 (done) Contact form: `contact-form.php`, `contact-form-attachments.php`, `contact-form-submissions.php`, `class-contact-submissions-list-table.php`, `mail-failure-alerts.php`, `contact-card.php`
 - B2.7 (done) Responsive family: `responsive-*.php`, `breakpoints.php`, `responsive-style-dedupe.php`
 - B2.8 (done) SEO and locations: `seo-*.php`, `service-location*.php`, `site-identity.php`, `site-values.php`
-- B2.9 Content renderers: `article-*.php`, `project-card.php`, `post-card-renderer.php`, `topic-card-renderer.php`, `certificate*.php`, `load-more.php`, `term-latest-post-cache.php`, `tag-archive-manager.php`
+- B2.9 (done) Content renderers: `article-*.php`, `project-card.php`, `post-card-renderer.php`, `topic-card-renderer.php`, `certificate*.php`, `load-more.php`, `term-latest-post-cache.php`, `tag-archive-manager.php`
 - B2.10 Assets and performance: `enqueue-scripts.php`, `deferred-block-assets.php`, `critical-css-fragments.php`, `above-fold-media.php`, `image-dimensions.php`, `viewport-deferred-images.php`, `content-visibility.php`, `cache.php` (load order frozen: must stay first in `functions.php`)
 - B2.11 Media and SVG: `svg-*.php`, `animated-webp.php`, `video-poster.php`, `cover-*.php`, `palette-duotone.php`, `icon-library.php`, `model-viewer-mime.php`
 - B2.12 Remaining modules under 100 lines, A–L
@@ -104,6 +104,10 @@ Add here every bad name the refactor could not change because it is a frozen con
 | Name | Kind | Where stored | Proposed name |
 | --- | --- | --- | --- |
 | `add_maintenance_mode_settings`, `maintenance_mode_*_field`, `get_maintenance_*`, `generate_maintenance_page` | PHP functions (hooked and tested) | `functions/maintenance/`, `tests/unit/MaintenanceTest.php` | `kotlinskidev_`-prefixed |
+
+## Known issues found (deliberate decision needed)
+
+- `topic-card-renderer.php` reads an undefined `$latest_post` in the "Updated %s ago" span; it is always empty, so the text never shows. Fixing it changes markup.
 
 ## Measuring
 
