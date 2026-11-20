@@ -19,7 +19,7 @@ const TIMING_DEPENDENT_CLASS_TOKENS = new Set([
 ]);
 
 const MASKED_STYLE_PROPERTIES =
-  /(?<![\w-])(font-size|transition[a-z-]*|cursor|transform|translate|rotate|scale|opacity|will-change|--kt-glow-[xy]|--kt-parallax[a-z-]*|visibility|filter|clip-path|top|left|width|height|min-height|max-height|margin-[a-z]+|padding-[a-z]+|background-position[a-z-]*|--[a-z0-9-]*(?:progress|offset|scroll|mouse|pointer|x|y|w|h)[a-z0-9-]*)\s*:[^;"]*;?/gi;
+  /(?<![\w-])(font-size|transition[a-z-]*|cursor|transform|translate|rotate|scale|opacity|will-change|--kt-glow-[xy]|--kt-parallax[a-z-]*|visibility|filter|clip-path|top|right|bottom|left|width|height|min-height|max-height|margin-[a-z]+|padding-[a-z]+|background-position[a-z-]*|--[a-z0-9-]*(?:progress|offset|scroll|mouse|pointer|x|y|w|h)[a-z0-9-]*)\s*:[^;"]*;?/gi;
 
 const VOLATILE_PATTERNS = [
   [

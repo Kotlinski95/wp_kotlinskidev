@@ -77,7 +77,7 @@ module.exports = [
     // Reveals editor-authored block content (RSA-decrypted server-side), the same
     // trust boundary as WordPress's own `the_content` — rendering HTML here is by
     // design, matching the block's own isHtmlMode feature.
-    files: ["src/scripts/protected-content.ts"],
+    files: ["src/scripts/protected-content.ts", "src/scripts/protected-content/**"],
     rules: {
       "no-unsanitized/property": "off",
     },
