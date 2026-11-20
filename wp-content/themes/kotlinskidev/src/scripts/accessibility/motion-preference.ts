@@ -2,7 +2,7 @@ import { setScrollBehavior } from "../utils";
 import { matchReducedMotionQuery } from "./reduced-motion-query";
 
 const REDUCE_MOTION_BODY_CLASS = "reduce-motion";
-const CLEARED_SCROLL_BEHAVIOR = "" as ScrollBehavior;
+const CLEARED_SCROLL_BEHAVIOR = "";
 const MOTION_PREFERENCE_CHANGED_EVENT = "motionPreferenceChanged";
 
 function dispatchMotionPreferenceChanged(prefersReducedMotion: boolean): void {

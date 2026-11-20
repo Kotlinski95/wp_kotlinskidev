@@ -74,13 +74,15 @@ Model routing:
 
 - B3.4 note: a probe baseline recorded after the first source edit is valid only if the compiled `build/` is proven byte-identical to a copy taken before any edit (browsers run the bundle, not `src`); chunk ids changed after the rebuild, so deploy artefacts need a fresh `npm run build`. The modal reopen scroll position is flaky on the original code.
 
+- B3.5 note: `src/scripts/common.ts` is imported only by its own test (candidate for a deliberate deletion). `window.kotlinskiTheme` and `window.i18n` stay local casts because other files declare them with conflicting shapes.
+
 ## Phase 3: Frontend scripts (`src/scripts`, 10k lines)
 
 - B3.1 (done) `accessibility.ts`, `analytics.ts`, `analytics-providers/`, `track-event.ts`, `page-views.ts`, `cookie-consent.ts`
 - B3.2 (done) Navigation: `hamburger.ts`, `mega-menu.ts`, `nav-reveal.ts`, `nav-solid-transition.ts`, `hide-nav-on-scroll.ts`, `sticky-header.ts`, `search-panel.ts`, `language*.ts`, `active-link-state.ts`
 - B3.3 (done) Scroll and motion: `scroll-*.ts`, `smooth-scroll-offset.ts`, `restoration.ts`, `view-transition-reveal.ts`, `visual-viewport-offset.ts`, `in-view-hover*.ts`, `hover-glow.ts`, `parallax-deferred-bg.ts`
 - B3.4 (done) Media and UI: `image-lightbox.ts`, `city-map-lightbox.ts`, `modal-manager.ts`, `faq-accordion.ts`, `line-clamp.ts`, `load-more.ts`, `protected-content.ts`, `recently-viewed.ts`, `responsive-media.ts`, `viewport-deferred-images.ts`, `cover-video-controls.ts`, `animated-counter.ts`, `group-link.ts`
-- B3.5 Shell: `app-shell.ts`, `blocking-stylesheets.ts`, `common.ts`, `utils.ts`, `console-banner.ts`, `theme-switcher.ts`, `editor-theme-toggle.ts`
+- B3.5 (done) Shell: `app-shell.ts`, `blocking-stylesheets.ts`, `common.ts`, `utils.ts`, `console-banner.ts`, `theme-switcher.ts`, `editor-theme-toggle.ts`
 - B3.6 `src/scripts/canvas-background/`
 
 ## Phase 4: Blocks (`src/blocks`, 42k lines)
@@ -151,6 +153,6 @@ find src functions includes -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*
 - [x] Phase 0 (2026-11-19: verify green, 14-page HTML baseline, test gaps listed)
 - [x] Phase 1 (B1.1: src/utils was already mostly clean; follow-ups: split `observeCentreBand` and `attachImageZoom` closures once more tests exist, review `CarouselPanel.tsx` in the carousel batch)
 - [x] Phase 2 (2026-11-20: PHP explanatory comments 673 → 69, remaining are emitted CSS/JS; follow-ups: contract-migration table, closures in language-switcher and login, dead-code suspects)
-- [ ] Phase 3
+- [ ] Phase 3 (B3.1 to B3.5 done; B3.6 canvas-background remaining)
 - [ ] Phase 4
 - [ ] Phase 5

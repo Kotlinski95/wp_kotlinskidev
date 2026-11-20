@@ -52,9 +52,11 @@ if (document.readyState === "loading") {
   markLoaded();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+const copyThemeModeToBody = (): void => {
   const mode = document.documentElement.classList.contains("light-mode")
     ? "light-mode"
     : "dark-mode";
   document.body.classList.add(mode);
-});
+};
+
+document.addEventListener("DOMContentLoaded", copyThemeModeToBody);

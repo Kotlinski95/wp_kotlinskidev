@@ -48,3 +48,6 @@ Do not add inline or block comments. Types and function signatures must be self-
 - Use the `@utils` path alias for shared utilities.
 - Group imports: WordPress packages → external libraries → local modules → styles.
 - No default exports from utility files — use named exports.
+
+## Frontend Script State Shared Across Bundles
+- `beginProgrammaticScroll()` / `isProgrammaticScrollActive()` in `src/scripts/utils.ts` keep their flag on `window.kotlinskidevProgrammaticScrollActive`, not in a module variable: separate bundles and chunks have no guaranteed shared module scope (confirmed live: a closure-variable version had no effect). Keep any cross-bundle flag on `window` with a typed `Window` augmentation.
