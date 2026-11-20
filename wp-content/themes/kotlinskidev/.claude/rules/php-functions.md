@@ -40,6 +40,7 @@ Do not add inline or block comments. Names must be self-explanatory. If logic re
 - Gate privileged actions with `current_user_can()`.
 
 ## External Constraints Behind Removed Comments
+
 - `kotlinskidev_compute_image_size()` must skip external hosts and read local uploads from disk, never over HTTP. A blocking `getimagesize()` per image on every `the_content` pass caused 504 timeouts. Results live in one `kotlinskidev_img_sizes` transient, written once at `shutdown`.
 - `kotlinskidev_get_popular_posts()` passes `'lang' => ''` in its second query because the IDs are already language-resolved by the cached first query; Polylang would otherwise re-validate them.
 - `shapeSpace_disable_scripts_styles()` dequeues the `wpassetcleanup-style` handle that the Asset CleanUp plugin adds (rendered as the `wpassetcleanup-style-css` id).
