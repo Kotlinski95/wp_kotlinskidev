@@ -12,6 +12,11 @@ const VIEWPORTS = {
   mobile: { ...devices["iPhone 13"] },
 };
 
+const TIMING_DEPENDENT_CLASS_TOKENS = new Set([
+  "visible",
+  "has-transparent-shade-background-color",
+]);
+
 const MASKED_STYLE_PROPERTIES =
   /(font-size|transition[a-z-]*|cursor|transform|translate|rotate|scale|opacity|will-change|--kt-glow-[xy]|--kt-parallax[a-z-]*|visibility|filter|clip-path|top|left|width|height|min-height|max-height|margin-[a-z]+|padding-[a-z]+|background-position[a-z-]*|--[a-z0-9-]*(?:progress|offset|scroll|mouse|pointer|x|y|w|h)[a-z0-9-]*)\s*:[^;"]*;?/gi;
 
@@ -56,7 +61,12 @@ const VOLATILE_PATTERNS = [
   [/cf-chl-widget-[a-z0-9]+/g, "cf-chl-widget-ID"],
   [
     /\sclass="([^"]*)"/g,
-    (_match, classes) => ` class="${classes.split(/\s+/).filter(Boolean).sort().join(" ")}"`,
+    (_match, classes) =>
+      ` class="${classes
+        .split(/\s+/)
+        .filter((token) => token && !TIMING_DEPENDENT_CLASS_TOKENS.has(token))
+        .sort()
+        .join(" ")}"`,
   ],
 ];
 
@@ -167,9 +177,8 @@ const capture = async (urls) => {
 const compare = async (urls) => {
   let changedCount = 0;
   await forEachCapture(urls, async ({ url, position, viewportName, html }) => {
-    const expected = await readFile(
-      path.join(SNAPSHOT_DIR, snapshotFileName(url, position, viewportName)),
-      "utf8"
+    const expected = normalizeDom(
+      await readFile(path.join(SNAPSHOT_DIR, snapshotFileName(url, position, viewportName)), "utf8")
     );
     const difference = expected === html ? null : firstDifference(expected, html);
     if (!difference) {

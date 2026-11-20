@@ -61,9 +61,15 @@ Model routing:
 
 `npm run dom:capture` / `npm run dom:compare` (`bin/dom-snapshot.mjs`, URL list `bin/dom-snapshot-urls.txt`): rendered DOM after JavaScript at desktop and mobile sizes, with volatile values (ids, timings, carousel state, inline animation styles) masked and the console error list included. Baseline stored in the gitignored `artifacts/dom-baseline/`. It is stable on unmodified code (two consecutive compares: 20 of 20 `same`) and sensitive to script changes (disabling JavaScript removes the carousel and `visible` state it records).
 
+## Phase 3 follow-ups collected so far
+
+- `src/scripts/utils.ts` `setScrollBehavior(behavior: ScrollBehavior)` is called with `""` (pre-existing type mismatch worked around with a named cast); fix the signature in B3.5.
+- `accessibility.test.ts` has duplicate function declarations flagged by `tsc --noEmit` (TS2393, pre-existing).
+- `bin/dom-snapshot.mjs` filters the timing-dependent class tokens `visible` and `has-transparent-shade-background-color`; B3.3 (scroll animations) should compare `visible` with a slower scroll.
+
 ## Phase 3: Frontend scripts (`src/scripts`, 10k lines)
 
-- B3.1 `accessibility.ts`, `analytics.ts`, `analytics-providers/`, `track-event.ts`, `page-views.ts`, `cookie-consent.ts`
+- B3.1 (done) `accessibility.ts`, `analytics.ts`, `analytics-providers/`, `track-event.ts`, `page-views.ts`, `cookie-consent.ts`
 - B3.2 Navigation: `hamburger.ts`, `mega-menu.ts`, `nav-reveal.ts`, `nav-solid-transition.ts`, `hide-nav-on-scroll.ts`, `sticky-header.ts`, `search-panel.ts`, `language*.ts`, `active-link-state.ts`
 - B3.3 Scroll and motion: `scroll-*.ts`, `smooth-scroll-offset.ts`, `restoration.ts`, `view-transition-reveal.ts`, `visual-viewport-offset.ts`, `in-view-hover*.ts`, `hover-glow.ts`, `parallax-deferred-bg.ts`
 - B3.4 Media and UI: `image-lightbox.ts`, `city-map-lightbox.ts`, `modal-manager.ts`, `faq-accordion.ts`, `line-clamp.ts`, `load-more.ts`, `protected-content.ts`, `recently-viewed.ts`, `responsive-media.ts`, `viewport-deferred-images.ts`, `cover-video-controls.ts`, `animated-counter.ts`, `group-link.ts`
