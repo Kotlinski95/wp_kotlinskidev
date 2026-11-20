@@ -62,7 +62,7 @@ If a contract name is bad, leave it and note it in the batch report as a candida
 ### No comments
 
 - Delete explanatory comments; move their meaning into names, small functions or types.
-- Keep only tool directives: `phpcs:ignore` / `phpcs:disable` (with their reason text), `eslint-disable-next-line`, `@ts-expect-error`, plugin/theme file headers WordPress parses (`Plugin Name`, `Title:`, `Slug:` in patterns, `Template Name`), and license headers.
+- Keep only tool directives: `phpcs:ignore` / `phpcs:disable` (with their reason text), `eslint-disable-next-line`, `@ts-expect-error`, plugin/theme file headers WordPress parses (`Plugin Name`, `Title:`, `Slug:` in patterns, `Template Name`), WP-CLI command docblocks (`@subcommand`, `## EXAMPLES`: WP-CLI parses them), `/* translators: */` comments (i18n tools parse them) and license headers.
 - A comment that documents a non-obvious external constraint (browser bug, WP core quirk) becomes a well-named function or constant; if that is impossible, add the fact to the relevant `.claude/rules/*.md` or `docs/` file instead.
 
 ### Types and safety

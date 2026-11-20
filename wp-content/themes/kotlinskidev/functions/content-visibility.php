@@ -107,25 +107,42 @@ function kotlinskidev_content_visibility_state(?bool $reset = null): int
     return $count++;
 }
 
+const KOTLINSKIDEV_CONTENT_VISIBILITY_FOOTER_MATCH_CLASS = 'kotlinskidev-footer__top';
+
+function kotlinskidev_content_visibility_is_footer_template_part(array $block): bool
+{
+    return 'core/template-part' === $block['blockName'] && 'footer' === ($block['attrs']['slug'] ?? '');
+}
+
+function kotlinskidev_content_visibility_filter_footer(string $block_content): string
+{
+    if (! kotlinskidev_content_visibility_enabled()) {
+        return $block_content;
+    }
+
+    return kotlinskidev_content_visibility_add_class($block_content, KOTLINSKIDEV_CONTENT_VISIBILITY_CLASS, KOTLINSKIDEV_CONTENT_VISIBILITY_FOOTER_MATCH_CLASS);
+}
+
+function kotlinskidev_content_visibility_is_nested_render($instance): bool
+{
+    return is_object($instance) && null !== ($instance->parent ?? null);
+}
+
 function kotlinskidev_content_visibility_filter_block($block_content, $block, $instance = null)
 {
     if (! is_string($block_content) || empty($block['blockName'])) {
         return $block_content;
     }
 
-    if ('core/template-part' === $block['blockName'] && 'footer' === ($block['attrs']['slug'] ?? '')) {
-        if (! kotlinskidev_content_visibility_enabled()) {
-            return $block_content;
-        }
-
-        return kotlinskidev_content_visibility_add_class($block_content, KOTLINSKIDEV_CONTENT_VISIBILITY_CLASS, 'kotlinskidev-footer__top');
+    if (kotlinskidev_content_visibility_is_footer_template_part($block)) {
+        return kotlinskidev_content_visibility_filter_footer($block_content);
     }
 
     if ('core/template-part' === $block['blockName']) {
         return $block_content;
     }
 
-    if (! doing_filter('the_content') || ( is_object($instance) && null !== ($instance->parent ?? null) )) {
+    if (! doing_filter('the_content') || kotlinskidev_content_visibility_is_nested_render($instance)) {
         return $block_content;
     }
 
