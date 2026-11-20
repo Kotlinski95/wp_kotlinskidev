@@ -54,8 +54,8 @@ Model routing:
 - B2.9 (done) Content renderers: `article-*.php`, `project-card.php`, `post-card-renderer.php`, `topic-card-renderer.php`, `certificate*.php`, `load-more.php`, `term-latest-post-cache.php`, `tag-archive-manager.php`
 - B2.10 (done) Assets and performance: `enqueue-scripts.php`, `deferred-block-assets.php`, `critical-css-fragments.php`, `above-fold-media.php`, `image-dimensions.php`, `viewport-deferred-images.php`, `content-visibility.php`, `cache.php` (load order frozen: must stay first in `functions.php`)
 - B2.11 (done) Media and SVG: `svg-*.php`, `animated-webp.php`, `video-poster.php`, `cover-*.php`, `palette-duotone.php`, `icon-library.php`, `model-viewer-mime.php`
-- B2.12 Remaining modules under 100 lines, A–L
-- B2.13 Remaining modules under 100 lines, M–Z, plus `functions/background-effects/`, `functions/canvas/`, `includes/`
+- B2.12 (done, merged with B2.13) Remaining modules under 100 lines, A–L
+- B2.13 (done in B2.12) Remaining modules under 100 lines, M–Z, plus `functions/background-effects/`, `functions/canvas/`, `includes/`
 
 ## Phase 3: Frontend scripts (`src/scripts`, 10k lines)
 
@@ -133,7 +133,7 @@ find src functions includes -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*
 
 - [x] Phase 0 (2026-11-19: verify green, 14-page HTML baseline, test gaps listed)
 - [x] Phase 1 (B1.1: src/utils was already mostly clean; follow-ups: split `observeCentreBand` and `attachImageZoom` closures once more tests exist, review `CarouselPanel.tsx` in the carousel batch)
-- [ ] Phase 2
+- [x] Phase 2 (2026-11-20: PHP explanatory comments 673 → 69, remaining are emitted CSS/JS; follow-ups: contract-migration table, closures in language-switcher and login, dead-code suspects)
 - [ ] Phase 3
 - [ ] Phase 4
 - [ ] Phase 5

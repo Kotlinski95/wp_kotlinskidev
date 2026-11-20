@@ -1,32 +1,17 @@
 <?php
-/**
- * Internationalization (i18n) Manager
- * Handles all theme translations and localization for JavaScript
- * 
- * This file manages all translatable strings for the kotlinskidev theme,
- * making them available to both PHP and JavaScript contexts.
- */
 
 if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+    exit;
 }
 
-/**
- * Theme text domain constant
- */
 define('KOTLINSKIDEV_TEXT_DOMAIN', 'kotlinskidev');
+define('KOTLINSKIDEV_LOCALIZE_SCRIPTS_LATE_PRIORITY', 999);
 
-/**
- * Initialize i18n functionality
- */
 function kotlinskidev_i18n_init() {
     add_action('after_setup_theme', 'kotlinskidev_load_theme_textdomain');
-    add_action('wp_enqueue_scripts', 'kotlinskidev_localize_scripts', 999); // Run with very late priority to ensure locale is loaded
+    add_action('wp_enqueue_scripts', 'kotlinskidev_localize_scripts', KOTLINSKIDEV_LOCALIZE_SCRIPTS_LATE_PRIORITY);
 }
 
-/**
- * Load theme text domain for translations
- */
 function kotlinskidev_load_theme_textdomain() {
     load_theme_textdomain(
         KOTLINSKIDEV_TEXT_DOMAIN,
@@ -34,38 +19,28 @@ function kotlinskidev_load_theme_textdomain() {
     );
 }
 
-/**
- * Localize scripts with translations
- */
 function kotlinskidev_localize_scripts() {
-    
-    // Ensure textdomain is loaded before localizing
+
     if (!is_textdomain_loaded(KOTLINSKIDEV_TEXT_DOMAIN)) {
         kotlinskidev_load_theme_textdomain();
     }
-    
-    // Get the actual script handles from your theme
-    $script_handles = [
+
+    $candidate_script_handles = [
         'wp-typescript',
         'kotlinskidev-banner-carousel',
-        'kotlinskidev-main', // Keep as fallback
-        'theme-scripts',     // Keep as fallback
-        'main-js'           // Keep as fallback
+        'kotlinskidev-main',
+        'theme-scripts',
+        'main-js'
     ];
-    
-    foreach ($script_handles as $handle) {
+
+    foreach ($candidate_script_handles as $handle) {
         if (wp_script_is($handle, 'enqueued') || wp_script_is($handle, 'registered')) {
             wp_localize_script($handle, 'i18n', kotlinskidev_get_all_translations());
-            break; // Only localize once
+            break;
         }
     }
 }
 
-/**
- * Get all translations for JavaScript
- * 
- * @return array All translation groups
- */
 function kotlinskidev_get_all_translations() {
     return [
         'navigation' => kotlinskidev_get_navigation_translations(),
@@ -79,11 +54,6 @@ function kotlinskidev_get_all_translations() {
     ];
 }
 
-/**
- * Navigation translations
- * 
- * @return array Navigation translations
- */
 function kotlinskidev_get_navigation_translations() {
     return [
         'menu' => [
@@ -104,11 +74,6 @@ function kotlinskidev_get_navigation_translations() {
     ];
 }
 
-/**
- * Form translations
- * 
- * @return array Form translations
- */
 function kotlinskidev_get_forms_translations() {
     return [
         'validation' => [
@@ -131,11 +96,6 @@ function kotlinskidev_get_forms_translations() {
     ];
 }
 
-/**
- * General UI translations
- * 
- * @return array General translations
- */
 function kotlinskidev_get_general_translations() {
     return [
         'loading' => __('Loading...', KOTLINSKIDEV_TEXT_DOMAIN),
@@ -151,11 +111,6 @@ function kotlinskidev_get_general_translations() {
     ];
 }
 
-/**
- * Accessibility translations
- * 
- * @return array Accessibility translations
- */
 function kotlinskidev_get_accessibility_translations() {
     return [
         'skip_to_content' => __('Skip to main content', KOTLINSKIDEV_TEXT_DOMAIN),
@@ -168,11 +123,6 @@ function kotlinskidev_get_accessibility_translations() {
     ];
 }
 
-/**
- * Cookie Consent translations
- * 
- * @return array Cookie consent translations
- */
 function kotlinskidev_get_cookie_consent_translations() {
     return [
         'message' => __('This website uses cookies to ensure you get the best experience on our website.', KOTLINSKIDEV_TEXT_DOMAIN),
@@ -183,26 +133,16 @@ function kotlinskidev_get_cookie_consent_translations() {
     ];
 }
 
-/**
- * Lightbox translations
- * 
- * @return array Lightbox translations
- */
 function kotlinskidev_get_lightbox_translations() {
     return [
         'close' => __('Close lightbox', KOTLINSKIDEV_TEXT_DOMAIN),
         'next' => __('Next image', KOTLINSKIDEV_TEXT_DOMAIN),
         'prev' => __('Previous image', KOTLINSKIDEV_TEXT_DOMAIN),
         'loading' => __('Loading image...', KOTLINSKIDEV_TEXT_DOMAIN),
-        'counter' => __('%1$d of %2$d', KOTLINSKIDEV_TEXT_DOMAIN), // "1 of 5"
+        'counter' => __('%1$d of %2$d', KOTLINSKIDEV_TEXT_DOMAIN),
     ];
 }
 
-/**
- * Scroll Animations translations
- * 
- * @return array Scroll animations translations
- */
 function kotlinskidev_get_scroll_animations_translations() {
     return [
         'reveal' => __('Content revealed', KOTLINSKIDEV_TEXT_DOMAIN),
@@ -210,11 +150,6 @@ function kotlinskidev_get_scroll_animations_translations() {
     ];
 }
 
-/**
- * Theme Switcher translations
- * 
- * @return array Theme switcher translations
- */
 function kotlinskidev_get_theme_switcher_translations() {
     return [
         'lightMode' => __('Switch between dark and light mode (currently light mode)', KOTLINSKIDEV_TEXT_DOMAIN),
@@ -222,12 +157,6 @@ function kotlinskidev_get_theme_switcher_translations() {
     ];
 }
 
-/**
- * Get specific translation group
- * 
- * @param string $group Translation group name
- * @return array|null Translation group or null if not found
- */
 function kotlinskidev_get_translations_group($group) {
     $function_name = 'kotlinskidev_get_' . $group . '_translations';
     if (function_exists($function_name)) {
@@ -236,24 +165,15 @@ function kotlinskidev_get_translations_group($group) {
     return null;
 }
 
-/**
- * Get a specific translation string
- * 
- * @param string $group Translation group
- * @param string $key Translation key (supports dot notation)
- * @param mixed $default Default value if not found
- * @return mixed Translation string or default
- */
 function kotlinskidev_get_string($group, $key, $default = '') {
     $translations = kotlinskidev_get_translations_group($group);
     if (!$translations) {
         return $default;
     }
-    
-    // Support dot notation (e.g., 'offline.message')
+
     $keys = explode('.', $key);
     $value = $translations;
-    
+
     foreach ($keys as $k) {
         if (isset($value[$k])) {
             $value = $value[$k];
@@ -261,32 +181,16 @@ function kotlinskidev_get_string($group, $key, $default = '') {
             return $default;
         }
     }
-    
+
     return $value;
 }
 
-/**
- * Helper function to translate strings in PHP context
- * 
- * @param string $group Translation group
- * @param string $key Translation key
- * @param mixed $default Default value
- * @return mixed Translated string
- */
 function kotlinskidev__($group, $key, $default = '') {
     return kotlinskidev_get_string($group, $key, $default);
 }
 
-/**
- * Echo translated string
- * 
- * @param string $group Translation group
- * @param string $key Translation key
- * @param mixed $default Default value
- */
 function kotlinskidev_e($group, $key, $default = '') {
     echo esc_html(kotlinskidev_get_string($group, $key, $default));
 }
 
-// Initialize the i18n system
 kotlinskidev_i18n_init();

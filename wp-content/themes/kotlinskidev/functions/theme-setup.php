@@ -1,37 +1,28 @@
 <?php
 function kotlinskidev_theme_setup()
 {
-    // Add default posts and comments RSS feed links to head.
     add_theme_support('automatic-feed-links');
 
-    // Let WordPress manage the document title.
     add_theme_support('title-tag');
 
-    // Enable support for Post Thumbnails on posts and pages.
     add_theme_support('post-thumbnails');
 
-    // Add theme support for Full Site Editing
     add_theme_support('block-templates');
 
-    // Add support for editor styles
     add_theme_support('editor-styles');
     add_editor_style('build/css/critical.css');
     add_editor_style('build/css/main-all.css');
 
-    // Add support for responsive embeds
     add_theme_support('responsive-embeds');
 
-    // Add support for custom line height
     add_theme_support('custom-line-height');
 
-    // Add support for custom units
     add_theme_support('custom-units');
 }
 add_action('after_setup_theme', 'kotlinskidev_theme_setup');
 
 function remove_jquery()
 {
-    // Deregister jQuery from the front end, but keep it for logged-in admins
     if (!is_admin() && !current_user_can('manage_options')) {
         wp_deregister_script('jquery');
     }
@@ -52,7 +43,6 @@ function kotlinskidev_remove_admin_bar_css(): void
 }
 add_action('wp_enqueue_scripts', 'kotlinskidev_remove_admin_bar_css');
 
-// disable stylesheet (wpassetcleanup-style-css id added by wpassetcleanup plugin)
 function shapeSpace_disable_scripts_styles()
 {
     if (!is_admin()) {

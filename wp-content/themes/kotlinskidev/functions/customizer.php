@@ -1,14 +1,12 @@
 <?php
 function kotlinskidev_lazy_loading_customize_register($wp_customize)
 {
-    // Add Lazy Loading Section
     $wp_customize->add_section('kotlinskidev_lazy_loading', array(
         'title' => __('Lazy Loading Settings', 'kotlinskidev'),
         'priority' => 200,
         'description' => __('Configure lazy loading settings for cover block images.', 'kotlinskidev'),
     ));
 
-    // CSS Class Setting for Lazy Loading Exclusion
     $wp_customize->add_setting('kotlinskidev_lazy_loading_class', array(
         'default' => 'skip-lazy',
         'transport' => 'refresh',

@@ -1,14 +1,5 @@
 <?php
 
-/**
- * Page View Tracking System
- * 
- * This file handles the backend functionality for tracking page views
- * Works alongside Google Analytics for internal WordPress sorting
- * Provide AJAX data for the bundled page view tracking script
- */
-
-// 
 function kotlinskidev_localize_page_view_data()
 {
     if (is_single() || is_page()) {
@@ -101,7 +92,6 @@ function kotlinskidev_get_popular_posts($limit = 6, $post_types = array('post', 
         return new WP_Query(array('post__in' => array(0), 'lang' => ''));
     }
 
-    // 'lang' => '' skips Polylang's re-validation — IDs are already language-resolved by the cached query above.
     return new WP_Query(array(
         'post__in' => $post_ids,
         'orderby' => 'post__in',

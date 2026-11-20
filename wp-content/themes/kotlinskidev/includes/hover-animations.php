@@ -1,9 +1,4 @@
 <?php
-/**
- * Hover Animation Controls
- * Enqueues hover animation controls for the block editor
- */
-
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -26,16 +21,7 @@ function kotlinskidev_valid_hover_animations() {
     ];
 }
 
-/**
- * Add hover animation classes to frontend blocks
- * This ensures the classes are preserved on the frontend
- */
-function kotlinskidev_render_block_with_hover_animation($block_content, $block) {
-    if (empty($block_content) || trim($block_content) === '') {
-        return $block_content;
-    }
-
-    $attrs = $block['attrs'] ?? [];
+function kotlinskidev_hover_animation_base_classes( array $attrs ): array {
     $valid_animations = kotlinskidev_valid_hover_animations();
 
     $primary = (string) ( $attrs['hoverAnimation'] ?? '' );
@@ -51,10 +37,15 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
         $classes[] = 'has-hover-opacity';
     }
 
+    return $classes;
+}
+
+function kotlinskidev_hover_color_rules( array $attrs ): array {
     $hover_background_color = (string) ( $attrs['hoverBackgroundColor'] ?? '' );
     $hover_text_color       = (string) ( $attrs['hoverTextColor'] ?? '' );
     $hover_border_color     = (string) ( $attrs['hoverBorderColor'] ?? '' );
     $hover_enhanced_glow    = ! empty( $attrs['hoverEnhancedGlow'] );
+    $classes                = [];
     $declarations           = [];
 
     if ( '' !== $hover_background_color || '' !== $hover_text_color ) {
@@ -93,17 +84,13 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
         $classes[] = 'has-enhanced-hover-glow';
     }
 
-    if ( false === ( $attrs['inViewHover'] ?? true ) && ! empty( $classes ) ) {
-        $classes[] = 'kt-in-view-hover-off';
-    }
+    return [ 'classes' => $classes, 'declarations' => $declarations ];
+}
 
-    if ( empty( $classes ) ) {
-        return $block_content;
-    }
-
+function kotlinskidev_apply_hover_classes_and_styles( string $block_content, array $classes, array $declarations ): ?string {
     $processor = new WP_HTML_Tag_Processor( $block_content );
     if ( ! $processor->next_tag() ) {
-        return $block_content;
+        return null;
     }
 
     $existing_class = $processor->get_attribute( 'class' );
@@ -116,7 +103,32 @@ function kotlinskidev_render_block_with_hover_animation($block_content, $block) 
         $processor->set_attribute( 'style', $existing_style . implode( ';', $declarations ) . ';' );
     }
 
-    $content = $processor->get_updated_html();
+    return $processor->get_updated_html();
+}
+
+function kotlinskidev_render_block_with_hover_animation($block_content, $block) {
+    if (empty($block_content) || trim($block_content) === '') {
+        return $block_content;
+    }
+
+    $attrs = $block['attrs'] ?? [];
+    $color_rules = kotlinskidev_hover_color_rules( $attrs );
+    $classes = array_merge( kotlinskidev_hover_animation_base_classes( $attrs ), $color_rules['classes'] );
+    $declarations = $color_rules['declarations'];
+    $hover_enhanced_glow = ! empty( $attrs['hoverEnhancedGlow'] );
+
+    if ( false === ( $attrs['inViewHover'] ?? true ) && ! empty( $classes ) ) {
+        $classes[] = 'kt-in-view-hover-off';
+    }
+
+    if ( empty( $classes ) ) {
+        return $block_content;
+    }
+
+    $content = kotlinskidev_apply_hover_classes_and_styles( $block_content, $classes, $declarations );
+    if ( null === $content ) {
+        return $block_content;
+    }
 
     if ( $hover_enhanced_glow && 'core/button' === ( $block['blockName'] ?? '' ) ) {
         $content = kotlinskidev_wrap_button_glow_label( $content );
