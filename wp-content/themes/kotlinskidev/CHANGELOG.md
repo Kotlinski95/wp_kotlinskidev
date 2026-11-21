@@ -18,6 +18,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Added
 
+- `npm run editor:check` (`bin/editor-validity.mjs`) opens every published page and post and every block pattern in the real block editor and fails on any new invalid block or editor error compared with a recorded baseline, and the e2e WP-CLI helper and the draft-purge script now run `wp` with a 512M PHP memory limit (bare `wp` ran out of memory on WordPress 7.1).
 - `npm run dom:capture` / `npm run dom:compare` (`bin/dom-snapshot.mjs`) snapshot the rendered DOM of 10 key pages after JavaScript has run, at desktop and iPhone sizes, including the console error list, so frontend refactors can prove they leave runtime behavior unchanged.
 - `npm run snapshot:capture` / `npm run snapshot:compare` (`bin/html-snapshot.mjs`) save and compare the rendered markup of the key pages in `bin/html-snapshot-urls.txt`, masking nonces, `uniqid()` tokens, asset versions and inline scripts. The clean-code refactor (`docs/clean-code-plan.md`) uses it to prove each batch leaves the HTML unchanged.
 - Parallax banners now look pinned on touch devices through a compositor-run scroll-driven animation tied to the banner's own scroll range (no drift or gaps on phones), with a new Settings → Customization → Touch parallax toggle (on by default). Browsers without scroll-driven animation support and reduced-motion visitors keep the static background.

@@ -87,6 +87,10 @@ Model routing:
 - B3.5 (done) Shell: `app-shell.ts`, `blocking-stylesheets.ts`, `common.ts`, `utils.ts`, `console-banner.ts`, `theme-switcher.ts`, `editor-theme-toggle.ts`
 - B3.6 (done) `src/scripts/canvas-background/`
 
+## Block proof tooling (Phase 4)
+
+`npm run editor:baseline` / `npm run editor:check` (`bin/editor-validity.mjs`, specs `tests/e2e/editor/content-validity.spec.ts` and `patterns-validity.spec.ts`): opens every published page and post and every block pattern in the real block editor, fails on a NEW "Block contains unexpected or invalid content" warning or editor `pageerror`. Baseline on unmodified code (2026-11-21): 17 of 68 stored pages (18, 1041, 1044, 1046, 1048, 1050, 1056, 1059, 1061, 1063, 1065, 10081, 10082, 10083, 10158, 10159, 10160) and 1 of 75 patterns (`kotlinskidev/testimonial-grid`) already report an invalid block (mostly `core/cover` blocks; page 18 has a malformed nested `<p><p class="kt-offer">` in the pricing section). These are pre-existing content problems worth fixing separately, not regressions.
+
 ## Phase 4: Blocks (`src/blocks`, 42k lines)
 
 Static `save.tsx` output is frozen in every batch.

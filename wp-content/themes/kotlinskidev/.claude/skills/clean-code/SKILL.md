@@ -96,6 +96,16 @@ If a contract name is bad, leave it and note it in the batch report as a candida
 - Static blocks: `save.tsx` output is stored in post content, so its markup must be byte-identical: the block's save test or snapshot must pass unchanged, and `npm run test:patterns` must stay green when patterns use the block.
 - `block.json` (attributes, supports, name, `render`) and `build/` entry names are frozen; webpack entries change only when the batch moves files and `npm run build` still emits the same asset names (`npm run check-asset-budget`).
 
+### Block batches (Phase 4)
+
+- Block code is stored in your content, so proof has three parts besides the usual lint, Jest, build and `dom:compare`:
+  1. `npm run editor:check` opens every published page and post and every block pattern in the real block editor and compares the failing set with the baseline in `artifacts/editor-validity-*.txt` (17 stored pages and the `testimonial-grid` pattern already fail on unmodified code; the command fails only on NEW failures). Run it after every batch that touches `src/blocks/**` (about 12 minutes); it needs the local site up and the admin login in `tests/e2e/.env`. If a batch touches only `edit.tsx`, a new failure still means a changed attribute schema or an editor error.
+  2. Static blocks (`save.tsx`): the serialized output must be byte-identical. Add or reuse a Jest test that renders `save()` for several attribute sets (defaults, every attribute set, empty values) and compares with a stored snapshot written BEFORE the edit; never edit a snapshot to make it pass.
+  3. `block.json` (name, attributes, supports, `render`, `editorScript`, `viewScript`, `style`), `deprecated` arrays, attribute names and defaults, class names and `data-*` attributes written by `save`, and block `transforms` are frozen. If `deprecated` exists, its `save` functions are frozen too.
+- Editor-only code (`edit.tsx`, panels, controls) may be restructured, but the editor must still open every page: the failing set from `editor:check` must not grow and no `pageerror` may appear.
+- Dynamic blocks (`render.php`): compare rendered markup with `npm run snapshot:compare` and the PHP proof used in Phase 2 (token identity per function, characterization tests).
+- Cross-cutting filters (`blocks.registerBlockType`, `editor.BlockEdit`) must keep excluding the `DYNAMIC_PREVIEW_BLOCKS` list exactly as before (see `.claude/rules/typescript.md`).
+
 ## 5. Report (keep it short)
 
 ```text
