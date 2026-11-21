@@ -1,0 +1,476 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`responsive-grid-columns filter characterization BlockEdit panel markup across the attribute matrix 1`] = `
+[
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "flowLayout",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "gridNoColumns",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Responsive Grid Columns</button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-0" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Desktop columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-0" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-1" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Tablet columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-1" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-2" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Mobile columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-2" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><p class="components-base-control__help">Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead.</p></div>",
+  },
+  {
+    "attributes": "gridEmptyColumns",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Responsive Grid Columns</button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-3" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Desktop columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-3" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-4" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Tablet columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-4" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-5" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Mobile columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-5" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><p class="components-base-control__help">Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead.</p></div>",
+  },
+  {
+    "attributes": "gridFull",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Responsive Grid Columns</button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-6" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Desktop columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" id="inspector-input-control-6" type="number" value="4"><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-7" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Tablet columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" id="inspector-input-control-7" type="number" value="2"><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-8" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Mobile columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" id="inspector-input-control-8" type="number" value="1"><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><p class="components-base-control__help">Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead.</p></div>",
+  },
+  {
+    "attributes": "gridPartial",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Responsive Grid Columns</button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-9" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Desktop columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-9" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-10" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Tablet columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" id="inspector-input-control-10" type="number" value="2"><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-11" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Mobile columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-11" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><p class="components-base-control__help">Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead.</p></div>",
+  },
+  {
+    "attributes": "gridDecimal",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Responsive Grid Columns</button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-12" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Desktop columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" id="inspector-input-control-12" type="number" value="2.5"><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-13" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Tablet columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" data-empty-value="" id="inspector-input-control-13" type="number" value=""><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-input-control components-number-control css-1o0ts6a-Input ep09it41"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base css-tfzwg8-Root em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: left;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-input-control-14" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Mobile columns</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><input autocomplete="off" inputmode="numeric" max="12" min="1" step="1" class="components-input-control__input css-1yhf1xc-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3" id="inspector-input-control-14" type="number" value="3"><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div></div><p class="components-base-control__help">Leave a field empty to inherit from the next larger breakpoint (Mobile falls back to Tablet, Tablet falls back to Desktop). Leave all three empty to use this block's own Min. column width wrapping instead.</p></div>",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "flowLayout",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "gridNoColumns",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "gridEmptyColumns",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "gridFull",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "gridPartial",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "gridDecimal",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div>",
+  },
+]
+`;
+
+exports[`responsive-grid-columns filter characterization BlockListBlock wrapper across the attribute matrix 1`] = `
+[
+  {
+    "attributes": "empty",
+    "incomingClass": null,
+    "outcome": {
+      "className": undefined,
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "empty",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class",
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "flowLayout",
+    "incomingClass": null,
+    "outcome": {
+      "className": undefined,
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "flowLayout",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class",
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridNoColumns",
+    "incomingClass": null,
+    "outcome": {
+      "className": undefined,
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridNoColumns",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class",
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridEmptyColumns",
+    "incomingClass": null,
+    "outcome": {
+      "className": undefined,
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridEmptyColumns",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class",
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridFull",
+    "incomingClass": null,
+    "outcome": {
+      "className": "kt-has-responsive-grid-columns",
+      "wrapperProps": {
+        "style": {
+          "--kt-grid-columns-desktop": "4",
+          "--kt-grid-columns-mobile": "1",
+          "--kt-grid-columns-tablet": "2",
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridFull",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class kt-has-responsive-grid-columns",
+      "wrapperProps": {
+        "style": {
+          "--kt-grid-columns-desktop": "4",
+          "--kt-grid-columns-mobile": "1",
+          "--kt-grid-columns-tablet": "2",
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridPartial",
+    "incomingClass": null,
+    "outcome": {
+      "className": "kt-has-responsive-grid-columns",
+      "wrapperProps": {
+        "style": {
+          "--kt-grid-columns-tablet": "2",
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridPartial",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class kt-has-responsive-grid-columns",
+      "wrapperProps": {
+        "style": {
+          "--kt-grid-columns-tablet": "2",
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridDecimal",
+    "incomingClass": null,
+    "outcome": {
+      "className": undefined,
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+  {
+    "attributes": "gridDecimal",
+    "incomingClass": "existing-class",
+    "outcome": {
+      "className": "existing-class",
+      "wrapperProps": {
+        "style": {
+          "color": "blue",
+        },
+      },
+    },
+  },
+]
+`;
+
+exports[`responsive-grid-columns filter characterization registration across the block matrix 1`] = `
+[
+  {
+    "name": "core/group",
+    "result": {
+      "attributes": {
+        "className": {
+          "type": "string",
+        },
+        "kotlinskidevGridColumns": {
+          "default": {},
+          "type": "object",
+        },
+      },
+      "name": "core/group",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": false,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/paragraph",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/image",
+    "result": {
+      "attributes": {
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/image",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/columns",
+    "result": {
+      "attributes": {
+        "verticalAlignment": {
+          "type": "string",
+        },
+      },
+      "name": "core/columns",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/cover",
+    "result": {
+      "attributes": {
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/cover",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/heading",
+    "result": {
+      "attributes": {
+        "level": {
+          "default": 2,
+          "type": "number",
+        },
+      },
+      "name": "core/heading",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/button",
+    "result": {
+      "attributes": {
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "core/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/html",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/html",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/code",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/code",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/navigation-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+      },
+      "name": "core/navigation-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/button",
+    "result": {
+      "attributes": {
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/nav-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/nav-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/marquee",
+    "result": {
+      "attributes": {
+        "speed": {
+          "default": 20,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/marquee",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/city-grid",
+    "result": {
+      "attributes": {
+        "limit": {
+          "default": 3,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/city-grid",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/group",
+    "result": {
+      "attributes": {
+        "kotlinskidevGridColumns": {
+          "default": {},
+          "type": "object",
+        },
+      },
+      "name": "core/group",
+    },
+    "sameObject": false,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "name": "core/paragraph",
+      "supports": {
+        "typography": false,
+      },
+    },
+    "sameObject": true,
+  },
+]
+`;

@@ -1,0 +1,2936 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`scroll-animations filter characterization BlockEdit panel markup across the attribute matrix 1`] = `
+[
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-0" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-0__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-0"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-0__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-1" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-1__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-1"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-1__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-2" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-2__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-2"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-2__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-3" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-3__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-3"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-3__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-4" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Distance</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-4__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-4"><option value="">Default Distance</option><option value="translate-sm">Small (20px)</option><option value="translate-md">Medium (40px)</option><option value="translate-lg">Large (60px)</option><option value="translate-xl">Extra Large (80px)</option><option value="translate-2xl">2X Large (100px)</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-4__help" class="de68669d18f359f5__help components-base-control__help">Control how far elements move during fade/slide animations.</p></div></div>",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-5" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-5__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-5"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-5__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-6" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-6__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-6"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-6__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-7" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Distance</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-7__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-7"><option value="">Default Distance</option><option value="translate-sm">Small (20px)</option><option value="translate-md">Medium (40px)</option><option value="translate-lg">Large (60px)</option><option value="translate-xl">Extra Large (80px)</option><option value="translate-2xl">2X Large (100px)</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-7__help" class="de68669d18f359f5__help components-base-control__help">Control how far elements move during fade/slide animations.</p></div></div>",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-8" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-8__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-8"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-8__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-9" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-9__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-9"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-9__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-10" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-10__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-10"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-10__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-11" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-11__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-11"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-11__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-12" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-12__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-12"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-12__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-13" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-13__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-13"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-13__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-14" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-14__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-14"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-14__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-15" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-15__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-15"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-15__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-16" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-16__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-16"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-16__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-17" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-17__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-17"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-17__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-18" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Distance</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-18__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-18"><option value="">Default Distance</option><option value="translate-sm">Small (20px)</option><option value="translate-md">Medium (40px)</option><option value="translate-lg">Large (60px)</option><option value="translate-xl">Extra Large (80px)</option><option value="translate-2xl">2X Large (100px)</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-18__help" class="de68669d18f359f5__help components-base-control__help">Control how far elements move during fade/slide animations.</p></div></div>",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-19" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-19__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-19"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-19__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-20" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-20__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-20"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-20__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-21" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Distance</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-21__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-21"><option value="">Default Distance</option><option value="translate-sm">Small (20px)</option><option value="translate-md">Medium (40px)</option><option value="translate-lg">Large (60px)</option><option value="translate-xl">Extra Large (80px)</option><option value="translate-2xl">2X Large (100px)</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-21__help" class="de68669d18f359f5__help components-base-control__help">Control how far elements move during fade/slide animations.</p></div></div>",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-22" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-22__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-22"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-22__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-23" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-23__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-23"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-23__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-24" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-24__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-24"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-24__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-25" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-25__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-25"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-25__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div class="components-panel__body is-opened"><h2 class="components-panel__body-title"><button type="button" aria-expanded="true" class="components-button components-panel__body-toggle is-next-40px-default-size"><span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" class="components-panel__arrow" aria-hidden="true" focusable="false"><path d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"></path></svg></span>Scroll Animations<span class="dashicon dashicons dashicons-art components-panel__icon"></span></button></h2><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-26" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Type</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-26__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-26"><option value="">No Animation</option><option value="appear-on-scroll">Appear</option><option value="fade-in-on-scroll">Fade In</option><option value="fade-up-on-scroll">Fade Up</option><option value="fade-left-on-scroll">Fade Left</option><option value="fade-right-on-scroll">Fade Right</option><option value="flip-up-on-scroll">Flip Up</option><option value="flip-down-on-scroll">Flip Down</option><option value="flip-left-on-scroll">Flip Left</option><option value="flip-right-on-scroll">Flip Right</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-26__help" class="de68669d18f359f5__help components-base-control__help">Choose an animation that will trigger when the block comes into view.</p></div><div class="_94dff8a2f7c49fc8__wrapper components-base-control components-select-control"><div class="d9ac8e2c0db95cc7__field components-base-control__field"><div data-wp-c16t="true" data-wp-component="InputBase" class="e518617e7c3a18e7__flex f9694ed4faabfc82__items-column components-flex components-input-base e1mv6sxx3 css-1kjjl8q-Root-StyledInputBase em5sgkm5" style="--wp-components-flex-align: normal; --wp-components-flex-direction: column; --wp-components-flex-wrap: nowrap; --wp-components-flex-gap: calc(4px * 2); --wp-components-flex-justify: space-between;"><div data-wp-c16t="true" data-wp-component="FlexItem" class="bc09d0edcc10c304__item components-flex-item css-nrhbmn-LabelWrapper em5sgkm1" style="--wp-components-flex-item-display: block;"><label data-wp-c16t="true" data-wp-component="Text" for="inspector-select-control-27" class="components-truncate css-tf28v4-Text-base-textStyles components-text components-input-control__label css-w5emdr-BaseLabel-baseLabelTypography em5sgkm2">Animation Delay</label></div><div class="components-input-control__container css-f1w127-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"><select aria-describedby="inspector-select-control-27__help" class="components-select-control__input css-1ulocc7-Select-fontSizeStyles-sizeStyles-rtl e1mv6sxx2" id="inspector-select-control-27"><option value="">No Delay</option><option value="delay-100">100ms</option><option value="delay-200">200ms</option><option value="delay-300">300ms</option><option value="delay-500">500ms</option><option value="delay-750">750ms</option><option value="delay-1000">1000ms</option></select><span class="components-input-control__suffix css-nn6cd0-Suffix em5sgkm7"><div data-wp-c16t="true" data-wp-component="InputControlSuffixWrapper" class="components-input-control-suffix-wrapper e1mv6sxx0 css-ijfhky-PrefixSuffixWrapper-prefixSuffixWrapperStyles-InputControlSuffixWrapperWithClickThrough-rtl em5sgkm0"><div class="css-2nyenz-DownArrowWrapper e1mv6sxx1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true" focusable="false"><path d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"></path></svg></div></div></span><div aria-hidden="true" class="components-input-control__backdrop css-qqyn5l-BackdropUI-rtl em5sgkm6"></div></div></div></div><p id="inspector-select-control-27__help" class="de68669d18f359f5__help components-base-control__help">Set a delay before the animation starts.</p></div></div>",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/html",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "full",
+    "block": "core/html",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/html",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/html",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/html",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/html",
+    "markup": "<div data-testid="original"></div>",
+  },
+]
+`;
+
+exports[`scroll-animations filter characterization extraProps across the block and attribute matrix 1`] = `
+[
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/image",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/image",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/columns",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/columns",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/cover",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/cover",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/heading",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/heading",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/button",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/button",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/html",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/html",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/code",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/code",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "fade-up-on-scroll delay-300 translate-lg",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-up-on-scroll delay-300 translate-lg",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "fade-in-on-scroll",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom fade-in-on-scroll",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "delay-100",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom delay-100",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "translate-sm",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom translate-sm",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "5 x [object Object]",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 x [object Object]",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+]
+`;
+
+exports[`scroll-animations filter characterization registration across the block matrix 1`] = `
+[
+  {
+    "name": "core/group",
+    "result": {
+      "attributes": {
+        "className": {
+          "type": "string",
+        },
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "core/group",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "core/paragraph",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/image",
+    "result": {
+      "attributes": {
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/image",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/columns",
+    "result": {
+      "attributes": {
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "verticalAlignment": {
+          "type": "string",
+        },
+      },
+      "name": "core/columns",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/cover",
+    "result": {
+      "attributes": {
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/cover",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/heading",
+    "result": {
+      "attributes": {
+        "level": {
+          "default": 2,
+          "type": "number",
+        },
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "core/heading",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/button",
+    "result": {
+      "attributes": {
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "core/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/html",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/html",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/code",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/code",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/navigation-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "core/navigation-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/button",
+    "result": {
+      "attributes": {
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/nav-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/nav-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/marquee",
+    "result": {
+      "attributes": {
+        "scrollAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationDelay": {
+          "default": "",
+          "type": "string",
+        },
+        "scrollAnimationTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "speed": {
+          "default": 20,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/marquee",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/city-grid",
+    "result": {
+      "attributes": {
+        "limit": {
+          "default": 3,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/city-grid",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/group",
+    "result": {
+      "name": "core/group",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "name": "core/paragraph",
+      "supports": {
+        "typography": false,
+      },
+    },
+    "sameObject": true,
+  },
+]
+`;

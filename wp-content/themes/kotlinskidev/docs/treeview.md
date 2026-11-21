@@ -313,6 +313,11 @@ kotlinskidev/
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
 │   │   │   └── index.tsx
 │   │   ├── animated-counter/                   # extension: count-up-on-scroll for heading/paragraph/group/columns
+│   │   │   ├── __snapshots__/
+│   │   │   ├── counter-attributes.ts               # attribute definitions and saved class/data-* builder
+│   │   │   ├── counter-panel.tsx                   # Animated Counter inspector panel
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
 │   │   ├── article-card/                       # dynamic block (render.php, ServerSideRender preview) — cardId attribute only, embeds a kt_article_card post (functions/article-card.php) by ID; card layout/style is edited once in the Site Editor's single-kt_article_card template and propagates to every embed; full color/spacing/border/typography supports (both "border" and legacy "__experimentalBorder" keys) let an individual embed also be restyled per-instance
 │   │   │   ├── block.json
@@ -335,6 +340,11 @@ kotlinskidev/
 │   │   │   ├── render.php
 │   │   │   └── style.scss
 │   │   ├── background-effects-controls/        # extension: curated animated CSS background/border effect classes (kt-bg-fx-*), applied via className like hover-animation-controls; manual mode (backgroundEffect/backgroundEffectColor1-3) still bakes into saved content via blocks.getSaveContent.extraProps, but a new backgroundEffectPresetId ComboboxControl over kt_bg_effect_preset posts takes over instead when set — disables the manual Effect select, skips extraProps entirely, and resolution happens server-side via functions/background-effects/render.php so editing a preset propagates everywhere without a re-save, matching the canvasSceneId pattern
+│   │   │   ├── __snapshots__/
+│   │   │   ├── background-effect-attributes.ts     # attribute definitions and saved class/style builder
+│   │   │   ├── background-effect-panel.tsx         # Background Effects inspector panel
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
 │   │   ├── banner-carousel/                    # full-width Swiper banner slider
 │   │   │   ├── block.json
@@ -469,7 +479,8 @@ kotlinskidev/
 │   │   │   └── style.scss
 │   │   ├── content-block/                      # resolves a wp_block reusable post by slug (Polylang-aware)
 │   │   │   ├── block.json
-│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
+│   │   │   ├── index.stories.tsx                   # Storybook: renders the named Edit export with block.json's default attributes
+│   │   │   ├── index.test.tsx
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── content-tabs/                       # nav-link strip + dynamic content-panel switcher
@@ -595,7 +606,15 @@ kotlinskidev/
 │   │   │   ├── render.php
 │   │   │   └── save.tsx
 │   │   ├── hover-animation-controls/           # extension "Hover Effects": ~13 canned hover animation classes, combinable transform effects (hoverAnimationExtra), start/end opacity fade, background/text/border hover color (alpha-capable); also enabled for kotlinskidev/certificate (block.json declares the attributes so the REST block-renderer schema accepts them)
-│   │   │   └── index.tsx
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── hover-attributes.ts                 # attribute definitions and excluded-block list
+│   │   │   ├── hover-options.ts                    # animation option lists
+│   │   │   ├── hover-panel.tsx                     # Hover Effects inspector sections
+│   │   │   ├── hover-save-props.ts                 # saved class and --hover-* style builder
+│   │   │   ├── index.test.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── use-pending-color-change.ts         # ColorGradientControl clear-after-pick guard
 │   │   ├── icon/                               # standalone SVG icon block — Media Library picker, size/color/aria-label, renders via kotlinskidev_inline_nav_icon()
 │   │   ├── icon-extension/                     # extension: leading icon for kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
 │   │   │   └── index.tsx
@@ -641,8 +660,9 @@ kotlinskidev/
 │   │   ├── modal-settings-panel/                # PluginDocumentSettingPanel for the kt_modal post type — size (small/medium/large/full), enqueued only on kt_modal edit screens
 │   │   │   └── index.tsx
 │   │   ├── modal-trigger/                      # extension: adds opensInModal + modalId to kotlinskidev/button, kotlinskidev/nav-link, core/button, core/navigation-link, core/navigation-submenu
-│   │   │   ├── index.tsx                       # withModalTriggerControls (editor.BlockEdit HOC) now exported
-│   │   │   └── index.stories.tsx               # Storybook: InspectorControls story renders the real kotlinskidev/button through RealBlockEdit, so the real editor.BlockEdit filter (this module's own addFilter) fires naturally and the Modal panel actually shows in the sidebar; Frontend story exercises real click-to-open via initModalManager() against functions/modals.php's exact modal-shell markup
+│   │   │   ├── index.stories.tsx                   # Storybook: InspectorControls story renders the real kotlinskidev/button through RealBlockEdit, so the real editor.BlockEdit filter (this module's own addFilter) fires naturally and the Modal panel actually shows in the sidebar; Frontend story exercises real click-to-open via initModalManager() against functions/modals.php's exact modal-shell markup
+│   │   │   ├── index.test.tsx
+│   │   │   └── index.tsx                           # withModalTriggerControls (editor.BlockEdit HOC) now exported
 │   │   ├── model-viewer/                       # interactive .glb model, click-to-toggle via THREE.AnimationMixer + optional drag-to-rotate (OrbitControls) + auto-detected screen-text texture swap, IO-gated + WebGL-feature-detected dynamic import() of a three.js runtime chunk kept out of every other bundle
 │   │   ├── nav-banner/                         # nav-scoped: image+heading+description+CTA for mega-menu panels
 │   │   │   ├── block.json
@@ -669,8 +689,12 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   └── render.php
 │   │   ├── nav-reveal-animation/               # extension: "Reveal on Menu Open" Inspector panel (fade/flip/appear type, free-ms delay, distance). core/navigation-link/-submenu, kotlinskidev/nav-*, social-section, search-panel + language-panel are name-scoped (architecturally/by-design nav-or-dropdown-only); the general-purpose kotlinskidev/button is additionally gated on having a core/navigation ancestor (getBlockParentsByBlockName) so the panel never shows on an unrelated page. Triggers off the kt:nav-panel-open/-close custom events (dispatched by hamburger.ts/mega-menu.ts/dropdown-panel.ts) instead of IntersectionObserver
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
 │   │   │   ├── index.test.tsx
-│   │   │   └── index.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── nav-reveal-attributes.ts            # scoped block lists, attribute definitions, saved class/style builder
+│   │   │   └── nav-reveal-panel.tsx                # Reveal on Menu Open inspector panel
 │   │   ├── nav-search-panel/                   # nav-scoped sibling of search-panel
 │   │   │   ├── block.json
 │   │   │   └── render.php
@@ -748,8 +772,12 @@ kotlinskidev/
 │   │   │   └── render.php
 │   │   ├── protected-content/                  # RSA-encrypted, bot-obfuscated content (email/phone/address/other); linkLabel + buttonStyle attributes let phone/email reveal a fixed label styled as a site button instead of the raw value — core/button can't be a workaround (no InnerBlocks support, so nothing can nest inside it)
 │   │   │   ├── block.json
-│   │   │   ├── index.stories.tsx               # Storybook: renders the named Edit export with block.json's default attributes
+│   │   │   ├── html-mode-editor.tsx                # HTML Mode textarea and preview
+│   │   │   ├── index.stories.tsx                   # Storybook: renders the named Edit export with block.json's default attributes
+│   │   │   ├── index.test.tsx
 │   │   │   ├── index.tsx
+│   │   │   ├── protected-content-types.ts          # attribute types and class-name builder
+│   │   │   ├── protection-settings-panel.tsx       # Protection Settings inspector panel
 │   │   │   ├── render.php
 │   │   │   └── style.scss
 │   │   ├── recently-viewed-dynamic/            # dynamic block (render.php, ServerSideRender preview) wrapping kotlinskidev_render_recently_viewed_shell() (functions/search-page-dynamic-blocks.php), placed standalone in templates/page-search.html right after popular-content-dynamic — see blog-topics-grid-dynamic/ above for why this folder-based form replaced a bare PHP-only register_block_type(). The server side only renders a hidden shell (heading + empty .kt-post-card-grid) — src/scripts/recently-viewed.ts populates it client-side from the visitor's own localStorage browsing history, since that data doesn't exist server-side or in the editor; an InspectorControls Notice in index.tsx explains why the editor preview always looks empty. Same "Card Hover Effects" panel (cardHoverBackgroundColor, blurOtherCards/blurAmount) as popular-content-dynamic, writing the same --kt-post-card-grid-card-hover-bg/--kt-blur-amount vars (inherited automatically by the client-built cards too, since they reuse the exact kt-post-card-grid__card classes) plus has-blur-siblings on its own grid
@@ -761,12 +789,30 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── responsive-display/                 # extension: per-breakpoint show/hide
+│   │   │   ├── __snapshots__/
+│   │   │   ├── device-controls.tsx                 # per-device Display/Flex/Grid/Self selects
+│   │   │   ├── display-attribute.ts                # attribute types, class-string builder shared by editor preview and save
+│   │   │   ├── display-options.ts                  # select option lists
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
 │   │   ├── responsive-font-size/               # extension: per-breakpoint font-size override
-│   │   │   └── index.tsx
+│   │   │   ├── __snapshots__/
+│   │   │   ├── breakpoint-control.tsx              # one breakpoint row: preset select or custom rem slider
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── font-size-types.ts                  # attribute and option types
+│   │   │   ├── index.test.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── inline-control.tsx                  # collapsible Typography-panel control with the three breakpoint rows
 │   │   ├── responsive-grid-columns/            # extension: per-breakpoint Desktop/Tablet/Mobile column-count NumberControls (1-12, each falls back to the next larger breakpoint when left empty) for a core/group with layout.type "grid", writing --kt-grid-columns-{desktop,tablet,mobile} as editor preview wrapperProps.style; the actual frontend output is server-computed by functions/responsive-grid-columns.php instead of relying on the saved static markup, since the attribute only ever renders meaningfully on a grid layout
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
 │   │   │   └── index.tsx
 │   │   ├── responsive-height/                  # extension: per-breakpoint min-height override (e.g. overrides core Cover block's 430px default on mobile)
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── height-value-control.tsx            # keyword preset + unit control
+│   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
 │   │   ├── responsive-image/                   # static image block, swaps desktop/mobile image at a breakpoint
 │   │   │   ├── block.json
@@ -776,13 +822,32 @@ kotlinskidev/
 │   │   │   ├── save.tsx
 │   │   │   └── style.scss
 │   │   ├── responsive-order/                   # extension: per-breakpoint flex/grid order
-│   │   │   └── index.tsx
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── order-attribute.ts                  # attribute type and order class-string builder
+│   │   │   └── order-controls.tsx                  # Desktop/Tablet/Mobile order NumberControls
 │   │   ├── responsive-spacing/                 # extension: per-breakpoint padding/margin per side
-│   │   │   └── index.tsx
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── spacing-attribute.ts                # types, defaults, preview-style builder
+│   │   │   └── spacing-group-control.tsx           # four-side UnitControl grid
 │   │   ├── responsive-width/                   # extension: per-breakpoint width/max-width
-│   │   │   └── index.tsx
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
+│   │   │   ├── index.tsx
+│   │   │   └── width-value-control.tsx             # keyword preset + unit control
 │   │   ├── scroll-animations/                  # extension: scroll-triggered entrance animation + delay
-│   │   │   └── index.tsx
+│   │   │   ├── __snapshots__/
+│   │   │   ├── filter.characterization.test.tsx    # Jest characterization: registration, saved extraProps and editor wrapper snapshots across a block matrix
+│   │   │   ├── index.test.tsx
+│   │   │   ├── index.tsx
+│   │   │   ├── scroll-animation-attributes.ts      # attribute definitions and saved class builder
+│   │   │   └── scroll-animation-panel.tsx          # Scroll Animations inspector panel
 │   │   ├── scroll-section/                     # horizontal-pan-on-vertical-scroll section (GSAP ScrollTrigger) — pins .scroll-section itself with GSAP's own pinSpacing:true (spacer sized once, no per-frame reconciliation). The nearest ancestor with the scroll-section-pin-boundary class (toggled via the scroll-section-pin-boundary extension below) gets pinned instead of the bare section, letting neighboring content peek above/below during the scrub; style.scss strips the kt-full-bleed-breakout mixin's static transform from any .full-width ancestor so GSAP's own pinType auto-detection stays on native, compositor-driven "fixed"
 │   │   │   ├── docs/
 │   │   │   │   └── SKILL.md
@@ -870,6 +935,7 @@ kotlinskidev/
 │   │   │   ├── style.scss
 │   │   │   └── swiper-init.ts
 │   │   ├── slider-modal-trigger/               # extension: adds modalId to core/cover slides inside wpe/slider (className contains swiper-slide)
+│   │   │   ├── index.test.tsx
 │   │   │   └── index.tsx
 │   │   ├── social-section/                     # social-links row, ancestor: core/navigation
 │   │   │   ├── item/
@@ -1111,6 +1177,12 @@ kotlinskidev/
 │   │   ├── dynamic-preview-blocks.ts           # DYNAMIC_PREVIEW_BLOCKS: PHP-only ServerSideRender blocks (city-grid, city-map) excluded from every sitewide unconditional attribute-injecting editor filter, since WP's block-renderer REST schema rejects any attribute the block's own PHP schema doesn't declare
 │   │   ├── nav-reveal-events.ts           # NAV_PANEL_OPEN_EVENT/NAV_PANEL_CLOSE_EVENT constants + dispatchNavPanelOpen()/dispatchNavPanelClose() CustomEvent helpers shared by hamburger.ts, mega-menu.ts, and scripts/nav-reveal.ts
 │   │   ├── panel-coordinator.ts                # registry: opening one panel closes all others
+│   │   ├── block-filter-types.ts               # BlockSettings/BlockEditProps/ExtraProps types and appendClassName() shared by the cross-cutting editor filters
+│   │   ├── core-entity-records.ts              # selectCoreEntityRecords(): typed core-data getEntityRecords call for useSelect callbacks
+│   │   ├── modal-options.ts                    # buildModalOptions(): kt_modal option list with the Loading placeholder
+│   │   ├── responsive-breakpoints.ts           # Window.kotlinskidevBreakpoints typing, getBreakpoints(), RESPONSIVE_DEVICES
+│   │   ├── responsive-device-panel.tsx         # DeviceSettingsCard + AdvancedDevicePanel: shared Desktop/Tablet/Mobile panel shell of responsive-display/width/height/spacing
+│   │   ├── test-support/filter-characterization.tsx # Jest helpers: block matrix and registration/extraProps/BlockListBlock/BlockEdit characterization used by the filter snapshot tests
 │   │   ├── modal-trigger-events.ts             # onModalTriggerInside(): runs a handler on kt-modal:open/kt-modal:close when the trigger is inside a container (marquee, slider)
 │   │   ├── scroll-lock.ts                      # reference-counted documentElement scroll-lock
 │   │   └── storybook-edit-props.ts             # Storybook-only helpers: getDefaultAttributes()/buildEditProps() build story args from block.json; useInteractiveAttributes() wires setAttributes to useArgs() + logs via storybook/actions; RealBlockEdit renders a block through @wordpress/block-editor's real BlockEdit dispatcher (not the bare Edit function) — required for InspectorControls.Slot to show Fill content and for editor.BlockEdit filters to fire
