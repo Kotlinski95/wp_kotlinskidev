@@ -1,0 +1,426 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`canvas layer draw-call recording aurora keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 97a7887ecfd561fa",
+  "clamps/context-events": "223 75ad046a59f57a7f",
+  "clamps/frames": "177 6739b58760db2c4c",
+  "clamps/link-fail": "29 1953adb25f87e4d6",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 97a7887ecfd561fa",
+  "custom/context-events": "223 11edb2a6314e0082",
+  "custom/frames": "177 728eaed4de6b9159",
+  "custom/link-fail": "29 1953adb25f87e4d6",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 97a7887ecfd561fa",
+  "defaults/context-events": "223 67cee1969c1231ca",
+  "defaults/frames": "177 ef9840510d1030a1",
+  "defaults/link-fail": "29 1953adb25f87e4d6",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording blob keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "113 db96ab8311b9d301",
+  "clamps/context-events": "139 34865e1f2478dcf3",
+  "clamps/frames": "113 db96ab8311b9d301",
+  "clamps/link-fail": "113 db96ab8311b9d301",
+  "clamps/no-context": "113 db96ab8311b9d301",
+  "custom/compile-fail": "365 6366768d46ebc730",
+  "custom/context-events": "447 beb97260dfe16ad5",
+  "custom/frames": "365 6366768d46ebc730",
+  "custom/link-fail": "365 6366768d46ebc730",
+  "custom/no-context": "365 6366768d46ebc730",
+  "defaults/compile-fail": "239 b72490f4a83e7237",
+  "defaults/context-events": "293 fac7e25047fbfe11",
+  "defaults/frames": "239 b72490f4a83e7237",
+  "defaults/link-fail": "239 b72490f4a83e7237",
+  "defaults/no-context": "239 b72490f4a83e7237",
+  "hidden/compile-fail": "239 e6e29e4413af574e",
+  "hidden/context-events": "293 a824d2e533dc1de2",
+  "hidden/frames": "239 e6e29e4413af574e",
+  "hidden/link-fail": "239 e6e29e4413af574e",
+  "hidden/no-context": "239 e6e29e4413af574e",
+}
+`;
+
+exports[`canvas layer draw-call recording curved-rays keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 d9966e064eeefae3",
+  "clamps/context-events": "209 621565e87ccf8c2d",
+  "clamps/frames": "164 c15537e0695d942e",
+  "clamps/link-fail": "29 822f53d249ac961d",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 d9966e064eeefae3",
+  "custom/context-events": "209 285b3b6bbaf64f35",
+  "custom/frames": "164 6f18cbd8dd15b15f",
+  "custom/link-fail": "29 822f53d249ac961d",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 d9966e064eeefae3",
+  "defaults/context-events": "209 56cc2998e1278065",
+  "defaults/frames": "164 fe1c4f23bbcdcb91",
+  "defaults/link-fail": "29 822f53d249ac961d",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording deep-field keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 e946c96e3d49ae4b",
+  "clamps/context-events": "209 6c7f399d91582d1a",
+  "clamps/frames": "164 e697870b284c49a7",
+  "clamps/link-fail": "29 3185809bc088046f",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 e946c96e3d49ae4b",
+  "custom/context-events": "209 43fce0b84e458278",
+  "custom/frames": "164 4ae74fea9f948257",
+  "custom/link-fail": "29 3185809bc088046f",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 e946c96e3d49ae4b",
+  "defaults/context-events": "209 d36641066f8901de",
+  "defaults/frames": "164 d7663a80d3f2b5e0",
+  "defaults/link-fail": "29 3185809bc088046f",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording floating-panels keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 24a4038f698a8e31",
+  "clamps/context-events": "223 5e9135e1e423522c",
+  "clamps/frames": "177 4b3fa751a610b7fb",
+  "clamps/link-fail": "29 ddb6fa310ad56d32",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 24a4038f698a8e31",
+  "custom/context-events": "223 545fe8b2f7a9b94a",
+  "custom/frames": "177 3f3d710d56e7ef38",
+  "custom/link-fail": "29 ddb6fa310ad56d32",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 24a4038f698a8e31",
+  "defaults/context-events": "223 f25129d41e7f634a",
+  "defaults/frames": "177 6172e9e9c48c471f",
+  "defaults/link-fail": "29 ddb6fa310ad56d32",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording gradient keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "77 f947ccf00a3aba89",
+  "clamps/context-events": "95 d0769089e360fe55",
+  "clamps/frames": "77 f947ccf00a3aba89",
+  "clamps/link-fail": "77 f947ccf00a3aba89",
+  "clamps/no-context": "77 f947ccf00a3aba89",
+  "custom/compile-fail": "77 102510cadd609bf5",
+  "custom/context-events": "95 e3d3b0d8664b982f",
+  "custom/frames": "77 102510cadd609bf5",
+  "custom/link-fail": "77 102510cadd609bf5",
+  "custom/no-context": "77 102510cadd609bf5",
+  "defaults/compile-fail": "77 c354346486ea8f5e",
+  "defaults/context-events": "95 527010a0573f830b",
+  "defaults/frames": "77 c354346486ea8f5e",
+  "defaults/link-fail": "77 c354346486ea8f5e",
+  "defaults/no-context": "77 c354346486ea8f5e",
+  "hidden/compile-fail": "77 2f60931f5c39c3b4",
+  "hidden/context-events": "95 934a45cca4c91b35",
+  "hidden/frames": "77 2f60931f5c39c3b4",
+  "hidden/link-fail": "77 2f60931f5c39c3b4",
+  "hidden/no-context": "77 2f60931f5c39c3b4",
+}
+`;
+
+exports[`canvas layer draw-call recording grid-lines keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "260 bb597268450cc6aa",
+  "clamps/context-events": "318 c517c5879b5988ac",
+  "clamps/frames": "260 bb597268450cc6aa",
+  "clamps/link-fail": "260 bb597268450cc6aa",
+  "clamps/no-context": "44 174ea04817427a5c",
+  "custom/compile-fail": "620 8d63c64e8986772f",
+  "custom/context-events": "758 de2b2a24f4f7412c",
+  "custom/frames": "620 8d63c64e8986772f",
+  "custom/link-fail": "620 8d63c64e8986772f",
+  "custom/no-context": "44 174ea04817427a5c",
+  "defaults/compile-fail": "980 8343b888f299b371",
+  "defaults/context-events": "1198 897f0b018e35b214",
+  "defaults/frames": "980 8343b888f299b371",
+  "defaults/link-fail": "980 8343b888f299b371",
+  "defaults/no-context": "44 174ea04817427a5c",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording hex-tiles keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 5359821890e916b5",
+  "clamps/context-events": "209 f3c27ca65065340e",
+  "clamps/frames": "164 6e31d2769c3d07bd",
+  "clamps/link-fail": "29 8bd36d2086452a56",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 5359821890e916b5",
+  "custom/context-events": "209 567c5650f90d320e",
+  "custom/frames": "164 f9888375eaee3ba9",
+  "custom/link-fail": "29 8bd36d2086452a56",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 5359821890e916b5",
+  "defaults/context-events": "209 90d6dc9273320cb1",
+  "defaults/frames": "164 c95c28293272b6f4",
+  "defaults/link-fail": "29 8bd36d2086452a56",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording light-rays keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 63d475ee55b4e5a4",
+  "clamps/context-events": "213 3f6e80974e125731",
+  "clamps/frames": "166 4e744c1151573dbf",
+  "clamps/link-fail": "29 ac5a315917678553",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 63d475ee55b4e5a4",
+  "custom/context-events": "213 7227350e349fe04f",
+  "custom/frames": "166 7414980dd0c98cc9",
+  "custom/link-fail": "29 ac5a315917678553",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 63d475ee55b4e5a4",
+  "defaults/context-events": "213 d637ff5af117d340",
+  "defaults/frames": "166 4483ae1ab845f093",
+  "defaults/link-fail": "29 ac5a315917678553",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording nebula keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 dec7dad88e5cdaf6",
+  "clamps/context-events": "209 5d34be0f11e1219b",
+  "clamps/frames": "164 ead399a67e763604",
+  "clamps/link-fail": "29 ddb9e80c7b30ddb8",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 dec7dad88e5cdaf6",
+  "custom/context-events": "209 3f2f6df9bf85401b",
+  "custom/frames": "164 4f8c74f6bc086f1d",
+  "custom/link-fail": "29 ddb9e80c7b30ddb8",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 dec7dad88e5cdaf6",
+  "defaults/context-events": "209 386342a7e5a638af",
+  "defaults/frames": "164 336ef91f313a11b9",
+  "defaults/link-fail": "29 ddb9e80c7b30ddb8",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording neon-waves keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 c7c81f5e920a0f2c",
+  "clamps/context-events": "209 972c3861a53642bb",
+  "clamps/frames": "164 e4dfd9c1464456a1",
+  "clamps/link-fail": "29 eb49301f2fbafb0c",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 c7c81f5e920a0f2c",
+  "custom/context-events": "209 2dae5982297b2408",
+  "custom/frames": "164 1f1e20245359ddcb",
+  "custom/link-fail": "29 eb49301f2fbafb0c",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 c7c81f5e920a0f2c",
+  "defaults/context-events": "209 91088b56f1126d94",
+  "defaults/frames": "164 1bc04c3e08c063ff",
+  "defaults/link-fail": "29 eb49301f2fbafb0c",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording noise keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "101 c7edb142003772e6",
+  "clamps/context-events": "123 532ce932b0207c9a",
+  "clamps/frames": "101 c7edb142003772e6",
+  "clamps/link-fail": "101 c7edb142003772e6",
+  "clamps/no-context": "99 6d82af6746243f1a",
+  "custom/compile-fail": "101 da564905fc23b3fd",
+  "custom/context-events": "123 94206d1d5cb453f5",
+  "custom/frames": "101 da564905fc23b3fd",
+  "custom/link-fail": "101 da564905fc23b3fd",
+  "custom/no-context": "99 4b1465b1a9d3e8b4",
+  "defaults/compile-fail": "101 bcd4924a6e0a3889",
+  "defaults/context-events": "123 dedf3750e0b47045",
+  "defaults/frames": "101 bcd4924a6e0a3889",
+  "defaults/link-fail": "101 bcd4924a6e0a3889",
+  "defaults/no-context": "99 af99f8ab7a579f0a",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording orbit-trails keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "36 6a2d7392c6a0a774",
+  "clamps/context-events": "561 c4c142509c5fd090",
+  "clamps/frames": "437 a9079dc7751e0e7d",
+  "clamps/link-fail": "42 7068121320ff9a19",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "36 6a2d7392c6a0a774",
+  "custom/context-events": "561 993ba0c11bbc86ee",
+  "custom/frames": "437 f018e278153d89ad",
+  "custom/link-fail": "42 7068121320ff9a19",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "36 6a2d7392c6a0a774",
+  "defaults/context-events": "561 4d6bceb148803ee7",
+  "defaults/frames": "437 70245e73123752b0",
+  "defaults/link-fail": "42 7068121320ff9a19",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording pleiades keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 7d39a9a494676be5",
+  "clamps/context-events": "209 d587991194be2d9d",
+  "clamps/frames": "164 116f06ff359a11c6",
+  "clamps/link-fail": "29 9726be14c0d6c9db",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 7d39a9a494676be5",
+  "custom/context-events": "209 de758e6f80eec987",
+  "custom/frames": "164 df2b77a49b041c7e",
+  "custom/link-fail": "29 9726be14c0d6c9db",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 7d39a9a494676be5",
+  "defaults/context-events": "209 e275107c42f3bcc7",
+  "defaults/frames": "164 37dc8371cc039450",
+  "defaults/link-fail": "29 9726be14c0d6c9db",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording star-field keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 ac2f501da854323a",
+  "clamps/context-events": "209 1c80910183366f9e",
+  "clamps/frames": "164 64b321060724b3a0",
+  "clamps/link-fail": "29 620c991aa1b61591",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 ac2f501da854323a",
+  "custom/context-events": "209 82da060267960799",
+  "custom/frames": "164 16c468b52d145b84",
+  "custom/link-fail": "29 620c991aa1b61591",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 ac2f501da854323a",
+  "defaults/context-events": "209 9fc70c142ac0963e",
+  "defaults/frames": "164 e8ff8905fdd43b74",
+  "defaults/link-fail": "29 620c991aa1b61591",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording sweep keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "14 06e33ed9a6f96192",
+  "clamps/context-events": "18 b65d1cac4537f3ea",
+  "clamps/frames": "14 06e33ed9a6f96192",
+  "clamps/link-fail": "14 06e33ed9a6f96192",
+  "clamps/no-context": "14 06e33ed9a6f96192",
+  "custom/compile-fail": "113 af1b8c99138f4f6e",
+  "custom/context-events": "139 e4eb46b2a803fa38",
+  "custom/frames": "113 af1b8c99138f4f6e",
+  "custom/link-fail": "113 af1b8c99138f4f6e",
+  "custom/no-context": "113 af1b8c99138f4f6e",
+  "defaults/compile-fail": "113 6a7768293d2ed312",
+  "defaults/context-events": "139 215698ed59e80e9e",
+  "defaults/frames": "113 6a7768293d2ed312",
+  "defaults/link-fail": "113 6a7768293d2ed312",
+  "defaults/no-context": "113 6a7768293d2ed312",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;
+
+exports[`canvas layer draw-call recording warp-field keeps its recorded draw calls 1`] = `
+{
+  "clamps/compile-fail": "26 2cfcda5989db1ac5",
+  "clamps/context-events": "209 639114c488945fec",
+  "clamps/frames": "164 78ab9ca6c317839d",
+  "clamps/link-fail": "29 f199b2e68b6d9a8a",
+  "clamps/no-context": "17 d4898d06b66b4f68",
+  "custom/compile-fail": "26 2cfcda5989db1ac5",
+  "custom/context-events": "209 81b5f6ac08b8f8f1",
+  "custom/frames": "164 125b3378f3a6a8a8",
+  "custom/link-fail": "29 f199b2e68b6d9a8a",
+  "custom/no-context": "17 d4898d06b66b4f68",
+  "defaults/compile-fail": "26 2cfcda5989db1ac5",
+  "defaults/context-events": "209 6536978dc9e77781",
+  "defaults/frames": "164 974e540e2f657cea",
+  "defaults/link-fail": "29 f199b2e68b6d9a8a",
+  "defaults/no-context": "17 d4898d06b66b4f68",
+  "hidden/compile-fail": "14 06e33ed9a6f96192",
+  "hidden/context-events": "18 b65d1cac4537f3ea",
+  "hidden/frames": "14 06e33ed9a6f96192",
+  "hidden/link-fail": "14 06e33ed9a6f96192",
+  "hidden/no-context": "14 06e33ed9a6f96192",
+}
+`;

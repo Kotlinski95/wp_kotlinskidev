@@ -24,25 +24,30 @@ const getScratch = (
   return scratch.canvas.getContext("2d");
 };
 
-const draw: CanvasLayerDraw = (ctx, { width, height, params, resolveColor, cache }) => {
-  const opacity = Number(params.opacity ?? 0.08);
-  if (opacity <= 0) {
-    return;
-  }
+const DEFAULT_OPACITY = 0.08;
+const DEFAULT_LINE_COUNT = 12;
+const MIN_LINE_COUNT = 2;
+const LINE_WIDTH = 1;
+const MASK_RADIUS_FACTOR = 0.8;
+const MASK_MIDDLE_STOP = 0.6;
+const MASK_STOPS = {
+  opaque: "rgba(0,0,0,1)",
+  faded: "rgba(0,0,0,0.4)",
+  transparent: "rgba(0,0,0,0)",
+};
 
-  const scratchCtx = getScratch(cache, width, height);
-  if (!scratchCtx) {
-    return;
-  }
+interface GridGeometry {
+  width: number;
+  height: number;
+  lineCount: number;
+}
 
-  const lineCount = Math.max(2, Math.round(Number(params.lineCount ?? 12)));
-  const color = resolveColor(String(params.color ?? ""));
+const strokeGridLines = (
+  scratchCtx: CanvasRenderingContext2D,
+  { width, height, lineCount }: GridGeometry
+): void => {
   const stepX = width / lineCount;
   const stepY = height / lineCount;
-
-  scratchCtx.clearRect(0, 0, width, height);
-  scratchCtx.strokeStyle = color;
-  scratchCtx.lineWidth = 1;
 
   for (let i = 1; i < lineCount; i++) {
     const x = i * stepX;
@@ -59,23 +64,54 @@ const draw: CanvasLayerDraw = (ctx, { width, height, params, resolveColor, cache
     scratchCtx.lineTo(width, y);
     scratchCtx.stroke();
   }
+};
 
+const fadeTowardsCorner = (
+  scratchCtx: CanvasRenderingContext2D,
+  width: number,
+  height: number
+): void => {
   const mask = scratchCtx.createRadialGradient(
     width,
     0,
     0,
     width,
     0,
-    Math.hypot(width, height) * 0.8
+    Math.hypot(width, height) * MASK_RADIUS_FACTOR
   );
-  mask.addColorStop(0, "rgba(0,0,0,1)");
-  mask.addColorStop(0.6, "rgba(0,0,0,0.4)");
-  mask.addColorStop(1, "rgba(0,0,0,0)");
+  mask.addColorStop(0, MASK_STOPS.opaque);
+  mask.addColorStop(MASK_MIDDLE_STOP, MASK_STOPS.faded);
+  mask.addColorStop(1, MASK_STOPS.transparent);
 
   scratchCtx.globalCompositeOperation = "destination-in";
   scratchCtx.fillStyle = mask;
   scratchCtx.fillRect(0, 0, width, height);
   scratchCtx.globalCompositeOperation = "source-over";
+};
+
+const draw: CanvasLayerDraw = (ctx, { width, height, params, resolveColor, cache }) => {
+  const opacity = Number(params.opacity ?? DEFAULT_OPACITY);
+  if (opacity <= 0) {
+    return;
+  }
+
+  const scratchCtx = getScratch(cache, width, height);
+  if (!scratchCtx) {
+    return;
+  }
+
+  const lineCount = Math.max(
+    MIN_LINE_COUNT,
+    Math.round(Number(params.lineCount ?? DEFAULT_LINE_COUNT))
+  );
+  const color = resolveColor(String(params.color ?? ""));
+
+  scratchCtx.clearRect(0, 0, width, height);
+  scratchCtx.strokeStyle = color;
+  scratchCtx.lineWidth = LINE_WIDTH;
+
+  strokeGridLines(scratchCtx, { width, height, lineCount });
+  fadeTowardsCorner(scratchCtx, width, height);
 
   ctx.save();
   ctx.globalAlpha = opacity;

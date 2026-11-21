@@ -1,101 +1,10 @@
-import type { CanvasLayer, CanvasRecipe } from "./types";
-import { layerRegistry } from "./registry";
+import type { CanvasRecipe } from "./types";
+import type { Instance } from "./instance";
+import { applySize, drawInstance } from "./instance-render";
 
-interface Instance {
-  host: HTMLElement;
-  canvas: HTMLCanvasElement;
-  ctx: CanvasRenderingContext2D;
-  recipe: CanvasRecipe;
-  active: boolean;
-  reducedMotion: boolean;
-  width: number;
-  height: number;
-  colorCache: Map<string, string>;
-  layerCaches: Map<CanvasLayer, Record<string, unknown>>;
-  resizeObserver: ResizeObserver;
-}
-
-const MAX_DPR = 2;
 const instances = new Map<HTMLElement, Instance>();
 let rafId: number | null = null;
 let domObserver: MutationObserver | null = null;
-
-const resolveColorValue = (host: HTMLElement, rawValue: string): string => {
-  if (!rawValue) {
-    return "#000000";
-  }
-  if (!rawValue.includes("var(")) {
-    return rawValue;
-  }
-
-  const ownerDocument = host.ownerDocument;
-  const ownerWindow = ownerDocument.defaultView ?? window;
-
-  const probe = ownerDocument.createElement("span");
-  probe.style.position = "absolute";
-  probe.style.visibility = "hidden";
-  probe.style.pointerEvents = "none";
-  probe.style.color = rawValue;
-  host.appendChild(probe);
-  const resolved = ownerWindow.getComputedStyle(probe).color;
-  host.removeChild(probe);
-
-  return resolved || "#000000";
-};
-
-const makeResolveColor = (instance: Instance): ((value: string) => string) => {
-  return (value: string) => {
-    const cached = instance.colorCache.get(value);
-    if (cached) {
-      return cached;
-    }
-    const resolved = resolveColorValue(instance.host, value);
-    instance.colorCache.set(value, resolved);
-    return resolved;
-  };
-};
-
-const applySize = (instance: Instance): void => {
-  const rect = instance.host.getBoundingClientRect();
-  const ownerWindow = instance.host.ownerDocument.defaultView ?? window;
-  const dpr = Math.min(ownerWindow.devicePixelRatio || 1, MAX_DPR);
-  const width = Math.max(1, Math.round(rect.width));
-  const height = Math.max(1, Math.round(rect.height));
-
-  instance.canvas.width = Math.round(width * dpr);
-  instance.canvas.height = Math.round(height * dpr);
-  instance.canvas.style.width = `${width}px`;
-  instance.canvas.style.height = `${height}px`;
-  instance.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  instance.width = width;
-  instance.height = height;
-};
-
-const drawInstance = (instance: Instance, time: number): void => {
-  const { ctx, width, height, recipe } = instance;
-  const resolveColor = makeResolveColor(instance);
-
-  ctx.clearRect(0, 0, width, height);
-
-  for (const layer of recipe.layers) {
-    const drawFn = layerRegistry[layer.type];
-    if (!drawFn) {
-      continue;
-    }
-
-    const layerCache = instance.layerCaches.get(layer) ?? {};
-    instance.layerCaches.set(layer, layerCache);
-
-    drawFn(ctx, {
-      width,
-      height,
-      time,
-      params: layer.params,
-      resolveColor,
-      cache: layerCache,
-    });
-  }
-};
 
 const tick = (time: number): void => {
   rafId = null;
@@ -158,28 +67,41 @@ const ensureColorSchemeObserver = ((): (() => void) => {
   };
 })();
 
-export const mount = (host: HTMLElement, recipe: CanvasRecipe, reducedMotion: boolean): void => {
-  if (instances.has(host)) {
-    return;
-  }
-
-  const ownerDocument = host.ownerDocument;
-  const ownerWindow = ownerDocument.defaultView ?? window;
-
-  const canvas = ownerDocument.createElement("canvas");
+const createCanvasWithContext = (
+  host: HTMLElement
+): { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D } | null => {
+  const canvas = host.ownerDocument.createElement("canvas");
   canvas.setAttribute("aria-hidden", "true");
   host.appendChild(canvas);
 
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     host.removeChild(canvas);
+    return null;
+  }
+  return { canvas, ctx };
+};
+
+const onHostResized = (host: HTMLElement): void => {
+  const current = instances.get(host);
+  if (!current) {
     return;
   }
+  applySize(current);
+  drawInstance(current, performance.now());
+};
 
-  const instance: Instance = {
+const createInstance = (
+  host: HTMLElement,
+  surface: { canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D },
+  recipe: CanvasRecipe,
+  reducedMotion: boolean
+): Instance => {
+  const ownerWindow = host.ownerDocument.defaultView ?? window;
+  return {
     host,
-    canvas,
-    ctx,
+    canvas: surface.canvas,
+    ctx: surface.ctx,
     recipe,
     active: false,
     reducedMotion,
@@ -187,15 +109,21 @@ export const mount = (host: HTMLElement, recipe: CanvasRecipe, reducedMotion: bo
     height: 0,
     colorCache: new Map(),
     layerCaches: new Map(),
-    resizeObserver: new ownerWindow.ResizeObserver(() => {
-      const current = instances.get(host);
-      if (!current) {
-        return;
-      }
-      applySize(current);
-      drawInstance(current, performance.now());
-    }),
+    resizeObserver: new ownerWindow.ResizeObserver(() => onHostResized(host)),
   };
+};
+
+export const mount = (host: HTMLElement, recipe: CanvasRecipe, reducedMotion: boolean): void => {
+  if (instances.has(host)) {
+    return;
+  }
+
+  const surface = createCanvasWithContext(host);
+  if (!surface) {
+    return;
+  }
+
+  const instance = createInstance(host, surface, recipe, reducedMotion);
 
   instances.set(host, instance);
   instance.resizeObserver.observe(host);

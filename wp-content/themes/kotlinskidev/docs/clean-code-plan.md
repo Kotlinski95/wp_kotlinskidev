@@ -76,6 +76,8 @@ Model routing:
 
 - B3.5 note: `src/scripts/common.ts` is imported only by its own test (candidate for a deliberate deletion). `window.kotlinskiTheme` and `window.i18n` stay local casts because other files declare them with conflicting shapes.
 
+- Pre-existing bug found by the canvas probe: `/wp-content/uploads/2025/05/homepage-video-poster-768x432.webp` returns 404 locally and on production (only `-scaled.webp` exists); the mobile poster variant of the homepage video on pages such as `/en/services/e-commerce/` needs regenerating or re-uploading.
+
 ## Phase 3: Frontend scripts (`src/scripts`, 10k lines)
 
 - B3.1 (done) `accessibility.ts`, `analytics.ts`, `analytics-providers/`, `track-event.ts`, `page-views.ts`, `cookie-consent.ts`
@@ -83,7 +85,7 @@ Model routing:
 - B3.3 (done) Scroll and motion: `scroll-*.ts`, `smooth-scroll-offset.ts`, `restoration.ts`, `view-transition-reveal.ts`, `visual-viewport-offset.ts`, `in-view-hover*.ts`, `hover-glow.ts`, `parallax-deferred-bg.ts`
 - B3.4 (done) Media and UI: `image-lightbox.ts`, `city-map-lightbox.ts`, `modal-manager.ts`, `faq-accordion.ts`, `line-clamp.ts`, `load-more.ts`, `protected-content.ts`, `recently-viewed.ts`, `responsive-media.ts`, `viewport-deferred-images.ts`, `cover-video-controls.ts`, `animated-counter.ts`, `group-link.ts`
 - B3.5 (done) Shell: `app-shell.ts`, `blocking-stylesheets.ts`, `common.ts`, `utils.ts`, `console-banner.ts`, `theme-switcher.ts`, `editor-theme-toggle.ts`
-- B3.6 `src/scripts/canvas-background/`
+- B3.6 (done) `src/scripts/canvas-background/`
 
 ## Phase 4: Blocks (`src/blocks`, 42k lines)
 
@@ -153,6 +155,6 @@ find src functions includes -type f \( -name '*.ts' -o -name '*.tsx' -o -name '*
 - [x] Phase 0 (2026-11-19: verify green, 14-page HTML baseline, test gaps listed)
 - [x] Phase 1 (B1.1: src/utils was already mostly clean; follow-ups: split `observeCentreBand` and `attachImageZoom` closures once more tests exist, review `CarouselPanel.tsx` in the carousel batch)
 - [x] Phase 2 (2026-11-20: PHP explanatory comments 673 → 69, remaining are emitted CSS/JS; follow-ups: contract-migration table, closures in language-switcher and login, dead-code suspects)
-- [ ] Phase 3 (B3.1 to B3.5 done; B3.6 canvas-background remaining)
+- [x] Phase 3 (2026-11-21: B3.1 to B3.6 done; `any` in src 65 → 38, TS comment lines 88 → 56 with the rest in Phase 4 blocks)
 - [ ] Phase 4
 - [ ] Phase 5

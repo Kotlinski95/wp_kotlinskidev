@@ -1,9 +1,14 @@
 import type { CanvasLayerDraw } from "../types";
 
+const DEFAULT_SPEED = 0.2;
+const DEFAULT_ANGLE_DEGREES = 135;
+const ROTATION_DEGREES_PER_MS_AT_UNIT_SPEED = 0.002;
+
 const draw: CanvasLayerDraw = (ctx, { width, height, time, params, resolveColor }) => {
-  const speed = Number(params.speed ?? 0.2);
-  const baseAngle = Number(params.angleDeg ?? 135);
-  const angle = ((baseAngle + time * 0.002 * speed) * Math.PI) / 180;
+  const speed = Number(params.speed ?? DEFAULT_SPEED);
+  const baseAngle = Number(params.angleDeg ?? DEFAULT_ANGLE_DEGREES);
+  const angle =
+    ((baseAngle + time * ROTATION_DEGREES_PER_MS_AT_UNIT_SPEED * speed) * Math.PI) / 180;
   const colorStart = resolveColor(String(params.colorStart ?? ""));
   const colorEnd = resolveColor(String(params.colorEnd ?? ""));
 
