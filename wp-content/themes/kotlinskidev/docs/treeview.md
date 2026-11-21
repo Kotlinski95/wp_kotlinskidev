@@ -340,6 +340,7 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
+│   │   │   ├── slides-per-view-preview.ts          # editor preview class name and CSS variables per breakpoint
 │   │   │   ├── index.ts
 │   │   │   ├── init.ts                         # exports initBannerCarousel(el) (returns the Swiper instance) so Storybook can mount/destroy a real carousel outside the site's own DOMContentLoaded bootstrap
 │   │   │   ├── save.stories.tsx                # Storybook: real Swiper (arrows/pagination/autoplay/multi-slide/fade variants) over a hand-built static markup twin of save.tsx's JSX — the real save() crashes via useBlockProps.save()'s extraPropsFromHooks pipeline reading undefined block.json supports outside a full WP admin bootstrap. Renders via createPortal(..., document.body): nesting the same markup inside the story's normal .editor-styles-wrapper/.kt-storybook-frame ancestor chain leaves every non-first slide's image decoded (canvas drawImage confirms real pixels) but never composited/painted after a slide transition — confirmed via a real DOM element move (not just a config/CSS change) that the ancestor chain itself is the cause, not the image, not React's reconciliation, not any single CSS rule found by inspection
@@ -475,6 +476,15 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes + a placeholder clientId
 │   │   │   ├── edit.tsx
+│   │   │   ├── active-tab-block-props.ts           # pure builders of the active-tab class list and CSS variables
+│   │   │   ├── active-tab-style-panel.tsx          # editor: Active Tab Style inspector panel
+│   │   │   ├── animations-panel.tsx                # editor: Animations inspector panel
+│   │   │   ├── content-tabs-attributes.ts          # ContentTabsAttributes, NavGap and shared edit prop types
+│   │   │   ├── panel-switch.ts                     # frontend: panel swap and fade transition, card reveal
+│   │   │   ├── position-panel.tsx                  # editor: nav position and gap inspector panel
+│   │   │   ├── tabs-template.ts                    # InnerBlocks allowed blocks and default tabs template
+│   │   │   ├── use-active-tab.ts                   # editor hook: active tab synced with the block selection
+│   │   │   ├── use-dual-value-color-change.ts      # editor hook: ColorGradientControl color/gradient clear guard
 │   │   │   ├── save.tsx
 │   │   │   ├── index.ts
 │   │   │   ├── init.ts                         # frontend click/keyboard (WAI-ARIA tabs) behavior
@@ -518,6 +528,17 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: interactive editor placeholder (thumbnail + count badge) via useInteractiveAttributes()
 │   │   │   ├── edit.tsx
+│   │   │   ├── add-media-button.tsx                # editor: MediaUpload-backed add/add-more button
+│   │   │   ├── editor-preview.tsx                  # editor canvas: empty placeholder or first-media trigger preview
+│   │   │   ├── gallery-data.ts                     # frontend: media/settings types, mobile breakpoint, data-attribute parsing
+│   │   │   ├── gallery-media.ts                    # editor: attribute/media types and media-library selection merge
+│   │   │   ├── lightbox-modal.ts                   # frontend: opens the modal, loads Swiper, wires closing and focus restore
+│   │   │   ├── media-panel.tsx                     # editor: Media inspector panel (images, lock height, mobile media)
+│   │   │   ├── media-sidebar-grid.tsx              # editor: thumbnail grid with remove buttons
+│   │   │   ├── modal-html.ts                       # frontend: builds the lightbox modal HTML (slides and navigation)
+│   │   │   ├── slide-media.ts                      # frontend: active slide video pause/play and zoom attach
+│   │   │   ├── trigger-sync.ts                     # frontend: keeps the trigger thumbnail and count in sync with the active slide
+│   │   │   ├── video-options-panel.tsx             # editor: Video Options inspector panel
 │   │   │   ├── index.tsx
 │   │   │   ├── init.ts                         # exports initGalleryLightbox (was module-local) so save.stories.tsx can mount the real lightbox; fires lightbox_open/lightbox_navigate (GA4) via scripts/track-event.ts
 │   │   │   ├── save.stories.tsx                # Storybook: real click-to-open lightbox (live Swiper) via createPortal + initGalleryLightbox() — hand-built markup twin of Save, not real useBlockProps.save() (same crash class as banner-carousel)
@@ -540,11 +561,24 @@ kotlinskidev/
 │   │   │   ├── slide/
 │   │   │   │   ├── block.json
 │   │   │   │   ├── edit.tsx
+│   │   │   │   ├── background-panel.tsx            # editor: slide Background inspector panel
+│   │   │   │   ├── media-controls.tsx              # editor: MediaPickerButton / RemoveMediaButton
+│   │   │   │   ├── slide-attributes.ts             # HeroSlideAttributes + edit props types
 │   │   │   │   ├── render.php
 │   │   │   │   └── save.tsx
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
+│   │   │   ├── autoplay-hover-pause.ts             # pauses autoplay on hover/focus/press/consent dialog
+│   │   │   ├── deferred-start.ts                   # whenPageSettled/whenInteractedOrIdle/yieldToMain scheduling helpers
+│   │   │   ├── hero-carousel-attributes.ts         # HeroCarouselAttributes + edit props types
+│   │   │   ├── hero-editor-nav.tsx                 # editor-only arrows/counter/pagination
+│   │   │   ├── hero-slides-panel.tsx               # editor: Slides inspector panel (sidebar thumbnails, add/remove)
+│   │   │   ├── hero-swiper.ts                      # HeroSwiper type + data-carousel-settings parsing
+│   │   │   ├── pending-navigation.ts               # records clicks before Swiper loads and replays them
+│   │   │   ├── slide-video.ts                      # slide video/poster preparation and play/pause lifecycle
+│   │   │   ├── tallest-slide-height.ts             # sets min-height to the tallest slide content on load/resize
+│   │   │   ├── use-hero-slides.ts                  # editor hook: slides, active slide, add/remove
 │   │   │   ├── index.ts
 │   │   │   ├── alpha-canvas.ts                  # iOS WebKit only: draws the hidden alpha <video> to a 480px canvas (poster as background until the first frame) because iOS composites the video layer opaque
 │   │   │   ├── alpha-canvas.test.ts
@@ -587,6 +621,11 @@ kotlinskidev/
 │   │   │   ├── block.json
 │   │   │   ├── edit.test.tsx
 │   │   │   ├── edit.tsx
+│   │   │   ├── marquee-attributes.ts               # MarqueeAttributes + edit props types
+│   │   │   ├── marquee-clones.ts                   # clone budget, seamless loop growth, clone tabbability
+│   │   │   ├── marquee-panel.tsx                   # editor: Marquee inspector panel
+│   │   │   ├── marquee-pause.ts                    # hover/focus/press/modal pause wiring (is-paused class)
+│   │   │   ├── use-marquee-items.ts                # editor hook: item count, add/remove last item
 │   │   │   ├── index.test.ts
 │   │   │   ├── index.ts
 │   │   │   ├── init.ts                         # viewScript: click-to-populate the shared modal shell before modal-manager.ts's own document click listener opens it (both run synchronously within the same click event, so listener order doesn't matter)
@@ -797,6 +836,30 @@ kotlinskidev/
 │   │   │   ├── assets/
 │   │   │   ├── block.json
 │   │   │   ├── constants.ts
+│   │   │   ├── editor-layout.ts                    # editor slide-width CSS variables, palette normalisation, max-width units
+│   │   │   ├── responsive-sections.tsx             # Desktop/Tablet/Mobile inspector section wrappers
+│   │   │   ├── settings-autoplay.tsx               # inspector: autoplay, continuous autoplay, progress circle, time, smooth transition
+│   │   │   ├── settings-behavior.tsx               # inspector: scrollbar/loop/draggable and mousewheel/keyboard toggles
+│   │   │   ├── settings-blur.tsx                   # inspector: blur-other-slides toggle + amount
+│   │   │   ├── settings-centered.tsx               # inspector: centered slides, side peek, max slide width
+│   │   │   ├── settings-highlight.tsx              # inspector: equal height, active-slide highlight colour/strength
+│   │   │   ├── settings-navigation.tsx             # inspector: navigation, pagination, pagination style/placement
+│   │   │   ├── settings-panel.tsx                  # composes every settings-*.tsx group into the Settings panel
+│   │   │   ├── settings-responsive.tsx             # inspector: slides per view and spacing per breakpoint
+│   │   │   ├── slider-attributes.ts                # SliderAttributes + SliderSettingsProps types
+│   │   │   ├── slider-canvas.tsx                   # editor canvas: swiper wrapper, arrows, pagination dots, appender
+│   │   │   ├── slider-options.ts                   # SliderOptions: the data-swiper JSON the frontend parses
+│   │   │   ├── slider-toolbar.tsx                  # block toolbar "Add Slide" button
+│   │   │   ├── swiper-autoplay.ts                  # click pause/resume, progress circle, active-index resync on autoplay events
+│   │   │   ├── swiper-catch-up.ts                  # continuous autoplay: advance/wrap to nearest snap, catch-up animation to the next boundary
+│   │   │   ├── swiper-continuous-autoplay.ts       # continuous autoplay controller: hover/focus/press/modal/touch pause wiring, start-on-visible
+│   │   │   ├── swiper-pagination.ts                # pagination element wiring and re-render once the page has fully loaded
+│   │   │   ├── swiper-parameters.ts                # pure builder of the Swiper parameter object (breakpoints, spacing, speed, autoplay)
+│   │   │   ├── swiper-pause-state.ts               # continuous autoplay pause reasons and freeze/resume decision logic
+│   │   │   ├── swiper-stall-watchdog.ts            # restarts a continuous autoplay that stopped moving
+│   │   │   ├── swiper-translate.ts                 # reads/freezes the wrapper translate (including WebKit matrix3d)
+│   │   │   ├── use-active-slide.ts                 # editor hook: active slide index synced with the block selection
+│   │   │   ├── use-slider-inner-blocks-props.ts    # editor hook: InnerBlocks template and options for the slides
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes
 │   │   │   ├── edit.tsx
 │   │   │   ├── editor.scss
@@ -1048,6 +1111,7 @@ kotlinskidev/
 │   │   ├── dynamic-preview-blocks.ts           # DYNAMIC_PREVIEW_BLOCKS: PHP-only ServerSideRender blocks (city-grid, city-map) excluded from every sitewide unconditional attribute-injecting editor filter, since WP's block-renderer REST schema rejects any attribute the block's own PHP schema doesn't declare
 │   │   ├── nav-reveal-events.ts           # NAV_PANEL_OPEN_EVENT/NAV_PANEL_CLOSE_EVENT constants + dispatchNavPanelOpen()/dispatchNavPanelClose() CustomEvent helpers shared by hamburger.ts, mega-menu.ts, and scripts/nav-reveal.ts
 │   │   ├── panel-coordinator.ts                # registry: opening one panel closes all others
+│   │   ├── modal-trigger-events.ts             # onModalTriggerInside(): runs a handler on kt-modal:open/kt-modal:close when the trigger is inside a container (marquee, slider)
 │   │   ├── scroll-lock.ts                      # reference-counted documentElement scroll-lock
 │   │   └── storybook-edit-props.ts             # Storybook-only helpers: getDefaultAttributes()/buildEditProps() build story args from block.json; useInteractiveAttributes() wires setAttributes to useArgs() + logs via storybook/actions; RealBlockEdit renders a block through @wordpress/block-editor's real BlockEdit dispatcher (not the bare Edit function) — required for InspectorControls.Slot to show Fill content and for editor.BlockEdit filters to fire
 │   ├── admin-bar.ts                            # entry: imports admin-bar.scss only

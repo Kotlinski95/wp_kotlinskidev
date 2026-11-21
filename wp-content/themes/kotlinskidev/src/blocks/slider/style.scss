@@ -18,13 +18,11 @@
 	--swiper-pagination-bullet-vertical-gap: 0.25rem;
 	--swiper-pagination-bullet-size: 0.75rem;
 	--swiper-pagination-bullet-opacity: 1;
-	// Colours resolve from theme.json/theme-colors.scss tokens, not hardcoded.
 	--kt-slider-pagination-inactive: var(--color-text);
 	--kt-slider-pagination-active: var(--kt-text-gradient);
 	--swiper-pagination-bullet-inactive-color: var(--kt-slider-pagination-inactive);
 	--swiper-pagination-bullet-inactive-opacity: 0.35;
 
-	// Overrides site-wide Swiper defaults — active state needs gradient support.
 	.swiper-pagination-bullet {
 		background: var(--kt-slider-pagination-inactive);
 		opacity: var(--swiper-pagination-bullet-inactive-opacity);

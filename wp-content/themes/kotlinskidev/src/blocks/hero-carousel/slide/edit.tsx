@@ -2,29 +2,13 @@ import React from "react";
 import {
   useBlockProps,
   InnerBlocks,
-  InspectorControls,
-  MediaUpload,
-  MediaUploadCheck,
   __experimentalGetSpacingClassesAndStyles as getSpacingClassesAndStyles,
 } from "@wordpress/block-editor";
-import { PanelBody, RangeControl, Button } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+import { BackgroundPanel, DEFAULT_OVERLAY_OPACITY } from "./background-panel";
+import type { HeroSlideEditProps } from "./slide-attributes";
 
-export interface HeroSlideAttributes {
-  bgImageUrl: string;
-  bgImageId: number;
-  bgVideoUrl: string;
-  bgVideoId: number;
-  bgVideoAlphaUrl: string;
-  bgVideoAlphaId: number;
-  bgOverlay: number;
-  style?: { spacing?: Record<string, unknown> };
-}
-
-interface WPMediaItem {
-  id: number;
-  url: string;
-}
+export type { HeroSlideAttributes } from "./slide-attributes";
 
 const SLIDE_TEMPLATE = [
   ["core/heading", { level: 2, placeholder: "Slide Heading" }],
@@ -32,167 +16,45 @@ const SLIDE_TEMPLATE = [
   ["core/buttons", {}, [["core/button", { text: "Learn More" }]]],
 ];
 
-export default function Edit({
-  attributes,
-  setAttributes,
+const SlideBackground = ({
+  bgImageUrl,
+  bgVideoUrl,
 }: {
-  attributes: HeroSlideAttributes;
-  setAttributes: (attrs: Partial<HeroSlideAttributes>) => void;
-}) {
-  const {
-    bgImageUrl,
-    bgImageId,
-    bgVideoUrl,
-    bgVideoId,
-    bgVideoAlphaUrl,
-    bgVideoAlphaId,
-    bgOverlay = 0.4,
-  } = attributes;
+  bgImageUrl: string;
+  bgVideoUrl: string;
+}) => {
+  if (!bgImageUrl) {
+    return (
+      <div className="hero-carousel__bg hero-carousel__bg--empty">
+        <span>{__("Set a background image in the sidebar.", "kotlinskidev")}</span>
+      </div>
+    );
+  }
+  return (
+    <div className="hero-carousel__bg">
+      {bgVideoUrl ? (
+        <video src={bgVideoUrl} muted autoPlay loop playsInline />
+      ) : (
+        <img src={bgImageUrl} alt="" />
+      )}
+      <div className="hero-carousel__overlay" />
+    </div>
+  );
+};
+
+export default function Edit({ attributes, setAttributes }: HeroSlideEditProps) {
+  const { bgImageUrl, bgVideoUrl, bgOverlay = DEFAULT_OVERLAY_OPACITY } = attributes;
   const contentSpacingStyle = getSpacingClassesAndStyles(attributes).style;
 
   return (
     <>
-      <InspectorControls>
-        <PanelBody title={__("Background", "kotlinskidev")} initialOpen>
-          <MediaUploadCheck>
-            <p className="hero-carousel-sidebar-label">{__("Background Image", "kotlinskidev")}</p>
-            <MediaUpload
-              onSelect={(item) => {
-                const media = item as WPMediaItem;
-                setAttributes({ bgImageUrl: media.url, bgImageId: media.id });
-              }}
-              allowedTypes={["image"]}
-              value={bgImageId || undefined}
-              render={({ open }) => (
-                <Button
-                  variant={bgImageUrl ? "secondary" : "primary"}
-                  onClick={open}
-                  style={{ width: "100%", justifyContent: "center" }}
-                >
-                  {bgImageUrl
-                    ? __("Change Image", "kotlinskidev")
-                    : __("Set Image", "kotlinskidev")}
-                </Button>
-              )}
-            />
-            {bgImageUrl && (
-              <Button
-                variant="tertiary"
-                isDestructive
-                onClick={() => setAttributes({ bgImageUrl: "", bgImageId: 0 })}
-                style={{ width: "100%", justifyContent: "center", marginTop: "0.25rem" }}
-              >
-                {__("Remove Image", "kotlinskidev")}
-              </Button>
-            )}
-
-            <p className="hero-carousel-sidebar-label" style={{ marginTop: "0.75rem" }}>
-              {__("Background Video (optional)", "kotlinskidev")}
-            </p>
-            <MediaUpload
-              onSelect={(item) => {
-                const media = item as WPMediaItem;
-                setAttributes({ bgVideoUrl: media.url, bgVideoId: media.id });
-              }}
-              allowedTypes={["video"]}
-              value={bgVideoId || undefined}
-              render={({ open }) => (
-                <Button
-                  variant={bgVideoUrl ? "secondary" : "tertiary"}
-                  onClick={open}
-                  style={{ width: "100%", justifyContent: "center" }}
-                >
-                  {bgVideoUrl
-                    ? __("Change Video", "kotlinskidev")
-                    : __("Set Video", "kotlinskidev")}
-                </Button>
-              )}
-            />
-            {bgVideoUrl && (
-              <Button
-                variant="tertiary"
-                isDestructive
-                onClick={() => setAttributes({ bgVideoUrl: "", bgVideoId: 0 })}
-                style={{ width: "100%", justifyContent: "center", marginTop: "0.25rem" }}
-              >
-                {__("Remove Video", "kotlinskidev")}
-              </Button>
-            )}
-
-            {bgVideoUrl && (
-              <>
-                <p className="hero-carousel-sidebar-label" style={{ marginTop: "0.75rem" }}>
-                  {__("Video for Safari/iOS (HEVC with alpha)", "kotlinskidev")}
-                </p>
-                <MediaUpload
-                  onSelect={(item) => {
-                    const media = item as WPMediaItem;
-                    setAttributes({ bgVideoAlphaUrl: media.url, bgVideoAlphaId: media.id });
-                  }}
-                  allowedTypes={["video"]}
-                  value={bgVideoAlphaId || undefined}
-                  render={({ open }) => (
-                    <Button
-                      variant={bgVideoAlphaUrl ? "secondary" : "tertiary"}
-                      onClick={open}
-                      style={{ width: "100%", justifyContent: "center" }}
-                    >
-                      {bgVideoAlphaUrl
-                        ? __("Change Safari/iOS Video", "kotlinskidev")
-                        : __("Set Safari/iOS Video", "kotlinskidev")}
-                    </Button>
-                  )}
-                />
-                <p className="components-base-control__help">
-                  {__(
-                    "Optional. Safari and iOS ignore the transparency of WebM videos. Upload an HEVC .mov/.mp4 with an alpha channel to use there instead.",
-                    "kotlinskidev"
-                  )}
-                </p>
-                {bgVideoAlphaUrl && (
-                  <Button
-                    variant="tertiary"
-                    isDestructive
-                    onClick={() => setAttributes({ bgVideoAlphaUrl: "", bgVideoAlphaId: 0 })}
-                    style={{ width: "100%", justifyContent: "center", marginTop: "0.25rem" }}
-                  >
-                    {__("Remove Safari/iOS Video", "kotlinskidev")}
-                  </Button>
-                )}
-              </>
-            )}
-          </MediaUploadCheck>
-
-          <RangeControl
-            label={__("Overlay Opacity", "kotlinskidev")}
-            value={bgOverlay}
-            onChange={(value) => setAttributes({ bgOverlay: value ?? 0.4 })}
-            min={0}
-            max={1}
-            step={0.05}
-            style={{ marginTop: "0.75rem" }}
-          />
-        </PanelBody>
-      </InspectorControls>
+      <BackgroundPanel attributes={attributes} setAttributes={setAttributes} />
 
       <div
         {...useBlockProps({ className: "hero-carousel__slide" })}
         style={{ "--overlay-opacity": bgOverlay } as React.CSSProperties}
       >
-        {bgImageUrl ? (
-          <div className="hero-carousel__bg">
-            {bgVideoUrl ? (
-              <video src={bgVideoUrl} muted autoPlay loop playsInline />
-            ) : (
-              <img src={bgImageUrl} alt="" />
-            )}
-            <div className="hero-carousel__overlay" />
-          </div>
-        ) : (
-          <div className="hero-carousel__bg hero-carousel__bg--empty">
-            <span>{__("Set a background image in the sidebar.", "kotlinskidev")}</span>
-          </div>
-        )}
+        <SlideBackground bgImageUrl={bgImageUrl} bgVideoUrl={bgVideoUrl} />
         <div className="hero-carousel__content" style={contentSpacingStyle as React.CSSProperties}>
           <InnerBlocks template={SLIDE_TEMPLATE as [string, object][]} />
         </div>

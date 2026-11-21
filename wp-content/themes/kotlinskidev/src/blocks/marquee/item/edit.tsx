@@ -18,6 +18,14 @@ interface ModalPost {
   title: { rendered: string };
 }
 
+interface CoreDataSelectors {
+  getEntityRecords: (
+    kind: string,
+    name: string,
+    query: Record<string, unknown>
+  ) => ModalPost[] | null;
+}
+
 type InnerTemplate = [string, Record<string, unknown>, InnerTemplate[]?];
 
 const ITEM_TEMPLATE: InnerTemplate[] = [
@@ -37,6 +45,20 @@ const ITEM_TEMPLATE: InnerTemplate[] = [
   ],
 ];
 
+const buildModalOptions = (modals: ModalPost[] | null) => [
+  {
+    label:
+      modals === null
+        ? __("Loading…", "kotlinskidev")
+        : __("— None (not clickable) —", "kotlinskidev"),
+    value: 0,
+  },
+  ...(modals ?? []).map((post) => ({
+    label: post.title.rendered || String(post.id),
+    value: post.id,
+  })),
+];
+
 export default function Edit({ attributes, setAttributes }: MarqueeItemEditProps) {
   const { modalId } = attributes;
   const blockProps = useBlockProps({ className: "kt-marquee-item-editor" });
@@ -44,26 +66,16 @@ export default function Edit({ attributes, setAttributes }: MarqueeItemEditProps
     template: ITEM_TEMPLATE,
   });
 
-  const modals = useSelect((select) => {
-    return (select("core") as any).getEntityRecords("postType", "kt_modal", {
-      per_page: 100,
-      status: "publish",
-    }) as ModalPost[] | null;
-  }, []);
+  const modals = useSelect(
+    (select) =>
+      (select("core") as unknown as CoreDataSelectors).getEntityRecords("postType", "kt_modal", {
+        per_page: 100,
+        status: "publish",
+      }),
+    []
+  );
 
-  const modalOptions = [
-    {
-      label:
-        modals === null
-          ? __("Loading…", "kotlinskidev")
-          : __("— None (not clickable) —", "kotlinskidev"),
-      value: 0,
-    },
-    ...(modals ?? []).map((post) => ({
-      label: post.title.rendered || String(post.id),
-      value: post.id,
-    })),
-  ];
+  const modalOptions = buildModalOptions(modals);
 
   return (
     <>

@@ -53,3 +53,17 @@ Do not add inline or block comments. Types and function signatures must be self-
 ## Frontend Script State Shared Across Bundles
 
 - `beginProgrammaticScroll()` / `isProgrammaticScrollActive()` in `src/scripts/utils.ts` keep their flag on `window.kotlinskidevProgrammaticScrollActive`, not in a module variable: separate bundles and chunks have no guaranteed shared module scope (confirmed live: a closure-variable version had no effect). Keep any cross-bundle flag on `window` with a typed `Window` augmentation.
+
+## Slider Continuous Autoplay and Marquee Constraints
+
+Facts that used to live as comments in `src/blocks/slider/` and `src/blocks/marquee/`; each one was found by reproducing a live bug, not assumed.
+
+- `readTranslateXAcceptingWebKitMatrix3d()`: WebKit (Safari/iOS) reports `translate3d()` as `matrix3d()` with x at index 12, not 4; reading index 4 snapped the carousel back to its start on release.
+- `advanceOrWrapToNearestSnap()`: `isEnd`/`isBeginning` can go permanently (or transiently) true under `continuousAutoplay` + `loop`. Only a real `slideNext()`/`slidePrev()` failure (`=== false`; `loopFix()` does not help) is trusted, then the track wraps to the nearest matching snap, not index 0 (index 0 caused a full-track reverse at every crossing).
+- `animateCatchUpThenAdvance()` animates the raw translate instead of calling `slideTo()`/`slideNext()` with a short duration, which can show a one-frame reindex jump near a grid line; the real `slideNext()` only fires once the catch-up transition ends.
+- `STALL_GRACE_AFTER_MOTIONLESS_MS` is a fixed grace period: `lastProgressAt` only starts once the translate is already motionless, so waiting a full `speed` again produced a multi-second freeze at every loop-boundary snap.
+- `startStallWatchdog()`: FreeMode drives translate/transition state outside Swiper's slide-transition machinery, so `animating`/`autoplay.paused` can stay true forever (`transitionend` never fires); freeze-and-restart via `advanceOrWrapToNearestSnap()` recovers both that stall and the permanent `isEnd` deadlock.
+- Modal close (`onModalTriggerInside(..., "kt-modal:close", ...)`): `modal-manager.ts` refocuses the trigger before dispatching `kt-modal:close`, which would leave `focused` stuck true (no `focusout` ever comes) and block the resume, so the handler clears `focused`.
+- The scroll listener in `swiper-continuous-autoplay.ts` and `marquee-pause.ts` is defense-in-depth: it resumes a paused ticker when no genuine hover/press/modal reason is left.
+- Touch release: Chrome's touch-from-mouse emulation fires a real `mouseenter` with no `mouseleave`, so a touch release clears `hovered`; a drag past Swiper's 200 ms `sliderFirstMove` threshold force-resumes autoplay via FreeMode's `_freeModeStaticRelease` for any pointer type, so the pause is reasserted in the release handler; Swiper's own `touchEnd` does not reliably fire before the `pointerup` listener, so the drag-end position is captured there directly.
+- Marquee `growUntilWideEnoughToLoopSeamlessly()`: enough full repeats must be rendered that the track never runs out mid-shift (a short item list in a wide container leaves a growing blank gap; the reference marquee repeats its set 5x for the same reason). `LifetimeCloneBudget` is shared by the initial measurement and every later resize top-up; a per-call cap would let total clones grow without bound across repeated resize events.

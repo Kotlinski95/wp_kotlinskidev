@@ -95,10 +95,19 @@ Model routing:
 
 Measured across `src/blocks`: 50 TS comment lines, 38 `any`, about 16 files over 300 lines, concentrated in a few blocks; `render.php` files have no explanatory comments and `feature-card-canvas/variants` (47 drawing files) has none either. The original 13-batch split was by size, not by work, so it is replaced by 3 batches grouped by risk and shared code. Static `save.tsx` output, `block.json`, `deprecated` and attribute names are frozen in every batch; proof is `npm run editor:check` plus the usual DOM and interaction probes (see "Block proof tooling").
 
-- B4.1 Carousels, galleries and tabs: `slider` (736-line `edit.tsx`, 703-line `swiper-init.ts`, 10 comments), `gallery-lightbox` (5 `any`, 2 big files), `hero-carousel` (2 big files), `banner-carousel`, `marquee` (4 comments), `content-tabs`.
+- B4.1 (done) Carousels, galleries and tabs: `slider` (736-line `edit.tsx`, 703-line `swiper-init.ts`, 10 comments), `gallery-lightbox` (5 `any`, 2 big files), `hero-carousel` (2 big files), `banner-carousel`, `marquee` (4 comments), `content-tabs`.
 - B4.2 Responsive family and cross-cutting controls: `responsive-display` (6 `any`), `responsive-order` (4 `any`), `responsive-width`, `-height`, `-spacing`, `-font-size`, `hover-animation-controls`, `background-effects-controls`, `scroll-animations`, `nav-reveal-animation`, `animated-counter`, `slider-modal-trigger`, `modal-trigger`, `content-block`, `protected-content`; the shared panel and attribute logic across the `responsive-*` blocks is the DRY target. The cross-cutting filters keep excluding the `DYNAMIC_PREVIEW_BLOCKS` list.
 - B4.3 Navigation, forms and the rest: `navigation`, `nav-content`, `contact-form`, `google-maps`, `feature-card-canvas` (non-variant files: 12 comments, `runtime.ts` 450 lines; the drawing `variants/` stay untouched), `pricing-cards`, `model-viewer`, `image-hover-overlay`, `above-fold`.
 - Dropped as not worth the risk: splitting `feature-card-canvas/variants/*.ts` (drawing math; none have comments or `any`), and the dynamic list blocks (80-line PHP renderers already clean).
+
+### Follow-ups from B4.1
+
+- `kotlinskiTheme.breakpoints.mobile_max` and `mobileBreakpoint` are two competing names read in `gallery-lightbox/gallery-data.ts`.
+- `banner-carousel/init.ts` selects every `[data-carousel-settings]` element, including hero-carousel roots, so hero pages also run the banner init.
+- `parseSettings` is duplicated in `hero-swiper.ts` and `banner-carousel/init.ts`; a shared helper is possible.
+- The slider probe needs `reducedMotion: "no-preference"` to exercise continuous autoplay.
+- 3 e2e specs fail on unmodified code too (`content-tabs.spec.ts:133`, `editor/content-tabs.spec.ts:220`, `marquee-modal-scroll-jump.spec.ts:54`).
+- `hero-carousel/style.scss` (422 lines) and `content-tabs/style.scss` (304 lines) are left whole for Phase 5.
 
 ## Phase 5: Styles and patterns
 

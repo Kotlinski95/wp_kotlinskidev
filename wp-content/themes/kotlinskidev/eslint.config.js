@@ -86,7 +86,7 @@ module.exports = [
     // insertAdjacentHTML content already runs through this file's own
     // escapeAttribute() helper before interpolation; the rule can't see custom
     // sanitizer functions.
-    files: ["src/blocks/gallery-lightbox/init.ts"],
+    files: ["src/blocks/gallery-lightbox/lightbox-modal.ts"],
     rules: {
       "no-unsanitized/method": "off",
     },
