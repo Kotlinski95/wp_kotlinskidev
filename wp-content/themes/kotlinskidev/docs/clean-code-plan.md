@@ -91,23 +91,14 @@ Model routing:
 
 `npm run editor:baseline` / `npm run editor:check` (`bin/editor-validity.mjs`, specs `tests/e2e/editor/content-validity.spec.ts` and `patterns-validity.spec.ts`): opens every published page and post and every block pattern in the real block editor, fails on a NEW "Block contains unexpected or invalid content" warning or editor `pageerror`. Baseline on unmodified code (2026-11-21): 17 of 68 stored pages (18, 1041, 1044, 1046, 1048, 1050, 1056, 1059, 1061, 1063, 1065, 10081, 10082, 10083, 10158, 10159, 10160) and 1 of 75 patterns (`kotlinskidev/testimonial-grid`) already report an invalid block (mostly `core/cover` blocks; page 18 has a malformed nested `<p><p class="kt-offer">` in the pricing section). These are pre-existing content problems worth fixing separately, not regressions.
 
-## Phase 4: Blocks (`src/blocks`, 42k lines)
+## Phase 4: Blocks (re-scoped from measurements on 2026-11-21)
 
-Static `save.tsx` output is frozen in every batch.
+Measured across `src/blocks`: 50 TS comment lines, 38 `any`, about 16 files over 300 lines, concentrated in a few blocks; `render.php` files have no explanatory comments and `feature-card-canvas/variants` (47 drawing files) has none either. The original 13-batch split was by size, not by work, so it is replaced by 3 batches grouped by risk and shared code. Static `save.tsx` output, `block.json`, `deprecated` and attribute names are frozen in every batch; proof is `npm run editor:check` plus the usual DOM and interaction probes (see "Block proof tooling").
 
-- B4.1 `feature-card-canvas` runtime, geometry and shared helpers
-- B4.2 `feature-card-canvas/variants` — names, small functions and comments only; drawing math stays as is
-- B4.3 `slider`
-- B4.4 `hero-carousel`, `banner-carousel`
-- B4.5 `content-tabs`, `gallery-lightbox`
-- B4.6 `navigation` and all `nav-*` blocks
-- B4.7 `contact-form`, `contact-card`, `contact-detail`, `google-maps`, `model-viewer`
-- B4.8 `article-toc`, `device-frame`, `marquee`, `scroll-section`, `scroll-section-pin-boundary`
-- B4.9 **[plan first]** Responsive control family: `responsive-display`, `-font-size`, `-height`, `-width`, `-spacing`, `-order`, `-grid-columns`, `-image`, `-media` — shared panel/attribute logic is the main DRY opportunity
-- B4.10 Cross-cutting style controls: `hover-animation-controls`, `background-effects-controls`, `bg-effect-preset-settings`, `text-gradient`, `border-gradient`, `text-shadow-support`, `link-hover-effects`, `position-z-index-controls`, `custom-css-vars`, `image-filter-color`, `clip-to-radius`, `overlay-link-controls`, `text-justify-controls`, `text-line-clamp`, `blur-siblings`, `equal-height-columns`
-- B4.11 Dynamic list blocks: `*-posts-grid-dynamic`, `related-articles-dynamic`, `other-topics-dynamic`, `popular-*`, `recently-viewed-dynamic`, `certificates-grid-dynamic`, `blog-topics-grid-dynamic`, `search-*-dynamic`, `category-header-dynamic`, `article-tags-dynamic`, `not-found-dynamic` (near-identical 80-line blocks: DRY candidate)
-- B4.12 Remaining blocks A–M
-- B4.13 Remaining blocks N–Z, plus `shared/`
+- B4.1 Carousels, galleries and tabs: `slider` (736-line `edit.tsx`, 703-line `swiper-init.ts`, 10 comments), `gallery-lightbox` (5 `any`, 2 big files), `hero-carousel` (2 big files), `banner-carousel`, `marquee` (4 comments), `content-tabs`.
+- B4.2 Responsive family and cross-cutting controls: `responsive-display` (6 `any`), `responsive-order` (4 `any`), `responsive-width`, `-height`, `-spacing`, `-font-size`, `hover-animation-controls`, `background-effects-controls`, `scroll-animations`, `nav-reveal-animation`, `animated-counter`, `slider-modal-trigger`, `modal-trigger`, `content-block`, `protected-content`; the shared panel and attribute logic across the `responsive-*` blocks is the DRY target. The cross-cutting filters keep excluding the `DYNAMIC_PREVIEW_BLOCKS` list.
+- B4.3 Navigation, forms and the rest: `navigation`, `nav-content`, `contact-form`, `google-maps`, `feature-card-canvas` (non-variant files: 12 comments, `runtime.ts` 450 lines; the drawing `variants/` stay untouched), `pricing-cards`, `model-viewer`, `image-hover-overlay`, `above-fold`.
+- Dropped as not worth the risk: splitting `feature-card-canvas/variants/*.ts` (drawing math; none have comments or `any`), and the dynamic list blocks (80-line PHP renderers already clean).
 
 ## Phase 5: Styles and patterns
 
