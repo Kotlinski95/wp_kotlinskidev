@@ -122,7 +122,7 @@ Measured across `src/blocks`: 50 TS comment lines, 38 `any`, about 16 files over
 
 ## Phase 5: Styles and patterns
 
-- B5.1 `src/styles` A–M (BEM names, mixins for repeated declarations, no comments)
+- B5.1 (done) `src/styles` A–M: only 8 comments existed and were removed; BEM renames and mixins skipped because class names are frozen contracts and compiled CSS must stay byte-identical
 - B5.2 `src/styles` N–Z
 - B5.3 Block `style.scss` / `editor.scss` files not touched in Phase 4
 - B5.4 `patterns/`, `templates/`, `parts/` — comments and PHP helper names only; content and slugs frozen

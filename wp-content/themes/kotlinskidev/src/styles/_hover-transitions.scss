@@ -1,4 +1,3 @@
-// Each utility sets only the properties it owns, so these effects can coexist.
 @mixin compose {
 	transition-property: transform, background, color, border-color, opacity, box-shadow, filter;
 	transition-duration: var(--kt-hover-transform-duration, 0s), var(--kt-hover-color-duration, 0s), var(--kt-hover-color-duration, 0s), var(--kt-hover-color-duration, 0s), var(--kt-hover-opacity-duration, 0s), var(--kt-hover-shadow-duration, 0s), var(--kt-hover-filter-duration, 0s);
