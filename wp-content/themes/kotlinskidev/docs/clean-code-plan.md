@@ -125,7 +125,7 @@ Measured across `src/blocks`: 50 TS comment lines, 38 `any`, about 16 files over
 - B5.1 (done) `src/styles` A–M: only 8 comments existed and were removed; BEM renames and mixins skipped because class names are frozen contracts and compiled CSS must stay byte-identical
 - B5.2 (done) `src/styles` N–Z: comments removed, CSS byte-identical
 - B5.3 (done) Block `style.scss` / `editor.scss`: only `protected-content` had comments, removed
-- B5.4 `patterns/`, `templates/`, `parts/` — comments and PHP helper names only; content and slugs frozen
+- B5.4 (done, no change needed) `patterns/`, `templates/`, `parts/`: only pattern file headers, one `phpcs:ignore` directive and one template HTML comment exist; all frozen
 
 ## Out of scope
 
