@@ -133,6 +133,8 @@ kotlinskidev/
 │   ├── marquee.php                             # prints the single shared kt-modal-marquee shell in wp_footer for kotlinskidev/marquee (src/blocks/marquee/) — an empty title/body populated client-side per click, kept outside any transformed ancestor
 │   ├── modals.php                              # kt_modal CPT + size meta, resolves/dedupes/renders modal shells for any link with opensInModal+modalId, wp_footer
 │   ├── model-viewer-mime.php                   # allows .glb uploads (model/gltf-binary), overrides finfo's mismatch verdict via wp_check_filetype_and_ext
+│   ├── navigation-render.php                   # loader that requires the navigation-render/ files in order (required from functions.php)
+│   ├── navigation-render/                      # kotlinskidev_render_navigation_block() and its overlay/list/bar/mega mode renderers (src/blocks/navigation/render.php only echoes it): link-styles, overlay-mode, list-mode, bar-mode, mega-parse, mega-mode and templates/mega-nav.php (the mega menu markup)
 │   ├── nav-reveal-render.php                   # render_block filter for core/navigation-link/-submenu, kotlinskidev/nav-*, kotlinskidev/button, kotlinskidev/social-section — reads navRevealAnimation/navRevealDelay/navRevealTranslate off $block['attrs'] and injects the class + --reveal-delay inline style via WP_HTML_Tag_Processor onto the block's own root tag (these are dynamic PHP-rendered blocks, so the editor-side blocks.getSaveContent.extraProps filter never reaches their frontend output). search-panel/language-panel are deliberately excluded here — they need the class on their *inner* .kt-search-panel__modal/.kt-lang-panel__modal div, not their outer wrapper, so they call the exported kotlinskidev_nav_reveal_class_and_style() helper directly from their own render.php instead. Also exports kotlinskidev_stagger_reveal_items(\$html, \$animation, \$class_markers, \$step=60) — walks every tag via WP_HTML_Tag_Processor and auto-staggers, in one continuous document-order sequence, every tag whose class list contains an EXACT token match for ANY of \$class_markers (not substring — "wp-block-navigation-item" must not also match the BEM child "wp-block-navigation-item__content"); used by search-panel/language-panel render.php to stagger their whole auto-generated content (search form, "Frequently visited pages" title, each popular-pages link / each language option) in one pass, no per-item editor config needed
 │   ├── offers.php                              # loader that requires the offers/ files in order (init, save_post_kt_offer, render_block, rest_api_init, admin_notices, admin_bar_menu, wpseo_schema_graph and pll_copy_post_metas hook order depends on it)
 │   ├── offers/                                 # kt_offer CPT (one post per service per language; offer_key/currency/is_placeholder/variants meta, Polylang-translatable) + per-language cached offer map, render_block filter resolving Offer-format spans to EUR/PLN price/duration text ('Price on request' for visitors while is_placeholder), REST routes for the editor, admin placeholder notice/admin-bar node, Yoast schema pieces
@@ -669,7 +671,13 @@ kotlinskidev/
 │   │   │   ├── render.php
 │   │   │   └── index.stories.tsx               # Storybook: Default (mock image via mock-assets.ts) + Empty (placeholder state)
 │   │   ├── nav-content/                        # shared editor bundle for nav-banner/image/link/paragraph — all 4 Edit components + attribute interfaces now exported so each block's own folder can import and story them independently
-│   │   │   └── index.tsx
+│   │   │   ├── index.tsx                       # registers the four nav-* blocks and re-exports their Edit components and attribute types
+│   │   │   ├── editor-controls.tsx
+│   │   │   ├── nav-paragraph-edit.tsx
+│   │   │   ├── nav-image-edit.tsx
+│   │   │   ├── nav-banner-edit.tsx
+│   │   │   ├── nav-link-edit.tsx
+│   │   │   └── types.ts
 │   │   ├── nav-image/                          # nav-scoped: plain (optionally linked) image
 │   │   │   ├── block.json
 │   │   │   ├── render.php
@@ -704,6 +712,9 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   ├── bar-background.ts                # palette slug <-> colour mapping for the bar "Bar background while loading" control (barSolidBackground)
 │   │   │   ├── bar-background.test.ts
+│   │   │   ├── navigation-options.ts           # select option lists + visibility class map
+│   │   │   ├── navigation-panels.tsx           # NavigationPanel and BlurPanel inspector panels
+│   │   │   ├── navigation-types.ts             # NavigationAttributes and option unions
 │   │   │   ├── nav-icon-filter.tsx
 │   │   │   └── render.php
 │   │   ├── not-found-dynamic/                  # dynamic block (render.php, ServerSideRender preview, no attributes) rendering the 404 hero — inline SVG 404 graphic (gradient numerals, window frame, fixed viewBox), one h1.kt-not-found__title, message paragraph and a wp-block-button homepage link — with msgids translated at request time (not frozen by the pattern cache); placed in templates/404.html above popular-content-dynamic; styled by src/styles/not-found.scss

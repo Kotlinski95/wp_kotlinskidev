@@ -54,6 +54,7 @@ require_once get_template_directory() . '/includes/i18n.php';
 
 // Register custom blocks via block.json
 require_once get_template_directory() . '/functions/blocks.php';
+require_once get_template_directory() . '/functions/navigation-render.php';
 
 // Register core/button style variants (Fill/Outline/Gradient Outline x light/dark/adaptive/adaptive-contrast)
 require_once get_template_directory() . '/functions/button-style-variants.php';

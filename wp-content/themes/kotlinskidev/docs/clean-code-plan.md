@@ -97,7 +97,7 @@ Measured across `src/blocks`: 50 TS comment lines, 38 `any`, about 16 files over
 
 - B4.1 (done) Carousels, galleries and tabs: `slider` (736-line `edit.tsx`, 703-line `swiper-init.ts`, 10 comments), `gallery-lightbox` (5 `any`, 2 big files), `hero-carousel` (2 big files), `banner-carousel`, `marquee` (4 comments), `content-tabs`.
 - B4.2 (done) Responsive family and cross-cutting controls: `responsive-display` (6 `any`), `responsive-order` (4 `any`), `responsive-width`, `-height`, `-spacing`, `-font-size`, `hover-animation-controls`, `background-effects-controls`, `scroll-animations`, `nav-reveal-animation`, `animated-counter`, `slider-modal-trigger`, `modal-trigger`, `content-block`, `protected-content`; the shared panel and attribute logic across the `responsive-*` blocks is the DRY target. The cross-cutting filters keep excluding the `DYNAMIC_PREVIEW_BLOCKS` list.
-- B4.3 Navigation, forms and the rest: `navigation`, `nav-content`, `contact-form`, `google-maps`, `feature-card-canvas` (non-variant files: 12 comments, `runtime.ts` 450 lines; the drawing `variants/` stay untouched), `pricing-cards`, `model-viewer`, `image-hover-overlay`, `above-fold`.
+- B4.3 (done except `feature-card-canvas/runtime.ts` split: needs ~200 byte budget raise in bin/asset-budget.json, saved at /tmp/probe-b43/fcc-runtime-split/) Navigation, forms and the rest: `navigation`, `nav-content`, `contact-form`, `google-maps`, `feature-card-canvas` (non-variant files: 12 comments, `runtime.ts` 450 lines; the drawing `variants/` stay untouched), `pricing-cards`, `model-viewer`, `image-hover-overlay`, `above-fold`.
 - Dropped as not worth the risk: splitting `feature-card-canvas/variants/*.ts` (drawing math; none have comments or `any`), and the dynamic list blocks (80-line PHP renderers already clean).
 
 ### Follow-ups from B4.1
@@ -108,6 +108,11 @@ Measured across `src/blocks`: 50 TS comment lines, 38 `any`, about 16 files over
 - The slider probe needs `reducedMotion: "no-preference"` to exercise continuous autoplay.
 - 3 e2e specs fail on unmodified code too (`content-tabs.spec.ts:133`, `editor/content-tabs.spec.ts:220`, `marquee-modal-scroll-jump.spec.ts:54`).
 - `hero-carousel/style.scss` (422 lines) and `content-tabs/style.scss` (304 lines) are left whole for Phase 5.
+
+### Follow-ups from B4.3
+
+- B4.4: about 45 editor-only functions over 40 lines remain (button/edit, scroll-section/edit, certificate/panel, service-location/panel, canvas-background controls and layer edits, simple-grid/edit, blog-topics, language-panel, city-grid); measure with the fnlen ESLint config.
+- Decide the feature-card-canvas runtime budget; tidy the react-hooks warning in `google-maps/use-google-map.ts`.
 
 ### Follow-ups from B4.2
 

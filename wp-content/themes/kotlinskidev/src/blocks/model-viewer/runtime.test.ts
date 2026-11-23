@@ -21,6 +21,11 @@ let mockClipActionSpy: jest.Mock;
 
 let mockFindByName: jest.Mock;
 
+interface FakeSceneObject {
+  isMesh: boolean;
+  material: unknown;
+}
+
 jest.mock("three", () => {
   class MockVector3 {
     x = 0;
@@ -107,9 +112,8 @@ import {
   computeReducedMotionTargetTime,
   getSettleDeadline,
   hasDragged,
-  findScreenMaterial,
-  renderScreenTextCanvas,
-} from "./runtime";
+} from "./playback";
+import { findScreenMaterial, renderScreenTextCanvas } from "./screen-text";
 import * as THREE from "three";
 
 function tap(button: HTMLElement, x = 10, y = 10): void {
@@ -145,16 +149,16 @@ afterEach(() => {
 
 describe("model-viewer/runtime.ts — pure helpers", () => {
   it("resolveClip finds a clip by exact name", () => {
-    const clips = [{ name: "open" }, { name: "other" }] as any;
+    const clips = [{ name: "open" }, { name: "other" }] as unknown as THREE.AnimationClip[];
     (require("three").AnimationClip.findByName as jest.Mock) = jest.fn(
-      (list, name) => list.find((c: any) => c.name === name) ?? null
+      (list, name) => list.find((c: { name: string }) => c.name === name) ?? null
     );
 
     expect(resolveClip(clips, "open")).toBe(clips[0]);
   });
 
   it("resolveClip falls back to the first clip when the named clip isn't found", () => {
-    const clips = [{ name: "a" }, { name: "b" }] as any;
+    const clips = [{ name: "a" }, { name: "b" }] as unknown as THREE.AnimationClip[];
     (require("three").AnimationClip.findByName as jest.Mock) = jest.fn(() => null);
 
     expect(resolveClip(clips, "missing")).toBe(clips[0]);
@@ -179,16 +183,16 @@ describe("model-viewer/runtime.ts — pure helpers", () => {
   });
 
   it("hasDragged is false for a tiny movement under the threshold", () => {
-    expect(hasDragged(10, 10, 12, 11)).toBe(false);
+    expect(hasDragged({ x: 10, y: 10 }, { x: 12, y: 11 })).toBe(false);
   });
 
   it("hasDragged is true once movement exceeds the threshold", () => {
-    expect(hasDragged(10, 10, 40, 10)).toBe(true);
+    expect(hasDragged({ x: 10, y: 10 }, { x: 40, y: 10 })).toBe(true);
   });
 
   it("findScreenMaterial returns null when no mesh has an emissive map", () => {
     const root = {
-      traverse: (cb: (obj: any) => void) => {
+      traverse: (cb: (obj: FakeSceneObject) => void) => {
         cb({ isMesh: true, material: { emissiveMap: null } });
       },
     } as unknown as THREE.Object3D;
@@ -200,7 +204,7 @@ describe("model-viewer/runtime.ts — pure helpers", () => {
     const dim = { emissiveMap: {}, emissiveIntensity: 1 };
     const bright = { emissiveMap: {}, emissiveIntensity: 8 };
     const root = {
-      traverse: (cb: (obj: any) => void) => {
+      traverse: (cb: (obj: FakeSceneObject) => void) => {
         cb({ isMesh: true, material: dim });
         cb({ isMesh: true, material: bright });
         cb({ isMesh: false, material: { emissiveMap: {}, emissiveIntensity: 99 } });
@@ -213,7 +217,7 @@ describe("model-viewer/runtime.ts — pure helpers", () => {
   it("findScreenMaterial checks every material on a multi-material mesh", () => {
     const bright = { emissiveMap: {}, emissiveIntensity: 5 };
     const root = {
-      traverse: (cb: (obj: any) => void) => {
+      traverse: (cb: (obj: FakeSceneObject) => void) => {
         cb({ isMesh: true, material: [{ emissiveMap: null }, bright] });
       },
     } as unknown as THREE.Object3D;
@@ -236,7 +240,9 @@ describe("model-viewer/runtime.ts — mountModelViewer click wiring", () => {
     jest.clearAllMocks();
     mockMixerUpdate = jest.fn();
     mockClipActionSpy = jest.fn();
-    mockFindByName = jest.fn((clips: any[], name: string) => clips.find((c) => c.name === name));
+    mockFindByName = jest.fn((clips: Array<{ name: string }>, name: string) =>
+      clips.find((c) => c.name === name)
+    );
     mockAction = {
       play: jest.fn(),
       paused: false,
@@ -413,7 +419,7 @@ describe("model-viewer/runtime.ts — mountModelViewer click wiring", () => {
     button.dataset.screenText = "hello@example.test";
     const emissiveMaterial = { emissiveMap: {}, emissiveIntensity: 8, needsUpdate: false };
     const fakeScene = {
-      traverse: (cb: (obj: any) => void) => {
+      traverse: (cb: (obj: FakeSceneObject) => void) => {
         cb({ isMesh: true, material: emissiveMaterial });
       },
     };
@@ -432,7 +438,7 @@ describe("model-viewer/runtime.ts — mountModelViewer click wiring", () => {
     const { button, canvas } = buildButtonAndCanvas();
     const emissiveMaterial = { emissiveMap: {}, emissiveIntensity: 8, needsUpdate: false };
     const fakeScene = {
-      traverse: (cb: (obj: any) => void) => {
+      traverse: (cb: (obj: FakeSceneObject) => void) => {
         cb({ isMesh: true, material: emissiveMaterial });
       },
     };
