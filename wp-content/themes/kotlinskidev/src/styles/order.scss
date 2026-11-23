@@ -1,10 +1,5 @@
 @import "variables";
 
-/* =============================================================================
-   RESPONSIVE ORDER UTILITY CLASSES
-   For blocks with responsive order controls (-1 to 20)
-============================================================================= */
-
 @media (min-width: #{$breakpoint-desktop}) {
 
 	@for $i from -1 through 20 {
