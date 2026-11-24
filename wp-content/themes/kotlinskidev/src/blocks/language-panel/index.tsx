@@ -80,6 +80,123 @@ const GlobeIcon = () => (
   </svg>
 );
 
+interface LanguagePanelFieldsProps {
+  attributes: LanguagePanelAttributes;
+  setAttributes: (attrs: Partial<LanguagePanelAttributes>) => void;
+}
+
+function LabelSettingsPanel({ attributes, setAttributes }: LanguagePanelFieldsProps) {
+  return (
+    <PanelBody title={__("Language Panel", "kotlinskidev")} initialOpen>
+      <TextControl
+        label={__("Nav label", "kotlinskidev")}
+        value={attributes.label}
+        onChange={(label) => setAttributes({ label })}
+        help={__("Leave empty to show the current language automatically.", "kotlinskidev")}
+      />
+      <SelectControl
+        label={__("Auto label style", "kotlinskidev")}
+        value={attributes.labelStyle}
+        options={[
+          { label: __("Short code (PL)", "kotlinskidev"), value: "short" },
+          { label: __("Full name (Polski)", "kotlinskidev"), value: "full" },
+        ]}
+        onChange={(labelStyle) => setAttributes({ labelStyle })}
+        help={__("Used when the nav label is empty.", "kotlinskidev")}
+      />
+      <ToggleControl
+        label={__("Show current language flag", "kotlinskidev")}
+        checked={attributes.showFlag}
+        onChange={(showFlag) => setAttributes({ showFlag })}
+      />
+    </PanelBody>
+  );
+}
+
+function IndicatorSettingsPanel({ attributes, setAttributes }: LanguagePanelFieldsProps) {
+  return (
+    <PanelBody title={__("Dropdown Indicator", "kotlinskidev")}>
+      <ToggleControl
+        label={__("Show indicator arrow", "kotlinskidev")}
+        checked={attributes.showIndicator}
+        onChange={(showIndicator) => setAttributes({ showIndicator })}
+        help={__("Small arrow hinting that a dropdown will open.", "kotlinskidev")}
+      />
+      {attributes.showIndicator && (
+        <>
+          <SelectControl
+            label={__("Open effect", "kotlinskidev")}
+            value={attributes.indicatorEffect}
+            options={[
+              { label: __("Rotate 180°", "kotlinskidev"), value: "rotate" },
+              {
+                label: __("Rotate 180° (no transition)", "kotlinskidev"),
+                value: "rotate-instant",
+              },
+              { label: __("None", "kotlinskidev"), value: "none" },
+            ]}
+            onChange={(indicatorEffect) => setAttributes({ indicatorEffect })}
+          />
+          <NavIconPicker
+            iconId={attributes.indicatorIconId}
+            iconUrl={attributes.indicatorIconUrl}
+            onChange={(id, url) => setAttributes({ indicatorIconId: id, indicatorIconUrl: url })}
+          />
+        </>
+      )}
+    </PanelBody>
+  );
+}
+
+function LanguagePanelSettings({ attributes, setAttributes }: LanguagePanelFieldsProps) {
+  return (
+    <InspectorControls>
+      <LabelSettingsPanel attributes={attributes} setAttributes={setAttributes} />
+      <PanelBody title={__("Nav Icon", "kotlinskidev")}>
+        <NavIconPicker
+          iconId={attributes.navIconId}
+          iconUrl={attributes.navIconUrl}
+          onChange={(id, url) => setAttributes({ navIconId: id, navIconUrl: url })}
+        />
+      </PanelBody>
+      <IndicatorSettingsPanel attributes={attributes} setAttributes={setAttributes} />
+    </InspectorControls>
+  );
+}
+
+function IndicatorPreview({
+  attributes,
+  isOpen,
+}: {
+  attributes: LanguagePanelAttributes;
+  isOpen: boolean;
+}) {
+  const { indicatorIconUrl, indicatorEffect } = attributes;
+  if (!indicatorIconUrl) {
+    return (
+      <ChevronIcon
+        rotated={isOpen && indicatorEffect !== "none"}
+        animated={indicatorEffect === "rotate"}
+      />
+    );
+  }
+  return (
+    <span
+      aria-hidden
+      style={{
+        width: 12,
+        height: 12,
+        display: "inline-block",
+        backgroundColor: "currentColor",
+        WebkitMask: `url(${indicatorIconUrl}) no-repeat center / contain`,
+        mask: `url(${indicatorIconUrl}) no-repeat center / contain`,
+        transition: indicatorEffect === "rotate" ? "transform 0.2s ease" : "none",
+        transform: isOpen && indicatorEffect !== "none" ? "rotate(180deg)" : "none",
+      }}
+    />
+  );
+}
+
 export function LanguagePanelEdit({
   attributes,
   setAttributes,
@@ -89,70 +206,7 @@ export function LanguagePanelEdit({
 
   return (
     <div {...blockProps}>
-      <InspectorControls>
-        <PanelBody title={__("Language Panel", "kotlinskidev")} initialOpen>
-          <TextControl
-            label={__("Nav label", "kotlinskidev")}
-            value={attributes.label}
-            onChange={(label) => setAttributes({ label })}
-            help={__("Leave empty to show the current language automatically.", "kotlinskidev")}
-          />
-          <SelectControl
-            label={__("Auto label style", "kotlinskidev")}
-            value={attributes.labelStyle}
-            options={[
-              { label: __("Short code (PL)", "kotlinskidev"), value: "short" },
-              { label: __("Full name (Polski)", "kotlinskidev"), value: "full" },
-            ]}
-            onChange={(labelStyle) => setAttributes({ labelStyle })}
-            help={__("Used when the nav label is empty.", "kotlinskidev")}
-          />
-          <ToggleControl
-            label={__("Show current language flag", "kotlinskidev")}
-            checked={attributes.showFlag}
-            onChange={(showFlag) => setAttributes({ showFlag })}
-          />
-        </PanelBody>
-        <PanelBody title={__("Nav Icon", "kotlinskidev")}>
-          <NavIconPicker
-            iconId={attributes.navIconId}
-            iconUrl={attributes.navIconUrl}
-            onChange={(id, url) => setAttributes({ navIconId: id, navIconUrl: url })}
-          />
-        </PanelBody>
-        <PanelBody title={__("Dropdown Indicator", "kotlinskidev")}>
-          <ToggleControl
-            label={__("Show indicator arrow", "kotlinskidev")}
-            checked={attributes.showIndicator}
-            onChange={(showIndicator) => setAttributes({ showIndicator })}
-            help={__("Small arrow hinting that a dropdown will open.", "kotlinskidev")}
-          />
-          {attributes.showIndicator && (
-            <>
-              <SelectControl
-                label={__("Open effect", "kotlinskidev")}
-                value={attributes.indicatorEffect}
-                options={[
-                  { label: __("Rotate 180°", "kotlinskidev"), value: "rotate" },
-                  {
-                    label: __("Rotate 180° (no transition)", "kotlinskidev"),
-                    value: "rotate-instant",
-                  },
-                  { label: __("None", "kotlinskidev"), value: "none" },
-                ]}
-                onChange={(indicatorEffect) => setAttributes({ indicatorEffect })}
-              />
-              <NavIconPicker
-                iconId={attributes.indicatorIconId}
-                iconUrl={attributes.indicatorIconUrl}
-                onChange={(id, url) =>
-                  setAttributes({ indicatorIconId: id, indicatorIconUrl: url })
-                }
-              />
-            </>
-          )}
-        </PanelBody>
-      </InspectorControls>
+      <LanguagePanelSettings attributes={attributes} setAttributes={setAttributes} />
 
       <button
         type="button"
@@ -166,29 +220,7 @@ export function LanguagePanelEdit({
           <GlobeIcon />
         )}
         <span>{attributes.label || __("Language", "kotlinskidev")}</span>
-        {attributes.showIndicator &&
-          (attributes.indicatorIconUrl ? (
-            <span
-              aria-hidden
-              style={{
-                width: 12,
-                height: 12,
-                display: "inline-block",
-                backgroundColor: "currentColor",
-                WebkitMask: `url(${attributes.indicatorIconUrl}) no-repeat center / contain`,
-                mask: `url(${attributes.indicatorIconUrl}) no-repeat center / contain`,
-                transition:
-                  attributes.indicatorEffect === "rotate" ? "transform 0.2s ease" : "none",
-                transform:
-                  isOpen && attributes.indicatorEffect !== "none" ? "rotate(180deg)" : "none",
-              }}
-            />
-          ) : (
-            <ChevronIcon
-              rotated={isOpen && attributes.indicatorEffect !== "none"}
-              animated={attributes.indicatorEffect === "rotate"}
-            />
-          ))}
+        {attributes.showIndicator && <IndicatorPreview attributes={attributes} isOpen={isOpen} />}
       </button>
 
       <div className="kt-search-panel-editor__panel" hidden={!isOpen}>

@@ -47,50 +47,52 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+function BlurSiblingsPanel({ name, attributes, setAttributes }: BlockEditProps) {
+  const blurSiblings = Boolean(attributes.kotlinskidevBlurSiblings);
+  const blurSiblingsNested = Boolean(attributes.kotlinskidevBlurSiblingsNested);
+
+  return (
+    <PanelBody title={__("Blur Siblings on Hover", "kotlinskidev")} initialOpen={false}>
+      <ToggleControl
+        label={__("Blur inactive items on hover", "kotlinskidev")}
+        checked={blurSiblings}
+        onChange={(next) => setAttributes({ kotlinskidevBlurSiblings: next })}
+        help={__("Hovering or focusing one direct child dims and blurs the rest.", "kotlinskidev")}
+        __nextHasNoMarginBottom
+      />
+      {blurSiblings && NESTED_TOGGLE_BLOCKS.includes(name ?? "") && (
+        <ToggleControl
+          label={__("Include nested columns", "kotlinskidev")}
+          checked={blurSiblingsNested}
+          onChange={(next) => setAttributes({ kotlinskidevBlurSiblingsNested: next })}
+          help={__(
+            "Also blur columns inside Columns blocks nested further down, not just this row's own columns.",
+            "kotlinskidev"
+          )}
+          __nextHasNoMarginBottom
+        />
+      )}
+      {blurSiblings && (
+        <BlurAmountControl
+          value={attributes.kotlinskidevBlurAmount || BLUR_AMOUNT_DEFAULT_VALUE}
+          onChange={(next) => setAttributes({ kotlinskidevBlurAmount: next })}
+        />
+      )}
+    </PanelBody>
+  );
+}
+
 const withBlurSiblingsControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!supportsBlurSiblings(props.name)) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const blurSiblings = Boolean(attributes.kotlinskidevBlurSiblings);
-    const blurSiblingsNested = Boolean(attributes.kotlinskidevBlurSiblingsNested);
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Blur Siblings on Hover", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Blur inactive items on hover", "kotlinskidev")}
-              checked={blurSiblings}
-              onChange={(next) => setAttributes({ kotlinskidevBlurSiblings: next })}
-              help={__(
-                "Hovering or focusing one direct child dims and blurs the rest.",
-                "kotlinskidev"
-              )}
-              __nextHasNoMarginBottom
-            />
-            {blurSiblings && NESTED_TOGGLE_BLOCKS.includes(props.name ?? "") && (
-              <ToggleControl
-                label={__("Include nested columns", "kotlinskidev")}
-                checked={blurSiblingsNested}
-                onChange={(next) => setAttributes({ kotlinskidevBlurSiblingsNested: next })}
-                help={__(
-                  "Also blur columns inside Columns blocks nested further down, not just this row's own columns.",
-                  "kotlinskidev"
-                )}
-                __nextHasNoMarginBottom
-              />
-            )}
-            {blurSiblings && (
-              <BlurAmountControl
-                value={attributes.kotlinskidevBlurAmount || BLUR_AMOUNT_DEFAULT_VALUE}
-                onChange={(next) => setAttributes({ kotlinskidevBlurAmount: next })}
-              />
-            )}
-          </PanelBody>
+          <BlurSiblingsPanel {...props} />
         </InspectorControls>
       </Fragment>
     );

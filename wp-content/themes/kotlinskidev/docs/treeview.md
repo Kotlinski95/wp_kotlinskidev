@@ -898,8 +898,13 @@ kotlinskidev/
 │   │   │   └── readiness.test.ts               # jest tests for readiness.ts
 │   │   ├── shared/                             # shared editor UI: ColorGradientControl, PanelColorGradientSettings (native Text/Background-style collapsed row+popover), NavIconPicker, BlurAmountControl
 │   │   │   ├── blur-amount-control.tsx         # preset/custom blur-intensity SelectControl+TextControl, presets from theme.json's settings.custom.gridHoverBlur; shared by blur-siblings and navigation's blurInactiveLinks
+│   │   │   ├── color-attribute-fields.tsx      # list of solid-color attribute controls for the dynamic card blocks and city-grid
 │   │   │   ├── color-gradient-control.ts
-│   │   │   └── nav-icon-picker.tsx
+│   │   │   ├── nav-icon-picker.tsx
+│   │   │   ├── solid-color-control.tsx         # one clearable solid-color control writing an attribute string
+│   │   │   ├── use-block-items.ts              # add/remove-last inner item hook for scroll-section and process-steps
+│   │   │   ├── use-current-post.ts             # current post type and meta hooks for the document setting panels
+│   │   │   └── use-post-options.ts             # published post titles as select options
 │   │   ├── simple-grid/                        # CSS-grid container, column count derives from Holder children
 │   │   │   ├── block.json
 │   │   │   ├── edit.stories.tsx                # Storybook: renders Edit with block.json's default attributes

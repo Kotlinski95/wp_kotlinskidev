@@ -39,59 +39,75 @@ function findSlug(palette: PaletteColor[], value?: string): string | undefined {
   return palette.find((entry) => entry.color.toLowerCase() === (value ?? "").toLowerCase())?.slug;
 }
 
-export default function Edit({ attributes, setAttributes }: Readonly<EditProps>) {
+function lookupPaletteColor(
+  palette: PaletteColor[],
+  slug?: string,
+  custom?: string
+): string | undefined {
+  if (slug) {
+    return palette.find((entry) => entry.slug === slug)?.color;
+  }
+  return custom;
+}
+
+function TocColorSettings({ attributes, setAttributes }: Readonly<EditProps>) {
   const { accentColor, customAccentColor, activeBackgroundColor, customActiveBackgroundColor } =
     attributes;
   const [palette] = useSettings("color.palette") as [PaletteColor[] | undefined];
   const colors = palette ?? [];
 
-  const accent = resolveColor(accentColor, customAccentColor);
-  const activeBackground = resolveColor(activeBackgroundColor, customActiveBackgroundColor);
+  return (
+    <PanelColorSettings
+      title={__("Table of contents colors", "kotlinskidev")}
+      initialOpen
+      colorSettings={[
+        {
+          label: __("Accent (numbers and active bar)", "kotlinskidev"),
+          colors,
+          value: lookupPaletteColor(colors, accentColor, customAccentColor),
+          onChange: (value?: string) =>
+            setAttributes({
+              accentColor: findSlug(colors, value),
+              customAccentColor: findSlug(colors, value) ? undefined : value,
+            }),
+        },
+        {
+          label: __("Active item background", "kotlinskidev"),
+          colors,
+          value: lookupPaletteColor(colors, activeBackgroundColor, customActiveBackgroundColor),
+          onChange: (value?: string) =>
+            setAttributes({
+              activeBackgroundColor: findSlug(colors, value),
+              customActiveBackgroundColor: findSlug(colors, value) ? undefined : value,
+            }),
+        },
+      ]}
+    />
+  );
+}
 
+function buildTocStyle(attributes: ArticleTocAttributes): React.CSSProperties {
+  const accent = resolveColor(attributes.accentColor, attributes.customAccentColor);
+  const activeBackground = resolveColor(
+    attributes.activeBackgroundColor,
+    attributes.customActiveBackgroundColor
+  );
+  return {
+    ...(accent ? { "--kt-article-toc-accent": accent, "--kt-article-toc-bar": accent } : {}),
+    ...(activeBackground ? { "--kt-article-toc-active-bg": activeBackground } : {}),
+  } as React.CSSProperties;
+}
+
+export default function Edit({ attributes, setAttributes }: Readonly<EditProps>) {
   const blockProps = useBlockProps({
     className: "kt-article-toc-block kt-article-toc",
-    style: {
-      ...(accent ? { "--kt-article-toc-accent": accent, "--kt-article-toc-bar": accent } : {}),
-      ...(activeBackground ? { "--kt-article-toc-active-bg": activeBackground } : {}),
-    } as React.CSSProperties,
+    style: buildTocStyle(attributes),
   });
-
-  const lookupColor = (slug?: string, custom?: string): string | undefined => {
-    if (slug) {
-      return colors.find((entry) => entry.slug === slug)?.color;
-    }
-    return custom;
-  };
 
   return (
     <>
       <InspectorControls>
-        <PanelColorSettings
-          title={__("Table of contents colors", "kotlinskidev")}
-          initialOpen
-          colorSettings={[
-            {
-              label: __("Accent (numbers and active bar)", "kotlinskidev"),
-              colors,
-              value: lookupColor(accentColor, customAccentColor),
-              onChange: (value?: string) =>
-                setAttributes({
-                  accentColor: findSlug(colors, value),
-                  customAccentColor: findSlug(colors, value) ? undefined : value,
-                }),
-            },
-            {
-              label: __("Active item background", "kotlinskidev"),
-              colors,
-              value: lookupColor(activeBackgroundColor, customActiveBackgroundColor),
-              onChange: (value?: string) =>
-                setAttributes({
-                  activeBackgroundColor: findSlug(colors, value),
-                  customActiveBackgroundColor: findSlug(colors, value) ? undefined : value,
-                }),
-            },
-          ]}
-        />
+        <TocColorSettings attributes={attributes} setAttributes={setAttributes} />
       </InspectorControls>
       <div {...blockProps}>
         <p className="kt-article-toc__title">{__("Table of contents", "kotlinskidev")}</p>

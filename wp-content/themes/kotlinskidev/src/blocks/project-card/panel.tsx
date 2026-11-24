@@ -2,9 +2,8 @@ import React from "react";
 import { registerPlugin } from "@wordpress/plugins";
 import { PluginDocumentSettingPanel } from "@wordpress/editor";
 import { TextControl, TextareaControl } from "@wordpress/components";
-import { useSelect } from "@wordpress/data";
-import { useEntityProp } from "@wordpress/core-data";
 import { __ } from "@wordpress/i18n";
+import { useCurrentPostMeta } from "../shared/use-current-post";
 
 interface ProjectCardMeta {
   project_description?: string;
@@ -13,17 +12,7 @@ interface ProjectCardMeta {
 }
 
 function ProjectCardPanel() {
-  const postType = useSelect(
-    (select) =>
-      (select("core/editor") as { getCurrentPostType: () => string }).getCurrentPostType(),
-    []
-  );
-
-  const [meta, setMeta] = useEntityProp<ProjectCardMeta>(
-    "postType",
-    postType,
-    "meta"
-  ) as unknown as [ProjectCardMeta, (value: ProjectCardMeta) => void];
+  const [meta, setMeta] = useCurrentPostMeta<ProjectCardMeta>();
 
   const description = meta?.project_description ?? "";
   const tags = meta?.project_tags ?? "";

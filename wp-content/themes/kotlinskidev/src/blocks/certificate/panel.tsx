@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { registerPlugin } from "@wordpress/plugins";
 import { PluginDocumentSettingPanel } from "@wordpress/editor";
 import { TextControl, TextareaControl, Button, Notice } from "@wordpress/components";
-import { useSelect, useDispatch } from "@wordpress/data";
+import { useDispatch } from "@wordpress/data";
 import { useEntityProp } from "@wordpress/core-data";
 import { __ } from "@wordpress/i18n";
+import { useCurrentPostMeta, useCurrentPostType } from "../shared/use-current-post";
 
 declare global {
   interface Window {
@@ -32,34 +33,65 @@ interface FetchBadgeResponse {
   verify_url: string;
 }
 
-function CertificatePanel() {
-  const postType = useSelect(
-    (select) =>
-      (select("core/editor") as { getCurrentPostType: () => string }).getCurrentPostType(),
-    []
-  );
+interface BadgeResponse {
+  success: boolean;
+  data: FetchBadgeResponse | string;
+}
 
-  const [meta, setMeta] = useEntityProp<CertificateMeta>(
-    "postType",
-    postType,
-    "meta"
-  ) as unknown as [CertificateMeta, (value: CertificateMeta) => void];
+type SetMeta = (value: CertificateMeta) => void;
+type EditPost = (edits: Record<string, unknown>) => void;
 
-  const [title, setTitle] = useEntityProp<string>("postType", postType, "title") as unknown as [
-    string,
-    (value: string) => void,
-  ];
+async function requestBadge(
+  config: { ajaxUrl: string; nonce: string },
+  sourceUrl: string
+): Promise<BadgeResponse> {
+  const body = new FormData();
+  body.append("action", "kotlinskidev_fetch_certificate_badge");
+  body.append("nonce", config.nonce);
+  body.append("url", sourceUrl);
+  const response = await fetch(config.ajaxUrl, { method: "POST", body });
+  return (await response.json()) as BadgeResponse;
+}
 
-  const { editPost } = useDispatch("core/editor") as {
-    editPost: (edits: Record<string, unknown>) => void;
-  };
+function badgeErrorMessage(result: BadgeResponse): string {
+  return typeof result.data === "string"
+    ? result.data
+    : __("Could not fetch badge details.", "kotlinskidev");
+}
 
+interface CertificateEditing {
+  meta: CertificateMeta;
+  setMeta: SetMeta;
+  setTitle: (value: string) => void;
+  editPost: EditPost;
+}
+
+function applyBadge(badge: FetchBadgeResponse, editing: CertificateEditing) {
+  const { meta, setMeta, setTitle, editPost } = editing;
+  const edits: Record<string, unknown> = {};
+  if (badge.name) {
+    setTitle(badge.name);
+    edits.title = badge.name;
+  }
+  if (badge.credential_image_id) {
+    edits.featured_media = badge.credential_image_id;
+  }
+  if (Object.keys(edits).length > 0) {
+    editPost(edits);
+  }
+  setMeta({
+    ...meta,
+    cert_issuer: badge.issuer || meta?.cert_issuer,
+    cert_description: badge.description || meta?.cert_description,
+    cert_verify_url: badge.verify_url || meta?.cert_verify_url,
+  });
+}
+
+function useBadgeFetch(sourceUrl: string, editing: CertificateEditing) {
   const [isFetching, setIsFetching] = useState(false);
   const [fetchError, setFetchError] = useState("");
 
-  const sourceUrl = meta?.cert_source_url ?? "";
-
-  const handleFetch = async () => {
+  const fetchBadge = async () => {
     const config = window.kotlinskidevCertificateConfig;
     if (!config || !sourceUrl) {
       return;
@@ -69,44 +101,12 @@ function CertificatePanel() {
     setFetchError("");
 
     try {
-      const body = new FormData();
-      body.append("action", "kotlinskidev_fetch_certificate_badge");
-      body.append("nonce", config.nonce);
-      body.append("url", sourceUrl);
-
-      const response = await fetch(config.ajaxUrl, { method: "POST", body });
-      const result = (await response.json()) as {
-        success: boolean;
-        data: FetchBadgeResponse | string;
-      };
-
+      const result = await requestBadge(config, sourceUrl);
       if (!result.success || typeof result.data === "string") {
-        setFetchError(
-          typeof result.data === "string"
-            ? result.data
-            : __("Could not fetch badge details.", "kotlinskidev")
-        );
+        setFetchError(badgeErrorMessage(result));
         return;
       }
-
-      const data = result.data;
-      const edits: Record<string, unknown> = {};
-      if (data.name) {
-        setTitle(data.name);
-        edits.title = data.name;
-      }
-      if (data.credential_image_id) {
-        edits.featured_media = data.credential_image_id;
-      }
-      if (Object.keys(edits).length > 0) {
-        editPost(edits);
-      }
-      setMeta({
-        ...meta,
-        cert_issuer: data.issuer || meta?.cert_issuer,
-        cert_description: data.description || meta?.cert_description,
-        cert_verify_url: data.verify_url || meta?.cert_verify_url,
-      });
+      applyBadge(result.data, editing);
     } catch {
       setFetchError(__("Network error while fetching badge details.", "kotlinskidev"));
     } finally {
@@ -114,11 +114,21 @@ function CertificatePanel() {
     }
   };
 
+  return { isFetching, fetchError, fetchBadge };
+}
+
+interface BadgeSourceControlsProps {
+  sourceUrl: string;
+  onSourceUrlChange: (value: string) => void;
+  isFetching: boolean;
+  fetchError: string;
+  onFetch: () => void;
+}
+
+function BadgeSourceControls(props: BadgeSourceControlsProps) {
+  const { sourceUrl, onSourceUrlChange, isFetching, fetchError, onFetch } = props;
   return (
-    <PluginDocumentSettingPanel
-      name="kotlinskidev-certificate"
-      title={__("Certificate Details", "kotlinskidev")}
-    >
+    <>
       <TextControl
         label={__("Badge / credential URL", "kotlinskidev")}
         type="url"
@@ -127,13 +137,13 @@ function CertificatePanel() {
           "kotlinskidev"
         )}
         value={sourceUrl}
-        onChange={(value) => setMeta({ ...meta, cert_source_url: value })}
+        onChange={onSourceUrlChange}
       />
       <Button
         variant="secondary"
         isBusy={isFetching}
         disabled={!sourceUrl || isFetching}
-        onClick={handleFetch}
+        onClick={onFetch}
       >
         {isFetching ? __("Fetching…", "kotlinskidev") : __("Fetch details", "kotlinskidev")}
       </Button>
@@ -142,14 +152,30 @@ function CertificatePanel() {
           {fetchError}
         </Notice>
       )}
+    </>
+  );
+}
+
+interface CertificateFieldsProps {
+  title: string;
+  onTitleChange: (value: string) => void;
+  meta: CertificateMeta;
+  setMeta: SetMeta;
+}
+
+function CertificateIdentityFields({
+  title,
+  onTitleChange,
+  meta,
+  setMeta,
+}: CertificateFieldsProps) {
+  return (
+    <>
       <TextControl
         label={__("Certificate name", "kotlinskidev")}
         help={__("Also the post title.", "kotlinskidev")}
         value={title ?? ""}
-        onChange={(value) => {
-          setTitle(value);
-          editPost({ title: value });
-        }}
+        onChange={onTitleChange}
       />
       <TextControl
         label={__("Issuer", "kotlinskidev")}
@@ -162,6 +188,16 @@ function CertificatePanel() {
         value={meta?.cert_issued_date ?? ""}
         onChange={(value) => setMeta({ ...meta, cert_issued_date: value })}
       />
+    </>
+  );
+}
+
+function CertificateDetailFields({
+  meta,
+  setMeta,
+}: Pick<CertificateFieldsProps, "meta" | "setMeta">) {
+  return (
+    <>
       <TextareaControl
         label={__("Description", "kotlinskidev")}
         help={__("Shown by the feature-cards layout only.", "kotlinskidev")}
@@ -180,6 +216,52 @@ function CertificatePanel() {
         value={meta?.cert_verify_url ?? ""}
         onChange={(value) => setMeta({ ...meta, cert_verify_url: value })}
       />
+    </>
+  );
+}
+
+function useCertificateEditing(): CertificateEditing & { title: string } {
+  const postType = useCurrentPostType();
+  const [meta, setMeta] = useCurrentPostMeta<CertificateMeta>();
+
+  const [title, setTitle] = useEntityProp<string>("postType", postType, "title") as unknown as [
+    string,
+    (value: string) => void,
+  ];
+
+  const { editPost } = useDispatch("core/editor") as { editPost: EditPost };
+
+  return { meta, setMeta, title, setTitle, editPost };
+}
+
+function CertificatePanel() {
+  const editing = useCertificateEditing();
+  const { meta, setMeta, title, setTitle, editPost } = editing;
+  const sourceUrl = meta?.cert_source_url ?? "";
+  const { isFetching, fetchError, fetchBadge } = useBadgeFetch(sourceUrl, editing);
+
+  return (
+    <PluginDocumentSettingPanel
+      name="kotlinskidev-certificate"
+      title={__("Certificate Details", "kotlinskidev")}
+    >
+      <BadgeSourceControls
+        sourceUrl={sourceUrl}
+        onSourceUrlChange={(value) => setMeta({ ...meta, cert_source_url: value })}
+        isFetching={isFetching}
+        fetchError={fetchError}
+        onFetch={fetchBadge}
+      />
+      <CertificateIdentityFields
+        title={title}
+        onTitleChange={(value) => {
+          setTitle(value);
+          editPost({ title: value });
+        }}
+        meta={meta}
+        setMeta={setMeta}
+      />
+      <CertificateDetailFields meta={meta} setMeta={setMeta} />
     </PluginDocumentSettingPanel>
   );
 }

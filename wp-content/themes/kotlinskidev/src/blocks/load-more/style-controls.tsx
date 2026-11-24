@@ -77,52 +77,9 @@ function resolveFontSizeLabel(slug: string, presets: FontSizePreset[]): string {
   return presets.find((preset) => preset.slug === slug)?.name || slug;
 }
 
-export default function LoadMoreStyleControls({ value, onChange }: LoadMoreStyleControlsProps) {
-  const [fontSizePresets] = useSettings("typography.fontSizes") as [FontSizePreset[] | undefined];
-  const presets = fontSizePresets ?? [];
-
+function TextStyleControls({ value, onChange }: LoadMoreStyleControlsProps) {
   return (
     <>
-      <SelectControl
-        label={__("Button position", "kotlinskidev")}
-        value={value.buttonAlign}
-        options={LOAD_MORE_BUTTON_ALIGN_VALUES.map((align) => ({
-          label: ALIGN_LABELS[align],
-          value: align,
-        }))}
-        onChange={(align) => onChange({ buttonAlign: align as LoadMoreButtonAlign })}
-      />
-
-      <BaseControl label={__("Typography", "kotlinskidev")} id="kt-load-more-typography-heading">
-        {null}
-      </BaseControl>
-
-      <SelectControl
-        label={__("Font size", "kotlinskidev")}
-        value={value.fontSize}
-        options={[
-          DEFAULT_OPTION,
-          ...LOAD_MORE_FONT_SIZE_SLUGS.map((slug) => ({
-            label: resolveFontSizeLabel(slug, presets),
-            value: slug,
-          })),
-        ]}
-        onChange={(fontSize) => onChange({ fontSize })}
-      />
-
-      <SelectControl
-        label={__("Font weight", "kotlinskidev")}
-        value={value.fontWeight}
-        options={[
-          DEFAULT_OPTION,
-          ...LOAD_MORE_FONT_WEIGHT_VALUES.map((weight) => ({
-            label: FONT_WEIGHT_LABELS[weight],
-            value: weight,
-          })),
-        ]}
-        onChange={(fontWeight) => onChange({ fontWeight })}
-      />
-
       <SelectControl
         label={__("Letter spacing", "kotlinskidev")}
         value={value.letterSpacing}
@@ -148,7 +105,72 @@ export default function LoadMoreStyleControls({ value, onChange }: LoadMoreStyle
         ]}
         onChange={(textTransform) => onChange({ textTransform })}
       />
+    </>
+  );
+}
 
+function FontControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  const [fontSizePresets] = useSettings("typography.fontSizes") as [FontSizePreset[] | undefined];
+  const presets = fontSizePresets ?? [];
+
+  return (
+    <>
+      <SelectControl
+        label={__("Font size", "kotlinskidev")}
+        value={value.fontSize}
+        options={[
+          DEFAULT_OPTION,
+          ...LOAD_MORE_FONT_SIZE_SLUGS.map((slug) => ({
+            label: resolveFontSizeLabel(slug, presets),
+            value: slug,
+          })),
+        ]}
+        onChange={(fontSize) => onChange({ fontSize })}
+      />
+
+      <SelectControl
+        label={__("Font weight", "kotlinskidev")}
+        value={value.fontWeight}
+        options={[
+          DEFAULT_OPTION,
+          ...LOAD_MORE_FONT_WEIGHT_VALUES.map((weight) => ({
+            label: FONT_WEIGHT_LABELS[weight],
+            value: weight,
+          })),
+        ]}
+        onChange={(fontWeight) => onChange({ fontWeight })}
+      />
+    </>
+  );
+}
+
+function TypographyControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  return (
+    <>
+      <SelectControl
+        label={__("Button position", "kotlinskidev")}
+        value={value.buttonAlign}
+        options={LOAD_MORE_BUTTON_ALIGN_VALUES.map((align) => ({
+          label: ALIGN_LABELS[align],
+          value: align,
+        }))}
+        onChange={(align) => onChange({ buttonAlign: align as LoadMoreButtonAlign })}
+      />
+
+      <BaseControl label={__("Typography", "kotlinskidev")} id="kt-load-more-typography-heading">
+        {null}
+      </BaseControl>
+
+      <FontControls value={value} onChange={onChange} />
+
+      <TextStyleControls value={value} onChange={onChange} />
+    </>
+  );
+}
+
+function SpacingControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  return (
+    <>
       <BaseControl label={__("Spacing", "kotlinskidev")} id="kt-load-more-spacing-heading">
         {null}
       </BaseControl>
@@ -168,28 +190,13 @@ export default function LoadMoreStyleControls({ value, onChange }: LoadMoreStyle
         allowReset
         {...LOAD_MORE_PADDING_X_RANGE}
       />
+    </>
+  );
+}
 
-      <ColorRow
-        label={__("Text color", "kotlinskidev")}
-        id="kt-load-more-text-color"
-        color={value.textColor}
-        onChange={(textColor) => onChange({ textColor })}
-      />
-
-      <ColorRow
-        label={__("Background color", "kotlinskidev")}
-        id="kt-load-more-bg-color"
-        color={value.backgroundColor}
-        onChange={(backgroundColor) => onChange({ backgroundColor })}
-      />
-
-      <ColorRow
-        label={__("Border color", "kotlinskidev")}
-        id="kt-load-more-border-color"
-        color={value.borderColor}
-        onChange={(borderColor) => onChange({ borderColor })}
-      />
-
+function BorderControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  return (
+    <>
       <RangeControl
         label={__("Border width (px)", "kotlinskidev")}
         value={value.borderWidth}
@@ -211,7 +218,41 @@ export default function LoadMoreStyleControls({ value, onChange }: LoadMoreStyle
         checked={value.underline}
         onChange={(underline) => onChange({ underline })}
       />
+    </>
+  );
+}
 
+function AppearanceControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  return (
+    <>
+      <ColorRow
+        label={__("Text color", "kotlinskidev")}
+        id="kt-load-more-text-color"
+        color={value.textColor}
+        onChange={(textColor) => onChange({ textColor })}
+      />
+
+      <ColorRow
+        label={__("Background color", "kotlinskidev")}
+        id="kt-load-more-bg-color"
+        color={value.backgroundColor}
+        onChange={(backgroundColor) => onChange({ backgroundColor })}
+      />
+
+      <ColorRow
+        label={__("Border color", "kotlinskidev")}
+        id="kt-load-more-border-color"
+        color={value.borderColor}
+        onChange={(borderColor) => onChange({ borderColor })}
+      />
+      <BorderControls value={value} onChange={onChange} />
+    </>
+  );
+}
+
+function HoverStateControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  return (
+    <>
       <BaseControl label={__("Hover state", "kotlinskidev")} id="kt-load-more-hover-heading">
         {__("Leave a hover color empty to keep the default fade effect.", "kotlinskidev")}
       </BaseControl>
@@ -236,6 +277,17 @@ export default function LoadMoreStyleControls({ value, onChange }: LoadMoreStyle
         color={value.hoverBorderColor}
         onChange={(hoverBorderColor) => onChange({ hoverBorderColor })}
       />
+    </>
+  );
+}
+
+export default function LoadMoreStyleControls({ value, onChange }: LoadMoreStyleControlsProps) {
+  return (
+    <>
+      <TypographyControls value={value} onChange={onChange} />
+      <SpacingControls value={value} onChange={onChange} />
+      <AppearanceControls value={value} onChange={onChange} />
+      <HoverStateControls value={value} onChange={onChange} />
     </>
   );
 }

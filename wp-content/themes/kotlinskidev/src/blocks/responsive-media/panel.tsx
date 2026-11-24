@@ -76,19 +76,80 @@ export const fetchFeaturedPoster = async (
   }
 };
 
-export default function ResponsiveMediaPanel({
-  slots,
-  onChange,
-  allowedTypes,
-  desktopLabel,
-  desktopUrl,
-  desktopWidth,
-  hasAlphaVideo = false,
-  helpText,
-}: ResponsiveMediaPanelProps) {
-  const resolved = resolveResponsiveMedia(desktopUrl, slots);
-  const isVideo = allowedTypes.includes("video");
+interface SlotRenderProps {
+  open: () => void;
+}
 
+interface MediaSlotPickerProps {
+  slot: MediaSlot | undefined;
+  allowedTypes: string[];
+  onSelect: (media: PickedMedia) => void;
+  onRemove: () => void;
+}
+
+function MediaSlotPicker({ slot, allowedTypes, onSelect, onRemove }: MediaSlotPickerProps) {
+  return (
+    <MediaUploadCheck>
+      <MediaUpload
+        allowedTypes={allowedTypes}
+        value={slot?.id}
+        onSelect={onSelect}
+        render={({ open }: SlotRenderProps) => (
+          <div className="kt-responsive-media-slot">
+            {slot?.url ? <span>{fileName(slot.url)}</span> : null}
+            <Button variant="secondary" onClick={open}>
+              {slot?.url ? __("Replace", "kotlinskidev") : __("Select media", "kotlinskidev")}
+            </Button>
+            {slot?.url ? (
+              <Button variant="link" isDestructive onClick={onRemove}>
+                {__("Remove", "kotlinskidev")}
+              </Button>
+            ) : null}
+          </div>
+        )}
+      />
+    </MediaUploadCheck>
+  );
+}
+
+interface AlphaSlotPickerProps {
+  slot: MediaSlot | undefined;
+  onSelect: (media: PickedMedia) => void;
+  onRemove: () => void;
+}
+
+function AlphaSlotPicker({ slot, onSelect, onRemove }: AlphaSlotPickerProps) {
+  return (
+    <MediaUploadCheck>
+      <MediaUpload
+        allowedTypes={["video"]}
+        value={slot?.alphaId}
+        onSelect={onSelect}
+        render={({ open }: SlotRenderProps) => (
+          <div className="kt-responsive-media-slot kt-responsive-media-slot--alpha">
+            <span>
+              {slot?.alphaUrl
+                ? fileName(slot.alphaUrl)
+                : __("Safari HEVC alpha file", "kotlinskidev")}
+            </span>
+            <Button variant="secondary" onClick={open}>
+              {slot?.alphaUrl
+                ? __("Replace Safari HEVC alpha file", "kotlinskidev")
+                : __("Select Safari HEVC alpha file", "kotlinskidev")}
+            </Button>
+            {slot?.alphaUrl ? (
+              <Button variant="link" isDestructive onClick={onRemove}>
+                {__("Remove", "kotlinskidev")}
+              </Button>
+            ) : null}
+          </div>
+        )}
+      />
+    </MediaUploadCheck>
+  );
+}
+
+function useSlotEditing(slots: ResponsiveMedia, onChange: (next: ResponsiveMedia) => void) {
   const setSlot = (slot: SlotName, media: MediaSlot | null) => {
     const next: ResponsiveMedia = { ...slots };
     if (media) {
@@ -124,15 +185,12 @@ export default function ResponsiveMediaPanel({
     setSlot(slot, rest.url ? rest : null);
   };
 
-  const describe = (device: "mobile" | "tablet" | "desktop"): string =>
-    resolved[device] === desktopUrl ? desktopLabel : fileName(resolved[device]);
+  return { setSlot, selectMedia, selectAlphaMedia, removeAlphaMedia };
+}
 
-  const oversized = SLOTS.filter(
-    ({ name }) => desktopWidth && slots[name]?.width && (slots[name]?.width ?? 0) > desktopWidth
-  );
-
+function PanelHelp({ helpText, isVideo }: { helpText?: string; isVideo: boolean }) {
   return (
-    <PanelBody title={__("Responsive media", "kotlinskidev")} initialOpen={false}>
+    <>
       <p className="components-base-control__help">
         {helpText ??
           __(
@@ -148,69 +206,22 @@ export default function ResponsiveMediaPanel({
           )}
         </p>
       ) : null}
-      {SLOTS.map(({ name: slotName, label }) => {
-        const slot = slots[slotName];
-        return (
-          <BaseControl key={slotName} label={label} id={`kt-responsive-media-${slotName}`}>
-            <MediaUploadCheck>
-              <MediaUpload
-                allowedTypes={allowedTypes}
-                value={slot?.id}
-                onSelect={(media: PickedMedia) => {
-                  void selectMedia(slotName, media);
-                }}
-                render={({ open }: { open: () => void }) => (
-                  <div className="kt-responsive-media-slot">
-                    {slot?.url ? <span>{fileName(slot.url)}</span> : null}
-                    <Button variant="secondary" onClick={open}>
-                      {slot?.url
-                        ? __("Replace", "kotlinskidev")
-                        : __("Select media", "kotlinskidev")}
-                    </Button>
-                    {slot?.url ? (
-                      <Button variant="link" isDestructive onClick={() => setSlot(slotName, null)}>
-                        {__("Remove", "kotlinskidev")}
-                      </Button>
-                    ) : null}
-                  </div>
-                )}
-              />
-            </MediaUploadCheck>
-            {hasAlphaVideo ? (
-              <MediaUploadCheck>
-                <MediaUpload
-                  allowedTypes={["video"]}
-                  value={slot?.alphaId}
-                  onSelect={(media: PickedMedia) => selectAlphaMedia(slotName, media)}
-                  render={({ open }: { open: () => void }) => (
-                    <div className="kt-responsive-media-slot kt-responsive-media-slot--alpha">
-                      <span>
-                        {slot?.alphaUrl
-                          ? fileName(slot.alphaUrl)
-                          : __("Safari HEVC alpha file", "kotlinskidev")}
-                      </span>
-                      <Button variant="secondary" onClick={open}>
-                        {slot?.alphaUrl
-                          ? __("Replace Safari HEVC alpha file", "kotlinskidev")
-                          : __("Select Safari HEVC alpha file", "kotlinskidev")}
-                      </Button>
-                      {slot?.alphaUrl ? (
-                        <Button
-                          variant="link"
-                          isDestructive
-                          onClick={() => removeAlphaMedia(slotName)}
-                        >
-                          {__("Remove", "kotlinskidev")}
-                        </Button>
-                      ) : null}
-                    </div>
-                  )}
-                />
-              </MediaUploadCheck>
-            ) : null}
-          </BaseControl>
-        );
-      })}
+    </>
+  );
+}
+
+function OversizedNotices({
+  slots,
+  desktopWidth,
+}: {
+  slots: ResponsiveMedia;
+  desktopWidth?: number;
+}) {
+  const oversized = SLOTS.filter(
+    ({ name }) => desktopWidth && slots[name]?.width && (slots[name]?.width ?? 0) > desktopWidth
+  );
+  return (
+    <>
       {oversized.map(({ name, label }) => (
         <Notice key={name} status="warning" isDismissible={false}>
           {label}:{" "}
@@ -220,13 +231,66 @@ export default function ResponsiveMediaPanel({
           )}
         </Notice>
       ))}
-      <p className="components-base-control__help">
-        {__("Mobile uses:", "kotlinskidev")} {describe("mobile")}
-        <br />
-        {__("Tablet uses:", "kotlinskidev")} {describe("tablet")}
-        <br />
-        {__("Desktop uses:", "kotlinskidev")} {describe("desktop")}
-      </p>
+    </>
+  );
+}
+
+function ResolvedMediaSummary({
+  slots,
+  desktopUrl,
+  desktopLabel,
+}: Pick<ResponsiveMediaPanelProps, "slots" | "desktopUrl" | "desktopLabel">) {
+  const resolved = resolveResponsiveMedia(desktopUrl, slots);
+  const describe = (device: "mobile" | "tablet" | "desktop"): string =>
+    resolved[device] === desktopUrl ? desktopLabel : fileName(resolved[device]);
+
+  return (
+    <p className="components-base-control__help">
+      {__("Mobile uses:", "kotlinskidev")} {describe("mobile")}
+      <br />
+      {__("Tablet uses:", "kotlinskidev")} {describe("tablet")}
+      <br />
+      {__("Desktop uses:", "kotlinskidev")} {describe("desktop")}
+    </p>
+  );
+}
+
+export default function ResponsiveMediaPanel({
+  slots,
+  onChange,
+  allowedTypes,
+  desktopLabel,
+  desktopUrl,
+  desktopWidth,
+  hasAlphaVideo = false,
+  helpText,
+}: ResponsiveMediaPanelProps) {
+  const editing = useSlotEditing(slots, onChange);
+
+  return (
+    <PanelBody title={__("Responsive media", "kotlinskidev")} initialOpen={false}>
+      <PanelHelp helpText={helpText} isVideo={allowedTypes.includes("video")} />
+      {SLOTS.map(({ name: slotName, label }) => (
+        <BaseControl key={slotName} label={label} id={`kt-responsive-media-${slotName}`}>
+          <MediaSlotPicker
+            slot={slots[slotName]}
+            allowedTypes={allowedTypes}
+            onSelect={(media) => {
+              void editing.selectMedia(slotName, media);
+            }}
+            onRemove={() => editing.setSlot(slotName, null)}
+          />
+          {hasAlphaVideo ? (
+            <AlphaSlotPicker
+              slot={slots[slotName]}
+              onSelect={(media) => editing.selectAlphaMedia(slotName, media)}
+              onRemove={() => editing.removeAlphaMedia(slotName)}
+            />
+          ) : null}
+        </BaseControl>
+      ))}
+      <OversizedNotices slots={slots} desktopWidth={desktopWidth} />
+      <ResolvedMediaSummary slots={slots} desktopUrl={desktopUrl} desktopLabel={desktopLabel} />
     </PanelBody>
   );
 }

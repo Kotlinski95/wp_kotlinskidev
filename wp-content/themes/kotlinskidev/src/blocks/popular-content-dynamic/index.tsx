@@ -6,10 +6,10 @@ import {
   useBlockProps,
   __experimentalColorGradientControl as ColorGradientControl,
 } from "@wordpress/block-editor";
-import { PanelBody, ToggleControl } from "@wordpress/components";
+import { PanelBody } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 import metadata from "./block.json";
-import { BlurAmountControl, BLUR_AMOUNT_DEFAULT_VALUE } from "../shared/blur-amount-control";
+import { BlurOtherCardsFields } from "../shared/blur-amount-control";
 
 interface PopularContentAttributes {
   cardHoverBackgroundColor: string;
@@ -23,7 +23,7 @@ interface PopularContentEditProps {
 }
 
 function PopularContentEdit({ attributes, setAttributes }: PopularContentEditProps) {
-  const { cardHoverBackgroundColor, blurOtherCards, blurAmount } = attributes;
+  const { cardHoverBackgroundColor } = attributes;
   const blockProps = useBlockProps();
 
   return (
@@ -41,22 +41,7 @@ function PopularContentEdit({ attributes, setAttributes }: PopularContentEditPro
             __experimentalIsRenderedInSidebar={true}
             __nextHasNoMarginBottom
           />
-          <ToggleControl
-            label={__("Blur other cards on hover", "kotlinskidev")}
-            help={__(
-              "Hovering or focusing one card dims and blurs the rest of the grid.",
-              "kotlinskidev"
-            )}
-            checked={blurOtherCards}
-            onChange={(value) => setAttributes({ blurOtherCards: value })}
-            __nextHasNoMarginBottom
-          />
-          {blurOtherCards && (
-            <BlurAmountControl
-              value={blurAmount || BLUR_AMOUNT_DEFAULT_VALUE}
-              onChange={(value) => setAttributes({ blurAmount: value })}
-            />
-          )}
+          <BlurOtherCardsFields attributes={attributes} setAttributes={setAttributes} />
         </PanelBody>
       </InspectorControls>
       <ServerSideRender block="kotlinskidev/popular-content-dynamic" attributes={attributes} />

@@ -44,46 +44,51 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+function LineClampPanel({ attributes, setAttributes }: BlockEditProps) {
+  const enabled = Boolean(attributes.kotlinskidevLineClampEnabled);
+  const lines = attributes.kotlinskidevLineClampLines ?? DEFAULT_LINES;
+
+  return (
+    <PanelBody title={__("Truncate Text", "kotlinskidev")} initialOpen={false}>
+      <ToggleControl
+        label={__("Limit to a number of lines", "kotlinskidev")}
+        checked={enabled}
+        onChange={(next) => setAttributes({ kotlinskidevLineClampEnabled: next })}
+      />
+      {enabled && (
+        <>
+          <RangeControl
+            label={__("Visible lines", "kotlinskidev")}
+            value={lines}
+            min={MIN_LINES}
+            max={MAX_LINES}
+            onChange={(next) =>
+              setAttributes({ kotlinskidevLineClampLines: next ?? DEFAULT_LINES })
+            }
+          />
+          <p className="components-base-control__help">
+            {__(
+              'Text past this many lines is hidden behind a "Read more" toggle, translated automatically for each site language.',
+              "kotlinskidev"
+            )}
+          </p>
+        </>
+      )}
+    </PanelBody>
+  );
+}
+
 const withLineClampControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!supportsLineClamp(props.name)) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const enabled = Boolean(attributes.kotlinskidevLineClampEnabled);
-    const lines = attributes.kotlinskidevLineClampLines ?? DEFAULT_LINES;
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls group="styles">
-          <PanelBody title={__("Truncate Text", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Limit to a number of lines", "kotlinskidev")}
-              checked={enabled}
-              onChange={(next) => setAttributes({ kotlinskidevLineClampEnabled: next })}
-            />
-            {enabled && (
-              <>
-                <RangeControl
-                  label={__("Visible lines", "kotlinskidev")}
-                  value={lines}
-                  min={MIN_LINES}
-                  max={MAX_LINES}
-                  onChange={(next) =>
-                    setAttributes({ kotlinskidevLineClampLines: next ?? DEFAULT_LINES })
-                  }
-                />
-                <p className="components-base-control__help">
-                  {__(
-                    'Text past this many lines is hidden behind a "Read more" toggle, translated automatically for each site language.',
-                    "kotlinskidev"
-                  )}
-                </p>
-              </>
-            )}
-          </PanelBody>
+          <LineClampPanel {...props} />
         </InspectorControls>
       </Fragment>
     );
