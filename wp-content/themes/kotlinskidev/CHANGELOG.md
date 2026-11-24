@@ -54,6 +54,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Fixed
 
+- The logo and Home links are no longer marked current or click-blocked on search results (`/?s=CV`), because current-link matching now also compares the query string and the server-side check skips search requests. A new `template_redirect` safety net sends a stray `?s=` on the static home page to the language home search.
 - The touch in-view hover no longer flickers: the active element now stays active while the centre band sits in a gap between cards, switches to a new card only after a short 150 ms settle, and clears once it fully leaves the viewport. Nested hover elements, such as a project card and its image text overlay, now activate together as one outermost element, so the overlay no longer blinks off right after appearing.
 
 ## [2.3.0] — 2026-11-18

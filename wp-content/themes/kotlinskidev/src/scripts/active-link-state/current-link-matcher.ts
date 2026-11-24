@@ -12,7 +12,7 @@ const parseSameOriginUrl = (href: string): URL | null => {
 };
 
 export const createCurrentLinkMatcher =
-  (currentPath: string) =>
+  (currentPath: string, currentSearch = "") =>
   (href: string): boolean => {
     const trimmed = href.trim();
 
@@ -24,5 +24,7 @@ export const createCurrentLinkMatcher =
     }
 
     const url = parseSameOriginUrl(trimmed);
-    return url !== null && normalizePath(url.pathname) === currentPath;
+    return (
+      url !== null && normalizePath(url.pathname) === currentPath && url.search === currentSearch
+    );
   };

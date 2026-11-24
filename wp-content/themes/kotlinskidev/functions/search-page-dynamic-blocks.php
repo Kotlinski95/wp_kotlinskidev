@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/search-page-dynamic-blocks/request-value.php';
 require_once __DIR__ . '/search-page-dynamic-blocks/redirect.php';
+require_once __DIR__ . '/search-page-dynamic-blocks/origin-redirect.php';
 require_once __DIR__ . '/search-page-dynamic-blocks/popular-content.php';
 require_once __DIR__ . '/search-page-dynamic-blocks/recently-viewed.php';
 require_once __DIR__ . '/search-page-dynamic-blocks/search-header.php';

@@ -15,7 +15,10 @@ declare global {
 const EXCLUDED_LINK_CLASS = "kt-hover-no-link-gradient";
 
 const markCurrentLinks = (blockClicks: boolean): void => {
-  const isCurrentLinkUrl = createCurrentLinkMatcher(normalizePath(window.location.pathname));
+  const isCurrentLinkUrl = createCurrentLinkMatcher(
+    normalizePath(window.location.pathname),
+    window.location.search
+  );
 
   document.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((link) => {
     if (link.classList.contains(EXCLUDED_LINK_CLASS)) {
