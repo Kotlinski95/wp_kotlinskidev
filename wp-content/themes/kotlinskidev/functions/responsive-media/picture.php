@@ -1,5 +1,5 @@
 <?php
-function kotlinskidev_responsive_media_picture( string $img_tag, array $resolved, array $breakpoints, array $srcsets = array(), string $sizes = '' ): string
+function kotlinskidev_responsive_media_picture( string $img_tag, array $resolved, array $breakpoints, array $srcsets = array(), string $sizes = '', array $dimensions = array() ): string
 {
     $sources = '';
 
@@ -12,10 +12,11 @@ function kotlinskidev_responsive_media_picture( string $img_tag, array $resolved
         $srcset = isset( $srcsets[ $device ] ) && '' !== $srcsets[ $device ] ? $srcsets[ $device ] : esc_url( $resolved[ $device ] );
 
         $sources .= sprintf(
-            '<source media="%s" srcset="%s"%s>',
+            '<source media="%s" srcset="%s"%s%s>',
             esc_attr( $range['media'] ),
             $srcset,
-            '' !== $sizes ? sprintf( ' sizes="%s"', esc_attr( $sizes ) ) : ''
+            '' !== $sizes ? sprintf( ' sizes="%s"', esc_attr( $sizes ) ) : '',
+            kotlinskidev_responsive_media_source_size_attributes( $dimensions[ $device ] ?? array() )
         );
     }
 
@@ -75,4 +76,35 @@ function kotlinskidev_responsive_media_data_attributes( array $values, string $p
     }
 
     return $attributes;
+}
+
+function kotlinskidev_responsive_media_source_size_attributes( array $dimension ): string
+{
+    $width  = absint( $dimension['width'] ?? 0 );
+    $height = absint( $dimension['height'] ?? 0 );
+
+    return $width > 0 && $height > 0 ? sprintf( ' width="%d" height="%d"', $width, $height ) : '';
+}
+
+function kotlinskidev_responsive_media_source_dimensions( array $slots, string $id_key = 'id' ): array
+{
+    $dimensions = array();
+
+    foreach ( KOTLINSKIDEV_RESPONSIVE_MEDIA_DEVICES as $device ) {
+        $slot = kotlinskidev_responsive_media_effective_slot( $slots, $device );
+        $id   = $slot[ $id_key ] ?? null;
+        if ( ! is_numeric( $id ) || (int) $id <= 0 ) {
+            continue;
+        }
+
+        $metadata = wp_get_attachment_metadata( (int) $id );
+        if ( is_array( $metadata ) && ! empty( $metadata['width'] ) && ! empty( $metadata['height'] ) ) {
+            $dimensions[ $device ] = array(
+                'width'  => (int) $metadata['width'],
+                'height' => (int) $metadata['height'],
+            );
+        }
+    }
+
+    return $dimensions;
 }

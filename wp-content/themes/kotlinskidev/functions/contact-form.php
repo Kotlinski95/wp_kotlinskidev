@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/contact-form/default-labels.php';
 require_once __DIR__ . '/contact-form/find-block.php';
 require_once __DIR__ . '/contact-form/submission-input.php';
 require_once __DIR__ . '/contact-form/source-post.php';

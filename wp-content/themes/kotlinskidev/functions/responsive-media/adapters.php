@@ -40,7 +40,7 @@ function kotlinskidev_responsive_media_image_block( string $block_content, array
 
     $result = preg_replace_callback(
         '/<img\b[^>]*>/i',
-        static fn ( array $matches ): string => kotlinskidev_responsive_media_picture( $matches[0], $resolved, $breakpoints, $srcsets, $sizes ),
+        static fn ( array $matches ): string => kotlinskidev_responsive_media_picture( $matches[0], $resolved, $breakpoints, $srcsets, $sizes, kotlinskidev_responsive_media_source_dimensions( $slots ) ),
         $block_content,
         1
     );

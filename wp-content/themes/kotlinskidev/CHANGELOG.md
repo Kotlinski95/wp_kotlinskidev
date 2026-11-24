@@ -18,6 +18,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Added
 
+- New "Exclude inner blocks from touch-screen centred hover" toggle on Group, Columns, Column and Cover blocks adds the `kt-in-view-hover-off` class, so editors can opt a whole section out of the touch in-view hover without code. It is off by default, so existing saved markup is unchanged.
+- New `kotlinskidev_jquery_dependents` filter (`functions/jquery-gate.php`) lists the queued scripts that require jQuery, so the decision to load it can be inspected or logged.
 - `npm run editor:check` (`bin/editor-validity.mjs`) opens every published page and post and every block pattern in the real block editor and fails on any new invalid block or editor error compared with a recorded baseline, and the e2e WP-CLI helper and the draft-purge script now run `wp` with a 512M PHP memory limit (bare `wp` ran out of memory on WordPress 7.1).
 - `npm run dom:capture` / `npm run dom:compare` (`bin/dom-snapshot.mjs`) snapshot the rendered DOM of 10 key pages after JavaScript has run, at desktop and iPhone sizes, including the console error list, so frontend refactors can prove they leave runtime behavior unchanged.
 - `npm run snapshot:capture` / `npm run snapshot:compare` (`bin/html-snapshot.mjs`) save and compare the rendered markup of the key pages in `bin/html-snapshot-urls.txt`, masking nonces, `uniqid()` tokens, asset versions and inline scripts. The clean-code refactor (`docs/clean-code-plan.md`) uses it to prove each batch leaves the HTML unchanged.
@@ -54,6 +56,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Fixed
 
+- Contact form default labels, placeholders and messages are now translated (Polish "Wyślij", "Imię", "Temat" and so on) when the saved value still equals the block default, while edited text stays as typed.
+- The touch in-view hover now skips elements that are or contain protected content. Responsive picture `<source>` tags carry the real `width` and `height` of each device image, which avoids layout shift.
+- The device-frame lightbox video controls no longer flash before `main.css` loads, because the closed-modal rule now ships in the block's inline critical CSS. The OneTap accessibility widget now stays hidden until both its stylesheets have loaded.
+- jQuery is no longer deregistered unconditionally, which had silently stopped the OneTap accessibility plugin from loading any script. It is now loaded (without jquery-migrate) only because OneTap depends on it, and goes away automatically once that plugin is replaced.
 - The logo and Home links are no longer marked current or click-blocked on search results (`/?s=CV`), because current-link matching now also compares the query string and the server-side check skips search requests. A new `template_redirect` safety net sends a stray `?s=` on the static home page to the language home search.
 - The touch in-view hover no longer flickers: the active element now stays active while the centre band sits in a gap between cards, switches to a new card only after a short 150 ms settle, and clears once it fully leaves the viewport. Nested hover elements, such as a project card and its image text overlay, now activate together as one outermost element, so the overlay no longer blinks off right after appearing.
 

@@ -46,6 +46,7 @@ import "./blocks/equal-height-columns/index.tsx";
 import "./blocks/image-filter-color/index.tsx";
 import "./blocks/image-grow-fill/index.tsx";
 import "./blocks/blur-siblings/index.tsx";
+import "./blocks/in-view-hover-opt-out/index.tsx";
 import "./blocks/group-divider/index.tsx";
 import "./blocks/clip-to-radius/index.tsx";
 import "./blocks/responsive-grid-columns/index.tsx";

@@ -21,14 +21,6 @@ function kotlinskidev_theme_setup()
 }
 add_action('after_setup_theme', 'kotlinskidev_theme_setup');
 
-function remove_jquery()
-{
-    if (!is_admin() && !current_user_can('manage_options')) {
-        wp_deregister_script('jquery');
-    }
-}
-add_action('wp_enqueue_scripts', 'remove_jquery');
-
 function kotlinskidev_show_admin_bar(bool $show): bool
 {
     return current_user_can('manage_options') ? $show : false;

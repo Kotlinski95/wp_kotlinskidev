@@ -13327,3 +13327,43 @@ msgstr "Przypinaj tła banerów parallax podczas przewijania na ekranach dotykow
 
 #~ msgid "Set the space between slides in pixels."
 #~ msgstr "Ustaw odstęp między slajdami w pikselach."
+
+#: functions/contact-form/default-labels.php
+msgid "Send"
+msgstr "Wyślij"
+
+#: functions/contact-form/default-labels.php
+msgid "Your Name"
+msgstr "Twoje imię"
+
+#: functions/contact-form/default-labels.php
+msgid "Your Email"
+msgstr "Twój e-mail"
+
+#: functions/contact-form/default-labels.php
+msgid "Your Message"
+msgstr "Twoja wiadomość"
+
+#: functions/contact-form/default-labels.php
+msgid "I agree to be contacted via email."
+msgstr "Wyrażam zgodę na kontakt drogą e-mailową."
+
+#: functions/contact-form/default-labels.php
+msgid "Thank you! Your message has been sent."
+msgstr "Dziękuję! Twoja wiadomość została wysłana."
+
+#: functions/contact-form/default-labels.php
+msgid "Sorry, there was an error. Please try again."
+msgstr "Przepraszam, wystąpił błąd. Spróbuj ponownie."
+
+#: src/blocks/in-view-hover-opt-out/index.tsx
+msgid "Touch-screen centred hover"
+msgstr "Wyróżnienie po wycentrowaniu na ekranach dotykowych"
+
+#: src/blocks/in-view-hover-opt-out/index.tsx
+msgid "Exclude inner blocks from touch-screen centred hover"
+msgstr "Wyłącz wyróżnienie wewnętrznych bloków po wycentrowaniu na ekranach dotykowych"
+
+#: src/blocks/in-view-hover-opt-out/index.tsx
+msgid "Hover effects inside this block stay hover-only and do not play when centred on touch screens."
+msgstr "Efekty najechania wewnątrz tego bloku działają tylko po najechaniu i nie odtwarzają się, gdy blok jest wycentrowany na ekranach dotykowych."

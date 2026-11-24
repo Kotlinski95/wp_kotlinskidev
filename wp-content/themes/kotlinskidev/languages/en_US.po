@@ -13163,3 +13163,43 @@ msgstr "Pin parallax banner backgrounds while scrolling on touch screens"
 
 #~ msgid "Set the space between slides in pixels."
 #~ msgstr "Set the space between slides in pixels."
+
+#: functions/contact-form/default-labels.php
+msgid "Send"
+msgstr "Send"
+
+#: functions/contact-form/default-labels.php
+msgid "Your Name"
+msgstr "Your Name"
+
+#: functions/contact-form/default-labels.php
+msgid "Your Email"
+msgstr "Your Email"
+
+#: functions/contact-form/default-labels.php
+msgid "Your Message"
+msgstr "Your Message"
+
+#: functions/contact-form/default-labels.php
+msgid "I agree to be contacted via email."
+msgstr "I agree to be contacted via email."
+
+#: functions/contact-form/default-labels.php
+msgid "Thank you! Your message has been sent."
+msgstr "Thank you! Your message has been sent."
+
+#: functions/contact-form/default-labels.php
+msgid "Sorry, there was an error. Please try again."
+msgstr "Sorry, there was an error. Please try again."
+
+#: src/blocks/in-view-hover-opt-out/index.tsx
+msgid "Touch-screen centred hover"
+msgstr "Touch-screen centred hover"
+
+#: src/blocks/in-view-hover-opt-out/index.tsx
+msgid "Exclude inner blocks from touch-screen centred hover"
+msgstr "Exclude inner blocks from touch-screen centred hover"
+
+#: src/blocks/in-view-hover-opt-out/index.tsx
+msgid "Hover effects inside this block stay hover-only and do not play when centred on touch screens."
+msgstr "Hover effects inside this block stay hover-only and do not play when centred on touch screens."

@@ -142,6 +142,32 @@ describe("in-view-hover", () => {
     expect(observed).not.toContain(el);
   });
 
+  it("skips candidates that are inside protected content", () => {
+    setup(true);
+    document.body.innerHTML =
+      '<div class="protected-content"><div class="hover-jump" id="a"></div></div>';
+    load();
+
+    expect(observed).not.toContain(document.getElementById("a"));
+  });
+
+  it("skips candidates that are protected content themselves", () => {
+    setup(true);
+    document.body.innerHTML = '<div class="hover-jump protected-content" id="a"></div>';
+    load();
+
+    expect(observed).not.toContain(document.getElementById("a"));
+  });
+
+  it("skips candidates that contain protected content", () => {
+    setup(true);
+    document.body.innerHTML =
+      '<div class="hover-jump" id="a"><div class="protected-content"></div></div>';
+    load();
+
+    expect(observed).not.toContain(document.getElementById("a"));
+  });
+
   it("sets the glow origin to the element centre for glow elements", () => {
     setup(true);
     document.body.innerHTML = '<div class="has-enhanced-hover-glow" id="a"></div>';

@@ -8,6 +8,8 @@ require_once __DIR__ . '/../../functions/responsive-media.php';
 beforeEach(function () {
     Functions\stubEscapeFunctions();
     Functions\when('esc_url')->returnArg();
+    Functions\when('absint')->alias(static fn ($value) => abs((int) $value));
+    Functions\when('wp_get_attachment_metadata')->justReturn(false);
     Functions\when('get_option')->alias(static fn ($name, $default = null) => $default);
 });
 
@@ -306,4 +308,41 @@ it('prints per-device alpha data attributes only where they differ from desktop'
     $sources = kotlinskidev_responsive_media_alpha_sources('d.mov', array('mobile' => array('url' => 'm.webm', 'alphaUrl' => 'm.mov')));
 
     expect(kotlinskidev_responsive_media_data_attributes($sources, 'src-alpha'))->toBe(' data-kt-src-alpha-mobile="m.mov"');
+});
+
+it('adds width and height to a source from the slot attachment metadata', function () {
+    Functions\when('wp_get_attachment_image_srcset')->justReturn('mobile-400.webp 400w');
+    Functions\when('wp_get_attachment_metadata')->alias(static fn ($id) => 9 === $id ? array('width' => 828, 'height' => 1200) : false);
+    $block = kotlinskidev_responsive_core_block('core/image', array('id' => 5, 'responsiveMedia' => array('mobile' => array('id' => 9, 'url' => 'mobile-828.webp'))));
+
+    $out = kotlinskidev_apply_responsive_media(kotlinskidev_responsive_image_block_markup(), $block);
+
+    expect($out)->toContain('sizes="(max-width: 1200px) 100vw, 1200px" width="828" height="1200"><img');
+});
+
+it('omits source dimensions when attachment metadata is missing', function () {
+    $dimensions = kotlinskidev_responsive_media_source_dimensions(array('mobile' => array('id' => 9, 'url' => 'm.webp')));
+
+    expect($dimensions)->toBe(array());
+    expect(kotlinskidev_responsive_media_source_size_attributes(array()))->toBe('');
+    expect(kotlinskidev_responsive_media_source_size_attributes(array('width' => 100, 'height' => 0)))->toBe('');
+});
+
+it('reads dimensions from the poster id key and falls back from mobile to tablet', function () {
+    Functions\when('wp_get_attachment_metadata')->alias(static fn ($id) => array('width' => $id * 10, 'height' => $id * 20));
+
+    $dimensions = kotlinskidev_responsive_media_source_dimensions(array('tablet' => array('url' => 't.jpg', 'posterId' => 4)), 'posterId');
+
+    expect($dimensions)->toBe(array(
+        'mobile' => array('width' => 40, 'height' => 80),
+        'tablet' => array('width' => 40, 'height' => 80),
+    ));
+});
+
+it('passes explicit dimensions through the picture builder', function () {
+    $assets = array('mobile' => 'm.jpg', 'tablet' => 'd.jpg', 'desktop' => 'd.jpg');
+
+    $picture = kotlinskidev_responsive_media_picture('<img>', $assets, kotlinskidev_get_breakpoints(), array(), '', array('mobile' => array('width' => 640, 'height' => 480)));
+
+    expect($picture)->toContain('<source media="(max-width: 781px)" srcset="m.jpg" width="640" height="480"><img>');
 });

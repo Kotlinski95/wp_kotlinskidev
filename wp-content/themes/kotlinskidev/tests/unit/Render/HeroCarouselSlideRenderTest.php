@@ -22,6 +22,8 @@ beforeEach(function () {
     Functions\when('get_option')->alias(static fn ($name, $default = null) => $default);
     Functions\when('get_block_wrapper_attributes')->justReturn('class="swiper-slide hero-carousel__slide"');
     Functions\when('esc_url')->alias(fn ($t) => $t);
+    Functions\when('absint')->alias(fn ($value) => abs((int) $value));
+    Functions\when('wp_get_attachment_metadata')->justReturn(false);
     Functions\when('esc_attr')->alias(fn ($t) => $t);
     Functions\when('wp_style_engine_get_styles')->justReturn(['css' => '']);
     Functions\when('wp_high_priority_element_flag')->justReturn(true);
@@ -364,4 +366,21 @@ it('marks the background as alpha when an alpha source is set', function () {
     $html = kotlinskidev_hero_carousel_slide_render(['slideIndex' => 1, 'bgVideoUrl' => 'bg.webm', 'bgVideoAlphaUrl' => 'bg.mov']);
 
     expect($html)->toContain('hero-carousel__bg hero-carousel__bg--alpha');
+});
+
+it('adds width and height to the mobile poster source from the poster attachment metadata', function () {
+    Functions\when('wp_get_attachment_url')->justReturn('poster.jpg');
+    Functions\when('wp_get_attachment_image_srcset')->justReturn('poster-400.jpg 400w');
+    Functions\when('wp_get_attachment_metadata')->alias(fn ($id) => 9 === $id ? ['width' => 640, 'height' => 960] : false);
+    Functions\when('wp_get_attachment_image')->justReturn('<img class="hero-carousel__poster">');
+
+    $html = kotlinskidev_hero_carousel_slide_render([
+        'slideIndex' => 0,
+        'bgVideoUrl' => 'bg.mp4',
+        'bgImageId'  => 7,
+        'responsiveMedia' => ['mobile' => ['url' => 'm.mp4', 'posterUrl' => 'mp.jpg', 'posterId' => 9]],
+    ], kotlinskidev_above_fold_context());
+
+    expect($html)->toContain('width="640" height="960"><img class="hero-carousel__poster">');
+    kotlinskidev_reset_above_fold_state();
 });
