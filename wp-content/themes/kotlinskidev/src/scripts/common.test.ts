@@ -1,17 +1,13 @@
+import { getTranslations, getTranslationGroup } from "./common/translations";
+import { debounce, throttle } from "./common/timing";
 import {
-  getTranslations,
-  getTranslationGroup,
-  debounce,
-  throttle,
   isElementInViewport,
   getDeviceType,
   prefersReducedMotion,
   getThemePreference,
-  formatString,
-  createElement,
-  domReady,
-  EventEmitter,
-} from "./common";
+} from "./common/environment";
+import { formatString, createElement, domReady } from "./common/dom";
+import { EventEmitter } from "./common/event-emitter";
 
 function setInnerWidth(width: number) {
   Object.defineProperty(window, "innerWidth", { writable: true, configurable: true, value: width });

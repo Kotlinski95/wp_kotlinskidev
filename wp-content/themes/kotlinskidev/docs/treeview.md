@@ -536,6 +536,9 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── faq-layout/                         # extension: Advanced-tab "FAQ columns behavior" (default grid / independent columns + count) for core/group wrapping core/details
 │   │   ├── feature-card-canvas/                # nextjs.org-style animated canvas illustration for feature cards (browser-stream, node-tree, dot-image-stack, chart-growth) — palette-driven via CSS variables, eased hover/focus progress on the parent .kt-feature-card, IO-gated lazy runtime chunk, reduced-motion aware
+│   │   │   ├── animation-loop.ts               # shared requestAnimationFrame loop, draw step and reduced-motion handling for every mounted canvas
+│   │   │   ├── canvas-instance.ts              # Instance type for one mounted canvas
+│   │   │   ├── input-binding.ts                # hover, focus and in-view input wiring that drives each canvas's target
 │   │   │   └── index.tsx
 │   │   ├── gallery-lightbox/                   # image/video gallery with lightbox + mobile media variant
 │   │   │   ├── block.json
@@ -1004,6 +1007,14 @@ kotlinskidev/
 │   │   └── panel.tsx                           # PluginDocumentSettingPanel on the kt_offer edit screen — key, currency, placeholder flag and variants editor
 │   ├── scripts/                                # frontend TS modules, bundled via src/index.ts / src/critical.ts
 │   │   ├── accessibility.ts                    # DOM/motion/video a11y helpers, reduced-motion checks
+│   │   ├── accessibility/                            # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── accessibility-utils.ts                # accessibility utils module
+│   │   │   ├── motion-preference.ts                  # motion preference module
+│   │   │   ├── reduced-motion-query.ts               # reduced motion query module
+│   │   │   ├── reduced-motion-video-controller.ts    # reduced motion video controller module
+│   │   │   ├── submenu-toggles.ts                    # submenu toggles module
+│   │   │   ├── video-indicator.ts                    # video indicator module
+│   │   │   └── video-operations.ts                   # video operations module
 │   │   ├── active-link-state.ts                 # single-pass DOM scan on load: marks <a href> pointing at location.pathname with kt-link-current/aria-current and blocks its click (unless a data-link-navigates ancestor + aria-haspopup panel trigger); reads window.kotlinskidevActiveLinkState (enabled/blockClicks) localized by functions/active-link-state.php — replaced a render_block PHP filter that cost ~104ms/page (redundant per-anchor URL parsing + ancestor re-scanning of already-processed block content)
 │   │   ├── analytics-providers/                # multi-vendor analytics dispatch — add a new tracking system here, call sites (track-event.ts's trackEvent()) never change
 │   │   │   ├── types.ts                        # AnalyticsProvider interface ({ id, isReady(), send() }) + shared AnalyticsEventParams type
@@ -1023,26 +1034,65 @@ kotlinskidev/
 │   │   │   ├── color.ts                         # parseColorToRgb01(): one shared 1x1-canvas getImageData color→RGB-float parser, memoized by resolved CSS color string, used by every WebGL layer instead of each defining its own — a per-frame, per-layer getImageData readback (a GPU→CPU sync) was the entire cause of a 980ms Lighthouse Total Blocking Time on a page stacking several WebGL layers, confirmed via Chrome's own "Multiple readback operations" console warning before the fix
 │   │   │   ├── engine.test.ts                   # mount/pause-resume/reduced-motion/shared-loop-stop coverage against runtime.ts, mocking rAF/ResizeObserver/canvas 2D context
 │   │   │   └── layers/                          # one draw(ctx, drawContext) function per src/blocks/canvas-background/layer-* block type (gradient, noise, grid-lines, blob, sweep — pure Canvas2D; light-rays, curved-rays, star-field, warp-field, nebula, aurora, neon-waves, hex-tiles, deep-field, floating-panels, pleiades — own offscreen WebGL canvas+shader each, single-pass, cached per-instance via the shared cache object, color resolved via color.ts, all with webglcontextlost/restored recovery; orbit-trails — same WebGL+context-loss pattern but two-pass, ping-ponging a pair of offscreen framebuffers each frame to accumulate a fading feedback trail)
-│   │   ├── common.ts                           # shared small helpers
+│   │   ├── common/                                   # shared small helpers (types, translations, timing, environment, dom, event emitter); the old common.ts barrel was removed as unused
+│   │   │   ├── dom.ts                                # dom module
+│   │   │   ├── environment.ts                        # environment module
+│   │   │   ├── event-emitter.ts                      # event emitter module
+│   │   │   ├── timing.ts                             # timing module
+│   │   │   ├── translations.ts                       # translations module
+│   │   │   └── types.ts                              # types module
 │   │   ├── cookie-consent.ts                   # replaces Complianz consent button with custom cookie icon
 │   │   ├── editor-theme-toggle.ts              # dark/light toggle button inside the block editor canvas
 │   │   ├── faq-accordion.ts                    # WAAPI height-animated open/close for FAQ details accordion; fires faq_expand (GA4) via track-event.ts on open only, not close
+│   │   ├── faq-accordion/                            # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── animate-details.ts                    # animate details module
+│   │   │   └── independent-columns.ts                # independent columns module
 │   │   ├── group-link.ts                       # click/keyboard delegation for .kt-group-link, skips nested interactive elements
 │   │   ├── cover-video-controls.ts             # shows the first frame when autoplay is off and pauses/resumes cover videos with the viewport and reveals reveal-after-end cover content when the video ends
 │   │   ├── responsive-media.ts                 # auto-binds cover and core/video elements to the shared @utils/responsive-media picker
 │   │   ├── hamburger.ts                        # mobile nav overlay open/close, submenu collapse, scroll-lock
+│   │   ├── hamburger/                                # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── close-hamburger.ts                    # close hamburger module
+│   │   │   ├── hamburger-selectors.ts                # hamburger selectors module
+│   │   │   ├── open-button.ts                        # open button module
+│   │   │   ├── panel-open-state.ts                   # panel open state module
+│   │   │   ├── submenu-tabindex.ts                   # submenu tabindex module
+│   │   │   └── submenu-toggle-click.ts               # submenu toggle click module
 │   │   ├── hide-nav-on-scroll.ts               # hides/shows nav bar based on scroll direction
+│   │   ├── hide-nav-on-scroll/                       # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── nav-visibility.ts                     # nav visibility module
+│   │   │   ├── scroll-direction-handler.ts           # scroll direction handler module
+│   │   │   └── scroll-listening.ts                   # scroll listening module
 │   │   ├── hover-glow.ts                       # cursor-following glow for any block with "Enhanced Glow" enabled in the Hover Effects panel — not button-only: kotlinskidev/button, core/button, and any other block (paragraph, heading, group, etc.) — rAF-throttled pointermove sets --kt-glow-x/y relative to the painted text element itself (.kt-button__label, .wp-block-button__link, or the element itself for the generic case), gated behind (hover: hover) and (pointer: fine) and skipped under prefers-reduced-motion. findFragmentRect() computes the offset relative to whichever getClientRects() line fragment the pointer is actually over (not the element's overall multi-line bounding box) — needed because box-decoration-break:clone repaints the background independently per wrapped line, so a position computed against the union box falls outside a given line's own (shorter) box and the glow goes dark exactly when the cursor crosses into a wrapped second/third line. closestNonInlineAncestor() makes the generic (non-button) case listen on the nearest block ancestor rather than the fragmented span itself, so pointermove — and the paired :has()-driven CSS trigger in hover-glow.scss — stays continuous through the small gap between two wrapped line boxes, which the span's own :hover never covers
+│   │   ├── hover-glow/                               # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── glow-target.ts                        # glow target module
+│   │   │   └── pointer-tracking.ts                   # pointer tracking module
 │   │   ├── hover-glow.test.ts
 │   │   ├── in-view-hover.ts                    # on (hover: none) a shared centre-band IntersectionObserver toggles is-in-view-hover on the single centre-most hover-capable element (IN_VIEW_HOVER_SELECTOR), only outermost candidates compete and mirror is-in-view-hover onto nested ones, skipping .kt-in-view-hover-off, setting --kt-glow-x/y to the element centre for glow elements, with a debounced rescan for load-more content
+│   │   ├── in-view-hover/                            # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── active-state.ts                       # active state module
+│   │   │   ├── candidates.ts                         # candidates module
+│   │   │   ├── eligibility.ts                        # eligibility module
+│   │   │   ├── relevant-mutations.ts                 # relevant mutations module
+│   │   │   └── rescan-scheduler.ts                   # rescan scheduler module
 │   │   ├── in-view-hover-selector.ts           # IN_VIEW_HOVER_SELECTOR and isLinkLike() (link/button/nav detection, cards exempt), kept in its own module so index.ts can gate the lazy import without pulling the script into main.js
 │   │   ├── in-view-hover.test.ts
 │   │   ├── image-lightbox.ts                   # lightbox open/close/context capture for gallery images; fires lightbox_open (GA4) via track-event.ts on activation
+│   │   ├── image-lightbox/                           # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── overlay-lifecycle.ts                  # overlay lifecycle module
+│   │   │   ├── source-context.ts                     # source context module
+│   │   │   └── trigger-labels.ts                     # trigger labels module
 │   │   ├── language-panel.ts                   # wraps initDropdownPanels for .kt-lang-panel
 │   │   ├── language.ts                         # small language-related DOM script
 │   │   ├── line-clamp.ts                       # ResizeObserver-driven overflow check + click toggle for .kt-line-clamp-toggle (Read more/Read less); fires read_more_click (GA4) via track-event.ts on every toggle, action param distinguishes expand/collapse
 │   │   ├── load-more.ts                        # scans [data-kt-load-more-initial], hides children past the limit, wraps a reveal-on-click button in a .kt-load-more__wrapper (alignment), applies its style data attributes as inline styles, and swaps to hover-color overrides on mouseenter/focus (reverting on mouseleave/blur) — reusable across any core/group flagged by functions/load-more.php; fires load_more_click (GA4) via track-event.ts on reveal, with an items_revealed count
 │   │   ├── mega-menu.ts                        # desktop mega-menu open/close/backdrop + delay timers
+│   │   ├── mega-menu/                                # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── item-bindings.ts                      # item bindings module
+│   │   │   ├── mega-menu-constants.ts                # mega menu constants module
+│   │   │   ├── mega-menu-controller.ts               # mega menu controller module
+│   │   │   ├── nav-bindings.ts                       # nav bindings module
+│   │   │   └── panel-bindings.ts                     # panel bindings module
 │   │   ├── parallax-deferred-bg.ts             # one IntersectionObserver (400px margin) that sets the background-image of below-the-fold parallax covers from data-kt-parallax-bg, so their full image is not fetched at load
 │   │   ├── viewport-deferred-images.ts         # IntersectionObserver (200px margin) that restores data-src/data-srcset/data-sizes on deferred content-tabs images via @utils/load-deferred-images
 │   │   ├── button-style-variants.ts            # BUTTON_STYLE_OPTIONS/resolveButtonStyle: editor "Button style" list for google-maps and contact-form, kept in sync with theme.json core/button variations by button-style-variants.test.ts (PHP side: kotlinskidev_resolve_button_style())
@@ -1050,12 +1100,37 @@ kotlinskidev/
 │   │   ├── is-webkit-browser.ts                # isWebKitBrowser(): true for iOS (all browsers), iPadOS desktop-class UA and desktop Safari — hero-carousel uses it to pick the HEVC-with-alpha data-src-alpha source; isIosWebKit(): iOS/iPadOS only (hero-carousel draws the alpha video through a canvas there)
 │   │   ├── nav-reveal.ts                   # listens for kt:nav-panel-open/-close (dispatched by hamburger.ts/mega-menu.ts/dropdown-panel.ts), toggles .visible on *-on-reveal elements — both descendants of the dispatched container AND the container itself, since search/language-panel put the class directly on the dispatched modal — so content stagger/fades in via --reveal-delay instead of on scroll
 │   │   ├── modal-manager.ts                    # delegated click handler for [data-kt-modal-target]/a[href^="#kt-modal-"], focus trap + inert background, reuses scroll-lock + panel-coordinator; initModalManager() now exported with an immediate-run fallback (matching gallery-lightbox/init.ts) so Storybook (page already loaded) can call it directly instead of waiting on a DOMContentLoaded that already fired; fires modal_open (GA4) via track-event.ts on every open, with the opened modal's id — separate from gallery-lightbox's own lightbox_open
+│   │   ├── modal-manager/                            # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── background-inert.ts                   # background inert module
+│   │   │   ├── focus-trap.ts                         # focus trap module
+│   │   │   └── scroll-guard.ts                       # scroll guard module
 │   │   ├── page-views.ts                       # posts page-view AJAX beacon on scroll/visibility-change, with a freshly fetched nonce
 │   │   ├── recently-viewed.ts                  # loaded on idle by index.ts; records singular post/page views (title/URL/og:image/og:description/article:published_time + single-post-vs-page type) to localStorage kt_recently_viewed, capped at 6, excludes search/404; renders into #kt-recently-viewed as real kt-post-card-grid__card DOM nodes (same markup as functions/post-card-renderer.php's kotlinskidev_render_post_card(), built client-side since this data only exists in localStorage) so Recently Viewed matches Popular Content's card styling exactly, into the .kt-post-card-grid populated by functions/search-page-dynamic-blocks.php's Popular Content section
+│   │   ├── recently-viewed/                          # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── card.ts                               # card module
+│   │   │   ├── entry-storage.ts                      # entry storage module
+│   │   │   ├── entry-types.ts                        # entry types module
+│   │   │   ├── page-info.ts                          # page info module
+│   │   │   ├── record-view.ts                        # record view module
+│   │   │   └── render.ts                             # render module
 │   │   ├── console-banner.ts                   # logConsoleBanner(): the developer-guide console messages and load time, loaded from index.ts on idle instead of inside main.js
+│   │   ├── console-banner/                           # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── banner-sections.ts                    # banner sections module
+│   │   │   ├── banner-styles.ts                      # banner styles module
+│   │   │   ├── load-time.ts                          # load time module
+│   │   │   └── styled-log.ts                         # styled log module
 │   │   ├── protected-content.ts                # frontend reveal/decrypt handler for protected-content block, lazy-loaded by index.ts only when a [data-protected], [data-protection-type] or .kt-copy-btn element exists; fires protected_content_reveal (GA4) via track-event.ts on a successful reveal only, not on a failed decrypt
 │   │   ├── restoration.ts                      # stores scrollY per URL on pagehide (sessionStorage key kt-scroll:<path><query>), restores it only on back_forward/reload of that URL and never when the page comes from bfcache for back_forward and reload navigations only (not a plain navigate) — pageshow fires after window's load event, so the restore always happens after marquee/ScrollTrigger have already settled, pairing with functions/scroll-restoration.php's history.scrollRestoration = 'manual' to stop the browser's own earlier, unsynced auto-restore. Restoring retries scrollTo() every animation frame (bounded by a stable-frame count + hard frame cap) rather than a single call, since a pinSpacing:false scroll-section only grows the document's real scrollHeight in response to scroll events — a one-shot scrollTo() gets silently clamped to the still-small, ungrown height and never catches up
+│   │   ├── restoration/                              # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── navigation-type.ts                    # navigation type module
+│   │   │   ├── restore-scroll.ts                     # restore scroll module
+│   │   │   └── stored-position.ts                    # stored position module
 │   │   ├── view-transition-reveal.ts           # on a view-transition pagereveal, adds .visible to above-the-fold scroll-animated elements before first paint (style-flush with transition:none so they do not fade from 0)
+│   │   ├── visual-viewport-offset.ts                 # keeps the bottom offset in sync with the visual viewport (mobile keyboard and toolbar) for fixed elements
+│   │   ├── visual-viewport-offset/                   # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── bottom-offset.ts                      # bottom offset module
+│   │   │   ├── offset-updater.ts                     # offset updater module
+│   │   │   └── viewport-listeners.ts                 # viewport listeners module
 │   │   ├── blocking-stylesheets.ts             # same-origin referrer only: promotes deferred media="print" onload stylesheets to media="all" as they are inserted, so internal navigations wait for cached CSS instead of painting unstyled
 │   │   ├── nav-solid-transition.ts             # html.kt-nav-solid from page start/pageswap until load or the view transition finishes: the mobile footer nav uses a solid background (theme.json settings.custom.mobileNav.solidBackground) instead of the translucent glass
 │   │   ├── scroll-animations.ts                # IntersectionObserver entrance-animation trigger (skips reveal-after-end covers)
@@ -1063,9 +1138,19 @@ kotlinskidev/
 │   │   ├── scroll-to-top.ts                    # fixed-arrow visibility/progress ring + bar-variant click wiring; fires scroll_to_top_click (GA4) via track-event.ts with a fixed/bar variant param, from the one shared handler both variants (and keyboard activation) call
 │   │   ├── search-panel.ts                     # wraps initDropdownPanels for .kt-search-panel, autofocuses input; fires search_panel_open (GA4) via track-event.ts on open
 │   │   ├── smooth-scroll-offset.ts             # smooth-scrolls anchor links with header-height offset
+│   │   ├── smooth-scroll-offset/                     # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── anchor-links.ts                       # anchor links module
+│   │   │   ├── initial-hash.ts                       # initial hash module
+│   │   │   └── scroll-to-element.ts                  # scroll to element module
 │   │   ├── track-event.ts                      # trackEvent(name, params) — first checks window.kotlinskiAnalyticsConfig.disabledEvents (localized by functions/analytics-events.php from the wp-admin Tracking settings, no-ops for every provider if listed), then looks up analytics-providers/routing.ts for which provider(s) this event reaches and calls send() on each that's isReady(); stateless dispatcher, no direct vendor calls of its own, safe to import into any per-block bundle without duplicating anything — analytics.ts re-exports it and adds the sitewide side-effecting delegation on top
 │   │   ├── sticky-header.ts                    # enables/disables sticky header based on scroll threshold
 │   │   ├── theme-switcher.ts                   # dark/light theme apply + OS prefers-color-scheme listener; fires theme_mode_toggle (GA4) via track-event.ts only on a real user toggle, not the initial stored/OS-default apply
+│   │   ├── theme-switcher/                           # modules split out of the entry file by the clean-code pass (Phase 3)
+│   │   │   ├── initial-theme.ts                      # initial theme module
+│   │   │   ├── theme-applier.ts                      # theme applier module
+│   │   │   ├── theme-switcher-bindings.ts            # theme switcher bindings module
+│   │   │   ├── theme-switcher-config.ts              # theme switcher config module
+│   │   │   └── theme-switcher-translations.ts        # theme switcher translations module
 │   │   ├── app-shell.ts                        # tracks the last scrollTop and, when the app-shell media query flips, re-applies it on the new scroller and dispatches kt:scroll-container-change
 │   │   └── utils.ts                            # shared debounce/getBreakpoints/isMobile helpers and the app-shell scroll abstraction (getScrollContainer/getScrollTop/scrollTo/onScroll/getElementScrollTop/getMaxScrollTop/onAppShellChange)
 │   ├── styles/                                 # SCSS source partials
@@ -1187,7 +1272,10 @@ kotlinskidev/
 │   │   │   ├── index.tsx                       # editor HOC: checkbox-list InspectorControls for custom class toggling
 │   │   │   └── style.scss                      # styling for the class-picker inspector panel
 │   │   ├── zoom/
-│   │   │   └── attachImageZoom.ts              # pinch-to-zoom/pan gesture handler for image lightbox
+│   │   │   ├── attachImageZoom.ts              # pinch-to-zoom/pan gesture handler for image lightbox, composed from the three modules below
+│   │   │   ├── zoom-mouse.ts                   # click-to-zoom and drag-to-pan mouse handlers
+│   │   │   ├── zoom-touch.ts                   # pinch and pan touch handlers
+│   │   │   └── zoom-view.ts                    # zoom state, transform application and reset shared by both handlers
 │   │   ├── animation-options.ts            # ANIMATION_TRANSLATE_OPTIONS + buildAnimationTypeOptions()/supportsDistanceControl() shared by scroll-animations/index.tsx + nav-reveal-animation/index.tsx so neither duplicates the animation type/distance option lists
 │   │   ├── dropdown-panel.ts                   # generic trigger/modal dropdown-panel controller (used by language-panel.ts + search-panel.ts); dispatches kt:nav-panel-open/-close on the modal element so nav-reveal.ts can stagger its contents in, same mechanism as the mega-menu/hamburger
 │   │   ├── dynamic-preview-blocks.ts           # DYNAMIC_PREVIEW_BLOCKS: PHP-only ServerSideRender blocks (city-grid, city-map) excluded from every sitewide unconditional attribute-injecting editor filter, since WP's block-renderer REST schema rejects any attribute the block's own PHP schema doesn't declare

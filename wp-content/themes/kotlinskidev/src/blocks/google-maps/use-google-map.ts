@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DEFAULT_MARKER_COLOR, type MapSettings } from "./map-defaults";
 import type { GoogleMapInstance, LatLng } from "./maps-types";
 
@@ -93,50 +93,62 @@ const loadGoogleMapsScript = (apiKey: string, onLoad: () => void): void => {
 export const hasMapLocation = ({ apiKey, address, lat, lng }: MapSettings): boolean =>
   Boolean(apiKey && (address || (lat && lng)));
 
+const MAP_SETTING_KEYS = [
+  "apiKey",
+  "address",
+  "lat",
+  "lng",
+  "zoom",
+  "mapType",
+  "showZoomControl",
+  "showStreetViewControl",
+  "showFullscreenControl",
+  "showMapTypeControl",
+  "markerLabel",
+  "markerTooltip",
+  "markerColor",
+] as const satisfies readonly (keyof MapSettings)[];
+
+const useStableSettings = (latest: MapSettings): MapSettings => {
+  const stable = useRef(latest);
+  if (MAP_SETTING_KEYS.some((key) => stable.current[key] !== latest[key])) {
+    stable.current = latest;
+  }
+  return stable.current;
+};
+
+const createMapWhenReady = (
+  container: HTMLDivElement | null,
+  settings: MapSettings
+): GoogleMapInstance | null => {
+  if (!window.google || !window.google.maps || !container) {
+    return null;
+  }
+  return createMap(container, settings);
+};
+
 export const useGoogleMap = (
   mapRef: React.RefObject<HTMLDivElement>,
   allSettings: MapSettings
 ): { mapInstance: React.MutableRefObject<GoogleMapInstance | null>; mapLoaded: boolean } => {
   const mapInstance = useRef<GoogleMapInstance | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const settings = useMemo(
-    () => allSettings,
-    [
-      allSettings.apiKey,
-      allSettings.address,
-      allSettings.lat,
-      allSettings.lng,
-      allSettings.zoom,
-      allSettings.mapType,
-      allSettings.showZoomControl,
-      allSettings.showStreetViewControl,
-      allSettings.showFullscreenControl,
-      allSettings.showMapTypeControl,
-      allSettings.markerLabel,
-      allSettings.markerTooltip,
-      allSettings.markerColor,
-    ]
-  );
+  const settings = useStableSettings(allSettings);
 
   useEffect(() => {
     if (!hasMapLocation(settings) || !mapRef.current) {
       return;
     }
 
-    const renderMap = (): void => {
-      if (!window.google || !window.google.maps || !mapRef.current) {
-        return;
-      }
-      const map = createMap(mapRef.current, settings);
+    loadGoogleMapsScript(settings.apiKey, () => {
+      const map = createMapWhenReady(mapRef.current, settings);
       if (!map) {
         return;
       }
       mapInstance.current = map;
       setMapLoaded(true);
       placeInitialMarker(map, settings);
-    };
-
-    loadGoogleMapsScript(settings.apiKey, renderMap);
+    });
   }, [mapRef, settings]);
 
   return { mapInstance, mapLoaded };
