@@ -18,7 +18,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Added
 
-- New "Exclude inner blocks from touch-screen centred hover" toggle on Group, Columns, Column and Cover blocks adds the `kt-in-view-hover-off` class, so editors can opt a whole section out of the touch in-view hover without code. It is off by default, so existing saved markup is unchanged.
 - New `kotlinskidev_jquery_dependents` filter (`functions/jquery-gate.php`) lists the queued scripts that require jQuery, so the decision to load it can be inspected or logged.
 - `npm run editor:check` (`bin/editor-validity.mjs`) opens every published page and post and every block pattern in the real block editor and fails on any new invalid block or editor error compared with a recorded baseline, and the e2e WP-CLI helper and the draft-purge script now run `wp` with a 512M PHP memory limit (bare `wp` ran out of memory on WordPress 7.1).
 - `npm run dom:capture` / `npm run dom:compare` (`bin/dom-snapshot.mjs`) snapshot the rendered DOM of 10 key pages after JavaScript has run, at desktop and iPhone sizes, including the console error list, so frontend refactors can prove they leave runtime behavior unchanged.
@@ -56,6 +55,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Fixed
 
+- Elements with "Activate when centred on touch screens" switched off now show their hover effects, such as the hover background, when tapped on touch screens, instead of nothing. Elements with the option on keep the centred behavior.
 - Contact form default labels, placeholders and messages are now translated (Polish "Wyślij", "Imię", "Temat" and so on) when the saved value still equals the block default, while edited text stays as typed.
 - The touch in-view hover now skips elements that are or contain protected content. Responsive picture `<source>` tags carry the real `width` and `height` of each device image, which avoids layout shift.
 - The device-frame lightbox video controls no longer flash before `main.css` loads, because the closed-modal rule now ships in the block's inline critical CSS. The OneTap accessibility widget now stays hidden until both its stylesheets have loaded.

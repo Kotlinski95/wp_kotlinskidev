@@ -13192,14 +13192,3 @@ msgstr "Thank you! Your message has been sent."
 msgid "Sorry, there was an error. Please try again."
 msgstr "Sorry, there was an error. Please try again."
 
-#: src/blocks/in-view-hover-opt-out/index.tsx
-msgid "Touch-screen centred hover"
-msgstr "Touch-screen centred hover"
-
-#: src/blocks/in-view-hover-opt-out/index.tsx
-msgid "Exclude inner blocks from touch-screen centred hover"
-msgstr "Exclude inner blocks from touch-screen centred hover"
-
-#: src/blocks/in-view-hover-opt-out/index.tsx
-msgid "Hover effects inside this block stay hover-only and do not play when centred on touch screens."
-msgstr "Hover effects inside this block stay hover-only and do not play when centred on touch screens."

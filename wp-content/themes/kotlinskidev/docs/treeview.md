@@ -368,7 +368,6 @@ kotlinskidev/
 │   │   │   ├── index.tsx
 │   │   │   └── render.php
 │   │   ├── blur-siblings/                      # extension: "Blur inactive items on hover" toggle on core/group and core/columns, adding has-blur-siblings — blurs/dims the block's other direct children on hover/focus-within (NestJS-style "used by" grid effect), resolved purely in CSS (src/styles/blur-siblings.scss, generic `.has-blur-siblings > *` selector — not grid-specific, works identically for core/columns' .wp-block-column children); both are static-save blocks so blocks.getSaveContent.extraProps bakes the class into saved HTML, no PHP needed. core/columns-only "Include nested columns" toggle adds has-blur-siblings-nested, extending the blur to every nested Columns block's leaf .wp-block-column (not just this row's direct ones) via a `:not(:has(.wp-block-columns))` leaf selector
-│   │   ├── in-view-hover-opt-out/              # extension: "Exclude inner blocks from touch-screen centred hover" toggle on core/group, columns, column and cover; when on, blocks.getSaveContent.extraProps bakes kt-in-view-hover-off into the saved class list (default off, so existing markup is unchanged)
 │   │   │   └── index.tsx
 │   │   ├── border-gradient/                    # extension: gradient option merged into the native Border panel for any block with border support (excludes kotlinskidev/button)
 │   │   │   └── index.tsx

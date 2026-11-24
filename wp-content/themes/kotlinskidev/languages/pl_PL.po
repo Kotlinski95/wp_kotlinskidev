@@ -13356,14 +13356,3 @@ msgstr "Dziękuję! Twoja wiadomość została wysłana."
 msgid "Sorry, there was an error. Please try again."
 msgstr "Przepraszam, wystąpił błąd. Spróbuj ponownie."
 
-#: src/blocks/in-view-hover-opt-out/index.tsx
-msgid "Touch-screen centred hover"
-msgstr "Wyróżnienie po wycentrowaniu na ekranach dotykowych"
-
-#: src/blocks/in-view-hover-opt-out/index.tsx
-msgid "Exclude inner blocks from touch-screen centred hover"
-msgstr "Wyłącz wyróżnienie wewnętrznych bloków po wycentrowaniu na ekranach dotykowych"
-
-#: src/blocks/in-view-hover-opt-out/index.tsx
-msgid "Hover effects inside this block stay hover-only and do not play when centred on touch screens."
-msgstr "Efekty najechania wewnątrz tego bloku działają tylko po najechaniu i nie odtwarzają się, gdy blok jest wycentrowany na ekranach dotykowych."

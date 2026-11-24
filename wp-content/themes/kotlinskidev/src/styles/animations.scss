@@ -131,6 +131,13 @@
 	@include kt-hover-or-in-view {
 		background: var(--hover-bg-color) !important;
 	}
+
+	@media (hover: none) {
+
+		&.kt-in-view-hover-off {
+			cursor: pointer;
+		}
+	}
 }
 
 .has-hover-text-color {

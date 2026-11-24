@@ -53,6 +53,10 @@
 		&.is-in-view-hover:not(.kt-in-view-hover-off) {
 			@content;
 		}
+
+		&.kt-in-view-hover-off:hover {
+			@content;
+		}
 	}
 
 	@if $focus {
