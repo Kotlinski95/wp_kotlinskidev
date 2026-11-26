@@ -17,11 +17,11 @@ const VOLATILE_VALUES = [
     replace: () => '<a class="kt-popular-pages__link"></a>',
   },
   {
-    pattern: /(?<before><script\b[^>]*>)[\s\S]*?(?<after><\/script>)/gi,
+    pattern: /(?<before><script\b[^>]*>)[\s\S]*?(?<after><\/script\s*>)/gi,
     replace: replaceInnerValue("INLINE_SCRIPT"),
   },
   {
-    pattern: /(?<before><style\b[^>]*>)[\s\S]*?(?<after><\/style>)/gi,
+    pattern: /(?<before><style\b[^>]*>)[\s\S]*?(?<after><\/style\s*>)/gi,
     replace: replaceInnerValue("INLINE_STYLE"),
   },
   {
