@@ -50,6 +50,8 @@ function kotlinskidev_register_blocks(): void {
     register_block_type( get_template_directory() . '/src/blocks/content-tabs' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
     register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
+    register_block_type( get_template_directory() . '/src/blocks/speed-dial' );
+    register_block_type( get_template_directory() . '/src/blocks/speed-dial/item' );
     register_block_type( get_template_directory() . '/src/blocks/device-frame' );
     register_block_type( get_template_directory() . '/src/blocks/feature-card-canvas' );
     if ( kotlinskidev_feature_enabled( 'article_cards' ) ) {
