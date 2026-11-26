@@ -106,6 +106,61 @@ describe("hover-animation-controls — blocks.registerBlockType filter", () => {
   });
 });
 
+describe("hover-animation-controls — inViewHover", () => {
+  it("registers inViewHover defaulting to true", () => {
+    const result = applyFilters("blocks.registerBlockType", {
+      name: "core/group",
+      attributes: {},
+    }) as { attributes: { inViewHover: { type: string; default: boolean } } };
+
+    expect(result.attributes.inViewHover).toEqual({ type: "boolean", default: true });
+  });
+
+  it("does not change save markup when inViewHover is false", () => {
+    const withIt = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      { className: "wp-block-group" },
+      { name: "core/group" },
+      { hoverAnimation: "hover-scale", inViewHover: false }
+    ) as { className: string };
+    const without = applyFilters(
+      "blocks.getSaveContent.extraProps",
+      { className: "wp-block-group" },
+      { name: "core/group" },
+      { hoverAnimation: "hover-scale" }
+    ) as { className: string };
+
+    expect(withIt.className).toBe(without.className);
+    expect(withIt.className).not.toContain("kt-in-view-hover-off");
+  });
+
+  it("shows the touch toggle only when a hover effect is set and updates inViewHover", async () => {
+    const setAttributes = jest.fn();
+    const user = userEvent.setup();
+    const Wrapped = applyFilters("editor.BlockEdit", () => <div />) as ComponentType<
+      Record<string, unknown>
+    >;
+    const { rerender } = render(
+      <Wrapped name="core/group" attributes={{}} setAttributes={setAttributes} />
+    );
+    await user.click(screen.getByRole("button", { name: /Hover Effects/ }));
+    expect(screen.queryByText("Activate when centred on touch screens")).not.toBeInTheDocument();
+
+    rerender(
+      <Wrapped
+        name="core/group"
+        attributes={{ hoverAnimation: "hover-scale" }}
+        setAttributes={setAttributes}
+      />
+    );
+    await user.click(
+      screen.getByRole("checkbox", { name: "Activate when centred on touch screens" })
+    );
+
+    expect(setAttributes).toHaveBeenCalledWith({ inViewHover: false });
+  });
+});
+
 describe("hover-animation-controls — editor.BlockEdit filter", () => {
   function OriginalEdit() {
     return <div data-testid="original-edit" />;

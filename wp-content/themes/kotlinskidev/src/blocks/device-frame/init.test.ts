@@ -23,6 +23,19 @@ const setup = (): { video: HTMLVideoElement; play: jest.Mock; pause: jest.Mock }
   return { video, play, pause };
 };
 
+const mockMobileViewport = (): (() => void) => {
+  const original = window.matchMedia;
+  window.matchMedia = jest.fn().mockImplementation((query: string) => ({
+    matches: query === "(max-width: 781px)" || query === "(max-width: 1023px)",
+    media: query,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  })) as unknown as typeof window.matchMedia;
+  return () => {
+    window.matchMedia = original;
+  };
+};
+
 describe("device-frame init", () => {
   beforeEach(() => {
     jest.resetModules();
@@ -67,6 +80,57 @@ describe("device-frame init", () => {
     expect(video.dataset.poster).toBeUndefined();
   });
 
+  it("uses the mobile poster on narrow viewports", () => {
+    const { video } = setup();
+    video.setAttribute("data-poster", "http://x/p.jpg");
+    video.setAttribute("data-kt-poster-mobile", "http://x/p-m.jpg");
+    const restore = mockMobileViewport();
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    capturedCallback?.([{ isIntersecting: true, target: video }]);
+
+    expect(video.getAttribute("poster")).toBe("http://x/p-m.jpg");
+    restore();
+  });
+
+  it("uses the full poster on wide viewports", () => {
+    const { video } = setup();
+    video.setAttribute("data-poster", "http://x/p.jpg");
+    video.setAttribute("data-kt-poster-mobile", "http://x/p-m.jpg");
+    Object.defineProperty(window, "innerWidth", { value: 1600, configurable: true });
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    capturedCallback?.([{ isIntersecting: true, target: video }]);
+
+    expect(video.getAttribute("poster")).toBe("http://x/p.jpg");
+  });
+
+  it("sets the lightbox video src and starts loading it when its modal opens", () => {
+    document.body.innerHTML =
+      '<div id="m"><video class="kt-device-frame-lightbox__media" data-src="http://x/b.mp4" data-poster="http://x/b.webp" preload="none"></video></div>';
+    const modal = document.getElementById("m") as HTMLElement;
+    const video = modal.querySelector("video") as HTMLVideoElement;
+    expect(video.getAttribute("poster")).toBeNull();
+    const load = jest.fn();
+    Object.defineProperty(video, "load", { value: load, configurable: true });
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    document.dispatchEvent(new CustomEvent("kt-modal:open", { detail: { modal } }));
+
+    expect(video.getAttribute("src")).toBe("http://x/b.mp4");
+    expect(video.dataset.src).toBeUndefined();
+    expect(video.preload).toBe("auto");
+    expect(video.getAttribute("poster")).toBe("http://x/b.webp");
+    expect(video.dataset.poster).toBeUndefined();
+    expect(load).toHaveBeenCalledTimes(1);
+  });
+
   it("pauses once it leaves the viewport", () => {
     const { video, pause } = setup();
     jest.isolateModules(() => {
@@ -77,6 +141,34 @@ describe("device-frame init", () => {
     capturedCallback?.([{ isIntersecting: false, target: video }]);
 
     expect(pause).toHaveBeenCalled();
+  });
+
+  it("defers a poster-backed video until idle and hides the poster once it plays", () => {
+    jest.useFakeTimers();
+    document.body.innerHTML =
+      '<div class="kt-device-frame__screen"><img class="kt-device-frame__poster"><video class="kt-device-frame__image" data-src="http://x/a.mp4" preload="none"></video></div>';
+    const video = document.querySelector("video") as HTMLVideoElement;
+    const screen = document.querySelector(".kt-device-frame__screen") as HTMLElement;
+    const play = jest.fn().mockResolvedValue(undefined);
+    video.play = play;
+    jest.isolateModules(() => {
+      require("./init");
+    });
+
+    capturedCallback?.([{ isIntersecting: true, target: video }]);
+
+    expect(video.getAttribute("src")).toBeNull();
+    jest.runAllTimers();
+    expect(video.getAttribute("src")).toBe("http://x/a.mp4");
+    expect(play).toHaveBeenCalled();
+    expect(screen.classList.contains("kt-device-frame__screen--playing")).toBe(false);
+
+    video.dispatchEvent(new Event("playing"));
+    jest.runAllTimers();
+
+    expect(screen.classList.contains("kt-device-frame__screen--playing")).toBe(true);
+    expect(video.classList.contains("is-playing")).toBe(true);
+    jest.useRealTimers();
   });
 
   it("does nothing when no lazy videos exist", () => {

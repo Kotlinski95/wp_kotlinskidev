@@ -274,8 +274,16 @@ export const isElementInViewport = (el: Element): boolean => {
 };
 
 export const getDeviceType = (): DeviceType => {
-  const width = window.innerWidth;
   const breakpoints = getBreakpoints();
+  if (typeof window.matchMedia === "function") {
+    if (window.matchMedia(`(max-width: ${breakpoints.mobile_max}px)`).matches) {
+      return "mobile";
+    }
+    return window.matchMedia(`(max-width: ${breakpoints.tablet_max}px)`).matches
+      ? "tablet"
+      : "desktop";
+  }
+  const width = window.innerWidth;
   if (width <= breakpoints.mobile_max) {
     return "mobile";
   }

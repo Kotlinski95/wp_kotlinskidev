@@ -27,6 +27,12 @@ if ( '' === $slide_max_width ) {
     $slide_max_width = '900px';
 }
 $pagination_placement = sanitize_key( $attributes['paginationPlacement'] ?? 'outside' );
+$pagination_style = in_array( $attributes['paginationStyle'] ?? 'dots', array( 'dots', 'pill' ), true ) ? $attributes['paginationStyle'] : 'dots';
+$equal_slide_height = ! empty( $attributes['equalSlideHeight'] );
+$highlight_active_slide = ! empty( $attributes['highlightActiveSlide'] );
+$highlight_color_raw   = (string) ( $attributes['activeHighlightColor'] ?? '' );
+$highlight_color_slug  = 1 === preg_match( '/^[a-z0-9-]{1,64}$/', $highlight_color_raw ) ? $highlight_color_raw : 'primary';
+$highlight_strength    = isset( $attributes['activeHighlightStrength'] ) ? min( 100, max( 5, (int) $attributes['activeHighlightStrength'] ) ) : 45;
 $show_progress_circle = $show_progress && $autoplay && ! $continuous_autoplay;
 $progress_gradient_id = $show_progress_circle ? wp_unique_id( 'kt-slider-progress-' ) : '';
 
@@ -55,10 +61,14 @@ $swiper_settings = array(
 $blur_other_slides = ! empty( $attributes['blurOtherSlides'] );
 $blur_amount       = trim( (string) ( $attributes['blurAmount'] ?? '' ) );
 
-$wrapper_class = 'swiper' . ( $center_slides ? ' has-center-slides' : '' ) . ( $blur_other_slides ? ' has-blur-slides' : '' );
+$wrapper_class = 'swiper' . ( $center_slides ? ' has-center-slides' : '' ) . ( $blur_other_slides ? ' has-blur-slides' : '' ) . ( $pagination && 'pill' === $pagination_style ? ' has-pill-pagination' : '' ) . ( $equal_slide_height ? ' has-equal-slide-height' : '' ) . ( $highlight_active_slide ? ' has-active-highlight' : '' );
 $wrapper_style = $center_slides
     ? '--kt-slider-slide-width: ' . ( 100 - ( $peek * 2 ) ) . '%; --kt-slider-slide-max-width: ' . $slide_max_width
     : '';
+
+if ( $highlight_active_slide ) {
+    $wrapper_style .= ( '' === $wrapper_style ? '' : '; ' ) . '--kt-slider-active-color: var(--wp--preset--color--' . $highlight_color_slug . '); --kt-slider-active-strength: ' . $highlight_strength . '%';
+}
 
 if ( $blur_other_slides && 1 === preg_match( '/^\d+(\.\d+)?(px|rem|em)$/', $blur_amount ) ) {
     $wrapper_style .= ( '' === $wrapper_style ? '' : '; ' ) . '--kt-blur-amount: ' . $blur_amount;

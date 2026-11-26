@@ -42,7 +42,7 @@ test.describe("Canvas background controls — Site Editor (kotlinskidev/canvas-b
   test("picking a canvas scene saves the canvasSceneId attribute on the block", async ({
     page,
   }) => {
-    const { editor } = await setUpEditor(page, "E2E Editor Test — Canvas Background A");
+    const { editor } = await setUpEditor(page, "E2E Editor Test — Backdrop A");
 
     await editor.insertBlock({ name: "core/group" });
     await editor.openDocumentSettingsSidebar();
@@ -58,7 +58,7 @@ test.describe("Canvas background controls — Site Editor (kotlinskidev/canvas-b
   });
 
   test("resetting the combobox removes the canvasSceneId attribute", async ({ page }) => {
-    const { editor } = await setUpEditor(page, "E2E Editor Test — Canvas Background B");
+    const { editor } = await setUpEditor(page, "E2E Editor Test — Backdrop B");
 
     await editor.insertBlock({ name: "core/group" });
     await editor.openDocumentSettingsSidebar();
@@ -79,7 +79,7 @@ test.describe("Canvas background controls — Site Editor (kotlinskidev/canvas-b
   });
 
   test("the Canvas Background panel is not shown for an excluded block", async ({ page }) => {
-    const { editor } = await setUpEditor(page, "E2E Editor Test — Canvas Background C");
+    const { editor } = await setUpEditor(page, "E2E Editor Test — Backdrop C");
 
     await editor.insertBlock({ name: "core/code", attributes: { content: "const x = 1;" } });
     await editor.openDocumentSettingsSidebar();

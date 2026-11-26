@@ -137,3 +137,28 @@ it('sets --kt-underline-color on the verify link so its sliding-underline bar fo
 
     expect($html)->toContain('<a class="kt-certificate__verify-link has-primary-color has-text-color" style="color:#445566 !important;--kt-underline-color:#445566;"');
 });
+
+it('adds no has-blur-siblings class to any layout by default', function () {
+    $certificates = [kotlinskidevTestCertificate()];
+
+    expect(kotlinskidev_render_certificate_badge_grid($certificates))->not->toContain('has-blur-siblings');
+    expect(kotlinskidev_render_certificate_feature_cards($certificates))->not->toContain('has-blur-siblings');
+    expect(kotlinskidev_render_certificate_compact_strip($certificates, ''))->not->toContain('has-blur-siblings');
+});
+
+it('adds has-blur-siblings to the grid container of every layout when enabled', function () {
+    $certificates = [kotlinskidevTestCertificate()];
+
+    expect(kotlinskidev_render_certificate_badge_grid($certificates, true))
+        ->toContain('<div class="wp-block-group has-blur-siblings" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(14.375rem');
+    expect(kotlinskidev_render_certificate_feature_cards($certificates, true))
+        ->toContain('<div class="wp-block-group has-blur-siblings" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(19.375rem');
+    expect(kotlinskidev_render_certificate_compact_strip($certificates, '', true))
+        ->toContain('<div class="wp-block-group has-blur-siblings" style="display:flex;flex-wrap:wrap;align-items:center;gap:0.875rem">');
+});
+
+it('keeps blur-off markup identical to the explicit false argument', function () {
+    $certificates = [kotlinskidevTestCertificate()];
+
+    expect(kotlinskidev_render_certificate_badge_grid($certificates, false))->toBe(kotlinskidev_render_certificate_badge_grid($certificates));
+});

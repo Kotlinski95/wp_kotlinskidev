@@ -36,7 +36,7 @@
 
 		// Loading state
 		&::before {
-			content: "🔒 " attr(data-loading-text, "Loading protected content...");
+			content: "🔒 " var(--kt-protected-loading-text, "Loading protected content...");
 			color: var(--wp--preset--color--foreground-alt);
 			font-style: italic;
 		}
@@ -103,6 +103,16 @@
 
 	a {
 		color: inherit !important;
+	}
+}
+
+.kt-button__label {
+
+	.protected-content,
+	.kt-protected-value,
+	.kt-protected-value a {
+		background: none;
+		-webkit-text-fill-color: currentcolor;
 	}
 }
 

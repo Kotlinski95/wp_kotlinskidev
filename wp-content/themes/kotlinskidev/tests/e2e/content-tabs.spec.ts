@@ -136,7 +136,7 @@ test.describe("Content Tabs (kotlinskidev/content-tabs) — horizontal (top)", (
     const activeTab = page.getByRole("tab", { name: "One" });
     const styledLabel = activeTab.locator(".wp-block-kotlinskidev-content-tabs-nav-link");
 
-    await expect(styledLabel).toHaveCSS("background-color", "rgb(130, 9, 211)");
+    await expect(styledLabel).toHaveCSS("background-color", "rgb(0, 120, 194)");
     await expect(styledLabel).toHaveCSS("color", "rgb(255, 255, 255)");
     await expect(styledLabel).toHaveCSS("border-top-width", "2px");
     await expect(styledLabel).toHaveCSS("border-top-color", "rgb(26, 26, 46)");
@@ -465,8 +465,8 @@ test.describe("Content Tabs (kotlinskidev/content-tabs) — active tab style: ba
       .locator('.kt-content-tabs__nav-trigger[aria-selected="false"]')
       .first();
 
-    await expect(activeTrigger).toHaveCSS("background-color", "rgb(130, 9, 211)");
-    await expect(inactiveTrigger).not.toHaveCSS("background-color", "rgb(130, 9, 211)");
+    await expect(activeTrigger).toHaveCSS("--kt-content-tabs-active-bg", "#8209d3");
+    await expect(activeTrigger).toHaveCSS("background-color", "rgba(255, 255, 255, 0)");
     await expect(activeTrigger).toHaveCSS(
       "color",
       await inactiveTrigger.evaluate((el) => getComputedStyle(el).color)
@@ -507,7 +507,7 @@ test.describe("Content Tabs (kotlinskidev/content-tabs) — active tab style: un
 
     await expect(activeTrigger).toHaveCSS("text-decoration-line", "underline");
     await expect(activeTrigger).toHaveCSS("color", "rgb(255, 255, 255)");
-    await expect(activeTrigger).toHaveCSS("background-color", "rgb(130, 9, 211)");
+    await expect(activeTrigger).toHaveCSS("--kt-content-tabs-active-bg", "#8209d3");
   });
 });
 

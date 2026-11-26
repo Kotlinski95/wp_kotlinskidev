@@ -59,7 +59,7 @@ it('renders a mobile footer bar with navigation links and pushes other blocks in
     $html = render_block([
         'blockName' => 'kotlinskidev/navigation',
         'attrs'     => ['menuSlug' => 'nav-bar-case', 'displayMode' => 'bar'],
-    ]);
+    ]) . kotlinskidev_app_shell_nav_buffer();
 
     expect($html)->toContain('id="mobile-footer-menu"');
     expect($html)->toContain('href="/"');

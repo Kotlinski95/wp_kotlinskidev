@@ -40,3 +40,45 @@
 		transform: translate3d(0, 0, 0);
 	}
 }
+
+@media (hover: none) and (prefers-reduced-motion: no-preference) {
+
+	@supports (animation-timeline: view()) {
+
+		body.kt-mobile-parallax .wp-block-cover.enable-parallax {
+			overflow: clip;
+			background-size: 0 0;
+			view-timeline-name: --kt-parallax-banner;
+			view-timeline-axis: block;
+
+			&::before {
+				content: "";
+				position: absolute;
+				z-index: 0;
+				top: -100lvh;
+				right: 0;
+				left: 0;
+				height: calc(100% + 100lvh);
+				background-image: inherit;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				pointer-events: none;
+				animation: kt-parallax-pin linear both;
+				animation-timeline: --kt-parallax-banner;
+				animation-range: cover;
+			}
+		}
+	}
+}
+
+@keyframes kt-parallax-pin {
+
+	from {
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		transform: translate3d(0, 100%, 0);
+	}
+}

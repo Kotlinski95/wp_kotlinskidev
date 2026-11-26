@@ -17,11 +17,42 @@ function kotlinskidev_get_theme_gradient( string $slug ): string {
 	return '';
 }
 
-function kotlinskidev_parse_gradient_stops( string $css_gradient ): array {
-	$stops = [];
+function kotlinskidev_split_top_level_commas( string $value ): array {
+	$parts = [];
+	$depth = 0;
+	$start = 0;
+	$length = strlen( $value );
 
-	if ( preg_match_all( '/(rgba?\([^)]+\)|#[0-9a-fA-F]{3,8})\s+(\d+(?:\.\d+)?%)/', $css_gradient, $matches, PREG_SET_ORDER ) ) {
-		foreach ( $matches as $match ) {
+	for ( $i = 0; $i < $length; $i++ ) {
+		$char = $value[ $i ];
+		if ( '(' === $char ) {
+			$depth++;
+		} elseif ( ')' === $char ) {
+			$depth--;
+		} elseif ( ',' === $char && 0 === $depth ) {
+			$parts[] = trim( substr( $value, $start, $i - $start ) );
+			$start   = $i + 1;
+		}
+	}
+
+	$parts[] = trim( substr( $value, $start ) );
+
+	return $parts;
+}
+
+function kotlinskidev_parse_gradient_stops( string $css_gradient ): array {
+	$open  = strpos( $css_gradient, '(' );
+	$close = strrpos( $css_gradient, ')' );
+
+	if ( false === $open || false === $close || $close <= $open ) {
+		return [];
+	}
+
+	$stops = [];
+	$args  = kotlinskidev_split_top_level_commas( substr( $css_gradient, $open + 1, $close - $open - 1 ) );
+
+	foreach ( $args as $arg ) {
+		if ( preg_match( '/^(.+\S)\s+(\d+(?:\.\d+)?%)$/', $arg, $match ) ) {
 			$stops[] = [
 				'color'  => $match[1],
 				'offset' => $match[2],
@@ -35,8 +66,9 @@ function kotlinskidev_parse_gradient_stops( string $css_gradient ): array {
 function kotlinskidev_render_gradient_stops( array $stops ): void {
 	foreach ( $stops as $stop ) {
 		printf(
-			'<stop offset="%s" stop-color="%s"/>',
+			'<stop offset="%s" stop-color="%s" style="stop-color:%s"/>',
 			esc_attr( $stop['offset'] ),
+			esc_attr( $stop['color'] ),
 			esc_attr( $stop['color'] )
 		);
 	}

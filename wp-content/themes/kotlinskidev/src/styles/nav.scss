@@ -234,7 +234,7 @@ header:has(.kt-lang-panel.is-open) {
 
 	&:hover::before,
 	&:hover::after {
-		background: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+		background-image: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 	}
 
 	&:focus-visible {
@@ -300,13 +300,13 @@ header:has(.kt-lang-panel.is-open) {
 	.wp-block-navigation__responsive-container-open {
 
 		&::before {
-			background: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+			background-image: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 			transform: translateY(0.40625rem) rotate(45deg);
 		}
 
 		&::after {
 			width: 1.875rem;
-			background: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
+			background-image: var(--kt-text-gradient, linear-gradient(90deg, var(--wp--preset--color--primary), var(--wp--preset--color--contrast)));
 			transform: translateY(-0.40625rem) rotate(-45deg);
 		}
 	}

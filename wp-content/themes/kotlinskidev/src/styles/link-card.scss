@@ -1,4 +1,5 @@
 @use "hover-transitions" as hover;
+@import "mixins";
 
 .kt-link-card {
 	overflow: hidden;
@@ -7,8 +8,7 @@
 	--kt-hover-color-duration: 0.25s;
 	--kt-hover-color-easing: ease;
 
-	&:hover,
-	&:focus-visible {
+	@include kt-hover-or-in-view(true) {
 		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
 
 		*:not(.has-text-color) {
@@ -20,16 +20,14 @@
 		--kt-hover-transform-duration: 0.25s;
 		--kt-hover-transform-easing: ease;
 
-		&:hover,
-		&:focus-visible {
+		@include kt-hover-or-in-view(true) {
 			transform: translateY(-0.1875rem);
 		}
 	}
 
 	&--hover-surface {
 
-		&:hover,
-		&:focus-visible {
+		@include kt-hover-or-in-view(true) {
 			background-color: var(--hover-bg-color, var(--wp--preset--color--surface)) !important;
 		}
 	}
@@ -41,8 +39,7 @@
 	--kt-hover-color-duration: 0.25s;
 	--kt-hover-color-easing: ease;
 
-	&:hover,
-	&:focus-visible {
+	@include kt-hover-or-in-view(true) {
 		border-color: var(--hover-border-color, var(--wp--preset--color--primary)) !important;
 	}
 }

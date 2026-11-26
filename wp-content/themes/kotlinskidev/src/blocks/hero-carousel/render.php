@@ -26,9 +26,11 @@ $settings = wp_json_encode( [
 	'autoHeight'       => (bool) ( $attributes['autoHeight'] ?? false ),
 ] ) ?: '{}';
 
+$above_fold  = (bool) ( $block->parsed_block['attrs']['kotlinskidevAboveFold'] ?? $attributes['kotlinskidevAboveFold'] ?? false );
 $slides_html = '';
 foreach ( $block->inner_blocks as $i => $slide_block ) {
-	$slide_block->attributes['slideIndex'] = $i;
+	$slide_block->attributes['slideIndex']            = $i;
+	$slide_block->context['kotlinskidev/aboveFold'] = $above_fold;
 	$slides_html .= $slide_block->render();
 }
 

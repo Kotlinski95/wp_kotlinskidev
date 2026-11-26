@@ -6,11 +6,9 @@ import {
   Navigation,
   Pagination,
   A11y,
-  HashNavigation,
   Mousewheel,
   Parallax,
   Scrollbar,
-  Thumbs,
   Zoom,
   FreeMode,
 } from "swiper/modules";
@@ -74,11 +72,9 @@ export function SwiperInit(container: HTMLElement, options: SliderOptions = {}):
       Navigation,
       Pagination,
       A11y,
-      HashNavigation,
       Mousewheel,
       Parallax,
       Scrollbar,
-      Thumbs,
       Zoom,
       FreeMode,
     ],
@@ -263,14 +259,6 @@ function wireClickPauseResume(container: HTMLElement, swiper: Swiper): void {
 
   container.addEventListener("click", () => {
     pause();
-  });
-
-  container.addEventListener("mouseover", () => {
-    pause();
-  });
-
-  container.addEventListener("mouseout", () => {
-    resume();
   });
 
   document.addEventListener("click", (event) => {

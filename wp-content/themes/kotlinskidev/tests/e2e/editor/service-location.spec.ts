@@ -46,12 +46,12 @@ test.describe("Service Location — Site Editor template is real, separately-edi
       timeout: 15000,
     });
     await expect(canvas.getByRole("document", { name: "Block: Group" }).first()).toBeVisible();
-    await expect(canvas.getByRole("textbox", { name: "Button text" }).first()).toBeVisible();
+    const translatedText = canvas.getByRole("document", { name: "Block: Translated Text" }).first();
+    await expect(translatedText).toBeVisible();
 
-    const buttonText = canvas.getByRole("textbox", { name: "Button text" }).first();
-    await buttonText.click();
+    await translatedText.click();
 
-    await expect(page.getByRole("heading", { name: "Button", exact: true })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Translated Text", exact: true })).toBeVisible();
   });
 });
 
@@ -75,7 +75,8 @@ test.describe("Service Location — City Details editor panel", () => {
     await expect(page.frameLocator('iframe[name="editor-canvas"]').locator("body")).toBeVisible();
 
     const panelButton = page.getByRole("button", { name: "City Details" });
-    if (await panelButton.isVisible().catch(() => false)) {
+    await expect(panelButton).toBeVisible({ timeout: 15000 });
+    if ((await panelButton.getAttribute("aria-expanded")) !== "true") {
       await panelButton.click();
     }
 

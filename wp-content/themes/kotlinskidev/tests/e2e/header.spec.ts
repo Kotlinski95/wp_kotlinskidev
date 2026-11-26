@@ -6,6 +6,13 @@ import {
   NOT_CURRENT_PAGE,
 } from "./utils";
 
+async function scrollAppShellTo(page: Page, top: number): Promise<void> {
+  await page.evaluate(
+    (y) => document.querySelector(".wp-site-blocks")?.scrollTo({ top: y, behavior: "instant" }),
+    top
+  );
+}
+
 function getLogo(page: Page): Locator {
   return page.locator('header a[rel="home"]');
 }
@@ -352,7 +359,7 @@ test.describe("Header", () => {
     });
 
     test("header stays pinned to the viewport top while scrolling", async ({ page }) => {
-      const header = page.locator("header");
+      const header = page.getByRole("banner");
       await expect(header).toHaveCSS("position", "fixed");
 
       await page.evaluate(() => window.scrollTo(0, 800));
@@ -365,7 +372,7 @@ test.describe("Header", () => {
     test("header becomes sticky past the scroll threshold and reverts near the top", async ({
       page,
     }) => {
-      const header = page.locator("header");
+      const header = page.getByRole("banner");
       await expect(header).not.toHaveClass(/header-sticky/);
       const initialWidth = (await header.boundingBox())!.width;
 
@@ -383,7 +390,7 @@ test.describe("Header", () => {
       page,
     }) => {
       await page.evaluate(() => window.scrollTo(0, 400));
-      await expect(page.locator("header")).toHaveClass(/header-sticky/);
+      await expect(page.getByRole("banner")).toHaveClass(/header-sticky/);
 
       const nav = getMegaNav(page);
       await getContentDropdownTriggers(nav).first().hover();
@@ -391,7 +398,7 @@ test.describe("Header", () => {
       const panel = getOpenMegaPanel(page);
       await expect(panel).toBeVisible();
 
-      const headerBox = (await page.locator("header").boundingBox())!;
+      const headerBox = (await page.getByRole("banner").boundingBox())!;
       const panelBox = (await panel.boundingBox())!;
       const viewportSize = page.viewportSize()!;
 
@@ -575,7 +582,7 @@ test.describe("Header", () => {
     });
 
     test("header stays pinned to the viewport top while scrolling", async ({ page }) => {
-      const header = page.locator("header");
+      const header = page.getByRole("banner");
       await expect(header).toHaveCSS("position", "fixed");
 
       await page.evaluate(() => window.scrollTo(0, 400));
@@ -586,17 +593,17 @@ test.describe("Header", () => {
     });
 
     test("header hides on scroll down and reappears on scroll up", async ({ page }) => {
-      const header = page.locator("header");
+      const header = page.getByRole("banner");
       await expect(header).not.toHaveClass(/nav-hidden/);
 
-      await page.evaluate(() => window.scrollTo(0, 600));
+      await scrollAppShellTo(page, 600);
 
       await expect(header).toHaveClass(/nav-hidden/);
       await expect
         .poll(() => header.evaluate((el) => el.getBoundingClientRect().top))
         .toBeLessThan(-20);
 
-      await page.evaluate(() => window.scrollTo(0, 300));
+      await scrollAppShellTo(page, 300);
 
       await expect(header).not.toHaveClass(/nav-hidden/);
       await expect
@@ -613,7 +620,7 @@ test.describe("Header", () => {
       await page.evaluate(() => window.scrollTo(0, 400));
 
       await expect
-        .poll(() => page.locator("header").evaluate((el) => el.getBoundingClientRect().top))
+        .poll(() => page.getByRole("banner").evaluate((el) => el.getBoundingClientRect().top))
         .toBeGreaterThanOrEqual(-1);
     });
   });

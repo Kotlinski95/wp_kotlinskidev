@@ -30,7 +30,7 @@ test.describe("Hover animation controls — Site Editor (kotlinskidev/hover-anim
 
     await editor.insertBlock({ name: "core/heading", attributes: { content: "Heading" } });
     await editor.openDocumentSettingsSidebar();
-    await page.getByRole("button", { name: /Hover Animations/ }).click();
+    await page.getByRole("button", { name: /^Hover Effects/ }).click();
     await page.getByRole("combobox", { name: "Animation Type" }).selectOption("hover-jump");
 
     const content = await editor.getEditedPostContent();
@@ -43,7 +43,7 @@ test.describe("Hover animation controls — Site Editor (kotlinskidev/hover-anim
 
     await editor.insertBlock({ name: "core/heading", attributes: { content: "Heading" } });
     await editor.openDocumentSettingsSidebar();
-    await page.getByRole("button", { name: /Hover Animations/ }).click();
+    await page.getByRole("button", { name: /^Hover Effects/ }).click();
 
     const select = page.getByRole("combobox", { name: "Animation Type" });
     await select.selectOption("hover-jump");
@@ -54,13 +54,13 @@ test.describe("Hover animation controls — Site Editor (kotlinskidev/hover-anim
     expect(content).not.toContain("hover-jump");
   });
 
-  test("the Hover Animations panel is not shown for an excluded block", async ({ page }) => {
+  test("the Hover Effects panel is not shown for an excluded block", async ({ page }) => {
     const { editor } = await setUpEditor(page, "E2E Editor Test — Hover C");
 
     await editor.insertBlock({ name: "core/code", attributes: { content: "const x = 1;" } });
     await editor.openDocumentSettingsSidebar();
 
-    await expect(page.getByRole("button", { name: /Hover Animations/ })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: /^Hover Effects/ })).toHaveCount(0);
   });
 
   test("publishing a block with a hover animation reacts to hover on the frontend", async ({
@@ -71,7 +71,7 @@ test.describe("Hover animation controls — Site Editor (kotlinskidev/hover-anim
 
     await editor.insertBlock({ name: "core/heading", attributes: { content: "Heading" } });
     await editor.openDocumentSettingsSidebar();
-    await page.getByRole("button", { name: /Hover Animations/ }).click();
+    await page.getByRole("button", { name: /^Hover Effects/ }).click();
     await page.getByRole("combobox", { name: "Animation Type" }).selectOption("hover-jump");
 
     const postId = await editor.publishPost();

@@ -439,16 +439,23 @@ unset( $item );
 static $kt_nav_icon_grads = false;
 if ( ! $kt_nav_icon_grads ) {
 	$kt_nav_icon_grads = true;
+	$kt_nav_dark_stops  = kotlinskidev_parse_gradient_stops( kotlinskidev_get_theme_gradient( 'fancy-text-dark' ) );
+	$kt_nav_light_stops = kotlinskidev_parse_gradient_stops( kotlinskidev_get_theme_gradient( 'fancy-text-light' ) );
+
+	ob_start();
+	kotlinskidev_render_gradient_stops( $kt_nav_dark_stops );
+	$kt_nav_dark_markup = ob_get_clean();
+
+	ob_start();
+	kotlinskidev_render_gradient_stops( $kt_nav_light_stops );
+	$kt_nav_light_markup = ob_get_clean();
+
 	echo '<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs>'
 		. '<linearGradient id="kt-icon-grad-dark" x1="1" y1="0" x2="0" y2="0" gradientUnits="objectBoundingBox">'
-		. '<stop offset="0%" stop-color="rgb(184,150,255)"/>'
-		. '<stop offset="60%" stop-color="rgb(0,246,255)"/>'
-		. '<stop offset="100%" stop-color="rgb(0,255,240)"/>'
+		. $kt_nav_dark_markup // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- stops are esc_attr()'d in kotlinskidev_render_gradient_stops()
 		. '</linearGradient>'
 		. '<linearGradient id="kt-icon-grad-light" x1="1" y1="0" x2="0" y2="0" gradientUnits="objectBoundingBox">'
-		. '<stop offset="0%" stop-color="rgb(132,83,210)"/>'
-		. '<stop offset="60%" stop-color="rgb(0,71,255)"/>'
-		. '<stop offset="100%" stop-color="rgb(0,120,194)"/>'
+		. $kt_nav_light_markup // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- stops are esc_attr()'d in kotlinskidev_render_gradient_stops()
 		. '</linearGradient>'
 		. '</defs></svg>';
 }

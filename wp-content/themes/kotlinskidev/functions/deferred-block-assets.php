@@ -14,6 +14,12 @@ function kotlinskidev_get_deferrable_block_assets(): array
                 'kotlinskidev-style-banner-carousel-style',
             ),
         ),
+        'core/cover' => array(
+            'style' => array('wp-block-cover'),
+        ),
+        'core/social-links' => array(
+            'style' => array('wp-block-social-links'),
+        ),
         'kotlinskidev/content-tabs' => array(
             'style' => array('kotlinskidev-content-tabs-style'),
         ),
@@ -91,6 +97,10 @@ function kotlinskidev_get_above_fold_block_names(): array
             parse_blocks($post->post_content),
             kotlinskidev_get_above_fold_defaults()
         );
+        if (in_array('kotlinskidev/hero-carousel', $found, true)) {
+            $found[] = 'core/cover';
+        }
+        $found = array_values(array_unique($found));
         set_transient($transient_key, $found, WEEK_IN_SECONDS);
     }
 

@@ -1,30 +1,25 @@
 import { addFilter } from "@wordpress/hooks";
-import { __ } from "@wordpress/i18n";
 import React, { Fragment } from "react";
-import { InspectorControls, MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
-import { BaseControl, Button, PanelBody } from "@wordpress/components";
+import { InspectorControls } from "@wordpress/block-editor";
 import { createHigherOrderComponent } from "@wordpress/compose";
+import { useSelect } from "@wordpress/data";
+import { __ } from "@wordpress/i18n";
+import registry from "./blocks.json";
+import ResponsiveMediaPanel, { type ResponsiveMedia } from "./panel";
 
-type SlotName = "mobile" | "tablet";
+export { resolveResponsiveMedia } from "./panel";
 
-interface MediaSlot {
-  id?: number;
-  url: string;
-}
+type Adapter = "image" | "cover" | "video" | "hero-slide" | "device-frame";
 
-type ResponsiveMedia = Partial<Record<SlotName, MediaSlot>>;
-
-interface CoverAttributes {
-  url?: string;
-  backgroundType?: string;
+interface ResponsiveAttributes {
   responsiveMedia?: ResponsiveMedia;
   [key: string]: unknown;
 }
 
 interface BlockEditProps {
   name: string;
-  attributes: CoverAttributes;
-  setAttributes: (attributes: Partial<CoverAttributes>) => void;
+  attributes: ResponsiveAttributes;
+  setAttributes: (attributes: Partial<ResponsiveAttributes>) => void;
   [key: string]: unknown;
 }
 
@@ -33,27 +28,61 @@ interface BlockSettings {
   [key: string]: unknown;
 }
 
-interface PickedMedia {
-  id?: number;
-  url: string;
+interface AdapterConfig {
+  url: (attributes: ResponsiveAttributes) => string;
+  mediaId: (attributes: ResponsiveAttributes) => number;
+  allowedTypes: (attributes: ResponsiveAttributes) => string[];
+  label: string;
+  hasAlphaVideo?: (attributes: ResponsiveAttributes) => boolean;
 }
 
-const COVER_BLOCK = "core/cover";
-const SLOTS: { name: SlotName; label: string }[] = [
-  { name: "mobile", label: __("Mobile", "kotlinskidev") },
-  { name: "tablet", label: __("Tablet", "kotlinskidev") },
-];
+interface CoreStore {
+  getMedia?: (id: number) => { media_details?: { width?: number } } | undefined;
+}
 
-export const resolveResponsiveMedia = (desktopUrl: string, slots: ResponsiveMedia) => {
-  const tablet = slots.tablet?.url || desktopUrl;
-  const mobile = slots.mobile?.url || tablet;
-  return { desktop: desktopUrl, tablet, mobile };
+const VIDEO_EXTENSION = /\.(mp4|webm|mov|m4v|ogv)(\?|$)/i;
+
+const text = (value: unknown): string => (typeof value === "string" ? value : "");
+const numeric = (value: unknown): number => (typeof value === "number" ? value : 0);
+
+const ADAPTERS: Record<Adapter, AdapterConfig> = {
+  image: {
+    url: (a) => text(a.url),
+    mediaId: (a) => numeric(a.id),
+    allowedTypes: () => ["image"],
+    label: __("Image", "kotlinskidev"),
+  },
+  cover: {
+    url: (a) => text(a.url),
+    mediaId: (a) => numeric(a.id),
+    allowedTypes: (a) => [a.backgroundType === "video" ? "video" : "image"],
+    label: __("Cover media", "kotlinskidev"),
+  },
+  video: {
+    url: (a) => text(a.src),
+    mediaId: (a) => numeric(a.id),
+    allowedTypes: () => ["video"],
+    label: __("Video", "kotlinskidev"),
+  },
+  "hero-slide": {
+    url: (a) => text(a.bgVideoUrl) || text(a.bgImageUrl),
+    mediaId: (a) => (text(a.bgVideoUrl) ? numeric(a.bgVideoId) : numeric(a.bgImageId)),
+    allowedTypes: (a) => [text(a.bgVideoUrl) ? "video" : "image"],
+    label: __("Slide media", "kotlinskidev"),
+    hasAlphaVideo: (a) => Boolean(text(a.bgVideoUrl) && text(a.bgVideoAlphaUrl)),
+  },
+  "device-frame": {
+    url: (a) => text(a.imageUrl),
+    mediaId: (a) => numeric(a.imageId),
+    allowedTypes: (a) => [VIDEO_EXTENSION.test(text(a.imageUrl)) ? "video" : "image"],
+    label: __("Screen media", "kotlinskidev"),
+  },
 };
 
-const fileName = (url: string): string => decodeURIComponent(url.split("/").pop() ?? url);
+const BLOCKS = registry as Record<string, Adapter>;
 
 const addResponsiveMediaAttribute = (settings: BlockSettings, name: string): BlockSettings => {
-  if (name !== COVER_BLOCK) {
+  if (!name.startsWith("core/") || !BLOCKS[name]) {
     return settings;
   }
 
@@ -66,96 +95,43 @@ const addResponsiveMediaAttribute = (settings: BlockSettings, name: string): Blo
   };
 };
 
+const useDesktopWidth = (mediaId: number): number | undefined =>
+  useSelect(
+    (select) => {
+      if (!mediaId) {
+        return undefined;
+      }
+      const store = (select as unknown as (name: string) => CoreStore | undefined)("core");
+      return store?.getMedia?.(mediaId)?.media_details?.width;
+    },
+    [mediaId]
+  );
+
 const withResponsiveMediaControls = createHigherOrderComponent(
   (BlockEdit: React.ComponentType<BlockEditProps>) => {
     const ResponsiveMediaControls = (props: BlockEditProps) => {
       const { name, attributes, setAttributes } = props;
-      const mediaType = attributes.backgroundType === "video" ? "video" : "image";
+      const adapter = BLOCKS[name] ? ADAPTERS[BLOCKS[name]] : undefined;
+      const desktopUrl = adapter ? adapter.url(attributes) : "";
+      const desktopWidth = useDesktopWidth(adapter ? adapter.mediaId(attributes) : 0);
 
-      if (name !== COVER_BLOCK || !attributes.url) {
+      if (!adapter || !desktopUrl) {
         return <BlockEdit {...props} />;
       }
-
-      const slots = attributes.responsiveMedia ?? {};
-      const resolved = resolveResponsiveMedia(attributes.url, slots);
-
-      const setSlot = (slot: SlotName, media: MediaSlot | null) => {
-        const next: ResponsiveMedia = { ...slots };
-        if (media) {
-          next[slot] = media;
-        } else {
-          delete next[slot];
-        }
-        setAttributes({ responsiveMedia: next });
-      };
-
-      const describe = (device: "mobile" | "tablet" | "desktop"): string =>
-        resolved[device] === attributes.url
-          ? __("Cover media", "kotlinskidev")
-          : fileName(resolved[device]);
 
       return (
         <Fragment>
           <BlockEdit {...props} />
           <InspectorControls>
-            <PanelBody title={__("Responsive media", "kotlinskidev")} initialOpen={false}>
-              <p className="components-base-control__help">
-                {__(
-                  "The Cover's own media is used on desktop. Add a different file for tablet or mobile; an empty slot uses the next larger one.",
-                  "kotlinskidev"
-                )}
-              </p>
-              {mediaType === "video" ? (
-                <p className="components-base-control__help">
-                  {__(
-                    "A video's poster is its featured image in the Media Library. Each slot uses its own video's poster.",
-                    "kotlinskidev"
-                  )}
-                </p>
-              ) : null}
-              {SLOTS.map(({ name: slotName, label }) => {
-                const slot = slots[slotName];
-                return (
-                  <BaseControl key={slotName} label={label} id={`kt-responsive-media-${slotName}`}>
-                    <MediaUploadCheck>
-                      <MediaUpload
-                        allowedTypes={[mediaType]}
-                        value={slot?.id}
-                        onSelect={(media: PickedMedia) =>
-                          setSlot(slotName, { id: media.id, url: media.url })
-                        }
-                        render={({ open }: { open: () => void }) => (
-                          <div className="kt-responsive-media-slot">
-                            {slot ? <span>{fileName(slot.url)}</span> : null}
-                            <Button variant="secondary" onClick={open}>
-                              {slot
-                                ? __("Replace", "kotlinskidev")
-                                : __("Select media", "kotlinskidev")}
-                            </Button>
-                            {slot ? (
-                              <Button
-                                variant="link"
-                                isDestructive
-                                onClick={() => setSlot(slotName, null)}
-                              >
-                                {__("Remove", "kotlinskidev")}
-                              </Button>
-                            ) : null}
-                          </div>
-                        )}
-                      />
-                    </MediaUploadCheck>
-                  </BaseControl>
-                );
-              })}
-              <p className="components-base-control__help">
-                {__("Mobile uses:", "kotlinskidev")} {describe("mobile")}
-                <br />
-                {__("Tablet uses:", "kotlinskidev")} {describe("tablet")}
-                <br />
-                {__("Desktop uses:", "kotlinskidev")} {describe("desktop")}
-              </p>
-            </PanelBody>
+            <ResponsiveMediaPanel
+              slots={attributes.responsiveMedia ?? {}}
+              onChange={(responsiveMedia) => setAttributes({ responsiveMedia })}
+              allowedTypes={adapter.allowedTypes(attributes)}
+              desktopLabel={adapter.label}
+              desktopUrl={desktopUrl}
+              desktopWidth={desktopWidth}
+              hasAlphaVideo={adapter.hasAlphaVideo?.(attributes) ?? false}
+            />
           </InspectorControls>
         </Fragment>
       );

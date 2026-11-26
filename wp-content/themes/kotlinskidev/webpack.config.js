@@ -25,9 +25,42 @@ const coreEntries = {
   "critical-certificate": path.join(srcDir, "critical-certificate.ts"),
   "critical-search": path.join(srcDir, "critical-search.ts"),
   editor: path.join(srcDir, "editor.ts"),
+  "main-all": path.join(srcDir, "editor-content.scss"),
   "admin-bar": path.join(srcDir, "admin-bar.ts"),
   "canvas-background-init": path.join(srcDir, "scripts/canvas-background/init.ts"),
 };
+
+const blockStyleRegistry = JSON.parse(
+  fs.readFileSync(path.join(srcDir, "block-styles.json"), "utf8")
+);
+const blockStyleEntries = {};
+for (const [handle, definition] of Object.entries(blockStyleRegistry)) {
+  blockStyleEntries[`blocks/${handle}`] = []
+    .concat(definition.src)
+    .map((file) => path.resolve(process.cwd(), file));
+}
+
+const cssOnlyScriptAsset = /^js\/(blocks\/.+|main-all)(\.js|\.asset\.php)$/;
+
+class DropCssOnlyScriptsPlugin {
+  apply(compiler) {
+    compiler.hooks.thisCompilation.tap("DropCssOnlyScriptsPlugin", (compilation) => {
+      compilation.hooks.processAssets.tap(
+        {
+          name: "DropCssOnlyScriptsPlugin",
+          stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
+        },
+        (assets) => {
+          for (const name of Object.keys(assets)) {
+            if (cssOnlyScriptAsset.test(name)) {
+              compilation.deleteAsset(name);
+            }
+          }
+        }
+      );
+    });
+  }
+}
 
 const blockEntries = {};
 for (const blockName of fs.readdirSync(blocksDir)) {
@@ -64,8 +97,12 @@ const nestedOutputPlugins = defaults.plugins
       !(plugin instanceof DependencyExtractionWebpackPlugin)
   )
   .concat([
-    new MiniCssExtractPlugin({ filename: "css/[name].css" }),
+    new MiniCssExtractPlugin({
+      filename: "css/[name].css",
+      chunkFilename: "css/[name].css?v=[contenthash]",
+    }),
     new NestedRtlCssPlugin(),
+    new DropCssOnlyScriptsPlugin(),
     new DependencyExtractionWebpackPlugin({ outputFilename: "js/[name].asset.php" }),
   ]);
 
@@ -77,9 +114,61 @@ module.exports = {
   entry: {
     ...coreEntries,
     ...blockEntries,
+    ...blockStyleEntries,
+  },
+
+  module: {
+    ...defaults.module,
+    rules: [
+      { test: /[\\/]node_modules[\\/]swiper[\\/].*\.m?js$/, sideEffects: false },
+      ...defaults.module.rules,
+    ],
   },
 
   plugins: nestedOutputPlugins,
+
+  optimization: {
+    ...defaults.optimization,
+    splitChunks: {
+      ...defaults.optimization.splitChunks,
+      cacheGroups: {
+        ...defaults.optimization.splitChunks.cacheGroups,
+        dompurify: {
+          test: /[\\/]node_modules[\\/]dompurify[\\/]/,
+          name: "dompurify",
+          chunks: "async",
+          enforce: true,
+          priority: 20,
+        },
+        swiperEffect: {
+          test: /[\\/]node_modules[\\/]swiper[\\/]modules[\\/]effect-(fade|cube|coverflow|flip|cards)\.m?js$/,
+          name: (module) => {
+            const match = /effect-(fade|cube|coverflow|flip|cards)\.m?js$/.exec(
+              module.resource ?? ""
+            );
+            return `swiper-effect-${match ? match[1] : "shared"}`;
+          },
+          chunks: "async",
+          enforce: true,
+          priority: 30,
+        },
+        fccShared: {
+          test: /[\\/]feature-card-canvas[\\/](geometry|variants[\\/]shared)\.ts$/,
+          name: "fcc-variant-shared",
+          chunks: "async",
+          enforce: true,
+          priority: 30,
+        },
+        swiper: {
+          test: /[\\/]node_modules[\\/]swiper[\\/]/,
+          name: "swiper",
+          chunks: "async",
+          enforce: true,
+          priority: 20,
+        },
+      },
+    },
+  },
 
   output: {
     ...defaults.output,

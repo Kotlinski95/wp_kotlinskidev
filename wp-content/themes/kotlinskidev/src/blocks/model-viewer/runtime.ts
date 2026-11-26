@@ -221,6 +221,12 @@ export function mountModelViewer(button: HTMLButtonElement, canvas: HTMLCanvasEl
     }
   });
 
+  button.addEventListener("click", (e) => {
+    if (e.detail === 0) {
+      handleClick();
+    }
+  });
+
   const loader = new GLTFLoader();
   loader.load(
     modelUrl,

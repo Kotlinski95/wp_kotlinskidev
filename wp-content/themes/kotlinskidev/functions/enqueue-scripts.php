@@ -61,8 +61,10 @@ function master_css_filter($html, $handle)
         [
             'wp-block-navigation',
             'wp-pwa-manager-frontend',
+            'accessibility-onetap',
         ],
-        kotlinskidev_get_deferred_block_style_handles()
+        kotlinskidev_get_deferred_block_style_handles(),
+        kotlinskidev_get_block_style_link_handles()
     );
     if (in_array($handle, $deferred_handles, true)) {
         $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
@@ -71,6 +73,9 @@ function master_css_filter($html, $handle)
         if (strpos($html, 'onload=') === false) {
             $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
             $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
+        }
+        if ('accessibility-onetap' === $handle) {
+            $html = str_replace("this.media='all'", "this.media='all';document.documentElement.classList.add('kt-css-" . $handle . "')", $html);
         }
     }
 
@@ -183,6 +188,7 @@ add_action('wp_enqueue_scripts', function (): void {
         'mobileBreakpoint' => kotlinskidev_get_breakpoints()['mobile_max'],
         'breakpoints' => kotlinskidev_get_breakpoints(),
         'scrollOffsets' => kotlinskidev_get_scroll_offsets(),
+        'inViewBand' => kotlinskidev_get_in_view_band_config(),
     ]);
     
 });

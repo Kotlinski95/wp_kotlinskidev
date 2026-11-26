@@ -1,6 +1,6 @@
 {
   "name": "kotlinskidev",
-  "version": "2.0.0",
+  "version": "2.3.0",
   "description": "Kotlinskidev Theme for WordPress, built with React, TypeScript, and GSAP.",
   "author": "Adrian Kotlinski",
   "license": "GPL-2.0-or-later",
@@ -122,6 +122,7 @@
     "pa11y-ci": "^4.1.1",
     "prettier": "^3.2.5",
     "rtlcss": "^4.3.0",
+    "source-map-explorer": "^2.5.3",
     "storybook": "^10.6.0",
     "typescript": "^5.8.3",
     "webpack": "^5.109.2"
@@ -130,11 +131,15 @@
     "prepare": "node bin/setup-husky.js",
     "build": "wp-scripts build && node bin/write-build-id.js",
     "composer": "composer install --no-dev",
+    "analyze": "npm run build:debug && source-map-explorer \"build/js/*.js\" --no-border-checks --html artifacts/bundle-report.html && npm run build",
     "build:debug": "KOTLINSKIDEV_SOURCEMAPS=1 wp-scripts build && node bin/write-build-id.js",
+    "push-page": "node --env-file-if-exists=.env bin/push-page.mjs",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
+    "release": "node bin/release.js",
     "check-version-sync": "node bin/check-version-sync.js",
     "check-palette-consistency": "node bin/check-palette-consistency.js",
+    "check-asset-budget": "node bin/check-asset-budget.js",
     "format": "wp-scripts format",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json}\"",
     "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,json}\"",
@@ -149,7 +154,7 @@
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
     "security:audit": "better-npm-audit audit --production --level high",
-    "security:audit:full": "better-npm-audit audit --level high -x 1139346,1193685,1240853,1240992,1240027,1243066,1243073,1242672,1243114,1243476,1243479",
+    "security:audit:full": "better-npm-audit audit --level high -x 1139346,1193685,1240853,1240027,1243066,1243073,1242672,1243114,1243476,1243479,1247710",
     "security:audit:php": "composer audit",
     "security:sast": "eslint --config eslint.security.config.js \"src/**/*.{ts,tsx}\"",
     "security:php": "vendor/bin/phpcs --standard=.phpcs.security.xml",
@@ -163,6 +168,7 @@
     "audit:a11y": "pa11y-ci --config ./audit/pa11yci.js --json > ./audit/results/pa11y.json",
     "audit:seo": "node ./audit/scripts/check-schema.js",
     "audit:security": "node ./audit/scripts/check-security-headers.js",
+    "audit:images": "node ./audit/scripts/check-images.js",
     "audit:report": "node ./audit/scripts/merge-report.js",
     "audit:regression": "node ./audit/scripts/regression-diff.js",
     "audit": "mkdir -p ./audit/results && npm run audit:discover && npm run audit:seo && npm run audit:security && npm run audit:lighthouse && npm run audit:a11y && npm run audit:report",
@@ -180,6 +186,6 @@
     "test:php": "composer test:unit",
     "test:php:coverage": "composer test:unit:coverage",
     "test:php:integration": "composer test:integration",
-    "verify": "npm run check-version-sync && npm run check-palette-consistency && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build"
+    "verify": "npm run check-version-sync && npm run check-palette-consistency && npm run prettier:check && npm run lint:pkg-json && npm run lint:md:docs && npm run lint:css && npm run lint:js && npm run lint:i18n:js && npm run security:secrets && npm run security:sast && npm run security:audit:php && npm run security:audit:full && npm run i18n:check && npm run test:php && npm run test:unit && npm run build && npm run check-asset-budget"
   }
 }

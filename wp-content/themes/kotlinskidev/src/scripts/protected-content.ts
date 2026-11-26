@@ -2,7 +2,7 @@
  * Protected Content Frontend Handler
  */
 
-import DOMPurify from "dompurify";
+import "@utils/webpack-public-path";
 import { trackEvent } from "./track-event";
 
 interface ProtectionConfig {
@@ -92,7 +92,21 @@ const fetchDecryptedItems = async (
   throw new Error(result.data?.message || result.data || "Unknown decryption error");
 };
 
-const revealContent = (element: HTMLElement, content: string, type: string): void => {
+interface Purifier {
+  sanitize: (dirty: string) => string;
+}
+
+const loadPurifier = async (): Promise<Purifier> => {
+  const { default: DOMPurify } = await import("dompurify");
+  return { sanitize: (dirty) => DOMPurify.sanitize(dirty) };
+};
+
+const revealContent = (
+  element: HTMLElement,
+  content: string,
+  type: string,
+  DOMPurify: Purifier
+): void => {
   element.innerHTML = DOMPurify.sanitize(content);
   element.classList.remove("protection-loading");
   element.classList.add("protection-loaded");
@@ -100,7 +114,7 @@ const revealContent = (element: HTMLElement, content: string, type: string): voi
   element.setAttribute("aria-label", `Protected ${type} content revealed`);
 };
 
-const showError = (element: HTMLElement, type: string): void => {
+const showError = (element: HTMLElement, type: string, DOMPurify: Purifier): void => {
   const config = getConfig();
   element.innerHTML = DOMPurify.sanitize(config.errorText);
   element.classList.remove("protection-loading");
@@ -139,19 +153,24 @@ const flushPendingElements = async (): Promise<void> => {
 
   elements.forEach(showLoading);
 
+  const purifierPromise = loadPurifier();
+
   try {
-    const results = await fetchDecryptedItems(items);
+    const [results, purifier] = await Promise.all([fetchDecryptedItems(items), purifierPromise]);
     elements.forEach((element, index) => {
       const result = results[index];
       if (result) {
-        revealContent(element, result.content, items[index].type);
+        revealContent(element, result.content, items[index].type, purifier);
       } else {
-        showError(element, items[index].type);
+        showError(element, items[index].type, purifier);
       }
     });
   } catch (error) {
     console.error("Failed to decrypt protected content:", error);
-    elements.forEach((element, index) => showError(element, items[index].type));
+    const purifier = await purifierPromise.catch(
+      (): Purifier => ({ sanitize: (dirty) => dirty.replace(/[&<>"']/g, "") })
+    );
+    elements.forEach((element, index) => showError(element, items[index].type, purifier));
   }
 };
 

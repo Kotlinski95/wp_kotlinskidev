@@ -14,7 +14,7 @@ import "@wordpress/block-library/build-style/style.css";
 import "@wordpress/block-library/build-style/editor.css";
 import "@wordpress/block-library/build-style/elements.css";
 import "../src/critical.scss";
-import "../src/index.scss";
+import "../src/editor-content.scss";
 import "../src/styles/editor-overrides.scss";
 import "./frame.scss";
 

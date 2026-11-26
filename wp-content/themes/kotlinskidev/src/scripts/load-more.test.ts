@@ -98,6 +98,54 @@ describe("load-more.ts", () => {
     );
   });
 
+  it("applies a valid font size preset and ignores an invalid one", () => {
+    document.body.innerHTML =
+      '<div data-kt-load-more-initial="1" data-kt-load-more-font-size="large">' +
+      "<div>a</div><div>b</div></div>";
+    loadScript();
+    const button = document.querySelector<HTMLButtonElement>(".kt-load-more__button")!;
+    expect(button.style.fontSize).toBe("var(--wp--preset--font-size--large)");
+  });
+
+  it("ignores a malformed font size slug", () => {
+    document.body.innerHTML =
+      '<div data-kt-load-more-initial="1" data-kt-load-more-font-size="a;b">' +
+      "<div>a</div><div>b</div></div>";
+    loadScript();
+    const button = document.querySelector<HTMLButtonElement>(".kt-load-more__button")!;
+    expect(button.style.fontSize).toBe("");
+  });
+
+  it("applies whitelisted typography and clamped padding", () => {
+    document.body.innerHTML =
+      '<div data-kt-load-more-initial="1" data-kt-load-more-font-weight="600"' +
+      ' data-kt-load-more-letter-spacing="wide" data-kt-load-more-text-transform="uppercase"' +
+      ' data-kt-load-more-padding-y="1" data-kt-load-more-padding-x="99">' +
+      "<div>a</div><div>b</div></div>";
+    loadScript();
+    const button = document.querySelector<HTMLButtonElement>(".kt-load-more__button")!;
+    expect(button.style.fontWeight).toBe("600");
+    expect(button.style.letterSpacing).toBe("0.02em");
+    expect(button.style.textTransform).toBe("uppercase");
+    expect(button.style.paddingBlock).toBe("1rem");
+    expect(button.style.paddingInline).toBe("4rem");
+  });
+
+  it("ignores invalid typography and padding values", () => {
+    document.body.innerHTML =
+      '<div data-kt-load-more-initial="1" data-kt-load-more-font-weight="900"' +
+      ' data-kt-load-more-letter-spacing="constructor" data-kt-load-more-text-transform="x;y"' +
+      ' data-kt-load-more-padding-y="abc" data-kt-load-more-padding-x="">' +
+      "<div>a</div><div>b</div></div>";
+    loadScript();
+    const button = document.querySelector<HTMLButtonElement>(".kt-load-more__button")!;
+    expect(button.style.fontWeight).toBe("");
+    expect(button.style.letterSpacing).toBe("");
+    expect(button.style.textTransform).toBe("");
+    expect(button.style.paddingBlock).toBe("");
+    expect(button.style.paddingInline).toBe("");
+  });
+
   it("applies text, background, border and underline styles from data attributes", () => {
     document.body.innerHTML =
       '<div data-kt-load-more-initial="1" ' +

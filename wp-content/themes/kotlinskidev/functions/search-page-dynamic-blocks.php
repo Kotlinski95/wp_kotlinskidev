@@ -413,9 +413,9 @@ function kotlinskidev_render_search_results_fresh_per_language( bool $blur_other
                     <div style="background:var(--wp--preset--color--light-shade);padding:0.9375rem;border-radius:0.75rem;border:0.125rem solid var(--wp--preset--color--border-color);margin-bottom:1.25rem;">
                         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.9375rem;">
                             <div>
-                                <h3 style="margin:0;color:var(--wp--preset--color--foreground);font-size:1.25rem;">
+                                <h2 style="margin:0;color:var(--wp--preset--color--foreground);font-size:1.25rem;font-weight:700;line-height:var(--wp--preset--line-height--x-small);">
                                     <?php printf(esc_html__('Found %d results', 'kotlinskidev'), absint($search_results->found_posts)); ?>
-                                </h3>
+                                </h2>
                                 <p style="margin:0.3125rem 0 0 0;color:var(--wp--preset--color--foreground);font-size:0.875rem;">
                                     <?php printf(esc_html__('Showing results for "%s"', 'kotlinskidev'), '<strong>' . esc_html($search_query) . '</strong>'); ?>
                                     <?php if (!empty($current_category)) : ?>
@@ -447,10 +447,10 @@ function kotlinskidev_render_search_results_fresh_per_language( bool $blur_other
 
                         <div class="kt-search-results-grid__card">
 
-                            <a href="<?php the_permalink(); ?>" class="kt-search-results-grid__image-link">
+                            <a href="<?php the_permalink(); ?>" class="kt-search-results-grid__image-link" aria-hidden="true" tabindex="-1">
                                 <?php if (has_post_thumbnail()) : ?>
                                 <img src="<?php the_post_thumbnail_url('medium'); ?>"
-                                     alt="<?php the_title(); ?>"
+                                     alt=""
                                      class="kt-search-results-grid__image" />
                                 <?php else : ?>
                                 <span class="kt-search-results-grid__image-placeholder" aria-hidden="true">

@@ -95,3 +95,24 @@ it('renders both linearGradient defs with stops sourced from the theme gradients
     expect($output)->toContain('stop-color="rgb(184, 150, 255)"');
     expect($output)->toContain('stop-color="rgb(132, 83, 210)"');
 });
+
+it('parses palette-driven stops written with var() and nested color-mix()', function () {
+    $stops = kotlinskidev_parse_gradient_stops(
+        'linear-gradient(to left, color-mix(in srgb, var(--wp--preset--color--primary-light) 65%, #000) 0%, var(--wp--preset--color--primary-light) 100%)'
+    );
+
+    expect($stops)->toBe([
+        ['color' => 'color-mix(in srgb, var(--wp--preset--color--primary-light) 65%, #000)', 'offset' => '0%'],
+        ['color' => 'var(--wp--preset--color--primary-light)', 'offset' => '100%'],
+    ]);
+});
+
+it('renders var() stops through an inline style so css variables resolve', function () {
+    Functions\when('esc_attr')->alias(fn ($t) => $t);
+
+    ob_start();
+    kotlinskidev_render_gradient_stops([['color' => 'var(--wp--preset--color--primary-dark)', 'offset' => '50%']]);
+    $output = ob_get_clean();
+
+    expect($output)->toContain('style="stop-color:var(--wp--preset--color--primary-dark)"');
+});

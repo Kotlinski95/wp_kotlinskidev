@@ -18,6 +18,8 @@ it('lists the deferrable block assets, with hero-carousel defaulting above the f
         'kotlinskidev/banner-carousel',
         'kotlinskidev/content-tabs',
         'kotlinskidev/hero-carousel',
+        'core/cover',
+        'core/social-links',
     ]);
     expect($assets['kotlinskidev/hero-carousel']['default_above_fold'])->toBeTrue();
 });
@@ -29,6 +31,8 @@ it('maps each block to its above-the-fold default', function () {
         'wpe/slider' => false,
         'kotlinskidev/gallery-lightbox' => false,
         'kotlinskidev/banner-carousel' => false,
+        'core/cover' => false,
+        'core/social-links' => false,
         'kotlinskidev/content-tabs' => false,
         'kotlinskidev/hero-carousel' => true,
     ]);

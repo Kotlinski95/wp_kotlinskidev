@@ -20,7 +20,7 @@ function kotlinskidev_captured_preload(): string
 }
 
 it('prints a high priority image preload for the claimed poster', function () {
-    kotlinskidev_claim_lcp_slot('poster.jpg');
+    kotlinskidev_claim_lcp_slot([['href' => 'poster.jpg']]);
 
     expect(kotlinskidev_captured_preload())->toBe('<link rel="preload" as="image" fetchpriority="high" href="poster.jpg">' . "\n");
 });
@@ -36,10 +36,17 @@ it('prints nothing when the claim carried no url', function () {
 });
 
 it('lets only the first claim win and keeps its url', function () {
-    expect(kotlinskidev_claim_lcp_slot('one.jpg'))->toBeTrue();
-    expect(kotlinskidev_claim_lcp_slot('two.jpg'))->toBeFalse();
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'one.jpg']]))->toBeTrue();
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'two.jpg']]))->toBeFalse();
 
     expect(kotlinskidev_captured_preload())->toContain('href="one.jpg"');
+});
+
+it('stays true when the same owner re-renders but false for another owner', function () {
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'one.jpg']], 'slide-0'))->toBeTrue();
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'one.jpg']], 'slide-0'))->toBeTrue();
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'one.jpg']], 'slide-1'))->toBeFalse();
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'one.jpg']]))->toBeFalse();
 });
 
 it('flags the winner as the high priority element and bumps the media count once', function () {
@@ -53,15 +60,37 @@ it('flags the winner as the high priority element and bumps the media count once
         return $n;
     });
 
-    kotlinskidev_claim_lcp_slot('a.jpg');
-    kotlinskidev_claim_lcp_slot('b.jpg');
+    kotlinskidev_claim_lcp_slot([['href' => 'a.jpg']]);
+    kotlinskidev_claim_lcp_slot([['href' => 'b.jpg']]);
 
     expect($calls)->toBe([['flag', false], ['count', 3]]);
 });
 
 it('allows a new claim after the state is reset', function () {
-    kotlinskidev_claim_lcp_slot('a.jpg');
+    kotlinskidev_claim_lcp_slot([['href' => 'a.jpg']]);
     kotlinskidev_reset_above_fold_state();
 
-    expect(kotlinskidev_claim_lcp_slot('b.jpg'))->toBeTrue();
+    expect(kotlinskidev_claim_lcp_slot([['href' => 'b.jpg']]))->toBeTrue();
+});
+
+
+it('adds imagesrcset and imagesizes to the preload when the claim carries them', function () {
+    Functions\when('esc_attr')->alias(fn ($t) => $t);
+    kotlinskidev_claim_lcp_slot([['href' => 'poster.jpg', 'srcset' => 'poster-800.jpg 800w, poster.jpg 1600w', 'sizes' => '100vw']]);
+
+    expect(kotlinskidev_captured_preload())->toBe('<link rel="preload" as="image" fetchpriority="high" href="poster.jpg" imagesrcset="poster-800.jpg 800w, poster.jpg 1600w" imagesizes="100vw">' . "\n");
+});
+
+it('prints one preload per entry with its media query', function () {
+    Functions\when('esc_attr')->alias(fn ($t) => $t);
+    kotlinskidev_claim_lcp_slot([
+        ['href' => 'm.jpg', 'srcset' => 'm.jpg 828w', 'sizes' => '100vw', 'media' => '(max-width: 781px)'],
+        ['href' => 'd.jpg', 'srcset' => 'd.jpg 1600w', 'sizes' => '100vw', 'media' => '(min-width: 782px)'],
+        ['href' => ''],
+    ]);
+
+    expect(kotlinskidev_captured_preload())->toBe(
+        '<link rel="preload" as="image" fetchpriority="high" href="m.jpg" media="(max-width: 781px)" imagesrcset="m.jpg 828w" imagesizes="100vw">' . "\n"
+        . '<link rel="preload" as="image" fetchpriority="high" href="d.jpg" media="(min-width: 782px)" imagesrcset="d.jpg 1600w" imagesizes="100vw">' . "\n"
+    );
 });

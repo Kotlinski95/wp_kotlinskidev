@@ -26,8 +26,17 @@ function kotlinskidev_sanitize_ntfy_alert_url($value): string
     return $url;
 }
 
+function kotlinskidev_ntfy_alerts_enabled(): bool
+{
+    return (bool) apply_filters('kotlinskidev_ntfy_alerts_enabled', 'production' === wp_get_environment_type());
+}
+
 function kotlinskidev_get_ntfy_alert_url(): string
 {
+    if (!kotlinskidev_ntfy_alerts_enabled()) {
+        return '';
+    }
+
     return kotlinskidev_sanitize_ntfy_alert_url(get_option('kotlinskidev_ntfy_alert_url', ''));
 }
 

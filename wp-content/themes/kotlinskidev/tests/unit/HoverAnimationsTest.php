@@ -237,3 +237,21 @@ it('still adds has-hover-text-gradient when hoverEnhancedGlow is set with a grad
     expect($result)->toContain('has-hover-text-gradient');
     expect($result)->toContain('has-enhanced-hover-glow');
 });
+
+it('adds kt-in-view-hover-off only when inViewHover is explicitly false', function () {
+    $content = '<div class="wp-block">Hi</div>';
+
+    $off = kotlinskidev_render_block_with_hover_animation($content, ['attrs' => ['hoverAnimation' => 'hover-scale', 'inViewHover' => false]]);
+    $on = kotlinskidev_render_block_with_hover_animation($content, ['attrs' => ['hoverAnimation' => 'hover-scale', 'inViewHover' => true]]);
+    $unset = kotlinskidev_render_block_with_hover_animation($content, ['attrs' => ['hoverAnimation' => 'hover-scale']]);
+
+    expect($off)->toBe('<div class="wp-block hover-scale kt-in-view-hover-off">Hi</div>');
+    expect($on)->toBe('<div class="wp-block hover-scale">Hi</div>');
+    expect($unset)->toBe('<div class="wp-block hover-scale">Hi</div>');
+});
+
+it('leaves a block without any hover effect untouched even when inViewHover is false', function () {
+    $content = '<div class="wp-block">Hi</div>';
+
+    expect(kotlinskidev_render_block_with_hover_animation($content, ['attrs' => ['inViewHover' => false]]))->toBe($content);
+});

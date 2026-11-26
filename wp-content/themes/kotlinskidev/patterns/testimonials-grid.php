@@ -15,8 +15,8 @@ $kotlinskidev_images = array(
     $kotlinskidev_url . 'assets/images/team.webp',
 );
 ?>
-<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/testimonial-grid","name":"Testimonials Grid"},"style":{"spacing":{"padding":{"top":"6.25rem","bottom":"6.25rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"gradient":"gradient-block-bottom","layout":{"type":"constrained","contentSize":"73.75rem"}} -->
-<div class="wp-block-group has-gradient-block-bottom-gradient-background has-background" style="margin-top:0;margin-bottom:0;padding-top:6.25rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:6.25rem;padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"margin":{"bottom":"3.75rem"}}},"layout":{"type":"constrained","contentSize":"40rem"}} -->
+<!-- wp:group {"metadata":{"categories":["kotlinskidev"],"patternName":"kotlinskidev/testimonial-grid","name":"Testimonials Grid"},"style":{"spacing":{"padding":{"top":"6.25rem","bottom":"6.25rem","left":"var:preset|spacing|40","right":"var:preset|spacing|40"},"margin":{"top":"0","bottom":"0"}}},"gradient":"gradient-block-bottom","layout":{"type":"constrained","contentSize":"73.75rem"},"responsiveDisplay":{"desktop":{},"tablet":{"display":"none"},"mobile":{"display":"none"}}} -->
+<div class="wp-block-group has-gradient-block-bottom-gradient-background has-background tablet:none mobile:none" style="margin-top:0;margin-bottom:0;padding-top:6.25rem;padding-right:var(--wp--preset--spacing--40);padding-bottom:6.25rem;padding-left:var(--wp--preset--spacing--40)"><!-- wp:group {"style":{"spacing":{"margin":{"bottom":"3.75rem"}}},"layout":{"type":"constrained","contentSize":"40rem"}} -->
     <div class="wp-block-group" style="margin-bottom:3.75rem">
         <!-- wp:heading {"textAlign":"center","level":2,"style":{"typography":{"fontStyle":"normal","fontWeight":"800"},"elements":{"link":{"color":{"text":"var:preset|color|foreground-alt"}}}},"textColor":"foreground-alt"} -->
         <h2 class="wp-block-heading has-text-align-center has-foreground-alt-color has-text-color has-link-color" style="font-style:normal;font-weight:800"><?php esc_html_e('Hear From Our Happy Clients: Their Stories', 'kotlinskidev') ?></h2>
@@ -26,8 +26,8 @@ $kotlinskidev_images = array(
 
     <!-- wp:columns {"style":{"spacing":{"margin":{"top":"0"},"blockGap":{"left":"1.875rem"}}}} -->
     <div class="wp-block-columns" style="margin-top:0"><!-- wp:column -->
-        <div class="wp-block-column"><!-- wp:group {"className":"kotlinskidev-hover-box","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group kotlinskidev-hover-box has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
+        <div class="wp-block-column"><!-- wp:group {"className":"kotlinskidev-hover-box kt-soft-card","hoverBorderColor":"var(--wp--preset--color--primary)","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","borderColor":"divider","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group kotlinskidev-hover-box kt-soft-card has-hover-border has-border-color has-divider-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem;--hover-border-color:var(--wp--preset--color--primary)"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
                 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-4435" style="width:5.875rem" /></figure>
                 <!-- /wp:image -->
 
@@ -55,8 +55,8 @@ $kotlinskidev_images = array(
             </div>
             <!-- /wp:group -->
 
-            <!-- wp:group {"className":"kotlinskidev-hover-box","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group kotlinskidev-hover-box has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
+            <!-- wp:group {"className":"kotlinskidev-hover-box kt-soft-card","hoverBorderColor":"var(--wp--preset--color--primary)","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","borderColor":"divider","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group kotlinskidev-hover-box kt-soft-card has-hover-border has-border-color has-divider-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem;--hover-border-color:var(--wp--preset--color--primary)"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
                 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-4435" style="width:5.875rem" /></figure>
                 <!-- /wp:image -->
 
@@ -87,8 +87,8 @@ $kotlinskidev_images = array(
         <!-- /wp:column -->
 
         <!-- wp:column -->
-        <div class="wp-block-column"><!-- wp:group {"className":"kotlinskidev-hover-box","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group kotlinskidev-hover-box has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
+        <div class="wp-block-column"><!-- wp:group {"className":"kotlinskidev-hover-box kt-soft-card","hoverBorderColor":"var(--wp--preset--color--primary)","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","borderColor":"divider","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group kotlinskidev-hover-box kt-soft-card has-hover-border has-border-color has-divider-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem;--hover-border-color:var(--wp--preset--color--primary)"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
                 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-4435" style="width:5.875rem" /></figure>
                 <!-- /wp:image -->
 
@@ -116,8 +116,8 @@ $kotlinskidev_images = array(
             </div>
             <!-- /wp:group -->
 
-            <!-- wp:group {"className":"kotlinskidev-hover-box","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group kotlinskidev-hover-box has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
+            <!-- wp:group {"className":"kotlinskidev-hover-box kt-soft-card","hoverBorderColor":"var(--wp--preset--color--primary)","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","borderColor":"divider","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group kotlinskidev-hover-box kt-soft-card has-hover-border has-border-color has-divider-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem;--hover-border-color:var(--wp--preset--color--primary)"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
                 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-4435" style="width:5.875rem" /></figure>
                 <!-- /wp:image -->
 
@@ -148,8 +148,8 @@ $kotlinskidev_images = array(
         <!-- /wp:column -->
 
         <!-- wp:column -->
-        <div class="wp-block-column"><!-- wp:group {"className":"kotlinskidev-hover-box","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group kotlinskidev-hover-box has-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
+        <div class="wp-block-column"><!-- wp:group {"className":"kotlinskidev-hover-box kt-soft-card","hoverBorderColor":"var(--wp--preset--color--primary)","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","borderColor":"divider","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group kotlinskidev-hover-box kt-soft-card has-hover-border has-border-color has-divider-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem;--hover-border-color:var(--wp--preset--color--primary)"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
                 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-4435" style="width:5.875rem" /></figure>
                 <!-- /wp:image -->
 
@@ -177,8 +177,8 @@ $kotlinskidev_images = array(
             </div>
             <!-- /wp:group -->
 
-            <!-- wp:group {"className":"kotlinskidev-hover-box","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","layout":{"type":"constrained"}} -->
-            <div class="wp-block-group kotlinskidev-hover-boxhas-border-color has-border-color-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
+            <!-- wp:group {"className":"kotlinskidev-hover-box kt-soft-card","hoverBorderColor":"var(--wp--preset--color--primary)","style":{"border":{"radius":"0.75rem","width":"0.0625rem"},"spacing":{"padding":{"top":"1.875rem","bottom":"1.875rem","left":"1.875rem","right":"1.875rem"}}},"backgroundColor":"background-alt","borderColor":"divider","layout":{"type":"constrained"}} -->
+            <div class="wp-block-group kotlinskidev-hover-box kt-soft-card has-hover-border has-border-color has-divider-border-color has-background-alt-background-color has-background" style="border-width:0.0625rem;border-radius:0.75rem;padding-top:1.875rem;padding-right:1.875rem;padding-bottom:1.875rem;padding-left:1.875rem;--hover-border-color:var(--wp--preset--color--primary)"><!-- wp:image {"id":4435,"width":"5.875rem","sizeSlug":"full","linkDestination":"none"} -->
                 <figure class="wp-block-image size-full is-resized"><img src="<?php echo esc_url($kotlinskidev_images[0]) ?>" alt="" class="wp-image-4435" style="width:5.875rem" /></figure>
                 <!-- /wp:image -->
 

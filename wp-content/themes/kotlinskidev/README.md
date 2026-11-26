@@ -1,6 +1,6 @@
 # kotlinskidev
 
-Custom WordPress Full Site Editing (FSE) block theme powering [kotlinski.dev](https://kotlinski.dev). Built with TypeScript, React, SCSS. Features 15 custom Gutenberg blocks, 57 reusable block patterns, multilingual support, and a dark/light theme switcher.
+Custom WordPress Full Site Editing (FSE) block theme powering [kotlinskidev.com](https://kotlinskidev.com). Built with TypeScript, React, SCSS. Features 16 custom Gutenberg blocks, 59 reusable block patterns, multilingual support, and a dark/light theme switcher.
 
 ---
 
@@ -44,6 +44,7 @@ npm run test:e2e       # End-to-end tests
 npm run storybook      # Browse every block in isolation at localhost:6006
 npm run build-storybook # Static Storybook build (storybook-static/, not committed)
 npm run audit          # Performance/accessibility/SEO/security audit against audit/urls.json (see audit/)
+npm run analyze        # Source-map bundle report (artifacts/bundle-report.html): which packages and modules weigh what in build/js, then rebuilds a clean build/
 ```
 
 ---
@@ -80,10 +81,10 @@ Requires the `sonar-scanner` CLI (`brew install sonar-scanner` on macOS). This i
 ├── includes/          Supplementary PHP (i18n, parallax, hover)
 ├── languages/         Translation files (en_US, pl_PL)
 ├── parts/             FSE template parts (header, footer)
-├── patterns/          57 reusable block patterns (PHP)
+├── patterns/          59 reusable block patterns (PHP)
 ├── polylang/          Multilingual routing config
 ├── src/
-│   ├── blocks/        15 custom Gutenberg blocks (TypeScript + React)
+│   ├── blocks/        16 custom Gutenberg blocks (TypeScript + React)
 │   ├── scripts/       Frontend TypeScript modules
 │   ├── styles/        SCSS source files
 │   └── utils/         Shared TypeScript utilities (@utils alias)
@@ -107,6 +108,7 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 | `breadcrumbs` | Breadcrumb trail below the header, hidden on the homepage by default and on scroll |
 | `content-tabs` | Nav-link strip (top/bottom/left/right) that swaps in unrestricted content panels on click |
 | `cover-lazy-loading` | Cover block with native lazy loading |
+| `feature-card-canvas` | Animated, palette-driven canvas illustration for feature cards with eased hover |
 | `gallery-lightbox` | Image/video gallery with lightbox and mobile media variant |
 | `hover-animation-controls` | Per-block hover effect configurator |
 | `icon` | Standalone SVG icon picked from the Media Library, colored via `currentColor` |
@@ -122,7 +124,7 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 
 ## Block Patterns
 
-56 PHP patterns in `patterns/` covering page sections (hero, about, services, CTA, testimonials, FAQ, pricing, timeline, contact), blog layouts, navigation, and dynamic content grids. Patterns use only `theme.json` design tokens — no hardcoded values.
+59 PHP patterns in `patterns/` covering page sections (hero, about, services, CTA, testimonials, FAQ, pricing, timeline, contact), blog layouts, navigation, and dynamic content grids. Patterns use only `theme.json` design tokens — no hardcoded values.
 
 ---
 
@@ -144,9 +146,9 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 
 ## Colour Schemes
 
-The default palette (purple `#8209d3`) is defined in `theme.json`. Nine alternate schemes are available in `styles/` and can be activated from **Appearance → Editor → Styles**:
+The default palette (blue `#0078c2` / cyan `#00f6ff`) is defined in `theme.json`. Nine alternate schemes are available in `styles/` and can be activated from **Appearance → Editor → Styles**:
 
-`blue` · `cyber-cyan` · `deep-indigo` · `emerald-forest` · `golden-amber` · `green` · `ocean-teal` · `rose-pink` · `sunset-orange`
+`blue` · `champagne-gold` · `cyber-cyan` · `deep-indigo` · `emerald-forest` · `green` · `ocean-teal` · `rose-pink` · `sunset-orange`
 
 ---
 

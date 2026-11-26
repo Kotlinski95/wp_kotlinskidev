@@ -54,6 +54,16 @@ describe("scroll-to-top.ts — button visibility and progress", () => {
     expect(wrapper.classList.contains("show")).toBe(false);
   });
 
+  it("does not read the document scroll height while below the scroll threshold", () => {
+    buildScrollToTopMarkup();
+    setScrollTop(0);
+    const scrollHeight = jest.spyOn(document.documentElement, "scrollHeight", "get");
+
+    require("./scroll-to-top");
+
+    expect(scrollHeight).not.toHaveBeenCalled();
+  });
+
   it("shows the button and updates the progress ring above the threshold", () => {
     buildScrollToTopMarkup();
     Object.defineProperty(document.documentElement, "scrollHeight", {

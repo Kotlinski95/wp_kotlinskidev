@@ -57,6 +57,24 @@ describe("responsive-media — blocks.registerBlockType filter", () => {
     });
     expect(applyFilters("blocks.registerBlockType", group, "core/group")).toBe(group);
   });
+
+  it("adds the attribute to core/image and core/video but leaves custom blocks to their block.json", () => {
+    ["core/image", "core/video"].forEach((name) => {
+      const settings = applyFilters("blocks.registerBlockType", { attributes: {} }, name) as {
+        attributes: Record<string, unknown>;
+      };
+      expect(settings.attributes).toHaveProperty("responsiveMedia");
+    });
+
+    const slide = { attributes: {} };
+    expect(
+      applyFilters("blocks.registerBlockType", slide, "kotlinskidev/hero-carousel-slide")
+    ).toBe(slide);
+    const frame = { attributes: {} };
+    expect(applyFilters("blocks.registerBlockType", frame, "kotlinskidev/device-frame")).toBe(
+      frame
+    );
+  });
 });
 
 describe("responsive-media — editor.BlockEdit filter", () => {
@@ -80,6 +98,24 @@ describe("responsive-media — editor.BlockEdit filter", () => {
     renderWrapped({ name: "core/cover", attributes: {}, setAttributes: jest.fn() });
 
     expect(screen.queryByText("Responsive media")).not.toBeInTheDocument();
+  });
+
+  it("shows the panel for the hero slide and device frame adapters", async () => {
+    const user = userEvent.setup();
+    renderWrapped({
+      name: "kotlinskidev/hero-carousel-slide",
+      attributes: { bgVideoUrl: "https://x.test/hero.mp4" },
+      setAttributes: jest.fn(),
+    });
+    renderWrapped({
+      name: "kotlinskidev/device-frame",
+      attributes: { imageUrl: "https://x.test/screen.webp" },
+      setAttributes: jest.fn(),
+    });
+
+    expect(screen.getAllByRole("button", { name: /Responsive media/ })).toHaveLength(2);
+    await user.click(screen.getAllByRole("button", { name: /Responsive media/ })[0]);
+    expect(screen.getByText(/Desktop uses:/)).toHaveTextContent("Slide media");
   });
 
   it("saves the picked media into the mobile slot", async () => {

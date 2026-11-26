@@ -37,8 +37,6 @@ const mountVideo = (extra: Record<string, string> = {}): HTMLVideoElement => {
     "data-kt-src-desktop": "desktop.mp4",
     "data-kt-src-tablet": "tablet.mp4",
     "data-kt-src-mobile": "mobile.mp4",
-    "data-kt-bp-mobile": "781",
-    "data-kt-bp-tablet": "1023",
     ...extra,
   };
   Object.entries(attributes).forEach(([name, value]) => video.setAttribute(name, value));
@@ -105,14 +103,6 @@ describe("initResponsiveMedia", () => {
     setWidthMatches(true, true);
 
     expect(video.play).not.toHaveBeenCalled();
-  });
-
-  it("skips videos without breakpoint data", () => {
-    const video = mountVideo({ "data-kt-bp-mobile": "" });
-
-    initResponsiveMedia();
-
-    expect(video.hasAttribute("src")).toBe(false);
   });
 
   it("switches the poster with the device", () => {

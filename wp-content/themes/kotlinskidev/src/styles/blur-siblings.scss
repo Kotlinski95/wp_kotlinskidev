@@ -19,6 +19,14 @@
 			opacity: 0.6;
 		}
 	}
+
+	@media (hover: none) {
+
+		&:has(> .is-in-view-hover:not(.kt-in-view-hover-off)) > *:not(.is-in-view-hover) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
+	}
 }
 
 .has-blur-siblings-nested {
@@ -36,6 +44,14 @@
 	@media (hover: hover) and (pointer: fine) {
 
 		&:has(#{$leaf-column}:hover, #{$leaf-column}:focus-within) #{$leaf-column}:not(:hover):not(:focus-within) {
+			filter: blur(var(--kt-blur-amount, 0.25rem));
+			opacity: 0.6;
+		}
+	}
+
+	@media (hover: none) {
+
+		&:has(.is-in-view-hover:not(.kt-in-view-hover-off)) #{$leaf-column}:not(:has(.is-in-view-hover)):not(.is-in-view-hover) {
 			filter: blur(var(--kt-blur-amount, 0.25rem));
 			opacity: 0.6;
 		}

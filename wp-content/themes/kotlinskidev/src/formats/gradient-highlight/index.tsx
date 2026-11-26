@@ -61,8 +61,8 @@ function GradientPickerIcon(): JSX.Element {
     >
       <defs>
         <linearGradient id="kt-gp-icon" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgb(130,9,211)" />
-          <stop offset="100%" stopColor="rgb(59,130,246)" />
+          <stop offset="0%" style={{ stopColor: "var(--wp--preset--color--primary)" }} />
+          <stop offset="100%" style={{ stopColor: "var(--wp--preset--color--primary-shade-2)" }} />
         </linearGradient>
       </defs>
       <path

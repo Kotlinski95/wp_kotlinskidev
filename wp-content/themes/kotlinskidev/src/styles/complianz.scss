@@ -167,8 +167,8 @@ body:has(.mobile-footer-nav) {
 
 .cmplz-logo {
 	--logo-icon-bg: #1c1d18;
-	--logo-icon-mark: #00f6ff;
-	--logo-divider: #00f6ff;
+	--logo-icon-mark: var(--wp--preset--color--primary-dark);
+	--logo-divider: var(--wp--preset--color--primary-dark);
 	--logo-text: var(--wp--preset--color--foreground);
 	--logo-dev-weight: 4;
 }

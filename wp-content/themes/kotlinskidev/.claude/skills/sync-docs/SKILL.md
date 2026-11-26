@@ -34,20 +34,14 @@ If unsure whether something counts as a "module" worth listing individually (vs.
 
 ## 3. Does the version need bumping?
 
-**Usually no.** Adding a `[Unreleased]` entry is normal, routine work. Bumping `style.css`'s `Version:` and `package.json`'s `"version"` is a **release action** — it only happens when actually cutting a release, which means moving everything in `[Unreleased]` under a new dated version heading and starting a fresh empty `[Unreleased]`. Don't do this reflexively per-commit; it makes the version number meaningless.
+**Yes, once per PR that changes theme code.** Releases are cut inside the PR with `npm run release` (`bin/release.js`), not by hand. CI (`.github/workflows/verify.yml`, "Version bump" job) fails a PR that changes theme files outside `docs/`, `tests/`, `.claude/` and `*.md` while `style.css` `Version:` equals the base branch's. Deploy tags `vX.Y.Z` from `style.css` once the version ships.
 
-Cut a release when:
+Run it after the `[Unreleased]` entries for the PR are written:
 
-- The user explicitly asks to bump the version / cut a release, or
-- `[Unreleased]` has accumulated enough real, shipped work that leaving it unversioned stops making sense (a judgment call — when in doubt, ask rather than assume).
-
-When cutting a release:
-
-1. Decide the bump size from what's actually in `[Unreleased]`, per this file's own semver rules (see its header): any `### Added` entry with a real new capability → at least **MINOR**; only fixes/chores/security patches with nothing new → **PATCH**; anything requiring editors to re-save content or breaking an existing block/attribute → **MAJOR**. State the reasoning, don't just pick one.
-2. Rename `## [Unreleased]` → `## [X.Y.Z] — YYYY-MM-DD` (today's date), keeping all its entries as-is.
-3. Add a fresh `## [Unreleased]` section above it (can be empty — `_Nothing yet._` is fine).
-4. Bump `Version:` in `style.css` and `"version"` in `package.json` to the same new number — they must always match.
-5. Confirm `package.json` is still valid JSON after the edit (`node -e "require('./package.json')"`).
+1. `npm run release -- --dry-run` prints the plan. Bump size: any `### Added` entry in `[Unreleased]` → **MINOR**; otherwise **PATCH**. Pass `--major` for breaking changes (removed/renamed block or attribute, content that must be re-saved); `--minor` / `--patch` override the automatic choice.
+2. `npm run release` renames `## [Unreleased]` to `## [X.Y.Z] — YYYY-MM-DD`, adds a fresh `## [Unreleased]` with `*Nothing yet.*`, and writes the same version to `style.css`, `package.json` and `package-lock.json`. It refuses an empty `[Unreleased]` unless `--force`.
+3. The base version is the higher of `style.css` and `package.json`, so drift between them self-heals.
+4. Commit the result with the PR. Docs-only PRs need no release.
 
 ## 4. Anything else that drifted?
 

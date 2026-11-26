@@ -35,6 +35,38 @@
 		opacity: 1;
 	}
 
+	&.has-pill-pagination {
+		--kt-slider-pagination-active: var(--wp--preset--color--primary);
+		--swiper-pagination-bullet-size: 0.5rem;
+		--swiper-pagination-bullet-horizontal-gap: -0.25rem;
+
+		.swiper-pagination-bullet {
+			box-sizing: content-box;
+			width: var(--swiper-pagination-bullet-size);
+			height: var(--swiper-pagination-bullet-size);
+			padding: 0.5rem;
+			border-radius: 999px;
+			background-clip: content-box;
+		}
+
+		.swiper-pagination-bullet-active {
+			width: 1.75rem;
+			background-color: var(--kt-slider-pagination-active);
+			background-image: none;
+			background-clip: content-box;
+		}
+
+		@media (prefers-reduced-motion: no-preference) {
+
+			.swiper-pagination-bullet {
+				transition:
+					width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+					background-color 0.35s ease,
+					opacity 0.35s ease;
+			}
+		}
+	}
+
 	.swiper-progress {
 		position: absolute;
 		right: 1rem;
@@ -131,4 +163,19 @@
 			}
 		}
 	}
+}
+
+.swiper.has-equal-slide-height {
+
+	.swiper-wrapper {
+		align-items: stretch;
+	}
+
+	.swiper-slide {
+		height: auto;
+	}
+}
+
+.swiper.has-active-highlight .swiper-slide-active.wp-block-group.kt-soft-card:not(:hover) {
+	border-color: color-mix(in srgb, var(--kt-slider-active-color, var(--wp--preset--color--primary)) var(--kt-slider-active-strength, 45%), var(--wp--preset--color--divider)) !important;
 }

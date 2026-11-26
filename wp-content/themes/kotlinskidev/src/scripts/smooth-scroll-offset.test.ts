@@ -2,9 +2,14 @@ function setInnerWidth(width: number) {
   Object.defineProperty(window, "innerWidth", { writable: true, configurable: true, value: width });
 }
 
+function widthMatches(query: string): boolean {
+  const max = /max-width:\s*([\d.]+)px/.exec(query);
+  return max ? window.innerWidth <= Number(max[1]) : false;
+}
+
 function mockMatchMedia(reducedMotion: boolean) {
   (window.matchMedia as jest.Mock).mockImplementation((query: string) => ({
-    matches: query.includes("reduced-motion") ? reducedMotion : false,
+    matches: query.includes("reduced-motion") ? reducedMotion : widthMatches(query),
     media: query,
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),

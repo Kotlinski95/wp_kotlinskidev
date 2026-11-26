@@ -8,7 +8,16 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+require_once get_template_directory() . '/functions/in-view-hover.php';
+
+require_once get_template_directory() . '/functions/content-visibility.php';
+
+require_once get_template_directory() . '/functions/animated-webp.php';
+
+require_once get_template_directory() . '/functions/block-styles.php';
+
 require_once get_template_directory() . '/functions/app-shell.php';
+require_once get_template_directory() . '/functions/mobile-parallax.php';
 
 require_once get_template_directory() . '/functions/above-fold-media.php';
 require_once get_template_directory() . '/functions/image-dimensions.php';
@@ -58,6 +67,7 @@ require_once get_template_directory() . '/functions/modals.php';
 // Opens a manageable modal when a wpe/slider slide (core/cover, .swiper-slide) is clicked
 require_once get_template_directory() . '/functions/slider-modal-trigger.php';
 require_once get_template_directory() . '/functions/device-frame-lightbox.php';
+require_once get_template_directory() . '/functions/feature-card-canvas.php';
 
 // Text shadow style support for any block with native shadow support
 require_once get_template_directory() . '/functions/text-shadow-support.php';
@@ -71,11 +81,17 @@ require_once get_template_directory() . '/functions/critical-css-fragments.php';
 // Include script and style enqueue functions
 require_once get_template_directory() . '/functions/enqueue-scripts.php';
 
+require_once get_template_directory() . '/functions/consent-banner-critical.php';
+
+require_once get_template_directory() . '/functions/onetap-inline-style.php';
+require_once get_template_directory() . '/functions/cloudflare-beacon.php';
+
 // Admin bar style overrides — loaded only when the bar is visible
 require_once get_template_directory() . '/functions/admin-bar-styles.php';
 
 // Include customizer settings and functions
 require_once get_template_directory() . '/functions/customizer.php';
+require_once get_template_directory() . '/functions/footer-layout.php';
 
 // Include logo functions
 require_once get_template_directory() . '/functions/site-identity.php';
@@ -137,6 +153,7 @@ require_once get_template_directory() . '/functions/group-link.php';
 require_once get_template_directory() . '/functions/image-hover-overlay.php';
 
 // Load responsive spacing controls
+require_once get_template_directory() . '/functions/responsive-style-dedupe.php';
 require_once get_template_directory() . '/functions/responsive-spacing.php';
 
 // Load responsive font size controls
@@ -217,6 +234,8 @@ require_once get_template_directory() . '/functions/polylang-accessibility.php';
 
 // SVG gradient defs for icon fill effects
 require_once get_template_directory() . '/functions/svg-gradient-defs.php';
+require_once get_template_directory() . '/functions/palette-duotone.php';
+require_once get_template_directory() . '/functions/theme-json-trim-presets.php';
 
 // Polylang-translatable post types (wp_navigation, wp_block) and slug-based translated post resolution
 require_once get_template_directory() . '/functions/polylang-content-resolution.php';
@@ -228,6 +247,7 @@ if ( kotlinskidev_feature_enabled( 'offers' ) ) {
 
 // SVG upload support and inline rendering
 require_once get_template_directory() . '/functions/svg-support.php';
+require_once get_template_directory() . '/functions/svg-sprite.php';
 
 // Visible "AI-generated" disclosure label for any image/cover block using an attachment marked AI-generated in the Media Library
 require_once get_template_directory() . '/functions/ai-disclosure-labels.php';
@@ -288,6 +308,8 @@ require_once get_template_directory() . '/functions/service-location-ready-ids-c
 require_once get_template_directory() . '/functions/service-location-add-city.php';
 
 require_once get_template_directory() . '/functions/contact-card.php';
+require_once get_template_directory() . '/functions/seo-identity.php';
+require_once get_template_directory() . '/functions/seo-schema.php';
 
 require_once get_template_directory() . '/functions/article-card.php';
 require_once get_template_directory() . '/functions/project-card.php';

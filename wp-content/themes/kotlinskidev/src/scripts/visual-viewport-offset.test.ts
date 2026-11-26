@@ -1,5 +1,14 @@
 function setInnerWidth(width: number) {
   Object.defineProperty(window, "innerWidth", { writable: true, configurable: true, value: width });
+  (window.matchMedia as jest.Mock).mockImplementation((query: string) => {
+    const max = /max-width:\s*([\d.]+)px/.exec(query);
+    return {
+      matches: max ? width <= Number(max[1]) : false,
+      media: query,
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    };
+  });
 }
 
 function mockVisualViewport() {

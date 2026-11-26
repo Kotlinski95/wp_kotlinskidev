@@ -48,9 +48,9 @@ function handleScrollToTop(e: Event) {
 
   const handleScroll = () => {
     const scrollTop = getScrollTop();
-    const maxScrollTop = getMaxScrollTop();
 
     if (scrollTop > 100) {
+      const maxScrollTop = getMaxScrollTop();
       scrollToTopBtn.style.display = "block";
       scrollWrapper.classList.add("show");
 
