@@ -59,6 +59,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Fixed
 
+- Pressing Escape in the open mega-menu now returns focus to the item that opened it, and its panel triggers are plain links with `aria-haspopup`/`aria-expanded` instead of `role="button"` links. Keyboard and screen-reader users no longer lose their place or hear a link announced as a button.
+
 - Elements with "Activate when centred on touch screens" switched off now show their hover effects, such as the hover background, when tapped on touch screens, instead of nothing. Elements with the option on keep the centred behavior.
 - Contact form default labels, placeholders and messages are now translated (Polish "Wyślij", "Imię", "Temat" and so on) when the saved value still equals the block default, while edited text stays as typed.
 - The touch in-view hover now skips elements that are or contain protected content. Responsive picture `<source>` tags carry the real `width` and `height` of each device image, which avoids layout shift.

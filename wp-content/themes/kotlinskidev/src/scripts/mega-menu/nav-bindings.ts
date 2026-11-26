@@ -1,4 +1,4 @@
-import { ITEM_SELECTOR, PANEL_SELECTOR } from "./mega-menu-constants";
+import { ITEM_SELECTOR, LINK_SELECTOR, PANEL_SELECTOR } from "./mega-menu-constants";
 import type { MegaMenuController } from "./mega-menu-controller";
 
 const isFocusStayingInsideOpenPanel = (nav: HTMLElement, nextFocus: Node | null): boolean => {
@@ -40,12 +40,20 @@ export const bindFocusOut = (nav: HTMLElement, controller: MegaMenuController): 
   });
 };
 
-export const bindEscapeKey = (controller: MegaMenuController): void => {
+export const bindEscapeKey = (nav: HTMLElement, controller: MegaMenuController): void => {
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      controller.cancelClose();
-      controller.cancelSwitch();
-      controller.closeAll();
+    if (event.key !== "Escape") {
+      return;
+    }
+    const activeLink = nav.querySelector<HTMLElement>(
+      `${ITEM_SELECTOR}.is-active ${LINK_SELECTOR}`
+    );
+    const focusWasInsideMenu = nav.contains(document.activeElement);
+    controller.cancelClose();
+    controller.cancelSwitch();
+    controller.closeAll();
+    if (activeLink && focusWasInsideMenu && document.activeElement !== activeLink) {
+      activeLink.focus();
     }
   });
 };
