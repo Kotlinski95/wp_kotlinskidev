@@ -16,7 +16,7 @@ const LANGUAGE_LINK_SELECTOR =
   ".kt-lang-panel__list a[hreflang], .wp-block-polylang-language-switcher a[hreflang]";
 const PROJECT_TITLE_SELECTOR = "h1, h2, h3, h4";
 const COOKIE_CONSENT_SELECTOR = ".cmplz-btn.cmplz-manage-consent";
-const ACCESSIBILITY_TOGGLE_SELECTOR = ".onetap-toggle";
+const ACCESSIBILITY_TOGGLE_SELECTOR = "#ka11y-root";
 
 function toSnakeCase(key: string): string {
   return key.replace(/([A-Z])/g, (letter, _match, offset: number) =>

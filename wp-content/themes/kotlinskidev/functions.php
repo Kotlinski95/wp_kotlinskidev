@@ -85,7 +85,6 @@ require_once get_template_directory() . '/functions/enqueue-scripts.php';
 
 require_once get_template_directory() . '/functions/consent-banner-critical.php';
 
-require_once get_template_directory() . '/functions/onetap-inline-style.php';
 require_once get_template_directory() . '/functions/cloudflare-beacon.php';
 
 // Admin bar style overrides — loaded only when the bar is visible

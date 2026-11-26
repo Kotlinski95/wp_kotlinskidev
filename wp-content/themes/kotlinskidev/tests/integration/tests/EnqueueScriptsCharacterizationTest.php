@@ -33,12 +33,10 @@ it('does not add a second onload to a link that already has one', function () {
     expect($html)->toContain('onload="x()"');
 });
 
-it('defers the always-deferred handles and tags the one-tap stylesheet with a loaded class', function () {
+it('defers the always-deferred handles', function () {
     $navigation = master_css_filter("<link rel='stylesheet' href='nav.css' media='all' />", 'wp-block-navigation');
-    $onetap     = master_css_filter("<link rel='stylesheet' href='one.css' media='all' />", 'accessibility-onetap');
 
     expect($navigation)->toBe("<link data-no-defer=\"1\" data-no-optimize=\"1\" rel='stylesheet' href='nav.css' media='print' onload=\"this.media='all'\" />");
-    expect($onetap)->toBe("<link data-no-defer=\"1\" data-no-optimize=\"1\" rel='stylesheet' href='one.css' media='print' onload=\"this.media='all';document.documentElement.classList.add('kt-css-accessibility-onetap')\" />");
 });
 
 it('defers the style handles of every registered block stylesheet', function () {

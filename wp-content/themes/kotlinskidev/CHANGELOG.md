@@ -16,6 +16,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+*Nothing yet.*
+
+## [2.4.0] — 2026-11-24
+
 ### Added
 
 - New `kotlinskidev_jquery_dependents` filter (`functions/jquery-gate.php`) lists the queued scripts that require jQuery, so the decision to load it can be inspected or logged.
@@ -52,6 +56,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Clean-code batch B2.2: the 1,136-line `functions/blog-topic-manager.php` is now a 19-line loader plus 18 single-purpose files under `functions/blog-topic-manager/` (category fields, breadcrumbs, search, topic and article renderers, related-articles query), with all comments removed and repeated logic turned into small named helpers. Hooks, function names and rendered markup are unchanged on all 17 snapshot pages.
 - Clean-code batch B2.1: the 2,126-line `functions/settings-page.php` is now a 15-line loader plus 14 files under `functions/settings-page/` (one per settings tab, `page.php`, and four shared field helpers that replaced about 60 repeated registrations and renderers). Option names, tab slugs and the rendered admin pages are unchanged: all 12 tab pages diff empty against the baseline.
 - Clean-code batch B1.1 (`src/utils`): image zoom magic numbers became named constants (`TAP_ZOOM_SCALE`, `SNAP_BACK_SCALE`, `DRAG_THRESHOLD_PX`) with descriptive variable names, and the last comment in `_carousel-nav.scss` was removed. Behavior and rendered markup are unchanged (`npm run snapshot:compare`).
+
+### Removed
+
+- The OneTap accessibility plugin integration (`functions/onetap-inline-style.php` and its stylesheet handling) is gone, replaced by the standalone Kotlinskidev Accessibility plugin. The hide-on-scroll floating-icon selector and the `accessibility_toggle_click` analytics event now target `#ka11y-root`, and leftover `uploads/kotlinskidev-cache/onetap-*.css` files can be deleted manually.
 
 ### Fixed
 
