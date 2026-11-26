@@ -18,7 +18,7 @@ add_action('wp_head', function () {
         }
     </style>
 <?php
-}, 1); // Priority 1 to load as early as possibleS
+}, 1);
 
 add_action('wp_head', function () {
 ?>
@@ -27,13 +27,13 @@ add_action('wp_head', function () {
 <?php
 }, 1);
 
-// Remove all viewport meta tags except our custom one using output buffering
-add_action('template_redirect', function() {
-    ob_start(function($buffer) {
-        // Remove all viewport meta tags
-        $buffer = preg_replace('/<meta[^>]+name=["\']viewport["\'][^>]*>/i', '', $buffer);
-        // Add our custom viewport meta tag just after <head>
-        $buffer = preg_replace('/<head[^>]*>/', '$0<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, viewport-fit=cover">', $buffer, 1);
-        return $buffer;
-    });
-});
+function kotlinskidev_replace_viewport_meta_tags($buffer) {
+    $buffer = preg_replace('/<meta[^>]+name=["\']viewport["\'][^>]*>/i', '', $buffer);
+    $buffer = preg_replace('/<head[^>]*>/', '$0<meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3.0, viewport-fit=cover">', $buffer, 1);
+    return $buffer;
+}
+
+function kotlinskidev_buffer_viewport_meta_replacement() {
+    ob_start('kotlinskidev_replace_viewport_meta_tags');
+}
+add_action('template_redirect', 'kotlinskidev_buffer_viewport_meta_replacement');

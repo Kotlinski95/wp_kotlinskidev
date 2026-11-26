@@ -1,19 +1,8 @@
-import React, { useRef } from "react";
-import {
-  useBlockProps,
-  InnerBlocks,
-  InspectorControls,
-  useSettings,
-} from "@wordpress/block-editor";
-import { BaseControl, FontSizePicker, PanelBody, ToggleControl } from "@wordpress/components";
+import React from "react";
+import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
-import { ColorGradientControl } from "../../shared/color-gradient-control";
-
-interface ThemeFontSize {
-  name: string;
-  slug: string;
-  size: string;
-}
+import { BadgePanel, type PricingCardAttributes } from "./BadgePanel";
+import { buildBadgeStyle } from "./badge-style";
 
 const ITEM_TEMPLATE: [string, object][] = [
   ["core/paragraph", { placeholder: "TIER NAME", fontSize: "small" }],
@@ -24,120 +13,24 @@ const ITEM_TEMPLATE: [string, object][] = [
   ["core/buttons", {}],
 ];
 
-interface PricingCardAttributes {
-  featured: boolean;
-  badgeFontSize: string;
-  badgeTextColor: string;
-  badgeGradient: string;
-}
-
 interface PricingCardEditProps {
   attributes: PricingCardAttributes;
   setAttributes: (attrs: Partial<PricingCardAttributes>) => void;
 }
 
 export default function Edit({ attributes, setAttributes }: PricingCardEditProps) {
-  const { featured, badgeFontSize, badgeTextColor, badgeGradient } = attributes;
-
-  const [customFontSizes, themeFontSizes] = useSettings(
-    "typography.fontSizes.custom",
-    "typography.fontSizes.theme"
-  ) as [ThemeFontSize[] | undefined, ThemeFontSize[] | undefined];
-  const fontSizes = [...(customFontSizes ?? []), ...(themeFontSizes ?? [])];
-
-  // The color/gradient duo control fires the other value's onChange(undefined) in the same tick — refs keep each handler reading the freshest value instead of a stale one.
-  const badgeTextColorRef = useRef(badgeTextColor);
-  badgeTextColorRef.current = badgeTextColor;
-  const badgeGradientRef = useRef(badgeGradient);
-  badgeGradientRef.current = badgeGradient;
-
-  const setBadgeTextColor = (value?: string) => {
-    badgeTextColorRef.current = value || "";
-    if (value) {
-      badgeGradientRef.current = "";
-    }
-    setAttributes({
-      badgeTextColor: badgeTextColorRef.current,
-      badgeGradient: badgeGradientRef.current,
-    });
-  };
-
-  const setBadgeGradient = (value?: string) => {
-    badgeGradientRef.current = value || "";
-    if (value) {
-      badgeTextColorRef.current = "";
-    }
-    setAttributes({
-      badgeTextColor: badgeTextColorRef.current,
-      badgeGradient: badgeGradientRef.current,
-    });
-  };
-
-  let badgeColorStyle: React.CSSProperties = {};
-  if (badgeGradient) {
-    badgeColorStyle = {
-      backgroundImage: badgeGradient,
-      backgroundClip: "text",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      color: "transparent",
-    };
-  } else if (badgeTextColor) {
-    badgeColorStyle = { color: badgeTextColor };
-  }
-
-  const badgeStyle: React.CSSProperties = {
-    ...(badgeFontSize ? { fontSize: badgeFontSize } : {}),
-    ...badgeColorStyle,
-  };
+  const { featured } = attributes;
+  const blockProps = useBlockProps({
+    className: `pricing-card${featured ? " pricing-card--featured" : ""}`,
+  });
 
   return (
     <>
-      <InspectorControls>
-        <PanelBody title={__("Pricing Card", "kotlinskidev")} initialOpen>
-          <ToggleControl
-            label={__("Highlight as most popular", "kotlinskidev")}
-            checked={featured}
-            onChange={(value) => setAttributes({ featured: value })}
-            help={__(
-              "Adds a badge and an accent border to draw attention to this tier.",
-              "kotlinskidev"
-            )}
-          />
+      <BadgePanel attributes={attributes} setAttributes={setAttributes} />
 
-          {featured && (
-            <>
-              <BaseControl
-                label={__("Badge font size", "kotlinskidev")}
-                id="kt-pricing-card-badge-font-size"
-              >
-                <FontSizePicker
-                  value={badgeFontSize || undefined}
-                  fontSizes={fontSizes}
-                  onChange={(value) => setAttributes({ badgeFontSize: value ?? "" })}
-                />
-              </BaseControl>
-
-              <ColorGradientControl
-                label={__("Badge text color", "kotlinskidev")}
-                colorValue={badgeTextColor || undefined}
-                gradientValue={badgeGradient || undefined}
-                onColorChange={setBadgeTextColor}
-                onGradientChange={setBadgeGradient}
-                clearable
-              />
-            </>
-          )}
-        </PanelBody>
-      </InspectorControls>
-
-      <div
-        {...useBlockProps({
-          className: `pricing-card${featured ? " pricing-card--featured" : ""}`,
-        })}
-      >
+      <div {...blockProps}>
         {featured && (
-          <span className="pricing-card__badge" style={badgeStyle}>
+          <span className="pricing-card__badge" style={buildBadgeStyle(attributes)}>
             {__("Most popular", "kotlinskidev")}
           </span>
         )}

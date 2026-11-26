@@ -1,11 +1,12 @@
 <?php
+const KOTLINSKIDEV_DUOTONE_SLUG_PATTERN = '/^[a-z0-9-]{1,64}$/';
 
 function kotlinskidev_is_valid_duotone_slug( mixed $slug ): bool {
-	return is_string( $slug ) && 1 === preg_match( '/^[a-z0-9-]{1,64}$/', $slug );
+	return is_string( $slug ) && 1 === preg_match( KOTLINSKIDEV_DUOTONE_SLUG_PATTERN, $slug );
 }
 
-function kotlinskidev_palette_duotones(): array {
-	$defaults = [
+function kotlinskidev_default_palette_duotones(): array {
+	return [
 		'duotone-primary'      => [
 			'shadow'    => 'contrast',
 			'highlight' => 'primary',
@@ -27,28 +28,38 @@ function kotlinskidev_palette_duotones(): array {
 			'label'     => __( 'Duotone · Foreground', 'kotlinskidev' ),
 		],
 	];
+}
 
-	$registry = apply_filters( 'kotlinskidev_palette_duotones', $defaults );
+function kotlinskidev_clean_duotone_preset( mixed $slug, mixed $preset ): ?array {
+	if ( ! kotlinskidev_is_valid_duotone_slug( $slug ) || ! is_array( $preset ) ) {
+		return null;
+	}
+	if ( ! kotlinskidev_is_valid_duotone_slug( $preset['shadow'] ?? null ) || ! kotlinskidev_is_valid_duotone_slug( $preset['highlight'] ?? null ) ) {
+		return null;
+	}
+	$entry = [
+		'shadow'    => $preset['shadow'],
+		'highlight' => $preset['highlight'],
+	];
+	if ( isset( $preset['label'] ) && is_string( $preset['label'] ) && '' !== $preset['label'] ) {
+		$entry['label'] = $preset['label'];
+	}
+
+	return $entry;
+}
+
+function kotlinskidev_palette_duotones(): array {
+	$registry = apply_filters( 'kotlinskidev_palette_duotones', kotlinskidev_default_palette_duotones() );
 	if ( ! is_array( $registry ) ) {
 		return [];
 	}
 
 	$clean = [];
 	foreach ( $registry as $slug => $preset ) {
-		if ( ! kotlinskidev_is_valid_duotone_slug( $slug ) || ! is_array( $preset ) ) {
-			continue;
+		$entry = kotlinskidev_clean_duotone_preset( $slug, $preset );
+		if ( null !== $entry ) {
+			$clean[ $slug ] = $entry;
 		}
-		if ( ! kotlinskidev_is_valid_duotone_slug( $preset['shadow'] ?? null ) || ! kotlinskidev_is_valid_duotone_slug( $preset['highlight'] ?? null ) ) {
-			continue;
-		}
-		$entry = [
-			'shadow'    => $preset['shadow'],
-			'highlight' => $preset['highlight'],
-		];
-		if ( isset( $preset['label'] ) && is_string( $preset['label'] ) && '' !== $preset['label'] ) {
-			$entry['label'] = $preset['label'];
-		}
-		$clean[ $slug ] = $entry;
 	}
 
 	return $clean;

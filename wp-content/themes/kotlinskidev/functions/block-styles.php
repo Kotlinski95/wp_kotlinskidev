@@ -95,10 +95,12 @@ function kotlinskidev_collect_block_styles($block_content, $block)
 }
 add_filter('render_block', 'kotlinskidev_collect_block_styles', 5, 2);
 
+const KOTLINSKIDEV_BLOCK_STYLE_SINGULAR_CONDITION_PREFIX = 'singular:';
+
 function kotlinskidev_block_style_template_matches(string $condition): bool
 {
-    if (str_starts_with($condition, 'singular:')) {
-        return is_singular(substr($condition, 9));
+    if (str_starts_with($condition, KOTLINSKIDEV_BLOCK_STYLE_SINGULAR_CONDITION_PREFIX)) {
+        return is_singular(substr($condition, strlen(KOTLINSKIDEV_BLOCK_STYLE_SINGULAR_CONDITION_PREFIX)));
     }
 
     return match ($condition) {
@@ -110,11 +112,8 @@ function kotlinskidev_block_style_template_matches(string $condition): bool
     };
 }
 
-function kotlinskidev_get_active_block_style_keys(): array
+function kotlinskidev_add_template_matched_block_style_keys(array $registry, array $active): array
 {
-    $registry = kotlinskidev_get_block_style_registry();
-    $active   = array_fill_keys(kotlinskidev_block_style_collected(), true);
-
     foreach ($registry as $key => $definition) {
         if (!empty($definition['always'])) {
             $active[$key] = true;
@@ -129,6 +128,11 @@ function kotlinskidev_get_active_block_style_keys(): array
         }
     }
 
+    return $active;
+}
+
+function kotlinskidev_add_block_style_dependency_keys(array $registry, array $active): array
+{
     $queue = array_keys($active);
     while ($queue) {
         $key = array_shift($queue);
@@ -139,6 +143,16 @@ function kotlinskidev_get_active_block_style_keys(): array
             }
         }
     }
+
+    return $active;
+}
+
+function kotlinskidev_get_active_block_style_keys(): array
+{
+    $registry = kotlinskidev_get_block_style_registry();
+    $active   = array_fill_keys(kotlinskidev_block_style_collected(), true);
+    $active   = kotlinskidev_add_template_matched_block_style_keys($registry, $active);
+    $active   = kotlinskidev_add_block_style_dependency_keys($registry, $active);
 
     return array_values(array_filter(array_keys($registry), static fn (string $key): bool => isset($active[$key])));
 }

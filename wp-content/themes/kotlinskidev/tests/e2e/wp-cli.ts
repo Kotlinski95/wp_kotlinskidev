@@ -3,12 +3,29 @@ import path from "node:path";
 
 const WP_ROOT = path.resolve(process.cwd(), "..", "..", "..");
 
+const WP_CLI_MEMORY_LIMIT = "512M";
+const WP_CLI_BIN = execFileSync("which", ["wp"], { encoding: "utf8" }).trim();
+
 function wp(args: string[]): string {
-  return execFileSync("wp", args, {
+  return execFileSync("php", ["-d", `memory_limit=${WP_CLI_MEMORY_LIMIT}`, WP_CLI_BIN, ...args], {
     cwd: WP_ROOT,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "ignore"],
   }).trim();
+}
+
+export function listPublishedContentIds(): number[] {
+  return wp([
+    "post",
+    "list",
+    "--post_type=page,post",
+    "--post_status=publish",
+    "--field=ID",
+    "--orderby=ID",
+  ])
+    .split("\n")
+    .map((line) => Number(line.trim()))
+    .filter(Boolean);
 }
 
 export function deleteFixturePage(slug: string): void {

@@ -1,5 +1,5 @@
 import "@utils/webpack-public-path";
-import type { SliderOptions } from "./swiper-init";
+import type { SliderOptions } from "./slider-options";
 
 const init = (): void => {
   const containers = document.querySelectorAll<HTMLElement>(".wp-block-wpe-slider.swiper");

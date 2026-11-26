@@ -36,15 +36,34 @@ export interface SimpleGridAttributes {
 
 const COLUMN_CHOICES = [2, 3, 4];
 
-export default function Edit({
-  clientId,
-  attributes,
-  setAttributes,
-}: {
-  clientId: string;
-  attributes: SimpleGridAttributes;
-  setAttributes: (attrs: Partial<SimpleGridAttributes>) => void;
-}) {
+type SelectOption = { label: string; value: string };
+
+function buildColumnOptions(colCount: number): SelectOption[] {
+  return [...new Set([...COLUMN_CHOICES, colCount])]
+    .sort((a, b) => a - b)
+    .map((count) => ({ label: String(count), value: String(count) }));
+}
+
+function buildMobileColumnOptions(colCount: number): SelectOption[] {
+  return [
+    { label: __("Same as desktop", "kotlinskidev"), value: "0" },
+    { label: __("1 column", "kotlinskidev"), value: "1" },
+    ...(colCount >= 2 ? [{ label: __("2 columns", "kotlinskidev"), value: "2" }] : []),
+  ];
+}
+
+function buildTabletColumnOptions(colCount: number): SelectOption[] {
+  return [
+    { label: __("Same as desktop", "kotlinskidev"), value: "0" },
+    ...Array.from({ length: colCount }, (_, i) => i + 1).map((count) => ({
+      label:
+        count === 1 ? __("1 column", "kotlinskidev") : `${count} ${__("columns", "kotlinskidev")}`,
+      value: String(count),
+    })),
+  ];
+}
+
+function useGridHolders(clientId: string) {
   const { innerBlocks } = useSelect(
     (select) => ({
       innerBlocks:
@@ -58,16 +77,12 @@ export default function Edit({
     "core/block-editor"
   ) as unknown as BlockEditorDispatch;
 
+  return { innerBlocks, insertBlock, removeBlocks };
+}
+
+function useColumnCountChange(clientId: string) {
+  const { innerBlocks, insertBlock, removeBlocks } = useGridHolders(clientId);
   const [pendingRemovalIds, setPendingRemovalIds] = useState<string[] | null>(null);
-
-  const colCount = Math.max(1, innerBlocks.length);
-
-  const columnOptions = [...new Set([...COLUMN_CHOICES, colCount])]
-    .sort((a, b) => a - b)
-    .map((count) => ({
-      label: String(count),
-      value: String(count),
-    }));
 
   const onColumnsChange = (value: string) => {
     const target = Number.parseInt(value, 10);
@@ -90,30 +105,136 @@ export default function Edit({
     removeBlocks(removedIds);
   };
 
-  const mobileColumnOptions = [
-    { label: __("Same as desktop", "kotlinskidev"), value: "0" },
-    { label: __("1 column", "kotlinskidev"), value: "1" },
-    ...(colCount >= 2 ? [{ label: __("2 columns", "kotlinskidev"), value: "2" }] : []),
-  ];
-
-  const onMobileColumnsChange = (value: string) => {
-    const mobileColumns = Number.parseInt(value, 10);
-    setAttributes({ mobileColumns: mobileColumns > 0 ? mobileColumns : undefined });
+  const confirmRemoval = () => {
+    if (pendingRemovalIds) {
+      removeBlocks(pendingRemovalIds);
+    }
+    setPendingRemovalIds(null);
   };
 
-  const tabletColumnOptions = [
-    { label: __("Same as desktop", "kotlinskidev"), value: "0" },
-    ...Array.from({ length: colCount }, (_, i) => i + 1).map((count) => ({
-      label:
-        count === 1 ? __("1 column", "kotlinskidev") : `${count} ${__("columns", "kotlinskidev")}`,
-      value: String(count),
-    })),
-  ];
-
-  const onTabletColumnsChange = (value: string) => {
-    const tabletColumns = Number.parseInt(value, 10);
-    setAttributes({ tabletColumns: tabletColumns > 0 ? tabletColumns : undefined });
+  return {
+    colCount: Math.max(1, innerBlocks.length),
+    onColumnsChange,
+    pendingRemovalIds,
+    cancelRemoval: () => setPendingRemovalIds(null),
+    confirmRemoval,
   };
+}
+
+interface GridSettingsProps {
+  attributes: SimpleGridAttributes;
+  setAttributes: (attrs: Partial<SimpleGridAttributes>) => void;
+  colCount: number;
+  onColumnsChange: (value: string) => void;
+}
+
+function NavigationPanel({
+  attributes,
+  setAttributes,
+}: Pick<GridSettingsProps, "attributes" | "setAttributes">) {
+  return (
+    <PanelBody title={__("Navigation", "kotlinskidev")} initialOpen>
+      <TextControl
+        label={__("Nav label", "kotlinskidev")}
+        value={attributes.label}
+        onChange={(label) => setAttributes({ label })}
+        help={__("Label shown in the navigation bar trigger.", "kotlinskidev")}
+      />
+    </PanelBody>
+  );
+}
+
+function parsePositiveColumns(value: string): number | undefined {
+  const columns = Number.parseInt(value, 10);
+  return columns > 0 ? columns : undefined;
+}
+
+function ColumnsPanel(props: GridSettingsProps) {
+  const { attributes, setAttributes, colCount, onColumnsChange } = props;
+  const onMobileColumnsChange = (value: string) =>
+    setAttributes({ mobileColumns: parsePositiveColumns(value) });
+  const onTabletColumnsChange = (value: string) =>
+    setAttributes({ tabletColumns: parsePositiveColumns(value) });
+
+  return (
+    <PanelBody title={__("Columns", "kotlinskidev")}>
+      <SelectControl
+        label={__("Columns", "kotlinskidev")}
+        value={String(colCount)}
+        options={buildColumnOptions(colCount)}
+        onChange={onColumnsChange}
+      />
+      <SelectControl
+        label={__("Tablet layout", "kotlinskidev")}
+        value={String(attributes.tabletColumns ?? 0)}
+        options={buildTabletColumnOptions(colCount)}
+        onChange={onTabletColumnsChange}
+        help={__(
+          "Applied between the mobile and desktop breakpoints on the front end. The editor canvas always shows the desktop layout.",
+          "kotlinskidev"
+        )}
+      />
+      <SelectControl
+        label={__("Mobile layout", "kotlinskidev")}
+        value={String(attributes.mobileColumns ?? 0)}
+        options={buildMobileColumnOptions(colCount)}
+        onChange={onMobileColumnsChange}
+        help={__(
+          "Applied below the mobile breakpoint on the front end. The editor canvas always shows the desktop layout.",
+          "kotlinskidev"
+        )}
+      />
+    </PanelBody>
+  );
+}
+
+function GridSettingsPanels(props: GridSettingsProps) {
+  return (
+    <>
+      <NavigationPanel attributes={props.attributes} setAttributes={props.setAttributes} />
+      <ColumnsPanel {...props} />
+    </>
+  );
+}
+
+function ReduceColumnsModal({
+  onCancel,
+  onConfirm,
+}: {
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  return (
+    <Modal title={__("Reduce columns?", "kotlinskidev")} onRequestClose={onCancel}>
+      <p>
+        {__(
+          "Reducing columns will delete the content of the removed column(s). Continue?",
+          "kotlinskidev"
+        )}
+      </p>
+      <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem" }}>
+        <Button variant="tertiary" onClick={onCancel}>
+          {__("Cancel", "kotlinskidev")}
+        </Button>
+        <Button variant="primary" isDestructive onClick={onConfirm}>
+          {__("Continue", "kotlinskidev")}
+        </Button>
+      </div>
+    </Modal>
+  );
+}
+
+export default function Edit({
+  clientId,
+  attributes,
+  setAttributes,
+}: {
+  clientId: string;
+  attributes: SimpleGridAttributes;
+  setAttributes: (attrs: Partial<SimpleGridAttributes>) => void;
+}) {
+  const { colCount, onColumnsChange, pendingRemovalIds, cancelRemoval, confirmRemoval } =
+    useColumnCountChange(clientId);
 
   const blockProps = useBlockProps({
     className: "kt-simple-grid",
@@ -123,42 +244,12 @@ export default function Edit({
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Navigation", "kotlinskidev")} initialOpen>
-          <TextControl
-            label={__("Nav label", "kotlinskidev")}
-            value={attributes.label}
-            onChange={(label) => setAttributes({ label })}
-            help={__("Label shown in the navigation bar trigger.", "kotlinskidev")}
-          />
-        </PanelBody>
-        <PanelBody title={__("Columns", "kotlinskidev")}>
-          <SelectControl
-            label={__("Columns", "kotlinskidev")}
-            value={String(colCount)}
-            options={columnOptions}
-            onChange={onColumnsChange}
-          />
-          <SelectControl
-            label={__("Tablet layout", "kotlinskidev")}
-            value={String(attributes.tabletColumns ?? 0)}
-            options={tabletColumnOptions}
-            onChange={onTabletColumnsChange}
-            help={__(
-              "Applied between the mobile and desktop breakpoints on the front end. The editor canvas always shows the desktop layout.",
-              "kotlinskidev"
-            )}
-          />
-          <SelectControl
-            label={__("Mobile layout", "kotlinskidev")}
-            value={String(attributes.mobileColumns ?? 0)}
-            options={mobileColumnOptions}
-            onChange={onMobileColumnsChange}
-            help={__(
-              "Applied below the mobile breakpoint on the front end. The editor canvas always shows the desktop layout.",
-              "kotlinskidev"
-            )}
-          />
-        </PanelBody>
+        <GridSettingsPanels
+          attributes={attributes}
+          setAttributes={setAttributes}
+          colCount={colCount}
+          onColumnsChange={onColumnsChange}
+        />
       </InspectorControls>
 
       <div {...blockProps}>
@@ -166,32 +257,7 @@ export default function Edit({
       </div>
 
       {pendingRemovalIds && (
-        <Modal
-          title={__("Reduce columns?", "kotlinskidev")}
-          onRequestClose={() => setPendingRemovalIds(null)}
-        >
-          <p>
-            {__(
-              "Reducing columns will delete the content of the removed column(s). Continue?",
-              "kotlinskidev"
-            )}
-          </p>
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem" }}>
-            <Button variant="tertiary" onClick={() => setPendingRemovalIds(null)}>
-              {__("Cancel", "kotlinskidev")}
-            </Button>
-            <Button
-              variant="primary"
-              isDestructive
-              onClick={() => {
-                removeBlocks(pendingRemovalIds);
-                setPendingRemovalIds(null);
-              }}
-            >
-              {__("Continue", "kotlinskidev")}
-            </Button>
-          </div>
-        </Modal>
+        <ReduceColumnsModal onCancel={cancelRemoval} onConfirm={confirmRemoval} />
       )}
     </>
   );

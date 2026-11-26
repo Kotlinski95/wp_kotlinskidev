@@ -1,35 +1,17 @@
+import React from "react";
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
-import { InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, __experimentalNumberControl as NumberControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
-import { __, sprintf } from "@wordpress/i18n";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { appendClassName } from "@utils/block-filter-types";
+import type { BlockEditProps, BlockSettings, ExtraProps } from "@utils/block-filter-types";
+import type { ResponsiveDevice } from "@utils/responsive-breakpoints";
+import { OrderPanel } from "./order-controls";
+import { buildOrderClassString, emptyResponsiveOrder } from "./order-attribute";
+import type { ResponsiveOrderAttributes } from "./order-attribute";
 
-declare global {
-  interface Window {
-    kotlinskidevBreakpoints?: {
-      mobile_max: number;
-      tablet_min: number;
-      tablet_max: number;
-      desktop_min: number;
-    };
-  }
-}
-
-const getBreakpoints = () => {
-  return (
-    window.kotlinskidevBreakpoints || {
-      mobile_max: 781,
-      tablet_min: 782,
-      tablet_max: 1023,
-      desktop_min: 1024,
-    }
-  );
-};
-
-const addResponsiveOrderAttributes = (settings: any) => {
-  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name)) {
+const addResponsiveOrderAttributes = (settings: BlockSettings): BlockSettings => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name as string)) {
     return settings;
   }
 
@@ -39,23 +21,18 @@ const addResponsiveOrderAttributes = (settings: any) => {
       ...settings.attributes,
       responsiveOrder: {
         type: "object",
-        default: {
-          desktop: 0,
-          tablet: 0,
-          mobile: 0,
-        },
+        default: emptyResponsiveOrder(),
       },
     },
   };
 };
 
 const withResponsiveOrderControls = createHigherOrderComponent((BlockEdit) => {
-  return (props: any) => {
+  return (props: BlockEditProps<ResponsiveOrderAttributes>) => {
     const { attributes, setAttributes } = props;
-    const { responsiveOrder = { desktop: 0, tablet: 0, mobile: 0 } } = attributes;
-    const breakpoints = getBreakpoints();
+    const { responsiveOrder = emptyResponsiveOrder() } = attributes;
 
-    const updateResponsiveOrder = (device: string, value: number) => {
+    const updateResponsiveOrder = (device: ResponsiveDevice, value: number) => {
       setAttributes({
         responsiveOrder: {
           ...responsiveOrder,
@@ -67,77 +44,20 @@ const withResponsiveOrderControls = createHigherOrderComponent((BlockEdit) => {
     return (
       <Fragment>
         <BlockEdit {...props} />
-        <InspectorControls>
-          <PanelBody title={__("Responsive Order", "kotlinskidev")} initialOpen={false}>
-            <NumberControl
-              label={__("Desktop Order", "kotlinskidev")}
-              value={responsiveOrder.desktop || 0}
-              onChange={(value: number) => updateResponsiveOrder("desktop", value)}
-              help={sprintf(
-                // translators: %s: breakpoint value in px
-                __(
-                  "Set the order for desktop screens (%spx+). Use negative values like -1 for higher priority.",
-                  "kotlinskidev"
-                ),
-                breakpoints.desktop_min
-              )}
-              min={-1}
-              max={20}
-              step={1}
-            />
-            <NumberControl
-              label={__("Tablet Order", "kotlinskidev")}
-              value={responsiveOrder.tablet || 0}
-              onChange={(value: number) => updateResponsiveOrder("tablet", value)}
-              help={sprintf(
-                // translators: %1$s: minimum breakpoint in px, %2$s: maximum breakpoint in px
-                __("Set the order for tablet screens (%1$spx - %2$spx).", "kotlinskidev"),
-                breakpoints.tablet_min,
-                breakpoints.tablet_max
-              )}
-              min={-1}
-              max={20}
-              step={1}
-            />
-            <NumberControl
-              label={__("Mobile Order", "kotlinskidev")}
-              value={responsiveOrder.mobile || 0}
-              onChange={(value: number) => updateResponsiveOrder("mobile", value)}
-              help={sprintf(
-                // translators: %s: breakpoint value in px
-                __("Set the order for mobile screens (below %spx).", "kotlinskidev"),
-                breakpoints.mobile_max
-              )}
-              min={-1}
-              max={20}
-              step={1}
-            />
-          </PanelBody>
-        </InspectorControls>
+        <OrderPanel responsiveOrder={responsiveOrder} onChangeOrder={updateResponsiveOrder} />
       </Fragment>
     );
   };
 }, "withResponsiveOrderControls");
+
+interface BlockListBlockProps {
+  attributes: ResponsiveOrderAttributes;
+  className?: string;
+}
+
 const addResponsiveOrderClasses = createHigherOrderComponent((BlockListBlock) => {
-  return (props: any) => {
-    const { attributes } = props;
-    const { responsiveOrder } = attributes;
-
-    let additionalClasses = "";
-
-    if (responsiveOrder) {
-      const { desktop, tablet, mobile } = responsiveOrder;
-
-      if (desktop !== 0) {
-        additionalClasses += ` order-desktop-${desktop}`;
-      }
-      if (tablet !== 0) {
-        additionalClasses += ` order-tablet-${tablet}`;
-      }
-      if (mobile !== 0) {
-        additionalClasses += ` order-mobile-${mobile}`;
-      }
-    }
+  return (props: BlockListBlockProps) => {
+    const additionalClasses = buildOrderClassString(props.attributes.responsiveOrder);
 
     return (
       <BlockListBlock
@@ -147,6 +67,20 @@ const addResponsiveOrderClasses = createHigherOrderComponent((BlockListBlock) =>
     );
   };
 }, "addResponsiveOrderClasses");
+
+const applyResponsiveOrderClass = (
+  extraProps: ExtraProps,
+  _blockType: unknown,
+  attributes: ResponsiveOrderAttributes
+): ExtraProps => {
+  const additionalClasses = buildOrderClassString(attributes.responsiveOrder).trim();
+
+  if (additionalClasses) {
+    appendClassName(extraProps, additionalClasses);
+  }
+
+  return extraProps;
+};
 
 addFilter(
   "blocks.registerBlockType",
@@ -169,30 +103,5 @@ addFilter(
 addFilter(
   "blocks.getSaveContent.extraProps",
   "kotlinskidev/responsive-order-save-classes",
-  (extraProps: any, blockType: any, attributes: any) => {
-    const { responsiveOrder } = attributes;
-
-    if (responsiveOrder) {
-      const { desktop, tablet, mobile } = responsiveOrder;
-      let additionalClasses = "";
-
-      if (desktop !== 0) {
-        additionalClasses += ` order-desktop-${desktop}`;
-      }
-      if (tablet !== 0) {
-        additionalClasses += ` order-tablet-${tablet}`;
-      }
-      if (mobile !== 0) {
-        additionalClasses += ` order-mobile-${mobile}`;
-      }
-
-      if (additionalClasses) {
-        extraProps.className = extraProps.className
-          ? `${extraProps.className} ${additionalClasses.trim()}`
-          : additionalClasses.trim();
-      }
-    }
-
-    return extraProps;
-  }
+  applyResponsiveOrderClass
 );

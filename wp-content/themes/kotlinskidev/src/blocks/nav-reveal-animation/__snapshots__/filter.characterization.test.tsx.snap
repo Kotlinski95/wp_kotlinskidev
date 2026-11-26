@@ -1,0 +1,3099 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`nav-reveal-animation filter characterization extraProps across the block and attribute matrix 1`] = `
+[
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/group",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/image",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/image",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/image",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/image",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/image",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/columns",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/columns",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/columns",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/columns",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/columns",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/cover",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/cover",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/cover",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/cover",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/cover",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/heading",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/heading",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/heading",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/heading",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/heading",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/button",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/button",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/button",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/button",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/html",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/html",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/html",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/html",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/html",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/code",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/code",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/code",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/code",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/code",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/navigation-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/navigation-link",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/button",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/button",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/nav-link",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/marquee",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/marquee",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "kotlinskidev/city-grid",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/group",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/group",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "defaults",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "reveal-fade-up translate-lg",
+      "style": {
+        "--reveal-delay": "150ms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "full",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade-up translate-lg",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "150ms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "animationOnly",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "delayWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "translateWithoutAnimation",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "reveal-fade",
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "zeroDelay",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom reveal-fade",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {},
+    "seed": "empty",
+  },
+  {
+    "attributes": "emptyStrings",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom",
+      "id": "anchor",
+      "style": {
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "5 1",
+      "style": {
+        "--reveal-delay": "abcms",
+      },
+    },
+    "seed": "empty",
+  },
+  {
+    "attributes": "invalid",
+    "block": "core/paragraph",
+    "outcome": {
+      "className": "wp-block-example has-custom 5 1",
+      "id": "anchor",
+      "style": {
+        "--reveal-delay": "abcms",
+        "color": "red",
+      },
+    },
+    "seed": "existing-class-and-style",
+  },
+]
+`;
+
+exports[`nav-reveal-animation filter characterization registration across the block matrix 1`] = `
+[
+  {
+    "name": "core/group",
+    "result": {
+      "attributes": {
+        "className": {
+          "type": "string",
+        },
+      },
+      "name": "core/group",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/paragraph",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/image",
+    "result": {
+      "attributes": {
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/image",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/columns",
+    "result": {
+      "attributes": {
+        "verticalAlignment": {
+          "type": "string",
+        },
+      },
+      "name": "core/columns",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/cover",
+    "result": {
+      "attributes": {
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/cover",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/heading",
+    "result": {
+      "attributes": {
+        "level": {
+          "default": 2,
+          "type": "number",
+        },
+      },
+      "name": "core/heading",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/button",
+    "result": {
+      "attributes": {
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "core/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/html",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/html",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/code",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/code",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/navigation-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+        "navRevealAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "navRevealDelay": {
+          "default": 0,
+          "type": "number",
+        },
+        "navRevealTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "core/navigation-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/button",
+    "result": {
+      "attributes": {
+        "navRevealAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "navRevealDelay": {
+          "default": 0,
+          "type": "number",
+        },
+        "navRevealTranslate": {
+          "default": "",
+          "type": "string",
+        },
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/nav-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+        "navRevealAnimation": {
+          "default": "",
+          "type": "string",
+        },
+        "navRevealDelay": {
+          "default": 0,
+          "type": "number",
+        },
+        "navRevealTranslate": {
+          "default": "",
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/nav-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/marquee",
+    "result": {
+      "attributes": {
+        "speed": {
+          "default": 20,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/marquee",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/city-grid",
+    "result": {
+      "attributes": {
+        "limit": {
+          "default": 3,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/city-grid",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/group",
+    "result": {
+      "name": "core/group",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "name": "core/paragraph",
+      "supports": {
+        "typography": false,
+      },
+    },
+    "sameObject": true,
+  },
+]
+`;

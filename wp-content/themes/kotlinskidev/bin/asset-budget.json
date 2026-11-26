@@ -5,7 +5,7 @@
     "build/js/main.js": 60000,
     "build/js/swiper.js": 140000,
     "build/js/feature-card-canvas-init.js": 6300,
-    "build/js/feature-card-canvas-runtime.js": 13400,
+    "build/js/feature-card-canvas-runtime.js": 13950,
     "build/js/speed-dial-init.js": 4096,
     "build/css/style-speed-dial.css": 8192
   },

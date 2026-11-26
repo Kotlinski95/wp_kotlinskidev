@@ -6,16 +6,15 @@ import { PanelBody, SelectControl } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { selectCoreEntityRecords } from "@utils/core-entity-records";
+import { buildModalOptions } from "@utils/modal-options";
+import type { BlockSettings } from "@utils/block-filter-types";
+
+const MODAL_QUERY = { per_page: 100, status: "publish" };
 
 interface ModalPost {
   id: number;
   title: { rendered: string };
-}
-
-interface BlockSettings {
-  name?: string;
-  attributes?: Record<string, unknown>;
-  [key: string]: unknown;
 }
 
 const isSliderSlide = (name?: string, className?: unknown): boolean =>
@@ -46,53 +45,56 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+const SlideModalPanel = ({
+  modalId,
+  setAttributes,
+}: {
+  modalId: number;
+  setAttributes: BlockEditProps["setAttributes"];
+}) => {
+  const modals = useSelect(
+    (select) =>
+      selectCoreEntityRecords<ModalPost>(select, {
+        kind: "postType",
+        name: "kt_modal",
+        query: MODAL_QUERY,
+      }),
+    []
+  );
+
+  const modalOptions = buildModalOptions(modals, __("— None (not clickable) —", "kotlinskidev"));
+
+  return (
+    <InspectorControls>
+      <PanelBody title={__("Slide Modal", "kotlinskidev")}>
+        <SelectControl
+          label={__("Open on click", "kotlinskidev")}
+          help={__(
+            "Selecting a modal makes this whole slide clickable/keyboard-activatable.",
+            "kotlinskidev"
+          )}
+          value={modalId}
+          options={modalOptions}
+          onChange={(value) => setAttributes({ modalId: Number(value) })}
+        />
+      </PanelBody>
+    </InspectorControls>
+  );
+};
+
 const withSlideModalControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!isSliderSlide(props.name, props.attributes.className)) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const modalId = attributes.modalId ?? 0;
-
-    const modals = useSelect((select) => {
-      return (select("core") as any).getEntityRecords("postType", "kt_modal", {
-        per_page: 100,
-        status: "publish",
-      }) as ModalPost[] | null;
-    }, []);
-
-    const modalOptions = [
-      {
-        label:
-          modals === null
-            ? __("Loading…", "kotlinskidev")
-            : __("— None (not clickable) —", "kotlinskidev"),
-        value: 0,
-      },
-      ...(modals ?? []).map((post) => ({
-        label: post.title.rendered || String(post.id),
-        value: post.id,
-      })),
-    ];
-
     return (
       <Fragment>
         <BlockEdit {...props} />
-        <InspectorControls>
-          <PanelBody title={__("Slide Modal", "kotlinskidev")}>
-            <SelectControl
-              label={__("Open on click", "kotlinskidev")}
-              help={__(
-                "Selecting a modal makes this whole slide clickable/keyboard-activatable.",
-                "kotlinskidev"
-              )}
-              value={modalId}
-              options={modalOptions}
-              onChange={(value) => setAttributes({ modalId: Number(value) })}
-            />
-          </PanelBody>
-        </InspectorControls>
+        <SlideModalPanel
+          modalId={props.attributes.modalId ?? 0}
+          setAttributes={props.setAttributes}
+        />
       </Fragment>
     );
   };

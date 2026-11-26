@@ -29,55 +29,56 @@ export const withClassState = (
   return next.length > 0 ? next.join(" ") : undefined;
 };
 
+function OverlayLinkPanel({ attributes, setAttributes }: BlockEditProps) {
+  const classes = splitClasses(attributes.className);
+  const isOverlay = classes.includes(OVERLAY_CLASS);
+  const isLabelHidden = classes.includes(HIDE_LABEL_CLASS);
+
+  const setOverlay = (enabled: boolean) => {
+    const withOverlay = withClassState(attributes.className, OVERLAY_CLASS, enabled);
+    setAttributes({
+      className: enabled ? withOverlay : withClassState(withOverlay, HIDE_LABEL_CLASS, false),
+    });
+  };
+
+  return (
+    <PanelBody title={__("Overlay link", "kotlinskidev")} initialOpen={isOverlay}>
+      <ToggleControl
+        label={__("Stretch over container", "kotlinskidev")}
+        help={__(
+          "Makes this button's link clickable across the whole Cover, or the whole block marked Overlay Link Host, that it sits in.",
+          "kotlinskidev"
+        )}
+        checked={isOverlay}
+        onChange={setOverlay}
+      />
+      <ToggleControl
+        label={__("Hide label", "kotlinskidev")}
+        help={__("Hides the button text visually but keeps it for screen readers.", "kotlinskidev")}
+        checked={isLabelHidden}
+        disabled={!isOverlay}
+        onChange={(enabled: boolean) =>
+          setAttributes({
+            className: withClassState(attributes.className, HIDE_LABEL_CLASS, enabled),
+          })
+        }
+      />
+    </PanelBody>
+  );
+}
+
 const withOverlayLinkControls = createHigherOrderComponent(
   (BlockEdit: React.ComponentType<BlockEditProps>) => {
     const OverlayLinkControls = (props: BlockEditProps) => {
-      const { name, attributes, setAttributes } = props;
-
-      if (!SUPPORTED_BLOCKS.includes(name)) {
+      if (!SUPPORTED_BLOCKS.includes(props.name)) {
         return <BlockEdit {...props} />;
       }
-
-      const classes = splitClasses(attributes.className);
-      const isOverlay = classes.includes(OVERLAY_CLASS);
-      const isLabelHidden = classes.includes(HIDE_LABEL_CLASS);
-
-      const setOverlay = (enabled: boolean) => {
-        const withOverlay = withClassState(attributes.className, OVERLAY_CLASS, enabled);
-        setAttributes({
-          className: enabled ? withOverlay : withClassState(withOverlay, HIDE_LABEL_CLASS, false),
-        });
-      };
 
       return (
         <Fragment>
           <BlockEdit {...props} />
           <InspectorControls>
-            <PanelBody title={__("Overlay link", "kotlinskidev")} initialOpen={isOverlay}>
-              <ToggleControl
-                label={__("Stretch over container", "kotlinskidev")}
-                help={__(
-                  "Makes this button's link clickable across the whole Cover, or the whole block marked Overlay Link Host, that it sits in.",
-                  "kotlinskidev"
-                )}
-                checked={isOverlay}
-                onChange={setOverlay}
-              />
-              <ToggleControl
-                label={__("Hide label", "kotlinskidev")}
-                help={__(
-                  "Hides the button text visually but keeps it for screen readers.",
-                  "kotlinskidev"
-                )}
-                checked={isLabelHidden}
-                disabled={!isOverlay}
-                onChange={(enabled: boolean) =>
-                  setAttributes({
-                    className: withClassState(attributes.className, HIDE_LABEL_CLASS, enabled),
-                  })
-                }
-              />
-            </PanelBody>
+            <OverlayLinkPanel {...props} />
           </InspectorControls>
         </Fragment>
       );

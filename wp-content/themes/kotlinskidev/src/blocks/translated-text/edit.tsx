@@ -100,8 +100,62 @@ const TAG_NAME_OPTIONS: { label: string; value: TranslatedTextTagName }[] = [
   { label: __("Link", "kotlinskidev"), value: "a" },
 ];
 
+function TranslationPanel({ attributes, setAttributes }: EditProps) {
+  return (
+    <PanelBody title={__("Translation", "kotlinskidev")} initialOpen>
+      <SelectControl
+        label={__("Tag", "kotlinskidev")}
+        value={attributes.tagName}
+        options={TAG_NAME_OPTIONS}
+        onChange={(value) => setAttributes({ tagName: value as TranslatedTextTagName })}
+      />
+      <TextControl
+        label={__("String name", "kotlinskidev")}
+        help={__(
+          "Unique key used in Languages → Strings translations, e.g. service-location-hero-heading. Leave empty to skip translation.",
+          "kotlinskidev"
+        )}
+        value={attributes.stringName}
+        onChange={(value) => setAttributes({ stringName: value })}
+      />
+    </PanelBody>
+  );
+}
+
+function LinkPanel({ attributes, setAttributes }: EditProps) {
+  const { href, linkedPostId } = attributes;
+
+  return (
+    <PanelBody title={__("Link", "kotlinskidev")} initialOpen>
+      <LinkControl
+        value={{ url: href, id: linkedPostId || undefined }}
+        settings={[]}
+        onChange={(next) => {
+          const isPostLink = "post-type" === next.kind && undefined !== next.id;
+          setAttributes({
+            href: next.url ?? "",
+            linkedPostId: isPostLink ? Number(next.id) : 0,
+          });
+        }}
+        onRemove={() => setAttributes({ href: "", linkedPostId: 0 })}
+      />
+      <p className="components-base-control__help">
+        {linkedPostId > 0
+          ? __(
+              "Linked to a page — automatically points to the matching translation for each visitor's language.",
+              "kotlinskidev"
+            )
+          : __(
+              "Typed-in URL — translated the same way as the text, under {stringName}-href. Search above instead to link to an actual page and skip manual translation.",
+              "kotlinskidev"
+            )}
+      </p>
+    </PanelBody>
+  );
+}
+
 export default function Edit({ attributes, setAttributes, isSelected }: EditProps) {
-  const { tagName, stringName, fallbackText, href, linkedPostId } = attributes;
+  const { tagName, fallbackText } = attributes;
 
   useButtonStylesOnlyForLinkTag(tagName, isSelected);
 
@@ -112,50 +166,8 @@ export default function Edit({ attributes, setAttributes, isSelected }: EditProp
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Translation", "kotlinskidev")} initialOpen>
-          <SelectControl
-            label={__("Tag", "kotlinskidev")}
-            value={tagName}
-            options={TAG_NAME_OPTIONS}
-            onChange={(value) => setAttributes({ tagName: value as TranslatedTextTagName })}
-          />
-          <TextControl
-            label={__("String name", "kotlinskidev")}
-            help={__(
-              "Unique key used in Languages → Strings translations, e.g. service-location-hero-heading. Leave empty to skip translation.",
-              "kotlinskidev"
-            )}
-            value={stringName}
-            onChange={(value) => setAttributes({ stringName: value })}
-          />
-        </PanelBody>
-        {"a" === tagName && (
-          <PanelBody title={__("Link", "kotlinskidev")} initialOpen>
-            <LinkControl
-              value={{ url: href, id: linkedPostId || undefined }}
-              settings={[]}
-              onChange={(next) => {
-                const isPostLink = "post-type" === next.kind && undefined !== next.id;
-                setAttributes({
-                  href: next.url ?? "",
-                  linkedPostId: isPostLink ? Number(next.id) : 0,
-                });
-              }}
-              onRemove={() => setAttributes({ href: "", linkedPostId: 0 })}
-            />
-            <p className="components-base-control__help">
-              {linkedPostId > 0
-                ? __(
-                    "Linked to a page — automatically points to the matching translation for each visitor's language.",
-                    "kotlinskidev"
-                  )
-                : __(
-                    "Typed-in URL — translated the same way as the text, under {stringName}-href. Search above instead to link to an actual page and skip manual translation.",
-                    "kotlinskidev"
-                  )}
-            </p>
-          </PanelBody>
-        )}
+        <TranslationPanel attributes={attributes} setAttributes={setAttributes} />
+        {"a" === tagName && <LinkPanel attributes={attributes} setAttributes={setAttributes} />}
       </InspectorControls>
 
       <RichText

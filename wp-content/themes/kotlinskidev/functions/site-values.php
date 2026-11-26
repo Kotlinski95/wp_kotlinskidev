@@ -17,6 +17,42 @@ function kotlinskidev_site_value_is_valid_source(string $source): bool
     return checkdate((int) $m[2], (int) $m[3], (int) $m[1]);
 }
 
+function kotlinskidev_sanitize_site_value_translations(array $translations): array
+{
+    $texts = [];
+    foreach ($translations as $slug => $text) {
+        $slug = sanitize_key((string) $slug);
+        if ('' !== $slug) {
+            $texts[$slug] = sanitize_text_field((string) $text);
+        }
+    }
+    return $texts;
+}
+
+function kotlinskidev_sanitize_static_site_value($raw)
+{
+    return is_array($raw)
+        ? kotlinskidev_sanitize_site_value_translations($raw)
+        : sanitize_text_field((string) $raw);
+}
+
+function kotlinskidev_sanitize_years_since_source(array $row): string
+{
+    $source = trim(sanitize_text_field((string) ($row['source'] ?? $row['value'] ?? '')));
+    return kotlinskidev_site_value_is_valid_source($source) ? $source : '';
+}
+
+function kotlinskidev_sanitize_site_value_row(string $key, string $type, array $row): array
+{
+    $clean = ['key' => $key, 'type' => $type, 'value' => ''];
+    if ('years_since' === $type) {
+        $clean['value'] = kotlinskidev_sanitize_years_since_source($row);
+    } elseif ('static' === $type) {
+        $clean['value'] = kotlinskidev_sanitize_static_site_value($row['value'] ?? '');
+    }
+    return $clean;
+}
+
 function kotlinskidev_sanitize_site_values($value): array
 {
     if (!is_array($value)) {
@@ -35,29 +71,23 @@ function kotlinskidev_sanitize_site_values($value): array
             continue;
         }
         $seen[$key] = true;
-
-        $clean = ['key' => $key, 'type' => $type, 'value' => ''];
-        if ('years_since' === $type) {
-            $source         = trim(sanitize_text_field((string) ($row['source'] ?? $row['value'] ?? '')));
-            $clean['value'] = kotlinskidev_site_value_is_valid_source($source) ? $source : '';
-        } elseif ('static' === $type) {
-            $raw = $row['value'] ?? '';
-            if (is_array($raw)) {
-                $texts = [];
-                foreach ($raw as $slug => $text) {
-                    $slug = sanitize_key((string) $slug);
-                    if ('' !== $slug) {
-                        $texts[$slug] = sanitize_text_field((string) $text);
-                    }
-                }
-                $clean['value'] = $texts;
-            } else {
-                $clean['value'] = sanitize_text_field((string) $raw);
-            }
-        }
-        $rows[] = $clean;
+        $rows[]     = kotlinskidev_sanitize_site_value_row($key, $type, $row);
     }
 
+    return $rows;
+}
+
+function kotlinskidev_load_site_values_by_key(): array
+{
+    $stored = get_option(KOTLINSKIDEV_SITE_VALUES_OPTION, []);
+    $rows   = [];
+    if (is_array($stored)) {
+        foreach ($stored as $row) {
+            if (is_array($row) && isset($row['key'])) {
+                $rows[(string) $row['key']] = $row;
+            }
+        }
+    }
     return $rows;
 }
 
@@ -69,15 +99,7 @@ function kotlinskidev_get_site_values(bool $reset = false): array
         return [];
     }
     if (null === $rows) {
-        $stored = get_option(KOTLINSKIDEV_SITE_VALUES_OPTION, []);
-        $rows   = [];
-        if (is_array($stored)) {
-            foreach ($stored as $row) {
-                if (is_array($row) && isset($row['key'])) {
-                    $rows[(string) $row['key']] = $row;
-                }
-            }
-        }
+        $rows = kotlinskidev_load_site_values_by_key();
     }
     return $rows;
 }
@@ -137,6 +159,15 @@ function kotlinskidev_site_value_resolve(array $row, ?string $lang = null): ?str
     return null;
 }
 
+function kotlinskidev_render_site_value_token(array $match, array $rows): string
+{
+    if (!isset($rows[$match[1]])) {
+        return $match[0];
+    }
+    $resolved = kotlinskidev_site_value_resolve($rows[$match[1]]);
+    return null === $resolved ? $match[0] : esc_html($resolved);
+}
+
 function kotlinskidev_replace_site_value_tokens(string $block_content): string
 {
     if (function_exists('kotlinskidev_feature_enabled') && !kotlinskidev_feature_enabled('site_values')) {
@@ -152,13 +183,7 @@ function kotlinskidev_replace_site_value_tokens(string $block_content): string
 
     return (string) preg_replace_callback(
         '/\{token:([a-z0-9_-]+)\}/',
-        static function (array $match) use ($rows): string {
-            if (!isset($rows[$match[1]])) {
-                return $match[0];
-            }
-            $resolved = kotlinskidev_site_value_resolve($rows[$match[1]]);
-            return null === $resolved ? $match[0] : esc_html($resolved);
-        },
+        static fn (array $match): string => kotlinskidev_render_site_value_token($match, $rows),
         $block_content
     );
 }

@@ -1,4 +1,6 @@
 <?php
+const KOTLINSKIDEV_PROJECT_CARD_MENU_POSITION = 24;
+
 function kotlinskidev_register_project_card_post_type(): void {
     if ( ! kotlinskidev_feature_enabled( 'project_cards' ) ) {
         return;
@@ -20,7 +22,7 @@ function kotlinskidev_register_project_card_post_type(): void {
         'show_in_menu'        => true,
         'show_in_rest'        => true,
         'menu_icon'           => 'dashicons-portfolio',
-        'menu_position'       => 24,
+        'menu_position'       => KOTLINSKIDEV_PROJECT_CARD_MENU_POSITION,
         'supports'            => [ 'title', 'editor', 'thumbnail', 'custom-fields' ],
         'has_archive'         => false,
     ] );

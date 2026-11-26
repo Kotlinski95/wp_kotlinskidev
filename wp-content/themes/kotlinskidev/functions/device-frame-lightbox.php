@@ -22,6 +22,25 @@ function kotlinskidev_register_device_frame_lightbox_media( int $media_id, bool 
     return $modal_id;
 }
 
+function kotlinskidev_render_device_frame_lightbox_shell( string $modal_id, array $entry ): void {
+    $media_id = $entry['media_id'];
+    $is_video = $entry['is_video'];
+
+    echo '<div id="' . esc_attr( $modal_id ) . '" class="kt-modal kt-modal--full kt-device-frame-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="' . esc_attr__( 'Expanded media', 'kotlinskidev' ) . '">';
+    echo '<div class="kt-modal__backdrop" data-kt-modal-close></div>';
+    echo '<div class="kt-modal__dialog">';
+    echo '<button type="button" class="kt-modal__close" data-kt-modal-close aria-label="' . esc_attr__( 'Close', 'kotlinskidev' ) . '">&times;</button>';
+    echo '<div class="kt-modal__content kt-device-frame-lightbox__content">';
+
+    if ( $is_video ) {
+        echo kotlinskidev_device_frame_lightbox_video_tag( $media_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every attribute is escaped inside kotlinskidev_device_frame_lightbox_video_tag()
+    } else {
+        echo wp_get_attachment_image( $media_id, 'full', false, [ 'class' => 'kt-device-frame-lightbox__media' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes
+    }
+
+    echo '</div></div></div>';
+}
+
 function kotlinskidev_render_device_frame_lightbox_shells(): void {
     $registry = kotlinskidev_device_frame_lightbox_registry();
     if ( empty( $registry ) ) {
@@ -29,22 +48,7 @@ function kotlinskidev_render_device_frame_lightbox_shells(): void {
     }
 
     foreach ( $registry as $modal_id => $entry ) {
-        $media_id = $entry['media_id'];
-        $is_video = $entry['is_video'];
-
-        echo '<div id="' . esc_attr( $modal_id ) . '" class="kt-modal kt-modal--full kt-device-frame-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="' . esc_attr__( 'Expanded media', 'kotlinskidev' ) . '">';
-        echo '<div class="kt-modal__backdrop" data-kt-modal-close></div>';
-        echo '<div class="kt-modal__dialog">';
-        echo '<button type="button" class="kt-modal__close" data-kt-modal-close aria-label="' . esc_attr__( 'Close', 'kotlinskidev' ) . '">&times;</button>';
-        echo '<div class="kt-modal__content kt-device-frame-lightbox__content">';
-
-        if ( $is_video ) {
-            echo kotlinskidev_device_frame_lightbox_video_tag( $media_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- every attribute is escaped inside kotlinskidev_device_frame_lightbox_video_tag()
-        } else {
-            echo wp_get_attachment_image( $media_id, 'full', false, [ 'class' => 'kt-device-frame-lightbox__media' ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes
-        }
-
-        echo '</div></div></div>';
+        kotlinskidev_render_device_frame_lightbox_shell( $modal_id, $entry );
     }
 }
 add_action( 'wp_footer', 'kotlinskidev_render_device_frame_lightbox_shells' );

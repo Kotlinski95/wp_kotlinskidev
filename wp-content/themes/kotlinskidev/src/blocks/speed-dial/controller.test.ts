@@ -164,4 +164,25 @@ describe("speed dial controller", () => {
     toggle.click();
     expect(controller.isOpen()).toBe(false);
   });
+  it("returns focus to the toggle after an action is clicked", () => {
+    const { toggle, list, controller } = build();
+    controller.open();
+    const action = list.querySelector("a") as HTMLAnchorElement;
+    action.focus();
+    action.click();
+    expect(document.activeElement).toBe(toggle);
+    controller.destroy();
+  });
+
+  it("leaves focus alone after an accessibility bridge action is clicked", () => {
+    const { toggle, list, controller } = build();
+    const bridge = document.createElement("button");
+    bridge.setAttribute("data-kt-speed-dial-a11y", "open");
+    list.append(bridge);
+    controller.open();
+    bridge.focus();
+    bridge.click();
+    expect(document.activeElement).not.toBe(toggle);
+    controller.destroy();
+  });
 });

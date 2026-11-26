@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`console-banner.ts logs the load time on the next tick when the page is already complete 1`] = `
+[
+  "%c⚡ Site loaded in 1234ms",
+  "font-size: 0.75rem; color: #059669; font-weight: 600; font-family: monospace; background-color: #ecfdf5; padding: 0.25rem 0.5rem; border-radius: 0.25rem;",
+]
+`;
+
+exports[`console-banner.ts prints the banner exactly as before 1`] = `
+[
+  [
+    "%c🚀 Welcome to KotlinskiDev!",
+    "font-size: 1.75rem; color: #6366f1; font-weight: bold; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; text-shadow: 0.125rem 0.125rem 0.25rem rgba(99, 102, 241, 0.3);",
+  ],
+  [
+    "%c📚 Developer Guide & Site Information",
+    "font-size: 1.25rem; color: #8b5cf6; font-weight: 600; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; margin-top: 0.625rem;",
+  ],
+  [
+    "%c┌─────────────────────────────────────────────────────────────",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│  🏗️  TECH STACK",
+    "color: #7c3aed; font-family: monospace; font-size: 0.875rem; font-weight: bold;",
+  ],
+  [
+    "%c│  • WordPress Custom Theme
+%c│  • TypeScript & Modern JavaScript
+%c│  • SCSS with custom styling
+%c│  • Responsive design with mobile-first approach
+%c│  • Dark/Light theme switcher
+%c│  • Custom Gutenberg blocks",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│  🎨  FEATURES",
+    "color: #7c3aed; font-family: monospace; font-size: 0.875rem; font-weight: bold;",
+  ],
+  [
+    "%c│  • Interactive hamburger navigation
+%c│  • Smooth scroll animations
+%c│  • Language switcher (multilingual support)
+%c│  • Image lightbox functionality
+%c│  • Scroll-to-top button
+%c│  • SEO optimized structure",
+    "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;",
+    "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;",
+    "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;",
+    "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;",
+    "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;",
+    "color: #8b5cf6; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│  🔧  DEVELOPMENT",
+    "color: #7c3aed; font-family: monospace; font-size: 0.875rem; font-weight: bold;",
+  ],
+  [
+    "%c│  • Built with modern web standards
+%c│  • Optimized for performance
+%c│  • Cross-browser compatibility
+%c│  • Accessibility features included
+%c│  • Custom post types & fields support",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c│  📁  FILE STRUCTURE",
+    "color: #7c3aed; font-family: monospace; font-size: 0.875rem; font-weight: bold;",
+  ],
+  [
+    "%c│  src/
+%c│  ├── scripts/          # TypeScript modules
+%c│  ├── styles/           # SCSS stylesheets
+%c│  ├── blocks/           # Custom Gutenberg blocks
+%c│  └── index.ts          # Main entry point",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+    "color: #6366f1; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c└─────────────────────────────────────────────────────────────",
+    "color: #a855f7; font-family: monospace; font-size: 0.75rem;",
+  ],
+  [
+    "%c💡 Tip: Open DevTools → Sources to explore the codebase!",
+    "font-size: 0.875rem; color: #3b82f6; font-weight: 500; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #ddd6fe 0%, #e0e7ff 100%); padding: 0.5rem 0.75rem; border-radius: 0.375rem; border-left: 0.25rem solid #6366f1;",
+  ],
+  [
+    "%c🌐 Want to connect? Check out the footer for social links!",
+    "font-size: 0.875rem; color: #7c3aed; font-weight: 500; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); padding: 0.5rem 0.75rem; border-radius: 0.375rem; border-left: 0.25rem solid #8b5cf6;",
+  ],
+]
+`;

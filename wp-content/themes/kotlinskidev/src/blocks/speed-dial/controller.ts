@@ -94,7 +94,7 @@ export const createController = (
   const onListClick = (event: Event): void => {
     const action = (event.target as Element).closest("a[href], button");
     if (action && root.dataset.closeOnAction !== "false") {
-      close();
+      close({ returnFocus: !action.hasAttribute("data-kt-speed-dial-a11y") });
     }
   };
 

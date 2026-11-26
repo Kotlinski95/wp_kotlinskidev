@@ -1,6 +1,6 @@
-export function debounce<T extends (...args: any[]) => void>(func: T, wait: number) {
+export function debounce<Args extends unknown[]>(func: (...args: Args) => void, wait: number) {
   let timeout: number | undefined;
-  return function (this: any, ...args: Parameters<T>) {
+  return function (this: unknown, ...args: Args) {
     if (timeout !== undefined) {
       clearTimeout(timeout);
     }
@@ -24,10 +24,12 @@ const defaultBreakpoints: ThemeBreakpoints = {
   large: 1200,
 };
 
+type ThemeBreakpointsWindow = { kotlinskiTheme?: { breakpoints?: ThemeBreakpoints } };
+type ThemeScrollOffsetsWindow = { kotlinskiTheme?: { scrollOffsets?: ThemeScrollOffsets } };
+
 export function getBreakpoints(): ThemeBreakpoints {
   return (
-    (window as unknown as { kotlinskiTheme?: { breakpoints?: ThemeBreakpoints } }).kotlinskiTheme
-      ?.breakpoints ?? defaultBreakpoints
+    (window as unknown as ThemeBreakpointsWindow).kotlinskiTheme?.breakpoints ?? defaultBreakpoints
   );
 }
 
@@ -43,15 +45,11 @@ const defaultScrollOffsets: ThemeScrollOffsets = {
 
 export function getScrollOffsets(): ThemeScrollOffsets {
   return (
-    (window as unknown as { kotlinskiTheme?: { scrollOffsets?: ThemeScrollOffsets } })
-      .kotlinskiTheme?.scrollOffsets ?? defaultScrollOffsets
+    (window as unknown as ThemeScrollOffsetsWindow).kotlinskiTheme?.scrollOffsets ??
+    defaultScrollOffsets
   );
 }
 
-/**
- * Check if current viewport width is considered mobile
- * @return true if viewport is below the desktop breakpoint
- */
 export function isMobile(): boolean {
   const { desktop_min: desktopMin } = getBreakpoints();
   if (typeof window.matchMedia === "function") {
@@ -60,12 +58,6 @@ export function isMobile(): boolean {
   return window.innerWidth < desktopMin;
 }
 
-/**
- * Execute callback on screen size changes (mobile/desktop transitions)
- * @param callback   Function to call with isMobile state
- * @param debounceMs Debounce delay in milliseconds (default: 150)
- * @return Cleanup function to remove listener
- */
 export function onScreenSizeChange(
   callback: (isMobile: boolean) => void,
   debounceMs: number = 150
@@ -83,11 +75,6 @@ export function onScreenSizeChange(
   };
 }
 
-/**
- * Initialize functionality only on mobile devices
- * @param onMobile  Function to call when mobile
- * @param onDesktop Optional function to call when desktop
- */
 export function initMobileOnly(onMobile: () => void, onDesktop?: () => void): void {
   const handleScreenSize = (mobile: boolean) => {
     if (mobile) {
@@ -166,7 +153,7 @@ export function getElementScrollTop(element: Element): number {
   return rectTop + (window.scrollY || 0);
 }
 
-export function scrollTo(top: number, behavior: ScrollBehavior = "smooth") {
+export function scrollTo(top: number, behavior: ScrollBehavior = "smooth"): void {
   const container = getScrollContainer();
   if (container) {
     container.scrollTo({ top, behavior });
@@ -175,7 +162,6 @@ export function scrollTo(top: number, behavior: ScrollBehavior = "smooth") {
   window.scrollTo({ top, behavior });
 }
 
-// Uses `window`, not a module-scoped variable — separate bundles/chunks have no guaranteed shared module scope, confirmed live with a closure-variable version having zero effect.
 declare global {
   interface Window {
     kotlinskidevProgrammaticScrollActive?: boolean;
@@ -245,7 +231,9 @@ export function onAppShellChange(callback: (active: boolean) => void): () => voi
   return () => query.removeEventListener("change", handleChange);
 }
 
-export function setScrollBehavior(behavior: ScrollBehavior): void {
+export type ScrollBehaviorOverride = ScrollBehavior | "";
+
+export function setScrollBehavior(behavior: ScrollBehaviorOverride): void {
   document.documentElement.style.scrollBehavior = behavior;
   document.body.style.scrollBehavior = behavior;
   const container = document.querySelector<HTMLElement>(SCROLL_CONTAINER_SELECTOR);

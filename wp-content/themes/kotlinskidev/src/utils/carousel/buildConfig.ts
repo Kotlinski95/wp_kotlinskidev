@@ -10,6 +10,23 @@ const EFFECT_OPTIONS: Record<Exclude<CarouselSettings["transitionEffect"], "slid
   cards: { cardsEffect: { slideShadows: true, perSlideOffset: 8, perSlideRotate: 2 } },
 };
 
+const buildNavigation = (showArrows: boolean) =>
+  showArrows ? { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" } : false;
+
+const buildPagination = (showPagination: boolean, showScrollbar: boolean) =>
+  showPagination && !showScrollbar ? { el: ".swiper-pagination", clickable: true } : false;
+
+const buildScrollbar = (showPagination: boolean, showScrollbar: boolean) =>
+  showScrollbar && !showPagination ? { el: ".swiper-scrollbar", draggable: true } : false;
+
+const buildAutoplay = (autoplay: boolean, autoplayDelay: number) =>
+  autoplay ? { delay: autoplayDelay, disableOnInteraction: false, pauseOnMouseEnter: true } : false;
+
+const buildEffect = (transitionEffect: CarouselSettings["transitionEffect"]) =>
+  transitionEffect !== "slide"
+    ? { effect: transitionEffect, ...EFFECT_OPTIONS[transitionEffect] }
+    : {};
+
 export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
   const {
     showArrows = true,
@@ -41,18 +58,10 @@ export const buildSwiperConfig = (settings: Partial<CarouselSettings>) => {
       768: { slidesPerView: slidesPerTablet },
       1024: { slidesPerView: slidesPerDesktop },
     },
-    navigation: showArrows
-      ? { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
-      : false,
-    pagination:
-      showPagination && !showScrollbar ? { el: ".swiper-pagination", clickable: true } : false,
-    scrollbar:
-      showScrollbar && !showPagination ? { el: ".swiper-scrollbar", draggable: true } : false,
-    autoplay: autoplay
-      ? { delay: autoplayDelay, disableOnInteraction: false, pauseOnMouseEnter: true }
-      : false,
-    ...(transitionEffect !== "slide"
-      ? { effect: transitionEffect, ...EFFECT_OPTIONS[transitionEffect] }
-      : {}),
+    navigation: buildNavigation(showArrows),
+    pagination: buildPagination(showPagination, showScrollbar),
+    scrollbar: buildScrollbar(showPagination, showScrollbar),
+    autoplay: buildAutoplay(autoplay, autoplayDelay),
+    ...buildEffect(transitionEffect),
   };
 };

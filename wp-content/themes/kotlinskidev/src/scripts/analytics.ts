@@ -16,7 +16,7 @@ const LANGUAGE_LINK_SELECTOR =
   ".kt-lang-panel__list a[hreflang], .wp-block-polylang-language-switcher a[hreflang]";
 const PROJECT_TITLE_SELECTOR = "h1, h2, h3, h4";
 const COOKIE_CONSENT_SELECTOR = ".cmplz-btn.cmplz-manage-consent";
-const ACCESSIBILITY_TOGGLE_SELECTOR = ".onetap-toggle";
+const ACCESSIBILITY_TOGGLE_SELECTOR = "#ka11y-root";
 
 function toSnakeCase(key: string): string {
   return key.replace(/([A-Z])/g, (letter, _match, offset: number) =>
@@ -35,53 +35,82 @@ function paramsFromDataset(dataset: DOMStringMap): AnalyticsEventParams {
   return params;
 }
 
-function handleClick(event: MouseEvent): void {
+function trackExplicitEvent(target: Element): boolean {
+  const explicit = target.closest<HTMLElement>("[data-ga-event]");
+  if (!explicit?.dataset.gaEvent) {
+    return false;
+  }
+  trackEvent(explicit.dataset.gaEvent, paramsFromDataset(explicit.dataset));
+  return true;
+}
+
+function trackLanguageSwitch(target: Element): boolean {
+  const languageLink = target.closest<HTMLAnchorElement>(LANGUAGE_LINK_SELECTOR);
+  if (!languageLink) {
+    return false;
+  }
+  trackEvent("language_switch", {
+    language: languageLink.hreflang,
+    link_url: languageLink.href,
+  });
+  return true;
+}
+
+function trackProjectSelection(target: Element): boolean {
+  const projectCard = target.closest<HTMLElement>(PROJECT_CARD_SELECTOR);
+  if (!projectCard) {
+    return false;
+  }
+  trackEvent("select_content", {
+    content_type: "project",
+    item_name: projectCard.querySelector(PROJECT_TITLE_SELECTOR)?.textContent?.trim() ?? "",
+  });
+  return true;
+}
+
+function trackCookieConsentClick(target: Element): boolean {
+  if (!target.closest(COOKIE_CONSENT_SELECTOR)) {
+    return false;
+  }
+  trackEvent("cookie_consent_click");
+  return true;
+}
+
+function trackAccessibilityToggleClick(target: Element): boolean {
+  if (!target.closest(ACCESSIBILITY_TOGGLE_SELECTOR)) {
+    return false;
+  }
+  trackEvent("accessibility_toggle_click");
+  return true;
+}
+
+function trackCtaClick(target: Element): boolean {
+  const ctaLink = target.closest<HTMLAnchorElement>(CTA_LINK_SELECTOR);
+  if (!ctaLink) {
+    return false;
+  }
+  trackEvent("cta_click", {
+    link_text: ctaLink.textContent?.trim() ?? "",
+    link_url: ctaLink.href,
+  });
+  return true;
+}
+
+const CLICK_TRACKERS: ReadonlyArray<(target: Element) => boolean> = [
+  trackExplicitEvent,
+  trackLanguageSwitch,
+  trackProjectSelection,
+  trackCookieConsentClick,
+  trackAccessibilityToggleClick,
+  trackCtaClick,
+];
+
+function onDocumentClick(event: MouseEvent): void {
   const target = event.target;
   if (!(target instanceof Element)) {
     return;
   }
-
-  const explicit = target.closest<HTMLElement>("[data-ga-event]");
-  if (explicit?.dataset.gaEvent) {
-    trackEvent(explicit.dataset.gaEvent, paramsFromDataset(explicit.dataset));
-    return;
-  }
-
-  const languageLink = target.closest<HTMLAnchorElement>(LANGUAGE_LINK_SELECTOR);
-  if (languageLink) {
-    trackEvent("language_switch", {
-      language: languageLink.hreflang,
-      link_url: languageLink.href,
-    });
-    return;
-  }
-
-  const projectCard = target.closest<HTMLElement>(PROJECT_CARD_SELECTOR);
-  if (projectCard) {
-    trackEvent("select_content", {
-      content_type: "project",
-      item_name: projectCard.querySelector(PROJECT_TITLE_SELECTOR)?.textContent?.trim() ?? "",
-    });
-    return;
-  }
-
-  if (target.closest(COOKIE_CONSENT_SELECTOR)) {
-    trackEvent("cookie_consent_click");
-    return;
-  }
-
-  if (target.closest(ACCESSIBILITY_TOGGLE_SELECTOR)) {
-    trackEvent("accessibility_toggle_click");
-    return;
-  }
-
-  const ctaLink = target.closest<HTMLAnchorElement>(CTA_LINK_SELECTOR);
-  if (ctaLink) {
-    trackEvent("cta_click", {
-      link_text: ctaLink.textContent?.trim() ?? "",
-      link_url: ctaLink.href,
-    });
-  }
+  CLICK_TRACKERS.some((track) => track(target));
 }
 
 function trackPageNotFound(): void {
@@ -90,6 +119,6 @@ function trackPageNotFound(): void {
   }
 }
 
-document.addEventListener("click", handleClick, { passive: true });
+document.addEventListener("click", onDocumentClick, { passive: true });
 window.kotlinskiAnalytics = { trackEvent };
 trackPageNotFound();

@@ -1,97 +1,27 @@
 import React from "react";
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
-import { InspectorControls } from "@wordpress/block-editor";
-import { PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
 import { Fragment, useState } from "@wordpress/element";
-import { __, sprintf } from "@wordpress/i18n";
+import { __ } from "@wordpress/i18n";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { appendClassName } from "@utils/block-filter-types";
+import type { BlockEditProps, BlockSettings, ExtraProps } from "@utils/block-filter-types";
+import { AdvancedDevicePanel, DeviceSettingsCard } from "@utils/responsive-device-panel";
+import type { ResponsiveDevice } from "@utils/responsive-breakpoints";
+import { DisplayDeviceControls } from "./device-controls";
+import {
+  buildDisplayClassString,
+  emptyResponsiveDisplay,
+  hasAnyDisplaySetting,
+} from "./display-attribute";
+import type {
+  DisplayProperty,
+  ResponsiveDisplayAttribute,
+  ResponsiveDisplayAttributes,
+} from "./display-attribute";
 
-declare global {
-  interface Window {
-    kotlinskidevBreakpoints?: {
-      mobile_max: number;
-      tablet_min: number;
-      tablet_max: number;
-      desktop_min: number;
-    };
-  }
-}
-
-const getBreakpoints = () => {
-  return (
-    window.kotlinskidevBreakpoints || {
-      mobile_max: 781,
-      tablet_min: 782,
-      tablet_max: 1023,
-      desktop_min: 1024,
-    }
-  );
-};
-
-const displayOptions = [
-  { label: __("Default", "kotlinskidev"), value: "" },
-  { label: __("Block", "kotlinskidev"), value: "block" },
-  { label: __("Inline", "kotlinskidev"), value: "inline" },
-  { label: __("Inline Block", "kotlinskidev"), value: "inline-block" },
-  { label: __("Flex", "kotlinskidev"), value: "flex" },
-  { label: __("Inline Flex", "kotlinskidev"), value: "inline-flex" },
-  { label: __("Grid", "kotlinskidev"), value: "grid" },
-  { label: __("Inline Grid", "kotlinskidev"), value: "inline-grid" },
-  { label: __("Flow Root", "kotlinskidev"), value: "flow-root" },
-  { label: __("Contents", "kotlinskidev"), value: "contents" },
-  { label: __("Table", "kotlinskidev"), value: "table" },
-  { label: __("Table Row", "kotlinskidev"), value: "table-row" },
-  { label: __("Table Cell", "kotlinskidev"), value: "table-cell" },
-  { label: __("List Item", "kotlinskidev"), value: "list-item" },
-  { label: __("None (hidden)", "kotlinskidev"), value: "none" },
-];
-
-const FLEX_FAMILY_DISPLAYS = ["flex", "inline-flex"];
-const FLEX_OR_GRID_FAMILY_DISPLAYS = ["flex", "inline-flex", "grid", "inline-grid"];
-
-const flexDirectionOptions = [
-  { label: __("Default", "kotlinskidev"), value: "" },
-  { label: __("Row", "kotlinskidev"), value: "flex-row" },
-  { label: __("Column", "kotlinskidev"), value: "flex-column" },
-];
-
-const justifyContentOptions = [
-  { label: __("Default", "kotlinskidev"), value: "" },
-  { label: __("Center", "kotlinskidev"), value: "justify-content-center" },
-  { label: __("Start", "kotlinskidev"), value: "justify-content-start" },
-  { label: __("End", "kotlinskidev"), value: "justify-content-end" },
-  { label: __("Space Between", "kotlinskidev"), value: "justify-content-space-between" },
-  { label: __("Space Around", "kotlinskidev"), value: "justify-content-space-around" },
-  { label: __("Space Evenly", "kotlinskidev"), value: "justify-content-space-evenly" },
-];
-
-const alignItemsOptions = [
-  { label: __("Default", "kotlinskidev"), value: "" },
-  { label: __("Center", "kotlinskidev"), value: "align-items-center" },
-  { label: __("Start", "kotlinskidev"), value: "align-items-start" },
-  { label: __("End", "kotlinskidev"), value: "align-items-end" },
-];
-
-const justifySelfOptions = [
-  { label: __("Default", "kotlinskidev"), value: "" },
-  { label: __("Center", "kotlinskidev"), value: "justify-self-center" },
-  { label: __("Start", "kotlinskidev"), value: "justify-self-start" },
-  { label: __("End", "kotlinskidev"), value: "justify-self-end" },
-  { label: __("Stretch", "kotlinskidev"), value: "justify-self-stretch" },
-  { label: __("Baseline", "kotlinskidev"), value: "justify-self-baseline" },
-];
-
-const alignSelfOptions = [
-  { label: __("Default", "kotlinskidev"), value: "" },
-  { label: __("Center", "kotlinskidev"), value: "align-self-center" },
-  { label: __("Start", "kotlinskidev"), value: "align-self-start" },
-  { label: __("End", "kotlinskidev"), value: "align-self-end" },
-  { label: __("Stretch", "kotlinskidev"), value: "align-self-stretch" },
-];
-
-const addResponsiveDisplayAttributes = (settings: any) => {
-  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name)) {
+const addResponsiveDisplayAttributes = (settings: BlockSettings): BlockSettings => {
+  if (DYNAMIC_PREVIEW_BLOCKS.includes(settings.name as string)) {
     return settings;
   }
 
@@ -101,250 +31,83 @@ const addResponsiveDisplayAttributes = (settings: any) => {
       ...settings.attributes,
       responsiveDisplay: {
         type: "object",
-        default: {
-          desktop: {},
-          tablet: {},
-          mobile: {},
-        },
+        default: emptyResponsiveDisplay(),
       },
     },
   };
 };
 
+interface DisplayPanelProps {
+  responsiveDisplay: ResponsiveDisplayAttribute;
+  setAttributes: BlockEditProps<ResponsiveDisplayAttributes>["setAttributes"];
+}
+
+const DisplayPanel = ({ responsiveDisplay, setAttributes }: DisplayPanelProps) => {
+  const [isAdvancedOpen, setAdvancedOpen] = useState(hasAnyDisplaySetting(responsiveDisplay));
+
+  const updateResponsiveDisplay = (
+    device: ResponsiveDevice,
+    property: DisplayProperty,
+    value: string
+  ) => {
+    setAttributes({
+      responsiveDisplay: {
+        ...responsiveDisplay,
+        [device]: {
+          ...responsiveDisplay[device],
+          [property]: value,
+        },
+      },
+    });
+  };
+
+  const renderDeviceControls = (device: ResponsiveDevice, label: string, helpText: string) => (
+    <DeviceSettingsCard label={label} helpText={helpText}>
+      <DisplayDeviceControls
+        settings={responsiveDisplay[device] || {}}
+        onChange={(property, value) => updateResponsiveDisplay(device, property, value)}
+      />
+    </DeviceSettingsCard>
+  );
+
+  return (
+    <AdvancedDevicePanel
+      panelTitle={__("Display & Layout", "kotlinskidev")}
+      toggleLabel={__("Advanced Display Settings", "kotlinskidev")}
+      toggleHelp={__("Configure responsive display, flex, and grid properties", "kotlinskidev")}
+      isAdvancedOpen={isAdvancedOpen}
+      onToggleAdvanced={setAdvancedOpen}
+      renderDeviceControls={renderDeviceControls}
+    />
+  );
+};
+
 const withResponsiveDisplayControls = createHigherOrderComponent((BlockEdit) => {
-  return (props: any) => {
+  return (props: BlockEditProps<ResponsiveDisplayAttributes>) => {
     const { attributes, setAttributes, name } = props;
-    const { responsiveDisplay = { desktop: {}, tablet: {}, mobile: {} } } = attributes;
+    const { responsiveDisplay = emptyResponsiveDisplay() } = attributes;
 
     if (DYNAMIC_PREVIEW_BLOCKS.includes(name)) {
       return <BlockEdit {...props} />;
     }
 
-    const hasResponsiveSettings = () => {
-      const checkDevice = (device: any) => {
-        return device && Object.values(device).some((value: any) => value && value !== "");
-      };
-      return (
-        checkDevice(responsiveDisplay.desktop) ||
-        checkDevice(responsiveDisplay.tablet) ||
-        checkDevice(responsiveDisplay.mobile)
-      );
-    };
-
-    const [displayAdvancedOpen, setDisplayAdvancedOpen] = useState(hasResponsiveSettings());
-    const breakpoints = getBreakpoints();
-
-    const updateResponsiveDisplay = (device: string, property: string, value: string) => {
-      setAttributes({
-        responsiveDisplay: {
-          ...responsiveDisplay,
-          [device]: {
-            ...responsiveDisplay[device],
-            [property]: value,
-          },
-        },
-      });
-    };
-
-    const renderDeviceControls = (device: string, label: string, helpText: string) => {
-      const deviceSettings = responsiveDisplay[device] || {};
-
-      return (
-        <div
-          style={{
-            marginBottom: "1.25rem",
-            padding: "0.9375rem",
-            border: "0.0625rem solid #ddd",
-            borderRadius: "0.25rem",
-          }}
-        >
-          <h4 style={{ margin: "0 0 0.9375rem 0", fontSize: "0.875rem", fontWeight: "600" }}>
-            {label}
-          </h4>
-          <p style={{ fontSize: "0.75rem", color: "#666", margin: "0 0 0.9375rem 0" }}>
-            {helpText}
-          </p>
-
-          <SelectControl
-            label={__("Display", "kotlinskidev")}
-            value={deviceSettings.display || ""}
-            options={displayOptions}
-            onChange={(value: string) => updateResponsiveDisplay(device, "display", value)}
-          />
-
-          {FLEX_FAMILY_DISPLAYS.includes(deviceSettings.display) && (
-            <SelectControl
-              label={__("Flex Direction", "kotlinskidev")}
-              value={deviceSettings.flexDirection || ""}
-              options={flexDirectionOptions}
-              onChange={(value: string) => updateResponsiveDisplay(device, "flexDirection", value)}
-            />
-          )}
-
-          {FLEX_OR_GRID_FAMILY_DISPLAYS.includes(deviceSettings.display) && (
-            <>
-              <SelectControl
-                label={__("Justify Content", "kotlinskidev")}
-                value={deviceSettings.justifyContent || ""}
-                options={justifyContentOptions}
-                onChange={(value: string) =>
-                  updateResponsiveDisplay(device, "justifyContent", value)
-                }
-              />
-
-              <SelectControl
-                label={__("Align Items", "kotlinskidev")}
-                value={deviceSettings.alignItems || ""}
-                options={alignItemsOptions}
-                onChange={(value: string) => updateResponsiveDisplay(device, "alignItems", value)}
-              />
-            </>
-          )}
-
-          <SelectControl
-            label={__("Justify Self", "kotlinskidev")}
-            value={deviceSettings.justifySelf || ""}
-            options={justifySelfOptions}
-            onChange={(value: string) => updateResponsiveDisplay(device, "justifySelf", value)}
-          />
-
-          <SelectControl
-            label={__("Align Self", "kotlinskidev")}
-            value={deviceSettings.alignSelf || ""}
-            options={alignSelfOptions}
-            onChange={(value: string) => updateResponsiveDisplay(device, "alignSelf", value)}
-          />
-        </div>
-      );
-    };
-
     return (
       <Fragment>
         <BlockEdit {...props} />
-        <InspectorControls>
-          <PanelBody title={__("Display & Layout", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Advanced Display Settings", "kotlinskidev")}
-              checked={displayAdvancedOpen}
-              onChange={setDisplayAdvancedOpen}
-              help={__("Configure responsive display, flex, and grid properties", "kotlinskidev")}
-            />
-
-            {displayAdvancedOpen && (
-              <>
-                {renderDeviceControls(
-                  "desktop",
-                  __("Desktop", "kotlinskidev"),
-                  sprintf(
-                    // translators: %s: breakpoint value in rem
-                    __("Settings for screens %srem and above", "kotlinskidev"),
-                    breakpoints.desktop_min / 16
-                  )
-                )}
-
-                {renderDeviceControls(
-                  "tablet",
-                  __("Tablet", "kotlinskidev"),
-                  sprintf(
-                    // translators: %1$s: minimum breakpoint in rem, %2$s: maximum breakpoint in rem
-                    __("Settings for screens %1$srem - %2$srem", "kotlinskidev"),
-                    breakpoints.tablet_min / 16,
-                    breakpoints.tablet_max / 16
-                  )
-                )}
-
-                {renderDeviceControls(
-                  "mobile",
-                  __("Mobile", "kotlinskidev"),
-                  sprintf(
-                    // translators: %s: breakpoint value in rem
-                    __("Settings for screens below %srem", "kotlinskidev"),
-                    (breakpoints.mobile_max + 1) / 16
-                  )
-                )}
-              </>
-            )}
-          </PanelBody>
-        </InspectorControls>
+        <DisplayPanel responsiveDisplay={responsiveDisplay} setAttributes={setAttributes} />
       </Fragment>
     );
   };
 }, "withResponsiveDisplayControls");
 
+interface BlockListBlockProps {
+  attributes: ResponsiveDisplayAttributes;
+  className?: string;
+}
+
 const addResponsiveDisplayClasses = createHigherOrderComponent((BlockListBlock) => {
-  return (props: any) => {
-    const { attributes } = props;
-    const { responsiveDisplay } = attributes;
-
-    let additionalClasses = "";
-
-    if (responsiveDisplay) {
-      if (responsiveDisplay.desktop) {
-        const desktop = responsiveDisplay.desktop;
-        if (desktop.display) {
-          additionalClasses += ` desktop:${desktop.display}`;
-        }
-        if (desktop.flexDirection) {
-          additionalClasses += ` desktop:${desktop.flexDirection}`;
-        }
-        if (desktop.justifyContent) {
-          additionalClasses += ` desktop:${desktop.justifyContent}`;
-        }
-        if (desktop.alignItems) {
-          additionalClasses += ` desktop:${desktop.alignItems}`;
-        }
-        if (desktop.justifySelf) {
-          additionalClasses += ` desktop:${desktop.justifySelf}`;
-        }
-        if (desktop.alignSelf) {
-          additionalClasses += ` desktop:${desktop.alignSelf}`;
-        }
-      }
-
-      if (responsiveDisplay.tablet) {
-        const tablet = responsiveDisplay.tablet;
-        if (tablet.display) {
-          additionalClasses += ` tablet:${tablet.display}`;
-        }
-        if (tablet.flexDirection) {
-          additionalClasses += ` tablet:${tablet.flexDirection}`;
-        }
-        if (tablet.justifyContent) {
-          additionalClasses += ` tablet:${tablet.justifyContent}`;
-        }
-        if (tablet.alignItems) {
-          additionalClasses += ` tablet:${tablet.alignItems}`;
-        }
-        if (tablet.justifySelf) {
-          additionalClasses += ` tablet:${tablet.justifySelf}`;
-        }
-        if (tablet.alignSelf) {
-          additionalClasses += ` tablet:${tablet.alignSelf}`;
-        }
-      }
-
-      if (responsiveDisplay.mobile) {
-        const mobile = responsiveDisplay.mobile;
-        if (mobile.display) {
-          additionalClasses += ` mobile:${mobile.display}`;
-        }
-        if (mobile.flexDirection) {
-          additionalClasses += ` mobile:${mobile.flexDirection}`;
-        }
-        if (mobile.justifyContent) {
-          additionalClasses += ` mobile:${mobile.justifyContent}`;
-        }
-        if (mobile.alignItems) {
-          additionalClasses += ` mobile:${mobile.alignItems}`;
-        }
-        if (mobile.justifySelf) {
-          additionalClasses += ` mobile:${mobile.justifySelf}`;
-        }
-        if (mobile.alignSelf) {
-          additionalClasses += ` mobile:${mobile.alignSelf}`;
-        }
-      }
-    }
+  return (props: BlockListBlockProps) => {
+    const additionalClasses = buildDisplayClassString(props.attributes.responsiveDisplay);
 
     return (
       <BlockListBlock
@@ -355,87 +118,19 @@ const addResponsiveDisplayClasses = createHigherOrderComponent((BlockListBlock) 
   };
 }, "addResponsiveDisplayClasses");
 
-function applyResponsiveDisplayClass(extraProps: any, blockType: any, attributes: any) {
-  const { responsiveDisplay } = attributes;
+const applyResponsiveDisplayClass = (
+  extraProps: ExtraProps,
+  _blockType: unknown,
+  attributes: ResponsiveDisplayAttributes
+): ExtraProps => {
+  const additionalClasses = buildDisplayClassString(attributes.responsiveDisplay).trim();
 
-  if (responsiveDisplay) {
-    let additionalClasses = "";
-
-    if (responsiveDisplay.desktop) {
-      const desktop = responsiveDisplay.desktop;
-      if (desktop.display) {
-        additionalClasses += ` desktop:${desktop.display}`;
-      }
-      if (desktop.flexDirection) {
-        additionalClasses += ` desktop:${desktop.flexDirection}`;
-      }
-      if (desktop.justifyContent) {
-        additionalClasses += ` desktop:${desktop.justifyContent}`;
-      }
-      if (desktop.alignItems) {
-        additionalClasses += ` desktop:${desktop.alignItems}`;
-      }
-      if (desktop.justifySelf) {
-        additionalClasses += ` desktop:${desktop.justifySelf}`;
-      }
-      if (desktop.alignSelf) {
-        additionalClasses += ` desktop:${desktop.alignSelf}`;
-      }
-    }
-
-    if (responsiveDisplay.tablet) {
-      const tablet = responsiveDisplay.tablet;
-      if (tablet.display) {
-        additionalClasses += ` tablet:${tablet.display}`;
-      }
-      if (tablet.flexDirection) {
-        additionalClasses += ` tablet:${tablet.flexDirection}`;
-      }
-      if (tablet.justifyContent) {
-        additionalClasses += ` tablet:${tablet.justifyContent}`;
-      }
-      if (tablet.alignItems) {
-        additionalClasses += ` tablet:${tablet.alignItems}`;
-      }
-      if (tablet.justifySelf) {
-        additionalClasses += ` tablet:${tablet.justifySelf}`;
-      }
-      if (tablet.alignSelf) {
-        additionalClasses += ` tablet:${tablet.alignSelf}`;
-      }
-    }
-
-    if (responsiveDisplay.mobile) {
-      const mobile = responsiveDisplay.mobile;
-      if (mobile.display) {
-        additionalClasses += ` mobile:${mobile.display}`;
-      }
-      if (mobile.flexDirection) {
-        additionalClasses += ` mobile:${mobile.flexDirection}`;
-      }
-      if (mobile.justifyContent) {
-        additionalClasses += ` mobile:${mobile.justifyContent}`;
-      }
-      if (mobile.alignItems) {
-        additionalClasses += ` mobile:${mobile.alignItems}`;
-      }
-      if (mobile.justifySelf) {
-        additionalClasses += ` mobile:${mobile.justifySelf}`;
-      }
-      if (mobile.alignSelf) {
-        additionalClasses += ` mobile:${mobile.alignSelf}`;
-      }
-    }
-
-    if (additionalClasses) {
-      extraProps.className = extraProps.className
-        ? `${extraProps.className} ${additionalClasses.trim()}`
-        : additionalClasses.trim();
-    }
+  if (additionalClasses) {
+    appendClassName(extraProps, additionalClasses);
   }
 
   return extraProps;
-}
+};
 
 addFilter(
   "blocks.registerBlockType",

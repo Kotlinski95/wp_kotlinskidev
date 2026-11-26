@@ -1,129 +1,82 @@
 <?php
-/**
- * Responsive Display Block Extension
- * Adds responsive display controls to all WordPress blocks
- */
+require_once __DIR__ . '/responsive-block-markup.php';
 
-// Add responsive display attributes to block render
-function kotlinskidev_add_responsive_display_attributes($block_content, $block) {
-    // Skip if no responsive display attributes
-    if (!isset($block['attrs']['responsiveDisplay'])) {
+const KOTLINSKIDEV_RESPONSIVE_DISPLAY_PROPERTIES = array(
+    'display',
+    'flexDirection',
+    'justifyContent',
+    'alignItems',
+    'justifySelf',
+    'alignSelf',
+);
+
+function kotlinskidev_responsive_display_device_classes( string $device, $device_settings ): array
+{
+    if ( ! is_array( $device_settings ) ) {
+        return [];
+    }
+
+    $classes = [];
+
+    foreach ( KOTLINSKIDEV_RESPONSIVE_DISPLAY_PROPERTIES as $property ) {
+        if ( ! empty( $device_settings[ $property ] ) ) {
+            $classes[] = $device . ':' . sanitize_html_class( $device_settings[ $property ] );
+        }
+    }
+
+    return $classes;
+}
+
+function kotlinskidev_responsive_display_classes( $responsive_display ): array
+{
+    $classes = [];
+
+    foreach ( KOTLINSKIDEV_DEVICES_DESKTOP_FIRST as $device ) {
+        $device_classes = kotlinskidev_responsive_display_device_classes( $device, $responsive_display[ $device ] ?? null );
+        $classes        = array_merge( $classes, $device_classes );
+    }
+
+    return $classes;
+}
+
+function kotlinskidev_add_responsive_display_attributes( $block_content, $block )
+{
+    if ( ! isset( $block['attrs']['responsiveDisplay'] ) ) {
         return $block_content;
     }
 
-    $responsive_display = $block['attrs']['responsiveDisplay'];
-    $classes = [];
-
-    // Generate CSS classes for desktop breakpoint
-    if (isset($responsive_display['desktop']) && is_array($responsive_display['desktop'])) {
-        $desktop = $responsive_display['desktop'];
-        
-        if (!empty($desktop['display'])) {
-            $classes[] = 'desktop:' . sanitize_html_class($desktop['display']);
-        }
-        if (!empty($desktop['flexDirection'])) {
-            $classes[] = 'desktop:' . sanitize_html_class($desktop['flexDirection']);
-        }
-        if (!empty($desktop['justifyContent'])) {
-            $classes[] = 'desktop:' . sanitize_html_class($desktop['justifyContent']);
-        }
-        if (!empty($desktop['alignItems'])) {
-            $classes[] = 'desktop:' . sanitize_html_class($desktop['alignItems']);
-        }
-        if (!empty($desktop['justifySelf'])) {
-            $classes[] = 'desktop:' . sanitize_html_class($desktop['justifySelf']);
-        }
-        if (!empty($desktop['alignSelf'])) {
-            $classes[] = 'desktop:' . sanitize_html_class($desktop['alignSelf']);
-        }
+    $classes = kotlinskidev_responsive_display_classes( $block['attrs']['responsiveDisplay'] );
+    if ( empty( $classes ) ) {
+        return $block_content;
     }
 
-    // Generate CSS classes for tablet breakpoint
-    if (isset($responsive_display['tablet']) && is_array($responsive_display['tablet'])) {
-        $tablet = $responsive_display['tablet'];
-        
-        if (!empty($tablet['display'])) {
-            $classes[] = 'tablet:' . sanitize_html_class($tablet['display']);
-        }
-        if (!empty($tablet['flexDirection'])) {
-            $classes[] = 'tablet:' . sanitize_html_class($tablet['flexDirection']);
-        }
-        if (!empty($tablet['justifyContent'])) {
-            $classes[] = 'tablet:' . sanitize_html_class($tablet['justifyContent']);
-        }
-        if (!empty($tablet['alignItems'])) {
-            $classes[] = 'tablet:' . sanitize_html_class($tablet['alignItems']);
-        }
-        if (!empty($tablet['justifySelf'])) {
-            $classes[] = 'tablet:' . sanitize_html_class($tablet['justifySelf']);
-        }
-        if (!empty($tablet['alignSelf'])) {
-            $classes[] = 'tablet:' . sanitize_html_class($tablet['alignSelf']);
-        }
+    $processor = kotlinskidev_responsive_open_block_tag( $block_content );
+    if ( null === $processor ) {
+        return $block_content;
     }
 
-    // Generate CSS classes for mobile breakpoint
-    if (isset($responsive_display['mobile']) && is_array($responsive_display['mobile'])) {
-        $mobile = $responsive_display['mobile'];
-        
-        if (!empty($mobile['display'])) {
-            $classes[] = 'mobile:' . sanitize_html_class($mobile['display']);
-        }
-        if (!empty($mobile['flexDirection'])) {
-            $classes[] = 'mobile:' . sanitize_html_class($mobile['flexDirection']);
-        }
-        if (!empty($mobile['justifyContent'])) {
-            $classes[] = 'mobile:' . sanitize_html_class($mobile['justifyContent']);
-        }
-        if (!empty($mobile['alignItems'])) {
-            $classes[] = 'mobile:' . sanitize_html_class($mobile['alignItems']);
-        }
-        if (!empty($mobile['justifySelf'])) {
-            $classes[] = 'mobile:' . sanitize_html_class($mobile['justifySelf']);
-        }
-        if (!empty($mobile['alignSelf'])) {
-            $classes[] = 'mobile:' . sanitize_html_class($mobile['alignSelf']);
-        }
-    }
+    $existing_class = $processor->get_attribute( 'class' ) ?? '';
+    $processor->set_attribute( 'class', trim( $existing_class . ' ' . implode( ' ', $classes ) ) );
 
-    // Add classes to the block wrapper if we have any display classes
-    if (!empty($classes)) {
-        $processor = new WP_HTML_Tag_Processor($block_content);
-        if (!$processor->next_tag()) {
-            return $block_content;
-        }
-
-        $existing_class = $processor->get_attribute('class') ?? '';
-        $processor->set_attribute('class', trim($existing_class . ' ' . implode(' ', $classes)));
-
-        return $processor->get_updated_html();
-    }
-
-    return $block_content;
+    return $processor->get_updated_html();
 }
 add_filter( 'render_block', 'kotlinskidev_add_responsive_display_attributes', 10, 2 );
 
-function kotlinskidev_apply_block_visibility( string $block_content, array $block ): string {
-	$visibility = $block['attrs']['visibility'] ?? 'both';
+function kotlinskidev_apply_block_visibility( string $block_content, array $block ): string
+{
+    $visibility = $block['attrs']['visibility'] ?? 'both';
 
-	if ( 'both' === $visibility || empty( $block_content ) ) {
-		return $block_content;
-	}
+    if ( 'both' === $visibility || empty( $block_content ) ) {
+        return $block_content;
+    }
 
-	$target_class = 'is-visible-' . sanitize_html_class( $visibility );
+    $processor = kotlinskidev_responsive_open_block_tag( $block_content );
+    if ( null === $processor ) {
+        return $block_content;
+    }
 
-	$processor = new WP_HTML_Tag_Processor( $block_content );
-	if ( ! $processor->next_tag() ) {
-		return $block_content;
-	}
+    kotlinskidev_responsive_add_class_once( $processor, 'is-visible-' . sanitize_html_class( $visibility ) );
 
-	$existing = $processor->get_attribute( 'class' ) ?? '';
-
-	if ( str_contains( $existing, $target_class ) ) {
-		return $block_content;
-	}
-
-	$processor->set_attribute( 'class', trim( $existing . ' ' . $target_class ) );
-	return $processor->get_updated_html();
+    return $processor->get_updated_html();
 }
 add_filter( 'render_block', 'kotlinskidev_apply_block_visibility', 10, 2 );

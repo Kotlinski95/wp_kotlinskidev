@@ -68,57 +68,66 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+function useFilterPresetSlugs(): string[] {
+  const [presets] = useSettings("custom.imageFilterColors") as [
+    Record<string, { light?: string; dark?: string }> | undefined,
+  ];
+  return Object.keys(presets ?? {});
+}
+
+function FilterColorPanel({ attributes, setAttributes }: BlockEditProps) {
+  const filterColor = attributes.kotlinskidevFilterColor || DEFAULT_VALUE;
+  const revealOnHover = Boolean(attributes.kotlinskidevRevealOnHover);
+  const presetSlugs = useFilterPresetSlugs();
+
+  return (
+    <PanelBody title={__("Filter Color", "kotlinskidev")} initialOpen={false}>
+      <SelectControl
+        label={__("Filter", "kotlinskidev")}
+        value={filterColor}
+        options={[
+          { label: __("None", "kotlinskidev"), value: DEFAULT_VALUE },
+          ...presetSlugs.map((slug) => ({ label: slugToLabel(slug), value: slug })),
+        ]}
+        onChange={(value: string) =>
+          setAttributes({
+            kotlinskidevFilterColor: value,
+            ...(!value && { kotlinskidevRevealOnHover: false }),
+          })
+        }
+        help={__(
+          "Presets come from theme.json's settings.custom.imageFilterColors — add more there to offer them here.",
+          "kotlinskidev"
+        )}
+        __nextHasNoMarginBottom
+      />
+      {filterColor && (
+        <ToggleControl
+          label={__("Reveal original color on hover", "kotlinskidev")}
+          checked={revealOnHover}
+          onChange={(next) => setAttributes({ kotlinskidevRevealOnHover: next })}
+          help={__(
+            "On: the filter lifts on hover/focus. Off: the filter is permanent.",
+            "kotlinskidev"
+          )}
+          __nextHasNoMarginBottom
+        />
+      )}
+    </PanelBody>
+  );
+}
+
 const withFilterColorControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!supportsFilterColor(props.name)) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const filterColor = attributes.kotlinskidevFilterColor || DEFAULT_VALUE;
-    const revealOnHover = Boolean(attributes.kotlinskidevRevealOnHover);
-    const [presets] = useSettings("custom.imageFilterColors") as [
-      Record<string, { light?: string; dark?: string }> | undefined,
-    ];
-    const presetSlugs = Object.keys(presets ?? {});
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Filter Color", "kotlinskidev")} initialOpen={false}>
-            <SelectControl
-              label={__("Filter", "kotlinskidev")}
-              value={filterColor}
-              options={[
-                { label: __("None", "kotlinskidev"), value: DEFAULT_VALUE },
-                ...presetSlugs.map((slug) => ({ label: slugToLabel(slug), value: slug })),
-              ]}
-              onChange={(value: string) =>
-                setAttributes({
-                  kotlinskidevFilterColor: value,
-                  ...(!value && { kotlinskidevRevealOnHover: false }),
-                })
-              }
-              help={__(
-                "Presets come from theme.json's settings.custom.imageFilterColors — add more there to offer them here.",
-                "kotlinskidev"
-              )}
-              __nextHasNoMarginBottom
-            />
-            {filterColor && (
-              <ToggleControl
-                label={__("Reveal original color on hover", "kotlinskidev")}
-                checked={revealOnHover}
-                onChange={(next) => setAttributes({ kotlinskidevRevealOnHover: next })}
-                help={__(
-                  "On: the filter lifts on hover/focus. Off: the filter is permanent.",
-                  "kotlinskidev"
-                )}
-                __nextHasNoMarginBottom
-              />
-            )}
-          </PanelBody>
+          <FilterColorPanel {...props} />
         </InspectorControls>
       </Fragment>
     );

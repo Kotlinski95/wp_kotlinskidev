@@ -3,6 +3,7 @@ const KOTLINSKIDEV_LOCAL_FAQ_MAX                = 2;
 const KOTLINSKIDEV_LOCAL_FAQ_QUESTION_MAX_LENGTH = 300;
 const KOTLINSKIDEV_LOCAL_FAQ_ANSWER_MAX_LENGTH   = 1000;
 const KOTLINSKIDEV_FEATURED_PROJECTS_MAX        = 3;
+const KOTLINSKIDEV_CITY_LOCAL_SECTIONS          = [ 'intro', 'faq', 'nearby' ];
 
 function kotlinskidev_sanitize_local_faq( $value ): array {
     if ( ! is_array( $value ) ) {
@@ -54,7 +55,45 @@ function kotlinskidev_sanitize_featured_projects( $value ): array {
 function kotlinskidev_sanitize_city_local_section( $section ): string {
     $section = (string) $section;
 
-    return in_array( $section, [ 'intro', 'faq', 'nearby' ], true ) ? $section : 'intro';
+    return in_array( $section, KOTLINSKIDEV_CITY_LOCAL_SECTIONS, true ) ? $section : 'intro';
+}
+
+function kotlinskidev_service_location_local_meta_auth( $allowed, $meta_key, $post_id ): bool {
+    return current_user_can( 'edit_post', (int) $post_id );
+}
+
+function kotlinskidev_service_location_local_text_meta_sanitizers(): array {
+    return [
+        'local_intro'    => 'sanitize_textarea_field',
+        'local_audience' => 'sanitize_textarea_field',
+        'local_distance' => 'sanitize_text_field',
+    ];
+}
+
+function kotlinskidev_local_faq_rest_schema(): array {
+    return [
+        'schema' => [
+            'type'     => 'array',
+            'maxItems' => KOTLINSKIDEV_LOCAL_FAQ_MAX,
+            'items'    => [
+                'type'       => 'object',
+                'properties' => [
+                    'question' => [ 'type' => 'string', 'maxLength' => KOTLINSKIDEV_LOCAL_FAQ_QUESTION_MAX_LENGTH ],
+                    'answer'   => [ 'type' => 'string', 'maxLength' => KOTLINSKIDEV_LOCAL_FAQ_ANSWER_MAX_LENGTH ],
+                ],
+            ],
+        ],
+    ];
+}
+
+function kotlinskidev_featured_projects_rest_schema(): array {
+    return [
+        'schema' => [
+            'type'     => 'array',
+            'maxItems' => KOTLINSKIDEV_FEATURED_PROJECTS_MAX,
+            'items'    => [ 'type' => 'integer' ],
+        ],
+    ];
 }
 
 function kotlinskidev_register_service_location_local_meta(): void {
@@ -62,24 +101,14 @@ function kotlinskidev_register_service_location_local_meta(): void {
         return;
     }
 
-    $auth = function ( $allowed, $meta_key, $post_id ) {
-        return current_user_can( 'edit_post', (int) $post_id );
-    };
-
-    $text_fields = [
-        'local_intro'    => 'sanitize_textarea_field',
-        'local_audience' => 'sanitize_textarea_field',
-        'local_distance' => 'sanitize_text_field',
-    ];
-
-    foreach ( $text_fields as $key => $sanitize_callback ) {
+    foreach ( kotlinskidev_service_location_local_text_meta_sanitizers() as $key => $sanitize_callback ) {
         register_post_meta( 'service_location', $key, [
             'type'              => 'string',
             'single'            => true,
             'default'           => '',
             'show_in_rest'      => true,
             'sanitize_callback' => $sanitize_callback,
-            'auth_callback'     => $auth,
+            'auth_callback'     => 'kotlinskidev_service_location_local_meta_auth',
         ] );
     }
 
@@ -87,36 +116,18 @@ function kotlinskidev_register_service_location_local_meta(): void {
         'type'              => 'array',
         'single'            => true,
         'default'           => [],
-        'show_in_rest'      => [
-            'schema' => [
-                'type'     => 'array',
-                'maxItems' => KOTLINSKIDEV_LOCAL_FAQ_MAX,
-                'items'    => [
-                    'type'       => 'object',
-                    'properties' => [
-                        'question' => [ 'type' => 'string', 'maxLength' => KOTLINSKIDEV_LOCAL_FAQ_QUESTION_MAX_LENGTH ],
-                        'answer'   => [ 'type' => 'string', 'maxLength' => KOTLINSKIDEV_LOCAL_FAQ_ANSWER_MAX_LENGTH ],
-                    ],
-                ],
-            ],
-        ],
+        'show_in_rest'      => kotlinskidev_local_faq_rest_schema(),
         'sanitize_callback' => 'kotlinskidev_sanitize_local_faq',
-        'auth_callback'     => $auth,
+        'auth_callback'     => 'kotlinskidev_service_location_local_meta_auth',
     ] );
 
     register_post_meta( 'service_location', 'featured_projects', [
         'type'              => 'array',
         'single'            => true,
         'default'           => [],
-        'show_in_rest'      => [
-            'schema' => [
-                'type'     => 'array',
-                'maxItems' => KOTLINSKIDEV_FEATURED_PROJECTS_MAX,
-                'items'    => [ 'type' => 'integer' ],
-            ],
-        ],
+        'show_in_rest'      => kotlinskidev_featured_projects_rest_schema(),
         'sanitize_callback' => 'kotlinskidev_sanitize_featured_projects',
-        'auth_callback'     => $auth,
+        'auth_callback'     => 'kotlinskidev_service_location_local_meta_auth',
     ] );
 }
 add_action( 'init', 'kotlinskidev_register_service_location_local_meta' );

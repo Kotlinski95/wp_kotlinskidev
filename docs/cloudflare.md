@@ -149,7 +149,7 @@ Because the edge now keeps unversioned files for up to a year, a file replaced a
 
 **How it works:** A redirect rule sends the browser to another URL. Cloudflare answers it itself, so the server is not used at all.
 
-**Our setting:** Ruleset `http_request_dynamic_redirect`, id `62fcd4ac486d4a6f97712a08aaa39cea`: **Redirect www to apex**. Host `www.kotlinskidev.com` gets a 301 (permanent) to `https://kotlinskidev.com` plus the path, with the query string kept. Before 2026-11-11 WordPress did this redirect on the server. A second rule, **Redirect /en/ to /en/home/**, answers the bare Polylang language root at the edge with a 301 (query string kept). Polylang sends the same redirect and sets a `pll_language` cookie, which made Cloudflare skip the cache and hit the server on every visit. The language switcher already links to `/en/home/`, so only typed or old links reach this rule.
+**Our setting:** Ruleset `http_request_dynamic_redirect`, id `62fcd4ac486d4a6f97712a08aaa39cea`: **Redirect www to apex**. Host `www.kotlinskidev.com` gets a 301 (permanent) to `https://kotlinskidev.com` plus the path, with the query string kept. Before 2026-11-11 WordPress did this redirect on the server. A second rule, **Redirect /en/ to /en/home/**, answers the bare Polylang language root at the edge with a 301, only when the query string is empty (expression `(http.host eq "kotlinskidev.com" and http.request.uri.path eq "/en/" and http.request.uri.query eq "")`), so `/en/?s=term` search requests reach WordPress. Polylang sends the same redirect and sets a `pll_language` cookie, which made Cloudflare skip the cache and hit the server on every visit. The language switcher already links to `/en/home/`, so only typed or old links reach this rule.
 
 ### Request transform
 

@@ -12,52 +12,16 @@ interface CarouselPanelProps {
   title?: string;
 }
 
-export default function CarouselPanel({
-  settings,
-  onChange,
-  features = {},
-  title,
-}: CarouselPanelProps) {
-  const {
-    showArrows = true,
-    showPagination = true,
-    showScrollbar = false,
-    loop = true,
-    draggable = true,
-    autoplay = false,
-    autoplayDelay = 3000,
-    slidesPerView = 1,
-    slidesPerMobile = 1,
-    slidesPerTablet = 1,
-    slidesPerDesktop = 1,
-    lazyLoad = false,
-    arrowsPosition = "sides",
-    navColor = "",
-    navColorOnHover = false,
-    navPlacement = "inside",
-    trackActiveSlide = false,
-    paginationPlacement = "inside",
-    transitionEffect = "slide",
-    autoHeight = false,
-  } = settings;
+interface CarouselSectionProps {
+  settings: Partial<CarouselSettings>;
+  onChange: (partial: Partial<CarouselSettings>) => void;
+  features: CarouselFeatures;
+}
 
-  const pendingNavColorRef = React.useRef<string | null>(null);
-
-  const handleNavColorChange = (value: string | undefined) => {
-    if (value !== undefined) {
-      pendingNavColorRef.current = value;
-      onChange({ navColor: value });
-    } else if (pendingNavColorRef.current !== null) {
-      pendingNavColorRef.current = null;
-    } else {
-      onChange({ navColor: "" });
-    }
-  };
-
-  const isNavGradient = navColor.includes("gradient");
-
+function ArrowControls({ settings, onChange, features }: CarouselSectionProps) {
+  const { showArrows = true, arrowsPosition = "sides", navPlacement = "inside" } = settings;
   return (
-    <PanelBody title={title ?? __("Carousel Settings", "kotlinskidev")} initialOpen={true}>
+    <>
       <ToggleControl
         label={__("Show Arrows", "kotlinskidev")}
         checked={showArrows}
@@ -86,6 +50,37 @@ export default function CarouselPanel({
           onChange={(value) => onChange({ navPlacement: value ? "outside" : "inside" })}
         />
       )}
+    </>
+  );
+}
+
+function useNavColorChangeHandler(onChange: CarouselSectionProps["onChange"]) {
+  const pendingNavColorRef = React.useRef<string | null>(null);
+
+  return (value: string | undefined) => {
+    if (value !== undefined) {
+      pendingNavColorRef.current = value;
+      onChange({ navColor: value });
+    } else if (pendingNavColorRef.current !== null) {
+      pendingNavColorRef.current = null;
+    } else {
+      onChange({ navColor: "" });
+    }
+  };
+}
+
+function NavColorControls({ settings, onChange, features }: CarouselSectionProps) {
+  const {
+    showArrows = true,
+    showPagination = true,
+    navColor = "",
+    navColorOnHover = false,
+  } = settings;
+  const handleNavColorChange = useNavColorChangeHandler(onChange);
+  const isNavGradient = navColor.includes("gradient");
+
+  return (
+    <>
       {(showArrows || showPagination) && features.navColor && (
         <ColorGradientControl
           label={__("Navigation color", "kotlinskidev")}
@@ -106,6 +101,14 @@ export default function CarouselPanel({
           onChange={(value) => onChange({ navColorOnHover: value })}
         />
       )}
+    </>
+  );
+}
+
+function PaginationControls({ settings, onChange, features }: CarouselSectionProps) {
+  const { showPagination = true, paginationPlacement = "inside" } = settings;
+  return (
+    <>
       <ToggleControl
         label={__("Show Pagination", "kotlinskidev")}
         checked={showPagination}
@@ -122,6 +125,43 @@ export default function CarouselPanel({
           onChange={(value) => onChange({ paginationPlacement: value ? "outside" : "inside" })}
         />
       )}
+    </>
+  );
+}
+
+function TransitionEffectControl({
+  settings,
+  onChange,
+}: Pick<CarouselSectionProps, "settings" | "onChange">) {
+  const { transitionEffect = "slide" } = settings;
+  return (
+    <SelectControl
+      label={__("Transition Effect", "kotlinskidev")}
+      value={transitionEffect}
+      options={[
+        { label: __("Default (slide)", "kotlinskidev"), value: "slide" },
+        { label: __("Fade", "kotlinskidev"), value: "fade" },
+        { label: __("Coverflow", "kotlinskidev"), value: "coverflow" },
+        { label: __("Cube", "kotlinskidev"), value: "cube" },
+        { label: __("Flip", "kotlinskidev"), value: "flip" },
+        { label: __("Cards", "kotlinskidev"), value: "cards" },
+      ]}
+      help={
+        transitionEffect !== "slide"
+          ? __("Fade, Cube, Flip, and Cards look best with 1 slide per view.", "kotlinskidev")
+          : undefined
+      }
+      onChange={(value) =>
+        onChange({ transitionEffect: value as CarouselSettings["transitionEffect"] })
+      }
+    />
+  );
+}
+
+function LayoutControls({ settings, onChange, features }: CarouselSectionProps) {
+  const { autoHeight = false, showScrollbar = false } = settings;
+  return (
+    <>
       {features.autoHeight && (
         <ToggleControl
           label={__("Auto Height", "kotlinskidev")}
@@ -141,27 +181,16 @@ export default function CarouselPanel({
         />
       )}
       {features.transitionEffect && (
-        <SelectControl
-          label={__("Transition Effect", "kotlinskidev")}
-          value={transitionEffect}
-          options={[
-            { label: __("Default (slide)", "kotlinskidev"), value: "slide" },
-            { label: __("Fade", "kotlinskidev"), value: "fade" },
-            { label: __("Coverflow", "kotlinskidev"), value: "coverflow" },
-            { label: __("Cube", "kotlinskidev"), value: "cube" },
-            { label: __("Flip", "kotlinskidev"), value: "flip" },
-            { label: __("Cards", "kotlinskidev"), value: "cards" },
-          ]}
-          help={
-            transitionEffect !== "slide"
-              ? __("Fade, Cube, Flip, and Cards look best with 1 slide per view.", "kotlinskidev")
-              : undefined
-          }
-          onChange={(value) =>
-            onChange({ transitionEffect: value as CarouselSettings["transitionEffect"] })
-          }
-        />
+        <TransitionEffectControl settings={settings} onChange={onChange} />
       )}
+    </>
+  );
+}
+
+function PlaybackControls({ settings, onChange, features }: CarouselSectionProps) {
+  const { loop = true, draggable = true, autoplay = false, autoplayDelay = 3000 } = settings;
+  return (
+    <>
       <ToggleControl
         label={__("Loop Mode", "kotlinskidev")}
         checked={loop}
@@ -191,6 +220,50 @@ export default function CarouselPanel({
           )}
         </>
       )}
+    </>
+  );
+}
+
+function SlidesPerBreakpointControls({
+  settings,
+  onChange,
+}: Pick<CarouselSectionProps, "settings" | "onChange">) {
+  const {
+    slidesPerView = 1,
+    slidesPerMobile = 1,
+    slidesPerTablet = 1,
+    slidesPerDesktop = 1,
+  } = settings;
+  return (
+    <>
+      <SlidesPerViewControl
+        label={__("Slides Per View", "kotlinskidev")}
+        value={slidesPerView}
+        onChange={(value) => onChange({ slidesPerView: value })}
+      />
+      <SlidesPerViewControl
+        label={__("Slides (Mobile)", "kotlinskidev")}
+        value={slidesPerMobile}
+        onChange={(value) => onChange({ slidesPerMobile: value })}
+      />
+      <SlidesPerViewControl
+        label={__("Slides (Tablet)", "kotlinskidev")}
+        value={slidesPerTablet}
+        onChange={(value) => onChange({ slidesPerTablet: value })}
+      />
+      <SlidesPerViewControl
+        label={__("Slides (Desktop)", "kotlinskidev")}
+        value={slidesPerDesktop}
+        onChange={(value) => onChange({ slidesPerDesktop: value })}
+      />
+    </>
+  );
+}
+
+function ContentControls({ settings, onChange, features }: CarouselSectionProps) {
+  const { lazyLoad = false, trackActiveSlide = false } = settings;
+  return (
+    <>
       {features.lazyLoad && (
         <ToggleControl
           label={__("Lazy Load First Image", "kotlinskidev")}
@@ -211,29 +284,28 @@ export default function CarouselPanel({
         />
       )}
       {features.slidesPerBreakpoint && (
-        <>
-          <SlidesPerViewControl
-            label={__("Slides Per View", "kotlinskidev")}
-            value={slidesPerView}
-            onChange={(value) => onChange({ slidesPerView: value })}
-          />
-          <SlidesPerViewControl
-            label={__("Slides (Mobile)", "kotlinskidev")}
-            value={slidesPerMobile}
-            onChange={(value) => onChange({ slidesPerMobile: value })}
-          />
-          <SlidesPerViewControl
-            label={__("Slides (Tablet)", "kotlinskidev")}
-            value={slidesPerTablet}
-            onChange={(value) => onChange({ slidesPerTablet: value })}
-          />
-          <SlidesPerViewControl
-            label={__("Slides (Desktop)", "kotlinskidev")}
-            value={slidesPerDesktop}
-            onChange={(value) => onChange({ slidesPerDesktop: value })}
-          />
-        </>
+        <SlidesPerBreakpointControls settings={settings} onChange={onChange} />
       )}
+    </>
+  );
+}
+
+export default function CarouselPanel({
+  settings,
+  onChange,
+  features = {},
+  title,
+}: CarouselPanelProps) {
+  const sectionProps = { settings, onChange, features };
+
+  return (
+    <PanelBody title={title ?? __("Carousel Settings", "kotlinskidev")} initialOpen={true}>
+      <ArrowControls {...sectionProps} />
+      <NavColorControls {...sectionProps} />
+      <PaginationControls {...sectionProps} />
+      <LayoutControls {...sectionProps} />
+      <PlaybackControls {...sectionProps} />
+      <ContentControls {...sectionProps} />
     </PanelBody>
   );
 }

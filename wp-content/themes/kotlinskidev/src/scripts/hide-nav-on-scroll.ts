@@ -1,149 +1,31 @@
-import {
-  debounce,
-  getScrollHeight,
-  getScrollTop,
-  getScrollViewportHeight,
-  isMobile,
-  isProgrammaticScrollActive,
-  onAppShellChange,
-  onScroll,
-  onScreenSizeChange,
-} from "./utils";
+import { isMobile, onAppShellChange, onScreenSizeChange } from "./utils";
+import { createNavVisibility, findHideableNavElements } from "./hide-nav-on-scroll/nav-visibility";
+import { createScrollDirectionHandler } from "./hide-nav-on-scroll/scroll-direction-handler";
+import { createScrollHideListening } from "./hide-nav-on-scroll/scroll-listening";
 
-(function () {
-  const header = document.querySelector("header") as HTMLElement;
-  const mobileFooterNav = document.querySelector(".mobile-footer-nav") as HTMLElement;
-  const scrollToTop = document.querySelector(".kotlinskidev-scrollto-top") as HTMLElement;
-
-  if (!header && !mobileFooterNav) {
+const initHideNavOnScroll = (): void => {
+  const elements = findHideableNavElements();
+  if (!elements.header && !elements.mobileFooterNav) {
     return;
   }
 
-  let lastScrollTop = 0;
-  const scrollThreshold = 10;
-  const topThreshold = 100;
-  const bottomThreshold = 100;
+  const navVisibility = createNavVisibility(elements);
+  const listening = createScrollHideListening(
+    createScrollDirectionHandler(navVisibility),
+    navVisibility.showNav
+  );
 
-  const floatingIconSelectors = [
-    ".cmplz-btn.cmplz-manage-consent",
-    ".onetap-container-toggle .onetap-toggle",
-    ".kt-article-toc-toggle",
-    ".kt-speed-dial",
-  ];
-
-  const toggleFloatingIconClass = (add: boolean) => {
-    floatingIconSelectors.forEach((selector) => {
-      const icon = document.querySelector(selector);
-      if (icon) {
-        icon.classList.toggle("mobile-nav-hidden", add);
-      }
-    });
-  };
-
-  const showNav = () => {
-    if (header) {
-      header.classList.remove("nav-hidden");
-    }
-    if (mobileFooterNav) {
-      mobileFooterNav.classList.remove("nav-hidden");
-    }
-    if (scrollToTop) {
-      scrollToTop.classList.remove("mobile-nav-hidden");
-    }
-    toggleFloatingIconClass(false);
-  };
-
-  const hideNav = () => {
-    if (header) {
-      header.classList.add("nav-hidden");
-    }
-    if (mobileFooterNav) {
-      mobileFooterNav.classList.add("nav-hidden");
-    }
-    if (scrollToTop) {
-      scrollToTop.classList.add("mobile-nav-hidden");
-    }
-    toggleFloatingIconClass(true);
-  };
-
-  const isNearBottom = (scrollTop: number) => {
-    const documentHeight = getScrollHeight();
-    const viewportHeight = getScrollViewportHeight();
-    return documentHeight - (scrollTop + viewportHeight) < bottomThreshold;
-  };
-
-  const handleScroll = () => {
-    const scrollTop = getScrollTop();
-
-    // A programmatic scroll fires real "scroll" events indistinguishable from user input — still update lastScrollTop so the next real scroll diffs correctly.
-    if (isProgrammaticScrollActive()) {
-      lastScrollTop = scrollTop;
-      if (scrollTop < topThreshold) {
-        showNav();
-      }
-      return;
-    }
-
-    const scrollDirection = scrollTop > lastScrollTop ? "down" : "up";
-    const scrollDiff = Math.abs(scrollTop - lastScrollTop);
-
-    if (scrollDiff < scrollThreshold) {
-      return;
-    }
-
-    if (scrollTop < topThreshold || isNearBottom(scrollTop)) {
-      showNav();
-      lastScrollTop = scrollTop;
-      return;
-    }
-
-    if (scrollDirection === "down") {
-      hideNav();
-    } else {
-      showNav();
-    }
-
-    lastScrollTop = scrollTop;
-  };
-
-  const debouncedHandleScroll = debounce(handleScroll, 10);
-  let isListening = false;
-  let removeScrollListener: (() => void) | null = null;
-
-  const enableScrollHide = () => {
-    if (isListening) {
-      return;
-    }
-
-    handleScroll();
-
-    removeScrollListener = onScroll(debouncedHandleScroll);
-    isListening = true;
-  };
-
-  const disableScrollHide = () => {
-    if (!isListening) {
-      return;
-    }
-
-    removeScrollListener?.();
-    removeScrollListener = null;
-
-    showNav();
-    isListening = false;
-  };
-
-  const handleScreenSizeChange = (mobile: boolean) => {
+  const onScreenSizeUpdate = (mobile: boolean): void => {
     if (mobile) {
-      enableScrollHide();
+      listening.enable();
     } else {
-      disableScrollHide();
+      listening.disable();
     }
   };
 
-  handleScreenSizeChange(isMobile());
+  onScreenSizeUpdate(isMobile());
+  onScreenSizeChange(onScreenSizeUpdate);
+  onAppShellChange(navVisibility.showNav);
+};
 
-  onScreenSizeChange(handleScreenSizeChange);
-
-  onAppShellChange(showNav);
-})();
+initHideNavOnScroll();

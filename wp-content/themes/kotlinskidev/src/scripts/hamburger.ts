@@ -1,197 +1,28 @@
-import { registerPanel, closeAllExcept } from "@utils/panel-coordinator";
-import { lockScroll, unlockScroll } from "@utils/scroll-lock";
-import { loadDeferredImages } from "@utils/load-deferred-images";
-import { dispatchNavPanelOpen, dispatchNavPanelClose } from "@utils/nav-reveal-events";
-
-const LOCK_OWNER = "hamburger";
-
-const getSubmenuContainer = (toggle: HTMLButtonElement): HTMLElement | null =>
-  toggle
-    .closest(".wp-block-navigation-item")
-    ?.querySelector<HTMLElement>(":scope > .wp-block-navigation__submenu-container") ?? null;
-
-const collapseSubmenuTree = (submenu: HTMLElement) => {
-  submenu
-    .querySelectorAll<HTMLElement>("a, button")
-    .forEach((el) => el.setAttribute("tabindex", "-1"));
-  submenu
-    .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
-    .forEach((t) => t.setAttribute("aria-expanded", "false"));
-};
-
-const setSubmenuTabbable = (toggle: HTMLButtonElement, expanded: boolean) => {
-  const submenu = getSubmenuContainer(toggle);
-  if (!submenu) {
-    return;
-  }
-  if (expanded) {
-    submenu
-      .querySelectorAll<HTMLElement>(
-        ":scope > .wp-block-navigation-item > .wp-block-navigation-item__content, :scope > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle"
-      )
-      .forEach((el) => el.setAttribute("tabindex", "0"));
-  } else {
-    collapseSubmenuTree(submenu);
-  }
-};
-
-const hideCoveredParentLinks = () => {
-  document
-    .querySelectorAll<HTMLElement>(
-      ".wp-block-navigation__responsive-container-content .wp-block-navigation-item.has-child"
-    )
-    .forEach((item) => {
-      const link = item.querySelector<HTMLElement>(":scope > .wp-block-navigation-item__content");
-      const toggle = item.querySelector(":scope > .wp-block-navigation-submenu__toggle");
-      if (!link || !toggle) {
-        return;
-      }
-      link.setAttribute("tabindex", "-1");
-      link.setAttribute("aria-hidden", "true");
-    });
-};
+import { registerPanel } from "@utils/panel-coordinator";
+import {
+  closeHamburger,
+  onDocumentClickOutsideOpenNavigation,
+  onDocumentEscapeKeydown,
+} from "./hamburger/close-hamburger";
+import { RESPONSIVE_CONTAINER_SELECTOR } from "./hamburger/hamburger-selectors";
+import { bindOpenButtons } from "./hamburger/open-button";
+import { watchResponsiveContainer } from "./hamburger/panel-open-state";
+import { listenForSubmenuToggleClicks } from "./hamburger/submenu-toggle-click";
+import {
+  hideCoveredParentLinks,
+  syncSubmenuTabindexWithAriaState,
+} from "./hamburger/submenu-tabindex";
 
 document.addEventListener("DOMContentLoaded", () => {
-  document
-    .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
-    .forEach((toggle) => {
-      setSubmenuTabbable(toggle, toggle.getAttribute("aria-expanded") === "true");
-    });
-
+  syncSubmenuTabindexWithAriaState();
   hideCoveredParentLinks();
-
   document
-    .querySelectorAll<HTMLElement>(".wp-block-navigation__responsive-container")
-    .forEach((container) => {
-      let wasOpen = container.classList.contains("is-menu-open");
-      if (wasOpen) {
-        lockScroll(LOCK_OWNER);
-      }
-
-      container.addEventListener("transitionend", (e) => {
-        if (e.target === container && e.propertyName === "max-width") {
-          container.classList.remove("kt-nav-panel-animating");
-        }
-      });
-
-      const observer = new MutationObserver(() => {
-        const isOpen = container.classList.contains("is-menu-open");
-        if (isOpen && !wasOpen) {
-          lockScroll(LOCK_OWNER);
-          loadDeferredImages(container);
-          dispatchNavPanelOpen(container);
-          container.classList.add("kt-nav-panel-animating");
-          container
-            .querySelectorAll<HTMLButtonElement>(".wp-block-navigation-submenu__toggle")
-            .forEach((t) => {
-              t.setAttribute("aria-expanded", "false");
-              setSubmenuTabbable(t, false);
-            });
-          const closeBtn = container
-            .closest(".wp-block-navigation")
-            ?.querySelector<HTMLButtonElement>(".wp-block-navigation__responsive-container-close");
-          closeBtn?.focus();
-          const redirectInitialFocus = (e: FocusEvent) => {
-            container.removeEventListener("focusin", redirectInitialFocus);
-            if (e.target !== closeBtn) {
-              closeBtn?.focus();
-            }
-          };
-          container.addEventListener("focusin", redirectInitialFocus);
-        } else if (!isOpen && wasOpen) {
-          unlockScroll(LOCK_OWNER);
-          dispatchNavPanelClose(container);
-          container.classList.add("kt-nav-panel-animating");
-        }
-        wasOpen = isOpen;
-      });
-
-      observer.observe(container, { attributes: true, attributeFilter: ["class"] });
-    });
-
-  const closeHamburger = () => {
-    document
-      .querySelectorAll<HTMLElement>(
-        ".wp-block-navigation:has(.wp-block-navigation__responsive-container.is-menu-open)"
-      )
-      .forEach((nav) => {
-        nav
-          .querySelector<HTMLButtonElement>(".wp-block-navigation__responsive-container-close")
-          ?.click();
-      });
-  };
+    .querySelectorAll<HTMLElement>(RESPONSIVE_CONTAINER_SELECTOR)
+    .forEach(watchResponsiveContainer);
 
   registerPanel(closeHamburger);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeHamburger();
-    }
-  });
-
-  document.addEventListener("click", (e) => {
-    const openNavs = document.querySelectorAll<HTMLElement>(
-      ".wp-block-navigation:has(.wp-block-navigation__responsive-container.is-menu-open)"
-    );
-    if (!openNavs.length) {
-      return;
-    }
-    const target = e.target as Element;
-    const clickedInsideOpenNav = [...openNavs].some((nav) => nav.contains(target));
-    if (!clickedInsideOpenNav) {
-      closeHamburger();
-    }
-  });
-
-  document
-    .querySelectorAll<HTMLButtonElement>(".wp-block-navigation__responsive-container-open")
-    .forEach((openBtn) => {
-      const nav = openBtn.closest(".wp-block-navigation");
-      const closeBtn = nav?.querySelector<HTMLButtonElement>(
-        ".wp-block-navigation__responsive-container-close"
-      );
-      if (closeBtn) {
-        openBtn.insertAdjacentElement("afterend", closeBtn);
-        closeBtn.addEventListener("mousedown", (e) => e.preventDefault());
-      }
-
-      openBtn.addEventListener("click", () => {
-        const isOpen = !!nav?.querySelector(
-          ".wp-block-navigation__responsive-container.is-menu-open"
-        );
-        if (!isOpen) {
-          closeAllExcept(closeHamburger);
-        }
-      });
-    });
-
-  document.addEventListener(
-    "click",
-    (e) => {
-      const toggle = (e.target as Element).closest<HTMLButtonElement>(
-        ".wp-block-navigation-submenu__toggle"
-      );
-      if (!toggle) {
-        return;
-      }
-      e.stopImmediatePropagation();
-      const parentContainer = toggle.closest(
-        ".wp-block-navigation__submenu-container, .wp-block-navigation__container"
-      );
-      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-      parentContainer
-        ?.querySelectorAll<HTMLButtonElement>(
-          ":scope > .wp-block-navigation-item > .wp-block-navigation-submenu__toggle[aria-expanded='true']"
-        )
-        .forEach((t) => {
-          if (t !== toggle) {
-            t.setAttribute("aria-expanded", "false");
-            setSubmenuTabbable(t, false);
-          }
-        });
-      toggle.setAttribute("aria-expanded", isExpanded ? "false" : "true");
-      setSubmenuTabbable(toggle, !isExpanded);
-    },
-    { capture: true }
-  );
+  document.addEventListener("keydown", onDocumentEscapeKeydown);
+  document.addEventListener("click", onDocumentClickOutsideOpenNavigation);
+  bindOpenButtons();
+  listenForSubmenuToggleClicks();
 });

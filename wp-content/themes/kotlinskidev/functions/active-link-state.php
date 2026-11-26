@@ -49,6 +49,10 @@ function kotlinskidev_is_current_request_link( string $href ): bool {
 		return false;
 	}
 
+	if ( is_search() || ! empty( $_GET['s'] ) ) {
+		return false;
+	}
+
 	$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '/';
 	$request_path = (string) ( parse_url( $request_uri, PHP_URL_PATH ) ?? '/' );
 	$site_host    = (string) ( parse_url( home_url(), PHP_URL_HOST ) ?? '' );

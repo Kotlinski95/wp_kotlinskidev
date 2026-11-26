@@ -14,6 +14,10 @@ define('KOTLINSKIDEV_BREAKPOINT_BUILD_TOKENS', [
     '75rem'      => ['large', 0],
 ]);
 
+const KOTLINSKIDEV_ROOT_FONT_SIZE_PX = 16;
+const KOTLINSKIDEV_BREAKPOINT_REM_PRECISION = 4;
+const KOTLINSKIDEV_BREAKPOINT_HASH_LENGTH = 8;
+
 function kotlinskidev_get_breakpoints(): array
 {
     static $breakpoints = null;
@@ -53,12 +57,12 @@ function kotlinskidev_breakpoints_are_default(): bool
 function kotlinskidev_breakpoints_hash(): string
 {
     $breakpoints = kotlinskidev_get_breakpoints();
-    return substr(md5($breakpoints['mobile_max'] . '-' . $breakpoints['tablet_max'] . '-' . $breakpoints['large']), 0, 8);
+    return substr(md5($breakpoints['mobile_max'] . '-' . $breakpoints['tablet_max'] . '-' . $breakpoints['large']), 0, KOTLINSKIDEV_BREAKPOINT_HASH_LENGTH);
 }
 
 function kotlinskidev_breakpoint_px_to_rem(int $px): string
 {
-    $rem = rtrim(rtrim(number_format($px / 16, 4, '.', ''), '0'), '.');
+    $rem = rtrim(rtrim(number_format($px / KOTLINSKIDEV_ROOT_FONT_SIZE_PX, KOTLINSKIDEV_BREAKPOINT_REM_PRECISION, '.', ''), '0'), '.');
     return $rem . 'rem';
 }
 
@@ -72,18 +76,25 @@ function kotlinskidev_css_has_breakpoint_tokens(string $css): bool
     return false;
 }
 
-function kotlinskidev_transform_breakpoint_css(string $css): string
+function kotlinskidev_breakpoint_token_replacements(): array
 {
-    if (kotlinskidev_breakpoints_are_default()) {
-        return $css;
-    }
-
     $breakpoints  = kotlinskidev_get_breakpoints();
     $replacements = [];
     foreach (KOTLINSKIDEV_BREAKPOINT_BUILD_TOKENS as $token => $target) {
         [$key, $offset] = $target;
         $replacements['/(?<![\d.])' . preg_quote($token, '/') . '/'] = kotlinskidev_breakpoint_px_to_rem($breakpoints[$key] + $offset);
     }
+
+    return $replacements;
+}
+
+function kotlinskidev_transform_breakpoint_css(string $css): string
+{
+    if (kotlinskidev_breakpoints_are_default()) {
+        return $css;
+    }
+
+    $replacements = kotlinskidev_breakpoint_token_replacements();
 
     return preg_replace_callback(
         '/@media[^{]+/',

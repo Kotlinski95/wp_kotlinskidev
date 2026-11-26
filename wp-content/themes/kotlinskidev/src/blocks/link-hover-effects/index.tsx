@@ -47,63 +47,78 @@ const addLinkHoverEffectsAttribute = (settings: BlockSettings): BlockSettings =>
   };
 };
 
+function hoverEffectToggles(): { key: keyof LinkHoverEffects; label: string; help: string }[] {
+  return [
+    {
+      key: "enableUnderlineHover",
+      label: __("Enable underline hover effect", "kotlinskidev"),
+      help: __(
+        "Adds the same animated sliding-underline hover/focus effect used sitewide in the header and footer to links in this block, even outside those areas or on elements that aren't a native link.",
+        "kotlinskidev"
+      ),
+    },
+    {
+      key: "disableBackgroundHover",
+      label: __("Disable background hover effect", "kotlinskidev"),
+      help: __(
+        "Turns off the gradient/fill hover effect on links inside this block.",
+        "kotlinskidev"
+      ),
+    },
+    {
+      key: "disableUnderlineHover",
+      label: __("Disable underline hover effect", "kotlinskidev"),
+      help: __(
+        "Turns off the sliding underline hover/focus effect on links inside this block.",
+        "kotlinskidev"
+      ),
+    },
+    {
+      key: "disableLinkGradient",
+      label: __("Disable link underline/gradient effect", "kotlinskidev"),
+      help: __(
+        "Excludes links in this block from the sitewide header/footer hover-underline and gradient-text-on-focus effect, without affecting this block's own hover/focus styling. Enabled by default sitewide; turn this on only where it conflicts, like the Social Link block.",
+        "kotlinskidev"
+      ),
+    },
+  ];
+}
+
+function LinkHoverEffectsPanel({ attributes, setAttributes }: BlockEditProps) {
+  const linkHoverEffects = attributes.linkHoverEffects || {};
+
+  const update = (key: keyof LinkHoverEffects, value: boolean) => {
+    setAttributes({
+      linkHoverEffects: { ...linkHoverEffects, [key]: value },
+    });
+  };
+
+  return (
+    <PanelBody title={__("Link Hover Effects", "kotlinskidev")} initialOpen={false}>
+      {hoverEffectToggles().map(({ key, label, help }) => (
+        <ToggleControl
+          key={key}
+          label={label}
+          help={help}
+          checked={!!linkHoverEffects[key]}
+          onChange={(value) => update(key, value)}
+        />
+      ))}
+    </PanelBody>
+  );
+}
+
 const withLinkHoverEffectsControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (DYNAMIC_PREVIEW_BLOCKS.includes(props.name ?? "")) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const linkHoverEffects = attributes.linkHoverEffects || {};
-
-    const update = (key: keyof LinkHoverEffects, value: boolean) => {
-      setAttributes({
-        linkHoverEffects: { ...linkHoverEffects, [key]: value },
-      });
-    };
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Link Hover Effects", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Enable underline hover effect", "kotlinskidev")}
-              help={__(
-                "Adds the same animated sliding-underline hover/focus effect used sitewide in the header and footer to links in this block, even outside those areas or on elements that aren't a native link.",
-                "kotlinskidev"
-              )}
-              checked={!!linkHoverEffects.enableUnderlineHover}
-              onChange={(value) => update("enableUnderlineHover", value)}
-            />
-            <ToggleControl
-              label={__("Disable background hover effect", "kotlinskidev")}
-              help={__(
-                "Turns off the gradient/fill hover effect on links inside this block.",
-                "kotlinskidev"
-              )}
-              checked={!!linkHoverEffects.disableBackgroundHover}
-              onChange={(value) => update("disableBackgroundHover", value)}
-            />
-            <ToggleControl
-              label={__("Disable underline hover effect", "kotlinskidev")}
-              help={__(
-                "Turns off the sliding underline hover/focus effect on links inside this block.",
-                "kotlinskidev"
-              )}
-              checked={!!linkHoverEffects.disableUnderlineHover}
-              onChange={(value) => update("disableUnderlineHover", value)}
-            />
-            <ToggleControl
-              label={__("Disable link underline/gradient effect", "kotlinskidev")}
-              help={__(
-                "Excludes links in this block from the sitewide header/footer hover-underline and gradient-text-on-focus effect, without affecting this block's own hover/focus styling. Enabled by default sitewide; turn this on only where it conflicts, like the Social Link block.",
-                "kotlinskidev"
-              )}
-              checked={!!linkHoverEffects.disableLinkGradient}
-              onChange={(value) => update("disableLinkGradient", value)}
-            />
-          </PanelBody>
+          <LinkHoverEffectsPanel {...props} />
         </InspectorControls>
       </Fragment>
     );

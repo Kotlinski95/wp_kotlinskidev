@@ -10,14 +10,23 @@ function kotlinskidev_get_above_fold_media_blocks(): array
     );
 }
 
+function kotlinskidev_initial_above_fold_state(): array
+{
+    return array(
+        'claimed'        => false,
+        'preloads'       => array(),
+        'owner'          => '',
+        'hero_carousels' => 0,
+    );
+}
+
 function &kotlinskidev_above_fold_state(): array
 {
-    static $state = array(
-        'claimed'          => false,
-        'preloads'         => array(),
-        'owner'            => '',
-        'hero_carousels'   => 0,
-    );
+    static $state = null;
+
+    if (null === $state) {
+        $state = kotlinskidev_initial_above_fold_state();
+    }
 
     return $state;
 }
@@ -25,12 +34,7 @@ function &kotlinskidev_above_fold_state(): array
 function kotlinskidev_reset_above_fold_state(): void
 {
     $state = &kotlinskidev_above_fold_state();
-    $state = array(
-        'claimed'        => false,
-        'preloads'       => array(),
-        'owner'          => '',
-        'hero_carousels' => 0,
-    );
+    $state = kotlinskidev_initial_above_fold_state();
 }
 
 function kotlinskidev_is_above_fold(array $block): bool

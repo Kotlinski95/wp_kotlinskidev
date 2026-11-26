@@ -149,51 +149,55 @@ const UTILITY_GROUPS: UtilityGroup[] = [
   },
 ];
 
+function UtilityClassPanel({ attributes, setAttributes }: BlockEditProps) {
+  const currentClasses = new Set((attributes.className ?? "").split(/\s+/).filter(Boolean));
+
+  const toggleClass = (cls: string, checked: boolean) => {
+    const updated = new Set(currentClasses);
+    if (checked) {
+      updated.add(cls);
+    } else {
+      updated.delete(cls);
+    }
+    setAttributes({ className: Array.from(updated).join(" ") || undefined });
+  };
+
+  return (
+    <PanelBody
+      title={__("Utility Classes", "kotlinskidev")}
+      initialOpen={false}
+      className="kt-utility-panel"
+    >
+      {UTILITY_GROUPS.map((group) => (
+        <div key={group.label} className="kt-utility-panel__group">
+          <span className="kt-utility-panel__group-label">{group.label}</span>
+          {group.classes.map(({ label, value, help }) => (
+            <CheckboxControl
+              key={value}
+              label={label}
+              help={help}
+              checked={currentClasses.has(value)}
+              onChange={(checked) => toggleClass(value, checked)}
+              __nextHasNoMarginBottom
+            />
+          ))}
+        </div>
+      ))}
+    </PanelBody>
+  );
+}
+
 const withUtilityClassPicker = createHigherOrderComponent(
   (BlockEdit: ComponentType<BlockEditProps>) => (props: BlockEditProps) => {
-    const { name, attributes, setAttributes } = props;
-
-    if (!hasBlockSupport(name, "customClassName", true)) {
+    if (!hasBlockSupport(props.name, "customClassName", true)) {
       return <BlockEdit {...props} />;
     }
-
-    const currentClasses = new Set((attributes.className ?? "").split(/\s+/).filter(Boolean));
-
-    const toggleClass = (cls: string, checked: boolean) => {
-      const updated = new Set(currentClasses);
-      if (checked) {
-        updated.add(cls);
-      } else {
-        updated.delete(cls);
-      }
-      setAttributes({ className: Array.from(updated).join(" ") || undefined });
-    };
 
     return (
       <>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody
-            title={__("Utility Classes", "kotlinskidev")}
-            initialOpen={false}
-            className="kt-utility-panel"
-          >
-            {UTILITY_GROUPS.map((group) => (
-              <div key={group.label} className="kt-utility-panel__group">
-                <span className="kt-utility-panel__group-label">{group.label}</span>
-                {group.classes.map(({ label, value, help }) => (
-                  <CheckboxControl
-                    key={value}
-                    label={label}
-                    help={help}
-                    checked={currentClasses.has(value)}
-                    onChange={(checked) => toggleClass(value, checked)}
-                    __nextHasNoMarginBottom
-                  />
-                ))}
-              </div>
-            ))}
-          </PanelBody>
+          <UtilityClassPanel {...props} />
         </InspectorControls>
       </>
     );

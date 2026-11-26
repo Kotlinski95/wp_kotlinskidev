@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`responsive-font-size filter characterization BlockEdit markup across the attribute matrix 1`] = `
+[
+  {
+    "attributes": "empty",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div style="margin-top: 1rem; grid-column: 1 / -1; width: 100%;"><button type="button" style="width: 100%; justify-content: space-between; padding: 0.5rem 0px; border-radius: 0; border-bottom: 0.0625rem solid rgb(221, 221, 221); background: transparent; font-size: 0.8125rem; font-weight: 500; color: rgb(30, 30, 30); cursor: pointer; display: flex; align-items: center;" class="components-button is-tertiary"><span style="display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1rem;">📱</span>Responsive font size</span><span style="transform: rotate(0deg); transition: transform 0.2s ease; font-size: 0.75rem;">▼</span></button></div>",
+  },
+  {
+    "attributes": "presets",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div style="margin-top: 1rem; grid-column: 1 / -1; width: 100%;"><button type="button" style="width: 100%; justify-content: space-between; padding: 0.5rem 0px; border-radius: 0; border-bottom: 0.0625rem solid rgb(221, 221, 221); background: transparent; font-size: 0.8125rem; font-weight: 500; color: rgb(30, 30, 30); cursor: pointer; display: flex; align-items: center;" class="components-button is-tertiary"><span style="display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1rem;">📱</span>Responsive font size<span style="width: 0.375rem; height: 0.375rem; border-radius: 50%; background-color: rgb(0, 124, 186); display: inline-block;"></span></span><span style="transform: rotate(0deg); transition: transform 0.2s ease; font-size: 0.75rem;">▼</span></button></div>",
+  },
+  {
+    "attributes": "custom",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div style="margin-top: 1rem; grid-column: 1 / -1; width: 100%;"><button type="button" style="width: 100%; justify-content: space-between; padding: 0.5rem 0px; border-radius: 0; border-bottom: 0.0625rem solid rgb(221, 221, 221); background: transparent; font-size: 0.8125rem; font-weight: 500; color: rgb(30, 30, 30); cursor: pointer; display: flex; align-items: center;" class="components-button is-tertiary"><span style="display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1rem;">📱</span>Responsive font size<span style="width: 0.375rem; height: 0.375rem; border-radius: 50%; background-color: rgb(0, 124, 186); display: inline-block;"></span></span><span style="transform: rotate(0deg); transition: transform 0.2s ease; font-size: 0.75rem;">▼</span></button></div>",
+  },
+  {
+    "attributes": "emptyObject",
+    "block": "core/paragraph",
+    "markup": "<div data-testid="original"></div><div style="margin-top: 1rem; grid-column: 1 / -1; width: 100%;"><button type="button" style="width: 100%; justify-content: space-between; padding: 0.5rem 0px; border-radius: 0; border-bottom: 0.0625rem solid rgb(221, 221, 221); background: transparent; font-size: 0.8125rem; font-weight: 500; color: rgb(30, 30, 30); cursor: pointer; display: flex; align-items: center;" class="components-button is-tertiary"><span style="display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1rem;">📱</span>Responsive font size</span><span style="transform: rotate(0deg); transition: transform 0.2s ease; font-size: 0.75rem;">▼</span></button></div>",
+  },
+  {
+    "attributes": "empty",
+    "block": "core/image",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "presets",
+    "block": "core/image",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "custom",
+    "block": "core/image",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "emptyObject",
+    "block": "core/image",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "empty",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "presets",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "custom",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+  {
+    "attributes": "emptyObject",
+    "block": "kotlinskidev/certificate",
+    "markup": "<div data-testid="original"></div>",
+  },
+]
+`;
+
+exports[`responsive-font-size filter characterization registration across the block matrix 1`] = `
+[
+  {
+    "name": "core/group",
+    "result": {
+      "attributes": {
+        "className": {
+          "type": "string",
+        },
+      },
+      "name": "core/group",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+        "responsiveFontSize": {
+          "default": {},
+          "type": "object",
+        },
+      },
+      "name": "core/paragraph",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": false,
+  },
+  {
+    "name": "core/image",
+    "result": {
+      "attributes": {
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/image",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/columns",
+    "result": {
+      "attributes": {
+        "verticalAlignment": {
+          "type": "string",
+        },
+      },
+      "name": "core/columns",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/cover",
+    "result": {
+      "attributes": {
+        "url": {
+          "type": "string",
+        },
+      },
+      "name": "core/cover",
+      "supports": {
+        "color": true,
+      },
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/heading",
+    "result": {
+      "attributes": {
+        "level": {
+          "default": 2,
+          "type": "number",
+        },
+        "responsiveFontSize": {
+          "default": {},
+          "type": "object",
+        },
+      },
+      "name": "core/heading",
+      "supports": {
+        "typography": {
+          "fontSize": true,
+        },
+      },
+    },
+    "sameObject": false,
+  },
+  {
+    "name": "core/button",
+    "result": {
+      "attributes": {
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "core/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/html",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/html",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/code",
+    "result": {
+      "attributes": {
+        "content": {
+          "type": "string",
+        },
+      },
+      "name": "core/code",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/navigation-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+      },
+      "name": "core/navigation-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/button",
+    "result": {
+      "attributes": {
+        "text": {
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/button",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/nav-link",
+    "result": {
+      "attributes": {
+        "label": {
+          "type": "string",
+        },
+      },
+      "name": "kotlinskidev/nav-link",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/marquee",
+    "result": {
+      "attributes": {
+        "speed": {
+          "default": 20,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/marquee",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "kotlinskidev/city-grid",
+    "result": {
+      "attributes": {
+        "limit": {
+          "default": 3,
+          "type": "number",
+        },
+      },
+      "name": "kotlinskidev/city-grid",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/group",
+    "result": {
+      "name": "core/group",
+    },
+    "sameObject": true,
+  },
+  {
+    "name": "core/paragraph",
+    "result": {
+      "name": "core/paragraph",
+      "supports": {
+        "typography": false,
+      },
+    },
+    "sameObject": true,
+  },
+]
+`;

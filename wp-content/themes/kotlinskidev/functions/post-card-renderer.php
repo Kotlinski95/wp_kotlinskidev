@@ -1,4 +1,6 @@
 <?php
+const KOTLINSKIDEV_POST_CARD_EXCERPT_WORDS = 25;
+
 function kotlinskidev_render_post_card( int $post_id, array $args = [] ): string {
     $args = wp_parse_args( $args, [
         'badge_label'  => '',
@@ -14,7 +16,7 @@ function kotlinskidev_render_post_card( int $post_id, array $args = [] ): string
     if ( '' === $excerpt ) {
         $excerpt = get_post_field( 'post_content', $post_id );
     }
-    $excerpt = wp_trim_words( wp_strip_all_tags( $excerpt ), 25, '...' );
+    $excerpt = wp_trim_words( wp_strip_all_tags( $excerpt ), KOTLINSKIDEV_POST_CARD_EXCERPT_WORDS, '...' );
 
     $badge = '' !== $args['badge_label'] ? $args['badge_label'] : kotlinskidev_reading_time( $post_id );
 

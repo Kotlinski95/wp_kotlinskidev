@@ -19,6 +19,85 @@ interface GalleryLightboxAttributes extends Partial<CarouselSettings> {
   mobileImages?: GalleryMedia[];
 }
 
+const toDataMedia = (items: GalleryMedia[]): string =>
+  JSON.stringify(
+    items.map(({ url, alt, type, poster, width, height }) => ({
+      src: url,
+      alt,
+      type: type ?? "image",
+      poster: poster ?? "",
+      width: width ?? 0,
+      height: height ?? 0,
+    }))
+  );
+
+const formatTotalCount = (totalCount: number): string => String(totalCount).padStart(2, "0");
+
+const buildTriggerCountSuffix = (
+  totalCount: number,
+  trackActiveSlide: boolean | undefined
+): string => {
+  if (totalCount <= 1) {
+    return "";
+  }
+  return trackActiveSlide ? ` 01 / ${formatTotalCount(totalCount)}` : ` +${totalCount - 1}`;
+};
+
+const TriggerCount = ({
+  totalCount,
+  trackActiveSlide,
+}: {
+  totalCount: number;
+  trackActiveSlide: boolean | undefined;
+}) => (
+  <span className="gallery-lightbox-count" aria-hidden="true">
+    {trackActiveSlide ? (
+      <>
+        <span className="gallery-lightbox-count__current">01</span>
+        {` / ${formatTotalCount(totalCount)}`}
+      </>
+    ) : (
+      `+${totalCount - 1}`
+    )}
+  </span>
+);
+
+const FirstMediaTrigger = ({
+  first,
+  totalCount,
+  carouselSettings,
+}: {
+  first: GalleryMedia;
+  totalCount: number;
+  carouselSettings: Partial<CarouselSettings>;
+}) => (
+  <button
+    className="gallery-lightbox-trigger"
+    type="button"
+    aria-label={`${first.alt || "Open gallery"}${buildTriggerCountSuffix(totalCount, carouselSettings.trackActiveSlide)}`}
+    style={
+      first.width && first.height ? { aspectRatio: `${first.width}/${first.height}` } : undefined
+    }
+  >
+    <img
+      src={first.type === "video" ? (first.poster ?? first.url) : first.url}
+      alt={first.alt}
+      width={first.width || undefined}
+      height={first.height || undefined}
+      loading={carouselSettings.lazyLoad ? "lazy" : "eager"}
+      decoding="async"
+    />
+    {first.type === "video" && (
+      <span className="gallery-lightbox-video-badge" aria-hidden="true">
+        &#9654;
+      </span>
+    )}
+    {totalCount > 1 && (
+      <TriggerCount totalCount={totalCount} trackActiveSlide={carouselSettings.trackActiveSlide} />
+    )}
+  </button>
+);
+
 export default function Save({ attributes }: { attributes: GalleryLightboxAttributes }) {
   const {
     images = [],
@@ -31,85 +110,21 @@ export default function Save({ attributes }: { attributes: GalleryLightboxAttrib
     return null;
   }
 
-  const [first, ...rest] = images;
-  const totalCount = images.length;
-
-  const imagesData = JSON.stringify(
-    images.map(({ url, alt, type, poster, width, height }) => ({
-      src: url,
-      alt,
-      type: type ?? "image",
-      poster: poster ?? "",
-      width: width ?? 0,
-      height: height ?? 0,
-    }))
-  );
-  const mobileImagesData =
-    useMobileMedia && mobileImages.length
-      ? JSON.stringify(
-          mobileImages.map(({ url, alt, type, poster, width, height }) => ({
-            src: url,
-            alt,
-            type: type ?? "image",
-            poster: poster ?? "",
-            width: width ?? 0,
-            height: height ?? 0,
-          }))
-        )
-      : null;
-  const settingsData = JSON.stringify(carouselSettings);
-
-  let triggerCountSuffix = "";
-  if (totalCount > 1) {
-    triggerCountSuffix = carouselSettings.trackActiveSlide
-      ? ` 01 / ${String(totalCount).padStart(2, "0")}`
-      : ` +${rest.length}`;
-  }
+  const mobileImagesData = useMobileMedia && mobileImages.length ? toDataMedia(mobileImages) : null;
 
   return (
     <div
       {...useBlockProps.save()}
       data-gallery-lightbox=""
-      data-images={imagesData}
+      data-images={toDataMedia(images)}
       {...(mobileImagesData ? { "data-mobile-images": mobileImagesData } : {})}
-      data-settings={settingsData}
+      data-settings={JSON.stringify(carouselSettings)}
     >
-      <button
-        className="gallery-lightbox-trigger"
-        type="button"
-        aria-label={`${first.alt || "Open gallery"}${triggerCountSuffix}`}
-        style={
-          first.width && first.height
-            ? { aspectRatio: `${first.width}/${first.height}` }
-            : undefined
-        }
-      >
-        <img
-          src={first.type === "video" ? (first.poster ?? first.url) : first.url}
-          alt={first.alt}
-          width={first.width || undefined}
-          height={first.height || undefined}
-          loading={carouselSettings.lazyLoad ? "lazy" : "eager"}
-          decoding="async"
-        />
-        {first.type === "video" && (
-          <span className="gallery-lightbox-video-badge" aria-hidden="true">
-            &#9654;
-          </span>
-        )}
-        {totalCount > 1 && (
-          <span className="gallery-lightbox-count" aria-hidden="true">
-            {carouselSettings.trackActiveSlide ? (
-              <>
-                <span className="gallery-lightbox-count__current">01</span>
-                {` / ${String(totalCount).padStart(2, "0")}`}
-              </>
-            ) : (
-              `+${rest.length}`
-            )}
-          </span>
-        )}
-      </button>
+      <FirstMediaTrigger
+        first={images[0]}
+        totalCount={images.length}
+        carouselSettings={carouselSettings}
+      />
     </div>
   );
 }

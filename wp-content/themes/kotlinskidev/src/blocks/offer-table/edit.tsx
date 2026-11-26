@@ -28,11 +28,8 @@ interface CoreSelectors {
   ) => { meta?: { offer_key?: string }; title?: { raw?: string } }[] | null;
 }
 
-const OfferTableEdit = ({ attributes, setAttributes }: EditProps): React.ReactElement => {
-  const blockProps = useBlockProps();
-  const { offerKey } = attributes;
-
-  const offers = useSelect((select): OfferSummary[] => {
+function useOfferSummaries(): OfferSummary[] {
+  return useSelect((select): OfferSummary[] => {
     const records = (select(coreStore) as unknown as CoreSelectors).getEntityRecords(
       "postType",
       "kt_offer",
@@ -45,6 +42,12 @@ const OfferTableEdit = ({ attributes, setAttributes }: EditProps): React.ReactEl
         name: record.title?.raw || record.meta?.offer_key || "",
       }));
   }, []);
+}
+
+const OfferTableEdit = ({ attributes, setAttributes }: EditProps): React.ReactElement => {
+  const blockProps = useBlockProps();
+  const { offerKey } = attributes;
+  const offers = useOfferSummaries();
 
   const options = [
     { value: "", label: __("Select an offer", "kotlinskidev") },

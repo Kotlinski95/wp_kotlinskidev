@@ -1,9 +1,11 @@
 <?php
+require_once __DIR__ . '/responsive-block-markup.php';
+
 function kotlinskidev_build_responsive_height_declarations( array $responsive_height ): array
 {
     $declarations = [];
 
-    foreach ( [ 'desktop', 'tablet', 'mobile' ] as $device ) {
+    foreach ( KOTLINSKIDEV_DEVICES_DESKTOP_FIRST as $device ) {
         $device_settings = $responsive_height[ $device ] ?? [];
         if ( ! is_array( $device_settings ) ) {
             continue;
@@ -23,7 +25,7 @@ function kotlinskidev_build_responsive_height_classes( array $responsive_height 
     $classes = [];
     $inherited = '';
 
-    foreach ( [ 'desktop', 'tablet', 'mobile' ] as $device ) {
+    foreach ( KOTLINSKIDEV_DEVICES_DESKTOP_FIRST as $device ) {
         $device_settings = $responsive_height[ $device ] ?? [];
         $min_height = is_array( $device_settings )
             ? kotlinskidev_sanitize_css_length( (string) ( $device_settings['minHeight'] ?? '' ) )
@@ -53,8 +55,8 @@ function kotlinskidev_apply_responsive_height_style( string $block_content, arra
         return $block_content;
     }
 
-    $processor = new WP_HTML_Tag_Processor( $block_content );
-    if ( ! $processor->next_tag() ) {
+    $processor = kotlinskidev_responsive_open_block_tag( $block_content );
+    if ( null === $processor ) {
         return $block_content;
     }
 
@@ -64,9 +66,7 @@ function kotlinskidev_apply_responsive_height_style( string $block_content, arra
         $processor->set_attribute( 'class', trim( $existing_class . ' ' . implode( ' ', $missing_classes ) ) );
     }
 
-    $existing_style = trim( (string) ( $processor->get_attribute( 'style' ) ?? '' ) );
-    $existing_style = '' !== $existing_style ? rtrim( $existing_style, ';' ) . ';' : '';
-    $processor->set_attribute( 'style', $existing_style . implode( ';', $declarations ) . ';' );
+    kotlinskidev_responsive_append_inline_declarations( $processor, $declarations );
 
     return $processor->get_updated_html();
 }

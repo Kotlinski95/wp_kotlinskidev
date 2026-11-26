@@ -1,6 +1,5 @@
 @import "variables";
 
-/* Language selector button */
 .language-selector {
 	display: inline-block;
 	position: relative;
@@ -33,14 +32,13 @@
 }
 
 .language-flag {
-	width: 1.5rem; /* Adjust flag size */
+	width: 1.5rem;
 	height: auto;
 	aspect-ratio: 1.89;
 	border-radius: 0.125rem;
 	box-shadow: color-mix(in srgb, var(--color-text) 20%, transparent) 0 0 0.125rem;
 }
 
-/* Language modal (hidden by default) */
 .language-modal {
 	display: none;
 	position: absolute;
@@ -58,7 +56,6 @@
 	}
 }
 
-/* Language options list */
 .language-switcher {
 	list-style: none;
 	padding: 0;

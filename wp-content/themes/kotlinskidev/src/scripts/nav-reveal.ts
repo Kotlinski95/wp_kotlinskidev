@@ -16,26 +16,32 @@ const REVEAL_SELECTOR = [
   ".flip-right-on-reveal",
 ].join(",");
 
+const REVEALED_CLASS = "visible";
+
 function findRevealElements(container: HTMLElement): HTMLElement[] {
   const descendants = Array.from(container.querySelectorAll<HTMLElement>(REVEAL_SELECTOR));
   return container.matches(REVEAL_SELECTOR) ? [container, ...descendants] : descendants;
 }
 
-document.addEventListener(NAV_PANEL_OPEN_EVENT, (e) => {
-  const { container } = (e as CustomEvent<NavPanelEventDetail>).detail;
-  const elements = findRevealElements(container);
+const readPanelContainer = (event: Event): HTMLElement =>
+  (event as CustomEvent<NavPanelEventDetail>).detail.container;
+
+const onNavPanelOpen = (event: Event): void => {
+  const elements = findRevealElements(readPanelContainer(event));
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      elements.forEach((el) => {
-        el.classList.add("visible");
+      elements.forEach((element) => {
+        element.classList.add(REVEALED_CLASS);
       });
     });
   });
-});
+};
 
-document.addEventListener(NAV_PANEL_CLOSE_EVENT, (e) => {
-  const { container } = (e as CustomEvent<NavPanelEventDetail>).detail;
-  findRevealElements(container).forEach((el) => {
-    el.classList.remove("visible");
+const onNavPanelClose = (event: Event): void => {
+  findRevealElements(readPanelContainer(event)).forEach((element) => {
+    element.classList.remove(REVEALED_CLASS);
   });
-});
+};
+
+document.addEventListener(NAV_PANEL_OPEN_EVENT, onNavPanelOpen);
+document.addEventListener(NAV_PANEL_CLOSE_EVENT, onNavPanelClose);

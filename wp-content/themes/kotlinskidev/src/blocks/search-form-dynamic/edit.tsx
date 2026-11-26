@@ -1,12 +1,9 @@
 import React from "react";
 import ServerSideRender from "@wordpress/server-side-render";
-import {
-  InspectorControls,
-  useBlockProps,
-  __experimentalColorGradientControl as ColorGradientControl,
-} from "@wordpress/block-editor";
+import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import { PanelBody } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+import { SolidColorControl } from "../shared/solid-color-control";
 
 export interface SearchFormDynamicAttributes {
   wrapperBackgroundColor?: string;
@@ -19,63 +16,42 @@ export interface SearchFormDynamicEditProps {
   setAttributes: (attrs: Partial<SearchFormDynamicAttributes>) => void;
 }
 
-export default function Edit({ attributes, setAttributes }: SearchFormDynamicEditProps) {
-  const wrapperBackgroundColor = attributes.wrapperBackgroundColor ?? "";
-  const inputBorderColor = attributes.inputBorderColor ?? "";
-  const labelColor = attributes.labelColor ?? "";
+function searchFormColorFields(): { field: keyof SearchFormDynamicAttributes; label: string }[] {
+  return [
+    { field: "wrapperBackgroundColor", label: __("Panel background color", "kotlinskidev") },
+    { field: "inputBorderColor", label: __("Input/select border color", "kotlinskidev") },
+    { field: "labelColor", label: __("Label color", "kotlinskidev") },
+  ];
+}
 
+function SearchFormColorsPanel({ attributes, setAttributes }: SearchFormDynamicEditProps) {
+  return (
+    <PanelBody title={__("Search Form Colors", "kotlinskidev")} initialOpen={false}>
+      {searchFormColorFields().map(({ field, label }) => (
+        <SolidColorControl
+          key={field}
+          label={label}
+          value={attributes[field] ?? ""}
+          onChange={(value) => setAttributes({ [field]: value })}
+        />
+      ))}
+      <p className="components-base-control__help">
+        {__(
+          "Leave empty to keep the theme's default colors. The search button keeps its own gradient hover effect regardless of these settings.",
+          "kotlinskidev"
+        )}
+      </p>
+    </PanelBody>
+  );
+}
+
+export default function Edit({ attributes, setAttributes }: SearchFormDynamicEditProps) {
   const blockProps = useBlockProps();
 
   return (
     <div {...blockProps}>
       <InspectorControls>
-        <PanelBody title={__("Search Form Colors", "kotlinskidev")} initialOpen={false}>
-          <ColorGradientControl
-            label={__("Panel background color", "kotlinskidev")}
-            colorValue={wrapperBackgroundColor || undefined}
-            onColorChange={(value: string | undefined) =>
-              setAttributes({ wrapperBackgroundColor: value || "" })
-            }
-            gradients={[]}
-            disableCustomGradients
-            enableAlpha
-            clearable
-            __experimentalIsRenderedInSidebar
-            __nextHasNoMarginBottom
-          />
-          <ColorGradientControl
-            label={__("Input/select border color", "kotlinskidev")}
-            colorValue={inputBorderColor || undefined}
-            onColorChange={(value: string | undefined) =>
-              setAttributes({ inputBorderColor: value || "" })
-            }
-            gradients={[]}
-            disableCustomGradients
-            enableAlpha
-            clearable
-            __experimentalIsRenderedInSidebar
-            __nextHasNoMarginBottom
-          />
-          <ColorGradientControl
-            label={__("Label color", "kotlinskidev")}
-            colorValue={labelColor || undefined}
-            onColorChange={(value: string | undefined) =>
-              setAttributes({ labelColor: value || "" })
-            }
-            gradients={[]}
-            disableCustomGradients
-            enableAlpha
-            clearable
-            __experimentalIsRenderedInSidebar
-            __nextHasNoMarginBottom
-          />
-          <p className="components-base-control__help">
-            {__(
-              "Leave empty to keep the theme's default colors. The search button keeps its own gradient hover effect regardless of these settings.",
-              "kotlinskidev"
-            )}
-          </p>
-        </PanelBody>
+        <SearchFormColorsPanel attributes={attributes} setAttributes={setAttributes} />
       </InspectorControls>
       <ServerSideRender block="kotlinskidev/search-form-dynamic" attributes={attributes} />
     </div>

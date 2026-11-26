@@ -54,17 +54,62 @@ interface NavIconMedia {
 
 const ITEM_TEMPLATE: TemplateArray = [["kotlinskidev/social-item", {}]];
 
+type ResponsiveKey = "iconWidth" | "iconHeight" | "itemGap";
+
+interface DeviceSizeControlsProps {
+  device: ResponsiveDevice;
+  attributes: SocialSectionAttributes;
+  onChange: (key: ResponsiveKey, device: ResponsiveDevice, value: string) => void;
+}
+
+function iconSizeFields(): { key: ResponsiveKey; label: string }[] {
+  return [
+    { key: "iconWidth", label: __("Icon Width", "kotlinskidev") },
+    { key: "iconHeight", label: __("Icon Height", "kotlinskidev") },
+    { key: "itemGap", label: __("Gap Between Icons", "kotlinskidev") },
+  ];
+}
+
+function DeviceSizeControls({ device, attributes, onChange }: DeviceSizeControlsProps) {
+  return (
+    <div
+      style={{
+        marginBottom: "1rem",
+        padding: "0.75rem",
+        border: "0.0625rem solid #ddd",
+        borderRadius: "0.25rem",
+      }}
+    >
+      <h4
+        style={{
+          margin: "0 0 0.75rem 0",
+          fontSize: "0.8125rem",
+          fontWeight: 600,
+          textTransform: "capitalize",
+        }}
+      >
+        {device}
+      </h4>
+      {iconSizeFields().map(({ key, label }) => (
+        <UnitControl
+          key={key}
+          label={label}
+          value={attributes[key]?.[device] || ""}
+          units={ICON_SIZE_UNITS}
+          onChange={(value: string | undefined) => onChange(key, device, value || "")}
+        />
+      ))}
+    </div>
+  );
+}
+
 export const SocialSectionEdit = ({
   attributes,
   setAttributes,
 }: BlockEditProps<SocialSectionAttributes>) => {
   const blockProps = useBlockProps({ className: "kt-social-section-editor" });
 
-  const updateResponsive = (
-    key: "iconWidth" | "iconHeight" | "itemGap",
-    device: ResponsiveDevice,
-    value: string
-  ) => {
+  const updateResponsive = (key: ResponsiveKey, device: ResponsiveDevice, value: string) => {
     setAttributes({
       [key]: { ...attributes[key], [device]: value || undefined },
     } as Partial<SocialSectionAttributes>);
@@ -83,50 +128,12 @@ export const SocialSectionEdit = ({
         </PanelBody>
         <PanelBody title={__("Icon Size & Spacing", "kotlinskidev")} initialOpen={false}>
           {RESPONSIVE_DEVICES.map((device) => (
-            <div
+            <DeviceSizeControls
               key={device}
-              style={{
-                marginBottom: "1rem",
-                padding: "0.75rem",
-                border: "0.0625rem solid #ddd",
-                borderRadius: "0.25rem",
-              }}
-            >
-              <h4
-                style={{
-                  margin: "0 0 0.75rem 0",
-                  fontSize: "0.8125rem",
-                  fontWeight: 600,
-                  textTransform: "capitalize",
-                }}
-              >
-                {device}
-              </h4>
-              <UnitControl
-                label={__("Icon Width", "kotlinskidev")}
-                value={attributes.iconWidth?.[device] || ""}
-                units={ICON_SIZE_UNITS}
-                onChange={(value: string | undefined) =>
-                  updateResponsive("iconWidth", device, value || "")
-                }
-              />
-              <UnitControl
-                label={__("Icon Height", "kotlinskidev")}
-                value={attributes.iconHeight?.[device] || ""}
-                units={ICON_SIZE_UNITS}
-                onChange={(value: string | undefined) =>
-                  updateResponsive("iconHeight", device, value || "")
-                }
-              />
-              <UnitControl
-                label={__("Gap Between Icons", "kotlinskidev")}
-                value={attributes.itemGap?.[device] || ""}
-                units={ICON_SIZE_UNITS}
-                onChange={(value: string | undefined) =>
-                  updateResponsive("itemGap", device, value || "")
-                }
-              />
-            </div>
+              device={device}
+              attributes={attributes}
+              onChange={updateResponsive}
+            />
           ))}
         </PanelBody>
       </InspectorControls>
@@ -141,6 +148,67 @@ export const SocialSectionEdit = ({
 
 const SocialSectionSave = () => <InnerBlocks.Content />;
 
+function SvgIconUpload({ attributes, setAttributes }: BlockEditProps<SocialItemAttributes>) {
+  return (
+    <MediaUploadCheck>
+      <MediaUpload
+        onSelect={(media: NavIconMedia) =>
+          setAttributes({ navIconId: media.id, navIconUrl: media.url })
+        }
+        allowedTypes={["image/svg+xml"]}
+        value={attributes.navIconId}
+        render={({ open }: { open: () => void }) => (
+          <>
+            <Button
+              variant={attributes.navIconId ? "secondary" : "primary"}
+              onClick={open}
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              {attributes.navIconId
+                ? __("Replace SVG icon", "kotlinskidev")
+                : __("Select SVG icon", "kotlinskidev")}
+            </Button>
+            {attributes.navIconId ? (
+              <Button
+                variant="link"
+                isDestructive
+                onClick={() => setAttributes({ navIconId: 0, navIconUrl: "" })}
+              >
+                {__("Remove icon", "kotlinskidev")}
+              </Button>
+            ) : null}
+          </>
+        )}
+      />
+    </MediaUploadCheck>
+  );
+}
+
+function SocialLinkPanel({ attributes, setAttributes }: BlockEditProps<SocialItemAttributes>) {
+  return (
+    <PanelBody title={__("Social Link", "kotlinskidev")} initialOpen={true}>
+      <TextControl
+        label={__("Label", "kotlinskidev")}
+        value={attributes.label}
+        onChange={(label) => setAttributes({ label })}
+      />
+      <TextControl
+        label={__("URL", "kotlinskidev")}
+        type="url"
+        value={attributes.url}
+        onChange={(url) => setAttributes({ url })}
+      />
+      <TextControl
+        label={__("Icon class", "kotlinskidev")}
+        help={__("Optional CSS class on the list item.", "kotlinskidev")}
+        value={attributes.iconClass}
+        onChange={(iconClass) => setAttributes({ iconClass })}
+      />
+      <SvgIconUpload attributes={attributes} setAttributes={setAttributes} />
+    </PanelBody>
+  );
+}
+
 export const SocialItemEdit = ({
   attributes,
   setAttributes,
@@ -150,56 +218,7 @@ export const SocialItemEdit = ({
   return (
     <div {...blockProps}>
       <InspectorControls>
-        <PanelBody title={__("Social Link", "kotlinskidev")} initialOpen={true}>
-          <TextControl
-            label={__("Label", "kotlinskidev")}
-            value={attributes.label}
-            onChange={(label) => setAttributes({ label })}
-          />
-          <TextControl
-            label={__("URL", "kotlinskidev")}
-            type="url"
-            value={attributes.url}
-            onChange={(url) => setAttributes({ url })}
-          />
-          <TextControl
-            label={__("Icon class", "kotlinskidev")}
-            help={__("Optional CSS class on the list item.", "kotlinskidev")}
-            value={attributes.iconClass}
-            onChange={(iconClass) => setAttributes({ iconClass })}
-          />
-          <MediaUploadCheck>
-            <MediaUpload
-              onSelect={(media: NavIconMedia) =>
-                setAttributes({ navIconId: media.id, navIconUrl: media.url })
-              }
-              allowedTypes={["image/svg+xml"]}
-              value={attributes.navIconId}
-              render={({ open }: { open: () => void }) => (
-                <>
-                  <Button
-                    variant={attributes.navIconId ? "secondary" : "primary"}
-                    onClick={open}
-                    style={{ width: "100%", justifyContent: "center" }}
-                  >
-                    {attributes.navIconId
-                      ? __("Replace SVG icon", "kotlinskidev")
-                      : __("Select SVG icon", "kotlinskidev")}
-                  </Button>
-                  {attributes.navIconId ? (
-                    <Button
-                      variant="link"
-                      isDestructive
-                      onClick={() => setAttributes({ navIconId: 0, navIconUrl: "" })}
-                    >
-                      {__("Remove icon", "kotlinskidev")}
-                    </Button>
-                  ) : null}
-                </>
-              )}
-            />
-          </MediaUploadCheck>
-        </PanelBody>
+        <SocialLinkPanel attributes={attributes} setAttributes={setAttributes} />
       </InspectorControls>
       {attributes.navIconUrl ? (
         <img

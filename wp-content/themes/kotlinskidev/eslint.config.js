@@ -60,7 +60,7 @@ module.exports = [
   },
   {
     // Intentional styled console banner (devtools easter egg), not debug leftovers.
-    files: ["src/scripts/console-banner.ts"],
+    files: ["src/scripts/console-banner.ts", "src/scripts/console-banner/**/*.ts"],
     rules: {
       "no-console": "off",
     },
@@ -77,7 +77,7 @@ module.exports = [
     // Reveals editor-authored block content (RSA-decrypted server-side), the same
     // trust boundary as WordPress's own `the_content` — rendering HTML here is by
     // design, matching the block's own isHtmlMode feature.
-    files: ["src/scripts/protected-content.ts"],
+    files: ["src/scripts/protected-content.ts", "src/scripts/protected-content/**"],
     rules: {
       "no-unsanitized/property": "off",
     },
@@ -86,7 +86,7 @@ module.exports = [
     // insertAdjacentHTML content already runs through this file's own
     // escapeAttribute() helper before interpolation; the rule can't see custom
     // sanitizer functions.
-    files: ["src/blocks/gallery-lightbox/init.ts"],
+    files: ["src/blocks/gallery-lightbox/lightbox-modal.ts"],
     rules: {
       "no-unsanitized/method": "off",
     },
