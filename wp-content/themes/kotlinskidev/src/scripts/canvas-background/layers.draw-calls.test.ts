@@ -54,6 +54,11 @@ const PARAM_SETS: Record<string, CanvasLayerParams> = {
   hidden: { opacity: 0, speed: -1, color: "var(--wp--preset--color--primary)" },
 };
 
+const SIGNIFICANT_DIGITS = 9;
+
+const stableNumber = (value: number): string =>
+  Number.isFinite(value) ? String(Number(value.toPrecision(SIGNIFICANT_DIGITS))) : String(value);
+
 const sha256 = (text: string): string => createHash("sha256").update(text).digest("hex");
 
 const LCG_MULTIPLIER = 1664525;
@@ -87,14 +92,17 @@ class ScenarioRecorder {
         ? `str:${value.length}:${sha256(value)}`
         : JSON.stringify(value);
     }
-    if (typeof value === "number" || typeof value === "boolean" || value === undefined) {
+    if (typeof value === "number") {
+      return stableNumber(value);
+    }
+    if (typeof value === "boolean" || value === undefined) {
       return String(value);
     }
     if (typeof value === "function") {
       return "fn";
     }
     if (ArrayBuffer.isView(value)) {
-      const items = Array.from(value as unknown as ArrayLike<number>);
+      const items = Array.from(value as unknown as ArrayLike<number>).map(stableNumber);
       const body =
         items.length > MAX_INLINE_ARRAY_LENGTH ? sha256(items.join(",")) : items.join(",");
       return `${value.constructor.name}(${items.length})[${body}]`;

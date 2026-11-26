@@ -18,7 +18,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
-## [2.4.0] — 2026-11-24
+## [2.5.1] — 2026-11-26
+
+### Removed
+
+- The OneTap accessibility plugin integration (`functions/onetap-inline-style.php` and its stylesheet handling) is gone, replaced by the standalone Kotlinskidev Accessibility plugin. The hide-on-scroll floating-icon selector and the `accessibility_toggle_click` analytics event now target `#ka11y-root`, and leftover `uploads/kotlinskidev-cache/onetap-*.css` files can be deleted manually.
+
+## [2.5.0] — 2026-11-26
 
 ### Added
 
@@ -57,11 +63,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Clean-code batch B2.1: the 2,126-line `functions/settings-page.php` is now a 15-line loader plus 14 files under `functions/settings-page/` (one per settings tab, `page.php`, and four shared field helpers that replaced about 60 repeated registrations and renderers). Option names, tab slugs and the rendered admin pages are unchanged: all 12 tab pages diff empty against the baseline.
 - Clean-code batch B1.1 (`src/utils`): image zoom magic numbers became named constants (`TAP_ZOOM_SCALE`, `SNAP_BACK_SCALE`, `DRAG_THRESHOLD_PX`) with descriptive variable names, and the last comment in `_carousel-nav.scss` was removed. Behavior and rendered markup are unchanged (`npm run snapshot:compare`).
 
-### Removed
-
-- The OneTap accessibility plugin integration (`functions/onetap-inline-style.php` and its stylesheet handling) is gone, replaced by the standalone Kotlinskidev Accessibility plugin. The hide-on-scroll floating-icon selector and the `accessibility_toggle_click` analytics event now target `#ka11y-root`, and leftover `uploads/kotlinskidev-cache/onetap-*.css` files can be deleted manually.
-
 ### Fixed
+
+- Pressing Escape in the open mega-menu now returns focus to the item that opened it, and its panel triggers are plain links with `aria-haspopup`/`aria-expanded` instead of `role="button"` links. Keyboard and screen-reader users no longer lose their place or hear a link announced as a button.
 
 - Elements with "Activate when centred on touch screens" switched off now show their hover effects, such as the hover background, when tapped on touch screens, instead of nothing. Elements with the option on keep the centred behavior.
 - Contact form default labels, placeholders and messages are now translated (Polish "Wyślij", "Imię", "Temat" and so on) when the saved value still equals the block default, while edited text stays as typed.
@@ -69,6 +73,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The device-frame lightbox video controls no longer flash before `main.css` loads, because the closed-modal rule now ships in the block's inline critical CSS. The OneTap accessibility widget now stays hidden until both its stylesheets have loaded.
 - jQuery is no longer deregistered unconditionally, which had silently stopped the OneTap accessibility plugin from loading any script. It is now loaded (without jquery-migrate) only because OneTap depends on it, and goes away automatically once that plugin is replaced.
 - The logo and Home links are no longer marked current or click-blocked on search results (`/?s=CV`), because current-link matching now also compares the query string and the server-side check skips search requests. A new `template_redirect` safety net sends a stray `?s=` on the static home page to the language home search.
+- The touch in-view hover no longer flickers: the active element now stays active while the centre band sits in a gap between cards, switches to a new card only after a short 150 ms settle, and clears once it fully leaves the viewport. Nested hover elements, such as a project card and its image text overlay, now activate together as one outermost element, so the overlay no longer blinks off right after appearing.
+
+## [2.4.0] — 2026-11-26
+
+### Added
+
+- Parallax banners now look pinned on touch devices through a compositor-run scroll-driven animation tied to the banner's own scroll range (no drift or gaps on phones), with a new Settings → Customization → Touch parallax toggle (on by default). Browsers without scroll-driven animation support and reduced-motion visitors keep the static background.
+- New "Include links and buttons" option in Settings → Customization → Touch in-view trigger, off by default, so the touch in-view hover no longer fires on links, buttons and navigation items. Cards, timeline items and image overlays keep working either way.
+
+### Fixed
+
 - The touch in-view hover no longer flickers: the active element now stays active while the centre band sits in a gap between cards, switches to a new card only after a short 150 ms settle, and clears once it fully leaves the viewport. Nested hover elements, such as a project card and its image text overlay, now activate together as one outermost element, so the overlay no longer blinks off right after appearing.
 
 ## [2.3.0] — 2026-11-18
@@ -206,6 +221,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - **2026-11-16 — The header logo link's accessible name now contains the logo's visible SVG text (`functions/site-identity.php`), fixing the Lighthouse label-in-name audit.** The search results grid CSS is inlined on search pages, removing its layout shift.
 - **2026-11-15 — Fixed the production block editor going blank with `522` errors by raising Apache `MaxRequestWorkers` from 5 to 8 and cutting `KeepAliveTimeout` from 5 to 1 on the Lightsail origin, and fixed the empty `/projekty/` and `/en/projects/` device frames by pointing them at the prod video attachment 9998 instead of the local ID 9980.** The Apache change and its evidence are in `docs/AWS.md` and `docs/522.md`; the 10 Polish `kt_modal` posts were also created on prod and linked to the English ones in Polylang.
 - **2026-11-13 — Fixed lightbox images being cropped and rounded in `src/styles/global.scss`.** The overlay copied the thumbnail's border radius, shadow and square crop (the rounded footer photo), and core sized its container to the thumbnail. The overlay now shows the full, unrounded image sized to its real proportions.
+- **2026-11-12 — The Google Maps pin now shows your current logo instead of the old site icon (`src/blocks/google-maps/render.php`).** When no custom marker logo is set, the block takes the square icon from the site logo SVG that the header uses and draws it inline, so it keeps the header's colours in both themes. A custom marker logo still wins, and the site icon image remains the last fallback.
 - **2026-11-12 — The cookie banner logo is readable in light mode, and the cookie banner and PWA install popup buttons now use primary and adaptive contrast colours in both themes (`src/styles/complianz.scss`, `src/styles/pwa-prompts.scss`).** The banner's logo copy lacked the header's `--logo-*` colour variables and kept white text on a light banner; Accept is now primary and hovers to a lighter or darker tone of the same primary (never the other theme's primary), Deny and View preferences use the adaptive contrast pair, and the PWA popup follows the site theme toggle instead of the OS setting. Text and button contrast measures 4.7:1 or better in both modes.
 - **2026-11-12 — The Google Maps buttons ("Cookie settings", "Reset View") and the contact form submit button can now be styled per block from the editor.** A new "Button style" select offers the 16 Fill/Primary/Outline variants from `theme.json` (default Fill Adaptive, gradient outline excluded), generated from the same variant map as the translated-text block, and the two map button labels are editable. Unknown or missing values fall back to Fill Adaptive, and a Jest test fails if the editor list drifts from `theme.json`.
 - **2026-11-12 — The Google Maps block now marks the location with a branded card instead of the default red pin.** The card is a Google `OverlayView` showing a logo (new `markerLogoUrl`/`markerLogoId` attributes, falling back to the site icon), the name and the tagline, and links to the place on Google Maps in a new tab. The info bubble no longer depends on the stored custom CSS, and `kotlinskidev_sanitize_map_css()` repairs the `n` line-break artifacts that had broken it.

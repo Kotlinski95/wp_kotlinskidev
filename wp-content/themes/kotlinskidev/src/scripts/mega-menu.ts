@@ -31,5 +31,5 @@ document.addEventListener("DOMContentLoaded", () => {
   bindNavPointerEvents(nav, controller);
   bindBackdrop(nav.querySelector<HTMLElement>(BACKDROP_SELECTOR), controller);
   bindFocusOut(nav, controller);
-  bindEscapeKey(controller);
+  bindEscapeKey(nav, controller);
 });

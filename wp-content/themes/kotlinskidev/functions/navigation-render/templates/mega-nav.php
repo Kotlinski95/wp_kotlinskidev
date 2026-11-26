@@ -12,7 +12,7 @@
 					href="<?php echo esc_url( $item['url'] ); ?>"
 					<?php if ( ! empty( $item['font_size_style'] ) ) : ?>style="<?php echo esc_attr( $item['font_size_style'] ); ?>"<?php endif; ?>
 					<?php if ( $nav_icon_svg && $nav_label === '' ) : ?>aria-label="<?php echo esc_attr( $item['aria_label'] ?? $item['label'] ); ?>"<?php endif; ?>
-					<?php if ( $item['has_panel'] ) : ?>role="button" aria-haspopup="true" aria-expanded="false"<?php endif; ?>>
+					<?php if ( $item['has_panel'] ) : ?>aria-haspopup="true" aria-expanded="false"<?php endif; ?>>
 					<?php if ( ! empty( $item['flag'] ) ) : ?>
 					<img class="kt-mega-nav__flag" src="<?php echo esc_url( $item['flag'] ); ?>" alt="" width="48" height="30" />
 					<?php endif; ?>
