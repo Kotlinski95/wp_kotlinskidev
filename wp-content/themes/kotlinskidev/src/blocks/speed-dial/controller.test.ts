@@ -170,7 +170,7 @@ describe("speed dial controller", () => {
     const action = list.querySelector("a") as HTMLAnchorElement;
     action.focus();
     action.click();
-    expect(document.activeElement).toBe(toggle);
+    expect(activeElement()).toBe(toggle);
     controller.destroy();
   });
 
@@ -182,7 +182,7 @@ describe("speed dial controller", () => {
     controller.open();
     bridge.focus();
     bridge.click();
-    expect(document.activeElement).not.toBe(toggle);
+    expect(activeElement()).not.toBe(toggle);
     controller.destroy();
   });
 });
