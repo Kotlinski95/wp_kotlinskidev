@@ -12,99 +12,142 @@ function kotlinskidev_register_block_categories( array $categories ): array {
 }
 add_filter( 'block_categories_all', 'kotlinskidev_register_block_categories' );
 
+function kotlinskidev_block_directory_plan(): array {
+    return [
+        'banner-carousel',
+        'gallery-lightbox',
+        'hero-carousel',
+        'hero-carousel/slide',
+        'protected-content',
+        'scroll-section',
+        'scroll-section/item',
+        'navigation',
+        'content-block',
+        'theme-switcher',
+        'search-panel',
+        'popular-pages',
+        'nav-search-panel',
+        'language-panel',
+        'nav-language-panel',
+        'nav-popular-pages',
+        'simple-grid',
+        'holder',
+        'nav-paragraph',
+        'nav-link',
+        'button',
+        'nav-image',
+        'nav-banner',
+        'copyrights',
+        'scroll-to-top',
+        'social-section',
+        'social-section/item',
+        'slider',
+        'responsive-image',
+        'google-maps',
+        'contact-form',
+        'breadcrumbs',
+        'model-viewer',
+        'icon',
+        'content-tabs',
+        'content-tabs/item',
+        'content-tabs/nav-link',
+        'device-frame',
+        'feature-card-canvas',
+        [
+            'feature' => 'article_cards',
+            'blocks'  => [
+                'article-card',
+            ],
+        ],
+        [
+            'feature' => 'project_cards',
+            'blocks'  => [
+                'project-card',
+            ],
+        ],
+        'translated-text',
+        [
+            'feature' => 'offers',
+            'blocks'  => [
+                'offer-table',
+            ],
+        ],
+        'process-steps',
+        'process-steps/item',
+        'pricing-cards',
+        'pricing-cards/item',
+        'contact-detail',
+        'marquee',
+        'marquee/item',
+        'blog-topics-grid-dynamic',
+        'category-header-dynamic',
+        'category-posts-grid-dynamic',
+        'other-topics-dynamic',
+        'article-tags-dynamic',
+        'related-articles-dynamic',
+        [
+            'feature' => 'article_toc',
+            'blocks'  => [
+                'article-toc',
+            ],
+        ],
+        'tag-posts-grid-dynamic',
+        'popular-content-dynamic',
+        'recently-viewed-dynamic',
+        'search-header-dynamic',
+        'not-found-dynamic',
+        'search-form-dynamic',
+        'search-results-dynamic',
+        [
+            'feature' => 'certificates',
+            'blocks'  => [
+                'certificates-grid-dynamic',
+                'certificate',
+            ],
+        ],
+        [
+            'feature' => 'canvas_backgrounds',
+            'blocks'  => [
+                'canvas-background/layer-gradient',
+                'canvas-background/layer-noise',
+                'canvas-background/layer-grid-lines',
+                'canvas-background/layer-blob',
+                'canvas-background/layer-sweep',
+                'canvas-background/layer-light-rays',
+                'canvas-background/layer-curved-rays',
+                'canvas-background/layer-star-field',
+                'canvas-background/layer-orbit-trails',
+                'canvas-background/layer-warp-field',
+                'canvas-background/layer-nebula',
+                'canvas-background/layer-aurora',
+                'canvas-background/layer-neon-waves',
+            ],
+        ],
+        'bg-effect-preset-settings',
+    ];
+}
+
+function kotlinskidev_enabled_block_directories(): array {
+    $directories = [];
+
+    foreach ( kotlinskidev_block_directory_plan() as $entry ) {
+        if ( is_string( $entry ) ) {
+            $directories[] = $entry;
+            continue;
+        }
+
+        if ( kotlinskidev_feature_enabled( $entry['feature'] ) ) {
+            array_push( $directories, ...$entry['blocks'] );
+        }
+    }
+
+    return $directories;
+}
+
 function kotlinskidev_register_blocks(): void {
-    register_block_type( get_template_directory() . '/src/blocks/banner-carousel' );
-    register_block_type( get_template_directory() . '/src/blocks/gallery-lightbox' );
-    register_block_type( get_template_directory() . '/src/blocks/hero-carousel' );
-    register_block_type( get_template_directory() . '/src/blocks/hero-carousel/slide' );
-    register_block_type( get_template_directory() . '/src/blocks/protected-content' );
-    register_block_type( get_template_directory() . '/src/blocks/scroll-section' );
-    register_block_type( get_template_directory() . '/src/blocks/scroll-section/item' );
-    register_block_type( get_template_directory() . '/src/blocks/navigation' );
-    register_block_type( get_template_directory() . '/src/blocks/content-block' );
-    register_block_type( get_template_directory() . '/src/blocks/theme-switcher' );
-    register_block_type( get_template_directory() . '/src/blocks/search-panel' );
-    register_block_type( get_template_directory() . '/src/blocks/popular-pages' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-search-panel' );
-    register_block_type( get_template_directory() . '/src/blocks/language-panel' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-language-panel' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-popular-pages' );
-    register_block_type( get_template_directory() . '/src/blocks/simple-grid' );
-    register_block_type( get_template_directory() . '/src/blocks/holder' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-paragraph' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-link' );
-    register_block_type( get_template_directory() . '/src/blocks/button' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-image' );
-    register_block_type( get_template_directory() . '/src/blocks/nav-banner' );
-    register_block_type( get_template_directory() . '/src/blocks/copyrights' );
-    register_block_type( get_template_directory() . '/src/blocks/scroll-to-top' );
-    register_block_type( get_template_directory() . '/src/blocks/social-section' );
-    register_block_type( get_template_directory() . '/src/blocks/social-section/item' );
-    register_block_type( get_template_directory() . '/src/blocks/slider' );
-    register_block_type( get_template_directory() . '/src/blocks/responsive-image' );
-    register_block_type( get_template_directory() . '/src/blocks/google-maps' );
-    register_block_type( get_template_directory() . '/src/blocks/contact-form' );
-    register_block_type( get_template_directory() . '/src/blocks/breadcrumbs' );
-    register_block_type( get_template_directory() . '/src/blocks/model-viewer' );
-    register_block_type( get_template_directory() . '/src/blocks/icon' );
-    register_block_type( get_template_directory() . '/src/blocks/content-tabs' );
-    register_block_type( get_template_directory() . '/src/blocks/content-tabs/item' );
-    register_block_type( get_template_directory() . '/src/blocks/content-tabs/nav-link' );
-    register_block_type( get_template_directory() . '/src/blocks/device-frame' );
-    register_block_type( get_template_directory() . '/src/blocks/feature-card-canvas' );
-    if ( kotlinskidev_feature_enabled( 'article_cards' ) ) {
-        register_block_type( get_template_directory() . '/src/blocks/article-card' );
+    foreach ( kotlinskidev_enabled_block_directories() as $directory ) {
+        register_block_type( get_template_directory() . '/src/blocks/' . $directory );
     }
-    if ( kotlinskidev_feature_enabled( 'project_cards' ) ) {
-        register_block_type( get_template_directory() . '/src/blocks/project-card' );
-    }
-    register_block_type( get_template_directory() . '/src/blocks/translated-text' );
-    if ( kotlinskidev_feature_enabled( 'offers' ) ) {
-        register_block_type( get_template_directory() . '/src/blocks/offer-table' );
-    }
-    register_block_type( get_template_directory() . '/src/blocks/process-steps' );
-    register_block_type( get_template_directory() . '/src/blocks/process-steps/item' );
-    register_block_type( get_template_directory() . '/src/blocks/pricing-cards' );
-    register_block_type( get_template_directory() . '/src/blocks/pricing-cards/item' );
-    register_block_type( get_template_directory() . '/src/blocks/contact-detail' );
-    register_block_type( get_template_directory() . '/src/blocks/marquee' );
-    register_block_type( get_template_directory() . '/src/blocks/marquee/item' );
-    register_block_type( get_template_directory() . '/src/blocks/blog-topics-grid-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/category-header-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/category-posts-grid-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/other-topics-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/article-tags-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/related-articles-dynamic' );
-    if ( kotlinskidev_feature_enabled( 'article_toc' ) ) {
-        register_block_type( get_template_directory() . '/src/blocks/article-toc' );
-    }
-    register_block_type( get_template_directory() . '/src/blocks/tag-posts-grid-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/popular-content-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/recently-viewed-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/search-header-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/not-found-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/search-form-dynamic' );
-    register_block_type( get_template_directory() . '/src/blocks/search-results-dynamic' );
-    if ( kotlinskidev_feature_enabled( 'certificates' ) ) {
-        register_block_type( get_template_directory() . '/src/blocks/certificates-grid-dynamic' );
-        register_block_type( get_template_directory() . '/src/blocks/certificate' );
-    }
-    if ( kotlinskidev_feature_enabled( 'canvas_backgrounds' ) ) {
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-gradient' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-noise' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-grid-lines' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-blob' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-sweep' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-light-rays' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-curved-rays' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-star-field' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-orbit-trails' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-warp-field' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-nebula' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-aurora' );
-        register_block_type( get_template_directory() . '/src/blocks/canvas-background/layer-neon-waves' );
-    }
-    register_block_type( get_template_directory() . '/src/blocks/bg-effect-preset-settings' );
 }
 add_action( 'init', 'kotlinskidev_register_blocks' );
 

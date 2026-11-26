@@ -106,7 +106,7 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 					]
 				);
 				echo $use_picture // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes; picture sources built from esc_attr()/esc_url()'d values
-					? kotlinskidev_responsive_media_picture( $poster_markup, $video_posters, $breakpoints, $poster_srcsets, $poster_sizes )
+					? kotlinskidev_responsive_media_picture( $poster_markup, $video_posters, $breakpoints, $poster_srcsets, $poster_sizes, kotlinskidev_responsive_media_source_dimensions( $responsive_slots, 'posterId' ) )
 					: $poster_markup;
 			}
 			?>
@@ -142,7 +142,7 @@ $content_style = '' !== $content_css ? ' style="' . esc_attr( $content_css ) . '
 				] + ( $image_attributes_sizes ?? [] )
 			);
 			echo $image_picture // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() self-escapes; picture sources built from esc_attr()/esc_url()'d values
-				? kotlinskidev_responsive_media_picture( $image_markup, $image_posters, $breakpoints, kotlinskidev_responsive_media_srcsets( $responsive_slots, $image_posters ), '100vw' )
+				? kotlinskidev_responsive_media_picture( $image_markup, $image_posters, $breakpoints, kotlinskidev_responsive_media_srcsets( $responsive_slots, $image_posters ), '100vw', kotlinskidev_responsive_media_source_dimensions( $responsive_slots ) )
 				: $image_markup;
 			?>
 		<?php elseif ( $bg_image_url ) : ?>

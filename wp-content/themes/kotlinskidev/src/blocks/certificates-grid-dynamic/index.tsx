@@ -2,9 +2,9 @@ import React from "react";
 import { registerBlockType } from "@wordpress/blocks";
 import ServerSideRender from "@wordpress/server-side-render";
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { PanelBody, SelectControl, TextControl, ToggleControl } from "@wordpress/components";
+import { PanelBody, SelectControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import { BlurAmountControl, BLUR_AMOUNT_DEFAULT_VALUE } from "../shared/blur-amount-control";
+import { BlurOtherCardsFields } from "../shared/blur-amount-control";
 
 interface CertificatesGridAttributes {
   layout: "badge-grid" | "feature-cards" | "compact-strip";
@@ -18,61 +18,53 @@ interface CertificatesGridEditProps {
   setAttributes: (attrs: Partial<CertificatesGridAttributes>) => void;
 }
 
+function CertificatesGridPanel({ attributes, setAttributes }: CertificatesGridEditProps) {
+  const { layout, viewAllUrl } = attributes;
+
+  return (
+    <PanelBody title={__("Certificates Grid", "kotlinskidev")} initialOpen={true}>
+      <SelectControl
+        label={__("Layout", "kotlinskidev")}
+        value={layout}
+        options={[
+          { label: __("Badge grid", "kotlinskidev"), value: "badge-grid" },
+          { label: __("Feature cards", "kotlinskidev"), value: "feature-cards" },
+          { label: __("Compact strip", "kotlinskidev"), value: "compact-strip" },
+        ]}
+        onChange={(value) =>
+          setAttributes({ layout: value as CertificatesGridAttributes["layout"] })
+        }
+      />
+      {"compact-strip" === layout && (
+        <TextControl
+          label={__('"All credentials" link', "kotlinskidev")}
+          type="url"
+          value={viewAllUrl}
+          help={__(
+            "Where the trailing link points to. Leave empty to hide the link.",
+            "kotlinskidev"
+          )}
+          onChange={(value) => setAttributes({ viewAllUrl: value })}
+        />
+      )}
+      <BlurOtherCardsFields attributes={attributes} setAttributes={setAttributes} />
+      <p className="components-base-control__help">
+        {__(
+          "Manage certificates (name, issuer, badge image, verify link) from Certificates in the admin menu. Every published certificate appears here automatically.",
+          "kotlinskidev"
+        )}
+      </p>
+    </PanelBody>
+  );
+}
+
 function CertificatesGridEdit({ attributes, setAttributes }: CertificatesGridEditProps) {
-  const { layout, viewAllUrl, blurOtherCards, blurAmount } = attributes;
   const blockProps = useBlockProps();
 
   return (
     <div {...blockProps}>
       <InspectorControls>
-        <PanelBody title={__("Certificates Grid", "kotlinskidev")} initialOpen={true}>
-          <SelectControl
-            label={__("Layout", "kotlinskidev")}
-            value={layout}
-            options={[
-              { label: __("Badge grid", "kotlinskidev"), value: "badge-grid" },
-              { label: __("Feature cards", "kotlinskidev"), value: "feature-cards" },
-              { label: __("Compact strip", "kotlinskidev"), value: "compact-strip" },
-            ]}
-            onChange={(value) =>
-              setAttributes({ layout: value as CertificatesGridAttributes["layout"] })
-            }
-          />
-          {"compact-strip" === layout && (
-            <TextControl
-              label={__('"All credentials" link', "kotlinskidev")}
-              type="url"
-              value={viewAllUrl}
-              help={__(
-                "Where the trailing link points to. Leave empty to hide the link.",
-                "kotlinskidev"
-              )}
-              onChange={(value) => setAttributes({ viewAllUrl: value })}
-            />
-          )}
-          <ToggleControl
-            label={__("Blur other cards on hover", "kotlinskidev")}
-            help={__(
-              "Hovering or focusing one card dims and blurs the rest of the grid.",
-              "kotlinskidev"
-            )}
-            checked={blurOtherCards}
-            onChange={(value) => setAttributes({ blurOtherCards: value })}
-            __nextHasNoMarginBottom
-          />
-          {blurOtherCards && (
-            <BlurAmountControl
-              value={blurAmount || BLUR_AMOUNT_DEFAULT_VALUE}
-              onChange={(value) => setAttributes({ blurAmount: value })}
-            />
-          )}
-          <p className="components-base-control__help">
-            {__(
-              "Manage certificates (name, issuer, badge image, verify link) from Certificates in the admin menu. Every published certificate appears here automatically.",
-              "kotlinskidev"
-            )}
-          </p>
-        </PanelBody>
+        <CertificatesGridPanel attributes={attributes} setAttributes={setAttributes} />
       </InspectorControls>
       <ServerSideRender block="kotlinskidev/certificates-grid-dynamic" attributes={attributes} />
     </div>

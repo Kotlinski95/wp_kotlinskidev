@@ -101,6 +101,33 @@ function kotlinskidev_render_protected_contact_field( string $value, string $typ
     );
 }
 
+function kotlinskidev_render_contact_card_item( string $label_html, string $value_html ): void {
+    ?>
+			<div class="kt-contact-card__item">
+				<span class="kt-contact-card__item-label"><?php echo $label_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- callers pass esc_html__() output ?></span>
+				<span class="kt-contact-card__item-value"><?php echo $value_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- callers pass esc_html() output or kotlinskidev_render_protected_contact_field(), which esc_attr()'s both the encrypted payload and the type ?></span>
+			</div>
+	<?php
+}
+
+function kotlinskidev_render_contact_card_items( array $info ): void {
+    if ( $info['address'] ) {
+        kotlinskidev_render_contact_card_item( esc_html__( 'Address', 'kotlinskidev' ), kotlinskidev_render_protected_contact_field( $info['address'], 'address' ) );
+    }
+
+    if ( $info['hours'] ) {
+        kotlinskidev_render_contact_card_item( esc_html__( 'Hours', 'kotlinskidev' ), esc_html( $info['hours'] ) );
+    }
+
+    if ( $info['phone'] ) {
+        kotlinskidev_render_contact_card_item( esc_html__( 'Phone', 'kotlinskidev' ), kotlinskidev_render_protected_contact_field( $info['phone'], 'phone' ) );
+    }
+
+    if ( $info['email'] ) {
+        kotlinskidev_render_contact_card_item( esc_html__( 'Email', 'kotlinskidev' ), kotlinskidev_render_protected_contact_field( $info['email'], 'email' ) );
+    }
+}
+
 function kotlinskidev_render_contact_card_block( array $attributes = [] ): string {
     $info = kotlinskidev_get_contact_info();
 
@@ -115,30 +142,7 @@ function kotlinskidev_render_contact_card_block( array $attributes = [] ): strin
 	<div class="kt-contact-card">
 		<p class="kt-contact-card__label"><?php esc_html_e( 'Contact details', 'kotlinskidev' ); ?></p>
 		<div class="kt-contact-card__grid" style="--kt-contact-card-gap: <?php echo esc_attr( $grid_gap ); ?>rem">
-			<?php if ( $info['address'] ) : ?>
-			<div class="kt-contact-card__item">
-				<span class="kt-contact-card__item-label"><?php esc_html_e( 'Address', 'kotlinskidev' ); ?></span>
-				<span class="kt-contact-card__item-value"><?php echo kotlinskidev_render_protected_contact_field( $info['address'], 'address' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_protected_contact_field() esc_attr()'s both the encrypted payload and the type ?></span>
-			</div>
-			<?php endif; ?>
-			<?php if ( $info['hours'] ) : ?>
-			<div class="kt-contact-card__item">
-				<span class="kt-contact-card__item-label"><?php esc_html_e( 'Hours', 'kotlinskidev' ); ?></span>
-				<span class="kt-contact-card__item-value"><?php echo esc_html( $info['hours'] ); ?></span>
-			</div>
-			<?php endif; ?>
-			<?php if ( $info['phone'] ) : ?>
-			<div class="kt-contact-card__item">
-				<span class="kt-contact-card__item-label"><?php esc_html_e( 'Phone', 'kotlinskidev' ); ?></span>
-				<span class="kt-contact-card__item-value"><?php echo kotlinskidev_render_protected_contact_field( $info['phone'], 'phone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_protected_contact_field() esc_attr()'s both the encrypted payload and the type ?></span>
-			</div>
-			<?php endif; ?>
-			<?php if ( $info['email'] ) : ?>
-			<div class="kt-contact-card__item">
-				<span class="kt-contact-card__item-label"><?php esc_html_e( 'Email', 'kotlinskidev' ); ?></span>
-				<span class="kt-contact-card__item-value"><?php echo kotlinskidev_render_protected_contact_field( $info['email'], 'email' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kotlinskidev_render_protected_contact_field() esc_attr()'s both the encrypted payload and the type ?></span>
-			</div>
-			<?php endif; ?>
+			<?php kotlinskidev_render_contact_card_items( $info ); ?>
 		</div>
 	</div>
 	<?php

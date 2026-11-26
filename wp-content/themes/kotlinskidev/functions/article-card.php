@@ -1,4 +1,6 @@
 <?php
+const KOTLINSKIDEV_ARTICLE_CARD_MENU_POSITION = 23;
+
 function kotlinskidev_register_article_card_post_type(): void {
     if ( ! kotlinskidev_feature_enabled( 'article_cards' ) ) {
         return;
@@ -20,7 +22,7 @@ function kotlinskidev_register_article_card_post_type(): void {
         'show_in_menu'        => true,
         'show_in_rest'        => true,
         'menu_icon'           => 'dashicons-id-alt',
-        'menu_position'       => 23,
+        'menu_position'       => KOTLINSKIDEV_ARTICLE_CARD_MENU_POSITION,
         'supports'            => [ 'title', 'editor', 'custom-fields' ],
         'has_archive'         => false,
     ] );

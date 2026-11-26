@@ -2,13 +2,8 @@ import React from "react";
 import ServerSideRender from "@wordpress/server-side-render";
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import { PanelBody, ComboboxControl } from "@wordpress/components";
-import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
-
-interface CardRecord {
-  id: number;
-  title: { rendered: string };
-}
+import { usePublishedPostOptions } from "../shared/use-post-options";
 
 export interface ProjectCardAttributes {
   cardId?: number;
@@ -23,30 +18,7 @@ export default function ProjectCardEdit(props: ProjectCardEditProps) {
   const { attributes, setAttributes } = props;
   const cardId = attributes.cardId ?? 0;
 
-  const cards = useSelect<CardRecord[]>(
-    (select) =>
-      (
-        select("core") as {
-          getEntityRecords: (
-            kind: string,
-            type: string,
-            query: Record<string, unknown>
-          ) => CardRecord[] | null;
-        }
-      ).getEntityRecords("postType", "kt_project_card", {
-        per_page: -1,
-        status: "publish",
-        orderby: "title",
-        order: "asc",
-        _fields: ["id", "title"],
-      }) ?? [],
-    []
-  );
-
-  const options = cards.map((card) => ({
-    value: String(card.id),
-    label: card.title.rendered || __("(no title)", "kotlinskidev"),
-  }));
+  const options = usePublishedPostOptions("kt_project_card");
 
   const blockProps = useBlockProps();
 

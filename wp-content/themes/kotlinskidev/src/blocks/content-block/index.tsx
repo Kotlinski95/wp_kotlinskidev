@@ -4,6 +4,9 @@ import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import { PanelBody, SelectControl } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
+import { selectCoreEntityRecords } from "@utils/core-entity-records";
+
+const REUSABLE_BLOCK_QUERY = { per_page: 100, status: "publish" };
 
 interface ReusableBlockPost {
   id: number;
@@ -21,29 +24,36 @@ interface EditProps {
   setAttributes: (attrs: Partial<ContentBlockAttributes>) => void;
 }
 
+const buildContentOptions = (
+  reusableBlocks: ReusableBlockPost[] | null
+): Array<{ label: string; value: string }> => [
+  {
+    label:
+      reusableBlocks === null
+        ? __("Loading…", "kotlinskidev")
+        : __("— Select content —", "kotlinskidev"),
+    value: "",
+  },
+  ...(reusableBlocks ?? []).map((post) => ({
+    label: post.title.rendered || post.slug,
+    value: post.slug,
+  })),
+];
+
 export function Edit({ attributes, setAttributes }: EditProps) {
   const blockProps = useBlockProps({ className: "kt-editor-placeholder" });
 
-  const reusableBlocks = useSelect((select) => {
-    return (select("core") as any).getEntityRecords("postType", "wp_block", {
-      per_page: 100,
-      status: "publish",
-    }) as ReusableBlockPost[] | null;
-  }, []);
+  const reusableBlocks = useSelect(
+    (select) =>
+      selectCoreEntityRecords<ReusableBlockPost>(select, {
+        kind: "postType",
+        name: "wp_block",
+        query: REUSABLE_BLOCK_QUERY,
+      }),
+    []
+  );
 
-  const contentOptions = [
-    {
-      label:
-        reusableBlocks === null
-          ? __("Loading…", "kotlinskidev")
-          : __("— Select content —", "kotlinskidev"),
-      value: "",
-    },
-    ...(reusableBlocks ?? []).map((post) => ({
-      label: post.title.rendered || post.slug,
-      value: post.slug,
-    })),
-  ];
+  const contentOptions = buildContentOptions(reusableBlocks);
 
   return (
     <div {...blockProps}>

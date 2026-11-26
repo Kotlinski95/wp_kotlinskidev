@@ -1,9 +1,4 @@
 <?php
-/**
- * Fix Polylang accessibility issues
- */
-
-// Add JavaScript to fix Polylang accessibility issues
 function fix_polylang_accessibility() {
     $language_switcher_label = esc_js(__('Language Switcher', 'kotlinskidev'));
     $switch_language_label = esc_js(__('Switch Language', 'kotlinskidev'));
@@ -85,20 +80,14 @@ function fix_polylang_accessibility() {
 }
 add_action('wp_footer', 'fix_polylang_accessibility');
 
-/**
- * Add proper ARIA attributes to Polylang language switcher via PHP filters
- */
 function enhance_polylang_language_links($output, $args) {
-    // Add aria-label to language links that don't have accessible text
     $output = preg_replace_callback(
         '/<a([^>]*href="[^"]*"[^>]*)>(\s*<img[^>]*>\s*)<\/a>/',
         function($matches) {
             $link_attrs = $matches[1];
             $link_content = $matches[2];
             
-            // Check if link already has aria-label or title
             if (strpos($link_attrs, 'aria-label=') === false && strpos($link_attrs, 'title=') === false) {
-                // Extract alt text from image if present
                 if (preg_match('/alt="([^"]*)"/', $link_content, $alt_match)) {
                     $alt_text = $alt_match[1];
                     // translators: %s: language name (from the flag image's alt text)
@@ -117,21 +106,15 @@ function enhance_polylang_language_links($output, $args) {
     return $output;
 }
 
-// Hook into Polylang's language switcher output if the filter exists
 if (function_exists('pll_the_languages')) {
     add_filter('pll_the_languages', 'enhance_polylang_language_links', 10, 2);
 }
 
-/**
- * Remove or modify problematic Polylang elements
- */
 function modify_polylang_output() {
-    // This function can be used to modify Polylang's output before it reaches the browser
     ob_start('fix_pll_switcher_links');
 }
 
 function fix_pll_switcher_links($content) {
-    // Fix any remaining #pll_switcher links
     $language_switcher_label = __('Language Switcher', 'kotlinskidev');
     $content = preg_replace(
         '/<a([^>]*)href="#pll_switcher"([^>]*)>(\s*)<\/a>/',
@@ -147,7 +130,6 @@ function fix_pll_switcher_links($content) {
     return $content;
 }
 
-// Only enable output buffering if we detect Polylang is active
 if (function_exists('pll_current_language')) {
     add_action('init', 'modify_polylang_output');
 }

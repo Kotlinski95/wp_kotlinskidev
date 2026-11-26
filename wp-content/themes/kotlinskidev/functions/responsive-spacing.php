@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/responsive-block-markup.php';
+
 function kotlinskidev_sanitize_spacing_length( string $value, bool $allow_negative ): string
 {
     $value = trim( $value );
@@ -19,7 +21,7 @@ function kotlinskidev_collect_responsive_spacing_values( array $block_attrs ): a
 {
     $values = [];
 
-    foreach ( [ 'desktop', 'tablet', 'mobile' ] as $device ) {
+    foreach ( KOTLINSKIDEV_DEVICES_DESKTOP_FIRST as $device ) {
         foreach ( [ 'Padding' => 'padding', 'Margin' => 'margin' ] as $type => $property ) {
             $side_values = $block_attrs[ "{$device}{$type}" ] ?? null;
             if ( ! is_array( $side_values ) ) {
@@ -41,7 +43,7 @@ function kotlinskidev_collect_responsive_spacing_values( array $block_attrs ): a
 
 function kotlinskidev_responsive_spacing_class( array $values ): string
 {
-    return 'kt-rspc-' . substr( md5( wp_json_encode( $values ) ), 0, 10 );
+    return kotlinskidev_responsive_style_class( 'kt-rspc-', $values );
 }
 
 function kotlinskidev_build_responsive_spacing_css( string $class, array $values ): string
@@ -49,7 +51,7 @@ function kotlinskidev_build_responsive_spacing_css( string $class, array $values
     $media_queries = kotlinskidev_get_css_breakpoints();
     $css = '';
 
-    foreach ( [ 'desktop', 'tablet', 'mobile' ] as $device ) {
+    foreach ( KOTLINSKIDEV_DEVICES_DESKTOP_FIRST as $device ) {
         if ( empty( $values[ $device ] ) ) {
             continue;
         }
@@ -93,15 +95,12 @@ function kotlinskidev_apply_responsive_spacing_style( string $block_content, arr
         return $block_content;
     }
 
-    $processor = new WP_HTML_Tag_Processor( $block_content );
-    if ( ! $processor->next_tag() ) {
+    $processor = kotlinskidev_responsive_open_block_tag( $block_content );
+    if ( null === $processor ) {
         return $block_content;
     }
 
-    $existing_class = $processor->get_attribute( 'class' ) ?? '';
-    if ( ! str_contains( $existing_class, $class ) ) {
-        $processor->set_attribute( 'class', trim( $existing_class . ' ' . $class ) );
-    }
+    kotlinskidev_responsive_add_class_once( $processor, $class );
 
     return kotlinskidev_append_responsive_style( $processor->get_updated_html(), $class, $css );
 }

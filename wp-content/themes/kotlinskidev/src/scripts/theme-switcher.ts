@@ -1,111 +1,34 @@
-import { trackEvent } from "./track-event";
+import { createThemeApplier } from "./theme-switcher/theme-applier";
+import {
+  bindKeyboardActivation,
+  bindOperatingSystemThemeChange,
+  bindToggleChange,
+} from "./theme-switcher/theme-switcher-bindings";
+import { readThemeSwitcherConfig } from "./theme-switcher/theme-switcher-config";
+import { readThemeSwitcherTranslations } from "./theme-switcher/theme-switcher-translations";
+import { resolveInitialTheme } from "./theme-switcher/initial-theme";
 
-type ThemeSwitcherConfig = {
-  enabled: boolean;
-  defaultMode: string;
-};
+function initThemeSwitcher(): void {
+  const toggle = document.getElementById("theme-toggle") as HTMLInputElement | null;
+  if (!toggle) {
+    return;
+  }
 
-(function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    const config: ThemeSwitcherConfig = (
-      window as unknown as { kotlinskidevTheme?: ThemeSwitcherConfig }
-    ).kotlinskidevTheme ?? { enabled: true, defaultMode: "auto" };
-    const themeToggleButton = document.getElementById("theme-toggle") as HTMLInputElement;
-    const themeSwitcher = document.querySelector(".theme-switcher") as HTMLInputElement;
-    const lightIcon = document.querySelector(".icon.light") as HTMLElement;
-    const darkIcon = document.querySelector(".icon.dark") as HTMLElement;
+  const config = readThemeSwitcherConfig();
+  const switcher = document.querySelector(".theme-switcher") as HTMLElement;
+  const lightIcon = document.querySelector<HTMLElement>(".icon.light");
+  const darkIcon = document.querySelector<HTMLElement>(".icon.dark");
 
-    if (!themeToggleButton) {
-      return;
-    }
+  const applyTheme = createThemeApplier(
+    { toggle, lightIcon, darkIcon },
+    readThemeSwitcherTranslations()
+  );
 
-    const translations = (window as any).i18n?.themeSwitcher || {
-      lightMode: "Switch between dark and light mode (currently light mode)",
-      darkMode: "Switch between dark and light mode (currently dark mode)",
-    };
+  applyTheme(resolveInitialTheme(config));
 
-    const updateIconTitles = (isLightMode: boolean) => {
-      if (lightIcon && darkIcon) {
-        if (isLightMode) {
-          lightIcon.setAttribute("title", translations.lightMode);
-          darkIcon.removeAttribute("title");
-        } else {
-          darkIcon.setAttribute("title", translations.darkMode);
-          lightIcon.removeAttribute("title");
-        }
-      }
-    };
+  bindToggleChange(toggle, applyTheme);
+  bindKeyboardActivation(switcher, toggle);
+  bindOperatingSystemThemeChange(config, applyTheme);
+}
 
-    const applyLightTheme = () => {
-      document.body?.classList?.add("light-mode");
-      document.documentElement.classList.add("light-mode");
-      document.body?.classList?.remove("dark-mode");
-      document.documentElement.classList.remove("dark-mode");
-      themeToggleButton.checked = true;
-      updateIconTitles(true);
-    };
-
-    const applyDarkTheme = () => {
-      document.body?.classList?.add("dark-mode");
-      document.documentElement.classList.add("dark-mode");
-      document.body?.classList?.remove("light-mode");
-      document.documentElement.classList.remove("light-mode");
-      themeToggleButton.checked = false;
-      updateIconTitles(false);
-    };
-
-    const storedTheme = config.enabled ? localStorage.getItem("theme") : null;
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (storedTheme === "light") {
-      applyLightTheme();
-    } else if (storedTheme === "dark") {
-      applyDarkTheme();
-    } else if (config.defaultMode === "light") {
-      applyLightTheme();
-    } else if (config.defaultMode === "dark") {
-      applyDarkTheme();
-    } else if (systemPrefersDark) {
-      applyDarkTheme();
-    } else {
-      applyLightTheme();
-    }
-
-    themeToggleButton.addEventListener("change", function (this: HTMLInputElement) {
-      if (this.checked) {
-        applyLightTheme();
-        localStorage.setItem("theme", "light");
-        trackEvent("theme_mode_toggle", { mode: "light" });
-      } else {
-        applyDarkTheme();
-        localStorage.setItem("theme", "dark");
-        trackEvent("theme_mode_toggle", { mode: "dark" });
-      }
-    });
-
-    // Listen for Enter key on theme toggle (for accessibility)
-    themeSwitcher.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        themeToggleButton.click();
-      }
-    });
-
-    // Listen for OS theme changes
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const handleOSThemeChange = (e: MediaQueryListEvent) => {
-      if (localStorage.getItem("theme") || config.defaultMode !== "auto") {
-        return;
-      }
-      if (e.matches) {
-        applyDarkTheme();
-      } else {
-        applyLightTheme();
-      }
-    };
-
-    // Add event listener for OS theme changes
-    mediaQuery.addEventListener("change", handleOSThemeChange);
-  });
-})();
+document.addEventListener("DOMContentLoaded", initThemeSwitcher);

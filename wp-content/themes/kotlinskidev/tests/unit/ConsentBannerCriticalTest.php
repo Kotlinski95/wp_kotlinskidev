@@ -64,6 +64,7 @@ it('does not flag ordinary pages as skip pages', function () {
 });
 
 it('detaches the onetap inline style and prints it in the footer', function () {
+    Functions\when('esc_attr')->returnArg();
     $registered = (object) ['extra' => ['after' => ['.onetap{color:red}']]];
     $styles = new stdClass();
     $styles->registered = ['accessibility-onetap' => $registered];
@@ -81,6 +82,38 @@ it('detaches the onetap inline style and prints it in the footer', function () {
     $out = ob_get_clean();
 
     expect($out)->toContain('<style id="accessibility-onetap-inline-css">.onetap{color:red}</style>');
+    expect($out)->toContain("<script>document.documentElement.classList.add('kt-css-accessibility-onetap-inline')</script>");
+});
+
+it('marks the onetap inline stylesheet ready only after the deferred link loads', function () {
+    $base = sys_get_temp_dir() . '/kt-onetap-' . uniqid();
+    mkdir($base);
+    $GLOBALS['kotlinskidev_onetap_inline_css'] = '.onetap{color:red}';
+    Functions\when('wp_strip_all_tags')->alias(fn ($v) => strip_tags($v));
+    Functions\when('wp_get_upload_dir')->justReturn(['error' => false, 'basedir' => $base, 'baseurl' => 'https://x.test/uploads']);
+    Functions\when('trailingslashit')->alias(fn ($v) => rtrim($v, '/') . '/');
+    Functions\when('wp_mkdir_p')->alias(fn ($d) => is_dir($d) || mkdir($d, 0777, true));
+    Functions\when('set_url_scheme')->returnArg();
+    Functions\when('esc_url')->returnArg();
+    Functions\when('esc_attr')->returnArg();
+
+    ob_start();
+    kotlinskidev_print_onetap_inline_style();
+    $out = ob_get_clean();
+
+    expect($out)->toContain("onload=\"this.media='all';document.documentElement.classList.add('kt-css-accessibility-onetap-inline')\"");
+    expect($out)->not->toContain('<script>');
+});
+
+it('still reveals the onetap widget when there is no inline css to load', function () {
+    Functions\when('esc_attr')->returnArg();
+    $GLOBALS['kotlinskidev_onetap_inline_css'] = '';
+
+    ob_start();
+    kotlinskidev_print_onetap_inline_style();
+    $out = ob_get_clean();
+
+    expect($out)->toBe("<script>document.documentElement.classList.add('kt-css-accessibility-onetap-inline')</script>");
 });
 
 it('loads the onetap style from a cached uploads file when writable', function () {
@@ -93,6 +126,7 @@ it('loads the onetap style from a cached uploads file when writable', function (
     Functions\when('wp_mkdir_p')->alias(fn ($d) => is_dir($d) || mkdir($d, 0777, true));
     Functions\when('set_url_scheme')->returnArg();
     Functions\when('esc_url')->returnArg();
+    Functions\when('esc_attr')->returnArg();
 
     ob_start();
     kotlinskidev_print_onetap_inline_style();

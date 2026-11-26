@@ -1,4 +1,7 @@
 <?php
+const KOTLINSKIDEV_CERTIFICATE_BADGE_CACHE_PREFIX = 'kotlinskidev_badge_fetch_';
+const KOTLINSKIDEV_CERTIFICATE_BADGE_FETCH_TIMEOUT_SECONDS = 10;
+
 function kotlinskidev_certificate_badge_allowed_hosts(): array {
     return [ 'credly.com', 'www.credly.com', 'api.credly.com', 'accredible.com', 'www.accredible.com', 'api.accredible.com' ];
 }
@@ -114,7 +117,7 @@ function kotlinskidev_sideload_certificate_badge_image( string $image_url ): int
     return absint( $attachment_id );
 }
 
-function kotlinskidev_ajax_fetch_certificate_badge(): void {
+function kotlinskidev_authorize_certificate_badge_request(): void {
     if ( ! kotlinskidev_feature_enabled( 'certificates' ) ) {
         wp_send_json_error( __( 'Certificates are disabled on this site.', 'kotlinskidev' ) );
     }
@@ -127,7 +130,9 @@ function kotlinskidev_ajax_fetch_certificate_badge(): void {
     if ( ! wp_verify_nonce( $nonce, 'kotlinskidev_certificate_fetch' ) ) {
         wp_send_json_error( __( 'Security check failed.', 'kotlinskidev' ) );
     }
+}
 
+function kotlinskidev_validated_certificate_badge_url(): string {
     $url = isset( $_POST['url'] ) ? esc_url_raw( wp_unslash( $_POST['url'] ) ) : '';
     if ( '' === $url ) {
         wp_send_json_error( __( 'A badge URL is required.', 'kotlinskidev' ) );
@@ -142,23 +147,38 @@ function kotlinskidev_ajax_fetch_certificate_badge(): void {
         wp_send_json_error( __( 'That URL could not be verified.', 'kotlinskidev' ) );
     }
 
-    $cache_key = 'kotlinskidev_badge_fetch_' . md5( $url );
+    return $url;
+}
+
+function kotlinskidev_fetch_certificate_badge_page( string $url ): array {
+    $cache_key = KOTLINSKIDEV_CERTIFICATE_BADGE_CACHE_PREFIX . md5( $url );
     $parsed    = get_transient( $cache_key );
 
-    if ( false === $parsed ) {
-        $response = wp_remote_get( $url, [ 'timeout' => 10 ] );
-
-        if ( is_wp_error( $response ) ) {
-            wp_send_json_error( __( 'Could not reach that URL.', 'kotlinskidev' ) );
-        }
-
-        if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
-            wp_send_json_error( __( 'That URL did not return a page we could read.', 'kotlinskidev' ) );
-        }
-
-        $parsed = kotlinskidev_parse_certificate_badge_page( wp_remote_retrieve_body( $response ), $url );
-        set_transient( $cache_key, $parsed, DAY_IN_SECONDS );
+    if ( false !== $parsed ) {
+        return $parsed;
     }
+
+    $response = wp_remote_get( $url, [ 'timeout' => KOTLINSKIDEV_CERTIFICATE_BADGE_FETCH_TIMEOUT_SECONDS ] );
+
+    if ( is_wp_error( $response ) ) {
+        wp_send_json_error( __( 'Could not reach that URL.', 'kotlinskidev' ) );
+    }
+
+    if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+        wp_send_json_error( __( 'That URL did not return a page we could read.', 'kotlinskidev' ) );
+    }
+
+    $parsed = kotlinskidev_parse_certificate_badge_page( wp_remote_retrieve_body( $response ), $url );
+    set_transient( $cache_key, $parsed, DAY_IN_SECONDS );
+
+    return $parsed;
+}
+
+function kotlinskidev_ajax_fetch_certificate_badge(): void {
+    kotlinskidev_authorize_certificate_badge_request();
+
+    $url    = kotlinskidev_validated_certificate_badge_url();
+    $parsed = kotlinskidev_fetch_certificate_badge_page( $url );
 
     $attachment_id = kotlinskidev_sideload_certificate_badge_image( $parsed['image_url'] );
 

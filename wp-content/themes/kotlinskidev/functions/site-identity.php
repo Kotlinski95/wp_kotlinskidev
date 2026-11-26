@@ -1,9 +1,12 @@
 <?php
+const KOTLINSKIDEV_CUSTOM_LOGO_WIDTH  = 200;
+const KOTLINSKIDEV_CUSTOM_LOGO_HEIGHT = 100;
+
 function mytheme_setup()
 {
     add_theme_support('custom-logo', array(
-        'width'       => 200, // Adjust width as needed
-        'height'      => 100, // Adjust height as needed
+        'width'       => KOTLINSKIDEV_CUSTOM_LOGO_WIDTH,
+        'height'      => KOTLINSKIDEV_CUSTOM_LOGO_HEIGHT,
         'flex-width'  => true,
         'flex-height' => true,
     ));

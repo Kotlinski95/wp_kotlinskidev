@@ -11,7 +11,7 @@ export const isSameOriginReferrer = (referrer: string, origin: string): boolean 
   }
 };
 
-const promote = (node: Node): void => {
+const promoteDeferredStylesheet = (node: Node): void => {
   if (node instanceof HTMLLinkElement && node.matches(DEFERRED_STYLESHEET_SELECTOR)) {
     node.media = "all";
   }
@@ -22,14 +22,14 @@ export const initBlockingStylesheets = (): void => {
     return;
   }
 
-  document.querySelectorAll(DEFERRED_STYLESHEET_SELECTOR).forEach(promote);
+  document.querySelectorAll(DEFERRED_STYLESHEET_SELECTOR).forEach(promoteDeferredStylesheet);
 
   if (typeof MutationObserver === "undefined") {
     return;
   }
 
   const observer = new MutationObserver((records) => {
-    records.forEach((record) => record.addedNodes.forEach(promote));
+    records.forEach((record) => record.addedNodes.forEach(promoteDeferredStylesheet));
   });
   observer.observe(document.head, { childList: true });
   document.addEventListener("DOMContentLoaded", () => observer.disconnect(), { once: true });

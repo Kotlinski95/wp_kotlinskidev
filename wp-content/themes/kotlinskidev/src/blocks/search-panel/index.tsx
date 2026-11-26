@@ -52,6 +52,33 @@ const SearchIcon = () => (
   </svg>
 );
 
+interface SearchPanelSettingsProps {
+  attributes: SearchPanelAttributes;
+  setAttributes: (attrs: Partial<SearchPanelAttributes>) => void;
+}
+
+function SearchPanelSettings({ attributes, setAttributes }: SearchPanelSettingsProps) {
+  return (
+    <InspectorControls>
+      <PanelBody title={__("Search Panel", "kotlinskidev")} initialOpen>
+        <TextControl
+          label={__("Nav label", "kotlinskidev")}
+          value={attributes.label}
+          onChange={(label) => setAttributes({ label })}
+          help={__("Used as aria-label when an icon is set.", "kotlinskidev")}
+        />
+      </PanelBody>
+      <PanelBody title={__("Nav Icon", "kotlinskidev")}>
+        <NavIconPicker
+          iconId={attributes.navIconId}
+          iconUrl={attributes.navIconUrl}
+          onChange={(id, url) => setAttributes({ navIconId: id, navIconUrl: url })}
+        />
+      </PanelBody>
+    </InspectorControls>
+  );
+}
+
 export function SearchPanelEdit({
   attributes,
   setAttributes,
@@ -61,23 +88,7 @@ export function SearchPanelEdit({
 
   return (
     <div {...blockProps}>
-      <InspectorControls>
-        <PanelBody title={__("Search Panel", "kotlinskidev")} initialOpen>
-          <TextControl
-            label={__("Nav label", "kotlinskidev")}
-            value={attributes.label}
-            onChange={(label) => setAttributes({ label })}
-            help={__("Used as aria-label when an icon is set.", "kotlinskidev")}
-          />
-        </PanelBody>
-        <PanelBody title={__("Nav Icon", "kotlinskidev")}>
-          <NavIconPicker
-            iconId={attributes.navIconId}
-            iconUrl={attributes.navIconUrl}
-            onChange={(id, url) => setAttributes({ navIconId: id, navIconUrl: url })}
-          />
-        </PanelBody>
-      </InspectorControls>
+      <SearchPanelSettings attributes={attributes} setAttributes={setAttributes} />
 
       <button
         type="button"

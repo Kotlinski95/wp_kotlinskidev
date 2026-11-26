@@ -1,104 +1,12 @@
 <?php
-/**
- * Cache Manager — kotlinskidev theme
- *
- * Single source of truth for every transient and object-cache entry the theme
- * creates. Responsibilities:
- *
- *  1. Define all cache key prefixes in one place.
- *  2. Detect new builds via a combined filemtime fingerprint and purge stale
- *     transients automatically — no manual cache clearing needed after deploy.
- *  3. Flush everything on theme switch, theme update, or from the WP admin
- *     "Tools → Cache" page (or via WP-CLI).
- *  4. Keep the wp_options table lean by never leaving orphaned transients behind.
- *
- * ─────────────────────────────────────────────────────────────────────────────
- * CACHE KEY REGISTRY  (all theme transient / object-cache keys documented here)
- * ─────────────────────────────────────────────────────────────────────────────
- *
- *  Transients (stored in wp_options when no persistent object cache is active):
- *
- *   kotlinskidev_critical_css_{filemtime}   Inlined critical CSS file contents.
- *                                           Auto-busted by filemtime on new build.
- *
- *   kotlinskidev_critical_js_{filemtime}    Inlined critical JS file contents.
- *                                           Auto-busted by filemtime on new build.
- *
- *   kotlinskidev_i18n_{locale}              JS translation array assembled from
- *                                           ~40 __() calls, cached per locale.
- *
- *   kotlinskidev_img_sizes                  Single map of md5(url) => width/height
- *                                           for the content filter (replaces live
- *                                           getimagesize()) — one transient for every
- *                                           image site-wide instead of one per URL,
- *                                           loaded once per request and written back
- *                                           at most once, at shutdown. Per-entry
- *                                           invalidation on edit_/delete_attachment.
- *                                           Legacy `img_size_{md5(url)}` entries from
- *                                           before this consolidation may still exist
- *                                           until they expire or a manual flush runs.
- *
- *   kotlinskidev_popular_posts_{md5(args)}  Post IDs for the popular-pages block's
- *                                           view-count query. 15 minute TTL — view
- *                                           counts don't need to be real-time.
- *
- *   kotlinskidev_svg_{attachment_id}        Inlined SVG file contents for nav icons
- *                                           and image-block SVGs. WEEK_IN_SECONDS.
- *                                           Invalidated on edit_/delete_attachment.
- *
- *   kotlinskidev_build_fingerprint          Last-seen build ID (see build/build-id.php,
- *                                           written by bin/write-build-id.js on every
- *                                           `npm run build`). Used to detect new deploys.
- *
- *   kotlinskidev_badge_fetch_{md5(url)}     Parsed Open Graph data from a fetched
- *                                           Credly/Accredible badge URL (functions/
- *                                           certificate-badge-fetch.php). DAY_IN_SECONDS —
- *                                           avoids re-fetching the same badge on every
- *                                           click of "Fetch details" while editing.
- *
- *   kotlinskidev_canvas_recipe_{scene_id}   Clamped/validated layer recipe parsed from
- *                                           a kt_canvas_scene post's content (functions/
- *                                           canvas/scene.php). WEEK_IN_SECONDS. Invalidated
- *                                           on save_post_kt_canvas_scene/delete_post.
- *
- *   kotlinskidev_offers_{lang}              Map of offer_key => name, currency, is_placeholder
- *                                           and variants for one Polylang language
- *                                           (functions/offers.php). WEEK_IN_SECONDS.
- *                                           Invalidated on kt_offer save, trash, delete,
- *                                           meta change and pll_save_post.
- *
- *  Object-cache (wp_cache_get / wp_cache_set — ephemeral, per-request only when
- *  no persistent backend like Redis is active):
- *
- *   kotlinskidev_polish_search_page_id      Page ID for the Polish search template,
- *                                           looked up at most once per request.
- *
- *  Static / in-memory (never written to DB, live only for the current PHP process):
- *
- *   $cached_keys       in kotlinskidev_get_or_create_keys()   RSA key pair
- *   $lazy_class        in control_block_lazy_loading()         Theme-mod value
- *   $cache[$locale]    in kotlinskidev_get_breadcrumb_settings() Breadcrumb opts
- * ─────────────────────────────────────────────────────────────────────────────
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// ─── 1. PREFIX CONSTANT ──────────────────────────────────────────────────────
-
-/** All theme transient names must start with this prefix. */
 define( 'KOTLINSKIDEV_CACHE_PREFIX', 'kotlinskidev_' );
 
-// ─── 2. FINGERPRINT HELPER ───────────────────────────────────────────────────
+const KOTLINSKIDEV_IMAGE_SIZE_TRANSIENT_PREFIX = 'img_size_';
 
-/**
- * Return a value that uniquely represents the current build output.
- * Changes whenever `npm run build` runs — bin/write-build-id.js writes a
- * fresh timestamp to build/build-id.php on every build, so detecting a new
- * deploy is one opcache-backed `include` instead of glob()-ing and
- * filemtime()-stat'ing 100+ compiled CSS/JS files on every page load.
- */
 function kotlinskidev_build_fingerprint(): string {
     $build_id_file = get_template_directory() . '/build/build-id.php';
 
@@ -109,55 +17,36 @@ function kotlinskidev_build_fingerprint(): string {
     return (string) include $build_id_file;
 }
 
-// ─── 3. FLUSH HELPERS ────────────────────────────────────────────────────────
+function kotlinskidev_delete_transient_rows_matching_prefixes( string $first_prefix, string $second_prefix ): void {
+    global $wpdb;
 
-/**
- * Delete every theme transient whose name starts with KOTLINSKIDEV_CACHE_PREFIX.
- * Also deletes the img_size_* transients created by the image-dimension filter.
- *
- * Safe to call at any time. Uses a single targeted SQL query instead of looping
- * over individual delete_transient() calls to avoid hammering the DB.
- */
+    $wpdb->query(
+        $wpdb->prepare(
+            "DELETE FROM {$wpdb->options}
+             WHERE option_name LIKE %s
+                OR option_name LIKE %s",
+            $first_prefix . '%',
+            $second_prefix . '%'
+        )
+    );
+}
+
 function kotlinskidev_flush_all_transients(): void {
     global $wpdb;
 
-    $prefix = $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_CACHE_PREFIX );
-    $img    = $wpdb->esc_like( '_transient_img_size_' );
-
-    // Delete the transient values
-    $wpdb->query(
-        $wpdb->prepare(
-            "DELETE FROM {$wpdb->options}
-             WHERE option_name LIKE %s
-                OR option_name LIKE %s",
-            $prefix . '%',
-            $img . '%'
-        )
+    kotlinskidev_delete_transient_rows_matching_prefixes(
+        $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_CACHE_PREFIX ),
+        $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_IMAGE_SIZE_TRANSIENT_PREFIX )
     );
 
-    // Delete the corresponding timeout rows
-    $prefix_timeout = $wpdb->esc_like( '_transient_timeout_' . KOTLINSKIDEV_CACHE_PREFIX );
-    $img_timeout    = $wpdb->esc_like( '_transient_timeout_img_size_' );
-
-    $wpdb->query(
-        $wpdb->prepare(
-            "DELETE FROM {$wpdb->options}
-             WHERE option_name LIKE %s
-                OR option_name LIKE %s",
-            $prefix_timeout . '%',
-            $img_timeout . '%'
-        )
+    kotlinskidev_delete_transient_rows_matching_prefixes(
+        $wpdb->esc_like( '_transient_timeout_' . KOTLINSKIDEV_CACHE_PREFIX ),
+        $wpdb->esc_like( '_transient_timeout_' . KOTLINSKIDEV_IMAGE_SIZE_TRANSIENT_PREFIX )
     );
 
-    // Also flush the WP object cache for the current request
     wp_cache_flush();
 }
 
-/**
- * Delete only the stale build-file transients (critical CSS / critical JS)
- * whose filemtime-based keys are no longer valid. Leaves img_size_* and i18n
- * transients intact since those are still current.
- */
 function kotlinskidev_flush_build_transients(): void {
     global $wpdb;
 
@@ -172,56 +61,29 @@ function kotlinskidev_flush_build_transients(): void {
     }
 }
 
-// ─── 4. AUTO-DETECTION OF NEW DEPLOYS ────────────────────────────────────────
+function kotlinskidev_purge_asset_cleanup_bundles(): void {
+    if ( class_exists( '\WpAssetCleanUp\OptimiseAssets\OptimizeCommon' ) ) {
+        \WpAssetCleanUp\OptimiseAssets\OptimizeCommon::clearCache();
+    }
+}
 
-/**
- * Run once per new build: compare the current fingerprint against the stored one.
- * If they differ, flush stale build transients and store the new fingerprint.
- *
- * Hooked at priority 0 on wp_head so it runs before CSS / JS inlining hooks.
- * The stored fingerprint transient itself is excluded from the flush.
- */
 function kotlinskidev_maybe_purge_on_new_build(): void {
     $fingerprint_key  = KOTLINSKIDEV_CACHE_PREFIX . 'build_fingerprint';
     $current          = kotlinskidev_build_fingerprint();
     $stored           = get_transient( $fingerprint_key );
 
     if ( $stored === $current ) {
-        return; // Nothing changed — bail immediately (zero extra DB work)
+        return;
     }
 
-    // New build detected — wipe stale build-file transients
     kotlinskidev_flush_build_transients();
+    kotlinskidev_purge_asset_cleanup_bundles();
 
-    // Asset CleanUp's own combined bundles are keyed by file content and must be purged too, or clients silently keep the pre-deploy bundle.
-    if ( class_exists( '\WpAssetCleanUp\OptimiseAssets\OptimizeCommon' ) ) {
-        \WpAssetCleanUp\OptimiseAssets\OptimizeCommon::clearCache();
-    }
-
-    // Persist the new fingerprint for MONTH_IN_SECONDS so this check is cheap
     set_transient( $fingerprint_key, $current, MONTH_IN_SECONDS );
 }
 add_action( 'wp_head', 'kotlinskidev_maybe_purge_on_new_build', 0 );
 
-// ─── 5. LIFECYCLE HOOKS — flush on theme events ───────────────────────────────
-
-/**
- * Full flush when the theme is deactivated or switched away.
- * Ensures no cached data from this theme bleeds into the next active theme.
- */
-add_action( 'switch_theme', 'kotlinskidev_flush_all_transients' );
-
-/**
- * Full flush when WordPress completes any upgrade (theme or otherwise).
- * Catches deployments done via the WP admin Themes > Update flow.
- */
-add_action( 'upgrader_process_complete', 'kotlinskidev_flush_all_transients' );
-
-/**
- * Full flush when a language / locale file is updated.
- * Invalidates the i18n translation transient so new strings appear immediately.
- */
-add_action( 'upgrader_process_complete', function ( $upgrader, $hook_extra ) {
+function kotlinskidev_flush_i18n_transients_on_translation_update( $upgrader, $hook_extra ): void {
     if ( isset( $hook_extra['type'] ) && $hook_extra['type'] === 'translation' ) {
         global $wpdb;
         $like = $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_CACHE_PREFIX . 'i18n_' );
@@ -235,13 +97,12 @@ add_action( 'upgrader_process_complete', function ( $upgrader, $hook_extra ) {
             )
         );
     }
-}, 10, 2 );
+}
 
-// ─── 6. ADMIN UI — manual "Clear Cache" button ───────────────────────────────
+add_action( 'switch_theme', 'kotlinskidev_flush_all_transients' );
+add_action( 'upgrader_process_complete', 'kotlinskidev_flush_all_transients' );
+add_action( 'upgrader_process_complete', 'kotlinskidev_flush_i18n_transients_on_translation_update', 10, 2 );
 
-/**
- * Register a minimal admin page under Tools > Theme Cache.
- */
 function kotlinskidev_cache_admin_menu(): void {
     add_management_page(
         __( 'Theme Cache', 'kotlinskidev' ),
@@ -253,9 +114,24 @@ function kotlinskidev_cache_admin_menu(): void {
 }
 add_action( 'admin_menu', 'kotlinskidev_cache_admin_menu' );
 
-/**
- * Handle the form POST and render the admin page.
- */
+function kotlinskidev_count_theme_transients(): int {
+    global $wpdb;
+
+    $prefix       = $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_CACHE_PREFIX );
+    $image_prefix = $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_IMAGE_SIZE_TRANSIENT_PREFIX );
+
+    return (int) $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->options}
+              WHERE ( option_name LIKE %s OR option_name LIKE %s )
+                AND option_name NOT LIKE %s",
+            $prefix . '%',
+            $image_prefix . '%',
+            '%_timeout_%'
+        )
+    );
+}
+
 function kotlinskidev_cache_admin_page(): void {
     if (
         isset( $_POST['kotlinskidev_clear_cache'] ) &&
@@ -267,21 +143,7 @@ function kotlinskidev_cache_admin_page(): void {
             . '</p></div>';
     }
 
-    // Gather stats
-    global $wpdb;
-    $prefix     = $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_CACHE_PREFIX );
-    $img_prefix = $wpdb->esc_like( '_transient_img_size_' );
-
-    $count = (int) $wpdb->get_var(
-        $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->options}
-              WHERE ( option_name LIKE %s OR option_name LIKE %s )
-                AND option_name NOT LIKE %s",
-            $prefix . '%',
-            $img_prefix . '%',
-            '%_timeout_%'
-        )
-    );
+    $count = kotlinskidev_count_theme_transients();
     ?>
     <div class="wrap">
         <h1><?php esc_html_e( 'kotlinskidev — Theme Cache', 'kotlinskidev' ); ?></h1>
@@ -289,6 +151,22 @@ function kotlinskidev_cache_admin_page(): void {
         <p><?php esc_html_e( 'Cached entries currently stored in the database:', 'kotlinskidev' ); ?>
            <strong><?php echo esc_html( $count ); ?></strong></p>
 
+<?php kotlinskidev_render_cache_groups_table(); ?>
+
+        <form method="post">
+            <?php wp_nonce_field( 'kotlinskidev_clear_cache_action' ); ?>
+            <p>
+                <button type="submit" name="kotlinskidev_clear_cache" class="button button-primary">
+                    <?php esc_html_e( 'Clear all theme cache', 'kotlinskidev' ); ?>
+                </button>
+            </p>
+        </form>
+    </div>
+    <?php
+}
+
+function kotlinskidev_render_cache_groups_table(): void {
+    ?>
         <table class="widefat striped" style="max-width:600px;margin-bottom:1.5rem;">
             <thead>
                 <tr>
@@ -340,28 +218,9 @@ function kotlinskidev_cache_admin_page(): void {
                 </tr>
             </tbody>
         </table>
-
-        <form method="post">
-            <?php wp_nonce_field( 'kotlinskidev_clear_cache_action' ); ?>
-            <p>
-                <button type="submit" name="kotlinskidev_clear_cache" class="button button-primary">
-                    <?php esc_html_e( 'Clear all theme cache', 'kotlinskidev' ); ?>
-                </button>
-            </p>
-        </form>
-    </div>
-    <?php
+<?php
 }
 
-// ─── 7. WP-CLI COMMAND ───────────────────────────────────────────────────────
-
-/**
- * WP-CLI usage:
- *   wp eval 'kotlinskidev_flush_all_transients();' && echo "Cache cleared"
- *
- * Or via the registered command if WP-CLI is available:
- *   wp kotlinskidev cache flush
- */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
     /**
      * Manage the kotlinskidev theme cache.
@@ -391,19 +250,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
          * @subcommand status
          */
         public function status(): void {
-            global $wpdb;
-            $prefix = $wpdb->esc_like( '_transient_' . KOTLINSKIDEV_CACHE_PREFIX );
-            $img    = $wpdb->esc_like( '_transient_img_size_' );
-            $count  = (int) $wpdb->get_var(
-                $wpdb->prepare(
-                    "SELECT COUNT(*) FROM {$wpdb->options}
-                      WHERE ( option_name LIKE %s OR option_name LIKE %s )
-                        AND option_name NOT LIKE %s",
-                    $prefix . '%',
-                    $img . '%',
-                    '%_timeout_%'
-                )
-            );
+            $count = kotlinskidev_count_theme_transients();
             WP_CLI::line( "kotlinskidev theme transients in DB: {$count}" );
         }
     }

@@ -134,6 +134,46 @@ const syncInputFiles = (input: HTMLInputElement, files: File[]): boolean => {
   }
 };
 
+const buildAttachmentItem = (
+  file: File,
+  config: AttachmentConfig,
+  onRemove: (file: File) => void
+): HTMLLIElement => {
+  const item = document.createElement("li");
+  item.className = "kt-contact-attachments__item";
+  const label = document.createElement("span");
+  label.textContent = `${file.name} (${formatBytes(file.size)})`;
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "kt-contact-attachments__remove";
+  remove.textContent = "×";
+  remove.setAttribute("aria-label", fillMessage(config.messages.remove, file.name));
+  remove.addEventListener("click", () => onRemove(file));
+  item.append(label, remove);
+  return item;
+};
+
+interface AttachmentSubmitCheck {
+  message: string;
+  show: (message: string) => void;
+}
+
+const blockSubmitWhileInvalid = (
+  form: HTMLFormElement,
+  input: HTMLInputElement,
+  check: () => AttachmentSubmitCheck
+): void => {
+  form.addEventListener("submit", (event) => {
+    const { message, show } = check();
+    if (message) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      show(message);
+      input.focus();
+    }
+  });
+};
+
 const setupAttachments = (form: HTMLFormElement): void => {
   const config = readAttachmentConfig(form);
   const input = form.querySelector<HTMLInputElement>(".kt-contact-attachments__input");
@@ -145,27 +185,16 @@ const setupAttachments = (form: HTMLFormElement): void => {
 
   let selected: File[] = [];
 
+  const removeFile = (file: File): void => {
+    selected = selected.filter((candidate) => candidate !== file);
+    syncInputFiles(input, selected);
+    update();
+    input.focus();
+  };
+
   const render = (): void => {
     list.replaceChildren();
-    selected.forEach((file) => {
-      const item = document.createElement("li");
-      item.className = "kt-contact-attachments__item";
-      const label = document.createElement("span");
-      label.textContent = `${file.name} (${formatBytes(file.size)})`;
-      const remove = document.createElement("button");
-      remove.type = "button";
-      remove.className = "kt-contact-attachments__remove";
-      remove.textContent = "×";
-      remove.setAttribute("aria-label", fillMessage(config.messages.remove, file.name));
-      remove.addEventListener("click", () => {
-        selected = selected.filter((candidate) => candidate !== file);
-        syncInputFiles(input, selected);
-        update();
-        input.focus();
-      });
-      item.append(label, remove);
-      list.append(item);
-    });
+    selected.forEach((file) => list.append(buildAttachmentItem(file, config, removeFile)));
   };
 
   const showError = (message: string): void => {
@@ -186,15 +215,10 @@ const setupAttachments = (form: HTMLFormElement): void => {
     update();
   });
 
-  form.addEventListener("submit", (event) => {
-    const message = validateAttachments(selected, config);
-    if (message) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      showError(message);
-      input.focus();
-    }
-  });
+  blockSubmitWhileInvalid(form, input, () => ({
+    message: validateAttachments(selected, config),
+    show: showError,
+  }));
 };
 
 const init = (): void => {

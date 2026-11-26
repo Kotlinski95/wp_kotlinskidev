@@ -26,7 +26,8 @@
 @import "./styles/complianz-preshow";
 @import "./styles/mobile-footer-menu";
 
-html:not(.kt-css-accessibility-onetap) :is(.onetap-container-toggle, .onetap-container) {
+html:not(.kt-css-accessibility-onetap) :is(.onetap-container-toggle, .onetap-container),
+html:not(.kt-css-accessibility-onetap-inline) :is(.onetap-container-toggle, .onetap-container) {
 	display: none !important;
 }
 

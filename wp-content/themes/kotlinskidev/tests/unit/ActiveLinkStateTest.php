@@ -1,5 +1,7 @@
 <?php
 
+use Brain\Monkey\Functions;
+
 require_once __DIR__ . '/../../functions/active-link-state.php';
 
 it('matches home path', function () {
@@ -31,4 +33,20 @@ it('rejects hashes, empty, other schemes and other hosts', function () {
     expect(kotlinskidev_is_current_link_url('tel:123', '/', 'example.test'))->toBeFalse();
     expect(kotlinskidev_is_current_link_url('javascript:void(0)', '/', 'example.test'))->toBeFalse();
     expect(kotlinskidev_is_current_link_url('https://other.test/about/', '/about/', 'example.test'))->toBeFalse();
+});
+
+it('never marks a request link current on a search request', function () {
+    Functions\when('get_option')->justReturn(true);
+    Functions\when('home_url')->justReturn('https://example.test');
+    $_SERVER['REQUEST_URI'] = '/';
+
+    Functions\when('is_search')->justReturn(true);
+    expect(kotlinskidev_is_current_request_link('/'))->toBeFalse();
+
+    Functions\when('is_search')->justReturn(false);
+    $_GET['s'] = 'CV';
+    expect(kotlinskidev_is_current_request_link('/'))->toBeFalse();
+
+    unset($_GET['s']);
+    expect(kotlinskidev_is_current_request_link('/'))->toBeTrue();
 });

@@ -37,54 +37,56 @@ interface BlockEditProps {
   setAttributes: (attrs: { loadMore: LoadMoreAttribute }) => void;
 }
 
+function LoadMorePanel({ attributes, setAttributes }: Omit<BlockEditProps, "name">) {
+  const loadMore = attributes.loadMore ?? DEFAULT_LOAD_MORE;
+
+  const updateLoadMore = (changes: Partial<LoadMoreAttribute>) => {
+    setAttributes({ loadMore: { ...loadMore, ...changes } });
+  };
+
+  return (
+    <PanelBody title={__("Load More", "kotlinskidev")} initialOpen={false}>
+      <ToggleControl
+        label={__("Enable Load More", "kotlinskidev")}
+        checked={loadMore.enabled}
+        onChange={(value) => updateLoadMore({ enabled: value })}
+        help={__("Show only the first items on load; a button reveals the rest.", "kotlinskidev")}
+      />
+
+      {loadMore.enabled && (
+        <>
+          <RangeControl
+            label={__("Items to show initially", "kotlinskidev")}
+            value={loadMore.initialCount}
+            onChange={(value) => updateLoadMore({ initialCount: value ?? 1 })}
+            min={1}
+            max={24}
+          />
+          <TextControl
+            label={__("Button label", "kotlinskidev")}
+            value={loadMore.buttonLabel}
+            onChange={(value) => updateLoadMore({ buttonLabel: value })}
+            placeholder={__("Load more", "kotlinskidev")}
+            help={__("Leave empty to use the default label.", "kotlinskidev")}
+          />
+          <LoadMoreStyleControls value={loadMore} onChange={updateLoadMore} />
+        </>
+      )}
+    </PanelBody>
+  );
+}
+
 const withLoadMoreControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (props.name !== GROUP_BLOCK) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const loadMore = attributes.loadMore ?? DEFAULT_LOAD_MORE;
-
-    const updateLoadMore = (changes: Partial<LoadMoreAttribute>) => {
-      setAttributes({ loadMore: { ...loadMore, ...changes } });
-    };
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Load More", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Enable Load More", "kotlinskidev")}
-              checked={loadMore.enabled}
-              onChange={(value) => updateLoadMore({ enabled: value })}
-              help={__(
-                "Show only the first items on load; a button reveals the rest.",
-                "kotlinskidev"
-              )}
-            />
-
-            {loadMore.enabled && (
-              <>
-                <RangeControl
-                  label={__("Items to show initially", "kotlinskidev")}
-                  value={loadMore.initialCount}
-                  onChange={(value) => updateLoadMore({ initialCount: value ?? 1 })}
-                  min={1}
-                  max={24}
-                />
-                <TextControl
-                  label={__("Button label", "kotlinskidev")}
-                  value={loadMore.buttonLabel}
-                  onChange={(value) => updateLoadMore({ buttonLabel: value })}
-                  placeholder={__("Load more", "kotlinskidev")}
-                  help={__("Leave empty to use the default label.", "kotlinskidev")}
-                />
-                <LoadMoreStyleControls value={loadMore} onChange={updateLoadMore} />
-              </>
-            )}
-          </PanelBody>
+          <LoadMorePanel attributes={props.attributes} setAttributes={props.setAttributes} />
         </InspectorControls>
       </Fragment>
     );

@@ -1,32 +1,36 @@
 import { getScrollTop, onScroll } from "./utils";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const header = document.querySelector("header") as HTMLElement | null;
+const STICKY_HEADER_CLASS = "header-sticky";
+const BREADCRUMBS_HIDDEN_CLASS = "kt-breadcrumbs--hidden";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector<HTMLElement>("header");
   if (!header) {
     return;
   }
 
-  const breadcrumbs = document.querySelector(".kt-breadcrumbs") as HTMLElement | null;
-
+  const breadcrumbs = document.querySelector<HTMLElement>(".kt-breadcrumbs");
   let stickyThreshold: number | null = null;
-  let rafId: number | null = null;
+  let frameId: number | null = null;
 
-  const handleScroll = () => {
-    if (rafId !== null) {
-      return;
+  const applyStickyState = (): void => {
+    const scrollTop = getScrollTop();
+    if (scrollTop > 0) {
+      stickyThreshold ??= header.offsetHeight;
     }
-    rafId = requestAnimationFrame(() => {
-      const scrollTop = getScrollTop();
-      if (scrollTop > 0) {
-        stickyThreshold ??= header.offsetHeight;
-      }
-      const scrolled = stickyThreshold !== null && scrollTop > stickyThreshold;
-      header.classList.toggle("header-sticky", scrolled);
-      breadcrumbs?.classList.toggle("kt-breadcrumbs--hidden", scrolled);
-      rafId = null;
-    });
+    const isScrolledPastHeader = stickyThreshold !== null && scrollTop > stickyThreshold;
+    header.classList.toggle(STICKY_HEADER_CLASS, isScrolledPastHeader);
+    breadcrumbs?.classList.toggle(BREADCRUMBS_HIDDEN_CLASS, isScrolledPastHeader);
+    frameId = null;
   };
 
-  handleScroll();
-  onScroll(handleScroll);
+  const onScrollUpdateStickyState = (): void => {
+    if (frameId !== null) {
+      return;
+    }
+    frameId = requestAnimationFrame(applyStickyState);
+  };
+
+  onScrollUpdateStickyState();
+  onScroll(onScrollUpdateStickyState);
 });

@@ -34,3 +34,6 @@ Do not add inline or block comments. Selector and variable names must be self-do
 - Avoid `*` selectors and overly broad descendant selectors.
 - Keep per-block stylesheets scoped tightly to that block's root class.
 - Do not import entire libraries — import only the partials needed.
+
+## Browser quirks
+- `.mobile-footer-nav` keeps `transform: translateZ(0)` to force hardware acceleration; without it Chrome renders the fixed bar at a wrong position during scroll while the bottom browser bar hides.

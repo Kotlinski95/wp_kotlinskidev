@@ -1,6 +1,7 @@
 <?php
 // Include theme setup functions
 require_once get_template_directory() . '/functions/theme-setup.php';
+require_once get_template_directory() . '/functions/jquery-gate.php';
 
 // Disable native browser scroll restoration before first paint, so our own controlled restore in restoration.ts is the only thing that moves scrollY on load/reload
 require_once get_template_directory() . '/functions/scroll-restoration.php';
@@ -54,6 +55,7 @@ require_once get_template_directory() . '/includes/i18n.php';
 
 // Register custom blocks via block.json
 require_once get_template_directory() . '/functions/blocks.php';
+require_once get_template_directory() . '/functions/navigation-render.php';
 
 // Register core/button style variants (Fill/Outline/Gradient Outline x light/dark/adaptive/adaptive-contrast)
 require_once get_template_directory() . '/functions/button-style-variants.php';

@@ -63,72 +63,84 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+function useTextGradientChoice({ attributes, setAttributes }: BlockEditProps) {
+  const nativeTextColor = attributes.style?.color?.text || attributes.textColor;
+  const textGradient = attributes.textGradient || "";
+  const textGradientRef = useRef(textGradient);
+  textGradientRef.current = textGradient;
+  const nativeTextColorRef = useRef(nativeTextColor);
+  nativeTextColorRef.current = nativeTextColor;
+
+  const setTextColor = (value?: string) => {
+    nativeTextColorRef.current = value || "";
+    if (value) {
+      textGradientRef.current = "";
+    }
+    setAttributes({
+      textColor: undefined,
+      textGradient: textGradientRef.current,
+      style: {
+        ...attributes.style,
+        color: { ...attributes.style?.color, text: nativeTextColorRef.current || undefined },
+      },
+    });
+  };
+
+  const setTextGradient = (value?: string) => {
+    textGradientRef.current = value || "";
+    if (value) {
+      nativeTextColorRef.current = "";
+    }
+    setAttributes({
+      textGradient: value || "",
+      textColor: value ? undefined : attributes.textColor,
+      style: {
+        ...attributes.style,
+        color: { ...attributes.style?.color, text: nativeTextColorRef.current || undefined },
+      },
+    });
+  };
+
+  return { nativeTextColor, textGradient, setTextColor, setTextGradient };
+}
+
+function TextGradientControl(props: BlockEditProps) {
+  const { nativeTextColor, textGradient, setTextColor, setTextGradient } =
+    useTextGradientChoice(props);
+
+  return (
+    <div style={{ gridColumn: "span 2" }}>
+      <PanelColorGradientSettings
+        title={__("Text", "kotlinskidev")}
+        showTitle={false}
+        __experimentalIsRenderedInSidebar
+        settings={[
+          {
+            label: __("Text", "kotlinskidev"),
+            colorValue: nativeTextColor || undefined,
+            gradientValue: textGradient || undefined,
+            onColorChange: setTextColor,
+            onGradientChange: setTextGradient,
+            clearable: true,
+            isShownByDefault: true,
+          },
+        ]}
+      />
+    </div>
+  );
+}
+
 const withTextGradientControl = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!props.name) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const nativeTextColor = attributes.style?.color?.text || attributes.textColor;
-    const textGradient = attributes.textGradient || "";
-    const textGradientRef = useRef(textGradient);
-    textGradientRef.current = textGradient;
-    const nativeTextColorRef = useRef(nativeTextColor);
-    nativeTextColorRef.current = nativeTextColor;
-
-    const setTextColor = (value?: string) => {
-      nativeTextColorRef.current = value || "";
-      if (value) {
-        textGradientRef.current = "";
-      }
-      setAttributes({
-        textColor: undefined,
-        textGradient: textGradientRef.current,
-        style: {
-          ...attributes.style,
-          color: { ...attributes.style?.color, text: nativeTextColorRef.current || undefined },
-        },
-      });
-    };
-
-    const setTextGradient = (value?: string) => {
-      textGradientRef.current = value || "";
-      if (value) {
-        nativeTextColorRef.current = "";
-      }
-      setAttributes({
-        textGradient: value || "",
-        textColor: value ? undefined : attributes.textColor,
-        style: {
-          ...attributes.style,
-          color: { ...attributes.style?.color, text: nativeTextColorRef.current || undefined },
-        },
-      });
-    };
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls group="color">
-          <div style={{ gridColumn: "span 2" }}>
-            <PanelColorGradientSettings
-              title={__("Text", "kotlinskidev")}
-              showTitle={false}
-              __experimentalIsRenderedInSidebar
-              settings={[
-                {
-                  label: __("Text", "kotlinskidev"),
-                  colorValue: nativeTextColor || undefined,
-                  gradientValue: textGradient || undefined,
-                  onColorChange: setTextColor,
-                  onGradientChange: setTextGradient,
-                  clearable: true,
-                  isShownByDefault: true,
-                },
-              ]}
-            />
-          </div>
+          <TextGradientControl {...props} />
         </InspectorControls>
       </Fragment>
     );

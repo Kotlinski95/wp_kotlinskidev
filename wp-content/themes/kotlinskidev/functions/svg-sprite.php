@@ -1,4 +1,6 @@
 <?php
+const KOTLINSKIDEV_SVG_SPRITE_HASH_LENGTH = 6;
+
 add_action( 'wp_body_open', 'kotlinskidev_print_svg_sprite', 5 );
 
 function kotlinskidev_svg_sprite_symbols( string $symbol_id = '', string $view_box = '', string $inner = '' ): array {
@@ -40,7 +42,7 @@ function kotlinskidev_svg_sprite_reference( int $attachment_id, string $inline_s
 
 	$outer_attrs = (string) preg_replace( '/\sxmlns(?::[\w-]+)?="[^"]*"/i', '', $root_attrs );
 	$outer_attrs = (string) preg_replace( '/\sviewBox="[^"]*"/i', '', $outer_attrs );
-	$symbol_id   = sprintf( 'kt-svg-%d-%s', $attachment_id, substr( md5( $inner ), 0, 6 ) );
+	$symbol_id   = sprintf( 'kt-svg-%d-%s', $attachment_id, substr( md5( $inner ), 0, KOTLINSKIDEV_SVG_SPRITE_HASH_LENGTH ) );
 
 	kotlinskidev_svg_sprite_symbols( $symbol_id, $view_box[1], $inner );
 

@@ -1,23 +1,19 @@
 <?php
+const KOTLINSKIDEV_CRITICAL_STYLE_HANDLE = 'critical-style';
+const KOTLINSKIDEV_GLOBAL_STYLE_HANDLE = 'global-style';
+const KOTLINSKIDEV_MAIN_SCRIPT_HANDLE = 'wp-typescript';
+
 function defer_global_css()
 {
-    // Enqueue the global stylesheet with media="print" to prevent it from blocking render
     $main_css_path = kotlinskidev_build_path('css', 'main.css');
     $main_css_ver  = file_exists($main_css_path) ? filemtime($main_css_path) : null;
-    wp_enqueue_style('global-style', kotlinskidev_build_url('css', 'main.css'), [], $main_css_ver, 'print');
+    wp_enqueue_style(KOTLINSKIDEV_GLOBAL_STYLE_HANDLE, kotlinskidev_build_url('css', 'main.css'), [], $main_css_ver, 'print');
 }
 add_action('wp_enqueue_scripts', 'defer_global_css');
 
-// Inline critical JavaScript for frontend
-function inline_critical_js()
+function kotlinskidev_read_cached_critical_js(string $critical_js_path): string
 {
-    $critical_js_path = kotlinskidev_build_path('js', 'critical.js');
-    if (!file_exists($critical_js_path)) {
-        return;
-    }
-
-        // Cached by filemtime()-keyed transient so it auto-invalidates on each deploy.
-    $cache_key  = 'kotlinskidev_critical_js_' . filemtime($critical_js_path);
+    $cache_key   = 'kotlinskidev_critical_js_' . filemtime($critical_js_path);
     $critical_js = get_transient($cache_key);
     if ($critical_js === false) {
         $critical_js = file_get_contents($critical_js_path);
@@ -26,62 +22,80 @@ function inline_critical_js()
         }
     }
 
+    return $critical_js ?: '';
+}
+
+function inline_critical_js()
+{
+    $critical_js_path = kotlinskidev_build_path('js', 'critical.js');
+    if (!file_exists($critical_js_path)) {
+        return;
+    }
+
+    $critical_js = kotlinskidev_read_cached_critical_js($critical_js_path);
     if ($critical_js) {
         echo '<script id="critical-js" charset="utf-8">' . $critical_js . '</script>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- trusted theme build output read from build/js/critical.js, not user input; escaping would corrupt the inline JS
     }
 }
-add_action('wp_head', 'inline_critical_js', 2); // Load after critical CSS
+add_action('wp_head', 'inline_critical_js', 2);
 
-// Master filter for all CSS modifications
-function master_css_filter($html, $handle)
+function kotlinskidev_protect_critical_stylesheet(string $html): string
 {
-    // Handle critical CSS protection
-    if ($handle === 'critical-style') {
-        $html = str_replace('<link', '<link data-no-optimize="1" data-critical="true"', $html);
+    return str_replace('<link', '<link data-no-optimize="1" data-critical="true"', $html);
+}
+
+function kotlinskidev_make_stylesheet_non_blocking(string $html): string
+{
+    $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
+    $html = str_replace('media="all"', 'media="print"', $html);
+    $html = str_replace("media='all'", "media='print'", $html);
+    if (strpos($html, 'onload=') === false) {
+        $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
+        $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
     }
-    
-    // Handle main CSS defer - force media="print" and add onload
-    if ($handle === 'global-style') {
-        // Add protection attributes first
-        $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
-        
-        // Force media to "print" (override any plugin changes)
-        $html = str_replace('media="all"', 'media="print"', $html);
-        $html = str_replace("media='all'", "media='print'", $html);
-        
-        // Then add the onload event if it's not already there
-        if (strpos($html, 'onload=') === false) {
-            $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
-            $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
-        }
-        
-    }
-    
-    $deferred_handles = array_merge(
+
+    return $html;
+}
+
+function kotlinskidev_flag_stylesheet_loaded(string $html, string $handle): string
+{
+    return str_replace("this.media='all'", "this.media='all';document.documentElement.classList.add('kt-css-" . $handle . "')", $html);
+}
+
+function kotlinskidev_get_deferred_style_handles(): array
+{
+    return array_merge(
         [
             'wp-block-navigation',
             'wp-pwa-manager-frontend',
-            'accessibility-onetap',
+            KOTLINSKIDEV_ONETAP_STYLE_HANDLE,
         ],
         kotlinskidev_get_deferred_block_style_handles(),
         kotlinskidev_get_block_style_link_handles()
     );
+}
+
+function master_css_filter($html, $handle)
+{
+    if ($handle === KOTLINSKIDEV_CRITICAL_STYLE_HANDLE) {
+        $html = kotlinskidev_protect_critical_stylesheet($html);
+    }
+
+    if ($handle === KOTLINSKIDEV_GLOBAL_STYLE_HANDLE) {
+        $html = kotlinskidev_make_stylesheet_non_blocking($html);
+    }
+
+    $deferred_handles = kotlinskidev_get_deferred_style_handles();
     if (in_array($handle, $deferred_handles, true)) {
-        $html = str_replace('<link', '<link data-no-defer="1" data-no-optimize="1"', $html);
-        $html = str_replace('media="all"', 'media="print"', $html);
-        $html = str_replace("media='all'", "media='print'", $html);
-        if (strpos($html, 'onload=') === false) {
-            $html = str_replace("media='print'", "media='print' onload=\"this.media='all'\"", $html);
-            $html = str_replace('media="print"', 'media="print" onload="this.media=\'all\'"', $html);
-        }
-        if ('accessibility-onetap' === $handle) {
-            $html = str_replace("this.media='all'", "this.media='all';document.documentElement.classList.add('kt-css-" . $handle . "')", $html);
+        $html = kotlinskidev_make_stylesheet_non_blocking($html);
+        if (KOTLINSKIDEV_ONETAP_STYLE_HANDLE === $handle) {
+            $html = kotlinskidev_flag_stylesheet_loaded($html, $handle);
         }
     }
 
     return $html;
 }
-add_filter('style_loader_tag', 'master_css_filter', 5, 2); // Higher priority to run before plugins
+add_filter('style_loader_tag', 'master_css_filter', 5, 2);
 
 function kotlinskidev_defer_deferrable_scripts($tag, $handle)
 {
@@ -100,8 +114,6 @@ function kotlinskidev_defer_deferrable_scripts($tag, $handle)
     return str_replace(' src=', ' defer src=', $tag);
 }
 add_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts', 10, 2);
-
-
 
 function kotlinskidev_read_cached_critical_css(string $relative_filename): string
 {
@@ -123,7 +135,6 @@ function kotlinskidev_read_cached_critical_css(string $relative_filename): strin
     return $css ?: '';
 }
 
-// Inline critical CSS and preload non-critical styles
 function inline_critical_css()
 {
     $critical_css = kotlinskidev_read_cached_critical_css('critical.css');
@@ -166,22 +177,9 @@ function kotlinskidev_editor_scripts(): void
 add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles');
 add_action('enqueue_block_editor_assets', 'kotlinskidev_editor_scripts');
 
-
-add_action('wp_enqueue_scripts', function (): void {
-    $script_args = include kotlinskidev_build_path('js', 'main.asset.php');
-    wp_enqueue_script(
-        'wp-typescript',
-        kotlinskidev_build_url('js', 'main.js'),
-        $script_args['dependencies'],
-        $script_args['version'],
-        [
-            'strategy' => 'defer',
-            'in_footer' => false, // Note: This is the default value.
-        ]
-    );
-    
-    // Make theme URL globally available to all JavaScript files
-    wp_localize_script('wp-typescript', 'kotlinskiTheme', [
+function kotlinskidev_get_theme_script_data(): array
+{
+    return [
         'themeUrl' => get_template_directory_uri(),
         'assetsUrl' => get_template_directory_uri() . '/assets',
         'imagesUrl' => get_template_directory_uri() . '/assets/images',
@@ -189,7 +187,23 @@ add_action('wp_enqueue_scripts', function (): void {
         'breakpoints' => kotlinskidev_get_breakpoints(),
         'scrollOffsets' => kotlinskidev_get_scroll_offsets(),
         'inViewBand' => kotlinskidev_get_in_view_band_config(),
-    ]);
-    
-});
+    ];
+}
 
+function kotlinskidev_enqueue_main_script(): void
+{
+    $script_args = include kotlinskidev_build_path('js', 'main.asset.php');
+    wp_enqueue_script(
+        KOTLINSKIDEV_MAIN_SCRIPT_HANDLE,
+        kotlinskidev_build_url('js', 'main.js'),
+        $script_args['dependencies'],
+        $script_args['version'],
+        [
+            'strategy' => 'defer',
+            'in_footer' => false,
+        ]
+    );
+
+    wp_localize_script(KOTLINSKIDEV_MAIN_SCRIPT_HANDLE, 'kotlinskiTheme', kotlinskidev_get_theme_script_data());
+}
+add_action('wp_enqueue_scripts', 'kotlinskidev_enqueue_main_script');

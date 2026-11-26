@@ -1,22 +1,17 @@
 import React from "react";
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
-import {
-  InspectorControls,
-  __experimentalColorGradientControl as ColorGradientControl,
-} from "@wordpress/block-editor";
-import {
-  PanelBody,
-  ToggleControl,
-  TextControl,
-  TextareaControl,
-  RangeControl,
-} from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
+import { OverlayPanel } from "./OverlayPanel";
+import {
+  DEFAULT_BACKGROUND_OPACITY,
+  opacityToFraction,
+  readOverlayValues,
+  type OverlayAttributes,
+  type OverlayValues,
+} from "./overlay-attributes";
 
 const IMAGE_OVERLAY_BLOCKS = ["core/image"];
-const DEFAULT_BACKGROUND_OPACITY = 100;
 
 interface BlockSettings {
   name?: string;
@@ -49,20 +44,32 @@ const addImageOverlayAttributes = (settings: BlockSettings): BlockSettings => {
   };
 };
 
-interface OverlayAttributes {
-  kotlinskidevOverlayEnabled?: boolean;
-  kotlinskidevOverlayHeading?: string;
-  kotlinskidevOverlayDescription?: string;
-  kotlinskidevOverlayBackgroundColor?: string;
-  kotlinskidevOverlayBackgroundOpacity?: number;
-  kotlinskidevOverlayTextColor?: string;
-}
-
 interface BlockEditProps {
   name?: string;
   attributes: Record<string, unknown> & OverlayAttributes;
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
+
+const overlayPreviewStyle = (values: OverlayValues): React.CSSProperties =>
+  ({
+    position: "relative",
+    "--kt-overlay-bg": values.backgroundColor || undefined,
+    "--kt-overlay-bg-opacity": opacityToFraction(values.backgroundOpacity),
+    "--kt-overlay-text": values.textColor || undefined,
+  }) as React.CSSProperties;
+
+const OverlayPreviewContent = ({ values }: { values: OverlayValues }): JSX.Element | null => {
+  const { enabled, heading, description } = values;
+  if (!enabled || !(heading || description)) {
+    return null;
+  }
+  return (
+    <div className="kt-image-hover-overlay-editor__content">
+      {heading && <span className="kt-image-hover-overlay__heading">{heading}</span>}
+      {description && <span className="kt-image-hover-overlay__description">{description}</span>}
+    </div>
+  );
+};
 
 const withImageOverlayControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
@@ -70,108 +77,15 @@ const withImageOverlayControls = createHigherOrderComponent((BlockEdit) => {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const enabled = Boolean(attributes.kotlinskidevOverlayEnabled);
-    const heading = attributes.kotlinskidevOverlayHeading ?? "";
-    const description = attributes.kotlinskidevOverlayDescription ?? "";
-    const backgroundColor = attributes.kotlinskidevOverlayBackgroundColor ?? "";
-    const backgroundOpacity =
-      attributes.kotlinskidevOverlayBackgroundOpacity ?? DEFAULT_BACKGROUND_OPACITY;
-    const textColor = attributes.kotlinskidevOverlayTextColor ?? "";
-    const isBgGradient = backgroundColor.includes("gradient");
-
-    // ColorGradientControl fires onColorChange then onGradientChange(undefined) back-to-back when picking a flat color — without this guard the clear call wipes out the color just set.
-    const pendingBgColorRef = React.useRef<string | null>(null);
-    const handleBackgroundColorChange = (value: string | undefined) => {
-      if (value !== undefined) {
-        pendingBgColorRef.current = value;
-        setAttributes({ kotlinskidevOverlayBackgroundColor: value });
-      } else if (pendingBgColorRef.current !== null) {
-        pendingBgColorRef.current = null;
-      } else {
-        setAttributes({ kotlinskidevOverlayBackgroundColor: "" });
-      }
-    };
+    const values = readOverlayValues(props.attributes);
 
     return (
       <Fragment>
-        <div
-          className="kt-image-hover-overlay-editor"
-          style={
-            {
-              position: "relative",
-              "--kt-overlay-bg": backgroundColor || undefined,
-              "--kt-overlay-bg-opacity": backgroundOpacity / 100,
-              "--kt-overlay-text": textColor || undefined,
-            } as React.CSSProperties
-          }
-        >
+        <div className="kt-image-hover-overlay-editor" style={overlayPreviewStyle(values)}>
           <BlockEdit {...props} />
-          {enabled && (heading || description) && (
-            <div className="kt-image-hover-overlay-editor__content">
-              {heading && <span className="kt-image-hover-overlay__heading">{heading}</span>}
-              {description && (
-                <span className="kt-image-hover-overlay__description">{description}</span>
-              )}
-            </div>
-          )}
+          <OverlayPreviewContent values={values} />
         </div>
-        <InspectorControls>
-          <PanelBody title={__("Hover Overlay", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Show text overlay on hover", "kotlinskidev")}
-              checked={enabled}
-              onChange={(next) => setAttributes({ kotlinskidevOverlayEnabled: next })}
-            />
-            {enabled && (
-              <>
-                <TextControl
-                  label={__("Heading", "kotlinskidev")}
-                  value={heading}
-                  onChange={(value) => setAttributes({ kotlinskidevOverlayHeading: value })}
-                />
-                <TextareaControl
-                  label={__("Description", "kotlinskidev")}
-                  value={description}
-                  onChange={(value) => setAttributes({ kotlinskidevOverlayDescription: value })}
-                />
-                <ColorGradientControl
-                  label={__("Overlay background color", "kotlinskidev")}
-                  colorValue={backgroundColor && !isBgGradient ? backgroundColor : undefined}
-                  gradientValue={isBgGradient ? backgroundColor : undefined}
-                  onColorChange={handleBackgroundColorChange}
-                  onGradientChange={handleBackgroundColorChange}
-                  enableAlpha={true}
-                  clearable={true}
-                  __experimentalIsRenderedInSidebar={true}
-                  __nextHasNoMarginBottom
-                />
-                <RangeControl
-                  label={__("Overlay background opacity", "kotlinskidev")}
-                  value={backgroundOpacity}
-                  min={0}
-                  max={100}
-                  onChange={(value) =>
-                    setAttributes({
-                      kotlinskidevOverlayBackgroundOpacity: value ?? DEFAULT_BACKGROUND_OPACITY,
-                    })
-                  }
-                />
-                <ColorGradientControl
-                  label={__("Overlay text color", "kotlinskidev")}
-                  colorValue={textColor || undefined}
-                  onColorChange={(value: string | undefined) =>
-                    setAttributes({ kotlinskidevOverlayTextColor: value ?? "" })
-                  }
-                  enableAlpha={true}
-                  clearable={true}
-                  __experimentalIsRenderedInSidebar={true}
-                  __nextHasNoMarginBottom
-                />
-              </>
-            )}
-          </PanelBody>
-        </InspectorControls>
+        <OverlayPanel values={values} setAttributes={props.setAttributes} />
       </Fragment>
     );
   };
@@ -196,10 +110,7 @@ function applyImageOverlayProps(
     return extraProps;
   }
 
-  const backgroundColor = attributes.kotlinskidevOverlayBackgroundColor ?? "";
-  const backgroundOpacity =
-    attributes.kotlinskidevOverlayBackgroundOpacity ?? DEFAULT_BACKGROUND_OPACITY;
-  const textColor = attributes.kotlinskidevOverlayTextColor ?? "";
+  const { backgroundColor, backgroundOpacity, textColor } = readOverlayValues(attributes);
   const hasCustomOpacity = backgroundOpacity !== DEFAULT_BACKGROUND_OPACITY;
 
   if (!backgroundColor && !textColor && !hasCustomOpacity) {
@@ -209,7 +120,7 @@ function applyImageOverlayProps(
   extraProps.style = {
     ...extraProps.style,
     ...(backgroundColor && { "--kt-overlay-bg": backgroundColor }),
-    ...(hasCustomOpacity && { "--kt-overlay-bg-opacity": backgroundOpacity / 100 }),
+    ...(hasCustomOpacity && { "--kt-overlay-bg-opacity": opacityToFraction(backgroundOpacity) }),
     ...(textColor && { "--kt-overlay-text": textColor }),
   };
 

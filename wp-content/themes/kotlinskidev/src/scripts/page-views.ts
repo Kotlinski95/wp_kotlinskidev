@@ -1,143 +1,199 @@
 import { getScrollTop, onScroll as bindScroll } from "./utils";
 
-(function () {
-  if (!(window as any).kotlinskidev_ajax) {
-    return;
+interface PageViewAjaxConfig {
+  ajaxurl?: string;
+  nonce?: string;
+}
+
+interface ConsentCategoriesEventDetail {
+  categories?: string[];
+}
+
+interface PageViewTracker {
+  postId: number;
+  ajaxUrl: string;
+  nonce: string;
+  statisticsConsentGranted: boolean;
+  isTrackPending: boolean;
+}
+
+declare global {
+  interface Window {
+    kotlinskidev_ajax?: PageViewAjaxConfig;
+  }
+}
+
+const DEFAULT_AJAX_URL = "/wp-admin/admin-ajax.php";
+const POST_ID_BODY_CLASS_PREFIXES = ["postid-", "page-id-"];
+const POST_ID_BODY_CLASS_PATTERN = /^(postid-|page-id-)/;
+const STATISTICS_CONSENT_CATEGORY = "statistics";
+const CONSENT_CATEGORIES_EVENT = "cmplz_fire_categories";
+const XHR_DONE_STATE = 4;
+const HTTP_OK = 200;
+const MIN_TIME_ON_PAGE_MS = 3000;
+const MIN_SCROLL_TOP_PX = 100;
+const FALLBACK_TRACK_DELAY_MS = 10000;
+
+function parseId(value: string): number | null {
+  const id = Number.parseInt(value, 10);
+  return Number.isNaN(id) ? null : id;
+}
+
+function readPostId(): number | null {
+  const metaTag = document.querySelector('meta[name="post-id"]') as HTMLMetaElement | null;
+  if (metaTag && metaTag.content) {
+    const metaId = parseId(metaTag.content);
+    if (metaId !== null) {
+      return metaId;
+    }
   }
 
-  const getPostId = (): number | null => {
-    const metaTag = document.querySelector('meta[name="post-id"]') as HTMLMetaElement;
-    if (metaTag && metaTag.content) {
-      const id = Number.parseInt(metaTag.content, 10);
-      if (!Number.isNaN(id)) {
-        return id;
+  for (const className of document.body.className.split(" ")) {
+    if (POST_ID_BODY_CLASS_PREFIXES.some((prefix) => className.startsWith(prefix))) {
+      const classId = parseId(className.replace(POST_ID_BODY_CLASS_PATTERN, ""));
+      if (classId !== null) {
+        return classId;
       }
     }
-
-    const bodyClasses = document.body.className.split(" ");
-    for (const className of bodyClasses) {
-      if (className.startsWith("postid-") || className.startsWith("page-id-")) {
-        const id = Number.parseInt(className.replace(/^(postid-|page-id-)/, ""), 10);
-        if (!Number.isNaN(id)) {
-          return id;
-        }
-      }
-    }
-
-    return null;
-  };
-
-  const postId = getPostId();
-  if (!postId) {
-    return;
   }
 
-  const ajaxUrl: string = (window as any).kotlinskidev_ajax?.ajaxurl || "/wp-admin/admin-ajax.php";
-  let nonce: string = (window as any).kotlinskidev_ajax?.nonce || "";
+  return null;
+}
 
-  const getStorageKey = () => `pv_${postId}_${new Date().toDateString()}`;
+function buildStorageKey(postId: number): string {
+  return `pv_${postId}_${new Date().toDateString()}`;
+}
 
-  const refreshNonce = async (): Promise<void> => {
-    try {
-      const response = await fetch(`${ajaxUrl}?action=kotlinskidev_page_view_nonce`, {
-        cache: "no-store",
-        credentials: "same-origin",
-      });
-      const payload = await response.json();
-      if (payload?.success && payload.data?.nonce) {
-        nonce = payload.data.nonce;
-      }
-    } catch {
-      nonce = nonce || "";
-    }
-  };
-
-  if (!localStorage.getItem(getStorageKey())) {
-    void refreshNonce();
-  }
-
-  const sendPageView = () => {
-    const storageKey = getStorageKey();
-
-    if (localStorage.getItem(storageKey)) {
-      return;
-    }
-
-    localStorage.setItem(storageKey, "1");
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", ajaxUrl);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    const formData = new URLSearchParams({
-      action: "kotlinskidev_track_page_view",
-      post_id: postId.toString(),
-      nonce,
+async function refreshNonce(tracker: PageViewTracker): Promise<void> {
+  try {
+    const response = await fetch(`${tracker.ajaxUrl}?action=kotlinskidev_page_view_nonce`, {
+      cache: "no-store",
+      credentials: "same-origin",
     });
-
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        try {
-          JSON.parse(xhr.responseText);
-        } catch {
-          console.error(`Something went wrong during increasing page view for page: ${postId}`);
-        }
-      }
-    };
-
-    xhr.send(formData.toString());
-  };
-
-  let statisticsConsentGranted = false;
-  let trackPending = false;
-
-  const trackPageView = () => {
-    if (!statisticsConsentGranted) {
-      trackPending = true;
-      return;
+    const payload = await response.json();
+    if (payload?.success && payload.data?.nonce) {
+      tracker.nonce = payload.data.nonce;
     }
-    sendPageView();
-  };
+  } catch {
+    tracker.nonce = tracker.nonce || "";
+  }
+}
 
-  document.addEventListener("cmplz_fire_categories", (event) => {
-    const categories = (event as CustomEvent<{ categories?: string[] }>).detail?.categories ?? [];
-    statisticsConsentGranted = categories.includes("statistics");
+function postPageView(tracker: PageViewTracker): void {
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", tracker.ajaxUrl);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    if (statisticsConsentGranted && trackPending) {
-      trackPending = false;
-      sendPageView();
-    }
+  const formData = new URLSearchParams({
+    action: "kotlinskidev_track_page_view",
+    post_id: tracker.postId.toString(),
+    nonce: tracker.nonce,
   });
 
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === XHR_DONE_STATE && xhr.status === HTTP_OK) {
+      try {
+        JSON.parse(xhr.responseText);
+      } catch {
+        console.error(
+          `Something went wrong during increasing page view for page: ${tracker.postId}`
+        );
+      }
+    }
+  };
+
+  xhr.send(formData.toString());
+}
+
+function sendPageViewOncePerDay(tracker: PageViewTracker): void {
+  const storageKey = buildStorageKey(tracker.postId);
+
+  if (localStorage.getItem(storageKey)) {
+    return;
+  }
+
+  localStorage.setItem(storageKey, "1");
+  postPageView(tracker);
+}
+
+function trackPageViewWhenConsented(tracker: PageViewTracker): void {
+  if (!tracker.statisticsConsentGranted) {
+    tracker.isTrackPending = true;
+    return;
+  }
+  sendPageViewOncePerDay(tracker);
+}
+
+function listenForStatisticsConsent(tracker: PageViewTracker): void {
+  document.addEventListener(CONSENT_CATEGORIES_EVENT, (event) => {
+    const detail = (event as CustomEvent<ConsentCategoriesEventDetail>).detail;
+    const categories = detail?.categories ?? [];
+    tracker.statisticsConsentGranted = categories.includes(STATISTICS_CONSENT_CATEGORY);
+
+    if (tracker.statisticsConsentGranted && tracker.isTrackPending) {
+      tracker.isTrackPending = false;
+      sendPageViewOncePerDay(tracker);
+    }
+  });
+}
+
+function scheduleEngagementTracking(tracker: PageViewTracker): void {
   let hasScrolled = false;
-  let timeSpent = 0;
   const startTime = Date.now();
 
-  const trackView = () => {
-    timeSpent = Date.now() - startTime;
+  const trackIfEngaged = () => {
+    const timeSpent = Date.now() - startTime;
 
-    if (timeSpent >= 3000 || hasScrolled) {
-      trackPageView();
+    if (timeSpent >= MIN_TIME_ON_PAGE_MS || hasScrolled) {
+      trackPageViewWhenConsented(tracker);
       removeScrollListener();
       document.removeEventListener("visibilitychange", onVisibilityChange);
     }
   };
 
-  const onScroll = () => {
-    if (getScrollTop() > 100) {
+  const onScrollPastThreshold = () => {
+    if (getScrollTop() > MIN_SCROLL_TOP_PX) {
       hasScrolled = true;
-      trackView();
+      trackIfEngaged();
     }
   };
 
   const onVisibilityChange = () => {
     if (document.hidden) {
-      trackView();
+      trackIfEngaged();
     }
   };
 
-  const removeScrollListener = bindScroll(onScroll);
+  const removeScrollListener = bindScroll(onScrollPastThreshold);
   document.addEventListener("visibilitychange", onVisibilityChange);
 
-  setTimeout(trackView, 10000);
-})();
+  setTimeout(trackIfEngaged, FALLBACK_TRACK_DELAY_MS);
+}
+
+function initPageViewTracking(): void {
+  if (!window.kotlinskidev_ajax) {
+    return;
+  }
+
+  const postId = readPostId();
+  if (!postId) {
+    return;
+  }
+
+  const tracker: PageViewTracker = {
+    postId,
+    ajaxUrl: window.kotlinskidev_ajax?.ajaxurl || DEFAULT_AJAX_URL,
+    nonce: window.kotlinskidev_ajax?.nonce || "",
+    statisticsConsentGranted: false,
+    isTrackPending: false,
+  };
+
+  if (!localStorage.getItem(buildStorageKey(postId))) {
+    void refreshNonce(tracker);
+  }
+
+  listenForStatisticsConsent(tracker);
+  scheduleEngagementTracking(tracker);
+}
+
+initPageViewTracking();

@@ -59,6 +59,180 @@ export interface CentreBandController {
   disconnect: () => void;
 }
 
+interface BandState {
+  config: InViewBandConfig;
+  onActiveChange: (element: Element, active: boolean) => void;
+  intersecting: Set<Element>;
+  active: Set<Element>;
+  inViewport: Set<Element>;
+  tracked: Set<Element>;
+  pending: Element | null;
+  switchTimer: ReturnType<typeof setTimeout> | null;
+}
+
+const cancelSwitch = (state: BandState): void => {
+  if (state.switchTimer !== null) {
+    clearTimeout(state.switchTimer);
+    state.switchTimer = null;
+  }
+  state.pending = null;
+};
+
+const deactivate = (state: BandState, element: Element): void => {
+  state.active.delete(element);
+  state.onActiveChange(element, false);
+};
+
+const activate = (state: BandState, element: Element): void => {
+  state.active.add(element);
+  state.onActiveChange(element, true);
+};
+
+const activateOnly = (state: BandState, target: Element | null): void => {
+  state.active.forEach((element) => {
+    if (element !== target) {
+      deactivate(state, element);
+    }
+  });
+  if (target && !state.active.has(target)) {
+    activate(state, target);
+  }
+};
+
+const nearestToCentre = (state: BandState): Element | null => {
+  let best: Element | null = null;
+  let bestDistance = Infinity;
+  state.intersecting.forEach((element) => {
+    const distance = distanceToBandCentre(element, state.config.center);
+    if (distance < bestDistance) {
+      best = element;
+      bestDistance = distance;
+    }
+  });
+  return best;
+};
+
+const scheduleSwitch = (state: BandState, best: Element): void => {
+  cancelSwitch(state);
+  state.pending = best;
+  state.switchTimer = setTimeout(() => {
+    const target = state.pending;
+    state.switchTimer = null;
+    state.pending = null;
+    if (target && state.inViewport.has(target)) {
+      activateOnly(state, target);
+    }
+  }, SWITCH_DEBOUNCE_MS);
+};
+
+const settleExclusive = (state: BandState): void => {
+  const best = nearestToCentre(state);
+  if (!best || state.active.has(best)) {
+    cancelSwitch(state);
+    return;
+  }
+  if (state.active.size === 0) {
+    cancelSwitch(state);
+    activateOnly(state, best);
+    return;
+  }
+  if (state.pending === best) {
+    return;
+  }
+  scheduleSwitch(state, best);
+};
+
+const settleAll = (state: BandState): void => {
+  state.active.forEach((element) => {
+    if (!state.intersecting.has(element)) {
+      deactivate(state, element);
+    }
+  });
+  state.intersecting.forEach((element) => {
+    if (!state.active.has(element)) {
+      activate(state, element);
+    }
+  });
+};
+
+const createBandObserver = (state: BandState, exclusive: boolean): IntersectionObserver =>
+  new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          state.intersecting.add(entry.target);
+        } else {
+          state.intersecting.delete(entry.target);
+        }
+      });
+      if (exclusive) {
+        settleExclusive(state);
+      } else {
+        settleAll(state);
+      }
+    },
+    { rootMargin: bandRootMargin(state.config), threshold: BAND_THRESHOLDS }
+  );
+
+const createViewportObserver = (state: BandState): IntersectionObserver =>
+  new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          state.inViewport.add(entry.target);
+          return;
+        }
+        state.inViewport.delete(entry.target);
+        if (state.pending === entry.target) {
+          cancelSwitch(state);
+        }
+        if (state.active.has(entry.target)) {
+          deactivate(state, entry.target);
+        }
+      });
+    },
+    { rootMargin: "0px", threshold: 0 }
+  );
+
+const createState = (onActiveChange: BandState["onActiveChange"]): BandState => ({
+  config: readInViewBandConfig(),
+  onActiveChange,
+  intersecting: new Set<Element>(),
+  active: new Set<Element>(),
+  inViewport: new Set<Element>(),
+  tracked: new Set<Element>(),
+  pending: null,
+  switchTimer: null,
+});
+
+const createTracker = (
+  state: BandState,
+  bandObserver: IntersectionObserver,
+  viewportObserver: IntersectionObserver | null
+) => {
+  const track = (element: Element): void => {
+    state.tracked.add(element);
+    bandObserver.observe(element);
+    viewportObserver?.observe(element);
+  };
+
+  const untrack = (element: Element): void => {
+    state.tracked.delete(element);
+    bandObserver.unobserve(element);
+    viewportObserver?.unobserve(element);
+    state.intersecting.delete(element);
+    state.inViewport.delete(element);
+    if (state.pending === element) {
+      cancelSwitch(state);
+    }
+    if (state.active.delete(element)) {
+      state.onActiveChange(element, false);
+    }
+  };
+
+  return { track, untrack };
+};
+
 export const observeCentreBand = (
   elements: Element[],
   onActiveChange: (element: Element, active: boolean) => void,
@@ -68,158 +242,20 @@ export const observeCentreBand = (
     return { update: () => undefined, disconnect: () => undefined };
   }
 
-  const config = readInViewBandConfig();
-  const intersecting = new Set<Element>();
-  const active = new Set<Element>();
-  const inViewport = new Set<Element>();
-  const tracked = new Set<Element>();
-  let pending: Element | null = null;
-  let switchTimer: ReturnType<typeof setTimeout> | null = null;
-
-  const cancelSwitch = (): void => {
-    if (switchTimer !== null) {
-      clearTimeout(switchTimer);
-      switchTimer = null;
-    }
-    pending = null;
-  };
-
-  const activateOnly = (target: Element | null): void => {
-    active.forEach((element) => {
-      if (element !== target) {
-        active.delete(element);
-        onActiveChange(element, false);
-      }
-    });
-    if (target && !active.has(target)) {
-      active.add(target);
-      onActiveChange(target, true);
-    }
-  };
-
-  const nearestToCentre = (): Element | null => {
-    let best: Element | null = null;
-    let bestDistance = Infinity;
-    intersecting.forEach((element) => {
-      const distance = distanceToBandCentre(element, config.center);
-      if (distance < bestDistance) {
-        best = element;
-        bestDistance = distance;
-      }
-    });
-    return best;
-  };
-
-  const settleExclusive = (): void => {
-    const best = nearestToCentre();
-    if (!best || active.has(best)) {
-      cancelSwitch();
-      return;
-    }
-    if (active.size === 0) {
-      cancelSwitch();
-      activateOnly(best);
-      return;
-    }
-    if (pending === best) {
-      return;
-    }
-    cancelSwitch();
-    pending = best;
-    switchTimer = setTimeout(() => {
-      const target = pending;
-      switchTimer = null;
-      pending = null;
-      if (target && inViewport.has(target)) {
-        activateOnly(target);
-      }
-    }, SWITCH_DEBOUNCE_MS);
-  };
-
-  const settleAll = (): void => {
-    active.forEach((element) => {
-      if (!intersecting.has(element)) {
-        active.delete(element);
-        onActiveChange(element, false);
-      }
-    });
-    intersecting.forEach((element) => {
-      if (!active.has(element)) {
-        active.add(element);
-        onActiveChange(element, true);
-      }
-    });
-  };
-
-  const bandObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          intersecting.add(entry.target);
-        } else {
-          intersecting.delete(entry.target);
-        }
-      });
-      if (exclusive) {
-        settleExclusive();
-      } else {
-        settleAll();
-      }
-    },
-    { rootMargin: bandRootMargin(config), threshold: BAND_THRESHOLDS }
-  );
-
-  const viewportObserver = exclusive
-    ? new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              inViewport.add(entry.target);
-              return;
-            }
-            inViewport.delete(entry.target);
-            if (pending === entry.target) {
-              cancelSwitch();
-            }
-            if (active.has(entry.target)) {
-              active.delete(entry.target);
-              onActiveChange(entry.target, false);
-            }
-          });
-        },
-        { rootMargin: "0px", threshold: 0 }
-      )
-    : null;
-
-  const track = (element: Element): void => {
-    tracked.add(element);
-    bandObserver.observe(element);
-    viewportObserver?.observe(element);
-  };
-
-  const untrack = (element: Element): void => {
-    tracked.delete(element);
-    bandObserver.unobserve(element);
-    viewportObserver?.unobserve(element);
-    intersecting.delete(element);
-    inViewport.delete(element);
-    if (pending === element) {
-      cancelSwitch();
-    }
-    if (active.delete(element)) {
-      onActiveChange(element, false);
-    }
-  };
+  const state = createState(onActiveChange);
+  const bandObserver = createBandObserver(state, exclusive);
+  const viewportObserver = exclusive ? createViewportObserver(state) : null;
+  const { track, untrack } = createTracker(state, bandObserver, viewportObserver);
 
   const update = (next: Element[]): void => {
     const nextSet = new Set(next);
-    Array.from(tracked).forEach((element) => {
+    Array.from(state.tracked).forEach((element) => {
       if (!nextSet.has(element)) {
         untrack(element);
       }
     });
     nextSet.forEach((element) => {
-      if (!tracked.has(element)) {
+      if (!state.tracked.has(element)) {
         track(element);
       }
     });
@@ -228,12 +264,12 @@ export const observeCentreBand = (
   const disconnect = (): void => {
     bandObserver.disconnect();
     viewportObserver?.disconnect();
-    cancelSwitch();
-    tracked.clear();
-    intersecting.clear();
-    inViewport.clear();
-    active.forEach((element) => onActiveChange(element, false));
-    active.clear();
+    cancelSwitch(state);
+    state.tracked.clear();
+    state.intersecting.clear();
+    state.inViewport.clear();
+    state.active.forEach((element) => onActiveChange(element, false));
+    state.active.clear();
   };
 
   elements.forEach(track);

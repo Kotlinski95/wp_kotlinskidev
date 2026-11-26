@@ -13,7 +13,7 @@ if ( $enable_captcha ) {
 }
 
 if ( isset( $_GET['contact-success'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
-    echo '<div class="contact-form-success" id="contact-form-ts-success">' . esc_html( $attributes['successMessage'] ?? 'Thank you! Your message has been sent.' ) . '</div>';
+    echo '<div class="contact-form-success" id="contact-form-ts-success">' . esc_html( kotlinskidev_contact_form_label( $attributes, 'successMessage', 'Thank you! Your message has been sent.' ) ) . '</div>';
     ?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -29,7 +29,7 @@ if ( isset( $_GET['contact-success'] ) ) { // phpcs:ignore WordPress.Security.No
 
 if ( isset( $_GET['contact-error'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
     $error_type    = sanitize_key( wp_unslash( $_GET['contact-error'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only display flag after redirect, no state change
-    $error_message = $attributes['errorMessage'] ?? 'Sorry, there was an error. Please try again.';
+    $error_message = kotlinskidev_contact_form_label( $attributes, 'errorMessage', 'Sorry, there was an error. Please try again.' );
 
     $attachment_errors = [
         'attachment_type'   => static fn (): string => __( 'One of the files is not an allowed type or its content does not match its extension.', 'kotlinskidev' ),
@@ -95,17 +95,17 @@ if ( $enable_attachments ) {
 <form <?php echo get_block_wrapper_attributes( [ 'class' => 'contact-form-ts contact-form-block' ] ); ?> data-nonce-url="<?php echo esc_url( admin_url( 'admin-ajax.php?action=kotlinskidev_contact_form_nonce' ) ); ?>" method="post" action="<?php echo esc_url( admin_url( $form_action_path ) ); ?>"<?php echo $form_attachment_attributes; ?>>
     <input type="hidden" name="action" value="kotlinskidev_contact_form_submit">
     <?php wp_nonce_field( 'kotlinskidev_contact_form_submit', 'kotlinskidev_contact_form_nonce' ); ?>
-    <label for="name"><?php echo esc_html( $attributes['nameLabel'] ?? 'Name' ); ?></label>
-    <input type="text" id="name" name="name" placeholder="<?php echo esc_attr( $attributes['namePlaceholder'] ?? 'Your Name' ); ?>" required>
-    <label for="email"><?php echo esc_html( $attributes['emailLabel'] ?? 'Email' ); ?></label>
-    <input type="email" id="email" name="email" placeholder="<?php echo esc_attr( $attributes['emailPlaceholder'] ?? 'Your Email' ); ?>" required>
-    <label for="topic"><?php echo esc_html( $attributes['topicLabel'] ?? 'Topic' ); ?></label>
-    <input type="text" id="topic" name="topic" placeholder="<?php echo esc_attr( $attributes['topicPlaceholder'] ?? 'Topic' ); ?>">
-    <label for="message"><?php echo esc_html( $attributes['messageLabel'] ?? 'Message' ); ?></label>
-    <textarea id="message" name="message" placeholder="<?php echo esc_attr( $attributes['messagePlaceholder'] ?? 'Your Message' ); ?>" required></textarea>
+    <label for="name"><?php echo esc_html( kotlinskidev_contact_form_label( $attributes, 'nameLabel', 'Name' ) ); ?></label>
+    <input type="text" id="name" name="name" placeholder="<?php echo esc_attr( kotlinskidev_contact_form_label( $attributes, 'namePlaceholder', 'Your Name' ) ); ?>" required>
+    <label for="email"><?php echo esc_html( kotlinskidev_contact_form_label( $attributes, 'emailLabel', 'Email' ) ); ?></label>
+    <input type="email" id="email" name="email" placeholder="<?php echo esc_attr( kotlinskidev_contact_form_label( $attributes, 'emailPlaceholder', 'Your Email' ) ); ?>" required>
+    <label for="topic"><?php echo esc_html( kotlinskidev_contact_form_label( $attributes, 'topicLabel', 'Topic' ) ); ?></label>
+    <input type="text" id="topic" name="topic" placeholder="<?php echo esc_attr( kotlinskidev_contact_form_label( $attributes, 'topicPlaceholder', 'Topic' ) ); ?>">
+    <label for="message"><?php echo esc_html( kotlinskidev_contact_form_label( $attributes, 'messageLabel', 'Message' ) ); ?></label>
+    <textarea id="message" name="message" placeholder="<?php echo esc_attr( kotlinskidev_contact_form_label( $attributes, 'messagePlaceholder', 'Your Message' ) ); ?>" required></textarea>
     <label>
         <input type="checkbox" name="agree" required>
-        <?php echo esc_html( $attributes['agreeLabel'] ?? 'I agree to be contacted via email.' ); ?>
+        <?php echo esc_html( kotlinskidev_contact_form_label( $attributes, 'agreeLabel', 'I agree to be contacted via email.' ) ); ?>
     </label>
 
     <?php if ( $enable_attachments ) : ?>
@@ -138,6 +138,6 @@ if ( $enable_attachments ) {
         <?php endif; ?>
     <?php endif; ?>
 
-    <button type="submit" class="is-style-<?php echo esc_attr( kotlinskidev_resolve_button_style( $attributes['submitButtonStyle'] ?? '' ) ); ?>"><?php echo esc_html( $attributes['submitLabel'] ?? 'Send' ); ?></button>
+    <button type="submit" class="is-style-<?php echo esc_attr( kotlinskidev_resolve_button_style( $attributes['submitButtonStyle'] ?? '' ) ); ?>"><?php echo esc_html( kotlinskidev_contact_form_label( $attributes, 'submitLabel', 'Send' ) ); ?></button>
 </form>
 <?php

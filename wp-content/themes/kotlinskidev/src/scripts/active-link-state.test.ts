@@ -3,8 +3,8 @@ function loadScript() {
   require("./active-link-state");
 }
 
-function setLocation(pathname: string) {
-  window.history.pushState({}, "", `http://example.test${pathname}`);
+function setLocation(pathname: string, search = "") {
+  window.history.pushState({}, "", `http://example.test${pathname}${search}`);
 }
 
 describe("active-link-state.ts", () => {
@@ -184,5 +184,38 @@ describe("active-link-state.ts", () => {
 
     const link = document.querySelector("a") as HTMLAnchorElement;
     expect(link.getAttribute("style")).toBe("color:red;pointer-events:none");
+  });
+
+  it("does not treat a bare home link as current on a search results URL", () => {
+    setLocation("/", "?s=CV");
+    document.body.innerHTML = `<a href="/">Home</a>`;
+
+    loadScript();
+
+    const link = document.querySelector("a") as HTMLAnchorElement;
+    expect(link).not.toHaveClass("kt-link-current");
+    expect(link.hasAttribute("aria-current")).toBe(false);
+    expect(link.hasAttribute("aria-disabled")).toBe(false);
+    expect(link.getAttribute("style") ?? "").not.toContain("pointer-events:none");
+  });
+
+  it("still treats a link whose query equals the current query as current", () => {
+    setLocation("/", "?s=CV");
+    document.body.innerHTML = `<a href="/?s=CV">Search</a>`;
+
+    loadScript();
+
+    expect(document.querySelector("a")).toHaveClass("kt-link-current");
+  });
+
+  it("still marks and blocks a bare home link when the URL has no query", () => {
+    setLocation("/");
+    document.body.innerHTML = `<a href="/">Home</a>`;
+
+    loadScript();
+
+    const link = document.querySelector("a") as HTMLAnchorElement;
+    expect(link).toHaveClass("kt-link-current");
+    expect(link.getAttribute("style")).toContain("pointer-events:none");
   });
 });

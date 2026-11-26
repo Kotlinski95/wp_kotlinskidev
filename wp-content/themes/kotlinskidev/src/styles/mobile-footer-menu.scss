@@ -4,9 +4,6 @@
 .mobile-footer-nav {
 	position: fixed !important;
 
-	/* using translateZ force browser to use hardware acceleration,
-   and fix issue with wrong rendered position
-  e.g. on chrome during scroll and hidden navigation bar on the bottom */
 	transform: translateZ(0);
 	-webkit-transform: translateZ(0);
 	-moz-transform: translateZ(0);
@@ -17,7 +14,7 @@
 	right: 0;
 	padding-inline: 1rem;
 	padding-block: 0.25rem;
-	display: none; /* Hidden by default, shown only on mobile */
+	display: none;
 	margin-top: 0;
 	height: $mobile-footer-nav;
 	box-sizing: border-box;

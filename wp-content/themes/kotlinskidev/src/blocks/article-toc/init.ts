@@ -55,66 +55,76 @@ function computeActiveIndex(headings: (HTMLElement | null)[]): number {
   return active;
 }
 
-function initRoot(root: HTMLElement): void {
+interface TocParts {
+  toggle: HTMLButtonElement;
+  dialog: HTMLDialogElement;
+  closeButton: HTMLButtonElement | null;
+  mainLinks: HTMLAnchorElement[];
+  dialogLinks: HTMLAnchorElement[];
+  headings: (HTMLElement | null)[];
+}
+
+interface TocState {
+  activeIndex: number;
+  spyLocked: boolean;
+}
+
+interface TocScrollers {
+  main: ReturnType<typeof createListScroller>;
+  dialog: ReturnType<typeof createListScroller>;
+}
+
+function collectParts(root: HTMLElement): TocParts | null {
   const toggle = root.querySelector<HTMLButtonElement>(".kt-article-toc-toggle");
   const dialog = root.querySelector<HTMLDialogElement>(".kt-article-toc-dialog");
   if (!toggle || !dialog) {
-    return;
+    return null;
   }
 
-  const closeButton = dialog.querySelector<HTMLButtonElement>(".kt-article-toc-dialog__close");
   const allLinks = Array.from(root.querySelectorAll<HTMLAnchorElement>("[data-kt-toc-link]"));
-  const dialogLinks = Array.from(dialog.querySelectorAll<HTMLAnchorElement>("[data-kt-toc-link]"));
   const mainLinks = allLinks.filter((link) => !dialog.contains(link));
-  const headings = resolveHeadings(mainLinks);
+  return {
+    toggle,
+    dialog,
+    closeButton: dialog.querySelector<HTMLButtonElement>(".kt-article-toc-dialog__close"),
+    mainLinks,
+    dialogLinks: Array.from(dialog.querySelectorAll<HTMLAnchorElement>("[data-kt-toc-link]")),
+    headings: resolveHeadings(mainLinks),
+  };
+}
 
-  document.body.appendChild(toggle);
-  document.body.appendChild(dialog);
+function markActiveLink(links: HTMLAnchorElement[], index: number): void {
+  links.forEach((link, linkIndex) => {
+    const isActive = linkIndex === index;
+    link.classList.toggle("is-active", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "location");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
 
-  const mainScroller = createListScroller(
-    mainLinks[0]?.closest<HTMLElement>(".kt-article-toc") ?? root,
-    prefersReducedMotion
-  );
-  const dialogScroller = createListScroller(
-    dialogLinks[0]?.closest<HTMLElement>(".kt-article-toc") ?? dialog,
-    prefersReducedMotion
-  );
-
-  let activeIndex = -2;
-  let spyLocked = false;
-
-  const setActive = (index: number): void => {
-    if (index === activeIndex) {
+function createActiveSetter(parts: TocParts, state: TocState, scrollers: TocScrollers) {
+  const { dialog, mainLinks, dialogLinks } = parts;
+  return (index: number): void => {
+    if (index === state.activeIndex) {
       return;
     }
-    activeIndex = index;
-    [mainLinks, dialogLinks].forEach((links) => {
-      links.forEach((link, linkIndex) => {
-        const isActive = linkIndex === index;
-        link.classList.toggle("is-active", isActive);
-        if (isActive) {
-          link.setAttribute("aria-current", "location");
-        } else {
-          link.removeAttribute("aria-current");
-        }
-      });
-    });
+    state.activeIndex = index;
+    markActiveLink(mainLinks, index);
+    markActiveLink(dialogLinks, index);
     if (index >= 0) {
-      mainScroller.scrollToLink(mainLinks[index]);
+      scrollers.main.scrollToLink(mainLinks[index]);
       if (dialog.open) {
-        dialogScroller.scrollToLink(dialogLinks[index]);
+        scrollers.dialog.scrollToLink(dialogLinks[index]);
       }
     }
   };
+}
 
-  const updateSpy = (): void => {
-    if (spyLocked || isProgrammaticScrollActive()) {
-      return;
-    }
-    setActive(computeActiveIndex(headings));
-  };
-
-  const throttledUpdate = rafThrottle(updateSpy);
+function bindDialog(parts: TocParts, state: TocState, scrollers: TocScrollers): void {
+  const { toggle, dialog, closeButton, dialogLinks } = parts;
 
   const openDialog = (): void => {
     if (dialog.open) {
@@ -124,8 +134,9 @@ function initRoot(root: HTMLElement): void {
     toggle.setAttribute("aria-expanded", "true");
     lockScroll(LOCK_OWNER);
     const target =
-      dialogLinks[activeIndex] ?? dialog.querySelector<HTMLAnchorElement>("[data-kt-toc-link]");
-    dialogScroller.scrollToLink(target, { force: true });
+      dialogLinks[state.activeIndex] ??
+      dialog.querySelector<HTMLAnchorElement>("[data-kt-toc-link]");
+    scrollers.dialog.scrollToLink(target, { force: true });
     target?.focus({ preventScroll: true });
   };
 
@@ -143,14 +154,20 @@ function initRoot(root: HTMLElement): void {
 
   toggle.addEventListener("click", openDialog);
   closeButton?.addEventListener("click", () => dialog.close());
+}
 
-  const scrollToHeading = (index: number): void => {
-    const heading = headings[index];
+function createHeadingScroller(
+  parts: TocParts,
+  state: TocState,
+  setActive: (index: number) => void
+) {
+  return (index: number): void => {
+    const heading = parts.headings[index];
     if (!heading) {
       return;
     }
 
-    spyLocked = true;
+    state.spyLocked = true;
     setActive(index);
     beginProgrammaticScroll();
 
@@ -165,7 +182,7 @@ function initRoot(root: HTMLElement): void {
       window.clearTimeout(fallbackTimer);
       scrollEndTarget.removeEventListener("scrollend", finish);
       endProgrammaticScroll();
-      spyLocked = false;
+      state.spyLocked = false;
       heading.setAttribute("tabindex", "-1");
       heading.focus({ preventScroll: true });
     };
@@ -178,7 +195,10 @@ function initRoot(root: HTMLElement): void {
       prefersReducedMotion() ? "auto" : "smooth"
     );
   };
+}
 
+function bindLinkClicks(parts: TocParts, scrollToHeading: (index: number) => void): void {
+  const { dialog, mainLinks, dialogLinks } = parts;
   [mainLinks, dialogLinks].forEach((links) => {
     links.forEach((link, index) => {
       link.addEventListener("click", (event) => {
@@ -194,6 +214,51 @@ function initRoot(root: HTMLElement): void {
       });
     });
   });
+}
+
+function bindScrollSpy(updateSpy: () => void): void {
+  const throttledUpdate = rafThrottle(updateSpy);
+  onScroll(throttledUpdate);
+  window.addEventListener("resize", throttledUpdate);
+  window.addEventListener("load", updateSpy);
+  window.addEventListener("scrollend", updateSpy);
+  getScrollContainer()?.addEventListener("scrollend", updateSpy);
+  document.addEventListener("visibilitychange", updateSpy);
+}
+
+function initRoot(root: HTMLElement): void {
+  const parts = collectParts(root);
+  if (!parts) {
+    return;
+  }
+  const { toggle, dialog, mainLinks, dialogLinks, headings } = parts;
+
+  document.body.appendChild(toggle);
+  document.body.appendChild(dialog);
+
+  const scrollers: TocScrollers = {
+    main: createListScroller(
+      mainLinks[0]?.closest<HTMLElement>(".kt-article-toc") ?? root,
+      prefersReducedMotion
+    ),
+    dialog: createListScroller(
+      dialogLinks[0]?.closest<HTMLElement>(".kt-article-toc") ?? dialog,
+      prefersReducedMotion
+    ),
+  };
+
+  const state: TocState = { activeIndex: -2, spyLocked: false };
+  const setActive = createActiveSetter(parts, state, scrollers);
+
+  const updateSpy = (): void => {
+    if (state.spyLocked || isProgrammaticScrollActive()) {
+      return;
+    }
+    setActive(computeActiveIndex(headings));
+  };
+
+  bindDialog(parts, state, scrollers);
+  bindLinkClicks(parts, createHeadingScroller(parts, state, setActive));
 
   onScreenSizeChange((mobile) => {
     if (!mobile && dialog.open) {
@@ -201,12 +266,7 @@ function initRoot(root: HTMLElement): void {
     }
   });
 
-  onScroll(throttledUpdate);
-  window.addEventListener("resize", throttledUpdate);
-  window.addEventListener("load", updateSpy);
-  window.addEventListener("scrollend", updateSpy);
-  getScrollContainer()?.addEventListener("scrollend", updateSpy);
-  document.addEventListener("visibilitychange", updateSpy);
+  bindScrollSpy(updateSpy);
 
   updateSpy();
 }

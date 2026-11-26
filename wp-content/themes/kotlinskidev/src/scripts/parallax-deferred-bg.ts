@@ -1,5 +1,6 @@
 const NEAR_VIEWPORT_MARGIN = "400px";
-const SELECTOR = "[data-kt-parallax-bg]";
+const DEFERRED_BG_ATTRIBUTE = "data-kt-parallax-bg";
+const DEFERRED_BG_SELECTOR = `[${DEFERRED_BG_ATTRIBUTE}]`;
 
 const ALLOWED_PROTOCOLS = ["http:", "https:"];
 
@@ -18,16 +19,16 @@ const toSafeCssUrl = (value: string): string | null => {
 };
 
 const applyBackground = (element: HTMLElement): void => {
-  const value = element.getAttribute("data-kt-parallax-bg");
+  const value = element.getAttribute(DEFERRED_BG_ATTRIBUTE);
   const cssUrl = value ? toSafeCssUrl(value) : null;
   if (cssUrl) {
     element.style.backgroundImage = cssUrl;
   }
-  element.removeAttribute("data-kt-parallax-bg");
+  element.removeAttribute(DEFERRED_BG_ATTRIBUTE);
 };
 
 const initParallaxDeferredBg = (): void => {
-  const elements = document.querySelectorAll<HTMLElement>(SELECTOR);
+  const elements = document.querySelectorAll<HTMLElement>(DEFERRED_BG_SELECTOR);
   if (!elements.length) {
     return;
   }

@@ -1,4 +1,21 @@
 <?php
+function kotlinskidev_apply_video_tag_playback( WP_HTML_Tag_Processor $processor, bool $autoplay, bool $loop, bool $pause_offscreen ): void
+{
+    if ( ! $loop ) {
+        $processor->remove_attribute( 'loop' );
+    }
+
+    if ( ! $autoplay ) {
+        $processor->remove_attribute( 'autoplay' );
+        $processor->set_attribute( 'preload', 'auto' );
+        $processor->set_attribute( 'data-kt-video-autoplay', 'off' );
+    }
+
+    if ( $pause_offscreen ) {
+        $processor->set_attribute( 'data-kt-video-pause-offscreen', 'true' );
+    }
+}
+
 function kotlinskidev_apply_cover_video_playback( string $block_content, array $attrs ): string
 {
     $autoplay        = (bool) ( $attrs['coverVideoAutoplay'] ?? true );
@@ -26,19 +43,7 @@ function kotlinskidev_apply_cover_video_playback( string $block_content, array $
         return $block_content;
     }
 
-    if ( ! $loop ) {
-        $processor->remove_attribute( 'loop' );
-    }
-
-    if ( ! $autoplay ) {
-        $processor->remove_attribute( 'autoplay' );
-        $processor->set_attribute( 'preload', 'auto' );
-        $processor->set_attribute( 'data-kt-video-autoplay', 'off' );
-    }
-
-    if ( $pause_offscreen ) {
-        $processor->set_attribute( 'data-kt-video-pause-offscreen', 'true' );
-    }
+    kotlinskidev_apply_video_tag_playback( $processor, $autoplay, $loop, $pause_offscreen );
 
     $updated = $processor->get_updated_html();
 
@@ -53,6 +58,7 @@ function kotlinskidev_apply_cover_video_playback( string $block_content, array $
 
     return $root->get_updated_html();
 }
+
 function kotlinskidev_cover_video_ratio( mixed $attachment_id ): string
 {
     if ( ! is_numeric( $attachment_id ) || absint( $attachment_id ) < 1 ) {

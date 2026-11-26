@@ -23,14 +23,40 @@ interface BlockEditorActions {
   removeBlock: (clientId: string) => void;
 }
 
-export default function Edit({ clientId }: { clientId: string }) {
-  const blockProps = useBlockProps({ className: "pricing-cards" });
-  const innerBlocksProps = useInnerBlocksProps(blockProps, {
-    allowedBlocks: ALLOWED_BLOCKS,
-    template: ITEMS_TEMPLATE,
-    renderAppender: () => null,
-  });
+interface TiersPanelProps {
+  tierCount: number;
+  onAddTier: () => void;
+  onRemoveLastTier: () => void;
+}
 
+const TiersPanel = ({ tierCount, onAddTier, onRemoveLastTier }: TiersPanelProps) => (
+  <InspectorControls>
+    <PanelBody title={__("Pricing Tiers", "kotlinskidev")} initialOpen>
+      <p className="pricing-cards-sidebar__count">
+        {tierCount} {__("tier(s)", "kotlinskidev")}
+      </p>
+      <Button
+        variant="secondary"
+        onClick={onAddTier}
+        style={{ width: "100%", justifyContent: "center" }}
+      >
+        {__("+ Add Tier", "kotlinskidev")}
+      </Button>
+      {tierCount > 1 && (
+        <Button
+          variant="tertiary"
+          isDestructive
+          onClick={onRemoveLastTier}
+          style={{ width: "100%", justifyContent: "center", marginTop: "0.5rem" }}
+        >
+          {__("Remove Last Tier", "kotlinskidev")}
+        </Button>
+      )}
+    </PanelBody>
+  </InspectorControls>
+);
+
+const usePricingTiers = (clientId: string) => {
   const { innerBlocks } = useSelect(
     (select) => ({
       innerBlocks:
@@ -58,32 +84,26 @@ export default function Edit({ clientId }: { clientId: string }) {
     }
   };
 
+  return { innerBlocks, handleAddTier, handleRemoveLast };
+};
+
+export default function Edit({ clientId }: { clientId: string }) {
+  const blockProps = useBlockProps({ className: "pricing-cards" });
+  const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    allowedBlocks: ALLOWED_BLOCKS,
+    template: ITEMS_TEMPLATE,
+    renderAppender: () => null,
+  });
+
+  const { innerBlocks, handleAddTier, handleRemoveLast } = usePricingTiers(clientId);
+
   return (
     <>
-      <InspectorControls>
-        <PanelBody title={__("Pricing Tiers", "kotlinskidev")} initialOpen>
-          <p className="pricing-cards-sidebar__count">
-            {innerBlocks.length} {__("tier(s)", "kotlinskidev")}
-          </p>
-          <Button
-            variant="secondary"
-            onClick={handleAddTier}
-            style={{ width: "100%", justifyContent: "center" }}
-          >
-            {__("+ Add Tier", "kotlinskidev")}
-          </Button>
-          {innerBlocks.length > 1 && (
-            <Button
-              variant="tertiary"
-              isDestructive
-              onClick={handleRemoveLast}
-              style={{ width: "100%", justifyContent: "center", marginTop: "0.5rem" }}
-            >
-              {__("Remove Last Tier", "kotlinskidev")}
-            </Button>
-          )}
-        </PanelBody>
-      </InspectorControls>
+      <TiersPanel
+        tierCount={innerBlocks.length}
+        onAddTier={handleAddTier}
+        onRemoveLastTier={handleRemoveLast}
+      />
 
       <div {...innerBlocksProps} />
     </>

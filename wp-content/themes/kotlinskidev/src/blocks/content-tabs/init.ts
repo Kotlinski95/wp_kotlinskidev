@@ -1,76 +1,13 @@
-const CARD_SELECTOR = ".kt-article-card, .kt-project-card";
+import { fadeToPanel, swapPanels } from "./panel-switch";
 
-function revealCards(panel: HTMLElement, cardAnimation: string): void {
-  if ("fade-up" !== cardAnimation) {
-    return;
-  }
-
-  const cards = Array.from(panel.querySelectorAll<HTMLElement>(CARD_SELECTOR));
-
-  cards.forEach((card, index) => {
-    card.classList.remove("visible");
-    card.classList.add("fade-up-on-scroll");
-    card.style.transitionDelay = `${index * 80}ms`;
-  });
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      cards.forEach((card) => card.classList.add("visible"));
-    });
-  });
-}
-
-function swapPanels(
-  root: HTMLElement,
-  oldPanel: HTMLElement | undefined,
-  newPanel: HTMLElement,
-  cardAnimation: string
-): void {
-  oldPanel?.setAttribute("hidden", "");
-  newPanel.removeAttribute("hidden");
-  revealCards(newPanel, cardAnimation);
-}
-
-function fadeToPanel(
-  root: HTMLElement,
-  panelsWrapper: HTMLElement,
-  oldPanel: HTMLElement | undefined,
-  newPanel: HTMLElement,
-  cardAnimation: string
-): void {
-  if (!oldPanel || oldPanel === newPanel) {
-    swapPanels(root, oldPanel, newPanel, cardAnimation);
-    return;
-  }
-
-  const frozenHeight = panelsWrapper.getBoundingClientRect().height;
-  panelsWrapper.style.minHeight = `${frozenHeight}px`;
-
-  const finishFadeOut = (): void => {
-    oldPanel.removeEventListener("transitionend", finishFadeOut);
-    oldPanel.classList.remove("kt-content-tabs__panel--fade-out");
-    swapPanels(root, oldPanel, newPanel, cardAnimation);
-
-    newPanel.classList.add("kt-content-tabs__panel--fade-out");
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        newPanel.classList.remove("kt-content-tabs__panel--fade-out");
-      });
-    });
-
-    window.setTimeout(() => {
-      panelsWrapper.style.minHeight = "";
-    }, 300);
-  };
-
-  oldPanel.addEventListener("transitionend", finishFadeOut, { once: true });
-  oldPanel.classList.add("kt-content-tabs__panel--fade-out");
+interface TabElements {
+  triggers: HTMLElement[];
+  panels: HTMLElement[];
 }
 
 function activateTrigger(
   root: HTMLElement,
-  triggers: HTMLElement[],
-  panels: HTMLElement[],
+  { triggers, panels }: TabElements,
   index: number
 ): void {
   const oldPanel = panels.find((panel) => !panel.hasAttribute("hidden"));
@@ -90,16 +27,65 @@ function activateTrigger(
   const cardAnimation = root.classList.contains("kt-content-tabs--card-animation-fade-up")
     ? "fade-up"
     : "";
+  const panelSwitch = { oldPanel, newPanel, cardAnimation };
 
   if ("fade" === panelTransition) {
     const panelsWrapper = root.querySelector<HTMLElement>(".kt-content-tabs__panels");
     if (panelsWrapper) {
-      fadeToPanel(root, panelsWrapper, oldPanel, newPanel, cardAnimation);
+      fadeToPanel(panelsWrapper, panelSwitch);
       return;
     }
   }
 
-  swapPanels(root, oldPanel, newPanel, cardAnimation);
+  swapPanels(panelSwitch);
+}
+
+interface NavigationKeys {
+  next: string;
+  prev: string;
+}
+
+function resolveTargetIndex(
+  key: string,
+  { index, count }: { index: number; count: number },
+  keys: NavigationKeys
+): number {
+  if (key === keys.next) {
+    return (index + 1) % count;
+  }
+  if (key === keys.prev) {
+    return (index - 1 + count) % count;
+  }
+  if (key === "Home") {
+    return 0;
+  }
+  if (key === "End") {
+    return count - 1;
+  }
+  return -1;
+}
+
+interface TabsContext extends TabElements {
+  root: HTMLElement;
+}
+
+function wireTrigger({ root, ...tabs }: TabsContext, index: number, keys: NavigationKeys): void {
+  const trigger = tabs.triggers[index];
+
+  trigger.addEventListener("click", () => {
+    activateTrigger(root, tabs, index);
+  });
+
+  trigger.addEventListener("keydown", (e: KeyboardEvent) => {
+    const targetIndex = resolveTargetIndex(e.key, { index, count: tabs.triggers.length }, keys);
+    if (targetIndex === -1) {
+      return;
+    }
+
+    e.preventDefault();
+    activateTrigger(root, tabs, targetIndex);
+    tabs.triggers[targetIndex]?.focus();
+  });
 }
 
 function initContentTabs(root: HTMLElement): void {
@@ -116,36 +102,12 @@ function initContentTabs(root: HTMLElement): void {
   }
 
   const isVertical = nav.getAttribute("aria-orientation") === "vertical";
-  const nextKey = isVertical ? "ArrowDown" : "ArrowRight";
-  const prevKey = isVertical ? "ArrowUp" : "ArrowLeft";
+  const keys: NavigationKeys = {
+    next: isVertical ? "ArrowDown" : "ArrowRight",
+    prev: isVertical ? "ArrowUp" : "ArrowLeft",
+  };
 
-  triggers.forEach((trigger, index) => {
-    trigger.addEventListener("click", () => {
-      activateTrigger(root, triggers, panels, index);
-    });
-
-    trigger.addEventListener("keydown", (e: KeyboardEvent) => {
-      let targetIndex = -1;
-
-      if (e.key === nextKey) {
-        targetIndex = (index + 1) % triggers.length;
-      } else if (e.key === prevKey) {
-        targetIndex = (index - 1 + triggers.length) % triggers.length;
-      } else if (e.key === "Home") {
-        targetIndex = 0;
-      } else if (e.key === "End") {
-        targetIndex = triggers.length - 1;
-      }
-
-      if (targetIndex === -1) {
-        return;
-      }
-
-      e.preventDefault();
-      activateTrigger(root, triggers, panels, targetIndex);
-      triggers[targetIndex]?.focus();
-    });
-  });
+  triggers.forEach((_trigger, index) => wireTrigger({ root, triggers, panels }, index, keys));
 }
 
 const init = (): void => {

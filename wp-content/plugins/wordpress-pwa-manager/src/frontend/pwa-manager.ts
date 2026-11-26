@@ -41,6 +41,7 @@ export class PWAManager {
     private settings: PWASettings;
     private deferredPrompt: any = null;
     private swRegistration: ServiceWorkerRegistration | null = null;
+    private updateRequested = false;
 
     constructor() {
         this.settings = window.wpPwaManager?.settings || {} as PWASettings;
@@ -74,20 +75,26 @@ export class PWAManager {
                 const swUrl = window.wpPwaManager?.swUrl || '/sw.js';
                 console.log('Attempting to register service worker at:', swUrl);
                 
-                this.swRegistration = await navigator.serviceWorker.register(swUrl);
+                await this.unregisterStaleServiceWorkers(swUrl);
+
+                this.swRegistration = await navigator.serviceWorker.register(swUrl, {
+                    scope: '/',
+                    updateViaCache: 'none'
+                });
                 console.log('Service Worker registered successfully:', this.swRegistration);
 
-                // Listen for service worker updates
                 this.swRegistration.addEventListener('updatefound', () => {
                     console.log('Service Worker update found');
                     this.handleServiceWorkerUpdate();
                 });
 
-                // Check if there's a waiting service worker
-                if (this.swRegistration.waiting) {
+                if (this.swRegistration.waiting && navigator.serviceWorker.controller) {
                     console.log('Found waiting service worker');
                     this.showUpdatePrompt();
                 }
+
+                this.watchControllerChange();
+                this.checkForUpdatesWhenVisible();
 
             } catch (error) {
                 console.error('Service Worker registration failed:', error);
@@ -249,6 +256,39 @@ export class PWAManager {
         }
     }
 
+    private async unregisterStaleServiceWorkers(currentSwUrl: string): Promise<void> {
+        const currentUrl = new URL(currentSwUrl, window.location.origin).href;
+        const registrations = await navigator.serviceWorker.getRegistrations();
+
+        await Promise.all(
+            registrations.map((registration) => {
+                const worker = registration.active || registration.waiting || registration.installing;
+                if (worker && worker.scriptURL !== currentUrl) {
+                    console.log('Unregistering stale service worker:', worker.scriptURL);
+                    return registration.unregister();
+                }
+                return Promise.resolve(true);
+            })
+        );
+    }
+
+    private watchControllerChange(): void {
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (refreshing || !this.updateRequested) return;
+            refreshing = true;
+            window.location.reload();
+        });
+    }
+
+    private checkForUpdatesWhenVisible(): void {
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                this.swRegistration?.update().catch(() => undefined);
+            }
+        });
+    }
+
     private handleServiceWorkerUpdate(): void {
         if (!this.swRegistration) return;
 
@@ -274,6 +314,7 @@ export class PWAManager {
 
     private showUpdatePrompt(): void {
         if (!this.settings.update_prompt_enabled) return;
+        if (document.querySelector('.pwa-update-prompt')) return;
 
         const promptElement = this.createUpdatePromptElement();
         document.body.appendChild(promptElement);
@@ -301,7 +342,7 @@ export class PWAManager {
                         ${this.settings.update_prompt_button_text}
                     </button>
                     <button class="pwa-dismiss-button" data-action="dismiss">
-                        Later
+                        ${window.wpPwaManager?.i18n?.updatePromptLater || 'Later'}
                     </button>
                 </div>
             </div>
@@ -325,13 +366,28 @@ export class PWAManager {
     }
 
     private updateApp(): void {
-        if (!this.swRegistration?.waiting) return;
+        const registration = this.swRegistration;
+        this.updateRequested = true;
 
-        // Tell the waiting service worker to skip waiting
-        this.swRegistration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        const activate = (worker: ServiceWorker): void => {
+            worker.postMessage({ type: 'SKIP_WAITING' });
+        };
 
-        // Reload the page to use the new service worker
-        window.location.reload();
+        if (registration?.waiting) {
+            activate(registration.waiting);
+        } else if (registration?.installing) {
+            const installing = registration.installing;
+            installing.addEventListener('statechange', () => {
+                if (installing.state === 'installed' && registration.waiting) {
+                    activate(registration.waiting);
+                }
+            });
+        } else {
+            window.location.reload();
+            return;
+        }
+
+        window.setTimeout(() => window.location.reload(), 4000);
     }
 
     private hideUpdatePrompt(): void {

@@ -28,3 +28,15 @@ export const DEFAULT_INNERBLOCK_ATTRIBUTES = {
     },
   },
 };
+
+export const DEFAULT_SLIDE_MAX_WIDTH = "900px";
+export const DEFAULT_PEEK_PERCENT = 20;
+export const MAX_PEEK_PERCENT = 40;
+export const DEFAULT_HIGHLIGHT_STRENGTH = 45;
+export const MIN_HIGHLIGHT_STRENGTH = 5;
+export const MAX_HIGHLIGHT_STRENGTH = 100;
+export const MAX_SPACE_BETWEEN_PX = 100;
+export const SLIDES_PER_VIEW_STEP = 0.25;
+export const MIN_AUTOPLAY_SECONDS = 1;
+export const MAX_AUTOPLAY_SECONDS = 10;
+export const RESPONSIVE_SECTION_ICON_SIZE = 20;

@@ -27,6 +27,33 @@ function kotlinskidev_find_city_post_id( string $city, string $lang ): int {
     return $ids ? (int) $ids[0] : 0;
 }
 
+function kotlinskidev_add_city_language_prefixes( bool $has_polylang ): array {
+    $prefixes = kotlinskidev_add_city_title_prefixes();
+
+    return $has_polylang ? $prefixes : [ 'en' => $prefixes['en'] ];
+}
+
+function kotlinskidev_insert_city_draft( string $city, string $prefix ) {
+    return wp_insert_post( wp_slash( [
+        'post_type'   => 'service_location',
+        'post_status' => 'draft',
+        'post_title'  => $prefix . $city,
+        'post_name'   => sanitize_title( $city ),
+        'meta_input'  => [ 'city' => $city ],
+    ] ), true );
+}
+
+function kotlinskidev_link_city_translations( array $result ): void {
+    if ( ! function_exists( 'pll_save_post_translations' ) || [] === $result['created'] ) {
+        return;
+    }
+
+    $translations = array_merge( $result['existing'], $result['created'] );
+    if ( count( $translations ) > 1 ) {
+        pll_save_post_translations( $translations );
+    }
+}
+
 function kotlinskidev_add_city_pages( string $city ): array {
     $city   = sanitize_text_field( $city );
     $result = [ 'created' => [], 'existing' => [], 'error' => '' ];
@@ -37,27 +64,15 @@ function kotlinskidev_add_city_pages( string $city ): array {
     }
 
     $has_polylang = function_exists( 'pll_set_post_language' );
-    $prefixes     = kotlinskidev_add_city_title_prefixes();
-    if ( ! $has_polylang ) {
-        $prefixes = [ 'en' => $prefixes['en'] ];
-    }
 
-    $slug = sanitize_title( $city );
-
-    foreach ( $prefixes as $lang => $prefix ) {
+    foreach ( kotlinskidev_add_city_language_prefixes( $has_polylang ) as $lang => $prefix ) {
         $existing_id = kotlinskidev_find_city_post_id( $city, $has_polylang ? $lang : '' );
         if ( $existing_id > 0 ) {
             $result['existing'][ $lang ] = $existing_id;
             continue;
         }
 
-        $post_id = wp_insert_post( wp_slash( [
-            'post_type'   => 'service_location',
-            'post_status' => 'draft',
-            'post_title'  => $prefix . $city,
-            'post_name'   => $slug,
-            'meta_input'  => [ 'city' => $city ],
-        ] ), true );
+        $post_id = kotlinskidev_insert_city_draft( $city, $prefix );
 
         if ( is_wp_error( $post_id ) || ! $post_id ) {
             $result['error'] = 'insert_failed';
@@ -75,11 +90,8 @@ function kotlinskidev_add_city_pages( string $city ): array {
         $result['error'] = 'duplicate';
     }
 
-    if ( $has_polylang && function_exists( 'pll_save_post_translations' ) && [] !== $result['created'] ) {
-        $translations = array_merge( $result['existing'], $result['created'] );
-        if ( count( $translations ) > 1 ) {
-            pll_save_post_translations( $translations );
-        }
+    if ( $has_polylang ) {
+        kotlinskidev_link_city_translations( $result );
     }
 
     return $result;
@@ -105,16 +117,7 @@ function kotlinskidev_register_add_city_page(): void {
 }
 add_action( 'admin_menu', 'kotlinskidev_register_add_city_page' );
 
-function kotlinskidev_handle_add_city(): void {
-    if ( ! current_user_can( 'edit_others_posts' ) ) {
-        wp_die( esc_html__( 'You do not have permission to add cities.', 'kotlinskidev' ), 403 );
-    }
-
-    check_admin_referer( KOTLINSKIDEV_ADD_CITY_ACTION );
-
-    $city   = isset( $_POST['kotlinskidev_city'] ) ? sanitize_text_field( wp_unslash( $_POST['kotlinskidev_city'] ) ) : '';
-    $result = kotlinskidev_add_city_pages( $city );
-
+function kotlinskidev_add_city_redirect_args( string $city, array $result ): array {
     $args = [ 'kt_city' => $city ];
     if ( '' !== $result['error'] ) {
         $args['kt_error'] = $result['error'];
@@ -125,7 +128,20 @@ function kotlinskidev_handle_add_city(): void {
         }
     }
 
-    wp_safe_redirect( kotlinskidev_add_city_page_url( $args ) );
+    return $args;
+}
+
+function kotlinskidev_handle_add_city(): void {
+    if ( ! current_user_can( 'edit_others_posts' ) ) {
+        wp_die( esc_html__( 'You do not have permission to add cities.', 'kotlinskidev' ), 403 );
+    }
+
+    check_admin_referer( KOTLINSKIDEV_ADD_CITY_ACTION );
+
+    $city   = isset( $_POST['kotlinskidev_city'] ) ? sanitize_text_field( wp_unslash( $_POST['kotlinskidev_city'] ) ) : '';
+    $result = kotlinskidev_add_city_pages( $city );
+
+    wp_safe_redirect( kotlinskidev_add_city_page_url( kotlinskidev_add_city_redirect_args( $city, $result ) ) );
     exit;
 }
 add_action( 'admin_post_' . KOTLINSKIDEV_ADD_CITY_ACTION, 'kotlinskidev_handle_add_city' );

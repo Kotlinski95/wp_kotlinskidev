@@ -2,6 +2,14 @@
 @import "./mixins";
 @import "./variables";
 
+.kt-modal {
+	display: none;
+
+	&.is-open {
+		display: flex;
+	}
+}
+
 .kt-device-frame {
 	display: block;
 	margin-inline: auto;

@@ -12,7 +12,6 @@ function render_language_switcher()
         ],
     ];
 
-    // Get the current locale or fallback to WordPress default locale
     $current_locale = get_locale();
 
     echo '<div class="language-selector">';
@@ -20,11 +19,9 @@ function render_language_switcher()
     echo '<img src="' . esc_url($languages[$current_locale]['flag']) . '" alt="' . esc_attr($languages[$current_locale]['name']) . '" class="language-flag" />';
     echo '</button>';
 
-    // Language options modal (hidden by default)
     echo '<div class="language-modal">';
     echo '<ul class="language-switcher">';
     foreach ($languages as $locale => $data) {
-        // Redirect to homepages based on locale
         $current_url = ($locale === 'pl_PL') ? home_url('/pl/') : home_url('/');
         $active_class = ($locale === $current_locale) ? 'active' : '';
 
@@ -34,11 +31,10 @@ function render_language_switcher()
         echo '</a></li>';
     }
     echo '</ul>';
-    echo '</div>'; // End of language modal
-    echo '</div>'; // End of language selector
+    echo '</div>';
+    echo '</div>';
 }
 
-// Shortcode to add the language switcher anywhere
 function render_language_switcher_shortcode()
 {
     ob_start();

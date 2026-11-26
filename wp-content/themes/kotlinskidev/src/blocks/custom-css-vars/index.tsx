@@ -55,76 +55,95 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+function CustomCssVarRow({
+  entry,
+  onChange,
+  onRemove,
+}: {
+  entry: CustomCssVarEntry;
+  onChange: (key: keyof CustomCssVarEntry, value: string) => void;
+  onRemove: () => void;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: "0.5rem",
+        alignItems: "flex-end",
+        marginBottom: "0.75rem",
+      }}
+    >
+      <TextControl
+        label={__("Name", "kotlinskidev")}
+        placeholder="--logo-icon-bg"
+        value={entry.name}
+        onChange={(value: string) => onChange("name", value)}
+      />
+      <TextControl
+        label={__("Value", "kotlinskidev")}
+        placeholder="#1c1d18"
+        value={entry.value}
+        onChange={(value: string) => onChange("value", value)}
+      />
+      <Button icon={closeSmall} label={__("Remove variable", "kotlinskidev")} onClick={onRemove} />
+    </div>
+  );
+}
+
+function CustomCssVarsPanel({ attributes, setAttributes }: BlockEditProps) {
+  const customCssVars = attributes.customCssVars ?? [];
+
+  const updateEntry = (index: number, key: keyof CustomCssVarEntry, value: string) => {
+    const next = customCssVars.map((entry, i) =>
+      i === index ? { ...entry, [key]: value } : entry
+    );
+    setAttributes({ customCssVars: next });
+  };
+
+  const removeEntry = (index: number) => {
+    setAttributes({ customCssVars: customCssVars.filter((_, i) => i !== index) });
+  };
+
+  const addEntry = () => {
+    setAttributes({ customCssVars: [...customCssVars, { name: "", value: "" }] });
+  };
+
+  return (
+    <PanelBody title={__("Custom CSS Variables", "kotlinskidev")} initialOpen={false}>
+      <p style={{ fontSize: "0.75rem", color: "#666", margin: "0 0 0.9375rem 0" }}>
+        {__(
+          "Applied as inline style on this block, e.g. --logo-icon-bg: #1c1d18. Reference them from the SVG's own fill/stroke attributes.",
+          "kotlinskidev"
+        )}
+      </p>
+
+      {customCssVars.map((entry, index) => (
+        <CustomCssVarRow
+          key={index}
+          entry={entry}
+          onChange={(key, value) => updateEntry(index, key, value)}
+          onRemove={() => removeEntry(index)}
+        />
+      ))}
+
+      <Button variant="secondary" onClick={addEntry}>
+        {__("Add Variable", "kotlinskidev")}
+      </Button>
+    </PanelBody>
+  );
+}
+
 const withCustomCssVarsControls = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!isSupportedBlock(props.name)) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const customCssVars = attributes.customCssVars ?? [];
-
-    const updateEntry = (index: number, key: keyof CustomCssVarEntry, value: string) => {
-      const next = customCssVars.map((entry, i) =>
-        i === index ? { ...entry, [key]: value } : entry
-      );
-      setAttributes({ customCssVars: next });
-    };
-
-    const removeEntry = (index: number) => {
-      setAttributes({ customCssVars: customCssVars.filter((_, i) => i !== index) });
-    };
-
-    const addEntry = () => {
-      setAttributes({ customCssVars: [...customCssVars, { name: "", value: "" }] });
-    };
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls>
-          <PanelBody title={__("Custom CSS Variables", "kotlinskidev")} initialOpen={false}>
-            <p style={{ fontSize: "0.75rem", color: "#666", margin: "0 0 0.9375rem 0" }}>
-              {__(
-                "Applied as inline style on this block, e.g. --logo-icon-bg: #1c1d18. Reference them from the SVG's own fill/stroke attributes.",
-                "kotlinskidev"
-              )}
-            </p>
-
-            {customCssVars.map((entry, index) => (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  gap: "0.5rem",
-                  alignItems: "flex-end",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                <TextControl
-                  label={__("Name", "kotlinskidev")}
-                  placeholder="--logo-icon-bg"
-                  value={entry.name}
-                  onChange={(value: string) => updateEntry(index, "name", value)}
-                />
-                <TextControl
-                  label={__("Value", "kotlinskidev")}
-                  placeholder="#1c1d18"
-                  value={entry.value}
-                  onChange={(value: string) => updateEntry(index, "value", value)}
-                />
-                <Button
-                  icon={closeSmall}
-                  label={__("Remove variable", "kotlinskidev")}
-                  onClick={() => removeEntry(index)}
-                />
-              </div>
-            ))}
-
-            <Button variant="secondary" onClick={addEntry}>
-              {__("Add Variable", "kotlinskidev")}
-            </Button>
-          </PanelBody>
+          <CustomCssVarsPanel {...props} />
         </InspectorControls>
       </Fragment>
     );

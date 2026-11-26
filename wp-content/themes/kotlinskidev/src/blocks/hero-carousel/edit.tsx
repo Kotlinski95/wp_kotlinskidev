@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
 import { useBlockProps, InnerBlocks, InspectorControls } from "@wordpress/block-editor";
-import { useSelect, useDispatch } from "@wordpress/data";
-import { createBlock } from "@wordpress/blocks";
-import { PanelBody, RangeControl, Button } from "@wordpress/components";
-import { __, sprintf } from "@wordpress/i18n";
+import { PanelBody, RangeControl } from "@wordpress/components";
+import { __ } from "@wordpress/i18n";
 import CarouselPanel from "@utils/carousel/CarouselPanel";
 import type { CarouselSettings } from "@utils/carousel/types";
-import { onActivationKey } from "@utils/keyboardActivation";
+import { EditorNav, EditorPagination } from "./hero-editor-nav";
+import type { HeroCarouselEditProps } from "./hero-carousel-attributes";
+import { SlidesPanel } from "./hero-slides-panel";
+import { useHeroSlides } from "./use-hero-slides";
 import "./style.scss";
 
-export interface HeroCarouselAttributes extends Partial<CarouselSettings> {
-  minHeight: number;
-}
+export type { HeroCarouselAttributes } from "./hero-carousel-attributes";
 
 const ALLOWED_BLOCKS = ["kotlinskidev/hero-carousel-slide"];
 
@@ -20,36 +19,67 @@ const SLIDES_TEMPLATE: [string, Record<string, unknown>][] = [
   ["kotlinskidev/hero-carousel-slide", {}],
 ];
 
-interface SlideBlock {
-  clientId: string;
-  attributes: Record<string, unknown>;
+const DEFAULT_MIN_HEIGHT_SVH = 80;
+
+const CAROUSEL_PANEL_FEATURES = {
+  arrowsPosition: true,
+  navColor: true,
+  navPlacement: true,
+  autoplay: true,
+  lazyLoad: true,
+  transitionEffect: true,
+  autoHeight: true,
+};
+
+const buildNavColorStyle = (
+  navColor: string,
+  navColorOnHover: boolean
+): React.CSSProperties | undefined => {
+  if (!navColor) {
+    return undefined;
+  }
+  return navColorOnHover
+    ? ({ "--carousel-nav-color-hover": navColor } as React.CSSProperties)
+    : ({ "--carousel-nav-color": navColor } as React.CSSProperties);
+};
+
+const SlideWrapper = () => (
+  <div className="swiper-wrapper">
+    <InnerBlocks
+      allowedBlocks={ALLOWED_BLOCKS}
+      template={SLIDES_TEMPLATE}
+      renderAppender={() => null}
+    />
+  </div>
+);
+
+interface HeightPanelProps {
+  minHeight: number;
+  autoHeight: boolean | undefined;
+  setAttributes: HeroCarouselEditProps["setAttributes"];
 }
 
-interface BlockEditorSelectors {
-  getBlock: (id: string) => { innerBlocks: SlideBlock[] } | undefined;
-  getSelectedBlockClientId: () => string | null;
-  getBlockParents: (id: string) => string[];
-}
+const HeightPanel = ({ minHeight, autoHeight, setAttributes }: HeightPanelProps) => (
+  <PanelBody title={__("Height", "kotlinskidev")} initialOpen={false}>
+    <RangeControl
+      label={__("Min Height (vh)", "kotlinskidev")}
+      help={
+        autoHeight
+          ? __(
+              "Auto Height is on (in Carousel Settings above) — this is now just a floor so slides never collapse below it.",
+              "kotlinskidev"
+            )
+          : undefined
+      }
+      value={minHeight}
+      onChange={(value) => setAttributes({ minHeight: value ?? DEFAULT_MIN_HEIGHT_SVH })}
+      min={0}
+      max={100}
+    />
+  </PanelBody>
+);
 
-interface BlockEditorActions {
-  insertBlock: (block: unknown, index?: number, rootClientId?: string) => void;
-  removeBlock: (clientId: string) => void;
-  selectBlock: (clientId: string) => void;
-}
-
-const EMPTY_SLIDES: SlideBlock[] = [];
-const EMPTY_CLIENT_IDS: string[] = [];
-
-export default function Edit({
-  attributes,
-  setAttributes,
-  clientId,
-}: {
-  attributes: HeroCarouselAttributes;
-  setAttributes: (attrs: Partial<HeroCarouselAttributes>) => void;
-  clientId: string;
-}) {
-  const { minHeight = 80, ...carouselSettings } = attributes;
+const resolveNavSettings = (carouselSettings: Partial<CarouselSettings>) => {
   const {
     showArrows = true,
     showPagination = true,
@@ -58,245 +88,113 @@ export default function Edit({
     navColorOnHover = false,
     navPlacement = "inside",
   } = carouselSettings;
-  const [activeSlide, setActiveSlide] = useState(0);
+  const effectivePlacement: "inside" | "outside" =
+    arrowsPosition === "sides" ? "inside" : (navPlacement ?? "inside");
+  return {
+    showArrows,
+    showPagination,
+    arrowsPosition,
+    effectivePlacement,
+    navColorStyle: buildNavColorStyle(navColor, navColorOnHover),
+  };
+};
 
-  const { innerBlocks, blockParents, selectedBlockClientId } = useSelect(
-    (select) => {
-      const store = select("core/block-editor") as unknown as BlockEditorSelectors;
-      const selectedCid = store.getSelectedBlockClientId();
-      return {
-        innerBlocks: store.getBlock(clientId)?.innerBlocks ?? EMPTY_SLIDES,
-        blockParents: selectedCid ? store.getBlockParents(selectedCid) : EMPTY_CLIENT_IDS,
-        selectedBlockClientId: selectedCid,
-      };
-    },
-    [clientId]
+const AddSlideButton = ({ onAddSlide }: { onAddSlide: () => void }) => (
+  <button
+    className="hero-carousel-editor__add"
+    onClick={onAddSlide}
+    title={__("Add slide", "kotlinskidev")}
+  >
+    +
+  </button>
+);
+
+type HeroSlidesState = ReturnType<typeof useHeroSlides>;
+
+interface HeroPartProps {
+  attributes: HeroCarouselEditProps["attributes"];
+  slides: HeroSlidesState;
+}
+
+const HeroInspector = ({
+  attributes,
+  slides,
+  setAttributes,
+}: HeroPartProps & Pick<HeroCarouselEditProps, "setAttributes">) => {
+  const { minHeight = DEFAULT_MIN_HEIGHT_SVH, ...carouselSettings } = attributes;
+  return (
+    <InspectorControls>
+      <SlidesPanel
+        innerBlocks={slides.innerBlocks}
+        activeSlide={slides.activeSlide}
+        slideCount={slides.slideCount}
+        handleNavigate={slides.handleNavigate}
+        handleAddSlide={slides.handleAddSlide}
+        handleRemoveSlide={slides.handleRemoveSlide}
+      />
+      <CarouselPanel
+        settings={carouselSettings}
+        onChange={(partial) => setAttributes(partial)}
+        features={CAROUSEL_PANEL_FEATURES}
+      />
+      <HeightPanel
+        minHeight={minHeight}
+        autoHeight={carouselSettings.autoHeight}
+        setAttributes={setAttributes}
+      />
+    </InspectorControls>
   );
+};
 
-  const selectedBlockParents = useMemo(
-    () => (selectedBlockClientId ? [...blockParents, selectedBlockClientId] : EMPTY_CLIENT_IDS),
-    [blockParents, selectedBlockClientId]
-  );
-
-  const { insertBlock, removeBlock, selectBlock } = useDispatch(
-    "core/block-editor"
-  ) as unknown as BlockEditorActions;
-
-  useEffect(() => {
-    const idx = innerBlocks.findIndex((b) => selectedBlockParents.includes(b.clientId));
-    if (idx >= 0) {
-      setActiveSlide(idx);
-    }
-  }, [selectedBlockParents, innerBlocks]);
-
-  useEffect(() => {
-    if (innerBlocks.length > 0 && activeSlide >= innerBlocks.length) {
-      setActiveSlide(innerBlocks.length - 1);
-    }
-  }, [innerBlocks.length, activeSlide]);
-
-  const slideCount = innerBlocks.length;
-
-  const handleNavigate = (index: number) => {
-    setActiveSlide(index);
-    selectBlock(clientId);
-  };
-
-  const handleAddSlide = () => {
-    insertBlock(createBlock("kotlinskidev/hero-carousel-slide"), undefined, clientId);
-    setActiveSlide(slideCount);
-  };
-
-  const handleRemoveSlide = (index: number) => {
-    if (slideCount <= 1) {
-      return;
-    }
-    const target = innerBlocks[index];
-    if (target) {
-      removeBlock(target.clientId);
-    }
-  };
-
+const HeroCanvas = ({ attributes, slides }: HeroPartProps) => {
+  const { minHeight = DEFAULT_MIN_HEIGHT_SVH, ...carouselSettings } = attributes;
+  const { showArrows, showPagination, arrowsPosition, effectivePlacement, navColorStyle } =
+    resolveNavSettings(carouselSettings);
+  const { activeSlide, slideCount, handleNavigate, handleAddSlide } = slides;
   const blockProps = useBlockProps({ className: "hero-carousel" });
-
-  const effectivePlacement = arrowsPosition === "sides" ? "inside" : (navPlacement ?? "inside");
-
-  let navColorStyle: React.CSSProperties | undefined;
-  if (navColor) {
-    navColorStyle = navColorOnHover
-      ? ({ "--carousel-nav-color-hover": navColor } as React.CSSProperties)
-      : ({ "--carousel-nav-color": navColor } as React.CSSProperties);
-  }
+  const cursor = { activeSlide, slideCount, handleNavigate };
 
   const editorNav = showArrows ? (
-    <div
-      className={`carousel-nav carousel-nav--${arrowsPosition}${effectivePlacement === "outside" ? " carousel-nav--outside" : ""}`}
-    >
-      <div
-        className={`swiper-button-prev${activeSlide === 0 ? " swiper-button-disabled" : ""}`}
-        onClick={() => activeSlide > 0 && handleNavigate(activeSlide - 1)}
-        onKeyDown={onActivationKey(() => activeSlide > 0 && handleNavigate(activeSlide - 1))}
-        role="button"
-        tabIndex={0}
-        aria-label={__("Previous slide", "kotlinskidev")}
-      />
-      {arrowsPosition !== "sides" && (
-        <span className="carousel-nav__counter">
-          <span className="carousel-nav__current">{String(activeSlide + 1).padStart(2, "0")}</span>
-          {" / "}
-          {String(slideCount).padStart(2, "0")}
-        </span>
-      )}
-      <div
-        className={`swiper-button-next${activeSlide === slideCount - 1 ? " swiper-button-disabled" : ""}`}
-        onClick={() => activeSlide < slideCount - 1 && handleNavigate(activeSlide + 1)}
-        onKeyDown={onActivationKey(
-          () => activeSlide < slideCount - 1 && handleNavigate(activeSlide + 1)
-        )}
-        role="button"
-        tabIndex={0}
-        aria-label={__("Next slide", "kotlinskidev")}
-      />
-    </div>
+    <EditorNav
+      arrowsPosition={arrowsPosition}
+      effectivePlacement={effectivePlacement}
+      {...cursor}
+    />
   ) : null;
+  const editorPagination = showPagination ? <EditorPagination {...cursor} /> : null;
 
-  const editorPagination = showPagination ? (
-    <div className="swiper-pagination">
-      {innerBlocks.map((_, i) => (
-        <span
-          key={i}
-          className={`swiper-pagination-bullet${i === activeSlide ? " swiper-pagination-bullet-active" : ""}`}
-          onClick={() => handleNavigate(i)}
-          onKeyDown={onActivationKey(() => handleNavigate(i))}
-          role="button"
-          tabIndex={0}
-          aria-label={`${__("Go to slide", "kotlinskidev")} ${i + 1}`}
-        />
-      ))}
+  return (
+    <div
+      {...blockProps}
+      data-active-slide={activeSlide}
+      style={
+        {
+          ...blockProps.style,
+          "--hero-min-height": `calc(${minHeight}svh - var(--admin-bar-offset, 0px))`,
+          ...(navColorStyle ?? {}),
+        } as React.CSSProperties
+      }
+    >
+      <div className="swiper hero-carousel__swiper">
+        <SlideWrapper />
+        {showArrows && effectivePlacement === "inside" ? editorNav : null}
+        {showPagination && effectivePlacement === "inside" && arrowsPosition === "sides"
+          ? editorPagination
+          : null}
+      </div>
+      {showArrows && effectivePlacement === "outside" ? editorNav : null}
+      <AddSlideButton onAddSlide={handleAddSlide} />
     </div>
-  ) : null;
+  );
+};
+
+export default function Edit({ attributes, setAttributes, clientId }: HeroCarouselEditProps) {
+  const slides = useHeroSlides(clientId);
 
   return (
     <>
-      <InspectorControls>
-        <PanelBody title={__("Slides", "kotlinskidev")} initialOpen>
-          <p className="hero-carousel-sidebar-label">{__("Slides", "kotlinskidev")}</p>
-          <div className="hero-carousel-sidebar-slides">
-            {innerBlocks.map((block, i) => {
-              const imgUrl = (block.attributes?.bgImageUrl as string) ?? "";
-              return (
-                <div
-                  key={block.clientId}
-                  className={[
-                    "hero-carousel-sidebar-slide",
-                    i === activeSlide ? "hero-carousel-sidebar-slide--active" : "",
-                    !imgUrl ? "hero-carousel-sidebar-slide--empty" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  onClick={() => handleNavigate(i)}
-                  onKeyDown={(e) => {
-                    if (e.target === e.currentTarget) {
-                      onActivationKey(() => handleNavigate(i))(e);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={sprintf(
-                    // translators: %d: slide number
-                    __("Slide %d", "kotlinskidev"),
-                    i + 1
-                  )}
-                >
-                  {imgUrl ? <img src={imgUrl} alt="" /> : <span>{i + 1}</span>}
-                  {slideCount > 1 && (
-                    <button
-                      className="hero-carousel-sidebar-remove"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRemoveSlide(i);
-                      }}
-                      aria-label={__("Remove slide", "kotlinskidev")}
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <Button
-            variant="secondary"
-            onClick={handleAddSlide}
-            style={{ width: "100%", justifyContent: "center" }}
-          >
-            {__("+ Add Slide", "kotlinskidev")}
-          </Button>
-        </PanelBody>
-        <CarouselPanel
-          settings={carouselSettings}
-          onChange={(partial) => setAttributes(partial)}
-          features={{
-            arrowsPosition: true,
-            navColor: true,
-            navPlacement: true,
-            autoplay: true,
-            lazyLoad: true,
-            transitionEffect: true,
-            autoHeight: true,
-          }}
-        />
-        <PanelBody title={__("Height", "kotlinskidev")} initialOpen={false}>
-          <RangeControl
-            label={__("Min Height (vh)", "kotlinskidev")}
-            help={
-              carouselSettings.autoHeight
-                ? __(
-                    "Auto Height is on (in Carousel Settings above) — this is now just a floor so slides never collapse below it.",
-                    "kotlinskidev"
-                  )
-                : undefined
-            }
-            value={minHeight}
-            onChange={(value) => setAttributes({ minHeight: value ?? 80 })}
-            min={0}
-            max={100}
-          />
-        </PanelBody>
-      </InspectorControls>
-      <div
-        {...blockProps}
-        data-active-slide={activeSlide}
-        style={
-          {
-            ...blockProps.style,
-            "--hero-min-height": `calc(${minHeight}svh - var(--admin-bar-offset, 0px))`,
-            ...(navColorStyle ?? {}),
-          } as React.CSSProperties
-        }
-      >
-        <div className="swiper hero-carousel__swiper">
-          <div className="swiper-wrapper">
-            <InnerBlocks
-              allowedBlocks={ALLOWED_BLOCKS}
-              template={SLIDES_TEMPLATE}
-              renderAppender={() => null}
-            />
-          </div>
-          {showArrows && effectivePlacement === "inside" ? editorNav : null}
-          {showPagination && effectivePlacement === "inside" && arrowsPosition === "sides"
-            ? editorPagination
-            : null}
-        </div>
-        {showArrows && effectivePlacement === "outside" ? editorNav : null}
-        <button
-          className="hero-carousel-editor__add"
-          onClick={handleAddSlide}
-          title={__("Add slide", "kotlinskidev")}
-        >
-          +
-        </button>
-      </div>
+      <HeroInspector attributes={attributes} slides={slides} setAttributes={setAttributes} />
+      <HeroCanvas attributes={attributes} slides={slides} />
     </>
   );
 }

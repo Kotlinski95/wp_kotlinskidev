@@ -19,8 +19,78 @@ interface EditProps {
   setAttributes: (attrs: Partial<IconAttributes>) => void;
 }
 
+function AccessibilityControls({ attributes, setAttributes }: EditProps) {
+  const { ariaLabel, showTooltip } = attributes;
+
+  return (
+    <>
+      <TextControl
+        label={__("Accessible label", "kotlinskidev")}
+        help={__(
+          "Only set this if the icon conveys meaning on its own (e.g. a standalone social link). Leave empty for a purely decorative icon.",
+          "kotlinskidev"
+        )}
+        value={ariaLabel}
+        onChange={(value) => setAttributes({ ariaLabel: value })}
+      />
+      {!ariaLabel && (
+        <Notice status="info" isDismissible={false}>
+          {__("This icon will be hidden from screen readers as decorative.", "kotlinskidev")}
+        </Notice>
+      )}
+      {ariaLabel && (
+        <ToggleControl
+          label={__("Show tooltip on hover", "kotlinskidev")}
+          help={__("Shows the accessible label above the icon on hover/focus.", "kotlinskidev")}
+          checked={showTooltip}
+          onChange={(value) => setAttributes({ showTooltip: value })}
+        />
+      )}
+    </>
+  );
+}
+
+function AppearancePanel({ attributes, setAttributes }: EditProps) {
+  const { size, color, useGradient } = attributes;
+
+  return (
+    <PanelBody title={__("Appearance & Accessibility", "kotlinskidev")} initialOpen>
+      <TextControl
+        label={__("Size", "kotlinskidev")}
+        help={__(
+          "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size.",
+          "kotlinskidev"
+        )}
+        value={size}
+        onChange={(value) => setAttributes({ size: value })}
+      />
+      <ToggleControl
+        label={__("Use gradient fill", "kotlinskidev")}
+        help={__(
+          "Fills the icon with the site's Fancy Text gradient (Styles → Colors → Gradients) instead of a flat color. Only visible on the live page — the editor canvas can't preview it.",
+          "kotlinskidev"
+        )}
+        checked={useGradient}
+        onChange={(value) => setAttributes({ useGradient: value })}
+      />
+      {!useGradient && (
+        <TextControl
+          label={__("Color", "kotlinskidev")}
+          help={__(
+            "Any CSS color value. Leave empty to inherit the surrounding text color.",
+            "kotlinskidev"
+          )}
+          value={color}
+          onChange={(value) => setAttributes({ color: value })}
+        />
+      )}
+      <AccessibilityControls attributes={attributes} setAttributes={setAttributes} />
+    </PanelBody>
+  );
+}
+
 export default function Edit({ attributes, setAttributes }: EditProps) {
-  const { mediaId, mediaUrl, size, color, useGradient, ariaLabel, showTooltip } = attributes;
+  const { mediaId, mediaUrl, size, color } = attributes;
 
   const blockProps = useBlockProps({ className: "kt-icon-editor" });
 
@@ -35,59 +105,7 @@ export default function Edit({ attributes, setAttributes }: EditProps) {
           />
         </PanelBody>
 
-        <PanelBody title={__("Appearance & Accessibility", "kotlinskidev")} initialOpen>
-          <TextControl
-            label={__("Size", "kotlinskidev")}
-            help={__(
-              "Any CSS value, e.g. 1.5rem or 24px. Leave empty for the default size.",
-              "kotlinskidev"
-            )}
-            value={size}
-            onChange={(value) => setAttributes({ size: value })}
-          />
-          <ToggleControl
-            label={__("Use gradient fill", "kotlinskidev")}
-            help={__(
-              "Fills the icon with the site's Fancy Text gradient (Styles → Colors → Gradients) instead of a flat color. Only visible on the live page — the editor canvas can't preview it.",
-              "kotlinskidev"
-            )}
-            checked={useGradient}
-            onChange={(value) => setAttributes({ useGradient: value })}
-          />
-          {!useGradient && (
-            <TextControl
-              label={__("Color", "kotlinskidev")}
-              help={__(
-                "Any CSS color value. Leave empty to inherit the surrounding text color.",
-                "kotlinskidev"
-              )}
-              value={color}
-              onChange={(value) => setAttributes({ color: value })}
-            />
-          )}
-          <TextControl
-            label={__("Accessible label", "kotlinskidev")}
-            help={__(
-              "Only set this if the icon conveys meaning on its own (e.g. a standalone social link). Leave empty for a purely decorative icon.",
-              "kotlinskidev"
-            )}
-            value={ariaLabel}
-            onChange={(value) => setAttributes({ ariaLabel: value })}
-          />
-          {!ariaLabel && (
-            <Notice status="info" isDismissible={false}>
-              {__("This icon will be hidden from screen readers as decorative.", "kotlinskidev")}
-            </Notice>
-          )}
-          {ariaLabel && (
-            <ToggleControl
-              label={__("Show tooltip on hover", "kotlinskidev")}
-              help={__("Shows the accessible label above the icon on hover/focus.", "kotlinskidev")}
-              checked={showTooltip}
-              onChange={(value) => setAttributes({ showTooltip: value })}
-            />
-          )}
-        </PanelBody>
+        <AppearancePanel attributes={attributes} setAttributes={setAttributes} />
       </InspectorControls>
 
       <div {...blockProps}>

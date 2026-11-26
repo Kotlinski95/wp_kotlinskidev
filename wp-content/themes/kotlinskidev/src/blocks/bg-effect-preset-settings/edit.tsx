@@ -1,11 +1,8 @@
 import React from "react";
-import {
-  useBlockProps,
-  InspectorControls,
-  __experimentalColorGradientControl as ColorGradientControl,
-} from "@wordpress/block-editor";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, SelectControl, RangeControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
+import { SolidColorControl } from "../shared/solid-color-control";
 
 export interface BgEffectPresetSettingsAttributes {
   effectType: string;
@@ -42,71 +39,61 @@ const defaultDurationFor = (effectType: string): number => {
   }
 };
 
+type ColorField = "color1" | "color2" | "color3";
+
+function presetColorFields(): { field: ColorField; label: string }[] {
+  return [
+    { field: "color1", label: __("Color 1", "kotlinskidev") },
+    { field: "color2", label: __("Color 2", "kotlinskidev") },
+    { field: "color3", label: __("Color 3", "kotlinskidev") },
+  ];
+}
+
+function PresetSettingsPanel({ attributes, setAttributes }: EditProps) {
+  const { effectType, duration } = attributes;
+
+  return (
+    <PanelBody title={__("Preset Settings", "kotlinskidev")} initialOpen>
+      <SelectControl
+        label={__("Effect", "kotlinskidev")}
+        value={effectType}
+        options={effectTypes}
+        onChange={(value) =>
+          setAttributes({ effectType: value, duration: defaultDurationFor(value) })
+        }
+        __nextHasNoMarginBottom
+      />
+      <RangeControl
+        label={__("Duration (seconds)", "kotlinskidev")}
+        value={duration}
+        onChange={(value) => setAttributes({ duration: value ?? defaultDurationFor(effectType) })}
+        min={1}
+        max={30}
+        step={0.5}
+        __nextHasNoMarginBottom
+      />
+      {presetColorFields().map(({ field, label }) => (
+        <SolidColorControl
+          key={field}
+          label={label}
+          value={attributes[field]}
+          onChange={(value) => setAttributes({ [field]: value })}
+        />
+      ))}
+      <p className="components-base-control__help">
+        {__("Leave a color empty to keep the theme's default.", "kotlinskidev")}
+      </p>
+    </PanelBody>
+  );
+}
+
 export default function Edit({ attributes, setAttributes }: EditProps) {
-  const { effectType, color1, color2, color3, duration } = attributes;
   const blockProps = useBlockProps();
 
   return (
     <>
       <InspectorControls>
-        <PanelBody title={__("Preset Settings", "kotlinskidev")} initialOpen>
-          <SelectControl
-            label={__("Effect", "kotlinskidev")}
-            value={effectType}
-            options={effectTypes}
-            onChange={(value) =>
-              setAttributes({ effectType: value, duration: defaultDurationFor(value) })
-            }
-            __nextHasNoMarginBottom
-          />
-          <RangeControl
-            label={__("Duration (seconds)", "kotlinskidev")}
-            value={duration}
-            onChange={(value) =>
-              setAttributes({ duration: value ?? defaultDurationFor(effectType) })
-            }
-            min={1}
-            max={30}
-            step={0.5}
-            __nextHasNoMarginBottom
-          />
-          <ColorGradientControl
-            label={__("Color 1", "kotlinskidev")}
-            colorValue={color1 || undefined}
-            onColorChange={(value: string | undefined) => setAttributes({ color1: value || "" })}
-            gradients={[]}
-            disableCustomGradients
-            enableAlpha
-            clearable
-            __experimentalIsRenderedInSidebar
-            __nextHasNoMarginBottom
-          />
-          <ColorGradientControl
-            label={__("Color 2", "kotlinskidev")}
-            colorValue={color2 || undefined}
-            onColorChange={(value: string | undefined) => setAttributes({ color2: value || "" })}
-            gradients={[]}
-            disableCustomGradients
-            enableAlpha
-            clearable
-            __experimentalIsRenderedInSidebar
-            __nextHasNoMarginBottom
-          />
-          <ColorGradientControl
-            label={__("Color 3", "kotlinskidev")}
-            colorValue={color3 || undefined}
-            onColorChange={(value: string | undefined) => setAttributes({ color3: value || "" })}
-            gradients={[]}
-            disableCustomGradients
-            enableAlpha
-            clearable
-            __experimentalIsRenderedInSidebar
-            __nextHasNoMarginBottom
-          />
-          <p className="components-base-control__help">
-            {__("Leave a color empty to keep the theme's default.", "kotlinskidev")}
-          </p>
-        </PanelBody>
+        <PresetSettingsPanel attributes={attributes} setAttributes={setAttributes} />
       </InspectorControls>
       <div {...blockProps}>{__("Background Effect Preset Settings", "kotlinskidev")}</div>
     </>

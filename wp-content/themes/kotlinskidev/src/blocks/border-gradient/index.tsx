@@ -64,52 +64,65 @@ interface BlockEditProps {
   setAttributes: (attrs: Record<string, unknown>) => void;
 }
 
+function useClearGradientOnNativeColorChange(
+  nativeColor: string | undefined,
+  borderGradient: string,
+  setAttributes: BlockEditProps["setAttributes"]
+) {
+  const prevNativeColorRef = useRef(nativeColor);
+  const borderGradientRef = useRef(borderGradient);
+  borderGradientRef.current = borderGradient;
+
+  useEffect(() => {
+    if (nativeColor && nativeColor !== prevNativeColorRef.current && borderGradientRef.current) {
+      setAttributes({ borderGradient: "" });
+    }
+    prevNativeColorRef.current = nativeColor;
+  }, [nativeColor, setAttributes]);
+}
+
+function BorderGradientControl({ attributes, setAttributes }: BlockEditProps) {
+  const nativeColor = attributes.style?.border?.color || attributes.borderColor;
+  const borderGradient = attributes.borderGradient || "";
+  useClearGradientOnNativeColorChange(nativeColor, borderGradient, setAttributes);
+
+  const setBorderColor = (value?: string) => {
+    setAttributes({
+      borderColor: undefined,
+      style: {
+        ...attributes.style,
+        border: { ...attributes.style?.border, color: value || undefined },
+      },
+    });
+  };
+
+  const setBorderGradient = (value?: string) => {
+    setAttributes({ borderGradient: value || "" });
+  };
+
+  return (
+    <ColorGradientControl
+      colorValue={attributes.style?.border?.color || undefined}
+      gradientValue={borderGradient || undefined}
+      onColorChange={setBorderColor}
+      onGradientChange={setBorderGradient}
+      clearable
+      __nextHasNoMarginBottom
+    />
+  );
+}
+
 const withBorderGradientControl = createHigherOrderComponent((BlockEdit) => {
   return (props: BlockEditProps) => {
     if (!props.name || EXCLUDED_BLOCKS.includes(props.name)) {
       return <BlockEdit {...props} />;
     }
 
-    const { attributes, setAttributes } = props;
-    const nativeColor = attributes.style?.border?.color || attributes.borderColor;
-    const borderGradient = attributes.borderGradient || "";
-    const prevNativeColorRef = useRef(nativeColor);
-    const borderGradientRef = useRef(borderGradient);
-    borderGradientRef.current = borderGradient;
-
-    useEffect(() => {
-      if (nativeColor && nativeColor !== prevNativeColorRef.current && borderGradientRef.current) {
-        setAttributes({ borderGradient: "" });
-      }
-      prevNativeColorRef.current = nativeColor;
-    }, [nativeColor, setAttributes]);
-
-    const setBorderColor = (value?: string) => {
-      setAttributes({
-        borderColor: undefined,
-        style: {
-          ...attributes.style,
-          border: { ...attributes.style?.border, color: value || undefined },
-        },
-      });
-    };
-
-    const setBorderGradient = (value?: string) => {
-      setAttributes({ borderGradient: value || "" });
-    };
-
     return (
       <Fragment>
         <BlockEdit {...props} />
         <InspectorControls group="border">
-          <ColorGradientControl
-            colorValue={attributes.style?.border?.color || undefined}
-            gradientValue={borderGradient || undefined}
-            onColorChange={setBorderColor}
-            onGradientChange={setBorderGradient}
-            clearable
-            __nextHasNoMarginBottom
-          />
+          <BorderGradientControl {...props} />
         </InspectorControls>
       </Fragment>
     );

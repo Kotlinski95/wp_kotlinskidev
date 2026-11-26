@@ -1,253 +1,75 @@
 import React from "react";
 import { registerBlockType } from "@wordpress/blocks";
-import {
-  ColorPalette,
-  InspectorControls,
-  useBlockProps,
-  useSettings,
-} from "@wordpress/block-editor";
-import { BaseControl, PanelBody, SelectControl, ToggleControl } from "@wordpress/components";
+import { InspectorControls, useBlockProps, useSettings } from "@wordpress/block-editor";
 import { useSelect } from "@wordpress/data";
 import { __ } from "@wordpress/i18n";
-import { BlurAmountControl, BLUR_AMOUNT_DEFAULT_VALUE } from "../shared/blur-amount-control";
-import { barBackgroundToColor, colorToBarBackground, PaletteColor } from "./bar-background";
+import { selectCoreEntityRecords } from "@utils/core-entity-records";
+import type { PaletteColor } from "./bar-background";
+import { visibilityClassMap } from "./navigation-options";
+import { BlurPanel, NavigationPanel } from "./navigation-panels";
+import type {
+  NavigationAttributes,
+  NavigationPanelProps,
+  NavigationPost,
+} from "./navigation-types";
 
-type OverlayMenu = "never" | "mobile" | "always";
-type DisplayMode = "mega" | "list" | "bar";
-type Visibility = "all" | "desktop" | "mobile";
-type HorizontalSide = "right" | "left";
+export type { NavigationAttributes } from "./navigation-types";
 
-interface NavigationPost {
-  id: number;
-  slug: string;
-  title: { rendered: string };
-}
+const NAVIGATION_POSTS_QUERY = { per_page: 100, status: "publish" };
 
-export interface NavigationAttributes {
-  menuSlug: string;
-  overlayMenu: OverlayMenu;
-  displayMode: DisplayMode;
-  visibility: Visibility;
-  overlaySlide: HorizontalSide;
-  hamburgerLineAlign: HorizontalSide;
-  className: string;
-  linkNavigatesOnClick: boolean;
-  showHamburgerBorder: boolean;
-  hideAccordionDividers: boolean;
-  blurInactiveLinks: boolean;
-  blurAmount: string;
-  blurIncludeUtility: boolean;
-  barSolidBackground: string;
-}
-
-const overlayMenuOptions = [
-  { label: __("Never — always inline", "kotlinskidev"), value: "never" },
-  { label: __("On mobile only", "kotlinskidev"), value: "mobile" },
-  { label: __("Always — hamburger", "kotlinskidev"), value: "always" },
+const buildMenuOptions = (navigationPosts: NavigationPost[] | null) => [
+  {
+    label:
+      navigationPosts === null
+        ? __("Loading…", "kotlinskidev")
+        : __("— Select a menu —", "kotlinskidev"),
+    value: "",
+  },
+  ...(navigationPosts ?? []).map((post) => ({
+    label: post.title.rendered || post.slug,
+    value: post.slug,
+  })),
 ];
 
-const displayModeOptions = [
-  { label: __("Mega menu bar", "kotlinskidev"), value: "mega" },
-  { label: __("Flat link list", "kotlinskidev"), value: "list" },
-  { label: __("Mobile bottom bar", "kotlinskidev"), value: "bar" },
-];
-
-const visibilityOptions = [
-  { label: __("Always visible", "kotlinskidev"), value: "all" },
-  { label: __("Desktop only", "kotlinskidev"), value: "desktop" },
-  { label: __("Mobile & tablet only", "kotlinskidev"), value: "mobile" },
-];
-
-const overlaySlideOptions = [
-  { label: __("From right", "kotlinskidev"), value: "right" },
-  { label: __("From left", "kotlinskidev"), value: "left" },
-];
-
-const hamburgerLineAlignOptions = [
-  { label: __("Right", "kotlinskidev"), value: "right" },
-  { label: __("Left", "kotlinskidev"), value: "left" },
-];
-
-const visibilityClassMap: Record<Visibility, string> = {
-  all: "",
-  desktop: "nav-desktop",
-  mobile: "nav-mobile",
+const useNavigationMenuOptions = () => {
+  const navigationPosts = useSelect((select) => {
+    return selectCoreEntityRecords<NavigationPost>(select, {
+      kind: "postType",
+      name: "wp_navigation",
+      query: NAVIGATION_POSTS_QUERY,
+    });
+  }, []);
+  return buildMenuOptions(navigationPosts);
 };
 
-interface EditProps {
-  attributes: NavigationAttributes;
-  setAttributes: (attrs: Partial<NavigationAttributes>) => void;
-}
+const useThemePaletteColors = (): PaletteColor[] => {
+  const [themePalette = [], defaultPalette = []] = useSettings(
+    "color.palette.theme",
+    "color.palette.default"
+  ) as [PaletteColor[] | undefined, PaletteColor[] | undefined];
+  return [...themePalette, ...defaultPalette];
+};
 
-export function Edit({ attributes, setAttributes }: EditProps) {
+export function Edit({ attributes, setAttributes }: NavigationPanelProps) {
   const blockProps = useBlockProps({
     className: ["kt-nav-placeholder", visibilityClassMap[attributes.visibility]]
       .filter(Boolean)
       .join(" "),
   });
-
-  const [themePalette = [], defaultPalette = []] = useSettings(
-    "color.palette.theme",
-    "color.palette.default"
-  ) as [PaletteColor[] | undefined, PaletteColor[] | undefined];
-  const paletteColors = [...themePalette, ...defaultPalette];
-
-  const navigationPosts = useSelect((select) => {
-    return (select("core") as any).getEntityRecords("postType", "wp_navigation", {
-      per_page: 100,
-      status: "publish",
-    }) as NavigationPost[] | null;
-  }, []);
-
-  const menuOptions = [
-    {
-      label:
-        navigationPosts === null
-          ? __("Loading…", "kotlinskidev")
-          : __("— Select a menu —", "kotlinskidev"),
-      value: "",
-    },
-    ...(navigationPosts ?? []).map((post) => ({
-      label: post.title.rendered || post.slug,
-      value: post.slug,
-    })),
-  ];
+  const paletteColors = useThemePaletteColors();
+  const menuOptions = useNavigationMenuOptions();
+  const showBlurPanel = attributes.overlayMenu === "never" && attributes.displayMode === "mega";
 
   return (
     <div {...blockProps}>
       <InspectorControls>
-        <PanelBody title={__("Navigation", "kotlinskidev")} initialOpen={true}>
-          <SelectControl
-            label={__("Navigation menu", "kotlinskidev")}
-            value={attributes.menuSlug}
-            options={menuOptions}
-            onChange={(menuSlug) => setAttributes({ menuSlug })}
-          />
-          <SelectControl
-            label={__("Display mode", "kotlinskidev")}
-            help={__(
-              "Flat link list renders top-level links only, e.g. footer link columns.",
-              "kotlinskidev"
-            )}
-            value={attributes.displayMode}
-            options={displayModeOptions}
-            onChange={(displayMode) => setAttributes({ displayMode: displayMode as DisplayMode })}
-          />
-          {attributes.displayMode === "bar" && (
-            <BaseControl
-              id="kt-nav-bar-solid-background"
-              label={__("Bar background while loading", "kotlinskidev")}
-              help={__(
-                "Solid colour shown while a page loads or changes, before the glass blur returns. Empty uses the site background.",
-                "kotlinskidev"
-              )}
-              __nextHasNoMarginBottom
-            >
-              <ColorPalette
-                colors={paletteColors}
-                value={barBackgroundToColor(attributes.barSolidBackground, paletteColors)}
-                onChange={(color) =>
-                  setAttributes({ barSolidBackground: colorToBarBackground(color, paletteColors) })
-                }
-                clearable
-              />
-            </BaseControl>
-          )}
-          <SelectControl
-            label={__("Overlay mode", "kotlinskidev")}
-            value={attributes.overlayMenu}
-            options={overlayMenuOptions}
-            onChange={(overlayMenu) => setAttributes({ overlayMenu: overlayMenu as OverlayMenu })}
-          />
-          <SelectControl
-            label={__("Visibility", "kotlinskidev")}
-            help={__("Choose on which screen sizes this navigation renders.", "kotlinskidev")}
-            value={attributes.visibility}
-            options={visibilityOptions}
-            onChange={(visibility) => setAttributes({ visibility: visibility as Visibility })}
-          />
-          {attributes.overlayMenu === "always" && (
-            <>
-              <SelectControl
-                label={__("Overlay slide direction", "kotlinskidev")}
-                value={attributes.overlaySlide}
-                options={overlaySlideOptions}
-                onChange={(overlaySlide) =>
-                  setAttributes({ overlaySlide: overlaySlide as HorizontalSide })
-                }
-              />
-              <SelectControl
-                label={__("Hamburger short line alignment", "kotlinskidev")}
-                value={attributes.hamburgerLineAlign}
-                options={hamburgerLineAlignOptions}
-                onChange={(hamburgerLineAlign) =>
-                  setAttributes({ hamburgerLineAlign: hamburgerLineAlign as HorizontalSide })
-                }
-              />
-              <ToggleControl
-                label={__("Show hamburger border", "kotlinskidev")}
-                help={__(
-                  "Adds a border around the hamburger icon button. Applies the same way whether this block is placed as the desktop or mobile hamburger.",
-                  "kotlinskidev"
-                )}
-                checked={attributes.showHamburgerBorder}
-                onChange={(showHamburgerBorder) => setAttributes({ showHamburgerBorder })}
-                __nextHasNoMarginBottom
-              />
-              <ToggleControl
-                label={__("Hide accordion dividers", "kotlinskidev")}
-                help={__(
-                  "Removes the divider lines between items in the hamburger panel, including nested accordion children. Doesn't change content or expand/collapse behavior.",
-                  "kotlinskidev"
-                )}
-                checked={attributes.hideAccordionDividers}
-                onChange={(hideAccordionDividers) => setAttributes({ hideAccordionDividers })}
-                __nextHasNoMarginBottom
-              />
-            </>
-          )}
-          <ToggleControl
-            label={__("Navigate top-level links on click", "kotlinskidev")}
-            help={__(
-              "When on, clicking a link with a real URL navigates to it. Links with '#' or no URL still toggle the panel.",
-              "kotlinskidev"
-            )}
-            checked={attributes.linkNavigatesOnClick}
-            onChange={(linkNavigatesOnClick) => setAttributes({ linkNavigatesOnClick })}
-          />
-        </PanelBody>
-        {attributes.overlayMenu === "never" && attributes.displayMode === "mega" && (
-          <PanelBody title={__("Blur Inactive Links on Hover", "kotlinskidev")} initialOpen={false}>
-            <ToggleControl
-              label={__("Blur inactive links on hover", "kotlinskidev")}
-              help={__(
-                "Hovering one top-level link dims and blurs the rest of the bar. Turn off anytime to revert.",
-                "kotlinskidev"
-              )}
-              checked={attributes.blurInactiveLinks}
-              onChange={(blurInactiveLinks) => setAttributes({ blurInactiveLinks })}
-              __nextHasNoMarginBottom
-            />
-            {attributes.blurInactiveLinks && (
-              <>
-                <ToggleControl
-                  label={__("Include search & language", "kotlinskidev")}
-                  help={__(
-                    "Off: only dropdown links (nav links/submenus) blur. On: the search and language items blur and trigger the effect too.",
-                    "kotlinskidev"
-                  )}
-                  checked={attributes.blurIncludeUtility}
-                  onChange={(blurIncludeUtility) => setAttributes({ blurIncludeUtility })}
-                  __nextHasNoMarginBottom
-                />
-                <BlurAmountControl
-                  value={attributes.blurAmount || BLUR_AMOUNT_DEFAULT_VALUE}
-                  onChange={(blurAmount) => setAttributes({ blurAmount })}
-                />
-              </>
-            )}
-          </PanelBody>
-        )}
+        <NavigationPanel
+          attributes={attributes}
+          setAttributes={setAttributes}
+          paletteColors={paletteColors}
+          menuOptions={menuOptions}
+        />
+        {showBlurPanel && <BlurPanel attributes={attributes} setAttributes={setAttributes} />}
       </InspectorControls>
       <span className="kt-nav-placeholder__icon dashicons dashicons-menu" />
       <span className="kt-nav-placeholder__label">{__("Navigation", "kotlinskidev")}</span>
