@@ -44,7 +44,7 @@ Site Editor, Footer template part, select the mobile Navigation block (display m
 - Ruled out on a real iPhone, each alone and together: `translateZ(0)`, `backdrop-filter`, the nav transition, `overflow-x:clip` on `html` and `body`, `position:sticky`, a `100dvh` dock wrapper, `top` from `100dvh`, the viewport meta, and the view transition itself (it reproduced with the transition disabled). Reflow is excluded because the ancestors have no `transform`, `filter` or `contain` and the page values do not change.
 - Lab (a small multi-page server with one switch per feature): the plain fixed bar, which is what audioplex.pl uses, jumped under fast clicking. The only stable layouts keep the document root unscrollable and scroll an inner element: `y` (flex column app shell), `g` (glass overlay nav), `e` (the `body` itself is the shell) and `ep` (same, admin bar handled by `body` padding).
 - `ea` (the same as `e` plus `html{margin-top:46px}` for the admin bar) jumped again: the margin made `documentElement.scrollHeight` 792 against an `innerHeight` of 746, so the root was scrollable by 46px and the browser's toolbar logic came back. That is rule 1.
-- Trade-offs of the shell, accepted: Chrome's toolbar no longer collapses on scroll, iOS status-bar tap-to-top and pull-to-refresh may not work, and scripts that watch window scroll (for example GA4 scroll depth, Complianz, OneTap) see no window scroll on mobile.
+- Trade-offs of the shell, accepted: Chrome's toolbar no longer collapses on scroll, iOS status-bar tap-to-top and pull-to-refresh may not work, and scripts that watch window scroll (for example GA4 scroll depth, Complianz) see no window scroll on mobile.
 
 ### 2. Stale visualViewport offset lifted the nav (fixed)
 

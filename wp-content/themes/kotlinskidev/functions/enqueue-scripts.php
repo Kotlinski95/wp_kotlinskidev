@@ -57,18 +57,12 @@ function kotlinskidev_make_stylesheet_non_blocking(string $html): string
     return $html;
 }
 
-function kotlinskidev_flag_stylesheet_loaded(string $html, string $handle): string
-{
-    return str_replace("this.media='all'", "this.media='all';document.documentElement.classList.add('kt-css-" . $handle . "')", $html);
-}
-
 function kotlinskidev_get_deferred_style_handles(): array
 {
     return array_merge(
         [
             'wp-block-navigation',
             'wp-pwa-manager-frontend',
-            KOTLINSKIDEV_ONETAP_STYLE_HANDLE,
         ],
         kotlinskidev_get_deferred_block_style_handles(),
         kotlinskidev_get_block_style_link_handles()
@@ -88,9 +82,6 @@ function master_css_filter($html, $handle)
     $deferred_handles = kotlinskidev_get_deferred_style_handles();
     if (in_array($handle, $deferred_handles, true)) {
         $html = kotlinskidev_make_stylesheet_non_blocking($html);
-        if (KOTLINSKIDEV_ONETAP_STYLE_HANDLE === $handle) {
-            $html = kotlinskidev_flag_stylesheet_loaded($html, $handle);
-        }
     }
 
     return $html;

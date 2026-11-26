@@ -18,6 +18,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.5.1] — 2026-11-26
+
+### Removed
+
+- The OneTap accessibility plugin integration (`functions/onetap-inline-style.php` and its stylesheet handling) is gone, replaced by the standalone Kotlinskidev Accessibility plugin. The hide-on-scroll floating-icon selector and the `accessibility_toggle_click` analytics event now target `#ka11y-root`, and leftover `uploads/kotlinskidev-cache/onetap-*.css` files can be deleted manually.
+
 ## [2.5.0] — 2026-11-26
 
 ### Added

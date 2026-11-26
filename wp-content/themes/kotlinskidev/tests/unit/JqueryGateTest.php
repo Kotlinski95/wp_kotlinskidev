@@ -21,8 +21,8 @@ function kotlinskidev_fake_core_scripts(): array
         'jquery-core'    => [],
         'jquery-migrate' => [],
         'theme-main'     => [],
-        'onetap'         => ['jquery'],
-        'onetap-addon'   => ['onetap'],
+        'legacy-plugin'       => ['jquery'],
+        'legacy-plugin-addon' => ['legacy-plugin'],
         'plain-addon'    => ['theme-main'],
         'legacy'         => ['jquery-migrate'],
     ];
@@ -41,9 +41,9 @@ it('lists no dependents when nothing queued needs jquery', function () {
 });
 
 it('lists queued handles that depend on jquery directly or transitively', function () {
-    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['theme-main', 'onetap', 'onetap-addon', 'jquery']);
+    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['theme-main', 'legacy-plugin', 'legacy-plugin-addon', 'jquery']);
 
-    expect(kotlinskidev_get_jquery_dependents($scripts))->toBe(['onetap', 'onetap-addon']);
+    expect(kotlinskidev_get_jquery_dependents($scripts))->toBe(['legacy-plugin', 'legacy-plugin-addon']);
 });
 
 it('ignores dependencies on handles that are not registered and survives cycles', function () {
@@ -56,8 +56,8 @@ it('ignores dependencies on handles that are not registered and survives cycles'
 });
 
 it('exposes the dependents through the kotlinskidev_jquery_dependents filter', function () {
-    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['onetap']);
-    Filters\expectApplied('kotlinskidev_jquery_dependents')->once()->with(['onetap']);
+    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['legacy-plugin']);
+    Filters\expectApplied('kotlinskidev_jquery_dependents')->once()->with(['legacy-plugin']);
 
     kotlinskidev_get_jquery_dependents($scripts);
 });
@@ -71,7 +71,7 @@ it('deregisters jquery when no queued script needs it', function () {
 });
 
 it('keeps jquery and drops jquery-migrate when a queued script needs jquery only', function () {
-    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['onetap']);
+    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['legacy-plugin']);
     Functions\when('wp_scripts')->justReturn($scripts);
     Functions\expect('wp_deregister_script')->never();
 
@@ -81,7 +81,7 @@ it('keeps jquery and drops jquery-migrate when a queued script needs jquery only
 });
 
 it('keeps jquery-migrate when a queued script requires it', function () {
-    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['onetap', 'legacy']);
+    $scripts = kotlinskidev_fake_scripts(kotlinskidev_fake_core_scripts(), ['legacy-plugin', 'legacy']);
     Functions\when('wp_scripts')->justReturn($scripts);
     Functions\expect('wp_deregister_script')->never();
 

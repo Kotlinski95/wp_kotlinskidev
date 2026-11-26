@@ -2,7 +2,7 @@ const NAV_HIDDEN_CLASS = "nav-hidden";
 const FLOATING_ELEMENT_HIDDEN_CLASS = "mobile-nav-hidden";
 const FLOATING_ICON_SELECTORS = [
   ".cmplz-btn.cmplz-manage-consent",
-  ".onetap-container-toggle .onetap-toggle",
+  "#ka11y-root",
   ".kt-article-toc-toggle",
 ];
 

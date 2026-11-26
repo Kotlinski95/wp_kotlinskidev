@@ -127,9 +127,9 @@ describe("analytics.ts", () => {
     expect(gtagMock).toHaveBeenCalledWith("event", "cookie_consent_click", {});
   });
 
-  it("fires accessibility_toggle_click for the OneTap accessibility trigger", () => {
+  it("fires accessibility_toggle_click for the Kotlinskidev Accessibility launcher", () => {
     loadModule();
-    document.body.innerHTML = `<button class="onetap-toggle" aria-label="Toggle Accessibility Toolbar"></button>`;
+    document.body.innerHTML = `<div id="ka11y-root"><button aria-label="Toggle Accessibility Toolbar"></button></div>`;
 
     click(document.querySelector("button")!);
 
