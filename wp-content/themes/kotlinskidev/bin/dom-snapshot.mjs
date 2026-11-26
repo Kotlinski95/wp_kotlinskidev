@@ -145,8 +145,8 @@ const capturePage = async (browser, url, viewportName) => {
     )
     .sort();
   const withoutScripts = bodyHtml
-    .replace(/<script\b[\s\S]*?<\/script\s*>/gi, "<script></script>")
-    .replace(/<style\b[\s\S]*?<\/style\s*>/gi, "<style></style>");
+    .replace(/<script\b[\s\S]*?<\/script[^>]*>/gi, "<script></script>")
+    .replace(/<style\b[\s\S]*?<\/style[^>]*>/gi, "<style></style>");
   return `${normalizeDom(withoutScripts)}\n<!--ERRORS\n${stableErrors.join("\n")}\n-->\n`;
 };
 
