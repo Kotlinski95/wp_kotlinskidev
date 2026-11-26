@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/speed-dial-item",
+  "version": "1.0.0",
+  "title": "Speed Dial Item",
+  "category": "kotlinskidev",
+  "icon": "marker",
+  "textdomain": "kotlinskidev",
+  "render": "file:./render.php",
+  "parent": ["kotlinskidev/speed-dial"],
+  "usesContext": ["kotlinskidev/speedDialLabels"],
+  "attributes": {
+    "action": {
+      "type": "string",
+      "enum": ["phone", "email", "accessibility", "url", "trigger", "custom"],
+      "default": "url"
+    },
+    "useSiteContact": { "type": "boolean", "default": true },
+    "value": { "type": "string", "default": "" },
+    "triggerAction": { "type": "string", "default": "" },
+    "label": { "type": "string", "default": "" },
+    "ariaLabel": { "type": "string", "default": "" },
+    "opensInNewTab": { "type": "boolean", "default": false },
+    "icon": { "type": "string", "default": "" },
+    "iconId": { "type": "integer", "default": 0 },
+    "iconUrl": { "type": "string", "default": "" },
+    "backgroundColor": { "type": "string", "default": "" },
+    "textColor": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false
+  }
+}

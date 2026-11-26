@@ -18,6 +18,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.6.0] — 2026-11-26
+
+### Added
+
+- New Speed Dial block (`kotlinskidev/speed-dial` with `speed-dial-item` children) renders a floating button that opens a keyboard-navigable stack of quick actions: call, email, accessibility plugin, link, accessibility option or custom blocks. It ships in `parts/footer.html` with phone, email and accessibility items, and per-breakpoint corner, offset and colour settings. A Site Editor footer saved before this release does not pick it up and needs the block added by hand.
+
 ## [2.5.1] — 2026-11-26
 
 ### Removed
@@ -79,6 +85,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Added
 
+- New Speed Dial block (`kotlinskidev/speed-dial` with `speed-dial-item` children) renders a floating button that opens a keyboard-navigable stack of quick actions: call, email, accessibility plugin, link, accessibility option or custom blocks. It ships in `parts/footer.html` with phone, email and accessibility items, and per-breakpoint corner, offset and colour settings. A Site Editor footer saved before this release does not pick it up and needs the block added by hand.
 - Parallax banners now look pinned on touch devices through a compositor-run scroll-driven animation tied to the banner's own scroll range (no drift or gaps on phones), with a new Settings → Customization → Touch parallax toggle (on by default). Browsers without scroll-driven animation support and reduced-motion visitors keep the static background.
 - New "Include links and buttons" option in Settings → Customization → Touch in-view trigger, off by default, so the touch in-view hover no longer fires on links, buttons and navigation items. Cards, timeline items and image overlays keep working either way.
 

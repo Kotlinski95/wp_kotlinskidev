@@ -1,4 +1,5 @@
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { SPEED_DIAL_BLOCKS } from "@utils/speed-dial-blocks";
 import type { BlockSettings } from "@utils/block-filter-types";
 
 const HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS = ["kotlinskidev/certificate"];
@@ -11,6 +12,7 @@ const EXCLUDED_BLOCKS = [
   ...DYNAMIC_PREVIEW_BLOCKS.filter(
     (name) => !HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS.includes(name)
   ),
+  ...SPEED_DIAL_BLOCKS,
 ];
 
 export const DEFAULT_OPACITY_FROM = 100;

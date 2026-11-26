@@ -12,6 +12,7 @@ parts/footer.html
       wp:kotlinskidev/navigation (menuSlug: "footer", displayMode: "list")  → link columns
     wp:kotlinskidev/copyrights
     wp:kotlinskidev/scroll-to-top
+    wp:kotlinskidev/speed-dial (accessibility, phone, email items)
     wp:kotlinskidev/navigation (menuSlug: "mobile-footer", displayMode: "bar")  → mobile bottom bar
 ```
 
@@ -39,6 +40,10 @@ The address, email, and phone in the Contact holder are protected from bot scrap
 ## Layout CSS
 
 `.kotlinskidev-footer__top` is a flex row (`.kotlinskidev-footer__brand` at `flex: 0 1 23.75rem`, narrowed to `17.5rem` on tablet; `.kotlinskidev-footer__nav` at `flex: 1`), stacking to a single column below the mobile breakpoint. Direct children get `margin-left/right: 0 !important` to cancel WordPress's own constrained-layout auto-margin injection, which otherwise fights `align-items: stretch` once the layout drops to a single column.
+
+## Speed dial
+
+`kotlinskidev/speed-dial` is the last child of the footer group, next to `scroll-to-top`, with three `kotlinskidev/speed-dial-item` children (accessibility, phone, email). The footer part is a sibling of `<main class="main-wrapper">`, so the dial's `position: fixed` is not broken by the main wrapper's GSAP pin transform. Phone and email items read the site contact settings and render nothing when those are empty. A footer saved in the Site Editor lives in the database and does not pick up this file, so add the block there by hand. Full behaviour is in `docs/speed-dial-spec.md`.
 
 ## Content protection settings
 

@@ -6,6 +6,7 @@ import { InspectorAdvancedControls } from "@wordpress/block-editor";
 import { SelectControl } from "@wordpress/components";
 import { Fragment } from "@wordpress/element";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { SPEED_DIAL_BLOCKS } from "@utils/speed-dial-blocks";
 
 type PositionValue = "" | "static" | "relative" | "absolute" | "sticky";
 type ZIndexValue = "" | "below" | "0" | "1" | "2" | "3" | "4" | "5";
@@ -29,9 +30,12 @@ interface BlockSettings {
 
 const POSITION_Z_INDEX_SUPPORTED_DYNAMIC_BLOCKS = ["kotlinskidev/certificate"];
 
-const excludedDynamicPreviewBlocks = DYNAMIC_PREVIEW_BLOCKS.filter(
-  (name) => !POSITION_Z_INDEX_SUPPORTED_DYNAMIC_BLOCKS.includes(name)
-);
+const excludedDynamicPreviewBlocks = [
+  ...DYNAMIC_PREVIEW_BLOCKS.filter(
+    (name) => !POSITION_Z_INDEX_SUPPORTED_DYNAMIC_BLOCKS.includes(name)
+  ),
+  ...SPEED_DIAL_BLOCKS,
+];
 
 const positionOptions: { label: string; value: PositionValue }[] = [
   { label: __("Default", "kotlinskidev"), value: "" },

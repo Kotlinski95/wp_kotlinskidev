@@ -1,6 +1,6 @@
 # kotlinskidev
 
-Custom WordPress Full Site Editing (FSE) block theme powering [kotlinskidev.com](https://kotlinskidev.com). Built with TypeScript, React, SCSS. Features 16 custom Gutenberg blocks, 59 reusable block patterns, multilingual support, and a dark/light theme switcher.
+Custom WordPress Full Site Editing (FSE) block theme powering [kotlinskidev.com](https://kotlinskidev.com). Built with TypeScript, React, SCSS. Features 17 custom Gutenberg blocks, 59 reusable block patterns, multilingual support, and a dark/light theme switcher.
 
 ---
 
@@ -84,7 +84,7 @@ Requires the `sonar-scanner` CLI (`brew install sonar-scanner` on macOS). This i
 ├── patterns/          59 reusable block patterns (PHP)
 ├── polylang/          Multilingual routing config
 ├── src/
-│   ├── blocks/        16 custom Gutenberg blocks (TypeScript + React)
+│   ├── blocks/        17 custom Gutenberg blocks (TypeScript + React)
 │   ├── scripts/       Frontend TypeScript modules
 │   ├── styles/        SCSS source files
 │   └── utils/         Shared TypeScript utilities (@utils alias)
@@ -119,6 +119,7 @@ All blocks are registered under the `kotlinskidev/` namespace and live in `src/b
 | `responsive-display` | Show/hide blocks per breakpoint |
 | `responsive-order` | Reorder blocks per breakpoint |
 | `scroll-animations` | Intersection Observer–based entrance animations |
+| `speed-dial` | Floating button that opens a stack of quick actions (call, email, accessibility, links, custom blocks), with a `speed-dial-item` child block |
 
 ---
 

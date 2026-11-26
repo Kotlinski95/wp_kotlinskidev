@@ -24,6 +24,22 @@ function kotlinskidev_translated_text_collect_strings( array $blocks, array &$st
             }
         }
 
+        if ( 'kotlinskidev/speed-dial-item' === $block_name ) {
+            foreach ( [ 'label', 'ariaLabel' ] as $attribute ) {
+                $text = (string) ( $block['attrs'][ $attribute ] ?? '' );
+                if ( '' !== $text ) {
+                    $strings[ $text ] = $text;
+                }
+            }
+        }
+
+        if ( 'kotlinskidev/speed-dial' === $block_name ) {
+            $text = (string) ( $block['attrs']['label'] ?? '' );
+            if ( '' !== $text ) {
+                $strings[ $text ] = $text;
+            }
+        }
+
         if ( 'core/group' === $block_name ) {
             $button_label = (string) ( $block['attrs']['loadMore']['buttonLabel'] ?? '' );
             if ( '' !== $button_label ) {
@@ -45,7 +61,7 @@ function kotlinskidev_translated_text_template_files(): array {
 }
 
 function kotlinskidev_translated_text_file_has_markers( string $content ): bool {
-    foreach ( [ 'kotlinskidev/translated-text', 'kotlinskidev/content-tabs-nav-link', '"loadMore"' ] as $marker ) {
+    foreach ( [ 'kotlinskidev/translated-text', 'kotlinskidev/content-tabs-nav-link', 'kotlinskidev/speed-dial', '"loadMore"' ] as $marker ) {
         if ( false !== strpos( $content, $marker ) ) {
             return true;
         }

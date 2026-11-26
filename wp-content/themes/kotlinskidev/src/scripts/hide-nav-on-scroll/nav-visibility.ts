@@ -4,6 +4,7 @@ const FLOATING_ICON_SELECTORS = [
   ".cmplz-btn.cmplz-manage-consent",
   "#ka11y-root",
   ".kt-article-toc-toggle",
+  ".kt-speed-dial",
 ];
 
 export interface HideableNavElements {

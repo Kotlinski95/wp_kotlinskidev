@@ -27,6 +27,20 @@ describe("position-z-index-controls — blocks.registerBlockType filter", () => 
     expect(result.attributes.kotlinskidevZIndex).toEqual({ type: "string", default: "" });
   });
 
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "skips the speed-dial block %s",
+    (name) => {
+      const settings = { name, attributes: {} };
+
+      const result = applyFilters("blocks.registerBlockType", settings) as {
+        attributes: Record<string, unknown>;
+      };
+
+      expect(result.attributes.kotlinskidevPosition).toBeUndefined();
+      expect(result.attributes.kotlinskidevZIndex).toBeUndefined();
+    }
+  );
+
   it("skips a dynamic-preview block with no carve-out", () => {
     const settings = { name: "kotlinskidev/article-card", attributes: {} };
 
@@ -110,6 +124,16 @@ describe("position-z-index-controls — editor.BlockEdit filter", () => {
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
     expect(screen.queryByRole("combobox", { name: /Position/ })).not.toBeInTheDocument();
   });
+
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "bypasses entirely for the speed-dial block %s",
+    (name) => {
+      renderWrapped({ name, attributes: {}, setAttributes: jest.fn() });
+
+      expect(screen.getByTestId("original-edit")).toBeInTheDocument();
+      expect(screen.queryByRole("combobox", { name: /Position/ })).not.toBeInTheDocument();
+    }
+  );
 
   it("renders the controls for kotlinskidev/certificate, its carved-out dynamic-preview block", () => {
     renderWrapped({ name: "kotlinskidev/certificate", attributes: {}, setAttributes: jest.fn() });

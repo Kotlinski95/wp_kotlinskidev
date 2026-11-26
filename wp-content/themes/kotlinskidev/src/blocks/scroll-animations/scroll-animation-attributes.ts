@@ -1,4 +1,5 @@
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { SPEED_DIAL_BLOCKS } from "@utils/speed-dial-blocks";
 import { appendClassName } from "@utils/block-filter-types";
 import type { BlockSettings, ExtraProps } from "@utils/block-filter-types";
 
@@ -14,6 +15,7 @@ const EXCLUDED_BLOCKS = [
   "core/preformatted",
   "core/verse",
   ...DYNAMIC_PREVIEW_BLOCKS,
+  ...SPEED_DIAL_BLOCKS,
 ];
 
 export const isScrollAnimationExcludedBlock = (name: string | undefined): boolean =>

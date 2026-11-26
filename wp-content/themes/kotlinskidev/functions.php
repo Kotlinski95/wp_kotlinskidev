@@ -9,6 +9,8 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 // Cache manager — must load before any file that reads/writes transients
 require_once get_template_directory() . '/functions/cache.php';
 
+require_once get_template_directory() . '/functions/speed-dial.php';
+
 require_once get_template_directory() . '/functions/in-view-hover.php';
 
 require_once get_template_directory() . '/functions/content-visibility.php';

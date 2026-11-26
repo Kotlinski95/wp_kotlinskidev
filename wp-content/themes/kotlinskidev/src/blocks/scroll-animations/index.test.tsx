@@ -17,6 +17,15 @@ describe("scroll-animations — blocks.registerBlockType filter", () => {
     expect(applyFilters("blocks.registerBlockType", settings)).toBe(settings);
   });
 
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "leaves the speed-dial block %s untouched",
+    (name) => {
+      const settings = { name, attributes: {} };
+
+      expect(applyFilters("blocks.registerBlockType", settings)).toBe(settings);
+    }
+  );
+
   it("adds the three scroll-animation attributes for a supported block", () => {
     const settings = { name: "core/group", attributes: { existing: {} } };
 
@@ -69,6 +78,16 @@ describe("scroll-animations — editor.BlockEdit filter", () => {
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
     expect(screen.queryByText("Scroll Animations")).not.toBeInTheDocument();
   });
+
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "renders only the original edit for %s",
+    (name) => {
+      renderWrapped({ name, attributes: {}, setAttributes: jest.fn() });
+
+      expect(screen.getByTestId("original-edit")).toBeInTheDocument();
+      expect(screen.queryByText("Scroll Animations")).not.toBeInTheDocument();
+    }
+  );
 
   it("does not show the distance control until an animation is chosen", async () => {
     const user = userEvent.setup();

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "kotlinskidev/speed-dial",
+  "version": "1.0.0",
+  "title": "Speed Dial",
+  "category": "kotlinskidev",
+  "icon": "plus-alt",
+  "description": "Floating + button that opens a stack of quick actions: call, email, accessibility, links and custom snippets.",
+  "textdomain": "kotlinskidev",
+  "style": "file:../../../build/css/style-speed-dial.css",
+  "editorScript": "file:../../../build/js/speed-dial.js",
+  "viewScript": "file:../../../build/js/speed-dial-init.js",
+  "render": "file:./render.php",
+  "providesContext": {
+    "kotlinskidev/speedDialLabels": "labels"
+  },
+  "attributes": {
+    "label": { "type": "string", "default": "" },
+    "position": {
+      "type": "object",
+      "default": { "desktop": "bottom-right", "tablet": "bottom-right", "mobile": "bottom-right" }
+    },
+    "offset": {
+      "type": "object",
+      "default": {
+        "desktop": { "x": 1, "y": 1 },
+        "tablet": { "x": 1, "y": 1 },
+        "mobile": { "x": 1, "y": 1 }
+      }
+    },
+    "direction": {
+      "type": "string",
+      "enum": ["auto", "up", "down", "left", "right"],
+      "default": "auto"
+    },
+    "labels": {
+      "type": "string",
+      "enum": ["auto", "tooltip", "always", "hidden"],
+      "default": "auto"
+    },
+    "motion": { "type": "string", "enum": ["scale", "fade", "none"], "default": "scale" },
+    "zIndex": { "type": "integer", "default": 999 },
+    "closeOnAction": { "type": "boolean", "default": true },
+    "avoidMobileNav": { "type": "boolean", "default": true },
+    "toggleIcon": { "type": "string", "default": "plus" },
+    "toggleIconId": { "type": "integer", "default": 0 },
+    "toggleIconUrl": { "type": "string", "default": "" },
+    "toggleBackgroundColor": { "type": "string", "default": "" },
+    "toggleTextColor": { "type": "string", "default": "" },
+    "itemBackgroundColor": { "type": "string", "default": "" },
+    "itemTextColor": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "reusable": false,
+    "multiple": false,
+    "inserter": true
+  }
+}

@@ -6,6 +6,7 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, ToggleControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { SPEED_DIAL_BLOCKS } from "@utils/speed-dial-blocks";
 
 const EXCLUDED_BLOCKS = ["core/html", "core/code", "core/preformatted", "core/verse"];
 
@@ -19,6 +20,7 @@ const addScrollSectionPinBoundaryAttribute = (settings: BlockSettings): BlockSet
   if (
     EXCLUDED_BLOCKS.includes(settings.name ?? "") ||
     DYNAMIC_PREVIEW_BLOCKS.includes(settings.name ?? "") ||
+    SPEED_DIAL_BLOCKS.includes(settings.name ?? "") ||
     typeof settings.attributes === "undefined"
   ) {
     return settings;
@@ -46,7 +48,8 @@ const withScrollSectionPinBoundaryControl = createHigherOrderComponent((BlockEdi
   return (props: BlockEditProps) => {
     if (
       EXCLUDED_BLOCKS.includes(props.name ?? "") ||
-      DYNAMIC_PREVIEW_BLOCKS.includes(props.name ?? "")
+      DYNAMIC_PREVIEW_BLOCKS.includes(props.name ?? "") ||
+      SPEED_DIAL_BLOCKS.includes(props.name ?? "")
     ) {
       return <BlockEdit {...props} />;
     }

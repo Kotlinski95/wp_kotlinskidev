@@ -51,6 +51,8 @@ function kotlinskidev_block_directory_plan(): array {
         'content-tabs',
         'content-tabs/item',
         'content-tabs/nav-link',
+        'speed-dial',
+        'speed-dial/item',
         'device-frame',
         'feature-card-canvas',
         [
