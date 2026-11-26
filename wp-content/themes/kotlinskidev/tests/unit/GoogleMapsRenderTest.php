@@ -16,7 +16,7 @@ function kotlinskidev_render_google_maps_fixture(array $attributes): string
     Functions\when('get_site_icon_url')->justReturn('https://example.test/site-icon-128.webp');
     Functions\when('get_theme_mod')->alias(fn ($key) => 'custom_logo' === $key ? ($GLOBALS['kt_test_logo_id'] ?? 0) : false);
     Functions\when('get_post_mime_type')->alias(fn () => $GLOBALS['kt_test_logo_mime'] ?? 'image/svg+xml');
-    Functions\when('get_transient')->alias(fn ($key) => 'kotlinskidev_svg_' . ($GLOBALS['kt_test_logo_id'] ?? 0) === $key ? ($GLOBALS['kt_test_logo_svg'] ?? false) : false);
+    Functions\when('get_transient')->alias(fn ($key) => 'kotlinskidev_svg_v2_' . ($GLOBALS['kt_test_logo_id'] ?? 0) === $key ? ($GLOBALS['kt_test_logo_svg'] ?? false) : false);
     Functions\when('esc_html__')->returnArg();
     Functions\when('esc_js')->returnArg();
     Functions\when('wp_kses_post')->returnArg();

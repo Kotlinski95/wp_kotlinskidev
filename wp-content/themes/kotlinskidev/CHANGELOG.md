@@ -16,6 +16,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+*Nothing yet.*
+
+## [2.4.0] — 2026-11-26
+
 ### Added
 
 - Parallax banners now look pinned on touch devices through a compositor-run scroll-driven animation tied to the banner's own scroll range (no drift or gaps on phones), with a new Settings → Customization → Touch parallax toggle (on by default). Browsers without scroll-driven animation support and reduced-motion visitors keep the static background.
