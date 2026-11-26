@@ -172,7 +172,7 @@ Defaults per action. They apply when `label` or `icon` is empty. Labels go throu
 | `email` | "Email us" | `mail` | the site contact email, or `value` |
 | `accessibility` | "Accessibility" | `accessibility` | none |
 | `url` | "Open link" | `link` | `value` (URL) |
-| `trigger` | "Accessibility option" | `sparkles` | `triggerAction` |
+| `trigger` | "Accessibility option" | `accessibility` | `triggerAction` |
 | `custom` | none (inner blocks) | none | inner blocks |
 
 ## 3. Render: server render with `InnerBlocks.Content`

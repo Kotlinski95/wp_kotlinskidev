@@ -27,7 +27,7 @@ export const ACTION_DEFAULTS: Record<SpeedDialAction, ActionDefaults> = {
   trigger: {
     title: __("Accessibility option", "kotlinskidev"),
     label: __("Accessibility option", "kotlinskidev"),
-    icon: "sparkles",
+    icon: "accessibility",
   },
   custom: { title: __("Custom blocks", "kotlinskidev"), label: "", icon: "" },
 };

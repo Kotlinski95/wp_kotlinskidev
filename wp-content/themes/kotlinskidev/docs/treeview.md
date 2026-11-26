@@ -49,7 +49,7 @@ kotlinskidev/
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
 ├── bin/                                        # Node tooling scripts: check-version-sync.js, check-palette-consistency.js, i18n-check.js, write-build-id.js, setup-husky.js, push-page.mjs, release.js (npm run release — bumps version + rolls CHANGELOG [Unreleased], flags --major/--minor/--patch/--dry-run/--force) with bin/lib/release-lib.js (pure logic) and bin/lib/release-lib.test.js (Jest); check-asset-budget.js (npm run check-asset-budget, last step of npm run verify) checks build sizes against the raw-byte limits in bin/asset-budget.json
-├── functions/                                  # 107 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 108 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -166,6 +166,7 @@ kotlinskidev/
 │   ├── site-values.php                         # kotlinskidev_site_values option rows (key/type/value; years_since, current_year, per-language static), sanitizer, per-request cached getter and a render_block filter replacing {token:key} (unknown keys left literal)
 │   ├── site-identity.php                       # minimal site logo/title setup
 │   ├── slider-modal-trigger.php                # opens a kt_modal when a wpe/slider slide (core/cover, .swiper-slide, modalId set) is clicked
+│   ├── speed-dial.php                          # kotlinskidev_speed_dial_* helpers: sanitised corner/offset/z-index/colour/tel values, layout classes, custom-item allow-lists, built-in icon SVGs from icons.json, editor data localisation
 │   ├── social-link-tooltip.php                 # adds .kt-tooltip + data-tooltip to core/social-link anchors, sourced from the screen-reader-only label
 │   ├── svg-gradient-defs.php                   # injects inline SVG gradient <defs> into wp_body_open
 │   ├── theme-json-trim-presets.php             # wp_theme_json_data_default filter: drops unused core default color/gradient/duotone presets and the unused default shadows from global-styles-inline-css
@@ -198,7 +199,7 @@ kotlinskidev/
 │   ├── pl_PL.mo
 │   └── pl_PL.po
 ├── parts/                                      # FSE template parts
-│   ├── footer.html                             # logo/brand content-block, nav simple-grid, kotlinskidev-footer__contact (phone/email kotlinskidev/contact-detail blocks), copyrights, scroll-to-top
+│   ├── footer.html                             # logo/brand content-block, nav simple-grid, kotlinskidev-footer__contact (phone/email kotlinskidev/contact-detail blocks), copyrights, scroll-to-top, speed-dial
 │   └── header.html                             # site logo, kotlinskidev/navigation, theme-switcher, kotlinskidev/breadcrumbs
 ├── patterns/                                   # 74 reusable block patterns
 │   ├── about-2.php                             # About Section 2
@@ -278,7 +279,7 @@ kotlinskidev/
 │   ├── en_US.png
 │   └── pl_PL.png
 ├── src/                                        # TypeScript/SCSS source, compiled by webpack into build/ (gitignored)
-│   ├── blocks/                                 # 79 top-level dirs (67 registered blocks + 30 JS-only block-extension filters + 1 post-editor settings panel (service-location) across them — canvas-background/ nests 17 blocks + 1 extension in one dir, so block/extension counts exceed the top-level dir count)
+│   ├── blocks/                                 # 80 top-level dirs (69 registered blocks + 30 JS-only block-extension filters + 1 post-editor settings panel (service-location) across them — canvas-background/ nests 17 blocks + 1 extension in one dir, so block/extension counts exceed the top-level dir count)
 │   │   ├── above-fold/                         # extension: Advanced-tab "Above the fold" toggle on image/cover/video/hero-carousel/device-frame and the deferrable blocks in functions/deferred-block-assets.php; migrates legacy kotlinskidevSkipLazy on parse and warns when more than one element on a page is flagged
 │   │   │   └── index.tsx
 │   │   ├── active-link-state/                  # extension: Advanced-tab opt-out for the sitewide active-page link highlight
@@ -788,6 +789,39 @@ kotlinskidev/
 │   │   │   ├── render.php
 │   │   │   ├── social-item-edit.stories.tsx    # Storybook: renders the named SocialItemEdit export via buildEditProps() (full BlockEditProps shape), using item/block.json's defaults
 │   │   │   └── social-section-edit.stories.tsx # Storybook: renders the named SocialSectionEdit export via buildEditProps() (full BlockEditProps shape)
+│   │   ├── speed-dial/                         # kotlinskidev/speed-dial + kotlinskidev/speed-dial-item — floating toggle that opens a stack of quick actions (phone, email, accessibility plugin, link, accessibility option, custom blocks); dynamic render.php, shipped in parts/footer.html, see docs/speed-dial-spec.md
+│   │   │   ├── item/
+│   │   │   │   ├── action-defaults.ts          # per-action default title/label/icon
+│   │   │   │   ├── action-fields.tsx           # Inspector fields per action
+│   │   │   │   ├── block.json
+│   │   │   │   ├── edit.test.tsx
+│   │   │   │   ├── edit.tsx
+│   │   │   │   ├── render.php
+│   │   │   │   └── save.tsx
+│   │   │   ├── a11y-bridge.test.ts
+│   │   │   ├── a11y-bridge.ts                  # opens/toggles the accessibility plugin panel from an item
+│   │   │   ├── block.json
+│   │   │   ├── color-settings.tsx
+│   │   │   ├── controller.test.ts
+│   │   │   ├── controller.ts                   # open/close state, outside-click, focus-out, reduced motion
+│   │   │   ├── dom-fixture.ts                  # shared Jest DOM fixture
+│   │   │   ├── edit.stories.tsx
+│   │   │   ├── edit.test.tsx
+│   │   │   ├── edit.tsx
+│   │   │   ├── icon-select.tsx
+│   │   │   ├── icons.json                      # built-in icon path data, also read by functions/speed-dial.php
+│   │   │   ├── index.test.ts
+│   │   │   ├── index.ts
+│   │   │   ├── init.test.ts
+│   │   │   ├── init.ts                         # viewScript entry
+│   │   │   ├── keyboard.test.ts
+│   │   │   ├── keyboard.ts                     # arrow/Home/End/Escape roving focus
+│   │   │   ├── render.php
+│   │   │   ├── save.tsx
+│   │   │   ├── style.scss
+│   │   │   ├── types.ts
+│   │   │   ├── validation.test.ts
+│   │   │   └── validation.ts
 │   │   ├── tag-posts-grid-dynamic/             # dynamic block (render.php, ServerSideRender preview) wrapping kotlinskidev_render_tag_posts_grid_fresh_per_language() (functions/tag-archive-manager.php), placed in templates/tag.html — folder-based form (functions/blocks.php) replacing the old bare register_block_type('kotlinskidev/tag-posts-grid-dynamic', ['render_callback' => ...]) in functions/tag-archive-manager.php, same fix already applied to blog-topics-grid-dynamic and its siblings, needed here specifically to carry its new "Card Hover Effects" panel (cardHoverBackgroundColor, blurOtherCards/blurAmount via functions/card-hover-style-vars.php). Cards are the shared kt-post-card-grid (functions/post-card-renderer.php's kotlinskidev_render_post_card())
 │   │   │   ├── block.json
 │   │   │   ├── index.tsx
@@ -1020,6 +1054,7 @@ kotlinskidev/
 │   │   ├── nav-reveal-events.ts           # NAV_PANEL_OPEN_EVENT/NAV_PANEL_CLOSE_EVENT constants + dispatchNavPanelOpen()/dispatchNavPanelClose() CustomEvent helpers shared by hamburger.ts, mega-menu.ts, and scripts/nav-reveal.ts
 │   │   ├── panel-coordinator.ts                # registry: opening one panel closes all others
 │   │   ├── scroll-lock.ts                      # reference-counted documentElement scroll-lock
+│   │   ├── speed-dial-blocks.ts                # SPEED_DIAL_BLOCKS: block names shared by the editor-extension filters
 │   │   └── storybook-edit-props.ts             # Storybook-only helpers: getDefaultAttributes()/buildEditProps() build story args from block.json; useInteractiveAttributes() wires setAttributes to useArgs() + logs via storybook/actions; RealBlockEdit renders a block through @wordpress/block-editor's real BlockEdit dispatcher (not the bare Edit function) — required for InspectorControls.Slot to show Fill content and for editor.BlockEdit filters to fire
 │   ├── admin-bar.ts                            # entry: imports admin-bar.scss only
 │   ├── critical-certificate.scss               # per-block critical CSS fragment: certificate.scss + link-card.scss, inlined only on pages containing kotlinskidev/certificate (see functions/critical-css-fragments.php)
@@ -1068,7 +1103,7 @@ kotlinskidev/
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
 │   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey + a minimal WP_HTML_Tag_Processor (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 88 PHP unit test files (incl. ContactFormAttachmentsTest.php for functions/contact-form-attachments.php, MailFailureAlertsTest.php for functions/mail-failure-alerts.php, GoogleMapsRenderTest.php for the maps consent placeholder) (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 89 PHP unit test files (incl. SpeedDialTest.php for functions/speed-dial.php) (incl. ContactFormAttachmentsTest.php for functions/contact-form-attachments.php, MailFailureAlertsTest.php for functions/mail-failure-alerts.php, GoogleMapsRenderTest.php for the maps consent placeholder) (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed
@@ -1095,11 +1130,13 @@ kotlinskidev/
 │   │   ├── responsive-order.spec.ts            # frontend — kotlinskidev/responsive-order block extension
 │   │   ├── scroll-animations.spec.ts           # frontend — kotlinskidev/scroll-animations block extension
 │   │   ├── slider.spec.ts                      # frontend — wpe/slider block: continuousAutoplay (start-on-visible, freeze/resume on hover-focus-click, no snap), regular autoplay, pagination, progress circle
+│   │   ├── speed-dial.spec.ts                  # frontend — kotlinskidev/speed-dial in the footer: toggle open/close, keyboard, 44px targets, mobile overlap; accessibility-plugin case skips when #ka11y-root is absent
 │   │   ├── service-location.spec.ts            # frontend — city post-meta binding resolves to real text (not the raw placeholder), gradient-text applied to exactly the 3 contrast-safe city mentions, per-city map iframe, PL/EN Polylang pair (skips if none currently published); FAQ sticky-left column stays visible once scrolled deep into its row after opening every accordion (native position:sticky regression guard)
 │   │   └── editor/                             # authenticated specs — opt in per-file via test.use({ storageState })
 │   │       ├── site-editor.spec.ts             # confirms the Site Editor loads under the test account instead of redirecting to login
 │   │       ├── patterns-validity.spec.ts       # one test per registered theme pattern — asserts none trigger Gutenberg's "Block contains unexpected or invalid content." warning
 │   │       ├── service-location.spec.ts        # single-service_location template canvas exposes multiple distinct role="document" blocks (not one opaque preview — see .claude/rules/testing.md for why block wrappers aren't role="heading"/"group"); City Details panel loads with a non-empty value on a real post
+│   │       ├── speed-dial.spec.ts              # insert the block, 3 default items, add/reorder a url item, save and reload without an invalid-block warning
 │   │       └── {block}.spec.ts                 # editor-side counterpart to each frontend block spec above (animated-counter, banner-carousel, canvas-background, cover-lazy-loading, gallery-lightbox, hover-animation-controls, parallax, protected-content, responsive-display, responsive-order, scroll-animations)
 │   └── integration/                            # PHP integration (Pest + wp-phpunit + WP_UnitTestCase) — own isolated toolchain (Pest 1.23/PHPUnit 9.6), separate composer.json/vendor from the root
 │       ├── Pest.php                            # integration-suite bootstrap
