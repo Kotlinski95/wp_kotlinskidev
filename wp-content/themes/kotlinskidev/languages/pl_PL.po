@@ -13400,3 +13400,215 @@ msgstr "Pomarańcz Zachodu"
 
 #~ msgid "Set the space between slides in pixels."
 #~ msgstr "Ustaw odstęp między slajdami w pikselach."
+
+#: src/blocks/speed-dial
+msgid "Plus"
+msgstr "Plus"
+
+#: src/blocks/speed-dial
+msgid "Envelope"
+msgstr "Koperta"
+
+#: src/blocks/speed-dial
+msgid "Calendar"
+msgstr "Kalendarz"
+
+#: src/blocks/speed-dial
+msgid "Sparkles"
+msgstr "Iskry"
+
+#: src/blocks/speed-dial
+msgid "Code"
+msgstr "Kod"
+
+#: src/blocks/speed-dial
+msgid "Info"
+msgstr "Informacja"
+
+#: src/blocks/speed-dial
+msgid "Up"
+msgstr "W górę"
+
+#: src/blocks/speed-dial
+msgid "Automatic (tooltip on hover, visible on touch)"
+msgstr "Automatycznie (podpowiedź po najechaniu, widoczna na ekranach dotykowych)"
+
+#: src/blocks/speed-dial
+msgid "Hidden"
+msgstr "Ukryte"
+
+#: src/blocks/speed-dial
+msgid "Phone number"
+msgstr "Numer telefonu"
+
+#: src/blocks/speed-dial
+msgid "Use digits, spaces, dashes and an optional leading +."
+msgstr "Użyj cyfr, spacji, myślników i opcjonalnego plusa na początku."
+
+#: src/blocks/speed-dial
+msgid "Enter an address like name@example.com."
+msgstr "Wpisz adres w formacie imie@example.com."
+
+#: src/blocks/speed-dial
+msgid "Use a link starting with https://, http://, / or #."
+msgstr "Użyj linku zaczynającego się od https://, http://, / lub #."
+
+#: src/blocks/speed-dial
+msgid "The accessibility plugin did not answer, so only the basic actions are listed. The item is hidden on the front end while the plugin is inactive."
+msgstr "Wtyczka dostępności nie odpowiedziała, więc widać tylko podstawowe akcje. Element jest ukryty na stronie, dopóki wtyczka jest nieaktywna."
+
+#: src/blocks/speed-dial
+msgid "Use a name like open, profile:adhdFriendly or feature:biggerText:2."
+msgstr "Użyj nazwy takiej jak open, profile:adhdFriendly lub feature:biggerText:2."
+
+#: src/blocks/speed-dial
+msgid "Leave empty unless needed. If you set one, it must contain the visible label."
+msgstr "Zostaw puste, jeśli nie jest potrzebna. Jeśli ją ustawisz, musi zawierać widoczną etykietę."
+
+#: src/blocks/speed-dial
+msgid "The accessible name does not contain the visible label. Speech-control users may not be able to activate this item by its visible name (WCAG 2.5.3)."
+msgstr "Nazwa dostępna nie zawiera widocznej etykiety. Osoby sterujące głosem mogą nie móc aktywować tego elementu jego widoczną nazwą (WCAG 2.5.3)."
+
+#: src/blocks/speed-dial
+msgid "Close after an action is chosen"
+msgstr "Zamknij po wybraniu akcji"
+
+#: src/blocks/speed-dial
+msgid "Stay above the mobile footer menu"
+msgstr "Pozostań nad menu dolnym na urządzeniach mobilnych"
+
+#: src/blocks/speed-dial
+msgid "Z-index"
+msgstr "Z-index"
+
+#: src/blocks/speed-dial
+msgid "Toggle button"
+msgstr "Przycisk przełączający"
+
+#: src/blocks/speed-dial
+msgid "This speed dial has an accessibility item. Set the accessibility plugin launcher mode to hidden so there is only one floating button. The Alt+Shift+A shortcut keeps working."
+msgstr "Ten szybki dostęp zawiera element dostępności. Ustaw tryb przycisku wtyczki dostępności na ukryty, aby był tylko jeden pływający przycisk. Skrót Alt+Shift+A nadal działa."
+
+#: src/blocks/speed-dial
+msgid "External link"
+msgstr "Link zewnętrzny"
+
+#: src/blocks/speed-dial
+msgid "Map pin"
+msgstr "Pinezka mapy"
+
+#: src/blocks/speed-dial
+msgid "Default for this action"
+msgstr "Domyślna dla tej akcji"
+
+#: src/blocks/speed-dial
+msgid "Top right"
+msgstr "Prawy górny róg"
+
+#: src/blocks/speed-dial
+msgid "Top left"
+msgstr "Lewy górny róg"
+
+#: src/blocks/speed-dial
+msgid "Automatic"
+msgstr "Automatycznie"
+
+#: src/blocks/speed-dial
+msgid "Down"
+msgstr "W dół"
+
+#: src/blocks/speed-dial
+msgid "Tooltip only"
+msgstr "Tylko podpowiedź"
+
+#: src/blocks/speed-dial
+msgid "Toggle background"
+msgstr "Tło przycisku przełączającego"
+
+#: src/blocks/speed-dial
+msgid "Toggle icon"
+msgstr "Ikona przycisku przełączającego"
+
+#: src/blocks/speed-dial
+msgid "Items background"
+msgstr "Tło elementów"
+
+#: src/blocks/speed-dial
+msgid "Items icon"
+msgstr "Ikona elementów"
+
+#: src/blocks/speed-dial
+msgid "Custom blocks"
+msgstr "Własne bloki"
+
+#: src/blocks/speed-dial
+msgid "Use the site contact details"
+msgstr "Użyj danych kontaktowych witryny"
+
+#: src/blocks/speed-dial
+msgid "Email address"
+msgstr "Adres e-mail"
+
+#: src/blocks/speed-dial
+msgid "Open in a new tab"
+msgstr "Otwórz w nowej karcie"
+
+#: src/blocks/speed-dial
+msgid "Accessibility action"
+msgstr "Akcja dostępności"
+
+#: src/blocks/speed-dial
+msgid "Item background"
+msgstr "Tło elementu"
+
+#: src/blocks/speed-dial
+msgid "Item icon"
+msgstr "Ikona elementu"
+
+#: src/blocks/speed-dial
+msgid "Action"
+msgstr "Akcja"
+
+#: src/blocks/speed-dial
+msgid "Action type"
+msgstr "Typ akcji"
+
+#: src/blocks/speed-dial
+msgid "Label and icon"
+msgstr "Etykieta i ikona"
+
+#: src/blocks/speed-dial
+msgid "Label and tooltip"
+msgstr "Etykieta i podpowiedź"
+
+#: src/blocks/speed-dial
+msgid "Accessible name (aria-label)"
+msgstr "Nazwa dostępna (aria-label)"
+
+#: src/blocks/speed-dial
+msgid "Horizontal offset (rem)"
+msgstr "Odsunięcie poziome (rem)"
+
+#: src/blocks/speed-dial
+msgid "Vertical offset (rem)"
+msgstr "Odsunięcie pionowe (rem)"
+
+#: src/blocks/speed-dial
+msgid "Open direction"
+msgstr "Kierunek otwierania"
+
+#: src/blocks/speed-dial
+msgid "Label visibility"
+msgstr "Widoczność etykiet"
+
+#: src/blocks/speed-dial
+msgid "Motion"
+msgstr "Animacja"
+
+#: src/blocks/speed-dial
+msgid "Toggle label"
+msgstr "Etykieta przycisku przełączającego"
+
+#: src/blocks/speed-dial
+msgid "Accessibility plugin"
+msgstr "Wtyczka dostępności"

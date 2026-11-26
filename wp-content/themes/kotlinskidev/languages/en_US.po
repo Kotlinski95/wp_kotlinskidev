@@ -13235,3 +13235,215 @@ msgstr "Sunset Orange"
 
 #~ msgid "Set the space between slides in pixels."
 #~ msgstr "Set the space between slides in pixels."
+
+#: src/blocks/speed-dial
+msgid "Plus"
+msgstr "Plus"
+
+#: src/blocks/speed-dial
+msgid "Envelope"
+msgstr "Envelope"
+
+#: src/blocks/speed-dial
+msgid "Calendar"
+msgstr "Calendar"
+
+#: src/blocks/speed-dial
+msgid "Sparkles"
+msgstr "Sparkles"
+
+#: src/blocks/speed-dial
+msgid "Code"
+msgstr "Code"
+
+#: src/blocks/speed-dial
+msgid "Info"
+msgstr "Info"
+
+#: src/blocks/speed-dial
+msgid "Up"
+msgstr "Up"
+
+#: src/blocks/speed-dial
+msgid "Automatic (tooltip on hover, visible on touch)"
+msgstr "Automatic (tooltip on hover, visible on touch)"
+
+#: src/blocks/speed-dial
+msgid "Hidden"
+msgstr "Hidden"
+
+#: src/blocks/speed-dial
+msgid "Phone number"
+msgstr "Phone number"
+
+#: src/blocks/speed-dial
+msgid "Use digits, spaces, dashes and an optional leading +."
+msgstr "Use digits, spaces, dashes and an optional leading +."
+
+#: src/blocks/speed-dial
+msgid "Enter an address like name@example.com."
+msgstr "Enter an address like name@example.com."
+
+#: src/blocks/speed-dial
+msgid "Use a link starting with https://, http://, / or #."
+msgstr "Use a link starting with https://, http://, / or #."
+
+#: src/blocks/speed-dial
+msgid "The accessibility plugin did not answer, so only the basic actions are listed. The item is hidden on the front end while the plugin is inactive."
+msgstr "The accessibility plugin did not answer, so only the basic actions are listed. The item is hidden on the front end while the plugin is inactive."
+
+#: src/blocks/speed-dial
+msgid "Use a name like open, profile:adhdFriendly or feature:biggerText:2."
+msgstr "Use a name like open, profile:adhdFriendly or feature:biggerText:2."
+
+#: src/blocks/speed-dial
+msgid "Leave empty unless needed. If you set one, it must contain the visible label."
+msgstr "Leave empty unless needed. If you set one, it must contain the visible label."
+
+#: src/blocks/speed-dial
+msgid "The accessible name does not contain the visible label. Speech-control users may not be able to activate this item by its visible name (WCAG 2.5.3)."
+msgstr "The accessible name does not contain the visible label. Speech-control users may not be able to activate this item by its visible name (WCAG 2.5.3)."
+
+#: src/blocks/speed-dial
+msgid "Close after an action is chosen"
+msgstr "Close after an action is chosen"
+
+#: src/blocks/speed-dial
+msgid "Stay above the mobile footer menu"
+msgstr "Stay above the mobile footer menu"
+
+#: src/blocks/speed-dial
+msgid "Z-index"
+msgstr "Z-index"
+
+#: src/blocks/speed-dial
+msgid "Toggle button"
+msgstr "Toggle button"
+
+#: src/blocks/speed-dial
+msgid "This speed dial has an accessibility item. Set the accessibility plugin launcher mode to hidden so there is only one floating button. The Alt+Shift+A shortcut keeps working."
+msgstr "This speed dial has an accessibility item. Set the accessibility plugin launcher mode to hidden so there is only one floating button. The Alt+Shift+A shortcut keeps working."
+
+#: src/blocks/speed-dial
+msgid "External link"
+msgstr "External link"
+
+#: src/blocks/speed-dial
+msgid "Map pin"
+msgstr "Map pin"
+
+#: src/blocks/speed-dial
+msgid "Default for this action"
+msgstr "Default for this action"
+
+#: src/blocks/speed-dial
+msgid "Top right"
+msgstr "Top right"
+
+#: src/blocks/speed-dial
+msgid "Top left"
+msgstr "Top left"
+
+#: src/blocks/speed-dial
+msgid "Automatic"
+msgstr "Automatic"
+
+#: src/blocks/speed-dial
+msgid "Down"
+msgstr "Down"
+
+#: src/blocks/speed-dial
+msgid "Tooltip only"
+msgstr "Tooltip only"
+
+#: src/blocks/speed-dial
+msgid "Toggle background"
+msgstr "Toggle background"
+
+#: src/blocks/speed-dial
+msgid "Toggle icon"
+msgstr "Toggle icon"
+
+#: src/blocks/speed-dial
+msgid "Items background"
+msgstr "Items background"
+
+#: src/blocks/speed-dial
+msgid "Items icon"
+msgstr "Items icon"
+
+#: src/blocks/speed-dial
+msgid "Custom blocks"
+msgstr "Custom blocks"
+
+#: src/blocks/speed-dial
+msgid "Use the site contact details"
+msgstr "Use the site contact details"
+
+#: src/blocks/speed-dial
+msgid "Email address"
+msgstr "Email address"
+
+#: src/blocks/speed-dial
+msgid "Open in a new tab"
+msgstr "Open in a new tab"
+
+#: src/blocks/speed-dial
+msgid "Accessibility action"
+msgstr "Accessibility action"
+
+#: src/blocks/speed-dial
+msgid "Item background"
+msgstr "Item background"
+
+#: src/blocks/speed-dial
+msgid "Item icon"
+msgstr "Item icon"
+
+#: src/blocks/speed-dial
+msgid "Action"
+msgstr "Action"
+
+#: src/blocks/speed-dial
+msgid "Action type"
+msgstr "Action type"
+
+#: src/blocks/speed-dial
+msgid "Label and icon"
+msgstr "Label and icon"
+
+#: src/blocks/speed-dial
+msgid "Label and tooltip"
+msgstr "Label and tooltip"
+
+#: src/blocks/speed-dial
+msgid "Accessible name (aria-label)"
+msgstr "Accessible name (aria-label)"
+
+#: src/blocks/speed-dial
+msgid "Horizontal offset (rem)"
+msgstr "Horizontal offset (rem)"
+
+#: src/blocks/speed-dial
+msgid "Vertical offset (rem)"
+msgstr "Vertical offset (rem)"
+
+#: src/blocks/speed-dial
+msgid "Open direction"
+msgstr "Open direction"
+
+#: src/blocks/speed-dial
+msgid "Label visibility"
+msgstr "Label visibility"
+
+#: src/blocks/speed-dial
+msgid "Motion"
+msgstr "Motion"
+
+#: src/blocks/speed-dial
+msgid "Toggle label"
+msgstr "Toggle label"
+
+#: src/blocks/speed-dial
+msgid "Accessibility plugin"
+msgstr "Accessibility plugin"

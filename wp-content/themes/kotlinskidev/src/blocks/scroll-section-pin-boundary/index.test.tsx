@@ -33,6 +33,15 @@ describe("scroll-section-pin-boundary — blocks.registerBlockType filter", () =
     }
   );
 
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "leaves settings unchanged for the speed-dial block %s",
+    (name) => {
+      const settings = { name, attributes: {} };
+
+      expect(applyFilters("blocks.registerBlockType", settings)).toBe(settings);
+    }
+  );
+
   it("leaves settings unchanged for a dynamic-preview block", () => {
     const settings = { name: "kotlinskidev/article-card", attributes: {} };
 
@@ -68,6 +77,16 @@ describe("scroll-section-pin-boundary — editor.BlockEdit filter", () => {
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
     expect(screen.queryByText("Scroll Section Pinning (GSAP)")).not.toBeInTheDocument();
   });
+
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "renders only the original edit for the speed-dial block %s",
+    (name) => {
+      renderWrapped({ name, attributes: {}, setAttributes: jest.fn() });
+
+      expect(screen.getByTestId("original-edit")).toBeInTheDocument();
+      expect(screen.queryByText("Scroll Section Pinning (GSAP)")).not.toBeInTheDocument();
+    }
+  );
 
   it("shows the toggle unchecked by default", async () => {
     const user = userEvent.setup();

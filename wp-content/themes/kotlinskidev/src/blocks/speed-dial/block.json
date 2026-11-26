@@ -9,6 +9,7 @@
   "description": "Floating + button that opens a stack of quick actions: call, email, accessibility, links and custom snippets.",
   "textdomain": "kotlinskidev",
   "editorScript": "file:../../../build/js/speed-dial.js",
+  "viewScript": "file:../../../build/js/speed-dial-init.js",
   "render": "file:./render.php",
   "providesContext": {
     "kotlinskidev/speedDialLabels": "labels"

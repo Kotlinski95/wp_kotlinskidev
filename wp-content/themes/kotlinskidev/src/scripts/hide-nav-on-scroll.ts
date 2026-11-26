@@ -28,6 +28,7 @@ import {
     ".cmplz-btn.cmplz-manage-consent",
     ".onetap-container-toggle .onetap-toggle",
     ".kt-article-toc-toggle",
+    ".kt-speed-dial",
   ];
 
   const toggleFloatingIconClass = (add: boolean) => {

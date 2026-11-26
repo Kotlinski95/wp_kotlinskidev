@@ -15,11 +15,15 @@ import {
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { SPEED_DIAL_BLOCKS } from "@utils/speed-dial-blocks";
 
 const HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS = ["kotlinskidev/certificate"];
-const excludedDynamicPreviewBlocks = DYNAMIC_PREVIEW_BLOCKS.filter(
-  (name) => !HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS.includes(name)
-);
+const excludedDynamicPreviewBlocks = [
+  ...DYNAMIC_PREVIEW_BLOCKS.filter(
+    (name) => !HOVER_EFFECTS_SUPPORTED_DYNAMIC_BLOCKS.includes(name)
+  ),
+  ...SPEED_DIAL_BLOCKS,
+];
 
 const hoverAnimations = [
   { label: __("No Animation", "kotlinskidev"), value: "" },

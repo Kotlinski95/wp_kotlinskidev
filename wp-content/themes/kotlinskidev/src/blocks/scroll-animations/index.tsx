@@ -6,6 +6,7 @@ import { PanelBody, SelectControl } from "@wordpress/components";
 import { createHigherOrderComponent } from "@wordpress/compose";
 import React from "react";
 import { DYNAMIC_PREVIEW_BLOCKS } from "@utils/dynamic-preview-blocks";
+import { SPEED_DIAL_BLOCKS } from "@utils/speed-dial-blocks";
 import {
   ANIMATION_TRANSLATE_OPTIONS,
   buildAnimationTypeOptions,
@@ -33,6 +34,7 @@ function addScrollAnimationAttribute(settings: any) {
     "core/preformatted",
     "core/verse",
     ...DYNAMIC_PREVIEW_BLOCKS,
+    ...SPEED_DIAL_BLOCKS,
   ];
 
   if (excludedBlocks.includes(settings.name)) {
@@ -71,6 +73,7 @@ const withScrollAnimationControls = createHigherOrderComponent((BlockEdit) => {
       "core/preformatted",
       "core/verse",
       ...DYNAMIC_PREVIEW_BLOCKS,
+      ...SPEED_DIAL_BLOCKS,
     ];
 
     if (excludedBlocks.includes(name)) {

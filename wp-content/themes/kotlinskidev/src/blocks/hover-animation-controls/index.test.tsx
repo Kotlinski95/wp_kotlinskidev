@@ -77,6 +77,15 @@ describe("hover-animation-controls — blocks.registerBlockType filter", () => {
     expect(applyFilters("blocks.registerBlockType", settings)).toBe(settings);
   });
 
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "leaves the speed-dial block %s excluded",
+    (name) => {
+      const settings = { name, attributes: {} };
+
+      expect(applyFilters("blocks.registerBlockType", settings)).toBe(settings);
+    }
+  );
+
   it("does nothing when the block settings have no attributes object at all", () => {
     const settings = { name: "core/group" };
 
@@ -183,6 +192,16 @@ describe("hover-animation-controls — editor.BlockEdit filter", () => {
     expect(screen.getByTestId("original-edit")).toBeInTheDocument();
     expect(screen.queryByText("Hover Effects")).not.toBeInTheDocument();
   });
+
+  it.each(["kotlinskidev/speed-dial", "kotlinskidev/speed-dial-item"])(
+    "renders only the original edit for %s",
+    (name) => {
+      renderWrapped({ name, attributes: {}, setAttributes: jest.fn() });
+
+      expect(screen.getByTestId("original-edit")).toBeInTheDocument();
+      expect(screen.queryByText("Hover Effects")).not.toBeInTheDocument();
+    }
+  );
 
   it("shows the animation select for a supported block once expanded", async () => {
     const user = userEvent.setup();
