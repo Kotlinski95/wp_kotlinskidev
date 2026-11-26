@@ -309,3 +309,45 @@ header .wp-block-navigation__responsive-container {
 	width: auto !important;
 	flex: 0 0 auto !important;
 }
+
+.editor-styles-wrapper .kt-speed-dial {
+	position: static;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	inset: auto;
+	translate: none;
+	pointer-events: auto;
+
+	.kt-speed-dial__item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		border: 0.0625rem solid color-mix(in srgb, var(--wp--preset--color--foreground) 30%, transparent);
+		border-radius: 2rem;
+		background: var(--wp--preset--color--surface);
+		color: var(--wp--preset--color--foreground);
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.kt-speed-dial__item :is(svg, img) {
+		inline-size: 1.5rem;
+		block-size: 1.5rem;
+	}
+
+	.kt-speed-dial__label {
+		position: static;
+		inline-size: auto;
+		max-inline-size: none;
+		padding: 0;
+		background: none;
+		color: inherit;
+		-webkit-text-fill-color: currentcolor;
+		opacity: 1;
+		translate: none;
+		transition: none;
+	}
+}

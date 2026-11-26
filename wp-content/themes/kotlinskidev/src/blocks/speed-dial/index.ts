@@ -1,4 +1,5 @@
 import { registerBlockType, type BlockConfiguration } from "@wordpress/blocks";
+import "./style.scss";
 import metadata from "./block.json";
 import itemMetadata from "./item/block.json";
 import Edit from "./edit";
