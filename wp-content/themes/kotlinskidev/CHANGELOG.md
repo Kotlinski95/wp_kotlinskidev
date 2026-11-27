@@ -16,13 +16,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+*Nothing yet.*
+
+## [2.9.0] — 2026-11-27
+
 ### Security
 
-- **Theme updates are now signature-checked.** Release CI signs `kotlinskidev.zip` with an Ed25519 key (`kotlinskidev.zip.sig`) and the theme refuses any package whose signature does not verify against its pinned public key, on top of the SHA-256 check. The trusted repository is pinned, package URLs must match one strict release path, the extracted version is always checked, and the GitHub token is read only from `KOTLINSKIDEV_THEME_UPDATE_TOKEN`.
+- **Theme updates are now signature-checked.** Release CI signs `kotlinskidev.zip` with an Ed25519 key (`kotlinskidev.zip.sig`) and the theme refuses any package whose signature does not verify against its pinned public key, on top of the SHA-256 check. The trusted repository is pinned, package URLs must match one strict release path, the extracted version is always checked.
 - Speed-dial custom items can no longer render script, iframe, form, `on*` attributes or `javascript:` links even if the allowlist filter permits them. HTML and WPCode snippet blocks render only when the post author can post unfiltered HTML.
 
 ### Changed
 
+- Removed GitHub token support (`KOTLINSKIDEV_THEME_UPDATE_TOKEN`) from the theme updater. A token made the update checker switch to API asset URLs that the strict trusted-URL check rejects, and the repository is public so none is needed.
 - The theme and the accessibility plugin now talk through a small contract: the nav hide-on-scroll toggles `ka11y-floating-hidden` on `<html>` and the mobile offset is set through `--ka11y-offset-bottom`. The speed-dial no longer probes `#ka11y-root`, and the theme-side selector filter is gone because the plugin defaults already match.
 - The PWA install prompt styling, reduced-motion handling and install gate moved into the PWA plugin. The theme only answers its `wp_pwa_manager_install_gate` filter (2 views or 30 s visible, plus resolved consent).
 

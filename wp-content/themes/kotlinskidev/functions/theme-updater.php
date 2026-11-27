@@ -9,7 +9,6 @@ const KOTLINSKIDEV_THEME_UPDATE_BETA           = 'beta';
 const KOTLINSKIDEV_THEME_UPDATE_VERSION_REGEX  = '/^\d+\.\d+\.\d+(-(beta|rc)\.\d+)?\z/';
 const KOTLINSKIDEV_THEME_UPDATE_ASSET_NAME     = 'kotlinskidev.zip';
 const KOTLINSKIDEV_THEME_UPDATE_RELEASE_LIMIT  = 20;
-const KOTLINSKIDEV_THEME_UPDATE_TOKEN_CONST    = 'KOTLINSKIDEV_THEME_UPDATE_TOKEN';
 const KOTLINSKIDEV_THEME_UPDATE_OWNER          = 'Kotlinski95';
 const KOTLINSKIDEV_THEME_UPDATE_REPO           = 'wp_kotlinskidev';
 const KOTLINSKIDEV_THEME_UPDATE_PUBLIC_KEY     = 'X/D67g0F1WItbFC2+YGmNyI6dzpTVm043KfpYvxKtlk=';
@@ -59,12 +58,6 @@ function kotlinskidev_theme_update_source(): array {
     }
 
     return $defaults;
-}
-
-function kotlinskidev_theme_update_token(): string {
-    $token = kotlinskidev_theme_update_constant( KOTLINSKIDEV_THEME_UPDATE_TOKEN_CONST );
-
-    return is_string( $token ) ? $token : '';
 }
 
 function kotlinskidev_theme_update_package_pattern(): string {
@@ -414,12 +407,6 @@ function kotlinskidev_theme_updater_register( string $factory = 'YahnisElsts\Plu
         KOTLINSKIDEV_THEME_UPDATE_BETA === $channel ? 3 : 1,
         KOTLINSKIDEV_THEME_UPDATE_RELEASE_LIMIT
     );
-
-    $token = kotlinskidev_theme_update_token();
-
-    if ( '' !== $token ) {
-        $checker->setAuthentication( $token );
-    }
 
     add_filter( 'puc_vcs_update_detection_strategies_theme-' . $source['slug'], 'kotlinskidev_theme_update_only_release_strategy' );
     add_filter( 'upgrader_pre_download', 'kotlinskidev_theme_verify_package', 10, 4 );

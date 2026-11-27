@@ -34,7 +34,6 @@ Resolution order: constant `KOTLINSKIDEV_THEME_UPDATE_CHANNEL`, then the `kotlin
 | --- | --- |
 | `KOTLINSKIDEV_THEME_UPDATES_DISABLED` | Turns the updater off |
 | `KOTLINSKIDEV_THEME_UPDATE_CHANNEL` | Locks the channel to `stable` or `beta` |
-| `KOTLINSKIDEV_THEME_UPDATE_TOKEN` | Optional GitHub token, read only from this `wp-config.php` constant. Use a fine-grained, read-only token scoped to this single repository. The repository is public, so none is normally needed. The checker sends it only to `api.github.com/repos/<owner>/<repo>/` and strips it on redirects |
 | `kotlinskidev_theme_update_source` | Array with a `branch` key; repository, slug and asset pattern are fixed |
 | `kotlinskidev_theme_update_channel` | Final channel value |
 

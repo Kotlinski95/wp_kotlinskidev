@@ -72,10 +72,6 @@ it('never lets the source filter change the trusted repository', function () {
     expect($source['branch'])->toBe('main');
 });
 
-it('reads the token only from the constant', function () {
-    expect(kotlinskidev_theme_update_token())->toBe('');
-});
-
 it('rejects urls that bend the release download path', function () {
     $base = 'https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip';
 
