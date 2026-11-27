@@ -7,7 +7,6 @@ it('registers the stylesheet, script and inline output hooks at their frozen pri
     expect(has_action('wp_head', 'inline_critical_css'))->toBe(1);
     expect(has_action('wp_head', 'inline_critical_js'))->toBe(2);
     expect(has_filter('style_loader_tag', 'master_css_filter'))->toBe(5);
-    expect(has_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts'))->toBe(10);
     expect(has_action('enqueue_block_editor_assets', 'kotlinskidev_editor_styles'))->toBe(10);
     expect(has_action('enqueue_block_editor_assets', 'kotlinskidev_editor_scripts'))->toBe(10);
 });
@@ -52,14 +51,6 @@ it('leaves stylesheets of unrelated handles untouched', function () {
     $html = "<link rel='stylesheet' href='other.css' media='all' />";
 
     expect(master_css_filter($html, 'some-plugin-style'))->toBe($html);
-});
-
-it('adds defer to the PWA manager script exactly once and ignores other handles', function () {
-    $tag = '<script src="pwa.js"></script>';
-
-    expect(kotlinskidev_defer_deferrable_scripts($tag, 'wp-pwa-manager-frontend'))->toBe('<script defer src="pwa.js"></script>');
-    expect(kotlinskidev_defer_deferrable_scripts('<script defer src="pwa.js"></script>', 'wp-pwa-manager-frontend'))->toBe('<script defer src="pwa.js"></script>');
-    expect(kotlinskidev_defer_deferrable_scripts($tag, 'other-script'))->toBe($tag);
 });
 
 it('inlines the built critical javascript with its own script id', function () {

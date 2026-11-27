@@ -18,6 +18,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.8.1] — 2026-11-27
+
+### Changed
+
+- The theme no longer defers the PWA plugin's assets or checks its translations. The plugin now ships and updates itself from its own GitHub repo.
+
 ## [2.8.0] — 2026-11-27
 
 ### Added
