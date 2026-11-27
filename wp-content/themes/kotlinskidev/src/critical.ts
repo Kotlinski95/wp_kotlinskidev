@@ -8,7 +8,6 @@ import { initNavSolidTransition } from "./scripts/nav-solid-transition";
 import { initBlockingStylesheets } from "./scripts/blocking-stylesheets";
 import { revealAboveFoldForViewTransition } from "./scripts/view-transition-reveal";
 import { initConsentPreshow } from "./critical/consent-preshow";
-import { initPwaInstallGate } from "./critical/pwa-install-gate";
 
 const runGuarded = (task: () => unknown): void => {
   try {
@@ -19,7 +18,6 @@ const runGuarded = (task: () => unknown): void => {
 };
 
 runGuarded(initConsentPreshow);
-runGuarded(initPwaInstallGate);
 initBlockingStylesheets();
 initNavSolidTransition();
 

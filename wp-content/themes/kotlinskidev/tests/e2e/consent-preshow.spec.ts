@@ -80,47 +80,7 @@ test.describe("Consent banner pre-show (src/critical/consent-preshow.ts)", () =>
   });
 });
 
-test.describe("PWA install gate (src/critical/pwa-install-gate.ts)", () => {
-  const fire = () =>
-    new Promise<boolean>((resolve) => {
-      const event = new Event("beforeinstallprompt", { cancelable: true });
-      window.dispatchEvent(event);
-      resolve(event.defaultPrevented);
-    });
-
-  test("holds the install prompt on the first view", async ({ page }) => {
-    await page.goto("/", { waitUntil: "load" });
-    await page.evaluate(() => {
-      (window as unknown as { __delivered: number }).__delivered = 0;
-      window.addEventListener("beforeinstallprompt", () => {
-        (window as unknown as { __delivered: number }).__delivered += 1;
-      });
-    });
-    await page.evaluate(fire);
-    await page.waitForTimeout(1500);
-
-    expect(
-      await page.evaluate(() => (window as unknown as { __delivered: number }).__delivered)
-    ).toBe(0);
-  });
-
-  test("replays the prompt on the second view once consent is resolved", async ({ page }) => {
-    await page.goto("/", { waitUntil: "load" });
-    await page.locator(".cmplz-btn.cmplz-deny").click();
-    await page.reload({ waitUntil: "load" });
-    await page.evaluate(() => {
-      (window as unknown as { __delivered: number }).__delivered = 0;
-      window.addEventListener("beforeinstallprompt", () => {
-        (window as unknown as { __delivered: number }).__delivered += 1;
-      });
-    });
-    await page.evaluate(fire);
-
-    await expect
-      .poll(() => page.evaluate(() => (window as unknown as { __delivered: number }).__delivered))
-      .toBe(1);
-  });
-
+test.describe("Critical bundle layout stability", () => {
   test("causes no layout shift on a throttled mobile load", async ({ browser }) => {
     const context = await browser.newContext({
       viewport: { width: 412, height: 823 },

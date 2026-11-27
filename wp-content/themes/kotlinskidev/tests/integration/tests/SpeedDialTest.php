@@ -144,6 +144,8 @@ it('renders shortcode output inside the custom item', function () {
 });
 
 it('strips scripts from custom item content and ignores disallowed inner blocks', function () {
+    wp_set_current_user( self::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
     $html = kotlinskidev_speed_dial_test_render(kotlinskidev_speed_dial_test_dial(
         '<!-- wp:kotlinskidev/speed-dial-item {"action":"custom"} --><!-- wp:html --><b>ok</b><script>alert(1)</script><!-- /wp:html --><!-- wp:paragraph --><p>nope</p><!-- /wp:paragraph --><!-- /wp:kotlinskidev/speed-dial-item -->'
     ));
@@ -151,6 +153,31 @@ it('strips scripts from custom item content and ignores disallowed inner blocks'
     expect($html)->toContain('<b>ok</b>');
     expect($html)->not->toContain('<script');
     expect($html)->not->toContain('nope');
+});
+
+it('renders core html custom content only when the context has unfiltered html', function () {
+    $markup = kotlinskidev_speed_dial_test_dial(
+        '<!-- wp:kotlinskidev/speed-dial-item {"action":"custom"} --><!-- wp:html --><b>ok</b><!-- /wp:html --><!-- /wp:kotlinskidev/speed-dial-item -->'
+    );
+
+    wp_set_current_user( self::factory()->user->create( [ 'role' => 'subscriber' ] ) );
+    expect(kotlinskidev_speed_dial_test_render($markup))->toBe('');
+
+    wp_set_current_user( self::factory()->user->create( [ 'role' => 'administrator' ] ) );
+    expect(kotlinskidev_speed_dial_test_render($markup))->toContain('<b>ok</b>');
+});
+
+it('drops on-attributes and javascript urls from custom content', function () {
+    wp_set_current_user( self::factory()->user->create( [ 'role' => 'administrator' ] ) );
+
+    $html = kotlinskidev_speed_dial_test_render(kotlinskidev_speed_dial_test_dial(
+        '<!-- wp:kotlinskidev/speed-dial-item {"action":"custom"} --><!-- wp:html --><a href="javascript:alert(1)" onclick="x()">go</a><iframe src="https://example.com"></iframe><form><input></form><!-- /wp:html --><!-- /wp:kotlinskidev/speed-dial-item -->'
+    ));
+
+    expect($html)->not->toContain('javascript:');
+    expect($html)->not->toContain('onclick');
+    expect($html)->not->toContain('<iframe');
+    expect($html)->not->toContain('<form');
 });
 
 it('drops a custom item with no renderable content', function () {
@@ -240,11 +267,4 @@ it('registers speed dial labels through the translated-text collector', function
         'Quick actions here' => 'Quick actions here',
     ]);
     expect(kotlinskidev_translated_text_file_has_markers('<!-- wp:kotlinskidev/speed-dial /-->'))->toBeTrue();
-});
-
-it('registers the accessibility default selectors filter with the theme mode classes', function () {
-    $selectors = apply_filters( 'kotlinskidev_a11y_default_selectors', [] );
-
-    expect($selectors['darkSelector'])->toBe('html.dark-mode, body.dark-mode');
-    expect($selectors['lightSelector'])->toBe('html.light-mode, body.light-mode');
 });

@@ -5,7 +5,6 @@ const path = require("path");
 
 const themeDir = path.resolve(__dirname, "..");
 const wpRoot = path.resolve(themeDir, "..", "..", "..");
-const pluginDir = path.join(wpRoot, "wp-content", "plugins", "wordpress-pwa-manager");
 
 function commandExists(bin) {
   try {
@@ -140,15 +139,6 @@ checkCatalog(
   "kotlinskidev",
   path.join(themeDir, "languages")
 );
-
-if (fs.existsSync(pluginDir)) {
-  checkCatalog(
-    "wordpress-pwa-manager",
-    "wp-content/plugins/wordpress-pwa-manager",
-    "wordpress-pwa-manager",
-    path.join(pluginDir, "languages")
-  );
-}
 
 if (overallFail) {
   process.stdout.write(

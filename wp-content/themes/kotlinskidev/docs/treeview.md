@@ -197,7 +197,7 @@ kotlinskidev/
 │   ├── site-values.php                         # kotlinskidev_site_values option rows (key/type/value; years_since, current_year, per-language static), sanitizer, per-request cached getter and a render_block filter replacing {token:key} (unknown keys left literal)
 │   ├── site-identity.php                       # minimal site logo/title setup
 │   ├── slider-modal-trigger.php                # opens a kt_modal when a wpe/slider slide (core/cover, .swiper-slide, modalId set) is clicked
-│   ├── accessibility-plugin.php                # kotlinskidev_a11y_default_selectors() — feeds the accessibility plugin's `kotlinskidev_a11y_default_selectors` filter with the theme's dark/light mode selectors; inert when the plugin is absent
+│   ├── pwa-plugin.php                          # kotlinskidev_pwa_install_gate() — answers the WordPress PWA Manager plugin's `wp_pwa_manager_install_gate` filter: 2 page views or 30 s visible time plus a resolved Complianz consent cookie
 │   ├── speed-dial.php                          # kotlinskidev_speed_dial_* helpers: sanitised corner/offset/z-index/colour/tel values, layout classes, custom-item allow-lists, built-in icon SVGs from icons.json, editor data localisation
 │   ├── social-link-tooltip.php                 # adds .kt-tooltip + data-tooltip to core/social-link anchors, sourced from the screen-reader-only label
 │   ├── svg-gradient-defs.php                   # injects inline SVG gradient <defs> into wp_body_open
@@ -1213,7 +1213,6 @@ kotlinskidev/
 │   │   ├── collab-split.scss                   # mobile text-align override for .kotlinskidev-collab-split-heading/-copy, paired with patterns/collaborations-split.php
 │   │   ├── complianz.scss                      # (critical bundle) Complianz cookie-consent plugin dark/light overrides, adaptive banner logo colours and primary/contrast banner buttons
 │   │   ├── complianz-preshow.scss              # critical-bundle consent banner pre-show: html.kt-cmplz-pending backdrop (html::after), banner forced visible once kt-cmplz-parsed, mobile footer-nav offset and button/link sizing duplicated from complianz.scss so the banner never shifts
-│   │   ├── pwa-prompts.scss                    # PWA Manager install/update popup restyled with theme tokens: primary install button, adaptive surface and readable text in both themes
 │   │   ├── components.scss                     # editor placeholder components
 │   │   ├── contact-card.scss                   # .kt-contact-card two-column address/hours/phone/email grid for the kotlinskidev/contact-card dynamic block
 │   │   ├── contact-detail.scss                 # .kt-contact-detail__label — optional field-name prefix for the kotlinskidev/contact-detail dynamic block
@@ -1342,7 +1341,6 @@ kotlinskidev/
 │   ├── critical.ts                             # entry: critical bundle — theme class applied early to avoid flash
 │   ├── critical/                               # critical-bundle modules imported by critical.ts
 │   │   ├── consent-preshow.ts                  # adds html.kt-cmplz-pending for first-time visitors (no cmplz_banner-status cookie, no DNT/GPC, no kt-cmplz-skip meta); releases once Complianz shows the banner, on cmplz events, or 8 s after load; dispatches kt-cmplz-released
-│   │   ├── pwa-install-gate.ts                 # capture-phase beforeinstallprompt gate: holds the event until 2 page views or 30 s visible time plus resolved consent, then replays a clone that proxies prompt()/userChoice
 │   ├── editor.ts                               # entry: block-editor-only bundle; also imports scripts/canvas-background/init.ts directly (not just blocks/canvas-background/index) so the canvas-background mount/animate engine runs inside wp-admin too, needed for ServerSideRender-rendered dynamic blocks (e.g. kotlinskidev/certificate) whose canvasSceneId markup is injected server-side into the editor preview but was otherwise never picked up
 │   ├── index.scss                              # deferred (non-critical) SCSS bundle entry — only partials needed site-wide (or under 1 KB); block-bound partials moved to the registry
 │   ├── editor-content.scss                     # aggregate of every partial (incl. the full kotlinskiwind set and panels) → build/css/main-all.css, used by add_editor_style() and Storybook so the editor always has all styles
@@ -1378,7 +1376,7 @@ kotlinskidev/
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
 │   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey + a minimal WP_HTML_Tag_Processor (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 91 PHP unit test files (incl. ThemeUpdaterTest.php for functions/theme-updater.php, AccessibilityPluginTest.php for functions/accessibility-plugin.php, SpeedDialTest.php for functions/speed-dial.php) (incl. ContactFormAttachmentsTest.php for functions/contact-form-attachments.php, MailFailureAlertsTest.php for functions/mail-failure-alerts.php, GoogleMapsRenderTest.php for the maps consent placeholder) (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 91 PHP unit test files (incl. ThemeUpdaterTest.php for functions/theme-updater.php, SpeedDialTest.php for functions/speed-dial.php) (incl. ContactFormAttachmentsTest.php for functions/contact-form-attachments.php, MailFailureAlertsTest.php for functions/mail-failure-alerts.php, GoogleMapsRenderTest.php for the maps consent placeholder) (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed
@@ -1405,7 +1403,7 @@ kotlinskidev/
 │   │   ├── responsive-order.spec.ts            # frontend — kotlinskidev/responsive-order block extension
 │   │   ├── scroll-animations.spec.ts           # frontend — kotlinskidev/scroll-animations block extension
 │   │   ├── slider.spec.ts                      # frontend — wpe/slider block: continuousAutoplay (start-on-visible, freeze/resume on hover-focus-click, no snap), regular autoplay, pagination, progress circle
-│   │   ├── speed-dial.spec.ts                  # frontend — kotlinskidev/speed-dial in the footer: toggle open/close, keyboard, 44px targets, mobile overlap; accessibility-plugin case skips when #ka11y-root is absent
+│   │   ├── speed-dial.spec.ts                  # frontend — kotlinskidev/speed-dial in the footer: toggle open/close, keyboard, 44px targets, mobile overlap; accessibility-plugin case skips when no accessibility item is rendered
 │   │   ├── service-location.spec.ts            # frontend — city post-meta binding resolves to real text (not the raw placeholder), gradient-text applied to exactly the 3 contrast-safe city mentions, per-city map iframe, PL/EN Polylang pair (skips if none currently published); FAQ sticky-left column stays visible once scrolled deep into its row after opening every accordion (native position:sticky regression guard)
 │   │   └── editor/                             # authenticated specs — opt in per-file via test.use({ storageState })
 │   │       ├── site-editor.spec.ts             # confirms the Site Editor loads under the test account instead of redirecting to login

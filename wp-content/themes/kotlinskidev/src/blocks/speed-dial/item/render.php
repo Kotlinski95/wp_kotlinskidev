@@ -24,12 +24,13 @@ $item_classes = 'kt-speed-dial__item';
 if ( 'custom' === $action ) {
     $allowed_blocks = kotlinskidev_speed_dial_custom_allowed_blocks();
     $custom_html    = '';
+    $context_post   = absint( $block->context['postId'] ?? get_the_ID() );
     foreach ( $block->inner_blocks as $child_block ) {
-        if ( in_array( $child_block->name, $allowed_blocks, true ) ) {
+        if ( in_array( $child_block->name, $allowed_blocks, true ) && kotlinskidev_speed_dial_block_permitted( $child_block->name, $context_post ) ) {
             $custom_html .= $child_block->render();
         }
     }
-    $custom_html = wp_kses( do_shortcode( $custom_html ),kotlinskidev_speed_dial_custom_allowed_html() );
+    $custom_html = kotlinskidev_speed_dial_sanitize_custom_html( do_shortcode( $custom_html ) );
 
     if ( '' === trim( $custom_html ) ) {
         return;
@@ -39,7 +40,7 @@ if ( 'custom' === $action ) {
         '<li class="%1$s kt-speed-dial__item--custom" style="%2$s">%3$s</li>',
         esc_attr( $item_classes ),
         esc_attr( $item_style ),
-        $custom_html // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- passed through wp_kses() with the filterable allowlist above
+        $custom_html // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- passed through kotlinskidev_speed_dial_sanitize_custom_html(), which strips script, iframe, form, on* attributes and unsafe protocols after the filter
     );
     return;
 }

@@ -9,6 +9,9 @@ const KOTLINSKIDEV_THEME_UPDATE_BETA           = 'beta';
 const KOTLINSKIDEV_THEME_UPDATE_VERSION_REGEX  = '/^\d+\.\d+\.\d+(-(beta|rc)\.\d+)?\z/';
 const KOTLINSKIDEV_THEME_UPDATE_ASSET_NAME     = 'kotlinskidev.zip';
 const KOTLINSKIDEV_THEME_UPDATE_RELEASE_LIMIT  = 20;
+const KOTLINSKIDEV_THEME_UPDATE_OWNER          = 'Kotlinski95';
+const KOTLINSKIDEV_THEME_UPDATE_REPO           = 'wp_kotlinskidev';
+const KOTLINSKIDEV_THEME_UPDATE_PUBLIC_KEY     = 'X/D67g0F1WItbFC2+YGmNyI6dzpTVm043KfpYvxKtlk=';
 const KOTLINSKIDEV_THEME_UPDATE_REQUIRED_FILES = [ 'style.css', 'theme.json', 'functions.php', 'vendor/autoload.php' ];
 
 function kotlinskidev_theme_update_constant( string $name ): mixed {
@@ -35,48 +38,50 @@ function kotlinskidev_theme_update_channel( ?callable $read_constant = null ): s
     return kotlinskidev_theme_update_valid_channel( $filtered ) ? $filtered : $channel;
 }
 
+function kotlinskidev_theme_update_repository_path(): string {
+    return KOTLINSKIDEV_THEME_UPDATE_OWNER . '/' . KOTLINSKIDEV_THEME_UPDATE_REPO;
+}
+
 function kotlinskidev_theme_update_source(): array {
     $defaults = [
-        'repository'    => 'https://github.com/Kotlinski95/wp_kotlinskidev/',
+        'repository'    => 'https://github.com/' . kotlinskidev_theme_update_repository_path() . '/',
         'slug'          => KOTLINSKIDEV_THEME_UPDATE_SLUG,
         'asset_pattern' => '/kotlinskidev\.zip$/',
         'branch'        => 'master',
     ];
 
-    $filtered = apply_filters( 'kotlinskidev_theme_update_source', $defaults );
-    $filtered = is_array( $filtered ) ? $filtered : [];
-    $source   = [];
+    $filtered = apply_filters( 'kotlinskidev_theme_update_source', [ 'branch' => $defaults['branch'] ] );
+    $branch   = is_array( $filtered ) ? ( $filtered['branch'] ?? null ) : null;
 
-    foreach ( $defaults as $key => $default ) {
-        $value          = $filtered[ $key ] ?? $default;
-        $source[ $key ] = is_string( $value ) && '' !== $value ? $value : $default;
+    if ( is_string( $branch ) && '' !== $branch ) {
+        $defaults['branch'] = $branch;
     }
 
-    return $source;
+    return $defaults;
 }
 
-function kotlinskidev_theme_update_token(): string {
-    $token = apply_filters( 'kotlinskidev_theme_update_token', '' );
-
-    return is_string( $token ) ? $token : '';
-}
-
-function kotlinskidev_theme_update_github_repository( string $repository_url ): ?string {
-    $parts = wp_parse_url( $repository_url );
-
-    if ( ! is_array( $parts ) || 'https' !== ( $parts['scheme'] ?? '' ) || 'github.com' !== strtolower( (string) ( $parts['host'] ?? '' ) ) ) {
-        return null;
-    }
-
-    $path = trim( (string) ( $parts['path'] ?? '' ), '/' );
-
-    return 1 === preg_match( '#^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$#', $path ) ? $path : null;
+function kotlinskidev_theme_update_package_pattern(): string {
+    return '#^/' . preg_quote( kotlinskidev_theme_update_repository_path(), '#' ) . '/releases/download/v(\d+\.\d+\.\d+(?:-(?:beta|rc)\.\d+)?)/' . preg_quote( KOTLINSKIDEV_THEME_UPDATE_ASSET_NAME, '#' ) . '$#';
 }
 
 function kotlinskidev_theme_update_is_trusted_url( string $url ): bool {
-    $repository = kotlinskidev_theme_update_github_repository( kotlinskidev_theme_update_source()['repository'] );
+    $parts = wp_parse_url( $url );
 
-    return null !== $repository && str_starts_with( $url, 'https://github.com/' . $repository . '/releases/download/' );
+    if ( ! is_array( $parts ) || 'https' !== ( $parts['scheme'] ?? '' ) || 'github.com' !== ( $parts['host'] ?? '' ) ) {
+        return false;
+    }
+
+    foreach ( [ 'query', 'fragment', 'user', 'pass', 'port' ] as $forbidden ) {
+        if ( isset( $parts[ $forbidden ] ) ) {
+            return false;
+        }
+    }
+
+    if ( str_contains( $url, '..' ) || str_contains( $url, '?' ) || str_contains( $url, '#' ) || str_contains( $url, '@' ) ) {
+        return false;
+    }
+
+    return 1 === preg_match( kotlinskidev_theme_update_package_pattern(), (string) ( $parts['path'] ?? '' ) );
 }
 
 function kotlinskidev_theme_under_version_control( string $directory, string $stop_at ): bool {
@@ -130,7 +135,7 @@ function kotlinskidev_theme_release_has_assets( object $release, string $asset_n
         }
     }
 
-    return in_array( $asset_name, $names, true ) && in_array( $asset_name . '.sha256', $names, true );
+    return in_array( $asset_name, $names, true ) && in_array( $asset_name . '.sha256', $names, true ) && in_array( $asset_name . '.sig', $names, true );
 }
 
 function kotlinskidev_theme_release_acceptable( string $version, object $release, string $channel ): bool {
@@ -181,6 +186,35 @@ function kotlinskidev_theme_update_fetch_checksum( string $url ): ?string {
     return kotlinskidev_theme_update_parse_checksum( (string) wp_remote_retrieve_body( $response ) );
 }
 
+function kotlinskidev_theme_update_fetch_signature( string $url ): ?string {
+    $response = wp_safe_remote_get(
+        $url,
+        [
+            'timeout'             => 10,
+            'limit_response_size' => 256,
+        ]
+    );
+
+    if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+        return null;
+    }
+
+    $signature = base64_decode( trim( (string) wp_remote_retrieve_body( $response ) ), true );
+
+    return is_string( $signature ) && SODIUM_CRYPTO_SIGN_BYTES === strlen( $signature ) ? $signature : null;
+}
+
+function kotlinskidev_theme_update_signature_valid( string $file, string $signature, string $public_key_base64 = KOTLINSKIDEV_THEME_UPDATE_PUBLIC_KEY ): bool {
+    $public_key = base64_decode( $public_key_base64, true );
+    $contents   = file_get_contents( $file );
+
+    if ( ! is_string( $public_key ) || SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES !== strlen( $public_key ) || false === $contents ) {
+        return false;
+    }
+
+    return sodium_crypto_sign_verify_detached( $signature, $contents, $public_key );
+}
+
 function kotlinskidev_theme_update_record_failure( string $package, string $message ): void {
     update_site_option(
         KOTLINSKIDEV_THEME_UPDATE_FAILURE_OPTION,
@@ -214,6 +248,12 @@ function kotlinskidev_theme_verify_package( mixed $reply, mixed $package, mixed 
         return kotlinskidev_theme_update_reject( 'kotlinskidev_theme_checksum_missing', $package, __( 'This theme release has no SHA-256 checksum file, so it cannot be installed safely.', 'kotlinskidev' ) );
     }
 
+    $signature = kotlinskidev_theme_update_fetch_signature( $package . '.sig' );
+
+    if ( null === $signature ) {
+        return kotlinskidev_theme_update_reject( 'kotlinskidev_theme_signature_missing', $package, __( 'This theme release has no valid signature file, so it cannot be installed safely.', 'kotlinskidev' ) );
+    }
+
     $file = download_url( $package );
 
     if ( is_wp_error( $file ) ) {
@@ -228,15 +268,25 @@ function kotlinskidev_theme_verify_package( mixed $reply, mixed $package, mixed 
         return kotlinskidev_theme_update_reject( 'kotlinskidev_theme_checksum_mismatch', $package, __( 'The downloaded theme package does not match its SHA-256 checksum and was discarded.', 'kotlinskidev' ) );
     }
 
+    if ( ! kotlinskidev_theme_update_signature_valid( $file, $signature ) ) {
+        wp_delete_file( $file );
+
+        return kotlinskidev_theme_update_reject( 'kotlinskidev_theme_signature_invalid', $package, __( 'The downloaded theme package does not match its signature and was discarded.', 'kotlinskidev' ) );
+    }
+
     return $file;
 }
 
 function kotlinskidev_theme_update_expected_version(): ?string {
     $transient = get_site_transient( 'update_themes' );
     $entry     = is_object( $transient ) && is_array( $transient->response ?? null ) ? ( $transient->response[ KOTLINSKIDEV_THEME_UPDATE_SLUG ] ?? null ) : null;
-    $version   = is_array( $entry ) ? ( $entry['new_version'] ?? null ) : null;
+    $package   = is_array( $entry ) ? ( $entry['package'] ?? null ) : null;
 
-    return is_string( $version ) ? $version : null;
+    if ( ! is_string( $package ) || ! kotlinskidev_theme_update_is_trusted_url( $package ) ) {
+        return null;
+    }
+
+    return kotlinskidev_theme_update_package_version( $package );
 }
 
 function kotlinskidev_theme_update_source_problem( string $source, ?string $expected_version ): ?string {
@@ -258,7 +308,7 @@ function kotlinskidev_theme_update_source_problem( string $source, ?string $expe
 
     $headers = get_file_data( $directory . '/style.css', [ 'Version' => 'Version' ] );
 
-    if ( null !== $expected_version && $expected_version !== ( $headers['Version'] ?? '' ) ) {
+    if ( null === $expected_version || $expected_version !== ( $headers['Version'] ?? '' ) ) {
         return __( 'The theme package version does not match the release it was published under, so the update was cancelled.', 'kotlinskidev' );
     }
 
@@ -357,12 +407,6 @@ function kotlinskidev_theme_updater_register( string $factory = 'YahnisElsts\Plu
         KOTLINSKIDEV_THEME_UPDATE_BETA === $channel ? 3 : 1,
         KOTLINSKIDEV_THEME_UPDATE_RELEASE_LIMIT
     );
-
-    $token = kotlinskidev_theme_update_token();
-
-    if ( '' !== $token ) {
-        $checker->setAuthentication( $token );
-    }
 
     add_filter( 'puc_vcs_update_detection_strategies_theme-' . $source['slug'], 'kotlinskidev_theme_update_only_release_strategy' );
     add_filter( 'upgrader_pre_download', 'kotlinskidev_theme_verify_package', 10, 4 );

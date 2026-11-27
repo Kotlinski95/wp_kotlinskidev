@@ -181,22 +181,6 @@
 		filter: drop-shadow(0 0.0625rem 0.125rem rgba(0, 0, 0, 0.25)) drop-shadow(0 0 0 #fff) drop-shadow(0 0 0.125rem #fff) !important;
 	}
 
-	.pwa-install-prompt,
-	.pwa-update-prompt {
-		transition: none !important;
-		opacity: 1 !important;
-		transform: none !important;
-
-		&.show {
-			opacity: 1 !important;
-			transform: none !important;
-		}
-	}
-
-	.pwa-update-prompt .pwa-prompt-icon svg {
-		animation: none !important;
-	}
-
 	#page-loader::after {
 		animation: none !important;
 	}

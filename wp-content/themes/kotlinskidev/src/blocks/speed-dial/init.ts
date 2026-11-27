@@ -12,9 +12,6 @@ const mountDial = (
   if (!toggle || !list) {
     return null;
   }
-  if (!document.getElementById("ka11y-root")) {
-    list.querySelectorAll("[data-kt-speed-dial-requires-a11y]").forEach((item) => item.remove());
-  }
   if (getItemTargets(list).length === 0) {
     return null;
   }

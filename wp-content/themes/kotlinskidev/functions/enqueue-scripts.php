@@ -62,7 +62,6 @@ function kotlinskidev_get_deferred_style_handles(): array
     return array_merge(
         [
             'wp-block-navigation',
-            'wp-pwa-manager-frontend',
         ],
         kotlinskidev_get_deferred_block_style_handles(),
         kotlinskidev_get_block_style_link_handles()
@@ -87,24 +86,6 @@ function master_css_filter($html, $handle)
     return $html;
 }
 add_filter('style_loader_tag', 'master_css_filter', 5, 2);
-
-function kotlinskidev_defer_deferrable_scripts($tag, $handle)
-{
-    $deferred_script_handles = [
-        'wp-pwa-manager-frontend',
-    ];
-
-    if (!in_array($handle, $deferred_script_handles, true)) {
-        return $tag;
-    }
-
-    if (strpos($tag, ' defer') !== false) {
-        return $tag;
-    }
-
-    return str_replace(' src=', ' defer src=', $tag);
-}
-add_filter('script_loader_tag', 'kotlinskidev_defer_deferrable_scripts', 10, 2);
 
 function kotlinskidev_read_cached_critical_css(string $relative_filename): string
 {

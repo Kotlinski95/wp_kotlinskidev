@@ -123,10 +123,6 @@ test.describe("Speed Dial (kotlinskidev/speed-dial) — footer placement and beh
   test("accessibility plugin item opens the plugin panel and closing returns focus to the toggle", async ({
     page,
   }) => {
-    test.skip(
-      (await page.locator("#ka11y-root").count()) === 0,
-      "Accessibility plugin is not active: #ka11y-root is absent"
-    );
     const trigger = page.locator('.kt-speed-dial__item [data-ka11y="open"]').first();
     test.skip((await trigger.count()) === 0, "No accessibility item is present in the speed dial");
     await openDial(page);

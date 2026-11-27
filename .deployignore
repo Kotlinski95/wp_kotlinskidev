@@ -92,7 +92,6 @@ wp-content/plugins/*
 !wp-content/plugins/responsive-spacing-controls
 !wp-content/plugins/responsive-font-controls
 !wp-content/plugins/text-justify-controls
-!wp-content/plugins/wordpress-pwa-manager
 
 wp-content/plugins/*/node_modules
 wp-content/plugins/*/node_modules/**

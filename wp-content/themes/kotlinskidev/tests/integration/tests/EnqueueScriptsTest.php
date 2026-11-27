@@ -120,17 +120,3 @@ it('leaves an unrelated stylesheet tag untouched', function () {
 
     expect($tag)->toBe($original);
 });
-
-it('adds defer to the wp-pwa-manager-frontend script tag but not to unrelated handles', function () {
-    $deferred = apply_filters('script_loader_tag', '<script src="pwa.js"></script>', 'wp-pwa-manager-frontend');
-    $untouched = apply_filters('script_loader_tag', '<script src="other.js"></script>', 'some-other-script');
-
-    expect($deferred)->toContain('defer src=');
-    expect($untouched)->toBe('<script src="other.js"></script>');
-});
-
-it('does not double up the defer attribute if already present', function () {
-    $tag = apply_filters('script_loader_tag', '<script defer src="pwa.js"></script>', 'wp-pwa-manager-frontend');
-
-    expect(substr_count($tag, 'defer'))->toBe(1);
-});

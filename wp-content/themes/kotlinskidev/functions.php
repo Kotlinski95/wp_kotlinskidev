@@ -12,7 +12,7 @@ require_once get_template_directory() . '/functions/cache.php';
 require_once get_template_directory() . '/functions/theme-updater.php';
 
 require_once get_template_directory() . '/functions/speed-dial.php';
-require_once get_template_directory() . '/functions/accessibility-plugin.php';
+require_once get_template_directory() . '/functions/pwa-plugin.php';
 
 require_once get_template_directory() . '/functions/in-view-hover.php';
 

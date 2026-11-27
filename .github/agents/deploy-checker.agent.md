@@ -28,7 +28,7 @@ Read `.deployignore` and verify:
 - `wp-content/plugins/` only includes approved custom plugins — NOT all plugins
 
 Approved custom plugins:
-`block-visibility`, `contact-form-block`, `responsive-spacing-controls`, `responsive-font-controls`, `text-justify-controls`, `wordpress-pwa-manager`
+`block-visibility`, `contact-form-block`, `responsive-spacing-controls`, `responsive-font-controls`, `text-justify-controls`
 
 ### 2. Debug code
 Search theme `src/` for:

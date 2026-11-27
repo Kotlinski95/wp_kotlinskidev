@@ -7873,6 +7873,14 @@ msgid "The downloaded theme package does not match its SHA-256 checksum and was 
 msgstr "The downloaded theme package does not match its SHA-256 checksum and was discarded."
 
 #: functions/theme-updater.php
+msgid "This theme release has no valid signature file, so it cannot be installed safely."
+msgstr "This theme release has no valid signature file, so it cannot be installed safely."
+
+#: functions/theme-updater.php
+msgid "The downloaded theme package does not match its signature and was discarded."
+msgstr "The downloaded theme package does not match its signature and was discarded."
+
+#: functions/theme-updater.php
 msgid "The theme package must contain a single \"kotlinskidev\" folder, so the update was cancelled."
 msgstr "The theme package must contain a single \"kotlinskidev\" folder, so the update was cancelled."
 

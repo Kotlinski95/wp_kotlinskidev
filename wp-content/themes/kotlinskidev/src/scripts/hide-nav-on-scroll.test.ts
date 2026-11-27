@@ -135,7 +135,7 @@ describe("hide-nav-on-scroll.ts", () => {
     document.body.append(cookieButton);
     document.body.insertAdjacentHTML(
       "beforeend",
-      '<div id="ka11y-root"><button></button></div><button class="kt-article-toc-toggle"></button><div class="kt-speed-dial"></div>'
+      '<button class="kt-article-toc-toggle"></button><div class="kt-speed-dial"></div>'
     );
     loadOnMobile();
 
@@ -148,9 +148,7 @@ describe("hide-nav-on-scroll.ts", () => {
       document.querySelector(".kotlinskidev-scrollto-top")?.classList.contains("mobile-nav-hidden")
     ).toBe(true);
     expect(cookieButton.classList.contains("mobile-nav-hidden")).toBe(true);
-    expect(document.querySelector("#ka11y-root")?.classList.contains("mobile-nav-hidden")).toBe(
-      true
-    );
+    expect(document.documentElement.classList.contains("ka11y-floating-hidden")).toBe(true);
     expect(
       document.querySelector(".kt-article-toc-toggle")?.classList.contains("mobile-nav-hidden")
     ).toBe(true);

@@ -28,11 +28,6 @@
 	border-color: var(--wp--preset--color--primary);
 }
 
-.pwa-install-button {
-
-	@include custom-button-style();
-}
-
 .pwa-connection-status {
 	top: calc($header + 1.25rem + env(safe-area-inset-top)) !important;
 	left: 1.25rem !important;
