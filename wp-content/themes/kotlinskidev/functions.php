@@ -10,6 +10,7 @@ require_once get_template_directory() . '/functions/scroll-restoration.php';
 require_once get_template_directory() . '/functions/cache.php';
 
 require_once get_template_directory() . '/functions/speed-dial.php';
+require_once get_template_directory() . '/functions/accessibility-plugin.php';
 
 require_once get_template_directory() . '/functions/in-view-hover.php';
 

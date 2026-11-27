@@ -16,7 +16,7 @@ const LANGUAGE_LINK_SELECTOR =
   ".kt-lang-panel__list a[hreflang], .wp-block-polylang-language-switcher a[hreflang]";
 const PROJECT_TITLE_SELECTOR = "h1, h2, h3, h4";
 const COOKIE_CONSENT_SELECTOR = ".cmplz-btn.cmplz-manage-consent";
-const ACCESSIBILITY_TOGGLE_SELECTOR = "#ka11y-root";
+const ACCESSIBILITY_OPEN_EVENT = "ka11y:open";
 
 function toSnakeCase(key: string): string {
   return key.replace(/([A-Z])/g, (letter, _match, offset: number) =>
@@ -76,12 +76,8 @@ function trackCookieConsentClick(target: Element): boolean {
   return true;
 }
 
-function trackAccessibilityToggleClick(target: Element): boolean {
-  if (!target.closest(ACCESSIBILITY_TOGGLE_SELECTOR)) {
-    return false;
-  }
+function onAccessibilityOpen(): void {
   trackEvent("accessibility_toggle_click");
-  return true;
 }
 
 function trackCtaClick(target: Element): boolean {
@@ -101,7 +97,6 @@ const CLICK_TRACKERS: ReadonlyArray<(target: Element) => boolean> = [
   trackLanguageSwitch,
   trackProjectSelection,
   trackCookieConsentClick,
-  trackAccessibilityToggleClick,
   trackCtaClick,
 ];
 
@@ -120,5 +115,6 @@ function trackPageNotFound(): void {
 }
 
 document.addEventListener("click", onDocumentClick, { passive: true });
+document.addEventListener(ACCESSIBILITY_OPEN_EVENT, onAccessibilityOpen);
 window.kotlinskiAnalytics = { trackEvent };
 trackPageNotFound();

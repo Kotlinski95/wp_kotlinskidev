@@ -1,4 +1,5 @@
 import { mountFeatureCanvas } from "./runtime";
+import { ACCESSIBILITY_MOTION_EVENT, ACCESSIBILITY_STOP_CLASS } from "./accessibility-constants";
 
 const mockDrawSpy = jest.fn();
 
@@ -190,6 +191,23 @@ describe("mountFeatureCanvas", () => {
     expect(rafQueue).toHaveLength(0);
     reducedMotion = false;
     motionListeners.forEach((listener) => listener());
+    expect(rafQueue).toHaveLength(1);
+  });
+
+  it("treats the accessibility plugin's stop-animations state like reduced motion", async () => {
+    const { card } = await mount();
+    card.dispatchEvent(new Event("mouseenter"));
+    expect(rafQueue).toHaveLength(1);
+    document.documentElement.classList.add(ACCESSIBILITY_STOP_CLASS);
+    window.dispatchEvent(
+      new CustomEvent(ACCESSIBILITY_MOTION_EVENT, { detail: { stopped: true } })
+    );
+    expect(rafQueue).toHaveLength(0);
+    expect(lastProgress()).toBe(1);
+    document.documentElement.classList.remove(ACCESSIBILITY_STOP_CLASS);
+    window.dispatchEvent(
+      new CustomEvent(ACCESSIBILITY_MOTION_EVENT, { detail: { stopped: false } })
+    );
     expect(rafQueue).toHaveLength(1);
   });
 
