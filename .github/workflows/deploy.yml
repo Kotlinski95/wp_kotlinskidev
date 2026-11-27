@@ -312,6 +312,13 @@ jobs:
         working-directory: ${{ env.THEME_DIR }}
         run: node bin/package-zip.js --tag "$TAG"
 
+      - name: Sign release package
+        if: steps.existing.outputs.exists != 'true'
+        working-directory: ${{ env.THEME_DIR }}
+        env:
+          RELEASE_SIGNING_KEY: ${{ secrets.RELEASE_SIGNING_KEY }}
+        run: node bin/sign-release.js dist/kotlinskidev.zip
+
       - name: Generate release notes
         if: steps.existing.outputs.exists != 'true'
         working-directory: ${{ env.THEME_DIR }}
@@ -331,12 +338,12 @@ jobs:
             --title "$TAG" \
             --notes-file dist/release-notes.md \
             "${prerelease[@]}" \
-            dist/kotlinskidev.zip dist/kotlinskidev.zip.sha256
+            dist/kotlinskidev.zip dist/kotlinskidev.zip.sha256 dist/kotlinskidev.zip.sig
 
       - name: Verify release assets
         if: steps.existing.outputs.exists != 'true'
         run: |
           assets=$(gh release view "$TAG" --repo "${{ github.repository }}" --json assets --jq '.assets[].name')
-          for required in kotlinskidev.zip kotlinskidev.zip.sha256; do
+          for required in kotlinskidev.zip kotlinskidev.zip.sha256 kotlinskidev.zip.sig; do
             grep -qx "$required" <<< "$assets" || { echo "Missing release asset $required" >&2; exit 1; }
           done

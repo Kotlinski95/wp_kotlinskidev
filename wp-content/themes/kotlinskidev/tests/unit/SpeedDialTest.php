@@ -149,7 +149,7 @@ it('defaults accessibility availability to the plugin probe', function () {
 });
 
 it('reports the plugin unavailable when no probe symbol exists', function () {
-    if (defined('KOTLINSKIDEV_A11Y_API') || function_exists('kotlinskidev_a11y_api_version') || function_exists('kotlinskidev_a11y_get_button')) {
+    if (defined('KOTLINSKIDEV_A11Y_API')) {
         $this->markTestSkipped('probe symbol already defined');
     }
 
@@ -187,4 +187,33 @@ it('translates through pll__ when Polylang provides it', function () {
     Functions\when('pll__')->alias(fn (string $text) => 'PL:' . $text);
 
     expect(kotlinskidev_speed_dial_translate('Call'))->toBe('PL:Call');
+});
+
+it('strips script, iframe, form and on-attributes even when the filter allows them', function () {
+    Functions\when('wp_kses_allowed_html')->justReturn(['b' => []]);
+    Filters\expectApplied('kotlinskidev_speed_dial_custom_allowed_html')->once()->andReturn([
+        'script' => ['src' => true],
+        'iframe' => [],
+        'form'   => [],
+        'a'      => ['href' => true, 'onclick' => true, 'OnMouseOver' => true, 'class' => true],
+    ]);
+
+    expect(kotlinskidev_speed_dial_custom_allowed_html())->toBe(['a' => ['href' => true, 'class' => true]]);
+});
+
+it('recovers the default allowlist when the filter returns a non-array', function () {
+    Functions\when('wp_kses_allowed_html')->justReturn(['b' => [], 'script' => []]);
+    Filters\expectApplied('kotlinskidev_speed_dial_custom_allowed_html')->once()->andReturn('nope');
+
+    expect(kotlinskidev_speed_dial_custom_allowed_html())->toBe(['b' => []]);
+});
+
+it('permits html and snippet blocks only when the context author has unfiltered html', function () {
+    Functions\when('get_post')->alias(static fn (int $id): object => (object) ['ID' => $id, 'post_author' => $id]);
+    Functions\when('user_can')->alias(static fn (int $user, string $cap): bool => 1 === $user && 'unfiltered_html' === $cap);
+
+    expect(kotlinskidev_speed_dial_block_permitted('core/html', 1))->toBeTrue();
+    expect(kotlinskidev_speed_dial_block_permitted('core/html', 2))->toBeFalse();
+    expect(kotlinskidev_speed_dial_block_permitted('wpcode/snippet', 2))->toBeFalse();
+    expect(kotlinskidev_speed_dial_block_permitted('core/shortcode', 2))->toBeTrue();
 });

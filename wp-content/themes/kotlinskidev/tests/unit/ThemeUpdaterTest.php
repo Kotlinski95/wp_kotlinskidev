@@ -62,14 +62,29 @@ it('accepts a valid filtered channel', function () {
     expect(kotlinskidev_theme_update_channel(kotlinskidev_updater_test_constants([])))->toBe('beta');
 });
 
-it('falls back to defaults for malformed source filter values', function () {
-    Filters\expectApplied('kotlinskidev_theme_update_source')->once()->andReturn(['repository' => '', 'slug' => 5, 'branch' => 'main']);
+it('never lets the source filter change the trusted repository', function () {
+    Filters\expectApplied('kotlinskidev_theme_update_source')->once()->andReturn(['repository' => 'https://github.com/evil/repo/', 'slug' => 'x', 'branch' => 'main']);
 
     $source = kotlinskidev_theme_update_source();
 
     expect($source['repository'])->toBe('https://github.com/Kotlinski95/wp_kotlinskidev/');
     expect($source['slug'])->toBe('kotlinskidev');
     expect($source['branch'])->toBe('main');
+});
+
+it('reads the token only from the constant', function () {
+    expect(kotlinskidev_theme_update_token())->toBe('');
+});
+
+it('rejects urls that bend the release download path', function () {
+    $base = 'https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip';
+
+    expect(kotlinskidev_theme_update_is_trusted_url($base . '?x=1'))->toBeFalse();
+    expect(kotlinskidev_theme_update_is_trusted_url($base . '#frag'))->toBeFalse();
+    expect(kotlinskidev_theme_update_is_trusted_url('https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/../v1.0.0/kotlinskidev.zip'))->toBeFalse();
+    expect(kotlinskidev_theme_update_is_trusted_url('https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/other.zip'))->toBeFalse();
+    expect(kotlinskidev_theme_update_is_trusted_url('https://github.com@evil.example/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip'))->toBeFalse();
+    expect(kotlinskidev_theme_update_is_trusted_url('https://github.com:8443/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip'))->toBeFalse();
 });
 
 it('trusts only release downloads of the configured github repository', function () {
@@ -119,22 +134,24 @@ it('skips when the theme sits inside a git checkout', function () {
 });
 
 it('accepts a stable release only with zip and checksum assets', function () {
-    $complete = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256']);
+    $complete = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256', 'kotlinskidev.zip.sig']);
     $no_sum   = kotlinskidev_updater_test_release(['kotlinskidev.zip']);
+    $no_sig   = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256']);
 
     expect(kotlinskidev_theme_release_acceptable('2.7.0', $complete, 'stable'))->toBeTrue();
     expect(kotlinskidev_theme_release_acceptable('2.7.0', $no_sum, 'stable'))->toBeFalse();
+    expect(kotlinskidev_theme_release_acceptable('2.7.0', $no_sig, 'stable'))->toBeFalse();
 });
 
 it('rejects prereleases on stable and accepts them on beta', function () {
-    $beta = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256'], true);
+    $beta = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256', 'kotlinskidev.zip.sig'], true);
 
     expect(kotlinskidev_theme_release_acceptable('2.7.0-beta.1', $beta, 'stable'))->toBeFalse();
     expect(kotlinskidev_theme_release_acceptable('2.7.0-beta.1', $beta, 'beta'))->toBeTrue();
 });
 
 it('rejects malformed versions', function () {
-    $complete = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256']);
+    $complete = kotlinskidev_updater_test_release(['kotlinskidev.zip', 'kotlinskidev.zip.sha256', 'kotlinskidev.zip.sig']);
 
     expect(kotlinskidev_theme_release_acceptable('latest', $complete, 'beta'))->toBeFalse();
     expect(kotlinskidev_theme_release_acceptable('2.7', $complete, 'beta'))->toBeFalse();
@@ -199,22 +216,40 @@ it('rejects a package whose checksum file is missing', function () {
     expect($GLOBALS['kt_failure']['message'])->toContain('no SHA-256 checksum file');
 });
 
-it('rejects a downloaded package whose sha256 differs', function () {
+function kotlinskidev_updater_signing_pair(): array
+{
+    $pair = sodium_crypto_sign_keypair();
+
+    return [sodium_crypto_sign_secretkey($pair), base64_encode(sodium_crypto_sign_publickey($pair))];
+}
+
+function kotlinskidev_updater_test_package_file(string $contents): string
+{
+    $file = tempnam(sys_get_temp_dir(), 'kt');
+    file_put_contents($file, $contents);
+
+    return $file;
+}
+
+function kotlinskidev_updater_mock_downloads(string $checksum_body, string $signature_body, string $file): void
+{
     Functions\when('is_wp_error')->alias(static fn (mixed $value): bool => $value instanceof WP_Error);
-    Functions\when('wp_safe_remote_get')->justReturn(['response' => ['code' => 200]]);
     Functions\when('wp_remote_retrieve_response_code')->justReturn(200);
-    Functions\when('wp_remote_retrieve_body')->justReturn(str_repeat('0', 64) . "  kotlinskidev.zip\n");
+    Functions\when('wp_safe_remote_get')->alias(static fn (string $url): array => ['url' => $url]);
+    Functions\when('wp_remote_retrieve_body')->alias(static fn (array $response): string => str_ends_with($response['url'], '.sig') ? $signature_body : $checksum_body);
     Functions\when('wp_delete_file')->alias('unlink');
+    Functions\when('download_url')->justReturn($file);
     $GLOBALS['kt_failure'] = null;
     Functions\when('update_site_option')->alias(static function (string $option, mixed $value): bool {
         $GLOBALS['kt_failure'] = $value;
 
         return true;
     });
+}
 
-    $file = tempnam(sys_get_temp_dir(), 'kt');
-    file_put_contents($file, 'package bytes');
-    Functions\when('download_url')->justReturn($file);
+it('rejects a downloaded package whose sha256 differs', function () {
+    $file = kotlinskidev_updater_test_package_file('package bytes');
+    kotlinskidev_updater_mock_downloads(str_repeat('0', 64) . "  kotlinskidev.zip\n", base64_encode(str_repeat('a', 64)), $file);
 
     $package = 'https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip';
     $result  = kotlinskidev_theme_verify_package(false, $package, null, ['theme' => 'kotlinskidev']);
@@ -224,21 +259,60 @@ it('rejects a downloaded package whose sha256 differs', function () {
     expect(file_exists($file))->toBeFalse();
 });
 
-it('returns the downloaded file when the sha256 matches', function () {
-    Functions\when('is_wp_error')->alias(static fn (mixed $value): bool => $value instanceof WP_Error);
-    Functions\when('wp_safe_remote_get')->justReturn(['response' => ['code' => 200]]);
-    Functions\when('wp_remote_retrieve_response_code')->justReturn(200);
-
-    $file = tempnam(sys_get_temp_dir(), 'kt');
-    file_put_contents($file, 'package bytes');
-    Functions\when('wp_remote_retrieve_body')->justReturn(hash('sha256', 'package bytes') . "  kotlinskidev.zip\n");
-    Functions\when('download_url')->justReturn($file);
+it('does not accept a valid checksum with a signature from a foreign key', function () {
+    [$secret] = kotlinskidev_updater_signing_pair();
+    $file     = kotlinskidev_updater_test_package_file('package bytes');
+    $sig      = base64_encode(sodium_crypto_sign_detached('package bytes', $secret));
+    kotlinskidev_updater_mock_downloads(hash('sha256', 'package bytes') . "  kotlinskidev.zip\n", $sig, $file);
 
     $package = 'https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip';
 
-    expect(kotlinskidev_theme_verify_package(false, $package, null, ['theme' => 'kotlinskidev']))->toBe($file);
+    expect(kotlinskidev_theme_verify_package(false, $package, null, ['theme' => 'kotlinskidev']))->toBeInstanceOf(WP_Error::class);
+
+    @unlink($file);
+});
+
+it('verifies detached signatures against the given public key', function () {
+    [$secret, $public] = kotlinskidev_updater_signing_pair();
+    [, $other_public]  = kotlinskidev_updater_signing_pair();
+    $file              = kotlinskidev_updater_test_package_file('package bytes');
+    $signature         = sodium_crypto_sign_detached('package bytes', $secret);
+
+    expect(kotlinskidev_theme_update_signature_valid($file, $signature, $public))->toBeTrue();
+    expect(kotlinskidev_theme_update_signature_valid($file, $signature, $other_public))->toBeFalse();
+
+    file_put_contents($file, 'tampered bytes');
+    expect(kotlinskidev_theme_update_signature_valid($file, $signature, $public))->toBeFalse();
+    expect(kotlinskidev_theme_update_signature_valid($file, $signature, 'not-a-key'))->toBeFalse();
 
     unlink($file);
+});
+
+it('rejects a package with a missing signature', function () {
+    $file = kotlinskidev_updater_test_package_file('package bytes');
+    kotlinskidev_updater_mock_downloads(hash('sha256', 'package bytes') . "  kotlinskidev.zip\n", '', $file);
+
+    $package = 'https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip';
+    $result  = kotlinskidev_theme_verify_package(false, $package, null, ['theme' => 'kotlinskidev']);
+
+    expect($result)->toBeInstanceOf(WP_Error::class);
+    expect($GLOBALS['kt_failure']['message'])->toContain('no valid signature');
+
+    unlink($file);
+});
+
+it('rejects a package signed by a key that is not the pinned one', function () {
+    [$secret] = kotlinskidev_updater_signing_pair();
+    $file     = kotlinskidev_updater_test_package_file('package bytes');
+    $sig      = base64_encode(sodium_crypto_sign_detached('package bytes', $secret));
+    kotlinskidev_updater_mock_downloads(hash('sha256', 'package bytes') . "  kotlinskidev.zip\n", $sig, $file);
+
+    $package = 'https://github.com/Kotlinski95/wp_kotlinskidev/releases/download/v2.7.0/kotlinskidev.zip';
+    $result  = kotlinskidev_theme_verify_package(false, $package, null, ['theme' => 'kotlinskidev']);
+
+    expect($result)->toBeInstanceOf(WP_Error::class);
+    expect($GLOBALS['kt_failure']['message'])->toContain('does not match its signature');
+    expect(file_exists($file))->toBeFalse();
 });
 
 it('validates the extracted package folder, files and version', function () {
@@ -258,6 +332,7 @@ it('validates the extracted package folder, files and version', function () {
 
     expect(kotlinskidev_theme_update_source_problem($dir . '/', '2.7.0'))->toBeNull();
     expect(kotlinskidev_theme_update_source_problem($dir, '2.8.0'))->not->toBeNull();
+    expect(kotlinskidev_theme_update_source_problem($dir, null))->not->toBeNull();
 
     unlink($dir . '/vendor/autoload.php');
     expect(kotlinskidev_theme_update_source_problem($dir, '2.7.0'))->not->toBeNull();

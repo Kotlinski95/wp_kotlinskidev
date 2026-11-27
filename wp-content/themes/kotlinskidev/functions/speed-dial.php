@@ -10,6 +10,9 @@ const KOTLINSKIDEV_SPEED_DIAL_TRIGGER_REGEX   = '/^[a-z][a-zA-Z0-9]*(?::[a-zA-Z0
 const KOTLINSKIDEV_SPEED_DIAL_CORNERS         = [ 'bottom-right', 'bottom-left', 'top-right', 'top-left' ];
 const KOTLINSKIDEV_SPEED_DIAL_DIRECTIONS      = [ 'up', 'down', 'left', 'right' ];
 const KOTLINSKIDEV_SPEED_DIAL_DEVICES         = [ 'desktop', 'tablet', 'mobile' ];
+const KOTLINSKIDEV_SPEED_DIAL_UNFILTERED_BLOCKS = [ 'core/html', 'wpcode/snippet' ];
+const KOTLINSKIDEV_SPEED_DIAL_FORBIDDEN_TAGS    = [ 'script', 'iframe', 'form', 'object', 'embed' ];
+const KOTLINSKIDEV_SPEED_DIAL_PROTOCOLS         = [ 'http', 'https', 'mailto', 'tel' ];
 
 function kotlinskidev_speed_dial_tel_href( string $number ): string {
     $normalized = preg_replace( '/[^0-9+]/', '', $number ) ?? '';
@@ -83,9 +86,7 @@ function kotlinskidev_speed_dial_is_valid_trigger_action( string $action ): bool
 }
 
 function kotlinskidev_speed_dial_a11y_detected(): bool {
-    return defined( 'KOTLINSKIDEV_A11Y_API' )
-        || function_exists( 'kotlinskidev_a11y_api_version' )
-        || function_exists( 'kotlinskidev_a11y_get_button' );
+    return defined( 'KOTLINSKIDEV_A11Y_API' );
 }
 
 function kotlinskidev_speed_dial_a11y_available(): bool {
@@ -104,13 +105,51 @@ function kotlinskidev_speed_dial_custom_allowed_blocks(): array {
     return is_array( $filtered ) ? array_values( array_filter( $filtered, 'is_string' ) ) : $blocks;
 }
 
+function kotlinskidev_speed_dial_strip_unsafe_html_rules( array $allowed ): array {
+    $safe = [];
+
+    foreach ( $allowed as $tag => $attributes ) {
+        if ( ! is_string( $tag ) || in_array( strtolower( $tag ), KOTLINSKIDEV_SPEED_DIAL_FORBIDDEN_TAGS, true ) ) {
+            continue;
+        }
+
+        $safe[ $tag ] = [];
+
+        foreach ( is_array( $attributes ) ? $attributes : [] as $name => $rule ) {
+            if ( is_string( $name ) && ! str_starts_with( strtolower( $name ), 'on' ) ) {
+                $safe[ $tag ][ $name ] = $rule;
+            }
+        }
+    }
+
+    return $safe;
+}
+
 function kotlinskidev_speed_dial_custom_allowed_html(): array {
     $allowed = wp_kses_allowed_html( 'post' );
     $allowed = is_array( $allowed ) ? $allowed : [];
 
     $filtered = apply_filters( 'kotlinskidev_speed_dial_custom_allowed_html', $allowed );
 
-    return is_array( $filtered ) ? $filtered : $allowed;
+    return kotlinskidev_speed_dial_strip_unsafe_html_rules( is_array( $filtered ) ? $filtered : $allowed );
+}
+
+function kotlinskidev_speed_dial_sanitize_custom_html( string $html ): string {
+    return wp_kses( $html, kotlinskidev_speed_dial_custom_allowed_html(), KOTLINSKIDEV_SPEED_DIAL_PROTOCOLS );
+}
+
+function kotlinskidev_speed_dial_context_can_unfiltered_html( int $post_id ): bool {
+    $post = $post_id > 0 ? get_post( $post_id ) : null;
+
+    if ( is_object( $post ) && isset( $post->post_author ) ) {
+        return user_can( (int) $post->post_author, 'unfiltered_html' );
+    }
+
+    return current_user_can( 'unfiltered_html' );
+}
+
+function kotlinskidev_speed_dial_block_permitted( string $block_name, int $post_id ): bool {
+    return ! in_array( $block_name, KOTLINSKIDEV_SPEED_DIAL_UNFILTERED_BLOCKS, true ) || kotlinskidev_speed_dial_context_can_unfiltered_html( $post_id );
 }
 
 function kotlinskidev_speed_dial_icons(): array {
