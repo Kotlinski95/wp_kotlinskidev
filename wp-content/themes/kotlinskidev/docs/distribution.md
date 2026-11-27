@@ -1,5 +1,7 @@
 # Distributing the theme to client sites
 
+The update mechanism described as Option A below is implemented. See `docs/theme-updates.md` for the current state.
+
 This document covers a concern separate from `docs/build.md` (which is about the
 Webpack output layout for **this** repo's own build). Here the question is: once the
 theme is installed on client sites (each their own WordPress install, not this repo),

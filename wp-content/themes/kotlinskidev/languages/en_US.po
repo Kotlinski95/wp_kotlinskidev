@@ -7859,3 +7859,28 @@ msgstr "Thank you! Your message has been sent."
 #: functions/contact-form/default-labels.php
 msgid "Sorry, there was an error. Please try again."
 msgstr "Sorry, there was an error. Please try again."
+
+#: functions/theme-updater.php
+msgid "The theme release is not served from the trusted GitHub release location, so it was not installed."
+msgstr "The theme release is not served from the trusted GitHub release location, so it was not installed."
+
+#: functions/theme-updater.php
+msgid "This theme release has no SHA-256 checksum file, so it cannot be installed safely."
+msgstr "This theme release has no SHA-256 checksum file, so it cannot be installed safely."
+
+#: functions/theme-updater.php
+msgid "The downloaded theme package does not match its SHA-256 checksum and was discarded."
+msgstr "The downloaded theme package does not match its SHA-256 checksum and was discarded."
+
+#: functions/theme-updater.php
+msgid "The theme package must contain a single \"kotlinskidev\" folder, so the update was cancelled."
+msgstr "The theme package must contain a single \"kotlinskidev\" folder, so the update was cancelled."
+
+#: functions/theme-updater.php
+#, php-format
+msgid "The theme package is missing %s, so the update was cancelled."
+msgstr "The theme package is missing %s, so the update was cancelled."
+
+#: functions/theme-updater.php
+msgid "The theme package version does not match the release it was published under, so the update was cancelled."
+msgstr "The theme package version does not match the release it was published under, so the update was cancelled."

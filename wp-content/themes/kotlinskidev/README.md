@@ -159,6 +159,12 @@ The theme uses [Polylang](https://polylang.pro/) for PL/EN support. Language-spe
 
 ---
 
+## Installing and updating on client sites
+
+Download `kotlinskidev.zip` from the latest [GitHub release](https://github.com/Kotlinski95/wp_kotlinskidev/releases) and upload it under Appearance > Themes > Add New. After that, new releases appear as a normal theme update. Set `KOTLINSKIDEV_THEME_UPDATES_DISABLED` to `true` on a site that deploys another way. Details, channels and the release flow are in `docs/theme-updates.md`; `npm run package` builds the zip locally into `dist/`.
+
+---
+
 ## Architecture Notes
 
 - **PHP modules** follow a single-responsibility pattern. `functions/cache.php` must be the first module loaded — it provides transient helpers used by all subsequent modules.

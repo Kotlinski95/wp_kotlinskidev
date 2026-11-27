@@ -233,6 +233,8 @@ jobs:
     timeout-minutes: 5
     permissions:
       contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
     env:
       THEME_DIR: wp-content/themes/kotlinskidev
     steps:
@@ -242,10 +244,12 @@ jobs:
           token: ${{ github.token }}
 
       - name: Tag release
+        id: tag
         run: |
           version=$(sed -n 's/^Version:[[:space:]]*//p' "$THEME_DIR/style.css" | head -n1 | tr -d '[:space:]')
           [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+([-+][0-9A-Za-z.-]+)?$ ]] || exit 1
           tag="v$version"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
           if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
             echo "Tag $tag already exists." >> "$GITHUB_STEP_SUMMARY"
           else
@@ -253,3 +257,86 @@ jobs:
             git push origin "refs/tags/$tag"
             echo "Created tag $tag." >> "$GITHUB_STEP_SUMMARY"
           fi
+
+  publish-release:
+    name: Publish GitHub release
+    runs-on: ubuntu-latest
+    needs: tag-release
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    env:
+      THEME_DIR: wp-content/themes/kotlinskidev
+      TAG: ${{ needs.tag-release.outputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Skip when the release already exists
+        id: existing
+        run: |
+          if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release $TAG already exists, nothing to publish." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node
+        if: steps.existing.outputs.exists != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: wp-content/themes/kotlinskidev/.nvmrc
+          cache: npm
+          cache-dependency-path: wp-content/themes/kotlinskidev/package-lock.json
+
+      - name: Setup PHP
+        if: steps.existing.outputs.exists != 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        if: steps.existing.outputs.exists != 'true'
+        working-directory: ${{ env.THEME_DIR }}
+        run: npm ci
+
+      - name: Build release package
+        if: steps.existing.outputs.exists != 'true'
+        working-directory: ${{ env.THEME_DIR }}
+        run: node bin/package-zip.js --tag "$TAG"
+
+      - name: Generate release notes
+        if: steps.existing.outputs.exists != 'true'
+        working-directory: ${{ env.THEME_DIR }}
+        run: node bin/release-notes.js "$TAG" > dist/release-notes.md
+
+      - name: Create GitHub release
+        if: steps.existing.outputs.exists != 'true'
+        working-directory: ${{ env.THEME_DIR }}
+        run: |
+          prerelease=()
+          if [[ "$TAG" == *-* ]]; then
+            prerelease=(--prerelease)
+          fi
+          gh release create "$TAG" \
+            --repo "${{ github.repository }}" \
+            --verify-tag \
+            --title "$TAG" \
+            --notes-file dist/release-notes.md \
+            "${prerelease[@]}" \
+            dist/kotlinskidev.zip dist/kotlinskidev.zip.sha256
+
+      - name: Verify release assets
+        if: steps.existing.outputs.exists != 'true'
+        run: |
+          assets=$(gh release view "$TAG" --repo "${{ github.repository }}" --json assets --jq '.assets[].name')
+          for required in kotlinskidev.zip kotlinskidev.zip.sha256; do
+            grep -qx "$required" <<< "$assets" || { echo "Missing release asset $required" >&2; exit 1; }
+          done
