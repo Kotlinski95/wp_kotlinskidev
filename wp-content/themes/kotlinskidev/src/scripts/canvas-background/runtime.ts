@@ -1,3 +1,7 @@
+import {
+  isAccessibilityMotionStopped,
+  onAccessibilityMotionChange,
+} from "@utils/accessibility-motion";
 import type { CanvasRecipe } from "./types";
 import type { Instance } from "./instance";
 import { applySize, drawInstance } from "./instance-render";
@@ -5,6 +9,7 @@ import { applySize, drawInstance } from "./instance-render";
 const instances = new Map<HTMLElement, Instance>();
 let rafId: number | null = null;
 let domObserver: MutationObserver | null = null;
+let motionListenerBound = false;
 
 const tick = (time: number): void => {
   rafId = null;
@@ -18,15 +23,42 @@ const tick = (time: number): void => {
     drawInstance(instance, time);
   });
 
-  if (anyActive) {
+  if (anyActive && !isAccessibilityMotionStopped()) {
     rafId = requestAnimationFrame(tick);
   }
 };
 
 const ensureLoopRunning = (): void => {
-  if (rafId === null) {
+  if (rafId === null && !isAccessibilityMotionStopped()) {
     rafId = requestAnimationFrame(tick);
   }
+};
+
+const stopLoop = (): void => {
+  if (rafId !== null) {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+};
+
+const handleMotionChange = (stopped: boolean): void => {
+  if (stopped) {
+    stopLoop();
+    instances.forEach((instance) => drawInstance(instance, performance.now()));
+    return;
+  }
+  const anyActive = Array.from(instances.values()).some((instance) => instance.active);
+  if (anyActive) {
+    ensureLoopRunning();
+  }
+};
+
+const ensureMotionListener = (): void => {
+  if (motionListenerBound) {
+    return;
+  }
+  motionListenerBound = true;
+  onAccessibilityMotionChange(handleMotionChange);
 };
 
 const cleanupDetachedInstances = (): void => {
@@ -132,6 +164,7 @@ export const mount = (host: HTMLElement, recipe: CanvasRecipe, reducedMotion: bo
 
   ensureDomObserver();
   ensureColorSchemeObserver();
+  ensureMotionListener();
 
   if (!reducedMotion) {
     instance.active = true;

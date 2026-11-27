@@ -33,6 +33,8 @@ if ( ! isset( $attributes['avoidMobileNav'] ) || (bool) $attributes['avoidMobile
 }
 
 $style_declarations = [ '--kt-speed-dial-z:' . kotlinskidev_speed_dial_z_index( $attributes['zIndex'] ?? null ) ];
+$style_declarations[] = '--kt-speed-dial-toggle-size:' . kotlinskidev_speed_dial_size_css( $attributes['toggleSize'] ?? null, KOTLINSKIDEV_SPEED_DIAL_DEFAULT_TOGGLE_SIZE );
+$style_declarations[] = '--kt-speed-dial-item-size:' . kotlinskidev_speed_dial_size_css( $attributes['itemSize'] ?? null, KOTLINSKIDEV_SPEED_DIAL_DEFAULT_ITEM_SIZE );
 $device_prefixes    = [ 'desktop' => 'd', 'tablet' => 't', 'mobile' => 'm' ];
 foreach ( $device_prefixes as $device => $prefix ) {
     $device_offset        = is_array( $offset[ $device ] ?? null ) ? $offset[ $device ] : [];

@@ -2,7 +2,10 @@ import { easeInOutCubic, stepProgress } from "./easing";
 import { readPalette, resolvePresetColor } from "./palette";
 import type { FeatureCanvasVariant } from "./types";
 import type { CanvasInstance } from "./canvas-instance";
-import { ACCESSIBILITY_MOTION_EVENT, ACCESSIBILITY_STOP_CLASS } from "./accessibility-constants";
+import {
+  isAccessibilityMotionStopped,
+  onAccessibilityMotionChange,
+} from "@utils/accessibility-motion";
 
 const VARIANT_DURATION_MS: Partial<Record<FeatureCanvasVariant, number>> = {
   "speed-gauge": 1800,
@@ -47,11 +50,11 @@ let lastTimestamp = 0;
 let classObserver: MutationObserver | null = null;
 let visibilityBound = false;
 let motionQuery: MediaQueryList | null = null;
+let stopMotionListener: (() => void) | null = null;
 let paletteRefreshFrame: number | null = null;
 
 const prefersReducedMotion = (): boolean =>
-  window.matchMedia(REDUCED_MOTION_QUERY).matches ||
-  document.documentElement.classList.contains(ACCESSIBILITY_STOP_CLASS);
+  window.matchMedia(REDUCED_MOTION_QUERY).matches || isAccessibilityMotionStopped();
 
 const needsLoop = (instance: CanvasInstance): boolean =>
   instance.visible && (instance.progress > 0 || instance.target > 0);
@@ -202,7 +205,7 @@ const bindGlobals = (): void => {
   if (!motionQuery) {
     motionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
     motionQuery.addEventListener("change", onMotionPreferenceChange);
-    window.addEventListener(ACCESSIBILITY_MOTION_EVENT, onMotionPreferenceChange);
+    stopMotionListener = onAccessibilityMotionChange(onMotionPreferenceChange);
   }
   if (!classObserver) {
     observeThemeClassChanges();
@@ -214,7 +217,8 @@ const unbindGlobals = (): void => {
   document.removeEventListener("visibilitychange", onVisibilityChange);
   visibilityBound = false;
   motionQuery?.removeEventListener("change", onMotionPreferenceChange);
-  window.removeEventListener(ACCESSIBILITY_MOTION_EVENT, onMotionPreferenceChange);
+  stopMotionListener?.();
+  stopMotionListener = null;
   motionQuery = null;
   classObserver?.disconnect();
   classObserver = null;

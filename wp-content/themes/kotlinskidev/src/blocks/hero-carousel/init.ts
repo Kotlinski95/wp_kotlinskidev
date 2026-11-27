@@ -9,6 +9,7 @@ import "swiper/css/effect-flip";
 import "swiper/css/effect-cards";
 import type { initSwiper as InitSwiper } from "@utils/carousel/initSwiper";
 import { loadEffectModules } from "@utils/carousel/effectModules";
+import { pauseAutoplayOnMotionStop } from "@utils/carousel/pauseOnMotionStop";
 import type { CarouselSettings } from "@utils/carousel/types";
 import { wireAutoplayHoverPause } from "./autoplay-hover-pause";
 import { whenInteractedOrIdle, whenPageSettled, yieldToMain } from "./deferred-start";
@@ -74,6 +75,7 @@ const initHeroCarousel = async (
   const effectModules = await loadEffectModules(settings.transitionEffect);
   const swiper = mountSwiper({ el, initSwiper, settings, effectModules });
   pending.stop();
+  pauseAutoplayOnMotionStop(swiper);
 
   wireSlideVideoLifecycle(swiper);
   replayNavigation(swiper, pending.actions);

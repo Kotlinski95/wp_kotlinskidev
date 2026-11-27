@@ -20,7 +20,10 @@ import { NavIconPicker } from "../shared/nav-icon-picker";
 import { ColorSettings } from "./color-settings";
 import { IconSelect } from "./icon-select";
 import {
+  MAX_SIZE,
   MAX_Z_INDEX,
+  MIN_SIZE,
+  SIZE_STEP,
   SPEED_DIAL_ITEM_BLOCK,
   type Corner,
   type Device,
@@ -211,6 +214,34 @@ export default function Edit({ attributes, setAttributes, clientId }: Readonly<E
             min={1}
             max={MAX_Z_INDEX}
             onChange={(value?: string) => setAttributes({ zIndex: clampZIndex(Number(value)) })}
+          />
+        </PanelBody>
+        <PanelBody title={__("Size", "kotlinskidev")} initialOpen={false}>
+          <RangeControl
+            __nextHasNoMarginBottom
+            label={__("Toggle button size (rem)", "kotlinskidev")}
+            help={__(
+              "2.5rem matches the cookie banner. Below 2.75rem an invisible padded area keeps a 44px touch target.",
+              "kotlinskidev"
+            )}
+            value={attributes.toggleSize}
+            min={MIN_SIZE}
+            max={MAX_SIZE}
+            step={SIZE_STEP}
+            onChange={(value?: number) => setAttributes({ toggleSize: value ?? 3.5 })}
+          />
+          <RangeControl
+            __nextHasNoMarginBottom
+            label={__("Item button size (rem)", "kotlinskidev")}
+            help={__(
+              "2.5rem matches the cookie banner. Below 2.75rem an invisible padded area keeps a 44px touch target.",
+              "kotlinskidev"
+            )}
+            value={attributes.itemSize}
+            min={MIN_SIZE}
+            max={MAX_SIZE}
+            step={SIZE_STEP}
+            onChange={(value?: number) => setAttributes({ itemSize: value ?? 3 })}
           />
         </PanelBody>
         <PanelBody title={__("Toggle button", "kotlinskidev")} initialOpen={false}>

@@ -43,6 +43,8 @@
     "zIndex": { "type": "integer", "default": 999 },
     "closeOnAction": { "type": "boolean", "default": true },
     "avoidMobileNav": { "type": "boolean", "default": true },
+    "toggleSize": { "type": "number", "default": 3.5 },
+    "itemSize": { "type": "number", "default": 3 },
     "toggleIcon": { "type": "string", "default": "plus" },
     "toggleIconId": { "type": "integer", "default": 0 },
     "toggleIconUrl": { "type": "string", "default": "" },

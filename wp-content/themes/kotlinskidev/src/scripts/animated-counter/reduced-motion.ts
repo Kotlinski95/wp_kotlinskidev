@@ -1,3 +1,4 @@
+import { isAccessibilityMotionStopped } from "@utils/accessibility-motion";
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 let cachedReducedMotion: boolean | null = null;
@@ -11,8 +12,8 @@ export const getCachedReducedMotionPreference = (): boolean => {
       cachedReducedMotion = e.matches;
     });
   }
-  return cachedReducedMotion;
+  return cachedReducedMotion || isAccessibilityMotionStopped();
 };
 
 export const readReducedMotionPreference = (): boolean =>
-  window.matchMedia(REDUCED_MOTION_QUERY).matches;
+  window.matchMedia(REDUCED_MOTION_QUERY).matches || isAccessibilityMotionStopped();

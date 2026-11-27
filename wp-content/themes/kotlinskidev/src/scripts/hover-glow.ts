@@ -1,3 +1,4 @@
+import { isAccessibilityMotionStopped } from "@utils/accessibility-motion";
 import { collectGlowTargets } from "./hover-glow/glow-target";
 import { trackPointerGlow } from "./hover-glow/pointer-tracking";
 
@@ -11,7 +12,8 @@ const initHoverGlow = (): void => {
   }
 
   const supportsHover = window.matchMedia(FINE_HOVER_QUERY).matches;
-  const prefersReducedMotion = window.matchMedia(REDUCED_MOTION_QUERY).matches;
+  const prefersReducedMotion =
+    window.matchMedia(REDUCED_MOTION_QUERY).matches || isAccessibilityMotionStopped();
   if (!supportsHover || prefersReducedMotion) {
     return;
   }

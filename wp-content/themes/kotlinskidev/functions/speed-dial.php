@@ -1,6 +1,10 @@
 <?php
 const KOTLINSKIDEV_SPEED_DIAL_DEFAULT_Z_INDEX = 999;
 const KOTLINSKIDEV_SPEED_DIAL_MAX_Z_INDEX     = 2147482999;
+const KOTLINSKIDEV_SPEED_DIAL_MIN_SIZE         = 2.0;
+const KOTLINSKIDEV_SPEED_DIAL_MAX_SIZE         = 5.0;
+const KOTLINSKIDEV_SPEED_DIAL_DEFAULT_TOGGLE_SIZE = 3.5;
+const KOTLINSKIDEV_SPEED_DIAL_DEFAULT_ITEM_SIZE   = 3.0;
 const KOTLINSKIDEV_SPEED_DIAL_ICON_PATH_REGEX = '/^[MmZzLlHhVvCcSsQqTtAa0-9eE.,+\s-]{1,1500}$/D';
 const KOTLINSKIDEV_SPEED_DIAL_TRIGGER_REGEX   = '/^[a-z][a-zA-Z0-9]*(?::[a-zA-Z0-9_-]+){0,2}$/D';
 const KOTLINSKIDEV_SPEED_DIAL_CORNERS         = [ 'bottom-right', 'bottom-left', 'top-right', 'top-left' ];
@@ -37,6 +41,18 @@ function kotlinskidev_speed_dial_offset( mixed $value ): float {
 
 function kotlinskidev_speed_dial_offset_css( mixed $value ): string {
     return rtrim( rtrim( number_format( kotlinskidev_speed_dial_offset( $value ), 3, '.', '' ), '0' ), '.' ) . 'rem';
+}
+
+function kotlinskidev_speed_dial_size( mixed $value, float $default ): float {
+    if ( ! is_int( $value ) && ! is_float( $value ) && ! ( is_string( $value ) && is_numeric( $value ) ) ) {
+        return $default;
+    }
+
+    return max( KOTLINSKIDEV_SPEED_DIAL_MIN_SIZE, min( KOTLINSKIDEV_SPEED_DIAL_MAX_SIZE, (float) $value ) );
+}
+
+function kotlinskidev_speed_dial_size_css( mixed $value, float $default ): string {
+    return rtrim( rtrim( number_format( kotlinskidev_speed_dial_size( $value, $default ), 3, '.', '' ), '0' ), '.' ) . 'rem';
 }
 
 function kotlinskidev_speed_dial_corner( mixed $value ): string {

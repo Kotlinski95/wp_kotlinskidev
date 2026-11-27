@@ -18,6 +18,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.7.0] — 2026-11-27
+
+### Added
+
+- The speed-dial block has a Size panel for the toggle and item buttons (2 to 5rem), so they can match the 2.5rem cookie banner button. Icons scale with the button and a 44px touch area is kept below 2.75rem.
+
+### Fixed
+
+- Canvas backgrounds, slider and hero carousel autoplay, cover videos, animated counters, hover glow and the 3D model viewer now honor the accessibility plugin's Stop animations setting and resume when it is turned off. All of them share one `isAccessibilityMotionStopped()` / `onAccessibilityMotionChange()` helper in `@utils/accessibility-motion`, which does nothing when the plugin is absent.
+- `npm run i18n:check` no longer scans `build/`, `coverage/` and other generated folders, so it passes locally with a build present. Four canvas layer blocks missing from the block directory plan are now registered, and its integration test checks the plan against `block.json` files instead of a fixed count.
+
 ## [2.6.1] — 2026-11-27
 
 ### Fixed

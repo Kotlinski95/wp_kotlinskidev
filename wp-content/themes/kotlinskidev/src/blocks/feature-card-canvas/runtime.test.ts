@@ -1,5 +1,5 @@
 import { mountFeatureCanvas } from "./runtime";
-import { ACCESSIBILITY_MOTION_EVENT, ACCESSIBILITY_STOP_CLASS } from "./accessibility-constants";
+import { ACCESSIBILITY_MOTION_EVENT, ACCESSIBILITY_STOP_CLASS } from "@utils/accessibility-motion";
 
 const mockDrawSpy = jest.fn();
 

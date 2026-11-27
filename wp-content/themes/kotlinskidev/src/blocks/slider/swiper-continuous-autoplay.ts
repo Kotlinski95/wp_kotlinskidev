@@ -1,4 +1,5 @@
 import type Swiper from "swiper";
+import { onAccessibilityMotionChange } from "@utils/accessibility-motion";
 import { onModalTriggerInside } from "@utils/modal-trigger-events";
 import { onScroll } from "../../scripts/utils";
 import { resyncActiveIndexOnAutoplayResume } from "./swiper-autoplay";
@@ -60,6 +61,14 @@ function wireModalPause({ container, state, evaluate }: ContinuousAutoplayContex
     state.reasons.focused = false;
     evaluate();
   });
+}
+
+function wireMotionStop({ swiper, state, evaluate }: ContinuousAutoplayContext): void {
+  const unsubscribe = onAccessibilityMotionChange((stopped) => {
+    state.reasons.motionStopped = stopped;
+    evaluate();
+  });
+  swiper.on("destroy", unsubscribe);
 }
 
 function wireScrollResume({ state, evaluate }: ContinuousAutoplayContext): void {
@@ -158,8 +167,16 @@ function wirePinnedTouchEnd({ swiper, state }: ContinuousAutoplayContext): void 
   });
 }
 
-function startAutoplayWithWatchdog({ swiper, pace, state }: ContinuousAutoplayContext): void {
+function startAutoplayWithWatchdog({
+  swiper,
+  pace,
+  state,
+  evaluate,
+}: ContinuousAutoplayContext): void {
   swiper.autoplay.start();
+  if (state.reasons.motionStopped) {
+    evaluate();
+  }
   swiper.on(
     "destroy",
     startStallWatchdog(swiper, pace, () => state.isPaused)
@@ -197,6 +214,7 @@ export function wireContinuousAutoplay(
 
   wireHoverAndFocus(context);
   wireModalPause(context);
+  wireMotionStop(context);
   wireScrollResume(context);
   wirePointerPress(context);
   wirePinnedTouchEnd(context);

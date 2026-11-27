@@ -70,7 +70,16 @@ function makeHost(): HTMLElement {
   return host;
 }
 
+const MOTION_EVENT = "kotlinskidev-a11y:motion";
+const STOP_CLASS = "ka11y-stop-animations";
+
+function setMotionStopped(stopped: boolean) {
+  document.documentElement.classList.toggle(STOP_CLASS, stopped);
+  window.dispatchEvent(new CustomEvent(MOTION_EVENT, { detail: { stopped } }));
+}
+
 afterEach(() => {
+  document.documentElement.classList.remove(STOP_CLASS);
   document.body.innerHTML = "";
   jest.restoreAllMocks();
 });
@@ -186,6 +195,72 @@ it("stops the loop once every instance has been paused", () => {
   runtime.setActive(hostB, false);
 
   runPendingFrame();
+
+  expect(rafCallback).toBeNull();
+});
+
+it("does not start the loop when mounted while Stop animations is on", () => {
+  document.documentElement.classList.add(STOP_CLASS);
+  const runtime = loadRuntime();
+  const host = makeHost();
+
+  runtime.mount(host, { layers: [] }, false);
+
+  expect(rafSpy).not.toHaveBeenCalled();
+  const ctx = host.querySelector("canvas")?.getContext("2d") as unknown as {
+    clearRect: jest.Mock;
+  };
+  expect(ctx.clearRect).toHaveBeenCalled();
+});
+
+it("cancels the loop and draws a static frame when Stop animations turns on", () => {
+  const cancelSpy = jest.spyOn(window, "cancelAnimationFrame").mockImplementation(() => undefined);
+  const runtime = loadRuntime();
+  const host = makeHost();
+  runtime.mount(host, { layers: [] }, false);
+  const ctx = host.querySelector("canvas")?.getContext("2d") as unknown as {
+    clearRect: jest.Mock;
+  };
+  ctx.clearRect.mockClear();
+
+  setMotionStopped(true);
+
+  expect(cancelSpy).toHaveBeenCalled();
+  expect(ctx.clearRect).toHaveBeenCalledTimes(1);
+});
+
+it("does not reschedule a frame that was already in flight while stopped", () => {
+  const runtime = loadRuntime();
+  const host = makeHost();
+  runtime.mount(host, { layers: [] }, false);
+
+  document.documentElement.classList.add(STOP_CLASS);
+  runPendingFrame();
+
+  expect(rafCallback).toBeNull();
+});
+
+it("resumes the loop when Stop animations turns off", () => {
+  const runtime = loadRuntime();
+  const host = makeHost();
+  runtime.mount(host, { layers: [] }, false);
+  setMotionStopped(true);
+  rafCallback = null;
+
+  setMotionStopped(false);
+
+  expect(rafCallback).not.toBeNull();
+});
+
+it("does not resume the loop for an instance that is offscreen", () => {
+  const runtime = loadRuntime();
+  const host = makeHost();
+  runtime.mount(host, { layers: [] }, false);
+  runtime.setActive(host, false);
+  setMotionStopped(true);
+  rafCallback = null;
+
+  setMotionStopped(false);
 
   expect(rafCallback).toBeNull();
 });
