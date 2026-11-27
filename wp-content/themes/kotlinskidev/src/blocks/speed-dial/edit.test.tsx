@@ -66,6 +66,8 @@ function baseAttributes(): SpeedDialAttributes {
     zIndex: 999,
     closeOnAction: true,
     avoidMobileNav: true,
+    toggleSize: 3.5,
+    itemSize: 3,
     toggleIcon: "plus",
     toggleIconId: 0,
     toggleIconUrl: "",
@@ -142,6 +144,20 @@ describe("speed-dial Edit", () => {
     await user.tab();
 
     expect(setAttributes).toHaveBeenLastCalledWith({ zIndex: 2147482999 });
+  });
+
+  it("writes the toggle and item sizes", async () => {
+    const user = userEvent.setup();
+    const { setAttributes } = setup();
+    await user.click(screen.getByRole("button", { name: "Size" }));
+
+    const [toggleInput] = screen.getAllByRole("spinbutton", { name: "Toggle button size (rem)" });
+    await user.clear(toggleInput);
+    await user.type(toggleInput, "2.5");
+    await user.tab();
+
+    expect(setAttributes).toHaveBeenLastCalledWith({ toggleSize: 2.5 });
+    expect(screen.getAllByRole("slider", { name: "Item button size (rem)" })).toHaveLength(1);
   });
 
   it("writes colour changes to the matching attribute", async () => {

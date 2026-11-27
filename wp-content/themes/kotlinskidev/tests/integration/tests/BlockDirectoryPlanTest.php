@@ -2,15 +2,37 @@
 
 uses(Tests\Integration\TestCase::class);
 
-it('points every planned block directory at a block.json', function () {
-    $flattened = [];
+it('plans each block directory once and backs it with a block.json', function () {
+    $planned = [];
     foreach (kotlinskidev_block_directory_plan() as $entry) {
-        array_push($flattened, ...(is_string($entry) ? [$entry] : $entry['blocks']));
+        array_push($planned, ...(is_string($entry) ? [$entry] : $entry['blocks']));
     }
 
-    expect($flattened)->toHaveCount(80);
-    foreach ($flattened as $directory) {
+    expect($planned)->toBe(array_values(array_unique($planned)));
+    foreach ($planned as $directory) {
         expect(file_exists(get_template_directory() . '/src/blocks/' . $directory . '/block.json'))->toBeTrue($directory);
+    }
+});
+
+it('registers every shipped block.json that is not planned through another module', function () {
+    $planned = [];
+    foreach (kotlinskidev_block_directory_plan() as $entry) {
+        array_push($planned, ...(is_string($entry) ? [$entry] : $entry['blocks']));
+    }
+
+    $root     = get_template_directory() . '/src/blocks/';
+    $registry = WP_Block_Type_Registry::get_instance();
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS));
+    foreach ($iterator as $file) {
+        if ($file->getFilename() !== 'block.json') {
+            continue;
+        }
+        $directory = str_replace('\\', '/', substr($file->getPath(), strlen($root)));
+        if (in_array($directory, $planned, true)) {
+            continue;
+        }
+        $name = json_decode(file_get_contents($file->getPathname()), true)['name'];
+        expect($registry->is_registered($name))->toBeTrue($directory);
     }
 });
 

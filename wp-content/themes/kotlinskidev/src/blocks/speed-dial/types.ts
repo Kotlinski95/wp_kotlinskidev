@@ -1,3 +1,7 @@
+export const MIN_SIZE = 2;
+export const MAX_SIZE = 5;
+export const SIZE_STEP = 0.125;
+
 export type Corner = "bottom-right" | "bottom-left" | "top-right" | "top-left";
 export type Device = "desktop" | "tablet" | "mobile";
 export type SpeedDialAction = "phone" | "email" | "accessibility" | "url" | "trigger" | "custom";
@@ -15,6 +19,8 @@ export interface SpeedDialAttributes {
   zIndex: number;
   closeOnAction: boolean;
   avoidMobileNav: boolean;
+  toggleSize: number;
+  itemSize: number;
   toggleIcon: string;
   toggleIconId: number;
   toggleIconUrl: string;

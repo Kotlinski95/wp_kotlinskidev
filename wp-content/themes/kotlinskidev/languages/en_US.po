@@ -7685,6 +7685,22 @@ msgid "Z-index"
 msgstr "Z-index"
 
 #: src/blocks/speed-dial
+msgid "Size"
+msgstr "Size"
+
+#: src/blocks/speed-dial
+msgid "Toggle button size (rem)"
+msgstr "Toggle button size (rem)"
+
+#: src/blocks/speed-dial
+msgid "Item button size (rem)"
+msgstr "Item button size (rem)"
+
+#: src/blocks/speed-dial
+msgid "2.5rem matches the cookie banner. Below 2.75rem an invisible padded area keeps a 44px touch target."
+msgstr "2.5rem matches the cookie banner. Below 2.75rem an invisible padded area keeps a 44px touch target."
+
+#: src/blocks/speed-dial
 msgid "Toggle button"
 msgstr "Toggle button"
 

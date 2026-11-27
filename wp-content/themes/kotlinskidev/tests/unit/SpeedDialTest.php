@@ -43,6 +43,18 @@ it('clamps the z-index and falls back for non-integers', function () {
     expect(kotlinskidev_speed_dial_z_index(null))->toBe(999);
 });
 
+it('clamps the button sizes to 2..5rem and falls back to the default', function () {
+    expect(kotlinskidev_speed_dial_size(1, 3.5))->toBe(2.0);
+    expect(kotlinskidev_speed_dial_size(9, 3.5))->toBe(5.0);
+    expect(kotlinskidev_speed_dial_size(2.5, 3.5))->toBe(2.5);
+    expect(kotlinskidev_speed_dial_size('2.75', 3.5))->toBe(2.75);
+    expect(kotlinskidev_speed_dial_size('big', 3.5))->toBe(3.5);
+    expect(kotlinskidev_speed_dial_size(null, 3.0))->toBe(3.0);
+    expect(kotlinskidev_speed_dial_size_css(2.5, 3.5))->toBe('2.5rem');
+    expect(kotlinskidev_speed_dial_size_css(null, 3.5))->toBe('3.5rem');
+    expect(kotlinskidev_speed_dial_size_css(100, 3.5))->toBe('5rem');
+});
+
 it('clamps offsets to 0..10 and stays unit safe', function () {
     expect(kotlinskidev_speed_dial_offset(-3))->toBe(0.0);
     expect(kotlinskidev_speed_dial_offset(25))->toBe(10.0);

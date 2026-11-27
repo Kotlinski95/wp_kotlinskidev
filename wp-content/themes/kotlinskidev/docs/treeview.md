@@ -538,8 +538,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── faq-layout/                         # extension: Advanced-tab "FAQ columns behavior" (default grid / independent columns + count) for core/group wrapping core/details
 │   │   ├── feature-card-canvas/                # nextjs.org-style animated canvas illustration for feature cards (browser-stream, node-tree, dot-image-stack, chart-growth) — palette-driven via CSS variables, eased hover/focus progress on the parent .kt-feature-card, IO-gated lazy runtime chunk, reduced-motion aware
-│   │   │   ├── accessibility-constants.ts      # ACCESSIBILITY_MOTION_EVENT/ACCESSIBILITY_STOP_CLASS — the accessibility plugin's motion event and html class, shared by animation-loop.ts and its test
-│   │   │   ├── animation-loop.ts               # shared requestAnimationFrame loop, draw step and reduced-motion handling for every mounted canvas
+│   │   │   ├── animation-loop.ts               # shared requestAnimationFrame loop, draw step and reduced-motion/Stop-animations handling for every mounted canvas
 │   │   │   ├── canvas-instance.ts              # Instance type for one mounted canvas
 │   │   │   ├── input-binding.ts                # hover, focus and in-view input wiring that drives each canvas's target
 │   │   │   └── index.tsx
@@ -1292,6 +1291,10 @@ kotlinskidev/
 │   │   ├── carousel/loadSwiperStyles.ts         # loads swiper/css plus only the module/effect CSS a carousel uses
 │   │   ├── when-idle.ts                        # whenIdle(): runs a callback via requestIdleCallback after the load event (setTimeout fallback) for non-critical scripts
 │   │   ├── load-when-present.ts                # runs a dynamic import() loader once a selector matches, with one shared MutationObserver for elements inserted later (load-more, modals)
+│   │   ├── accessibility-motion.ts             # isAccessibilityMotionStopped()/onAccessibilityMotionChange() — reads the accessibility plugin's Stop animations signal (html.ka11y-stop-animations, window.kotlinskidevA11yMotion, kotlinskidev-a11y:motion event); no-op when the plugin is absent
+│   │   ├── accessibility-motion.test.ts
+│   │   ├── carousel/pauseOnMotionStop.ts       # pauseAutoplayOnMotionStop(swiper): stops Swiper autoplay while Stop animations is on and restarts it after
+│   │   ├── carousel/pauseOnMotionStop.test.ts
 │   │   ├── in-view-band.ts                     # readInViewBandConfig()/bandRootMargin()/observeCentreBand() — shared centre-band settings (window.kotlinskiTheme.inViewBand) and exclusive centre-most IntersectionObserver (sticky: holds the active element across empty bands, debounced 150 ms switch, clears on leaving the viewport via a second observer) used by in-view-hover.ts and feature-card-canvas
 │   │   ├── in-view-band.test.ts
 │   │   ├── responsive-media.ts                 # currentDevice() and applyResponsiveVideo(): picks the video source/poster for the viewport from data-kt-src-*/data-kt-poster-*

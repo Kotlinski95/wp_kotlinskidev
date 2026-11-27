@@ -1,3 +1,4 @@
+import { isAccessibilityMotionStopped } from "@utils/accessibility-motion";
 import * as THREE from "three";
 
 const SETTLE_BUFFER_MS = 150;
@@ -5,7 +6,7 @@ const DRAG_THRESHOLD_PX = 6;
 const MS_PER_SECOND = 1000;
 
 export const prefersReducedMotion = (): boolean =>
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches || isAccessibilityMotionStopped();
 
 export const resolveClip = (
   animations: THREE.AnimationClip[],

@@ -1,4 +1,5 @@
 import type Swiper from "swiper";
+import { isAccessibilityMotionStopped } from "@utils/accessibility-motion";
 import {
   advanceOrWrapToNearestSnap,
   animateCatchUpThenAdvance,
@@ -15,6 +16,7 @@ export interface PauseReasons {
   pressed: boolean;
   modalOpen: boolean;
   touchPinned: boolean;
+  motionStopped: boolean;
 }
 
 export interface ResumeMemory {
@@ -32,10 +34,19 @@ export interface ContinuousAutoplayState {
 }
 
 export const hasPauseReason = (reasons: PauseReasons): boolean =>
-  reasons.hovered || reasons.focused || reasons.pressed || reasons.modalOpen || reasons.touchPinned;
+  reasons.hovered ||
+  reasons.focused ||
+  reasons.pressed ||
+  reasons.modalOpen ||
+  reasons.touchPinned ||
+  reasons.motionStopped;
 
 export const hasNoGenuinePauseReasonLeft = (reasons: PauseReasons): boolean =>
-  !reasons.hovered && !reasons.pressed && !reasons.modalOpen && !reasons.touchPinned;
+  !reasons.hovered &&
+  !reasons.pressed &&
+  !reasons.modalOpen &&
+  !reasons.touchPinned &&
+  !reasons.motionStopped;
 
 export function createInitialState(): ContinuousAutoplayState {
   return {
@@ -45,6 +56,7 @@ export function createInitialState(): ContinuousAutoplayState {
       pressed: false,
       modalOpen: false,
       touchPinned: false,
+      motionStopped: isAccessibilityMotionStopped(),
     },
     resume: {
       midTransition: false,

@@ -5,6 +5,7 @@ import {
   wireClickPauseResume,
   wireProgressCircle,
 } from "./swiper-autoplay";
+import { pauseAutoplayOnMotionStop } from "@utils/carousel/pauseOnMotionStop";
 import { wireContinuousAutoplay } from "./swiper-continuous-autoplay";
 import { buildSwiperParameters, computeSpeed } from "./swiper-parameters";
 import {
@@ -37,6 +38,7 @@ function wireAutoplay(container: HTMLElement, swiper: Swiper, options: SliderOpt
     resyncActiveIndexOnAutoplayResume(swiper);
     wireClickPauseResume(container, swiper);
     wireProgressCircle(container, swiper);
+    pauseAutoplayOnMotionStop(swiper);
   }
 }
 

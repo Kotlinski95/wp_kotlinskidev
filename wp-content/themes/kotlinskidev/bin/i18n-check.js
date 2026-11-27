@@ -28,6 +28,19 @@ for (const bin of ["wp", "msgmerge", "msgfmt", "msgattrib"]) {
 
 const wpBin = execFileSync("which", ["wp"], { encoding: "utf8" }).trim();
 
+const excludedPaths = [
+  "build",
+  "storybook-static",
+  "coverage",
+  "artifacts",
+  ".lighthouseci",
+  "node_modules",
+  "vendor",
+  "tests",
+  "docs",
+  "audit",
+].join(",");
+
 let overallFail = false;
 
 function extractMsgids(poText, prefix) {
@@ -53,6 +66,7 @@ function checkCatalog(name, sourceDir, domain, languagesDir) {
         tmpPot,
         `--domain=${domain}`,
         `--path=${wpRoot}`,
+        `--exclude=${excludedPaths}`,
         "--quiet",
       ],
       { stdio: ["ignore", "ignore", "pipe"] }
