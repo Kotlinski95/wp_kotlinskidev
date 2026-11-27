@@ -132,8 +132,24 @@ it('lets the filter override accessibility availability', function () {
     expect(kotlinskidev_speed_dial_a11y_available())->toBeTrue();
 });
 
-it('defaults accessibility availability to the plugin function check', function () {
-    expect(kotlinskidev_speed_dial_a11y_available())->toBe(function_exists('kotlinskidev_a11y_get_button'));
+it('defaults accessibility availability to the plugin probe', function () {
+    expect(kotlinskidev_speed_dial_a11y_available())->toBe(kotlinskidev_speed_dial_a11y_detected());
+});
+
+it('reports the plugin unavailable when no probe symbol exists', function () {
+    if (defined('KOTLINSKIDEV_A11Y_API') || function_exists('kotlinskidev_a11y_api_version') || function_exists('kotlinskidev_a11y_get_button')) {
+        $this->markTestSkipped('probe symbol already defined');
+    }
+
+    expect(kotlinskidev_speed_dial_a11y_detected())->toBeFalse();
+});
+
+it('detects the plugin through the API constant', function () {
+    if (!defined('KOTLINSKIDEV_A11Y_API')) {
+        define('KOTLINSKIDEV_A11Y_API', 1);
+    }
+
+    expect(kotlinskidev_speed_dial_a11y_detected())->toBeTrue();
 });
 
 it('allows core html and shortcode custom blocks by default', function () {

@@ -1,2 +1,7 @@
 
 graphify-out/
+
+/artifacts/dom-baseline/
+/audit/results/lh-home.json
+/coverage/
+/.lighthouseci/

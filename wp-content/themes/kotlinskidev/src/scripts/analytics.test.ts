@@ -127,11 +127,10 @@ describe("analytics.ts", () => {
     expect(gtagMock).toHaveBeenCalledWith("event", "cookie_consent_click", {});
   });
 
-  it("fires accessibility_toggle_click for the Kotlinskidev Accessibility launcher", () => {
+  it("fires accessibility_toggle_click on the plugin ka11y:open event", () => {
     loadModule();
-    document.body.innerHTML = `<div id="ka11y-root"><button aria-label="Toggle Accessibility Toolbar"></button></div>`;
 
-    click(document.querySelector("button")!);
+    document.dispatchEvent(new CustomEvent("ka11y:open", { detail: { source: "panel" } }));
 
     expect(gtagMock).toHaveBeenCalledWith("event", "accessibility_toggle_click", {});
   });

@@ -50,7 +50,7 @@ kotlinskidev/
 │   ├── tracking-spec.md                        # GA4 event/parameter reference, what's deliberately left to Enhanced Measurement, and the GA4 admin (Conversions/Dimensions/Explorations/Audiences) config checklist
 │   └── treeview.md                             # this file — full annotated structure tree
 ├── bin/                                        # Node tooling scripts: check-version-sync.js, check-palette-consistency.js, i18n-check.js, write-build-id.js, setup-husky.js, push-page.mjs, release.js (npm run release — bumps version + rolls CHANGELOG [Unreleased], flags --major/--minor/--patch/--dry-run/--force) with bin/lib/release-lib.js (pure logic) and bin/lib/release-lib.test.js (Jest); check-asset-budget.js (npm run check-asset-budget, last step of npm run verify) checks build sizes against the raw-byte limits in bin/asset-budget.json; html-snapshot.mjs (npm run snapshot:capture / snapshot:compare) saves and diffs normalized rendered markup of the pages in bin/html-snapshot-urls.txt for the clean-code refactor
-├── functions/                                  # 108 PHP modules, require_once'd from functions.php (cache.php must load first)
+├── functions/                                  # 109 PHP modules, require_once'd from functions.php (cache.php must load first)
 │   ├── active-link-state.php                   # localizes the kt-link-current settings (enabled/blockClicks) onto wp-typescript as window.kotlinskidevActiveLinkState — actual link marking moved client-side to src/scripts/active-link-state.ts (was a render_block filter, ~104ms/page on a heavy homepage)
 │   ├── actions.php                             # misc template_redirect / wp_head / wp_footer actions
 │   ├── analytics-events.php                    # kotlinskidev_tracked_event_names() (single source of truth for the settings checkboxes below); localizes the saved kotlinskidev_enabled_analytics_events option onto wp-typescript as window.kotlinskiAnalyticsConfig.disabledEvents, which track-event.ts checks before any provider dispatch — a per-event kill switch across every platform at once, not per-platform (that stays in analytics-providers/routing.ts)
@@ -196,6 +196,7 @@ kotlinskidev/
 │   ├── site-values.php                         # kotlinskidev_site_values option rows (key/type/value; years_since, current_year, per-language static), sanitizer, per-request cached getter and a render_block filter replacing {token:key} (unknown keys left literal)
 │   ├── site-identity.php                       # minimal site logo/title setup
 │   ├── slider-modal-trigger.php                # opens a kt_modal when a wpe/slider slide (core/cover, .swiper-slide, modalId set) is clicked
+│   ├── accessibility-plugin.php                # kotlinskidev_a11y_default_selectors() — feeds the accessibility plugin's `kotlinskidev_a11y_default_selectors` filter with the theme's dark/light mode selectors; inert when the plugin is absent
 │   ├── speed-dial.php                          # kotlinskidev_speed_dial_* helpers: sanitised corner/offset/z-index/colour/tel values, layout classes, custom-item allow-lists, built-in icon SVGs from icons.json, editor data localisation
 │   ├── social-link-tooltip.php                 # adds .kt-tooltip + data-tooltip to core/social-link anchors, sourced from the screen-reader-only label
 │   ├── svg-gradient-defs.php                   # injects inline SVG gradient <defs> into wp_body_open
@@ -537,6 +538,7 @@ kotlinskidev/
 │   │   │   └── index.tsx
 │   │   ├── faq-layout/                         # extension: Advanced-tab "FAQ columns behavior" (default grid / independent columns + count) for core/group wrapping core/details
 │   │   ├── feature-card-canvas/                # nextjs.org-style animated canvas illustration for feature cards (browser-stream, node-tree, dot-image-stack, chart-growth) — palette-driven via CSS variables, eased hover/focus progress on the parent .kt-feature-card, IO-gated lazy runtime chunk, reduced-motion aware
+│   │   │   ├── accessibility-constants.ts      # ACCESSIBILITY_MOTION_EVENT/ACCESSIBILITY_STOP_CLASS — the accessibility plugin's motion event and html class, shared by animation-loop.ts and its test
 │   │   │   ├── animation-loop.ts               # shared requestAnimationFrame loop, draw step and reduced-motion handling for every mounted canvas
 │   │   │   ├── canvas-instance.ts              # Instance type for one mounted canvas
 │   │   │   ├── input-binding.ts                # hover, focus and in-view input wiring that drives each canvas's target
@@ -1371,7 +1373,7 @@ kotlinskidev/
 ├── tests/                                      # JS/PHP unit, PHP integration, and Playwright e2e — see docs/testing.md for the full layer breakdown
 │   ├── Pest.php                                # PHP unit bootstrap — stubs add_action/add_filter for Brain Monkey + a minimal WP_HTML_Tag_Processor (tests/TestCase.php extends this setup)
 │   ├── TestCase.php                            # base class for all PHP unit tests
-│   ├── Unit/                                   # 89 PHP unit test files (incl. SpeedDialTest.php for functions/speed-dial.php) (incl. ContactFormAttachmentsTest.php for functions/contact-form-attachments.php, MailFailureAlertsTest.php for functions/mail-failure-alerts.php, GoogleMapsRenderTest.php for the maps consent placeholder) (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
+│   ├── Unit/                                   # 90 PHP unit test files (incl. AccessibilityPluginTest.php for functions/accessibility-plugin.php, SpeedDialTest.php for functions/speed-dial.php) (incl. ContactFormAttachmentsTest.php for functions/contact-form-attachments.php, MailFailureAlertsTest.php for functions/mail-failure-alerts.php, GoogleMapsRenderTest.php for the maps consent placeholder) (Pest 5 + Brain Monkey), one per functions/*.php|includes/*.php module + selected src/blocks/**/render.php files
 │   ├── e2e/                                    # Playwright, run via `npm run test:e2e` (wp-scripts test-playwright) against the live LocalWP site, never wp-env
 │   │   ├── .env                                # WP_TEST_ADMIN_USER/PASSWORD for authenticated specs — gitignored
 │   │   ├── .env.example                        # documents the required .env keys, committed

@@ -76,7 +76,7 @@ vendor automatically for whichever events you routed to it.
 | `faq_expand` | gtag | `faq-accordion.ts` | `question` | A `core/details` FAQ accordion item opening (not on close). |
 | `scroll_to_top_click` | gtag | `scroll-to-top.ts` | `variant` (`fixed`/`bar`) | Click or Enter/Space on the scroll-to-top button, either variant. |
 | `cookie_consent_click` | gtag | `analytics.ts` (delegated click) | — | Click on Complianz's own `.cmplz-btn.cmplz-manage-consent` button (third-party plugin markup — brittle if Complianz changes that class). |
-| `accessibility_toggle_click` | gtag | `analytics.ts` (delegated click) | — | Click on the Kotlinskidev Accessibility plugin's `#ka11y-root` launcher (third-party plugin markup, same caveat as above). |
+| `accessibility_toggle_click` | gtag | `analytics.ts` (document `ka11y:open` listener) | — | The Kotlinskidev Accessibility plugin's documented `ka11y:open` event (panel opened, `detail: { source: 'panel' }`), from any trigger. |
 | `search_panel_open` | gtag | `search-panel.ts` | — | The `.kt-search-panel__modal` dropdown opening — before any query is typed/submitted. |
 | `modal_open` | gtag | `modal-manager.ts` | `modal_id` | Any generic `kt-modal` opening (marquee items, anything else using `[data-kt-modal-target]`) — separate from `lightbox_open`, which is the gallery/image lightbox specifically. |
 | `load_more_click` | gtag | `load-more.ts` | `items_revealed` | Click on a `.kt-load-more__button`. |

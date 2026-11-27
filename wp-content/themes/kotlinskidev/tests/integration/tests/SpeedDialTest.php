@@ -241,3 +241,10 @@ it('registers speed dial labels through the translated-text collector', function
     ]);
     expect(kotlinskidev_translated_text_file_has_markers('<!-- wp:kotlinskidev/speed-dial /-->'))->toBeTrue();
 });
+
+it('registers the accessibility default selectors filter with the theme mode classes', function () {
+    $selectors = apply_filters( 'kotlinskidev_a11y_default_selectors', [] );
+
+    expect($selectors['darkSelector'])->toBe('html.dark-mode, body.dark-mode');
+    expect($selectors['lightSelector'])->toBe('html.light-mode, body.light-mode');
+});

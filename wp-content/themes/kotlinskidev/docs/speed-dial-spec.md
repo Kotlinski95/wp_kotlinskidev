@@ -2,6 +2,8 @@
 
 Status: draft for owner review. Once approved, this file is the source of truth for T30. It replaces "Phase 4b" in the accessibility plugin's `docs/ROADMAP.md` wherever the two differ.
 
+The accessibility plugin's `docs/API.md` (repository `kotlinskidev-accessibility`) is the contract source for everything the theme uses from the plugin: the probe (`KOTLINSKIDEV_A11Y_API`, `kotlinskidev_a11y_api_version()`), `window.kotlinskidevA11y`, the `ka11y:*` events, `data-ka11y` actions and the `kotlinskidev_a11y_default_selectors` filter. If this spec and `API.md` differ, `API.md` wins.
+
 Branch: `feature/T30-speed-dial`, created from `master`. PR title: `feat(T30): speed-dial block`.
 
 Rules for every milestone:
@@ -246,7 +248,7 @@ Rules:
 | `trigger` | `button data-ka11y="<action>"` | plugin available and the action matches `^[a-z][a-zA-Z0-9]*(?::[a-zA-Z0-9_-]+){0,2}$` | `esc_attr()` |
 | `custom` | `li` wrapping `$content` | `'' !== trim( $content )` | none added. `core/html` is already gated by `unfiltered_html` at save. The shortcode output is the plugin's responsibility. |
 
-`kotlinskidev_speed_dial_a11y_available()` returns `apply_filters( 'kotlinskidev_speed_dial_a11y_available', function_exists( 'kotlinskidev_a11y_get_button' ) )`. `kotlinskidev_a11y_get_button` is the plugin's public PHP function. Accessibility and trigger items also carry `data-kt-speed-dial-requires-a11y`, so the client can hide them when the plugin is active but did not render on this request (`kotlinskidev_a11y_should_render`). In that case `#ka11y-root` is missing.
+`kotlinskidev_speed_dial_a11y_available()` returns `apply_filters( 'kotlinskidev_speed_dial_a11y_available', kotlinskidev_speed_dial_a11y_detected() )`, where the probe is `defined( 'KOTLINSKIDEV_A11Y_API' ) || function_exists( 'kotlinskidev_a11y_api_version' )`, with `kotlinskidev_a11y_get_button` kept as a fallback for older plugin versions. Accessibility and trigger items also carry `data-kt-speed-dial-requires-a11y`, so the client can hide them when the plugin is active but did not render on this request (`kotlinskidev_a11y_should_render`). In that case `#ka11y-root` is missing.
 
 Icons: if `iconId` is set, `kotlinskidev_inline_nav_icon( $icon_id )` (Media Library SVG, `currentColor`, sanitised and cached). Otherwise the built-in `icon`, or the action default from `src/blocks/speed-dial/icons.json`, built with `aria-hidden="true" focusable="false" fill="none" stroke="currentColor"`. The path data must match `^[MmZzLlHhVvCcSsQqTtAa0-9eE.,+\s-]{1,1500}$` (the same rule as the plugin's icon filter).
 

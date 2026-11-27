@@ -66,8 +66,14 @@ function kotlinskidev_speed_dial_is_valid_trigger_action( string $action ): bool
     return 1 === preg_match( KOTLINSKIDEV_SPEED_DIAL_TRIGGER_REGEX, $action );
 }
 
+function kotlinskidev_speed_dial_a11y_detected(): bool {
+    return defined( 'KOTLINSKIDEV_A11Y_API' )
+        || function_exists( 'kotlinskidev_a11y_api_version' )
+        || function_exists( 'kotlinskidev_a11y_get_button' );
+}
+
 function kotlinskidev_speed_dial_a11y_available(): bool {
-    return (bool) apply_filters( 'kotlinskidev_speed_dial_a11y_available', function_exists( 'kotlinskidev_a11y_get_button' ) );
+    return (bool) apply_filters( 'kotlinskidev_speed_dial_a11y_available', kotlinskidev_speed_dial_a11y_detected() );
 }
 
 function kotlinskidev_speed_dial_custom_allowed_blocks(): array {

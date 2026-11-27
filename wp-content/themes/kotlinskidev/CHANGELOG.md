@@ -18,6 +18,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.6.1] — 2026-11-27
+
+### Fixed
+
+- The feature-card canvas animation now stops when the Kotlinskidev Accessibility plugin's Stop animations is on. It listens for the plugin's `kotlinskidev-a11y:motion` event and the `ka11y-stop-animations` root class, like it does for `prefers-reduced-motion`.
+
+### Changed
+
+- The theme now detects the Kotlinskidev Accessibility plugin through its documented `KOTLINSKIDEV_A11Y_API` constant and `kotlinskidev_a11y_api_version()` probe, and passes it the dark and light mode selectors through `kotlinskidev_a11y_default_selectors`. The `accessibility_toggle_click` analytics event now fires on the plugin's `ka11y:open` event instead of a `#ka11y-root` click.
+- Stale generated Lighthouse, DOM-baseline and coverage output is now gitignored. Delete the already tracked copies with `git rm --cached`.
+
 ## [2.6.0] — 2026-11-26
 
 ### Added
