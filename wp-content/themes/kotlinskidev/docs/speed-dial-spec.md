@@ -2,7 +2,7 @@
 
 Status: draft for owner review. Once approved, this file is the source of truth for T30. It replaces "Phase 4b" in the accessibility plugin's `docs/ROADMAP.md` wherever the two differ.
 
-The accessibility plugin's `docs/API.md` (repository `kotlinskidev-accessibility`) is the contract source for everything the theme uses from the plugin: the probe (`KOTLINSKIDEV_A11Y_API`, `kotlinskidev_a11y_api_version()`), `window.kotlinskidevA11y`, the `ka11y:*` events, `data-ka11y` actions and the `kotlinskidev_a11y_default_selectors` filter. If this spec and `API.md` differ, `API.md` wins.
+The accessibility plugin's `docs/API.md` (repository `kotlinskidev-accessibility`) is the contract source for everything the theme uses from the plugin: the probe (`KOTLINSKIDEV_A11Y_API`), `window.kotlinskidevA11y`, the `ka11y:*` events, `data-ka11y` actions and the `ka11y-floating-hidden` class and `--ka11y-offset-*` custom properties. If this spec and `API.md` differ, `API.md` wins.
 
 Branch: `feature/T30-speed-dial`, created from `master`. PR title: `feat(T30): speed-dial block`.
 
@@ -63,7 +63,7 @@ Non-goals:
 | Build outputs | `build/js/speed-dial.js` (editor), `build/js/speed-dial-init.js` (view), `build/css/style-speed-dial.css` |
 | PHP module | `functions/speed-dial.php`, prefix `kotlinskidev_speed_dial_` |
 | Filters | `kotlinskidev_speed_dial_custom_allowed_blocks` (array), `kotlinskidev_speed_dial_a11y_available` (bool) |
-| Plugin API used | `window.kotlinskidevA11y` (`api === 1`, `open(opener)`, `toggle(action, opener)`), `data-ka11y`, the `ka11y:close` event and the `#ka11y-root` host. All are listed as public in `API.md`. |
+| Plugin API used | `window.kotlinskidevA11y` (`api === 1`, `open(opener)`, `toggle(action, opener)`), `data-ka11y`, and the `ka11y:close` event. All are listed as public in `API.md`. |
 
 ## 2. block.json
 
@@ -248,7 +248,7 @@ Rules:
 | `trigger` | `button data-ka11y="<action>"` | plugin available and the action matches `^[a-z][a-zA-Z0-9]*(?::[a-zA-Z0-9_-]+){0,2}$` | `esc_attr()` |
 | `custom` | `li` wrapping `$content` | `'' !== trim( $content )` | none added. `core/html` is already gated by `unfiltered_html` at save. The shortcode output is the plugin's responsibility. |
 
-`kotlinskidev_speed_dial_a11y_available()` returns `apply_filters( 'kotlinskidev_speed_dial_a11y_available', kotlinskidev_speed_dial_a11y_detected() )`, where the probe is `defined( 'KOTLINSKIDEV_A11Y_API' ) || function_exists( 'kotlinskidev_a11y_api_version' )`, with `kotlinskidev_a11y_get_button` kept as a fallback for older plugin versions. Accessibility and trigger items also carry `data-kt-speed-dial-requires-a11y`, so the client can hide them when the plugin is active but did not render on this request (`kotlinskidev_a11y_should_render`). In that case `#ka11y-root` is missing.
+`kotlinskidev_speed_dial_a11y_available()` returns `apply_filters( 'kotlinskidev_speed_dial_a11y_available', kotlinskidev_speed_dial_a11y_detected() )`, where the probe is `defined( 'KOTLINSKIDEV_A11Y_API' )`. Accessibility and trigger items are rendered on the server only when that probe passes, so the client does not re-check for the plugin: `window.kotlinskidevA11y.api` is set by a plugin script that may load on first interaction, which is after the dial mounts.
 
 Icons: if `iconId` is set, `kotlinskidev_inline_nav_icon( $icon_id )` (Media Library SVG, `currentColor`, sanitised and cached). Otherwise the built-in `icon`, or the action default from `src/blocks/speed-dial/icons.json`, built with `aria-hidden="true" focusable="false" fill="none" stroke="currentColor"`. The path data must match `^[MmZzLlHhVvCcSsQqTtAa0-9eE.,+\s-]{1,1500}$` (the same rule as the plugin's icon filter).
 
@@ -271,7 +271,7 @@ Files: `src/blocks/speed-dial/init.ts` (bootstrap), `controller.ts` (state and D
 
 For each `[data-kt-speed-dial]`:
 
-1. If `document.getElementById('ka11y-root')` is null, remove every `[data-kt-speed-dial-requires-a11y]` item. The host is printed on the server by the plugin, so it already exists at `DOMContentLoaded`.
+1. Keep every `[data-kt-speed-dial-requires-a11y]` item the server rendered; the probe ran in PHP.
 2. If the list then has no `.kt-speed-dial__item`, leave the root `hidden` and stop.
 3. Remove `hidden` from the root and attach the listeners.
 
@@ -403,7 +403,7 @@ If CSS goes over budget, cut it in this order: drop the `tablet` corner rules wh
 
 ### 10.3 Jest (co-located)
 
-- `init.test.ts`: no `#ka11y-root` removes the a11y items. Zero items keeps the root hidden. Otherwise the root is unhidden.
+- `init.test.ts`: server-rendered a11y items are kept. Zero items keeps the root hidden. Otherwise the root is unhidden.
 - `controller.test.ts`: open/close toggles `hidden`, `aria-expanded`, `is-open`, `is-visible`. Reduced motion closes synchronously. An outside pointerdown closes. Focus out closes. An item click with close-on-action closes and does not call `preventDefault`. `pageshow` persisted closes.
 - `keyboard.test.ts`: every direction mapping in 5.3, wrapping, Home/End, Escape returns focus, modifier keys are ignored, a custom item without focusables is skipped, and input fields inside custom items are left alone.
 - `a11y-bridge.test.ts`: with an API stub, `open(toggle)` and `toggle('profile:adhdFriendly', toggle)` are called and propagation stops before a document capture spy. Without the API, the document capture spy receives the event. `ka11y:close` refocuses the toggle only when `pendingOpener` is set. Track window/document listeners in `beforeEach`/`afterEach` (testing rule).
@@ -417,7 +417,7 @@ If CSS goes over budget, cut it in this order: drop the `tablet` corner rules wh
 - Frontend: the toggle is visible at the configured corner. Tab reaches the toggle, Enter opens it, ArrowUp focuses the first item, Escape closes and focus is back on the toggle. All targets are at least 44x44 (`getBoundingClientRect`). `href` starts with `tel:`/`mailto:` (asserted by shape, not value). The axe check passes open and closed.
 - Mobile 390x844: offset above `.mobile-footer-nav` and no overlap with `.kotlinskidev-scrollto-top`/`.cmplz-manage-consent`. Scrolling down (`mobile-nav-hidden`) lowers it.
 - Reduced motion on (the default) and a `no-preference` block: the transition runs and the state is correct after `transitionend`.
-- Accessibility plugin: if `#ka11y-root` is absent, use `test.skip` with a reason. If it is present, clicking the item opens `#ka11y-panel` and closing returns focus to the speed-dial toggle.
+- Accessibility plugin: if no accessibility item is rendered, use `test.skip` with a reason. If one is present, clicking the item opens `#ka11y-panel` and closing returns focus to the speed-dial toggle.
 - Editor: insert the block, the 3 default items appear, add a `url` item, reorder, save, and the reloaded post shows no invalid-block warning.
 
 ### 10.5 Storybook

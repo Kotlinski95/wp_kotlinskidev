@@ -1,8 +1,8 @@
 const NAV_HIDDEN_CLASS = "nav-hidden";
 const FLOATING_ELEMENT_HIDDEN_CLASS = "mobile-nav-hidden";
+const ACCESSIBILITY_FLOATING_HIDDEN_CLASS = "ka11y-floating-hidden";
 const FLOATING_ICON_SELECTORS = [
   ".cmplz-btn.cmplz-manage-consent",
-  "#ka11y-root",
   ".kt-article-toc-toggle",
   ".kt-speed-dial",
 ];
@@ -22,6 +22,7 @@ const setFloatingIconsHidden = (hidden: boolean): void => {
   FLOATING_ICON_SELECTORS.forEach((selector) => {
     document.querySelector(selector)?.classList.toggle(FLOATING_ELEMENT_HIDDEN_CLASS, hidden);
   });
+  document.documentElement.classList.toggle(ACCESSIBILITY_FLOATING_HIDDEN_CLASS, hidden);
 };
 
 export const findHideableNavElements = (): HideableNavElements => ({

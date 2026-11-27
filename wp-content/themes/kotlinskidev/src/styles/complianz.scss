@@ -125,19 +125,17 @@ body:has(.mobile-footer-nav) {
 			}
 		}
 
-		#ka11y-root {
-			transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-			bottom: calc(0.5rem + $mobile-footer-nav) !important;
-
-			&.mobile-nav-hidden {
-				bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
-			}
-		}
-
 		.cmplz-cookiebanner {
 			bottom: $mobile-footer-nav !important;
 			max-height: calc(100vh - $mobile-footer-nav - 1.25rem) !important;
 		}
+	}
+}
+
+:root:has(.mobile-footer-nav) {
+
+	@media (max-width: $breakpoint-desktop) {
+		--ka11y-offset-bottom: calc(0.5rem + #{$mobile-footer-nav});
 	}
 }
 
