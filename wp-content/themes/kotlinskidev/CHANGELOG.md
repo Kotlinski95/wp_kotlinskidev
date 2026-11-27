@@ -18,6 +18,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 *Nothing yet.*
 
+## [2.8.0] — 2026-11-27
+
+### Added
+
+- **2026-11-27 — Client sites now get theme updates from GitHub releases.** WordPress shows "Update available" under Appearance > Themes for a newer release of the public repository, after checking the zip's SHA-256 and folder layout. Merging to `master` tags the version and publishes `kotlinskidev.zip` with its checksum, and `npm run package` builds the same zip locally (see `docs/theme-updates.md`).
+
 ## [2.7.0] — 2026-11-27
 
 ### Added

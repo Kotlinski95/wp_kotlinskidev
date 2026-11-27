@@ -7864,3 +7864,28 @@ msgstr "Dziękuję! Twoja wiadomość została wysłana."
 #: functions/contact-form/default-labels.php
 msgid "Sorry, there was an error. Please try again."
 msgstr "Przepraszam, wystąpił błąd. Spróbuj ponownie."
+
+#: functions/theme-updater.php
+msgid "The theme release is not served from the trusted GitHub release location, so it was not installed."
+msgstr "Wydanie motywu nie pochodzi z zaufanej lokalizacji wydań GitHub, więc nie zostało zainstalowane."
+
+#: functions/theme-updater.php
+msgid "This theme release has no SHA-256 checksum file, so it cannot be installed safely."
+msgstr "To wydanie motywu nie ma pliku sumy kontrolnej SHA-256, więc nie można go bezpiecznie zainstalować."
+
+#: functions/theme-updater.php
+msgid "The downloaded theme package does not match its SHA-256 checksum and was discarded."
+msgstr "Pobrany pakiet motywu nie zgadza się z sumą kontrolną SHA-256 i został odrzucony."
+
+#: functions/theme-updater.php
+msgid "The theme package must contain a single \"kotlinskidev\" folder, so the update was cancelled."
+msgstr "Pakiet motywu musi zawierać jeden folder „kotlinskidev”, więc aktualizację anulowano."
+
+#: functions/theme-updater.php
+#, php-format
+msgid "The theme package is missing %s, so the update was cancelled."
+msgstr "W pakiecie motywu brakuje %s, więc aktualizację anulowano."
+
+#: functions/theme-updater.php
+msgid "The theme package version does not match the release it was published under, so the update was cancelled."
+msgstr "Wersja pakietu motywu nie zgadza się z wydaniem, pod którym go opublikowano, więc aktualizację anulowano."

@@ -29,6 +29,7 @@
   },
   "require": {
     "php": "^8.4",
-    "sentry/sentry": "^4.31"
+    "sentry/sentry": "^4.31",
+    "yahnis-elsts/plugin-update-checker": "^5.5"
   }
 }
